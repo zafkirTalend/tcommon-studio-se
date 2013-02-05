@@ -18,10 +18,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Timer to measure elapsed time of any process or between steps.
@@ -40,7 +41,7 @@ import java.util.Map;
  * myTracerTest1.traceToFile(&quot;/myPathFileToTrace&quot;, false);
  * 
  * int sleepTime = 100;
- * int executionsCount = 10;
+ * int roundsCount = 10;
  * 
  * for (int i = 0; i &lt; 10; i++) {
  *     myTracerTest1.start();
@@ -50,7 +51,7 @@ import java.util.Map;
  * 
  * long averageWorkTime = myTracerTest1.getAverageWorkTime();
  * long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
- * long countExecutions = myTracerTest1.getCountExecutions();
+ * long countRounds = myTracerTest1.getCountExecutions();
  * 
  * StatisticsTracer.removeTracer(&quot;myTracerTest1&quot;);
  * </pre>
@@ -61,17 +62,27 @@ public final class StatisticsTracer {
 
     private static Map<String, StatisticsTracer> tracers = new HashMap<String, StatisticsTracer>();
 
-    private static Map<Long, InternalTimer> internalTimers = Collections.synchronizedMap(new HashMap<Long, InternalTimer>());
+    private static Map<Long, InternalTimer> internalTimers = new ConcurrentHashMap<Long, InternalTimer>();
 
-    private String name;
+    private String tracerId;
 
     private long startTime;
 
-    private long elapsedTime;
+    private long roundsTime;
+
+    private long minTime = Long.MAX_VALUE;
+
+    private int roundOfMinTime = -1;
+
+    private long maxTime = -1;
+
+    private int roundOfMaxTime = -1;
 
     private static long idCounter;
 
-    private long counter;
+    private int totalRounds;
+
+    private int roundsInError;
 
     private boolean testMode = false;
 
@@ -79,7 +90,7 @@ public final class StatisticsTracer {
 
     private int[] timesForTest;
 
-    private Integer displayWithModuloExecutions = defaultModulo;
+    private Integer displayWithModuloRounds = defaultModulo;
 
     private static final Object[] STATIC_LOCK = new Object[0];
 
@@ -93,6 +104,14 @@ public final class StatisticsTracer {
 
     private long previousInternalTimerId;
 
+    private String description;
+
+    private Map<String, Object> parameters;
+
+    private int warmupRounds;
+
+    private boolean callGC;
+
     static {
         String statsTracerProperty = "statsTracerPathFile";
         String systemPropertyTracerPathFile = System.getProperty(statsTracerProperty);
@@ -105,6 +124,279 @@ public final class StatisticsTracer {
 
     public static void setDefaultModulo(int defaultModulo) {
         StatisticsTracer.defaultModulo = defaultModulo;
+    }
+
+    public class StatisticsTracerResult {
+
+        private String tracerId;
+
+        private String description;
+
+        private Map<String, Object> parameters;
+
+        private int totalRounds;
+
+        private long averageRoundsTime;
+
+        private long roundsTime;
+
+        private long totalElapsedTime;
+
+        private int roundsInError;
+
+        private long minTime;
+
+        private int roundOfMinTime;
+
+        private long maxTime;
+
+        private int roundOfMaxTime;
+
+        private int warmupRounds;
+
+        private boolean callGC;
+
+        public StatisticsTracerResult(String tracerId, String description, Map<String, Object> parameters, int totalRounds,
+                int warmupRounds, long averageRoundsTime, long roundsTime, long totalElapsedTime, int roundsInError,
+                long minTime, int roundOfMinTime, long maxTime, int roundOfMaxTime, boolean callGC) {
+            super();
+            this.tracerId = tracerId;
+            this.description = description;
+            this.parameters = parameters;
+            this.totalRounds = totalRounds;
+            this.warmupRounds = warmupRounds;
+            this.averageRoundsTime = averageRoundsTime;
+            this.roundsTime = roundsTime;
+            this.totalElapsedTime = totalElapsedTime;
+            this.roundsInError = roundsInError;
+            this.minTime = minTime;
+            this.roundOfMinTime = roundOfMinTime;
+            this.maxTime = maxTime;
+            this.roundOfMaxTime = roundOfMaxTime;
+            this.callGC = callGC;
+        }
+
+        /**
+         * Getter for tracerId.
+         * 
+         * @return the tracerId
+         */
+        public String getTracerId() {
+            return this.tracerId;
+        }
+
+        /**
+         * Getter for description.
+         * 
+         * @return the description
+         */
+        public String getDescription() {
+            return this.description;
+        }
+
+        /**
+         * Getter for parameters.
+         * 
+         * @return the parameters
+         */
+        public Map<String, Object> getParameters() {
+            return this.parameters;
+        }
+
+        /**
+         * Getter for totalRounds.
+         * 
+         * @return the totalRounds
+         */
+        public int getTotalRounds() {
+            return this.totalRounds;
+        }
+
+        /**
+         * Getter for averageTime.
+         * 
+         * @return the averageTime
+         */
+        public long getAverageRoundsTime() {
+            return this.averageRoundsTime;
+        }
+
+        /**
+         * Getter for roundsTime.
+         * 
+         * @return the roundsTime
+         */
+        public long getRoundsTime() {
+            return this.roundsTime;
+        }
+
+        /**
+         * Getter for totalElapsedTime.
+         * 
+         * @return the totalElapsedTime
+         */
+        public long getTotalElapsedTime() {
+            return this.totalElapsedTime;
+        }
+
+        /**
+         * Getter for roundsInError.
+         * 
+         * @return the roundsInError
+         */
+        public int getRoundsInError() {
+            return this.roundsInError;
+        }
+
+        /**
+         * Getter for minTime.
+         * 
+         * @return the minTime
+         */
+        public long getMinTime() {
+            return this.minTime;
+        }
+
+        /**
+         * Getter for roundOfMinTime.
+         * 
+         * @return the roundOfMinTime
+         */
+        public int getRoundOfMinTime() {
+            return this.roundOfMinTime;
+        }
+
+        /**
+         * Getter for maxTime.
+         * 
+         * @return the maxTime
+         */
+        public long getMaxTime() {
+            return this.maxTime;
+        }
+
+        /**
+         * Getter for roundOfMaxTime.
+         * 
+         * @return the roundOfMaxTime
+         */
+        public int getRoundOfMaxTime() {
+            return this.roundOfMaxTime;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            String separator = "; ";
+            sb.append("Print ");
+            boolean writeFieldName = true;
+            appendFieldValues(sb, separator, writeFieldName);
+            return sb.toString();
+        }
+
+        private void appendFieldValues(StringBuilder sb, String separator, boolean writeFieldName) {
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("tracerId=");
+            }
+            sb.append(tracerId);
+            if (description != null) {
+                sb.append(separator);
+                sb.append("description=");
+                sb.append(description);
+            }
+            if (parameters != null) {
+                sb.append(separator);
+                sb.append("parameters=[");
+                sb.append(description);
+                Set<String> parametersKeys = parameters.keySet();
+                for (String parameterKey : parametersKeys) {
+                    Object object = parameters.get(parameterKey);
+                    sb.append(", ").append(parameterKey).append("=").append(object);
+                }
+                sb.append("]").append(description);
+            }
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("totalRounds=");
+            }
+            sb.append(totalRounds);
+
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("warmupRounds=");
+            }
+            sb.append(warmupRounds);
+
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("averageRoundsTime=");
+            }
+            sb.append(averageRoundsTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("minTime=");
+            }
+            sb.append(minTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("roundOfMinTime=");
+            }
+            sb.append(roundOfMinTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("maxTime=");
+            }
+            sb.append(maxTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("roundOfMaxTime=");
+            }
+            sb.append(roundOfMaxTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("roundsTime=");
+            }
+            sb.append(roundsTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("totalElapsedTime=");
+            }
+            sb.append(totalElapsedTime);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("roundsInError=");
+            }
+            sb.append(roundsInError);
+            sb.append(separator);
+            if (writeFieldName) {
+                sb.append("callGC=");
+            }
+            sb.append(callGC);
+        }
+
+        /**
+         * DOC amaumont Comment method "toDataRow".
+         * 
+         * @return
+         */
+        public String toDataRow() {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String date = simpleDateFormat.format(new Date());
+
+            StringBuilder sb = new StringBuilder();
+            String separator = ";";
+            sb.append(date);
+            boolean writeFieldName = false;
+            appendFieldValues(sb, separator, writeFieldName);
+            return sb.toString();
+        }
+
     }
 
     /**
@@ -140,17 +432,22 @@ public final class StatisticsTracer {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             InternalTimer other = (InternalTimer) obj;
-            if (!getOuterType().equals(other.getOuterType()))
+            if (!getOuterType().equals(other.getOuterType())) {
                 return false;
-            if (id != other.id)
+            }
+            if (id != other.id) {
                 return false;
+            }
             return true;
         }
 
@@ -160,8 +457,10 @@ public final class StatisticsTracer {
 
     }
 
-    private StatisticsTracer(String name) {
-        this.name = name;
+    private StatisticsTracer(String tracerId, int warmupRounds, boolean callGC) {
+        this.tracerId = tracerId;
+        this.warmupRounds = warmupRounds;
+        this.callGC = callGC;
         if (staticTracerFilePath != null) {
             traceToFile(staticTracerFilePath, false);
         }
@@ -171,13 +470,29 @@ public final class StatisticsTracer {
         initFile(pathFile, append);
     }
 
+    public static synchronized StatisticsTracer createTracer(String tracerId) {
+        int warmupRounds = 0;
+        boolean callGC = false;
+        return createTracer(tracerId, warmupRounds, callGC);
+    }
+
+    public static synchronized StatisticsTracer createTracer(String tracerId, int warmupRounds, boolean callGC) {
+        if (tracers.keySet().contains(tracerId)) {
+            throw new IllegalArgumentException("The StatisticsTracer with id=" + tracerId + " already exists.");
+        } else {
+            StatisticsTracer timer = new StatisticsTracer(tracerId, warmupRounds, callGC);
+            tracers.put(tracerId, timer);
+            return timer;
+        }
+    }
+
     public static synchronized StatisticsTracer getTracer(String tracerId) {
         if (tracers.keySet().contains(tracerId)) {
             return tracers.get(tracerId);
         } else {
-            StatisticsTracer timer = new StatisticsTracer(tracerId);
-            tracers.put(tracerId, timer);
-            return timer;
+            int warmupRounds = 0;
+            boolean callGC = false;
+            return createTracer(tracerId, warmupRounds, callGC);
         }
     }
 
@@ -185,15 +500,13 @@ public final class StatisticsTracer {
         if (tracers.keySet().contains(tracerId)) {
             return tracers.get(tracerId);
         } else {
-            StatisticsTracer timer = new StatisticsTracer(tracerId);
+            int warmupRounds = 0;
+            boolean callGC = false;
+            StatisticsTracer timer = new StatisticsTracer(tracerId, warmupRounds, callGC);
             timer.timesForTest = timesForTest;
             tracers.put(tracerId, timer);
             return timer;
         }
-    }
-
-    public synchronized void increment() {
-        counter++;
     }
 
     /**
@@ -203,7 +516,7 @@ public final class StatisticsTracer {
      * @return id of internalTimer
      */
     public synchronized long start() {
-        if (counter == 0) {
+        if (totalRounds == 0) {
             this.startTime = getCurrentTime();
         }
         long internalTimerId = 0;
@@ -229,7 +542,21 @@ public final class StatisticsTracer {
 
     public void start(PrintWriter printWriter) {
         start();
-        printWriter.println("Start " + name); //$NON-NLS-1$
+        printWriter.println("Start " + tracerId); //$NON-NLS-1$
+    }
+
+    /**
+     * 
+     * Method "stopWithRoundInError".
+     * 
+     * Use this method when several threads may use the same StatisticTracer instance.
+     * 
+     * @param internalTimerId
+     * @return the timeDelta of the round
+     */
+    public synchronized long stopWithRoundInError(long internalTimerId) {
+        boolean roundInError = true;
+        return stop(internalTimerId, roundInError);
     }
 
     /**
@@ -239,22 +566,51 @@ public final class StatisticsTracer {
      * Use this method when several threads may use the same StatisticTracer instance.
      * 
      * @param internalTimerId
-     * @return
+     * @return the timeDelta of the round
      */
     public synchronized long stop(long internalTimerId) {
+        boolean roundInError = false;
+        return stop(internalTimerId, roundInError);
+    }
+
+    /**
+     * 
+     * Method "stop".
+     * 
+     * Use this method when several threads may use the same StatisticTracer instance.
+     * 
+     * @param internalTimerId
+     * @param roundInError
+     * @return the timeDelta of the round
+     */
+    private synchronized long stop(long internalTimerId, boolean roundInError) {
         long timeDelta = 0;
         InternalTimer internalTimer = internalTimers.get(internalTimerId);
         if (internalTimer != null) {
+            totalRounds++;
             timeDelta = internalTimer.deltaTime();
-            elapsedTime += timeDelta;
-            counter++;
+            if (!roundInError) {
+                roundsTime += timeDelta;
+                if (timeDelta < minTime) {
+                    minTime = timeDelta;
+                    roundOfMinTime = totalRounds;
+                }
+                if (timeDelta > maxTime) {
+                    maxTime = timeDelta;
+                    roundOfMaxTime = totalRounds;
+                }
+            } else {
+                roundsInError++;
+            }
             internalTimers.remove(internalTimerId);
         } else {
-            throw new RuntimeException("Can't stop the internal timer " + internalTimerId
+            throw new RuntimeException(
+                    "Can't stop the internal timer "
+                            + internalTimerId
                             + ", it does not exist (anymore?), maybe you already called stop() for this internalTimerId or call stop() twice ?");
         }
-        if (displayWithModuloExecutions != null) {
-            print(displayWithModuloExecutions);
+        if (displayWithModuloRounds != null) {
+            print(displayWithModuloRounds);
         }
         return timeDelta;
     }
@@ -272,7 +628,7 @@ public final class StatisticsTracer {
 
     public void stop(PrintWriter printWriter) {
         stop();
-        printWriter.println("Stop  " + name); //$NON-NLS-1$
+        printWriter.println("Stop  " + tracerId); //$NON-NLS-1$
     }
 
     public void print() {
@@ -296,19 +652,22 @@ public final class StatisticsTracer {
         }
     }
 
+    @Override
     public String toString() {
-        long averageTime = getAverageWorkTime();
-        long totalWithStoppedTime = getElapsedTimeSinceFirstStart();
-        return "Print " + name + " : " + counter + " executions, average: " + averageTime + " ms, total execution: "
-                + elapsedTime + " ms, total with stopped time " + totalWithStoppedTime + " ms)";
+        StatisticsTracerResult statisticsTracerResult = createResultInstance();
+        return statisticsTracerResult.toString();
+    }
+
+    private StatisticsTracerResult createResultInstance() {
+        long elapsedTimeSinceFirstStart = getElapsedTimeSinceFirstStart();
+        long averageWorkTime = getAverageWorkTime();
+        return new StatisticsTracerResult(tracerId, description, parameters, totalRounds, warmupRounds, averageWorkTime,
+                roundsTime, elapsedTimeSinceFirstStart, roundsInError, minTime, roundOfMinTime, maxTime, roundOfMaxTime, callGC);
     }
 
     public String toDataRow() {
-        long averageTime = getAverageWorkTime();
-        long totalWithStoppedTime = getElapsedTimeSinceFirstStart();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = simpleDateFormat.format(new Date());
-        return date + ";" + name + ";" + counter + ";" + averageTime + ";" + elapsedTime + ";" + totalWithStoppedTime;
+        StatisticsTracerResult str = createResultInstance();
+        return str.toDataRow();
     }
 
     public long getElapsedTimeSinceFirstStart() {
@@ -317,26 +676,31 @@ public final class StatisticsTracer {
 
     public long getAverageWorkTime() {
         long averageTime = 0;
-        if (counter != 0) {
-            averageTime = elapsedTime / counter;
+        if (totalRounds != 0) {
+            int validRounds = totalRounds - roundsInError;
+            if (validRounds == 0) {
+                averageTime = -1;
+            } else {
+                averageTime = roundsTime / validRounds;
+            }
         }
         return averageTime;
     }
 
     public long getCountExecutions() {
-        return counter;
+        return totalRounds;
     }
 
-    public long getElapsedTime() {
-        return elapsedTime;
+    public long getRoundsTime() {
+        return roundsTime;
     }
 
-    public void setModuloPrint(int displayWithModuloExecutions) {
-        this.displayWithModuloExecutions = displayWithModuloExecutions;
+    public void setModuloPrint(int displayWithModuloRounds) {
+        this.displayWithModuloRounds = displayWithModuloRounds;
     }
 
-    public void print(int displayWithModuloExecutions) {
-        if (displayWithModuloExecutions != 0 && (getCountExecutions() % displayWithModuloExecutions) == 0) {
+    public void print(int displayWithModuloRounds) {
+        if (displayWithModuloRounds != 0 && (getCountExecutions() % displayWithModuloRounds) == 0) {
             print();
         }
     }
@@ -357,8 +721,9 @@ public final class StatisticsTracer {
             File file = new File(filePath);
             boolean exists = file.exists();
             tracerFileWriter = new FileWriter(file, append);
-            if (!exists)
+            if (!exists) {
                 tracerFileWriter.write(TRACE_FILE_HEADER);
+            }
             tracerFileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();

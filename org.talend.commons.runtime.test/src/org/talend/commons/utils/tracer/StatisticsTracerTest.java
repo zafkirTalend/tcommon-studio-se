@@ -43,7 +43,8 @@ public class StatisticsTracerTest {
     @Test
     public void testStatisticTracer() throws InterruptedException {
 
-        StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
+        String tracerId = "testStatisticTracer_" + MY_TRACER_TEST1;
+        StatisticsTracer myTracerTest1 = StatisticsTracer.createTracer(tracerId);
 
         int sleepTime = 100;
         int executionsCount = 10;
@@ -65,14 +66,15 @@ public class StatisticsTracerTest {
         long countExecutions = myTracerTest1.getCountExecutions();
         assertEquals(executionsCount, countExecutions);
 
-        StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+        StatisticsTracer.removeTracer(tracerId);
 
     }
 
     @Test
     public void testStatisticTracerSimple() throws InterruptedException {
 
-        StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
+        String tracerId = "testStatisticTracerSimple_" + MY_TRACER_TEST1;
+        StatisticsTracer myTracerTest1 = StatisticsTracer.createTracer(tracerId);
 
         int sleepTime = 100;
         int executionsCount = 10;
@@ -94,14 +96,15 @@ public class StatisticsTracerTest {
         long countExecutions = myTracerTest1.getCountExecutions();
         assertEquals(executionsCount, countExecutions);
 
-        StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+        StatisticsTracer.removeTracer(tracerId);
 
     }
 
     @Test
     public void testStatisticTracerAndTraceToFile() throws InterruptedException, IOException {
 
-        StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST1);
+        String tracerId = "testStatisticTracerAndTraceToFile_" + MY_TRACER_TEST1;
+        StatisticsTracer myTracerTest1 = StatisticsTracer.createTracer(tracerId);
 
         testFolder.create();
         File newFile = testFolder.newFile("myTracerTest3");
@@ -122,7 +125,7 @@ public class StatisticsTracerTest {
         long elapsedTimeSinceFirstStart = myTracerTest1.getElapsedTimeSinceFirstStart();
 
         long averageWorkTime = myTracerTest1.getAverageWorkTime();
-        long totalTime = myTracerTest1.getElapsedTime();
+        long totalTime = myTracerTest1.getRoundsTime();
         // Changed by Marvin Wang on Feb.15 for TDI-19166, refer to the method from
         // StatisticsTracer.getAverageWorkTime() that uses "/"
         assertTrue(averageWorkTime * executionsCount <= totalTime);
@@ -145,14 +148,15 @@ public class StatisticsTracerTest {
         file.delete();
         testFolder.delete();
 
-        StatisticsTracer.removeTracer(MY_TRACER_TEST1);
+        StatisticsTracer.removeTracer(tracerId);
 
     }
 
     @Test
     public void testStatisticTracerWithConcurrency() throws InterruptedException {
 
-        final StatisticsTracer myTracerTest1 = StatisticsTracer.getTracer(MY_TRACER_TEST2);
+        String tracerId = "testStatisticTracerWithConcurrency" + MY_TRACER_TEST2;
+        final StatisticsTracer myTracerTest1 = StatisticsTracer.createTracer(tracerId);
 
         final int sleepTime = 100;
         int executionsCount = 10;
@@ -164,6 +168,7 @@ public class StatisticsTracerTest {
 
         Runnable command = new Runnable() {
 
+            @Override
             public void run() {
                 try {
                     barrierStart.await();
@@ -217,7 +222,7 @@ public class StatisticsTracerTest {
         // System.out.println("executionsCount=" + myTracerTest1.getCountExecutions());
         assertEquals(executionsCount * concurrentExecutionsCount, myTracerTest1.getCountExecutions());
 
-        StatisticsTracer.removeTracer(MY_TRACER_TEST2);
+        StatisticsTracer.removeTracer(tracerId);
     }
 
     /**
@@ -236,6 +241,7 @@ public class StatisticsTracerTest {
              * 
              * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
              */
+            @Override
             public Thread newThread(Runnable r) {
                 Thread newThread = defaultThreadFactory.newThread(r);
                 newThread.setName(StatisticsTracerTest.class.getSimpleName() + "_" + newThread.getName());
