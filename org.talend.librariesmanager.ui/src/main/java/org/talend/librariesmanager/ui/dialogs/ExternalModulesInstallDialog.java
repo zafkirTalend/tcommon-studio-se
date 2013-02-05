@@ -394,7 +394,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             toInstall.add(module);
                         }
                     }
-                    emptyLibs();
                 } else {
                     toInstall.addAll(inputList);
                 }
@@ -433,6 +432,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                     MessageDialog.openInformation(getShell(),
                                             Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
                                     // refreshUI();
+                                    if (installedModules > 0) {
+                                        emptyLibs();
+                                    }
                                 }
                             }
                         });
