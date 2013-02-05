@@ -12,8 +12,7 @@
 // ============================================================================
 package io;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,8 +69,8 @@ public class FilesUtilsTest {
                 file.delete();
             } else if (file.isDirectory()) {
                 File files[] = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    this.deleteFile(files[i]);
+                for (File file2 : files) {
+                    this.deleteFile(file2);
                 }
             }
             file.delete();
@@ -89,8 +88,8 @@ public class FilesUtilsTest {
         File file = new File("temp");
         if (file.isDirectory()) {
             File files[] = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                deleteFile(files[i]);
+            for (File file2 : files) {
+                deleteFile(file2);
             }
         }
     }
@@ -120,13 +119,47 @@ public class FilesUtilsTest {
 
     /**
      * Test method for {@link org.talend.utils.io.FilesUtils#createFoldersIfNotExists(java.lang.String)}.
+     * 
+     * @throws IOException
      */
     @Test
-    public void testCreateFoldersIfNotExistsString() {
-        File file = new File("temp//testfolder");
+    public void testCreateFoldersIfNotExistsString() throws IOException {
+        File file = new File("temp//testfolder1/testfolder2");
         assertFalse(file.exists());
-        FilesUtils.createFolder(file);
+        FilesUtils.createFoldersIfNotExists(file.getAbsolutePath());
         assertTrue(file.exists());
+    }
+
+    /**
+     * Test method for {@link org.talend.utils.io.FilesUtils#createFoldersIfNotExists(java.lang.String)}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testCreateFoldersIfNotExistsStringBooleanIsFilePath() {
+        String baseDirectory = "temp//testfolder1/testfolder2";
+        File directory = new File(baseDirectory);
+        assertFalse(directory.exists());
+        File filePath = new File(baseDirectory + "/myfile");
+        boolean pathIsFilePath = true;
+        FilesUtils.createFoldersIfNotExists(filePath.getAbsolutePath(), pathIsFilePath);
+        assertTrue(directory.exists());
+        assertFalse(filePath.exists());
+    }
+
+    /**
+     * Test method for {@link org.talend.utils.io.FilesUtils#createFoldersIfNotExists(java.lang.String)}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testCreateFoldersIfNotExistsStringBooleanIsNotFilePath() {
+        String baseDirectory = "temp//testfolder1/testfolder2";
+        File directory = new File(baseDirectory);
+        assertFalse(directory.exists());
+        boolean pathIsFilePath = false;
+        FilesUtils.createFoldersIfNotExists(directory.getAbsolutePath(), pathIsFilePath);
+        assertTrue(directory.exists());
     }
 
     /**
