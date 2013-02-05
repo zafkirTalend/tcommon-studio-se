@@ -15,7 +15,6 @@ package org.talend.librariesmanager.ui.views;
 import java.util.List;
 
 import org.eclipse.core.commands.IHandler;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
@@ -24,12 +23,8 @@ import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.DownloadExternalJarAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
@@ -121,28 +116,13 @@ public class ModulesView extends ViewPart {
 
     private void fillLocalToolBar(IToolBarManager manager) {
         manager.add(checkAction);
-        switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                .getLanguage()) {
-        case JAVA: {
-            RemoveExternalJarAction removeAction = new RemoveExternalJarAction();
-            manager.add(removeAction);
-            ImportExternalJarAction importAction = new ImportExternalJarAction();
-            manager.add(importAction);
-            DownloadExternalJarAction downloadAcion = new DownloadExternalJarAction();
-            manager.add(downloadAcion);
-            return;
-        }
-        case PERL: {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
-                ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
-                        ILibrariesPerlService.class);
-
-                Action installModulesAction = perlService.getInstallPerlModulesAction();
-                manager.add(installModulesAction);
-            }
-            return;
-        }
-        }
+        RemoveExternalJarAction removeAction = new RemoveExternalJarAction();
+        manager.add(removeAction);
+        ImportExternalJarAction importAction = new ImportExternalJarAction();
+        manager.add(importAction);
+        DownloadExternalJarAction downloadAcion = new DownloadExternalJarAction();
+        manager.add(downloadAcion);
+        return;
     }
 
     public void selectUninstalledItem(String componentName, List<String> modulesName) {

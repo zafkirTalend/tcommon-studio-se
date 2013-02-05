@@ -18,20 +18,12 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
-import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.service.ILibrariesPerlService;
-import org.talend.librariesmanager.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -47,47 +39,8 @@ public class LibrariesService implements ILibrariesService {
 
     }
 
-    private static ILibrariesService loadPerlLibrariesService() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
-            ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesPerlService.class);
-            return perlService.getPerlLibrariesService();
-        }
-        return null;
-    }
-
     private ILibrariesService getLibrariesService() {
-        UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
-                Messages.getString("LibrariesService.unknowLanguage"));
-        RepositoryContext property = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        if (property == null) {
-            throw unsupportedOperationException;
-        }
-        Project project = property.getProject();
-        if (project == null) {
-            throw unsupportedOperationException;
-        }
-        ECodeLanguage language = project.getLanguage();
-        if (language == null) {
-            throw unsupportedOperationException;
-        }
-        switch (language) {
-        case JAVA:
-            return javaService;
-        case PERL:
-            return loadPerlLibrariesService();
-        default:
-            throw unsupportedOperationException;
-        }
-    }
-
-    private ILibrariesService getJavaLibrariesService() {
         return javaService;
-    }
-
-    private ILibrariesService getPerlLibrariesService() {
-        return loadPerlLibrariesService();
     }
 
     @Override
@@ -102,9 +55,6 @@ public class LibrariesService implements ILibrariesService {
 
     @Override
     public String getPerlLibrariesPath() {
-        if (this.getPerlLibrariesService() != null) {
-            return this.getPerlLibrariesService().getPerlLibrariesPath();
-        }
         return null;
     }
 

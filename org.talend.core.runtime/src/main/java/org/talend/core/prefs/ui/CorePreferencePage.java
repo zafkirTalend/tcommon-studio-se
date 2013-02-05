@@ -33,7 +33,6 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.service.ICorePerlService;
 
 /**
  * DOC msjian class global comment. Detailled comment <br/>
@@ -43,7 +42,7 @@ import org.talend.core.service.ICorePerlService;
  */
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-//    private BooleanFieldEditor groupBySource =null;
+    // private BooleanFieldEditor groupBySource =null;
 
     private List<FieldEditor> fields = new ArrayList<FieldEditor>();
 
@@ -52,13 +51,14 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
      */
     public CorePreferencePage() {
         super(GRID);
-        
-        // MOD msjian 2011-11-17 TDQ-3990: use the service to get the coreplugin(the coreplugin is differert between top and tdq)
-        IPreferenceStore store =null;
+
+        // MOD msjian 2011-11-17 TDQ-3990: use the service to get the coreplugin(the coreplugin is differert between top
+        // and tdq)
+        IPreferenceStore store = null;
         // Set the preference store for the preference page.
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
             ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-            store=service.getPreferenceStore();
+            store = service.getPreferenceStore();
         }
         // TDQ-3990 ~
         setPreferenceStore(store);
@@ -69,67 +69,43 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
      */
     @Override
     protected void createFieldEditors() {
-        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP, Messages
-                .getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
+        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
+                Messages.getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
         addField(filePathTemp);
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
-            FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
-                .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()) {//$NON-NLS-1$
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
+                Messages.getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()) {; //$NON-NLS-1$
 
-                protected boolean checkState() {
-                    if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-                        return true;
-                    }
-
-                    return super.checkState();
-                }
-
-            };
-        addField(perlInterpreter);
-        }
-        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, Messages
-                .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()){; //$NON-NLS-1$
-                protected boolean checkState() {
-                    if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-                        return true;
-                    }
-
-                    return super.checkState();
-                }
+            @Override
+            protected boolean checkState() {
+                return super.checkState();
+            }
         };
-            
+
         addField(javaInterpreter);
 
-        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, Messages
-                .getString("CorePreferencePage.previewLimit"), getFieldEditorParent(), 9); //$NON-NLS-1$
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
+                Messages.getString("CorePreferencePage.previewLimit"), getFieldEditorParent(), 9); //$NON-NLS-1$
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
 
-        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(
-            ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
-            Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
-            getFieldEditorParent()
-        );
+        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
+                Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+                getFieldEditorParent());
         addField(runInMultiThread);
-        
-        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH, Messages
-                .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
+
+        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH,
+                Messages.getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(ireportPath);
-        
-        
-        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(
-                ITalendCorePrefConstants.ALWAYS_WELCOME,
+
+        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(ITalendCorePrefConstants.ALWAYS_WELCOME,
                 Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
-                getFieldEditorParent()
-            );
-         addField(alwaysWelcome);
-      
-        
-        
-//            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
-//                    .getString("CorePreferencePage.groupBySource"),  getFieldEditorParent());//$NON-NLS-1$
-//          addField(groupBySource);
+                getFieldEditorParent());
+        addField(alwaysWelcome);
+
+        // groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
+        //                    .getString("CorePreferencePage.groupBySource"),  getFieldEditorParent());//$NON-NLS-1$
+        // addField(groupBySource);
 
         // ends
     }
@@ -143,16 +119,9 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     public boolean performOk() {
         boolean ok = super.performOk();
         if (ok) {
-            if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-                String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
-                    ICorePerlService service= (ICorePerlService) GlobalServiceRegister.getDefault().getService(ICorePerlService.class);
-                    service.setExecutablePreference(perlInterpreter);
-                }
-            }
             XmlArray.setLimitToDefault();
 
-//          CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
+            // CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
         }
         return ok;
     }
@@ -166,6 +135,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     /**
      * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
      */
+    @Override
     public void init(IWorkbench workbench) {
         // Do nothing
     }

@@ -29,11 +29,9 @@ import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
-import org.talend.core.service.ICorePerlService;
 
 /**
  * Intializer of core preferences. <br/>
@@ -43,19 +41,11 @@ import org.talend.core.service.ICorePerlService;
  */
 public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
-    public static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = GeneralParametersProvider
-            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_EMBEDDED_SUFFIX_WIN32);
-
     private static final String JAVA_LINUX_INTERPRETER_PATH = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_LINUX);
 
     private static final String JAVA_WIN32_INTERPRETER = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_WIN32);
-
-    private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
-            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
-
-    private String perlWin32Path = "";
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -70,9 +60,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     @Override
     public void initializeDefaultPreferences() {
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
-            perlWin32Path = CorePlugin.getDefault().getResourceService().getResourcesPath() + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
-        }
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
@@ -83,33 +70,11 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         }
         node.put(ITalendCorePrefConstants.FILE_PATH_TEMP, tempPath.toOSString());
 
-        // TODO CCA : Change this default value
         String os = Platform.getOS();
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$ //$NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
-            String perlPath;
-            if (!perlWin32Path.equals("")) {
-                perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
-                File perlEmbeddedExecFile = new File(perlPath);
-                if (!perlEmbeddedExecFile.exists()) {
-                    perlPath = perlWin32Path;
-
-                }
-
-                node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
-            }
-            /*
-             * IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore(); String prelExecutableValue =
-             * store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-             * 
-             * if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
-             * PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$
-             * PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\"");
-             */
-
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
         }
 
@@ -120,7 +85,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         node.putBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME, true);
 
-        // MHIRT : remove the automatic update check
         initializeUpdatePreference();
 
         // Initialize editors properties : line number shown
@@ -166,7 +130,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);
-        
+
     }
 
     // unused method : call remove for 2.3

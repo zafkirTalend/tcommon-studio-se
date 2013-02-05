@@ -81,7 +81,6 @@ import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.MetadataManager;
@@ -150,7 +149,6 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
-import org.talend.core.service.ICorePerlService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
@@ -1016,13 +1014,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (!foundInRefs) {
                         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
                         Project project = new Project(emfProject);
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICorePerlService.class)) {
-                            toReturn.add(project);
-                        } else {
-                            if (project.getLanguage().equals(ECodeLanguage.JAVA)) {
-                                toReturn.add(project);
-                            }
-                        }
+                        toReturn.add(project);
                     }
                 }
             }

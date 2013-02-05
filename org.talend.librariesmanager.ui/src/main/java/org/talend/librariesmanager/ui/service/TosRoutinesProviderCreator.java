@@ -12,11 +12,9 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.service;
 
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.routines.IRoutineProviderCreator;
 import org.talend.core.model.routines.IRoutinesProvider;
-import org.talend.core.service.ILibrariesPerlService;
 import org.talend.librariesmanager.model.service.TosJavaRoutinesProvider;
 
 /**
@@ -24,17 +22,9 @@ import org.talend.librariesmanager.model.service.TosJavaRoutinesProvider;
  */
 public class TosRoutinesProviderCreator implements IRoutineProviderCreator {
 
-    IRoutinesProvider perlProvider = null;
-
     IRoutinesProvider javaProvider = null;
 
     public TosRoutinesProviderCreator() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesPerlService.class)) {
-            ILibrariesPerlService perlService = (ILibrariesPerlService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesPerlService.class);
-            perlProvider = perlService.getTosPerlRoutinesProvider();
-        }
-
         javaProvider = new TosJavaRoutinesProvider();
     }
 
@@ -45,11 +35,8 @@ public class TosRoutinesProviderCreator implements IRoutineProviderCreator {
      * org.talend.core.model.routines.IRoutineProviderCreator#createIRoutinesProviderByLanguage(org.talend.core.language
      * .ECodeLanguage)
      */
+    @Override
     public IRoutinesProvider createIRoutinesProviderByLanguage(ECodeLanguage lan) {
-        if (lan == ECodeLanguage.PERL) {
-            return perlProvider;
-        } else {
-            return javaProvider;
-        }
+        return javaProvider;
     }
 }
