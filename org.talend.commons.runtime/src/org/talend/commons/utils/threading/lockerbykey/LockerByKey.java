@@ -70,9 +70,9 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
 
     static {
         String optionKey = "detectSuspectLocks";
-        String lockDeployOnSameAddressStr = System.getProperty(optionKey);
-        if (lockDeployOnSameAddressStr != null && lockDeployOnSameAddressStr.length() > 0) {
-            detectSuspectLocksStatic = Boolean.parseBoolean(lockDeployOnSameAddressStr);
+        String detectSuspectLocksStr = System.getProperty(optionKey);
+        if (detectSuspectLocksStr != null && detectSuspectLocksStr.length() > 0) {
+            detectSuspectLocksStatic = Boolean.parseBoolean(detectSuspectLocksStr);
         }
         if (detectSuspectLocksStatic) {
             log.info("System property \"" + optionKey + "\"=" + detectSuspectLocksStatic);
