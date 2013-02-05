@@ -211,11 +211,12 @@ public final class TaggedValueHelper {
      * @return true if the value was not set before.
      */
     public static boolean setTaggedValue(ModelElement element, String tag, String value) {
+        boolean create = false;
         EList<TaggedValue> taggedValues = element.getTaggedValue();
         TaggedValue currentValue = TaggedValueHelper.getTaggedValue(tag, taggedValues);
-        boolean create = (currentValue == null);
-        if (create) {
+        if (currentValue == null) {
             taggedValues.add(TaggedValueHelper.createTaggedValue(tag, value));
+            create = true;
         } else {
             currentValue.setValue(value);
         }
@@ -267,6 +268,17 @@ public final class TaggedValueHelper {
     }
 
     /**
+     * set the CLASS_NAME_TEXT value.
+     * 
+     * @param classNameText
+     * @param element
+     * @return
+     */
+    public static boolean setClassNameText(String classNameText, ModelElement element) {
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.CLASS_NAME_TEXT, classNameText);
+    }
+
+    /**
      * get the JAR_FILE_PATH value.
      * 
      * @param element
@@ -274,6 +286,17 @@ public final class TaggedValueHelper {
      */
     public static String getJarFilePath(ModelElement element) {
         return getValueString(TaggedValueHelper.JAR_FILE_PATH, element);
+    }
+
+    /**
+     * set the JAR_FILE_PATH value.
+     * 
+     * @param jarFilePath
+     * @param element
+     * @return
+     */
+    public static boolean setJarFilePath(String jarFilePath, ModelElement element) {
+        return TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.JAR_FILE_PATH, jarFilePath);
     }
 
     /**
