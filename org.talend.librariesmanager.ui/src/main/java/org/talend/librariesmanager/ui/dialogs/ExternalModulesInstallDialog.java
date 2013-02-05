@@ -65,6 +65,8 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAY
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.download.DownloadHelper;
 import org.talend.core.language.ECodeLanguage;
@@ -364,6 +366,14 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         return toolBar;
     }
 
+    private void emptyLibs() {
+        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append(File.separator)
+                .append(JavaUtils.JAVA_LIB_DIRECTORY).toFile();
+        if (libsDir.exists() && libsDir.isDirectory()) {
+            FilesUtils.emptyFolder(libsDir);
+        }
+    }
+
     private void addListeners() {
 
         installAllBtn.addSelectionListener(new SelectionAdapter() {
@@ -384,6 +394,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             toInstall.add(module);
                         }
                     }
+                    emptyLibs();
                 } else {
                     toInstall.addAll(inputList);
                 }
@@ -495,6 +506,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                             if (!job.installedModules.isEmpty()) {
                                                 message = Messages.getString(
                                                         "ExternalModulesInstallDialog_Download_Ok", data.getName()); //$NON-NLS-1$
+                                                emptyLibs();
                                             } else {
                                                 message = Messages.getString(
                                                         "ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
