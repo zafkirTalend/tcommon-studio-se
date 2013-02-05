@@ -37,6 +37,8 @@ public enum HiveConnVersionInfo {
 
     HDP_1_0(1, "HDP_1_0", "HDP 1.0", HiveConnVersionInfo.HORTONWORKS),
 
+    HDP_1_2(1, "HDP_1_2", "HDP 1.2", HiveConnVersionInfo.HORTONWORKS),
+
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203", HiveConnVersionInfo.APACHE),
 
     APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0", HiveConnVersionInfo.APACHE),
@@ -48,6 +50,7 @@ public enum HiveConnVersionInfo {
                   "EMBEDDED",
                   "Embedded",
                   HiveConnVersionInfo.HDP_1_0,
+                  HiveConnVersionInfo.HDP_1_2,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4),
 
@@ -61,9 +64,9 @@ public enum HiveConnVersionInfo {
 
     private int level;
 
-    private String key, displayName;
+    private String key, displayName;// The key is mapped to item name of component in t*_java.xml file.
 
-    private HiveConnVersionInfo[] follows;
+    private HiveConnVersionInfo[] follows;// That stores all are followed by the current object.
 
     private HiveConnVersionInfo(int level, String key, String displayName, HiveConnVersionInfo... follows) {
         this.level = level;
