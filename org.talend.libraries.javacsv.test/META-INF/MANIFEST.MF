@@ -8,4 +8,3 @@ Fragment-Host: org.talend.libraries.javacsv
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit4,
  org.talend.testutils
-Export-Package: com.talend.csv
