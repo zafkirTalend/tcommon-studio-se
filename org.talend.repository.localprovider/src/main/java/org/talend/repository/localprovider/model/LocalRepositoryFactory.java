@@ -2201,6 +2201,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public Item copy(Item originalItem, IPath path, boolean changeLabelWithCopyPrefix) throws PersistenceException,
             BusinessException {
+        return copy(originalItem, path, null);
+    }
+
+    @Override
+    public Item copy(Item originalItem, IPath path, String newItemLabel) throws PersistenceException, BusinessException {
         Resource resource;
         ProjectManager projectManage = ProjectManager.getInstance();
         if (!projectManage.getProject(originalItem).equals(projectManage.getCurrentProject().getEmfProject())) {
@@ -2214,7 +2219,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
-            Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
+            Item newItem = null;
+            if (newItemLabel == null) {
+                boolean changeLabelWithCopyPrefix = true;
+                newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
+            } else {
+                newItem = copyFromResource(createResource, newItemLabel);
+            }
             // *need to create all referenece files when copy the item*//
             copyReferenceFiles(originalItem, newItem);
             create(getRepositoryContext().getProject(), newItem, path);
@@ -2235,6 +2246,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         return null;
+
     }
 
     public Item copy(Item originalItem, IPath path, String newItemName) throws PersistenceException, BusinessException {
