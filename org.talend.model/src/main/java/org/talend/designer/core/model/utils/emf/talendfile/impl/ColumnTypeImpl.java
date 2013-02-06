@@ -45,6 +45,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getRelationshipType <em>Relationship Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalLength <em>Original Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getAdditionalField <em>Additional Field</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isUsefulColumn <em>Useful Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -371,6 +372,35 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected EMap additionalField;
+
+    /**
+     * The default value of the '{@link #isUsefulColumn() <em>Useful Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUsefulColumn()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USEFUL_COLUMN_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isUsefulColumn() <em>Useful Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUsefulColumn()
+     * @generated
+     * @ordered
+     */
+    protected boolean usefulColumn = USEFUL_COLUMN_EDEFAULT;
+
+    /**
+     * This is true if the Useful Column attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean usefulColumnESet;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -769,6 +799,52 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUsefulColumn() {
+        return usefulColumn;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUsefulColumn(boolean newUsefulColumn) {
+        boolean oldUsefulColumn = usefulColumn;
+        usefulColumn = newUsefulColumn;
+        boolean oldUsefulColumnESet = usefulColumnESet;
+        usefulColumnESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN, oldUsefulColumn, usefulColumn, !oldUsefulColumnESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetUsefulColumn() {
+        boolean oldUsefulColumn = usefulColumn;
+        boolean oldUsefulColumnESet = usefulColumnESet;
+        usefulColumn = USEFUL_COLUMN_EDEFAULT;
+        usefulColumnESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN, oldUsefulColumn, USEFUL_COLUMN_EDEFAULT, oldUsefulColumnESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetUsefulColumn() {
+        return usefulColumnESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
@@ -814,6 +890,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
                 if (coreType) return getAdditionalField();
                 else return getAdditionalField().map();
+            case TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN:
+                return isUsefulColumn() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -868,6 +946,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
                 ((EStructuralFeature.Setting)getAdditionalField()).set(newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN:
+                setUsefulColumn(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -924,6 +1005,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
                 getAdditionalField().clear();
                 return;
+            case TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN:
+                unsetUsefulColumn();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -964,6 +1048,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return originalLength != ORIGINAL_LENGTH_EDEFAULT;
             case TalendFilePackage.COLUMN_TYPE__ADDITIONAL_FIELD:
                 return additionalField != null && !additionalField.isEmpty();
+            case TalendFilePackage.COLUMN_TYPE__USEFUL_COLUMN:
+                return isSetUsefulColumn();
         }
         return super.eIsSet(featureID);
     }
@@ -1004,6 +1090,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         result.append(relationshipType);
         result.append(", originalLength: ");
         result.append(originalLength);
+        result.append(", usefulColumn: ");
+        if (usefulColumnESet) result.append(usefulColumn); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }
