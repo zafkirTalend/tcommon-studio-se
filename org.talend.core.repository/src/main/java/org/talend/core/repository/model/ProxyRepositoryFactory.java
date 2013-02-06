@@ -1322,6 +1322,23 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     @Override
+    public Item copy(Item sourceItem, IPath targetPath, String newItemLabel) throws PersistenceException, BusinessException {
+
+        if (sourceItem instanceof ProcessItem) {
+            try {
+                coreService.checkJob(sourceItem.getProperty().getLabel());
+            } catch (BusinessException e) {
+                throw new PersistenceException(e);
+            } catch (RuntimeException e) {
+                // don't do anything
+            }
+        }
+        Item targetItem = this.repositoryFactoryFromProvider.copy(sourceItem, targetPath, newItemLabel);
+        return targetItem;
+
+    }
+
+    @Override
     public void saveCopy(Item sourceItem, Item targetItem) {
         fireRepositoryPropertyChange(ERepositoryActionName.COPY.getName(), sourceItem, targetItem);
     }

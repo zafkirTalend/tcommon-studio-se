@@ -325,7 +325,8 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     protected abstract FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject);
 
     protected Item copyFromResource(Resource createResource) throws PersistenceException, BusinessException {
-        return copyFromResource(createResource, true);
+        boolean changeLabelWithCopyPrefix = true;
+        return copyFromResource(createResource, changeLabelWithCopyPrefix);
     }
 
     protected Item copyFromResource(Resource createResource, boolean changeLabelWithCopyPrefix) throws PersistenceException,
@@ -340,6 +341,25 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
         EcoreUtil.resolveAll(createResource);
         return newItem;
+    }
+
+    protected Item copyFromResource(Resource createResource, String newItemLabel) throws PersistenceException, BusinessException {
+        if (newItemLabel != null) {
+            Item newItem = (Item) EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
+            Property property = newItem.getProperty();
+            property.setId(getNextId());
+            property.setAuthor(getRepositoryContext().getUser());
+            property.setLabel(newItemLabel);
+            property.setDisplayName(newItemLabel);
+            if (!isNameAvailable(getRepositoryContext().getProject(), property.getItem(), null)) {
+                throw new BusinessException(Messages.getString("AbstractEMFRepositoryFactory.cannotGenerateItem")); //$NON-NLS-1$
+            }
+            EcoreUtil.resolveAll(createResource);
+            return newItem;
+        } else {
+            boolean changeLabelWithCopyPrefix = true;
+            return copyFromResource(createResource, changeLabelWithCopyPrefix);
+        }
     }
 
     /**
