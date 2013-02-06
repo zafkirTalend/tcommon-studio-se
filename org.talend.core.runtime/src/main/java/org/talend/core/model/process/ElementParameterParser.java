@@ -195,42 +195,6 @@ public final class ElementParameterParser {
         return null;
     }
 
-    /**
-     * this method working with tMatchgroup component which has several tables of mathcing rule.
-     * 
-     * @param element
-     * @param text
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public static Object getMultiObjectValue(final IElement element, final String text) {
-        if (text == null) {
-            return null;
-        }
-        IElementParameter param;
-
-        List<IElementParameter> params = (List<IElementParameter>) element.getElementParametersWithChildrens();
-        if (params != null && !params.isEmpty()) {
-            List<List<Map<String, String>>> multiObjectValues = new ArrayList<List<Map<String, String>>>();
-            for (int i = 0; i < params.size(); i++) {
-                param = params.get(i);
-                if (text.indexOf(param.getVariableName()) != -1
-                        || (param.getVariableName() != null && param.getVariableName().contains(text))) {
-                    List<?> paramValues = (List<?>) param.getValue();
-                    if (param.getFieldType() == EParameterFieldType.TABLE) {
-                        if (paramValues != null && paramValues.size() > 0) {
-                            multiObjectValues.add(createTableValues((List<Map<String, Object>>) paramValues, param));
-                        }
-                        return multiObjectValues;
-                    }
-                    return paramValues;
-                }
-            }
-        }
-
-        return null;
-    }
-
     private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
             final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
@@ -450,8 +414,8 @@ public final class ElementParameterParser {
                 return (String) value;
             }
             // hywang add for 6484
-            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
-                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-1$
+            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-N$ //$NON-NLS-1$
+                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-N$ //$NON-NLS-1$
                 if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) { //$NON-NLS-1$
                     try {
                         IRepositoryViewObject object = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
