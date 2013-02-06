@@ -77,7 +77,8 @@ public class ExtractMetaDataFromDataBase {
         TABLETYPE_VIEW("VIEW"), //$NON-NLS-1$
         TABLETYPE_SYNONYM("SYNONYM"), //$NON-NLS-1$
         TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"), //$NON-NLS-1$
-        TABLETYPE_ALIAS("ALIAS");
+        TABLETYPE_ALIAS("ALIAS"),
+        TABLETYPE_EXTERNAL_TABLE("EXTERNAL TABLE");//$NON-NLS-1$ //Added by Marvin Wang on Feb. 5, 2012 for bug TDI-24413.
 
         private final String name;
 

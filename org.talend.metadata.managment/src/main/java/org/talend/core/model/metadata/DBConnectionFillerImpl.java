@@ -847,7 +847,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
 
                 metadatatable.setName(tableName);
-                metadatatable.setTableType(temptableType);
+                // Added by Marvin Wang on Feb. 6, 2012 for bug TDI-24413, it is just for hive external table.
+                if (ETableTypes.TABLETYPE_EXTERNAL_TABLE.getName().equals(temptableType)) {
+                    metadatatable.setTableType(ETableTypes.TABLETYPE_TABLE.getName());
+                } else {
+                    metadatatable.setTableType(temptableType);
+                }
                 metadatatable.setLabel(metadatatable.getName());
                 if (tableOwner != null) {
                     ColumnSetHelper.setTableOwner(tableOwner, metadatatable);
