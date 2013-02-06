@@ -177,21 +177,9 @@ public class CopyObjectAction {
                 if (dialog.open() == Window.OK) {
                     final Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
 
-                    //                        RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
-                    //
-                    // @Override
-                    // protected void run() throws LoginException, PersistenceException {
-                    // if (copy instanceof ProcessItem) {
-                    // RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
-                    // }
-                    // factory.save(copy);
-                    // }
-                    // };
-                    // workUnit.setAvoidUnloadResources(true);
-                    // factory.executeRepositoryWorkUnit(workUnit);
-
                     final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             String id = null;
                             String label = null;
@@ -200,16 +188,16 @@ public class CopyObjectAction {
                             for (IRepositoryViewObject object : selectedVersionItems) {
                                 Item selectedItem = object.getProperty().getItem();
                                 try {
-                                    final Item copy = factory.copy(selectedItem, path);
+                                    Item copy = null;
                                     if (isfirst) {
+                                        copy = factory.copy(selectedItem, path);
                                         id = copy.getProperty().getId();
                                         label = copy.getProperty().getLabel();
                                         isfirst = false;
+                                    } else {
+                                        copy = factory.copy(selectedItem, path, label);
                                     }
                                     copy.getProperty().setId(id);
-                                    copy.getProperty().setLabel(label);
-                                    // changed by hqzhang for TDI-19965
-                                    copy.getProperty().setDisplayName(label);
                                     if (needSys && originalItem instanceof RoutineItem) {
                                         String lastestVersion = getLastestVersion(selectedVersionItems);
                                         if (lastestVersion.equals(copy.getProperty().getVersion())) {
@@ -218,7 +206,7 @@ public class CopyObjectAction {
                                         }
                                     }
                                     if (copy instanceof ProcessItem) {
-                                        RelationshipItemBuilder.getInstance().addOrUpdateItem((ProcessItem) copy);
+                                        RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
                                     }
 
                                     factory.save(copy);
@@ -234,6 +222,7 @@ public class CopyObjectAction {
 
                     IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                             IWorkspace workspace = ResourcesPlugin.getWorkspace();
                             try {
@@ -273,6 +262,7 @@ public class CopyObjectAction {
             protected void run() throws LoginException, PersistenceException {
                 final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                    @Override
                     public void run(IProgressMonitor monitor) throws CoreException {
                         try {
                             Item newItem = factory.copy(item, path, true);
@@ -306,6 +296,7 @@ public class CopyObjectAction {
 
                 IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                    @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         IWorkspace workspace = ResourcesPlugin.getWorkspace();
                         try {
@@ -355,9 +346,9 @@ public class CopyObjectAction {
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
         if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renameRoutineClass((RoutineItem) item);
+            codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
             try {
-                codeGenService.createRoutineSynchronizer().syncRoutine((RoutineItem) item, true);
+                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

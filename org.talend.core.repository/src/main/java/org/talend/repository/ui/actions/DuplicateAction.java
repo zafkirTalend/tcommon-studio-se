@@ -447,23 +447,18 @@ public class DuplicateAction extends AContextualAction {
                             public void run(IProgressMonitor monitor) throws CoreException {
                                 Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
                                 String id = null;
-                                String label = null;
                                 boolean isfirst = true;
                                 boolean needSys = true;
                                 try {
                                     for (IRepositoryViewObject object : selectedVersionItems) {
                                         Item selectedItem = object.getProperty().getItem();
                                         Item copy;
-                                        copy = factory.copy(selectedItem, path);
+                                        copy = factory.copy(selectedItem, path, newJobName);
                                         if (isfirst) {
                                             id = copy.getProperty().getId();
-                                            label = copy.getProperty().getLabel();
                                             isfirst = false;
                                         }
                                         copy.getProperty().setId(id);
-                                        copy.getProperty().setLabel(newJobName);
-                                        // changed by hqzhang for TDI-19965
-                                        copy.getProperty().setDisplayName(newJobName);
                                         if (needSys && item instanceof RoutineItem) {
                                             String lastestVersion = getLastestVersion(selectedVersionItems);
                                             if (lastestVersion.equals(copy.getProperty().getVersion())) {
@@ -534,11 +529,8 @@ public class DuplicateAction extends AContextualAction {
             @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
-                    final Item newItem = factory.copy(item, path, true);
+                    final Item newItem = factory.copy(item, path, newName);
 
-                    newItem.getProperty().setLabel(newName);
-                    // changed by hqzhang for TDI-19965
-                    newItem.getProperty().setDisplayName(newName);
                     // qli modified to fix the bug 5400 and 6185.
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem);

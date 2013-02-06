@@ -346,6 +346,18 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return newItem;
     }
 
+    protected Item copyFromResource(Resource createResource, String newItemName) throws PersistenceException, BusinessException {
+        Item newItem = (Item) EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
+        Property property = newItem.getProperty();
+        property.setId(getNextId());
+        property.setLabel(newItemName);
+        property.setDisplayName(newItemName);
+        property.setAuthor(getRepositoryContext().getUser());
+        EcoreUtil.resolveAll(createResource);
+
+        return newItem;
+    }
+
     /**
      * Method "setPropNewName". Try first the new name with "[PROPERTY_NAME]_Copy", then, if it already exists, try
      * again with "[PROPERTY_NAME]_CopyN" where N is number between 1 and Integer.MAX.

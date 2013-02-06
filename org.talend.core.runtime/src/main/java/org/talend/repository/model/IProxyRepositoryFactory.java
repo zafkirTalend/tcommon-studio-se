@@ -341,6 +341,8 @@ public interface IProxyRepositoryFactory {
     public abstract Item copy(Item item, IPath path, boolean changeLabelWithCopyPrefix) throws PersistenceException,
             BusinessException;
 
+    public abstract Item copy(Item originalItem, IPath path, String newItemName) throws PersistenceException, BusinessException;
+
     public abstract void saveCopy(Item item, Item targetItem) throws PersistenceException;
 
     public abstract Property reload(Property property) throws PersistenceException;

@@ -242,6 +242,8 @@ public interface IRepositoryFactory {
 
     public Item copy(Item item, IPath path, boolean changeLabelWithCopyPrefix) throws PersistenceException, BusinessException;
 
+    public Item copy(Item originalItem, IPath path, String newItemName) throws PersistenceException, BusinessException;
+
     /**
      * DOC mhelleboid Comment method "cancel".
      * 
