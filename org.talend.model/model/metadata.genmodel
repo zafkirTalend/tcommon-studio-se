@@ -517,6 +517,7 @@
         ecorePackage="metadata.ecore#//cwm">
       <nestedGenPackages prefix="Relational" basePackage="org.talend.cwm" disposableProviderFactory="true"
           ecorePackage="metadata.ecore#//cwm/relational">
+        <genDataTypes ecoreDataType="metadata.ecore#//cwm/relational/javaHashMap"/>
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdTable"/>
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdView"/>
         <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdColumn">
@@ -542,6 +543,7 @@
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/version"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/modificationDate"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/name"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdExpression/expressionVariableMap"/>
         </genClasses>
       </nestedGenPackages>
       <nestedGenPackages prefix="Softwaredeployment" basePackage="org.talend.cwm"

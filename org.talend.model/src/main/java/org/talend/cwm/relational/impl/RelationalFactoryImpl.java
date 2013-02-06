@@ -5,7 +5,9 @@
  */
 package org.talend.cwm.relational.impl;
 
+import java.util.HashMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -84,6 +86,36 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
+    public Object createFromString(EDataType eDataType, String initialValue) {
+        switch (eDataType.getClassifierID()) {
+        case RelationalPackage.JAVA_HASH_MAP:
+            return createjavaHashMapFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String convertToString(EDataType eDataType, Object instanceValue) {
+        switch (eDataType.getClassifierID()) {
+        case RelationalPackage.JAVA_HASH_MAP:
+            return convertjavaHashMapToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public TdTable createTdTable() {
         TdTableImpl tdTable = new TdTableImpl();
         return tdTable;
@@ -147,6 +179,25 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     public TdExpression createTdExpression() {
         TdExpressionImpl tdExpression = new TdExpressionImpl();
         return tdExpression;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    public HashMap createjavaHashMapFromString(EDataType eDataType, String initialValue) {
+        return (HashMap) super.createFromString(initialValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertjavaHashMapToString(EDataType eDataType, Object instanceValue) {
+        return super.convertToString(instanceValue);
     }
 
     /**

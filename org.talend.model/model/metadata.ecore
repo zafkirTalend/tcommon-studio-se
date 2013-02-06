@@ -867,7 +867,10 @@
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/String"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="modificationDate" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Time"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/String"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="expressionVariableMap"
+            eType="#//cwm/relational/javaHashMap"/>
       </eClassifiers>
+      <eClassifiers xsi:type="ecore:EDataType" name="javaHashMap" instanceTypeName="java.util.HashMap&lt;java.lang.String, java.lang.String>"/>
     </eSubpackages>
     <eSubpackages name="softwaredeployment" nsURI="http://www.talend.org/cwm/foundation/softwaredeployment/2010"
         nsPrefix="softwaredeployment">

@@ -7,6 +7,7 @@ package org.talend.cwm.relational;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -2752,13 +2753,32 @@ public interface RelationalPackage extends EPackage {
     int TD_EXPRESSION__NAME = CorePackage.EXPRESSION_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Expression Variable Map</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_EXPRESSION__EXPRESSION_VARIABLE_MAP = CorePackage.EXPRESSION_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Td Expression</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_EXPRESSION_FEATURE_COUNT = CorePackage.EXPRESSION_FEATURE_COUNT + 3;
+    int TD_EXPRESSION_FEATURE_COUNT = CorePackage.EXPRESSION_FEATURE_COUNT + 4;
+
+    /**
+     * The meta object id for the '<em>java Hash Map</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see java.util.HashMap
+     * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getjavaHashMap()
+     * @generated
+     */
+    int JAVA_HASH_MAP = 7;
 
     /**
      * Returns the meta object for class '{@link org.talend.cwm.relational.TdTable <em>Td Table</em>}'.
@@ -2952,6 +2972,28 @@ public interface RelationalPackage extends EPackage {
     EAttribute getTdExpression_Name();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.cwm.relational.TdExpression#getExpressionVariableMap <em>Expression Variable Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Expression Variable Map</em>'.
+     * @see org.talend.cwm.relational.TdExpression#getExpressionVariableMap()
+     * @see #getTdExpression()
+     * @generated
+     */
+    EAttribute getTdExpression_ExpressionVariableMap();
+
+    /**
+     * Returns the meta object for data type '{@link java.util.HashMap <em>java Hash Map</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for data type '<em>java Hash Map</em>'.
+     * @see java.util.HashMap
+     * @model instanceClass="java.util.HashMap<java.lang.String, java.lang.String>"
+     * @generated
+     */
+    EDataType getjavaHashMap();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3131,6 +3173,24 @@ public interface RelationalPackage extends EPackage {
          * @generated
          */
         EAttribute TD_EXPRESSION__NAME = eINSTANCE.getTdExpression_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Expression Variable Map</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TD_EXPRESSION__EXPRESSION_VARIABLE_MAP = eINSTANCE.getTdExpression_ExpressionVariableMap();
+
+        /**
+         * The meta object literal for the '<em>java Hash Map</em>' data type.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see java.util.HashMap
+         * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getjavaHashMap()
+         * @generated
+         */
+        EDataType JAVA_HASH_MAP = eINSTANCE.getjavaHashMap();
 
     }
 

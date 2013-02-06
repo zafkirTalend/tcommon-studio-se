@@ -5,8 +5,10 @@
  */
 package org.talend.cwm.relational.impl;
 
+import java.util.HashMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -153,6 +155,13 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * @generated
      */
     private EClass tdExpressionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EDataType javaHashMapEDataType = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -439,6 +448,24 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getTdExpression_ExpressionVariableMap() {
+        return (EAttribute) tdExpressionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EDataType getjavaHashMap() {
+        return javaHashMapEDataType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RelationalFactory getRelationalFactory() {
         return (RelationalFactory) getEFactoryInstance();
     }
@@ -487,6 +514,10 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         createEAttribute(tdExpressionEClass, TD_EXPRESSION__VERSION);
         createEAttribute(tdExpressionEClass, TD_EXPRESSION__MODIFICATION_DATE);
         createEAttribute(tdExpressionEClass, TD_EXPRESSION__NAME);
+        createEAttribute(tdExpressionEClass, TD_EXPRESSION__EXPRESSION_VARIABLE_MAP);
+
+        // Create data types
+        javaHashMapEDataType = createEDataType(JAVA_HASH_MAP);
     }
 
     /**
@@ -589,6 +620,13 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
                 IS_ORDERED);
         initEAttribute(getTdExpression_Name(), theCorePackage.getString(), "name", null, 0, 1, TdExpression.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTdExpression_ExpressionVariableMap(), this.getjavaHashMap(), "expressionVariableMap", null, 0, 1,
+                TdExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+
+        // Initialize data types
+        initEDataType(javaHashMapEDataType, HashMap.class, "javaHashMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS,
+                "java.util.HashMap<java.lang.String, java.lang.String>");
 
         // Create annotations
         // http://www.eclipse.org/emf/2002/GenModel

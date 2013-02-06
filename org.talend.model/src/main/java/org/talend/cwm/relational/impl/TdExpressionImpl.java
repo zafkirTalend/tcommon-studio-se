@@ -5,6 +5,7 @@
  */
 package org.talend.cwm.relational.impl;
 
+import java.util.HashMap;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -26,6 +27,7 @@ import orgomg.cwm.objectmodel.core.impl.ExpressionImpl;
  *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getModificationDate <em>Modification Date</em>}</li>
  *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.cwm.relational.impl.TdExpressionImpl#getExpressionVariableMap <em>Expression Variable Map</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +94,16 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
      * @ordered
      */
     protected String name = NAME_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getExpressionVariableMap() <em>Expression Variable Map</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExpressionVariableMap()
+     * @generated
+     * @ordered
+     */
+    protected HashMap<String, String> expressionVariableMap;
 
     /**
      * <!-- begin-user-doc -->
@@ -181,6 +193,28 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
      * <!-- end-user-doc -->
      * @generated
      */
+    public HashMap<String, String> getExpressionVariableMap() {
+        return expressionVariableMap;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExpressionVariableMap(HashMap<String, String> newExpressionVariableMap) {
+        HashMap<String, String> oldExpressionVariableMap = expressionVariableMap;
+        expressionVariableMap = newExpressionVariableMap;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, RelationalPackage.TD_EXPRESSION__EXPRESSION_VARIABLE_MAP,
+                    oldExpressionVariableMap, expressionVariableMap));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -190,6 +224,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
             return getModificationDate();
         case RelationalPackage.TD_EXPRESSION__NAME:
             return getName();
+        case RelationalPackage.TD_EXPRESSION__EXPRESSION_VARIABLE_MAP:
+            return getExpressionVariableMap();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -199,6 +235,7 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
@@ -210,6 +247,9 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
             return;
         case RelationalPackage.TD_EXPRESSION__NAME:
             setName((String) newValue);
+            return;
+        case RelationalPackage.TD_EXPRESSION__EXPRESSION_VARIABLE_MAP:
+            setExpressionVariableMap((HashMap<String, String>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -232,6 +272,9 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
         case RelationalPackage.TD_EXPRESSION__NAME:
             setName(NAME_EDEFAULT);
             return;
+        case RelationalPackage.TD_EXPRESSION__EXPRESSION_VARIABLE_MAP:
+            setExpressionVariableMap((HashMap<String, String>) null);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -251,6 +294,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
                     .equals(modificationDate);
         case RelationalPackage.TD_EXPRESSION__NAME:
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        case RelationalPackage.TD_EXPRESSION__EXPRESSION_VARIABLE_MAP:
+            return expressionVariableMap != null;
         }
         return super.eIsSet(featureID);
     }
@@ -272,6 +317,8 @@ public class TdExpressionImpl extends ExpressionImpl implements TdExpression {
         result.append(modificationDate);
         result.append(", name: ");
         result.append(name);
+        result.append(", expressionVariableMap: ");
+        result.append(expressionVariableMap);
         result.append(')');
         return result.toString();
     }

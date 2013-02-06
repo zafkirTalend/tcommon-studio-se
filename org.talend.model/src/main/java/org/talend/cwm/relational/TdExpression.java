@@ -5,6 +5,7 @@
  */
 package org.talend.cwm.relational;
 
+import java.util.HashMap;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
@@ -18,6 +19,7 @@ import orgomg.cwm.objectmodel.core.Expression;
  *   <li>{@link org.talend.cwm.relational.TdExpression#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.cwm.relational.TdExpression#getModificationDate <em>Modification Date</em>}</li>
  *   <li>{@link org.talend.cwm.relational.TdExpression#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.cwm.relational.TdExpression#getExpressionVariableMap <em>Expression Variable Map</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +106,31 @@ public interface TdExpression extends Expression {
      * @generated
      */
     void setName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Expression Variable Map</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Expression Variable Map</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Expression Variable Map</em>' attribute.
+     * @see #setExpressionVariableMap(HashMap)
+     * @see org.talend.cwm.relational.RelationalPackage#getTdExpression_ExpressionVariableMap()
+     * @model dataType="org.talend.cwm.relational.javaHashMap"
+     * @generated
+     */
+    HashMap<String, String> getExpressionVariableMap();
+
+    /**
+     * Sets the value of the '{@link org.talend.cwm.relational.TdExpression#getExpressionVariableMap <em>Expression Variable Map</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Expression Variable Map</em>' attribute.
+     * @see #getExpressionVariableMap()
+     * @generated
+     */
+    void setExpressionVariableMap(HashMap<String, String> value);
 
 } // TdExpression
