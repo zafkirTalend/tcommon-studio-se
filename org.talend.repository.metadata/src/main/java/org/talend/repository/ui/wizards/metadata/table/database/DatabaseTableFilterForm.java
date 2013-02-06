@@ -108,6 +108,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
     public void initialize() {
         getTableInfoParameters().setSqlFiter(sqlFilter.getText());
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_TABLE, tableCheck.getSelection());
+        getTableInfoParameters().changeType(ETableTypes.TABLETYPE_EXTERNAL_TABLE, tableCheck.getSelection());
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_VIEW, viewCheck.getSelection());
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_SYNONYM, synonymCheck.getSelection());
         // hide for the bug 7959
@@ -397,6 +398,13 @@ public class DatabaseTableFilterForm extends AbstractForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 getTableInfoParameters().changeType(ETableTypes.TABLETYPE_TABLE, tableCheck.getSelection());
+                // Added by Marvin Wang on Feb. 5, 2012 for bug TDI-24413, in fact the type is added here is not a good
+                // way.
+                // Suggestion: We could abstract the TableInfoParameters as a reference in DatabaseTableWizardPage. Each
+                // child like "HiveTableInfoParameters" could implement "getTypes()" to return the private types. When
+                // types are reqired, it could invoke like
+                // "DatabaseTableWizardPage.getTableInfoParameters().getTypes()".
+                getTableInfoParameters().changeType(ETableTypes.TABLETYPE_EXTERNAL_TABLE, tableCheck.getSelection());
             }
 
         });
@@ -573,6 +581,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
     protected void addFieldsListeners() {
         sqlFilter.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getTableInfoParameters().setSqlFiter(sqlFilter.getText());
             }
