@@ -2249,42 +2249,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     }
 
-    public Item copy(Item originalItem, IPath path, String newItemName) throws PersistenceException, BusinessException {
-        Resource resource;
-        ProjectManager projectManage = ProjectManager.getInstance();
-        if (!projectManage.getProject(originalItem).equals(projectManage.getCurrentProject().getEmfProject())) {
-            originalItem.getProperty().eResource().getContents().add(originalItem);
-        }
-        resource = originalItem.getProperty().eResource();
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            resource.save(out, null);
-            Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
-            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-            createResource.load(in, null);
-            Item newItem = copyFromResource(createResource, newItemName);
-            // *need to create all referenece files when copy the item*//
-            copyReferenceFiles(originalItem, newItem);
-            create(getRepositoryContext().getProject(), newItem, path);
-            copyScreenshotFile(originalItem, newItem);
-
-            if (newItem instanceof ConnectionItem) {
-                ConnectionItem connectionItem = (ConnectionItem) newItem;
-                Resource itemResource = xmiResourceManager.getItemResource(connectionItem);
-                if (itemResource != null && itemResource instanceof XMLResource) {
-                    XMLResource xmlResource = (XMLResource) itemResource;
-                    xmlResource.setID(connectionItem.getConnection(), EcoreUtil.generateUUID());
-                }
-            }
-            return newItem;
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        }
-
-        return null;
-    }
-
     // add for bug TDI-20844,when copy or duplicate a job,joblet.just copy .screenshot file will be ok.
     private void copyScreenshotFile(Item originalItem, Item newItem) throws IOException {
         int id = originalItem.eClass().getClassifierID();
