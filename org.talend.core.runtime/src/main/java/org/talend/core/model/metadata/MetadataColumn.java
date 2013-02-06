@@ -65,6 +65,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String expression = "";
 
+    private boolean usefulColumn = true;
+
     private Map<String, String> additionalField = new HashMap<String, String>();
 
     public MetadataColumn() {
@@ -108,6 +110,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         // and relationShipType info.
         setRelatedEntity(metadataColumn.getRelatedEntity());
         setRelationshipType(metadataColumn.getRelationshipType());
+        this.usefulColumn = metadataColumn.isUsefulColumn();
     }
 
     private static synchronized String getNewId() {
@@ -466,6 +469,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
             }
         }
+        if ((options & OPTIONS_IGNORE_USED) == 0) {
+            if (this.isUsefulColumn() != other.isUsefulColumn()) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -620,5 +628,15 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     @Override
     public Map<String, String> getAdditionalField() {
         return additionalField;
+    }
+
+    @Override
+    public boolean isUsefulColumn() {
+        return usefulColumn;
+    }
+
+    @Override
+    public void setUsefulColumn(boolean isUseful) {
+        this.usefulColumn = isUseful;
     }
 }

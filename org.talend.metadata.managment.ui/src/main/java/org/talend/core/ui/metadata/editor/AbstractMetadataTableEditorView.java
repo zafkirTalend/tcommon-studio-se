@@ -53,6 +53,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.ui.metadata.celleditor.JavaTypeComboValueAdapter;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -104,6 +105,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_ADDITIONAL_FIELD = "ID_COLUMN_ADDITIONAL_FIELD";
 
+    public static final String ID_COLUMN_USEFUL = "ID_COLUMN_USEFUL";
+
     protected boolean showDbColumnName, showOriginalLength;
 
     protected boolean showDbTypeColumn;
@@ -121,6 +124,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     protected String dbmsId;
 
     private List<String> additionalFields;
+
+    private boolean isRepository = false;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -205,12 +210,15 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     @Override
     protected void createColumns(TableViewerCreator<B> tableViewerCreator, Table table) {
         // //////////////////////////////////////////////////////////////////////////////////////
-        tableViewerCreator.setReadOnly(this.readOnly);
+        tableViewerCreator.setReadOnly(false);
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(""); //$NON-NLS-1$
         column.setDefaultInternalValue(""); //$NON-NLS-1$
         column.setWidth(15);
 
+        if (isRepository) {
+            configureUsefulColumn(tableViewerCreator);
+        }
         // //////////////////////////////////////////////////////////////////////////////////////
 
         configureNameColumn(tableViewerCreator);
@@ -291,8 +299,28 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             configureRelationshipType(tableViewerCreator);
             configureRelatedEntity(tableViewerCreator);
         }
-
     }
+
+    protected void configureUsefulColumn(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.UsefulTitle"));
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.UsefulTitle"));
+        column.setId(ID_COLUMN_USEFUL);
+        column.setBeanPropertyAccessors(getUsefulAccessor());
+        column.setWeight(30);
+        column.setModifiable(true);
+        column.setMinimumWidth(20);
+        column.setDisplayedValue(""); //$NON-NLS-1$
+        column.setSortable(true);
+        column.setTableColumnSelectionListener(new CheckColumnSelectionListener(column, tableViewerCreator));
+        column.setImageHeader(ImageProvider.getImage(EImage.CHECKED_ICON));
+        CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent();
+        nullableCheckbox.setToolTipText(Messages.getString("MetadataTableEditorView.UsefulTitle"));
+        column.setTableEditorContent(nullableCheckbox);
+    }
+
+    protected abstract IBeanPropertyAccessors<B, Boolean> getUsefulAccessor();
 
     /**
      * DOC amaumont Comment method "configureCommentColumn".
@@ -1012,5 +1040,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public void setAdditionalFields(List<String> additionalFields) {
         this.additionalFields = additionalFields;
+    }
+
+    public void setIsRepository(boolean isRepository) {
+        this.isRepository = isRepository;
     }
 }

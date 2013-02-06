@@ -104,7 +104,7 @@ public class ModelSelectionDialog extends SelectionDialog {
         group.setLayoutData(gridData);
         if (selectionType == ESelectionType.SCHEMA) {
             showSchema = new Button(group, SWT.RADIO);
-            showSchema.setText(Messages.getString("ModelSelectionDialog.ViewSchema")); //$NON-NLS-1$
+            showSchema.setText(Messages.getString("ModelSelectionDialog.newViewSchema")); //$NON-NLS-1$
         }
         if (selectionType == ESelectionType.QUERY) {
             showQuery = new Button(group, SWT.RADIO);

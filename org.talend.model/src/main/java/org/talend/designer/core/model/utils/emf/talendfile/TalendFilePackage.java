@@ -206,13 +206,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__ADDITIONAL_FIELD = 14;
 
     /**
+     * The feature id for the '<em><b>Useful Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__USEFUL_COLUMN = 15;
+
+    /**
      * The number of structural features of the '<em>Column Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 15;
+    int COLUMN_TYPE_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1886,6 +1895,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getColumnType_AdditionalField();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn <em>Useful Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Useful Column</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_UsefulColumn();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType <em>Connection Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3545,6 +3565,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference COLUMN_TYPE__ADDITIONAL_FIELD = eINSTANCE.getColumnType_AdditionalField();
+
+        /**
+         * The meta object literal for the '<em><b>Useful Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__USEFUL_COLUMN = eINSTANCE.getColumnType_UsefulColumn();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.

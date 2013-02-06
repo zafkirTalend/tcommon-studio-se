@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getRelationshipType <em>Relationship Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalLength <em>Original Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getAdditionalField <em>Additional Field</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn <em>Useful Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -543,5 +544,59 @@ public interface ColumnType extends EObject {
      * @generated
      */
     EMap getAdditionalField();
+
+    /**
+     * Returns the value of the '<em><b>Useful Column</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Useful Column</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Useful Column</em>' attribute.
+     * @see #isSetUsefulColumn()
+     * @see #unsetUsefulColumn()
+     * @see #setUsefulColumn(boolean)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_UsefulColumn()
+     * @model default="true" unsettable="true"
+     * @generated
+     */
+    boolean isUsefulColumn();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn <em>Useful Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Useful Column</em>' attribute.
+     * @see #isSetUsefulColumn()
+     * @see #unsetUsefulColumn()
+     * @see #isUsefulColumn()
+     * @generated
+     */
+    void setUsefulColumn(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn <em>Useful Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetUsefulColumn()
+     * @see #isUsefulColumn()
+     * @see #setUsefulColumn(boolean)
+     * @generated
+     */
+    void unsetUsefulColumn();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isUsefulColumn <em>Useful Column</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Useful Column</em>' attribute is set.
+     * @see #unsetUsefulColumn()
+     * @see #isUsefulColumn()
+     * @see #setUsefulColumn(boolean)
+     * @generated
+     */
+    boolean isSetUsefulColumn();
 
 } // ColumnType

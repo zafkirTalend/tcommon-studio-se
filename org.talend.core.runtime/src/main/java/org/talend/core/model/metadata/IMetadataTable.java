@@ -45,7 +45,17 @@ public interface IMetadataTable {
 
     public IMetadataColumn getColumn(String columnName);
 
+    public List<IMetadataColumn> getListUsedColumns();
+
+    public List<IMetadataColumn> getReallyListColumns();
+
+    public List<IMetadataColumn> getListUnusedColumns();
+
+    public void setUnusedColumns(List<IMetadataColumn> unusedColumns);
+
     public List<IMetadataColumn> getListColumns();
+
+    public List<IMetadataColumn> getListColumns(boolean withUnselected);
 
     public void setListColumns(List<IMetadataColumn> listColumns);
 

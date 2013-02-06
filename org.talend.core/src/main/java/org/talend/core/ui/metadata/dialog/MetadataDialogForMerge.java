@@ -53,6 +53,7 @@ import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
@@ -262,10 +263,10 @@ public class MetadataDialogForMerge extends Dialog {
 
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
-            metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
+            metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput, true);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
                     false);
-
+            outputMetaView.setIsRepository(isRepository(outputNode));
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
@@ -483,8 +484,9 @@ public class MetadataDialogForMerge extends Dialog {
             compositeRight.setLayout(new GridLayout());
 
             outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"), outputReadOnly, true, false, //$NON-NLS-1$
+                    titleOutput + " (Output)", true), outputReadOnly, true, false, //$NON-NLS-1$
                     false);
+            outputMetaView.setIsRepository(isRepository(outputNode));
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
@@ -524,6 +526,17 @@ public class MetadataDialogForMerge extends Dialog {
 
         });
         return composite;
+    }
+
+    private boolean isRepository(INode node) {
+        IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE");
+        if (schemaParam != null) {
+            String schemaType = (String) schemaParam.getValue();
+            if (schemaType.equals("REPOSITORY")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

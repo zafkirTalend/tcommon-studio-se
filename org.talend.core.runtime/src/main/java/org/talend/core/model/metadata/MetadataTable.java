@@ -14,6 +14,7 @@ package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
     private String tableName;
 
     private List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
+
+    private List<IMetadataColumn> unusedColumns = new ArrayList<IMetadataColumn>();
 
     private IMetadataConnection parent;
 
@@ -83,12 +86,68 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         this.tableName = tableName;
     }
 
+    public List<IMetadataColumn> getListUsedColumns() {
+        return this.listColumns;
+    }
+
+    public List<IMetadataColumn> getListUnusedColumns() {
+        return this.unusedColumns;
+    }
+
+    public void setUnusedColumns(List<IMetadataColumn> unusedColumns) {
+        this.unusedColumns = unusedColumns;
+    }
+
+    public List<IMetadataColumn> getReallyListColumns() {
+        Iterator<IMetadataColumn> it2 = this.unusedColumns.iterator();
+        while (it2.hasNext()) {
+            IMetadataColumn column = it2.next();
+            this.listColumns.add(column);
+            it2.remove();
+        }
+        return this.listColumns;
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataTable#getListColumns()
      */
     public List<IMetadataColumn> getListColumns() {
+        // List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
+        // for (IMetadataColumn column : this.listColumns) {
+        // if (!column.isUsefulColumn()) {
+        // temp.add(column);
+        // }
+        // }
+        // return temp;
+        return getListColumns(false);
+        // return this.listColumns;
+    }
+
+    public synchronized List<IMetadataColumn> getListColumns(boolean withUnselected) {
+        Iterator<IMetadataColumn> it = this.listColumns.iterator();
+        while (it.hasNext()) {
+            IMetadataColumn column = it.next();
+            if (!column.isUsefulColumn()) {
+                this.unusedColumns.add(column);
+                it.remove();
+            }
+        }
+        Iterator<IMetadataColumn> it2 = this.unusedColumns.iterator();
+        while (it2.hasNext()) {
+            IMetadataColumn column = it2.next();
+            if (column.isUsefulColumn()) {
+                this.listColumns.add(column);
+                it2.remove();
+            }
+        }
+        if (withUnselected) {
+            List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
+            temp.addAll(this.listColumns);
+            temp.addAll(this.unusedColumns);
+            return temp;
+        }
         return this.listColumns;
     }
 
@@ -136,6 +195,11 @@ public class MetadataTable implements IMetadataTable, Cloneable {
             for (int i = 0; i < listColumns.size(); i++) {
                 clonedMetaColumns.add(listColumns.get(i).clone(withCustoms));
             }
+            List<IMetadataColumn> clonedMetaUnusedColumns = new ArrayList<IMetadataColumn>();
+            clonedMetadata.setUnusedColumns(clonedMetaUnusedColumns);
+            for (int i = 0; i < unusedColumns.size(); i++) {
+                clonedMetaColumns.add(unusedColumns.get(i).clone(withCustoms));
+            }
             clonedMetadata.setTableName(this.getTableName());
             clonedMetadata.setLabel(this.getLabel());
             clonedMetadata.setAdditionalProperties(new HashMap<String, String>(additionalProperties));
@@ -170,31 +234,36 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         if (!(input instanceof IMetadataTable)) {
             return false;
         }
-
-        if (this.listColumns == null) {
+        if (this.getListColumns(true) == null) {
             if (input.getListColumns() != null) {
                 return false;
             }
         } else {
-            if (listColumns.size() == input.getListColumns().size()) { // test if standard columns (no custom, or same
+            if (this.getListColumns(true).size() == input.getListColumns(true).size()) { // test if standard columns (no
+                // custom, or
+                // same
                 // input / output)
-                for (int i = 0; i < input.getListColumns().size(); i++) {
-                    IMetadataColumn otherColumn = input.getListColumns().get(i);
-                    IMetadataColumn myColumn = this.listColumns.get(i);
-                    if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
-                        return false;
+                for (int i = 0; i < input.getListColumns(true).size(); i++) {
+                    IMetadataColumn otherColumn = input.getListColumns(true).get(i);
+                    for (int j = 0; j < this.getListColumns(true).size(); j++) {
+                        IMetadataColumn myColumn = this.getListColumns(true).get(j);
+                        if (otherColumn.getLabel().equals(myColumn.getLabel())) {
+                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
+                                return false;
+                            }
+                        }
                     }
                 }
             } else {
                 // output should have at least all columns from input, but can add some others (custom)
                 // custom columns are considered as columns who can be added to output
 
-                List<IMetadataColumn> outputColumnsNotTested = new ArrayList<IMetadataColumn>(this.getListColumns());
+                List<IMetadataColumn> outputColumnsNotTested = new ArrayList<IMetadataColumn>(this.getListColumns(true));
 
                 // test that input columns are correctly propagated to output first
                 // no matter if this one is custom or not (all custom must be propagated too)
-                for (int i = 0; i < input.getListColumns().size(); i++) {
-                    IMetadataColumn inputColumn = input.getListColumns().get(i);
+                for (int i = 0; i < input.getListColumns(true).size(); i++) {
+                    IMetadataColumn inputColumn = input.getListColumns(true).get(i);
                     IMetadataColumn myColumn = this.getColumn(inputColumn.getLabel());
                     outputColumnsNotTested.remove(myColumn);
                     if (!inputColumn.sameMetacolumnAs(myColumn, options)) {
@@ -239,8 +308,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
     }
 
     public IMetadataColumn getColumn(String columnName) {
-        for (int i = 0; i < listColumns.size(); i++) {
-            IMetadataColumn column = listColumns.get(i);
+        for (int i = 0; i < getListColumns(true).size(); i++) {
+            IMetadataColumn column = getListColumns(true).get(i);
             if (column.getLabel().equals(columnName)) {
                 return column;
             }

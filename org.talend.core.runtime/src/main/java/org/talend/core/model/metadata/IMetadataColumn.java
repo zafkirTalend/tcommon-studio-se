@@ -54,6 +54,8 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_IGNORE_ORIGINALLENGTH = 1 << 14;
 
+    public static final int OPTIONS_IGNORE_USED = 1 << 15;
+
     public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE | OPTIONS_IGNORE_DEFAULT
             | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_DBTYPE | OPTIONS_IGNORE_PATTERN
             | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY | OPTIONS_IGNORE_DBCOLUMNNAME
@@ -144,5 +146,9 @@ public interface IMetadataColumn {
     public void setExpression(String expression);
 
     public Map<String, String> getAdditionalField();
+
+    public boolean isUsefulColumn();
+
+    public void setUsefulColumn(boolean isUseful);
 
 }

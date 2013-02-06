@@ -22,6 +22,7 @@ import java.util.Set;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -125,6 +126,8 @@ public class MetadataDialog extends Dialog {
 
     private IMetadataColumn column;
 
+    private boolean isUsefulChange = false;
+
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
             INode outputNode, CommandStack commandStack) {
         super(parent);
@@ -143,14 +146,14 @@ public class MetadataDialog extends Dialog {
         }
         this.outputMetaTable = outputMetaTable;
         this.commandStack = commandStack;
-        list = outputMetaTable.getListColumns();
+        list = outputMetaTable.getListColumns(true);
         for (IMetadataColumn preColumn : list) {
             preOutputColumnSet.add(preColumn.getLabel());
         }
         if (inputMetaTable == null) {
             size = new Point(550, 400);
         } else {
-            for (IMetadataColumn preColumn : inputMetaTable.getListColumns()) {
+            for (IMetadataColumn preColumn : inputMetaTable.getListColumns(true)) {
                 preInputColumnSet.add(preColumn.getLabel());
             }
             size = new Point(1000, 400);
@@ -282,6 +285,17 @@ public class MetadataDialog extends Dialog {
         }
     }
 
+    private boolean isRepository(INode node) {
+        IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE");
+        if (schemaParam != null) {
+            String schemaType = (String) schemaParam.getValue();
+            if (schemaType.equals("REPOSITORY")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     protected Control createDialogArea(final Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -289,10 +303,15 @@ public class MetadataDialog extends Dialog {
         MetadataTableEditor metadataTableEditor;
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
-            metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
+            if (isRepository(outputNode)) {
+                metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput, true);
+            } else {
+                metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
+            }
             outputMetaView = new DialogMetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true,
                     true, false);
 
+            outputMetaView.setIsRepository(isRepository(outputNode));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -360,13 +379,14 @@ public class MetadataDialog extends Dialog {
                     // Input => Output(the selection)
                     // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
                     tableItem = inputMetaView.getTable().getSelection();
-                    list = new ArrayList<IMetadataColumn>();
+                    List list = new ArrayList<IMetadataColumn>();
                     for (TableItem element : tableItem) {
                         column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataToolHelper.copyTable(list, getOutputMetaData());
+                        MetadataToolHelper.copyTable(list, getOutputMetaData(), outputMetaView.getMetadataTableEditor()
+                                .getMetadataColumnList());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -385,7 +405,14 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
+                        List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
+                        for (IMetadataColumn column : list) {
+                            if (column.isUsefulColumn()) {
+                                temp.add(column);
+                            }
+                        }
+                        MetadataToolHelper.copyTable(temp, getOutputMetaData(), outputMetaView.getMetadataTableEditor()
+                                .getMetadataColumnList());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -412,13 +439,14 @@ public class MetadataDialog extends Dialog {
                     // Output => Input(selection)
                     // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
                     tableItem = outputMetaView.getTable().getSelection();
-                    list = new ArrayList<IMetadataColumn>();
+                    List list = new ArrayList<IMetadataColumn>();
                     for (TableItem element : tableItem) {
                         column = (IMetadataColumn) element.getData();
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataToolHelper.copyTable(list, getInputMetaData());
+                        MetadataToolHelper.copyTable(list, getInputMetaData(), inputMetaView.getMetadataTableEditor()
+                                .getMetadataColumnList());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -437,7 +465,14 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataToolHelper.copyTable(getOutputMetaData(), getInputMetaData());
+                        List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
+                        for (IMetadataColumn column : list) {
+                            if (column.isUsefulColumn()) {
+                                temp.add(column);
+                            }
+                        }
+                        MetadataToolHelper.copyTable(temp, getInputMetaData(), inputMetaView.getMetadataTableEditor()
+                                .getMetadataColumnList());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -448,9 +483,16 @@ public class MetadataDialog extends Dialog {
                 copySelectionToInput.setEnabled(false);
             }
 
+            MetadataTableEditor metadataTableEditorForOutput;
+            if (isRepository(outputNode)) {
+                metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)", true);
+            } else {
+                metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)");
+            }
             outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
-                    new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
+                    metadataTableEditorForOutput, outputReadOnly, true, true, //$NON-NLS-1$
                     false);
+            outputMetaView.setIsRepository(isRepository(outputNode));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -501,6 +543,9 @@ public class MetadataDialog extends Dialog {
                             changeNameInColumns.put(modifiedObject.getLabel(), (String) event.previousValue);
                         }
                     }
+                }
+                if (AbstractMetadataTableEditorView.ID_COLUMN_USEFUL.equals(event.column.getId())) {
+                    isUsefulChange = true;
                 }
 
             }
@@ -616,6 +661,14 @@ public class MetadataDialog extends Dialog {
                 if (inputColumn != null) {
                     inputColumn.setOriginalDbColumnName(column.getOriginalDbColumnName());
                     inputColumn.setOriginalLength(column.getOriginalLength());
+                }
+            }
+        }
+        if (isUsefulChange) {
+            if (outputNode != null) {
+                if (outputNode.getComponent().getRepositoryType() != null
+                        && outputNode.getComponent().getRepositoryType().contains("DATABASE")) {
+                    MessageDialog.openInformation(getParentShell(), "", Messages.getString("MetadataDialog.NeedDoGuessQuery"));
                 }
             }
         }

@@ -38,6 +38,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
 
     private IMetadataTable metadataTable;
 
+    private boolean isNeedShowAllColumn = false;
+
     public MetadataTableEditor() {
         super();
     }
@@ -48,12 +50,24 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         initFromMetadataTable();
     }
 
+    public MetadataTableEditor(IMetadataTable metadataTable, String titleName, boolean isNeedShowAllColumn) {
+        super(titleName);
+        this.metadataTable = metadataTable;
+        this.isNeedShowAllColumn = isNeedShowAllColumn;
+        initFromMetadataTable();
+    }
+
     public void initFromMetadataTable() {
         initData();
     }
 
     private void initData() {
-        registerDataList(this.metadataTable.getListColumns());
+        if (isNeedShowAllColumn) {
+            registerDataList(this.metadataTable.getListColumns(true));
+        } else {
+            registerDataList(this.metadataTable.getListColumns());
+        }
+
     }
 
     public String getTitleName() {
@@ -175,6 +189,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         metadataColumn.setLabel(columnName);
         metadataColumn.setNullable(true);
         metadataColumn.setOriginalDbColumnName(columnName);
+        metadataColumn.setUsefulColumn(false);
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()

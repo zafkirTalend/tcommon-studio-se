@@ -517,7 +517,7 @@ public final class MetadataToolHelper {
         }
         List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
         List<String> readOnlycolumns = new ArrayList<String>();
-        for (IMetadataColumn column : target.getListColumns()) {
+        for (IMetadataColumn column : target.getListColumns(true)) {
             if (!column.isCustom()) {
                 columnsToRemove.add(column);
             }
@@ -526,9 +526,10 @@ public final class MetadataToolHelper {
             }
         }
         target.getListColumns().removeAll(columnsToRemove);
+        target.getListUnusedColumns().removeAll(columnsToRemove);
 
         List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
-        for (IMetadataColumn column : source.getListColumns()) {
+        for (IMetadataColumn column : source.getListColumns(true)) {
             IMetadataColumn targetColumn = target.getColumn(column.getLabel());
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
@@ -546,6 +547,41 @@ public final class MetadataToolHelper {
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
         target.setLabel(source.getLabel());
+    }
+
+    public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target, List<IMetadataColumn> targetColumns) {
+        if (sourceColumns == null || target == null || targetColumns == null) {
+            return;
+        }
+        List<String> readOnlycolumns = new ArrayList<String>();
+        for (IMetadataColumn column : targetColumns) {
+            if (column.isReadOnly()) {
+                readOnlycolumns.add(column.getLabel());
+            }
+        }
+
+        List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : sourceColumns) {
+            IMetadataColumn targetColumn = null;
+            for (IMetadataColumn tColumn : targetColumns) {
+                if (column.getLabel().equals(tColumn.getLabel())) {
+                    targetColumn = tColumn;
+                }
+            }
+            IMetadataColumn newTargetColumn = column.clone();
+            if (targetColumn == null) {
+                columnsTAdd.add(newTargetColumn);
+                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
+            } else {
+                if (!targetColumn.isReadOnly()) {
+                    target.getListColumns().remove(targetColumn);
+                    newTargetColumn.setCustom(targetColumn.isCustom());
+                    newTargetColumn.setCustomId(targetColumn.getCustomId());
+                    columnsTAdd.add(newTargetColumn);
+                }
+            }
+        }
+        targetColumns.addAll(columnsTAdd);
     }
 
     /**
@@ -807,7 +843,7 @@ public final class MetadataToolHelper {
      * @return
      */
     public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target) {
-        copyTable(sourceColumns, target, null);
+        copyTable(sourceColumns, target, "");
     }
 
     public static Query getQueryFromRepository(String metaRepositoryId) {

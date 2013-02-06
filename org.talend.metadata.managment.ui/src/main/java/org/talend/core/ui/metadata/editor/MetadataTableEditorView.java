@@ -22,6 +22,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 
@@ -140,6 +141,21 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
         super.setTableViewerCreatorOptions(newTableViewerCreator);
         newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+    }
+
+    @Override
+    protected IBeanPropertyAccessors getUsefulAccessor() {
+        return new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
+
+            public Boolean get(IMetadataColumn bean) {
+                return bean.isUsefulColumn() ? Boolean.TRUE : Boolean.FALSE;
+            }
+
+            public void set(IMetadataColumn bean, Boolean value) {
+                bean.setUsefulColumn(value);
+            }
+
+        };
     }
 
     /*
