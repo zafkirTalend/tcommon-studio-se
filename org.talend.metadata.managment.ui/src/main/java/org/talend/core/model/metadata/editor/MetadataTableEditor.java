@@ -189,7 +189,6 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         metadataColumn.setLabel(columnName);
         metadataColumn.setNullable(true);
         metadataColumn.setOriginalDbColumnName(columnName);
-        metadataColumn.setUsefulColumn(false);
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
