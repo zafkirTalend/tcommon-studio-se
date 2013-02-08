@@ -374,6 +374,16 @@ public class XmiResourceManager {
         }
         Resource itemResource = null;
         if (fileExist) {
+            List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+            for (Resource res : resources) {
+                if (res != null) {
+                    if (itemResourceURI.toString().equals(res.getURI().toString())) {
+                        res.unload();
+                        resourceSet.getResources().remove(res);
+                        break;
+                    }
+                }
+            }
             try {
                 // judge whether the physical file exists or not
                 itemResource = resourceSet.getResource(itemResourceURI, true);
