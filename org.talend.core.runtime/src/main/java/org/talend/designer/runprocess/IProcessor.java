@@ -79,11 +79,11 @@ public interface IProcessor {
     public void generateSpringContent() throws ProcessorException;
 
     /**
-     * Only generate WSDL files on classpath, not main code.
+     * Only generate ESB specific files on classpath, not main code.
      *
      * @throws ProcessorException
      */
-    public void generateWsdlFiles() throws ProcessorException;
+    public void generateEsbFiles() throws ProcessorException;
 
     /**
      * Run the process.

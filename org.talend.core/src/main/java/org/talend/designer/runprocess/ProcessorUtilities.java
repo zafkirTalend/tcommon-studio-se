@@ -541,7 +541,7 @@ public class ProcessorUtilities {
             lastGeneratedWithStatsOrTrace.put(jobInfo.getJobId(), infos);
 
             if (currentProcess instanceof IProcess2) {
-                processor.generateWsdlFiles();
+                processor.generateEsbFiles();
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
             }
         } else {
