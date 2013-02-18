@@ -38,6 +38,8 @@ public class RepositoryImageProvider {
             return ECoreImage.JOBLET_ICON;
         } else if (type == ERepositoryObjectType.CONTEXT) {
             return ECoreImage.CONTEXT_ICON;
+        } else if (type == ERepositoryObjectType.CODE) {
+            return ECoreImage.CODE_ICON;
         } else if (type == ERepositoryObjectType.ROUTINES) {
             return ECoreImage.ROUTINE_ICON;
         } else if (type == ERepositoryObjectType.JOB_SCRIPT) {

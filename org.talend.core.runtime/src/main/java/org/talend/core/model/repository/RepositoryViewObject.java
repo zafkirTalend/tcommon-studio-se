@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -561,4 +562,34 @@ public class RepositoryViewObject implements IRepositoryViewObject {
     public boolean isModified() {
         return modified;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        if (this.path != null) {
+            sb.append(this.path);
+            sb.append(File.separator);
+        }
+        sb.append(this.label);
+        if (this.version != null) {
+            sb.append(", version=");
+            sb.append(this.version);
+        }
+        if (this.id != null) {
+            sb.append(", id=");
+            sb.append(this.id);
+        }
+        if (this.type != null) {
+            sb.append(", type=");
+            sb.append(this.type);
+        }
+
+        return sb.toString();
+    }
+
 }

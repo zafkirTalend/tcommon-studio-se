@@ -182,12 +182,22 @@
                <instanceof
                      value="org.talend.repository.model.ProjectRepositoryNode">
                </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isMetadataTopNode">
+               </test>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isMetadataTopNode">
+               </test>
+            </and>
          </possibleChildren>
          <actionProvider
                class="org.talend.repository.viewer.action.RepoNodeActionProvider"
@@ -220,22 +230,43 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="DB connections"
             priority="high">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isDbConnection">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isQuery">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isDbConnection">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.db.action.provider.id">
@@ -267,22 +298,39 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File delimited"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileDelimited">
+                  </test></or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileDelimited">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.delimited.action.provider.id">
@@ -316,22 +364,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File Positional"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFilePositional">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFilePositional">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.positional.action.provider.id">
@@ -363,22 +429,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File Regexp"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileRegexp">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileRegexp">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.regexp.action.provider.id">
@@ -410,22 +494,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File XML"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileXML">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileXML">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.xml.action.provider.id">
@@ -457,22 +559,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File Excel"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileExcel">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileExcel">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.excel.action.provider.id">
@@ -504,22 +624,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="File LDIF"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileLDIF">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isFileLDIF">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.file.ldif.action.provider.id">
@@ -551,22 +689,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="LDAP"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isLDAP">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isLDAP">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.ldap.action.provider.id">
@@ -598,22 +754,43 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="Salesforce"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSalesforce">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSalesforceModule">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSalesforce">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.salesforce.action.provider.id">
@@ -645,22 +822,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="Generic Schemas"
             priority="higher">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isGenericSchema">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isGenericSchema">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.generic.schema.action.provider.id">
@@ -691,22 +886,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="Web Service"
             priority="high">
-         <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isWebService">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+         <possibleChildren>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchema">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumn">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isWebService">
+                  </test>
+               </or>
+            </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.webservice.action.provider.id">
@@ -743,16 +956,28 @@
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.isRulesTopNode">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
          <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        property="org.talend.repository.node.isRulesTopNode">
+                  </test>
+               </or>
+            </and>
          </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
@@ -785,22 +1010,40 @@
             labelProvider="org.talend.repository.viewer.label.RepositoryViewLabelProvider"
             name="MDM"
             priority="higher">
-            <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
-         </possibleChildren>
          <triggerPoints>
             <and>
                <instanceof
                      value="org.talend.repository.model.RepositoryNode">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.talend.repository.node.isMetadataTopNode">
-               </test>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isMetadataTopNode">
+                  </test>
+                  <test
+                        property="org.talend.repository.node.metadata.isMDM">
+                  </test>
+               </or>
             </and>
          </triggerPoints>
+            <possibleChildren>
+               <and>
+                  <instanceof
+                        value="org.talend.repository.model.RepositoryNode">
+                  </instanceof>
+                  <or>
+                     <test
+                           property="org.talend.repository.node.metadata.isSchema">
+                     </test>
+                     <test
+                           property="org.talend.repository.node.metadata.isSchemaColumn">
+                     </test>
+                     <test
+                           property="org.talend.repository.node.metadata.isMDM">
+                     </test>
+                  </or>
+               </and>
+         </possibleChildren>
          <actionProvider
                class="org.talend.repository.metadata.action.MetedataNodeActionProvier"
                id="org.talend.repository.metadata.mdm.action.provider.id">
@@ -861,6 +1104,13 @@
             properties="isRulesTopNode"
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
+      <propertyTester
+            class="org.talend.repository.metadata.tester.SalesforceModuleNodeTester"
+            id="org.talend.repository.node.tester.metadata.salesforce.module"
+            namespace="org.talend.repository.node.metadata"
+            properties="isSalesforceModule"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
    </extension>
    <extension
          point="org.talend.core.repository.repositorySeeker">
@@ -868,6 +1118,108 @@
             class="org.talend.repository.metadata.seeker.NormalMetadatasRepositorySeeker"
             name="Normal Metadatas">
       </seeker>
+   </extension>
+   <extension
+         point="org.talend.core.repository.repository_node_provider">
+       <repositoryNode
+             label="%repository.metadataFilePositional"
+             alias="%repository.metadataFilePositional.alias"
+             type="METADATA_FILE_POSITIONAL"
+             parentNodeType="METADATA"
+             folder="metadata/filePositional"
+             isResouce="true"
+             ordinal="40"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataFileRegexp"
+             alias="%repository.metadataFileRegexp.alias"
+             type="METADATA_FILE_REGEXP"
+             parentNodeType="METADATA"
+             folder="metadata/fileRegex"
+             isResouce="true"
+             ordinal="41"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataFileXml"
+             alias="%repository.metadataFileXml.alias"
+             type="METADATA_FILE_XML"
+             parentNodeType="METADATA"
+             folder="metadata/fileXml"
+             isResouce="true"
+             ordinal="42"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataFileLdif"
+             alias="%repository.metadataFileLdif.alias"
+             type="METADATA_FILE_LDIF"
+             parentNodeType="METADATA"
+             folder="metadata/fileLdif"
+             isResouce="true"
+             ordinal="43"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataFileExcel"
+             alias="%repository.metadataFileExcel.alias"
+             type="METADATA_FILE_EXCEL"
+             parentNodeType="METADATA"
+             folder="metadata/fileExcel"
+             isResouce="true"
+             ordinal="44"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataSalesforceSchema"
+             alias="%repository.metadataSalesforceSchema.alias"
+             type="METADATA_SALESFORCE_SCHEMA"
+             parentNodeType="METADATA"
+             folder="metadata/SalesforceSchema"
+             isResouce="true"
+             ordinal="45"
+             products="DI">
+       </repositoryNode>
+
+       <repositoryNode
+             label="%repository.metadataLDAPSchema"
+             alias="%repository.metadataLDAPSchema.alias"
+             type="METADATA_LDAP_SCHEMA"
+             parentNodeType="METADATA"
+             folder="metadata/LDAPSchema"
+             isResouce="true"
+             ordinal="47"
+             products="DI">
+       </repositoryNode>
+       
+       <repositoryNode
+             label="%repository.metadataWSDLSchema"
+             alias="%repository.metadataWSDLSchema.alias"
+             type="METADATA_WSDL_SCHEMA"
+             parentNodeType="METADATA"
+             folder="metadata/WSDLSchema"
+             isResouce="true"
+             ordinal="57"
+             products="DI">
+       </repositoryNode>
+       
+       <repositoryNode
+             label="%repository.metadataGenericSchema"
+             alias="%repository.metadataGenericSchema.alias"
+             type="METADATA_GENERIC_SCHEMA"
+             parentNodeType="METADATA"
+             folder="metadata/genericSchema"
+             isResouce="true"
+             ordinal="46"
+             products="DI">
+       </repositoryNode>
+
    </extension>
 
 </plugin>

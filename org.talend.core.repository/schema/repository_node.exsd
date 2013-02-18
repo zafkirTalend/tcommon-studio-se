@@ -17,8 +17,9 @@
          </appinfo>
       </annotation>
       <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
+         <sequence minOccurs="0" maxOccurs="unbounded">
             <element ref="repositoryNode" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="extraProducts" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -49,7 +50,7 @@
 
    <element name="repositoryNode">
       <complexType>
-         <attribute name="class" type="string" use="required">
+         <attribute name="class" type="string">
             <annotation>
                <documentation>
                   Extend a repository node using this extension point
@@ -116,6 +117,30 @@ like this: DI|DQ ....
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="ordinal" type="string">
+            <annotation>
+               <documentation>
+                  must be int. and &gt;=0
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="icon" type="string">
+            <annotation>
+               <documentation>
+                  the path of icon
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="nodeType" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="user_right" type="string">
             <annotation>
                <documentation>
@@ -124,6 +149,25 @@ like this: DI|DQ ....
             </annotation>
          </attribute>
          <attribute name="name_pattern" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="extraProducts">
+      <complexType>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="products" type="string" use="required">
             <annotation>
                <documentation>
                   

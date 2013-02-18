@@ -42,6 +42,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
+import org.talend.core.model.repository.RepositoryNodeProviderRegistryReader;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
@@ -212,9 +213,12 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                 }
             }
             if (!isExtensionPoint || img == null) {
-                IImage icon = RepositoryImageProvider.getIcon(itemType);
-                if (icon != null) {
-                    img = ImageProvider.getImage(icon);
+                img = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
+                if (img == null) {
+                    IImage icon = RepositoryImageProvider.getIcon(itemType);
+                    if (icon != null) {
+                        img = ImageProvider.getImage(icon);
+                    }
                 }
             }
         }
@@ -285,10 +289,21 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
 
         RepositoryNode node = (RepositoryNode) obj;
 
+        IImage nodeIcon = node.getIcon();
+
         switch (node.getType()) {
         case STABLE_SYSTEM_FOLDER:
         case SYSTEM_FOLDER:
-            return ImageProvider.getImage(node.getIcon());
+            if (nodeIcon != null) {
+                return ImageProvider.getImage(nodeIcon);
+            }
+            ERepositoryObjectType contentType = node.getContentType();
+            if (contentType != null) {
+                Image image = RepositoryNodeProviderRegistryReader.getInstance().getImage(contentType);
+                if (image != null) {
+                    return image;
+                }
+            }
         case SIMPLE_FOLDER:
             ECoreImage image = null;
             if (getView() != null) {
@@ -299,7 +314,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             return ImageProvider.getImage(image);
         default:
             if (node.getObject() == null) {
-                return ImageProvider.getImage(node.getIcon());
+                return ImageProvider.getImage(nodeIcon);
             }
 
             ERepositoryObjectType repositoryObjectType = node.getObject().getRepositoryObjectType();
@@ -309,9 +324,9 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                     || repositoryObjectType == ERepositoryObjectType.METADATA_CON_VIEW
                     || repositoryObjectType == ERepositoryObjectType.JOB_DOC
                     || repositoryObjectType == ERepositoryObjectType.JOBLET_DOC) {
-                return ImageProvider.getImage(node.getIcon());
+                return ImageProvider.getImage(nodeIcon);
             } else if (repositoryObjectType == ERepositoryObjectType.METADATA_CON_TABLE) {
-                Image tableImage = ImageProvider.getImage(node.getIcon());
+                Image tableImage = ImageProvider.getImage(nodeIcon);
                 Item item = node.getObject().getProperty().getItem();
                 if (item != null && item instanceof DatabaseConnectionItem) {
                     if (PluginChecker.isCDCPluginLoaded()) {

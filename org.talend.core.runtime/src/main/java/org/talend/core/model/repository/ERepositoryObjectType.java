@@ -19,12 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
@@ -69,7 +64,6 @@ import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
-import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -82,30 +76,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
             new String[] { "DI", "CAMEL" }, new String[] {}, false);
 
-    public final static ERepositoryObjectType BUSINESS_PROCESS = new ERepositoryObjectType("repository.businessProcess",
-            "businessProcess", "BUSINESS_PROCESS", true, 2, new String[] { "DI" }, new String[] {});
-
     public final static ERepositoryObjectType SVG_BUSINESS_PROCESS = new ERepositoryObjectType("repository.svgBusinessProcess",
             "businessProcessSVG", "SVG_BUSINESS_PROCESS", true, 3, new String[] { "DI" }, new String[] {});
-
-    public final static ERepositoryObjectType PROCESS = new ERepositoryObjectType("repository.process", "process", "PROCESS",
-            true, 4, new String[] { "DI" }, new String[] {});
-
-    // public final static ERepositoryObjectType ROUTES = new ERepositoryObjectType("repository.routes", "routes",
-    // "ROUTES", true,
-    // 5, new String[] { "DI" });
-
-    public final static ERepositoryObjectType CONTEXT = new ERepositoryObjectType("repository.context", "context", "CONTEXT",
-            true, 6, new String[] { "DI", "CAMEL" }, new String[] {});
-
-    public final static ERepositoryObjectType CODE = new ERepositoryObjectType("repository.code", "code", "CODE", true, 7,
-            new String[] { "DI", "CAMEL" }, new String[] {});
-
-    public final static ERepositoryObjectType ROUTINES = new ERepositoryObjectType("repository.routines", "code/routines",
-            "ROUTINES", true, 7, new String[] { "DI" }, new String[] {});
-
-    public final static ERepositoryObjectType JOB_SCRIPT = new ERepositoryObjectType("repository.jobscript", "code/jobscripts",
-            "JOB_SCRIPT", true, 9, new String[] { "DI" }, new String[] {});
 
     public final static ERepositoryObjectType SNIPPETS = new ERepositoryObjectType("repository.snippets", "code/snippets",
             "SNIPPETS", true, 10, new String[] { "DI" }, new String[] {}, false);
@@ -197,35 +169,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_FILE_BRMS = new ERepositoryObjectType(
             "repository.metadataFileBRMS", "metadata/BRMSconnections", "METADATA_FILE_BRMS", 37, true, "repository.metadataFileBRMS.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_MDMCONNECTION = new ERepositoryObjectType(
-            "repository.metadataMDMConnections", "metadata/MDMconnections", "METADATA_MDMCONNECTION", 38, true, "repository.metadataMDMConnections.alias", new String[] { "DI", "DQ" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
     public final static ERepositoryObjectType METADATA_FILE_DELIMITED = new ERepositoryObjectType(
             "repository.metadataFileDelimited", "metadata/fileDelimited", "METADATA_FILE_DELIMITED", 39, true, "repository.metadataFileDelimited.alias", new String[] { "DI", "DQ" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = new ERepositoryObjectType(
-            "repository.metadataFilePositional", "metadata/filePositional", "METADATA_FILE_POSITIONAL", 40, true, "repository.metadataFilePositional.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_FILE_REGEXP = new ERepositoryObjectType(
-            "repository.metadataFileRegexp", "metadata/fileRegex", "METADATA_FILE_REGEXP", 41, true, "repository.metadataFileRegexp.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_FILE_XML = new ERepositoryObjectType(
-            "repository.metadataFileXml", "metadata/fileXml", "METADATA_FILE_XML", 42, true, "repository.metadataFileXml.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_FILE_LDIF = new ERepositoryObjectType(
-            "repository.metadataFileLdif", "metadata/fileLdif", "METADATA_FILE_LDIF", 43, true, "repository.metadataFileLdif.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_FILE_EXCEL = new ERepositoryObjectType(
-            "repository.metadataFileExcel", "metadata/fileExcel", "METADATA_FILE_EXCEL", 44, true, "repository.metadataFileExcel.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_SALESFORCE_SCHEMA = new ERepositoryObjectType(
-            "repository.metadataSalesforceSchema", "metadata/SalesforceSchema", "METADATA_SALESFORCE_SCHEMA", 45, true, "repository.metadataSalesforceSchema.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_GENERIC_SCHEMA = new ERepositoryObjectType(
-            "repository.metadataGenericSchema", "metadata/genericSchema", "METADATA_GENERIC_SCHEMA", 46, true, "repository.metadataGenericSchema.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
-
-    public final static ERepositoryObjectType METADATA_LDAP_SCHEMA = new ERepositoryObjectType(
-            "repository.metadataLDAPSchema", "metadata/LDAPSchema", "METADATA_LDAP_SCHEMA", 47, true, "repository.metadataLDAPSchema.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_VALIDATION_RULES = new ERepositoryObjectType(
             "repository.metadataValidationRules", "metadata/validationRules", "METADATA_VALIDATION_RULES", 48, true, "repository.metadataValidationRules.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
@@ -248,23 +193,14 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType JOB_DOC = new ERepositoryObjectType(
             "repository.jobdoc", "documentations/generated/jobs", "JOB_DOC", true, 54, new String[] { "DI" }, new String[] {}); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType JOBLET = new ERepositoryObjectType(
-            "repository.joblet", "joblets", "JOBLET", true, 55, new String[] { "DI" }, new String[] {}); //$NON-NLS-1$
-
     public final static ERepositoryObjectType LIBS = new ERepositoryObjectType(
             "repository.libs", "libs", "LIBS", true, 56, new String[] { "DI" }, new String[] {}, false); //$NON-NLS-1$
-
-    public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = new ERepositoryObjectType(
-            "repository.metadataWSDLSchema", "metadata/WSDLSchema", "METADATA_WSDL_SCHEMA", 57, true, "repository.metadataWSDLSchema.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType JOBLETS = new ERepositoryObjectType(
             "repository.joblets", "documentations/generated/joblets", "JOBLETS", true, 58, new String[] { "DI" }, new String[] {}, false); //$NON-NLS-1$
 
     public final static ERepositoryObjectType JOBLET_DOC = new ERepositoryObjectType(
             "repository.jobletdoc", "documentations/generated/joblets", "JOBLET_DOC", true, 59, new String[] { "DI" }, new String[] {}); //$NON-NLS-1$
-
-    public final static ERepositoryObjectType METADATA_HEADER_FOOTER = new ERepositoryObjectType(
-            "repository.headerFooterConnections", "metadata/header_footer", "METADATA_HEADER_FOOTER", 60, true, "repository.headerFooterConnections.alias", new String[] { "DI" }, new String[] {}); //$NON-NLS-1$
 
     public final static ERepositoryObjectType COMPONENTS = new ERepositoryObjectType(
             "repository.components", "components", "COMPONENTS", true, 61, new String[] { "DI" }, new String[] {}, false); //$NON-NLS-1$
@@ -400,14 +336,62 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     private String namePattern = null;
 
-    static {
+    private List<ERepositoryObjectType> parentTypes = new ArrayList<ERepositoryObjectType>();
 
-        try {
-            initDynamicNodes(ERepositoryObjectType.class);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
+    private List<ERepositoryObjectType> childrenTypes = new ArrayList<ERepositoryObjectType>();
+    static {
+        // init
+        RepositoryNodeProviderRegistryReader.getInstance().init();
     }
+
+    public final static ERepositoryObjectType BUSINESS_PROCESS = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "BUSINESS_PROCESS"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType PROCESS = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "PROCESS"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBLET = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "JOBLET"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType CODE = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "CODE"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType ROUTINES = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTINES"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_HEADER_FOOTER = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_HEADER_FOOTER"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOB_SCRIPT = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "JOB_SCRIPT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType CONTEXT = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "CONTEXT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType.valueOf(
+            ERepositoryObjectType.class, "METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_FILE_REGEXP = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_FILE_REGEXP"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_FILE_XML = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_FILE_XML"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_FILE_LDIF = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_FILE_LDIF"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_FILE_EXCEL = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_FILE_EXCEL"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SALESFORCE_SCHEMA = ERepositoryObjectType.valueOf(
+            ERepositoryObjectType.class, "METADATA_SALESFORCE_SCHEMA"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_LDAP_SCHEMA = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_LDAP_SCHEMA"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_WSDL_SCHEMA"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_GENERIC_SCHEMA = ERepositoryObjectType.valueOf(
+            ERepositoryObjectType.class, "METADATA_GENERIC_SCHEMA"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+            "METADATA_MDMCONNECTION"); //$NON-NLS-1$
 
     /* dynamic nodes should use this constructor ,type is required */
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
@@ -488,71 +472,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         }
 
         return values(ERepositoryObjectType.class);
-    }
-
-    /* if node from extension point,add the new RepositoryObjectType dynamiclly by using the java reflection */
-    private static <E> void initDynamicNodes(Class<E> clazz) throws Exception {
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-        IConfigurationElement[] configurationElements = registry
-                .getConfigurationElementsFor("org.talend.core.repository.repository_node_provider"); //$NON-NLS-1$
-        try {
-            for (IConfigurationElement element : configurationElements) {
-                Object extensionNode = element.createExecutableExtension("class");
-                if (extensionNode instanceof IExtendRepositoryNode) {
-                    IExtendRepositoryNode diyNode = (IExtendRepositoryNode) extensionNode;
-                    String label = element.getAttribute("label");
-                    String alias = element.getAttribute("alias");
-                    String type = element.getAttribute("type");
-                    String folder = element.getAttribute("folder");
-                    if (folder == null) {
-                        folder = "";
-                    }
-                    String isResouce = element.getAttribute("isResouce");
-                    String rightAttribute = element.getAttribute("user_right");
-                    if (rightAttribute == null) {
-                        rightAttribute = "";
-                    }
-                    String namePatternAttribute = element.getAttribute("name_pattern");
-                    String productsAttribute = element.getAttribute("products");
-                    String[] products = productsAttribute.split("\\|");
-                    String[] user_right = rightAttribute.split(";");
-
-                    boolean isResource = false;
-                    if (isResouce != null) {
-                        isResource = Boolean.parseBoolean(isResouce);
-                    }
-                    boolean[] resource = new boolean[] { isResource };
-
-                    if (products == null) {
-                        products = new String[] { productsAttribute };
-                    }
-
-                    if (user_right == null) {
-                        user_right = new String[] { rightAttribute };
-                    }
-                    int ordinal = diyNode.getOrdinal();
-
-                    if (namePatternAttribute == null || "".equals(namePatternAttribute.trim())) {
-                        Constructor<E> dynamicConstructor = getConstructor(clazz, new Class[] { String.class, String.class,
-                                String.class, int.class, boolean.class, String.class, String[].class, String[].class,
-                                boolean[].class });
-                        dynamicConstructor
-                                .newInstance(label, folder, type, ordinal, false, alias, products, user_right, resource);
-
-                    } else {
-                        Constructor<E> dynamicConstructor = getConstructor(clazz, new Class[] { String.class, String.class,
-                                String.class, int.class, boolean.class, String.class, String[].class, String[].class,
-                                String.class, boolean[].class });
-                        dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products, user_right,
-                                namePatternAttribute.trim(), resource);
-                    }
-
-                }
-            }
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
-        }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -709,90 +628,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         } else {
             return "job";
         }
-        // switch (type) {
-        // case BUSINESS_PROCESS:
-        //            return "businessModel"; //$NON-NLS-1$
-        // case SVG_BUSINESS_PROCESS:
-        //            return "businessProcessSVG"; //$NON-NLS-1$
-        // case PROCESS:
-        //            return "job"; //$NON-NLS-1$
-        // case JOBLET:
-        // return "joblet";
-        // case CONTEXT:
-        //            return "context"; //$NON-NLS-1$
-        // case ROUTINES:
-        //            return "routine"; //$NON-NLS-1$
-        // case JOB_SCRIPT:
-        //            return "jobscript"; //$NON-NLS-1$
-        // case SNIPPETS:
-        //            return "snippet"; //$NON-NLS-1$
-        // case DOCUMENTATION:
-        //            return "documentation"; //$NON-NLS-1$
-        // case SQLPATTERNS:
-        //            return "sqlPattern"; //$NON-NLS-1$
-        // case METADATA:
-        //            return "metadata"; //$NON-NLS-1$
-        // case METADATA_CONNECTIONS:
-        //            return "DB connection"; //$NON-NLS-1$
-        // case METADATA_SAPCONNECTIONS:
-        //            return "SAPconnection"; //$NON-NLS-1$
-        // case METADATA_FILE_EBCDIC:
-        //            return "fileEBCDIC"; //$NON-NLS-1$
-        // case METADATA_FILE_HL7:
-        //            return "fileHL7"; //$NON-NLS-1$
-        // case METADATA_FILE_FTP:
-        //            return "FTPconnection"; //$NON-NLS-1$
-        // case METADATA_FILE_BRMS:
-        //            return "BRMSconnection"; //$NON-NLS-1$
-        // case METADATA_MDMCONNECTION:
-        //            return "MDMconnection"; //$NON-NLS-1$
-        // case METADATA_FILE_DELIMITED:
-        //            return "fileDelimited"; //$NON-NLS-1$
-        // case METADATA_FILE_POSITIONAL:
-        //            return "filePositional"; //$NON-NLS-1$
-        // case METADATA_FILE_REGEXP:
-        //            return "fileRegex"; //$NON-NLS-1$
-        // case METADATA_FILE_XML:
-        //            return "fileXml"; //$NON-NLS-1$
-        // case METADATA_FILE_EXCEL:
-        //            return "fileExcel"; //$NON-NLS-1$
-        // case METADATA_FILE_LDIF:
-        //            return "fileLdif"; //$NON-NLS-1$
-        // case METADATA_LDAP_SCHEMA:
-        //            return "LDAPSchema"; //$NON-NLS-1$
-        // case METADATA_GENERIC_SCHEMA:
-        //            return "genericSchema"; //$NON-NLS-1$
-        // case METADATA_WSDL_SCHEMA:
-        //            return "WSDLSchema"; //$NON-NLS-1$
-        // case METADATA_SALESFORCE_SCHEMA:
-        //            return "SalesforceSchema"; //$NON-NLS-1$
-        // case METADATA_FILE_RULES:
-        //            return "rules"; //$NON-NLS-1$
-        // case METADATA_FILE_LINKRULES:
-        //            return "rules"; //$NON-NLS-1$
-        // // MOD mzhao feature 13114, 2010-05-19
-        // case METADATA_HEADER_FOOTER:
-        // return "header_footer";
-        // case TDQ_ANALYSIS_ELEMENT:
-        //            return "Analyses"; //$NON-NLS-1$
-        // case TDQ_BUSINESSRULE_ELEMENT:
-        //            return "Rules"; //$NON-NLS-1$
-        // case TDQ_INDICATOR_ELEMENT:
-        //            return "Indicators"; //$NON-NLS-1$
-        // case TDQ_PATTERN_ELEMENT:
-        //            return "Patterns"; //$NON-NLS-1$ 
-        // case TDQ_JRAXML_ELEMENT:
-        // return "JRXML Template";
-        // case TDQ_REPORT_ELEMENT:
-        //            return "Reports"; //$NON-NLS-1$
-        // // MOD mzhao feature 9207
-        // case TDQ_ELEMENT:
-        //            return "";//$NON-NLS-1$
-        // case COMPONENTS:
-        // return "components";
-        // default:
-        // return "job";
-        // }
     }
 
     public static ERepositoryObjectType getItemType(Item item) {
@@ -1146,4 +981,65 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public String getNamePattern() {
         return namePattern;
     }
+
+    public boolean addExtraProducts(String[] productsArray) {
+        if (productsArray != null && productsArray.length > 0) {
+            if (this.products == null && this.products.length == 0) {
+                this.products = productsArray;
+            } else {
+                String[] tmp = new String[this.products.length + productsArray.length];
+                System.arraycopy(this.products, 0, tmp, 0, this.products.length);
+                System.arraycopy(productsArray, 0, tmp, this.products.length, productsArray.length);
+                this.products = tmp;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected List<ERepositoryObjectType> getParentTypes() {
+        return this.parentTypes;
+    }
+
+    protected List<ERepositoryObjectType> getChildrenTypes() {
+        return this.childrenTypes;
+    }
+
+    public ERepositoryObjectType[] getParentTypesArray() {
+        return this.parentTypes.toArray(new ERepositoryObjectType[0]);
+    }
+
+    public ERepositoryObjectType[] getChildrenTypesArray() {
+        return this.childrenTypes.toArray(new ERepositoryObjectType[0]);
+    }
+
+    public void setAParent(ERepositoryObjectType parentType) {
+        if (parentType != null) {
+            getParentTypes().add(parentType);
+            parentType.getChildrenTypes().add(this);
+        }
+    }
+
+    public boolean isChildTypeOf(ERepositoryObjectType parentType) {
+        if (parentType != null && hasParentType()) {
+            return getParentTypes().contains(parentType);
+        }
+        return false;
+    }
+
+    public boolean isParentTypeOf(ERepositoryObjectType childType) {
+        if (childType != null && hasChildrenType()) {
+            return getChildrenTypes().contains(childType);
+        }
+        return false;
+    }
+
+    public boolean hasChildrenType() {
+        return !getChildrenTypes().isEmpty();
+    }
+
+    public boolean hasParentType() {
+        return !getParentTypes().isEmpty();
+    }
+
 }

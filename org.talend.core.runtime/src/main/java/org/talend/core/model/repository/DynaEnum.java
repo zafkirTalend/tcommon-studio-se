@@ -49,8 +49,10 @@ public class DynaEnum<E extends DynaEnum<E>> {
 
     protected DynaEnum(String key, String type, boolean isStaticNode, int ordinal) {
         this.key = key;
+        this.type = type;
         this.isStaticNode = isStaticNode;
         this.ordinal = ordinal;
+
         Map<String, DynaEnum<?>> typeElements = elements.get(getClass());
         if (typeElements == null) {
             typeElements = new LinkedHashMap<String, DynaEnum<?>>();
@@ -60,7 +62,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
         // is not in upper case, have to change them in code.
         typeElements.put(type.toUpperCase(), this);
         // TDI-20504 end
-        this.type = type;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -107,8 +109,9 @@ public class DynaEnum<E extends DynaEnum<E>> {
     public final int compareTo(E other) {
         DynaEnum<?> self = this;
         if (self.getClass() != other.getClass() && // optimization
-                self.getDeclaringClass() != other.getDeclaringClass())
+                self.getDeclaringClass() != other.getDeclaringClass()) {
             throw new ClassCastException();
+        }
         return self.ordinal - other.ordinal;
     }
 

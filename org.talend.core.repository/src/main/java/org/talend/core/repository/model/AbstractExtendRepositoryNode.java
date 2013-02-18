@@ -10,17 +10,28 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.tester;
+package org.talend.core.repository.model;
 
-import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.repository.IExtendRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public abstract class SubNodeTester extends AbstractNodeTester {
+public abstract class AbstractExtendRepositoryNode implements IExtendRepositoryNode {
 
-    public ERepositoryObjectType findParentItemType(RepositoryNode repositoryNode) {
-        return getNodeContentType(repositoryNode);
+    public AbstractExtendRepositoryNode() {
+        super();
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.IExtendRepositoryNode#getChildren()
+     */
+    @Override
+    public Object[] getChildren() {
+        return new RepositoryNode[0];
+    }
+
 }

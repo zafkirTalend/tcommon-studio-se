@@ -24,6 +24,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
+import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.utils.image.ColorUtils;
@@ -33,6 +34,8 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryNodeProviderRegistryReader;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IBrandingService;
@@ -43,6 +46,7 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -119,19 +123,21 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
 
         final ERepositoryObjectType itemType = object.getRepositoryObjectType();
         if (itemType != null) {
-            IImage icon = getIcon(itemType);
-            if (icon != null) {
-                img = ImageProvider.getImage(icon);
-                if (img != null) {
+            img = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
+            if (img == null) {
+                IImage icon = getIcon(itemType);
+                if (icon != null) {
+                    img = ImageProvider.getImage(icon);
+                }
+            }
+            if (img != null) {
+                final ERepositoryStatus repositoryStatus = object.getRepositoryStatus();
+                if (repositoryStatus != null) {
+                    img = OverlayImageProvider.getImageWithStatus(img, repositoryStatus);
 
-                    final ERepositoryStatus repositoryStatus = object.getRepositoryStatus();
-                    if (repositoryStatus != null) {
-                        img = OverlayImageProvider.getImageWithStatus(img, repositoryStatus);
-
-                        final ERepositoryStatus informationStatus = object.getInformationStatus();
-                        if (informationStatus != null) {
-                            img = OverlayImageProvider.getImageWithStatus(img, informationStatus);
-                        }
+                    final ERepositoryStatus informationStatus = object.getInformationStatus();
+                    if (informationStatus != null) {
+                        img = OverlayImageProvider.getImageWithStatus(img, informationStatus);
                     }
                 }
             }
@@ -140,7 +146,43 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
     }
 
     protected Image getElementImage(RepositoryNode node) {
-        return getElementImage(node.getObject());
+        IImage icon = null;
+        switch (node.getType()) {
+        case STABLE_SYSTEM_FOLDER:
+        case SYSTEM_FOLDER:
+            icon = node.getIcon();
+            if (icon == null) {
+                ERepositoryObjectType contentType = node.getContentType();
+                if (contentType != null) {
+                    Image image = RepositoryNodeProviderRegistryReader.getInstance().getImage(contentType);
+                    if (image != null) {
+                        return image;
+                    }
+                }
+                icon = getIcon(node.getContentType());
+            }
+            break;
+        case SIMPLE_FOLDER:
+            IRepositoryView view = RepositoryManagerHelper.findRepositoryView();
+            if (view != null) {
+                icon = (view.getExpandedState(node) ? ECoreImage.FOLDER_OPEN_ICON : ECoreImage.FOLDER_CLOSE_ICON);
+            } else {
+                icon = ECoreImage.FOLDER_OPEN_ICON;
+            }
+            break;
+        default:
+            IRepositoryViewObject object = node.getObject();
+            if (object != null) {
+                return getElementImage(object);
+            }
+            icon = getIcon(node.getContentType());
+            break;
+        }
+        if (icon != null) {
+            return ImageProvider.getImage(icon);
+        }
+
+        return null;
     }
 
     protected IImage getIcon(ERepositoryObjectType itemType) {
@@ -217,7 +259,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
             if (node.getType() == ENodeType.SIMPLE_FOLDER) {
                 addVersion = false;
             }
-            return getText(node.getLabel(), object.getVersion(), object.getPath(), object.getProjectLabel(), isDeleted,
+            return getText(object.getLabel(), object.getVersion(), object.getPath(), object.getProjectLabel(), isDeleted,
                     isModified, addVersion, inRef);
         } else {
             return getText(node.getLabel(), null, null, null, false, false, false, false);

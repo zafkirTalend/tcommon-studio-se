@@ -54,12 +54,28 @@
                <instanceof
                      value="org.talend.repository.model.ProjectRepositoryNode">
                </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isRecycleBin">
+               </test>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <or>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isDeleted">
+                  </test>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.talend.repository.node.isRecycleBin">
+                  </test>
+               </or>
+            </and>
          </possibleChildren>
 
          <actionProvider
@@ -96,12 +112,22 @@
                <instanceof
                      value="org.talend.repository.model.ProjectRepositoryNode">
                </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isCodeTopNode">
+               </test>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof
-                  value="org.talend.repository.model.RepositoryNode">
-            </instanceof>
+            <and>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+               <test
+                     forcePluginActivation="true"
+                     property="org.talend.repository.node.isCodeTopNode">
+               </test>
+            </and>
          </possibleChildren>
          <actionProvider
                class="org.talend.repository.viewer.action.RepoNodeActionProvider"
@@ -295,5 +321,18 @@
             </instanceof>
          </selectionEnablement>
       </linkHelper>
+   </extension>
+   <extension
+         point="org.talend.core.repository.repository_node_provider">
+      <repositoryNode
+            folder="code"
+            icon="icons/code.png"
+            isResouce="false"
+            label="%RepositoryView_code"
+            nodeType="STABLE_SYSTEM_FOLDER"
+            ordinal="7"
+            products="DI"
+            type="CODE">
+      </repositoryNode>
    </extension>
 </plugin>

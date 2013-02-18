@@ -61,6 +61,23 @@
             name="Talend MDM">
       </seeker>
    </extension>
+   <extension
+         point="org.talend.core.repository.repository_node_provider">
+       <repositoryNode
+             label="Talend MDM"
+             alias="MDM"
+             type="METADATA_MDMCONNECTION"
+             parentNodeType="METADATA"
+             folder="metadata/MDMconnections"
+             isResouce="true"
+             ordinal="38"
+             products="DI">
+       </repositoryNode>
+       <extraProducts
+             products="DQ"
+             type="METADATA_MDMCONNECTION">
+       </extraProducts>
+   </extension>
    <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
