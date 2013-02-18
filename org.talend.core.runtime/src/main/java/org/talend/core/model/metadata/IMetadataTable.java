@@ -47,8 +47,6 @@ public interface IMetadataTable {
 
     public List<IMetadataColumn> getListUsedColumns();
 
-    public List<IMetadataColumn> getReallyListColumns();
-
     public List<IMetadataColumn> getListUnusedColumns();
 
     public void setUnusedColumns(List<IMetadataColumn> unusedColumns);

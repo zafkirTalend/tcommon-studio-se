@@ -98,16 +98,6 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         this.unusedColumns = unusedColumns;
     }
 
-    public List<IMetadataColumn> getReallyListColumns() {
-        Iterator<IMetadataColumn> it2 = this.unusedColumns.iterator();
-        while (it2.hasNext()) {
-            IMetadataColumn column = it2.next();
-            this.listColumns.add(column);
-            it2.remove();
-        }
-        return this.listColumns;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -234,19 +224,22 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         if (!(input instanceof IMetadataTable)) {
             return false;
         }
-        if (this.getListColumns(true) == null) {
-            if (input.getListColumns() != null) {
+        List<IMetadataColumn> thisColumnListWithUnselected = this.getListColumns(true);
+        List<IMetadataColumn> inputColumnListWithUnselected = input.getListColumns(true);
+        if (thisColumnListWithUnselected == null) {
+            if (inputColumnListWithUnselected != null) {
                 return false;
             }
         } else {
-            if (this.getListColumns(true).size() == input.getListColumns(true).size()) { // test if standard columns (no
+            if (thisColumnListWithUnselected.size() == inputColumnListWithUnselected.size()) { // test if standard
+                                                                                               // columns (no
                 // custom, or
                 // same
                 // input / output)
-                for (int i = 0; i < input.getListColumns(true).size(); i++) {
-                    IMetadataColumn otherColumn = input.getListColumns(true).get(i);
-                    for (int j = 0; j < this.getListColumns(true).size(); j++) {
-                        IMetadataColumn myColumn = this.getListColumns(true).get(j);
+                for (int i = 0; i < inputColumnListWithUnselected.size(); i++) {
+                    IMetadataColumn otherColumn = inputColumnListWithUnselected.get(i);
+                    for (int j = 0; j < thisColumnListWithUnselected.size(); j++) {
+                        IMetadataColumn myColumn = thisColumnListWithUnselected.get(j);
                         if (otherColumn.getLabel().equals(myColumn.getLabel())) {
                             if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                 return false;
@@ -258,12 +251,12 @@ public class MetadataTable implements IMetadataTable, Cloneable {
                 // output should have at least all columns from input, but can add some others (custom)
                 // custom columns are considered as columns who can be added to output
 
-                List<IMetadataColumn> outputColumnsNotTested = new ArrayList<IMetadataColumn>(this.getListColumns(true));
+                List<IMetadataColumn> outputColumnsNotTested = new ArrayList<IMetadataColumn>(thisColumnListWithUnselected);
 
                 // test that input columns are correctly propagated to output first
                 // no matter if this one is custom or not (all custom must be propagated too)
-                for (int i = 0; i < input.getListColumns(true).size(); i++) {
-                    IMetadataColumn inputColumn = input.getListColumns(true).get(i);
+                for (int i = 0; i < inputColumnListWithUnselected.size(); i++) {
+                    IMetadataColumn inputColumn = inputColumnListWithUnselected.get(i);
                     IMetadataColumn myColumn = this.getColumn(inputColumn.getLabel());
                     outputColumnsNotTested.remove(myColumn);
                     if (!inputColumn.sameMetacolumnAs(myColumn, options)) {
