@@ -45,6 +45,7 @@ public class Element extends FOXTreeNode {
         super(label, defauleValue);
     }
 
+    @Override
     public void removeChild(FOXTreeNode child) {
         child.setParent(null);
         if (child instanceof Attribute) {
@@ -67,7 +68,9 @@ public class Element extends FOXTreeNode {
      */
     @Override
     public boolean hasChildren() {
-        return getChildren().size() + attributes.size() > 0;
+        List<FOXTreeNode> childsWithoutNamespaces = new ArrayList<FOXTreeNode>(getChildren());
+        childsWithoutNamespaces.removeAll(nameSpaces);
+        return childsWithoutNamespaces.size() + attributes.size() > 0;
     }
 
     /*

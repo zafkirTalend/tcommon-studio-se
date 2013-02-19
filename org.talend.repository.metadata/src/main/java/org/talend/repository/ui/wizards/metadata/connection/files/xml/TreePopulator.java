@@ -101,13 +101,14 @@ public class TreePopulator {
                 // ExceptionHandler.process(ex);
                 return false;
             } else {
+                boolean isXml = newFilePath.toUpperCase().endsWith(".XML");
                 Object[] childs = treeNode.getChildren();
                 if (selectedEntity != null) {
                     Object selected = null;
-                    for (int i = 0; i < childs.length; i++) {
-                        if (childs[i] instanceof ATreeNode) {
-                            if (selectedEntity.equals(((ATreeNode) childs[i]).getValue())) {
-                                selected = childs[i];
+                    for (Object child : childs) {
+                        if (child instanceof ATreeNode) {
+                            if (selectedEntity.equals(((ATreeNode) child).getValue())) {
+                                selected = child;
                                 break;
                             }
                         }
@@ -115,9 +116,9 @@ public class TreePopulator {
                     if (selected == null && childs.length > 0) {
                         selected = childs[0];
                     }
-                    populateTreeItems(availableXmlTree, new Object[] { selected }, 0, "", "/"); //$NON-NLS-1$
+                    populateTreeItems(isXml, availableXmlTree, new Object[] { selected }, 0, "", "/"); //$NON-NLS-1$
                 } else {
-                    populateTreeItems(availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
+                    populateTreeItems(isXml, availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
                 }
                 this.filePath = filePath;
                 return true;
@@ -154,7 +155,7 @@ public class TreePopulator {
                 return false;
             } else {
                 Object[] childs = treeNode.getChildren();
-                populateTreeItems(availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
+                populateTreeItems(false, availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
                 return true;
             }
         }
@@ -192,7 +193,7 @@ public class TreePopulator {
             if (treeNode == null || treeNode.getChildren().length == 0) {
                 return false;
             } else {
-                populateTreeItems(availableXmlTree, new Object[] { treeNode }, 0, "", "/"); //$NON-NLS-1$
+                populateTreeItems(false, availableXmlTree, new Object[] { treeNode }, 0, "", "/"); //$NON-NLS-1$
                 return true;
             }
         }
@@ -205,13 +206,13 @@ public class TreePopulator {
      * @param tree
      * @param node
      */
-    private void populateTreeItems(Object tree, Object[] node, int level, String parentPathForTreeLink,
+    private void populateTreeItems(boolean isXml, Object tree, Object[] node, int level, String parentPathForTreeLink,
             String parentPathToAvoidLoop) {
         level++;
         // if (level > 10) {
         // return;
         // } else {
-        for (int i = 0; i < node.length; i++) {
+        for (Object element : node) {
             TreeItem treeItem;
             if (tree instanceof Tree) {
                 treeItem = new TreeItem((Tree) tree, 0);
@@ -219,7 +220,7 @@ public class TreePopulator {
                 treeItem = new TreeItem((TreeItem) tree, 0);
             }
 
-            ATreeNode treeNode = (ATreeNode) node[i];
+            ATreeNode treeNode = (ATreeNode) element;
             treeItem.setData(treeNode);
             int type = treeNode.getType();
             if (type == ATreeNode.NAMESPACE_TYPE) {
@@ -234,7 +235,7 @@ public class TreePopulator {
             } else {
                 treeItem.setText(treeNode.getLabel());
             }
-            if (parentPathToAvoidLoop.contains("/" + treeItem.getText() + "/")) {
+            if (!isXml && parentPathToAvoidLoop.contains("/" + treeItem.getText() + "/")) {
                 treeItem.setForeground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
                 continue;
             }
@@ -244,7 +245,8 @@ public class TreePopulator {
 
             String currentXPathToAvoidLoop = parentPathForTreeLink + treeItem.getText() + "/"; //$NON-NLS-1$
             if (treeNode.getChildren() != null && treeNode.getChildren().length > 0) {
-                populateTreeItems(treeItem, treeNode.getChildren(), level, currentXPathForTreeLink, currentXPathToAvoidLoop);
+                populateTreeItems(isXml, treeItem, treeNode.getChildren(), level, currentXPathForTreeLink,
+                        currentXPathToAvoidLoop);
             }
             setExpanded(treeItem);
         }
