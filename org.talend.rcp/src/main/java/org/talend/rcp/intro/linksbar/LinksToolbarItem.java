@@ -41,7 +41,7 @@ public class LinksToolbarItem extends ContributionItem {
 
     private ToolItem toolitem;
 
-    private static final String LEARN_URL = "<a href=\"http://www.talendforge.org/tutorials/menu.php\">Learn</a>"; //$NON-NLS-1$
+    private static final String LEARN_URL = "<a href=\"https://help.talend.com\">Learn</a>"; //$NON-NLS-1$
 
     private static final String ASK_URL = "<a href=\"http://www.talendforge.org/forum/\">Ask</a>"; //$NON-NLS-1$
 
@@ -85,8 +85,8 @@ public class LinksToolbarItem extends ContributionItem {
         // 1.learn
         Label learnLabel = new Label(composite, SWT.NONE);
 
-        if (registry.get("demo") == null) {
-            registry.put("demo", Activator.getImageDescriptor("icons/demo.png").createImage());
+        if (registry.get("demo") == null) { //$NON-NLS-1$
+            registry.put("demo", Activator.getImageDescriptor("icons/demo.png").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         learnLabel.setImage(registry.get("demo")); //$NON-NLS-1$
@@ -94,7 +94,7 @@ public class LinksToolbarItem extends ContributionItem {
         Link learn = new Link(composite, SWT.NONE);
         learn.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         learn.setText(LEARN_URL);
-        learn.setToolTipText(Messages.getString("LinksToolbarItem_0"));
+        learn.setToolTipText(Messages.getString("LinksToolbarItem_Learn")); //$NON-NLS-1$
 
         learn.addListener(SWT.Selection, new Listener() {
 
@@ -107,15 +107,15 @@ public class LinksToolbarItem extends ContributionItem {
         // 2.ask
         Label askLabel = new Label(composite, SWT.NONE);
 
-        if (registry.get("protocol") == null) {
-            registry.put("protocol", Activator.getImageDescriptor("icons/irc_protocol.png").createImage());
+        if (registry.get("protocol") == null) { //$NON-NLS-1$
+            registry.put("protocol", Activator.getImageDescriptor("icons/irc_protocol.png").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
         }
         askLabel.setImage(registry.get("protocol")); //$NON-NLS-1$
 
         Link ask = new Link(composite, SWT.NONE);
         ask.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         ask.setText(ASK_URL);
-        ask.setToolTipText(Messages.getString("LinksToolbarItem_7"));
+        ask.setToolTipText(Messages.getString("LinksToolbarItem_7")); //$NON-NLS-1$
 
         ask.addListener(SWT.Selection, new Listener() {
 
@@ -128,14 +128,14 @@ public class LinksToolbarItem extends ContributionItem {
         if (!PluginChecker.isTIS()) {
             // 3.upgrade
             Label upgradeLabel = new Label(composite, SWT.NONE);
-            if (registry.get("wizard") == null) {
-                registry.put("wizard", Activator.getImageDescriptor("icons/wizard.png").createImage());
+            if (registry.get("wizard") == null) { //$NON-NLS-1$
+                registry.put("wizard", Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
             }
             upgradeLabel.setImage(registry.get("wizard")); //$NON-NLS-1$
             Link upgrade = new Link(composite, SWT.NONE);
             upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             upgrade.setText(UPGRADE_URL);
-            upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11"));
+            upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11")); //$NON-NLS-1$
 
             upgrade.addListener(SWT.Selection, new Listener() {
 
@@ -150,15 +150,15 @@ public class LinksToolbarItem extends ContributionItem {
         if (PluginChecker.isExchangeSystemLoaded() && !TalendPropertiesUtil.isHideExchange()) {
             Label exchangeLabel = new Label(composite, SWT.NONE);
 
-            if (registry.get("exchange") == null) {
-                registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.gif").createImage());
+            if (registry.get("exchange") == null) { //$NON-NLS-1$
+                registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.gif").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
             }
             exchangeLabel.setImage(registry.get("exchange")); //$NON-NLS-1$
 
             Link exchange = new Link(composite, SWT.NONE);
             exchange.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             exchange.setText(EXCHANGE_URL);
-            exchange.setToolTipText(Messages.getString("LinksToolbarItem_exchange"));
+            exchange.setToolTipText(Messages.getString("LinksToolbarItem_exchange")); //$NON-NLS-1$
 
             exchange.addListener(SWT.Selection, new Listener() {
 
