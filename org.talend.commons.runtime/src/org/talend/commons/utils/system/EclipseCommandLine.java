@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2012 Talend � www.talend.com
+// Copyright (C) 2006-2012 Talend 锟�www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -41,6 +41,8 @@ public class EclipseCommandLine {
     static final String CMD_VMARGS = "-vmargs"; //$NON-NLS-1$
 
     static final String NEW_LINE = "\n"; //$NON-NLS-1$
+    
+    static public final String TALEND_NOSPLASH_COMMAND = "-nosplash";
 
     /**
      * Use it to specify the type of project that will be use to configure the studio when relaunched
