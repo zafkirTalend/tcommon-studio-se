@@ -17,21 +17,30 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 
 /**
- * DOC zwzhao class global comment. Detailled comment
+ * This interface provides some methods to do the conversion between process and another process.
  */
 public interface IProcessConvertService {
 
     public IProcess getProcessFromItem(Item item, boolean loadScreenshots);
 
     /**
-     * Converts a given process item to another item. Added by Marvin Wang on Jan 29, 2013. Added by Marvin Wang on Jan
-     * 30, 2013.
+     * Converts the current child process extends process to process. For example, convert m/r process to common
+     * process.Added by Marvin Wang on Feb 18, 2013.
      * 
      * @param item
      * @param repViewObject
      * @return
      */
-    Item doConvert(Item item, IRepositoryViewObject repViewObject);
+    Item convertToProcess(Item item, IRepositoryViewObject repViewObject);
+
+    /**
+     * Converts process to the current process which extends process. Added by Marvin Wang on Feb 18, 2013.
+     * 
+     * @param item
+     * @param repViewObject
+     * @return
+     */
+    Item convertFromProcess(Item item, IRepositoryViewObject repViewObject);
 
     /**
      * Returns a boolean value to indicate if the original item is delelted. Added by Marvin Wang on Jan 31, 2013.
@@ -47,4 +56,12 @@ public interface IProcessConvertService {
      * @return
      */
     boolean isNewItemCreated();
+
+    /**
+     * Returns the type of the instance of {@link ProcessConverterType}. Added by Marvin Wang on Feb 18, 2013.
+     * 
+     * @return
+     */
+    ProcessConverterType getConverterType();
+
 }
