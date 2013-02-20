@@ -196,10 +196,11 @@ public class CopyDeleteFileUtilForWizard {
                     File f = new File(importFile);
                     if (f.exists()) {
                         File newFile = new File(newPath + attr.getValue());
-                        if (!newFile.exists()) {
-                            FilesUtils.copyFile(f, newFile);
-                            getImportFiles(importFile, newFile.getParent() + File.separator);
-                        }
+                        // fix for TDI-24495
+                        // if (!newFile.exists()) {
+                        FilesUtils.copyFile(f, newFile);
+                        getImportFiles(importFile, newFile.getParent() + File.separator);
+                        // }
                     }
                 }
             }
