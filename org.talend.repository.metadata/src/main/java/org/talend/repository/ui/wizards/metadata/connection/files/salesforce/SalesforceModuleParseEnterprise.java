@@ -87,6 +87,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * .String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
      * java.lang.String, java.lang.String, java.lang.String)
      */
+    @Override
     public ArrayList login(String endPoint, String username, String password) throws Exception {
         if (endPoint == null) {
             throw new RemoteException(Messages.getString("SalesforceModuleParseAPI.URLInvalid")); //$NON-NLS-1$
@@ -114,6 +115,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
         return doLoginList;
     }
 
+    @Override
     public ArrayList login(String endPoint, String username, String password, String timeOut) throws Exception {
         if (endPoint == null) {
             throw new RemoteException(Messages.getString("SalesforceModuleParseAPI.URLInvalid")); //$NON-NLS-1$
@@ -235,13 +237,15 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#describeGlobalSample
      * ()
      */
+    @Override
     public void describeGlobalSample() {
         try {
             DescribeGlobalResult describeGlobalResult = null;
             describeGlobalResult = binding.describeGlobal();
             String[] types = describeGlobalResult.getTypes();
-            for (int i = 0; i < types.length; i++)
-                System.out.println(types[i]);
+            for (String type : types) {
+                System.out.println(type);
+            }
             System.out.println("\nDescribe global was successful...\r\n"); //$NON-NLS-1$
         } catch (Exception ex) {
             System.out.println("\nFailed to return types, error message was: \n" + ex.getMessage()); //$NON-NLS-1$
@@ -255,6 +259,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#fetchMetaDataColumns
      * (java.lang.String)
      */
+    @Override
     public List<IMetadataColumn> fetchMetaDataColumns(String module) {
         Field[] fields = fetchSFDescriptionField(module);
 
@@ -350,7 +355,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
             talendType = "Integer"; //$NON-NLS-1$
         } else if (type.equals("date") || type.equals("datetime")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Date"; //$NON-NLS-1$
-        } else if (type.equals("double")) { //$NON-NLS-1$
+        } else if (type.equals("double") || type.equals("currency")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Double"; //$NON-NLS-1$
         } else {
             talendType = "String"; //$NON-NLS-1$
@@ -366,8 +371,13 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
         } else {
             mdColumn.setPattern(null);
         }
-        mdColumn.setLength(field.getLength());
-        mdColumn.setPrecision(field.getPrecision());
+        if ("String".equals(talendType)) { //$NON-NLS-1$
+            mdColumn.setLength(field.getLength());
+            mdColumn.setPrecision(field.getPrecision());
+        } else {
+            mdColumn.setLength(field.getPrecision());
+            mdColumn.setPrecision(field.getScale());
+        }
         mdColumn.setDefault(field.getDefaultValueFormula());
 
         return mdColumn;
@@ -379,6 +389,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * 
      * @see org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#isLogin()
      */
+    @Override
     public boolean isLogin() {
         return this.loginOk;
     }
@@ -389,6 +400,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * @see
      * org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#setLogin(boolean)
      */
+    @Override
     public void setLogin(boolean login) {
         this.loginOk = login;
     }
@@ -400,6 +412,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#getCurrentModuleName
      * ()
      */
+    @Override
     public String getCurrentModuleName() {
         return this.currentModuleName;
     }
@@ -411,6 +424,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#setCurrentModuleName
      * (java.lang.String)
      */
+    @Override
     public void setCurrentModuleName(String currentModuleName) {
         this.currentModuleName = currentModuleName;
     }
@@ -421,6 +435,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * @seeorg.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#
      * getCurrentMetadataColumns()
      */
+    @Override
     public List<IMetadataColumn> getCurrentMetadataColumns() {
         return this.currentMetadataColumns;
     }
@@ -431,6 +446,7 @@ public class SalesforceModuleParseEnterprise implements ISalesforceModuleParser 
      * @seeorg.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser#
      * setCurrentMetadataColumns(java.util.List)
      */
+    @Override
     public void setCurrentMetadataColumns(List<IMetadataColumn> currentMetadataColumns) {
         this.currentMetadataColumns = currentMetadataColumns;
     }
