@@ -109,9 +109,9 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         case SYSTEM_FOLDER:
             IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IRepositoryService.class);
-            return service.getRepositoryPath(this).toString();
+            return service.getRepositoryPath(this).toString() + ",type=" + getContentType(); //$NON-NLS-1$
         default:
-            return getType() + "-" + getProperties(EProperties.LABEL); //$NON-NLS-1$
+            return getType().toString() + '-' + getProperties(EProperties.LABEL);
         }
     }
 

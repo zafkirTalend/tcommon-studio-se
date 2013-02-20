@@ -126,7 +126,12 @@ public class DynaEnum<E extends DynaEnum<E>> {
     public static <T extends DynaEnum<T>> T valueOf(Class<T> enumType, String name) {
         // changed by hqzhang for TDI-20504. we use the upper case string to find type, but type definition for MDM item
         // is not in upper case, have to change them in code.
-        return (T) elements.get(enumType).get(name.toUpperCase());
+        T t = (T) elements.get(enumType).get(name.toUpperCase());
+        // Maybe, need check it.
+        // if (t == null) {
+        //            ExceptionHandler.process(new IllegalArgumentException("Can't find the " + name)); //$NON-NLS-1$
+        // }
+        return t;
         // TDI-20504 end
     }
 

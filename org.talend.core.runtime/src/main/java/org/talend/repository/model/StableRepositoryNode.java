@@ -44,6 +44,7 @@ public class StableRepositoryNode extends RepositoryNode {
      * 
      * @return the icon
      */
+    @Override
     public IImage getIcon() {
         return this.icon;
     }
@@ -53,6 +54,7 @@ public class StableRepositoryNode extends RepositoryNode {
      * 
      * @param icon the icon to set
      */
+    @Override
     public void setIcon(IImage icon) {
         this.icon = icon;
     }
@@ -62,6 +64,7 @@ public class StableRepositoryNode extends RepositoryNode {
      * 
      * @return the label
      */
+    @Override
     public String getLabel() {
         return this.label;
     }
@@ -73,6 +76,11 @@ public class StableRepositoryNode extends RepositoryNode {
      */
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return getType() + "-" + getLabel(); //$NON-NLS-1$
     }
 
     @Override
