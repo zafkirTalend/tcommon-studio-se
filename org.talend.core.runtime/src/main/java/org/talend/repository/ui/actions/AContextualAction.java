@@ -101,26 +101,32 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private IRepositoryNode node;
 
+    @Override
     public boolean isEditAction() {
         return editAction;
     }
 
+    @Override
     public void setEditAction(boolean editAction) {
         this.editAction = editAction;
     }
 
+    @Override
     public boolean isReadAction() {
         return readAction;
     }
 
+    @Override
     public void setReadAction(boolean readAction) {
         this.readAction = readAction;
     }
 
+    @Override
     public boolean isPropertiesAction() {
         return propertiesAction;
     }
 
+    @Override
     public void setPropertiesAction(boolean propertiesAction) {
         this.propertiesAction = propertiesAction;
     }
@@ -130,6 +136,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return the level
      */
+    @Override
     public int getLevel() {
         return this.level;
     }
@@ -139,6 +146,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @param level the level to set
      */
+    @Override
     public void setLevel(int level) {
         this.level = level;
     }
@@ -148,6 +156,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @see org.talend.commons.ui.swt.actions.ITreeContextualAction#isVisible()
      */
+    @Override
     public boolean isVisible() {
         return isEnabled();
     }
@@ -157,6 +166,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return <code>true</code> if action is accessible by double-click, <code>true</code> otherwise
      */
+    @Override
     public final boolean isDoubleClickAction() {
         return getClassForDoubleClick() != null;
     }
@@ -166,6 +176,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return the class on wich this action may be call by double-click
      */
+    @Override
     public Class getClassForDoubleClick() {
         return null;
     }
@@ -229,6 +240,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @param workbenchPart the workbenchPart to set
      */
+    @Override
     public void setWorkbenchPart(IWorkbenchPart workbenchPart) {
         this.workbenchPart = workbenchPart;
     }
@@ -509,8 +521,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
             String label = selectedNode.getObject().getProperty().getLabel();
 
-            for (int i = 0; i < references.length; i++) {
-                IEditorPart part = references[i].getEditor(false);
+            for (IEditorReference reference : references) {
+                IEditorPart part = reference.getEditor(false);
                 // find unsaved dialog
                 if (part == null || part.isDirty() == false) {
                     continue;
@@ -551,6 +563,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return dialog.open();
     }
 
+    @Override
     public void setSpecialSelection(ISelectionProvider selectionProvider) {
         this.specialSelectionProvider = selectionProvider;
     }
@@ -590,6 +603,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                     // only avoid NPE if item has been deleted in svn
                     if (property != null) {
                         exist = true;
+
                         doRun();
                     }
                 } else {
@@ -667,10 +681,12 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return false;
     }
 
+    @Override
     public String getGroupId() {
         return this.groupId;
     }
 
+    @Override
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
