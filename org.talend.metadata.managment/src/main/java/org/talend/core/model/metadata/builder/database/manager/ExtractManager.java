@@ -604,7 +604,12 @@ public class ExtractManager {
         Statement stmt = null;
 
         try {
-            primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
+            boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
+            if (isAccess) {
+                primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tableName);
+            } else {
+                primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
+            }
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
