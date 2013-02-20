@@ -1,4 +1,4 @@
-package org.talend.json;
+package org.talend.utils.json;
 
 /*
  * Copyright (c) 2002 JSON.org
@@ -87,6 +87,7 @@ public class JSONObject {
          * 
          * @return NULL.
          */
+        @Override
         protected final Object clone() {
             return this;
         }
@@ -97,6 +98,7 @@ public class JSONObject {
          * @param object An object to test for nullness.
          * @return true if the object parameter is the JSONObject.NULL object or null.
          */
+        @Override
         public boolean equals(Object object) {
             return object == null || object == this;
         }
@@ -106,6 +108,7 @@ public class JSONObject {
          * 
          * @return The string "null".
          */
+        @Override
         public String toString() {
             return "null";
         }
@@ -140,8 +143,8 @@ public class JSONObject {
      */
     public JSONObject(JSONObject jo, String[] names) throws JSONException {
         this();
-        for (int i = 0; i < names.length; i += 1) {
-            putOnce(names[i], jo.opt(names[i]));
+        for (String name : names) {
+            putOnce(name, jo.opt(name));
         }
     }
 
@@ -276,9 +279,8 @@ public class JSONObject {
         }
 
         Method[] methods = (includeSuperClass) ? klass.getMethods() : klass.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i += 1) {
+        for (Method method : methods) {
             try {
-                Method method = methods[i];
                 String name = method.getName();
                 String key = "";
                 if (name.startsWith("get")) {
@@ -338,8 +340,7 @@ public class JSONObject {
     public JSONObject(Object object, String names[]) {
         this();
         Class c = object.getClass();
-        for (int i = 0; i < names.length; i += 1) {
-            String name = names[i];
+        for (String name : names) {
             try {
                 putOpt(name, c.getField(name).get(object));
             } catch (Exception e) {
@@ -1159,6 +1160,7 @@ public class JSONObject {
      * @return a printable, displayable, portable, transmittable representation of the object, beginning with
      * <code>{</code>&nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
+    @Override
     public String toString() {
         try {
             Iterator keys = sortedKeys();
@@ -1399,8 +1401,9 @@ public class JSONObject {
                 try {
                     Method m = clazz.getDeclaredMethod("set" + upperName, new Class[] { f.getType() });
                     Object value = ob.get(name);
-                    if (f.getType().isAssignableFrom(String.class) && JSONObject.NULL == value)
+                    if (f.getType().isAssignableFrom(String.class) && JSONObject.NULL == value) {
                         value = "";
+                    }
                     m.invoke(o, value);
                 } catch (NoSuchMethodException nsme) {// log it but ignors the method not found.
                     log.equals(nsme);

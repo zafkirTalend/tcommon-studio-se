@@ -22,9 +22,9 @@ import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.general.ConnectionBean;
-import org.talend.json.JSONArray;
-import org.talend.json.JSONException;
-import org.talend.json.JSONObject;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 
 /**
  * Used to store connections / users for the login dialog <br/>

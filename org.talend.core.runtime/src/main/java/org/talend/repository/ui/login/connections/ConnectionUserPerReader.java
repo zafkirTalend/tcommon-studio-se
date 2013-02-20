@@ -32,9 +32,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.ConnectionBean;
-import org.talend.json.JSONArray;
-import org.talend.json.JSONException;
-import org.talend.json.JSONObject;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 
 /**
  * DOC hwang class global comment. Detailled comment

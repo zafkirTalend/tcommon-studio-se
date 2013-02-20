@@ -18,9 +18,9 @@ import java.util.Map;
 
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.json.JSONException;
-import org.talend.json.JSONObject;
 import org.talend.repository.model.RepositoryConstants;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

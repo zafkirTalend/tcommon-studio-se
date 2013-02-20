@@ -6,8 +6,7 @@
   </fileset>
   <filter name="UnOpenedFiles" enabled="true"/>
   <filter name="FilesFromPackage" enabled="true">
-    <filter-data value="src/main/java/org/talend/json"/>
-    <filter-data value="src/main/java/org/talend/utils/eclipse"/>
+    <filter-data value="src/main/java/org/talend/utils/json"/>
   </filter>
   <filter name="NonSrcDirs" enabled="true"/>
 </fileset-config>

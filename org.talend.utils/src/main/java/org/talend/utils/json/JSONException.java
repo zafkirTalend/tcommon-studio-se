@@ -1,4 +1,4 @@
-package org.talend.json;
+package org.talend.utils.json;
 
 /**
  * The JSONException is thrown by the JSON.org classes then things are amiss.

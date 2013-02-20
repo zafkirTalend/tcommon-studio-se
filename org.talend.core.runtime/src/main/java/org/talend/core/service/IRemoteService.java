@@ -16,7 +16,7 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.User;
-import org.talend.json.JSONObject;
+import org.talend.utils.json.JSONObject;
 
 /**
  * DOC hywang class global comment. Detailled comment
