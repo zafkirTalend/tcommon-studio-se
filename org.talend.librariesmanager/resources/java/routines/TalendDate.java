@@ -8,6 +8,7 @@ package routines;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -151,40 +152,76 @@ public class TalendDate {
         if (stringDate == null) {
             return false;
         }
-        boolean hasZone = false;
         if (pattern == null) {
             pattern = "yyyy-MM-dd HH:mm:ss";
-        }else{
-            boolean inQuote = false;
-            char[] ps = pattern.toCharArray();
-            for (char p : ps) {
-                if (p == '\'') {
-                    inQuote = !inQuote;
-                } else if (!inQuote && (p == 'Z' || p == 'z')) {
-                    hasZone = true;
-                    break;
-                }
-            }
         }
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
         java.util.Date testDate = null;
-        if(hasZone){
-            testDate  = parseDate(pattern, stringDate);
-            if (!formatDate(pattern,testDate).equalsIgnoreCase(stringDate)) {
-                return false;
-            }
-        }else{
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
-            sdf.setTimeZone(new java.util.SimpleTimeZone(0,sdf.getTimeZone().getID()));
-            try {
-                testDate = sdf.parse(stringDate);
-                if (!sdf.format(testDate).equalsIgnoreCase(stringDate)) {
-                    return false;
-                }
-            } catch (ParseException e) {
-                return false;
-            }
+
+        try {
+            testDate = sdf.parse(stringDate);
+        } catch (ParseException e) {
+            return false;
         }
+
+        if (!sdf.format(testDate).equalsIgnoreCase(stringDate)) {
+            return false;
+        }
+
         return true;
+    }
+    /**
+     * test string value as a date with right pattern.
+     * </br>examples:
+     * </br>TimeZone:+0100
+     * </br>2011/03/27 02:00:00 begin to carry out the daylight saving time. So parse dateString "20110327 021711"
+     * with TimeZone is wrong
+     * </br> <code>isDate("20110327 021711", "yyyyMMdd HHmmss",false)</code> return <code>false</code>
+     * 
+     * </br> <code>isDate("20110327 021711", "yyyyMMdd HHmmss",true)</code> return <code>true</code>
+     * 
+     * </br> <code>isDate("2008-11-32 12:15:25", "yyyy-MM-dd HH:mm:ss",true)</code> return <code>false</code> 
+     * 
+     * </br> <code>isDate("2008-11-32 12:15:25", "yyyy-MM-dd HH:mm:ss",false)</code> return <code>false</code>
+     * @param stringDate (A <code>String</code> whose beginning should be parsed)
+     * @param pattern (the pattern to format, like: "yyyy-MM-dd HH:mm:ss")
+     * @param ignoreTimeZone (if true ignore TimeZone when pare date with pattern)
+     * @return the result whether the stringDate is a date string that with a right pattern
+     * 
+     */
+    public static boolean isDate(String stringDate, String pattern, boolean ignoreTimeZone) {
+        TimeZone tz = TimeZone.getDefault();
+        if(ignoreTimeZone) {
+            tz = TimeZone.getTimeZone("UTC");
+        }
+        
+        if (stringDate == null) {
+            return false;
+        }
+        if (pattern == null) {
+            pattern = "yyyy-MM-dd HH:mm:ss";
+        }
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
+        sdf.setTimeZone(tz);
+        sdf.setLenient(false);
+        
+        java.util.Date testDate = null;
+        ParsePosition pos = new ParsePosition(0);
+
+        testDate = sdf.parse(stringDate,pos);
+        
+        if(testDate == null) {
+            return false;
+        }
+        
+        String formatDate = sdf.format(testDate);
+        if(formatDate.equalsIgnoreCase(stringDate) || pos.getIndex() == formatDate.length()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
