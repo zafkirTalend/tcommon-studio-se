@@ -110,40 +110,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         this.xmiResourceManager = xmiResourceManager;
     }
 
-    // MOD sgandon 31/03/2010 : moved from local variable to static variable for optimisation purpose.
-    static final ERepositoryObjectType[] REPOSITORY_OBJECT_TYPE_LIST = new ERepositoryObjectType[] {
-            ERepositoryObjectType.PROCESS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_CONNECTIONS,
-            ERepositoryObjectType.METADATA_SAPCONNECTIONS, ERepositoryObjectType.SQLPATTERNS,
-            ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-            ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
-            ERepositoryObjectType.METADATA_FILE_EXCEL, ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.ROUTINES,
-            ERepositoryObjectType.JOB_SCRIPT, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.METADATA_LDAP_SCHEMA,
-            ERepositoryObjectType.METADATA_GENERIC_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
-            ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_FILE_EBCDIC,
-            ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_MDMCONNECTION,
-            ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.SVG_BUSINESS_PROCESS,
-            ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.SNIPPETS, ERepositoryObjectType.METADATA_FILE_HL7,
-            ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
-            ERepositoryObjectType.METADATA_HEADER_FOOTER, ERepositoryObjectType.METADATA_VALIDATION_RULES };
-
-    /*
-     * ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
-     * ERepositoryObjectType.METADATA_SAPCONNECTIONS, ERepositoryObjectType.SQLPATTERNS,
-     * ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-     * ERepositoryObjectType.PROCESS, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.SNIPPETS,
-     * ERepositoryObjectType.ROUTINES, ERepositoryObjectType.BUSINESS_PROCESS,
-     * ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
-     * ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.METADATA_FILE_EXCEL,
-     * ERepositoryObjectType.METADATA_LDAP_SCHEMA, ERepositoryObjectType.METADATA_GENERIC_SCHEMA,
-     * ERepositoryObjectType.METADATA_WSDL_SCHEMA, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA,
-     * ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_FILE_EBCDIC,
-     * ERepositoryObjectType.METADATA_FILE_RULES, ERepositoryObjectType.METADATA_FILE_HL7,
-     * ERepositoryObjectType.METADATA_FILE_FTP, ERepositoryObjectType.METADATA_FILE_BRMS,
-     * ERepositoryObjectType.METADATA_MDMCONNECTION, ERepositoryObjectType.METADATA_HEADER_FOOTER,
-     * ERepositoryObjectType.JOB_SCRIPT (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getRecycleBinItems()
-     */
     @Override
     public List<IRepositoryViewObject> getRecycleBinItems(Project project, boolean... options) throws PersistenceException {
         ERepositoryObjectType types[] = { ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
@@ -163,11 +129,13 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
         List<IRepositoryViewObject> deletedItems = new ArrayList<IRepositoryViewObject>();
         for (ERepositoryObjectType type : types) {
-            RootContainer<String, IRepositoryViewObject> container = getObjectFromFolder(project, type, true, options);
-            List<IRepositoryViewObject> repositoryObjects = container.getAbsoluteMembers().objects();
-            for (IRepositoryViewObject object : repositoryObjects) {
-                if (object.isDeleted()) {
-                    deletedItems.add(object);
+            if (type != null) { // loaded
+                RootContainer<String, IRepositoryViewObject> container = getObjectFromFolder(project, type, true, options);
+                List<IRepositoryViewObject> repositoryObjects = container.getAbsoluteMembers().objects();
+                for (IRepositoryViewObject object : repositoryObjects) {
+                    if (object.isDeleted()) {
+                        deletedItems.add(object);
+                    }
                 }
             }
         }
@@ -398,6 +366,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     protected void createSystemRoutines() throws PersistenceException {
+        ERepositoryObjectType routinesType = ERepositoryObjectType.ROUTINES;
+        if (routinesType == null) {
+            return; // don't load, nothing to do
+        }
         ILibrariesService service = null;
         if (!GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
             return;
@@ -411,20 +383,20 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         List<URL> routines = service.getSystemRoutines();
         Path path = new Path(RepositoryConstants.SYSTEM_DIRECTORY);
         // will automatically set the children folders
-        IPath systemRoutinePath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES));
+        IPath systemRoutinePath = new Path(ERepositoryObjectType.getFolderName(routinesType));
         systemRoutinePath = systemRoutinePath.append(RepositoryConstants.SYSTEM_DIRECTORY);
         FolderItem folderItem = folderHelper.getFolder(systemRoutinePath);
         if (folderItem == null) {
             folderItem = folderHelper.createFolder(systemRoutinePath.toString());
         }
-        IPath systemRoutineApiPath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES));
+        IPath systemRoutineApiPath = new Path(ERepositoryObjectType.getFolderName(routinesType));
         systemRoutineApiPath = systemRoutinePath.append(RepositoryConstants.SYSTEM_DIRECTORY).append("api");
         FolderItem folderItemApi = folderHelper.getFolder(systemRoutineApiPath);
         if (folderItemApi == null) {
             folderItemApi = folderHelper.createFolder(systemRoutineApiPath.toString());
         }
 
-        List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.ROUTINES, false, false);
+        List<IRepositoryViewObject> repositoryObjects = getAll(project, routinesType, false, false);
         Map<String, List<LibraryInfo>> routineAndJars = coreSerivce.getRoutineAndJars();
         for (URL url : routines) {
             String[] fragments = url.toString().split("/"); //$NON-NLS-1$
@@ -453,6 +425,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     }
 
     protected void createSystemSQLPatterns() throws PersistenceException {
+        ERepositoryObjectType sqlpatternsType = ERepositoryObjectType.SQLPATTERNS;
+        if (sqlpatternsType == null) {
+            return; // don't load, nothing to do
+        }
         ILibrariesService service = null;
         if (!GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
             return;
@@ -468,7 +444,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
         List<URL> routines = service.getSystemSQLPatterns();
 
-        List<IRepositoryViewObject> repositoryObjects = getAll(project, ERepositoryObjectType.SQLPATTERNS, false, false);
+        List<IRepositoryViewObject> repositoryObjects = getAll(project, sqlpatternsType, false, false);
 
         for (URL url : routines) {
             String[] fragments = url.toString().split("/"); //$NON-NLS-1$
@@ -500,20 +476,20 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             IPath systemPath = categoryPath.append(RepositoryConstants.SYSTEM_DIRECTORY);
             IPath userPath = categoryPath.append(RepositoryConstants.USER_DEFINED);
 
-            IPath parentPath = new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.SQLPATTERNS));
+            IPath parentPath = new Path(ERepositoryObjectType.getFolderName(sqlpatternsType));
             if (folderHelper.getFolder(parentPath.append(categoryPath)) == null) {
-                createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS, new Path(""), categoryPath //$NON-NLS-1$
+                createFolder(getRepositoryContext().getProject(), sqlpatternsType, new Path(""), categoryPath //$NON-NLS-1$
                         .lastSegment());
             }
             FolderItem systemFolder = folderHelper.getFolder(parentPath.append(systemPath));
             if (systemFolder == null) {
-                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
-                        categoryPath, systemPath.lastSegment());
+                Folder folder = createFolder(getRepositoryContext().getProject(), sqlpatternsType, categoryPath,
+                        systemPath.lastSegment());
                 ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
             }
             if (folderHelper.getFolder(parentPath.append(userPath)) == null) {
-                Folder folder = createFolder(getRepositoryContext().getProject(), ERepositoryObjectType.SQLPATTERNS,
-                        categoryPath, userPath.lastSegment());
+                Folder folder = createFolder(getRepositoryContext().getProject(), sqlpatternsType, categoryPath,
+                        userPath.lastSegment());
                 ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
             }
             //
@@ -714,25 +690,28 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CoreRuntimePlugin.getInstance().getRepositoryService()
                 .getProxyRepositoryFactory();
-        List<IRepositoryViewObject> jobs = repositoryFactory.getAll(ERepositoryObjectType.PROCESS, true);
-        for (IRepositoryViewObject cur : jobs) {
-            if (!cur.isDeleted()) {
-                ProcessItem item = (ProcessItem) cur.getProperty().getItem();
-                if (item == null || item.getProcess() == null) {
-                    continue;
-                }
-                List<NodeType> nodes = item.getProcess().getNode();
-                for (NodeType node : nodes) {
-                    List<ElementParameterType> elementParameter = node.getElementParameter();
-                    for (ElementParameterType elementParam : elementParameter) {
-                        if (elementParam.getField() != null
-                                && elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
-                            String uniquename = coreSerivce.getParameterUNIQUENAME(node);
-                            ModuleNeeded toAdd = new ModuleNeeded(
-                                    Messages.getString("AbstractEMFRepositoryFactory.job") + item.getProperty().getLabel(), //$NON-NLS-1$
-                                    elementParam.getValue(),
-                                    Messages.getString("AbstractEMFRepositoryFactory.requiredComponent") + uniquename + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
-                            importNeedsList.add(toAdd);
+        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+        if (jobType != null) {
+            List<IRepositoryViewObject> jobs = repositoryFactory.getAll(jobType, true);
+            for (IRepositoryViewObject cur : jobs) {
+                if (!cur.isDeleted()) {
+                    ProcessItem item = (ProcessItem) cur.getProperty().getItem();
+                    if (item == null || item.getProcess() == null) {
+                        continue;
+                    }
+                    List<NodeType> nodes = item.getProcess().getNode();
+                    for (NodeType node : nodes) {
+                        List<ElementParameterType> elementParameter = node.getElementParameter();
+                        for (ElementParameterType elementParam : elementParameter) {
+                            if (elementParam.getField() != null
+                                    && elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
+                                String uniquename = coreSerivce.getParameterUNIQUENAME(node);
+                                ModuleNeeded toAdd = new ModuleNeeded(
+                                        Messages.getString("AbstractEMFRepositoryFactory.job") + item.getProperty().getLabel(), //$NON-NLS-1$
+                                        elementParam.getValue(),
+                                        Messages.getString("AbstractEMFRepositoryFactory.requiredComponent") + uniquename + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
+                                importNeedsList.add(toAdd);
+                            }
                         }
                     }
                 }
@@ -746,14 +725,14 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     public RootContainer<String, IRepositoryViewObject> getRoutineFromProject(Project project) throws PersistenceException {
         RootContainer<String, IRepositoryViewObject> toReturn = new RootContainer<String, IRepositoryViewObject>();
         ERepositoryObjectType type = ERepositoryObjectType.ROUTINES;
+        if (type != null) {
+            IProject fsProject = ResourceModelUtils.getProject(project);
 
-        IProject fsProject = ResourceModelUtils.getProject(project);
+            IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
 
-        IFolder objectFolder = ResourceUtils.getFolder(fsProject,
-                ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES), true);
-
-        addFolderMembers(project, type, toReturn, objectFolder, true);
-        saveProject(project);
+            addFolderMembers(project, type, toReturn, objectFolder, true);
+            saveProject(project);
+        }
         return toReturn;
     }
 
