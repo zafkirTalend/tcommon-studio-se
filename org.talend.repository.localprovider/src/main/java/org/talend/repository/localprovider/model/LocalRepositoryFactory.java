@@ -215,7 +215,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         IProject fsProject = ResourceModelUtils.getProject(project);
         // added for bug 18318
-        if (fsProject == null) {
+        if (fsProject == null || type == null) {
             return null;
         }
         IFolder objectFolder = null;
@@ -248,31 +248,31 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // System.out.println("dfdfdfdfdfdf");
         // }
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
-
-        IProject fsProject = ResourceModelUtils.getProject(project);
-        IFolder objectFolder = null;
-        try {
-            String tempFolderName = ERepositoryObjectType.getFolderName(type);
-            if (folderName != null && !"".equals(folderName)) {
-                tempFolderName = folderName;
+        if (type != null) {
+            IProject fsProject = ResourceModelUtils.getProject(project);
+            IFolder objectFolder = null;
+            try {
+                String tempFolderName = ERepositoryObjectType.getFolderName(type);
+                if (folderName != null && !"".equals(folderName)) {
+                    tempFolderName = folderName;
+                }
+                objectFolder = ResourceUtils.getFolder(fsProject, tempFolderName, true);
+            } catch (ResourceNotFoundException rex) {
+                // log.info(rex.getMessage());
+                return new RootContainer<K, T>(); // return empty
             }
-            objectFolder = ResourceUtils.getFolder(fsProject, tempFolderName, true);
-        } catch (ResourceNotFoundException rex) {
-            // log.info(rex.getMessage());
-            return new RootContainer<K, T>(); // return empty
+            // projectModified = false;
+            addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
+
+            // if (projectModified) {
+            // saveProject(project);
+            // }
+
+            String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
+            String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
+
+            log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
         }
-        // projectModified = false;
-        addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
-
-        // if (projectModified) {
-        // saveProject(project);
-        // }
-
-        String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
-        String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
-
-        log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
-
         return toReturn;
     }
 
@@ -523,7 +523,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             boolean allVersions) throws PersistenceException {
         IFolder folder = null;
         try {
-            if (type.hasFolder()) {
+            if (type != null && type.hasFolder()) {
                 folder = LocalResourceModelUtils.getFolder(project, type);
             } else {
                 return Collections.emptyList();
@@ -1155,7 +1155,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public boolean isPathValid(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
-        if (path == null) {
+        if (path == null || type == null) {
             return false;
         }
 
@@ -1197,6 +1197,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
+        if (type != null) {
+            return;
+        }
         // If the "System", "Generated", "Jobs" folder is created in the root,
         // it can't be deleted .
         if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
@@ -1222,7 +1225,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void moveFolder(final ERepositoryObjectType type, final IPath sourcePath, final IPath targetPath)
             throws PersistenceException {
-        if (RepositoryConstants.isSystemFolder(sourcePath.toString())
+        if (type == null || RepositoryConstants.isSystemFolder(sourcePath.toString())
                 || RepositoryConstants.isSystemFolder(targetPath.toString())) {
             // The "system" folder wasn't allowed to move
             return;
@@ -1328,6 +1331,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private void renameFolderExecute(final ERepositoryObjectType type, final IPath sourcePath, final String label)
             throws PersistenceException {
+        if (type == null) {
+            return;
+        }
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
             @Override
@@ -1422,6 +1428,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void renameFolder(final ERepositoryObjectType type, final IPath sourcePath, final String label)
             throws PersistenceException {
+        if (type == null) {
+            return;
+        }
         try {
             if (isLocalConnectionProvider()) {
                 renameFolderForLocal(type, sourcePath, label);
@@ -1489,13 +1498,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public List<IRepositoryViewObject> getProcess2() throws PersistenceException {
         List<IRepositoryViewObject> toReturn = new VersionList(false);
 
-        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
+        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+        if (jobType != null) {
+            IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), jobType);
 
-        for (IResource current : ResourceUtils.getMembers(folder)) {
-            if (current instanceof IFile) {
-                if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                    Property property = xmiResourceManager.loadProperty(current);
-                    toReturn.add(new RepositoryObject(property));
+            for (IResource current : ResourceUtils.getMembers(folder)) {
+                if (current instanceof IFile) {
+                    if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                        Property property = xmiResourceManager.loadProperty(current);
+                        toReturn.add(new RepositoryObject(property));
+                    }
                 }
             }
         }
@@ -2810,11 +2822,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void changeRoutinesPackage(Project project) {
-        if (project == null) {
+        ERepositoryObjectType routinesType = ERepositoryObjectType.ROUTINES;
+        if (project == null || routinesType == null) {
             return;
         }
         try {
-            List<IRepositoryViewObject> allRoutines = getAll(project, ERepositoryObjectType.ROUTINES, true, true);
+            List<IRepositoryViewObject> allRoutines = getAll(project, routinesType, true, true);
             for (IRepositoryViewObject object : allRoutines) {
                 Item item = object.getProperty().getItem();
                 RoutineUtils.changeRoutinesPackage(item);
@@ -2865,7 +2878,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(project);
         try {
-            if (repositoryObjectType.hasFolder()) {
+            if (repositoryObjectType != null && repositoryObjectType.hasFolder()) {
                 String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
                 return ResourceUtils.getFolder(fsProject, folderName, true);
             }
@@ -2897,6 +2910,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public void updateItemsPath(ERepositoryObjectType type, IPath targetPath) throws PersistenceException {
+        if (type == null) {
+            return;
+        }
         Project baseProject = getRepositoryContext().getProject();
         IProject project = ResourceModelUtils.getProject(baseProject);
         String folderPathString = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString();
@@ -3046,9 +3062,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     @Override
     public <K, T> List<T> getMetadatasByFolder(Project project, ERepositoryObjectType itemType, IPath path) {
+        if (itemType == null) {
+            return Collections.emptyList();
+        }
         FolderItem currentFolderItem = this.getFolderItem(project, itemType, path);
         if (currentFolderItem == null) {
-            return new ArrayList<T>();
+            return Collections.emptyList();
         }
         List<Item> invalidItems = new ArrayList<Item>();
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
