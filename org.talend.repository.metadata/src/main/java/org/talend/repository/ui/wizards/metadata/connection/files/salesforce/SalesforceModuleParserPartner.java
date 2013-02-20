@@ -73,6 +73,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
     /**
      * DOC YeXiaowei Comment method "login".
      */
+    @Override
     public ArrayList login(String endPoint, String username, String password) throws Exception {
         if (endPoint == null) {
             throw new RemoteException(
@@ -115,6 +116,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
         return doLoginList;
     }
 
+    @Override
     public ArrayList login(String endPoint, String username, String password, String timeOut) throws Exception {
         if (endPoint == null) {
             throw new RemoteException(Messages.getString("SalesforceModuleParseAPI.URLInvalid")); //$NON-NLS-1$
@@ -197,6 +199,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
     // return arrayList;
     // }
 
+    @Override
     public void describeGlobalSample() {
         // try {
         // DescribeGlobalResult describeGlobalResult = null;
@@ -217,6 +220,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * @param module
      * @return
      */
+    @Override
     public List<IMetadataColumn> fetchMetaDataColumns(String module) {
 
         Field[] fields = fetchSFDescriptionField(module);
@@ -333,7 +337,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
             talendType = "Integer"; //$NON-NLS-1$
         } else if (type.equals("date") || type.equals("datetime")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Date"; //$NON-NLS-1$
-        } else if (type.equals("double")) { //$NON-NLS-1$
+        } else if (type.equals("double") || type.equals("currency")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Double"; //$NON-NLS-1$
         } else {
             talendType = "String"; //$NON-NLS-1$
@@ -350,8 +354,13 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
         } else {
             mdColumn.setPattern(null);
         }
-        mdColumn.setLength(field.getLength());
-        mdColumn.setPrecision(field.getPrecision());
+        if ("String".equals(talendType)) { //$NON-NLS-1$
+            mdColumn.setLength(field.getLength());
+            mdColumn.setPrecision(field.getPrecision());
+        } else {
+            mdColumn.setLength(field.getPrecision());
+            mdColumn.setPrecision(field.getScale());
+        }
         mdColumn.setDefault(field.getDefaultValueFormula());
 
         return mdColumn;
@@ -363,6 +372,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @return the login
      */
+    @Override
     public boolean isLogin() {
         return this.loginOk;
     }
@@ -372,6 +382,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @param login the login to set
      */
+    @Override
     public void setLogin(boolean login) {
         this.loginOk = login;
     }
@@ -381,6 +392,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @return the currentModuleName
      */
+    @Override
     public String getCurrentModuleName() {
         return this.currentModuleName;
     }
@@ -390,6 +402,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @param currentModuleName the currentModuleName to set
      */
+    @Override
     public void setCurrentModuleName(String currentModuleName) {
         this.currentModuleName = currentModuleName;
     }
@@ -399,6 +412,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @return the currentMetadataColumns
      */
+    @Override
     public List<IMetadataColumn> getCurrentMetadataColumns() {
         return this.currentMetadataColumns;
     }
@@ -408,6 +422,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
      * 
      * @param currentMetadataColumns the currentMetadataColumns to set
      */
+    @Override
     public void setCurrentMetadataColumns(List<IMetadataColumn> currentMetadataColumns) {
         this.currentMetadataColumns = currentMetadataColumns;
     }
