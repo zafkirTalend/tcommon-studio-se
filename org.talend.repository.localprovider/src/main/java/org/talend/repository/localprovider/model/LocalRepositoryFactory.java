@@ -59,6 +59,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -1571,6 +1572,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 for (Resource resource : affectedResources) {
                     deleteResource(resource);
                 }
+
+                // ADD msjian TDQ-6791 2013-2-20:when the resource is invalid(null), delete its file
+                Iterator<EObject> i = currentVersion.getProperty().getItem().eCrossReferences().iterator();
+                while (i.hasNext()) {
+                    EObject object = i.next();
+                    Resource currentResource = object.eResource();
+                    if (currentResource == null) {
+                        URI uri = null;
+                        if (object != null) {
+                            if (object.eIsProxy()) {
+                                uri = ((InternalEObject) object).eProxyURI().trimFragment();
+                            } else {
+                                uri = object.eResource().getURI();
+                            }
+                        }
+                        ResourceUtils.deleteFile(URIHelper.getFile(uri));
+                    }
+                }
+                // TDQ-6791~
+
             }
         }
         if (!fromEmptyRecycleBin) {
