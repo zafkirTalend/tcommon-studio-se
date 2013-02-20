@@ -708,7 +708,7 @@ public class ComponentUtilities {
         //
         // }
 
-        setExtraEntryVisible(ERepositoryObjectType.JOBLET.equals(itemType));
+        setExtraEntryVisible(itemType.equals(ERepositoryObjectType.JOBLET));
     }
 
 }
