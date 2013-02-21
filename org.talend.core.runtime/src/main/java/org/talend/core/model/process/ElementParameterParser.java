@@ -16,9 +16,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -378,6 +382,17 @@ public final class ElementParameterParser {
         IElementParameter param;
 
         newText = text;
+        //[TESB-8518]a new complex parameter pattern.  __PREF:plugin-bundle-name:preference-key__
+        Pattern pattern=Pattern.compile("__PREF:(?<plugin>.+):(?<pref>.+)__");
+        Matcher matcher = pattern.matcher(newText);
+        if(matcher.find()) {
+        	String pluginName=matcher.group("plugin");
+        	String prefKey=matcher.group("pref");
+        	ScopedPreferenceStore pref = new ScopedPreferenceStore(new InstanceScope(), pluginName);
+        	String prefValue = pref.getString(prefKey);
+        	newText=matcher.replaceAll(prefValue);
+        }
+        
         for (int i = 0; i < element.getElementParameters().size(); i++) {
             param = element.getElementParameters().get(i);
             if (newText.contains(param.getVariableName())) {
