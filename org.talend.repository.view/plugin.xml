@@ -190,6 +190,25 @@
             name="Recycle Bin Filter"
             visibleInUI="true">
       </commonFilter>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.talend.repository.viewer.content.EmptyContentProvider"
+            id="org.talend.repository.view.sorter.RepositoryNameSorter"
+            labelProvider="org.talend.repository.viewer.label.EmptyLabelProvider"
+            name="Repository Name Sorter"
+            priority="normal"
+            sortOnly="true">
+         <triggerPoints></triggerPoints>
+         <possibleChildren></possibleChildren>
+         <commonSorter
+               class="org.talend.repository.viewer.ui.provider.RepositoryNameSorter">
+            <parentExpression>
+               <instanceof
+                     value="org.talend.repository.model.RepositoryNode">
+               </instanceof>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">
@@ -241,6 +260,9 @@
             </contentExtension>
             <contentExtension
                   pattern="org.talend.repository.viewer.filter.recycleBin">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.talend.repository.view.sorter.*">
             </contentExtension>
          </includes>
       </viewerContentBinding>
