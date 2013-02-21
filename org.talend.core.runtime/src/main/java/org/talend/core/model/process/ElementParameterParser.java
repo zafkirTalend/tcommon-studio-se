@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
@@ -414,6 +415,26 @@ public final class ElementParameterParser {
 
     }
 
+    public static boolean checkIfContextExisted(String processId, String contextName){  	   
+   	   ProcessItem selectedJob = ItemCacheManager.getProcessItem(processId);
+   	   EList jobContexts = selectedJob.getProcess().getContext();
+   	   for(Object c: jobContexts){
+   		   if(!(c instanceof ContextType)){
+   			   continue;
+   		   }
+   		   ContextType ct = (ContextType)c;
+   		   if(contextName.equals(ct.getName())){
+   			  return true;
+   		   }
+   	   }
+   	   return false;
+    }
+    
+    public static String getProcessSelectedContext(String processId){
+    	ProcessItem currentRoute = ItemCacheManager.getProcessItem(processId);
+    	return currentRoute.getProcess().getDefaultContext();
+    }
+    
     @SuppressWarnings("unchecked")
     private static String getDisplayValue(final IElementParameter param) {
         Object value = param.getValue();
