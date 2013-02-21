@@ -78,6 +78,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * 
      * @see org.eclipse.ui.IWorkbenchWindowPulldownDelegate2#getMenu(org.eclipse.swt.widgets.Menu)
      */
+    @Override
     public Menu getMenu(Menu parent) {
         // TODO Auto-generated method stub
         return null;
@@ -88,6 +89,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * 
      * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#dispose()
      */
+    @Override
     public void dispose() {
         // TODO Auto-generated method stub
 
@@ -98,6 +100,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * 
      * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.IWorkbenchWindow)
      */
+    @Override
     public void init(IWorkbenchWindow window) {
         // TODO Auto-generated method stub
 
@@ -108,6 +111,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * 
      * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
      */
+    @Override
     public void init(IAction action) {
         // TODO Auto-generated method stub
 
@@ -118,6 +122,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * 
      * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
      */
+    @Override
     public void run(IAction action) {
     }
 
@@ -127,6 +132,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.IAction,
      * org.eclipse.swt.widgets.Event)
      */
+    @Override
     public void runWithEvent(IAction action, Event event) {
         if (fMenu == null && action instanceof WWinPluginPulldown) {
             IMenuCreator menuProxy = ((WWinPluginPulldown) action).getMenuCreator();
@@ -142,6 +148,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
      * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
      * org.eclipse.jface.viewers.ISelection)
      */
+    @Override
     public void selectionChanged(IAction action, ISelection selection) {
 
     }
@@ -156,8 +163,24 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                     IDesignerCoreService.class);
             addToMenu(menu, service.getCreateProcessAction(true), -1);
-            addSeparator(menu);
         }
+        // Changed by Marvin Wang on Feb. 21, 2013 for TDI-24539, there is no "Create Map/Reduce Job" in tool bar. I
+        // removed the following section from the bottom of this method here. Because at present noly "m/r" in extension
+        // point, I think we need to enhance the extension for ordering them by level.
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IConfigurationElement[] configurationElements = registry
+                .getConfigurationElementsFor("org.talend.repository.toolbar_creation"); //$NON-NLS-1$
+        for (IConfigurationElement element : configurationElements) {
+            try {
+                AContextualAction action = (AContextualAction) element.createExecutableExtension("class"); //$NON-NLS-1$
+                action.setToolbar(true);
+                action.setWorkbenchPart(repositoryView);
+                addToMenu(menu, action, -1);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        addSeparator(menu);
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.BUSINESS_PROCESS)) {
             IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
@@ -248,20 +271,6 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
             // addToMenu(menu, createRoutineAction, -1);
         }
 
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-        IConfigurationElement[] configurationElements = registry
-                .getConfigurationElementsFor("org.talend.repository.toolbar_creation"); //$NON-NLS-1$
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
-            try {
-                AContextualAction action = (AContextualAction) element.createExecutableExtension("class"); //$NON-NLS-1$
-                action.setToolbar(true);
-                action.setWorkbenchPart(repositoryView);
-                addToMenu(menu, action, -1);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            }
-        }
     }
 
     /**
@@ -287,6 +296,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         item.fill(menu, -1);
     }
 
+    @Override
     public Menu getMenu(Control parent) {
         setMenu(new Menu(parent));
         fillMenu(fMenu);
@@ -309,12 +319,13 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         // it is shown because of dynamic history list
         fMenu.addMenuListener(new MenuAdapter() {
 
+            @Override
             public void menuShown(MenuEvent e) {
                 if (fRecreateMenu) {
                     Menu m = (Menu) e.widget;
                     MenuItem[] items = m.getItems();
-                    for (int i = 0; i < items.length; i++) {
-                        items[i].dispose();
+                    for (MenuItem item : items) {
+                        item.dispose();
                     }
                     fillMenu(m);
                     fRecreateMenu = false;
