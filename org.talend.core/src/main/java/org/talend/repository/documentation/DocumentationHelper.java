@@ -85,9 +85,9 @@ public class DocumentationHelper {
         }
         IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         List<IRepositoryViewObject> itemsList;
-        if (docItem instanceof JobDocumentationItem) {
+        if (docItem instanceof JobDocumentationItem && ERepositoryObjectType.PROCESS != null) {
             itemsList = proxyFactory.getAll(ERepositoryObjectType.PROCESS);
-        } else if (docItem instanceof JobletDocumentationItem) {
+        } else if (docItem instanceof JobletDocumentationItem && ERepositoryObjectType.JOBLET != null) {
             itemsList = proxyFactory.getAll(ERepositoryObjectType.JOBLET);
         } else {
             return null;
@@ -117,15 +117,16 @@ public class DocumentationHelper {
         if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER
                 || node.getType() == ENodeType.STABLE_SYSTEM_FOLDER) {
             String folderName = ""; //$NON-NLS-1$
-            boolean isNotProcess = !node.getProperties(EProperties.LABEL).toString()
-                    .equals(ERepositoryObjectType.PROCESS.toString());
-            boolean isNotJoblet = !node.getProperties(EProperties.LABEL).toString()
-                    .equals(ERepositoryObjectType.JOBLET.toString());
-            boolean isNotGenerated = !node.getProperties(EProperties.LABEL).toString()
-                    .equals(ERepositoryObjectType.GENERATED.toString());
-            boolean isNotJobs = !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBS.toString());
-            boolean isNotJoblets = !node.getProperties(EProperties.LABEL).toString()
-                    .equals(ERepositoryObjectType.JOBLETS.toString());
+            boolean isNotProcess = ERepositoryObjectType.PROCESS != null
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.PROCESS.toString());
+            boolean isNotJoblet = ERepositoryObjectType.JOBLET != null
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLET.toString());
+            boolean isNotGenerated = ERepositoryObjectType.GENERATED != null
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.GENERATED.toString());
+            boolean isNotJobs = ERepositoryObjectType.JOBS != null
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBS.toString());
+            boolean isNotJoblets = ERepositoryObjectType.JOBLETS != null
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLETS.toString());
 
             if (isNotProcess && isNotJoblet && isNotGenerated && isNotJobs && isNotJoblets) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
@@ -195,12 +196,12 @@ public class DocumentationHelper {
         if (nodes.length <= 0) {
             return;
         }
-        for (int i = 0; i < nodes.length; i++) {
+        for (Object node2 : nodes) {
 
-            String label = ((RepositoryNode) nodes[i]).getProperties(EProperties.LABEL).toString();
+            String label = ((RepositoryNode) node2).getProperties(EProperties.LABEL).toString();
             String version = ""; //$NON-NLS-1$
-            IRepositoryViewObject object = ((RepositoryNode) nodes[i]).getObject();
-            if (((RepositoryNode) nodes[i]).getType() != ENodeType.SIMPLE_FOLDER && object != null) {
+            IRepositoryViewObject object = ((RepositoryNode) node2).getObject();
+            if (((RepositoryNode) node2).getType() != ENodeType.SIMPLE_FOLDER && object != null) {
                 version = object.getProperty().getVersion();
             }
             String nodePath = ""; //$NON-NLS-1$
@@ -208,7 +209,7 @@ public class DocumentationHelper {
                 nodePath = path + "/"; //$NON-NLS-1$
             }
             if (version.equals("")) { //$NON-NLS-1$
-                addTreeNode((RepositoryNode) nodes[i], nodePath + label, list, allVersions);
+                addTreeNode((RepositoryNode) node2, nodePath + label, list, allVersions);
             } else {
                 if (allVersions) {
                     IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
@@ -216,7 +217,7 @@ public class DocumentationHelper {
                     try {
                         List<IRepositoryViewObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
                         for (IRepositoryViewObject curObj : objects) {
-                            RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) nodes[i]).getType());
+                            RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) node2).getType());
                             addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_" //$NON-NLS-1$
                                     + curObj.getProperty().getVersion(), list, allVersions);
                         }
@@ -224,7 +225,7 @@ public class DocumentationHelper {
                         ExceptionHandler.process(e);
                     }
                 } else {
-                    addTreeNode((RepositoryNode) nodes[i], nodePath + label + "_" + version, list, allVersions); //$NON-NLS-1$
+                    addTreeNode((RepositoryNode) node2, nodePath + label + "_" + version, list, allVersions); //$NON-NLS-1$
                 }
             }
         }

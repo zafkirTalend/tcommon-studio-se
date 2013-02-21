@@ -63,15 +63,18 @@ public final class DeleteActionCache {
         setOpenProcessMap(createOpenProcessMap(getOpenedProcessList()));
 
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-        List<IRepositoryViewObject> tmpProcessList = null;
+        List<IRepositoryViewObject> tmpProcessList = new ArrayList<IRepositoryViewObject>(50);
         try {
-            tmpProcessList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-            if (tmpProcessList == null) {
-                tmpProcessList = new ArrayList<IRepositoryViewObject>();
+
+            ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+            if (jobType != null) {
+                List<IRepositoryViewObject> jobs = factory.getAll(jobType, true);
+                tmpProcessList.addAll(jobs);
             }
-            List<IRepositoryViewObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
-            if (jobletList != null) {
-                tmpProcessList.addAll(jobletList);
+            ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+            if (jobletType != null) {
+                List<IRepositoryViewObject> jobletes = factory.getAll(jobletType, true);
+                tmpProcessList.addAll(jobletes);
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -236,6 +239,7 @@ public final class DeleteActionCache {
             if (disp != null) {
                 disp.syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         closeEditor(objToDelete);
                     }

@@ -51,6 +51,7 @@ public class ContextReferenceDialog extends SelectionDialog {
      */
     class ContextsProvide extends LabelProvider implements ITableLabelProvider {
 
+        @Override
         public Image getColumnImage(Object element, int columnIndex) {
             if (columnIndex == 0) {
                 if (element instanceof ContextReferenceBean) {
@@ -58,17 +59,23 @@ public class ContextReferenceDialog extends SelectionDialog {
                     if (bean.getRelateType() == null) {
                         return null;
                     }
-                    if (bean.getRelateType().equals(ERepositoryObjectType.PROCESS.getType())) {
+                    if (ERepositoryObjectType.PROCESS != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.PROCESS.getType())) {
                         return ImageProvider.getImage(ECoreImage.PROCESS_ICON);
-                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_CONNECTIONS.getType())) {
+                    } else if (ERepositoryObjectType.METADATA_CONNECTIONS != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.METADATA_CONNECTIONS.getType())) {
                         return ImageProvider.getImage(ECoreImage.METADATA_CONNECTION_ICON);
-                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_DELIMITED.getType())) {
+                    } else if (ERepositoryObjectType.METADATA_FILE_DELIMITED != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_DELIMITED.getType())) {
                         return ImageProvider.getImage(ECoreImage.METADATA_FILE_DELIMITED_ICON);
-                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_EXCEL.getType())) {
+                    } else if (ERepositoryObjectType.METADATA_FILE_EXCEL != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_EXCEL.getType())) {
                         return ImageProvider.getImage(ECoreImage.METADATA_FILE_EXCEL_ICON);
-                    } else if (bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_XML.getType())) {
+                    } else if (ERepositoryObjectType.METADATA_FILE_XML != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.METADATA_FILE_XML.getType())) {
                         return ImageProvider.getImage(ECoreImage.METADATA_FILE_XML_ICON);
-                    } else if (bean.getRelateType().equals(ERepositoryObjectType.JOBLET.getType())) {
+                    } else if (ERepositoryObjectType.JOBLET != null
+                            && bean.getRelateType().equals(ERepositoryObjectType.JOBLET.getType())) {
                         return ImageProvider.getImage(ECoreImage.JOBLET_ICON);
                     }
                     // if (bean.isRelate()) {
@@ -82,6 +89,7 @@ public class ContextReferenceDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getColumnText(Object element, int columnIndex) {
             ContextReferenceBean bean = (ContextReferenceBean) element;
             switch (columnIndex) {
@@ -140,7 +148,7 @@ public class ContextReferenceDialog extends SelectionDialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -154,16 +162,19 @@ public class ContextReferenceDialog extends SelectionDialog {
         viewer.setLabelProvider(new ContextsProvide());
         viewer.setContentProvider(new IStructuredContentProvider() {
 
+            @Override
             public void dispose() {
                 //
 
             }
 
+            @Override
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                 //
 
             }
 
+            @Override
             public Object[] getElements(Object inputElement) {
                 if (inputElement != null) {
                     return ((List) inputElement).toArray();

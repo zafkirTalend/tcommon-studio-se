@@ -1,5 +1,6 @@
 package org.talend.core.repository.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.talend.repository.ui.actions.DeleteActionCache;
 public class CheckJobletDeleteReference extends AbstractCheckDeleteItemReference implements ICheckDeleteItemReference {
 
     // almost move from the method checkRepositoryNodeFromProcess of DeleteAction class.
+    @Override
     public Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             IRepositoryNode currentJobNode) {
         IRepositoryViewObject object = currentJobNode.getObject();
@@ -60,9 +62,18 @@ public class CheckJobletDeleteReference extends AbstractCheckDeleteItemReference
                     refParentProjects.add(ProjectManager.getInstance().getCurrentProject());
                     refParentProjects.addAll(ProjectManager.getInstance().getReferencedProjects());
                     for (Project refP : refParentProjects) {
-                        List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS, true);
-                        List<IRepositoryViewObject> jobletes = factory.getAll(refP, ERepositoryObjectType.JOBLET, true);
-                        processes.addAll(jobletes);
+                        List<IRepositoryViewObject> processes = new ArrayList<IRepositoryViewObject>(50);
+
+                        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+                        if (jobType != null) {
+                            List<IRepositoryViewObject> jobs = factory.getAll(refP, jobType, true);
+                            processes.addAll(jobs);
+                        }
+                        ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+                        if (jobletType != null) {
+                            List<IRepositoryViewObject> jobletes = factory.getAll(refP, jobletType, true);
+                            processes.addAll(jobletes);
+                        }
                         deleteActionCache.setProcessList(processes);
                         for (IRepositoryViewObject process : deleteActionCache.getProcessList()) {
                             Property property2 = process.getProperty();

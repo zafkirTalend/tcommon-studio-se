@@ -166,9 +166,14 @@ public final class UpdateRunJobComponentContextHelper {
         List<IRepositoryViewObject> repositoryObjectList = new ArrayList<IRepositoryViewObject>();
         List<IRepositoryViewObject> allVersionList = new ArrayList<IRepositoryViewObject>();
 
-        repositoryObjectList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-        List<IRepositoryViewObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
-        repositoryObjectList.addAll(jobletList);
+        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+        if (jobType != null) {
+            repositoryObjectList.addAll(factory.getAll(jobType, true));
+        }
+        ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+        if (jobletType != null) {
+            repositoryObjectList.addAll(factory.getAll(jobletType, true));
+        }
         // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
         // gcui:check it is update all version or last version.if the item is locked don't update it also.
         boolean checkOnlyLastVersion = Boolean.parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService()

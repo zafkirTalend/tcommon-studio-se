@@ -40,6 +40,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     private Project project;
 
+    @Override
     public ExecutionResult execute(Project project) {
         setProject(project);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -48,7 +49,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
-                if (curTyp.isResourceItem()) {
+                if (curTyp != null && curTyp.isResourceItem()) {
                     /* specific project so that on svn model it will migrate all ref projects,bug 17295 */
                     list.addAll(factory.getAll(project, curTyp, true, true));
                 }
@@ -91,10 +92,12 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         }
     }
 
+    @Override
     public ExecutionResult execute(Project project, boolean doSave) {
         return execute(project);
     }
 
+    @Override
     public ExecutionResult execute(Project project, Item item) {
         if (!getTypes().contains(ERepositoryObjectType.getItemType(item))) {
             return ExecutionResult.NOTHING_TO_DO;
@@ -114,6 +117,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         return Arrays.asList((ERepositoryObjectType[]) ERepositoryObjectType.values());
     }
 
+    @Override
     public final boolean isApplicableOnItems() {
         return true;
     }

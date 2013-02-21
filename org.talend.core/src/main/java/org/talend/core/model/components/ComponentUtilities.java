@@ -533,10 +533,16 @@ public class ComponentUtilities {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
 
         try {
-            List<IRepositoryViewObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
-            List<IRepositoryViewObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
-            addUsedComponents(components, allProcess);
-            addUsedComponents(components, allJoblet);
+            ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+            if (jobType != null) {
+                List<IRepositoryViewObject> allProcess = repositoryFactory.getAll(project, jobType, true);
+                addUsedComponents(components, allProcess);
+            }
+            ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+            if (jobletType != null) {
+                List<IRepositoryViewObject> allJoblet = repositoryFactory.getAll(project, jobletType, true);
+                addUsedComponents(components, allJoblet);
+            }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }

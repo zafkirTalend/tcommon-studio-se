@@ -403,7 +403,9 @@ public class RelationshipItemBuilder {
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
-                list.addAll(factory.getAll(curTyp, true, true));
+                if (curTyp != null) {
+                    list.addAll(factory.getAll(curTyp, true, true));
+                }
             }
             monitor.beginTask(Messages.getString("RelationshipItemBuilder.buildingIndex"), list.size()); //$NON-NLS-1$
 

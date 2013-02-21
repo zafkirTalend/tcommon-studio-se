@@ -1058,8 +1058,14 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryViewObject> processRep = new ArrayList<IRepositoryViewObject>();
         List<IProcess> processList = new ArrayList<IProcess>();
         try {
-            processRep.addAll(factory.getAll(ERepositoryObjectType.PROCESS, true));
-            processRep.addAll(factory.getAll(ERepositoryObjectType.JOBLET, true));
+            ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+            if (jobType != null) {
+                processRep.addAll(factory.getAll(jobType, true));
+            }
+            ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+            if (jobletType != null) {
+                processRep.addAll(factory.getAll(jobletType, true));
+            }
             for (IRepositoryViewObject obj : processRep) {
                 Item item = obj.getProperty().getItem();
                 IProcess process = null;

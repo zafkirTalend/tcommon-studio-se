@@ -719,18 +719,26 @@ public class DeleteAction extends AContextualAction {
                     refParentProjects.addAll(ProjectManager.getInstance().getReferencedProjects());
                     for (Project refP : refParentProjects) {
                         List<IRepositoryViewObject> objList = new ArrayList<IRepositoryViewObject>();
-                        List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS);
                         List<IRepositoryViewObject> allJobVersions = new ArrayList<IRepositoryViewObject>();
-                        // Added by Marvin Wang on Sep.14, 2012 for bug TDI-21878. It assumes that for a job the low
-                        // version maybe use the Context Group, but the latest version does not use it. So it has to to
-                        // check all job versions.
-                        if (processes != null && processes.size() > 0) {
-                            for (IRepositoryViewObject process : processes) {
-                                allJobVersions.addAll(factory.getAllVersion(process.getId()));
+
+                        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+                        if (jobType != null) {
+                            List<IRepositoryViewObject> processes = factory.getAll(refP, jobType);
+                            // Added by Marvin Wang on Sep.14, 2012 for bug TDI-21878. It assumes that for a job the low
+                            // version maybe use the Context Group, but the latest version does not use it. So it has to
+                            // to
+                            // check all job versions.
+                            if (processes != null && processes.size() > 0) {
+                                for (IRepositoryViewObject process : processes) {
+                                    allJobVersions.addAll(factory.getAllVersion(process.getId()));
+                                }
                             }
                         }
-                        List<IRepositoryViewObject> jobletes = factory.getAll(refP, ERepositoryObjectType.JOBLET);
-                        allJobVersions.addAll(jobletes);
+                        ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+                        if (jobletType != null) {
+                            List<IRepositoryViewObject> jobletes = factory.getAll(refP, jobletType);
+                            allJobVersions.addAll(jobletes);
+                        }
                         deleteActionCache.setProcessList(allJobVersions);
                         objList.addAll(allJobVersions);
 
@@ -939,9 +947,19 @@ public class DeleteAction extends AContextualAction {
                     // refParentProjects.add(currentProject); // contain current project
                     // }
                     for (Project refP : refParentProjects) {
-                        List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS);
-                        List<IRepositoryViewObject> jobletes = factory.getAll(refP, ERepositoryObjectType.JOBLET);
-                        processes.addAll(jobletes);
+                        List<IRepositoryViewObject> processes = new ArrayList<IRepositoryViewObject>(50);
+
+                        ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
+                        if (jobType != null) {
+                            List<IRepositoryViewObject> jobs = factory.getAll(refP, jobType);
+                            processes.addAll(jobs);
+                        }
+                        ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
+                        if (jobletType != null) {
+                            List<IRepositoryViewObject> jobletes = factory.getAll(refP, jobletType);
+                            processes.addAll(jobletes);
+                        }
+
                         deleteActionCache.setProcessList(processes);
                         for (IRepositoryViewObject process : deleteActionCache.getProcessList()) {
                             // node = (EList) process.getGraphicalNodes();item
