@@ -1561,32 +1561,34 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // can only delete in the main project
         List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId(), false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
-            if (version == null || currentVersion.getVersion().equals(version)) {
-                Item currentItem = currentVersion.getProperty().getItem();
+            String currentVersionValue = currentVersion.getVersion();
+            if (version == null || currentVersionValue.equals(version)) {
+                Property currentProperty = currentVersion.getProperty();
+                Item currentItem = currentProperty.getItem();
                 if (currentItem.getParent() instanceof FolderItem) {
                     ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
                 }
                 currentItem.setParent(null);
-                List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
+                List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentProperty);
                 for (Resource resource : affectedResources) {
                     deleteResource(resource);
                 }
 
                 // ADD msjian TDQ-6791 2013-2-20:when the resource is invalid(null), delete its file
-                Iterator<EObject> i = currentVersion.getProperty().getItem().eCrossReferences().iterator();
-                while (i.hasNext()) {
-                    EObject object = i.next();
-                    Resource currentResource = object.eResource();
-                    if (currentResource == null) {
-                        URI uri = null;
+                EList<EObject> eCrossReferences = currentItem.eCrossReferences();
+                if (eCrossReferences != null) {
+                    Iterator<EObject> i = eCrossReferences.iterator();
+                    while (i.hasNext()) {
+                        EObject object = i.next();
                         if (object != null) {
-                            if (object.eIsProxy()) {
-                                uri = ((InternalEObject) object).eProxyURI().trimFragment();
-                            } else {
-                                uri = object.eResource().getURI();
+                            Resource currentResource = object.eResource();
+                            if (currentResource == null) {
+                                if (object.eIsProxy()) {
+                                    URI uri = ((InternalEObject) object).eProxyURI().trimFragment();
+                                    ResourceUtils.deleteFile(URIHelper.getFile(uri));
+                                }
                             }
                         }
-                        ResourceUtils.deleteFile(URIHelper.getFile(uri));
                     }
                 }
                 // TDQ-6791~
