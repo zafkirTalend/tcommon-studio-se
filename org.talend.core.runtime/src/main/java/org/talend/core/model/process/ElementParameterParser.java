@@ -382,16 +382,16 @@ public final class ElementParameterParser {
         IElementParameter param;
 
         newText = text;
-        //[TESB-8518]a new complex parameter pattern.  __PREF:plugin-bundle-name:preference-key__
-        Pattern pattern=Pattern.compile("__PREF:(?<plugin>.+):(?<pref>.+)__");
-        Matcher matcher = pattern.matcher(newText);
-        if(matcher.find()) {
-        	String pluginName=matcher.group("plugin");
-        	String prefKey=matcher.group("pref");
-        	ScopedPreferenceStore pref = new ScopedPreferenceStore(new InstanceScope(), pluginName);
-        	String prefValue = pref.getString(prefKey);
-        	newText=matcher.replaceAll(prefValue);
-        }
+//        //[TESB-8518]a new complex parameter pattern.  __PREF:plugin-bundle-name:preference-key__
+//        Pattern pattern=Pattern.compile("__PREF:(?<plugin>.+):(?<pref>.+)__");
+//        Matcher matcher = pattern.matcher(newText);
+//        if(matcher.find()) {
+//        	String pluginName=matcher.group("plugin");
+//        	String prefKey=matcher.group("pref");
+//        	ScopedPreferenceStore pref = new ScopedPreferenceStore(new InstanceScope(), pluginName);
+//        	String prefValue = pref.getString(prefKey);
+//        	newText=matcher.replaceAll(prefValue);
+//        }
         
         for (int i = 0; i < element.getElementParameters().size(); i++) {
             param = element.getElementParameters().get(i);
