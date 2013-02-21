@@ -65,7 +65,7 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             img.setAttribute("src", imgBrandingPath + "/icons/bottom.png");
             img.setAttribute("width", "880px");
             parent.appendChild(img);
-        } else if (ERepositoryObjectType.PROCESS.name().equals(id)) {
+        } else if (ERepositoryObjectType.PROCESS != null && ERepositoryObjectType.PROCESS.name().equals(id)) {
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_1 style_2 style_3");
             span.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.LatestItems.Title")));
@@ -81,7 +81,7 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
+        } else if (ERepositoryObjectType.BUSINESS_PROCESS != null && ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
             String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsBusinessModel.Title");
             createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_businessProcess.jpg", title);
             latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
@@ -114,8 +114,7 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
         } else if ("ROUTES".equals(id) && isItemShow("ROUTES")) {
             String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title");
             createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_route.png", title);
-            ERepositoryObjectType repositoryRoutesType = (ERepositoryObjectType) ERepositoryObjectType.valueOf(
-                    ERepositoryObjectType.class, "ROUTES");
+            ERepositoryObjectType repositoryRoutesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTES");
             latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&"
                     + "class=org.talend.camel.designer.ui.EditCamelProcess&"

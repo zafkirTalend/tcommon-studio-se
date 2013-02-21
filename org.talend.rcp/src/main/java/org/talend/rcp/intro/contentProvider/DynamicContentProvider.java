@@ -65,7 +65,7 @@ public class DynamicContentProvider extends IntroProvider {
         List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
         Document dom = parent.getOwnerDocument();
         String url = "";
-        if (ERepositoryObjectType.PROCESS.name().equals(id)) {
+        if (ERepositoryObjectType.PROCESS != null && ERepositoryObjectType.PROCESS.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&"
                     + "class=org.talend.designer.core.ui.action.EditProcess&"
@@ -73,7 +73,7 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if (ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
+        } else if (ERepositoryObjectType.SERVICESPORT != null && ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&"
                     + "class=org.talend.repository.services.action.OpenWSDLEditorAction&"
@@ -90,7 +90,7 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
+        } else if (ERepositoryObjectType.BUSINESS_PROCESS != null && ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
             latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
                     + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
