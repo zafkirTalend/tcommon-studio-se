@@ -22,11 +22,15 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ExportLogsAction extends Action {
 
+    private static final String ACTION_ID = "org.talend.rcp.intro.exportLogsAction"; //$NON-NLS-1$
+
     public ExportLogsAction() {
         super();
+        this.setId(ACTION_ID);
         this.setText("Export logs");
     }
 
+    @Override
     public void run() {
         ExportLogsWizard wizard = new ExportLogsWizard();
         wizard.setWindowTitle("Export Logs");
