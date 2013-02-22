@@ -1198,7 +1198,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
-        if (type != null) {
+        if (type == null) {
             return;
         }
         // If the "System", "Generated", "Jobs" folder is created in the root,
