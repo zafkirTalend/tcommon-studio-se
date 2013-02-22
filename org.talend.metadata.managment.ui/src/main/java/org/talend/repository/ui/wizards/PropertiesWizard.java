@@ -437,4 +437,22 @@ public class PropertiesWizard extends Wizard {
     public void setUnlockRequired(boolean unlockRequired) {
         this.unlockRequired = unlockRequired;
     }
+
+    /**
+     * Getter for alreadyEditedByUser.
+     * 
+     * @return the alreadyEditedByUser
+     */
+    public boolean isAlreadyEditedByUser() {
+        return this.alreadyEditedByUser;
+    }
+
+    /**
+     * Sets the alreadyEditedByUser.
+     * 
+     * @param alreadyEditedByUser the alreadyEditedByUser to set
+     */
+    public void setAlreadyEditedByUser(boolean alreadyEditedByUser) {
+        this.alreadyEditedByUser = alreadyEditedByUser;
+    }
 }

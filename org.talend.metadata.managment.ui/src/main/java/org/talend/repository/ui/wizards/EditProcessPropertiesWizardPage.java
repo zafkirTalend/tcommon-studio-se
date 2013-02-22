@@ -13,14 +13,17 @@
 package org.talend.repository.ui.wizards;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.properties.Property;
@@ -83,6 +86,17 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout(2, false);
         container.setLayout(layout);
+
+        boolean alreadyEditedByUser = ((EditProcessPropertiesWizard) this.getWizard()).isAlreadyEditedByUser();
+        if (alreadyEditedByUser) {
+            Label label = new Label(container, SWT.NONE);
+            label.setForeground(ColorConstants.red);
+            label.setText(Messages.getString("PropertiesWizard.alreadyLockedByUser")); //$NON-NLS-1$
+            GridData gridData = new GridData();
+            gridData.horizontalSpan = 2;
+            label.setLayoutData(gridData);
+        }
+
         super.createControl(container);
         setControl(container);
         updateContent();
@@ -97,6 +111,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
         convertBtn = new Button(parent, SWT.BORDER);
         convertBtn.setText(Messages.getString("EditProcessPropertiesWizardPage.button.name.convert")); //$NON-NLS-1$
         GridDataFactory.swtDefaults().span(2, 1).align(SWT.CENTER, SWT.CENTER).grab(false, false).applyTo(convertBtn);
+        convertBtn.setEnabled(!isReadOnly());
     }
 
     @Override
