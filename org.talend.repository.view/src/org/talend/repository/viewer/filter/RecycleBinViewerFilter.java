@@ -32,11 +32,8 @@ import org.talend.repository.model.nodes.IProjectRepositoryNode;
  */
 public class RecycleBinViewerFilter extends ViewerFilter {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object,
-     * java.lang.Object)
+    /**
+     * Only accept nodes if their type is matching some enabled/visible content provider type
      */
     @SuppressWarnings("rawtypes")
     @Override
