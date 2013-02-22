@@ -238,13 +238,18 @@ public class MetadataTable implements IMetadataTable, Cloneable {
                 // input / output)
                 for (int i = 0; i < inputColumnListWithUnselected.size(); i++) {
                     IMetadataColumn otherColumn = inputColumnListWithUnselected.get(i);
+                    boolean exist = false;
                     for (int j = 0; j < thisColumnListWithUnselected.size(); j++) {
                         IMetadataColumn myColumn = thisColumnListWithUnselected.get(j);
                         if (otherColumn.getLabel().equals(myColumn.getLabel())) {
+                            exist = true;
                             if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                 return false;
                             }
                         }
+                    }
+                    if (!exist) {
+                        return false;
                     }
                 }
             } else {
