@@ -431,31 +431,32 @@ public final class ElementParameterParser {
 			return newText;
 		}
 		IElementParameter param;
-
 		newText = text;
-		// [TESB-8518]a new complex parameter pattern.
-		// __PREF:plugin-bundle-name:preference-key__
-		Pattern pattern = Pattern.compile("__PREF:(.+):(.+)__");
-		Matcher matcher = pattern.matcher(newText);
-		if (matcher.find()) {
-			String pluginName = matcher.group(1);
-			String prefKey = matcher.group(2);
-			try {
-				ScopedPreferenceStore pref = new ScopedPreferenceStore(
-						new InstanceScope(), pluginName);
-				String prefValue = pref.getString(prefKey);
-				newText = matcher.replaceAll(prefValue);
-			} catch (Exception e) {
-				//replace pref pattern failed.
-			}
-		}
-
 		for (int i = 0; i < element.getElementParameters().size(); i++) {
 			param = element.getElementParameters().get(i);
 			if (newText.contains(param.getVariableName())) {
 				String value = getDisplayValue(param);
 				newText = newText.replace(param.getVariableName(), value);
 			}
+		}
+		// [TESB-8518]a new complex parameter pattern.
+		// __PREF:plugin-bundle-name:preference-key__
+		for (int indexBegin = 0; (indexBegin=newText.indexOf("__PREF:",indexBegin))>=0; ) {
+			int indexColon=newText.indexOf(':',indexBegin+7);
+			int indexEnd=newText.indexOf("__",indexColon+1);
+			String pluginName=newText.substring(indexBegin+7,indexColon);
+			String prefKey=newText.substring(indexColon+1,indexEnd);
+			String prefValue;
+			try {
+				ScopedPreferenceStore pref = new ScopedPreferenceStore(
+						new InstanceScope(), pluginName);
+				prefValue = pref.getString(prefKey);
+			} catch (Exception e) {
+				// get pref value failed.
+				prefValue = "";
+			}
+			newText=newText.substring(0,indexBegin)+prefValue+newText.substring(indexEnd+2);
+			indexBegin+=prefValue.length();
 		}
 		return newText;
 	}
