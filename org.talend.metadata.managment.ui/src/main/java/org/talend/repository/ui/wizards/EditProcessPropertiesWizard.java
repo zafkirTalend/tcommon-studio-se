@@ -38,6 +38,7 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
     public EditProcessPropertiesWizard(IRepositoryViewObject repositoryViewObject, IPath path, boolean useLastVersion) {
         super(repositoryViewObject, path, useLastVersion);
         this.repositoryViewObject = repositoryViewObject;
+        setWindowTitle(Messages.getString("EditProcessPropertiesWizard.wizardTitle")); //$NON-NLS-1$
     }
 
     @Override
