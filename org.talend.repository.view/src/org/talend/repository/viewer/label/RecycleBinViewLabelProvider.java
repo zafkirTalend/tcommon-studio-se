@@ -22,7 +22,7 @@ public class RecycleBinViewLabelProvider extends AbstractRepoViewLabelProvider {
 
     @Override
     public Image getImage(Object element) {
-        if (element instanceof RepositoryNode) {
+        if (isRecycleBin(element)) {
             RepositoryNode recyclebinNode = (RepositoryNode) element;
             if (recyclebinNode.getChildren().isEmpty()) {
                 return ImageProvider.getImage(ECoreImage.RECYCLE_BIN_EMPTY_ICON);
@@ -30,13 +30,24 @@ public class RecycleBinViewLabelProvider extends AbstractRepoViewLabelProvider {
                 return ImageProvider.getImage(ECoreImage.RECYCLE_BIN_FULL_ICON);
             }
         }
+        return super.getImage(element);
+    }
 
-        return null;
+    private boolean isRecycleBin(Object element) {
+        if (element instanceof RepositoryNode) {
+            RepositoryNode node = (RepositoryNode) element;
+            return node.isBin();
+        }
+        return false;
+
     }
 
     @Override
     public String getText(Object element) {
-        return ERepositoryObjectType.RECYCLE_BIN.toString();
+        if (isRecycleBin(element)) {
+            return ERepositoryObjectType.RECYCLE_BIN.toString();
+        }
+        return super.getText(element);
     }
 
 }

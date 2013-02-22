@@ -100,6 +100,15 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
 
     @Override
     public Font getFont(Object element) {
+        if (element instanceof RepositoryNode) {
+            RepositoryNode node = (RepositoryNode) element;
+            switch (node.getType()) {
+            case SYSTEM_FOLDER:
+                return JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
+            case STABLE_SYSTEM_FOLDER:
+            default:
+            }
+        }
         return JFaceResources.getFontRegistry().defaultFont();
     }
 
@@ -212,18 +221,18 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
     protected String getElementText(IRepositoryViewObject object) {
         boolean isDeleted = object.isDeleted();
         boolean isModified = object.isModified();
-        boolean addVersion = !(object instanceof Folder);
+        boolean isFolder = (object instanceof Folder);
         boolean inRef = !ProjectManager.getInstance().getCurrentProject().getLabel().equals(object.getProjectLabel());
 
         return getText(object.getLabel(), object.getVersion(), object.getPath(), object.getProjectLabel(), isDeleted, isModified,
-                addVersion, inRef);
+                isFolder, inRef);
     }
 
     protected String getElementText(Property property) {
         boolean isDeleted = false;
         boolean isModified = false;
         boolean inRef = false;
-        boolean addVersion = true;
+        boolean isFolder = false;
 
         // nodes in the recycle bin
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -232,14 +241,14 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
         }
         // PTODO SML [FOLDERS++] temp code
         if (ERepositoryObjectType.getItemType(property.getItem()) == ERepositoryObjectType.FOLDER) {
-            addVersion = false;
+            isFolder = true;
         }
         //
         isModified = factory.isModified(property);
         inRef = !ProjectManager.getInstance().isInCurrentMainProject(property);
 
         return getText(property.getLabel(), property.getVersion(), property.getItem().getState().getPath(), null, isDeleted,
-                isModified, addVersion, inRef);
+                isModified, isFolder, inRef);
     }
 
     protected String getElementText(RepositoryNode node) {
@@ -247,7 +256,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
             boolean isDeleted = false;
             boolean isModified = false;
             boolean inRef = false;
-            boolean addVersion = true;
+            boolean isFolder = false;
             IRepositoryViewObject object = node.getObject();
 
             isModified = object.isModified();
@@ -257,10 +266,10 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
                     .getEmfProject();
             inRef = !mainProject.getLabel().equals(object.getProjectLabel());
             if (node.getType() == ENodeType.SIMPLE_FOLDER) {
-                addVersion = false;
+                isFolder = true;
             }
             return getText(object.getLabel(), object.getVersion(), object.getPath(), object.getProjectLabel(), isDeleted,
-                    isModified, addVersion, inRef);
+                    isModified, isFolder, inRef);
         } else {
             return getText(node.getLabel(), null, null, null, false, false, false, false);
         }
@@ -284,7 +293,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
     }
 
     protected String getText(String label, String version, String path, String projectLabel, boolean isDeleted,
-            boolean isModified, boolean addVersion, boolean inRef) {
+            boolean isModified, boolean isFolder, boolean inRef) {
         Assert.isNotNull(label);
 
         StringBuffer text = new StringBuffer(50);
@@ -296,7 +305,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
 
         text.append(label);
 
-        if (isAllowChengeVersion() && addVersion && version != null) {
+        if (isAllowChengeVersion() && !isFolder && version != null) {
             text.append(SPACE);
             text.append(version);
         }
@@ -307,7 +316,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
             text.append(projectLabel);
             text.append(')');
         }
-        if (isDeleted && path != null) {
+        if (!isFolder && isDeleted && path != null) {
             text.append(SPACE);
             text.append('(');
             text.append(path);
