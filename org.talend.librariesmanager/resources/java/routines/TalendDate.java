@@ -217,7 +217,7 @@ public class TalendDate {
         }
         
         String formatDate = sdf.format(testDate);
-        if(formatDate.equalsIgnoreCase(stringDate) || pos.getIndex() == formatDate.length()) {
+        if(formatDate.equalsIgnoreCase(stringDate) || pos.getIndex() == stringDate.length()) {
             return true;
         }
 
