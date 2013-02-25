@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,12 +33,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -44,6 +51,9 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
@@ -64,8 +74,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
-
-import static org.junit.Assert.*;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -194,7 +202,6 @@ public class LocalRepositoryFactoryTest {
         project.delete(true, null);
     }
 
-    @SuppressWarnings("unchecked")
     private ProcessItem createTempProcessItem(LocalRepositoryFactory factory, String path) throws PersistenceException {
         ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
         Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
@@ -1499,4 +1506,67 @@ public class LocalRepositoryFactoryTest {
         repositoryFactory.deleteObjectPhysical(sampleProject, new RepositoryObject(property));
     }
 
+    /**
+     * Test method for
+     * {@link org.talend.repository.localprovider.model.LocalRepositoryFactory#deleteObjectPhysical(org.talend.core.model.general.Project, org.talend.core.model.repository.IRepositoryViewObject)}
+     * .
+     * 
+     * @throws PersistenceException
+     * @throws IOException
+     * @throws BusinessException
+     */
+    @Test
+    public void testDeleteObjectPhysical() throws PersistenceException, IOException, BusinessException {
+        repositoryFactory.logOnProject(sampleProject);
+
+        Property property = PropertiesFactory.eINSTANCE.createProperty();
+        property.setAuthor(sampleProject.getAuthor());
+        property.setVersion(VersionUtils.DEFAULT_VERSION);
+        property.setLabel("myJob");
+        property.setDisplayName("myJob");
+        property.setStatusCode("");
+        property.setId(repositoryFactory.getNextId());
+
+        DatabaseConnectionItem conItem = PropertiesFactory.eINSTANCE.createDatabaseConnectionItem();
+        conItem.setProperty(property);
+        DatabaseConnection dbcon = ConnectionFactory.eINSTANCE.createDatabaseConnection();
+        conItem.setConnection(dbcon);
+
+        assertNull(conItem.eResource());
+        repositoryFactory.create(sampleProject, conItem, new Path(""), false);
+        assertNotNull(conItem.eResource());
+
+        IProject project = ResourceUtils.getProject(sampleProject.getTechnicalLabel());
+        checkFileExists(project, ERepositoryObjectType.METADATA_CONNECTIONS, "", "myJob", VersionUtils.DEFAULT_VERSION);
+
+        IFile fileItem = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_CONNECTIONS)
+                + "/" + "myJob" + "_" + VersionUtils.DEFAULT_VERSION + ".item"));
+
+        // unload resource
+        URI uri = URI.createPlatformResourceURI(fileItem.getFullPath().toString(), false);
+        Resource resource = repositoryFactory.xmiResourceManager.resourceSet.getResource(uri, false);
+        resource.unload();
+
+        // delete all the content in file(destroy the file)
+        File file = new File(fileItem.getLocationURI());
+        FileWriter fw = new FileWriter(file);
+        fw.write("");
+        fw.close();
+
+        // load resource
+        Resource resource2;
+        try {
+            resource2 = repositoryFactory.xmiResourceManager.resourceSet.getResource(uri, true);
+            repositoryFactory.xmiResourceManager.resourceSet.getResources().add(resource2);
+        } catch (Exception e) {
+            resource2 = null;
+        }
+
+        // delete the item to cleanup the workspace
+        repositoryFactory.deleteObjectPhysical(sampleProject, new RepositoryObject(property));
+
+        // check File Not Exists
+        checkFileNotExists(project, ERepositoryObjectType.METADATA_CONNECTIONS, "", "myJob", VersionUtils.DEFAULT_VERSION);
+
+    }
 }
