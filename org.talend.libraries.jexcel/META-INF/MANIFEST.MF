@@ -6,16 +6,15 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ClassPath: .,
- lib/jxl.jar
-Export-Package: jxl,
+ lib/wizard/jxl.jar
+Export-Package: common,
+ common.log,
+ jxl,
  jxl.biff,
  jxl.biff.drawing,
  jxl.biff.formula,
- jxl.common,
- jxl.common.log,
  jxl.demo,
  jxl.format,
  jxl.read.biff,
  jxl.write,
  jxl.write.biff
-
