@@ -1134,4 +1134,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public String getNamePattern() {
         return namePattern;
     }
+
+    /**
+     * 
+     * DOC ggu Comment method "valueOf".
+     * 
+     * in order to adapte old codes. and enable to init this class at same times.
+     * 
+     * @param clazz
+     * @param name
+     * @return
+     */
+    public static ERepositoryObjectType valueOf(Class<ERepositoryObjectType> clazz, String name) {
+        return DynaEnum.valueOf(clazz, name);
+    }
+
+    public static ERepositoryObjectType valueOf(String name) {
+        return valueOf(ERepositoryObjectType.class, name);
+    }
 }
