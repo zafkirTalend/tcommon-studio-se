@@ -314,10 +314,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.systemIndicators.phoneNumberStatistics", "TDQ_Libraries/Indicators/System Indicators/Phone Number Statistics", "SYSTEM_INDICATORS_PHONENUMBER_STATISTICS", 100, true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType(
-            "repository.servicesOperation", "services", "SERVICESOPERATION", 101, true, "servicesOperation.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesOperation", "SERVICESOPERATION", 101, true, true, new String[] { "DI", "CAMEL" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType(
-            "repository.servicesPort", "services", "SERVICESPORT", 102, true, "servicesPort.alias", new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesPort", "SERVICESPORT", 102, true, true, new String[] { "DI", "CAMEL" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", "SYSTEM_INDICATORS_FRAUDDETECTION", 103, true, "repository.systemIndicators.fraudDetectionStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
@@ -344,54 +344,43 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         RepositoryNodeProviderRegistryReader.getInstance().init();
     }
 
-    public final static ERepositoryObjectType BUSINESS_PROCESS = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "BUSINESS_PROCESS"); //$NON-NLS-1$
+    public final static ERepositoryObjectType BUSINESS_PROCESS = ERepositoryObjectType.valueOf("BUSINESS_PROCESS"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType PROCESS = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "PROCESS"); //$NON-NLS-1$
+    public final static ERepositoryObjectType PROCESS = ERepositoryObjectType.valueOf("PROCESS"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType JOBLET = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "JOBLET"); //$NON-NLS-1$
+    public final static ERepositoryObjectType JOBLET = ERepositoryObjectType.valueOf("JOBLET"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType CODE = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "CODE"); //$NON-NLS-1$
+    public final static ERepositoryObjectType CODE = ERepositoryObjectType.valueOf("CODE"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType ROUTINES = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTINES"); //$NON-NLS-1$
+    public final static ERepositoryObjectType ROUTINES = ERepositoryObjectType.valueOf("ROUTINES"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_HEADER_FOOTER = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_HEADER_FOOTER"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_HEADER_FOOTER = ERepositoryObjectType.valueOf("METADATA_HEADER_FOOTER"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType JOB_SCRIPT = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "JOB_SCRIPT"); //$NON-NLS-1$
+    public final static ERepositoryObjectType JOB_SCRIPT = ERepositoryObjectType.valueOf("JOB_SCRIPT"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType CONTEXT = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "CONTEXT"); //$NON-NLS-1$
+    public final static ERepositoryObjectType CONTEXT = ERepositoryObjectType.valueOf("CONTEXT"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType.valueOf(
-            ERepositoryObjectType.class, "METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType
+            .valueOf("METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_FILE_REGEXP = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_FILE_REGEXP"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_FILE_REGEXP = ERepositoryObjectType.valueOf("METADATA_FILE_REGEXP"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_FILE_XML = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_FILE_XML"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_FILE_XML = ERepositoryObjectType.valueOf("METADATA_FILE_XML"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_FILE_LDIF = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_FILE_LDIF"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_FILE_LDIF = ERepositoryObjectType.valueOf("METADATA_FILE_LDIF"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_FILE_EXCEL = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_FILE_EXCEL"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_FILE_EXCEL = ERepositoryObjectType.valueOf("METADATA_FILE_EXCEL"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_SALESFORCE_SCHEMA = ERepositoryObjectType.valueOf(
-            ERepositoryObjectType.class, "METADATA_SALESFORCE_SCHEMA"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_SALESFORCE_SCHEMA = ERepositoryObjectType
+            .valueOf("METADATA_SALESFORCE_SCHEMA"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_LDAP_SCHEMA = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_LDAP_SCHEMA"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_LDAP_SCHEMA = ERepositoryObjectType.valueOf("METADATA_LDAP_SCHEMA"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_WSDL_SCHEMA"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_WSDL_SCHEMA = ERepositoryObjectType.valueOf("METADATA_WSDL_SCHEMA"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_GENERIC_SCHEMA = ERepositoryObjectType.valueOf(
-            ERepositoryObjectType.class, "METADATA_GENERIC_SCHEMA"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_GENERIC_SCHEMA = ERepositoryObjectType.valueOf("METADATA_GENERIC_SCHEMA"); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
-            "METADATA_MDMCONNECTION"); //$NON-NLS-1$
+    public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf("METADATA_MDMCONNECTION"); //$NON-NLS-1$
 
     /* dynamic nodes should use this constructor ,type is required */
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
@@ -1042,4 +1031,21 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         return !getParentTypes().isEmpty();
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "valueOf".
+     * 
+     * in order to adapte old codes. and enable to init this class at same times.
+     * 
+     * @param clazz
+     * @param name
+     * @return
+     */
+    public static ERepositoryObjectType valueOf(Class<ERepositoryObjectType> clazz, String name) {
+        return DynaEnum.valueOf(clazz, name);
+    }
+
+    public static ERepositoryObjectType valueOf(String name) {
+        return valueOf(ERepositoryObjectType.class, name);
+    }
 }
