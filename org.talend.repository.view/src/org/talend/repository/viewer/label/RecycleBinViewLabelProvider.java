@@ -30,7 +30,7 @@ public class RecycleBinViewLabelProvider extends AbstractRepoViewLabelProvider {
                 return ImageProvider.getImage(ECoreImage.RECYCLE_BIN_FULL_ICON);
             }
         }
-        return super.getImage(element);
+        return null; // if others, ignore
     }
 
     private boolean isRecycleBin(Object element) {
@@ -47,7 +47,7 @@ public class RecycleBinViewLabelProvider extends AbstractRepoViewLabelProvider {
         if (isRecycleBin(element)) {
             return ERepositoryObjectType.RECYCLE_BIN.toString();
         }
-        return super.getText(element);
+        return null; // if others, ignore
     }
 
 }

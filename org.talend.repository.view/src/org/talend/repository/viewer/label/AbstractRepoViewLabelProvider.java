@@ -316,7 +316,7 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
             text.append(projectLabel);
             text.append(')');
         }
-        if (!isFolder && isDeleted && path != null) {
+        if (!isFolder && isDeleted && path != null && path.length() > 0) {
             text.append(SPACE);
             text.append('(');
             text.append(path);

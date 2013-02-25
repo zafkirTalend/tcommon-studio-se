@@ -99,11 +99,13 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             if (allowVerchange) {
                 string.append(" " + object.getVersion()); //$NON-NLS-1$
             }
-        }
-        // nodes in the recycle bin
-        if (object.isDeleted()) {
-            String oldPath = object.getPath();
-            string.append(" (" + oldPath + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+            // nodes in the recycle bin
+            if (object.isDeleted()) {
+                String oldPath = object.getPath();
+                if (oldPath != null && !"".equals(oldPath)) {
+                    string.append(" (" + oldPath + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+            }
         }
         return string.toString();
     }
