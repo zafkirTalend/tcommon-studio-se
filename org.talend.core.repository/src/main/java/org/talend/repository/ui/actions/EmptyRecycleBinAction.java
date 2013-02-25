@@ -43,7 +43,9 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
@@ -287,6 +289,11 @@ public class EmptyRecycleBinAction extends AContextualAction {
                                         RepositoryNodeUtilities.getFolderPath(currentNode.getObject().getProperty().getItem()),
                                         true);
                             } else {
+                                // Handle nodes from extension point.
+                                for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                                    handler.deleteNode(objToDelete);
+                                }
+
                                 factory.deleteObjectPhysical(ProjectManager.getInstance().getCurrentProject(), objToDelete, null,
                                         true);
                             }

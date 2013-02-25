@@ -20,7 +20,9 @@ import java.util.List;
  */
 public enum EHBaseDistribution4Versions {
 
-    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1", "HDP_1_0"),
+    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0"),
+
+    HDP_1_2(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
 
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 

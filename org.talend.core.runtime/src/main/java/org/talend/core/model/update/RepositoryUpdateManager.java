@@ -37,6 +37,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
@@ -468,6 +469,28 @@ public abstract class RepositoryUpdateManager {
                 return true;
             }
         }
+
+        if (checkHadoopRelevances(object)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean checkHadoopRelevances(Object resultParam) {
+        if (resultParam != null && resultParam instanceof Connection && parameter instanceof Connection) {
+            Connection parentConnection = (Connection) parameter;
+            Connection childConnection = (Connection) resultParam;
+            IHadoopClusterService hadoopClusterService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+                hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                        IHadoopClusterService.class);
+            }
+            if (hadoopClusterService != null) {
+                return hadoopClusterService.containedByCluster(parentConnection, childConnection);
+            }
+        }
+
         return false;
     }
 

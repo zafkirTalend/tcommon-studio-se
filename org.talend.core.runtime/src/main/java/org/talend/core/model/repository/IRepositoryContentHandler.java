@@ -108,4 +108,14 @@ public interface IRepositoryContentHandler {
      */
     public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
 
+    /**
+     * 
+     * DOC ycbai Comment method "deleteNode".
+     * 
+     * Delete the relevances of this node.
+     * 
+     * @param repViewObject
+     */
+    public void deleteNode(IRepositoryViewObject repViewObject);
+
 }

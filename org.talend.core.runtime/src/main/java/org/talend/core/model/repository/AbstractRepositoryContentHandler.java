@@ -15,6 +15,14 @@ package org.talend.core.model.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.IWizard;
@@ -25,6 +33,7 @@ import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -84,6 +93,7 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
     @Override
     public void addNode(ERepositoryObjectType type, RepositoryNode recBinNode, IRepositoryViewObject repositoryObject,
             RepositoryNode node) {
+        // Do nothing by default.
     }
 
     /*
@@ -94,6 +104,7 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
      */
     @Override
     public void addContents(Collection<EObject> collection, Resource resource) {
+        // Do nothing by default.
     }
 
     /*
@@ -179,6 +190,51 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
     @Override
     public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#deleteNode(org.talend.core.model.repository.
+     * IRepositoryViewObject)
+     */
+    @Override
+    public void deleteNode(final IRepositoryViewObject repViewObject) {
+        if (repViewObject != null && repViewObject.getProperty() != null) {
+            final Item item = repViewObject.getProperty().getItem();
+            if (item != null && isProcess(item)) {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+
+                    @Override
+                    public void run(IProgressMonitor monitor) throws CoreException {
+                        try {
+                            deleteNode(item);
+                        } catch (Exception e) {
+                            throw new CoreException(
+                                    new org.eclipse.core.runtime.Status(
+                                            IStatus.ERROR,
+                                            CoreRuntimePlugin.PLUGIN_ID,
+                                            Messages.getString(
+                                                    "AbstractRepositoryContentHandler.deleteNode.exception", repViewObject.getLabel()), e)); //$NON-NLS-1$
+                        }
+                    }
+                };
+
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all
+                    // notification of changes before the end of the modifications.
+                    workspace.run(operation, schedulingRule, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+    }
+
+    protected void deleteNode(Item item) throws Exception {
+        // Do nothing by default.
     }
 
 }

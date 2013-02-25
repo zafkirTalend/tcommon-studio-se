@@ -74,7 +74,9 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.i18n.Messages;
@@ -1257,6 +1259,12 @@ public class DeleteAction extends AContextualAction {
                                 resChangeService.removeAllDependecies(item);
                             }
                         }
+
+                        // Handle nodes from extension point.
+                        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                            handler.deleteNode(objToDelete);
+                        }
+
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
                     }

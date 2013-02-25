@@ -18,6 +18,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode;
@@ -99,6 +101,16 @@ public class RecycleBinViewerFilter extends ViewerFilter {
      * @return
      */
     private ERepositoryObjectType findRealContextType(final RepositoryNode node) {
+        // Check hadoop subitems...
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null && hadoopClusterService.isHadoopSubnode(node)) {
+            return hadoopClusterService.getHadoopClusterType();
+        }
+
         ERepositoryObjectType contentType = null;
         // elements
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
@@ -127,6 +139,7 @@ public class RecycleBinViewerFilter extends ViewerFilter {
                 contentType = itemType;
             }
         }
+
         return contentType;
     }
 }

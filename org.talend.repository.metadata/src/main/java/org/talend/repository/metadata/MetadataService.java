@@ -41,6 +41,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
+import org.talend.core.repository.seeker.RepositorySeekerManager;
 import org.talend.core.ui.IHeaderFooterProviderService;
 import org.talend.core.ui.IMDMProviderService;
 import org.talend.core.ui.metadata.celleditor.EProcessTypeForRule;
@@ -80,6 +81,7 @@ public class MetadataService implements IMetadataService {
      * @see org.talend.repository.model.IRepositoryService#getGenericSchemaWizardDialog(org.eclipse.swt.widgets.Shell,
      * org.eclipse.ui.IWorkbench, boolean, org.eclipse.jface.viewers.ISelection, java.lang.String[], boolean)
      */
+    @Override
     public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation, ISelection selection,
             String[] existingNames, boolean isSinglePageOnly) {
 
@@ -92,6 +94,7 @@ public class MetadataService implements IMetadataService {
      * 
      * @see org.talend.repository.model.IRepositoryService#getPropertyFromWizardDialog()
      */
+    @Override
     public Property getPropertyFromWizardDialog() {
         if (this.genericSchemaWizard != null) {
             return this.genericSchemaWizard.getConnectionProperty();
@@ -104,6 +107,7 @@ public class MetadataService implements IMetadataService {
      * 
      * @see org.talend.repository.model.IRepositoryService#getPathForSaveAsGenericSchema()
      */
+    @Override
     public IPath getPathForSaveAsGenericSchema() {
         if (this.genericSchemaWizard != null) {
             return this.genericSchemaWizard.getPathForSaveAsGenericSchema();
@@ -111,9 +115,12 @@ public class MetadataService implements IMetadataService {
         return null;
     }
 
+    @Override
     public void openMetadataConnection(IRepositoryViewObject o, INode node) {
-        final RepositoryNode realNode = RepositoryNodeUtilities.getRepositoryNode(o);
-        openMetadataConnection(false, realNode, node);
+        if (o != null && o.getProperty() != null) {
+            IRepositoryNode realNode = RepositorySeekerManager.getInstance().searchRepoViewNode(o.getProperty().getId());
+            openMetadataConnection(false, realNode, node);
+        }
     }
 
     @Override
@@ -239,6 +246,7 @@ public class MetadataService implements IMetadataService {
         return null;
     }
 
+    @Override
     public void openEditSchemaWizard(String value) {
         final RepositoryNode realNode = RepositoryNodeUtilities.getMetadataTableFromConnection(value);
         if (realNode != null) {
