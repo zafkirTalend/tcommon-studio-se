@@ -202,14 +202,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             @Override
             protected IStatus run(IProgressMonitor monitor) {
-                ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
                 try {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-                        IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault()
-                                .getService(IProxyRepositoryService.class);
-
-                        listExistingObjects = service.getProxyRepositoryFactory().getAll(type, true, false);
-                    }
+                    listExistingObjects = loadRepositoryViewObjectList();
                 } catch (PersistenceException e) {
                     return new org.eclipse.core.runtime.Status(IStatus.ERROR, "org.talend.metadata.management.ui", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
                 }
@@ -236,6 +230,64 @@ public abstract class PropertiesWizardPage extends WizardPage {
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
         allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
+    }
+
+    /**
+     * Loads the repository view objects that are used to check if the name of job(Opened in the current properties
+     * wizard dialog) can be found. Added by Marvin Wang on Feb 22, 2013.
+     * 
+     * @return a list includes the instance of <code>IRepositoryViewObject</code>, which are used to check if a given
+     * job name is present in the list.
+     * @throws PersistenceException
+     */
+    protected List<IRepositoryViewObject> loadRepositoryViewObjectList() throws PersistenceException {
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+
+        List<IRepositoryViewObject> repViewObjectWithSameType = loadRepViewObjectWithSameType();
+
+        if (repViewObjectWithSameType != null && repViewObjectWithSameType.size() > 0) {
+            list.addAll(repViewObjectWithSameType);
+        }
+
+        List<IRepositoryViewObject> others = loadRepViewObjectWithOtherTypes();
+
+        // Loads other repository view objects with the different repository type.
+        if (others != null && others.size() > 0) {
+            list.addAll(others);
+        }
+        return list;
+    }
+
+    /**
+     * Loads the repository view objects, which have the same repository type as the current job that are opened in
+     * properties wizard dialog. Added by Marvin Wang on Feb 22, 2013.
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    private List<IRepositoryViewObject> loadRepViewObjectWithSameType() throws PersistenceException {
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+        ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+
+            list = service.getProxyRepositoryFactory().getAll(type, true, false);
+        }
+        return list;
+    }
+
+    /**
+     * Loads other repository view objects, which have the different repository type as the current job that are opened
+     * in properties wizard dialog. If the given job named is required to check with other repository view object with
+     * different repository type, then implement this method to return others repository veiw object. Added by Marvin
+     * Wang on Feb 22, 2013.
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    protected List<IRepositoryViewObject> loadRepViewObjectWithOtherTypes() throws PersistenceException {
+        return new ArrayList<IRepositoryViewObject>();
     }
 
     protected boolean isReadOnly() {
