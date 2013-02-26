@@ -227,7 +227,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 Set<String> contributeIdSet = componentsFolders.keySet();
                 boolean jarFound = false;
                 if (relativePath != null) {
-                    if (relativePath.startsWith("platform:/plugin")) {
+                    if (relativePath.startsWith("platform:/")) {
                         URI uri = new URI(relativePath);
                         URL url = FileLocator.toFileURL(uri.toURL());
                         File file = new File(url.toURI());
