@@ -89,7 +89,7 @@ public class FunctionManager {
     @SuppressWarnings("unchecked")
     public FunctionManager() {
         // this code move to FunctionParser .
-        //        
+        //
         // for (int i = 0; i < list.size(); i++) {
         // URL url = list.get(i);
         // try {
@@ -108,6 +108,10 @@ public class FunctionManager {
         }
         parser.parse();
         talendTypes = parser.getList();
+        // pig map expressionbuilder
+        parser = new PigFunctionParser();
+        parser.parse();
+        talendTypes.addAll(parser.getList());
     }
 
     public static boolean isJavaProject() {
