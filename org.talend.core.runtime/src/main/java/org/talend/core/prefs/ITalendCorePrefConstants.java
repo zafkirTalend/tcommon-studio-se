@@ -119,6 +119,10 @@ public interface ITalendCorePrefConstants {
 
     String OOZIE_SCHEDULER_PATH = "oozie_scheduler_path";
 
+    String OOZIE_SHCEDULER_HADOOP_DISTRIBUTION = "oozie_shceduler_hadoop_distribution";
+
+    String OOZIE_SHCEDULER_HADOOP_VERSION = "oozie_shceduler_hadoop_version";
+
     String OOZIE_SHCEDULER_NAME_NODE_ENDPOINT = "oozie_scheduler_name_node_endpoint";
 
     String OOZIE_SHCEDULER_JOB_TRACKER_ENDPOINT = "oozie_scheduler_job_tracker_endpoint";
