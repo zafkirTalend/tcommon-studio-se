@@ -160,6 +160,8 @@ public final class TalendQuoteUtils {
     public static String checkStringQuotationMarks(String str) {
         if (str == null) {
             return ""; //$NON-NLS-1$
+        } else if (!str.contains("\"")) {
+            return str;
         }
         return str.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
