@@ -230,7 +230,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     if (relativePath.startsWith("platform:/")) {
                         URI uri = new URI(relativePath);
                         URL url = FileLocator.toFileURL(uri.toURL());
-                        File file = new File(url.toURI());
+                        File file = new File(url.getFile());
                         if (file.exists()) {
                             jarLocation = file.getAbsolutePath();
                             jarFound = true;
