@@ -8,6 +8,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views.properties.tabbed,
  org.eclipse.emf.ecore.xmi,
+ org.apache.commons.collections,
  org.talend.common.ui.runtime,
  org.talend.core.repository,
  org.talend.core.runtime,

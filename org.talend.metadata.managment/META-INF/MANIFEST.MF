@@ -4,6 +4,8 @@ Bundle-Name: Managment
 Bundle-SymbolicName: org.talend.metadata.managment;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
+ org.apache.commons.collections,
+ org.apache.commons.lang,
  org.talend.common.ui.runtime,
  org.talend.core.runtime,
  org.talend.model,

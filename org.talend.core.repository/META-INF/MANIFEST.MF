@@ -5,6 +5,8 @@ Bundle-SymbolicName: org.talend.core.repository;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
+ org.apache.commons.collections,
+ org.apache.commons.lang,
  org.talend.core.runtime,
  org.talend.model,
  org.talend.commons.ui,

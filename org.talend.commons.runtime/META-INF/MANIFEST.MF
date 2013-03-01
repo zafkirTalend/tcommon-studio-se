@@ -4,7 +4,10 @@ Bundle-Name: runtime (low dependencies) for Talend common classes
 Bundle-SymbolicName: org.talend.commons.runtime
 Bundle-Version: 2.2.0.qualifier
 Require-Bundle: org.apache.log4j;visibility:=reexport,
+ org.apache.commons.beanutils,
+ org.apache.commons.collections,
  org.apache.commons.httpclient,
+ org.apache.commons.lang,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi,
  org.talend.libraries.apache

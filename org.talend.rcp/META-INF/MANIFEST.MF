@@ -22,6 +22,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.registration,
  org.eclipse.jface,
  org.eclipse.ui.workbench,
+ org.apache.commons.lang,
  org.talend.libraries.apache,
  org.eclipse.ui.cheatsheets,
  org.eclipse.ui

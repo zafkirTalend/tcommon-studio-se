@@ -26,8 +26,10 @@ Export-Package:
  org.talend.utils.thread,
  org.talend.utils.time
 Bundle-ClassPath: .
-Require-Bundle: org.talend.libraries.apache;visibility:=reexport,
- org.apache.log4j
+Require-Bundle: org.apache.commons.lang,
+ org.talend.libraries.apache;visibility:=reexport,
+ org.apache.log4j,
+ org.apache.commons.io
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

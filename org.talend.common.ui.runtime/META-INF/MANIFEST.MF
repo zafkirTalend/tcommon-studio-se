@@ -4,7 +4,9 @@ Bundle-Name: Talend Ui runtime lib
 Bundle-SymbolicName: org.talend.common.ui.runtime;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
+ org.apache.commons.collections,
  org.talend.libraries.dom4j-jaxen,
+ org.apache.commons.lang,
  org.apache.log4j,
  org.talend.libraries.apache,
  org.talend.commons.runtime,
