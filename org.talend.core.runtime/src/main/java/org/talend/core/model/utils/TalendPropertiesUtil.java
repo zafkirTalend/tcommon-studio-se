@@ -66,7 +66,7 @@ public final class TalendPropertiesUtil {
         return isEnabled("talend.clean.cache"); //$NON-NLS-1$
     }
 
-    public static boolean isEnableCsvFormat4Exchange() {
+    public static boolean isEnabledCsvFormat4Exchange() {
         return isEnabled("talend.exchange.csv"); //$NON-NLS-1$
     }
 }
