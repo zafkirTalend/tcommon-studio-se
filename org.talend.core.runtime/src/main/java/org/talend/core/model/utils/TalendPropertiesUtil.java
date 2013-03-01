@@ -20,6 +20,11 @@ package org.talend.core.model.utils;
  */
 public final class TalendPropertiesUtil {
 
+    private static boolean isEnabled(String key) {
+        String value = System.getProperty(key);
+        return Boolean.parseBoolean(value);
+    }
+
     /**
      * 
      * DOC ggu Comment method "isHideExchange".
@@ -28,9 +33,7 @@ public final class TalendPropertiesUtil {
      * @return
      */
     public static boolean isHideExchange() {
-        String value = System.getProperty("talend.hide.exchange"); //$NON-NLS-1$
-
-        return Boolean.parseBoolean(value);
+        return isEnabled("talend.hide.exchange"); //$NON-NLS-1$
     }
 
     /**
@@ -40,9 +43,7 @@ public final class TalendPropertiesUtil {
      * @return
      */
     public static boolean isHideBuildNumber() {
-        String value = System.getProperty("talend.hide.buildNumber"); //$NON-NLS-1$
-
-        return Boolean.parseBoolean(value);
+        return isEnabled("talend.hide.buildNumber"); //$NON-NLS-1$
     }
 
     /**
@@ -52,9 +53,7 @@ public final class TalendPropertiesUtil {
      * @return
      */
     public static boolean isEnabledMultiBranchesInWorkspace() {
-        String value = System.getProperty("talend.enable.multiBranchesInWorkspace"); //$NON-NLS-1$
-
-        return Boolean.parseBoolean(value);
+        return isEnabled("talend.enable.multiBranchesInWorkspace"); //$NON-NLS-1$
     }
 
     /**
@@ -64,9 +63,10 @@ public final class TalendPropertiesUtil {
      * @return
      */
     public static boolean isCleanCache() {
-        String value = System.getProperty("talend.clean.cache"); //$NON-NLS-1$
-
-        return Boolean.parseBoolean(value);
+        return isEnabled("talend.clean.cache"); //$NON-NLS-1$
     }
 
+    public static boolean isEnableCsvFormat4Exchange() {
+        return isEnabled("talend.exchange.csv"); //$NON-NLS-1$
+    }
 }
