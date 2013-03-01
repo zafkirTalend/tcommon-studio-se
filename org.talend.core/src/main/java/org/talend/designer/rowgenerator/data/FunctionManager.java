@@ -108,10 +108,17 @@ public class FunctionManager {
         }
         parser.parse();
         talendTypes = parser.getList();
-        // pig map expressionbuilder
-        parser = new PigFunctionParser();
-        parser.parse();
-        talendTypes.addAll(parser.getList());
+    }
+
+    @SuppressWarnings("unchecked")
+    public FunctionManager(boolean isPigMap) {
+        AbstractFunctionParser parser = null;
+        if (isPigMap) {
+            // pig map expressionbuilder
+            parser = new PigFunctionParser();
+            parser.parse();
+            talendTypes = parser.getList();
+        }
     }
 
     public static boolean isJavaProject() {

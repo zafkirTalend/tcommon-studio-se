@@ -29,4 +29,7 @@ public interface IExpressionBuilderDialogService extends IService {
     public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean,
             INode component);
 
+    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean,
+            INode component, Boolean isPigMap);
+
 }
