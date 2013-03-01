@@ -1195,7 +1195,7 @@ public class DeleteAction extends AContextualAction {
             needReturn = true;
         } else {
             if (factory.getStatus(objToDelete) == ERepositoryStatus.DELETED) {
-                if (resChangeService != null) {
+                if (!confirmFromDialog && resChangeService != null) {
                     List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(currentJobNode);
                     if (dependentNodes != null && !dependentNodes.isEmpty()) {
                         resChangeService.openDependcesDialog(dependentNodes);
@@ -1203,20 +1203,26 @@ public class DeleteAction extends AContextualAction {
                     }
                 }
                 if (confirm == null) {
-                    Display.getDefault().syncExec(new Runnable() {
+                    // Added 20130227 TDQ-6901 yyin, when physical deleting object with dependencies, do not popup
+                    // confirm anymore.
+                    if (confirmFromDialog) {
+                        confirm = confirmFromDialog;
+                    } else {// ~
+                        Display.getDefault().syncExec(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
+                            @Override
+                            public void run() {
+                                String title = Messages.getString("DeleteAction.dialog.title"); //$NON-NLS-1$
 
-                            String message = currentJobNode.getProperties(EProperties.LABEL)
-                                    + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                    + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
+                                String message = currentJobNode.getProperties(EProperties.LABEL)
+                                        + " " + Messages.getString("DeleteAction.dialog.message0") + "\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                        + Messages.getString("DeleteAction.dialog.message2"); //$NON-NLS-1$
 
-                            confirmFromDialog = MessageDialog.openQuestion(new Shell(), title, message);
-                        }
-                    });
-                    confirm = confirmFromDialog;
+                                confirmFromDialog = MessageDialog.openQuestion(new Shell(), title, message);
+                            }
+                        });
+                        confirm = confirmFromDialog;
+                    }
                 }
                 if (confirm) {
 
