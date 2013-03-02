@@ -189,6 +189,12 @@
          install-size="0"
          version="1.2.15.v201012070815"
          unpack="false"/>
+   <plugin
+         id="org.apache.log4j"
+         download-size="0"
+         install-size="0"
+         version="1.2.13.v200903072027"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.core.resources"
