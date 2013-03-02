@@ -28,6 +28,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
@@ -700,7 +701,7 @@ public class RelationshipItemBuilder {
                                 }
                             }
                         }
-                        IComponent cc = compService.getComponentsFactory().get(currentNode.getComponentName());
+                        IComponent cc = compService.getComponentsFactory().get(currentNode.getComponentName(), ComponentCategory.CATEGORY_4_DI.getName());
                         IJobletProviderService service = null;
                         if (PluginChecker.isJobLetPluginLoaded()) {
                             service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(

@@ -69,10 +69,11 @@ public interface IComponentsFactory {
 
     /**
      * This one by default will avoid the new possible type for M/R.<br>
-     * This method might be deprecated later.
+     * Deprecated, Shouldn't be used anymore.
      * 
      * @param name
      * @return
+     * @deprecated
      */
     public IComponent get(String name);
 
