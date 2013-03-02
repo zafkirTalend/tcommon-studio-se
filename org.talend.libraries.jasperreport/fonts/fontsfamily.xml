@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+	<fontFamily name="DejaVu Sans">
+		<normal><![CDATA[fonts/DejaVuSans.ttf]]></normal>
+		<bold><![CDATA[fonts/DejaVuSans-Bold.ttf]]></bold>
+		<italic><![CDATA[fonts/DejaVuSans-Oblique.ttf]]></italic>
+		<boldItalic><![CDATA[fonts/DejaVuSans-BoldOblique.ttf]]></boldItalic>
+		<pdfEmbedded><![CDATA[false]]></pdfEmbedded>
+		<exportFonts>
+			<export key="net.sf.jasperreports.html"><![CDATA[DejaVu Sans]]></export>
+		</exportFonts>
+	</fontFamily>
+	
+    <fontFamily name="Arial">
+		<normal><![CDATA[fonts/ARIAL.TTF]]></normal>
+		<bold><![CDATA[fonts/ARIALBD.TTF]]></bold>
+		<italic><![CDATA[fonts/ARIALI.TTF]]></italic>
+		<boldItalic><![CDATA[fonts/ARIBLK.TTF]]></boldItalic>
+		<pdfEmbedded><![CDATA[false]]></pdfEmbedded>
+		<exportFonts>
+			<export key="net.sf.jasperreports.html"><![CDATA[Arial]]></export>
+		</exportFonts>
+	</fontFamily>
+	
+	<fontFamily name="DejaVu Serif">
+		<normal><![CDATA[fonts/DejaVuSerif.ttf]]></normal>
+		<bold><![CDATA[fonts/DejaVuSerifBold.ttf]]></bold>
+		<italic><![CDATA[fonts/DejaVuSerifItalic.ttf]]></italic>
+		<boldItalic><![CDATA[fonts/DejaVuSerifBoldItalic.ttf]]></boldItalic>
+		<pdfEmbedded><![CDATA[false]]></pdfEmbedded>
+		<exportFonts>
+			<export key="net.sf.jasperreports.html"><![CDATA[DejaVu Serif]]></export>
+		</exportFonts>
+	</fontFamily>
+</fontFamilies>
