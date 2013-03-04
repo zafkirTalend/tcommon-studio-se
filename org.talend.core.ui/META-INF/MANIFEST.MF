@@ -14,3 +14,13 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.libraries.ui,
  org.talend.model
 Import-Package: org.eclipse.jdt.internal.ui.workingsets
+Export-Package: org.talend.core.ui.context,
+ org.talend.core.ui.context.action,
+ org.talend.core.ui.context.cmd,
+ org.talend.core.ui.context.model,
+ org.talend.core.ui.context.model.table,
+ org.talend.core.ui.context.model.template,
+ org.talend.core.ui.context.model.tree,
+ org.talend.core.ui.proposal,
+ org.talend.core.ui.targetschema.editor,
+ org.talend.core.ui.webService
