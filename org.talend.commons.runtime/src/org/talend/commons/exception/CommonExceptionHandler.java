@@ -28,12 +28,6 @@ public final class CommonExceptionHandler {
     private static Logger log = Logger.getLogger(CommonExceptionHandler.class);
 
     /**
-     * Empty constructor.
-     */
-    private CommonExceptionHandler() {
-    }
-
-    /**
      * Log message relative to ex param. Log level depends on exception type.
      * 
      * @param ex - exception to log

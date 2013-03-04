@@ -15,6 +15,7 @@ package org.talend.commons.ui.runtime.exception;
 import org.apache.log4j.Level;
 import org.apache.log4j.Priority;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
@@ -42,22 +43,18 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        process(ex, null);
+        Shell shell = Display.getCurrent().getActiveShell();
+        if (shell == null) {
+            shell = new Shell();
+        }
+        process(ex, shell);
     }
 
     public static void process(Throwable ex, Shell shell) {
-        ExceptionHandler.process(ex);
+        CommonExceptionHandler.process(ex);
 
         if (CommonsPlugin.isHeadless()) {
             return;
-        }
-
-        if (shell == null) {
-            try {
-                shell = new Shell();
-            } catch (Exception e) {
-                // ignore me
-            }
         }
 
         if (shell != null) {
@@ -70,7 +67,7 @@ public final class MessageBoxExceptionHandler {
      * 
      * @param ex - exception to show
      */
-    protected static void showMessage(Throwable ex, Shell shell) {
+    public static void showMessage(Throwable ex, Shell shell) {
         if (ex.equals(lastShowedAction)) {
             return;
         }
@@ -100,7 +97,7 @@ public final class MessageBoxExceptionHandler {
      * @param ex
      * @param shell
      */
-    protected static void showMessageForSchemaImportXml(Throwable ex, Shell shell) {
+    public static void showMessageForSchemaImportXml(Throwable ex, Shell shell) {
         String title = Messages.getString("MessageBoxExceptionHandler.showMessageForSchemaImportXml.unParseXML.title"); //$NON-NLS-1$
         String msg = Messages.getString("MessageBoxExceptionHandler.showMessageForSchemaImportXml.unParseXML.msg"); //$NON-NLS-1$
         MessageDialog.openConfirm(shell, title, msg);

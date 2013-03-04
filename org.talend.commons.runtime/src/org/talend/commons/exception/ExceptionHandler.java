@@ -10,18 +10,19 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.ui.runtime.exception;
+package org.talend.commons.exception;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Priority;
+import org.talend.commons.CommonsPlugin;
 
 /**
  * Implementation of exception handling strategy.<br/>
  * 
  * $Id: ExceptionHandler.java 7038 2007-11-15 14:05:48Z plegall $
  * 
- * @deprecated use {@link org.talend.commons.exception.ExceptionHandler} instead
  */
-public final class ExceptionHandler {
+public class ExceptionHandler {
 
     /**
      * Log message relative to ex param. Log level depends on exception type.
@@ -29,15 +30,23 @@ public final class ExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        org.talend.commons.exception.ExceptionHandler.process(ex);
+        Priority priority = CommonExceptionHandler.getPriority(ex);
+        process(ex, priority);
     }
 
     public static void log(String message) {
-        org.talend.commons.exception.ExceptionHandler.log(message);
+        CommonExceptionHandler.log(message);
     }
 
     public static void process(Throwable ex, Priority priority) {
-        org.talend.commons.exception.ExceptionHandler.process(ex, priority);
+        CommonExceptionHandler.process(ex, priority);
+
+        if (priority == Level.FATAL) {
+            ExceptionService service = CommonsPlugin.getDefault().getExceptionService();
+            if (service != null) {
+                service.showExceptionInMessgeBox(ex);
+            }
+        }
     }
 
     /**
@@ -46,9 +55,12 @@ public final class ExceptionHandler {
      * DOC yhch Comment method "processForSchemaImportXml".
      * 
      * @param ex
-     * 
      */
     public static void processForSchemaImportXml(Throwable ex) {
-        org.talend.commons.exception.ExceptionHandler.processForSchemaImportXml(ex);
+
+        ExceptionService service = CommonsPlugin.getDefault().getExceptionService();
+        if (service != null) {
+            service.showMessageForSchemaImportXml(ex);
+        }
     }
 }

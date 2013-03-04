@@ -32,7 +32,6 @@ Export-Package:
  org.talend.commons.ui.utils.threading,
  org.talend.core.repository,
  org.talend.core.ui.images
-Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.jface.bindings.keys,
  org.eclipse.jface.dialogs,
  org.eclipse.jface.fieldassist,
@@ -48,3 +47,5 @@ Import-Package: org.eclipse.jface.bindings.keys,
  org.eclipse.swt.widgets,
  org.eclipse.ui.forms.events,
  org.eclipse.ui.forms.widgets
+Bundle-Activator: org.talend.commons.ui.runtime.Activator
+Bundle-ActivationPolicy: lazy

@@ -18,8 +18,11 @@ import java.net.URL;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.talend.commons.debug.TalendDebugHandler;
+import org.talend.commons.exception.ExceptionService;
 
 /**
  * Activator for Code Generator.
@@ -27,7 +30,7 @@ import org.talend.commons.debug.TalendDebugHandler;
  * $Id$
  * 
  */
-public class CommonsPlugin extends Plugin {
+public class CommonsPlugin implements BundleActivator {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.commons.runtime"; //$NON-NLS-1$
@@ -58,6 +61,10 @@ public class CommonsPlugin extends Plugin {
     public static void setUseCommandLineRepository(boolean useCommandLineRepository) {
         CommonsPlugin.useCommandLineRepository = useCommandLineRepository;
     }
+
+    private ExceptionService service;
+
+    private BundleContext context;
 
     /**
      * Default Constructor.
@@ -101,6 +108,25 @@ public class CommonsPlugin extends Plugin {
 
     public static void setSameProjectLogonCommline(boolean isSameProjectLogonCommline) {
         CommonsPlugin.isSameProjectLogonCommline = isSameProjectLogonCommline;
+    }
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        this.context = context;
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+    }
+
+    public ExceptionService getExceptionService() {
+        if (service == null) {
+            ServiceReference sr = context.getServiceReference(ExceptionService.class.getName());
+            if (sr != null) {
+                service = (ExceptionService) context.getService(sr);
+            }
+        }
+        return service;
     }
 
 }
