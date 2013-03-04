@@ -13,4 +13,3 @@ Export-Package: org.codehaus.jackson,
  org.codehaus.jackson.map.impl,
  org.codehaus.jackson.sym,
  org.codehaus.jackson.util
-Require-Bundle: org.talend.libraries.csv;visibility:=reexport
