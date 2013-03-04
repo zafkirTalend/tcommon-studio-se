@@ -451,7 +451,7 @@ public class FilesUtils {
             if (consideredExt && consideredName) {
                 results.add(file);
             }
-        } else if (file.isDirectory() && nested) {
+        } else if (nested && file.isDirectory() && !isSVNFolder(file)) {
             if (excludedFolder != null && excludedFolder.equals(file.getName())) {
                 return results;
             }
