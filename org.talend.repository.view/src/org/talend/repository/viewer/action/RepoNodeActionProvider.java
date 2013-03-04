@@ -67,6 +67,18 @@ public class RepoNodeActionProvider extends CommonActionProvider {
     public void fillContextMenu(IMenuManager manager) {
         super.fillContextMenu(manager);
 
+        addActions(manager);
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "addActions".
+     * 
+     * check and add all contextualsActions
+     * 
+     * @param manager
+     */
+    protected void addActions(IMenuManager manager) {
         // FIXME need check this service for other product. because the extension point is in org.talend.core.
         IStructuredSelection sel = (IStructuredSelection) getContext().getSelection();
         MenuManager[] menuManagerGroups = null;
@@ -76,29 +88,48 @@ public class RepoNodeActionProvider extends CommonActionProvider {
                 menuManagerGroups = coreService.getRepositoryContextualsActionGroups();
             }
         }
-        // find group
+
         Set<String> processedGroupIds = new HashSet<String>();
-        for (ITreeContextualAction action : contextualsActions) {
-            action.init((TreeViewer) getActionSite().getStructuredViewer(), sel);
-            if (action.isVisible() && action.isEnabled()) {
-                IMenuManager groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), true); // find root
-                if (groupMenu != null) { // existed
-                    final String rootId = groupMenu.getId();
-                    if (!processedGroupIds.contains(rootId)) {
-                        manager.add(groupMenu);
-                        processedGroupIds.add(rootId);
-                    }
-                }
-                groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), false); // find last child
-                if (groupMenu != null) { // existed
-                    groupMenu.add(action);
-                } else { // child
-                    manager.add(action);
-                }
-            }
-        }
+        // contextual actions
+        addContextualActions(manager, sel, menuManagerGroups, processedGroupIds);
+
+        // addition actions
+        addAdditionActions(sel, manager, menuManagerGroups, processedGroupIds);
 
         manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+    }
+
+    protected void addContextualActions(IMenuManager manager, IStructuredSelection sel, MenuManager[] menuManagerGroups,
+            Set<String> processedGroupIds) {
+        for (ITreeContextualAction action : contextualsActions) {
+            checkAndAddActionInMenu(action, sel, manager, menuManagerGroups, processedGroupIds);
+        }
+    }
+
+    protected void checkAndAddActionInMenu(ITreeContextualAction action, IStructuredSelection sel, IMenuManager manager,
+            MenuManager[] menuManagerGroups, Set<String> processedGroupIds) {
+        action.init((TreeViewer) getActionSite().getStructuredViewer(), sel);
+        if (action.isVisible() && action.isEnabled()) {
+            IMenuManager groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), true); // find root
+            if (groupMenu != null) { // existed
+                final String rootId = groupMenu.getId();
+                if (!processedGroupIds.contains(rootId)) {
+                    manager.add(groupMenu);
+                    processedGroupIds.add(rootId);
+                }
+            }
+            groupMenu = findMenuManager(menuManagerGroups, action.getGroupId(), false); // find last child
+            if (groupMenu != null) { // existed
+                groupMenu.add(action);
+            } else { // child
+                manager.add(action);
+            }
+        }
+    }
+
+    protected void addAdditionActions(IStructuredSelection sel, IMenuManager manager, MenuManager[] menuManagerGroups,
+            Set<String> processedGroupIds) {
+        // do nothing
     }
 
     private MenuManager findMenuManager(final MenuManager[] menuManagerGroups, String groupId, boolean findParent) {
