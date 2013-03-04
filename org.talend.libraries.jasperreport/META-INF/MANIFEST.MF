@@ -300,7 +300,8 @@ Require-Bundle: org.talend.libraries.hibernate,
  org.apache.log4j,
  org.talend.libraries.dom4j-jaxen,
  org.talend.libraries.apache,
- org.talend.libraries.jfreechart
+ org.talend.libraries.jfreechart,
+ org.apache.commons.logging
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
