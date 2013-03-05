@@ -34,4 +34,6 @@ Export-Package: org.apache.commons.cli2,
  org.apache.commons.digester.plugins.strategies,
  org.apache.commons.digester.substitution,
  org.apache.commons.digester.xmlrules
+Require-Bundle: org.apache.commons.beanutils,
+ org.apache.commons.logging
 
