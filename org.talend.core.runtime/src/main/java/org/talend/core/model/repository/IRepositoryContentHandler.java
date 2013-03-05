@@ -118,4 +118,12 @@ public interface IRepositoryContentHandler {
      */
     public void deleteNode(IRepositoryViewObject repViewObject);
 
+    /**
+     * DOC ycbai Comment method "getRepositoryTypeProcessor".
+     * 
+     * @param repositoryType
+     * @return the type processor which handles the appearance of node in RepositoryReviewDialog.
+     */
+    public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType);
+
 }

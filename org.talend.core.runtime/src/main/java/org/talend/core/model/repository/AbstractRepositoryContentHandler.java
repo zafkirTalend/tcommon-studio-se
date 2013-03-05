@@ -237,4 +237,14 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
         // Do nothing by default.
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#getRepositoryTypeProcessor()
+     */
+    @Override
+    public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType) {
+        return null;
+    }
+
 }
