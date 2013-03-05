@@ -301,6 +301,7 @@ Require-Bundle: org.talend.libraries.hibernate,
  org.talend.libraries.dom4j-jaxen,
  org.talend.libraries.apache,
  org.talend.libraries.jfreechart,
+ org.apache.commons.collections,
  org.apache.commons.logging
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j
