@@ -76,7 +76,7 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
      */
     @Override
     public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system) {
-        return RoutinesUtil.collectRelatedRoutines(includeRoutineIdOrNames, true);
+        return RoutinesUtil.collectRelatedRoutines(includeRoutineIdOrNames, system);
     }
 
 }
