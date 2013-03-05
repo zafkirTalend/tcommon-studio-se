@@ -548,8 +548,18 @@ public class MetadataConnectionUtils {
      */
     private static Driver getDriver(IMetadataConnection metadataBean) {
         Driver driver = null;
-        List<?> connList = getConnection(metadataBean);
         try {
+            driver = (Driver) Class.forName(metadataBean.getDriverClass()).newInstance();
+            if (driver != null) {
+                return driver;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        List<?> connList = null;
+        try {
+            connList = getConnection(metadataBean);
             if (connList != null && !connList.isEmpty()) { // FIXME unnecessary check !connList.isEmpty()
                 // FIXME scorreia 2011-03-31 why do we loop here? Is it possible to have several drivers. If
                 // yes,
@@ -565,11 +575,13 @@ public class MetadataConnectionUtils {
         } finally {
             // ADD msjian TDQ-5952: we should close the unused connection at once.
             try {
-                for (int i = 0; i < connList.size(); i++) {
-                    if (connList.get(i) instanceof java.sql.Connection) {
-                        java.sql.Connection con = (java.sql.Connection) connList.get(i);
-                        if (con != null && !con.isClosed()) {
-                            con.close();
+                if (connList != null && !connList.isEmpty()) {
+                    for (int i = 0; i < connList.size(); i++) {
+                        if (connList.get(i) instanceof java.sql.Connection) {
+                            java.sql.Connection con = (java.sql.Connection) connList.get(i);
+                            if (con != null && !con.isClosed()) {
+                                con.close();
+                            }
                         }
                     }
                 }
@@ -995,7 +1007,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {

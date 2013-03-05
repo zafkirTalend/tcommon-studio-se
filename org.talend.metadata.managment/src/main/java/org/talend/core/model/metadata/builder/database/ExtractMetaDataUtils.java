@@ -40,6 +40,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -637,10 +638,12 @@ public class ExtractMetaDataUtils {
     }
 
     private static int getDBConnectionTimeout() {
-        IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
-        IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
-        if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
-            return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+        if (Platform.isRunning()) {
+            IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
+            IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
+            if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
+                return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+            }
         }
         // disable timeout
         return 0;

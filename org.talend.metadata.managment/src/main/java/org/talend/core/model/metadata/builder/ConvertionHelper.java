@@ -95,44 +95,48 @@ public final class ConvertionHelper {
         if (conn == null) {
             return;
         }
-        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-        if (repositoryService != null) {
-            repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
-        } else {
-            // set product(ProductId) and Schema(UISchema)
-            EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
-            String product = edatabasetypeInstance.getProduct();
-            metadataConnection.setProduct(product);
-            // set mapping(DbmsId)
-            if (!ReponsitoryContextBridge.isDefautProject()) {
-                Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
-                if (defaultDbmsFromProduct != null) {
-                    String mapping = defaultDbmsFromProduct.getId();
-                    metadataConnection.setMapping(mapping);
+        CoreRuntimePlugin plugin = CoreRuntimePlugin.getInstance();
+        if (plugin != null) {
+            IRepositoryService repositoryService = plugin.getRepositoryService();
+
+            if (repositoryService != null) {
+                repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
+            } else {
+                // set product(ProductId) and Schema(UISchema)
+                EDatabaseTypeName edatabasetypeInstance = EDatabaseTypeName.getTypeFromDisplayName(conn.getDatabaseType());
+                String product = edatabasetypeInstance.getProduct();
+                metadataConnection.setProduct(product);
+                // set mapping(DbmsId)
+                if (!ReponsitoryContextBridge.isDefautProject()) {
+                    Dbms defaultDbmsFromProduct = MetadataTalendType.getDefaultDbmsFromProduct(product);
+                    if (defaultDbmsFromProduct != null) {
+                        String mapping = defaultDbmsFromProduct.getId();
+                        metadataConnection.setMapping(mapping);
+                    }
                 }
+
+                // otherParameter
+                metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
             }
 
-            // otherParameter
-            metadataConnection.setOtherParameter(ConnectionHelper.getOtherParameter(conn));
+            // name
+            metadataConnection.setLabel(conn.getLabel());
+            // purpose
+            metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
+            // description
+            metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
+            // author
+            metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
+            // status
+            metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
+            // version
+            metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
+            // universe
+            metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
+
+            fillOtherParameters(metadataConnection, conn);
+
         }
-
-        // name
-        metadataConnection.setLabel(conn.getLabel());
-        // purpose
-        metadataConnection.setPurpose(ConnectionHelper.getPurpose(conn));
-        // description
-        metadataConnection.setDescription(ConnectionHelper.getDescription(conn));
-        // author
-        metadataConnection.setAuthor(ConnectionHelper.getAuthor(conn));
-        // status
-        metadataConnection.setStatus(ConnectionHelper.getDevStatus(conn));
-        // version
-        metadataConnection.setVersion(ConnectionHelper.getVersion(conn));
-        // universe
-        metadataConnection.setUniverse(ConnectionHelper.getUniverse(conn));
-
-        fillOtherParameters(metadataConnection, conn);
-
     }
 
     /**
@@ -170,10 +174,13 @@ public final class ConvertionHelper {
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
         DatabaseConnection originalValueConnection = null;
-        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-        if (repositoryService != null) {
-            originalValueConnection = repositoryService.cloneOriginalValueConnection(sourceConnection, defaultContext,
-                    selectedContext);
+        CoreRuntimePlugin plugin = CoreRuntimePlugin.getInstance();
+        if (plugin != null) {
+            IRepositoryService repositoryService = plugin.getRepositoryService();
+            if (repositoryService != null) {
+                originalValueConnection = repositoryService.cloneOriginalValueConnection(sourceConnection, defaultContext,
+                        selectedContext);
+            }
         }
         if (originalValueConnection == null) {
             connection = sourceConnection;

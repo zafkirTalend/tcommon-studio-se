@@ -30,6 +30,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -52,7 +53,6 @@ import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.util.DatabaseConstant;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.TalendCWMService;
 import org.talend.cwm.helper.CatalogHelper;
@@ -1016,7 +1016,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 table.setTableType(temptableType);
                 table.setLabel(table.getName());
                 // MOD qiongli 2011-11-30 TDQ-3930.set id for this retrive table.
-                table.setId(ProxyRepositoryFactory.getInstance().getNextId());
+                table.setId(EcoreUtil.generateUUID());
                 if (tableOwner != null) {
                     ColumnSetHelper.setTableOwner(tableOwner, table);
                 }
