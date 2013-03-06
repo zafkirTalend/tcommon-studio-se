@@ -38,7 +38,7 @@ import org.talend.core.ICoreService;
 
 public class RepoNodeActionProvider extends CommonActionProvider {
 
-    static private List<ITreeContextualAction> contextualsActions;
+    static protected List<ITreeContextualAction> contextualsActions;
 
     static private RepoDoubleClickAction doubleClickAction;
 
@@ -132,7 +132,7 @@ public class RepoNodeActionProvider extends CommonActionProvider {
         // do nothing
     }
 
-    private MenuManager findMenuManager(final MenuManager[] menuManagerGroups, String groupId, boolean findParent) {
+    protected MenuManager findMenuManager(final MenuManager[] menuManagerGroups, String groupId, boolean findParent) {
         if (menuManagerGroups == null) {
             return null;
         }
