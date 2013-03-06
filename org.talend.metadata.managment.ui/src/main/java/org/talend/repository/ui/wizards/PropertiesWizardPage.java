@@ -197,7 +197,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         commentStatus = createOkStatus();
 
         this.lastVersionFound = lastVersionFound;
-
+        // Changed by Marvin Wang on Mar. 6, 2012 for TDI-24943.
+        this.property = property;
         Job job = new Job("") { //$NON-NLS-1$
 
             @Override
@@ -226,7 +227,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         job.setPriority(Job.BUILD);
         job.schedule(); // start as soon as possible
 
-        this.property = property;
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
         allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
