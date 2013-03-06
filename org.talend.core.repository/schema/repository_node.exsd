@@ -56,17 +56,17 @@
                   Extend a repository node using this extension point
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.talend.core.repository.IExtendRepositoryNode"/>
+                  <meta.attribute kind="java" basedOn=":org.talend.core.repository.IExtendRepositoryNode" deprecated="true"/>
                </appinfo>
             </annotation>
          </attribute>
          <attribute name="parentNodeType" type="string">
             <annotation>
                <documentation>
-                  specific the node&apos;s parent.
+                  specific the node&apos;s parent of type name.
 
 eg: if u want this node appear in the follow of node metadata,
-just set the value Metadata
+just set the value METADATA
                </documentation>
             </annotation>
          </attribute>
@@ -113,7 +113,7 @@ like this: DI|DQ ....
          <attribute name="isResouce" type="boolean">
             <annotation>
                <documentation>
-                  
+                  this attribute is used with folder for each resource folder.
                </documentation>
             </annotation>
          </attribute>
@@ -122,6 +122,9 @@ like this: DI|DQ ....
                <documentation>
                   must be int. and &gt;=0
                </documentation>
+               <appinfo>
+                  <meta.attribute deprecated="true"/>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="icon" type="string">
@@ -137,7 +140,9 @@ like this: DI|DQ ....
          <attribute name="nodeType" type="string">
             <annotation>
                <documentation>
-                  
+                  the type of repository node, when create the root repository node.
+SYSTEM_FOLDER, by default.
+can use the SYSTEM_FOLDER and STABLE_SYSTEM_FOLDER for enum IRepositoryNode.ENodeType.
                </documentation>
             </annotation>
          </attribute>
@@ -163,14 +168,14 @@ like this: DI|DQ ....
          <attribute name="type" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  type of node which defined in &quot;repositoryNode&quot;.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="products" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  same as the products in &quot;repositoryNode&quot;
                </documentation>
             </annotation>
          </attribute>
