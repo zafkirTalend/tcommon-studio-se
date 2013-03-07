@@ -1885,6 +1885,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 return obj;
             }
         }
+        for (Project p : projectManager.getReferencedProjects(project)) {
+            IRepositoryViewObject specVersion = getSpecificVersion(p, id, version, avoidSaveProject);
+            if (specVersion != null) {
+                return specVersion;
+            }
+        }
+
         return null;
     }
 
