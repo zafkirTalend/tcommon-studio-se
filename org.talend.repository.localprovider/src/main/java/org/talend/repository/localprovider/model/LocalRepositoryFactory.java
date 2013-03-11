@@ -2648,8 +2648,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public boolean doesLoggedUserExist() throws PersistenceException {
         boolean exist = false;
         org.talend.core.model.properties.Project emfProject = getRepositoryContext().getProject().getEmfProject();
-        // IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        // org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
@@ -2822,6 +2820,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void logOnProject(Project project) throws PersistenceException, LoginException {
         if (getRepositoryContext().getUser().getLogin() == null) {
             throw new LoginException(Messages.getString("LocalRepositoryFactory.UserLoginCannotBeNull")); //$NON-NLS-1$
+        }
+        if (project.getEmfProject().eResource() == null) {
+            IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+            project.setEmfProject(xmiResourceManager.loadProject(iProject));
         }
 
         super.logOnProject(project);
