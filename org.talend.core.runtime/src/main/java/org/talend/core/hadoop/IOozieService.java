@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * created by plv on 2013-3-2 Detailed comment
@@ -20,5 +21,7 @@ public interface IOozieService extends IService {
      * @return
      */
     public Map<String, String> getOozieParamFromConnection(Connection connection);
+
+    public boolean isOozieNode(RepositoryNode node);
 
 }
