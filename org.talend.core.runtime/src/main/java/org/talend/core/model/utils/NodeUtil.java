@@ -431,7 +431,7 @@ public class NodeUtil {
     public static boolean isLastMultiplyingOutputComponents(IConnection connection) {
 
         List<? extends IConnection> conns = connection.getSource().getOutgoingConnections();
-        int last = 0;
+        int last = -1;
         if (conns != null && conns.size() > 0) {
             for (int i = 0; i < conns.size(); i++) {
                 if (conns.get(i).getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
@@ -440,7 +440,7 @@ public class NodeUtil {
             }
         }
 
-        if (connection.getName().equals(conns.get(last).getName())) {
+        if (last >= 0 && connection.getName().equals(conns.get(last).getName())) {
             return true;
         }
 
