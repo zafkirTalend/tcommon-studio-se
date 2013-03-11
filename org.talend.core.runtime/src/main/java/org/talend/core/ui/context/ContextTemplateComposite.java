@@ -84,6 +84,8 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
+    public static final String CONTEXTSVIEW_ID = "org.talend.designer.core.ui.views.ContextsView";
+
     private boolean readOnly;
 
     private TreeViewer viewer;
@@ -130,6 +132,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return modelManager.getContextManager();
     }
 
+    @Override
     public IContextModelManager getContextModelManager() {
         return modelManager;
     }
@@ -224,6 +227,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
         viewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 checkButtonEnableState();
             }
@@ -267,6 +271,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
+            @Override
             public void menuAboutToShow(IMenuManager mgr) {
                 ContextBuiltinToRepositoryAction action = new ContextBuiltinToRepositoryAction(modelManager);
                 action.init(viewer, (IStructuredSelection) viewer.getSelection());
@@ -368,6 +373,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return readOnly;
     }
 
+    @Override
     public boolean isGroupBySource() {
         boolean isRepositoryContext = false;
         if (modelManager != null) {
@@ -416,15 +422,22 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         if (helper == null) {
             return;
         }
+        boolean isRefresh = false;
         helper.initHelper(getContextManager());
         for (IContext context : contexts) {
             for (IContextParameter param : context.getContextParameterList()) {
                 if (!param.isBuiltIn()) {
                     ContextItem item = helper.getContextItemById(param.getSource());
                     if (item == null) { // source not found
+                        isRefresh = true;
                         param.setSource(IContextParameter.BUILT_IN);
-//                        Added by Marvin Wang on Sep.24 for bug TDI-21878. The mode is changed, it should notify to make editor dirty.
-                        modelManager.onContextModify(getContextManager(), param);
+                        // Added by Marvin Wang on Sep.24 for bug TDI-21878. The mode is changed, it should notify to
+                        // make editor dirty.
+                        // Removed this line by Marvin Wang on Mar. 7, 2012 for TDI-24974. Because in this method it
+                        // will refresh Template Composite every time when context is modified. In order to avoid this,
+                        // updating will occur after all params modified.
+                        // modelManager.onContextModify(getContextManager(), param);
+                        propagateType(getContextManager(), param);
                         continue;
                     }
                     // // the variable not exist in the ContextItem
@@ -435,6 +448,36 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                 }
             }
         }
+        if (isRefresh) {
+            setModifiedFlag(getContextManager());
+            refreshContextView();
+        }
+    }
+
+    private void setModifiedFlag(IContextManager contextManager) {
+        if (contextManager != null && contextManager instanceof JobContextManager) {
+            JobContextManager manager = (JobContextManager) contextManager;
+            // record the modified operation.
+            manager.setModified(true);
+        }
+    }
+
+    private void propagateType(IContextManager contextManager, IContextParameter param) {
+        for (IContext context : contextManager.getListContext()) {
+            IContextParameter paramToModify = context.getContextParameter(param.getName());
+            paramToModify.setType(param.getType());
+
+            paramToModify.setComment(param.getComment());
+
+        }
+    }
+
+    /**
+     * 
+     * Added by Marvin Wang on Mar 7, 2013.
+     */
+    private void refreshContextView() {
+        modelManager.refreshTemplateTab();
     }
 
     /**
@@ -750,9 +793,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         modelManager.onContextRenameParameter(contextManager, sourceId, oldName, newName);
     }
 
-    protected void onContextModify(IContextManager contextManager, IContextParameter parameter) {
-        modelManager.onContextModify(contextManager, parameter);
-    }
+    // protected void onContextModify(IContextManager contextManager, IContextParameter parameter) {
+    // modelManager.onContextModify(contextManager, parameter);
+    // }
 
     /**
      * bqian Comment method "getProcess".
@@ -773,6 +816,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         return this.getContextManager().getDefaultContext();
     }
 
+    @Override
     public TreeViewer getViewer() {
         return this.viewer;
     }
