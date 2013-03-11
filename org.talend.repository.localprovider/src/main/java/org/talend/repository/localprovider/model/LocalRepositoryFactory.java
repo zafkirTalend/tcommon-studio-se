@@ -2559,6 +2559,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             } else {
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
                     itemResource = handler.create(project2, item, eClass.getClassifierID(), path);
+                    screenshotsResource = handler.createScreenShotResource(project2, item, eClass.getClassifierID(), path);
                     if (itemResource != null) {
                         break;
                     }

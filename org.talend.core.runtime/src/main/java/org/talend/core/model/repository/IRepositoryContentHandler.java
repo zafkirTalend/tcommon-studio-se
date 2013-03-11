@@ -35,6 +35,18 @@ public interface IRepositoryContentHandler {
 
     public Resource create(IProject project, Item item, int classifierID, IPath path) throws PersistenceException;
 
+    /**
+     * Sub-classes override this method to create a screen shot resource, if there is no need to create a screen shot
+     * resource, then return <code>null</code>. Added by Marvin Wang on Mar 8, 2013.
+     * 
+     * @param project
+     * @param item
+     * @param classifierID
+     * @param path
+     * @return
+     */
+    Resource createScreenShotResource(IProject project, Item item, int classifierID, IPath path) throws PersistenceException;
+
     public Resource save(Item item) throws PersistenceException;
 
     public IImage getIcon(ERepositoryObjectType type);

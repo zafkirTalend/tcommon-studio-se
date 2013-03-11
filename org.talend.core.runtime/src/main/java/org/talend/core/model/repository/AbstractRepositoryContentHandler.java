@@ -15,10 +15,12 @@ package org.talend.core.model.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -244,6 +246,19 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
      */
     @Override
     public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType) {
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#createScreenShotResource(org.eclipse.core.resources
+     * .IProject, org.talend.core.model.properties.Item, int, org.eclipse.core.runtime.IPath)
+     */
+    @Override
+    public Resource createScreenShotResource(IProject project, Item item, int classifierID, IPath path)
+            throws PersistenceException {
         return null;
     }
 
