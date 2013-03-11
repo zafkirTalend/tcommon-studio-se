@@ -32,10 +32,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -45,7 +43,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -169,7 +167,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             }
         } catch (IOException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
     }
 
@@ -255,8 +253,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                         ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
                                 .getService(ILibraryManagerUIService.class);
-                        Shell shell = Display.getCurrent().getActiveShell();
-                        libUiService.installModules(new Shell(shell), new String[] { jarNeeded });
+
+                        libUiService.installModules(new String[] { jarNeeded });
                     }
                     return false;
                 }
@@ -270,11 +268,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 return true;
             }
         } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         } catch (IOException e) {
-            ExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
+            CommonExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
         } catch (URISyntaxException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
         return false;
 
@@ -299,8 +297,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                 ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
-                Shell shell = Display.getCurrent().getActiveShell();
-                libUiService.installModules(new Shell(shell), jarNotFound.toArray(new String[jarNotFound.size()]));
+                libUiService.installModules(jarNotFound.toArray(new String[jarNotFound.size()]));
             }
         }
 
@@ -336,7 +333,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
             }
         } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
 
         LibrariesIndexManager.getInstance().loadResource();
@@ -360,14 +357,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
             }
         } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
 
         return names;
     }
 
     private File getStorageDirectory() {
-        String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+        String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);
         return storageDir;
     }
@@ -412,7 +409,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             }
         } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
 
         return false;

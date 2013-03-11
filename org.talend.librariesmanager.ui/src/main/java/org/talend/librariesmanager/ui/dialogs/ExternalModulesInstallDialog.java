@@ -73,9 +73,9 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
-import org.talend.librariesmanager.LibManagerPlugin;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
@@ -645,12 +645,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     monitor.subTask(module.getName());
                     monitor.worked(5);
                     DownloadHelper downloader = new DownloadHelper();
-                    String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+                    String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
                     File target = new File(librariesPath);
                     if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) { //$NON-NLS-1$
                         try {
                             // check license
-                            boolean isLicenseAccepted = LibManagerPlugin.getDefault().getPreferenceStore()
+                            boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
                                     .getBoolean(module.getLicenseType());
                             if (!isLicenseAccepted) {
                                 Display.getDefault().syncExec(new Runnable() {

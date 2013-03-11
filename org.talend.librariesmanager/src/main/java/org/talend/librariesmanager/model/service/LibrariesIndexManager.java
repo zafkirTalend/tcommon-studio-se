@@ -22,14 +22,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.talend.commons.emf.EmfHelper;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesindexFactory;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesindexPackage;
 import org.talend.librariesmanager.emf.librariesindex.util.LibrariesindexResourceFactoryImpl;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
 public class LibrariesIndexManager {
 
@@ -54,7 +54,7 @@ public class LibrariesIndexManager {
 
     public void loadResource() {
         if (!loaded) {
-            String installLocation = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+            String installLocation = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
             try {
                 Resource resource = createLibrariesIndexResource(installLocation);
                 Map optionMap = new HashMap();
@@ -67,21 +67,21 @@ public class LibrariesIndexManager {
                 index = (LibrariesIndex) EcoreUtil.getObjectByType(resource.getContents(),
                         LibrariesindexPackage.eINSTANCE.getLibrariesIndex());
             } catch (IOException e) {
-                ExceptionHandler.process(e);
+                CommonExceptionHandler.process(e);
             }
             loaded = true;
         }
     }
 
     public void saveResource() {
-        PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
-        String installLocation = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+        LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
+        String installLocation = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         try {
             Resource resource = createLibrariesIndexResource(installLocation);
             resource.getContents().add(index);
             EmfHelper.saveResource(index.eResource());
         } catch (PersistenceException e1) {
-            ExceptionHandler.process(e1);
+            CommonExceptionHandler.process(e1);
         }
     }
 

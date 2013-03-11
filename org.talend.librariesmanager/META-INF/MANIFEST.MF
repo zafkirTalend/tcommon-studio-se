@@ -3,18 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Librariesmanager Plug-in
 Bundle-SymbolicName: org.talend.librariesmanager;singleton:=true
 Bundle-Version: 2.2.0.qualifier
-Bundle-Activator: org.talend.librariesmanager.LibManagerPlugin
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
 Require-Bundle: org.talend.model,
  org.eclipse.core.runtime,
  org.talend.core.runtime;visibility:=reexport,
  org.eclipse.jdt.core,
- org.talend.commons.ui,
  org.eclipse.core.expressions,
  org.talend.metadata.managment,
- org.eclipse.swt,
- org.eclipse.ui.workbench,
  org.apache.commons.lang,
  org.talend.libraries.apache,
  org.talend.libraries.dom4j-jaxen,
@@ -22,8 +18,7 @@ Require-Bundle: org.talend.model,
  org.apache.log4j
 Eclipse-LazyStart: true
 Bundle-ClassPath: .
-Export-Package: org.talend.librariesmanager,
- org.talend.librariesmanager.emf.librariesindex,
+Export-Package: org.talend.librariesmanager.emf.librariesindex,
  org.talend.librariesmanager.model,
  org.talend.librariesmanager.model.service,
  org.talend.librariesmanager.prefs,

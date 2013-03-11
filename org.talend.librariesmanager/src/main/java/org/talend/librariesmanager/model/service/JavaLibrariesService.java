@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -35,7 +34,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -49,9 +48,9 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
-import org.talend.librariesmanager.LibManagerPlugin;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -75,12 +74,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return LibManagerPlugin.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
+        return Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI).getEntry(
+                "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     @Override
     public URL getBeanTemplate() {
-        return LibManagerPlugin.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_BEANS_FOLDER + "/__BEAN_TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
+        return Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI).getEntry(
+                "resources/java/" + SOURCE_JAVA_BEANS_FOLDER + "/__BEAN_TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -90,7 +91,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      */
     @Override
     public URL getSqlPatternTemplate() {
-        return LibManagerPlugin.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
+        return Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI).getEntry(
+                "resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -114,7 +116,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public List<URL> getSystemSQLPatterns() {
-        return FilesUtils.getFilesFromFolder(LibManagerPlugin.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
+        return FilesUtils.getFilesFromFolder(Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI),
+                "resources/java/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
                 SQLPATTERN_FILE_SUFFIX, false, true);
     }
 
@@ -198,63 +201,59 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void syncLibraries(IProgressMonitor... monitorWrap) {
-        try {
-            // 1. Talend libraries:
-            File talendLibraries = new File(FileLocator
-                    .resolve(LibManagerPlugin.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
-            repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
+        // 1. Talend libraries:
+        // File talendLibraries = new File(FileLocator
+        //                    .resolve(Platform.getBundle(BUNDLE_DI).getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
+        // repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
 
-            if (TalendCacheUtils.cleanComponentCache()) {
-                repositoryBundleService.clearCache();
-            }
-            // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
-            // if clean the component cache, it will automatically recheck all libs still.
-            if (!repositoryBundleService.isInitialized()) {
-                // 2. Components libraries
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-                    IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                            IComponentsService.class);
-                    repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
-                    Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-                    Set<String> contributeIdSet = componentsFolders.keySet();
-                    for (String contributeID : contributeIdSet) {
-                        repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
-                    }
-
-                    // / for test
-                    syncLibrariesFromApp(monitorWrap);
-
-                    repositoryBundleService.setInitialized();
-                }
-            }
-
-            // 3. system routine libraries
-            // Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
-            // Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
-            // while (rjsIter.hasNext()) {
-            // Map.Entry<String, List<URI>> entry = rjsIter.next();
-            // repositoryBundleService.deploy(entry.getValue(), monitorWrap);
-            // }
-            // 3. deploy system routine libraries
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
-                ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
-                        ILibraryManagerUIService.class);
-                libUiService.initializeSystemLibs();
-            }
-
-            // 4. check in the libs directory of the project and add the jar with other ones.
-            syncLibrariesFromLibs(monitorWrap);
-
-            checkInstalledLibraries();
-
-            // clean the temp library of job needed in .java\lib
-            cleanTempProLib();
-
-            log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
-            isLibSynchronized = true;
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
+        if (TalendCacheUtils.cleanComponentCache()) {
+            repositoryBundleService.clearCache();
         }
+        // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
+        // if clean the component cache, it will automatically recheck all libs still.
+        if (!repositoryBundleService.isInitialized()) {
+            // 2. Components libraries
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
+                Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+                Set<String> contributeIdSet = componentsFolders.keySet();
+                for (String contributeID : contributeIdSet) {
+                    repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
+                }
+
+                // / for test
+                syncLibrariesFromApp(monitorWrap);
+
+                repositoryBundleService.setInitialized();
+            }
+        }
+
+        // 3. system routine libraries
+        // Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+        // Iterator<Entry<String, List<URI>>> rjsIter = routineAndJars.entrySet().iterator();
+        // while (rjsIter.hasNext()) {
+        // Map.Entry<String, List<URI>> entry = rjsIter.next();
+        // repositoryBundleService.deploy(entry.getValue(), monitorWrap);
+        // }
+        // 3. deploy system routine libraries
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerUIService.class);
+            libUiService.initializeSystemLibs();
+        }
+
+        // 4. check in the libs directory of the project and add the jar with other ones.
+        syncLibrariesFromLibs(monitorWrap);
+
+        checkInstalledLibraries();
+
+        // clean the temp library of job needed in .java\lib
+        cleanTempProLib();
+
+        log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
+        isLibSynchronized = true;
     }
 
     @Override
@@ -320,7 +319,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             }
             project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
         } catch (JavaModelException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
     }
 

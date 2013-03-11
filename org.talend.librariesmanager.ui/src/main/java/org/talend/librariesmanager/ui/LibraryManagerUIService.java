@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
@@ -25,6 +26,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
+import org.talend.librariesmanager.ui.prefs.PreferencesUtilities;
 import org.talend.librariesmanager.ui.service.RoutineProviderManager;
 import org.talend.librariesmanager.utils.ModulesInstaller;
 
@@ -35,8 +37,9 @@ import org.talend.librariesmanager.utils.ModulesInstaller;
 public class LibraryManagerUIService implements ILibraryManagerUIService {
 
     @Override
-    public void installModules(Shell shell, String[] jarNames) {
-        ModulesInstaller.installModules(shell, jarNames);
+    public void installModules(String[] jarNames) {
+        Shell shell = Display.getCurrent().getActiveShell();
+        ModulesInstaller.installModules(new Shell(shell), jarNames);
     }
 
     /*
@@ -77,6 +80,16 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
     @Override
     public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system) {
         return RoutinesUtil.collectRelatedRoutines(includeRoutineIdOrNames, system);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerUIService#getLibrariesPath(org.talend.core.language.ECodeLanguage)
+     */
+    @Override
+    public String getLibrariesPath(ECodeLanguage language) {
+        return PreferencesUtilities.getLibrariesPath(language);
     }
 
 }

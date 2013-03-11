@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.librariesmanager.LibManagerPlugin;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 
 /**
@@ -113,7 +113,7 @@ public class ModuleLicenseDialog extends Dialog {
      */
     @Override
     protected void okPressed() {
-        LibManagerPlugin.getDefault().getPreferenceStore().setValue(licenseType, true);
+        LibManagerUiPlugin.getDefault().getPreferenceStore().setValue(licenseType, true);
         super.okPressed();
     }
 

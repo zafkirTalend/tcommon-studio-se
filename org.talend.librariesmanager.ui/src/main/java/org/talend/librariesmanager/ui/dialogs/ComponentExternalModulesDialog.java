@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.librariesmanager.LibManagerPlugin;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
@@ -62,7 +62,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                LibManagerPlugin.getDefault().getPreferenceStore().setValue(DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG, true);
+                LibManagerUiPlugin.getDefault().getPreferenceStore().setValue(DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG, true);
             }
         });
     }

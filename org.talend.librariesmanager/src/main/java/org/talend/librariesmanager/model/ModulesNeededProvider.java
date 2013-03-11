@@ -21,8 +21,8 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -212,7 +212,7 @@ public class ModulesNeededProvider {
         try {
             importNeedsList = repositoryFactory.getModulesNeededForJobs();
         } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
 
         return importNeedsList;
@@ -260,7 +260,7 @@ public class ModulesNeededProvider {
                         }
                     }
                 } catch (PersistenceException e) {
-                    ExceptionHandler.process(e);
+                    CommonExceptionHandler.process(e);
                 }
             }
             ILibraryManagerUIService libUiService = null;
@@ -385,7 +385,7 @@ public class ModulesNeededProvider {
                     }
                 }
             } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
+                CommonExceptionHandler.process(e);
             }
         }
         return importNeedsList;
@@ -401,7 +401,7 @@ public class ModulesNeededProvider {
                     }
                 }
             } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
+                CommonExceptionHandler.process(e);
             }
         }
     }
@@ -410,7 +410,7 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
         IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
+                "org.talend.core.runtime.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
         ECodeLanguage projectLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()

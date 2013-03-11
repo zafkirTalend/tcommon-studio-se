@@ -6,7 +6,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
 import org.talend.librariesmanager.ui.i18n.Messages;
 
 public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {

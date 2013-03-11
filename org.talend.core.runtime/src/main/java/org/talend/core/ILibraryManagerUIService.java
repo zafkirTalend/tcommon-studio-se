@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.swt.widgets.Shell;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -29,7 +28,7 @@ import org.talend.core.model.routines.IRoutinesProvider;
  */
 public interface ILibraryManagerUIService extends IService {
 
-    public void installModules(Shell shell, String[] jarNames);
+    public void installModules(String[] jarNames);
 
     public Collection<IRoutinesProvider> getRoutinesProviders(ECodeLanguage language);
 
@@ -38,4 +37,6 @@ public interface ILibraryManagerUIService extends IService {
     public Map<String, List<LibraryInfo>> getRoutineAndJars();
 
     public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system);
+
+    public String getLibrariesPath(ECodeLanguage language);
 }

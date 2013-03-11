@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -48,7 +48,7 @@ import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IRepositoryService;
@@ -99,7 +99,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         final String decode = URLDecoder.decode(source.getFile(), "UTF-8");
 
         final File sourceFile = new File(decode);
-        final File targetFile = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
+        final File targetFile = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
                 + sourceFile.getName());
 
         if (!repositoryBundleService.contains(source.getFile())) {
@@ -145,15 +145,15 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                             path = path + File.separatorChar + projectLabel + File.separatorChar
                                     + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
                             File libsTargetFile = new File(path);
-                            File source = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
-                                    + name);
+                            File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA)
+                                    + File.separatorChar + name);
                             FilesUtils.copyFile(source, libsTargetFile);
                         }
                         eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
                     } catch (IOException e) {
-                        ExceptionHandler.process(e);
+                        CommonExceptionHandler.process(e);
                     } catch (CoreException e) {
-                        ExceptionHandler.process(e);
+                        CommonExceptionHandler.process(e);
                     }
                 }
             };
@@ -178,7 +178,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
             ModulesNeededProvider.userRemoveUnusedModules(jarName);
             fireLibrariesChanges();
         } else {
-            ExceptionHandler.process(new Exception("Can not remove the module " + jarName
+            CommonExceptionHandler.process(new Exception("Can not remove the module " + jarName
                     + ", this is certainly a module from a component provider and not a user module"));
         }
     }
