@@ -107,7 +107,6 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.token.TokenCollectorFactory;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
@@ -1800,12 +1799,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 coreService.createStatsLogAndImplicitParamter(project);
 
                 coreService.synchronizeMapptingXML();
-                try {
-                    // collect
-                    TokenCollectorFactory.getFactory().priorCollect();
-                } catch (Exception e) {
-                    throw new PersistenceException(e);
-                }
+
                 fullLogonFinished = true;
             } finally {
                 TimeMeasure.end("logOnProject");
