@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,14 +30,14 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
 import org.junit.Test;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
-import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -75,7 +75,7 @@ public class LocalLibraryManagerTest {
      */
     @Test
     public void testDeployURIIProgressMonitorArray() throws IOException {
-        String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+        String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);
         String installLocation = storageDir.getAbsolutePath();
         File indexFile = new File(installLocation + JAR_INDEX);
@@ -152,7 +152,7 @@ public class LocalLibraryManagerTest {
      */
     @Test
     public void testRetrieveStringStringIProgressMonitorArray() throws IOException {
-        String pathToStore = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+        String pathToStore = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         String jarNeeded = "mysql-connector-java-5.1.0-bin.jar";
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
@@ -193,7 +193,7 @@ public class LocalLibraryManagerTest {
             }
             sourcePath = jarLocation;
             if (!jarFound) {
-                ExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
+                CommonExceptionHandler.process(new Exception("Jar: " + jarNeeded + " not found, not in the plugins available:"
                         + contributeIdSet));
                 return;
             }
@@ -299,7 +299,7 @@ public class LocalLibraryManagerTest {
     }
 
     private File getStorageDirectory() {
-        String librariesPath = PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
+        String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);
         return storageDir;
     }
