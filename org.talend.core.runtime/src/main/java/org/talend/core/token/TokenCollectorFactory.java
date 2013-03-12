@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -157,14 +158,19 @@ public final class TokenCollectorFactory {
 
     public boolean process() {
         boolean result = false;
-
-        if (isActiveAndValid(true)) {
-            send();
-            // set new days
-            final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-            preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
-            result = true;
-        }
+        
+        try {
+			TokenCollectorFactory.getFactory().priorCollect();
+			if (isActiveAndValid(true)) {
+				send();
+				// set new days
+				final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+				preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+				result = true;
+			}
+		} catch (Exception e) {
+			 ExceptionHandler.process(e); 
+		} 
         return result;
     }
 

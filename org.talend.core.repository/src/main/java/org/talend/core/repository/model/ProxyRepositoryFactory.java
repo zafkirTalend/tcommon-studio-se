@@ -1800,12 +1800,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 coreService.createStatsLogAndImplicitParamter(project);
 
                 coreService.synchronizeMapptingXML();
-                try {
-                    // collect
-                    TokenCollectorFactory.getFactory().priorCollect();
-                } catch (Exception e) {
-                    throw new PersistenceException(e);
-                }
                 fullLogonFinished = true;
             } finally {
                 TimeMeasure.end("logOnProject");
