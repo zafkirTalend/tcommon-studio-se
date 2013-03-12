@@ -77,9 +77,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
- *
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
- *
+ * 
  */
 public class ProcessorUtilities {
 
@@ -129,7 +129,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded to use this function.
-     *
+     * 
      * @param process
      * @param selectedContext
      * @return
@@ -170,7 +170,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded first to use this function.
-     *
+     * 
      * @param process
      * @param context
      * @return
@@ -183,7 +183,7 @@ public class ProcessorUtilities {
 
     /**
      * Process need to be loaded first to use this function.
-     *
+     * 
      * @param process
      * @param context
      * @return
@@ -397,7 +397,7 @@ public class ProcessorUtilities {
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
-        //ADDED for TESB-7887 By GangLiu
+        // ADDED for TESB-7887 By GangLiu
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
@@ -406,12 +406,12 @@ public class ProcessorUtilities {
          * libraries.
          */
         jobInfo.setProcess(null);
-        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
         return processor;
     }
 
     /**
-     *
+     * 
      * This method is used when export job , check if one of the database component node use dynamic metadata
      */
     private static void checkMetadataDynamic(ProcessItem selectedProcessItem, JobInfo jobInfo) {
@@ -447,7 +447,7 @@ public class ProcessorUtilities {
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
-            IProcess currentProcess, String currentJobName) throws ProcessorException {
+            IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
             Set<String> jarList = new HashSet<String>();
@@ -457,13 +457,14 @@ public class ProcessorUtilities {
                 jarList.add(module.getModuleName());
             }
             CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
+            if (codeModified) {
                 try {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject()
                             .build(IncrementalProjectBuilder.AUTO_BUILD, null);
                 } catch (CoreException e) {
                     throw new ProcessorException(e);
                 }
+                processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;
             codeModified = false;
@@ -471,21 +472,20 @@ public class ProcessorUtilities {
     }
 
     /*
-     * used to generate spring file for RouteBuilder
-     * ADDED for TESB-7887 By GangLiu
+     * used to generate spring file for RouteBuilder ADDED for TESB-7887 By GangLiu
      */
     private static void generateSpringInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
-            IProcessor processor) throws ProcessorException{
-        if(!(currentProcess instanceof IProcess2)){
+            IProcessor processor) throws ProcessorException {
+        if (!(currentProcess instanceof IProcess2)) {
             return;
         }
         IProcess2 p = (IProcess2) currentProcess;
-        if(!p.needsSpring()){
+        if (!p.needsSpring()) {
             return;
         }
         String springContent = p.getSpringContent();
-        if(springContent == null){
+        if (springContent == null) {
             return;
         }
         processor.generateSpringContent();
@@ -667,7 +667,7 @@ public class ProcessorUtilities {
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
 
-            //ADDED for TESB-7887 By GangLiu
+            // ADDED for TESB-7887 By GangLiu
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
 
@@ -678,7 +678,7 @@ public class ProcessorUtilities {
              * libraries.
              */
             jobInfo.setProcess(null);
-            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
             TimeMeasure.step(idTimer, "generateBuildInfo");
             return processor;
         } finally {
@@ -823,7 +823,7 @@ public class ProcessorUtilities {
     /**
      * Return true if we can find a context name from the child job that matches the selected context name. see bug
      * 0003862: Export job with the flag "Apply to children" if the child don't have the same context fails.
-     *
+     * 
      * @param processItem
      * @param selectedContextName
      * @return
@@ -842,7 +842,7 @@ public class ProcessorUtilities {
 
     /**
      * This method is used to reset the tRunJob component's context,see feature 1625.
-     *
+     * 
      * @param jobInfo
      * @param currentProcess
      * @param selectedContextName
@@ -867,7 +867,7 @@ public class ProcessorUtilities {
 
     /**
      * This function will generate the code of the process and all of this sub process.
-     *
+     * 
      * @param processName
      * @param contextName
      * @param version null if no specific version required
@@ -888,7 +888,7 @@ public class ProcessorUtilities {
 
     /**
      * This function will generate the code of the process and all of this sub process.
-     *
+     * 
      * @param processName
      * @param contextName
      * @param version null if no specific version required
@@ -1057,9 +1057,9 @@ public class ProcessorUtilities {
     }
 
     /**
-     *
+     * 
      * Get the command line to launch the job.
-     *
+     * 
      * @param externalUse if true, will add "" around path and change \ to /
      * @param processName
      * @param contextName
@@ -1079,7 +1079,7 @@ public class ProcessorUtilities {
 
     /**
      * Get the command line to launch the job.
-     *
+     * 
      * @param targetPlatform for example Platform.OS_WIN32 / Platform.OS_LINUX
      * @param externalUse
      * @param processName
@@ -1177,9 +1177,9 @@ public class ProcessorUtilities {
     }
 
     /**
-     *
+     * 
      * ggu Comment method "getAllVersionProcessList".
-     *
+     * 
      * @param processId
      * @return
      */
@@ -1277,7 +1277,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC xtan. for bug:15299
-     *
+     * 
      * @param jobId
      * @return
      */
@@ -1295,7 +1295,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC xtan. for bug:15299
-     *
+     * 
      * @param jobId
      * @return
      */
@@ -1326,7 +1326,7 @@ public class ProcessorUtilities {
 
     /**
      * Getter for exportAsOSGI.
-     *
+     * 
      * @return the exportAsOSGI
      */
     public static boolean isExportAsOSGI() {
@@ -1335,7 +1335,7 @@ public class ProcessorUtilities {
 
     /**
      * Sets the exportAsOSGI.
-     *
+     * 
      * @param exportAsOSGI the exportAsOSGI to set
      */
     public static void setExportAsOSGI(boolean exportAsOSGI) {
