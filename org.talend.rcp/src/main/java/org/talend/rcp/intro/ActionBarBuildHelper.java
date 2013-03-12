@@ -68,7 +68,6 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
-import org.talend.rcp.exportLogs.ExportLogsAction;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -97,13 +96,13 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     protected static SwitchProjectAction switchProjectAction;
 
-    protected static ExportLogsAction exportLogsAction;
-
     protected static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
 
     protected static final String GROUP_COPY = "group copy"; //$NON-NLS-1$
 
     protected static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
+
+    protected static final String GROUP_HELP = "group help";//$NON-NLS-1$
 
     public void setActionBarConfigurer(IActionBarConfigurer actionBarConfigurer) {
         this.actionBarConfigurer = actionBarConfigurer;
@@ -380,9 +379,8 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         helpMenu.add(ActionFactory.HELP_CONTENTS.create(window));
         IWorkbenchAction create = ActionFactory.ABOUT.create(window);
         helpMenu.add(create);
+        helpMenu.add(new Separator(GROUP_HELP));
 
-        exportLogsAction = new ExportLogsAction();
-        helpMenu.add(exportLogsAction);
         menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
     }
 
