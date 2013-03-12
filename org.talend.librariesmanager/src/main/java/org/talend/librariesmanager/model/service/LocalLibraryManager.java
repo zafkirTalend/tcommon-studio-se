@@ -219,10 +219,16 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 String relativePath = jarsToRelative.get(jarNeeded);
                 String bundleLocation = "";
                 String jarLocation = "";
-                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                        IComponentsService.class);
-                Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-                Set<String> contributeIdSet = componentsFolders.keySet();
+
+                Map<String, File> componentsFolders = null;
+                Set<String> contributeIdSet = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+                    IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                            IComponentsService.class);
+                    componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+                    contributeIdSet = componentsFolders.keySet();
+                }
+
                 boolean jarFound = false;
                 if (relativePath != null) {
                     if (relativePath.startsWith("platform:/")) {
@@ -234,15 +240,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             jarFound = true;
                         }
                     } else {
-                        for (String contributor : contributeIdSet) {
-                            if (relativePath.contains(contributor)) {
-                                // caculate the the absolute path of the jar
-                                bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
-                                int index = bundleLocation.indexOf(contributor);
-                                jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath)
-                                        .toPortableString();
-                                jarFound = true;
-                                break;
+                        if (componentsFolders != null && contributeIdSet != null) {
+                            for (String contributor : contributeIdSet) {
+                                if (relativePath.contains(contributor)) {
+                                    // caculate the the absolute path of the jar
+                                    bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
+                                    int index = bundleLocation.indexOf(contributor);
+                                    jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath)
+                                            .toPortableString();
+                                    jarFound = true;
+                                    break;
+                                }
                             }
                         }
                     }

@@ -34,7 +34,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
@@ -509,24 +508,8 @@ public class MetadataConnectionUtils {
             }
         }
 
-        if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
-            // top
-            if (PluginChecker.isOnlyTopLoaded()) {
-                try {
-                    IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
-                            IDriverService.class);
-                    driver = driverService.getDriver(metadataBean);
-                } catch (Exception e) {
-                    log.error(e, e);
-                }
-            } else {
-                // tdq
-                driver = getDriver(metadataBean);
-            }
-        } else {
-            // tos
-            driver = getDriver(metadataBean);
-        }
+        driver = getDriver(metadataBean);
+
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
         if (driver != null) {
@@ -1007,7 +990,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {

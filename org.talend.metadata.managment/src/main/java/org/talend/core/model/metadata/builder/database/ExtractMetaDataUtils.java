@@ -60,12 +60,10 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.constants.FileConstants;
@@ -74,7 +72,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
-import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
@@ -639,10 +636,12 @@ public class ExtractMetaDataUtils {
 
     private static int getDBConnectionTimeout() {
         if (Platform.isRunning()) {
-            IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
-            IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
-            if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
-                return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IManagementService.class)) {
+                IManagementService managementSerivce = CoreRuntimePlugin.getInstance().getManagementService();
+                IPreferenceStore preferenceStore = managementSerivce.getDesignerCorePreferenceStore();
+                if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
+                    return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+                }
             }
         }
         // disable timeout
@@ -792,204 +791,177 @@ public class ExtractMetaDataUtils {
         String driverClassName = driverClassNameArg;
         List<String> jarPathList = new ArrayList<String>();
 
-        if (PluginChecker.isOnlyTopLoaded()) {
-            if (StringUtils.isBlank(driverClassName)) {
-                driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
-            }
-
-            IMetadataConnection mconn = new MetadataConnection();
-            mconn.setUrl(url);
-            mconn.setUsername(username);
-            mconn.setPassword(pwd);
-            mconn.setDbType(dbType);
-            mconn.setDriverClass(driverClassName);
-            mconn.setDriverJarPath(driverJarPathArg);
-            mconn.setDbVersionString(dbVersion);
-            mconn.setAdditionalParams(additionalParams);
-
-            TypedReturnCode<Connection> checkConnection = MetadataConnectionUtils.checkConnection(mconn);
-            if (checkConnection.isOk()) {
-                conList.add(checkConnection.getObject());
-            } else {
-                throw new Exception(checkConnection.getMessage());
-            }
-
-        } else {
-            ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                    .getService(ILibraryManagerService.class);
-            // see feature 4720&4722
-            if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
-                List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
-                if (driverNames != null) {
-                    for (String jar : driverNames) {
-                        if (!new File(getJavaLibPath() + jar).exists()) {
-                            librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
-                        }
-                        jarPathList.add(getJavaLibPath() + jar);
+        ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+        // see feature 4720&4722
+        if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
+            List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
+            if (driverNames != null) {
+                for (String jar : driverNames) {
+                    if (!new File(getJavaLibPath() + jar).exists()) {
+                        librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
                     }
-                    driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
-                    // feature TDI-22108
-                    if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
-                            && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)) {
-                        driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
-                    }
+                    jarPathList.add(getJavaLibPath() + jar);
                 }
-            } else {
-                Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());
-                // add another test with start with / in case of linux OS.
-                if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
-                    if (driverJarPathArg.contains(";")) {
-                        String jars[] = driverJarPathArg.split(";");
-                        for (String jar : jars) {
-                            Path path = new Path(jar);
-                            // fix for 19020
-                            if (jarsAvailable.contains(path.lastSegment())) {
-                                if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
-                                    librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(),
-                                            new NullProgressMonitor());
-                                }
-                                jarPathList.add(getJavaLibPath() + path.lastSegment());
-                            } else {
-                                jarPathList.add(jar);
-                            }
-                        }
-                    } else {
-                        Path path = new Path(driverJarPathArg);
-                        File driverFile = new File(driverJarPathArg);
-                        boolean isExist = driverFile.exists();
-                        if (!isExist || !driverJarPathArg.contains(":")) {
-                            jarPathList.add("");
-                        } else if (jarsAvailable.contains(path.lastSegment())) {
-                            String jarUnderLib = getJavaLibPath() + path.lastSegment();
-                            File file = new File(jarUnderLib);
-                            if (!file.exists()) {
+                driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                // feature TDI-22108
+                if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
+                        && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)) {
+                    driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
+                }
+            }
+        } else {
+            Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());
+            // add another test with start with / in case of linux OS.
+            if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
+                if (driverJarPathArg.contains(";")) {
+                    String jars[] = driverJarPathArg.split(";");
+                    for (String jar : jars) {
+                        Path path = new Path(jar);
+                        // fix for 19020
+                        if (jarsAvailable.contains(path.lastSegment())) {
+                            if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
                                 librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new NullProgressMonitor());
                             }
-                            jarPathList.add(jarUnderLib);
+                            jarPathList.add(getJavaLibPath() + path.lastSegment());
                         } else {
-                            jarPathList.add(driverJarPathArg);
+                            jarPathList.add(jar);
                         }
                     }
                 } else {
-                    if (driverJarPathArg.contains(";")) {
-                        String jars[] = driverJarPathArg.split(";");
-                        for (int i = 0; i < jars.length; i++) {
-                            if (!new File(getJavaLibPath() + jars[i]).exists()) {
-                                librairesManagerService.retrieve(jars[i], getJavaLibPath(), new NullProgressMonitor());
-                            }
-                            jarPathList.add(getJavaLibPath() + jars[i]);
+                    Path path = new Path(driverJarPathArg);
+                    File driverFile = new File(driverJarPathArg);
+                    boolean isExist = driverFile.exists();
+                    if (!isExist || !driverJarPathArg.contains(":")) {
+                        jarPathList.add("");
+                    } else if (jarsAvailable.contains(path.lastSegment())) {
+                        String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                        File file = new File(jarUnderLib);
+                        if (!file.exists()) {
+                            librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new NullProgressMonitor());
                         }
+                        jarPathList.add(jarUnderLib);
                     } else {
-                        if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
-                            librairesManagerService.retrieve(driverJarPathArg, getJavaLibPath(), new NullProgressMonitor());
-                        }
-                        jarPathList.add(getJavaLibPath() + driverJarPathArg);
-                    }
-                }
-            }
-
-            final String[] driverJarPath = jarPathList.toArray(new String[0]);
-
-            /*
-             * For general jdbc, driver class is specific by user.
-             */
-            if (driverClassName == null || driverClassName.equals("")) { //$NON-NLS-1$
-                driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
-                // see bug 4404: Exit TOS when Edit Access Schema in repository
-                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
-                    // throw exception to prevent getting connection, which may crash
-                    ExtractMetaDataUtils.checkAccessDbq(url);
-                }
-            }
-            // bug 9162
-            List list = new ArrayList();
-            ExtractMetaDataUtils.checkDBConnectionTimeout();
-            if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
-                JDBCDriverLoader loader = new JDBCDriverLoader();
-                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
-                        additionalParams);
-                if (list != null && list.size() > 0) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i) instanceof Connection) {
-                            connection = (Connection) list.get(i);
-                        }
-                        if (list.get(i) instanceof DriverShim) {
-                            wapperDriver = (DriverShim) list.get(i);
-                        }
-                    }
-                }
-
-            } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
-                // the jtds mode to connect sqlserver database only Instance driver once
-                if (DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass())) {
-                    wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
-                    Properties info = new Properties();
-                    // to avoid NPE
-                    username = username != null ? username : "";
-                    pwd = pwd != null ? pwd : "";
-                    info.put("user", username);
-                    info.put("password", pwd);
-                    connection = wapperDriver.connect(url, info);
-                } else {
-                    JDBCDriverLoader loader = new JDBCDriverLoader();
-                    list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
-                            additionalParams);
-                    if (list != null && list.size() > 0) {
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i) instanceof Connection) {
-                                connection = (Connection) list.get(i);
-                            }
-                            if (list.get(i) instanceof DriverShim) {
-                                wapperDriver = (DriverShim) list.get(i);
-                            }
-                        }
-                        DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
-                    }
-                }
-            } else if (dbType != null
-                    && (isValidJarFile(driverJarPath) || dbType.equalsIgnoreCase(EDatabaseTypeName.GODBC.getXmlName()))) {
-                // Load jdbc driver class dynamicly
-                JDBCDriverLoader loader = new JDBCDriverLoader();
-                // The procedure to load jars for hive embedded mode is added by Marvin Wang on Oct. 24. Bug is
-                // TDI-23400.
-                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)) {
-                    loadJarRequiredByDriver(dbType, dbVersion);
-                }
-                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
-                        additionalParams);
-                if (list != null && list.size() > 0) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i) instanceof Connection) {
-                            connection = (Connection) list.get(i);
-                        }
-                        if (list.get(i) instanceof DriverShim) {
-                            wapperDriver = (DriverShim) list.get(i);
-                        }
+                        jarPathList.add(driverJarPathArg);
                     }
                 }
             } else {
-                // Don't use DriverManager
-                Class<?> klazz = Class.forName(driverClassName);
-                Properties info = new Properties();
-                info.put("user", username); //$NON-NLS-1$
-                info.put("password", pwd); //$NON-NLS-1$
-                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-                    Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-                    if (systemCharset != null && systemCharset.displayName() != null) {
-                        info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                if (driverJarPathArg.contains(";")) {
+                    String jars[] = driverJarPathArg.split(";");
+                    for (int i = 0; i < jars.length; i++) {
+                        if (!new File(getJavaLibPath() + jars[i]).exists()) {
+                            librairesManagerService.retrieve(jars[i], getJavaLibPath(), new NullProgressMonitor());
+                        }
+                        jarPathList.add(getJavaLibPath() + jars[i]);
+                    }
+                } else {
+                    if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
+                        librairesManagerService.retrieve(driverJarPathArg, getJavaLibPath(), new NullProgressMonitor());
+                    }
+                    jarPathList.add(getJavaLibPath() + driverJarPathArg);
+                }
+            }
+        }
+
+        final String[] driverJarPath = jarPathList.toArray(new String[0]);
+
+        /*
+         * For general jdbc, driver class is specific by user.
+         */
+        if (driverClassName == null || driverClassName.equals("")) { //$NON-NLS-1$
+            driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            // see bug 4404: Exit TOS when Edit Access Schema in repository
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
+                // throw exception to prevent getting connection, which may crash
+                ExtractMetaDataUtils.checkAccessDbq(url);
+            }
+        }
+        // bug 9162
+        List list = new ArrayList();
+        ExtractMetaDataUtils.checkDBConnectionTimeout();
+        if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
+            JDBCDriverLoader loader = new JDBCDriverLoader();
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
+            if (list != null && list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        connection = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        wapperDriver = (DriverShim) list.get(i);
                     }
                 }
-                connection = ((Driver) klazz.newInstance()).connect(url, info);
             }
 
-            // throw a new exception.
-            if (connection == null) {
-                throw new Exception(Messages.getString("ExtractMetaDataUtils.1")); //$NON-NLS-1$
+        } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
+            // the jtds mode to connect sqlserver database only Instance driver once
+            if (DRIVER_CACHE.containsKey(EDatabase4DriverClassName.MSSQL.getDriverClass())) {
+                wapperDriver = DRIVER_CACHE.get(EDatabase4DriverClassName.MSSQL.getDriverClass());
+                Properties info = new Properties();
+                // to avoid NPE
+                username = username != null ? username : "";
+                pwd = pwd != null ? pwd : "";
+                info.put("user", username);
+                info.put("password", pwd);
+                connection = wapperDriver.connect(url, info);
+            } else {
+                JDBCDriverLoader loader = new JDBCDriverLoader();
+                list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion,
+                        additionalParams);
+                if (list != null && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof Connection) {
+                            connection = (Connection) list.get(i);
+                        }
+                        if (list.get(i) instanceof DriverShim) {
+                            wapperDriver = (DriverShim) list.get(i);
+                        }
+                    }
+                    DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
+                }
             }
-            conList.add(connection);
-            if (wapperDriver != null) {
-                conList.add(wapperDriver);
+        } else if (dbType != null
+                && (isValidJarFile(driverJarPath) || dbType.equalsIgnoreCase(EDatabaseTypeName.GODBC.getXmlName()))) {
+            // Load jdbc driver class dynamicly
+            JDBCDriverLoader loader = new JDBCDriverLoader();
+            // The procedure to load jars for hive embedded mode is added by Marvin Wang on Oct. 24. Bug is
+            // TDI-23400.
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && "EMBEDDED".equalsIgnoreCase(dbVersion)) {
+                loadJarRequiredByDriver(dbType, dbVersion);
             }
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
+            if (list != null && list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        connection = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        wapperDriver = (DriverShim) list.get(i);
+                    }
+                }
+            }
+        } else {
+            // Don't use DriverManager
+            Class<?> klazz = Class.forName(driverClassName);
+            Properties info = new Properties();
+            info.put("user", username); //$NON-NLS-1$
+            info.put("password", pwd); //$NON-NLS-1$
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                if (systemCharset != null && systemCharset.displayName() != null) {
+                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                }
+            }
+            connection = ((Driver) klazz.newInstance()).connect(url, info);
+        }
+
+        // throw a new exception.
+        if (connection == null) {
+            throw new Exception(Messages.getString("ExtractMetaDataUtils.1")); //$NON-NLS-1$
+        }
+        conList.add(connection);
+        if (wapperDriver != null) {
+            conList.add(wapperDriver);
         }
 
         return conList;
