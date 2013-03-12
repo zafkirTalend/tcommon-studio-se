@@ -161,8 +161,8 @@ public final class TokenCollectorFactory {
 
         // collect
         try {
-            TokenCollectorFactory.getFactory().priorCollect();
             if (isActiveAndValid(true)) {
+                TokenCollectorFactory.getFactory().priorCollect();
                 send();
                 // set new days
                 final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
