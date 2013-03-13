@@ -39,5 +39,103 @@
            id="org.talend.designer.codegen.perlmodule.ModulesView"
            name="Modules"/>
    </extension>
-
+ <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="talend.modules"
+            name="Modules view"
+            parentId="org.eclipse.ui.contexts.window"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+   <command
+            categoryId="talend"
+            id="refreshModules"
+            name="Refresh modules"/>
+   <command
+         categoryId="talend"
+         id="showModulesView"
+         name="Show modules view"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="refreshModules"
+            contextId="talend.modules"
+            schemeId="org.talend.core.scheme"
+            sequence="F5"/>
+      <key
+         commandId="showModulesView"
+         contextId="talend.global"
+         schemeId="org.talend.core.scheme"
+         sequence="CTRL+F2"/>
+   </extension>
+   <extension
+         point="org.talend.core.java_type">
+      <JavaType
+            Name="Document"
+            displayInContext="false"
+            generateWithCanonicalName="false"
+            nullableClass="routines.system.Document"
+            objectBased="true">
+      </JavaType>
+   </extension>
+   
+      <extension
+         point="org.talend.core.systemRoutineLibrary">
+      <systemRoutine
+            name="Document">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="DocumentHelper">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="DocumentToFlat">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="NameSpaceTool">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="ParserUtils">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+      <systemRoutine
+            name="TalendMDMJob">
+         <library
+               name="dom4j-1.6.1.jar">
+            <bundleId
+                  bundleId="org.apache.servicemix.bundles.dom4j">
+            </bundleId>
+         </library>
+      </systemRoutine>
+   </extension>
 </plugin>
