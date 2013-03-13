@@ -489,7 +489,7 @@ public class FilesUtils {
 
             @Override
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar");//$NON-NLS-1$ //$NON-NLS-2$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
 
         };
@@ -501,7 +501,7 @@ public class FilesUtils {
 
             @Override
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             }
 
         };
@@ -646,7 +646,6 @@ public class FilesUtils {
      * @return
      * @throws Exception
      */
-    @SuppressWarnings("unchecked")
     public static void unzip(String zipFile, String targetFolder) throws Exception {
         Exception exception = null;
         ZipFile zip = new ZipFile(zipFile);
@@ -761,56 +760,57 @@ public class FilesUtils {
                 return false;
             }
         });
-        log.info("-------------- Migrating " + fileList.size() + " files");
-
-        int counter = 0;
-        int errorCounter = 0;
-        Throwable error = null;
+        log.info("-------------- Migrating " + fileList.size() + " files"); //$NON-NLS-1$ //$NON-NLS-2$
 
         for (File sample : fileList) {
-            log.info("-------------- Migrating (" + counter++ + ") : " + sample.getAbsolutePath());
-            try {
-                BufferedReader fileReader = new BufferedReader(new FileReader(sample));
-                BufferedWriter fileWriter = new BufferedWriter(new FileWriter(new File(sample.getAbsolutePath()
-                        + MIGRATION_FILE_EXT)));
-
-                while (fileReader.ready()) {
-                    String line = fileReader.readLine();
-                    for (String key : replaceStringMap.keySet()) {
-                        line = line.replaceAll(key, replaceStringMap.get(key));
-                    }
-                    fileWriter.append(line);
-                    fileWriter.newLine();
-                }
-
-                fileWriter.flush();
-                fileWriter.close();
-                fileWriter = null;
-                fileReader.close();
-                fileReader = null;
-                System.gc();
-            } catch (Exception e) {
-                error = e;
-                errorCounter++;
-                log.error("!!!!!!!!!!!  Error transforming (" + sample.getAbsolutePath() + ")\n" + e.getMessage(), e);
-            }
-            log.info("-------------- Migration done of " + counter + " files"
-                    + (errorCounter != 0 ? (",  there are " + errorCounter + " files in error.") : "."));
-        }
-
-        if (error != null) {
-            result = false;
-        } else {
-            // remove original files and rename new ones to old ones
-            for (File sample : fileList) {
-                boolean isDeleted = sample.delete();
-                log.info(sample.getAbsolutePath() + (isDeleted ? " is deleted." : " failed to delete."));
-                boolean isrenamed = new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT).renameTo(sample);
-                log.info(sample.getAbsolutePath() + MIGRATION_FILE_EXT + (isrenamed ? " is renamed." : " failed to rename."));
-            }
+            result &= migrateFile(sample, replaceStringMap, log);
         }
 
         return result;
+    }
+
+    /**
+     * DOC according to the replace string map to migrate file from old content to new ones.
+     * 
+     * @param sample
+     * @param replaceStringMap
+     * @param log
+     * @return
+     */
+    public static boolean migrateFile(File sample, Map<String, String> replaceStringMap, Logger log) {
+        log.info("-------------- Migrating : " + sample.getAbsolutePath()); //$NON-NLS-1$
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(sample));
+            BufferedWriter fileWriter = new BufferedWriter(
+                    new FileWriter(new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT)));
+
+            while (fileReader.ready()) {
+                String line = fileReader.readLine();
+                for (String key : replaceStringMap.keySet()) {
+                    line = line.replaceAll(key, replaceStringMap.get(key));
+                }
+                fileWriter.append(line);
+                fileWriter.newLine();
+            }
+
+            fileWriter.flush();
+            fileWriter.close();
+            fileWriter = null;
+            fileReader.close();
+            fileReader = null;
+            System.gc();
+        } catch (Exception e) {
+            log.error("!!!!!!!!!!!  Error transforming (" + sample.getAbsolutePath() + ")\n" + e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
+            return false;
+        }
+
+        // remove original files and rename new ones to old ones
+        boolean isDeleted = sample.delete();
+        log.info(sample.getAbsolutePath() + (isDeleted ? " is deleted." : " failed to delete.")); //$NON-NLS-1$ //$NON-NLS-2$
+        boolean isrenamed = new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT).renameTo(sample);
+        log.info(sample.getAbsolutePath() + MIGRATION_FILE_EXT + (isrenamed ? " is renamed." : " failed to rename.")); //$NON-NLS-1$ //$NON-NLS-2$
+
+        return true;
     }
 
     /**
@@ -822,7 +822,7 @@ public class FilesUtils {
      * @return
      */
     public static List<IFile> getFiles(IFolder folder, String ext, boolean recursive) {
-        String fileExt = ext == null ? "" : ext.trim().length() > 0 ? ext.trim() : "";
+        String fileExt = ext == null ? "" : ext.trim().length() > 0 ? ext.trim() : ""; //$NON-NLS-1$ //$NON-NLS-2$
         List<IFile> result = new ArrayList<IFile>();
         try {
             IResource[] members = folder.members();
@@ -833,7 +833,7 @@ public class FilesUtils {
                     }
                 } else if (res instanceof IFile) {
                     IFile file = (IFile) res;
-                    if (fileExt.equals("") || fileExt.equals(file.getFileExtension())) {
+                    if (fileExt.equals("") || fileExt.equals(file.getFileExtension())) { //$NON-NLS-1$
                         result.add(file);
                     }
                 }
