@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -154,8 +153,12 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
                 if (rootName != null && !"".equals(destinationName)) { //$NON-NLS-1$
                     if (file.getName().equals(Messages.getString("ArchiveFileExportOperationFullPath.SpecialFile"))) { //$NON-NLS-1$
                         destinationName = rootName.substring(0, rootName.indexOf("/")) + SEPARATOR + destinationName; //$NON-NLS-1$
-                    } else if (!"".equals(rootName)) { //$NON-NLS-1$
-                        destinationName = rootName + SEPARATOR + destinationName;
+                    } else if (!"".equals(rootName) && !rootName.equals(SEPARATOR)) { //$NON-NLS-1$
+                        if (rootName.endsWith(SEPARATOR)) {
+                            destinationName = rootName + destinationName;
+                        } else {
+                            destinationName = rootName + SEPARATOR + destinationName;
+                        }
                     }
                 }
             }
@@ -198,8 +201,8 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
                 addError(NLS.bind("", exportResource), e); //$NON-NLS-1$
             }
 
-            for (int i = 0; i < children.length; i++) {
-                exportResource(rootName, directory + file.getName() + SEPARATOR, children[i].getPath(), leadupDepth + 1);
+            for (File element : children) {
+                exportResource(rootName, directory + file.getName() + SEPARATOR, element.getPath(), leadupDepth + 1);
             }
 
         }
@@ -213,8 +216,8 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
             String rootName = fileResource.getDirectoryName();
 
             Set<String> paths = fileResource.getRelativePathList();
-            for (Iterator iter = paths.iterator(); iter.hasNext();) {
-                String relativePath = (String) iter.next();
+            for (Object element : paths) {
+                String relativePath = (String) element;
                 Set<URL> resource = fileResource.getResourcesByRelativePath(relativePath);
                 for (URL url : resource) {
                     String currentResource = FilesUtils.getFileRealPath(url.getPath());
