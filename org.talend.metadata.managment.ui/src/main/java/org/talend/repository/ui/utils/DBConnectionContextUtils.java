@@ -448,8 +448,19 @@ public final class DBConnectionContextUtils {
          * working for sql builder especially.
          */
         // cloneConn.setContextId(dbConn.getContextId());
-        // cloneConn.setContextMode(dbConn.isContextMode());
-        if (dbConn.getURL() != null && !dbConn.getURL().equals("")) { //$NON-NLS-1$
+        // cloneConn.setContextMode(dbConn.isContextMode()); // if use context
+
+        // Added 20130311 TDQ-7000, when it is context mode and not general jdbc, reset the url.
+        if (contextType != null
+                && !EDatabaseTypeName.GENERAL_JDBC.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
+            String newURL = DatabaseConnStrUtil.getURLString(cloneConn.getDatabaseType(), dbConn.getDbVersionString(), server,
+                    username, password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam);
+            cloneConn.setURL(newURL);
+            return cloneConn;
+        }// ~
+
+        if (dbConn.getURL() != null
+                && !dbConn.getURL().equals("")) { //$NON-NLS-1$
             // for general db, url is given directly.
             cloneConn.setURL(url);
         } else {
@@ -457,7 +468,6 @@ public final class DBConnectionContextUtils {
                     username, password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam);
             cloneConn.setURL(newURL);
         }
-
         return cloneConn;
     }
 
