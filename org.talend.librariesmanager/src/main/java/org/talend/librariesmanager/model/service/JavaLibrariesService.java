@@ -16,12 +16,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -30,11 +28,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
-import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -256,73 +249,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         isLibSynchronized = true;
     }
 
-    @Override
-    protected void addResolvedClasspathPath(String libName) {
-        resetModulesNeeded();
-        // Adds the classpath to java project.
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IJavaProject project = JavaCore.create(prj);
-        IPath libPath = project.getResource().getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
-        File libFile = libPath.toFile();
-        if (!libFile.exists()) {
-            libFile.mkdirs();
-        }
-
-        boolean hasJar = false;
-        File[] jarFiles = libFile.listFiles(FilesUtils.getAcceptJARFilesFilter());
-        if (jarFiles != null && jarFiles.length > 0) {
-            for (File file : jarFiles) {
-                if (file.isFile() && file.getName().equals(libName)) {
-                    hasJar = true;
-                    break;
-                }
-            }
-        }
-        if (!hasJar) {
-            repositoryBundleService.retrieve(libName, libFile.getAbsolutePath());
-        }
-
-        File targetFile = new File(libPath.toOSString(), libName);
-        List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
-        try {
-            // fix for 15295 , derby data viewer will change classpath in current system
-            // IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
-            IClasspathEntry jreClasspathEntry = JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")); //$NON-NLS-1$
-            IClasspathEntry classpathEntry = JavaCore.newSourceEntry(project.getPath().append(JavaUtils.JAVA_SRC_DIRECTORY));
-            IClasspathEntry[] classpathEntryArray = project.getRawClasspath();
-            if (!ArrayUtils.contains(classpathEntryArray, jreClasspathEntry)) {
-                classpathEntryArray = (IClasspathEntry[]) ArrayUtils.add(classpathEntryArray, jreClasspathEntry);
-            }
-            if (!ArrayUtils.contains(classpathEntryArray, classpathEntry)) {
-                IClasspathEntry source = null;
-                for (IClasspathEntry entry : classpathEntryArray) {
-                    if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-                        source = entry;
-                        break;
-                    }
-                }
-                if (source != null) {
-                    classpathEntryArray = (IClasspathEntry[]) ArrayUtils.remove(classpathEntryArray,
-                            ArrayUtils.indexOf(classpathEntryArray, source));
-                }
-                classpathEntryArray = (IClasspathEntry[]) ArrayUtils.add(classpathEntryArray, classpathEntry);
-            }
-            List<String> librariesString = new ArrayList<String>();
-            for (IClasspathEntry entry : classpathEntryArray) {
-                IPath path = entry.getPath();
-                librariesString.add(path.lastSegment());
-            }
-            projectLibraries.addAll(Arrays.asList(classpathEntryArray));
-            if (!librariesString.contains(libName)) {
-                projectLibraries.add(JavaCore.newLibraryEntry(new Path(targetFile.getAbsolutePath()), null, null));
-            }
-            project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
-        } catch (JavaModelException e) {
-            CommonExceptionHandler.process(e);
-        }
-    }
-
     protected void updateProjectLib(String libName) {
 
     }
@@ -372,8 +298,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public void cleanTempProLib() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IJavaProject project = JavaCore.create(prj);
-        IPath libPath = project.getResource().getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
+        IPath libPath = prj.getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
         if (libPath.toFile().exists()) {
             FilesUtils.emptyFolder(libPath.toFile());
         }
