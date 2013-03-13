@@ -78,7 +78,7 @@ public class OracleExtractManager extends ExtractManager {
                     || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(metadataConnection.getDbType())) {
                 ResultSet rsTables = stmt.executeQuery(ORACLE_10G_RECBIN_SQL);
-                tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
                 rsTables.close();
             }
             stmt.close();
@@ -316,7 +316,7 @@ public class OracleExtractManager extends ExtractManager {
                 Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                 ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
-                itemTablesName.removeAll(ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables));
+                itemTablesName.removeAll(ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn));
                 rsTables.close();
                 stmt.close();
             } catch (SQLException e) {
@@ -353,7 +353,7 @@ public class OracleExtractManager extends ExtractManager {
                 filters.append(')');
             }
             ResultSet rsTables = stmt.executeQuery(GET_ALL_SYNONYMS + filters.toString());
-            itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+            itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
             rsTables.close();
             stmt.close();
 
@@ -372,7 +372,7 @@ public class OracleExtractManager extends ExtractManager {
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
         if (EDatabaseVersion4Drivers.ORACLE_8.getVersionValue().equals(metadataConnection.getDbVersionString())) {
-            return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, false);
+            return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, false, ExtractMetaDataUtils.conn);
         }
         return super.getTableComment(metadataConnection, resultSet, nameKey);
     }

@@ -555,12 +555,12 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    public static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
+    public static List<String> getTableNamesFromQuery(ResultSet resultSet, Connection connection) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
         tableCommentsMap.clear();
         while (resultSet.next()) {
             String nameKey = resultSet.getString(1).trim();
-            String tableComment = getTableComment(nameKey, resultSet, false);
+            String tableComment = getTableComment(nameKey, resultSet, false, connection);
             if (tableCommentsMap.containsKey(nameKey)) {
                 if (tableComment == null) {
                     tableComment = "";
@@ -574,15 +574,16 @@ public class ExtractMetaDataFromDataBase {
         return itemTablesName;
     }
 
-    public static String getTableComment(String tableName, ResultSet tablesSet, boolean needRemark) throws SQLException {
+    public static String getTableComment(String tableName, ResultSet tablesSet, boolean needRemark, Connection connection)
+            throws SQLException {
         String tableComment = "";
         if (needRemark) {
             tableComment = tablesSet.getString(GetTable.REMARKS.name());
         }
         if (StringUtils.isBlank(tableComment)) {
             String selectRemarkOnTable = getSelectRemarkOnTable(tableName);
-            if (selectRemarkOnTable != null && ExtractMetaDataUtils.conn != null) {
-                tableComment = executeGetCommentStatement(selectRemarkOnTable, ExtractMetaDataUtils.conn);
+            if (selectRemarkOnTable != null && connection != null) {
+                tableComment = executeGetCommentStatement(selectRemarkOnTable, connection);
             }
         }
         return tableComment;

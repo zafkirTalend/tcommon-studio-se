@@ -858,7 +858,7 @@ public class ExtractManager {
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
-                    itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                    itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
                     rsTables.close();
                     stmt.close();
                 }
@@ -1024,7 +1024,7 @@ public class ExtractManager {
 
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
-        return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, true);
+        return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, true, ExtractMetaDataUtils.conn);
     }
 
 }

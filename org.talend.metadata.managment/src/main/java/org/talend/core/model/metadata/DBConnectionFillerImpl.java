@@ -784,7 +784,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         // for top.
                         stmt = dbJDBCMetadata.getConnection().createStatement();
                         ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
-                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables,
+                                dbJDBCMetadata.getConnection());
                         rsTables.close();
                         stmt.close();
                     } catch (SQLException e) {
@@ -968,7 +969,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         // for top.
                         stmt = dbJDBCMetadata.getConnection().createStatement();
                         ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
-                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables);
+                        tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables,
+                                dbJDBCMetadata.getConnection());
                         rsTables.close();
                         stmt.close();
                     } catch (SQLException e) {
