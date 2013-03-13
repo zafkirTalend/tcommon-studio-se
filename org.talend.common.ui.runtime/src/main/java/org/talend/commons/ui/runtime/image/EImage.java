@@ -121,7 +121,10 @@ public enum EImage implements IImage {
     COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
 
     FILTER_DEACTIVED_ICON("/icons/filter_deactivated.png"), //$NON-NLS-1$
-    FILTER_ACTIVED_ICON("/icons/filter_activated.png");//$NON-NLS-1$
+    FILTER_ACTIVED_ICON("/icons/filter_activated.png"), //$NON-NLS-1$
+
+    PARTITIONER_ICON("/icons/tPartitioner.png"),
+    DEPARTITIONER_ICON("/icons/tDepartitioner.png");
 
     private String path;
 
