@@ -70,7 +70,7 @@ public class RepositoryConstants {
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)"; //$NON-NLS-1$
 
-    public static final String NOT_SET_STATUS = "not_set_status";
+    public static final String NOT_SET_STATUS = "not_set_status"; //$NON-NLS-1$
 
     public static final String REPOSITORY_LOCAL_ID = "local"; //$NON-NLS-1$
 
@@ -81,14 +81,14 @@ public class RepositoryConstants {
     public static final String TDQ_ALL_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
     // GLIU: add for TESB-3837
-    public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*";
+    public static final String SERVICES_NAME_PATTERN = "[a-zA-Z_][a-zA-Z0-9\\.\\-_]*"; //$NON-NLS-1$
 
     public static final String MDM_ITEM_PATTERN = ".*"; //$NON-NLS-1$
 
-    public static final String METADATA_NAME_PATTERN = ".*";
+    public static final String METADATA_NAME_PATTERN = ".*"; //$NON-NLS-1$
 
-    public static final String[] ITEM_FORBIDDEN_IN_LABEL = { "~", "!", "`", "#", "^", "&", "*", "\\", "/", "?", ":", ";", "\"",
-            ".", "(", ")", "，", "。", "'", "￥", "‘", "”", "、", "《", "，", "》" };
+    public static final String[] ITEM_FORBIDDEN_IN_LABEL = { "~", "!", "`", "#", "^", "&", "*", "\\", "/", "?", ":", ";", "\"", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
+            ".", "(", ")", "，", "。", "'", "￥", "‘", "”", "、", "《", "，", "》", "<", ">" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$
 
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
@@ -118,9 +118,9 @@ public class RepositoryConstants {
             return METADATA_NAME_PATTERN;
         }
         // GLIU: add for TESB-3837
-        else if (type != null && "SERVICES".equals(type.getType())) {
+        else if (type != null && "SERVICES".equals(type.getType())) { //$NON-NLS-1$
             return SERVICES_NAME_PATTERN;
-        } else if (type != null && "ROUTES".equals(type.getType())) {
+        } else if (type != null && "ROUTES".equals(type.getType())) { //$NON-NLS-1$
             return CODE_ITEM_PATTERN;
         } else if (type != null && type.getType() != null && type.getType().startsWith("MDM.")) { //$NON-NLS-1$
             return MDM_ITEM_PATTERN;
