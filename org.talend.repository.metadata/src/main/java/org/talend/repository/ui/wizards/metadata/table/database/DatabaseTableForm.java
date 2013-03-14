@@ -285,22 +285,19 @@ public class DatabaseTableForm extends AbstractForm {
     private void initTreeNavigatorNodes() {
         initTables = ConnectionHelper.getTablesWithOrders(getConnection());
 
-        if (metadataTable == null || initTables != null && initTables.isEmpty()) {
-
-            if (initTables != null && !initTables.isEmpty()) {
-                boolean isAllDeleted = true;
-                for (int i = 0; i < initTables.size(); i++) {
-                    if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
-                        metadataTable = (MetadataTable) initTables.toArray()[i];
-                        isAllDeleted = false;
-                    }
+        if (initTables != null && !initTables.isEmpty()) {
+            boolean isAllDeleted = true;
+            for (int i = 0; i < initTables.size(); i++) {
+                if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
+                    metadataTable = (MetadataTable) initTables.toArray()[i];
+                    isAllDeleted = false;
                 }
-                if (isAllDeleted) {
-                    addMetadataTable(true);
-                }
-            } else {
-                addMetadataTable(false);
             }
+            if (isAllDeleted) {
+                addMetadataTable(true);
+            }
+        } else {
+            addMetadataTable(false);
         }
 
         tableNavigator.removeAll();
