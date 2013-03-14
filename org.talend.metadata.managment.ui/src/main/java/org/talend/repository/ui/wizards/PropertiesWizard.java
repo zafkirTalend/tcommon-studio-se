@@ -264,7 +264,7 @@ public class PropertiesWizard extends Wizard {
             }
         };
         addPage(mainPage);
-        setWindowTitle(Messages.getString("PropertiesWizard.EditPropertiesPageTitle")); //$NON-NLS-1$
+        setWindowTitle(Messages.getString("PropertiesWizard.title")); //$NON-NLS-1$
     }
 
     @Override
