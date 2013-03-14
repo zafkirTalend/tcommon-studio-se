@@ -314,10 +314,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.systemIndicators.phoneNumberStatistics", "TDQ_Libraries/Indicators/System Indicators/Phone Number Statistics", "SYSTEM_INDICATORS_PHONENUMBER_STATISTICS", 100, true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType(
-            "repository.servicesOperation", "SERVICESOPERATION", 101, true, true, new String[] { "DI", "CAMEL" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesOperation", "SERVICESOPERATION", 101, true, true, new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType(
-            "repository.servicesPort", "SERVICESPORT", 102, true, true, new String[] { "DI", "CAMEL" }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.servicesPort", "SERVICESPORT", 102, true, true, new String[] { "DI", "CAMEL" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", "SYSTEM_INDICATORS_FRAUDDETECTION", 103, true, "repository.systemIndicators.fraudDetectionStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
