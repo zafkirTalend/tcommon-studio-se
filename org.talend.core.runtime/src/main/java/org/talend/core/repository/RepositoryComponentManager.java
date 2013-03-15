@@ -301,12 +301,12 @@ public final class RepositoryComponentManager {
             return null;
         }
         boolean subItem = (type == ERepositoryObjectType.METADATA_CON_TABLE);
-
+        
         for (RepositoryComponentSetting setting : getSettings()) {
             Class<Item>[] classes = setting.getClasses();
             if (classes != null) {
                 for (Class<Item> clazz : classes) {
-                    if (clazz.isAssignableFrom(item.getClass())) {
+                    if (clazz == item.eClass().getInstanceClass()) {
                         if (clazz.isAssignableFrom(DatabaseConnectionItem.class)) { // for db
                             EDatabaseTypeName[] dbTypes = setting.getDbTypes();
                             if (dbTypes != null) {
