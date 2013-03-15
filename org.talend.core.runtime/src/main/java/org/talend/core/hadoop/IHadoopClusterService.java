@@ -87,6 +87,16 @@ public interface IHadoopClusterService extends IService {
     public boolean isHadoopSubItem(Item item);
 
     /**
+     * DOC ycbai Comment method "isValidHadoopSubItem".
+     * 
+     * Estimate whether or not the item is a valid subitem of a hadoop cluster item.
+     * 
+     * @param item
+     * @return
+     */
+    public boolean isValidHadoopSubItem(Item item);
+
+    /**
      * DOC ycbai Comment method "getSubitemIdsOfHadoopCluster".
      * 
      * Get subitem ids of hadoop cluster.
