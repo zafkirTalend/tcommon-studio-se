@@ -17,7 +17,7 @@ import org.talend.core.model.process.IElementParameter;
 /**
  * DOC bZhou class global comment. Detailled comment
  */
-public interface ITDQPatternService extends IService {
+public interface ITDQPatternService extends ITDQService {
 
     /**
      * This method is used in tis to get the patterns value in TDQ.
