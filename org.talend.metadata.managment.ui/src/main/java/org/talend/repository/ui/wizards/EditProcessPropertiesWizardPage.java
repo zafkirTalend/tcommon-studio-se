@@ -113,7 +113,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
     protected void createBottomPart(Composite parent) {
         // Added by Marvin Wang on Feb. 18 , 2013 for common process to add a convert button which can convert the
         // common process to M/R process.
-        convertBtn = new Button(parent, SWT.BORDER);
+        convertBtn = new Button(parent, SWT.PUSH);
         convertBtn.setText(Messages.getString("EditProcessPropertiesWizardPage.button.name.convert")); //$NON-NLS-1$
         GridDataFactory.swtDefaults().span(2, 1).align(SWT.CENTER, SWT.CENTER).grab(false, false).applyTo(convertBtn);
         convertBtn.setEnabled(!isReadOnly());
