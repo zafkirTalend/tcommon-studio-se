@@ -34,6 +34,8 @@ import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -301,12 +303,12 @@ public final class RepositoryComponentManager {
             return null;
         }
         boolean subItem = (type == ERepositoryObjectType.METADATA_CON_TABLE);
-        
+
         for (RepositoryComponentSetting setting : getSettings()) {
             Class<Item>[] classes = setting.getClasses();
             if (classes != null) {
                 for (Class<Item> clazz : classes) {
-                    if (clazz == item.eClass().getInstanceClass()) {
+                    if (clazz.isAssignableFrom(item.getClass())) {
                         if (clazz.isAssignableFrom(DatabaseConnectionItem.class)) { // for db
                             EDatabaseTypeName[] dbTypes = setting.getDbTypes();
                             if (dbTypes != null) {
@@ -324,6 +326,10 @@ public final class RepositoryComponentManager {
                                     }
                                 }
                             }
+                        } else if (clazz.isAssignableFrom(ProcessItem.class)) {
+                            if (item.eClass() == PropertiesPackage.Literals.PROCESS_ITEM) {
+                                return setting;
+                            }
                         } else {
                             return setting;
                         }
@@ -331,6 +337,7 @@ public final class RepositoryComponentManager {
                 }
             }
         }
+
         return null;
 
     }
