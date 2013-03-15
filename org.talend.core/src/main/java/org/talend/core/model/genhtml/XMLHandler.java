@@ -53,6 +53,7 @@ public class XMLHandler {
                  * 
                  * @see org.dom4j.io.XMLWriter#writeDeclaration()
                  */
+                @Override
                 protected void writeDeclaration() throws IOException {
                     OutputFormat formatTmp = this.getOutputFormat();
                     String encoding = formatTmp.getEncoding();
@@ -84,7 +85,7 @@ public class XMLHandler {
                     }
                 }
             };
-
+            output.setMaximumAllowedCharacter(127);
             output.write(document);
             output.flush();
         } catch (Exception e) {
