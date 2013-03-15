@@ -79,7 +79,7 @@ public abstract class AbstractNode implements INode {
     private INode designSubjobStartNode;
 
     private boolean isVirtualGenerateNode;
-    
+
     private EConnectionType virtualLinkTo;
 
     private String uniqueShortName;
@@ -96,10 +96,12 @@ public abstract class AbstractNode implements INode {
         this.componentName = componentName;
     }
 
+    @Override
     public List<? extends IElementParameter> getElementParameters() {
         return elementParameters;
     }
 
+    @Override
     public void setElementParameters(List<? extends IElementParameter> elementParameters) {
         this.elementParameters = elementParameters;
     }
@@ -108,30 +110,37 @@ public abstract class AbstractNode implements INode {
         ((List<T>) elementParameters).add(elementParameter);
     }
 
+    @Override
     public List<? extends IConnection> getIncomingConnections() {
         return incomingConnections;
     }
 
+    @Override
     public void setIncomingConnections(List<? extends IConnection> incomingConnections) {
         this.incomingConnections = incomingConnections;
     }
 
+    @Override
     public List<? extends IConnection> getOutgoingConnections() {
         return outgoingConnections;
     }
 
+    @Override
     public void setOutgoingConnections(List<? extends IConnection> outgoingConnections) {
         this.outgoingConnections = outgoingConnections;
     }
 
+    @Override
     public List<IMetadataTable> getMetadataList() {
         return metadataList;
     }
 
+    @Override
     public void setMetadataList(List<IMetadataTable> metadataList) {
         this.metadataList = metadataList;
     }
 
+    @Override
     public String getUniqueName() {
         return uniqueName;
     }
@@ -145,6 +154,7 @@ public abstract class AbstractNode implements INode {
         this.uniqueName = uniqueName;
     }
 
+    @Override
     public boolean isActivate() {
         return activate;
     }
@@ -153,14 +163,17 @@ public abstract class AbstractNode implements INode {
         this.activate = activate;
     }
 
+    @Override
     public boolean isStart() {
         return start;
     }
 
+    @Override
     public void setStart(boolean start) {
         this.start = start;
     }
 
+    @Override
     public boolean isSubProcessStart() {
         return subProcessStart;
     }
@@ -169,6 +182,7 @@ public abstract class AbstractNode implements INode {
         this.subProcessStart = subProcessStart;
     }
 
+    @Override
     public void setPerformanceData(String perfData) {
         // null
     }
@@ -182,30 +196,37 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getReturns()
      */
+    @Override
     public List<? extends INodeReturn> getReturns() {
         return new ArrayList<INodeReturn>();
     }
 
+    @Override
     public IProcess getProcess() {
         return process;
     }
 
+    @Override
     public void setProcess(IProcess process) {
         this.process = process;
     }
 
+    @Override
     public void setComponent(IComponent component) {
         this.component = component;
     }
 
+    @Override
     public IComponent getComponent() {
         return component;
     }
 
+    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
@@ -235,6 +256,7 @@ public abstract class AbstractNode implements INode {
      * @param withCondition
      * @return Start Node found.
      */
+    @Override
     public INode getSubProcessStartNode(boolean withConditions) {
         if (!withConditions) {
             Map<INode, Integer> mapMerge = NodeUtil.getLinkedMergeInfo(this);
@@ -293,6 +315,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#hasConditionnalOutputs()
      */
+    @Override
     public boolean hasConditionalOutputs() {
         return this.hasConditionalOutputs;
     }
@@ -311,6 +334,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @return the isMultiplyingOutputs
      */
+    @Override
     public boolean isMultiplyingOutputs() {
         return isMultiplyingOutputs;
     }
@@ -361,6 +385,7 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
+    @Override
     public IExternalNode getExternalNode() {
         return externalNode;
     }
@@ -374,6 +399,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @return the isThereLinkWithHash
      */
+    @Override
     public boolean isThereLinkWithHash() {
         return isThereLinkWithHash;
     }
@@ -387,6 +413,7 @@ public abstract class AbstractNode implements INode {
         this.isThereLinkWithHash = isThereLinkWithHash;
     }
 
+    @Override
     public IElementParameter getElementParameter(String name) {
         if (name.contains(":")) { // look for the parent first, then will //$NON-NLS-1$
             // retrieve the children
@@ -423,14 +450,17 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
+    @Override
     public List<? extends IConnection> getOutgoingSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingSortedConnections(this);
     }
 
+    @Override
     public List<? extends IConnection> getOutgoingCamelSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingCamelSortedConnections(this);
     }
 
+    @Override
     public List<? extends IConnection> getMainOutgoingConnections() {
         return org.talend.core.model.utils.NodeUtil.getMainOutgoingConnections(this);
     }
@@ -440,6 +470,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getOutgoingConnections(org.talend .core.model.process.EConnectionType)
      */
+    @Override
     public List<? extends IConnection> getOutgoingConnections(EConnectionType connectionType) {
         return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectionType);
     }
@@ -449,10 +480,12 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getOutgoingConnections(java.lang. String)
      */
+    @Override
     public List<? extends IConnection> getOutgoingConnections(String connectorName) {
         return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectorName);
     }
 
+    @Override
     public List<BlockCode> getBlocksCodeToClose() {
         return this.blocksCodeToClose;
     }
@@ -466,6 +499,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#renameData(java.lang.String, java.lang.String)
      */
+    @Override
     public void renameData(String oldName, String newName) {
         if (oldName.equals(newName)) {
             return;
@@ -496,6 +530,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#useData(java.lang.String)
      */
+    @Override
     public boolean useData(String name) {
 
         for (IElementParameter param : this.getElementParameters()) {
@@ -512,6 +547,7 @@ public abstract class AbstractNode implements INode {
         return false;
     }
 
+    @Override
     public Map<INode, Integer> getLinkedMergeInfo() {
         return mergeInfo;
     }
@@ -520,6 +556,7 @@ public abstract class AbstractNode implements INode {
         this.mergeInfo = mergeInfo;
     }
 
+    @Override
     public boolean isThereLinkWithMerge() {
         return isThereLinkWithMerge;
     }
@@ -533,6 +570,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getIncomingConnections(org.talend .core.model.process.EConnectionType)
      */
+    @Override
     public List<? extends IConnection> getIncomingConnections(EConnectionType connectionType) {
         return org.talend.core.model.utils.NodeUtil.getIncomingConnections(this, connectionType);
     }
@@ -546,10 +584,12 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getLabel()
      */
+    @Override
     public String getLabel() {
         return label;
     }
 
+    @Override
     public IMetadataTable getMetadataFromConnector(String connector) {
         if (metadataList == null) {
             return null;
@@ -567,6 +607,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getConnectorFromName(java.lang.String )
      */
+    @Override
     public INodeConnector getConnectorFromName(String connName) {
         INodeConnector nodeConnector = null;
         int nbConn = 0;
@@ -586,6 +627,7 @@ public abstract class AbstractNode implements INode {
      * @see org.talend.core.model.process.INode#reloadComponent(org.talend.core.model .components.IComponent,
      * java.util.Map)
      */
+    @Override
     public void reloadComponent(IComponent component, Map<String, Object> parameters) {
         // TODO Auto-generated method stub
 
@@ -596,6 +638,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getDesignSubjobStart()
      */
+    @Override
     public INode getDesignSubjobStartNode() {
         if (designSubjobStartNode == null) {
             // used for process without design.
@@ -618,6 +661,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#isDesignSubjobStartNode()
      */
+    @Override
     public boolean isDesignSubjobStartNode() {
         if (designSubjobStartNode == null) {
             return this.equals(getSubProcessStartNode(false));
@@ -625,6 +669,7 @@ public abstract class AbstractNode implements INode {
         return this.equals(designSubjobStartNode);
     }
 
+    @Override
     public boolean isVirtualGenerateNode() {
         return this.isVirtualGenerateNode;
     }
@@ -642,6 +687,7 @@ public abstract class AbstractNode implements INode {
         this.listConnector = listConnector;
     }
 
+    @Override
     public List<? extends IElementParameter> getElementParametersWithChildrens() {
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
 
@@ -656,6 +702,7 @@ public abstract class AbstractNode implements INode {
         return fullListParam;
     }
 
+    @Override
     public boolean isGeneratedAsVirtualComponent() {
         IElementParameter param = getElementParameter("IS_VIRTUAL_COMPONENT"); //$NON-NLS-1$
         if (param != null) { // now only available for tUniqRow.
@@ -669,13 +716,15 @@ public abstract class AbstractNode implements INode {
         }
         return false;
     }
-    
+
+    @Override
     public EConnectionType getVirtualLinkTo() {
         return this.virtualLinkTo;
     }
 
+    @Override
     public void setVirtualLinkTo(EConnectionType virtualLinkTo) {
-        this.virtualLinkTo=virtualLinkTo;
+        this.virtualLinkTo = virtualLinkTo;
     }
 
     /*
@@ -683,6 +732,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#isELTComponent()
      */
+    @Override
     public boolean isELTComponent() {
         if (getComponent() != null) {
             return getComponent().getOriginalFamilyName().startsWith("ELT"); //$NON-NLS-1$
@@ -690,10 +740,12 @@ public abstract class AbstractNode implements INode {
         return false;
     }
 
+    @Override
     public boolean isFileScaleComponent() {
         return getComponent().getOriginalFamilyName().equals("FileScale"); //$NON-NLS-1$
     }
 
+    @Override
     public boolean isUseLoopOnConditionalOutput(String outputName) {
         return false;
     }
@@ -703,6 +755,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getUniqueShortName()
      */
+    @Override
     public String getUniqueShortName() {
         return this.uniqueShortName;
     }
@@ -720,6 +773,7 @@ public abstract class AbstractNode implements INode {
         this.subProcessContainBreakpoint = subProcessContainBreakpoint;
     }
 
+    @Override
     public boolean isSubProcessContainTraceBreakpoint() {
         return subProcessContainBreakpoint;
     }
@@ -729,59 +783,71 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.IElement#getElementName()
      */
+    @Override
     public String getElementName() {
         return this.getUniqueName();
     }
 
+    @Override
     public void addInput(IConnection connection) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void addOutput(IConnection connection) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public boolean checkIfCanBeStart() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public void checkNode() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public Set<INode> fsComponentsInProgressBar() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public INodeConnector getConnectorFromType(EConnectionType lineStyle) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public IExternalData getExternalData() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public List<? extends INodeConnector> getListConnector() {
         return listConnector;
     }
 
+    @Override
     public IMetadataTable getMetadataTable(String metaName) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public INode getProcessStartNode(boolean processStartNode) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public Object getSchemaParameterFromConnector(String name) {
         // TODO Auto-generated method stub
         return null;
@@ -792,51 +858,61 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
+    @Override
     public boolean hasRunIfLink() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public boolean isDummy() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public boolean isExternalNode() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public boolean isGeneratedByJobscriptBool() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public boolean isTemplate() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void removeInput(IConnection connection) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void removeOutput(IConnection connection) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public boolean sameProcessAs(INode target, boolean withConditions) {
         // TODO Auto-generated method stub
         return false;
@@ -852,50 +928,60 @@ public abstract class AbstractNode implements INode {
 
     }
 
+    @Override
     public Object getPropertyValue(String name) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public void setPropertyValue(String name, Object value) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType propertyType, EComponentCategory category) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType dbtable) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public Object getPropertyValue(String name, String paramName) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public void setLabel(String label) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public int getPosX() {
         // TODO Auto-generated method stub
         return 0;
     }
 
+    @Override
     public int getPosY() {
         // TODO Auto-generated method stub
         return 0;
     }
 
+    @Override
     public INode getJobletNode() {
         return null;
     }
 
+    @Override
     public List<ModuleNeeded> getModulesNeeded() {
         if (modulesNeeded.isEmpty() && component != null && component.getModulesNeeded() != null) {
             // if the list is empty, initialize from the original component
@@ -905,5 +991,15 @@ public abstract class AbstractNode implements INode {
             modulesNeeded.addAll(component.getModulesNeeded());
         }
         return modulesNeeded;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#isSubtreeStart()
+     */
+    @Override
+    public boolean isSubtreeStart() {
+        return isDesignSubjobStartNode() && !isThereLinkWithHash();
     }
 }
