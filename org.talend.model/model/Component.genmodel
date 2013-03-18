@@ -129,6 +129,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tSTATCATCHERSTATS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/rEDUCE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/pARTITIONING"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTSType/iMPORT"/>
@@ -144,6 +147,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/sHOW"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/urlPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/rEQUIREDIF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mRREQUIRED"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//INSTALLType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//INSTALLType/cOMMAND"/>

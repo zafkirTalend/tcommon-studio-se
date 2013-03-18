@@ -54,6 +54,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isREDUCE <em>REDUCE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPARTITIONING <em>PARTITIONING</em>}</li>
  * </ul>
  * </p>
  *
@@ -746,6 +747,26 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean rEDUCE = REDUCE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPARTITIONING() <em>PARTITIONING</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPARTITIONING()
+     * @generated
+     * @ordered
+     */
+    protected static final String PARTITIONING_EDEFAULT = "AUTO";
+
+    /**
+     * The cached value of the '{@link #getPARTITIONING() <em>PARTITIONING</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPARTITIONING()
+     * @generated
+     * @ordered
+     */
+    protected String pARTITIONING = PARTITIONING_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1706,6 +1727,27 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getPARTITIONING() {
+        return pARTITIONING;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPARTITIONING(String newPARTITIONING) {
+        String oldPARTITIONING = pARTITIONING;
+        pARTITIONING = newPARTITIONING;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__PARTITIONING, oldPARTITIONING, pARTITIONING));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getCOMBINE() {
         return cOMBINE;
     }
@@ -1802,6 +1844,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getTYPE();
             case ComponentPackage.HEADER_TYPE__REDUCE:
                 return isREDUCE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__PARTITIONING:
+                return getPARTITIONING();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1900,6 +1944,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__REDUCE:
                 setREDUCE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__PARTITIONING:
+                setPARTITIONING((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2000,6 +2047,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__REDUCE:
                 setREDUCE(REDUCE_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__PARTITIONING:
+                setPARTITIONING(PARTITIONING_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2070,6 +2120,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
             case ComponentPackage.HEADER_TYPE__REDUCE:
                 return rEDUCE != REDUCE_EDEFAULT;
+            case ComponentPackage.HEADER_TYPE__PARTITIONING:
+                return PARTITIONING_EDEFAULT == null ? pARTITIONING != null : !PARTITIONING_EDEFAULT.equals(pARTITIONING);
         }
         return super.eIsSet(featureID);
     }
@@ -2140,6 +2192,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(tYPE);
         result.append(", rEDUCE: ");
         result.append(rEDUCE);
+        result.append(", pARTITIONING: ");
+        result.append(pARTITIONING);
         result.append(')');
         return result.toString();
     }

@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE <em>REDUCE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPARTITIONING <em>PARTITIONING</em>}</li>
  * </ul>
  * </p>
  *
@@ -1174,6 +1175,33 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setREDUCE(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>PARTITIONING</b></em>' attribute.
+     * The default value is <code>"AUTO"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>PARTITIONING</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>PARTITIONING</em>' attribute.
+     * @see #setPARTITIONING(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_PARTITIONING()
+     * @model default="AUTO"
+     * @generated
+     */
+    String getPARTITIONING();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPARTITIONING <em>PARTITIONING</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PARTITIONING</em>' attribute.
+     * @see #getPARTITIONING()
+     * @generated
+     */
+    void setPARTITIONING(String value);
 
     /**
      * Returns the value of the '<em><b>COMBINE</b></em>' attribute.
