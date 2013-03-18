@@ -293,6 +293,16 @@ public class MetadataDialog extends Dialog {
                 return true;
             }
         }
+        schemaParam = node.getElementParameter("SCHEMAS");
+        if (schemaParam != null) {
+            List schemaType = (List) schemaParam.getValue();
+            for (int i = 0; i < schemaType.size(); i++) {
+                HashMap map = (HashMap) schemaType.get(i);
+                if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

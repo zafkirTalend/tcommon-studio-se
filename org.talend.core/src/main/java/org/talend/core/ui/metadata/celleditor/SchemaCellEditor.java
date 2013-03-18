@@ -442,7 +442,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
                 dialog.setInputReadOnly(metaReadonly);
                 dialog.setOutputReadOnly(metaReadonly);
-                if (dialog.open() == MetadataDialog.OK && !metaReadonly) {
+                if (dialog.open() == MetadataDialog.OK) {
                     final IMetadataTable oldTable = tableToEdit;
                     final IMetadataTable newTable = dialog.getOutputMetaData();
                     if (!oldTable.sameMetadataAs(newTable, IMetadataColumn.OPTIONS_NONE)) {
@@ -450,7 +450,9 @@ public class SchemaCellEditor extends DialogCellEditor {
 
                             @Override
                             public void execute() {
-                                oldTable.setListColumns(newTable.getListColumns());
+                                oldTable.getListUsedColumns().clear();
+                                oldTable.getListUnusedColumns().clear();
+                                oldTable.setListColumns(newTable.getListColumns(true));
                             }
 
                         });

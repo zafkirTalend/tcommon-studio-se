@@ -191,7 +191,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
     }
 
     private void createRepositoryComposite(Group group) {
-        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.ViewSchemaMessage")); //$NON-NLS-1$
+        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.newViewSchemaMessage")); //$NON-NLS-1$
         createBuiltInButton(group, Messages.getString("SchemaOperationChoiceDialog.ChangeBuiltInMessage")); //$NON-NLS-1$
         createRepositoryButton(group, Messages.getString("SchemaOperationChoiceDialog.ChangeRepositoryMessage")); //$NON-NLS-1$
         createSchemaCombo(group);
