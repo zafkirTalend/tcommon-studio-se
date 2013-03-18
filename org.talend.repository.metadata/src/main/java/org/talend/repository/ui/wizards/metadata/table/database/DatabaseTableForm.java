@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.table.database;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -267,8 +268,13 @@ public class DatabaseTableForm extends AbstractForm {
      * 
      * Initialize value, forceFocus first field for right Click (new Table).
      * 
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
+     * 
      */
-    public void initializeForm() {
+    public void initializeForm() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         // init the nodes of the left tree navigator
         initTreeNavigatorNodes();
@@ -281,8 +287,14 @@ public class DatabaseTableForm extends AbstractForm {
 
     /**
      * DOC ocarbone Comment method "initTreeNodes".
+     * 
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    private void initTreeNavigatorNodes() {
+    private void initTreeNavigatorNodes() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+            SQLException {
         initTables = ConnectionHelper.getTablesWithOrders(getConnection());
 
         if (initTables != null && !initTables.isEmpty()) {
@@ -763,7 +775,17 @@ public class DatabaseTableForm extends AbstractForm {
             public void widgetSelected(final SelectionEvent e) {
                 if (addTableButton.getEnabled()) {
                     addTableButton.setEnabled(true);
-                    addMetadataTable(false);
+                    try {
+                        addMetadataTable(false);
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (InstantiationException e1) {
+                        e1.printStackTrace();
+                    } catch (IllegalAccessException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
                 } else {
                     addTableButton.setEnabled(false);
                 }
@@ -824,8 +846,14 @@ public class DatabaseTableForm extends AbstractForm {
 
     /**
      * DOC ocarbone Comment method "addMetadataTable".
+     * 
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    protected void addMetadataTable(boolean flag) {
+    protected void addMetadataTable(boolean flag) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+            SQLException {
         // Create a new metadata and Add it on the connection
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
@@ -1252,7 +1280,17 @@ public class DatabaseTableForm extends AbstractForm {
         };
 
         if (visible) {
-            initializeForm();
+            try {
+                initializeForm();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             // bug 16595
             // checkConnection(false);
 

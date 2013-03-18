@@ -62,6 +62,7 @@ import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
@@ -148,6 +149,9 @@ public class MetadataConnectionUtils {
                             sqlConn = (java.sql.Connection) list.get(i);
                         }
                     }
+                } else if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
+                    driver = HiveConnectionManager.getInstance().getDriver(metadataBean);
+                    sqlConn = HiveConnectionManager.getInstance().createConnection(metadataBean);
                 } else {
                     driver = getClassDriver(metadataBean);
                     sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);

@@ -32,6 +32,10 @@ public abstract class AbstractFakeDatabaseMetaData extends FakeDatabaseMetaData 
 
     private Connection connection;
 
+    public AbstractFakeDatabaseMetaData() {
+        super();
+    }
+
     /**
      * 
      * DOC ggu AbstractFakeDatabaseMetaData constructor comment.

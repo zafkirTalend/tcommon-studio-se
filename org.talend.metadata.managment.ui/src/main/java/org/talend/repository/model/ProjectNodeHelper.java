@@ -13,6 +13,7 @@
 package org.talend.repository.model;
 
 import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,6 +38,8 @@ import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -257,8 +260,13 @@ public class ProjectNodeHelper {
      * 
      * @param dbconn
      * @param dbtable
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    public static void addDefaultTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable) {
+    public static void addDefaultTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         // if the database connection is contextmodel, need to get the original value of every parameter
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbconn);
         String schema = imetadataConnection.getSchema();
@@ -320,7 +328,8 @@ public class ProjectNodeHelper {
         addTableForTemCatalogOrSchema(catalog, schema, dbconn, dbtable, imetadataConnection);
     }
 
-    public static void addTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable) {
+    public static void addTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         // if the database connection is contextmodel, need to get the original value of every parameter
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbconn);
         DatabaseConnection conn = (DatabaseConnection) imetadataConnection.getCurrentConnection();
@@ -351,7 +360,8 @@ public class ProjectNodeHelper {
     }
 
     public static void addTableForTemCatalogOrSchema(String dbsid, String schema, DatabaseConnection connection,
-            MetadataTable dbtable, IMetadataConnection iMetadataConnection) {
+            MetadataTable dbtable, IMetadataConnection iMetadataConnection) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
         boolean hasSchemaInCatalog = false;
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
         Catalog c = (Catalog) ConnectionHelper.getPackage(dbsid, connection, Catalog.class);
@@ -493,7 +503,8 @@ public class ProjectNodeHelper {
         }
     }
 
-    public static void fillCatalogAndSchemas(IMetadataConnection iMetadataConnection, DatabaseConnection temConnection) {
+    public static void fillCatalogAndSchemas(IMetadataConnection iMetadataConnection, DatabaseConnection temConnection)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         java.sql.Connection sqlConn = null;
         temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
                 temConnection);
@@ -510,8 +521,13 @@ public class ProjectNodeHelper {
 
         String dbType = iMetadataConnection.getDbType();
         if (sqlConn != null) {
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
-                    iMetadataConnection.getDatabase());
+            DatabaseMetaData dbMetaData = null;
+            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
+            } else {
+                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false, iMetadataConnection.getDatabase());
+            }
             MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));
 

@@ -327,7 +327,8 @@ public class OracleExtractManager extends ExtractManager {
 
     @Override
     protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
-            List<String> itemTablesName) throws SQLException {
+            List<String> itemTablesName) throws SQLException, ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
         // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
         if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
                 && ExtractMetaDataUtils.isUseAllSynonyms()) {

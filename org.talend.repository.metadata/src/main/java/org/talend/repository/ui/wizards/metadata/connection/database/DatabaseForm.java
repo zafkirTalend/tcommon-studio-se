@@ -88,7 +88,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
-import org.talend.core.utils.ReflectionUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -1137,14 +1136,9 @@ public class DatabaseForm extends AbstractForm {
         managerConnection.setValueProperties(sqlSyntaxCombo.getItem(sqlSyntaxCombo.getSelectionIndex()),
                 stringQuoteText.getText(), nullCharText.getText());
 
-        if (isHiveDBConnSelected() && isHiveEmbeddedMode()) {
-            try {
-                IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
-                databaseSettingIsValide = managerConnection.checkForHive(metadataConn);
-            } catch (Exception e) {
-                databaseSettingIsValide = false;
-                e.printStackTrace();
-            }
+        if (isHiveDBConnSelected()) {
+            IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            databaseSettingIsValide = managerConnection.checkHiveConnection(metadataConn);
         } else {
             // check the connection
             databaseSettingIsValide = managerConnection.check();
@@ -1356,9 +1350,9 @@ public class DatabaseForm extends AbstractForm {
      * @throws ClassNotFoundException
      */
     private void forceSetFlagForHiveCreateDefaultDB() throws ClassNotFoundException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader, //$NON-NLS-1$
-                "createDefaultDB", false); //$NON-NLS-1$
+        // ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        //        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader, //$NON-NLS-1$
+        //                "createDefaultDB", false); //$NON-NLS-1$
     }
 
     /**
@@ -1525,6 +1519,7 @@ public class DatabaseForm extends AbstractForm {
         // check setURL only when the schema is changed.
         schemaText.addFocusListener(new FocusListener() {
 
+            @Override
             public void focusGained(FocusEvent e) {
             }
 

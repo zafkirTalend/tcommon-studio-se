@@ -13,8 +13,6 @@
 package org.talend.repository.ui.utils;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,23 +21,21 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
-import org.talend.core.model.metadata.builder.database.JDBCDriverLoader;
-import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
@@ -148,70 +144,35 @@ public class ManagerConnection {
     }
 
     /**
-     * 
-     * Added by Marvin Wang on Nov 22, 2012.
+     * Checks if Hive can be connected, if yes, then return <code>true</code> for {{@link #isValide} with successful
+     * message {@link #messageException}. Otherwise, return <code>false</code>. In fact, in this method it invokes
+     * {@link HiveConnectionManager#checkHiveConnection(IMetadataConnection)} to check hive connection. Added by Marvin
+     * Wang on Mar 18, 2013.
      * 
      * @param metadataConn
      * @return
      */
-    public boolean checkForHive(IMetadataConnection metadataConn) {
-        dbTypeString = metadataConn.getDbType();
-        dbVersionString = metadataConn.getDbVersionString();
-        urlConnectionString = metadataConn.getUrl();
-        username = metadataConn.getUsername();
-        password = metadataConn.getPassword();
-        JDBCDriverLoader loader = new JDBCDriverLoader();
-        List<String> jarPathList = fetchEmbeddedHiveDriverJars(metadataConn);
-        jarPathList.addAll(fetchJarRequiredByMetastoreDB(metadataConn));
-
+    public boolean checkHiveConnection(IMetadataConnection metadataConn) {
         try {
-            List<?> list = loader.getConnection(jarPathList.toArray(new String[jarPathList.size()]),
-                    EDatabase4DriverClassName.HIVE.getDriverClass(), urlConnectionString, username, password, dbTypeString,
-                    dbVersionString, additionalParams);
-
-            if (list != null) {
-                Connection conn = (Connection) list.get(0);
-                return checkHiveEmbeddedConnFromMetaDataDatabase(conn, metadataConn);
-            } else {
-                return checkHiveEmbeddedConnFromMetaDataDatabase(null, metadataConn);
-            }
-        } catch (Exception e) {
-            return checkHiveEmbeddedConnFromMetaDataDatabase(null, metadataConn);
-        }
-    }
-
-    /**
-     * For hive embedded mode, it should use this instead of checking hive connection directly. Added by Marvin Wang on
-     * Dec 4, 2012.
-     * 
-     * @param conn
-     * @param metadataConn
-     * @return
-     */
-    private boolean checkHiveEmbeddedConnFromMetaDataDatabase(Connection conn, IMetadataConnection metadataConn) {
-        DatabaseMetaData dbMetaData = null;
-        if (conn == null) {
-            // Added by Marvin Wang on Dec.4, 2012. For Hive Embedded mode, in fact, sometimes there is no connenction
-            // for Hive DatabaseMetadata.
-            // Refer to EmbeddedHiveDataBaseMetadata that is a "fake" class.
-            if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConn.getDbType())
-                    && EDatabaseVersion4Drivers.HIVE_EMBEDDED.getVersionDisplay().equals(metadataConn.getDbVersionString())) {
-                dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
-            }
-        } else {
-            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, dbTypeString);
-        }
-        if (dbMetaData == null) {
-            return false;
-        }
-        try {
-            dbMetaData.getTables(null, null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            HiveConnectionManager.getInstance().checkConnection(metadataConn);
             isValide = true;
-            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$  
+            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
+        } catch (ClassNotFoundException e) {
+            isValide = false;
+            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            CommonExceptionHandler.process(e);
+        } catch (InstantiationException e) {
+            isValide = false;
+            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            CommonExceptionHandler.process(e);
+        } catch (IllegalAccessException e) {
+            isValide = false;
+            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            CommonExceptionHandler.process(e);
         } catch (SQLException e) {
             isValide = false;
             messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
-            ExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
         return isValide;
     }
@@ -442,6 +403,15 @@ public class ManagerConnection {
 
     public void setUrlConnectionString(String urlConnectionString) {
         this.urlConnectionString = urlConnectionString;
+    }
+
+    /**
+     * Sets the isValide.
+     * 
+     * @param isValide the isValide to set
+     */
+    public void setValide(boolean isValide) {
+        this.isValide = isValide;
     }
 
 }

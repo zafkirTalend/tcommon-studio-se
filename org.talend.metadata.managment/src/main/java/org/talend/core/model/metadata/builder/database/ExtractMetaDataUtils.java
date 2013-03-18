@@ -55,6 +55,7 @@ import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -64,12 +65,14 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -97,6 +100,27 @@ public class ExtractMetaDataUtils {
     public static boolean isReconnect = true;
 
     private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
+
+    /**
+     * Gets an instance of <code>DatabaseMetadata</code> by the given argument. The reason why it provides this method
+     * is sometimes the database metadata you want to get is not from the <code>Connection</code>, in talend product
+     * maybe a "fake" database metadata is created like "HiveDatabaseMetadata". Added by Marvin Wang on Mar 13, 2013.
+     * 
+     * @param metadataConn
+     * @return
+     */
+    public static DatabaseMetaData getDatabaseMetaData(IMetadataConnection metadataConn) {
+        DatabaseMetaData databaseMetadata = null;
+        String dbType = metadataConn.getDbType();
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            Object hiveModelObj = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModelObj == null ? null : (String) hiveModelObj)) {
+                ClassLoader classLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+                databaseMetadata = new EmbeddedHiveDataBaseMetadata(classLoader);
+            }
+        }
+        return databaseMetadata;
+    }
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -189,7 +213,7 @@ public class ExtractMetaDataUtils {
                         || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
                     dbMetaData = createSybaseFakeDatabaseMetaData(conn);
                 } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbeddedConn(conn)) {
-                    dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
+                    // dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
                 } else {
                     dbMetaData = conn.getMetaData();
                 }

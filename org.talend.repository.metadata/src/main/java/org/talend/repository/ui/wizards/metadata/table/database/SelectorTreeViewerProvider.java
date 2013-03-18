@@ -39,6 +39,7 @@ import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.repository.AbstractMetadataExtractorViewProvider;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -49,10 +50,12 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         super();
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
     }
 
+    @Override
     public Object[] getElements(Object inputElement) {
         List list = (List) inputElement;
         if (list != null && list.size() == 1) {
@@ -68,6 +71,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         return list.toArray();
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
         TableNode tableNode = (TableNode) parentElement;
         List<TableNode> child = tableNode.getChildren();
@@ -88,19 +92,37 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
 
         Connection conn = null;
         Driver driver = null;
-        List list = ExtractMetaDataUtils.getConnectionList(metadataConn);
-        if (list != null && !list.isEmpty()) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) instanceof Connection) {
-                    conn = (Connection) list.get(i);
-                }
-                if (list.get(i) instanceof DriverShim) {
-                    driver = (DriverShim) list.get(i);
+
+        DatabaseMetaData dbMetaData = null;
+        // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConn.getDbType())) {
+            try {
+                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConn);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            List list = ExtractMetaDataUtils.getConnectionList(metadataConn);
+            if (list != null && !list.isEmpty()) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        conn = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        driver = (DriverShim) list.get(i);
+                    }
                 }
             }
+            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
+                    metadataConn.getDatabase());
         }
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(),
-                metadataConn.isSqlMode(), metadataConn.getDatabase());
+
         int type = tableNode.getType();
         orgomg.cwm.objectmodel.core.Package pack = null;
 
@@ -186,7 +208,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             // for specific db such as derby
@@ -196,7 +218,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
+                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())))) {
                     try {
                         driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
                     } catch (SQLException e) {
@@ -211,11 +233,13 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         return children.toArray();
     }
 
+    @Override
     public Object getParent(Object element) {
         TableNode tableNode = (TableNode) element;
         return tableNode.getParent();
     }
 
+    @Override
     public boolean hasChildren(Object element) {
         TableNode tableNode = (TableNode) element;
         int type = tableNode.getType();
@@ -225,10 +249,12 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         return !tableNode.getChildren().isEmpty();
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
         return null;
     }
 
+    @Override
     public String getColumnText(Object element, int columnIndex) {
         TableNode tableNode = (TableNode) element;
         int type = tableNode.getType();

@@ -15,6 +15,8 @@ package org.talend.core.model.metadata;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.core.database.conn.ConnParameterKeys;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -195,8 +197,8 @@ public interface IMetadataConnection extends IMetadata {
 
     /**
      * Returns the value that you stored in the data collection by the key. Normally, it is like this key-value. For
-     * business it is extensible for later whenever you want to add a new parameter for a connection. Added by Marvin
-     * Wang on Aug. 8, 2012.
+     * business it is extensible for later whenever you want to add a new parameter for a connection. The constants for
+     * key are stored in {@link ConnParameterKeys}. Added by Marvin Wang on Aug. 8, 2012.
      * 
      * @param key
      * @return
@@ -205,7 +207,8 @@ public interface IMetadataConnection extends IMetadata {
 
     /**
      * Puts the key-value you want to add into a collection, which is extensible for later whenever you want to add a
-     * new parameter for connection. Added by Marvin Wang on Aug. 8, 2012.
+     * new parameter for connection. The constants for key are stored in {@link ConnParameterKeys}. Added by Marvin Wang
+     * on Aug. 8, 2012.
      * 
      * @param key
      * @param value

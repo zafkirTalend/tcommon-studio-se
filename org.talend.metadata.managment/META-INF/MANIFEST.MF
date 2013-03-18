@@ -29,7 +29,9 @@ Export-Package: metadata.managment.i18n,
  org.talend.core.model.metadata.builder.database.extractots,
  org.talend.core.model.metadata.builder.database.hive,
  org.talend.core.model.metadata.builder.util,
- org.talend.mdm.webservice
+ org.talend.mdm.webservice,
+ org.talend.metadata.managment.connection.manager,
+ org.talend.metadata.managment.hive
 Bundle-ClassPath: .,
  lib/mdm_webservice.jar,
  lib/axis.jar,

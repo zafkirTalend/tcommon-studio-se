@@ -22,8 +22,6 @@ import java.util.List;
 import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.model.metadata.builder.database.HotClassLoader;
-import org.talend.core.model.metadata.builder.database.JDBCDriverLoader;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 
@@ -42,21 +40,23 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
     private Object hiveObject;
 
+    private ClassLoader classLoader;
+
     /**
      * DOC ggu HiveDataBaseMetadata constructor comment.
      */
-    public EmbeddedHiveDataBaseMetadata(Connection connection) {
+    protected EmbeddedHiveDataBaseMetadata(Connection connection) {
         super(connection);
 
     }
 
-    private void init() throws SQLException {
-        // System.setProperty("hive.metastore.uris", "thrift://192.168.30.128:9083");
-        // System.setProperty("hive.metastore.local", "false");
-        if (hiveObject == null) {
-            JDBCDriverLoader loader = new JDBCDriverLoader();
-            HotClassLoader classLoader = loader.getHotClassLoaderFromCache(EDatabaseTypeName.HIVE.getXmlName(), "EMBEDDED");
+    public EmbeddedHiveDataBaseMetadata(ClassLoader classLoader) {
+        super();
+        this.classLoader = classLoader;
+    }
 
+    private void init() throws SQLException {
+        if (hiveObject == null) {
             try {
                 Class calss = Class.forName("org.apache.hadoop.hive.ql.metadata.Hive", true, classLoader); //$NON-NLS-1$
                 Method closeCurrentMethod = calss.getDeclaredMethod("closeCurrent"); //$NON-NLS-1$
@@ -69,6 +69,19 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                 throw new SQLException(e);
             }
         }
+    }
+
+    /**
+     * For hive embedded mode if tables can be fetched from metastore db without any exceptions, then return
+     * <code>true</code>. If there is any exceptions thrown, then that indicates it is failed to connection to hive.
+     * Added by Marvin Wang on Mar 12, 2013.
+     * 
+     * @return
+     * @throws SQLException
+     */
+    public boolean checkConnection() throws SQLException {
+        getTables(null, null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        return true;
     }
 
     /*
@@ -211,6 +224,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
         if (hiveObject != null) { // got the hive object
             try {
+                Thread.currentThread().setContextClassLoader(classLoader);
                 Class hiveClass = hiveObject.getClass();
                 Method getTableMethod = hiveClass.getDeclaredMethod("getTable", String.class);//$NON-NLS-1$ 
                 Object table = getTableMethod.invoke(hiveObject, tableNamePattern);

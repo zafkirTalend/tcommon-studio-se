@@ -44,7 +44,6 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.database.extractots.DBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
-import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManagerFactory;
 import org.talend.core.model.metadata.builder.database.manager.dbs.IBMDB2ExtractManager;
@@ -52,6 +51,7 @@ import org.talend.core.model.metadata.builder.database.manager.dbs.OracleExtract
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.utils.sql.metadata.constants.GetTable;
 
 /**
@@ -378,8 +378,13 @@ public class ExtractMetaDataFromDataBase {
      * 
      * @param IMetadataConnection iMetadataConnection
      * @return Collection : return a String's collection of Table Name of a DB Connection
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection, int... limit) {
+    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection, int... limit)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         List<String> itemTablesName = new ArrayList<String>();
         // add by wzhang
         // ExtractMetaDataUtils.metadataCon = iMetadataConnection;
@@ -411,8 +416,15 @@ public class ExtractMetaDataFromDataBase {
             }
         }
 
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+        DatabaseMetaData dbMetaData = null;
+        // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
+        } else {
+            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+        }
+
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);
 
@@ -440,10 +452,14 @@ public class ExtractMetaDataFromDataBase {
      * @param iMetadataConnection
      * @return
      * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    public static List<String> fetchAllTablesForHiveEmbeddedModel(IMetadataConnection iMetadataConnection) throws SQLException {
+    public static List<String> fetchAllTablesForHiveEmbeddedModel(IMetadataConnection iMetadataConnection) throws SQLException,
+            ClassNotFoundException, InstantiationException, IllegalAccessException {
         List<String> allTables = new ArrayList<String>();
-        DatabaseMetaData dbMetaData = new EmbeddedHiveDataBaseMetadata(null);
+        DatabaseMetaData dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
         ResultSet results = dbMetaData.getTables(null, null, "%", new String[] { "TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ 
         while (results.next()) {
             allTables.add(results.getString(3));
@@ -456,9 +472,14 @@ public class ExtractMetaDataFromDataBase {
      * 
      * @param iMetadataConnection
      * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
     public static List<org.talend.core.model.metadata.builder.connection.MetadataTable> returnMetaTablesFormConnection(
-            IMetadataConnection iMetadataConnection, int limit) {
+            IMetadataConnection iMetadataConnection, int limit) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, SQLException {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
 
         List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
@@ -474,8 +495,14 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         String dbType = iMetadataConnection.getDbType();
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+        DatabaseMetaData dbMetaData = null;
+        // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
+        } else {
+            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+        }
 
         List<IMetadataTable> metadataTables = null;
         if (limit > 0) {
@@ -503,7 +530,8 @@ public class ExtractMetaDataFromDataBase {
     }
 
     public static List<org.talend.core.model.metadata.builder.connection.MetadataTable> returnMetaTablesFormConnection(
-            IMetadataConnection iMetadataConnection) {
+            IMetadataConnection iMetadataConnection) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, SQLException {
         return returnMetaTablesFormConnection(iMetadataConnection, -1);
 
     }

@@ -290,6 +290,8 @@ public class PropertiesWizard extends Wizard {
                         IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
                         service.editJobName(originaleObjectLabel, object.getLabel());
                     }
+                    // unlockObject();
+                    // alreadyEditedByUser = true; // to avoid 2 calls of unlock
                 } catch (PersistenceException pe) {
                     throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass()).getSymbolicName(),
                             "persistance error", pe)); //$NON-NLS-1$
@@ -377,7 +379,22 @@ public class PropertiesWizard extends Wizard {
     @Override
     public void dispose() {
         if (isUnlockRequired()) {
-            unlockObject();
+            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                public void run(final IProgressMonitor monitor) throws CoreException {
+                    unlockObject();
+                }
+            };
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            // the update the project files need to be done in the workspace runnable to avoid all notification
+            // of changes before the end of the modifications.
+            try {
+                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
         }
         super.dispose();
     }

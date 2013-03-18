@@ -68,6 +68,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -575,8 +576,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * DOC Comment method "updateConnectionInformation".
      * 
      * @param dbConn
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
-    private void updateConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metaConnection) {
+    private void updateConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metaConnection)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         java.sql.Connection sqlConn = null;
         String dbType = null;
         try {
@@ -585,8 +591,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             dbType = metaConnection.getDbType();
             if (sqlConn != null) {
-                DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
-                        metaConnection.getDatabase());
+                DatabaseMetaData dbMetaData = null;
+                // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+                if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+                    dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
+                } else {
+                    dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false, metaConnection.getDatabase());
+                }
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData, metaConnection,

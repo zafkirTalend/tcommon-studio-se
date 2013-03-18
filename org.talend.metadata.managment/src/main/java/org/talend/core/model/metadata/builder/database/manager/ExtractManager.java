@@ -61,6 +61,7 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -335,23 +336,29 @@ public class ExtractManager {
         String dbType = "";
         try {
             // WARNING Schema equals sid or database
-            if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
-                List list = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
-                        metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
-                        metadataConnection.getSchema(), metadataConnection.getDriverClass(),
-                        metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
-                        metadataConnection.getAdditionalParams());
-                if (list != null && list.size() > 0) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i) instanceof DriverShim) {
-                            wapperDriver = (DriverShim) list.get(i);
+            dbType = metadataConnection.getDbType();
+            DatabaseMetaData dbMetaData = null;
+            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
+            } else {
+                if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
+                    List list = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+                            metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
+                            metadataConnection.getSchema(), metadataConnection.getDriverClass(),
+                            metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
+                            metadataConnection.getAdditionalParams());
+                    if (list != null && list.size() > 0) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i) instanceof DriverShim) {
+                                wapperDriver = (DriverShim) list.get(i);
+                            }
                         }
                     }
                 }
+                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                        metadataConnection.isSqlMode(), metadataConnection.getDatabase());
             }
-            dbType = metadataConnection.getDbType();
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                    metadataConnection.isSqlMode(), metadataConnection.getDatabase());
 
             String tableLabel = tableNode.getValue();
             TableNode newNode = tableNode;
@@ -482,8 +489,14 @@ public class ExtractManager {
                 }
             }
             dbType = metadataConnection.getDbType();
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                    metadataConnection.isSqlMode(), metadataConnection.getDatabase());
+            DatabaseMetaData dbMetaData = null;
+            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
+            } else {
+                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
+                        metadataConnection.isSqlMode(), metadataConnection.getDatabase());
+            }
 
             tableLabel = checkTableLabel(tableLabel);
 
@@ -893,7 +906,8 @@ public class ExtractManager {
     }
 
     protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
-            List<String> itemTablesName) throws SQLException {
+            List<String> itemTablesName) throws SQLException, ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
         Set<String> nameFiters = tableInfoParameters.getNameFilters();
 
         if (nameFiters.isEmpty()) {
@@ -921,9 +935,14 @@ public class ExtractManager {
      * cli Comment method "getTableNamesFromTablesForMultiSchema".
      * 
      * bug 12179
+     * 
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
     protected List<String> getTableNamesFromTablesForMultiSchema(TableInfoParameters tableInfo, String namePattern,
-            IMetadataConnection iMetadataConnection) throws SQLException {
+            IMetadataConnection iMetadataConnection) throws SQLException, ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
 
         String[] multiSchemas = ExtractMetaDataUtils.getMultiSchems(ExtractMetaDataUtils.schema);
         List<String> tableNames = new ArrayList<String>();
@@ -947,9 +966,13 @@ public class ExtractManager {
      * @param dbMetaData
      * @return
      * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
     protected ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern,
-            IMetadataConnection iMetadataConnection, String schema) throws SQLException {
+            IMetadataConnection iMetadataConnection, String schema) throws SQLException, ClassNotFoundException,
+            InstantiationException, IllegalAccessException {
         ResultSet rsTables = null;
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
@@ -963,8 +986,15 @@ public class ExtractManager {
                 types[i] = selectedTypeName;
             }
         }
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn,
-                iMetadataConnection.getDbType(), iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+
+        DatabaseMetaData dbMetaData = null;
+        // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(iMetadataConnection.getDbType())) {
+            dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
+        } else {
+            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, iMetadataConnection.getDbType(),
+                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+        }
         // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         ResultSet rsTableTypes = null;
         rsTableTypes = dbMetaData.getTableTypes();

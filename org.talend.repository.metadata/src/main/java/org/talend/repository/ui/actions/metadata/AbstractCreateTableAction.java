@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.actions.metadata;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -76,6 +77,7 @@ import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -988,7 +990,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
                                         && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
                                     try {
-                                        managerConnection.checkForHive(metadataConnection);
+                                        HiveConnectionManager.getInstance().checkConnection(metadataConnection);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -1065,7 +1067,17 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
         if (managerConnection.getIsValide()) {
             List<String> itemTableName = null;
             // hyWang remove the second parameter of method returnTablesFormConnection for bug7374
-            itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(metadataConnection);
+            try {
+                itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(metadataConnection);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             if (itemTableName == null || itemTableName.isEmpty()) {
                 skipStep = true;
             }

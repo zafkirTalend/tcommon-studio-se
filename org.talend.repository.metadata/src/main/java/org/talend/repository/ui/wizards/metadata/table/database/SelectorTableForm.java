@@ -105,6 +105,7 @@ import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
@@ -880,234 +881,68 @@ public class SelectorTableForm extends AbstractForm {
         // get dbType before get connection so that the dbtype won't be null.TDI-18366
         String dbType = metadataconnection.getDbType();
         DatabaseConnection dbConn = (DatabaseConnection) metadataconnection.getCurrentConnection();
-        List list = MetadataConnectionUtils.getConnection(metadataconnection);
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) instanceof Driver) {
-                String driverClass = metadataconnection.getDriverClass();
-                if (MetadataConnectionUtils.isDerbyRelatedDb(driverClass, dbType)) {
-                    derbyDriver = (Driver) list.get(i);
-                }
-            }
-            if (list.get(i) instanceof java.sql.Connection) {
-                sqlConn = (java.sql.Connection) list.get(i);
-            }
-        }
-        try {
-            if (sqlConn != null) {
 
-                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
-                        metadataconnection.getDatabase());
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            DatabaseMetaData dm = null;
+            try {
+                dm = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
                 MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
-                // EList<orgomg.cwm.objectmodel.core.Package> nps = dbConn.getDataPackage();
-                // EList<orgomg.cwm.objectmodel.core.Package> ops = getConnection().getDataPackage();
-                // if (ops != null && !ops.isEmpty()) {
-                // for (orgomg.cwm.objectmodel.core.Package op : ops) {
-                // if (op instanceof Catalog) {
-                // Catalog c = (Catalog) ConnectionHelper.getPackage(((Catalog) op).getName(), dbConn, Catalog.class);
-                // if (nps != null && !nps.isEmpty()) {
-                // orgomg.cwm.objectmodel.core.Package p = nps.get(0);
-                // if (p instanceof Catalog && c == null) {
-                // EList<ModelElement> ownedElement = op.getOwnedElement();
-                // if (ownedElement != null && !ownedElement.isEmpty()) {
-                // Iterator<ModelElement> iterator = ownedElement.iterator();
-                // while (iterator.hasNext()) {
-                // ModelElement o = iterator.next();
-                // if (o instanceof Schema) {
-                // Iterator<ModelElement> i = ((Schema) o).getOwnedElement().iterator();
-                // while (i.hasNext()) {
-                // i.remove();
-                // }
-                // } else if (o instanceof MetadataTable) {
-                // iterator.remove();
-                // }
-                // }
-                // }
-                // ConnectionHelper.addCatalog((Catalog) op, dbConn);
-                // }
-                // }
-                // } else if (op instanceof Schema) {
-                // Schema s = (Schema) ConnectionHelper.getPackage(((Schema) op).getName(), dbConn, Schema.class);
-                // if (nps != null && !nps.isEmpty()) {
-                // orgomg.cwm.objectmodel.core.Package p = nps.get(0);
-                // if (p instanceof Schema && s == null) {
-                // ConnectionHelper.addSchema((Schema) op, dbConn);
-                // }
-                // }
-                // }
-                // }
-                // }
-
-                // compare with current connection
-                // Set<MetadataTable> tables = ConnectionHelper.getTables(getConnection());
-                // EList<Package> dataPackage = dbConn.getDataPackage();
-
-                // for (MetadataTable table : tables) {
-                // if (table != null && dataPackage != null) {
-                // MetadataTable newTable = EcoreUtil.copy(table);
-                // EObject eContainer = table.eContainer();
-                // if (eContainer != null) {
-                // if (eContainer instanceof Catalog) {
-                // String name = ((Catalog) eContainer).getName();
-                // for (Package p : dataPackage) {
-                // if (p instanceof Catalog) {
-                // Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
-                // if (c != null) {
-                // EList<ModelElement> ownedElement = c.getOwnedElement();
-                // if (ownedElement == null || ownedElement.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, c);
-                // break;
-                // } else {
-                // List<Schema> schemas = CatalogHelper.getSchemas(c);
-                // if (!schemas.isEmpty()) {
-                // boolean added = false;
-                // for (Schema s : schemas) {
-                // EList<ModelElement> model = s.getOwnedElement();
-                // if (model == null || model.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, s);
-                // added = true;
-                // break;
-                // } else {
-                // boolean exist = false;
-                // for (ModelElement m : model) {
-                // if (m != null && m instanceof MetadataTable) {
-                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                // exist = true;
-                // break;
-                // }
-                // }
-                // }
-                // if (!exist) {
-                // PackageHelper.addMetadataTable(newTable, s);
-                // added = true;
-                // break;
-                // }
-                // }
-                // }
-                // if (added) {
-                // break;
-                // }
-                // } else {
-                // boolean exist = false;
-                // for (ModelElement m : ownedElement) {
-                // if (m != null && m instanceof MetadataTable) {
-                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                // exist = true;
-                // break;
-                // }
-                // }
-                // }
-                // if (!exist) {
-                // PackageHelper.addMetadataTable(newTable, c);
-                // break;
-                // }
-                // }
-                // }
-                // } else {
-                // EList<ModelElement> ownedElement = p.getOwnedElement();
-                // if (ownedElement == null || ownedElement.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // break;
-                // } else {
-                // List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
-                // if (!schemas.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                // break;
-                // } else {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // break;
-                // }
-                // }
-                // }
-                // } else if (p instanceof Schema) {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // break;
-                // }
-                // }
-                // } else if (eContainer instanceof Schema) {
-                // String name = ((Schema) eContainer).getName();
-                // for (Package p : dataPackage) {
-                // if (p instanceof Catalog) {
-                // EList<ModelElement> ownedElement = p.getOwnedElement();
-                // if (ownedElement == null || ownedElement.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // break;
-                // } else {
-                // List<Schema> schemas = CatalogHelper.getSchemas((Catalog) p);
-                // boolean isSchema = false;
-                // boolean exist = false;
-                // if (!schemas.isEmpty()) {
-                // isSchema = true;
-                // for (Schema schema : schemas) {
-                // if (schema.getName().equals(name)) {
-                // exist = true;
-                // PackageHelper.addMetadataTable(newTable, schema);
-                // break;
-                // }
-                // }
-                // }
-                // if (!isSchema) {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // break;
-                // } else if (!exist) {
-                // PackageHelper.addMetadataTable(newTable, schemas.get(0));
-                // break;
-                // }
-                // }
-                // } else if (p instanceof Schema) {
-                // Schema s = (Schema) ConnectionHelper.getPackage(name, dbConn, Schema.class);
-                // if (s != null) {
-                // EList<ModelElement> ownedElement = s.getOwnedElement();
-                // if (ownedElement == null || ownedElement.isEmpty()) {
-                // PackageHelper.addMetadataTable(newTable, s);
-                // break;
-                // } else {
-                // boolean exist = false;
-                // for (ModelElement m : ownedElement) {
-                // if (m != null && m instanceof MetadataTable) {
-                // if (((MetadataTable) m).getLabel().equals(table.getLabel())) {
-                // exist = true;
-                // break;
-                // }
-                // }
-                // }
-                // if (!exist) {
-                // PackageHelper.addMetadataTable(newTable, s);
-                // break;
-                // }
-                // }
-                // } else {
-                // PackageHelper.addMetadataTable(newTable, p);
-                // }
-                // }
-                // }
-                // }
-                // }
-                // }
-                // }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        } finally {
-            // bug 22619
-            if (dbType != null
-                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
-                    || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
-                ExtractMetaDataUtils.closeConnection();
+        } else {
+            List list = MetadataConnectionUtils.getConnection(metadataconnection);
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof Driver) {
+                    String driverClass = metadataconnection.getDriverClass();
+                    if (MetadataConnectionUtils.isDerbyRelatedDb(driverClass, dbType)) {
+                        derbyDriver = (Driver) list.get(i);
+                    }
+                }
+                if (list.get(i) instanceof java.sql.Connection) {
+                    sqlConn = (java.sql.Connection) list.get(i);
+                }
             }
-            if (derbyDriver != null) {
-                try {
-                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                } catch (SQLException e) {
-                    // exception of shutdown success. no need to catch.
+            try {
+                if (sqlConn != null) {
+                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                            metadataconnection.getDatabase());
+                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
+                            MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
+                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
+                            MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            } finally {
+                // bug 22619
+                if (dbType != null
+                        && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                                || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
+                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                        || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
+                    ExtractMetaDataUtils.closeConnection();
+                }
+                if (derbyDriver != null) {
+                    try {
+                        derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                    } catch (SQLException e) {
+                        // exception of shutdown success. no need to catch.
+                    }
                 }
             }
         }
+
     }
 
     /**
@@ -1130,7 +965,8 @@ public class SelectorTableForm extends AbstractForm {
                         String key = (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
                         if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
                             try {
-                                managerConnection.checkForHive(metadataconnection);
+                                HiveConnectionManager.getInstance().checkConnection(metadataconnection);
+                                managerConnection.setValide(true);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -1624,8 +1460,18 @@ public class SelectorTableForm extends AbstractForm {
                                 }
                             }
                         }
-                        ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
-                                metadataconnection);
+                        try {
+                            ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
+                                    metadataconnection);
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -1699,11 +1545,32 @@ public class SelectorTableForm extends AbstractForm {
         if (!threadExecutor.isThreadRunning(treeItem) && !useProvider()) {
             TableNode node = (TableNode) treeItem.getData();
             if (node.getType() == TableNode.TABLE) {
-                if (managerConnection.check(getIMetadataConnection(), true)) {
-                    RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(treeItem);
-                    String value = node.getValue();
-                    if (!(isExistingNames(value))) {
-                        threadExecutor.execute(runnable);
+                IMetadataConnection metadataConn = getIMetadataConnection();
+                // Added by Marvin Wang on Mar. 15, 2013 for loading hive jars dynamically, refer to TDI-25072.
+                if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConn.getDbType())) {
+                    try {
+                        HiveConnectionManager.getInstance().checkConnection(metadataConn);
+                        RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(treeItem);
+                        String value = node.getValue();
+                        if (!(isExistingNames(value))) {
+                            threadExecutor.execute(runnable);
+                        }
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (managerConnection.check(getIMetadataConnection(), true)) {
+                        RetrieveColumnRunnable runnable = new RetrieveColumnRunnable(treeItem);
+                        String value = node.getValue();
+                        if (!(isExistingNames(value))) {
+                            threadExecutor.execute(runnable);
+                        }
                     }
                 }
             }

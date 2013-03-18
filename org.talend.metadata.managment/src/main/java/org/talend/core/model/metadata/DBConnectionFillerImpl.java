@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -69,6 +70,7 @@ import org.talend.cwm.relational.TdExpression;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sql.metadata.constants.GetColumn;
@@ -137,8 +139,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (newConnection != null) {
                 fillMetadataParams(metadataBean, newConnection);
             }
-            // software
-            DatabaseMetaData dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
+
+            DatabaseMetaData dbMetadata = null;
+            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
+                dbMetadata = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataBean);
+            } else {
+                // software
+                dbMetadata = ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, dbconn, false);
+            }
 
             // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
             String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING : dbMetadata
@@ -158,6 +167,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
         } catch (SQLException e) {
             log.error(e, e);
+        } catch (ClassNotFoundException e) {
+            CommonExceptionHandler.process(e);
+        } catch (InstantiationException e) {
+            CommonExceptionHandler.process(e);
+        } catch (IllegalAccessException e) {
+            CommonExceptionHandler.process(e);
         } finally {
             ConnectionUtils.closeConnection(sqlConnection);
             if (driver != null
