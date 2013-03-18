@@ -21,7 +21,7 @@ import org.talend.core.model.process.IElementParameter;
 /**
  * DOC msjian class global comment. Detailled comment
  */
-public interface ITDQRuleService extends IService {
+public interface ITDQRuleService extends ITDQService {
 
     /**
      * This method is used in tos to fill the DQRULES_LIST parameter with rule list values.

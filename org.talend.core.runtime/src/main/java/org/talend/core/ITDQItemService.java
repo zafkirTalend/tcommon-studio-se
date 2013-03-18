@@ -26,7 +26,7 @@ import org.talend.core.model.properties.TDQItem;
 /**
  * DOC bZhou class global comment. Detailled comment
  */
-public interface ITDQItemService extends IService {
+public interface ITDQItemService extends ITDQService {
 
     /**
      * DOC bZhou Comment method "getVersion".
