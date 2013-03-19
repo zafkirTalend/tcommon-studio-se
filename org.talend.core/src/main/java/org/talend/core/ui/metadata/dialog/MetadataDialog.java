@@ -15,6 +15,7 @@ package org.talend.core.ui.metadata.dialog;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,6 +65,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.IDesignerCoreService;
 
 /**
@@ -293,13 +295,24 @@ public class MetadataDialog extends Dialog {
                 return true;
             }
         }
+        // for sap
         schemaParam = node.getElementParameter("SCHEMAS");
         if (schemaParam != null) {
             List schemaType = (List) schemaParam.getValue();
             for (int i = 0; i < schemaType.size(); i++) {
                 HashMap map = (HashMap) schemaType.get(i);
-                if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
-                    return true;
+                Set set = map.keySet();
+                Iterator it = set.iterator();
+                while (it.hasNext()) {
+                    String key = (String) it.next();
+                    if (key.equals("SAP_TABLE_NAME")) {
+                        String value = (String) map.get(key);
+                        if (this.outputMetaTable.getLabel().equals(TalendQuoteUtils.removeQuotes(value))) {
+                            if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
+                                return true;
+                            }
+                        }
+                    }
                 }
             }
         }
