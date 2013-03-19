@@ -158,4 +158,6 @@ public interface IComponent {
      * @return
      */
     boolean isReduce();
+
+    String getPartitioning();
 }
