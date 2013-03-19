@@ -43,11 +43,12 @@ public class ExtractMetaDataFromDataBaseTest {
         ResultSet mockResultSet = mock(ResultSet.class);
         when(mockResultSet.getString(1)).thenReturn("test");
         String nameKey = mockResultSet.getString(1).trim();
-        String tableComment = ExtractMetaDataFromDataBase.getTableComment(nameKey, mockResultSet, false);
+        String tableComment = ExtractMetaDataFromDataBase.getTableComment(nameKey, mockResultSet, false,
+                ExtractMetaDataUtils.conn);
         assertNotNull(tableComment);
         ExtractMetaDataFromDataBase.tableCommentsMap.put(nameKey, tableComment);
         assertNotNull(ExtractMetaDataFromDataBase.tableCommentsMap);
-        assertNotNull(ExtractMetaDataFromDataBase.getTableNamesFromQuery(mockResultSet));
+        assertNotNull(ExtractMetaDataFromDataBase.getTableNamesFromQuery(mockResultSet, ExtractMetaDataUtils.conn));
 
     }
 
