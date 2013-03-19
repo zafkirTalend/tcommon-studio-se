@@ -323,22 +323,16 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             property.setAuthor(getRepositoryContext().getUser());
             property.setLabel(newItemLabel);
             property.setDisplayName(newItemLabel);
-            // bug TDI-25050 :If item is process|joblet|business process should not throw this exception
-            if (!isPocess(newItem) && !isNameAvailable(getRepositoryContext().getProject(), property.getItem(), null)) {
-                throw new BusinessException(Messages.getString("AbstractEMFRepositoryFactory.cannotGenerateItem")); //$NON-NLS-1$
-            }
+            // BUG TDI-25050:If here throw exception,it will block the copy action
+            // if (!isNameAvailable(getRepositoryContext().getProject(), property.getItem(), null)) {
+            // throw new BusinessException(Messages.getString("AbstractEMFRepositoryFactory.cannotGenerateItem")); //$NON-NLS-1$
+            // }
             EcoreUtil.resolveAll(createResource);
             return newItem;
         } else {
             boolean changeLabelWithCopyPrefix = true;
             return copyFromResource(createResource, changeLabelWithCopyPrefix);
         }
-    }
-
-    private boolean isPocess(Item newItem) {
-        ERepositoryObjectType obj = ERepositoryObjectType.getItemType(newItem);
-        return obj == ERepositoryObjectType.JOBLET || obj == ERepositoryObjectType.PROCESS
-                || obj == ERepositoryObjectType.BUSINESS_PROCESS;
     }
 
     /**
