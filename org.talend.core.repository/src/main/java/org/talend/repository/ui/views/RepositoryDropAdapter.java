@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.dnd.DND;
@@ -50,6 +51,9 @@ import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.convert.IProcessConvertService;
+import org.talend.designer.core.convert.ProcessConvertManager;
+import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
@@ -79,6 +83,35 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         super.drop(event);
     }
 
+    /**
+     * Does the conversion between common jobs and m/r jobs. Added by Marvin Wang on Mar 19, 2013.
+     * 
+     * @param sourceSelections
+     * @param targetNode that is <b>Standard Jobs</b> or <b>Map/Reduce Jobs</b>.
+     */
+    protected void doMapReduceConversion(IStructuredSelection sourceSelections, RepositoryNode targetNode) {
+        List<?> selectedRepNodes = sourceSelections.toList();
+        if (selectedRepNodes != null && selectedRepNodes.size() > 0) {
+            for (Object selectedRepNode : selectedRepNodes) {
+                if (selectedRepNode instanceof RepositoryNode) {
+                    RepositoryNode sourceNode = (RepositoryNode) selectedRepNode;
+                    if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, targetNode)) {
+
+                        IProcessConvertService convertService = ProcessConvertManager.getInstance().extractConvertService(
+                                ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
+                        if (ERepositoryObjectType.PROCESS == (sourceNode.getObjectType())) {
+                            IRepositoryViewObject repViewObj = sourceNode.getObject();
+                            convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj);
+                        } else if (ERepositoryObjectType.PROCESS_MR == (sourceNode.getObjectType())) {
+                            IRepositoryViewObject repViewObj = sourceNode.getObject();
+                            convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -100,9 +133,22 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 runCopy(data, targetNode);
                 break;
             case DND.DROP_MOVE:
-                runnable = new MoveRunnable(Messages.getString("RepositoryDropAdapter_movingItems"), data, targetNode); //$NON-NLS-1$
-                runInProgressDialog(runnable);
-                toReturn = (Boolean) runnable.getReturnValue();
+                // If m/r job drags and drops to Standard Jobs or folder, then convert it. Common job is the same as m/r
+                // job.
+                // TODO For the different type of repository in selection, need to consider the move and convert.
+                IStructuredSelection selection = (IStructuredSelection) data;
+                List<?> selectedRepNodes = selection.toList();
+                if (selectedRepNodes != null && selectedRepNodes.size() > 0) {
+                    RepositoryNode sourceNode = (RepositoryNode) selection.getFirstElement();
+                    if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, targetNode)) {
+                        doMapReduceConversion(selection, targetNode);
+                    } else {
+                        // Otherwise do removing job.
+                        runnable = new MoveRunnable(Messages.getString("RepositoryDropAdapter_movingItems"), data, targetNode); //$NON-NLS-1$
+                        runInProgressDialog(runnable);
+                        toReturn = (Boolean) runnable.getReturnValue();
+                    }
+                }
                 break;
             // TDI-20080 hqzhang, operation value(actually is event.detail) on drag enter state maybe different from
             // value on drop
@@ -202,6 +248,24 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                     SQLPatternItem item = (SQLPatternItem) property.getItem();
                     if (item.isSystem() && target instanceof RepositoryNode) {
                         return false;
+                    }
+                } else if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS_MR) {
+                    if (target instanceof RepositoryNode) {
+                        RepositoryNode targetRN = (RepositoryNode) target;
+                        if (ENodeType.SYSTEM_FOLDER == targetRN.getType() || ENodeType.SIMPLE_FOLDER == targetRN.getType()) {
+                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS) {
+                                return isValid = true;
+                            }
+                        }
+                    }
+                } else if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
+                    if (target instanceof RepositoryNode) {
+                        RepositoryNode targetRN = (RepositoryNode) target;
+                        if (ENodeType.SYSTEM_FOLDER == targetRN.getType() || ENodeType.SIMPLE_FOLDER == targetRN.getType()) {
+                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                                return isValid = true;
+                            }
+                        }
                     }
                 }
 

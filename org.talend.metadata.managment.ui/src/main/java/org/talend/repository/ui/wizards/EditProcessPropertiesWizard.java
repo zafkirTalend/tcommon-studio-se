@@ -12,13 +12,10 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.designer.core.IProcessConvertService;
-import org.talend.designer.core.ProcessConvertManager;
-import org.talend.designer.core.ProcessConverterType;
+import org.talend.designer.core.convert.ProcessConvertManager;
+import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 
 /**
@@ -46,15 +43,8 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
         mainPage = new EditProcessPropertiesWizardPage(Messages.getString("EditProcessPropertiesWizard.pageName"), //$NON-NLS-1$
                 object.getProperty(), path, isReadOnly(), false, lastVersionFound);
         mainPage.setItem(object.getProperty().getItem());
-        List<IProcessConvertService> processConvertServices = ProcessConvertManager.getProcessConvertService();
-        if (processConvertServices != null && processConvertServices.size() > 0) {
-            for (IProcessConvertService processConverter : processConvertServices) {
-                if (ProcessConverterType.CONVERTER_FOR_MAPREDUCE == processConverter.getConverterType()) {
-                    mainPage.setConverter(processConverter);
-                    break;
-                }
-            }
-        }
+        mainPage.setConverter(ProcessConvertManager.getInstance().extractConvertService(
+                ProcessConverterType.CONVERTER_FOR_MAPREDUCE));
         addPage(mainPage);
     }
 

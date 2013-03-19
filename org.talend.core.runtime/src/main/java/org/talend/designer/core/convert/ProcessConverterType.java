@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.core;
+package org.talend.designer.core.convert;
 
 /**
  * This enum is used to store the type of converter. Created by Marvin Wang on Feb 18, 2013.
