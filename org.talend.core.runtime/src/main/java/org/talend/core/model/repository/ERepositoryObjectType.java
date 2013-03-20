@@ -1022,7 +1022,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             @Override
             public Object defaultCase(EObject object) {
-                throw new IllegalStateException();
+                // throw new IllegalStateException();
+                return null; // fixed for TUP-575
             }
         }.doSwitch(item);
 
