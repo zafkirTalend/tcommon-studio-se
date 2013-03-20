@@ -535,15 +535,6 @@ public class MetadataConnectionUtils {
      */
     private static Driver getDriver(IMetadataConnection metadataBean) {
         Driver driver = null;
-        try {
-            driver = (Driver) Class.forName(metadataBean.getDriverClass()).newInstance();
-            if (driver != null) {
-                return driver;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         List<?> connList = null;
         try {
             connList = getConnection(metadataBean);
@@ -994,7 +985,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {
