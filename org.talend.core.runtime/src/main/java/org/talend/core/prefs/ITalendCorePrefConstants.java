@@ -87,48 +87,50 @@ public interface ITalendCorePrefConstants {
 
     String DB_CONNECTION_TIMEOUT = "db_conn_timeout"; //$NON-NLS-1$
 
-    String DOC_USER_LOGO = "doc_user_logo";
+    String DOC_USER_LOGO = "doc_user_logo"; //$NON-NLS-1$
 
-    String DOC_COMPANY_NAME = "company_name";
+    String DOC_COMPANY_NAME = "company_name"; //$NON-NLS-1$
 
-    String ADD_SYSTEM_ROUTINES = "add_system_routines";
+    String ADD_SYSTEM_ROUTINES = "add_system_routines"; //$NON-NLS-1$
 
-    String ADD_USER_ROUTINES = "add_user_routines";
+    String ADD_USER_ROUTINES = "add_user_routines"; //$NON-NLS-1$
 
-    String USE_CSS_TEMPLATE = "use_css_template";
+    String USE_CSS_TEMPLATE = "use_css_template"; //$NON-NLS-1$
 
-    String CSS_FILE_PATH = "css_file_path";
+    String CSS_FILE_PATH = "css_file_path"; //$NON-NLS-1$
 
-    String FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC = "forbidden_mapping_length_prec_logic";
+    String FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC = "forbidden_mapping_length_prec_logic"; //$NON-NLS-1$
 
-    String DATA_COLLECTOR_ENABLED = "active_data_collector";
+    String DATA_COLLECTOR_ENABLED = "active_data_collector"; //$NON-NLS-1$
 
-    String DATA_COLLECTOR_UPLOAD_PERIOD = "active_data_collector_times";
+    String DATA_COLLECTOR_UPLOAD_PERIOD = "active_data_collector_times"; //$NON-NLS-1$
 
-    String DATA_COLLECTOR_LAST_TIME = "data_collector_last_time";
+    String DATA_COLLECTOR_LAST_TIME = "data_collector_last_time"; //$NON-NLS-1$
 
-    String DATA_COLLECTOR_PREVIEW = "data_collector_preview";
+    String DATA_COLLECTOR_PREVIEW = "data_collector_preview"; //$NON-NLS-1$
 
-    String DATA_COLLECTOR = "data_collector";
+    String DATA_COLLECTOR = "data_collector"; //$NON-NLS-1$
 
-    String EXCHANGE_CHECK_TIS_VERSION = "exchange_check_tis_version";
+    String EXCHANGE_CHECK_TIS_VERSION = "exchange_check_tis_version"; //$NON-NLS-1$
 
-    String EXCHANGE_DOWNLOADED_CHECK_UPDATES = "exchange_downloaded_check_updates";
+    String EXCHANGE_DOWNLOADED_CHECK_UPDATES = "exchange_downloaded_check_updates"; //$NON-NLS-1$
 
-    String MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML = "maximum_amount_of_columns_for_xml";
+    String MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML = "maximum_amount_of_columns_for_xml"; //$NON-NLS-1$
 
-    String OOZIE_SCHEDULER_PATH = "oozie_scheduler_path";
+    String OOZIE_SCHEDULER_PATH = "oozie_scheduler_path"; //$NON-NLS-1$
 
-    String OOZIE_SHCEDULER_HADOOP_DISTRIBUTION = "oozie_shceduler_hadoop_distribution";
+    String OOZIE_SHCEDULER_HADOOP_DISTRIBUTION = "oozie_shceduler_hadoop_distribution"; //$NON-NLS-1$
 
-    String OOZIE_SHCEDULER_HADOOP_VERSION = "oozie_shceduler_hadoop_version";
+    String OOZIE_SHCEDULER_HADOOP_VERSION = "oozie_shceduler_hadoop_version"; //$NON-NLS-1$
 
-    String OOZIE_SHCEDULER_NAME_NODE_ENDPOINT = "oozie_scheduler_name_node_endpoint";
+    String OOZIE_SHCEDULER_NAME_NODE_ENDPOINT = "oozie_scheduler_name_node_endpoint"; //$NON-NLS-1$
 
-    String OOZIE_SHCEDULER_JOB_TRACKER_ENDPOINT = "oozie_scheduler_job_tracker_endpoint";
+    String OOZIE_SHCEDULER_JOB_TRACKER_ENDPOINT = "oozie_scheduler_job_tracker_endpoint"; //$NON-NLS-1$
 
-    String OOZIE_SHCEDULER_OOZIE_ENDPOINT = "oozie_scheduler_oozie_endpoint";
+    String OOZIE_SHCEDULER_OOZIE_ENDPOINT = "oozie_scheduler_oozie_endpoint"; //$NON-NLS-1$
 
-    String OOZIE_SCHEDULER_USER_NAME = "oozie_scheduler_user_name";
+    String OOZIE_SCHEDULER_USER_NAME = "oozie_scheduler_user_name"; //$NON-NLS-1$
+
+    String OOZIE_SCHEDULER_HADOOP_CUSTOM_JARS = "oozie_scheduler_hadoop_custom_jars"; //$NON-NLS-1$
 
 }

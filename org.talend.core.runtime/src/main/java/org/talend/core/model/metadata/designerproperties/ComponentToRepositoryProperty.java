@@ -1067,7 +1067,7 @@ public class ComponentToRepositoryProperty {
                         result.add(entry.getValue());
                     }
                 }
-                connection.setParameters((ArrayList) result);
+                connection.setParameters(result);
             }
         }
     }

@@ -16,17 +16,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -38,8 +39,6 @@ import org.talend.utils.io.FilesUtils;
  * DOC ycbai class global comment. Detailled comment
  */
 public class ClassLoaderFactory {
-
-    private static Logger log = Logger.getLogger(ClassLoaderFactory.class);
 
     private final static String EXTENSION_POINT_ID = "org.talend.core.runtime.classloader_provider"; //$NON-NLS-1$
 
@@ -60,12 +59,60 @@ public class ClassLoaderFactory {
         configurationElements = registry.getConfigurationElementsFor(EXTENSION_POINT_ID);
     }
 
-    public static ClassLoader getClassLoader(String index) {
+    /**
+     * DOC ycbai Comment method "getClassLoader".
+     * 
+     * @param index
+     * @return the classLoader by index
+     */
+    public static DynamicClassLoader getClassLoader(String index) {
         if (classLoadersMap == null) {
             initClassLoaders();
         }
 
         return classLoadersMap.get(index);
+    }
+
+    /**
+     * DOC ycbai Comment method "getCustomClassLoader".
+     * 
+     * @param index
+     * @param libraries
+     * @return the classLoader by specific libraries
+     */
+    public static DynamicClassLoader getCustomClassLoader(String index, Set<String> libraries) {
+        DynamicClassLoader classLoader = getClassLoader(index);
+        if (libraries != null) {
+            if (classLoader == null) {
+                classLoader = createCustomClassLoader(index, libraries);
+            } else {
+                boolean changed;
+                Set<String> oldLibraries = classLoader.getLibraries();
+                Set<String> oldLibrariesClone = new HashSet<String>(oldLibraries);
+                changed = oldLibrariesClone.retainAll(libraries);
+                if (!changed) {
+                    Set<String> newLibrariesClone = new HashSet<String>(libraries);
+                    changed = newLibrariesClone.retainAll(oldLibraries);
+                }
+                if (changed) {
+                    File libFolder = new File(classLoader.getLibStorePath());
+                    if (libFolder.exists()) {
+                        FilesUtils.removeFolder(libFolder, true);
+                    }
+                    classLoader = createCustomClassLoader(index, libraries);
+                }
+            }
+        }
+
+        return classLoader;
+    }
+
+    private static DynamicClassLoader createCustomClassLoader(String index, Set<String> libraries) {
+        DynamicClassLoader classLoader = new DynamicClassLoader();
+        loadLibraries(classLoader, libraries.toArray(new String[0]));
+        classLoadersMap.put(index, classLoader);
+
+        return classLoader;
     }
 
     private static void initClassLoaders() {
@@ -81,18 +128,18 @@ public class ClassLoaderFactory {
                 DynamicClassLoader classLoader = new DynamicClassLoader();
                 if (StringUtils.isNotEmpty(libraries)) {
                     String[] librariesArray = libraries.split(SEPARATOR);
-                    List<String> jarPathList = retrieveJarPaths(librariesArray);
-                    classLoader.addLibraries(jarPathList);
+                    loadLibraries(classLoader, librariesArray);
+
                 }
                 classLoadersMap.put(index, classLoader);
             }
         }
     }
 
-    private static List<String> retrieveJarPaths(String[] driversArray) {
+    private static void loadLibraries(DynamicClassLoader classLoader, String[] driversArray) {
         List<String> jarPathList = new ArrayList<String>();
         if (driversArray == null || driversArray.length == 0) {
-            return jarPathList;
+            return;
         }
 
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
@@ -102,15 +149,13 @@ public class ClassLoaderFactory {
             String jarPath = libPath + PATH_SEPARATOR + driverName;
             File jarFile = new File(jarPath);
             if (!jarFile.exists()) {
-                boolean retrieved = librairesManagerService.retrieve(driverName, libPath, new NullProgressMonitor());
-                if (!retrieved) {
-                    log.warn("Cannot retrieve lib: " + driverName);
-                }
+                librairesManagerService.retrieve(driverName, libPath, new NullProgressMonitor());
             }
             jarPathList.add(jarFile.getAbsolutePath());
         }
 
-        return jarPathList;
+        classLoader.setLibStorePath(libPath);
+        classLoader.addLibraries(jarPathList);
     }
 
     private static String getLibPath() {
@@ -125,6 +170,7 @@ public class ClassLoaderFactory {
                 tmpFolder.mkdirs();
             }
         } catch (IOException e) {
+            // do nothing
         }
         return tmpFolder.getAbsolutePath();
     }
