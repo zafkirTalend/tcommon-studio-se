@@ -402,7 +402,7 @@ public class ProcessorUtilities {
          * libraries.
          */
         jobInfo.setProcess(null);
-        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
         return processor;
     }
 
@@ -443,7 +443,7 @@ public class ProcessorUtilities {
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
-            IProcess currentProcess, String currentJobName) throws ProcessorException {
+            IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
             Set<String> jarList = new HashSet<String>();
@@ -453,13 +453,14 @@ public class ProcessorUtilities {
                 jarList.add(module.getModuleName());
             }
             CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
+            if (codeModified) {
                 try {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject()
                             .build(IncrementalProjectBuilder.AUTO_BUILD, null);
                 } catch (CoreException e) {
                     throw new ProcessorException(e);
                 }
+                processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;
             codeModified = false;
@@ -647,7 +648,7 @@ public class ProcessorUtilities {
              * libraries.
              */
             jobInfo.setProcess(null);
-            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName);
+            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
             TimeMeasure.step(idTimer, "generateBuildInfo");
             return processor;
         } finally {

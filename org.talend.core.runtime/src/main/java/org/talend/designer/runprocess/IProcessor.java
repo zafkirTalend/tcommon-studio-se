@@ -259,4 +259,5 @@ public interface IProcessor {
 
     public void setProxyParameters(String[] proxyParameters);
 
+    public void syntaxCheck();
 }
