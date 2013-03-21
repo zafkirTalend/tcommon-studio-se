@@ -943,7 +943,15 @@ public class MetadataConnectionUtils {
                 }
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
                 sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
-                DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
+                DatabaseMetaData databaseMetaData = null;
+                // Added by Marvin Wang on Mar. 21, 2013 for loading hive jars dynamically, refer to TDI-25072.
+                if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metaConnection.getDbType())) {
+                    databaseMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
+                } else {
+                    databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
+
+                }
+
                 if (sqlConn != null) {
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData, metaConnection,
                             MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
