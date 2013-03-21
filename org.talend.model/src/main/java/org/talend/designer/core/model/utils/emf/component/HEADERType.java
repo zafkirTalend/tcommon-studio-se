@@ -1189,6 +1189,7 @@ public interface HEADERType extends EObject {
      * @see #setPARTITIONING(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_PARTITIONING()
      * @model default="AUTO"
+     *        extendedMetaData="kind='attribute' name='PARTITIONING' namespace='##targetNamespace'"
      * @generated
      */
     String getPARTITIONING();

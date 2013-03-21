@@ -151,7 +151,7 @@
     <xsd:attribute default="true" ecore:name="vISIBLE" name="VISIBLE" type="xsd:boolean"/>
     <xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string"/>
     <xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="pARTITIONING" name="pARTITIONING" type="xsd:string"/>
+    <xsd:attribute ecore:name="pARTITIONING" name="PARTITIONING" type="xsd:string"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTSType" name="IMPORTS_._type">
     <xsd:sequence>

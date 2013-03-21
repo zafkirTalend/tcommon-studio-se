@@ -3826,6 +3826,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getHEADERType_PARTITIONING(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "PARTITIONING",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (importsTypeEClass, 
            source, 
            new String[] {
