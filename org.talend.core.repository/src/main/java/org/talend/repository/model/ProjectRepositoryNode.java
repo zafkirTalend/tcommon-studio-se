@@ -26,8 +26,8 @@ import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.RuntimeExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.utils.data.container.Container;
@@ -71,14 +71,11 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
-import org.talend.core.model.properties.Information;
-import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectReference;
-import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
@@ -780,8 +777,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 RepositoryNode repositoryNode = (RepositoryNode) parent;
                 ERepositoryObjectType contentType = repositoryNode.getContentType();
                 if (contentType != null && contentType.isResourceItem()) {
-                    convert(newProject, factory.getMetadata(newProject, contentType, true), repositoryNode,
-                            contentType, recBinNode);
+                    convert(newProject, factory.getMetadata(newProject, contentType, true), repositoryNode, contentType,
+                            recBinNode);
                 }
             }
         } catch (PersistenceException e) {
@@ -1144,23 +1141,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     addNode(parent, type, recBinNode, repositoryObject);
                 }
             } catch (Exception e) {
+                ExceptionHandler.process(e);
                 ExceptionHandler.log(Messages.getString(
                         "ProjectRepositoryNode.itemInvalid", repositoryObject.getRepositoryObjectType(), //$NON-NLS-1$,
                         repositoryObject.getLabel()));
-
-                if (repositoryObject.getProperty() != null && repositoryObject.getProperty().getInformations().isEmpty()) {
-                    Information info = PropertiesFactory.eINSTANCE.createInformation();
-                    info.setLevel(InformationLevel.ERROR_LITERAL);
-                    info.setText(Messages.getString("ProjectRepositoryNode.invalidItem")); //$NON-NLS-1$
-                    Property property = repositoryObject.getProperty();
-                    property.getInformations().add(info);
-                    try {
-                        factory.save(project, property);
-                    } catch (PersistenceException e1) {
-                        ExceptionHandler.process(e1);
-                    }
-                    repositoryObject.getProperty(); // call getProperty to update since it's a RepositoryViewObject.
-                }
             }
         }
     }
