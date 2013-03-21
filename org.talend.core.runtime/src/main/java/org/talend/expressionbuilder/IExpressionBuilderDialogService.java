@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.expressionbuilder;
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.expressionbuilder.Variable;
 import org.talend.commons.ui.expressionbuilder.IExpressionBuilderDialogController;
 import org.talend.commons.ui.expressionbuilder.IExpressionDataBean;
 import org.talend.core.IService;
@@ -30,6 +33,6 @@ public interface IExpressionBuilderDialogService extends IService {
             INode component);
 
     public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean,
-            INode component, Boolean isPigMap);
+            INode component, List<Variable> vars);
 
 }

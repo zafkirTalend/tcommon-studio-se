@@ -18,8 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
-import org.eclipse.jface.fieldassist.IContentProposalProvider;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -32,35 +30,13 @@ import org.talend.designer.rowgenerator.data.FunctionManager;
 import org.talend.designer.rowgenerator.data.TalendType;
 
 /**
- * ContentProposalProvider based on a Process. <br/>
- * 
- * $Id$
- * 
+ * DOC hcyi class global comment. Detailled comment
  */
-public class TalendProposalProvider implements IContentProposalProvider {
+public class PigProposalProvider extends TalendProposalProvider {
 
-    protected IProcess process;
-
-    private INode currentNode;
-
-    /**
-     * Constructs a new ProcessProposalProvider.
-     */
-    public TalendProposalProvider(IProcess process, final INode node) {
-        super();
-        this.currentNode = node;
-        this.process = process;
-    }
-
-    public TalendProposalProvider(IProcess process) {
+    public PigProposalProvider(IProcess process) {
         super();
         this.process = process;
-    }
-
-    /**
-     * yzhang ProcessProposalProvider constructor comment.
-     */
-    public TalendProposalProvider() {
     }
 
     /*
@@ -68,9 +44,9 @@ public class TalendProposalProvider implements IContentProposalProvider {
      * 
      * @see org.eclipse.jface.fieldassist.IContentProposalProvider#getProposals(java.lang.String, int)
      */
+    @Override
     public IContentProposal[] getProposals(String contents, int position) {
         List<IContentProposal> proposals = new ArrayList<IContentProposal>();
-
         if (process != null) {
             // Proposals based on process context
             List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
@@ -102,43 +78,13 @@ public class TalendProposalProvider implements IContentProposalProvider {
             }
         }
 
-        // Proposals based on global variables(only perl ).
-        // add proposals on global variables in java (bugtracker 2554)
-        switch (LanguageManager.getCurrentLanguage()) {
-        case JAVA:
-            // add variables in java
-            IContentProposal[] javavars = JavaGlobalUtils.getProposals();
-            for (int i = 0; i < javavars.length; i++) {
-                proposals.add(javavars[i]);
-            }
-            break;
-
-        case PERL:
-        default:
-            IContentProposal[] vars = PerlGlobalUtils.getProposals();
-            for (int i = 0; i < vars.length; i++) {
-                proposals.add(vars[i]);
-            }
-
-            // Add specifical prososal see feature:3725
-            List<IContentProposal> varsAssists = PerlDynamicProposalUtil.createDynamicProposals(currentNode);
-
-            if (varsAssists != null) {
-                for (IContentProposal proposal : varsAssists) {
-                    if (!proposals.contains(proposal)) {
-                        proposals.add(proposal);
-                    }
-                }
-            }
-        }
-        // Proposals based on routines
-        FunctionManager functionManager = new FunctionManager();
-
+        // Proposals based pig functions
+        FunctionManager functionManager = new FunctionManager("pig");
         List<TalendType> talendTypes = functionManager.getTalendTypes();
         for (TalendType type : talendTypes) {
             for (Object objectFunction : type.getFunctions()) {
                 Function function = (Function) objectFunction;
-                proposals.add(new RoutinesFunctionProposal(function));
+                proposals.add(new PigFunctionProposal(function, "pig"));
             }
         }
 
@@ -152,7 +98,6 @@ public class TalendProposalProvider implements IContentProposalProvider {
             public int compare(IContentProposal arg0, IContentProposal arg1) {
                 return compareRowAndContextProposal(arg0.getLabel(), arg1.getLabel());
             }
-
         });
 
         IContentProposal[] res = new IContentProposal[proposals.size()];
@@ -161,21 +106,17 @@ public class TalendProposalProvider implements IContentProposalProvider {
     }
 
     /**
-     * Make sure the $row proposal follow the context proposal see feature 3725 DOC YeXiaowei Comment method
-     * "compareRowAndContextProposal".
      * 
-     * @param label0
-     * @param label1
-     * @return
+     * DOC hcyi PigProposalProvider class global comment. Detailled comment
      */
-    protected int compareRowAndContextProposal(String label0, String label1) {
-        if (label0.startsWith("$row[") && label1.startsWith("context")) { //$NON-NLS-1$ //$NON-NLS-2$
-            return 1;
-        } else if (label1.startsWith("$row[") && label0.startsWith("context")) { //$NON-NLS-1$ //$NON-NLS-2$
-            return -1;
-        } else {
-            return label0.compareToIgnoreCase(label1);
+    class PigFunctionProposal extends RoutinesFunctionProposal {
+
+        public PigFunctionProposal(Function function, String type) {
+            super();
+            this.function = function;
+            if (function != null && "pig".equals(type)) {
+                method = function.getName() + "()";
+            }
         }
     }
-
 }

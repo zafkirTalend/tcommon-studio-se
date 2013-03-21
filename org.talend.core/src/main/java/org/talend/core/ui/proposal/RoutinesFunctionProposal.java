@@ -25,9 +25,13 @@ import org.talend.designer.rowgenerator.data.FunctionManager;
  */
 public class RoutinesFunctionProposal implements IContentProposal {
 
-    private Function function;
+    protected Function function;
 
-    private String method = ""; //$NON-NLS-1$
+    protected String method = ""; //$NON-NLS-1$
+
+    public RoutinesFunctionProposal() {
+        super();
+    }
 
     /**
      * DOC ggu RoutinesProposal constructor comment.

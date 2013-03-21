@@ -111,9 +111,9 @@ public class FunctionManager {
     }
 
     @SuppressWarnings("unchecked")
-    public FunctionManager(boolean isPigMap) {
+    public FunctionManager(String type) {
         AbstractFunctionParser parser = null;
-        if (isPigMap) {
+        if ("pig".equals(type)) {
             // pig map expressionbuilder
             parser = new PigFunctionParser();
             parser.parse();

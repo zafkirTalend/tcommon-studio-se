@@ -185,7 +185,8 @@ public class ExpressionPersistance {
         if (this.contents != null && fileExist) {
             for (EObject eObject : this.contents) {
                 if (eObject instanceof EMFExpression) {
-                    if (((EMFExpression) eObject).getId().equals(this.ownerId)) {
+                    if (ownerId != null && ((EMFExpression) eObject).getId() != null
+                            && ((EMFExpression) eObject).getId().equals(this.ownerId)) {
                         this.contents.remove(eObject);
                         break;
                     }
@@ -223,7 +224,8 @@ public class ExpressionPersistance {
             }
 
             for (EObject eObject : contents) {
-                if (eObject instanceof EMFExpression && ((EMFExpression) eObject).getId().equals(this.ownerId)) {
+                if (eObject instanceof EMFExpression && ownerId != null && ((EMFExpression) eObject).getId() != null
+                        && ((EMFExpression) eObject).getId().equals(this.ownerId)) {
                     return convert((EMFExpression) eObject);
                 }
             }
