@@ -550,6 +550,26 @@ public class NodeUtil {
 
         return false;
     }
+    
+    /**
+     * 
+     * judge if the current node is in the last branch
+     * Notice: It is only used in tPigStoreResult. And the aim is for TDI-25120
+     * @param node
+     * @return
+     */
+    public static boolean isSubTreeEnd(INode node) {
+        List<? extends IConnection> incConnections = NodeUtil.getIncomingConnections(node, IConnectionCategory.DATA);
+        if (incConnections.size() > 0) {
+            IConnection connection = incConnections.get(0); // always take the first one, don't consider merge case.
+            if (isLastMultiplyingOutputComponents(connection)) {
+                return isSubTreeEnd(connection.getSource());
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static Map<INode, Integer> getLinkedMergeInfo(final INode node) {
         Map<INode, Integer> map = new HashMap<INode, Integer>();
