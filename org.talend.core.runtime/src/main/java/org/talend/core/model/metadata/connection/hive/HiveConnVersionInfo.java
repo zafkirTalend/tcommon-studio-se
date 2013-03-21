@@ -17,7 +17,7 @@ package org.talend.core.model.metadata.connection.hive;
  * 
  * <pre>
  * <li> 0 -- stands for "Distribution"
- * <li> 1 -- stands for "Hive version"
+ * <li> 1 -- stands for "Distro version"
  * <li> 2 -- stands for "Hive mode"
  * </pre>
  * 
@@ -29,38 +29,55 @@ package org.talend.core.model.metadata.connection.hive;
  */
 public enum HiveConnVersionInfo {
 
-    HORTONWORKS(0, "HORTONWORKS", "HortonWorks", null),
+    HORTONWORKS(0, "HORTONWORKS", "HortonWorks"), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE(0, "APACHE", "Apache", null),
+    APACHE(0, "APACHE", "Apache"), //$NON-NLS-1$//$NON-NLS-2$
 
-    CLOUDERA(0, "CLOUDERA", "Cloudera", null),
+    CLOUDERA(0, "CLOUDERA", "Cloudera"), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "HDP 1.0", HiveConnVersionInfo.HORTONWORKS),
+    MAPR(0, "MAPR", "MAPR"), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_2(1, "HDP_1_2", "HDP 1.2", HiveConnVersionInfo.HORTONWORKS),
+    AMAZON_EMR(0, "AMAZON_EMR", "AMAZON_EMR"), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203", HiveConnVersionInfo.APACHE),
+    HDP_1_0(1, "HDP_1_0", "HDP 1.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0", HiveConnVersionInfo.APACHE),
+    HDP_1_2(1, "HDP_1_2", "HDP 1.2", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", HiveConnVersionInfo.CLOUDERA),
+    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    MODE_EMBEDDED(
-                  2,
-                  "EMBEDDED",
-                  "Embedded",
+    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+
+    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3", HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+
+    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+
+    MAPR1(1, "MAPR1", "MAPR1", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MAPR2(1, "MAPR2", "MAPR2", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MapR_EMR(1, "MapR_EMR", "MapR_EMR", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+
+    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "APACHE_1_0_3_EMR", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MODE_EMBEDDED(2, "EMBEDDED",//$NON-NLS-1$
+                  "Embedded",//$NON-NLS-1$
                   HiveConnVersionInfo.HDP_1_0,
                   HiveConnVersionInfo.HDP_1_2,
                   HiveConnVersionInfo.APACHE_1_0_0,
-                  HiveConnVersionInfo.Cloudera_CDH4),
+                  HiveConnVersionInfo.Cloudera_CDH4,
+                  HiveConnVersionInfo.MAPR2,
+                  HiveConnVersionInfo.APACHE_1_0_3_EMR),
 
-    MODE_STANDALONE(
-                    2,
-                    "STANDALONE",
-                    "Standalone",
+    MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
+                    "Standalone",//$NON-NLS-1$
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
-                    HiveConnVersionInfo.Cloudera_CDH4);
+                    HiveConnVersionInfo.Cloudera_CDH3,
+                    HiveConnVersionInfo.Cloudera_CDH4,
+                    HiveConnVersionInfo.MAPR1,
+                    HiveConnVersionInfo.MAPR2,
+                    HiveConnVersionInfo.MapR_EMR,
+                    HiveConnVersionInfo.APACHE_1_0_3_EMR);
 
     private int level;
 
