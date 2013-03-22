@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
@@ -78,8 +79,9 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
      * @see org.talend.core.ILibraryManagerUIService#collectRelatedRoutines()
      */
     @Override
-    public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system) {
-        return RoutinesUtil.collectRelatedRoutines(includeRoutineIdOrNames, system);
+    public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system,
+            ERepositoryObjectType type) {
+        return RoutinesUtil.collectRelatedRoutines(includeRoutineIdOrNames, system, type);
     }
 
     /*

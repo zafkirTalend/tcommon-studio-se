@@ -28,9 +28,13 @@ public class LastGenerationInfo {
 
     private HashMap<String, Set<String>> routinesNeededPerJob;
 
+    private HashMap<String, Set<String>> pigudfNeededPerJob;
+
     private HashMap<String, Set<ModuleNeeded>> modulesNeededWithSubjobPerJob;
 
     private HashMap<String, Set<String>> routinesNeededWithSubjobPerJob;
+
+    private HashMap<String, Set<String>> pigudfNeededWithSubjobPerJob;
 
     private HashMap<String, Set<String>> contextPerJob;
 
@@ -48,7 +52,9 @@ public class LastGenerationInfo {
         modulesNeededWithSubjobPerJob = new HashMap<String, Set<ModuleNeeded>>();
         lastGeneratedjobs = new HashSet<JobInfo>();
         routinesNeededPerJob = new HashMap<String, Set<String>>();
+        pigudfNeededPerJob = new HashMap<String, Set<String>>();
         routinesNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
+        pigudfNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
         useDynamic = new HashMap<String, Boolean>();
     }
 
@@ -196,6 +202,20 @@ public class LastGenerationInfo {
     }
 
     /**
+     * Getter for pigudfNeededPerJob.
+     * 
+     * @return the pigudfNeededPerJob
+     */
+    public Set<String> getPigudfNeededPerJob(String jobId, String jobVersion) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        if (!pigudfNeededPerJob.containsKey(key)) {
+            pigudfNeededPerJob.put(key, new HashSet<String>());
+        }
+        return pigudfNeededPerJob.get(key);
+
+    }
+
+    /**
      * Sets the routinesNeededPerJob.
      * 
      * @param modulesNeededPerJob the modulesNeededPerJob to set
@@ -203,6 +223,16 @@ public class LastGenerationInfo {
     public void setRoutinesNeededPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         routinesNeededPerJob.put(key, new HashSet<String>(modulesNeeded));
+    }
+
+    /**
+     * Sets the pigudfNeededPerJob.
+     * 
+     * @param pigudfNeededPerJob the pigudfNeededPerJob to set
+     */
+    public void setPigudfNeededPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        pigudfNeededPerJob.put(key, new HashSet<String>(modulesNeeded));
     }
 
     /**
@@ -218,6 +248,20 @@ public class LastGenerationInfo {
     }
 
     /**
+     * Getter for pigudfNeededWithSubjobPerJob.
+     * 
+     * @return the pigudfNeededWithSubjobPerJob
+     */
+    public Set<String> getPigudfNeededWithSubjobPerJob(String jobId, String jobVersion) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        if (!pigudfNeededWithSubjobPerJob.containsKey(key)) {
+            pigudfNeededWithSubjobPerJob.put(key, new HashSet<String>());
+        }
+        return pigudfNeededWithSubjobPerJob.get(key);
+
+    }
+
+    /**
      * Sets the routinesNeededPerJob.
      * 
      * @param modulesNeededPerJob the modulesNeededPerJob to set
@@ -225,6 +269,16 @@ public class LastGenerationInfo {
     public void setRoutinesNeededWithSubjobPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
         String key = jobId + "_" + jobVersion; //$NON-NLS-1$
         routinesNeededWithSubjobPerJob.put(key, new HashSet<String>(modulesNeeded));
+    }
+
+    /**
+     * Sets the pigudfNeededWithSubjobPerJob.
+     * 
+     * @param pigudfNeededWithSubjobPerJob the pigudfNeededWithSubjobPerJob to set
+     */
+    public void setPigudfNeededWithSubjobPerJob(String jobId, String jobVersion, Set<String> modulesNeeded) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        pigudfNeededWithSubjobPerJob.put(key, new HashSet<String>(modulesNeeded));
     }
 
 }

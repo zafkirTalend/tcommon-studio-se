@@ -860,4 +860,5 @@
     <eLiterals name="failed" value="2"/>
     <eLiterals name="noimpact" value="3"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PigudfItem" eSuperTypes="#//RoutineItem"/>
 </ecore:EPackage>

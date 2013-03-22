@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -41,6 +42,7 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
+import org.talend.designer.codegen.PigTemplate;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -61,6 +63,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines"; //$NON-NLS-1$
 
+    public static final String SOURCE_JAVA_PIGUDF_FOLDER = "pigudf"; //$NON-NLS-1$
+
     public static final String SOURCE_JAVA_BEANS_FOLDER = "beans"; //$NON-NLS-1$
 
     private static boolean isLibSynchronized;
@@ -69,6 +73,12 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public URL getRoutineTemplate() {
         return Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI).getEntry(
                 "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    @Override
+    public URL getPigudfTemplate(PigTemplate template) {
+        Bundle bundle = Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI);
+        return bundle.getEntry("templates/" + SOURCE_JAVA_PIGUDF_FOLDER + "/" + template.getFileName() + ".java");
     }
 
     @Override

@@ -68,6 +68,9 @@ public final class JavaUtils {
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines"; //$NON-NLS-1$
 
+    /** Java Routines Directory. */
+    public static final String JAVA_PIGUDF_DIRECTORY = "pigudf"; //$NON-NLS-1$
+
     /** Java Beans Directory. */
     public static final String JAVA_BEANS_DIRECTORY = "beans"; //$NON-NLS-1$
 
@@ -131,10 +134,11 @@ public final class JavaUtils {
 
         IExecutionEnvironment[] environments = JavaRuntime.getExecutionEnvironmentsManager().getExecutionEnvironments();
         if (defaultVM != null) {
-            for (int i = 0; i < environments.length; i++) {
-                IVMInstall eeDefaultVM = environments[i].getDefaultVM();
-                if (eeDefaultVM != null && defaultVM.getId().equals(eeDefaultVM.getId()))
-                    return environments[i].getId();
+            for (IExecutionEnvironment environment : environments) {
+                IVMInstall eeDefaultVM = environment.getDefaultVM();
+                if (eeDefaultVM != null && defaultVM.getId().equals(eeDefaultVM.getId())) {
+                    return environment.getId();
+                }
             }
         }
 
@@ -145,10 +149,11 @@ public final class JavaUtils {
             defaultCC = JavaCore.VERSION_1_4;
         }
 
-        for (int i = 0; i < environments.length; i++) {
-            String eeCompliance = getExecutionEnvironmentCompliance(environments[i]);
-            if (defaultCC.endsWith(eeCompliance))
-                return environments[i].getId();
+        for (IExecutionEnvironment environment : environments) {
+            String eeCompliance = getExecutionEnvironmentCompliance(environment);
+            if (defaultCC.endsWith(eeCompliance)) {
+                return environment.getId();
+            }
         }
 
         return "J2SE-1.6"; //$NON-NLS-1$
@@ -192,8 +197,9 @@ public final class JavaUtils {
         Map complianceOptions = executionEnvironment.getComplianceOptions();
         if (complianceOptions != null) {
             Object compliance = complianceOptions.get(JavaCore.COMPILER_COMPLIANCE);
-            if (compliance instanceof String)
+            if (compliance instanceof String) {
                 return (String) compliance;
+            }
         }
 
         String desc = executionEnvironment.getId();
@@ -229,8 +235,9 @@ public final class JavaUtils {
             description.setNatureIds(newNatures);
             project.setDescription(description, monitor);
         }
-        if (monitor != null)
+        if (monitor != null) {
             monitor.worked(1);
+        }
     }
 
 }

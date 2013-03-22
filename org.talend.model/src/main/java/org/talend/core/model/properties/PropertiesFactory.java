@@ -752,6 +752,15 @@ public interface PropertiesFactory extends EFactory {
     MigrationTask createMigrationTask();
 
     /**
+     * Returns a new object of class '<em>Pigudf Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Pigudf Item</em>'.
+     * @generated
+     */
+    PigudfItem createPigudfItem();
+
+    /**
      * Returns a new object of class '<em>Reference File Item</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

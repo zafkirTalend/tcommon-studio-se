@@ -85,6 +85,7 @@ import org.talend.core.model.properties.MigrationStatus;
 import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.Notification;
+import org.talend.core.model.properties.PigudfItem;
 import org.talend.core.model.properties.PlanExecutionHistory;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -844,6 +845,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass migrationTaskEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass pigudfItemEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -6073,6 +6081,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getPigudfItem() {
+        return pigudfItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getReferenceFileItem() {
         return referenceFileItemEClass;
     }
@@ -6850,6 +6867,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(migrationTaskEClass, MIGRATION_TASK__VERSION);
         createEAttribute(migrationTaskEClass, MIGRATION_TASK__STATUS);
 
+        pigudfItemEClass = createEClass(PIGUDF_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -6940,6 +6959,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         jobScriptItemEClass.getESuperTypes().add(this.getFileItem());
         edifactConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         referenceFileItemEClass.getESuperTypes().add(this.getReferenceItem());
+        pigudfItemEClass.getESuperTypes().add(this.getRoutineItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7614,6 +7634,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getMigrationTask_Breaks(), ecorePackage.getEString(), "breaks", "5.1.9", 0, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMigrationTask_Version(), ecorePackage.getEString(), "version", null, 1, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMigrationTask_Status(), this.getMigrationStatus(), "status", "0", 1, 1, MigrationTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(pigudfItemEClass, PigudfItem.class, "PigudfItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

@@ -84,8 +84,9 @@ public final class RoutinesUtil {
      * @return
      */
     public static IRepositoryViewObject getRoutineFromName(String name) {
-        if (name == null)
+        if (name == null) {
             return null;
+        }
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
@@ -115,7 +116,8 @@ public final class RoutinesUtil {
      * @param system
      * @return
      */
-    public static List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system) {
+    public static List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system,
+            ERepositoryObjectType type) {
         List<IRepositoryViewObject> allRoutines = new ArrayList<IRepositoryViewObject>();
         if (system) {
             List<IRepositoryViewObject> systemRoutines = RoutinesUtil.getCurrentSystemRoutines();
@@ -125,23 +127,23 @@ public final class RoutinesUtil {
                 }
             }
         } else {
-            collectUserRoutines(allRoutines, ProjectManager.getInstance().getCurrentProject(), includeRoutineIdOrNames);
+            collectUserRoutines(allRoutines, ProjectManager.getInstance().getCurrentProject(), includeRoutineIdOrNames, type);
         }
         return allRoutines;
     }
 
     private static void collectUserRoutines(List<IRepositoryViewObject> allRoutines,
-            org.talend.core.model.general.Project project, Set<String> includeRoutineIdOrNames) {
+            org.talend.core.model.general.Project project, Set<String> includeRoutineIdOrNames, ERepositoryObjectType type) {
         try {
             List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                    .getAll(project, ERepositoryObjectType.ROUTINES, allowDeletedRoutine());
+                    .getAll(project, type, allowDeletedRoutine());
             for (IRepositoryViewObject obj : all) {
                 if (includeRoutineIdOrNames == null || includeRoutineIdOrNames.contains(obj.getId())) {
                     allRoutines.add(obj);
                 }
             }
             for (org.talend.core.model.general.Project p : ProjectManager.getInstance().getReferencedProjects(project)) {
-                collectUserRoutines(allRoutines, p, includeRoutineIdOrNames);
+                collectUserRoutines(allRoutines, p, includeRoutineIdOrNames, type);
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);

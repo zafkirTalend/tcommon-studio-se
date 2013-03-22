@@ -88,6 +88,8 @@ public class PluginChecker {
 
     private static final String PARALEL_PLUGIN_ID = "org.talend.designer.components.clusterprovider";//$NON-NLS-1$
 
+    private static final String PIGUDF_PLUGIN_ID = "org.talend.repository.pigudf";//$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -269,5 +271,9 @@ public class PluginChecker {
 
     public static boolean isAutoParalelPluginLoaded() {
         return isPluginLoaded(PARALEL_PLUGIN_ID);
+    }
+
+    public static boolean isPigudfPluginLoaded() {
+        return isPluginLoaded(PIGUDF_PLUGIN_ID);
     }
 }

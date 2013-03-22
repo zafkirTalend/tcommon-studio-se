@@ -24,6 +24,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.designer.codegen.PigTemplate;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -60,6 +61,8 @@ public interface ILibrariesService extends IService {
     public void undeployLibrary(String jarName) throws IOException;
 
     public URL getRoutineTemplate();
+
+    public URL getPigudfTemplate(PigTemplate tmplate);
 
     public URL getBeanTemplate();
 

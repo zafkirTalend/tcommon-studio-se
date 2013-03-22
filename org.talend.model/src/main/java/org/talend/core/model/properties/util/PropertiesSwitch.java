@@ -854,6 +854,15 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.PIGUDF_ITEM: {
+                PigudfItem pigudfItem = (PigudfItem)theEObject;
+                Object result = casePigudfItem(pigudfItem);
+                if (result == null) result = caseRoutineItem(pigudfItem);
+                if (result == null) result = caseFileItem(pigudfItem);
+                if (result == null) result = caseItem(pigudfItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -2138,6 +2147,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseMigrationTask(MigrationTask object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Pigudf Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Pigudf Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object casePigudfItem(PigudfItem object) {
         return null;
     }
 

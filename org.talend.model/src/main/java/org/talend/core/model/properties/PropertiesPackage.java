@@ -9004,6 +9004,124 @@ public interface PropertiesPackage extends EPackage {
     int MIGRATION_TASK_FEATURE_COUNT = 4;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.PigudfItemImpl <em>Pigudf Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.PigudfItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPigudfItem()
+     * @generated
+     */
+    int PIGUDF_ITEM = 101;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__PROPERTY = ROUTINE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__STATE = ROUTINE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__PARENT = ROUTINE_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__REFERENCE_RESOURCES = ROUTINE_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>File Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__FILE_EXTENSION = ROUTINE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__NAME = ROUTINE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__EXTENSION = ROUTINE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__CONTENT = ROUTINE_ITEM__CONTENT;
+
+    /**
+     * The feature id for the '<em><b>Built In</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__BUILT_IN = ROUTINE_ITEM__BUILT_IN;
+
+    /**
+     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__IMPORTS = ROUTINE_ITEM__IMPORTS;
+
+    /**
+     * The feature id for the '<em><b>Package Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__PACKAGE_TYPE = ROUTINE_ITEM__PACKAGE_TYPE;
+
+    /**
+     * The number of structural features of the '<em>Pigudf Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM_FEATURE_COUNT = ROUTINE_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -9011,7 +9129,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 101;
+    int FOLDER_TYPE = 102;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -9020,7 +9138,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 102;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 103;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -9029,7 +9147,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 103;
+    int USER_MODULE_AUTHORIZATION_TYPE = 104;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -9038,7 +9156,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 104;
+    int INFORMATION_LEVEL = 105;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.MigrationStatus <em>Migration Status</em>}' enum.
@@ -9048,7 +9166,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getMigrationStatus()
      * @generated
      */
-    int MIGRATION_STATUS = 105;
+    int MIGRATION_STATUS = 106;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -14019,6 +14137,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getMigrationTask_Status();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.PigudfItem <em>Pigudf Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Pigudf Item</em>'.
+     * @see org.talend.core.model.properties.PigudfItem
+     * @generated
+     */
+    EClass getPigudfItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ReferenceFileItem <em>Reference File Item</em>}'.
@@ -19031,6 +19159,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute MIGRATION_TASK__STATUS = eINSTANCE.getMigrationTask_Status();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.PigudfItemImpl <em>Pigudf Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.PigudfItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPigudfItem()
+         * @generated
+         */
+        EClass PIGUDF_ITEM = eINSTANCE.getPigudfItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ReferenceFileItemImpl <em>Reference File Item</em>}' class.

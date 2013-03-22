@@ -13,6 +13,7 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -106,5 +107,14 @@ public final class CodeGeneratorRoutine {
             }
         }
         return new ArrayList<String>(neededRoutines);
+    }
+
+    public static List<String> getRequiredPigudfName(IProcess process) {
+        Set<String> neededRoutines = process.getNeededPigudf();
+        if (neededRoutines != null) {
+            return new ArrayList<String>(neededRoutines);
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 }

@@ -124,9 +124,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected IStatus nameStatus;
 
-    private IStatus purposeStatus;
+    protected IStatus purposeStatus;
 
-    private IStatus commentStatus;
+    protected IStatus commentStatus;
 
     private boolean nameModifiedByUser = false;
 
@@ -1408,5 +1408,22 @@ public abstract class PropertiesWizardPage extends WizardPage {
     // convertBtn.setVisible(processConverter.isNeedConvert());
     // }
     // }
+
+    protected List<IRepositoryViewObject> loadRepViewObjectWithOtherTypes(ERepositoryObjectType type) throws PersistenceException {
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+        if (type != null) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+                IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        IProxyRepositoryService.class);
+
+                List<IRepositoryViewObject> mrList = service.getProxyRepositoryFactory().getAll(type, true, false);
+                if (mrList != null && mrList.size() > 0) {
+                    list.addAll(mrList);
+                }
+            }
+        }
+        return list;
+
+    }
 
 }

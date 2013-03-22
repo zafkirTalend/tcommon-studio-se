@@ -95,7 +95,7 @@ public class RepositoryConstants {
             return FOLDER_PATTERN;
         } else if (type == ERepositoryObjectType.PROCESS || type == ERepositoryObjectType.JOBLET) {
             return CODE_ITEM_PATTERN;
-        } else if (type == ERepositoryObjectType.ROUTINES) {
+        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF) {
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
         } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT || type == ERepositoryObjectType.TDQ_DATA_PROFILING

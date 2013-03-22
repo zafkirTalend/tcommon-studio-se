@@ -680,5 +680,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//MigrationTask/status"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//PigudfItem"/>
   </genPackages>
 </genmodel:GenModel>

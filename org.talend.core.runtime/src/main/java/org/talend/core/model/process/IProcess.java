@@ -95,6 +95,8 @@ public interface IProcess extends IElement {
 
     public Set<String> getNeededRoutines();
 
+    public Set<String> getNeededPigudf();
+
     public int getMergelinkOrder(final INode node);
 
     public boolean isThereLinkWithHash(final INode node);

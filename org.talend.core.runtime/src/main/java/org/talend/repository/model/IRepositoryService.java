@@ -29,10 +29,13 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.designer.runprocess.IProcessor;
+import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.IRepositoryElementDelta;
 import org.talend.repository.ui.actions.AContextualAction;
@@ -127,5 +130,7 @@ public interface IRepositoryService extends IService {
     public AContextualAction getCreateRoutineAction(IRepositoryView repositoryView);
 
     public String getRulesProviderPath(RulesItem currentRepositoryItem);
+
+    public String exportPigudf(IProcessor processor, Property property, boolean isExport) throws ProcessorException;
 
 }

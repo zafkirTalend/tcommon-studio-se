@@ -95,7 +95,8 @@ public class ModulesNeededProvider {
          */
         if (componentImportNeedsList.isEmpty()) {
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
-            componentImportNeedsList.addAll(getModulesNeededForRoutines());
+            componentImportNeedsList.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
+            componentImportNeedsList.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
             //            TimeMeasure.step(Messages.getString("ModulesNeededProvider.1"), "ModulesNeededProvider.getModulesNeededForRoutines"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
@@ -218,8 +219,8 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem processItem) {
-        return getModulesNeededForRoutines(new ProcessItem[] { processItem });
+    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem processItem, ERepositoryObjectType type) {
+        return getModulesNeededForRoutines(new ProcessItem[] { processItem }, type);
     }
 
     /**
@@ -228,7 +229,7 @@ public class ModulesNeededProvider {
      * 
      */
     @SuppressWarnings("unchecked")
-    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem[] processItems) {
+    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem[] processItems, ERepositoryObjectType type) {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
         if (processItems != null) {
@@ -238,7 +239,7 @@ public class ModulesNeededProvider {
                 IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
 
                 try {
-                    List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+                    List<IRepositoryViewObject> routines = repositoryFactory.getAll(type, true);
 
                     for (ProcessItem p : processItems) {
                         if (p == null || p.getProcess() == null || p.getProcess().getParameters() == null
@@ -248,7 +249,7 @@ public class ModulesNeededProvider {
                         for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
                                 .getRoutinesParameter()) {
 
-                            Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines);
+                            Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines, type);
                             if (property != null) {
                                 if (((RoutineItem) property.getItem()).isBuiltIn()) {
                                     systemRoutines.add(infor.getId());
@@ -270,12 +271,12 @@ public class ModulesNeededProvider {
             }
             //
             if (!systemRoutines.isEmpty() && libUiService != null) {
-                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true);
+                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true, type);
                 importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
             }
             //
             if (!userRoutines.isEmpty() && libUiService != null) {
-                List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false);
+                List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false, type);
                 importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
             }
         }
@@ -283,10 +284,11 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines) {
+    private static Property findRoutinesPropery(String id, String name, List<IRepositoryViewObject> routines,
+            ERepositoryObjectType type) {
         if (service != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
-            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type);
             for (IRepositoryViewObject current : routines) {
                 if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
                     Item item = current.getProperty().getItem();
@@ -370,13 +372,13 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    public static List<ModuleNeeded> getModulesNeededForRoutines() {
+    public static List<ModuleNeeded> getModulesNeededForRoutines(ERepositoryObjectType type) {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         if (service != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
             try {
-                List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-                getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
+                List<IRepositoryViewObject> routines = repositoryFactory.getAll(type, true);
+                getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type);
                 for (IRepositoryViewObject current : routines) {
                     if (!current.isDeleted()) {
                         Item item = current.getProperty().getItem();
@@ -391,13 +393,14 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    private static void getRefRoutines(List<IRepositoryViewObject> routines, org.talend.core.model.properties.Project mainProject) {
+    private static void getRefRoutines(List<IRepositoryViewObject> routines,
+            org.talend.core.model.properties.Project mainProject, ERepositoryObjectType type) {
         if (service != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
             try {
                 if (mainProject.getReferencedProjects() != null) {
                     for (Project referencedProject : ProjectManager.getInstance().getAllReferencedProjects()) {
-                        routines.addAll(repositoryFactory.getAll(referencedProject, ERepositoryObjectType.ROUTINES, true));
+                        routines.addAll(repositoryFactory.getAll(referencedProject, type, true));
                     }
                 }
             } catch (PersistenceException e) {

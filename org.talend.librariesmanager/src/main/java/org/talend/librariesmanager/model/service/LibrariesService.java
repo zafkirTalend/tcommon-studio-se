@@ -24,6 +24,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.designer.codegen.PigTemplate;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -71,6 +72,16 @@ public class LibrariesService implements ILibrariesService {
     @Override
     public URL getRoutineTemplate() {
         return this.getLibrariesService().getRoutineTemplate();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getPigudfTemplate()
+     */
+    @Override
+    public URL getPigudfTemplate(PigTemplate template) {
+        return this.getLibrariesService().getPigudfTemplate(template);
     }
 
     @Override

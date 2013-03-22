@@ -744,7 +744,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             coreService.removeJobLaunch(object);
         }
 
-        if (repositoryObjectType == ERepositoryObjectType.ROUTINES) {
+        if (repositoryObjectType == ERepositoryObjectType.ROUTINES || repositoryObjectType == ERepositoryObjectType.PIG_UDF) {
             try {
                 coreService.deleteRoutinefile(object);
             } catch (Exception e) {

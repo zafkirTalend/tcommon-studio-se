@@ -48,6 +48,7 @@ import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.MDMConnectionItem;
+import org.talend.core.model.properties.PigudfItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
@@ -357,6 +358,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_HEADER_FOOTER = ERepositoryObjectType.valueOf("METADATA_HEADER_FOOTER"); //$NON-NLS-1$
 
     public final static ERepositoryObjectType JOB_SCRIPT = ERepositoryObjectType.valueOf("JOB_SCRIPT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType PIG_UDF = ERepositoryObjectType.valueOf("PIG_UDF"); //$NON-NLS-1$
 
     public final static ERepositoryObjectType CONTEXT = ERepositoryObjectType.valueOf("CONTEXT"); //$NON-NLS-1$
 
@@ -678,6 +681,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             @Override
             public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
                 return JOBLET_DOC;
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * org.talend.core.model.properties.util.PropertiesSwitch#casePigudfItem(org.talend.core.model.properties
+             * .PigudfItem)
+             */
+            @Override
+            public Object casePigudfItem(PigudfItem object) {
+                return PIG_UDF;
             }
 
             @Override

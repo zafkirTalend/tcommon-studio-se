@@ -74,6 +74,7 @@ import org.talend.repository.job.deletion.JobResource;
 import org.talend.repository.job.deletion.JobResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -356,10 +357,18 @@ public class ProcessorUtilities {
             currentProcess = jobInfo.getProcess();
         }
         generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
+
+        // pigudf
+        Set<String> neededpigudf = currentProcess.getNeededPigudf();
+        if (neededpigudf != null) {
+            LastGenerationInfo.getInstance().setPigudfNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededpigudf);
+            LastGenerationInfo.getInstance().setPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                    neededpigudf);
+        }
+
         Set<String> neededRoutines = currentProcess.getNeededRoutines();
         if (neededRoutines != null) {
             // item can be null in case of job preview
-
             LastGenerationInfo.getInstance().setRoutinesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededRoutines);
             LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededRoutines);
@@ -401,6 +410,8 @@ public class ProcessorUtilities {
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
+        generatePigudfInfor(jobInfo, selectedProcessItem, currentProcess, processor, neededLibraries);
+
         /*
          * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
          * libraries.
@@ -408,6 +419,29 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
         return processor;
+    }
+
+    private static void generatePigudfInfor(JobInfo jobInfo, ProcessItem selectedProcessItem, IProcess currentProcess,
+            IProcessor processor, Set<ModuleNeeded> neededLibraries) throws ProcessorException {
+        // generate pigudf.jar before generate code
+        // update calss path before export pigudf
+        Set<String> jarList = new HashSet<String>();
+        Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                jobInfo.getJobVersion());
+        for (ModuleNeeded module : neededModules) {
+            jarList.add(module.getModuleName());
+        }
+        CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+        String pigModuleName = null;
+        if (selectedProcessItem != null) {
+            IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
+            pigModuleName = service.exportPigudf(processor, selectedProcessItem.getProperty(), exportConfig);
+        }
+        Set<ModuleNeeded> test = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
+                jobInfo.getJobVersion());
+        if (test != null && pigModuleName != null) {
+            test.add(new ModuleNeeded(null, pigModuleName, null, true));
+        }
     }
 
     /**
@@ -629,6 +663,13 @@ public class ProcessorUtilities {
             }
             generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
             TimeMeasure.step(idTimer, "generateJobInfo");
+            // pigudf
+            Set<String> neededpigudf = currentProcess.getNeededPigudf();
+            if (neededpigudf != null) {
+                LastGenerationInfo.getInstance().setPigudfNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededpigudf);
+                LastGenerationInfo.getInstance().setPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
+                        neededpigudf);
+            }
 
             Set<String> neededRoutines = currentProcess.getNeededRoutines();
             if (neededRoutines != null) {
@@ -670,6 +711,8 @@ public class ProcessorUtilities {
             // ADDED for TESB-7887 By GangLiu
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
+
+            generatePigudfInfor(jobInfo, selectedProcessItem, currentProcess, processor, neededLibraries);
 
             TimeMeasure.step(idTimer, "generateContextInfo");
 
@@ -789,6 +832,11 @@ public class ProcessorUtilities {
                                         .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
                                         .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
                                                 subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
                                 if (exportAsOSGI) {
                                     LastGenerationInfo
@@ -797,12 +845,24 @@ public class ProcessorUtilities {
                                                     jobInfo.getJobVersion())
                                             .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
                                                     subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
+                                    LastGenerationInfo
+                                            .getInstance()
+                                            .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
+                                                    jobInfo.getJobVersion())
+                                            .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
+                                                    subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
                                 }
 
                                 LastGenerationInfo
                                         .getInstance()
                                         .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
                                         .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
                                                 subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
                                 if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
@@ -985,6 +1045,7 @@ public class ProcessorUtilities {
         }
         if (service != null && service.isProjectInSvnMode()) {
             RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.PIG_UDF);
         }
         // achen modify to fix 0006107
         ProcessItem pItem = null;
@@ -1015,6 +1076,7 @@ public class ProcessorUtilities {
         }
         if (service != null && service.isProjectInSvnMode()) {
             RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.PIG_UDF);
         }
         // achen modify to fix 0006107
         ProcessItem pItem = null;
@@ -1046,6 +1108,7 @@ public class ProcessorUtilities {
         }
         if (service != null && service.isProjectInSvnMode()) {
             RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.PIG_UDF);
         }
         // achen modify to fix 0006107
         JobInfo jobInfo = new JobInfo(process, context);

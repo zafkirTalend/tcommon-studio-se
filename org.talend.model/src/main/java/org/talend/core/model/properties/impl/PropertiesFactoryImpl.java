@@ -152,6 +152,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.ARTIFACT_NOTIFICATION: return createArtifactNotification();
             case PropertiesPackage.ADDITIONAL_INFO_MAP: return (EObject)createAdditionalInfoMap();
             case PropertiesPackage.MIGRATION_TASK: return createMigrationTask();
+            case PropertiesPackage.PIGUDF_ITEM: return createPigudfItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -1079,6 +1080,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public MigrationTask createMigrationTask() {
         MigrationTaskImpl migrationTask = new MigrationTaskImpl();
         return migrationTask;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public PigudfItem createPigudfItem() {
+        PigudfItemImpl pigudfItem = new PigudfItemImpl();
+        return pigudfItem;
     }
 
     /**

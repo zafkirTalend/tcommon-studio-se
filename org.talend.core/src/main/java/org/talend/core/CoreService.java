@@ -266,6 +266,7 @@ public class CoreService implements ICoreService {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
             codeGenService.createRoutineSynchronizer().syncAllRoutines();
+            codeGenService.createRoutineSynchronizer().syncAllPigudf();
         }
 
     }

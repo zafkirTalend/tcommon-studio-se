@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 
@@ -36,7 +37,8 @@ public interface ILibraryManagerUIService extends IService {
 
     public Map<String, List<LibraryInfo>> getRoutineAndJars();
 
-    public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system);
+    public List<IRepositoryViewObject> collectRelatedRoutines(Set<String> includeRoutineIdOrNames, boolean system,
+            ERepositoryObjectType type);
 
     public String getLibrariesPath(ECodeLanguage language);
 }
