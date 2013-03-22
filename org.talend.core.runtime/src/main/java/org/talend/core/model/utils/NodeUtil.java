@@ -106,8 +106,9 @@ public class NodeUtil {
                             return 2;
                         }
                     }
+                    return 0-compare(o2, o1);
 
-                    return 0;
+//                    return 0;
                 }
 
             });
