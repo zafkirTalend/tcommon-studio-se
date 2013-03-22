@@ -131,6 +131,8 @@ public abstract class AbstractRepoViewLabelProvider extends LabelProvider implem
         Image img = null;
 
         final ERepositoryObjectType itemType = object.getRepositoryObjectType();
+        object.getProperty(); // this will force an update of the item.
+
         if (itemType != null) {
             img = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
             if (img == null) {
