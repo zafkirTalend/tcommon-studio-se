@@ -446,6 +446,8 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                 }
             }
         }
+        // When deleting a context group from repository view, which is referred by a job, then context view will be
+        // refreshed.
         if (isRefresh) {
             setModifiedFlag(getContextManager());
             refreshContextView();
