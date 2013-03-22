@@ -17,9 +17,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -27,15 +30,29 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.SourceType;
+import org.eclipse.jdt.ui.JavadocContentAccess;
 import org.osgi.framework.Bundle;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.repository.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -72,11 +89,65 @@ public class PigFunctionParser extends AbstractFunctionParser {
             }
             // use dom parse it
             useDomParse(fileUrl.getFile());
+            // parse Pig UDF Functions
+            parsePigUDFFunction();
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
     }
 
+    public void parsePigUDFFunction() {
+        typeMethods.clear();
+        try {
+            IJavaProject javaProject = CorePlugin.getDefault().getRunProcessService().getJavaProject();
+            if (javaProject != null) {
+                IProject project = javaProject.getProject();
+                IFolder srcFolder = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY);
+                IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(srcFolder);
+                List<IJavaElement> elements = new ArrayList<IJavaElement>();
+                addEveryProjectElements(root, elements);
+                for (int i = elements.size(); i > 0; i--) {
+                    IJavaElement element = elements.get(i - 1);
+                    if (element instanceof ICompilationUnit) {
+                        ICompilationUnit compilationUnit = (ICompilationUnit) element;
+                        IType[] types = compilationUnit.getAllTypes();
+                        if (types.length > 0) {
+                            SourceType sourceType = (SourceType) types[0];
+                            if (sourceType != null) {
+                                try {
+                                    Reader reader = JavadocContentAccess.getContentReader(sourceType, true);
+                                    if (reader != null) {
+                                        char[] charBuffer = new char[1024];
+                                        StringBuffer str = new StringBuffer();
+                                        int index = 0;
+                                        while ((index = reader.read(charBuffer)) != -1) {
+                                            str.append(charBuffer, 0, index);
+                                            index = 0;
+                                        }
+                                        reader.close();
+                                        parsePigCommentToFunctions(str.toString(), sourceType.getElementName(),
+                                                sourceType.getFullyQualifiedName(), sourceType.getElementName(), false);
+                                    }
+                                } catch (Exception e) {
+                                    ExceptionHandler.process(e);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    /**
+     * 
+     * DOC Comment method "useDomParse".
+     * 
+     * @param fileUrl
+     */
     public void useDomParse(String fileUrl) {
         DocumentBuilderFactory domfac = DocumentBuilderFactory.newInstance();
         try {
@@ -159,6 +230,10 @@ public class PigFunctionParser extends AbstractFunctionParser {
                 if (!category.equals(EMPTY_STRING)) {
                     function.setCategory(category);
                 }
+                // Pig UDF Functions set a default category
+                if (!isSystem) {
+                    function.setCategory("User Defined Functions");
+                }
                 function.setUserDefined(!isSystem);
                 TalendType talendType = getTalendType(functionType);
                 talendType.addFunctions(function);
@@ -168,6 +243,33 @@ public class PigFunctionParser extends AbstractFunctionParser {
             }
         } catch (Exception e) {
             logger.error(Messages.getString("PigFunctionParser.checkMethod", fullName, funcName), e); //$NON-NLS-1$
+        }
+    }
+
+    private void addEveryProjectElements(IPackageFragmentRoot root, List<IJavaElement> elements) throws JavaModelException {
+        if (root == null || elements == null) {
+            return;
+        }
+        // system
+        IPackageFragment pigudfPkg = root.getPackageFragment(JavaUtils.JAVA_PIGUDF_DIRECTORY);
+        if (pigudfPkg != null && pigudfPkg.exists()) {
+            elements.addAll(Arrays.asList(pigudfPkg.getChildren()));
+        }
+        ProjectManager projectManager = ProjectManager.getInstance();
+        Project currentProject = projectManager.getCurrentProject();
+        // current project
+        IPackageFragment userPigPkg = root.getPackageFragment(JavaUtils.JAVA_PIGUDF_DIRECTORY + "." //$NON-NLS-1$
+                + currentProject.getLabel().toLowerCase());
+        if (userPigPkg != null && userPigPkg.exists()) {
+            elements.addAll(Arrays.asList(userPigPkg.getChildren()));
+        }
+        // referenced project.
+        projectManager.retrieveReferencedProjects();
+        for (Project p : projectManager.getReferencedProjects()) {
+            userPigPkg = root.getPackageFragment(JavaUtils.JAVA_PIGUDF_DIRECTORY + "." + p.getLabel().toLowerCase()); //$NON-NLS-1$
+            if (userPigPkg != null && userPigPkg.exists()) {
+                elements.addAll(Arrays.asList(userPigPkg.getChildren()));
+            }
         }
     }
 

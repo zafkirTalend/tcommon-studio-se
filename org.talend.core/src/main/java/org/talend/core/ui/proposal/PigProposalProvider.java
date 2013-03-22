@@ -18,11 +18,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.process.INode;
-import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.rowgenerator.data.Function;
@@ -53,16 +52,6 @@ public class PigProposalProvider extends TalendProposalProvider {
             for (IContextParameter ctxParam : ctxParams) {
                 proposals.add(new ContextParameterProposal(ctxParam));
             }
-
-            // Proposals based on global variables
-            List<? extends INode> nodes = process.getGraphicalNodes();
-            for (INode node : nodes) {
-                List<? extends INodeReturn> nodeReturns = node.getReturns();
-                for (INodeReturn nodeReturn : nodeReturns) {
-                    proposals.add(new NodeReturnProposal(node, nodeReturn));
-                }
-            }
-
         } else {
             List<ContextItem> allContextItem = ContextUtils.getAllContextItem();
             List<IContextParameter> ctxParams = new ArrayList<IContextParameter>();
@@ -115,7 +104,11 @@ public class PigProposalProvider extends TalendProposalProvider {
             super();
             this.function = function;
             if (function != null && "pig".equals(type)) {
-                method = function.getName() + "()";
+                if (function.isUserDefined()) {
+                    method = JavaUtils.JAVA_PIGUDF_DIRECTORY + "." + function.getName() + "()";
+                } else {
+                    method = function.getName() + "()";
+                }
             }
         }
     }
