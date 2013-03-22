@@ -109,12 +109,39 @@
       point="org.eclipse.ui.menus">
    <menuContribution
          allPopups="false"
-         locationURI="menu:help?after=about">
+         locationURI="menu:help?after=talend">
       <command
             commandId="org.talend.rcp.show.exportLogs.command"
             id="org.talend.rcp.show.exportLogs.menus.command"
             style="push">
       </command>
+   </menuContribution>
+</extension>
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="menu:help?after=additions">
+      <menu
+            id="talend"
+            label="talend">
+      </menu>
+   </menuContribution>
+   <menuContribution
+         allPopups="false"
+         locationURI="menu:help?before=talend">
+      <separator
+            name="org.talend.help.spearator.start"
+            visible="true">
+      </separator>
+   </menuContribution>
+   <menuContribution
+         allPopups="false"
+         locationURI="menu:help?after=talend">
+      <separator
+            name="org.talend.help.spearator.end"
+            visible="true">
+      </separator>
    </menuContribution>
 </extension>
 </plugin>
