@@ -60,9 +60,9 @@ public class NodeUtil {
             	private int getTypeWeighted(IConnection con) {
             		switch (con.getLineStyle()) {
             		case ROUTE_ENDBLOCK: return 100;
+            		case ROUTE: return 90;
             		case ROUTE_OTHER: return 80;
             		case ROUTE_WHEN: return 70;
-            		case ROUTE: return 60;
             		case ROUTE_FINALLY: return 50;
             		case ROUTE_CATCH: return 40;
             		case ROUTE_TRY: return 30;
