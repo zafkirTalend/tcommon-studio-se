@@ -22,6 +22,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.rowgenerator.data.Function;
@@ -33,8 +34,9 @@ import org.talend.designer.rowgenerator.data.TalendType;
  */
 public class PigProposalProvider extends TalendProposalProvider {
 
-    public PigProposalProvider(IProcess process) {
+    public PigProposalProvider(IProcess process, INode node) {
         super();
+        this.currentNode = node;
         this.process = process;
     }
 
@@ -68,12 +70,29 @@ public class PigProposalProvider extends TalendProposalProvider {
         }
 
         // Proposals based pig functions
-        FunctionManager functionManager = new FunctionManager("pig");
+        FunctionManager functionManager = new FunctionManager(JavaUtils.JAVA_PIG_DIRECTORY);
         List<TalendType> talendTypes = functionManager.getTalendTypes();
         for (TalendType type : talendTypes) {
             for (Object objectFunction : type.getFunctions()) {
                 Function function = (Function) objectFunction;
-                proposals.add(new PigFunctionProposal(function, "pig"));
+                // pig components
+                if (currentNode != null) {
+                    if (currentNode.getComponent().getName().equals("tPigLoad") && "LoadFunc".equals(function.getPreview())) {
+                        if (function.isUserDefined()) {
+                            proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
+                        }
+                    } else if (currentNode.getComponent().getName().equals("tPigStoreResult")
+                            && "StoreFunc".equals(function.getPreview())) {
+                        if (function.isUserDefined()) {
+                            proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
+                        }
+                    } else if (currentNode.getComponent().getName().equals("tPigMap")
+                            && !"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {
+                        proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
+                    }
+                } else if (!"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {
+                    proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
+                }
             }
         }
 
@@ -103,7 +122,7 @@ public class PigProposalProvider extends TalendProposalProvider {
         public PigFunctionProposal(Function function, String type) {
             super();
             this.function = function;
-            if (function != null && "pig".equals(type)) {
+            if (function != null && JavaUtils.JAVA_PIG_DIRECTORY.equals(type)) {
                 if (function.isUserDefined()) {
                     method = JavaUtils.JAVA_PIGUDF_DIRECTORY + "." + function.getName() + "()";
                 } else {

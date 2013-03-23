@@ -28,7 +28,7 @@ import org.apache.pig.data.TupleFactory;
  * 
  * {talendTypes} Boolean
  * 
- * {Category} __PIGUDF_LOADFUNC__
+ * {Category} LoadFunc
  * 
  * {param} String(delimiter) delimiter
  * 

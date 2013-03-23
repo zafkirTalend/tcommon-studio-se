@@ -16,7 +16,7 @@ import org.apache.pig.impl.util.WrappedIOException;
  * 
  * {talendTypes} Boolean
  * 
- * {Category} __PIGUDF_FILTERFUNC__
+ * {Category} FilterFunc
  * 
  * {param} Tuple(input) input: The Tuple need to be filter.
  * 

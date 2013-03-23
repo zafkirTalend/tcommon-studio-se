@@ -32,7 +32,7 @@ import org.apache.pig.data.Tuple;
  * 
  * {talendTypes} Boolean
  * 
- * {Category} __PIGUDF_STOREFUNC__
+ * {Category} StoreFunc
  * 
  * {param} String(delimiter) delimiter
  * 

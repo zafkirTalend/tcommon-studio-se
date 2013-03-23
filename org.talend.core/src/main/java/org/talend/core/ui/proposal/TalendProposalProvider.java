@@ -41,7 +41,7 @@ public class TalendProposalProvider implements IContentProposalProvider {
 
     protected IProcess process;
 
-    private INode currentNode;
+    protected INode currentNode;
 
     /**
      * Constructs a new ProcessProposalProvider.

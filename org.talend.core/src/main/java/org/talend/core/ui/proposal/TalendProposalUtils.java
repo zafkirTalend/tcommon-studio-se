@@ -35,7 +35,9 @@ public class TalendProposalUtils {
      */
     public static ContentProposalAdapterExtended installOn(Control control, IProcess process, final INode node) {
         IContentProposalProvider proposalProvider = null;
-        if (process != null) {
+        if (node != null && node.getComponent().getName().startsWith("tPig")) {
+            proposalProvider = new PigProposalProvider(process, node);
+        } else if (process != null) {
             proposalProvider = new TalendProposalProvider(process, node);
         } else {
             proposalProvider = new TalendProposalProvider();

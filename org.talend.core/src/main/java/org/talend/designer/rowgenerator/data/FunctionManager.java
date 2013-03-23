@@ -15,6 +15,7 @@ package org.talend.designer.rowgenerator.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -113,7 +114,7 @@ public class FunctionManager {
     @SuppressWarnings("unchecked")
     public FunctionManager(String type) {
         AbstractFunctionParser parser = null;
-        if ("pig".equals(type)) {
+        if (JavaUtils.JAVA_PIG_DIRECTORY.equals(type)) {
             // pig map expressionbuilder
             parser = new PigFunctionParser();
             parser.parse();

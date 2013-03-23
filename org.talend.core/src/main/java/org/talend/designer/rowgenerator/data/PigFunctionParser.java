@@ -232,7 +232,8 @@ public class PigFunctionParser extends AbstractFunctionParser {
                 }
                 // Pig UDF Functions set a default category
                 if (!isSystem) {
-                    function.setCategory("User Defined Functions");
+                    function.setCategory("Pig UDF Functions");
+                    function.setPreview(category);
                 }
                 function.setUserDefined(!isSystem);
                 TalendType talendType = getTalendType(functionType);

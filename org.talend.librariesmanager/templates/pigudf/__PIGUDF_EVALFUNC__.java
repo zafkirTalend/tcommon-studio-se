@@ -9,7 +9,7 @@ import org.apache.pig.data.Tuple;
  * 
  * {talendTypes} Boolean
  * 
- * {Category} __PIGUDF_EVALFUNC__
+ * {Category} EvalFunc
  * 
  * {param} Tuple(input) input: The Tuple need to be transfered to upper case.
  * 

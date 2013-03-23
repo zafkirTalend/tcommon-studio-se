@@ -68,7 +68,10 @@ public final class JavaUtils {
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines"; //$NON-NLS-1$
 
-    /** Java Routines Directory. */
+    /** Java Pig Directory. */
+    public static final String JAVA_PIG_DIRECTORY = "pig"; //$NON-NLS-1$
+
+    /** Java Pig UDF Directory. */
     public static final String JAVA_PIGUDF_DIRECTORY = "pigudf"; //$NON-NLS-1$
 
     /** Java Beans Directory. */
