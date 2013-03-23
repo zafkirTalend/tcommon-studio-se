@@ -38,6 +38,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -47,10 +48,14 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
@@ -85,6 +90,7 @@ import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataPro
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
@@ -92,6 +98,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.ui.dialog.RepositoryReviewDialog;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
@@ -283,6 +290,14 @@ public class DatabaseForm extends AbstractForm {
     private String originalURL;
 
     private Boolean originalIsNeedReload;
+
+    private Group hadoopLinkGroup;
+
+    private LabelledCombo hcPropertyTypeCombo;
+
+    private Text hcRepositoryText;
+
+    private Button hcSelectBtn;
 
     /**
      * Constructor to use by a Wizard to create a new database connection.
@@ -633,6 +648,11 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void createHBaseSettingContents(Composite parent) {
+
+        // if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+        // createLinkGroup(parent);
+        // }
+
         hbaseSettingGroup = Form.createGroup(parent, 4, Messages.getString("DatabaseForm.hbase.settings"), 60); //$NON-NLS-1$
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hbaseSettingGroup);
@@ -646,12 +666,82 @@ public class DatabaseForm extends AbstractForm {
         hideHBaseSettings(true);
     }
 
+    /**
+     * DOC plv Comment method "createLinkGroup".
+     * 
+     * @param parent
+     */
+    private void createLinkGroup(Composite parent) {
+        hadoopLinkGroup = Form.createGroup(parent, 5, "Hadoop Cluster", 60); //$NON-NLS-1$
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hadoopLinkGroup);
+        String[] types = new String[] { "Built-In", "Repository" };
+        hcPropertyTypeCombo = new LabelledCombo(hadoopLinkGroup, "Property Type", "", types, 1, true);
+        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcPropertyTypeCombo.getCombo());
+        hcRepositoryText = new Text(hadoopLinkGroup, SWT.BORDER);
+        hcRepositoryText.setEnabled(false);
+        GridDataFactory.fillDefaults().grab(true, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
+                .span(2, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcRepositoryText);
+        hcSelectBtn = new Button(hadoopLinkGroup, SWT.PUSH);
+        hcSelectBtn.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
+        GridDataFactory.fillDefaults().grab(false, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
+                .align(SWT.BEGINNING, SWT.FILL).span(1, 1).applyTo(hcSelectBtn);
+        hcSelectBtn.setVisible(false);
+        hcRepositoryText.setVisible(false);
+    }
+
+    /**
+     * DOC plv Comment method "addHadoopClusterLinkListeners".
+     */
+    private void addHadoopClusterLinkListeners() {
+        hcPropertyTypeCombo.addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                hcSelectBtn.setVisible(hcPropertyTypeCombo.getSelectionIndex() == 1);
+                hcRepositoryText.setVisible(hcPropertyTypeCombo.getSelectionIndex() == 1);
+                hbaseDistributionCombo.setEnabled(hcPropertyTypeCombo.getSelectionIndex() == 0);
+                hbaseVersionCombo.setEnabled(hcPropertyTypeCombo.getSelectionIndex() == 0);
+                // TODO Change property command
+            }
+        });
+
+        hcSelectBtn.addSelectionListener(new SelectionListener() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                RepositoryReviewDialog dialog = new RepositoryReviewDialog(new Shell(), ERepositoryObjectType.METADATA,
+                        "HADOOPCLUSTER");
+                if (dialog.open() == RepositoryReviewDialog.OK) {
+                    // String id = dialog.getResult().getObject().getId();
+                    hcRepositoryText.setText(dialog.getResult().getObject().getLabel());
+                    // TODO Change property command
+
+                }
+            }
+
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+
+            }
+        });
+    }
+
     private void hideHBaseSettings(boolean hide) {
+        // hideHCLinkSettings(hide);
         GridData hadoopData = (GridData) hbaseSettingGroup.getLayoutData();
         hbaseSettingGroup.setVisible(!hide);
         hadoopData.exclude = hide;
         hbaseDistributionCombo.setHideWidgets(hide);
         hbaseVersionCombo.setHideWidgets(hide);
+    }
+
+    private void hideHCLinkSettings(boolean hide) {
+        GridData hadoopLinkData = (GridData) hadoopLinkGroup.getLayoutData();
+        hadoopLinkGroup.setVisible(!hide);
+        hadoopLinkData.exclude = hide;
+        hcPropertyTypeCombo.setHideWidgets(hide);
+
     }
 
     private void initHBaseSettings() {
@@ -691,6 +781,7 @@ public class DatabaseForm extends AbstractForm {
      * @param parent
      */
     private void createHadoopVersionInfoForHiveEmbedded(Composite parent) {
+
         GridLayout layout2 = (GridLayout) parent.getLayout();
         hiveComposite = new Group(parent, SWT.NONE);
         hiveComposite.setText(Messages.getString("DatabaseForm.hiveEmbedded.versionInfo")); //$NON-NLS-1$
@@ -1860,6 +1951,7 @@ public class DatabaseForm extends AbstractForm {
         // Registers all listeners of hive widgets.
         regHiveRelatedWidgetsListeners();
 
+        // addHadoopClusterLinkListeners();
     }
 
     private void checkScrolledCompositeSize() {
