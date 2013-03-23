@@ -28,6 +28,8 @@ public enum EHadoopDistributions {
 
     APACHE("Apache"), //$NON-NLS-1$
 
+    AMAZON_EMR("Amazon EMR"), //$NON-NLS-1$
+
     CUSTOM("Custom"); //$NON-NLS-1$
 
     private String displayName;
