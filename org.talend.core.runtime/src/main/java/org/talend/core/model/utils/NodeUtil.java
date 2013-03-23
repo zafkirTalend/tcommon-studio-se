@@ -57,60 +57,32 @@ public class NodeUtil {
             conns = new ArrayList<IConnection>(outgoingConnections);
             Collections.sort(conns, new Comparator<IConnection>() {
 
-                @Override
-                public int compare(IConnection o1, IConnection o2) {
-                	//TESB-8093
-                	if(o1.getLineStyle()==o2.getLineStyle()) {
-                		//same style, compare by inputId
-//                		return o1.getOutputId()-o2.getOutputId();//not use this cause of probably overflow.
-                		if(o1.getOutputId()>o2.getOutputId()) {
-                			return 1;
-                		}else {
-							return -1;
-						}
-                	}
-                	
-                    if (EConnectionType.ROUTE_WHEN == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE == o2.getLineStyle()) {
-                            return 1;
-                        }
-                        return -1;
-                    }
-                    if (EConnectionType.ROUTE_OTHER == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle()) {
-                            return 1;
-                        }
-                    }
-                    if (EConnectionType.ROUTE_ENDBLOCK == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE_WHEN == o2.getLineStyle() || EConnectionType.ROUTE_OTHER == o2.getLineStyle()) {
-                            return 2;
-                        }
-                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle() || EConnectionType.ROUTE_CATCH == o2.getLineStyle()
-                                || EConnectionType.ROUTE_FINALLY == o2.getLineStyle()) {
-                            return 3;
-                        }
-                        if (EConnectionType.ROUTE == o2.getLineStyle()) {
-                            return 4;
-                        }
-                    }
-                    if (EConnectionType.ROUTE_TRY == o1.getLineStyle()) {
-                        return -1;
-                    }
-                    if (EConnectionType.ROUTE_CATCH == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle()) {
-                            return 1;
-                        }
-                    }
-                    if (EConnectionType.ROUTE_FINALLY == o1.getLineStyle()) {
-                        if (EConnectionType.ROUTE_TRY == o2.getLineStyle() || EConnectionType.ROUTE_CATCH == o2.getLineStyle()) {
-                            return 2;
-                        }
-                    }
-                    return 0-compare(o2, o1);
+            	private int getTypeWeighted(IConnection con) {
+            		switch (con.getLineStyle()) {
+            		case ROUTE_ENDBLOCK: return 100;
+            		case ROUTE_OTHER: return 80;
+            		case ROUTE_WHEN: return 70;
+            		case ROUTE: return 60;
+            		case ROUTE_FINALLY: return 50;
+            		case ROUTE_CATCH: return 40;
+            		case ROUTE_TRY: return 30;
+            		default: return 0;
+            		}
+            	}
 
-//                    return 0;
-                }
-
+            	@Override
+            	public int compare(IConnection o1, IConnection o2) {
+            		int weightedGap=getTypeWeighted(o1)-getTypeWeighted(o2);
+            		if(weightedGap==0) {
+            			//same style, compare by inputId
+            			if(o1.getOutputId()>o2.getOutputId()) {
+            				return 1;
+            			}else {
+            				return -1;
+            			}
+            		}
+            		return weightedGap;
+            	}
             });
         }
 
