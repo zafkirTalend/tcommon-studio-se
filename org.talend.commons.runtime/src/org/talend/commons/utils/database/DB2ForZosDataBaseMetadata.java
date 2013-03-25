@@ -117,7 +117,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getSchemas() throws SQLException {
         // see the feature 5827
         // MOD yyin 2012-05-15 TDQ-5190
-        String sql = "SELECT DISTINCT NAME FROM SYSIBM.SYSSCHEMATA"; //$NON-NLS-1$
+        String sql = "SELECT DISTINCT CREATOR FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -126,9 +126,9 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String creator = rs.getString("NAME"); //$NON-NLS-1$
+                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
 
-                String[] r = new String[] { creator.trim() }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { creator.trim() };
                 list.add(r);
             }
 
@@ -268,7 +268,12 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 if (i > 0) {
                     comma = " , "; //$NON-NLS-1$
                 }
-                typeClause = comma + typeClause + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
+                typeClause = typeClause + comma + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
+
+                // ADDED yyin 20120516 TDQ-5190, same action as DB2
+                if (TABLE.equals(types[i])) {
+                    isTable = true;
+                }
 
                 // ADDED yyin 20120516 TDQ-5190, same action as DB2
                 if (TABLE.equals(types[i])) {
