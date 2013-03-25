@@ -14,6 +14,7 @@ package org.talend.repository.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
@@ -226,6 +227,9 @@ public interface IProxyRepositoryFactory {
      * org.talend.core.model.repository.IRepositoryViewObject)
      */
     public abstract void moveObject(IRepositoryViewObject objToMove, IPath path, IPath... sourcePath)
+            throws PersistenceException, BusinessException;
+
+    public abstract void moveObjectMulti(IRepositoryViewObject[] objToMove, IPath path, Map<IRepositoryViewObject, IPath> map)
             throws PersistenceException, BusinessException;
 
     public abstract void lock(IRepositoryViewObject obj) throws PersistenceException, BusinessException;
