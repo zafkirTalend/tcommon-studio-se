@@ -557,6 +557,17 @@ public final class ElementParameterParser {
 				}
 				return (String) value;
 			}
+			
+			if(param.getName().equals("SELECTED_JOB_NAME")){
+				String jobId = (String) param.getChildParameters()
+						.get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
+				ProcessItem processItem = ItemCacheManager
+						.getProcessItem(jobId);
+				if (processItem == null) {
+					return ""; //$NON-NLS-1$
+				}
+				return processItem.getProperty().getLabel();
+			}
 			// hywang add for 6484
 			if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
 				IElementParameter propertyParam = param.getElement()
