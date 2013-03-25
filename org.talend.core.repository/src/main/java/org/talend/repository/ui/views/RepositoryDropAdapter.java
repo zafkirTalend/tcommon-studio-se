@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.views;
 
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.Timer;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
 import org.talend.core.model.properties.Item;
@@ -172,7 +174,6 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-
         return toReturn;
     }
 
@@ -461,11 +462,17 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                         @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             try {
-                                for (Object obj : ((StructuredSelection) data).toArray()) {
-                                    final RepositoryNode sourceNode = (RepositoryNode) obj;
-                                    monitor.subTask(Messages.getString("RepositoryDropAdapter.moving") + sourceNode.getObject().getLabel()); //$NON-NLS-1$
-                                    MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
+                                // for (Object obj : ((StructuredSelection) data).toArray()) {
+                                // final RepositoryNode sourceNode = (RepositoryNode) obj;
+                                //                                    monitor.subTask(Messages.getString("RepositoryDropAdapter.moving") + sourceNode.getObject().getLabel()); //$NON-NLS-1$
+                                // MoveObjectAction.getInstance().execute(sourceNode, targetNode, true);
+                                // }
+                                RepositoryNode[] nodeArray = new RepositoryNode[((StructuredSelection) data).toArray().length];
+                                for (int i = 0; i < ((StructuredSelection) data).toArray().length; i++) {
+                                    final RepositoryNode sourceNode = (RepositoryNode) ((StructuredSelection) data).toArray()[i];
+                                    nodeArray[i] = sourceNode;
                                 }
+                                MoveObjectAction.getInstance().executeMulti(nodeArray, targetNode, null, true);
                             } catch (Exception e) {
                                 throw new CoreException(new org.eclipse.core.runtime.Status(IStatus.ERROR, FrameworkUtil
                                         .getBundle(this.getClass()).getSymbolicName(), "Error", e));

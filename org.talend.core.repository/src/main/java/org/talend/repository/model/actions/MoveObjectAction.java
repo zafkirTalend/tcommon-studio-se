@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.repository.model.actions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
@@ -241,6 +244,91 @@ public class MoveObjectAction {
             isLock = true;
         }
         return isLock;
+    }
+
+    public void executeMulti(RepositoryNode[] sourceNodes, RepositoryNode targetNode, IPath folderPath, boolean isDnd)
+            throws Exception {
+        List<RepositoryNode> nodeList = new ArrayList<RepositoryNode>();
+        for (RepositoryNode sourceNode : sourceNodes) {
+            if (!validateAction(sourceNode, targetNode, isDnd)) {
+                // i18n
+                // log.debug("Cannot move [" + sourceNode + "] to " + targetNode);
+                String str[] = new String[] { sourceNode.toString(), targetNode.toString() };
+                log.debug(Messages.getString("MoveObjectAction.0", str)); //$NON-NLS-1$
+            } else {
+                nodeList.add(sourceNode);
+            }
+        }
+        if (nodeList.isEmpty()) {
+            return;
+        }
+        if (folderPath != null) {
+            targetPath = folderPath;
+        } else {
+            targetPath = (targetNode == null ? new Path("") : RepositoryNodeUtilities.getPath(targetNode)); //$NON-NLS-1$
+        }
+        List<IRepositoryViewObject> objectToMoves = new ArrayList<IRepositoryViewObject>();
+        Map<IRepositoryViewObject, IPath> map = new HashMap<IRepositoryViewObject, IPath>();
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        for (RepositoryNode sourceNode : nodeList) {
+            IPath sourcePath = RepositoryNodeUtilities.getPath(sourceNode);
+
+            if (sourceNode.getType().equals(ENodeType.REPOSITORY_ELEMENT)) {
+                // Source is an repository element :
+                IRepositoryViewObject objectToMove = sourceNode.getObject();
+
+                if (targetNode != null && targetNode.isBin()) {
+                    // Move in the recycle bin :
+                    factory.deleteObjectLogical(objectToMove);
+                } else {
+                    if (factory.getStatus(objectToMove) == ERepositoryStatus.DELETED) {
+                        // Restore :
+                        factory.restoreObject(objectToMove, targetPath);
+                        // if object is opened and editable, will re-lock it.
+                        if (RepositoryManager.isEditableItemInEditor(objectToMove)) {
+                            factory.lock(objectToMove);
+                        }
+                    } else {
+                        // Move :
+                        if (isGenericSchema) {
+                            CopyToGenericSchemaHelper.copyToGenericSchema(factory, objectToMove, targetPath);
+                        } else {
+                            // MOD gdbu 2011-9-29 TDQ-3546
+                            ERepositoryObjectType repositoryObjectType = objectToMove.getRepositoryObjectType();
+                            if (repositoryObjectType == ERepositoryObjectType.METADATA_CONNECTIONS
+                                    || repositoryObjectType == ERepositoryObjectType.METADATA_FILE_DELIMITED
+                                    || repositoryObjectType == ERepositoryObjectType.METADATA_MDMCONNECTION) {
+                                AbstractResourceChangesService resourceChangeService = TDQServiceRegister.getInstance()
+                                        .getResourceChangeService(AbstractResourceChangesService.class);
+                                if (null != resourceChangeService) {
+                                    List<IRepositoryNode> dependentNodes = resourceChangeService.getDependentNodes(sourceNode);
+                                    if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                                        resourceChangeService.openDependcesDialog(dependentNodes);
+                                        return;
+                                    }
+                                }
+                            }
+                            objectToMoves.add(objectToMove);
+                            map.put(objectToMove, sourcePath);
+                            // factory.moveObject(objectToMove, targetPath, sourcePath);
+                        }
+
+                    }
+                }
+            } else if (sourceNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
+                // Source is a folder :
+                ERepositoryObjectType sourceType = (ERepositoryObjectType) sourceNode.getProperties(EProperties.CONTENT_TYPE);
+                factory.moveFolder(sourceType, sourcePath, targetPath);
+            }
+        }
+        if (objectToMoves.size() > 0) {
+            IRepositoryViewObject[] objectArray = new IRepositoryViewObject[objectToMoves.size()];
+            for (int i = 0; i < objectToMoves.size(); i++) {
+                IRepositoryViewObject obj = objectToMoves.get(i);
+                objectArray[i] = obj;
+            }
+            factory.moveObjectMulti(objectArray, targetPath, map);
+        }
     }
 
     public void execute(RepositoryNode sourceNode, RepositoryNode targetNode, boolean isDnd) throws Exception {

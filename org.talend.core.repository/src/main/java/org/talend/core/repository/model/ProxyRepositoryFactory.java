@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -830,6 +831,25 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (sourcePath != null && sourcePath.length == 1) {
             fireRepositoryPropertyChange(ERepositoryActionName.MOVE.getName(), objToMove,
                     new IPath[] { sourcePath[0], targetPath });
+        }
+    }
+
+    @Override
+    public void moveObjectMulti(IRepositoryViewObject[] objToMoves, IPath targetPath, Map<IRepositoryViewObject, IPath> map)
+            throws PersistenceException, BusinessException {
+        for (IRepositoryViewObject objToMove : objToMoves) {
+            checkAvailability(objToMove);
+        }
+        this.repositoryFactoryFromProvider.moveObjectMulti(objToMoves, targetPath);
+        for (IRepositoryViewObject objToMove : objToMoves) {
+            IPath sourcePath = map.get(objToMove);
+            String str[] = new String[] { objToMove + "", targetPath + "" };
+            log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
+
+            if (sourcePath != null) {
+                fireRepositoryPropertyChange(ERepositoryActionName.MOVE.getName(), objToMove, new IPath[] { sourcePath,
+                        targetPath });
+            }
         }
     }
 
