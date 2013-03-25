@@ -50,6 +50,8 @@ public enum EHadoopVersion4Drivers {
     MAPR(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 1.2.0", "MapR", new String[] { "hadoop-0.20.2-dev-core.jar",
             "commons-logging-1.0.4.jar", "maprfs-0.1.jar", "zookeeper-3.3.2.jar" })),
 
+    MAPR2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.0.0", "MapR2")),
+
     MAPR_EMR(new HadoopVersion4Drivers(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR")),
 
     APACHE_1_0_3_EMR(new HadoopVersion4Drivers(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR")),
