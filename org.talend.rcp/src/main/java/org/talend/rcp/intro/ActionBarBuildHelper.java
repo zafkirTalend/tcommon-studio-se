@@ -102,8 +102,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     protected static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
 
-    protected static final String GROUP_HELP = "group help";//$NON-NLS-1$
-
     public void setActionBarConfigurer(IActionBarConfigurer actionBarConfigurer) {
         this.actionBarConfigurer = actionBarConfigurer;
     }
@@ -376,10 +374,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         introAction = ActionFactory.INTRO.create(window);
         // Help
         helpMenu.add(introAction);
+        helpMenu.add(new Separator());
         helpMenu.add(ActionFactory.HELP_CONTENTS.create(window));
-        IWorkbenchAction create = ActionFactory.ABOUT.create(window);
-        helpMenu.add(create);
-        helpMenu.add(new Separator(GROUP_HELP));
+        helpMenu.add(new Separator());
 
         menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
     }
