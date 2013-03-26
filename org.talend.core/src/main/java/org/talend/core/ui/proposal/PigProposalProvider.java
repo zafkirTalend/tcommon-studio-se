@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -108,6 +109,19 @@ public class PigProposalProvider extends TalendProposalProvider {
             }
         });
 
+        // set a default function avoid NPE
+        if (proposals.size() == 0) {
+            Function function = new Function();
+            function.setClassName("NONE");
+            function.setName("NONE");
+            function.setDescription(Messages.getString("PigProposalProvider.defaultUDFDescription"));
+            function.setCategory("Pig UDF");
+            function.setUserDefined(true);
+            TalendType talendType = new TalendType();
+            talendType.setName("id_String");
+            function.setTalendType(talendType);
+            proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
+        }
         IContentProposal[] res = new IContentProposal[proposals.size()];
         res = proposals.toArray(res);
         return res;
