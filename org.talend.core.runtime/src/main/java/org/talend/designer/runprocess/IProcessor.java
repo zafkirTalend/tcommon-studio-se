@@ -99,7 +99,9 @@ public interface IProcessor {
      * @param watchPort
      * @return The running process.
      * @throws ProcessorException Process failed.
+     * @deprecated please use the run with multiple option parameters
      */
+    @Deprecated
     public Process run(int statisticsPort, int tracePort, String watchParam) throws ProcessorException;
 
     /**
@@ -118,8 +120,15 @@ public interface IProcessor {
      * @param processMessageManager manager to add messages into console
      * @return
      * @throws ProcessorException
+     * @deprecated please use the run with multiple option parameters
      */
+    @Deprecated
     public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
+            IProcessMessageManager processMessageManager) throws ProcessorException;
+
+    public Process run(String[] optionsParam, int statisticsPort, int tracePort) throws ProcessorException;
+
+    public Process run(String[] optionsParam, int statisticsPort, int tracePort, IProgressMonitor monitor,
             IProcessMessageManager processMessageManager) throws ProcessorException;
 
     /**
