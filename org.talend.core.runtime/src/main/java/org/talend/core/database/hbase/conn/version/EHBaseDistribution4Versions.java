@@ -26,17 +26,17 @@ public enum EHBaseDistribution4Versions {
 
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 
-    APACHE_1_0_3(EHBaseDistributions.APACHE, "Apache 1.0.3", "APACHE_1_0_3"),
+    APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),
 
-    APACHE_2_20_203_EMR(EHBaseDistributions.APACHE, "Apache 0.20.203(EMR)", "APACHE_0_20_203_EMR"),
-
-    APACHE_0_20_204(EHBaseDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204"),
+    APACHE_0_20_203(EHBaseDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203"),
 
     CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3"),
 
     CLOUDERA_CDH4(EHBaseDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
 
-    MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2");
+    MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
+
+    CUSTOM(EHBaseDistributions.CUSTOM, "", "");
 
     private EHBaseDistributions distribution;
 

@@ -26,7 +26,11 @@ public enum EHBaseDistributions {
 
     MAPR("MapR"),
 
-    APACHE("Apache");
+    APACHE("Apache"),
+
+    AMAZON_EMR("AmazonEMR"),
+
+    CUSTOM("Custom");
 
     private String displayName;
 
