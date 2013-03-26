@@ -131,6 +131,8 @@ public abstract class RepositoryUpdateManager {
 
     private boolean isDetectAndUpdate = false;
 
+    private static boolean isAddColumn = false;
+
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             repistoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -1271,6 +1273,10 @@ public abstract class RepositoryUpdateManager {
                     manager.setDeletedOrReselectTablesMap(getDeletedOrReselectTablesMap());
                 }
                 manager.setFromRepository(true);
+                if (isAddColumn) {
+                    manager.setAddColumn(true);
+                    isAddColumn = false;
+                }
             }
             //
             for (EUpdateItemType type : types) {
@@ -1690,6 +1696,7 @@ public abstract class RepositoryUpdateManager {
                 List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connItem
                         .getConnection());
                 update = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
+                isAddColumn = isAddColumn(newMetadataTable, oldMetadataTable);
             }
         }
         /* if table has been deselect and select again,should propgate the update dialog */
@@ -1717,6 +1724,42 @@ public abstract class RepositoryUpdateManager {
         }
         return false;
 
+    }
+
+    private static boolean isAddColumn(IMetadataTable tableFromMetadata, IMetadataTable tableFromProcess) {
+        boolean isHaveAddColumn = false;
+        for (IMetadataColumn columnFromMetadata : tableFromMetadata.getListColumns(true)) {
+            boolean flag = false;
+            for (IMetadataColumn columnFromProcess : tableFromProcess.getListColumns(true)) {
+                if (columnFromMetadata.getLabel().equals(columnFromProcess.getLabel())) {
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                isHaveAddColumn = true;
+                break;
+            }
+        }
+        return isHaveAddColumn;
+    }
+
+    private static boolean isAddColumn(List<IMetadataTable> newTables, List<IMetadataTable> oldTables) {
+        Map<String, IMetadataTable> id2TableMap = new HashMap<String, IMetadataTable>();
+        for (IMetadataTable oldTable : oldTables) {
+            id2TableMap.put(oldTable.getId(), oldTable);
+        }
+
+        for (IMetadataTable newTable : newTables) {
+            IMetadataTable oldTable = id2TableMap.get(newTable.getId());
+            if (oldTable == null) {
+                return false;
+            } else {
+                if (isAddColumn(newTable, oldTable)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -38,6 +38,8 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
 
     private boolean fromRepository = false;
 
+    protected boolean isAddColumn = false;
+
     /**
      * ggu AbstractUpdateManager constructor comment.
      * 
@@ -150,6 +152,24 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
 
     public void setDeletedOrReselectTablesMap(Map<String, EUpdateResult> deletedOrReselectTablesMap) {
         this.deletedOrReselectTablesMap = deletedOrReselectTablesMap;
+    }
+
+    /**
+     * Getter for isAddColumn.
+     * 
+     * @return the isAddColumn
+     */
+    public boolean isAddColumn() {
+        return this.isAddColumn;
+    }
+
+    /**
+     * Sets the isAddColumn.
+     * 
+     * @param isAddColumn the isAddColumn to set
+     */
+    public void setAddColumn(boolean isAddColumn) {
+        this.isAddColumn = isAddColumn;
     }
 
 }
