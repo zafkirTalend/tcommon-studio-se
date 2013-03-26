@@ -25,7 +25,23 @@ package org.talend.core.database.conn;
 public class ConnParameterKeys {
 
     /**
-     * The key is used for Hive Mode to store its value.
+     * DB connection keys.
+     */
+    public static final String CONN_PARA_KEY_DB_TYPE = "CONN_PARA_KEY_DB_TYPE"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_DB_PRODUCT = "CONN_PARA_KEY_DB_PRODUCT"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_DB_PORT = "CONN_PARA_KEY_DB_PORT"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_DB_SERVER = "CONN_PARA_KEY_DB_SERVER"; //$NON-NLS-1$
+
+    /**
+     * Hadoop common keys
+     */
+    public static final String CONN_PARA_KEY_HADOOP_CLUSTER_ID = "CONN_PARA_KEY_HADOOP_CLUSTER_ID"; //$NON-NLS-1$
+
+    /**
+     * Hive keys.
      */
     public static final String CONN_PARA_KEY_HIVE_MODE = "CONN_PARA_KEY_HIVE_MODE"; //$NON-NLS-1$
 
@@ -62,7 +78,7 @@ public class ConnParameterKeys {
     public static final String CONN_PARA_KEY_METASTORE_PROT = "CONN_PARA_KEY_METASTORE_PROT"; //$NON-NLS-1$
 
     /**
-     * keys used for Hadoop settings.
+     * HBase keys.
      */
     public static final String CONN_PARA_KEY_HBASE_DISTRIBUTION = "CONN_PARA_KEY_HBASE_DISTRIBUTION"; //$NON-NLS-1$
 

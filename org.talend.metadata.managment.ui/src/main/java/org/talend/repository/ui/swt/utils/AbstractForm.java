@@ -257,6 +257,13 @@ public abstract class AbstractForm extends Composite {
     }
 
     /**
+     * DOC ycbai Comment method "updateSpecialFieldsState".
+     */
+    public void updateSpecialFieldsState() {
+        // do nothing by default.
+    }
+
+    /**
      * DOC ocarbone Comment method "adaptFormToReadOnly".
      */
     protected abstract void adaptFormToReadOnly();

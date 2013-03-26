@@ -19,9 +19,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -38,7 +41,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -52,6 +54,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -75,6 +78,7 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.custom.HadoopCustomVersionDefineDialog;
 import org.talend.core.hadoop.custom.HadoopVersionControlUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -93,13 +97,17 @@ import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
@@ -299,7 +307,7 @@ public class DatabaseForm extends AbstractForm {
 
     private Boolean originalIsNeedReload;
 
-    private Group hadoopLinkGroup;
+    private Composite hadoopLinkComp;
 
     private LabelledCombo hcPropertyTypeCombo;
 
@@ -346,6 +354,7 @@ public class DatabaseForm extends AbstractForm {
      */
     @Override
     public void initialize() {
+        initializeByConnectionParameters();
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
         if (template != null) {
             if (dbTypeCombo.getText().length() == 0 || !dbTypeCombo.getText().equals(template.getDbType().getDisplayName())) {
@@ -396,7 +405,48 @@ public class DatabaseForm extends AbstractForm {
         // Syntax (need by SQL Editor)
         getConnection().setSqlSynthax(Messages.getString("DatabaseForm.sqlSyntax")); //$NON-NLS-1$
         sqlSyntaxCombo.select(getSqlSyntaxIndex(getConnection().getSqlSynthax()));
+
+        if (isDBTypeSelected(EDatabaseConnTemplate.HBASE) || isDBTypeSelected(EDatabaseConnTemplate.HIVE)) {
+            initHadoopClusterSettings();
+        }
+
         updateStatus(IStatus.OK, ""); //$NON-NLS-1$
+    }
+
+    private void initHadoopClusterSettings() {
+        if (canLinkToHadoopCluster()) {
+            String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+            if (hcId != null) {
+                hcPropertyTypeCombo.select(1);
+            } else {
+                hcPropertyTypeCombo.select(0);
+            }
+            updateHCRelatedParts();
+        }
+    }
+
+    private void initializeByConnectionParameters() {
+        DatabaseConnection connection = getConnection();
+        EMap<String, String> parameters = connection.getParameters();
+        if (connection.getDatabaseType() == null) {
+            connection.setDatabaseType(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE));
+        }
+        if (connection.getProductId() == null) {
+            connection.setProductId(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_PRODUCT));
+        }
+        if (connection.getServerName() == null) {
+            connection.setServerName(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_SERVER));
+        }
+        if (connection.getPort() == null) {
+            connection.setPort(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_PORT));
+        }
+    }
+
+    @Override
+    public void updateSpecialFieldsState() {
+        if (canLinkToHadoopCluster()) {
+            adaptHadoopLinkedPartToReadOnly();
+        }
     }
 
     private void setSqlModelFields() {
@@ -660,10 +710,9 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void createHBaseSettingContents(Composite parent) {
-
-        // if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-        // createLinkGroup(parent);
-        // }
+        if (canLinkToHadoopCluster()) {
+            createHadoopLinkPart(parent);
+        }
 
         hbaseSettingGroup = Form.createGroup(parent, 4, Messages.getString("DatabaseForm.hbase.settings"), 60); //$NON-NLS-1$
         GridLayout parentLayout = (GridLayout) parent.getLayout();
@@ -683,23 +732,26 @@ public class DatabaseForm extends AbstractForm {
      * 
      * @param parent
      */
-    private void createLinkGroup(Composite parent) {
-        hadoopLinkGroup = Form.createGroup(parent, 5, "Hadoop Cluster", 60); //$NON-NLS-1$
+    private void createHadoopLinkPart(Composite parent) {
+        hadoopLinkComp = new Composite(parent, SWT.NONE);
+        hadoopLinkComp.setLayout(new GridLayout(5, false));
         GridLayout parentLayout = (GridLayout) parent.getLayout();
-        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hadoopLinkGroup);
-        String[] types = new String[] { "Built-In", "Repository" };
-        hcPropertyTypeCombo = new LabelledCombo(hadoopLinkGroup, "Property Type", "", types, 1, true);
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hadoopLinkComp);
+        String[] types = new String[] {
+                Messages.getString("DatabaseForm.hc.link.none"), Messages.getString("DatabaseForm.hc.link.repository") }; //$NON-NLS-1$ //$NON-NLS-2$
+        hcPropertyTypeCombo = new LabelledCombo(hadoopLinkComp,
+                Messages.getString("DatabaseForm.hc.link.title"), "", types, 1, true); //$NON-NLS-1$ //$NON-NLS-2$
+        hcPropertyTypeCombo.select(0);
         GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcPropertyTypeCombo.getCombo());
-        hcRepositoryText = new Text(hadoopLinkGroup, SWT.BORDER);
-        hcRepositoryText.setEnabled(false);
+        hcRepositoryText = new Text(hadoopLinkComp, SWT.BORDER);
+        hcRepositoryText.setEditable(false);
         GridDataFactory.fillDefaults().grab(true, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
                 .span(2, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcRepositoryText);
-        hcSelectBtn = new Button(hadoopLinkGroup, SWT.PUSH);
+        hcSelectBtn = new Button(hadoopLinkComp, SWT.PUSH);
         hcSelectBtn.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
         GridDataFactory.fillDefaults().grab(false, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
                 .align(SWT.BEGINNING, SWT.FILL).span(1, 1).applyTo(hcSelectBtn);
-        hcSelectBtn.setVisible(false);
-        hcRepositoryText.setVisible(false);
+        hideHCLinkSettings(true);
     }
 
     /**
@@ -710,38 +762,104 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                hcSelectBtn.setVisible(hcPropertyTypeCombo.getSelectionIndex() == 1);
-                hcRepositoryText.setVisible(hcPropertyTypeCombo.getSelectionIndex() == 1);
-                hbaseDistributionCombo.setEnabled(hcPropertyTypeCombo.getSelectionIndex() == 0);
-                hbaseVersionCombo.setEnabled(hcPropertyTypeCombo.getSelectionIndex() == 0);
-                // TODO Change property command
+                if (hcPropertyTypeCombo.getSelectionIndex() == 0) {
+                    updateHCRelatedParameters(null);
+                }
+                updateHCRelatedParts();
+                adaptHadoopLinkedPartToReadOnly();
             }
         });
 
-        hcSelectBtn.addSelectionListener(new SelectionListener() {
+        hcSelectBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                // RepositoryReviewDialog dialog = new RepositoryReviewDialog(new Shell(),
-                // ERepositoryObjectType.METADATA,
-                // "HADOOPCLUSTER");
-                // if (dialog.open() == RepositoryReviewDialog.OK) {
-                // // String id = dialog.getResult().getObject().getId();
-                // hcRepositoryText.setText(dialog.getResult().getObject().getLabel());
-                // // TODO Change property command
-                //
-                // }
-            }
-
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-
+                RepositoryNode node = CoreRuntimePlugin.getInstance().getRepositoryService()
+                        .getRepNodeFromRepReviewDialog(getShell(), ERepositoryObjectType.METADATA, "HADOOPCLUSTER"); //$NON-NLS-1$
+                if (node != null) {
+                    String id = node.getObject().getId();
+                    updateHCRelatedParameters(id);
+                    updateHCRelatedParts();
+                }
             }
         });
     }
 
+    private void adaptHadoopLinkedPartToReadOnly() {
+        boolean fromRepository = hcPropertyTypeCombo.getSelectionIndex() == 1;
+
+        hcSelectBtn.setVisible(fromRepository);
+        hcRepositoryText.setVisible(fromRepository);
+
+        dbTypeCombo.setReadOnly(fromRepository);
+
+        hbaseDistributionCombo.setReadOnly(fromRepository);
+        hbaseVersionCombo.setReadOnly(fromRepository);
+
+        distributionCombo.setReadOnly(fromRepository);
+        hiveVersionCombo.setReadOnly(fromRepository);
+        nameNodeURLTxt.setReadOnly(fromRepository);
+        jobTrackerURLTxt.setReadOnly(fromRepository);
+    }
+
+    private void updateHCRelatedParameters(String hcId) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            if (hcId == null) {
+                getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID, hcId);
+            } else {
+                Map<String, String> dbParameters = hadoopClusterService.getHadoopDbParameters(hcId);
+                EMap<String, String> connParameters = getConnection().getParameters();
+                Iterator<Entry<String, String>> iter = dbParameters.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry<String, String> entry = iter.next();
+                    connParameters.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+    }
+
+    private void clearHadoopRelatedParameters() {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            hadoopClusterService.removeHadoopDbParameters(getConnection());
+        }
+    }
+
+    private void updateHCRelatedParts() {
+        String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+        if (hcId != null) {
+            IRepositoryViewObject repObj = null;
+            try {
+                repObj = ProxyRepositoryFactory.getInstance().getLastVersion(hcId);
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+            if (repObj != null && repObj.getProperty() != null) {
+                hcRepositoryText.setText(repObj.getProperty().getLabel());
+            } else {
+                hcRepositoryText.setText(""); //$NON-NLS-1$
+            }
+        } else {
+            hcRepositoryText.setText(""); //$NON-NLS-1$
+        }
+        if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
+            initHBaseSettings();
+        }
+        if (isDBTypeSelected(EDatabaseConnTemplate.HIVE)) {
+            initHiveInfo();
+        }
+    }
+
     private void hideHBaseSettings(boolean hide) {
-        // hideHCLinkSettings(hide);
         GridData hadoopData = (GridData) hbaseSettingGroup.getLayoutData();
         hbaseSettingGroup.setVisible(!hide);
         hadoopData.exclude = hide;
@@ -750,11 +868,10 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void hideHCLinkSettings(boolean hide) {
-        GridData hadoopLinkData = (GridData) hadoopLinkGroup.getLayoutData();
-        hadoopLinkGroup.setVisible(!hide);
+        GridData hadoopLinkData = (GridData) hadoopLinkComp.getLayoutData();
+        hadoopLinkComp.setVisible(!hide);
         hadoopLinkData.exclude = hide;
         hcPropertyTypeCombo.setHideWidgets(hide);
-
     }
 
     private void initHBaseSettings() {
@@ -1864,6 +1981,10 @@ public class DatabaseForm extends AbstractForm {
                 } else {
                     checkScrolledCompositeSize();
                 }
+
+                if (!isDBTypeSelected(EDatabaseConnTemplate.HBASE) && !isDBTypeSelected(EDatabaseConnTemplate.HIVE)) {
+                    clearHadoopRelatedParameters();
+                }
             }
 
         });
@@ -1976,7 +2097,7 @@ public class DatabaseForm extends AbstractForm {
         // Registers all listeners of hive widgets.
         regHiveRelatedWidgetsListeners();
 
-        // addHadoopClusterLinkListeners();
+        addHadoopClusterLinkListeners();
     }
 
     private void checkScrolledCompositeSize() {
@@ -2771,6 +2892,9 @@ public class DatabaseForm extends AbstractForm {
                 serverText.setLabelText(Messages.getString("DatabaseForm.server"));
             }
             hideHBaseSettings(!isHbase);
+
+            hideHCLinkSettings(!isHbase && !isHiveDBConnSelected());
+
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
             boolean schemaTextIsShow = true;
@@ -3324,7 +3448,7 @@ public class DatabaseForm extends AbstractForm {
             updateHiveVersionAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion);
 
             currIndexofHiveMode = HiveConnUtils.getIndexOfHiveMode(distributionObj == null ? null : ((String) distributionObj),
-                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? null : ((String) hiveMode));
+                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? "EMBEDDED" : ((String) hiveMode)); //$NON-NLS-1$
             updateHiveModeAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion, currIndexofHiveMode);
 
             // MOD sizhaoliu TDQ-6288 call doHiveModeModify() only for existing hive connection, to avoid a metadata
@@ -4138,7 +4262,15 @@ public class DatabaseForm extends AbstractForm {
         return false;
     }
 
-    // private boolean
+    private boolean canLinkToHadoopCluster() {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+
+        return hadoopClusterService != null;
+    }
 
     /**
      * 

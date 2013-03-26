@@ -16,11 +16,15 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
@@ -42,6 +46,7 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -113,6 +118,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     private String originalSid;
 
     private String originalUiSchema;
+
+    private String originalHCId; // related hadoop cluster id.
 
     private boolean isToolBar;
 
@@ -250,8 +257,41 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 this.originalUiSchema = this.connection.getUiSchema();
             }
         }
+        originalHCId = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
+    }
+
+    /**
+     * DOC ycbai DatabaseWizard constructor comment.
+     * 
+     * <p>
+     * If you want to initialize connection before creation you can use this constructor.
+     * </p>
+     * 
+     * @param workbench
+     * @param creation
+     * @param node
+     * @param existingNames
+     * @param parameters initial values to initialize connection.
+     */
+    public DatabaseWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames,
+            Map<String, String> parameters) {
+        this(workbench, creation, node, existingNames);
+        initConnection(parameters);
+        originalHCId = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+    }
+
+    private void initConnection(Map<String, String> parameters) {
+        if (parameters == null || parameters.size() == 0) {
+            return;
+        }
+        EMap<String, String> connParameters = connection.getParameters();
+        Iterator<Entry<String, String>> iter = parameters.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, String> entry = iter.next();
+            connParameters.put(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
@@ -505,9 +545,27 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 }
             }
 
+            refreshHadoopCluster();
+
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void refreshHadoopCluster() {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            String hcId = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+            if (hcId != null) {
+                hadoopClusterService.refreshCluster(hcId);
+            } else if (originalHCId != null) {
+                hadoopClusterService.refreshCluster(originalHCId);
+            }
         }
     }
 

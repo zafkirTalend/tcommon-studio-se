@@ -62,6 +62,7 @@ public class DatabaseWizardPage extends WizardPage {
         }
         databaseForm = new DatabaseForm(parent, connectionItem, existingNames, isCreation);
         databaseForm.setReadOnly(!isRepositoryObjectEditable);
+        databaseForm.updateSpecialFieldsState();
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 

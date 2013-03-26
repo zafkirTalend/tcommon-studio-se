@@ -13,12 +13,14 @@
 package org.talend.core.hadoop;
 
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * created by ycbai on 2013-1-28 Detailled comment
@@ -54,7 +56,7 @@ public interface IHadoopClusterService extends IService {
      * @param node
      * @return
      */
-    public boolean isHadoopClusterNode(RepositoryNode node);
+    public boolean isHadoopClusterNode(IRepositoryNode node);
 
     /**
      * DOC ycbai Comment method "isHadoopSubnode".
@@ -64,7 +66,18 @@ public interface IHadoopClusterService extends IService {
      * @param node
      * @return
      */
-    public boolean isHadoopSubnode(RepositoryNode node);
+    public boolean isHadoopSubnode(IRepositoryNode node);
+
+    /**
+     * 
+     * DOC ycbai Comment method "isHadoopFolderNode".
+     * 
+     * Estimate whether or not the node is a folder node of a hadoop cluster.
+     * 
+     * @param node
+     * @return
+     */
+    public boolean isHadoopFolderNode(IRepositoryNode node);
 
     /**
      * DOC ycbai Comment method "isHadoopClusterItem".
@@ -105,5 +118,26 @@ public interface IHadoopClusterService extends IService {
      * @return
      */
     public List<String> getSubitemIdsOfHadoopCluster(Item item);
+
+    /**
+     * DOC ycbai Comment method "refreshCluster".
+     * 
+     * Refresh this Hadoop Cluster.
+     * 
+     * @param clusterId
+     */
+    public void refreshCluster(String clusterId);
+
+    /**
+     * DOC ycbai Comment method "getHadoopDbParameters".
+     * 
+     * Get db connection(like hbase, hive) parameters by hadoop cluster.
+     * 
+     * @param clusterId
+     * @return
+     */
+    public Map<String, String> getHadoopDbParameters(String clusterId);
+
+    public void removeHadoopDbParameters(DatabaseConnection connection);
 
 }

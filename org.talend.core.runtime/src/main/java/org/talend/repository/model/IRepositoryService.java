@@ -133,4 +133,6 @@ public interface IRepositoryService extends IService {
 
     public String exportPigudf(IProcessor processor, Property property, boolean isExport) throws ProcessorException;
 
+    public RepositoryNode getRepNodeFromRepReviewDialog(Shell parentShell, ERepositoryObjectType type, String repositoryType);
+
 }
