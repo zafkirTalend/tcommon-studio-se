@@ -22,9 +22,13 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
  */
 public class DbConnStrForHive extends DbConnStr {
 
-    public static final String URL_TEMPLATE_FOR_HIVE = "jdbc:hive://<host>:<port>/<sid>";
+    private static final String URL_HIVE_1_STANDALONE = "jdbc:hive://<host>:<port>/<sid>"; //$NON-NLS-1$
 
-    public static final String URL_TEMPLATE_FOR_HIVE_EMBEDDED = "jdbc:hive://";
+    private static final String URL_HIVE_1_EMBEDDED = "jdbc:hive://";//$NON-NLS-1$
+
+    private static final String URL_HIVE_2_STANDALONE = "jdbc:hive2://<host>:<port>/<sid>";//$NON-NLS-1$
+
+    private static final String URL_HIVE_2_EMBEDDED = "jdbc:hive2://";//$NON-NLS-1$
 
     /**
      * DOC Marvin DbConnStrForHive constructor comment.
@@ -40,16 +44,35 @@ public class DbConnStrForHive extends DbConnStr {
         super(dbType, urlTemplate);
     }
 
+    @Override
     String getUrlTemplate(EDatabaseVersion4Drivers version) {
-        if (version == EDatabaseVersion4Drivers.HIVE_EMBEDDED)
-            return URL_TEMPLATE_FOR_HIVE_EMBEDDED;
-        return super.getUrlTemplate(version);
+        switch (version) {
+        case HIVE:
+            return URL_HIVE_1_STANDALONE;
+        case HIVE_EMBEDDED:
+            return URL_HIVE_1_EMBEDDED;
+        case HIVE_2_EMBEDDED:
+            return URL_HIVE_2_EMBEDDED;
+        case HIVE_2_STANDALONE:
+            return URL_HIVE_2_STANDALONE;
+        default:
+            return super.getUrlTemplate(version);
+        }
     }
 
+    @Override
     String getUrlPattern(EDatabaseVersion4Drivers version) {
-        if (version == EDatabaseVersion4Drivers.HIVE_EMBEDDED) {
-            return calcPattern(URL_TEMPLATE_FOR_HIVE_EMBEDDED);
+        switch (version) {
+        case HIVE:
+            return calcPattern(URL_HIVE_1_STANDALONE);
+        case HIVE_EMBEDDED:
+            return calcPattern(URL_HIVE_1_EMBEDDED);
+        case HIVE_2_EMBEDDED:
+            return calcPattern(URL_HIVE_2_EMBEDDED);
+        case HIVE_2_STANDALONE:
+            return calcPattern(URL_HIVE_2_STANDALONE);
+        default:
+            return super.getUrlPattern(version);
         }
-        return super.getUrlPattern(version);
     }
 }

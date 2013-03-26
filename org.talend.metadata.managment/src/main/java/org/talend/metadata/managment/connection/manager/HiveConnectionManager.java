@@ -84,11 +84,60 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     public Driver getDriver(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException {
         ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-        Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
-        return (Driver) driver.newInstance();
+        String connURL = metadataConn.getUrl();
+        Driver driver = null;
+        if (connURL != null) {
+            if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
+                Class<?> driverClass = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
+                driver = (Driver) driverClass.newInstance();
+            } else if (connURL.startsWith(DatabaseConnConstants.HIVE_1_URL_FORMAT)) {
+                Class<?> driverClass = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
+                driver = (Driver) driverClass.newInstance();
+            } else {
+                // Create a default hive connection.
+            }
+        }
+        return driver;
     }
 
     private Connection createHiveStandloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
+        Connection hiveStandaloneConn = null;
+        String connURL = metadataConn.getUrl();
+        if (connURL != null) {
+            if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
+                hiveStandaloneConn = createHive2StandaloneConnection(metadataConn);
+            } else if (connURL.startsWith(DatabaseConnConstants.HIVE_1_URL_FORMAT)) {
+                hiveStandaloneConn = createHive1StandaloneConnection(metadataConn);
+            } else {
+                // Create a default hive connection.
+            }
+        }
+        return hiveStandaloneConn;
+    }
+
+    private Connection createHive2StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
+        String connURL = metadataConn.getUrl();
+        String username = metadataConn.getUsername();
+        String password = metadataConn.getPassword();
+
+        // 1. Get class loader.
+        ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+
+        // 2. Fetch the HiveDriver from the new classloader
+        Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
+        Driver hiveDriver = (Driver) driver.newInstance();
+
+        // 3. Try to connect by driver
+        Properties info = new Properties();
+
+        username = username != null ? username : ""; //$NON-NLS-1$
+        password = password != null ? password : "";//$NON-NLS-1$
+        return hiveDriver.connect(connURL, info);
+    }
+
+    private Connection createHive1StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
         String connURL = metadataConn.getUrl();
         String username = metadataConn.getUsername();
@@ -115,16 +164,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         String username = metadataConn.getUsername();
         String password = metadataConn.getPassword();
 
-        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
-
-        // 1. Get class loader.
-        ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-        Thread.currentThread().setContextClassLoader(hiveClassLoader);
-        // 2. Fetch the HiveDriver from the new classloader
-        Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
-        Driver hiveDriver = (Driver) driver.newInstance();
-
-        // 3. Try to connect by driver
+        // 1. Try to connect by driver
         Properties info = new Properties();
 
         username = username != null ? username : ""; //$NON-NLS-1$
@@ -133,14 +173,28 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         info.setProperty("password", password);//$NON-NLS-1$
         JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConn.getCurrentConnection());
 
-        // System.setProperty("javax.jdo.PersistenceManagerFactoryClass",
-        // "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
-        // ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        //        ReflectionUtils.setStaticFieldValue("org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler", classLoader, //$NON-NLS-1$
-        //                "createDefaultDB", false); //$NON-NLS-1$
+        // 2. Get class loader.
+        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
+        ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+        Thread.currentThread().setContextClassLoader(hiveClassLoader);
+
+        // 3. Fetch the HiveDriver from the new classloader
+        Driver hiveDriver = null;
         Connection conn = null;
         try {
-            conn = hiveDriver.connect(connURL, info);
+            if (connURL != null) {
+                if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
+                    Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
+                    hiveDriver = (Driver) driver.newInstance();
+                    conn = hiveDriver.connect(connURL, info);
+                } else if (connURL.startsWith(DatabaseConnConstants.HIVE_1_URL_FORMAT)) {
+                    Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
+                    hiveDriver = (Driver) driver.newInstance();
+                    conn = hiveDriver.connect(connURL, info);
+                } else {
+                    // Create a default hive connection.
+                }
+            }
         } catch (SQLException e) {
             CommonExceptionHandler.process(e);
         } finally {

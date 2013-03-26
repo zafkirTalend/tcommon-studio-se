@@ -49,6 +49,8 @@ public class ConnParameterKeys {
 
     public static final String CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME = "CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME"; //$NON-NLS-1$
 
+    public static final String HIVE_SERVER_VERSION = "HIVE_SERVER_VERSION";//$NON-NLS-1$
+
     /**
      * The key is for metastore server.
      */

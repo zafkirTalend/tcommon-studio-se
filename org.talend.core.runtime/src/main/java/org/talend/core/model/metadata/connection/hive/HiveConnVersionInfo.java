@@ -39,9 +39,11 @@ public enum HiveConnVersionInfo {
 
     AMAZON_EMR(0, "AMAZON_EMR", "AMAZON_EMR"), //$NON-NLS-1$//$NON-NLS-2$
 
+    DISTRO_CUSTOM(0, "DISTRO_CUSTOM", "CUSTOM"), //$NON-NLS-1$//$NON-NLS-2$
+
     HDP_1_0(1, "HDP_1_0", "HDP 1.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_2(1, "HDP_1_2", "HDP 1.2", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(1, "HDP_1_2", "HDP 1.2", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -59,6 +61,8 @@ public enum HiveConnVersionInfo {
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "APACHE_1_0_3_EMR", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
+    DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
+
     MODE_EMBEDDED(2, "EMBEDDED",//$NON-NLS-1$
                   "Embedded",//$NON-NLS-1$
                   HiveConnVersionInfo.HDP_1_0,
@@ -66,7 +70,8 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.MAPR2,
-                  HiveConnVersionInfo.APACHE_1_0_3_EMR),
+                  HiveConnVersionInfo.APACHE_1_0_3_EMR,
+                  HiveConnVersionInfo.DISTRO_VERSION_CUSTOM),
 
     MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
                     "Standalone",//$NON-NLS-1$
@@ -77,7 +82,8 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
                     HiveConnVersionInfo.MapR_EMR,
-                    HiveConnVersionInfo.APACHE_1_0_3_EMR);
+                    HiveConnVersionInfo.APACHE_1_0_3_EMR,
+                    HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
 
     private int level;
 
@@ -85,10 +91,20 @@ public enum HiveConnVersionInfo {
 
     private HiveConnVersionInfo[] follows;// That stores all are followed by the current object.
 
+    private boolean isSupportHive2 = false; // Till now only MapR2, CDH4, and HDP1.2 support hive server2.
+
     private HiveConnVersionInfo(int level, String key, String displayName, HiveConnVersionInfo... follows) {
         this.level = level;
         this.key = key;
         this.displayName = displayName;
+        this.follows = follows;
+    }
+
+    private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, HiveConnVersionInfo... follows) {
+        this.level = level;
+        this.key = key;
+        this.displayName = displayName;
+        this.isSupportHive2 = isSupportHive2;
         this.follows = follows;
     }
 
@@ -106,6 +122,15 @@ public enum HiveConnVersionInfo {
 
     public HiveConnVersionInfo[] getFollows() {
         return this.follows;
+    }
+
+    /**
+     * Getter for isSupportHive2.
+     * 
+     * @return the isSupportHive2
+     */
+    public boolean isSupportHive2() {
+        return this.isSupportHive2;
     }
 
 }

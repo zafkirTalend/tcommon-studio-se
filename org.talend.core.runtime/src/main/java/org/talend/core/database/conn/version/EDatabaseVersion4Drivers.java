@@ -100,6 +100,10 @@ public enum EDatabaseVersion4Drivers {
     // "hadoop-core-1.0.0.jar", "commons-logging-1.0.4.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar",
     // "slf4j-log4j12-1.6.1.jar" })),
 
+    HIVE_2_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] {})),
+
+    HIVE_2_STANDALONE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] {})),
+
     HIVE(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "STANDALONE", "STANDALONE", new String[] { "hive-jdbc-0.9.0.jar",
             "hive-metastore-0.9.0.jar", "hive-exec-0.9.0.jar", "hive-service-0.9.0.jar", "libfb303-0.7.0.jar",
             "hadoop-core-1.0.3.jar", "commons-logging-1.0.4.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",

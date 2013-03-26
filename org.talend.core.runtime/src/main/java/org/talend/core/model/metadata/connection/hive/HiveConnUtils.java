@@ -375,4 +375,32 @@ public class HiveConnUtils {
         return null;
     }
 
+    /**
+     * Checkes if the selected distro version supports hive server2. Added by Marvin Wang on Mar 25, 2013.
+     * 
+     * @param distributionIndex
+     * @param hiveVersionIndex
+     * @return
+     */
+    public static boolean isSupportHiveServer2(int distributionIndex, int hiveVersionIndex) {
+        HiveConnVersionInfo distroVersion = getHiveVersionObj(distributionIndex, hiveVersionIndex);
+        return distroVersion.isSupportHive2();
+    }
+
+    /**
+     * Checks if the current distro is {@link HiveConnVersionInfo#CUSTOM}. If yes, then return <code>true</code> Added
+     * by Marvin Wang on Mar 26, 2013.
+     * 
+     * @param distributionIndex
+     * @return
+     */
+    public static boolean isCustomDistro(int distributionIndex) {
+        HiveConnVersionInfo obj = getDistributionObj(distributionIndex);
+        if (HiveConnVersionInfo.DISTRO_CUSTOM == obj) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -109,7 +109,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:teradata://<host>/<sid>,<property>")), //$NON-NLS-1$ //feature 0013719,hywang
 
     EXASOL(new DbConnStr(EDatabaseTypeName.EXASOL, //
-            "jdbc:exa:<host>:<port>:schema=<sid>", "8563")), //$NON-NLS-1$
+            "jdbc:exa:<host>:<port>:schema=<sid>", "8563")), //$NON-NLS-1$ //$NON-NLS-2$
 
     AS400(new DbConnStr(EDatabaseTypeName.AS400, //
             "jdbc:as400://<host>/<sid>;libraries=<sid>;<property>", //$NON-NLS-1$
@@ -164,10 +164,19 @@ public enum EDatabaseConnTemplate {
             "xxxx")), //$NON-NLS-1$
 
     HIVE(new DbConnStrForHive(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>",//$NON-NLS-1$
-            new EDatabaseVersion4Drivers[] { EDatabaseVersion4Drivers.HIVE, EDatabaseVersion4Drivers.HIVE_EMBEDDED })),
+            new EDatabaseVersion4Drivers[] { EDatabaseVersion4Drivers.HIVE, EDatabaseVersion4Drivers.HIVE_EMBEDDED,
+                    EDatabaseVersion4Drivers.HIVE_2_STANDALONE, EDatabaseVersion4Drivers.HIVE_2_EMBEDDED })),
+
+    //    HIVE1_EMBEDDED(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive://")), //$NON-NLS-1$
+    //
+    //    HIVE1_STANDALONE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive://<host>:<port>/<sid>")), //$NON-NLS-1$
+    //
+    //    HIVE2_EMBEDDED(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive2://")), //$NON-NLS-1$
+    //
+    //    HIVE2_STANDALONE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive2://<host>:<port>/<sid>")), //$NON-NLS-1$
 
     HBASE(new DbConnStr(EDatabaseTypeName.HBASE, "127.0.0.1", //$NON-NLS-1$
-            "2181"));
+            "2181")); //$NON-NLS-1$
 
     private DbConnStr connStr;
 

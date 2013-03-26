@@ -156,6 +156,52 @@ public class DatabaseConnStrUtil {
         return string;
     }
 
+    public static String getHive1EmbeddedURLString(DatabaseConnection dbConn, boolean supportContext) {
+        return EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_EMBEDDED);
+    }
+
+    public static String getHive2EmbeddedURLString(DatabaseConnection dbConn, boolean supportContext) {
+        return EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_EMBEDDED);
+    }
+
+    public static String getHive1StandaloneURLString(DatabaseConnection dbConn, boolean supportContext) {
+        String s = EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE);
+        if (s != null) {
+            if (supportContext) { // if context mode, should quote the original "connStr".
+                s = TalendQuoteUtils.addQuotes(s);
+            }
+            s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), dbConn.getUsername(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), dbConn.getPassword(), supportContext, true);
+            s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), dbConn.getServerName(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), dbConn.getPort(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), dbConn.getSID(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), dbConn.getSID(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), dbConn.getDatasourceName(), supportContext);
+            // PTODO OCA : if needed, adapt the file separator to all OS (not only backslashes)
+            s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), dbConn.getFileFieldName(), supportContext);
+        }
+        return s;
+    }
+
+    public static String getHive2StandaloneURLString(DatabaseConnection dbConn, boolean supportContext) {
+        String s = EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_STANDALONE);
+        if (s != null) {
+            if (supportContext) { // if context mode, should quote the original "connStr".
+                s = TalendQuoteUtils.addQuotes(s);
+            }
+            s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), dbConn.getUsername(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), dbConn.getPassword(), supportContext, true);
+            s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), dbConn.getServerName(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), dbConn.getPort(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), dbConn.getSID(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), dbConn.getSID(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), dbConn.getDatasourceName(), supportContext);
+            // PTODO OCA : if needed, adapt the file separator to all OS (not only backslashes)
+            s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), dbConn.getFileFieldName(), supportContext);
+        }
+        return s;
+    }
+
     public static String getURLString(DatabaseConnection conn) {
         // mzhao 2012-06-25 bug TDI-21552 , context url of generic JDBC cannot be replanced correctly, here
         // just return the origin url.
