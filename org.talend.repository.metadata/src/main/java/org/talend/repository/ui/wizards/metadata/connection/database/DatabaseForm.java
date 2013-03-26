@@ -48,7 +48,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -90,7 +89,6 @@ import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataPro
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
@@ -98,7 +96,6 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.dialog.RepositoryReviewDialog;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
@@ -710,14 +707,15 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                RepositoryReviewDialog dialog = new RepositoryReviewDialog(new Shell(), ERepositoryObjectType.METADATA,
-                        "HADOOPCLUSTER");
-                if (dialog.open() == RepositoryReviewDialog.OK) {
-                    // String id = dialog.getResult().getObject().getId();
-                    hcRepositoryText.setText(dialog.getResult().getObject().getLabel());
-                    // TODO Change property command
-
-                }
+                // RepositoryReviewDialog dialog = new RepositoryReviewDialog(new Shell(),
+                // ERepositoryObjectType.METADATA,
+                // "HADOOPCLUSTER");
+                // if (dialog.open() == RepositoryReviewDialog.OK) {
+                // // String id = dialog.getResult().getObject().getId();
+                // hcRepositoryText.setText(dialog.getResult().getObject().getLabel());
+                // // TODO Change property command
+                //
+                // }
             }
 
             @Override
