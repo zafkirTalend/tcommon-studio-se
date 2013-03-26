@@ -17,10 +17,10 @@ package org.talend.designer.codegen;
  * 
  */
 public enum PigTemplate {
-    EVALFUNC("Eval", "__PIGUDF_EVALFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
-    FILTERFUNC("Filter", "__PIGUDF_FILTERFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
-    STOREFUNC("Store", "__PIGUDF_STOREFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
-    LOADFUNC("Load", "__PIGUDF_LOADFUNC__");//$NON-NLS-1$ //$NON-NLS-2$
+    EVALFUNC("Eval Function", "__PIGUDF_EVALFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
+    STOREFUNC("Store Function", "__PIGUDF_STOREFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
+    LOADFUNC("Load Function", "__PIGUDF_LOADFUNC__"), //$NON-NLS-1$ //$NON-NLS-2$
+    FILTERFUNC("Filter Function", "__PIGUDF_FILTERFUNC__"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String displayName;
 
