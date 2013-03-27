@@ -126,6 +126,10 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     // Added 20120503 yyin TDQ-4959
     private RepositoryNode node;
 
+    private IProxyRepositoryFactory repFactory;
+
+    private String propertyId;
+
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
@@ -138,6 +142,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         this.selection = selection;
         this.existingNames = existingNames;
         setNeedsProgressMonitor(true);
+
         // RepositoryNode node = null;
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj instanceof RepositoryNode) {
@@ -175,6 +180,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             connection = (DatabaseConnection) ((ConnectionItem) node.getObject().getProperty().getItem()).getConnection();
             connectionProperty = node.getObject().getProperty();
             connectionItem = (ConnectionItem) node.getObject().getProperty().getItem();
+            propertyId = connectionProperty.getId();
             // set the repositoryObject, lock and set isRepositoryObjectEditable
             setRepositoryObject(node.getObject());
             isRepositoryObjectEditable();
@@ -193,6 +199,15 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 this.originalUiSchema = this.connection.getUiSchema();
             }
         }
+
+        repFactory = ProxyRepositoryFactory.getInstance();
+        if (creation) {
+            propertyId = repFactory.getNextId();
+        } else {
+            propertyId = connectionProperty.getId();
+        }
+        connection.setId(propertyId);
+
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
     }
@@ -258,6 +273,15 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         }
         originalHCId = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+
+        repFactory = ProxyRepositoryFactory.getInstance();
+        if (creation) {
+            propertyId = repFactory.getNextId();
+        } else {
+            propertyId = connectionProperty.getId();
+        }
+        connection.setId(propertyId);
+
         // initialize the context mode
         ConnectionContextHelper.checkContextMode(connectionItem);
     }
@@ -375,7 +399,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             } else {
                 metadataConnection = ConvertionHelper.convert(connection, false, contextName);
             }
-            final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
             ITDQRepositoryService tdqRepService = null;
 
@@ -386,8 +409,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
             try {
                 if (creation) {
-                    String nextId = factory.getNextId();
-                    connectionProperty.setId(nextId);
+                    connectionProperty.setId(propertyId);
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
                         final boolean equals = c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
@@ -411,7 +433,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     if (tdqRepService != null) {
                         tdqRepService.checkUsernameBeforeSaveConnection(connectionItem);
                     }
-                    factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+                    repFactory.create(connectionItem, propertiesWizardPage.getDestinationPath());
 
                     // MOD yyi 2011-04-14:20362 reload connection
                     ConnectionHelper.setIsConnNeedReload(connection, Boolean.FALSE);
@@ -433,7 +455,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .getDbType());
                         if (extractor != null && type.isUseProvider()) {
                             extractor.fillConnection(connection);
-                            factory.save(connectionItem);
+                            repFactory.save(connectionItem);
                         }
                     }
                 } else {

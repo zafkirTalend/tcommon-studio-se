@@ -91,7 +91,7 @@ public class HiveClassLoaderFactory {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnUtils.isCustomDistro(distroKey)) {
             String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
-            String index = "HIVE" + metadataConn.getId(); //$NON-NLS-1$
+            String index = "HadoopCustomVersion:Hive:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
             String index = "HIVE" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
@@ -121,7 +121,7 @@ public class HiveClassLoaderFactory {
 
         if (HiveConnUtils.isCustomDistro(distroKey)) {
             String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
-            String index = "HIVE2" + metadataConn.getId(); //$NON-NLS-1$
+            String index = "HadoopCustomVersion:Hive2:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
             String index = "HIVE2" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 

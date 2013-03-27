@@ -1385,7 +1385,11 @@ public class DatabaseForm extends AbstractForm {
         managerConnection.setValueProperties(sqlSyntaxCombo.getItem(sqlSyntaxCombo.getSelectionIndex()),
                 stringQuoteText.getText(), nullCharText.getText());
 
-        if (isHiveDBConnSelected()) {
+        EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
+        if (dbType.isUseProvider()) {
+            IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            databaseSettingIsValide = managerConnection.check(metadataConn);
+        } else if (isHiveDBConnSelected()) {
             IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
             databaseSettingIsValide = managerConnection.checkHiveConnection(metadataConn);
         } else {

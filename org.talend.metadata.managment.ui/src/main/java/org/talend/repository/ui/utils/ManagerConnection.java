@@ -261,25 +261,15 @@ public class ManagerConnection {
         ConnectionStatus testConnection = null;
         try {
             EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(dbTypeString);
-            /* use provider for the databse didn't use JDBC,for example: HBase */
-            if (type.isUseProvider()) {
-                IDBMetadataProvider extractorToUse = ExtractMetaDataFromDataBase.getProviderByDbType(dbTypeString);
-                if (extractorToUse != null) {
-                    testConnection = extractorToUse.testConnection(dbTypeString, urlConnectionString, username, password,
-                            schemaOracle, server, port, driverClassName, driverJarPath, dbVersionString, additionalParams,
-                            otherParameters);
-                }
-            } else {
-                // MOD xqliu 2012-01-05 TDQ-4162
-                // get the real schema name
-                String schemaName = schemaOracle;
-                if (EDatabaseTypeName.TERADATA.equals(type)) {
-                    schemaName = sidOrDatabase;
-                }
-                // test the connection
-                testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username,
-                        password, schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
+            // MOD xqliu 2012-01-05 TDQ-4162
+            // get the real schema name
+            String schemaName = schemaOracle;
+            if (EDatabaseTypeName.TERADATA.equals(type)) {
+                schemaName = sidOrDatabase;
             }
+            // test the connection
+            testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username, password,
+                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
         } catch (Exception e) {
@@ -319,12 +309,7 @@ public class ManagerConnection {
                 IDBMetadataProvider extractorToUse = ExtractMetaDataFromDataBase.getProviderByDbType(metadataConnection
                         .getDbType());
                 if (extractorToUse != null) {
-                    testConnection = extractorToUse.testConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
-                            metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getSchema(),
-                            metadataConnection.getServerName(), metadataConnection.getPort(),
-                            metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
-                            metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams(),
-                            metadataConnection.getOtherParameters());
+                    testConnection = extractorToUse.testConnection(metadataConnection);
                 }
             } else {
                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
