@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.metadata.managment.hive;
 
-import java.util.Set;
-
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
@@ -92,9 +90,9 @@ public class HiveClassLoaderFactory {
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnUtils.isCustomDistro(distroKey)) {
-            Set<String> jarsSet = (Set<String>) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
+            String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
             String index = "HIVE" + metadataConn.getId(); //$NON-NLS-1$
-            loader = ClassLoaderFactory.getCustomClassLoader(index, jarsSet);
+            loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
             String index = "HIVE" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
             loader = ClassLoaderFactory.getClassLoader(index);
@@ -122,9 +120,9 @@ public class HiveClassLoaderFactory {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
 
         if (HiveConnUtils.isCustomDistro(distroKey)) {
-            Set<String> jarsSet = (Set<String>) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
+            String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
             String index = "HIVE2" + metadataConn.getId(); //$NON-NLS-1$
-            loader = ClassLoaderFactory.getCustomClassLoader(index, jarsSet);
+            loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
             String index = "HIVE2" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
             loader = ClassLoaderFactory.getClassLoader(index);
