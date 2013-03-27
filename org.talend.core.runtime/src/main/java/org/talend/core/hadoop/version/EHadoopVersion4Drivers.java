@@ -39,7 +39,7 @@ public enum EHadoopVersion4Drivers {
     APACHE_0_20_2(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", new String[] {
             "hadoop-0.20.2-core.jar", "commons-logging-1.0.4.jar" })),
 
-    CLOUDERA_0_20_CDH3U1(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera 0.20 CDH3U1", "Cloudera_0.20_CDH3U1",
+    CLOUDERA_0_20_CDH3U1(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera 0.20 CDH3U1", "Cloudera_0_20_CDH3U1",
             new String[] { "hadoop-0.20.2-cdh3u1-core.jar", "commons-logging-1.0.4.jar" })),
 
     CLOUDERA_CDH4(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", new String[] {
