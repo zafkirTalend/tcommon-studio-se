@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.hadoop.version.custom;
 
-import java.util.Collection;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,8 +23,11 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -51,9 +54,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
@@ -95,7 +100,11 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
 
     private Button importLibBtn;
 
+    private Button exportLibBtn;
+
     private TableViewerComparator viewerComparator;
+
+    private HadoopCustomLibrariesUtil customLibUtil;
 
     /**
      * DOC ycbai HadoopCustomVersionDefineDialog constructor comment.
@@ -128,6 +137,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     public HadoopCustomVersionDefineDialog(Shell parentShell, Map<String, Set<String>> currentLibMap) {
         super(parentShell);
         this.currentLibMap = currentLibMap;
+        customLibUtil = new HadoopCustomLibrariesUtil();
     }
 
     @Override
@@ -241,19 +251,22 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     }
 
     private void createTabItems(Control control) {
+        for (ECustomVersionType type : getTypes()) {
+            createTabItem(type, control);
+        }
+    }
+
+    public ECustomVersionType[] getTypes() {
         ECustomVersionType[] types = getDisplayTypes();
         if (types == null) {
-            return;
+            return null;
         }
 
         if (ArrayUtils.contains(types, ECustomVersionType.ALL)) {
             types = ECustomVersionType.values();
             types = (ECustomVersionType[]) ArrayUtils.remove(types, ArrayUtils.indexOf(types, ECustomVersionType.ALL));
         }
-
-        for (ECustomVersionType type : types) {
-            createTabItem(type, control);
-        }
+        return types;
     }
 
     private CTabItem createTabItem(ECustomVersionType type, Control ctl) {
@@ -307,6 +320,10 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
             importLibBtn = new Button(btnComposite, SWT.NONE);
             importLibBtn.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
             importLibBtn.setToolTipText(Messages.getString("HadoopCustomVersionDialog.btn.importLibBtn.tooltip")); //$NON-NLS-1$
+
+            exportLibBtn = new Button(btnComposite, SWT.NONE);
+            exportLibBtn.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
+            exportLibBtn.setToolTipText(Messages.getString("HadoopCustomVersionDialog.btn.exportLibBtn.tooltip")); //$NON-NLS-1$
         }
     }
 
@@ -341,6 +358,39 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
                 }
             });
         }
+        if (exportLibBtn != null) {
+            exportLibBtn.addSelectionListener(new SelectionAdapter() {
+
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    doExportLibs();
+                }
+            });
+        }
+    }
+
+    private void doExportLibs() {
+        FileDialog dialog = new FileDialog(getParentShell(), SWT.SAVE);
+        dialog.setFilterExtensions(HadoopCustomLibrariesUtil.FILE__MASK);
+        dialog.setText("Export to Archive File");
+
+        final String selectedArchive = dialog.open();
+        if (selectedArchive != null) {
+            IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+                @Override
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    customLibUtil.exportLibZipFile(selectedArchive, libMap);
+                }
+            };
+            try {
+                new ProgressMonitorDialog(getShell()).run(true, true, iRunnableWithProgress);
+            } catch (InvocationTargetException e) {
+                ExceptionHandler.process(e);
+            } catch (InterruptedException e) {
+                ExceptionHandler.process(e);
+            }
+        }
     }
 
     private void init() {
@@ -352,7 +402,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
                 if (set == null) {
                     set = new HashSet<String>();
                 }
-                libMap.put(group.getName(), convertToLibraryFile(set));
+                libMap.put(group.getName(), customLibUtil.convertToLibraryFile(set));
             }
         }
         ECustomVersionGroup selectedType = getSelectedType();
@@ -360,43 +410,6 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
             selectLibFileSet = libMap.get(selectedType.getName());
             viewer.setInput(selectLibFileSet);
         }
-    }
-
-    private Set<LibraryFile> convertToLibraryFile(Collection<String> libNameSet) {
-        Set<LibraryFile> libraryFiles = new HashSet<LibraryFile>();
-        for (String libName : libNameSet) {
-            libraryFiles.add(convertToLibraryFile(libName));
-        }
-
-        return libraryFiles;
-    }
-
-    private Set<LibraryFile> convertToLibraryFile(Object[] libNameArray) {
-        Set<LibraryFile> libraryFiles = new HashSet<LibraryFile>();
-        for (Object obj : libNameArray) {
-            if (obj instanceof String) {
-                libraryFiles.add(convertToLibraryFile((String) obj));
-            }
-        }
-
-        return libraryFiles;
-    }
-
-    private LibraryFile convertToLibraryFile(String libName) {
-        LibraryFile libraryFile = new LibraryFile();
-        libraryFile.setName(libName);
-        libraryFile.setDesc(libsManager.getLibDescription(libName));
-
-        return libraryFile;
-    }
-
-    private Set<String> convertToLibName(Set<LibraryFile> LibraryFileSet) {
-        Set<String> libNames = new HashSet<String>();
-        for (LibraryFile libraryFile : LibraryFileSet) {
-            libNames.add(libraryFile.getName());
-        }
-
-        return libNames;
     }
 
     private boolean isSupportHadoop() {
@@ -427,7 +440,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         selectDialog.setDeployNonexistentLibs(true);
         if (selectDialog.open() == Window.OK) {
             Object[] result = selectDialog.getResult();
-            selectLibFileSet.addAll(convertToLibraryFile(result));
+            selectLibFileSet.addAll(customLibUtil.convertToLibraryFile(result));
             viewer.refresh();
         }
     }
@@ -445,16 +458,35 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     }
 
     private void doImportLibs() {
-        HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell());
+        Map<ECustomVersionGroup, String> groupsAndDispaly = new HashMap<ECustomVersionGroup, String>();
+        CTabItem[] items = tabFolder.getItems();
+        for (CTabItem item : items) {
+            ECustomVersionGroup customVersionGroup = getCustomVersionGroup(item);
+            if (customVersionGroup != null) {
+                groupsAndDispaly.put(customVersionGroup, item.getText());
+            }
+        }
+        HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil);
         if (versionDialog.open() == Window.OK) {
-            selectLibFileSet.addAll(convertToLibraryFile(hadoopService.getHadoopLibraries(versionDialog.getDistribution(),
-                    versionDialog.getVersion())));
+            Map<ECustomVersionGroup, Set<LibraryFile>> importLibLibraries = versionDialog.getImportLibLibraries();
+
+            for (ECustomVersionGroup group : importLibLibraries.keySet()) {
+                Set<LibraryFile> set = libMap.get(group.getName());
+                if (set != null) {
+                    set.clear();
+                    set.addAll(importLibLibraries.get(group));
+                }
+            }
             viewer.refresh();
         }
     }
 
     private ECustomVersionGroup getSelectedType() {
         CTabItem selectItem = tabFolder.getSelection();
+        return getCustomVersionGroup(selectItem);
+    }
+
+    private ECustomVersionGroup getCustomVersionGroup(CTabItem selectItem) {
         if (selectItem != null) {
             Object data = selectItem.getData();
             if (data != null && data instanceof ECustomVersionType) {
@@ -508,7 +540,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         while (iter.hasNext()) {
             Map.Entry<String, Set<LibraryFile>> entry = iter.next();
             String groupName = entry.getKey();
-            Set<String> libraries = convertToLibName(entry.getValue());
+            Set<String> libraries = customLibUtil.convertToLibName(entry.getValue());
             map.put(groupName, libraries);
         }
 

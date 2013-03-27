@@ -65,8 +65,13 @@ public class HadoopVersionControlUtils {
         if (connection == null || map == null) {
             return;
         }
-
         EMap<String, String> parameters = connection.getParameters();
+        // remove previous custom param
+        for (String group : map.keySet()) {
+            if (parameters.keySet().contains(group)) {
+                parameters.put(group, "");
+            }
+        }
         Iterator<Entry<String, Set<String>>> iter = map.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry<String, Set<String>> entry = iter.next();
