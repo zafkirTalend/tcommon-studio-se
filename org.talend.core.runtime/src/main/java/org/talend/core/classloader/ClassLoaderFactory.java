@@ -73,6 +73,22 @@ public class ClassLoaderFactory {
         return classLoadersMap.get(index);
     }
 
+    public static DynamicClassLoader getCustomClassLoader(String index, String jarsStr) {
+        return getCustomClassLoader(index, jarsStr, SEPARATOR);
+    }
+
+    protected static DynamicClassLoader getCustomClassLoader(String index, String jars, String jarSeparator) {
+        Set<String> jarSet = new HashSet<String>();
+        if (jars != null) {
+            String[] jarsArray = jars.split(jarSeparator);
+            for (String jar : jarsArray) {
+                jarSet.add(jar);
+            }
+        }
+
+        return getCustomClassLoader(index, jarSet);
+    }
+
     /**
      * DOC ycbai Comment method "getCustomClassLoader".
      * 

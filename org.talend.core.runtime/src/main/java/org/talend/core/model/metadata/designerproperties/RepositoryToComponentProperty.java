@@ -1123,6 +1123,10 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
         }
 
+        if (value.equals("HIVE_SERVER")) {
+            return connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
+        }
+
         if (value.equals(EParameterNameForComponent.PARA_NAME_FS_DEFAULT_NAME.getName())) {
             String nameNodeURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             if (isContextMode(connection, nameNodeURL)) {

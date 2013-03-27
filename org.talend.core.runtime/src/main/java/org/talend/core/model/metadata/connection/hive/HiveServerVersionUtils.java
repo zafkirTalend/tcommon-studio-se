@@ -47,6 +47,16 @@ public class HiveServerVersionUtils {
         return list.toArray(new String[list.size()]);
     }
 
+    public static List<String> extractListKeys() {
+        HiveServerVersionInfo[] infos = HiveServerVersionInfo.values();
+        List<String> keys = new ArrayList<String>();
+        for (HiveServerVersionInfo info : infos) {
+            keys.add(info.getKey());
+        }
+
+        return keys;
+    }
+
     /**
      * Gets the index of hive server by display name, if no index found, then return 0. Added by Marvin Wang on Mar 25,
      * 2013.
@@ -58,6 +68,16 @@ public class HiveServerVersionUtils {
         HiveServerVersionInfo[] infos = HiveServerVersionInfo.values();
         for (int i = 0; i < infos.length; i++) {
             if (infos[i].getDisplayName().equalsIgnoreCase(hiveServerDisplayName)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public static int getIndexofHiveServerByKey(String hiveKey) {
+        HiveServerVersionInfo[] infos = HiveServerVersionInfo.values();
+        for (int i = 0; i < infos.length; i++) {
+            if (infos[i].getKey().equalsIgnoreCase(hiveKey)) {
                 return i;
             }
         }
@@ -76,6 +96,20 @@ public class HiveServerVersionUtils {
             return null;
         }
         return displayNames.get(index);
+    }
+
+    /**
+     * Extracts the key which is mapped to t*component.xml. Added by Marvin Wang on Mar 26, 2013.
+     * 
+     * @param index
+     * @return
+     */
+    public static String extractKey(int index) {
+        List<String> keys = extractListKeys();
+        if (index < 0) {
+            return null;
+        }
+        return keys.get(index);
     }
 
 }

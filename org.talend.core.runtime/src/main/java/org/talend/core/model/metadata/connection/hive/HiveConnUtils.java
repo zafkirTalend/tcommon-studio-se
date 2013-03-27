@@ -403,4 +403,9 @@ public class HiveConnUtils {
         }
     }
 
+    public static boolean isCustomDistro(String distroKey) {
+        int distroIndex = getIndexOfDistribution(distroKey);
+        return isCustomDistro(distroIndex);
+    }
+
 }

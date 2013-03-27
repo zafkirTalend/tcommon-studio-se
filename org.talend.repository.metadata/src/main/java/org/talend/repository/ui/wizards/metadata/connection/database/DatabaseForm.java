@@ -3432,10 +3432,7 @@ public class DatabaseForm extends AbstractForm {
         String distributionObj = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String hiveVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveMode = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        String hiveServer = connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
-
-        // Update the status of hive server ui.
-        int hiveServerIndex = HiveServerVersionUtils.getIndexofHiveServer(hiveServer);
+        String hiveServerKey = connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
 
         if (distributionObj != null) {
 
@@ -3871,7 +3868,8 @@ public class DatabaseForm extends AbstractForm {
     protected void doHiveServerSelected() {
         if (!isContextMode()) {
             modifyFieldValue();
-            getConnection().getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, hiveServerVersionCombo.getText());
+            getConnection().getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION,
+                    HiveServerVersionUtils.extractKey(hiveServerVersionCombo.getSelectionIndex()));
         }
     }
 
@@ -3907,9 +3905,9 @@ public class DatabaseForm extends AbstractForm {
         boolean isSupportHiveServer2 = HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex);
         if (isSupportHiveServer2) {
             DatabaseConnection conn = getConnection();
-            String hiveServerDisplayName = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
+            String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
 
-            hiveServerVersionCombo.select(HiveServerVersionUtils.getIndexofHiveServer(hiveServerDisplayName));
+            hiveServerVersionCombo.select(HiveServerVersionUtils.getIndexofHiveServerByKey(hiveServerKey));
 
         }
 
@@ -4214,8 +4212,7 @@ public class DatabaseForm extends AbstractForm {
                     HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex).getKey());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE,
                     HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey());
-            conn.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION,
-                    HiveServerVersionUtils.extractDisplayName(hiveServerIndex));
+            conn.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, HiveServerVersionUtils.extractKey(hiveServerIndex));
 
         }
     }

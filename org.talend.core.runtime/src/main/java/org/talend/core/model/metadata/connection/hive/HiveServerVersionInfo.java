@@ -17,11 +17,11 @@ package org.talend.core.model.metadata.connection.hive;
  */
 public enum HiveServerVersionInfo {
 
-    HIVE_SERVER_1("HIVE_SERVER_1", "HIVE_SERVER_1", "Hive Server1 -- jdbc:hive://"), //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+    HIVE_SERVER_1("HIVE", "HIVE_SERVER_1", "Hive Server1 -- jdbc:hive://"), //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 
-    HIVE_SERVER_2("HIVE_SERVER_2", "HIVE_SERVER_2", "Hive Server2 -- jdbc:hive2://"); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+    HIVE_SERVER_2("HIVE2", "HIVE_SERVER_2", "Hive Server2 -- jdbc:hive2://"); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 
-    private String key;
+    private String key;// The key is mapped to t*component.xml file.
 
     private String name;
 
