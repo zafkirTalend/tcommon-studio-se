@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.repository.hadoop.custom;
+package org.talend.core.hadoop.version.custom;
 
 import java.io.BufferedInputStream;
 import java.io.File;

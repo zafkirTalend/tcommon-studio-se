@@ -1,4 +1,4 @@
-package org.talend.core.repository.hadoop.custom;
+package org.talend.core.hadoop.version.custom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
-import org.talend.core.repository.i18n.Messages;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * created by ycbai on 2013-3-15 Detailled comment

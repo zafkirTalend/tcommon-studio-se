@@ -16,9 +16,9 @@ import java.util.Set;
 
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
-import org.talend.core.repository.hadoop.custom.ECustomVersionGroup;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
 
 /**
