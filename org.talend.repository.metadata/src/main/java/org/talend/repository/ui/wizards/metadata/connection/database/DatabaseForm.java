@@ -79,6 +79,10 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.version.EHadoopDistributions;
+import org.talend.core.hadoop.version.custom.ECustomVersionType;
+import org.talend.core.hadoop.version.custom.HadoopCustomVersionDefineDialog;
+import org.talend.core.hadoop.version.custom.HadoopVersionControlUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -98,8 +102,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.repository.hadoop.custom.HadoopCustomVersionDefineDialog;
-import org.talend.core.repository.hadoop.custom.HadoopVersionControlUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
@@ -263,6 +265,8 @@ public class DatabaseForm extends AbstractForm {
     private LabelledCombo hbaseDistributionCombo;
 
     private LabelledCombo hbaseVersionCombo;
+
+    private Button hbaseCustomButton;
 
     private Composite typeDbCompositeParent;
 
@@ -724,6 +728,11 @@ public class DatabaseForm extends AbstractForm {
                         .toArray(new String[0]), 1, true);
         hbaseVersionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
+        hbaseVersionCombo.setHideWidgets(true);
+        hbaseCustomButton = new Button(hbaseSettingGroup, SWT.NONE);
+        hbaseCustomButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
+        hbaseCustomButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
+        hbaseCustomButton.setVisible(false);
         hideHBaseSettings(true);
     }
 
@@ -864,7 +873,6 @@ public class DatabaseForm extends AbstractForm {
         hbaseSettingGroup.setVisible(!hide);
         hadoopData.exclude = hide;
         hbaseDistributionCombo.setHideWidgets(hide);
-        hbaseVersionCombo.setHideWidgets(hide);
     }
 
     private void hideHCLinkSettings(boolean hide) {
@@ -883,7 +891,7 @@ public class DatabaseForm extends AbstractForm {
         if (distribution != null) {
             String distributionDisplayName = distribution.getDisplayName();
             hbaseDistributionCombo.setText(distributionDisplayName);
-            updateHBaseVersionCombo(distributionDisplayName);
+            updateHBaseVersionPart(distributionDisplayName);
         } else {
             hbaseDistributionCombo.select(0);
         }
@@ -895,13 +903,21 @@ public class DatabaseForm extends AbstractForm {
         }
     }
 
-    private void updateHBaseVersionCombo(String distribution) {
-        List<String> items = EHBaseDistribution4Versions.getHadoopDistributionVersions(distribution);
-        String[] versions = new String[items.size()];
-        items.toArray(versions);
-        hbaseVersionCombo.getCombo().setItems(versions);
-        if (versions.length > 0) {
-            hbaseVersionCombo.getCombo().select(0);
+    private void updateHBaseVersionPart(String distribution) {
+        EHadoopDistributions dis = EHadoopDistributions.getDistributionByName(distribution, false);
+        if (dis == EHadoopDistributions.CUSTOM) {
+            hbaseVersionCombo.setHideWidgets(true);
+            hbaseCustomButton.setVisible(true);
+        } else {
+            hbaseVersionCombo.setHideWidgets(false);
+            hbaseCustomButton.setVisible(false);
+            List<String> items = EHBaseDistribution4Versions.getHadoopDistributionVersions(distribution);
+            String[] versions = new String[items.size()];
+            items.toArray(versions);
+            hbaseVersionCombo.getCombo().setItems(versions);
+            if (versions.length > 0) {
+                hbaseVersionCombo.getCombo().select(0);
+            }
         }
     }
 
@@ -2240,7 +2256,7 @@ public class DatabaseForm extends AbstractForm {
                 if (newDistribution != null && newDistribution != originalDistribution) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
-                    updateHBaseVersionCombo(newDistributionDisplayName);
+                    updateHBaseVersionPart(newDistributionDisplayName);
                     checkFieldsValue();
                 }
             }
@@ -2266,6 +2282,28 @@ public class DatabaseForm extends AbstractForm {
                 }
             }
         });
+
+        hbaseCustomButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                handleHadoopCustomVersion(ECustomVersionType.HBASE);
+            }
+        });
+    }
+
+    private void handleHadoopCustomVersion(final ECustomVersionType type) {
+        HadoopCustomVersionDefineDialog customVersionDialog = new HadoopCustomVersionDefineDialog(getShell(),
+                HadoopVersionControlUtils.getCustomVersionMap(getConnection())) {
+
+            @Override
+            protected ECustomVersionType[] getDisplayTypes() {
+                return new ECustomVersionType[] { type };
+            }
+        };
+        if (customVersionDialog.open() == Window.OK) {
+            HadoopVersionControlUtils.injectCustomVersionMap(getConnection(), customVersionDialog.getLibMap());
+        }
     }
 
     /**
@@ -3522,11 +3560,7 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                HadoopCustomVersionDefineDialog customVersionDialog = new HadoopCustomVersionDefineDialog(getShell(),
-                        HadoopVersionControlUtils.getCustomVersionMap(getConnection()));
-                if (customVersionDialog.open() == Window.OK) {
-                    HadoopVersionControlUtils.injectCustomVersionMap(getConnection(), customVersionDialog.getLibMap());
-                }
+                handleHadoopCustomVersion(ECustomVersionType.HIVE);
             }
         });
     }
