@@ -13,6 +13,7 @@
 package org.talend.core.ui.metadata.editor;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -53,7 +54,6 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.process.IElementParameter;
 import org.talend.core.ui.metadata.celleditor.JavaTypeComboValueAdapter;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -787,6 +787,20 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         String[] arrayTalendTypes = new String[0];
         try {
             arrayTalendTypes = MetadataTalendType.getTalendTypesLabels();
+            // mapreduce component need filter "Document"/ "Dynamic" talendType
+            if (this.isMapreduce()) {
+                Hashtable<Integer, String> hash = new Hashtable<Integer, String>();
+                for (int i = 0; i < arrayTalendTypes.length; i++) {
+                    if (!arrayTalendTypes[i].equals("Document") && !arrayTalendTypes[i].equals("Dynamic")) {
+                        hash.put(i, arrayTalendTypes[i]);
+                    }
+                }
+                String[] arrayTalendTypesNew = new String[hash.size()];
+                for (int j = 0; j < hash.size(); j++) {
+                    arrayTalendTypesNew[j] = hash.get(j);
+                }
+                arrayTalendTypes = arrayTalendTypesNew;
+            }
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
             // e.printStackTrace();

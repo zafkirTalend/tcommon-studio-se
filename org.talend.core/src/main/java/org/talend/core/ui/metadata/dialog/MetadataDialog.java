@@ -333,7 +333,11 @@ public class MetadataDialog extends Dialog {
             }
             outputMetaView = new DialogMetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true,
                     true, false);
-
+            // mapreduce component need filter "Document"/ "Dynamic" talendType
+            if (outputNode != null && outputNode.getComponent() != null && outputNode.getComponent().getPaletteType() != null
+                    && outputNode.getComponent().getPaletteType().equals("MR")) {
+                outputMetaView.setMapreduce(true);
+            }
             outputMetaView.setIsRepository(isRepository(outputNode));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -356,6 +360,11 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
             inputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
+            // mapreduce component need filter "Document"/ "Dynamic" talendType
+            if (inputNode != null && inputNode.getComponent() != null && inputNode.getComponent().getPaletteType() != null
+                    && inputNode.getComponent().getPaletteType().equals("MR")) {
+                inputMetaView.setMapreduce(true);
+            }
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);

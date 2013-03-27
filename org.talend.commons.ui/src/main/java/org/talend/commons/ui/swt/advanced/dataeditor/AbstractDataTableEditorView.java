@@ -61,6 +61,8 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private KeyListener tableKeyListener;
 
+    protected boolean isMapreduce = false;
+
     // private IExtendedModelListener modelNameListener = new IExtendedModelListener() {
     //
     // public void handleEvent(ExtendedModelEvent event) {
@@ -467,4 +469,11 @@ public abstract class AbstractDataTableEditorView<B> {
         this.title = title;
     }
 
+    public boolean isMapreduce() {
+        return this.isMapreduce;
+    }
+
+    public void setMapreduce(boolean isMapreduce) {
+        this.isMapreduce = isMapreduce;
+    }
 }
