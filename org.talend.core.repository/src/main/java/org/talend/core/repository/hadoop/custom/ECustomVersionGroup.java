@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.custom;
+package org.talend.core.repository.hadoop.custom;
 
 /**
  * created by ycbai on 2013-3-13 Detailled comment

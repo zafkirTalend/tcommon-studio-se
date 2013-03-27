@@ -1,4 +1,4 @@
-package org.talend.core.ui.metadata.celleditor;
+package org.talend.repository.ui.dialog;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +34,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
-import org.talend.core.i18n.Messages;
+import org.talend.core.repository.i18n.Messages;
 
 /**
  * 

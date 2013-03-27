@@ -1,4 +1,4 @@
-package org.talend.core.hadoop.custom;
+package org.talend.core.repository.hadoop.custom;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 

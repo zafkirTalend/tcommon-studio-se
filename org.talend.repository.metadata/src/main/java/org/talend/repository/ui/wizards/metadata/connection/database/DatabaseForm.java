@@ -79,8 +79,6 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
-import org.talend.core.hadoop.custom.HadoopCustomVersionDefineDialog;
-import org.talend.core.hadoop.custom.HadoopVersionControlUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -100,6 +98,8 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.repository.hadoop.custom.HadoopCustomVersionDefineDialog;
+import org.talend.core.repository.hadoop.custom.HadoopVersionControlUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
@@ -217,7 +217,7 @@ public class DatabaseForm extends AbstractForm {
 
     private Button button2;
 
-    private Button customButton;
+    private Button hiveCustomButton;
 
     private LabelledText urlConnectionStringText;
 
@@ -959,9 +959,9 @@ public class DatabaseForm extends AbstractForm {
         hiveModeCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveMode.labelName"),//$NON-NLS-1$
                 Messages.getString("DatabaseForm.hiveMode.tips"), hiveModestr, 1, false);//$NON-NLS-1$
 
-        customButton = new Button(hiveComposite, SWT.NULL);
-        customButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
-        customButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
+        hiveCustomButton = new Button(hiveComposite, SWT.NULL);
+        hiveCustomButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
+        hiveCustomButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
 
     }
 
@@ -3519,7 +3519,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void regHiveCustomBtnListener() {
-        customButton.addSelectionListener(new SelectionAdapter() {
+        hiveCustomButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -4071,13 +4071,13 @@ public class DatabaseForm extends AbstractForm {
         hiveVersionCombo.setHideWidgets(hide);
         hiveModeCombo.setHideWidgets(hide);
         if (hide) {
-            customButton.setVisible(!hide);
+            hiveCustomButton.setVisible(!hide);
             hiveServerVersionCombo.setHideWidgets(true);
         } else {
             if (HiveConnUtils.isCustomDistro(currIndexofDistribution)) {
                 hiveVersionCombo.setHideWidgets(true);
                 hiveModeCombo.setHideWidgets(false);
-                customButton.setVisible(true);
+                hiveCustomButton.setVisible(true);
                 hiveServerVersionCombo.setHideWidgets(false);
             } else {
                 if (HiveConnUtils.isSupportHiveServer2(currIndexofDistribution, currIndexofHiveVersion)) {
@@ -4087,7 +4087,7 @@ public class DatabaseForm extends AbstractForm {
                 }
                 hiveVersionCombo.setHideWidgets(false);
                 hiveModeCombo.setHideWidgets(false);
-                customButton.setVisible(false);
+                hiveCustomButton.setVisible(false);
             }
         }
     }
@@ -4096,7 +4096,7 @@ public class DatabaseForm extends AbstractForm {
         GridData hiveCompGD = (GridData) hiveComposite.getLayoutData();
         hiveComposite.setVisible(!hide);
         hiveCompGD.exclude = hide;
-        customButton.setVisible(!hide);
+        hiveCustomButton.setVisible(!hide);
         if (!hide) {
             distributionCombo.setHideWidgets(false);
             hiveVersionCombo.setHideWidgets(true);

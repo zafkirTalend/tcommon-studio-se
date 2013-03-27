@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.custom;
+package org.talend.core.repository.hadoop.custom;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -58,8 +58,8 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopService;
-import org.talend.core.i18n.Messages;
-import org.talend.core.ui.metadata.celleditor.LibrariesListSelectionDialog;
+import org.talend.core.repository.i18n.Messages;
+import org.talend.repository.ui.dialog.LibrariesListSelectionDialog;
 
 /**
  * created by ycbai on 2013-3-12 Detailled comment
