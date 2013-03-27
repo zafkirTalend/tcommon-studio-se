@@ -2097,7 +2097,9 @@ public class DatabaseForm extends AbstractForm {
         // Registers all listeners of hive widgets.
         regHiveRelatedWidgetsListeners();
 
-        addHadoopClusterLinkListeners();
+        if (canLinkToHadoopCluster()) {
+            addHadoopClusterLinkListeners();
+        }
     }
 
     private void checkScrolledCompositeSize() {
