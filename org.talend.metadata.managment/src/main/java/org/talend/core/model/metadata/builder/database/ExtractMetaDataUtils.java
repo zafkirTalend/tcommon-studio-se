@@ -93,6 +93,7 @@ public class ExtractMetaDataUtils {
 
     private static final String SYBASE_DATABASE_PRODUCT_NAME = "Adaptive Server Enterprise"; //$NON-NLS-1$
 
+    // FIXME scorreia don't use public static fields
     public static Connection conn;
 
     public static String schema;
@@ -169,6 +170,17 @@ public class ExtractMetaDataUtils {
                 (dbConn != null ? dbConn.getSID() : null));
     }
 
+    /**
+     * 
+     * 
+     * @param conn
+     * @return
+     * @throws SQLException
+     * 
+     * this method will pass a mistake databaseType to get DatabaseMetDdata(e.x. db2->db2 for zos) if you can, you
+     * should use getDatabaseMetaData() instead of this method
+     * 
+     */
     public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         if (conn != null) {
             DatabaseMetaData dbMetaData = conn.getMetaData();
@@ -306,7 +318,7 @@ public class ExtractMetaDataUtils {
      * @param conn2
      * @return
      */
-    private static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
+    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
     }
