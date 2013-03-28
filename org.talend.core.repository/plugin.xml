@@ -560,6 +560,18 @@
                 clazz="org.talend.core.model.properties.WSDLSchemaConnectionItem">
           </Item>
        </RepositoryComponent>
+       <RepositoryComponent
+             input="tRedshiftInput"
+             name="REDSHIFT"
+             output="tRedshiftOutput"
+             withSchema="true">
+          <Item
+                clazz="org.talend.core.model.properties.DatabaseConnectionItem">
+          </Item>
+          <DBType
+                type="REDSHIFT">
+          </DBType>
+       </RepositoryComponent>
    </extension>
    <extension
          point="org.talend.core.runtime.repositoryComponent_provider">

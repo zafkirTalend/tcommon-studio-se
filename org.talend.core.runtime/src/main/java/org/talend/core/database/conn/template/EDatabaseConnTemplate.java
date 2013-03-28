@@ -151,6 +151,10 @@ public enum EDatabaseConnTemplate {
             "jdbc:paraccel://<host>:<port>/<sid>", //$NON-NLS-1$
             "5439")), //$NON-NLS-1$
 
+    REDSHIFT(new DbConnStr(EDatabaseTypeName.REDSHIFT, //
+            "jdbc:paraccel://<host>:<port>/<sid>", //$NON-NLS-1$
+            "5439")), //$NON-NLS-1$
+
     NETEZZA(new DbConnStr(EDatabaseTypeName.NETEZZA, //
             "jdbc:netezza://<host>:<port>/<sid>", //$NON-NLS-1$
             "5480")), //$NON-NLS-1$
@@ -304,6 +308,7 @@ public enum EDatabaseConnTemplate {
             case PLUSPSQL:
             case GREENPLUM:
             case PARACCEL:
+            case REDSHIFT:
             case IBMDB2:
             case IBMDB2_ZOS:
             case SYBASEASE:

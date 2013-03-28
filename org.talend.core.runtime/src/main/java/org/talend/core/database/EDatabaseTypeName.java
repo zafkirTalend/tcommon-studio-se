@@ -107,6 +107,9 @@ public enum EDatabaseTypeName {
 
     H2("H2", "H2", Boolean.FALSE, "H2", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
+    REDSHIFT(
+             "Redshift", "Redshift", Boolean.TRUE, "REDSHIFT", "REDSHIFT", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
     HBASE(
           "HBase", "HBase", Boolean.FALSE, "HBASE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Column_Family, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 

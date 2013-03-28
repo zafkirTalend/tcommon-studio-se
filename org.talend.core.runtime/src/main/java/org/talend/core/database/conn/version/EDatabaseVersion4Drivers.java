@@ -137,7 +137,9 @@ public enum EDatabaseVersion4Drivers {
             "commons-lang-2.4.jar", "slf4j-log4j12-1.6.1.jar", "jackson-core-asl-1.8.8.jar", "jackson-mapper-asl-1.8.8.jar" })),
     // Changed by Marvin Wang on Oct.9, 2012, just because the libs checking can not pass, Remy updated some jars from
     HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-1.0.0.jar", "hbase-0.90.1-cdh3u0.jar",
-            "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar", "log4j-1.2.16.jar" }));
+            "zookeeper-3.3.3-cdh3u0.jar", "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar", "log4j-1.2.16.jar" })),
+
+    REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$
 
     private DbVersion4Drivers dbVersionBean;
 

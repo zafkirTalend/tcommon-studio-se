@@ -184,7 +184,15 @@ public enum SupportDBUrlType {
                    null,
                    "org.apache.hadoop.hive.jdbc.HiveDriver", //$NON-NLS-1$
                    null,
-                   "Hive"); //$NON-NLS-1$
+                   "Hive"), //$NON-NLS-1$
+    REDSHIFT("Redshift", //$NON-NLS-1$
+             "localhost", //$NON-NLS-1$
+             "10000", //$NON-NLS-1$
+             null,
+             null,
+             "", //$NON-NLS-1$
+             null,
+             "Redshift"); //$NON-NLS-1$
 
     private final String dbKey;
 
