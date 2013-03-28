@@ -133,4 +133,10 @@ public interface ITalendCorePrefConstants {
 
     String OOZIE_SCHEDULER_HADOOP_CUSTOM_JARS = "oozie_scheduler_hadoop_custom_jars"; //$NON-NLS-1$
 
+    String OOZIE_SCHEDULER_HADOOP_PRINCIPAL = "oozie_scheduler_hadoop_principal"; //$NON-NLS-1$
+
+    String OOZIE_SCHEDULER_HADOOP_KERBEROS = "oozie_scheduler_hadoop_kerberos"; //$NON-NLS-1$
+
+    String OOZIE_SCHEDULER_HADOOP_PROPERTIES = "oozie_scheduler_hadoop_properties"; //$NON-NLS-1$
+
 }
