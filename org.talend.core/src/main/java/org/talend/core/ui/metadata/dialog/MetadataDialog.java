@@ -437,8 +437,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataToolHelper.copyTable(getInputMetaData().getListColumns(), getOutputMetaData(), outputMetaView
-                                .getMetadataTableEditor().getMetadataColumnList());
+                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -491,17 +490,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        // List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
-                        // for (IMetadataColumn column : list) {
-                        // if (column.isUsefulColumn()) {
-                        // temp.add(column);
-                        // }
-                        // }
-                        // if (temp.size() == 0) {
-                        // temp = getOutputMetaData().getListColumns();
-                        // }
-                        MetadataToolHelper.copyTable(getOutputMetaData().getListColumns(), getInputMetaData(), inputMetaView
-                                .getMetadataTableEditor().getMetadataColumnList());
+                        MetadataToolHelper.copyTable(getOutputMetaData(), getInputMetaData());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
