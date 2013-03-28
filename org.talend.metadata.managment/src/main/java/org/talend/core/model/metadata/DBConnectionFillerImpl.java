@@ -40,6 +40,7 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -129,6 +130,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             dbconn.setUiSchema(metadataBean.getUiSchema());
             dbconn.setSQLMode(metadataBean.isSqlMode());
             dbconn.setSID(metadataBean.getDatabase());
+            // ADD xqliu 2013-03-22 TDQ-6484 the DynamicClassLoader need these parameters to build the index string
+            String distro = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+            String distroVersion = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+            String hiveModel = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION, distro);
+            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, distroVersion);
+            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveModel);
         }
         try {
             if (sqlConnection == null || sqlConnection.isClosed()) {

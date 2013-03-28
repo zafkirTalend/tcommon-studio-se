@@ -30,6 +30,7 @@ import javax.xml.rpc.ServiceException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
@@ -119,75 +120,100 @@ public class MetadataConnectionUtils {
             rc.setMessage("connection information can not be null"); //$NON-NLS-1$
             return rc;
         }
-        String driverClass = metadataBean.getDriverClass();
-        String dbUrl = metadataBean.getUrl();
-        String password = metadataBean.getPassword();
-        String userName = metadataBean.getUsername();
-        String dbType = metadataBean.getDbType();
 
-        Properties props = new Properties();
-        props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
-        props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName); //$NON-NLS-1$
-        if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-            Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-            if (systemCharset != null && systemCharset.displayName() != null) {
-                props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
-            }
-        }
-
-        if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
-            java.sql.Connection sqlConn = null;
-            Driver driver = null;
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
             try {
-                if (isHsqlInprocess(metadataBean)) {
-                    List list = getConnection(metadataBean);
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i) instanceof Driver) {
-                            driver = (Driver) list.get(i);
-                        }
-                        if (list.get(i) instanceof java.sql.Connection) {
-                            sqlConn = (java.sql.Connection) list.get(i);
-                        }
-                    }
-                } else if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
-                    driver = HiveConnectionManager.getInstance().getDriver(metadataBean);
-                    sqlConn = HiveConnectionManager.getInstance().createConnection(metadataBean);
-                } else {
-                    driver = getClassDriver(metadataBean);
-                    sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
-                }
-
-                ReturnCode varc = ConnectionUtils.isValid(sqlConn);
-                if (varc.isOk()) {
-                    derbyDriver = null;
-                    if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
-                        DBConnectionFillerImpl.setDriver(driver);
-                        derbyDriver = driver;
-                    }
-                    rc.setObject(sqlConn);
-                    rc.setMessage(varc.getMessage());
-                    rc.setOk(true);
-                }
-            } catch (SQLException e) {
-                log.error(e.getMessage());
-                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-            } catch (InstantiationException e) {
-                log.error(e.getMessage(), e);
-                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-            } catch (IllegalAccessException e) {
-                log.error(e.getMessage(), e);
-                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                HiveConnectionManager.getInstance().checkConnection(metadataBean);
+                java.sql.Connection createConnection = HiveConnectionManager.getInstance().createConnection(metadataBean);
+                rc.setOk(true);
+                rc.setObject(createConnection);
+                rc.setMessage("Check hive connection successful!"); //$NON-NLS-1$
             } catch (ClassNotFoundException e) {
-                log.error(e.getMessage(), e);
-                rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                rc.setOk(false);
+                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
+            } catch (InstantiationException e) {
+                rc.setOk(false);
+                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
+            } catch (IllegalAccessException e) {
+                rc.setOk(false);
+                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
+            } catch (SQLException e) {
+                rc.setOk(false);
+                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
             }
         } else {
-            if (StringUtils.isNotBlank(dbUrl)) {
-                rc.setMessage("the driver of connection parameter can not be null"); //$NON-NLS-1$
+            String driverClass = metadataBean.getDriverClass();
+            String dbUrl = metadataBean.getUrl();
+            String password = metadataBean.getPassword();
+            String userName = metadataBean.getUsername();
+            String dbType = metadataBean.getDbType();
+
+            Properties props = new Properties();
+            props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
+            props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName); //$NON-NLS-1$
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                if (systemCharset != null && systemCharset.displayName() != null) {
+                    props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                }
+            }
+
+            if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
+                java.sql.Connection sqlConn = null;
+                Driver driver = null;
+                try {
+                    if (isHsqlInprocess(metadataBean)) {
+                        List list = getConnection(metadataBean);
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i) instanceof Driver) {
+                                driver = (Driver) list.get(i);
+                            }
+                            if (list.get(i) instanceof java.sql.Connection) {
+                                sqlConn = (java.sql.Connection) list.get(i);
+                            }
+                        }
+                    } else {
+                        driver = getClassDriver(metadataBean);
+                        sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
+                    }
+
+                    ReturnCode varc = ConnectionUtils.isValid(sqlConn);
+                    if (varc.isOk()) {
+                        derbyDriver = null;
+                        if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
+                            DBConnectionFillerImpl.setDriver(driver);
+                            derbyDriver = driver;
+                        }
+                        rc.setObject(sqlConn);
+                        rc.setMessage(varc.getMessage());
+                        rc.setOk(true);
+                    }
+                } catch (SQLException e) {
+                    log.error(e.getMessage());
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (InstantiationException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (IllegalAccessException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (ClassNotFoundException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                }
             } else {
-                rc.setMessage("the url of connection parameter can not be null"); //$NON-NLS-1$
+                if (StringUtils.isNotBlank(dbUrl)) {
+                    rc.setMessage("the driver of connection parameter can not be null"); //$NON-NLS-1$
+                } else {
+                    rc.setMessage("the url of connection parameter can not be null"); //$NON-NLS-1$
+                }
             }
         }
+
         return rc;
     }
 
@@ -201,55 +227,59 @@ public class MetadataConnectionUtils {
      * after use it.
      */
     public static TypedReturnCode<java.sql.Connection> checkConnection(DatabaseConnection databaseConnection) {
-        IMetadataConnection metadataConnection = new MetadataConnection();
+        IMetadataConnection metadataConnection;
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(databaseConnection.getDatabaseType())) {
+            metadataConnection = ConvertionHelper.convert(databaseConnection);
+        } else {
+            metadataConnection = new MetadataConnection();
+            String dbUrl = databaseConnection.getURL();
+            String password = databaseConnection.getPassword();
+            String userName = databaseConnection.getUsername();
+            String dbType = databaseConnection.getDatabaseType();
+            String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
+                    .getDriverClassByDbType(dbType) : databaseConnection.getDriverClass();
+            String driverJarPath = databaseConnection.getDriverJarPath();
+            String dataBase = databaseConnection.getSID();
+            String dbVersionString = databaseConnection.getDbVersionString();
+            String additionalParams = databaseConnection.getAdditionalParams();
 
-        String dbUrl = databaseConnection.getURL();
-        String password = databaseConnection.getPassword();
-        String userName = databaseConnection.getUsername();
-        String dbType = databaseConnection.getDatabaseType();
-        String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
-                .getDriverClassByDbType(dbType) : databaseConnection.getDriverClass();
-        String driverJarPath = databaseConnection.getDriverJarPath();
-        String dataBase = databaseConnection.getSID();
-        String dbVersionString = databaseConnection.getDbVersionString();
-        String additionalParams = databaseConnection.getAdditionalParams();
+            // MOD qiongli 2011-9-6,TDQ 3317.handle context mode
+            if (databaseConnection.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    String contextName = databaseConnection.getContextName();
+                    DatabaseConnection origValueConn = null;
+                    if (contextName == null) {
+                        origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, true);
+                    } else {
+                        origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, contextName);
+                    }
 
-        // MOD qiongli 2011-9-6,TDQ 3317.handle context mode
-        if (databaseConnection.isContextMode()) {
-            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-            if (repositoryService != null) {
-                String contextName = databaseConnection.getContextName();
-                DatabaseConnection origValueConn = null;
-                if (contextName == null) {
-                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, true);
-                } else {
-                    origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, contextName);
+                    if (origValueConn != null) {
+                        dbUrl = origValueConn.getURL();
+                        password = origValueConn.getPassword();
+                        userName = origValueConn.getUsername();
+                        driverClass = origValueConn.getDriverClass();
+                        driverJarPath = origValueConn.getDriverJarPath();
+                        dbType = origValueConn.getDatabaseType();
+                        dataBase = origValueConn.getSID();
+                        dbVersionString = origValueConn.getDbVersionString();
+                        additionalParams = origValueConn.getAdditionalParams();
+                    }
+
                 }
+            }// ~
 
-                if (origValueConn != null) {
-                    dbUrl = origValueConn.getURL();
-                    password = origValueConn.getPassword();
-                    userName = origValueConn.getUsername();
-                    driverClass = origValueConn.getDriverClass();
-                    driverJarPath = origValueConn.getDriverJarPath();
-                    dbType = origValueConn.getDatabaseType();
-                    dataBase = origValueConn.getSID();
-                    dbVersionString = origValueConn.getDbVersionString();
-                    additionalParams = origValueConn.getAdditionalParams();
-                }
-
-            }
-        }// ~
-
-        metadataConnection.setAdditionalParams(additionalParams);
-        metadataConnection.setDbVersionString(dbVersionString);
-        metadataConnection.setDatabase(dataBase);
-        metadataConnection.setDbType(dbType);
-        metadataConnection.setDriverJarPath(driverJarPath);
-        metadataConnection.setDriverClass(driverClass);
-        metadataConnection.setUsername(userName);
-        metadataConnection.setPassword(password);
-        metadataConnection.setUrl(dbUrl);
+            metadataConnection.setAdditionalParams(additionalParams);
+            metadataConnection.setDbVersionString(dbVersionString);
+            metadataConnection.setDatabase(dataBase);
+            metadataConnection.setDbType(dbType);
+            metadataConnection.setDriverJarPath(driverJarPath);
+            metadataConnection.setDriverClass(driverClass);
+            metadataConnection.setUsername(userName);
+            metadataConnection.setPassword(password);
+            metadataConnection.setUrl(dbUrl);
+        }
         return checkConnection(metadataConnection);
     }
 
@@ -993,7 +1023,7 @@ public class MetadataConnectionUtils {
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                        .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {

@@ -72,6 +72,7 @@ import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
@@ -151,8 +152,8 @@ public class ExtractMetaDataUtils {
      * 
      * MOD by zshen this method don't care about sqlMode
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn) {
-        return getDatabaseMetaData(conn, dbConn, (dbConn != null ? dbConn.isSQLMode() : false));
+    public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection) {
+        return getDatabaseMetaData(connection, dbConnection, (dbConnection != null ? dbConnection.isSQLMode() : false));
     }
 
     /**
@@ -165,9 +166,25 @@ public class ExtractMetaDataUtils {
      * 
      * 
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, DatabaseConnection dbConn, boolean isSqlMode) {
-        return getDatabaseMetaData(conn, (dbConn != null ? dbConn.getDatabaseType() : null), isSqlMode,
-                (dbConn != null ? dbConn.getSID() : null));
+    public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection, boolean isSqlMode) {
+        IMetadataConnection metadataConnection = ConvertionHelper.convert(dbConnection);
+        if (metadataConnection != null && EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConnection.getDbType())) {
+            DatabaseMetaData hiveDatabaseMetaData = null;
+            try {
+                hiveDatabaseMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
+            } catch (ClassNotFoundException e) {
+                log.error(e);
+            } catch (InstantiationException e) {
+                log.error(e);
+            } catch (IllegalAccessException e) {
+                log.error(e);
+            } catch (SQLException e) {
+                log.error(e);
+            }
+            return hiveDatabaseMetaData;
+        }
+        return getDatabaseMetaData(connection, (dbConnection != null ? dbConnection.getDatabaseType() : null), isSqlMode,
+                (dbConnection != null ? dbConnection.getSID() : null));
     }
 
     /**
@@ -240,17 +257,27 @@ public class ExtractMetaDataUtils {
         return dbMetaData;
     }
 
+    public static boolean isHiveConnection(Connection hiveConn) {
+        if (hiveConn != null) {
+            Class<?> clazz = hiveConn.getClass();
+            if ("HiveConnection".equals(clazz.getSimpleName())) { //$NON-NLS-1$
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isHiveEmbeddedConn(Connection hiveConn) {
         if (hiveConn != null) {
             Class<?> clazz = hiveConn.getClass();
-            if ("HiveConnection".equals(clazz.getSimpleName())) {
+            if ("HiveConnection".equals(clazz.getSimpleName())) { //$NON-NLS-1$
                 try {
-                    Field clientField = clazz.getDeclaredField("client");
+                    Field clientField = clazz.getDeclaredField("client"); //$NON-NLS-1$
                     clientField.setAccessible(true);
                     Object clientObj = clientField.get(hiveConn);
                     if (clientObj != null) {
                         Class<?> clientClass = clientObj.getClass();
-                        if ("HiveServerHandler".equals(clientClass.getSimpleName())) {
+                        if ("HiveServerHandler".equals(clientClass.getSimpleName())) { //$NON-NLS-1$
                             return true;
                         }
                     }
