@@ -30,7 +30,6 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
@@ -1128,12 +1127,8 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
         }
 
-        if (value.equals("CUSTOM_JARS")) {
-            if (databaseType.equalsIgnoreCase(EDatabaseTypeName.HIVE.getDisplayName())) {
-                return connection.getParameters().get(ECustomVersionGroup.HIVE.getName());
-            } else if (databaseType.equalsIgnoreCase(EDatabaseTypeName.HBASE.getDisplayName())) {
-                return connection.getParameters().get(ECustomVersionGroup.HBASE.getName());
-            }
+        if (value.equals("HADOOP_CUSTOM_JARS")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
         }
 
         if (value.equals(EParameterNameForComponent.PARA_NAME_FS_DEFAULT_NAME.getName())) {

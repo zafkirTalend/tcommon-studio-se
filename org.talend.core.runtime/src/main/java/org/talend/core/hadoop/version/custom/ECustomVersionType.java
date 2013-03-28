@@ -16,6 +16,8 @@ public enum ECustomVersionType {
 
     HBASE("HBase", ECustomVersionGroup.HBASE), //$NON-NLS-1$
 
+    PIG("Pig", ECustomVersionGroup.PIG), //$NON-NLS-1$
+
     ALL("All", ECustomVersionGroup.ALL); //$NON-NLS-1$
 
     private String displayName;

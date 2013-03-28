@@ -40,6 +40,8 @@ public class ConnParameterKeys {
      */
     public static final String CONN_PARA_KEY_HADOOP_CLUSTER_ID = "CONN_PARA_KEY_HADOOP_CLUSTER_ID"; //$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_HADOOP_CUSTOM_JARS = "CONN_PARA_KEY_HADOOP_CUSTOM_JARS"; //$NON-NLS-1$
+
     /**
      * Hive keys.
      */

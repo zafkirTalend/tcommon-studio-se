@@ -24,6 +24,7 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -105,6 +106,8 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     private TableViewerComparator viewerComparator;
 
     private HadoopCustomLibrariesUtil customLibUtil;
+
+    private boolean readonly = false;
 
     private boolean needPopUpImport = true;
 
@@ -197,6 +200,18 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         init();
 
         return parent;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#createButtonsForButtonBar(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        Button createButton = createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+        createButton.setEnabled(!readonly);
+        createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
     private Composite createTable(Composite parent) {
@@ -453,7 +468,6 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     private void doAddLibs() {
         LibrariesListSelectionDialog selectDialog = new LibrariesListSelectionDialog(getShell());
         selectDialog.setMultipleSelection(true);
-        selectDialog.setDeployNonexistentLibs(true);
         if (selectDialog.open() == Window.OK) {
             Object[] result = selectDialog.getResult();
             selectLibFileSet.addAll(customLibUtil.convertToLibraryFile(result));
@@ -603,6 +617,10 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         }
 
         return libStr.toString();
+    }
+
+    public void setReadonly(boolean readonly) {
+        this.readonly = readonly;
     }
 
     /**

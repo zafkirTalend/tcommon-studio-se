@@ -24,6 +24,8 @@ public enum ECustomVersionGroup {
 
     HBASE,
 
+    PIG,
+
     ALL;
 
     private final static String PREFIX = "HADOOP_CUSTOM_VERSION:"; //$NON-NLS-1$
