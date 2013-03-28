@@ -417,8 +417,7 @@ public class MetadataDialog extends Dialog {
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataToolHelper.copyTable(list, getOutputMetaData(), outputMetaView.getMetadataTableEditor()
-                                .getMetadataColumnList());
+                        MetadataToolHelper.copyTable(list, getOutputMetaData());
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -470,8 +469,7 @@ public class MetadataDialog extends Dialog {
                         list.add(column);
                     }
                     if (tableItem.length > 0) {
-                        MetadataToolHelper.copyTable(list, getInputMetaData(), inputMetaView.getMetadataTableEditor()
-                                .getMetadataColumnList());
+                        MetadataToolHelper.copyTable(list, getInputMetaData());
                         inputMetaView.getTableViewerCreator().refresh();
                     }
                 }

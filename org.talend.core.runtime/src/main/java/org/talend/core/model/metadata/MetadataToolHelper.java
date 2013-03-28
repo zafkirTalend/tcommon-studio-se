@@ -581,7 +581,6 @@ public final class MetadataToolHelper {
                 }
             }
         }
-        targetColumns.clear();
         targetColumns.addAll(columnsTAdd);
     }
 
