@@ -80,6 +80,7 @@ public enum EParameterFieldType {
     FILE_HADOOP, // ycbai add for feature TDI-22111
     DIRECTORY_HADOOP, // ycbai add for feature TDI-22111
     BOTH_HADOOP, // ycbai add for feature TDI-22111
+    HADOOP_JARS_DIALOG,
 
     ;
 
