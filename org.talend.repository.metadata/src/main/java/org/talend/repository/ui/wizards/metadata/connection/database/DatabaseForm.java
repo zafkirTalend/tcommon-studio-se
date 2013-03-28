@@ -876,6 +876,9 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void hideHCLinkSettings(boolean hide) {
+        if (hadoopLinkComp == null) {
+            return;
+        }
         GridData hadoopLinkData = (GridData) hadoopLinkComp.getLayoutData();
         hadoopLinkComp.setVisible(!hide);
         hadoopLinkData.exclude = hide;
