@@ -20,7 +20,7 @@ public interface IOozieService extends IService {
      * @param Connection
      * @return
      */
-    public Map<String, String> getOozieParamFromConnection(Connection connection);
+    public Map<String, Object> getOozieParamFromConnection(Connection connection);
 
     public boolean isOozieNode(RepositoryNode node);
 
