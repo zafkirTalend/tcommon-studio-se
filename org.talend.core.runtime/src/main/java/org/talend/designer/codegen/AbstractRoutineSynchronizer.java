@@ -31,6 +31,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.PigudfItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -250,6 +251,11 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     // qli modified to fix the bug 5400 and 6185.
     @Override
     public abstract void renameRoutineClass(RoutineItem routineItem);
+
+    @Override
+    public void renamePigudfClass(PigudfItem routineItem, String oldLabel) {
+
+    }
 
     /**
      * bug 12582 by ggu.

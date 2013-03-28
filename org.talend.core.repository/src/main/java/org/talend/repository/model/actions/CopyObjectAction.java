@@ -37,6 +37,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.PigudfItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -201,7 +202,7 @@ public class CopyObjectAction {
                                     if (needSys && originalItem instanceof RoutineItem) {
                                         String lastestVersion = getLastestVersion(selectedVersionItems);
                                         if (lastestVersion.equals(copy.getProperty().getVersion())) {
-                                            synDuplicatedRoutine((RoutineItem) copy);
+                                            synDuplicatedRoutine((RoutineItem) copy, selectedItem.getProperty().getLabel());
                                             needSys = false;
                                         }
                                     }
@@ -268,7 +269,7 @@ public class CopyObjectAction {
                             Item newItem = factory.copy(item, path, true);
                             // qli modified to fix the bug 5400 and 6185.
                             if (newItem instanceof RoutineItem) {
-                                synDuplicatedRoutine((RoutineItem) newItem);
+                                synDuplicatedRoutine((RoutineItem) newItem, item.getProperty().getLabel());
                             }
                             ICamelDesignerCoreService service = null;
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
@@ -342,11 +343,28 @@ public class CopyObjectAction {
         return version;
     }
 
-    private void synDuplicatedRoutine(RoutineItem item) {
+    private void synDuplicatedRoutine(RoutineItem item, String oldLabel) {
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
         if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
+            if (item instanceof PigudfItem) {
+                codeGenService.createRoutineSynchronizer().renamePigudfClass((PigudfItem) item, oldLabel);
+            } else {
+                codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
+            }
+            try {
+                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    private void synDuplicatedPigudf(PigudfItem item, String oldLabel) {
+        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+        if (codeGenService != null) {
+            codeGenService.createRoutineSynchronizer().renamePigudfClass(item, oldLabel);
             try {
                 codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
             } catch (SystemException e) {
