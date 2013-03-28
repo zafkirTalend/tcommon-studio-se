@@ -106,6 +106,8 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
 
     private HadoopCustomLibrariesUtil customLibUtil;
 
+    private boolean needPopUpImport = true;
+
     /**
      * DOC ycbai HadoopCustomVersionDefineDialog constructor comment.
      * 
@@ -146,6 +148,19 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         setTitle(Messages.getString("HadoopCustomVersionDialog.title")); //$NON-NLS-1$
         setMessage(Messages.getString("HadoopCustomVersionDialog.msg")); //$NON-NLS-1$
         setTitleImage(ImageProvider.getImage(EImage.HADOOP_WIZ_ICON));
+        if (getShell() != null) {
+            getShell().getDisplay().asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (needPopUpImport && currentLibMap.isEmpty()) {
+                        doImportLibs();
+                        needPopUpImport = false;
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -153,15 +168,16 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopCustomVersionDialog.topTitle")); //$NON-NLS-1$
         newShell.setSize(500, 550);
+        setHelpAvailable(false);
     }
 
     @Override
     protected void initializeBounds() {
         super.initializeBounds();
-
         Point size = getShell().getSize();
         Point location = getInitialLocation(size);
         getShell().setBounds(getConstrainedShellBounds(new Rectangle(location.x, location.y, size.x, size.y)));
+
     }
 
     @Override

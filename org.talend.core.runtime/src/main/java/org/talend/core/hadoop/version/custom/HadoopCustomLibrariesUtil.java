@@ -85,7 +85,7 @@ public class HadoopCustomLibrariesUtil {
         try {
             Map<File, IPath> toExport = new HashMap<File, IPath>();
             tmpFolder = createTempFolder();
-            File libFolder = new File(tmpFolder, "lib");
+            File libFolder = new File(tmpFolder, "lib");//$NON-NLS-1$ 
             libFolder.mkdir();
             // put all needed jars to tempFolder/lib
             for (String group : LibMap.keySet()) {
@@ -96,19 +96,20 @@ public class HadoopCustomLibrariesUtil {
                     if (!retreived) {
                         jarNotFound.add(libFile);
                     } else {
-                        toExport.put(jarToStore, new Path("lib/" + jarName));
+                        toExport.put(jarToStore, new Path("lib/" + jarName));//$NON-NLS-1$ 
                     }
                 }
             }
             if (!jarNotFound.isEmpty()) {
-                String msg = "";
+                String msg = "";//$NON-NLS-1$ 
                 for (LibraryFile libFile : jarNotFound) {
-                    msg += libFile.getName() + ",";
+                    msg += libFile.getName() + ",";//$NON-NLS-1$ 
                 }
                 msg = msg.substring(0, msg.length() - 1);
-                String message = "Some jars are not found in the studio: " + msg
-                        + ",please check in the module view to install them";
-                boolean openConfirm = MessageDialog.openConfirm(null, "Do you want to continue ?", message);
+                String message = Messages.getString("HadoopCustomLibrariesUtil.libMissing", msg); //$NON-NLS-1$ 
+
+                boolean openConfirm = MessageDialog.openConfirm(null,
+                        Messages.getString("HadoopCustomLibrariesUtil.importConfirmMsg"), message);//$NON-NLS-1$ 
                 if (!openConfirm) {
                     return;
                 }
@@ -134,13 +135,13 @@ public class HadoopCustomLibrariesUtil {
                 outputStream.closeEntry();
             }
         } catch (Exception e) {
-            showError("Export custom libraries failed", e);
+            showError(Messages.getString("HadoopCustomLibrariesUtil.exmportFailed"), e);//$NON-NLS-1$
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
-                    showError("Export custom libraries failed", e);
+                    showError(Messages.getString("HadoopCustomLibrariesUtil.exmportFailed"), e);//$NON-NLS-1$
                 }
             }
             if (tmpFolder != null) {
@@ -186,7 +187,7 @@ public class HadoopCustomLibrariesUtil {
         OutputStreamWriter output = null;
         try {
             final DocumentBuilderFactory docBuilder = DocumentBuilderFactory.newInstance();
-            String indexFileName = "index.xml";
+            String indexFileName = "index.xml";//$NON-NLS-1$
             File indexFile = new File(tempFolder, indexFileName);
             final DocumentBuilder analyseur = docBuilder.newDocumentBuilder();
             analyseur.setErrorHandler(new ErrorHandler() {
@@ -222,11 +223,11 @@ public class HadoopCustomLibrariesUtil {
                     }
                     Element jarElement = document.createElement("jar");//$NON-NLS-1$
                     // description
-                    Attr description = document.createAttribute("description");
+                    Attr description = document.createAttribute("description");//$NON-NLS-1$
                     description.setNodeValue(lib.getDesc());
                     jarElement.setAttributeNode(description);
                     // name
-                    Attr nameElement = document.createAttribute("name");
+                    Attr nameElement = document.createAttribute("name");//$NON-NLS-1$
                     nameElement.setNodeValue(lib.getName());
                     jarElement.setAttributeNode(nameElement);
                     libGroup.appendChild(jarElement);
@@ -269,9 +270,9 @@ public class HadoopCustomLibrariesUtil {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = (ZipEntry) entries.nextElement();
                 Path path = new Path(entry.getName());
-                if (path.lastSegment().endsWith("index.xml")) {
+                if (path.lastSegment().endsWith("index.xml")) {//$NON-NLS-1$
                     indexFileInputStream = zipFile.getInputStream(entry);
-                } else if (path.lastSegment().endsWith(".jar")) {
+                } else if (path.lastSegment().endsWith(".jar")) {//$NON-NLS-1$
                     deployJarToDesForArchive(zipFile, entry, tempFile, collection);
                 }
             }
@@ -313,12 +314,12 @@ public class HadoopCustomLibrariesUtil {
                                 Node jarNode = jarNodes.item(j);
                                 NamedNodeMap attributes = jarNode.getAttributes();
                                 if (attributes != null) {
-                                    Node description = attributes.getNamedItem("description");
+                                    Node description = attributes.getNamedItem("description");//$NON-NLS-1$
                                     if (description != null) {
                                         libFile.setDesc(description.getNodeValue());
                                     }
 
-                                    Node namedItem = attributes.getNamedItem("name");
+                                    Node namedItem = attributes.getNamedItem("name");//$NON-NLS-1$
                                     if (namedItem != null) {
                                         libFile.setName(namedItem.getNodeValue());
                                     }
@@ -333,7 +334,7 @@ public class HadoopCustomLibrariesUtil {
             }
             return libsMap;
         } catch (Exception e) {
-            showError("Import from zip file failed", e);
+            showError(Messages.getString("HadoopCustomLibrariesUtil.importFailed"), e);//$NON-NLS-1$
         } finally {
             if (tempFile != null) {
                 deleteTmpDirectory(tempFile);

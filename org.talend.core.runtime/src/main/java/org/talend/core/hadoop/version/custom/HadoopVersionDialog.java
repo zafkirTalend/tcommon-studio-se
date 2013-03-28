@@ -16,13 +16,18 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
@@ -70,6 +75,8 @@ public class HadoopVersionDialog extends Dialog {
 
     private Button browseButton;
 
+    private Text messageLabel;
+
     private HadoopCustomLibrariesUtil customLibUtil;
 
     private Map<ECustomVersionGroup, Boolean> existVersionSelectionMap = new HashMap<ECustomVersionGroup, Boolean>();
@@ -89,14 +96,67 @@ public class HadoopVersionDialog extends Dialog {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
         newShell.setSize(400, 400);
+        newShell.addListener(SWT.Resize, new Listener() {
+
+            @Override
+            public void handleEvent(Event event) {
+                layoutTitle(true);
+            }
+
+        });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.TitleAreaDialog#createContents(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    protected Control createContents(Composite parent) {
+        Composite composite = new Composite(parent, 0);
+        GridLayout layout = new GridLayout();
+        layout.marginHeight = 0;
+        layout.marginWidth = 0;
+        layout.verticalSpacing = 0;
+        layout.horizontalSpacing = 0;
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        applyDialogFont(composite);
+        // initialize the dialog units
+        initializeDialogUnits(composite);
+
+        Composite contents = new Composite(composite, SWT.NONE);
+        GridData layoutData = new GridData(GridData.FILL_BOTH);
+        contents.setLayoutData(layoutData);
+        FormLayout formLayout = new FormLayout();
+        contents.setLayout(formLayout);
+        messageLabel = new Text(contents, SWT.WRAP | SWT.READ_ONLY | SWT.BORDER);
+        messageLabel.setText(Messages.getString("HadoopVersionDialog.msg"));//$NON-NLS-1$
+        messageLabel.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        layoutTitle(false);
+        // create the dialog area and button bar
+        dialogArea = createDialogArea(composite);
+        buttonBar = createButtonBar(composite);
+        return composite;
+    }
+
+    private void layoutTitle(boolean forceLayout) {
+        FormData messageLabelData = new FormData();
+        int messageLabelHeight = messageLabel.computeSize(getShell().getSize().x, SWT.DEFAULT).y;
+        messageLabelHeight = Math.max(40, messageLabelHeight);
+        messageLabelData.top = new FormAttachment(0, 0);
+        messageLabelData.right = new FormAttachment(100, 0);
+        messageLabelData.left = new FormAttachment(0, 0);
+        messageLabelData.height = messageLabelHeight;
+        messageLabel.setLayoutData(messageLabelData);
+        if (forceLayout) {
+            getShell().layout();
+        }
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
-        GridLayout layout = (GridLayout) composite.getLayout();
-        // layout.numColumns = 2;
-
         createVersionFields(composite);
         addListener();
         init();
@@ -107,7 +167,7 @@ public class HadoopVersionDialog extends Dialog {
     private void createVersionFields(Composite parent) {
         GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
         importFromVersion = new Button(parent, SWT.RADIO);
-        importFromVersion.setText(Messages.getString("HadoopVersionDialog.importFromExistVersion"));
+        importFromVersion.setText(Messages.getString("HadoopVersionDialog.importFromExistVersion"));//$NON-NLS-1$
         importFromVersion.setLayoutData(layoutData);
 
         Composite existVersionGroup = new Composite(parent, SWT.NONE);
@@ -148,7 +208,7 @@ public class HadoopVersionDialog extends Dialog {
         }
         // import from zip
         importFromZipBtn = new Button(parent, SWT.RADIO);
-        importFromZipBtn.setText(Messages.getString("HadoopVersionDialog.importFromZip"));
+        importFromZipBtn.setText(Messages.getString("HadoopVersionDialog.importFromZip"));//$NON-NLS-1$
         layoutData = new GridData(GridData.FILL);
         importFromZipBtn.setLayoutData(layoutData);
         Composite zipGroup = new Composite(parent, SWT.NONE);
@@ -159,11 +219,11 @@ public class HadoopVersionDialog extends Dialog {
         layout.marginLeft = 10;
         zipGroup.setLayout(layout);
         Label label = new Label(zipGroup, SWT.NONE);
-        label.setText(Messages.getString("HadoopVersionDialog.zipLocation"));
+        label.setText(Messages.getString("HadoopVersionDialog.zipLocation"));//$NON-NLS-1$
         zipLocationText = new Text(zipGroup, SWT.BORDER);
         zipLocationText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         browseButton = new Button(zipGroup, SWT.PUSH);
-        browseButton.setText(Messages.getString("HadoopVersionDialog.browseBtn"));
+        browseButton.setText(Messages.getString("HadoopVersionDialog.browseBtn"));//$NON-NLS-1$
 
         // typse checkbox
         checkParent = new Composite(zipGroup, SWT.NONE);
@@ -329,7 +389,7 @@ public class HadoopVersionDialog extends Dialog {
     @Override
     protected void okPressed() {
         boolean openQuestion = MessageDialog.openQuestion(getParentShell(), "Warning",
-                "Current custom set up will be replaced by this import , do you want to continue ?");
+                Messages.getString("HadoopVersionDialog.confirmMsg"));//$NON-NLS-1$
         if (openQuestion) {
             super.okPressed();
         } else {
