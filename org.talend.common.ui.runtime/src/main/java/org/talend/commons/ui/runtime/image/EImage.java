@@ -123,8 +123,11 @@ public enum EImage implements IImage {
     FILTER_DEACTIVED_ICON("/icons/filter_deactivated.png"), //$NON-NLS-1$
     FILTER_ACTIVED_ICON("/icons/filter_activated.png"), //$NON-NLS-1$
 
-    PARTITIONER_ICON("/icons/tPartitioner.png"), //$NON-NLS-1$
-    DEPARTITIONER_ICON("/icons/tDepartitioner.png"), //$NON-NLS-1$
+    PARTITIONER_ICON("/icons/partioner.png"), //$NON-NLS-1$
+    DEPARTITIONER_ICON("/icons/departitioner.png"), //$NON-NLS-1$
+    RECOLLECTOR_ICON("/icons/recollector.png"), //$NON-NLS-1$
+    COLLECTOR_ICON("/icons/collector.png"), //$NON-NLS-1$
+    REPARTITION_ICON("/icons/repartition.png"), //$NON-NLS-1$
 
     HADOOP_WIZ_ICON("/icons/hadoop-logo-wiz.png");//$NON-NLS-1$
 
