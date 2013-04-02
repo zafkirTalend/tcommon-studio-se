@@ -118,16 +118,11 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         return saveProcess(monitor, path, false);
     }
 
-    public boolean saveProcess(IProgressMonitor monitor, IPath path, final boolean avoidSaveRelations) {
+    public boolean saveProcess(final IProgressMonitor monitor, IPath path, final boolean avoidSaveRelations) {
         try {
             if (monitor != null) {
                 monitor.beginTask("save process", 100); //$NON-NLS-1$
             }
-            final ProcessType processType = loadedProcess.saveXmlFile();
-            if (monitor != null) {
-                monitor.worked(40);
-            }
-
             // getFile().refreshLocal(IResource.DEPTH_ONE, monitor);
 
             // loadedProcess.setXmlStream(getFile().getContents());
@@ -144,6 +139,15 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                     @Override
                     protected void run() throws LoginException, PersistenceException {
                         resetItem();
+                        ProcessType processType;
+                        try {
+                            processType = loadedProcess.saveXmlFile();
+                        } catch (IOException e) {
+                            throw new PersistenceException(e);
+                        }
+                        if (monitor != null) {
+                            monitor.worked(40);
+                        }
                         if (getItem() instanceof JobletProcessItem) {
                             ((JobletProcessItem) getItem()).setJobletProcess((JobletProcess) processType);
                         } else if (getItem() instanceof ProcessItem) {
@@ -173,13 +177,6 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 monitor.worked(10);
             }
             return true;
-        } catch (IOException e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
         } catch (Exception e) {
             ExceptionHandler.process(e);
             if (monitor != null) {
