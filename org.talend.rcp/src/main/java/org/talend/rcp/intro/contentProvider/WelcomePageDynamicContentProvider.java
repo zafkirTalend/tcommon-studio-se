@@ -425,9 +425,9 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
                     .getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle")));
 
             Element blockquoteA3GS = dom.createElement("a");
-            blockquoteA3GS.setAttribute("href", BROWSER_URL + "showExchange");
+            blockquoteA3GS.setAttribute("href", BROWSER_URL + "showTrainning");
             blockquoteA3GS.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.GettingStartedExchangeTitle")));
+                    .getString("WelcomePageDynamicContentProvider.GettingStartedTrainningTitle")));
 
             blockquotePGS.appendChild(blockquoteA1GS);
             blockquotePGS.appendChild(dom.createTextNode(": "
@@ -439,7 +439,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             blockquotePGS.appendChild(dom.createElement("br"));
             blockquotePGS.appendChild(blockquoteA3GS);
             blockquotePGS.appendChild(dom.createTextNode(": "
-                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedExchangeBrief")));
+                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningBrief")));
             blockquoteGS.appendChild(blockquotePGS);
             parent.appendChild(blockquoteGS);
         }

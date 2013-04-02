@@ -33,7 +33,7 @@ public class OpenWebBrowserAction implements IIntroAction {
 
     private static final String FORUMS_URL = "http://www.talendforge.org/forum"; //$NON-NLS-1$
 
-    private static final String EXCHANGE_URL = " http://www.talend.com/training/talend-on-demand-training"; //$NON-NLS-1$
+    private static final String TRAINNING_URL = " http://www.talend.com/training/talend-on-demand-training"; //$NON-NLS-1$
 
     private static final String TOS_DI = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
@@ -79,8 +79,8 @@ public class OpenWebBrowserAction implements IIntroAction {
                 Program.launch(TUTORIALS_URL);
             } else if ("showForums".equals(type.toString())) {
                 Program.launch(FORUMS_URL);
-            } else if ("showExchange".equals(type.toString())) {
-                Program.launch(EXCHANGE_URL);
+            } else if ("showTrainning".equals(type.toString())) {
+                Program.launch(TRAINNING_URL);
             }
         }
     }

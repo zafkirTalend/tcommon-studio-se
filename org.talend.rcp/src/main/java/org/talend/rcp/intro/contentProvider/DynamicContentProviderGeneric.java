@@ -202,18 +202,17 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             title = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTitle");
             String hTutorial = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle");
             String hforum = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle");
-            String hExchange = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedExchangeTitle");
-            hyperlinkText = new String[] { hTutorial, hforum, hExchange };
+            String hTrainning = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningTitle");
+            hyperlinkText = new String[] { hTutorial, hforum, hTrainning };
 
-            urls = new String[] { BROWSER_URL + "showTutorials", BROWSER_URL + "showForums", BROWSER_URL + "showExchange" };
+            urls = new String[] { BROWSER_URL + "showTutorials", BROWSER_URL + "showForums", BROWSER_URL + "showTrainning" };
 
             String extTutorial = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsBrief");
             String extforum = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsBrief");
-            String extExchange = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedExchangeBrief");
-            extTexts = new String[] { extTutorial, extforum, extExchange };
+            String extTrainning = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningBrief");
+            extTexts = new String[] { extTutorial, extforum, extTrainning };
 
             createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
-
             // start now button
             Element imgP = dom.createElement("p");
             imgP.setAttribute("align", "center");
