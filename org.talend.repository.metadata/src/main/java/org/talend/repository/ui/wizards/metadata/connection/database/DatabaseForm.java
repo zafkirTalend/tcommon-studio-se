@@ -743,7 +743,7 @@ public class DatabaseForm extends AbstractForm {
      */
     private void createHadoopLinkPart(Composite parent) {
         hadoopLinkComp = new Composite(parent, SWT.NONE);
-        hadoopLinkComp.setLayout(new GridLayout(5, false));
+        hadoopLinkComp.setLayout(new GridLayout(4, false));
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hadoopLinkComp);
         String[] types = new String[] {
@@ -754,12 +754,10 @@ public class DatabaseForm extends AbstractForm {
         GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcPropertyTypeCombo.getCombo());
         hcRepositoryText = new Text(hadoopLinkComp, SWT.BORDER);
         hcRepositoryText.setEditable(false);
-        GridDataFactory.fillDefaults().grab(true, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
-                .span(2, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcRepositoryText);
+        GridDataFactory.fillDefaults().grab(true, false).span(1, 1).align(SWT.FILL, SWT.CENTER).applyTo(hcRepositoryText);
         hcSelectBtn = new Button(hadoopLinkComp, SWT.PUSH);
         hcSelectBtn.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
-        GridDataFactory.fillDefaults().grab(false, false).hint(SWT.DEFAULT, hcPropertyTypeCombo.getCombo().getItemHeight())
-                .align(SWT.BEGINNING, SWT.FILL).span(1, 1).applyTo(hcSelectBtn);
+        GridDataFactory.fillDefaults().grab(false, false).align(SWT.BEGINNING, SWT.CENTER).span(1, 1).applyTo(hcSelectBtn);
         hideHCLinkSettings(true);
     }
 
@@ -3492,7 +3490,7 @@ public class DatabaseForm extends AbstractForm {
             updateHiveVersionAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion);
 
             currIndexofHiveMode = HiveConnUtils.getIndexOfHiveMode(distributionObj == null ? null : ((String) distributionObj),
-                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? "EMBEDDED" : ((String) hiveMode)); //$NON-NLS-1$
+                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? null : ((String) hiveMode));
             updateHiveModeAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion, currIndexofHiveMode);
 
             // MOD sizhaoliu TDQ-6288 call doHiveModeModify() only for existing hive connection, to avoid a metadata

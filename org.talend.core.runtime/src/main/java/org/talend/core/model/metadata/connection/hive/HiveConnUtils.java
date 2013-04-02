@@ -277,7 +277,7 @@ public class HiveConnUtils {
                 }
             }
         }
-        return -1;
+        return 0;
     }
 
     protected static int getIndexOfHiveVersion(HiveConnVersionInfo distribution, HiveConnVersionInfo hiveVersion) {
@@ -297,7 +297,7 @@ public class HiveConnUtils {
                 }
             }
         }
-        return -1;
+        return 0;
     }
 
     protected static int getIndexOfHiveMode(HiveConnVersionInfo distribution, HiveConnVersionInfo hiveVersion,
