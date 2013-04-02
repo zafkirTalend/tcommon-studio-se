@@ -25,6 +25,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
@@ -38,7 +39,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.tis.ICoreTisService;
-import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RegistrationPlugin;
@@ -68,6 +68,13 @@ public class Application implements IApplication {
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
             CoreRepositoryPlugin.getDefault().setRCPMode();
+            try {
+                Browser browser = new Browser(new Shell(), SWT.BORDER);
+                System.setProperty("USE_BROWSER", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+                browser.dispose();
+            } catch (Throwable t) {
+                System.setProperty("USE_BROWSER", "no"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)
                     && !Boolean.parseBoolean(System.getProperty("talend.project.reload"))) {//$NON-NLS-1$ 
@@ -77,7 +84,6 @@ public class Application implements IApplication {
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
             service.executeWorspaceTasks();
-
             // saveConnectionBean(email);
 
             boolean logUserOnProject = logUserOnProject(display.getActiveShell(), inuse);
@@ -154,8 +160,6 @@ public class Application implements IApplication {
     }
 
     private void openLicenseAndRegister(Shell shell) {
-        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                IBrandingService.class);
         if (!LicenseManagement.isLicenseValidated()) {
             LicenseWizard licenseWizard = new LicenseWizard();
             LicenseWizardDialog dialog = new LicenseWizardDialog(shell, licenseWizard);
@@ -173,41 +177,8 @@ public class Application implements IApplication {
                 System.exit(0);
             }
         }
-        // TDI-17592
-        // if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
-        // if (!RegisterManagement.getInstance().isProductRegistered()) {
-        // RegisterWizard registerWizard = new RegisterWizard();
-        // RegisterWizardPage1 dialog = new RegisterWizardPage1(shell, registerWizard);
-        // dialog.open();
-        // }
-        // }
 
     }
-
-    /**
-     * TODO This method should be removed after finishing the sqlpattern
-     * 
-     * @param context
-     */
-    /*
-     * private void setSqlpatternUsibility(IApplicationContext context) { Map map = context.getArguments(); String[]
-     * args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS); if (args == null) { return; }
-     * 
-     * boolean use = true; // for (int i = 0; i < args.length; i++) { // if (args[i].equals("-useSQLPattern")) { // use
-     * = Boolean.parseBoolean(args[i + 1]); // break; // } // } CorePlugin.getContext().putProperty("useSQLPattern",
-     * use); }
-     *//**
-     * TODO This method should be removed after finishing the refProject
-     * 
-     * @param context
-     */
-    /*
-     * private void setRefProjectUsibility(IApplicationContext context) { Map map = context.getArguments(); String[]
-     * args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS); if (args == null) { return; }
-     * 
-     * boolean use = false; for (int i = 0; i < args.length; i++) { if (args[i].equals("-useRefProject")) { use =
-     * Boolean.parseBoolean(args[i + 1]); break; } } CorePlugin.getContext().putProperty("useRefProject", use); }
-     */
 
     /**
      * Return <code>true</code> if the lock could be acquired.
@@ -259,8 +230,6 @@ public class Application implements IApplication {
         } catch (Throwable t) {
             // do nothing
         }
-        //        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
-        //                Messages.getString("Application.workspaceInUse")); //$NON-NLS-1$
         return false;
     }
 
