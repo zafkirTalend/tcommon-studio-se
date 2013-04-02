@@ -25,6 +25,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQItemService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -211,6 +212,14 @@ public final class ProcessUtils {
         dependencies.addAll(getJobletDependenciesOfProcess(items, false));
         dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items, withSystem));
         dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem, false));
+
+        if (org.talend.commons.utils.platform.PluginChecker.isTDQLoaded()) {
+            ITDQItemService tdqItemService = (ITDQItemService) GlobalServiceRegister.getDefault().getService(
+                    ITDQItemService.class);
+            if (tdqItemService != null) {
+                dependencies.addAll(tdqItemService.getProcessItemDependencies(items));
+            }
+        }
 
         clearFakeProcesses();
         return dependencies;

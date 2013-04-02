@@ -13,6 +13,7 @@
 package org.talend.core;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.repository.IRepositoryViewObject;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -128,4 +130,12 @@ public interface ITDQItemService extends ITDQService {
      * @return
      */
     public boolean deleteGrammerFile(String folderName);
+
+    /**
+     * DOC sizhaoliu Comment method "getReportGenerationResources".
+     * 
+     * @param items
+     * @return
+     */
+    public Collection<IRepositoryViewObject> getProcessItemDependencies(Collection<Item> items);
 }
