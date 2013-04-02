@@ -431,9 +431,11 @@ public class ProcessorUtilities {
         for (ModuleNeeded module : neededModules) {
             jarList.add(module.getModuleName());
         }
-        CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+        Set<String> pigudfNeededWithSubjobPerJob = LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
+                jobInfo.getJobId(), jobInfo.getJobVersion());
         String pigModuleName = null;
-        if (selectedProcessItem != null) {
+        if (selectedProcessItem != null && !pigudfNeededWithSubjobPerJob.isEmpty()) {
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             pigModuleName = service.exportPigudf(processor, selectedProcessItem.getProperty(), exportConfig);
         }
