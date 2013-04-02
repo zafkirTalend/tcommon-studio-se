@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -84,6 +85,46 @@ public class EmfHelper {
         for (EObject eObject : toVisit) {
             visitChilds(eObject, visitedObjects);
         }
+    }
+
+    public static void removeProxy(EObject object) {
+        removeProxy(object, new HashSet<String>());
+    }
+
+    private static void removeProxy(EObject object, Set<String> visitedObjects) {
+        if (visitedObjects.contains(object.eClass().getName() + ";" + object.hashCode())) {
+            return;
+        }
+        visitedObjects.add(object.eClass().getName() + ";" + object.hashCode());
+        List<EObject> toVisit = new ArrayList<EObject>();
+        for (Object element : object.eClass().getEAllReferences()) {
+            EReference reference = (EReference) element;
+            if (reference.isMany()) {
+                List list = (List) object.eGet(reference);
+                for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
+                    Object get = iterator2.next();
+                    if (get instanceof EObject) {
+                        if (((EObjectImpl) get).eIsProxy()) {
+                            ((EObjectImpl) get).eSetProxyURI(null);
+                        }
+                        toVisit.add((EObject) get);
+                    }
+                }
+            } else {
+                Object get = object.eGet(reference);
+                if (get instanceof EObject) {
+                    if (((EObjectImpl) get).eIsProxy()) {
+                        ((EObjectImpl) get).eSetProxyURI(null);
+                    }
+                    toVisit.add((EObject) get);
+                }
+            }
+        }
+
+        for (EObject eObject : toVisit) {
+            removeProxy(eObject, visitedObjects);
+        }
+
     }
 
     /**
