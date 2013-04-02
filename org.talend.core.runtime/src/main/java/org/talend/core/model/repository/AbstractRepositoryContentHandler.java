@@ -262,4 +262,15 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#saveScreenShots(org.talend.core.model.properties.Item)
+     */
+    @Override
+    public Resource saveScreenShots(Item item) throws PersistenceException {
+        return null;
+    }
+
 }

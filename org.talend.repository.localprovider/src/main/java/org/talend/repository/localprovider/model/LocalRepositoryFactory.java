@@ -2290,8 +2290,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = save((TDQItem) item);
             } else {
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                    screenshotResource = handler.saveScreenShots(item);
                     itemResource = handler.save(item);
                     if (itemResource != null) {
+                        if (screenshotResource != null) {
+                            screenshotFlag = true;
+                        }
                         break;
                     }
                 }

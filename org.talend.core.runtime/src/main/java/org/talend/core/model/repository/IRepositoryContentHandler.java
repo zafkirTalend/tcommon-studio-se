@@ -47,6 +47,16 @@ public interface IRepositoryContentHandler {
      */
     Resource createScreenShotResource(IProject project, Item item, int classifierID, IPath path) throws PersistenceException;
 
+    /**
+     * This method is used to load screen shot resources to return by the given item. Sub-classes could override this
+     * method to return a special resource if required. Added by Marvin Wang on Apr 1, 2013.
+     * 
+     * @param item
+     * @return
+     * @throws PersistenceException
+     */
+    Resource saveScreenShots(Item item) throws PersistenceException;
+
     public Resource save(Item item) throws PersistenceException;
 
     public IImage getIcon(ERepositoryObjectType type);
