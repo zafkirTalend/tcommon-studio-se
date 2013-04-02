@@ -27,8 +27,8 @@ public interface IProcessConvertService {
      * Converts the current child process extends process to process. For example, convert m/r process to common
      * process.Added by Marvin Wang on Feb 18, 2013.
      * 
-     * @param item
-     * @param repViewObject
+     * @param item an item to be converted.
+     * @param repViewObject an object to be converted.
      * @return
      */
     Item convertToProcess(Item item, IRepositoryViewObject repViewObject);
@@ -36,8 +36,8 @@ public interface IProcessConvertService {
     /**
      * Converts process to the current process which extends process. Added by Marvin Wang on Feb 18, 2013.
      * 
-     * @param item
-     * @param repViewObject
+     * @param item an item to be converted.
+     * @param repViewObject an object to be converted.
      * @return
      */
     Item convertFromProcess(Item item, IRepositoryViewObject repViewObject);
