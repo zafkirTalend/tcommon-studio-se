@@ -143,6 +143,9 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
 
     private void collect(RootContainer<String, IRepositoryViewObject> rootContainer, List<ConnectionItem> result)
             throws PersistenceException {
+    	if(rootContainer==null) {
+    		return;
+    	}
         for (IRepositoryViewObject repositoryObject : rootContainer.getAbsoluteMembers().objects()) {
             ConnectionItem connectionItem = (ConnectionItem) repositoryObject.getProperty().getItem();
             if (getStatus(connectionItem) != ERepositoryStatus.DELETED) {
