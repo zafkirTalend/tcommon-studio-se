@@ -72,7 +72,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -218,14 +218,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject fsProject = ResourceModelUtils.getProject(project);
         // added for bug 18318
         if (fsProject == null || type == null) {
-            return null;
+            return toReturn;
         }
         IFolder objectFolder = null;
         try {
             objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
         } catch (ResourceNotFoundException rex) {
             // log.info(rex.getMessage());
-            return new RootContainer<K, T>(); // return empty
+            return toReturn; // return empty
         }
         // projectModified = false;
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
