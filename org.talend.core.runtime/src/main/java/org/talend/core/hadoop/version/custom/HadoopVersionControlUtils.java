@@ -47,7 +47,7 @@ public class HadoopVersionControlUtils {
         for (ECustomVersionGroup group : values) {
             String groupName = group.getName();
             String jarString = parameters.get(groupName);
-            if (jarString != null) {
+            if (jarString != null && !jarString.isEmpty()) {
                 Set<String> jarSet = new HashSet<String>();
                 String[] jarArray = jarString.split(JAR_SEPARATOR);
                 for (String jar : jarArray) {
