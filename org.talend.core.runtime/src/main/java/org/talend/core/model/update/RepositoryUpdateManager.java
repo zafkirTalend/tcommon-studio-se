@@ -1670,6 +1670,7 @@ public abstract class RepositoryUpdateManager {
                             .getService(IMetadataManagmentService.class);
                     IMetadataTable newMetadataTable = service.convertMetadataTable(newTable);
                     update = !oldMetadataTable.sameMetadataAs(newMetadataTable, IMetadataColumn.OPTIONS_NONE);
+                    isAddColumn = isAddColumn(newMetadataTable, oldMetadataTable);
                 }
             }
         }
