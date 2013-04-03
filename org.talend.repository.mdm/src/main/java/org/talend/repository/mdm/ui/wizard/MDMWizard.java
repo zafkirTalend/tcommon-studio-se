@@ -327,7 +327,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
 
     @Override
     public void addPages() {
-        setWindowTitle("");//$NON-NLS-1$
+        setWindowTitle(Messages.getString("MDMWizardConnection"));//$NON-NLS-1$
         // setDefaultPageImageDescriptor(ImageProvider.getImageDesc(ECoreImage.METADATA_MDM_CONNECTION_WIZ));
         if (isToolBar) {
             pathToSave = null;
