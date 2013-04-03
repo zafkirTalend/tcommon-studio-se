@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -112,4 +114,13 @@ public interface ITDQRepositoryService extends IService {
 
     // Add zshen 2013-01-05
     public void refreshCurrentAnalysisAndConnectionEditor();
+
+    /**
+     * create a hive connection(embedded or standalone) according to the IMetadataConnection, if it is not a hive
+     * connection type, return null.
+     * 
+     * @param metadataConnection the db type should be hive
+     * @return a hive connection or null
+     */
+    public Connection createHiveConnection(IMetadataConnection metadataConnection);
 }
