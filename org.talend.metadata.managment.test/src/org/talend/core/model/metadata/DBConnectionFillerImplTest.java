@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -34,15 +35,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.database.EDatabase4DriverClassName;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
@@ -60,6 +65,7 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
+import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -74,7 +80,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 @PrepareForTest({ StringUtils.class, ExtractMetaDataFromDataBase.class, MetadataConnectionUtils.class, PackageHelper.class,
         ConnectionHelper.class, ProxyRepositoryFactory.class, ExtensionImplementationProvider.class, CatalogHelper.class,
-        SchemaHelper.class, ConnectionUtils.class, ColumnSetHelper.class, ExtractMetaDataUtils.class })
+        SchemaHelper.class, ConnectionUtils.class, ColumnSetHelper.class, ExtractMetaDataUtils.class, ConvertionHelper.class })
 public class DBConnectionFillerImplTest {
 
     @Rule
@@ -244,6 +250,73 @@ public class DBConnectionFillerImplTest {
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
+    }
+
+/**
+     * Test filling catalogs for odbc teredata .
+     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillCatalogs(Connection, DatabaseMetaData, IMetadataConnection, List)
+     * @throws SQLException
+     */
+    @Test
+    public void testFillCatalogs_AS400() throws SQLException {
+        // mock ReturnCode sql.Connection
+        java.sql.Connection mockSqlConn = Mockito.mock(java.sql.Connection.class);
+        Mockito.when(mockSqlConn.getCatalog()).thenReturn("tbi"); //$NON-NLS-1$
+        // ~mock
+        // mock ResultSet
+        ResultSet mockCatalogResults = Mockito.mock(ResultSet.class);
+        Mockito.when(mockCatalogResults.next()).thenReturn(true, false);
+        Mockito.when(mockCatalogResults.getString(MetaDataConstants.TABLE_CAT.name())).thenReturn("tbi"); //$NON-NLS-1$
+        ResultSet mockSchemaResults = Mockito.mock(ResultSet.class);
+        Mockito.when(mockSchemaResults.next()).thenReturn(true, false);
+        Mockito.when(mockSchemaResults.getString(MetaDataConstants.TABLE_SCHEM.name())).thenReturn("dbo"); //$NON-NLS-1$
+        // ~Result
+        // mock JDBC Metadata
+        DatabaseMetaData dbJDBCMetadata = mock(DatabaseMetaData.class);
+        Mockito.when(dbJDBCMetadata.getDatabaseProductName()).thenReturn(EDatabaseTypeName.AS400.getProduct());
+        Mockito.when(dbJDBCMetadata.getDriverName()).thenReturn("com.ibm.as400.access.AS400JDBCDriver"); //$NON-NLS-1$
+        Mockito.when(dbJDBCMetadata.getCatalogs()).thenReturn(mockCatalogResults);
+        Mockito.when(dbJDBCMetadata.getConnection()).thenReturn(mockSqlConn);
+
+        Mockito.when(dbJDBCMetadata.getSchemas()).thenReturn(mockSchemaResults);
+        // ~JDBC Metadata
+        //        stub(method(ConnectionUtils.class, "isOdbcTeradata", DatabaseMetaData.class)).toReturn(true); //$NON-NLS-1$
+        // mock DatabaseConnection
+        List<String> catalogFilter = new ArrayList<String>();
+        DatabaseConnection dbConnection = mock(DatabaseConnection.class);
+        Mockito.when(dbConnection.getSID()).thenReturn(""); //$NON-NLS-1$
+        Mockito.when(dbConnection.getDatabaseType()).thenReturn(EDatabaseTypeName.AS400.getDisplayName());
+        Mockito.when(dbConnection.getUiSchema()).thenReturn(""); //$NON-NLS-1$
+        // ~DatabaseConnection
+
+        // mock MetadataConnection
+        IMetadataConnection metadaConnection = Mockito.mock(MetadataConnection.class);
+        Mockito.when(metadaConnection.getDatabase()).thenReturn(""); //$NON-NLS-1$
+        // ~MetadataConnection
+
+        // mock ConvertionHelper
+        PowerMockito.mockStatic(ConvertionHelper.class);
+        Mockito.when(ConvertionHelper.convert(dbConnection)).thenReturn(metadaConnection);
+        // Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(mockSqlConn, EDatabaseTypeName.IBMDB2ZOS.getXmlName(),
+        // false, ""))
+        // .thenCallRealMethod();
+        // ~ConvertionHelper
+        // mock ConnectionHelper
+        PowerMockito.mockStatic(ConnectionHelper.class);
+        Mockito.when(ConnectionHelper.getTables(dbConnection)).thenReturn(new HashSet<MetadataTable>());
+        // Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(mockSqlConn, EDatabaseTypeName.IBMDB2ZOS.getXmlName(),
+        // false, ""))
+        // .thenCallRealMethod();
+        // ~ConnectionHelper
+
+        when(dbConnection.isContextMode()).thenReturn(false);
+        List<Catalog> fillCatalogs = this.dBConnectionFillerImpl.fillCatalogs(dbConnection, dbJDBCMetadata, null, catalogFilter);
+        assertTrue(fillCatalogs.size() == 1);
+        assertTrue("tbi".equals(fillCatalogs.get(0).getName()));
+        List<Schema> schemas = CatalogHelper.getSchemas(fillCatalogs.get(0));
+        assertTrue(schemas.size() == 1);
+        assertTrue("dbo".equals(schemas.get(0).getName()));
+
     }
 
     /**
