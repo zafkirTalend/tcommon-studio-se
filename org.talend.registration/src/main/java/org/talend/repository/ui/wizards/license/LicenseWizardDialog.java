@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards.license;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -50,6 +51,7 @@ public final class LicenseWizardDialog extends WizardDialog {
         super.createButtonsForButtonBar(parent);
         Button button = getButton(IDialogConstants.FINISH_ID);
         if (button != null) {
+            ((GridData) button.getParent().getLayoutData()).horizontalAlignment = SWT.CENTER;
             button.setText(Messages.getString("LicenseWizard.accept")); //$NON-NLS-1$
             GridData data = new GridData(250, -1);
             button.setLayoutData(data);
