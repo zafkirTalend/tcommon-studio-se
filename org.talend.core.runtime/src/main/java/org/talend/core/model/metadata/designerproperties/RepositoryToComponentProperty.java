@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -1104,7 +1105,11 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("DISTRIBUTION")) {
-            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+            if ((databaseType).equals(EDatabaseTypeName.HBASE.getDisplayName())) {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+            } else {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+            }
         }
 
         if (value.equals("HIVE_VERSION")) {
@@ -1133,7 +1138,9 @@ public class RepositoryToComponentProperty {
 
         if (value.equals(EParameterNameForComponent.PARA_NAME_FS_DEFAULT_NAME.getName())) {
             String nameNodeURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
-            if (isContextMode(connection, nameNodeURL)) {
+            if (nameNodeURL == null && (databaseType).equals(EDatabaseTypeName.HBASE.getDisplayName())) {
+                return nameNodeURL;
+            } else if (isContextMode(connection, nameNodeURL)) {
                 return nameNodeURL;
             } else {
                 return TalendQuoteUtils.addQuotes(nameNodeURL);
@@ -1146,6 +1153,74 @@ public class RepositoryToComponentProperty {
                 return jobTrackerURL;
             } else {
                 return TalendQuoteUtils.addQuotes(jobTrackerURL);
+            }
+        }
+
+        if (value.equals("LOCAL")) {
+            return false;
+        }
+
+        if (value.equals("MAPREDUCE")) {
+            return true;
+        }
+
+        if (value.equals("LOAD")) {
+            return "HBaseStorage";
+        }
+
+        if (value.equals("PIG_VERSION")) {
+            return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+        }
+
+        if (value.equals("USE_KRB")) {
+            String useKrbValue = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+            if (useKrbValue == null) {
+                return useKrbValue;
+            } else {
+                return Boolean.parseBoolean(useKrbValue);
+            }
+        }
+
+        if (value.equals("MAPRED_JOB_TRACKER")) {
+            String mapredJobTracker = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            if (mapredJobTracker == null) {
+                return mapredJobTracker;
+            } else {
+                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(mapredJobTracker));
+            }
+        }
+
+        if (value.equals("NAMENODE_PRINCIPAL")) {
+            String nameNodePrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_PRINCIPAL);
+            if (nameNodePrincipal == null) {
+                return nameNodePrincipal;
+            } else {
+                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(nameNodePrincipal));
+            }
+        }
+
+        if (value.equals("JOBTRACKER_PRINCIPAL")) {
+            String jobTrackerPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_PRINCIPAL);
+            if (jobTrackerPrincipal == null) {
+                return jobTrackerPrincipal;
+            } else {
+                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jobTrackerPrincipal));
+            }
+        }
+
+        if (value.equals("ZOOKEEPER_QUORUM")) {
+            if (isContextMode(connection, connection.getServerName())) {
+                return connection.getServerName();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getServerName());
+            }
+        }
+
+        if (value.equals("ZOOKEEPER_CLIENT_PORT")) {
+            if (isContextMode(connection, connection.getPort())) {
+                return connection.getPort();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getPort());
             }
         }
 
