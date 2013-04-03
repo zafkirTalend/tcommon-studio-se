@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Defines methods to use components. Implementation from extension point is given by ComponentsFactoryProvider<br/>
@@ -75,6 +74,7 @@ public interface IComponentsFactory {
      * @return
      * @deprecated
      */
+    @Deprecated
     public IComponent get(String name);
 
     public IComponent get(String name, String paletteType);
@@ -102,6 +102,4 @@ public interface IComponentsFactory {
     public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
 
     public Map<String, File> getComponentsProvidersFolder();
-
-    public Map<String, ImageDescriptor> getComponentsImageRegistry();
 }
