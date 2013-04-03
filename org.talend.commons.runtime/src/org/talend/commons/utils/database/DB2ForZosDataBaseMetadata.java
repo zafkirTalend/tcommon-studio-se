@@ -259,35 +259,54 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     private String addTypesToSql(String sql, String[] types, String and) {
         String result = sql;
+        boolean checkContainTable = checkContainTable(types);
+        String typeClause = ""; //$NON-NLS-1$
+        if (checkContainTable && types.length > 1) {
+            typeClause += " ("; //$NON-NLS-1$
+        }
         if (types != null && types.length > 0) {
-            String typeClause = " type in("; //$NON-NLS-1$
+            typeClause += " type in("; //$NON-NLS-1$
             int len = types.length;
-            boolean isTable = false;
+            String comma = ""; //$NON-NLS-1$
             for (int i = 0; i < len; ++i) {
-                String comma = ""; //$NON-NLS-1$
-                if (i > 0) {
-                    comma = " , "; //$NON-NLS-1$
+                // ADDED yyin 20120516 TDQ-5190, same action as DB2
+                if (TABLE.equals(types[i])) {
+                    continue;
                 }
+
                 typeClause = typeClause + comma + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
-
-                // ADDED yyin 20120516 TDQ-5190, same action as DB2
-                if (TABLE.equals(types[i])) {
-                    isTable = true;
-                }
-
-                // ADDED yyin 20120516 TDQ-5190, same action as DB2
-                if (TABLE.equals(types[i])) {
-                    isTable = true;
-                }
+                comma = " , "; //$NON-NLS-1$
             }
-            typeClause = typeClause + ")"; //$NON-NLS-1$
+            if (checkContainTable && types.length == 1) {
+                typeClause = typeClause + "'" + getDb2zosTypeName(types[0]) + "'" + ") and TBSPACE!='SYSCATSPACE'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            } else {
+                typeClause = typeClause + ")"; //$NON-NLS-1$
+            }
             result = sql + and + typeClause;
             // ADDED yyin 20120516 TDQ-5190, same action as DB2
-            if (isTable) {
-                result = result + " and TBSPACE!='SYSCATSPACE'";
+            if (checkContainTable && types.length > 1) {
+                result = result + "  or( TBSPACE!='SYSCATSPACE' and type in('T') ))";
             }
         }
         return result;
+    }
+
+    /**
+     * DOC zshen Comment method "checkContainTable".
+     * 
+     * @param types
+     */
+    private boolean checkContainTable(String[] types) {
+        if (types != null && types.length > 0) {
+            int len = types.length;
+            for (int i = 0; i < len; ++i) {
+                if (TABLE.equals(types[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 
     /*
