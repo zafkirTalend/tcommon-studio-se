@@ -44,15 +44,15 @@ public class ClassLoaderFactory {
 
     private static IConfigurationElement[] configurationElements = null;
 
+    private static Map<String, DynamicClassLoader> classLoadersMap = null;
+
     private final static String SEPARATOR = ";"; //$NON-NLS-1$
 
     private final static String PATH_SEPARATOR = "/"; //$NON-NLS-1$
 
-    private static Map<String, DynamicClassLoader> classLoadersMap = null;
+    private final static String INDEX_ATTR = "index"; //$NON-NLS-1$
 
-    private static final String INDEX_ATTR = "index"; //$NON-NLS-1$
-
-    private static final String LIB_ATTR = "libraries"; //$NON-NLS-1$
+    private final static String LIB_ATTR = "libraries"; //$NON-NLS-1$
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -67,10 +67,17 @@ public class ClassLoaderFactory {
      */
     public static DynamicClassLoader getClassLoader(String index) {
         if (classLoadersMap == null) {
-            initClassLoaders();
+            init();
+        }
+        DynamicClassLoader classLoader = classLoadersMap.get(index);
+        if (classLoader == null) {
+            classLoader = findLoader(index);
+        }
+        if (classLoader != null) {
+            classLoadersMap.put(index, classLoader);
         }
 
-        return classLoadersMap.get(index);
+        return classLoader;
     }
 
     public static DynamicClassLoader getCustomClassLoader(String index, String jarsStr) {
@@ -131,25 +138,33 @@ public class ClassLoaderFactory {
         return classLoader;
     }
 
-    private static void initClassLoaders() {
+    private static void init() {
         File tmpFolder = getTmpFolder();
         if (tmpFolder.exists()) {
             FilesUtils.removeFolder(tmpFolder, true);
         }
         classLoadersMap = new HashMap<String, DynamicClassLoader>();
-        for (IConfigurationElement current : configurationElements) {
-            String index = current.getAttribute(INDEX_ATTR);
-            String libraries = current.getAttribute(LIB_ATTR);
-            if (StringUtils.isNotEmpty(index)) {
-                DynamicClassLoader classLoader = new DynamicClassLoader();
-                if (StringUtils.isNotEmpty(libraries)) {
-                    String[] librariesArray = libraries.split(SEPARATOR);
-                    loadLibraries(classLoader, librariesArray);
+    }
 
+    private static DynamicClassLoader findLoader(String index) {
+        if (index != null && configurationElements != null) {
+            for (IConfigurationElement current : configurationElements) {
+                String key = current.getAttribute(INDEX_ATTR);
+                if (index.equals(key)) {
+                    String libraries = current.getAttribute(LIB_ATTR);
+                    if (StringUtils.isNotEmpty(index)) {
+                        DynamicClassLoader classLoader = new DynamicClassLoader();
+                        if (StringUtils.isNotEmpty(libraries)) {
+                            String[] librariesArray = libraries.split(SEPARATOR);
+                            loadLibraries(classLoader, librariesArray);
+                        }
+                        return classLoader;
+                    }
                 }
-                classLoadersMap.put(index, classLoader);
             }
         }
+
+        return null;
     }
 
     private static void loadLibraries(DynamicClassLoader classLoader, String[] driversArray) {
