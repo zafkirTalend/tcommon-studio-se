@@ -91,17 +91,19 @@ public class LicenseWizardPage extends WizardPage {
         try {
             URL url = brandingService.getLicenseFile();
             filePath = url.getFile();
-            IPath file = new Path(filePath).removeFileExtension();
-            file = file.addFileExtension("html"); //$NON-NLS-1$
-            if (new File(file.toPortableString()).exists()) {
-                haveHtmlDesc = true;
-                filePath = file.toPortableString();
+            if ("yes".equalsIgnoreCase(System.getProperty("USE_BROWSER"))) { //$NON-NLS-1$ //$NON-NLS-2$
+                IPath file = new Path(filePath).removeFileExtension();
+                file = file.addFileExtension("html"); //$NON-NLS-1$
+                if (new File(file.toPortableString()).exists()) {
+                    haveHtmlDesc = true;
+                    filePath = file.toPortableString();
+                }
             }
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
 
-        if (haveHtmlDesc && "yes".equalsIgnoreCase(System.getProperty("USE_BROWSER"))) { //$NON-NLS-1$//$NON-NLS-2$
+        if (haveHtmlDesc) {
             clufBrowser = new Browser(container, SWT.BORDER);
             clufBrowser.setText(getLicense(filePath));
             clufBrowser.setLayoutData(data);
