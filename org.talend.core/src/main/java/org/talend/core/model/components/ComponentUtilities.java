@@ -417,7 +417,7 @@ public class ComponentUtilities {
 
         // for family folders
         for (IComponent component : components) {
-            if (component.getComponentType() == EComponentType.JOBLET) {
+            if (component.isTechnical() || component.getComponentType() == EComponentType.JOBLET) {
                 continue;
             }
             String family = component.getOriginalFamilyName();
@@ -436,7 +436,7 @@ public class ComponentUtilities {
 
         // for components
         for (IComponent component : components) {
-            if (component.getComponentType() == EComponentType.JOBLET) {
+            if (component.isTechnical() || component.getComponentType() == EComponentType.JOBLET) {
                 continue;
             }
             String family = component.getOriginalFamilyName();
