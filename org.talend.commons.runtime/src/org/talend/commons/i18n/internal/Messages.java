@@ -24,7 +24,7 @@ import org.talend.commons.i18n.MessagesCore;
  */
 public class Messages extends MessagesCore {
 
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.talend.commons.i18n.internal.messages"; //$NON-NLS-1$
 
     private static final String PLUGIN_ID = "org.talend.commons"; //$NON-NLS-1$
 
