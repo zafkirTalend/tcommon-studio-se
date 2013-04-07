@@ -29,6 +29,7 @@ import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
@@ -121,31 +122,37 @@ public class ComponentUtilities {
         if (skipUpdatePalette) {
             return;
         }
-        IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        DisplayUtils.getDisplay().syncExec(new Runnable() {
 
-        if (paletteRoot != null) {
-            List oldRoots = new ArrayList(paletteRoot.getChildren());
+            @Override
+            public void run() {
+                IComponentsFactory components = ComponentsFactoryProvider.getInstance();
 
-            for (Object obj : oldRoots) {
-                if (obj instanceof TalendPaletteGroup) {
-                    continue;
+                if (paletteRoot != null) {
+                    List oldRoots = new ArrayList(paletteRoot.getChildren());
+
+                    for (Iterator it = oldRoots.iterator(); it.hasNext();) {
+                        Object obj = it.next();
+                        if (obj instanceof TalendPaletteGroup) {
+                            continue;
+                        }
+                        it.remove();
+                    }
+                    paletteRoot.setChildren(oldRoots);
+                    paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot);
+
+                } else {
+                    paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components);
                 }
-                paletteRoot.remove((PaletteEntry) obj);
+
+                if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+                    extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
+                }
             }
-
-            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot);
-
-        } else {
-            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components);
-        }
-
-        if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-            extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
-        }
-
+        });
     }
 
-    public static void updatePalette(boolean isFavorite) {
+    public static void updatePalette(final boolean isFavorite) {
         // if (jobletFlag == true) {
         // setExtraEntryVisible(true);
         // }
@@ -153,28 +160,33 @@ public class ComponentUtilities {
         if (skipUpdatePalette) {
             return;
         }
-        IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        DisplayUtils.getDisplay().syncExec(new Runnable() {
 
-        if (paletteRoot != null) {
-            List oldRoots = new ArrayList(paletteRoot.getChildren());
+            @Override
+            public void run() {
+                IComponentsFactory components = ComponentsFactoryProvider.getInstance();
 
-            for (Object obj : oldRoots) {
-                if (obj instanceof TalendPaletteGroup) {
-                    continue;
+                if (paletteRoot != null) {
+                    List oldRoots = new ArrayList(paletteRoot.getChildren());
+
+                    for (Iterator it = oldRoots.iterator(); it.hasNext();) {
+                        Object obj = it.next();
+                        if (obj instanceof TalendPaletteGroup) {
+                            continue;
+                        }
+                        it.remove();
+                    }
+                    paletteRoot.setChildren(oldRoots);
+                    paletteRoot = CorePlugin.getDefault().getDesignerCoreService()
+                            .createPalette(components, paletteRoot, isFavorite);
+                } else {
+                    paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, isFavorite);
                 }
-                paletteRoot.remove((PaletteEntry) obj);
+                if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+                    extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
+                }
             }
-            // if (histate == 1) {
-            // paletteRoot.getChildren().clear();
-            // }
-            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot, isFavorite);
-        } else {
-            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, isFavorite);
-        }
-        if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-            extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
-        }
-
+        });
     }
 
     /**

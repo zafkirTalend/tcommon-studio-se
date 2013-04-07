@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.images;
 
-import org.apache.commons.collections.map.MultiKeyMap;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.image.IImage;
@@ -21,6 +23,7 @@ import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * amaumont class global comment. Detailled comment <br/>
@@ -42,48 +45,77 @@ public class CoreImageProvider {
         return RepositoryImageProvider.getIcon(type);
     }
 
-    private static MultiKeyMap componentCachedImages = new MultiKeyMap();
+    private static Map<ImageDescriptor, Image> componentCachedImages = new HashMap<ImageDescriptor, Image>();
+
+    public static Image getComponentImageFromDesc(ImageDescriptor imageDescriptor) {
+        Image image = null;
+        image = componentCachedImages.get(imageDescriptor);
+        if (image == null || image.isDisposed()) {
+            image = imageDescriptor.createImage();
+            componentCachedImages.put(imageDescriptor, image);
+        }
+        return image;
+    }
 
     public static Image getComponentIcon(IComponent component, ICON_SIZE iconSize) {
         if (component != null && iconSize != null) {
-
-            String name = component.getName();
-            Image image = null;
             if (iconSize == ICON_SIZE.ICON_32 && CorePlugin.getDefault().getDesignerCoreService().isDummyComponent(component)) {
-                image = component.getIcon32().createImage();
-            } else {
-                image = (Image) componentCachedImages.get(name, iconSize);
+                return getComponentImageFromDesc(component.getIcon32());
             }
-            if (image == null || image.isDisposed()) {
-                ImageDescriptor icon = null;
-                switch (iconSize) {
-                case ICON_16:
-                    icon = component.getIcon16();
-                    break;
-                case ICON_24:
-                    icon = component.getIcon24();
-                    break;
-                case ICON_32:
-                default:
-                    icon = component.getIcon32();
-                }
-                // default
-                if (icon == null) {
-                    icon = component.getIcon32();
-                }
-                image = icon.createImage();
-                componentCachedImages.put(name, iconSize, image);
+
+            ImageDescriptor icon = null;
+            switch (iconSize) {
+            case ICON_16:
+                icon = component.getIcon16();
+                break;
+            case ICON_24:
+                icon = component.getIcon24();
+                break;
+            case ICON_32:
+            default:
+                icon = component.getIcon32();
             }
-            return image;
+            // default
+            if (icon == null) {
+                icon = component.getIcon32();
+            }
+            if (icon != null) {
+                return getComponentImageFromDesc(icon);
+            }
         }
         return null;
     }
 
     public static void removeComponentImage(String name) {
-        if (name != null && !name.equals("")) {
-            componentCachedImages.remove(name, ICON_SIZE.ICON_16);
-            componentCachedImages.remove(name, ICON_SIZE.ICON_24);
-            componentCachedImages.remove(name, ICON_SIZE.ICON_32);
+        if (name != null && !name.equals("")) { //$NON-NLS-1$
+            for (IComponent component : ComponentsFactoryProvider.getInstance().getComponents()) {
+                if (name.equals(component.getName())) {
+                    Image image = componentCachedImages.get(component.getIcon16());
+                    if (image != null && !image.isDisposed()) {
+                        image.dispose();
+                    }
+                    componentCachedImages.remove(component.getIcon16());
+                    image = componentCachedImages.get(component.getIcon24());
+                    if (image != null && !image.isDisposed()) {
+                        image.dispose();
+                    }
+                    componentCachedImages.remove(component.getIcon24());
+                    image = componentCachedImages.get(component.getIcon32());
+                    if (image != null && !image.isDisposed()) {
+                        image.dispose();
+                    }
+                    componentCachedImages.remove(component.getIcon32());
+                }
+            }
         }
+    }
+
+    public static void clearComponentIconImages() {
+        for (Image image : componentCachedImages.values()) {
+            if (image != null && !image.isDisposed()) {
+                image.dispose();
+            }
+        }
+        componentCachedImages.clear();
     }
 }
