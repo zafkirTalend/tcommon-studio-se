@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.w3c.dom.Attr;
@@ -261,6 +263,14 @@ public class HadoopCustomLibrariesUtil {
         }
         File tempFile = null;
         try {
+            ILibrariesService service = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                service = (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
+            }
+
+            if (service == null) {
+                throw new Exception("Can not deploy jars");
+            }
             tempFile = createTempFolder();
             Collection<URI> collection = new HashSet<URI>();
 
@@ -332,6 +342,15 @@ public class HadoopCustomLibrariesUtil {
                 }
                 libsMap.put(group, libsInGroup);
             }
+
+            // deploy
+            File[] listFiles = tempFile.listFiles();
+            URL[] listUrl = new URL[listFiles.length];
+            for (int i = 0; i < listFiles.length; i++) {
+                listUrl[i] = listFiles[i].toURI().toURL();
+            }
+            service.deployLibrarys(listUrl);
+
             return libsMap;
         } catch (Exception e) {
             showError(Messages.getString("HadoopCustomLibrariesUtil.importFailed"), e);//$NON-NLS-1$
