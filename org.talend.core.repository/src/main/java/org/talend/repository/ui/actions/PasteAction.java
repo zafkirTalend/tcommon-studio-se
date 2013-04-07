@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.actions.ActionFactory;
 import org.talend.commons.exception.BusinessException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -33,6 +33,9 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.ICDCProviderService;
+import org.talend.designer.core.convert.IProcessConvertService;
+import org.talend.designer.core.convert.ProcessConvertManager;
+import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -73,18 +76,34 @@ public class PasteAction extends AContextualAction {
         TreeSelection selectionInClipboard = (TreeSelection) LocalSelectionTransfer.getTransfer().getSelection();
         if (selectionInClipboard != null) {
             for (Object currentSource : selectionInClipboard.toArray()) {
-                try {
-                    if (copyObjectAction.validateAction((RepositoryNode) currentSource, target)) {
-                        copyObjectAction.execute((RepositoryNode) currentSource, target);
-                    } else {
-                        MessageDialog.openWarning(new Shell(), Messages.getString("PasteObjectAction.error.title"), Messages //$NON-NLS-1$
-                                .getString("PasteObjectAction.error.labelAlreadyExists")); //$NON-NLS-1$
+                RepositoryNode sourceNode = (RepositoryNode) currentSource;
+                // To check if the source copied node meets the condition to convert or paste for TDI-25360.(Ctrl+V)
+                if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, target)) {
+
+                    IProcessConvertService convertService = ProcessConvertManager.getInstance().extractConvertService(
+                            ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
+                    if (ERepositoryObjectType.PROCESS == (sourceNode.getObjectType())) {
+                        IRepositoryViewObject repViewObj = sourceNode.getObject();
+                        convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj);
+                    } else if (ERepositoryObjectType.PROCESS_MR == (sourceNode.getObjectType())) {
+                        IRepositoryViewObject repViewObj = sourceNode.getObject();
+                        convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj);
                     }
-                } catch (BusinessException e) {
-                    MessageBoxExceptionHandler.process(e);
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
+                } else {
+                    try {
+                        if (copyObjectAction.validateAction((RepositoryNode) currentSource, target)) {
+                            copyObjectAction.execute((RepositoryNode) currentSource, target);
+                        } else {
+                            MessageDialog.openWarning(new Shell(), Messages.getString("PasteObjectAction.error.title"), Messages //$NON-NLS-1$
+                                    .getString("PasteObjectAction.error.labelAlreadyExists")); //$NON-NLS-1$
+                        }
+                    } catch (BusinessException e) {
+                        MessageBoxExceptionHandler.process(e);
+                    } catch (Exception e) {
+                        CommonExceptionHandler.process(e);
+                    }
                 }
+
             }
 
             ERepositoryObjectType contentType = target.getContentType();
@@ -94,6 +113,7 @@ public class PasteAction extends AContextualAction {
         }
     }
 
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean enabled = true;
         // if (selection.size() != 1) { // only one current node selected
