@@ -171,7 +171,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopCustomVersionDialog.topTitle")); //$NON-NLS-1$
-        newShell.setSize(500, 550);
+        newShell.setSize(550, 600);
         setHelpAvailable(false);
     }
 
@@ -416,7 +416,13 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
 
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    customLibUtil.exportLibZipFile(selectedArchive, libMap);
+                    PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            customLibUtil.exportLibZipFile(selectedArchive, libMap);
+                        }
+                    });
                 }
             };
             try {
