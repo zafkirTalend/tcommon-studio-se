@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jface.dialogs.Dialog;
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -16,20 +18,17 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.ui.runtime.image.EImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopService;
@@ -41,7 +40,7 @@ import org.talend.core.runtime.i18n.Messages;
  * created by ycbai on 2013-3-15 Detailled comment
  * 
  */
-public class HadoopVersionDialog extends Dialog {
+public class HadoopVersionDialog extends TitleAreaDialog {
 
     private static final int VISIBLE_DISTRIBUTION_COUNT = 5;
 
@@ -63,7 +62,7 @@ public class HadoopVersionDialog extends Dialog {
 
     private String version;
 
-    Map<ECustomVersionGroup, String> groupsAndDispaly;
+    private Map<ECustomVersionGroup, String> groupsAndDispaly;
 
     private List<Button> existVersionCheckBoxList;
 
@@ -74,8 +73,6 @@ public class HadoopVersionDialog extends Dialog {
     private String zipLocation;
 
     private Button browseButton;
-
-    private Text messageLabel;
 
     private HadoopCustomLibrariesUtil customLibUtil;
 
@@ -95,73 +92,34 @@ public class HadoopVersionDialog extends Dialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
-        newShell.setSize(400, 400);
-        newShell.addListener(SWT.Resize, new Listener() {
-
-            @Override
-            public void handleEvent(Event event) {
-                layoutTitle(true);
-            }
-
-        });
+        newShell.setSize(500, 450);
+        setHelpAvailable(false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.dialogs.TitleAreaDialog#createContents(org.eclipse.swt.widgets.Composite)
-     */
     @Override
-    protected Control createContents(Composite parent) {
-        Composite composite = new Composite(parent, 0);
-        GridLayout layout = new GridLayout();
-        layout.marginHeight = 0;
-        layout.marginWidth = 0;
-        layout.verticalSpacing = 0;
-        layout.horizontalSpacing = 0;
-        composite.setLayout(layout);
-        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        applyDialogFont(composite);
-        // initialize the dialog units
-        initializeDialogUnits(composite);
-
-        Composite contents = new Composite(composite, SWT.NONE);
-        GridData layoutData = new GridData(GridData.FILL_BOTH);
-        contents.setLayoutData(layoutData);
-        FormLayout formLayout = new FormLayout();
-        contents.setLayout(formLayout);
-        messageLabel = new Text(contents, SWT.WRAP | SWT.READ_ONLY | SWT.BORDER);
-        messageLabel.setText(Messages.getString("HadoopVersionDialog.msg"));//$NON-NLS-1$
-        messageLabel.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
-        layoutTitle(false);
-        // create the dialog area and button bar
-        dialogArea = createDialogArea(composite);
-        buttonBar = createButtonBar(composite);
-        return composite;
-    }
-
-    private void layoutTitle(boolean forceLayout) {
-        FormData messageLabelData = new FormData();
-        int messageLabelHeight = messageLabel.computeSize(getShell().getSize().x, SWT.DEFAULT).y;
-        messageLabelHeight = Math.max(40, messageLabelHeight);
-        messageLabelData.top = new FormAttachment(0, 0);
-        messageLabelData.right = new FormAttachment(100, 0);
-        messageLabelData.left = new FormAttachment(0, 0);
-        messageLabelData.height = messageLabelHeight;
-        messageLabel.setLayoutData(messageLabelData);
-        if (forceLayout) {
-            getShell().layout();
-        }
+    public void create() {
+        super.create();
+        setTitle(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
+        setMessage(Messages.getString("HadoopVersionDialog.msg")); //$NON-NLS-1$
+        setTitleImage(ImageProvider.getImage(EImage.HADOOP_WIZ_ICON));
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
-        createVersionFields(composite);
+        Composite comp = new Composite(composite, SWT.NONE);
+        comp.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridLayout layout = new GridLayout();
+        layout.marginHeight = 10;
+        layout.marginWidth = 10;
+        comp.setLayout(layout);
+
+        createVersionFields(comp);
         addListener();
         init();
+        updateOkState();
 
-        return composite;
+        return parent;
     }
 
     private void createVersionFields(Composite parent) {
@@ -171,10 +129,10 @@ public class HadoopVersionDialog extends Dialog {
         importFromVersion.setLayoutData(layoutData);
 
         Composite existVersionGroup = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 3;
-        layout.marginLeft = 10;
-        existVersionGroup.setLayout(layout);
+        GridLayout existVersionLayout = new GridLayout();
+        existVersionLayout.numColumns = 3;
+        existVersionGroup.setLayout(existVersionLayout);
+        existVersionGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         distributionCombo = new LabelledCombo(existVersionGroup, Messages.getString("HadoopVersionDialog.distribution"), //$NON-NLS-1$
                 Messages.getString("HadoopVersionDialog.distribution.tooltip"), new String[0], 2, true); //$NON-NLS-1$
@@ -203,6 +161,7 @@ public class HadoopVersionDialog extends Dialog {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     existVersionSelectionMap.put((ECustomVersionGroup) button.getData(), button.getSelection());
+                    updateOkState();
                 }
             });
         }
@@ -214,10 +173,9 @@ public class HadoopVersionDialog extends Dialog {
         Composite zipGroup = new Composite(parent, SWT.NONE);
         layoutData = new GridData(GridData.FILL_HORIZONTAL);
         zipGroup.setLayoutData(layoutData);
-        layout = new GridLayout();
-        layout.numColumns = 3;
-        layout.marginLeft = 10;
-        zipGroup.setLayout(layout);
+        GridLayout zipGroupLayout = new GridLayout();
+        zipGroupLayout.numColumns = 3;
+        zipGroup.setLayout(zipGroupLayout);
         Label label = new Label(zipGroup, SWT.NONE);
         label.setText(Messages.getString("HadoopVersionDialog.zipLocation"));//$NON-NLS-1$
         zipLocationText = new Text(zipGroup, SWT.BORDER);
@@ -246,12 +204,38 @@ public class HadoopVersionDialog extends Dialog {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     fromZipSelectionMap.put((ECustomVersionGroup) button.getData(), button.getSelection());
+                    updateOkState();
                 }
             });
         }
         importFromVersion.setSelection(true);
         enableZipGroupe(false);
 
+    }
+
+    private void updateOkState() {
+        Button okButton = getButton(IDialogConstants.OK_ID);
+        if (okButton != null) {
+            okButton.setEnabled(isNotEmptySelection());
+        }
+    }
+
+    private boolean isNotEmptySelection() {
+        if (importFromVersion.getSelection()) {
+            for (ECustomVersionGroup group : existVersionSelectionMap.keySet()) {
+                if (existVersionSelectionMap.get(group)) {
+                    return true;
+                }
+            }
+        } else {
+            for (ECustomVersionGroup group : fromZipSelectionMap.keySet()) {
+                if (fromZipSelectionMap.get(group) && StringUtils.isNotEmpty(zipLocationText.getText())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void enableExistGroup(boolean enable) {
@@ -318,6 +302,7 @@ public class HadoopVersionDialog extends Dialog {
             public void widgetSelected(SelectionEvent e) {
                 enableExistGroup(true);
                 enableZipGroupe(false);
+                updateOkState();
             }
         });
         importFromZipBtn.addSelectionListener(new SelectionAdapter() {
@@ -326,6 +311,7 @@ public class HadoopVersionDialog extends Dialog {
             public void widgetSelected(SelectionEvent e) {
                 enableExistGroup(false);
                 enableZipGroupe(true);
+                updateOkState();
             }
         });
         zipLocationText.addModifyListener(new ModifyListener() {
@@ -333,6 +319,7 @@ public class HadoopVersionDialog extends Dialog {
             @Override
             public void modifyText(ModifyEvent e) {
                 zipLocation = zipLocationText.getText();
+                updateOkState();
             }
         });
     }

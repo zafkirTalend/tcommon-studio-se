@@ -59,6 +59,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -180,21 +181,25 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         Point size = getShell().getSize();
         Point location = getInitialLocation(size);
         getShell().setBounds(getConstrainedShellBounds(new Rectangle(location.x, location.y, size.x, size.y)));
-
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
+        Composite composite = (Composite) super.createDialogArea(parent);
+        Composite comp = new Composite(composite, SWT.NONE);
+        comp.setLayoutData(new GridData(GridData.FILL_BOTH));
         GridLayout layout = new GridLayout();
-        parent.setLayout(layout);
+        layout.marginHeight = 10;
+        layout.marginWidth = 10;
+        comp.setLayout(layout);
 
-        tabFolder = new CTabFolder(parent, SWT.BORDER | SWT.FLAT);
+        tabFolder = new CTabFolder(comp, SWT.BORDER | SWT.FLAT);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
         tabFolder.setLayout(new GridLayout());
 
         Composite tableComposite = createTable(tabFolder);
         createTabItems(tableComposite);
-        createBtns(parent);
+        createBtns(comp);
 
         addListener();
         init();
@@ -496,18 +501,51 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
                 groupsAndDispaly.put(customVersionGroup, item.getText());
             }
         }
-        HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil);
+        final HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil);
         if (versionDialog.open() == Window.OK) {
-            Map<ECustomVersionGroup, Set<LibraryFile>> importLibLibraries = versionDialog.getImportLibLibraries();
+            final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 
-            for (ECustomVersionGroup group : importLibLibraries.keySet()) {
-                Set<LibraryFile> set = libMap.get(group.getName());
-                if (set != null) {
-                    set.clear();
-                    set.addAll(importLibLibraries.get(group));
+                @Override
+                public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    monitor.beginTask(Messages.getString("HadoopCustomVersionDialog.importLibs"), IProgressMonitor.UNKNOWN); //$NON-NLS-1$
+                    try {
+                        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Map<ECustomVersionGroup, Set<LibraryFile>> importLibLibraries = versionDialog
+                                        .getImportLibLibraries();
+                                if (importLibLibraries == null) {
+                                    return;
+                                }
+                                for (ECustomVersionGroup group : importLibLibraries.keySet()) {
+                                    Set<LibraryFile> set = libMap.get(group.getName());
+                                    if (set != null) {
+                                        set.clear();
+                                        set.addAll(importLibLibraries.get(group));
+                                    }
+                                }
+                            }
+                        });
+                        PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                viewer.refresh();
+                            }
+                        });
+                    } finally {
+                        monitor.done();
+                    }
                 }
+            };
+
+            ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
+            try {
+                dialog.run(true, true, runnableWithProgress);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
             }
-            viewer.refresh();
         }
     }
 
