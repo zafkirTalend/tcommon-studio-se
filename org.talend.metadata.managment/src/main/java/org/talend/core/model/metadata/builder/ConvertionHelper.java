@@ -71,7 +71,9 @@ public final class ConvertionHelper {
      * @return
      */
     public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext) {
-        return convert(sourceConnection, defaultContext, null);
+        // MOD 20130407 TDQ-7074 popup many times of context selection dialogs
+            return convert(sourceConnection, defaultContext, sourceConnection.getContextName());
+        // ~
     }
 
     public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext, String selectedContext) {
