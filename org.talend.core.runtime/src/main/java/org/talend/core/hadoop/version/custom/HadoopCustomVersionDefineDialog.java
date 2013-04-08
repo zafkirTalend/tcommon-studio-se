@@ -13,13 +13,17 @@
 package org.talend.core.hadoop.version.custom;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -468,7 +472,11 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
      * @return Types({@link ECustomVersionType}) array which you want to display in this dialog.
      */
     protected ECustomVersionType[] getDisplayTypes() {
-        return new ECustomVersionType[] { ECustomVersionType.ALL };
+        // filter ALL and PIG
+        ECustomVersionType[] values = ECustomVersionType.values();
+        Object[] removeElement = ArrayUtils.removeElement(values, ECustomVersionType.ALL);
+        removeElement = ArrayUtils.removeElement(removeElement, ECustomVersionType.PIG);
+        return (ECustomVersionType[]) removeElement;
     }
 
     private void doChangeViewerContent() {
@@ -499,7 +507,23 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     }
 
     private void doImportLibs() {
-        Map<ECustomVersionGroup, String> groupsAndDispaly = new HashMap<ECustomVersionGroup, String>();
+        // keep the same sequnce
+        Comparator comparator = new Comparator<ECustomVersionGroup>() {
+
+            @Override
+            public int compare(ECustomVersionGroup o1, ECustomVersionGroup o2) {
+                List itemGroups = new ArrayList();
+                CTabItem[] items = tabFolder.getItems();
+                for (CTabItem item : items) {
+                    ECustomVersionGroup customVersionGroup = getCustomVersionGroup(item);
+                    itemGroups.add(customVersionGroup);
+                }
+                return itemGroups.indexOf(o1) - itemGroups.indexOf(o2);
+            }
+
+        };
+        Map<ECustomVersionGroup, String> groupsAndDispaly = new TreeMap<ECustomVersionGroup, String>(comparator);
+
         CTabItem[] items = tabFolder.getItems();
         for (CTabItem item : items) {
             ECustomVersionGroup customVersionGroup = getCustomVersionGroup(item);
@@ -507,7 +531,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
                 groupsAndDispaly.put(customVersionGroup, item.getText());
             }
         }
-        final HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil);
+        final HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil, getTypes());
         if (versionDialog.open() == Window.OK) {
             final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 

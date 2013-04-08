@@ -76,16 +76,19 @@ public class HadoopVersionDialog extends TitleAreaDialog {
 
     private HadoopCustomLibrariesUtil customLibUtil;
 
+    private ECustomVersionType[] types;
+
     private Map<ECustomVersionGroup, Boolean> existVersionSelectionMap = new HashMap<ECustomVersionGroup, Boolean>();
 
     private Map<ECustomVersionGroup, Boolean> fromZipSelectionMap = new HashMap<ECustomVersionGroup, Boolean>();
 
     public HadoopVersionDialog(Shell parentShell, Map<ECustomVersionGroup, String> groupsAndDispaly,
-            HadoopCustomLibrariesUtil customLibUtil) {
+            HadoopCustomLibrariesUtil customLibUtil, ECustomVersionType[] types) {
         super(parentShell);
         setShellStyle(getShellStyle() | SWT.RESIZE | SWT.MIN | SWT.APPLICATION_MODAL);
         this.groupsAndDispaly = groupsAndDispaly;
         this.customLibUtil = customLibUtil;
+        this.types = types;
     }
 
     @Override
@@ -392,11 +395,22 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                 hadoopService = (IHadoopService) GlobalServiceRegister.getDefault().getService(IHadoopService.class);
             }
             if (hadoopService != null) {
-                Set<String> hadoopLibraries = hadoopService.getHadoopLibraries(getDistribution(), getVersion());
-                Set<LibraryFile> convertToLibraryFile = customLibUtil.convertToLibraryFile(hadoopLibraries);
                 for (ECustomVersionGroup group : existVersionSelectionMap.keySet()) {
+
                     if (existVersionSelectionMap.get(group)) {
-                        libMap.put(group, new HashSet<LibraryFile>(convertToLibraryFile));
+                        if (types != null) {
+                            HashSet libInSameGroup = new HashSet<LibraryFile>();
+                            for (ECustomVersionType type : types) {
+                                if (type.getGroup() == group) {
+                                    Set<String> hadoopLibraries = hadoopService.getHadoopLibrariesByType(type, getDistribution(),
+                                            getVersion());
+                                    Set<LibraryFile> convertToLibraryFile = customLibUtil.convertToLibraryFile(hadoopLibraries);
+                                    libInSameGroup.addAll(convertToLibraryFile);
+                                }
+                            }
+
+                            libMap.put(group, libInSameGroup);
+                        }
                     }
                 }
 
