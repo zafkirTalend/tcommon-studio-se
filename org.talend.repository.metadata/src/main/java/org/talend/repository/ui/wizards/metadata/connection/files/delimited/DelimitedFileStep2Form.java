@@ -193,7 +193,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         }
         // Fields to the Group Rows To Skip
         boolean flag = false;
-        flag = initRowsToSkip(rowsToSkipHeaderCheckboxCombo, getConnection().getHeaderValue());
+        // flag = initRowsToSkip(rowsToSkipHeaderCheckboxCombo, getConnection().getHeaderValue());
         getConnection().setUseHeader(flag);
         flag = initRowsToSkip(rowsToSkipFooterCheckboxCombo, getConnection().getFooterValue());
         getConnection().setUseFooter(flag);
@@ -201,7 +201,8 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         getConnection().setUseLimit(flag);
 
         emptyRowsToSkipCheckbox.setSelection(getConnection().isRemoveEmptyRow());
-        firstRowIsCaptionCheckbox.setSelection(getConnection().isFirstLineCaption());
+        // firstRowIsCaptionCheckbox.setSelection(getConnection().isFirstLineCaption());
+        firstRowIsCaptionCheckbox.setSelection(false);
 
         // Fields to the Group Escape Char Settings
         String textEnclosure = getConnection().getTextEnclosure();
