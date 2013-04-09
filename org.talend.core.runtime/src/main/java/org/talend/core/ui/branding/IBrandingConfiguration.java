@@ -47,6 +47,8 @@ public interface IBrandingConfiguration extends IActionBarHelper {
      * get the repositorynode you want to hide in repositoryview.
      * 
      * @return
+     * @deprecated try to remove this hidden function by CNF in extension point.
+     * @see point="org.eclipse.ui.navigator.navigatorContent"
      */
     public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent, String type);
 
