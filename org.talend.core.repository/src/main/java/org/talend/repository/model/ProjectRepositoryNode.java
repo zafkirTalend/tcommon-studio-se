@@ -464,10 +464,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
             nodes.add(refProject);
         }
-        // delete the hidden nodes
-        deleteHiddenNodes(nodes);
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
+        // delete the hidden nodes
+        deleteHiddenNodes(nodes);
 
         try {
             hideHiddenNodesDependsUserRight();
@@ -982,17 +982,17 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 }
 
                 if (connection != null) {
-                QueriesConnection queriesConnection = connection.getQueries();
-                if (queriesConnection != null) {
-                    for (Query query : queriesConnection.getQuery()) {
-                        if (SubItemHelper.isDeleted(query)) {
-                            RepositoryNode queryNode = createQueryNode(currentParentNode,
-                                    new RepositoryViewObject(item.getProperty()), query);
-                            currentParentNode.getChildren().add(queryNode);
-                            queryNode.setParent(currentParentNode);
+                    QueriesConnection queriesConnection = connection.getQueries();
+                    if (queriesConnection != null) {
+                        for (Query query : queriesConnection.getQuery()) {
+                            if (SubItemHelper.isDeleted(query)) {
+                                RepositoryNode queryNode = createQueryNode(currentParentNode,
+                                        new RepositoryViewObject(item.getProperty()), query);
+                                currentParentNode.getChildren().add(queryNode);
+                                queryNode.setParent(currentParentNode);
+                            }
                         }
                     }
-                }
                 }
             }
         }
