@@ -70,6 +70,13 @@ just set the value METADATA
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="key" type="string">
+            <annotation>
+               <documentation>
+                  if empty, it&apos;s same as type.
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="label" type="string" use="required">
             <annotation>
                <documentation>

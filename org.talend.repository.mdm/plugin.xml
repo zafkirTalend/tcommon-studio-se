@@ -64,14 +64,15 @@
    <extension
          point="org.talend.core.repository.repository_node_provider">
        <repositoryNode
-             label="Talend MDM"
              alias="MDM"
-             type="METADATA_MDMCONNECTION"
-             parentNodeType="METADATA"
              folder="metadata/MDMconnections"
              isResouce="true"
+             key="repository.MDMconnection"
+             label="Talend MDM"
              ordinal="38"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_MDMCONNECTION">
        </repositoryNode>
        <extraProducts
              products="DQ"

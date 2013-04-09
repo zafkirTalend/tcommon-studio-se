@@ -1122,102 +1122,111 @@
    <extension
          point="org.talend.core.repository.repository_node_provider">
        <repositoryNode
-             label="%repository.metadataFilePositional"
              alias="%repository.metadataFilePositional.alias"
-             type="METADATA_FILE_POSITIONAL"
-             parentNodeType="METADATA"
              folder="metadata/filePositional"
              isResouce="true"
+             key="repository.filePositional"
+             label="%repository.metadataFilePositional"
              ordinal="40"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_POSITIONAL">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataFileRegexp"
              alias="%repository.metadataFileRegexp.alias"
-             type="METADATA_FILE_REGEXP"
-             parentNodeType="METADATA"
              folder="metadata/fileRegex"
              isResouce="true"
+             key="repository.fileRegex"
+             label="%repository.metadataFileRegexp"
              ordinal="41"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_REGEXP">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataFileXml"
              alias="%repository.metadataFileXml.alias"
-             type="METADATA_FILE_XML"
-             parentNodeType="METADATA"
              folder="metadata/fileXml"
              isResouce="true"
+             key="repository.fileXml"
+             label="%repository.metadataFileXml"
              ordinal="42"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_XML">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataFileLdif"
              alias="%repository.metadataFileLdif.alias"
-             type="METADATA_FILE_LDIF"
-             parentNodeType="METADATA"
              folder="metadata/fileLdif"
              isResouce="true"
+             key="repository.fileLdif"
+             label="%repository.metadataFileLdif"
              ordinal="43"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_LDIF">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataFileExcel"
              alias="%repository.metadataFileExcel.alias"
-             type="METADATA_FILE_EXCEL"
-             parentNodeType="METADATA"
              folder="metadata/fileExcel"
              isResouce="true"
+             key="repository.fileExcel"
+             label="%repository.metadataFileExcel"
              ordinal="44"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_EXCEL">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataSalesforceSchema"
              alias="%repository.metadataSalesforceSchema.alias"
-             type="METADATA_SALESFORCE_SCHEMA"
-             parentNodeType="METADATA"
              folder="metadata/SalesforceSchema"
              isResouce="true"
+             key="repository.SalesforceSchema"
+             label="%repository.metadataSalesforceSchema"
              ordinal="45"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_SALESFORCE_SCHEMA">
        </repositoryNode>
 
        <repositoryNode
-             label="%repository.metadataLDAPSchema"
              alias="%repository.metadataLDAPSchema.alias"
-             type="METADATA_LDAP_SCHEMA"
-             parentNodeType="METADATA"
              folder="metadata/LDAPSchema"
              isResouce="true"
+             key="repository.LDAPSchema"
+             label="%repository.metadataLDAPSchema"
              ordinal="47"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_LDAP_SCHEMA">
        </repositoryNode>
        
        <repositoryNode
-             label="%repository.metadataWSDLSchema"
              alias="%repository.metadataWSDLSchema.alias"
-             type="METADATA_WSDL_SCHEMA"
-             parentNodeType="METADATA"
              folder="metadata/WSDLSchema"
              isResouce="true"
+             key="repository.WSDLSchema"
+             label="%repository.metadataWSDLSchema"
              ordinal="57"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_WSDL_SCHEMA">
        </repositoryNode>
        
        <repositoryNode
-             label="%repository.metadataGenericSchema"
              alias="%repository.metadataGenericSchema.alias"
-             type="METADATA_GENERIC_SCHEMA"
-             parentNodeType="METADATA"
              folder="metadata/genericSchema"
              isResouce="true"
+             key="repository.genericSchema"
+             label="%repository.metadataGenericSchema"
              ordinal="46"
-             products="DI">
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_GENERIC_SCHEMA">
        </repositoryNode>
 
    </extension>

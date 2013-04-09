@@ -364,6 +364,7 @@
             folder="code"
             icon="icons/code.png"
             isResouce="false"
+            key="repository.code"
             label="%RepositoryView_code"
             nodeType="STABLE_SYSTEM_FOLDER"
             ordinal="7"

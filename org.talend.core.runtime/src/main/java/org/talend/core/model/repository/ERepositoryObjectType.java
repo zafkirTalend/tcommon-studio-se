@@ -323,6 +323,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", "SYSTEM_INDICATORS_FRAUDDETECTION", 103, true, "repository.systemIndicators.fraudDetectionStatistics.alias", new String[] { "DQ" }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    private String label;
+
     private String alias;
 
     private String folder = "";
@@ -388,6 +390,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
 
     /* dynamic nodes should use this constructor ,type is required */
+    ERepositoryObjectType(String key, String label, String folder, String type, boolean isStaticNode, int ordinal,
+            String[] products, String[] userRight, boolean... isResouce) {
+        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+        this.label = label;
+    }
+
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean... isResouce) {
         super(key, type, isStaticNode, ordinal);
@@ -397,9 +405,16 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (isResouce != null && isResouce.length == 1) {
             this.isResouce = isResouce[0];
         }
+        this.label = super.toString(); // reuse super
     }
 
     /* dynamic nodes should use this constructor ,type is required */
+    ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode,
+            String namePattern, String[] products, String[] userRight, boolean... isResouce) {
+        this(key, label, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+        this.namePattern = namePattern;
+    }
+
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, String namePattern, boolean... isResouce) {
         this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
@@ -415,6 +430,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (isResouce != null && isResouce.length == 1) {
             this.isResouce = isResouce[0];
         }
+        this.label = super.toString(); // reuse super
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
@@ -478,6 +494,20 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             }
         }
         return null;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.DynaEnum#toString()
+     */
+    @Override
+    public String toString() {
+        return getLabel();
     }
 
     public String getAlias() {

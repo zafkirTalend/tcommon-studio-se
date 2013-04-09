@@ -243,12 +243,16 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
 
                 @Override
                 public void run() throws Exception {
+                    String key = element.getAttribute("key");
                     String label = element.getAttribute("label");
                     String alias = element.getAttribute("alias");
                     String type = element.getAttribute("type");
                     String folder = element.getAttribute("folder");
                     if (folder == null) {
                         folder = EMPTY;
+                    }
+                    if (key == null || key.trim().length() == 0) {
+                        key = type;
                     }
                     String isResouce = element.getAttribute("isResouce");
                     boolean isResource = false;
@@ -298,16 +302,16 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                     Object instance = null;
                     if (namePatternAttribute == null || "".equals(namePatternAttribute.trim())) {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
-                                String.class, String.class, int.class, boolean.class, String.class, String[].class,
+                                String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
                                 String[].class, boolean[].class });
-                        instance = dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products,
+                        instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
                                 user_right, resource);
 
                     } else {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
-                                String.class, String.class, int.class, boolean.class, String.class, String[].class,
+                                String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
                                 String[].class, String.class, boolean[].class });
-                        instance = dynamicConstructor.newInstance(label, folder, type, ordinal, false, alias, products,
+                        instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
                                 user_right, namePatternAttribute.trim(), resource);
                     }
 
