@@ -463,10 +463,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
             nodes.add(refProject);
         }
-        // delete the hidden nodes
-        deleteHiddenNodes(nodes);
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
+        // delete the hidden nodes
+        deleteHiddenNodes(nodes);
 
         try {
             hideHiddenNodesDependsUserRight();
