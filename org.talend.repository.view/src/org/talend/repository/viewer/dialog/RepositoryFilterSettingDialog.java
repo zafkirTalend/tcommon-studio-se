@@ -49,11 +49,13 @@ import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
+import org.talend.core.service.IMRProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.RepositoryConstants;
@@ -405,6 +407,11 @@ public class RepositoryFilterSettingDialog extends Dialog {
                         break;
                     }
                 }
+                // for Standard Jobs
+                if (!found && filteredContents.contains(data.getClass().getName())) {
+                    found = true;
+                }
+
                 item.setChecked(!found);
                 restoreContents(filteredContents, item.getItems(), navigatorContentService);
             }
@@ -423,9 +430,19 @@ public class RepositoryFilterSettingDialog extends Dialog {
             for (TreeItem item : items) {
                 Object data = item.getData();
                 if (!item.getChecked()) {
-                    Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
-                    for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
-                        filteredContents.add(((NavigatorContentExtension) itr.next()).getId());
+                    // for Standard Jobs
+                    boolean isStandardJobsNode = false;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
+                        IMRProcessService service = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
+                                IMRProcessService.class);
+                        isStandardJobsNode = service.collectStandardProcessNode(filteredContents, data);
+
+                    }
+                    if (!isStandardJobsNode) {
+                        Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
+                        for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
+                            filteredContents.add(((NavigatorContentExtension) itr.next()).getId());
+                        }
                     }
                 }
                 collectContents(filteredContents, item.getItems(), navigatorContentService);
