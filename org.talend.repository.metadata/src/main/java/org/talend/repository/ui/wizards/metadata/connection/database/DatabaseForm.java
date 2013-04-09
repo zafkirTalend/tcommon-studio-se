@@ -2916,14 +2916,30 @@ public class DatabaseForm extends AbstractForm {
         } else {
             EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
             String s = ""; //$NON-NLS-1$
+            // For bug TDI-25424, the Database text widget is missing.
             if (template != null) {
                 EDatabaseVersion4Drivers version = null;
-                if (EDatabaseTypeName.HIVE.getDisplayName().equals(template.getDBDisplayName())) {
-                    version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
-                    s = template.getUrlTemplate(version);
+                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+                    int distributionIndex = distributionCombo.getSelectionIndex();
+                    int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+                    int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+                    if (HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex)) {
+                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex)) {
+                            s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_EMBEDDED);
+                        } else {
+                            s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_STANDALONE);
+                        }
+                    } else {
+                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex)) {
+                            s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_EMBEDDED);
+                        } else {
+                            s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE);
+                        }
+                    }
                 } else {
                     version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
                     s = template.getUrlTemplate(version);
+
                 }
             }
             if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
