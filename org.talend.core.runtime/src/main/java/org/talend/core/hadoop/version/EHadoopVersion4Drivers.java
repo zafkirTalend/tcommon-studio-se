@@ -52,6 +52,8 @@ public enum EHadoopVersion4Drivers {
 
     MAPR2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.0.0", "MapR2")),
 
+    MAPR_2_1_2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.1.2", "MapR212")),
+
     MAPR_EMR(new HadoopVersion4Drivers(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR")),
 
     APACHE_1_0_3_EMR(new HadoopVersion4Drivers(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR")),

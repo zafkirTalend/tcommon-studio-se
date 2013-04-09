@@ -36,6 +36,8 @@ public enum EHBaseDistribution4Versions {
 
     MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
 
+    MAPR_2_1_2(EHBaseDistributions.MAPR, "MapR 2.1.2", "MAPR212"),
+
     CUSTOM(EHBaseDistributions.CUSTOM, "", "");
 
     private EHBaseDistributions distribution;
