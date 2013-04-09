@@ -276,4 +276,18 @@ public class PluginChecker {
     public static boolean isPigudfPluginLoaded() {
         return isPluginLoaded(PIGUDF_PLUGIN_ID);
     }
+
+    public static String getBundlePath(String bundleName) {
+        Bundle refBundle = Platform.getBundle(bundleName);
+        if (refBundle != null) {
+            String bundlePath = refBundle.getLocation();
+            String prefix = "reference:file:"; //$NON-NLS-1$
+            int prefixPos = bundlePath.lastIndexOf(prefix);
+            if (prefixPos >= 0) {
+                bundlePath = bundlePath.substring(prefixPos + prefix.length(), bundlePath.length() - 1);
+                return bundlePath;
+            }
+        }
+        return ""; //$NON-NLS-1$
+    }
 }
