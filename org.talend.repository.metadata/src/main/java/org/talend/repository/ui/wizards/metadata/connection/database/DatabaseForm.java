@@ -435,8 +435,21 @@ public class DatabaseForm extends AbstractForm {
         if (connection.getDatabaseType() == null) {
             connection.setDatabaseType(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE));
         }
-        if (connection.getProductId() == null) {
-            connection.setProductId(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_PRODUCT));
+        String productId = connection.getProductId();
+        if (productId == null) {
+            connection.setProductId(productId = parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_PRODUCT));
+            String mapping = null;
+            if (productId == null || productId.equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
+                mapping = generalMappingFileText.getText();
+            } else {
+                if (MetadataTalendType.getDefaultDbmsFromProduct(productId) != null) {
+                    mapping = MetadataTalendType.getDefaultDbmsFromProduct(productId).getId();
+                }
+            }
+            if (mapping == null) {
+                mapping = "mysql_id"; // default value //$NON-NLS-1$
+            }
+            connection.setDbmsId(mapping);
         }
         if (connection.getServerName() == null) {
             connection.setServerName(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_SERVER));
