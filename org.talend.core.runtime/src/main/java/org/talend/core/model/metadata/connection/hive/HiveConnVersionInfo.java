@@ -35,31 +35,33 @@ public enum HiveConnVersionInfo {
 
     CLOUDERA(0, "CLOUDERA", "Cloudera"), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR(0, "MAPR", "MAPR"), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR(0, "MAPR", "MapR"), //$NON-NLS-1$//$NON-NLS-2$
 
-    AMAZON_EMR(0, "AMAZON_EMR", "AMAZON_EMR"), //$NON-NLS-1$//$NON-NLS-2$
+    AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR"), //$NON-NLS-1$//$NON-NLS-2$
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom"), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "HDP 1.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(1, "HDP_1_0", "HDP V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_2(1, "HDP_1_2", "HDP 1.2", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(1, "HDP_1_2", "HDP V1.2.0(Bimota)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
     Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3", HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR1(1, "MAPR1", "MAPR1", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR1(1, "MAPR1", "MapR 1.2.0", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2(1, "MAPR2", "MAPR2", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2(1, "MAPR2", "MapR 2.0.0", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MapR_EMR(1, "MapR_EMR", "MapR_EMR", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "APACHE_1_0_3_EMR", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+
+    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
     DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -70,6 +72,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.MAPR2,
+                  HiveConnVersionInfo.MAPR2_1_2,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
                   HiveConnVersionInfo.DISTRO_VERSION_CUSTOM),
 
@@ -81,13 +84,16 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.Cloudera_CDH4,
                     HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
+                    HiveConnVersionInfo.MAPR2_1_2,
                     HiveConnVersionInfo.MapR_EMR,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
 
     private int level;
 
-    private String key, displayName;// The key is mapped to item name of component in t*_java.xml file.
+    private String key;// The key is mapped to item name of component in t*_java.xml file.
+
+    private String displayName;// That is mapped to the property of component in t*_messages.properties file.
 
     private HiveConnVersionInfo[] follows;// That stores all are followed by the current object.
 
