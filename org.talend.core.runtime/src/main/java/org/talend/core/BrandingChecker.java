@@ -13,9 +13,8 @@
 package org.talend.core;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.SWTError;
 import org.eclipse.swt.widgets.Display;
-import org.talend.commons.CommonsPlugin;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 
@@ -32,23 +31,13 @@ public class BrandingChecker {
 
     public static boolean isBrandingChanged() {
         if (!initialized) {
-            boolean headless = CommonsPlugin.isHeadless();
-            Display display = null;
-            if (!headless) {
-                try {
-                    display = Display.getDefault();
-                } catch (SWTError e) {
-                    headless = true;
-                }
-            }
-
-            if (headless) {
+            if (CommonUIPlugin.isFullyHeadless()) {
                 isBrandingChanged = false;
             } else {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
                 final String fullProductName = brandingService.getFullProductName();
-
+                Display display = Display.getDefault();
                 if (display == null) {
                     display = Display.getCurrent();
                 }

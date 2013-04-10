@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.libraries.ui
 Export-Package: 
  org.talend.commons.ui.expressionbuilder,
+ org.talend.commons.ui.runtime,
  org.talend.commons.ui.runtime.exception,
  org.talend.commons.ui.runtime.geometry,
  org.talend.commons.ui.runtime.i18n,
@@ -47,5 +48,5 @@ Import-Package: org.eclipse.jface.bindings.keys,
  org.eclipse.swt.widgets,
  org.eclipse.ui.forms.events,
  org.eclipse.ui.forms.widgets
-Bundle-Activator: org.talend.commons.ui.runtime.Activator
+Bundle-Activator: org.talend.commons.ui.runtime.CommonUIPlugin
 Bundle-ActivationPolicy: lazy
