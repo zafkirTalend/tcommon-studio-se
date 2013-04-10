@@ -22,37 +22,27 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum EHadoopVersion4Drivers {
 
-    HDP_1_0(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0",
-            new String[] { "hadoop-core-1.0.0.jar", "commons-logging-1.1.1.jar", "commons-configuration-1.6.jar",
-                    "commons-lang-2.4.jar", "hadoop-conf-kerberos.jar", "jetty-util-6.1.26.jar", "jersey-core-1.8.jar" })),
+    HDP_1_0(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0")),
 
-    HDP_1_2(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2",
-            new String[] { "hadoop-core-1.1.2.21.jar", "commons-logging-1.1.1.jar", "commons-configuration-1.6.jar",
-                    "commons-lang-2.4.jar", "hadoop-conf-kerberos.jar", "jetty-util-6.1.26.jar", "jersey-core-1.8.jar" })),
+    HDP_1_2(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2")),
 
-    APACHE_1_0_0(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", new String[] {
-            "hadoop-core-1.0.0.jar", "commons-logging-1.1.1.jar", "commons-configuration-1.6.jar", "commons-lang-2.4.jar" })),
+    APACHE_1_0_0(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0")),
 
-    APACHE_0_20_204(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", new String[] {
-            "hadoop-core-0.20.204.0.jar", "commons-logging-1.1.1.jar", "commons-configuration-1.6.jar", "commons-lang-2.4.jar" })),
+    APACHE_0_20_204(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204")),
 
-    APACHE_0_20_2(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", new String[] {
-            "hadoop-0.20.2-core.jar", "commons-logging-1.0.4.jar" })),
+    APACHE_0_20_203(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203")),
 
-    CLOUDERA_0_20_CDH3U1(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera 0.20 CDH3U1", "Cloudera_0_20_CDH3U1",
-            new String[] { "hadoop-0.20.2-cdh3u1-core.jar", "commons-logging-1.0.4.jar" })),
+    APACHE_0_20_2(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2")),
 
-    CLOUDERA_CDH4(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", new String[] {
-            "hadoop-hdfs-2.0.0-cdh4.0.1.jar", "hadoop-common-2.0.0-cdh4.0.1.jar", "hadoop-auth-2.0.0-cdh4.0.1.jar",
-            "commons-configuration-1.6.jar", "commons-lang-2.5.jar", "commons-logging-1.1.1.jar", "guava-11.0.2.jar",
-            "log4j-1.2.15.jar", "protobuf-java-2.4.0a.jar", "slf4j-api-1.6.1.jar", "slf4j-log4j12-1.6.1.jar" })),
+    CLOUDERA_CDH3(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3")),
 
-    MAPR(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 1.2.0", "MapR", new String[] { "hadoop-0.20.2-dev-core.jar",
-            "commons-logging-1.0.4.jar", "maprfs-0.1.jar", "zookeeper-3.3.2.jar" })),
+    CLOUDERA_CDH4(new HadoopVersion4Drivers(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4")),
 
-    MAPR2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.0.0", "MapR2")),
+    MAPR1(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1")),
 
-    MAPR_2_1_2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.1.2", "MapR212")),
+    MAPR2(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2")),
+
+    MAPR212(new HadoopVersion4Drivers(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212")),
 
     MAPR_EMR(new HadoopVersion4Drivers(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR")),
 
