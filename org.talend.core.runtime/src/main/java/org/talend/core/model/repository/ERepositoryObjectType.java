@@ -451,6 +451,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         this.namePattern = namePattern;
     }
 
+    ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
+            String[] products, String[] userRight, String namePattern, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.namePattern = namePattern;
+        this.label = label;
+    }
+
     public static <E> DynaEnum<? extends DynaEnum<?>>[] values() {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         String projectType = null;
