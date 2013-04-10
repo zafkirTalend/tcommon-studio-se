@@ -14,10 +14,7 @@ package org.talend.commons.ui.runtime;
 
 import java.util.Properties;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.SWTError;
 import org.eclipse.swt.widgets.Display;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.talend.commons.CommonsPlugin;
@@ -62,14 +59,9 @@ public class CommonUIPlugin implements BundleActivator {
         }
         fullyHeadless = CommonsPlugin.isHeadless();
         if (!CommonsPlugin.isHeadless()) {
-            Bundle b = Platform.getBundle("org.eclipse.swt"); //$NON-NLS-1$
-            if (b == null || (b.getState() != Bundle.ACTIVE && b.getState() != Bundle.RESOLVED)) {
-                fullyHeadless = true;
-                return fullyHeadless;
-            }
             try {
                 Display.getDefault();
-            } catch (SWTError e) {
+            } catch (Error e) {
                 fullyHeadless = true;
             }
         }
