@@ -63,7 +63,7 @@ public class CommonUIPlugin implements BundleActivator {
         fullyHeadless = CommonsPlugin.isHeadless();
         if (!CommonsPlugin.isHeadless()) {
             Bundle b = Platform.getBundle("org.eclipse.swt"); //$NON-NLS-1$
-            if (b == null || b.getState() != Bundle.ACTIVE) {
+            if (b == null || (b.getState() != Bundle.ACTIVE && b.getState() != Bundle.RESOLVED)) {
                 fullyHeadless = true;
                 return fullyHeadless;
             }
