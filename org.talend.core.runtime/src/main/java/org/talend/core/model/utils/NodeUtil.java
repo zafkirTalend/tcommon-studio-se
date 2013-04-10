@@ -57,32 +57,40 @@ public class NodeUtil {
             conns = new ArrayList<IConnection>(outgoingConnections);
             Collections.sort(conns, new Comparator<IConnection>() {
 
-            	private int getTypeWeighted(IConnection con) {
-            		switch (con.getLineStyle()) {
-            		case ROUTE_ENDBLOCK: return 100;
-            		case ROUTE: return 90;
-            		case ROUTE_OTHER: return 80;
-            		case ROUTE_WHEN: return 70;
-            		case ROUTE_FINALLY: return 50;
-            		case ROUTE_CATCH: return 40;
-            		case ROUTE_TRY: return 30;
-            		default: return 0;
-            		}
-            	}
+                private int getTypeWeighted(IConnection con) {
+                    switch (con.getLineStyle()) {
+                    case ROUTE_ENDBLOCK:
+                        return 100;
+                    case ROUTE:
+                        return 90;
+                    case ROUTE_OTHER:
+                        return 80;
+                    case ROUTE_WHEN:
+                        return 70;
+                    case ROUTE_FINALLY:
+                        return 50;
+                    case ROUTE_CATCH:
+                        return 40;
+                    case ROUTE_TRY:
+                        return 30;
+                    default:
+                        return 0;
+                    }
+                }
 
-            	@Override
-            	public int compare(IConnection o1, IConnection o2) {
-            		int weightedGap=getTypeWeighted(o1)-getTypeWeighted(o2);
-            		if(weightedGap==0) {
-            			//same style, compare by inputId
-            			if(o1.getOutputId()>o2.getOutputId()) {
-            				return 1;
-            			}else {
-            				return -1;
-            			}
-            		}
-            		return weightedGap;
-            	}
+                @Override
+                public int compare(IConnection o1, IConnection o2) {
+                    int weightedGap = getTypeWeighted(o1) - getTypeWeighted(o2);
+                    if (weightedGap == 0) {
+                        // same style, compare by inputId
+                        if (o1.getOutputId() > o2.getOutputId()) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    }
+                    return weightedGap;
+                }
             });
         }
 
@@ -99,7 +107,7 @@ public class NodeUtil {
             Collections.sort(conns, new Comparator<IConnection>() {
 
                 @Override
-            public int compare(IConnection connection1, IConnection connection2) {
+                public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
                     EConnectionType lineStyle2 = connection2.getLineStyle();
@@ -523,11 +531,12 @@ public class NodeUtil {
 
         return false;
     }
-    
+
     /**
      * 
-     * judge if the current node is in the last branch
-     * Notice: It is only used in tPigStoreResult. And the aim is for TDI-25120
+     * judge if the current node is in the last branch Notice: It is only used in tPigStoreResult. And the aim is for
+     * TDI-25120
+     * 
      * @param node
      * @return
      */
@@ -666,4 +675,40 @@ public class NodeUtil {
         }
         return return_node;
     }
+
+    /**
+     * 
+     * DOC liuwu find all the tRecollectors which match to tPartitioner
+     * 
+     * @param node : should be tPartitioner
+     * @param recollectors
+     */
+    public static void getRecollectorsFromPartitioner(INode node, List<String> recollectors) {
+        List<? extends INode> listRecollectors = node.getProcess().getNodesOfType("tRecollector"); //$NON-NLS-1$
+        if (listRecollectors != null && listRecollectors.size() > 0) {
+            for (INode recNode : listRecollectors) {
+                String departitionerName = ElementParameterParser.getValue(recNode, "__DEPART_COMPONENT__"); //$NON-NLS-1$
+                List<? extends INode> listDepartitioner = node.getProcess().getNodesOfType("tDepartitioner"); //$NON-NLS-1$
+                if (listDepartitioner == null) {
+                    return;
+                }
+
+                for (INode tnode : listDepartitioner) {
+                    if (tnode.getUniqueName().equals(departitionerName)) { // find the tDepartitioner corresponding to
+                                                                           // tRecollector
+                        INode startNode = tnode.getDesignSubjobStartNode(); // find the tCollector
+                        List<? extends IConnection> inConns = startNode.getIncomingConnections(EConnectionType.STARTS);
+                        if (inConns != null && inConns.size() > 0) {
+                            if (inConns.get(0).getSource() == node) {
+                                recollectors.add(recNode.getUniqueName());
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
 }
