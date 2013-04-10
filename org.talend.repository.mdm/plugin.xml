@@ -67,7 +67,7 @@
              alias="MDM"
              folder="metadata/MDMconnections"
              isResouce="true"
-             key="repository.MDMconnection"
+             key="repository.metadataMDMConnections"
              label="Talend MDM"
              ordinal="38"
              parentNodeType="METADATA"
