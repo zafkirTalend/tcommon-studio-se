@@ -180,6 +180,10 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
         init();
 
+        // Added this for TDI-25456 by Marvin Wang on Apr. 11, 2013.
+        ClassLoader currCL = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(classLoader);
+
         EmbeddedHiveResultSet tableResultSet = new EmbeddedHiveResultSet();
         tableResultSet.setMetadata(TABLE_META);
         List<String[]> list = new ArrayList<String[]>();
@@ -193,12 +197,14 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                 if (tables instanceof List) {
                     List<String> tableList = (List<String>) tables;
                     for (String tableName : tableList) {
-                        String[] array = new String[] { "", HIVE_SCHEMA_DEFAULT, tableName, TABLE_TYPE, "" };
+                        String[] array = new String[] { "", HIVE_SCHEMA_DEFAULT, tableName, TABLE_TYPE, "" }; //$NON-NLS-1$//$NON-NLS-2$
                         list.add(array);
                     }
                 }
             } catch (Exception e) {
                 throw new SQLException(e);
+            } finally {
+                Thread.currentThread().setContextClassLoader(currCL);
             }
 
         }
