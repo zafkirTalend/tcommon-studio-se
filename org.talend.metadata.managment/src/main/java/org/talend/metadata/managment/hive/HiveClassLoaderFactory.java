@@ -14,7 +14,6 @@ package org.talend.metadata.managment.hive;
 
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.database.conn.ConnParameterKeys;
-import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
@@ -90,7 +89,7 @@ public class HiveClassLoaderFactory {
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnUtils.isCustomDistro(distroKey)) {
-            String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
+            String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             String index = "HadoopCustomVersion:Hive:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
@@ -120,7 +119,7 @@ public class HiveClassLoaderFactory {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
 
         if (HiveConnUtils.isCustomDistro(distroKey)) {
-            String jarsStr = (String) metadataConn.getParameter(ECustomVersionGroup.HIVE.getName());
+            String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             String index = "HadoopCustomVersion:Hive2:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
         } else {
