@@ -389,13 +389,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
 
-    /* dynamic nodes should use this constructor ,type is required */
-    ERepositoryObjectType(String key, String label, String folder, String type, boolean isStaticNode, int ordinal,
-            String[] products, String[] userRight, boolean... isResouce) {
-        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
-        this.label = label;
-    }
-
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean... isResouce) {
         super(key, type, isStaticNode, ordinal);
@@ -406,13 +399,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             this.isResouce = isResouce[0];
         }
         this.label = super.toString(); // reuse super
-    }
-
-    /* dynamic nodes should use this constructor ,type is required */
-    ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode,
-            String namePattern, String[] products, String[] userRight, boolean... isResouce) {
-        this(key, label, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
-        this.namePattern = namePattern;
     }
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
@@ -449,6 +435,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             String[] products, String[] userRight, String namePattern, boolean... isResouce) {
         this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
         this.namePattern = namePattern;
+    }
+
+    ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
+            String[] products, String[] userRight, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.label = label;
     }
 
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
