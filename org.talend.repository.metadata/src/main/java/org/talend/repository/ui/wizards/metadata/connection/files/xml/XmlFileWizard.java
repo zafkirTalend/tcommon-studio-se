@@ -349,6 +349,9 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
             xmlFileSelectPage.setDescription("Select input or output model to create XML metadata connection");
             addPage(xmlFileSelectPage);
             xmlFileSelectPage.setPageComplete(true);
+            if (!isRepositoryObjectEditable()) {
+                creation = true;
+            }
         }
     }
 
