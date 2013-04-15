@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -271,6 +272,18 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
     @Override
     public Resource saveScreenShots(Item item) throws PersistenceException {
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#copyScreenShotFile(org.talend.core.model.properties
+     * .Item, org.talend.core.model.properties.Item)
+     */
+    @Override
+    public void copyScreenShotFile(Item originalItem, Item newItem) throws IOException {
+        // Does nothing.
     }
 
 }

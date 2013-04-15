@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,6 +57,16 @@ public interface IRepositoryContentHandler {
      * @throws PersistenceException
      */
     Resource saveScreenShots(Item item) throws PersistenceException;
+
+    /**
+     * Client can invoke this method to copy the screen shot resource of original item to new item. Added by Marvin Wang
+     * on Apr 15, 2013.
+     * 
+     * @param originalItem
+     * @param newItem
+     * @throws IOException
+     */
+    void copyScreenShotFile(Item originalItem, Item newItem) throws IOException;
 
     public Resource save(Item item) throws PersistenceException;
 

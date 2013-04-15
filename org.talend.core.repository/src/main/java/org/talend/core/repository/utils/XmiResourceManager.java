@@ -12,9 +12,14 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +31,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -708,6 +714,50 @@ public class XmiResourceManager {
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
+    }
+
+    /**
+     * Copies the original screent shot of original item and writes into a new screen shot of new item. Before invoking
+     * this method, client should make sure the items have screen shot. Like metadata item, context item and etc, they
+     * have not screen shot. Added by Marvin Wang on Apr 15, 2013.
+     * 
+     * @param originalItem process, joblet or m/r process
+     * @param newItem process, joblet or m/r process
+     * @throws IOException
+     */
+    // add for bug TDI-20844,when copy or duplicate a job,joblet.just copy .screenshot file will be ok.
+    public void copyScreenshotFile(Item originalItem, Item newItem) throws IOException {
+        OutputStream os = null;
+        InputStream is = null;
+        try {
+            URI orgPropertyResourceURI = EcoreUtil.getURI(originalItem.getProperty());
+            URI orgRelativePlateformDestUri = orgPropertyResourceURI.trimFileExtension().appendFileExtension(
+                    FileConstants.SCREENSHOT_EXTENSION);
+            URL orgFileURL = FileLocator.toFileURL(new java.net.URL(
+                    "platform:/resource" + orgRelativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+
+            URI newPropertyResourceURI = EcoreUtil.getURI(newItem.getProperty());
+            URI newRelativePlateformDestUri = newPropertyResourceURI.trimFileExtension().appendFileExtension(
+                    FileConstants.SCREENSHOT_EXTENSION);
+            URL newFileURL = FileLocator.toFileURL(new java.net.URL(
+                    "platform:/resource" + newRelativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+
+            os = new FileOutputStream(newFileURL.getFile());
+            is = new BufferedInputStream(new FileInputStream(orgFileURL.getPath()));
+            byte[] bytearray = new byte[512];
+            int len = 0;
+            while ((len = is.read(bytearray)) != -1) {
+                os.write(bytearray, 0, len);
+            }
+        } finally {
+            if (os != null) {
+                os.close();
+            }
+            if (is != null) {
+                is.close();
+            }
+        }
+
     }
 
     public String getProjectFilename() {
