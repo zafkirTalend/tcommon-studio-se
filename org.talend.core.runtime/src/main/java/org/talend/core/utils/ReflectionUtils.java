@@ -162,6 +162,7 @@ public class ReflectionUtils {
             }
         }
         Method method = ownerClass.getMethod(methodName, argsClass);
+        method.setAccessible(true);
         returnValue = method.invoke(owner, args);
 
         return returnValue;
@@ -204,6 +205,7 @@ public class ReflectionUtils {
             }
         }
         Method method = ownerClass.getMethod(methodName, argsClass);
+        method.setAccessible(true);
         returnValue = method.invoke(null, args);
 
         return returnValue;
