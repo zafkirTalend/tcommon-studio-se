@@ -69,10 +69,10 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -1849,27 +1849,28 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public void lock(Item item) throws PersistenceException {
+    public boolean lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
-            // lockedObject.put(item.getProperty().getId(), new LockedObject(new
-            // Date(), repositoryContext.getUser()));
             item.getState().setLockDate(new Date());
             item.getState().setLocker(getRepositoryContext().getUser());
             item.getState().setLocked(true);
             xmiResourceManager.saveResource(item.getProperty().eResource());
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void unlock(Item item) throws PersistenceException {
+    public boolean unlock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.LOCK_BY_USER || item instanceof JobletDocumentationItem
                 || item instanceof JobDocumentationItem) {
-            // lockedObject.remove(obj.getProperty().getId());
             item.getState().setLocker(null);
             item.getState().setLockDate(null);
             item.getState().setLocked(false);
             xmiResourceManager.saveResource(item.getProperty().eResource());
+            return true;
         }
+        return false;
     }
 
     @Override
