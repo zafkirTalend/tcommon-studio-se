@@ -73,9 +73,6 @@ public class ClassLoaderFactory {
         if (classLoader == null) {
             classLoader = findLoader(index);
         }
-        if (classLoader != null) {
-            classLoadersMap.put(index, classLoader);
-        }
 
         return classLoader;
     }
@@ -154,9 +151,14 @@ public class ClassLoaderFactory {
                     String libraries = current.getAttribute(LIB_ATTR);
                     if (StringUtils.isNotEmpty(index)) {
                         DynamicClassLoader classLoader = new DynamicClassLoader();
+                        boolean putInCache = true;
                         if (StringUtils.isNotEmpty(libraries)) {
                             String[] librariesArray = libraries.split(SEPARATOR);
-                            loadLibraries(classLoader, librariesArray);
+                            putInCache = loadLibraries(classLoader, librariesArray);
+                        }
+                        if (putInCache) {
+                            // if any libraries can't be retreived , do not put it in cache
+                            classLoadersMap.put(index, classLoader);
                         }
                         return classLoader;
                     }
@@ -167,26 +169,33 @@ public class ClassLoaderFactory {
         return null;
     }
 
-    private static void loadLibraries(DynamicClassLoader classLoader, String[] driversArray) {
+    private static boolean loadLibraries(DynamicClassLoader classLoader, String[] driversArray) {
         List<String> jarPathList = new ArrayList<String>();
         if (driversArray == null || driversArray.length == 0) {
-            return;
+            return true;
         }
 
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
         String libPath = getLibPath();
+        List<String> driverNotExist = new ArrayList<String>();
         for (String driverName : driversArray) {
             String jarPath = libPath + PATH_SEPARATOR + driverName;
             File jarFile = new File(jarPath);
             if (!jarFile.exists()) {
-                librairesManagerService.retrieve(driverName, libPath, new NullProgressMonitor());
+                driverNotExist.add(driverName);
             }
             jarPathList.add(jarFile.getAbsolutePath());
+        }
+        // retreive all needed libs in one time
+        boolean putInCache = false;
+        if (!driverNotExist.isEmpty()) {
+            putInCache = librairesManagerService.retrieve(driverNotExist, libPath, new NullProgressMonitor());
         }
 
         classLoader.setLibStorePath(libPath);
         classLoader.addLibraries(jarPathList);
+        return putInCache;
     }
 
     private static String getLibPath() {

@@ -232,12 +232,28 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 boolean jarFound = false;
                 if (relativePath != null) {
                     if (relativePath.startsWith("platform:/")) {
-                        URI uri = new URI(relativePath);
-                        URL url = FileLocator.toFileURL(uri.toURL());
-                        File file = new File(url.getFile());
-                        if (file.exists()) {
-                            jarLocation = file.getAbsolutePath();
-                            jarFound = true;
+                        try {
+                            URI uri = new URI(relativePath);
+                            URL url = FileLocator.toFileURL(uri.toURL());
+                            File file = new File(url.getFile());
+                            if (file.exists()) {
+                                jarLocation = file.getAbsolutePath();
+                                jarFound = true;
+                            }
+                        } catch (IOException e) {
+                            // some libraries maybe not exist in some product ,but there is configuration in index.xml
+                            // build from component
+                            if (!popUp) {
+                                return false;
+                            } else if (!CommonsPlugin.isHeadless()) {
+                                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                                    ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister
+                                            .getDefault().getService(ILibraryManagerUIService.class);
+
+                                    libUiService.installModules(new String[] { jarNeeded });
+                                }
+                                return false;
+                            }
                         }
                     } else {
                         if (componentsFolders != null && contributeIdSet != null) {
@@ -346,9 +362,57 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         LibrariesIndexManager.getInstance().loadResource();
 
+        // fix for TDI-25474 ,some libraries are removed form tos,only list jars exist
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
-        names.addAll(jarsToRelative.keySet());
+        Map<String, File> componentsFolders = null;
+        Set<String> contributeIdSet = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                    IComponentsService.class);
+            componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+            contributeIdSet = componentsFolders.keySet();
+        }
 
+        for (String jarName : jarsToRelative.keySet()) {
+            String relativePath = jarsToRelative.get(jarName);
+            boolean jarFound = false;
+            if (relativePath != null) {
+                if (relativePath.startsWith("platform:/")) {
+                    URI uri;
+                    try {
+                        uri = new URI(relativePath);
+                        URL url = FileLocator.toFileURL(uri.toURL());
+                        File file = new File(url.getFile());
+                        if (file.exists()) {
+                            jarFound = true;
+                        }
+                    } catch (Exception e) {
+                        continue;
+                    }
+                } else {
+                    if (componentsFolders != null && contributeIdSet != null) {
+                        for (String contributor : contributeIdSet) {
+                            if (relativePath.contains(contributor)) {
+                                // caculate the the absolute path of the jar
+                                String bundleLocation = componentsFolders.get(contributor).getAbsolutePath();
+                                int index = bundleLocation.indexOf(contributor);
+                                String jarLocation = new Path(bundleLocation.substring(0, index)).append(relativePath)
+                                        .toPortableString();
+
+                                File file = new File(jarLocation);
+                                if (file.exists()) {
+                                    jarFound = true;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (jarFound) {
+                names.add(jarName);
+            }
+        }
         return names;
     }
 

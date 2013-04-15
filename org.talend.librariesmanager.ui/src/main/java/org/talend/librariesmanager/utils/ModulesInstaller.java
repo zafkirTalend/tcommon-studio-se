@@ -33,7 +33,7 @@ public class ModulesInstaller {
     public static void installModules(Shell shell, IComponent component) {
         if (!LibManagerUiPlugin.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = Messages.getString("ModulesInstaller_text1", component.getName());
+            String text = Messages.getString("ModulesInstaller_text1", component.getName());//$NON-NLS-1$
             String title = Messages.getString("ModulesInstaller_title1") + component.getName(); //$NON-NLS-1$
             if (!component.getModulesNeeded().isEmpty()) {
                 ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, component.getModulesNeeded(),
