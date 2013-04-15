@@ -1741,7 +1741,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public void lock(Item item) throws PersistenceException {
+    public boolean lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
             // lockedObject.put(item.getProperty().getId(), new LockedObject(new
             // Date(), repositoryContext.getUser()));
@@ -1749,11 +1749,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.getState().setLocker(getRepositoryContext().getUser());
             item.getState().setLocked(true);
             xmiResourceManager.saveResource(item.getProperty().eResource());
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void unlock(Item item) throws PersistenceException {
+    public boolean unlock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.LOCK_BY_USER || item instanceof JobletDocumentationItem
                 || item instanceof JobDocumentationItem) {
             // lockedObject.remove(obj.getProperty().getId());
@@ -1761,7 +1763,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.getState().setLockDate(null);
             item.getState().setLocked(false);
             xmiResourceManager.saveResource(item.getProperty().eResource());
+            return true;
         }
+        return false;
     }
 
     @Override

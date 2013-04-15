@@ -209,9 +209,9 @@ public interface IRepositoryFactory {
 
     public void moveObject(IRepositoryViewObject objToMove, IPath newPath) throws PersistenceException;
 
-    public void lock(Item item) throws PersistenceException, LoginException;
+    public boolean lock(Item item) throws PersistenceException, LoginException;
 
-    public void unlock(Item item) throws PersistenceException, LoginException;
+    public boolean unlock(Item item) throws PersistenceException, LoginException;
 
     public ERepositoryStatus getStatus(Item item);
 
