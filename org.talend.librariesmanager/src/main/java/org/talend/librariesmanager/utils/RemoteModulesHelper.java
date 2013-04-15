@@ -138,6 +138,7 @@ public class RemoteModulesHelper {
                 } else {
                     if (jars.length() != 0) {
                         jars.append(SEPARATOR);
+                        jars.append(moduleName);
                     } else {
                         jars.append(moduleName);
                     }
