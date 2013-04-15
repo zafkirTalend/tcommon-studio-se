@@ -598,9 +598,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     }
 
     protected void hideHelpActions() {
-        String[] removeIds = { "org.eclipse.equinox.p2.ui.sdk.update", "group.assist", //$NON-NLS-1$ //$NON-NLS-2$
+        String[] removeIds = {
+                "org.eclipse.equinox.p2.ui.sdk.update", "group.assist", //$NON-NLS-1$ //$NON-NLS-2$
                 "org.eclipse.ui.actions.showKeyAssistHandler", "additions", "group.tutorials", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                "org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction", "subversive", "subversive.help" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                "org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction", "subversive", "subversive.help", "org.eclipse.equinox.p2.ui.sdk.install" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         for (String id : removeIds) {
             helpMenu.remove(id);
         }
