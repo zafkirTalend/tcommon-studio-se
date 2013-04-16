@@ -88,7 +88,7 @@ public class RepositoryConstants {
     public static final String METADATA_NAME_PATTERN = ".*"; //$NON-NLS-1$
 
     public static final String[] ITEM_FORBIDDEN_IN_LABEL = { "~", "!", "`", "#", "^", "&", "*", "\\", "/", "?", ":", ";", "\"", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
-            ".", "(", ")", "，", "。", "'", "￥", "‘", "”", "、", "《", "，", "》", "<", ">" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$
+            ".", "(", ")", "，", "。", "'", "￥", "‘", "”", "、", "《", "，", "》", "<", ">", " " }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
