@@ -285,7 +285,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             result = sql + and + typeClause;
             // ADDED yyin 20120516 TDQ-5190, same action as DB2
             if (checkContainTable && types.length > 1) {
-                result = result + "  or( TBSPACE!='SYSCATSPACE' and type in('T') ))";
+                result = result + "  or( TBSPACE!='SYSCATSPACE' and type in('T') ))"; //$NON-NLS-1$
             }
         }
         return result;

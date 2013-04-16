@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.ListUtils;
+import org.talend.commons.utils.database.AS400DatabaseMetaData;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
@@ -698,6 +699,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             try {
                 if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
                     schemaRs = ((SybaseDatabaseMetaData) dbJDBCMetadata).getSchemas(catalog.getName(), null);
+                } else if (dbJDBCMetadata instanceof AS400DatabaseMetaData) {
+                    schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
                 } else {
                     schemaRs = dbJDBCMetadata.getSchemas();
                 }
@@ -966,7 +969,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (catalogOrSchema instanceof Catalog) {
                 catalogName = catalogOrSchema.getName();
                 if (MetadataConnectionUtils.isAS400(catalogOrSchema)) {
-                    return tableList;
+                   return tableList;
                 }
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
