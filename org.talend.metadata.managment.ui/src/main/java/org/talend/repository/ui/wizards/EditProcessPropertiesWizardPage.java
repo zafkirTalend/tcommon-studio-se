@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Label;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -117,6 +118,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
         convertBtn.setText(Messages.getString("EditProcessPropertiesWizardPage.button.name.convert")); //$NON-NLS-1$
         GridDataFactory.swtDefaults().span(2, 1).align(SWT.CENTER, SWT.CENTER).grab(false, false).applyTo(convertBtn);
         convertBtn.setEnabled(!isReadOnly());
+        convertBtn.setVisible(PluginChecker.isMapReducePluginLoader());
     }
 
     @Override
