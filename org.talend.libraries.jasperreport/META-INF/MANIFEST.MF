@@ -19,6 +19,7 @@ Bundle-ClassPath: .,
  lib/poi-3.2-FINAL-20081019.jar,
  lib/rhino-1.7R1.jar,
  lib/jasperreports-5.0.0.jar,
+ lib/jasperreports-fonts-5.0.0.jar,
  lib/talend_auditChart.jar
 Export-Package: net.sf.jasperreports.ant;uses:="org.apache.tools.ant.taskdefs,org.apache.tools.ant.types,net.sf.jasperreports.engine.util",
  net.sf.jasperreports.charts;

@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.core.runtime;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -40,18 +42,23 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
 
     // The data profiling perspective id.
-    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
+    protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
 
     /** Context. */
     private final Context context;
 
     private static CoreRuntimePlugin plugin = null;
 
+    private static IRepositoryService repositoryService = null;
+
     public CoreRuntimePlugin() {
         context = new Context();
     }
 
     public static CoreRuntimePlugin getInstance() {
+        if (plugin == null && !Platform.isRunning()) {
+            plugin = new CoreRuntimePlugin();
+        }
         return plugin;
     }
 
@@ -80,16 +87,31 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
                     IProxyRepositoryService.class);
             return service.getProxyRepositoryFactory();
         }
-
         return null;
     }
 
     public IRepositoryService getRepositoryService() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-            IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-            return (IRepositoryService) service;
+        if (Platform.isRunning()) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+                IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+                return (IRepositoryService) service;
+            }
+        } else {
+            if (repositoryService == null) {
+                try {
+                    final String serviceClassName = "org.talend.repository.StandaloneRepositoryService"; //$NON-NLS-1$
+                    repositoryService = (IRepositoryService) Class.forName(serviceClassName).newInstance();
+                } catch (InstantiationException e) {
+                    ExceptionHandler.process(e);
+                } catch (IllegalAccessException e) {
+                    ExceptionHandler.process(e);
+                } catch (ClassNotFoundException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+            return repositoryService;
         }
-        return null;
+        return repositoryService;
     }
 
     public IMetadataService getMetadataService() {

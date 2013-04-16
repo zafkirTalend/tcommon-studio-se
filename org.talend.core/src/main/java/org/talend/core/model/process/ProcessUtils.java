@@ -20,8 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -216,7 +216,7 @@ public final class ProcessUtils {
         if (org.talend.commons.utils.platform.PluginChecker.isTDQLoaded()) {
             ITDQItemService tdqItemService = (ITDQItemService) GlobalServiceRegister.getDefault().getService(
                     ITDQItemService.class);
-            if (tdqItemService != null) {
+            if (tdqItemService != null && tdqItemService.hasProcessItemDependencies(items)) {
                 dependencies.addAll(tdqItemService.getProcessItemDependencies(items));
             }
         }
@@ -279,8 +279,7 @@ public final class ProcessUtils {
                         if (propertyChildParameters != null) {
                             IElementParameter subPropertyTypeElement = propertyChildParameters.get("REPOSITORY_PROPERTY_TYPE");
                             if (subPropertyTypeElement != null) {
-                                repositoryMetadataId = (String) subPropertyTypeElement //$NON-NLS-1$
-                                        .getValue();
+                                repositoryMetadataId = (String) subPropertyTypeElement.getValue();
                             }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
@@ -291,8 +290,7 @@ public final class ProcessUtils {
                         if (schemaChildParameters != null) {
                             IElementParameter subSchemaElement = schemaChildParameters.get("REPOSITORY_SCHEMA_TYPE");
                             if (subSchemaElement != null) {
-                                repositoryMetadataId = (String) subSchemaElement //$NON-NLS-1$
-                                        .getValue();
+                                repositoryMetadataId = (String) subSchemaElement.getValue();
                             }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);
@@ -303,7 +301,7 @@ public final class ProcessUtils {
                         if (queryChildParameters != null) {
                             IElementParameter subQueryElement = queryChildParameters.get("REPOSITORY_QUERYSTORE_TYPE");
                             if (subQueryElement != null) {
-                                repositoryMetadataId = (String) subQueryElement.getValue(); //$NON-NLS-1$
+                                repositoryMetadataId = (String) subQueryElement.getValue();
                             }
                         }
                         addRepositoryObject(repositoryMetadataId, repositoryObjects);

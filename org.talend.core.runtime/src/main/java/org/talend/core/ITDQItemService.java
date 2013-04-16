@@ -137,5 +137,13 @@ public interface ITDQItemService extends ITDQService {
      * @param items
      * @return
      */
+    public boolean hasProcessItemDependencies(Collection<Item> items);
+
+    /**
+     * DOC sizhaoliu Comment method "getReportGenerationResources".
+     * 
+     * @param items
+     * @return
+     */
     public Collection<IRepositoryViewObject> getProcessItemDependencies(Collection<Item> items);
 }
