@@ -16,6 +16,7 @@ import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
@@ -38,6 +39,9 @@ public final class ResourceHelper {
     public static String getUUID(EObject object) {
         if (object == null) {
             return null;
+        }
+        if (object.eIsProxy()) {
+            return ((InternalEObject) object).eProxyURI().fragment();
         }
         Resource resource = object.eResource();
         if (resource == null || !(resource instanceof XMLResource)) {
