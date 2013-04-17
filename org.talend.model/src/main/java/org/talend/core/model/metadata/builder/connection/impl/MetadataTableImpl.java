@@ -58,33 +58,49 @@ import orgomg.cwmx.resource.express.SimpleDimension;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getOwnedElement <em>Owned Element</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isIsAbstract <em>Is Abstract</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getStructuralFeature <em>Structural Feature</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getParameter <em>Parameter</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getGeneralization <em>Generalization</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSpecialization <em>Specialization</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getInstance <em>Instance</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getAlias <em>Alias</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getExpressionNode <em>Expression Node</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getMappingFrom <em>Mapping From</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getMappingTo <em>Mapping To</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getClassifierMap <em>Classifier Map</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getCfMap <em>Cf Map</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getDomain <em>Domain</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSimpleDimension <em>Simple Dimension</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getIndex <em>Index</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSourceName <em>Source Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getTableType <em>Table Type</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isAttachedCDC <em>Attached CDC</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isActivatedCDC <em>Activated CDC</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getOwnedElement <em>Owned Element
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isIsAbstract <em>Is Abstract
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getFeature <em>Feature</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getStructuralFeature <em>
+ * Structural Feature</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getParameter <em>Parameter</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getGeneralization <em>
+ * Generalization</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSpecialization <em>
+ * Specialization</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getInstance <em>Instance</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getAlias <em>Alias</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getExpressionNode <em>Expression
+ * Node</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getMappingFrom <em>Mapping From
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getMappingTo <em>Mapping To</em>}
+ * </li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getClassifierMap <em>Classifier
+ * Map</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getCfMap <em>Cf Map</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getDomain <em>Domain</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSimpleDimension <em>Simple
+ * Dimension</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getIndex <em>Index</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSourceName <em>Source Name
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getTableType <em>Table Type</em>}
+ * </li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isAttachedCDC <em>Attached CDC
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isActivatedCDC <em>Activated CDC
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getAdditionalProperties <em>
+ * Additional Properties</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class MetadataTableImpl extends AbstractMetadataObjectImpl implements MetadataTable {
@@ -100,9 +116,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<ModelElement> ownedElement;
 
     /**
-     * The default value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -110,9 +126,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected static final boolean IS_ABSTRACT_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -144,9 +160,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<StructuralFeature> structuralFeature;
 
     /**
-     * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getParameter()
      * @generated
      * @ordered
@@ -174,9 +190,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<Generalization> specialization;
 
     /**
-     * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getInstance()
      * @generated
      * @ordered
@@ -184,9 +200,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<Instance> instance;
 
     /**
-     * The cached value of the '{@link #getAlias() <em>Alias</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getAlias() <em>Alias</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getAlias()
      * @generated
      * @ordered
@@ -204,9 +220,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<ExpressionNode> expressionNode;
 
     /**
-     * The cached value of the '{@link #getMappingFrom() <em>Mapping From</em>}' reference list.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getMappingFrom() <em>Mapping From</em>}' reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getMappingFrom()
      * @generated
      * @ordered
@@ -214,9 +230,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<TypeMapping> mappingFrom;
 
     /**
-     * The cached value of the '{@link #getMappingTo() <em>Mapping To</em>}' reference list.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getMappingTo() <em>Mapping To</em>}' reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getMappingTo()
      * @generated
      * @ordered
@@ -224,9 +240,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<TypeMapping> mappingTo;
 
     /**
-     * The cached value of the '{@link #getClassifierMap() <em>Classifier Map</em>}' reference list.
-     * <!-- begin-user-doc
+     * The cached value of the '{@link #getClassifierMap() <em>Classifier Map</em>}' reference list. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
+     * 
      * @see #getClassifierMap()
      * @generated
      * @ordered
@@ -234,9 +250,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<ClassifierMap> classifierMap;
 
     /**
-     * The cached value of the '{@link #getCfMap() <em>Cf Map</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getCfMap() <em>Cf Map</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getCfMap()
      * @generated
      * @ordered
@@ -244,9 +260,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<ClassifierFeatureMap> cfMap;
 
     /**
-     * The cached value of the '{@link #getDomain() <em>Domain</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDomain() <em>Domain</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDomain()
      * @generated
      * @ordered
@@ -264,9 +280,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<SimpleDimension> simpleDimension;
 
     /**
-     * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getIndex()
      * @generated
      * @ordered
@@ -274,9 +290,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected EList<Index> index;
 
     /**
-     * The default value of the '{@link #getSourceName() <em>Source Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSourceName() <em>Source Name</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getSourceName()
      * @generated
      * @ordered
@@ -284,9 +300,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected static final String SOURCE_NAME_EDEFAULT = null;
 
     /**
-     * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getTableType()
      * @generated
      * @ordered
@@ -294,9 +310,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected static final String TABLE_TYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTableType() <em>Table Type</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getTableType() <em>Table Type</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getTableType()
      * @generated
      * @ordered
@@ -304,9 +320,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected String tableType = TABLE_TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #isAttachedCDC()
      * @generated
      * @ordered
@@ -314,9 +330,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected static final boolean ATTACHED_CDC_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #isAttachedCDC()
      * @generated
      * @ordered
@@ -324,9 +340,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected boolean attachedCDC = ATTACHED_CDC_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #isActivatedCDC()
      * @generated
      * @ordered
@@ -334,9 +350,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected static final boolean ACTIVATED_CDC_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #isActivatedCDC()
      * @generated
      * @ordered
@@ -344,9 +360,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     protected boolean activatedCDC = ACTIVATED_CDC_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAdditionalProperties()
      * @generated
      * @ordered
@@ -355,6 +371,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected MetadataTableImpl() {
@@ -363,6 +380,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -372,6 +390,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<ModelElement> getOwnedElement() {
@@ -384,6 +403,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isIsAbstract() {
@@ -392,14 +412,16 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setIsAbstract(boolean newIsAbstract) {
         boolean oldIsAbstract = isAbstract;
         isAbstract = newIsAbstract;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__IS_ABSTRACT, oldIsAbstract,
                     isAbstract));
+        }
     }
 
     /**
@@ -418,6 +440,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<StructuralFeature> getStructuralFeature() {
@@ -430,6 +453,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Parameter> getParameter() {
@@ -442,6 +466,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Generalization> getGeneralization() {
@@ -454,6 +479,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Generalization> getSpecialization() {
@@ -466,6 +492,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Instance> getInstance() {
@@ -478,6 +505,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<TypeAlias> getAlias() {
@@ -490,6 +518,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<ExpressionNode> getExpressionNode() {
@@ -502,6 +531,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<TypeMapping> getMappingFrom() {
@@ -514,6 +544,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<TypeMapping> getMappingTo() {
@@ -526,6 +557,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<ClassifierMap> getClassifierMap() {
@@ -538,6 +570,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<ClassifierFeatureMap> getCfMap() {
@@ -550,6 +583,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Domain> getDomain() {
@@ -562,6 +596,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<SimpleDimension> getSimpleDimension() {
@@ -574,6 +609,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Index> getIndex() {
@@ -584,6 +620,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         return index;
     }
 
+    @Override
     public boolean isReadOnly() {
         Connection connection = getConnection();
         return connection == null ? false : connection.isReadOnly();
@@ -606,9 +643,10 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     public void setSourceName(String newSourceName) {
         String oldSourceName = getSourceName();
         setName(newSourceName);
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__SOURCE_NAME, oldSourceName,
                     newSourceName));
+        }
     }
 
     /**
@@ -625,6 +663,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Connection getConnection() {
@@ -643,8 +682,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EMap<String, String> getAdditionalProperties() {
@@ -657,6 +696,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getTableType() {
@@ -665,18 +705,21 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setTableType(String newTableType) {
         String oldTableType = tableType;
         tableType = newTableType;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__TABLE_TYPE, oldTableType,
                     tableType));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isAttachedCDC() {
@@ -685,18 +728,21 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setAttachedCDC(boolean newAttachedCDC) {
         boolean oldAttachedCDC = attachedCDC;
         attachedCDC = newAttachedCDC;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__ATTACHED_CDC, oldAttachedCDC,
                     attachedCDC));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isActivatedCDC() {
@@ -705,18 +751,21 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setActivatedCDC(boolean newActivatedCDC) {
         boolean oldActivatedCDC = activatedCDC;
         activatedCDC = newActivatedCDC;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC,
                     oldActivatedCDC, activatedCDC));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -761,6 +810,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -806,6 +856,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -856,20 +907,23 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         case ConnectionPackage.METADATA_TABLE__COLUMNS:
             return getColumns();
         case ConnectionPackage.METADATA_TABLE__CONNECTION:
-            if (resolve)
+            if (resolve) {
                 return getConnection();
+            }
             return basicGetConnection();
         case ConnectionPackage.METADATA_TABLE__ADDITIONAL_PROPERTIES:
-            if (coreType)
+            if (coreType) {
                 return getAdditionalProperties();
-            else
+            } else {
                 return getAdditionalProperties().map();
+            }
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -968,6 +1022,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -1048,6 +1103,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -1107,6 +1163,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -1168,6 +1225,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -1229,12 +1287,14 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
+        if (eIsProxy()) {
             return super.toString();
+        }
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isAbstract: ");
@@ -1247,6 +1307,20 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         result.append(activatedCDC);
         result.append(')');
         return result.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName()
+     */
+    @Override
+    public String getName() {
+        if (super.getName() == null) {
+            return getLabel();
+        } else {
+            return super.getName();
+        }
     }
 
     /*
