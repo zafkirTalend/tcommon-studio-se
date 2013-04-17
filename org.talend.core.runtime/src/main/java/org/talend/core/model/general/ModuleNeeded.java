@@ -181,7 +181,7 @@ public class ModuleNeeded {
 
     public void setModuleName(String moduleName) {
         if (moduleName != null) {
-            this.moduleName = moduleName.replaceAll(QUOTATION_MARK, "").replaceAll(SINGLE_QUOTE, //$NON-NLS-1$
+            this.moduleName = moduleName.replace(QUOTATION_MARK, "").replace(SINGLE_QUOTE, //$NON-NLS-1$
                     ""); //$NON-NLS-1$
         } else {
             this.moduleName = moduleName;

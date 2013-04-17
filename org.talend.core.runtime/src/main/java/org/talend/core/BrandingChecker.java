@@ -16,6 +16,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.AbstractBrandingService;
 import org.talend.core.ui.branding.IBrandingService;
 
 /**
@@ -36,27 +37,30 @@ public class BrandingChecker {
             } else {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
-                final String fullProductName = brandingService.getFullProductName();
-                Display display = Display.getDefault();
-                if (display == null) {
-                    display = Display.getCurrent();
-                }
-                display.syncExec(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-                        String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
-                        if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
-                            isBrandingChanged = true;
-                            preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
-                        }
+                if (brandingService instanceof AbstractBrandingService) {
+                    isBrandingChanged = false; // all brandings instance of this are static, so no need any check.
+                } else {
+                    final String fullProductName = brandingService.getFullProductName();
+                    Display display = Display.getDefault();
+                    if (display == null) {
+                        display = Display.getCurrent();
                     }
-                });
+                    display.syncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+                            String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
+                            if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
+                                isBrandingChanged = true;
+                                preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
+                            }
+                        }
+                    });
+                }
             }
             initialized = true;
         }
         return isBrandingChanged;
     }
-
 }

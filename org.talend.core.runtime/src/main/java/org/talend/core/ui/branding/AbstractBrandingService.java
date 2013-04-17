@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.branding;
 
-import org.talend.core.i18n.Messages;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -20,6 +20,7 @@ import org.talend.core.i18n.Messages;
 public abstract class AbstractBrandingService implements IBrandingService {
 
     public String getJobLicenseHeader(String version) {
+
         String contents = Messages.getString("AbstractBrandingService_job_license_header_content", //$NON-NLS-1$
                 this.getFullProductName(), version);
         return contents;
@@ -31,19 +32,23 @@ public abstract class AbstractBrandingService implements IBrandingService {
         return contents;
     }
 
+    @Override
     public boolean isPoweredbyTalend() {
         return false;
     }
 
+    @Override
     public boolean isPoweredOnlyCamel() {
         return false;
     }
 
+    @Override
     public String getStartingBrowserId() {
         // default is StartingBrowser implement in org.talend.rcp
         return "org.talend.rcp.intro.starting.StartingBrowser";
     }
 
+    @Override
     public String getUserManuals() {
         return "DI";
     }
