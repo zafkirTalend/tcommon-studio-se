@@ -5,12 +5,9 @@ Bundle-SymbolicName: org.talend.libraries.jasperreport
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
- lib/bsh-2.0b4.jar,
  lib/jakarta-bcel-20050813.jar,
  lib/jdt-compiler-3.1.1.jar,
- lib/jpa.jar,
  lib/jxl-2.6.10.jar,
- lib/mondrian-2.3.2.8944.jar,
  lib/png-encoder-1.5.jar,
  lib/xalan.jar,
  lib/xml-apis-ext.jar,
