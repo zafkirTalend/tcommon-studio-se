@@ -276,8 +276,7 @@ public final class TalendQuoteUtils {
     public static String filterQuote(final String str) {
         String newStr = replaceNewLine(str);
 
-        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
-        Matcher regexMatcher = regex.matcher(newStr);
+        Matcher regexMatcher = quotePatternRegex.matcher(newStr);
         String nonQuoteStr = newStr;
         if (regexMatcher.find()) {
             String quoteStr = regexMatcher.group(1);
@@ -290,6 +289,8 @@ public final class TalendQuoteUtils {
         return nonQuoteStr;
     }
 
+    private static Pattern quotePatternRegex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
+
     /**
      * 
      * ggu Comment method "isCommonString".
@@ -300,8 +301,7 @@ public final class TalendQuoteUtils {
     public static boolean isCommonString(final String str) {
         String newStr = replaceNewLine(str);
 
-        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
-        Matcher regexMatcher = regex.matcher(newStr);
+        Matcher regexMatcher = quotePatternRegex.matcher(newStr);
         if (regexMatcher.find()) { // has quote
             String non = filterQuote(newStr);
             if (!"".equals(non.trim())) { // has variables or is expression //$NON-NLS-1$
@@ -317,8 +317,8 @@ public final class TalendQuoteUtils {
         }
         String newStr = str;
 
-        newStr = newStr.replaceAll("\r", " "); //$NON-NLS-1$ //$NON-NLS-2$
-        newStr = newStr.replaceAll("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
+        newStr = newStr.replace("\r", " "); //$NON-NLS-1$ //$NON-NLS-2$
+        newStr = newStr.replace("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
         newStr = newStr.trim();
 
         return newStr;
