@@ -35,7 +35,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -327,9 +326,10 @@ public final class RepositoryComponentManager {
                                 }
                             }
                         } else if (clazz.isAssignableFrom(ProcessItem.class)) {
-                            if (item.eClass() == PropertiesPackage.Literals.PROCESS_ITEM) {
-                                return setting;
-                            }
+                            // for TDI-25558 to make D&D enable when d&d m/r job to job editor.
+                            // if (item.eClass() == PropertiesPackage.Literals.PROCESS_ITEM) {
+                            return setting;
+                            // }
                         } else {
                             return setting;
                         }
