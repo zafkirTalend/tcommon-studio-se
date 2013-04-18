@@ -81,6 +81,7 @@ public class StatusHelper {
             case PropertiesPackage.PROCESS_ITEM:
             case PropertiesPackage.JOBLET_PROCESS_ITEM:
             case PropertiesPackage.ROUTINE_ITEM:
+            case PropertiesPackage.PIGUDF_ITEM:
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
