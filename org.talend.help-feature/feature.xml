@@ -309,7 +309,7 @@
          id="org.apache.ant"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="1.7.1.v20100518-1145"/>
 
    <plugin
          id="org.eclipse.equinox.jsp.jasper"
