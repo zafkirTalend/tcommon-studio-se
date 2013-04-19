@@ -37,6 +37,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.token.DefaultTokenCollector;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
@@ -243,17 +244,19 @@ public class RegisterManagement {
         int nbProc = Runtime.getRuntime().availableProcessors();
 
         // VERSION
-
         String version = VersionUtils.getVersion();
+
+        // UNIQUE_ID
+        String uniqueId = DefaultTokenCollector.calcUniqueId();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
         proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser(email, pseudo, password, firstname, lastname, country, version,
-                    brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
-                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            result = proxy.registerUserWithAllUserInformationsUniqueIdAndReturnId(email, country, version,
+                    brandingService.getAcronym(), "java", osName, osVersion, javaVersion, totalMemory + "", memRAM + "", nbProc
+                            + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
                 saveRegistoryBean();
@@ -431,8 +434,8 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            registURL = new URL("http://www.talend.com/designer_post_reg.php?prd=" + brandingService.getAcronym() + "&cid=" //$NON-NLS-1$ //$NON-NLS-2$
-                    + registNumber);
+            registURL = new URL(
+                    "http://www.talend.com/designer_post_install?uid=" + DefaultTokenCollector.calcUniqueId() + "&prd=" + brandingService.getAcronym()); //$NON-NLS-1$ //$NON-NLS-2$
             PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(registURL);
         } catch (PartInitException e) {
             // if no default browser (like on linux), try to open directly with firefox.
