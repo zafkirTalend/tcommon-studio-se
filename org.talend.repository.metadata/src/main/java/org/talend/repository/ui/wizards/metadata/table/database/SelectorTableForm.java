@@ -88,7 +88,6 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
@@ -963,17 +962,17 @@ public class SelectorTableForm extends AbstractForm {
                     // add
                     if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataconnection.getDbType())) {
                         String key = (String) metadataconnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-                        if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
-                            try {
-                                HiveConnectionManager.getInstance().checkConnection(metadataconnection);
-                                managerConnection.setValide(true);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        } else if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)) {
-                            managerConnection.check(metadataconnection, true);
+                        // if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
+                        try {
+                            HiveConnectionManager.getInstance().checkConnection(metadataconnection);
+                            managerConnection.setValide(true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                        // }
+                        // else if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)) {
+                        // managerConnection.check(metadataconnection, true);
+                        // }
                     } else {
                         managerConnection.check(metadataconnection, true);
                     }

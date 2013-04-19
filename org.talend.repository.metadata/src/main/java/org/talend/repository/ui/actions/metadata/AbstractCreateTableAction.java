@@ -958,12 +958,13 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                 // TODO 1. To identify if it is hive connection.
                                 String hiveMode = (String) metadataConnection
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-                                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
-                                        && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
                                     // metadataConnection.setDriverJarPath((String)metadataConnection
                                     // .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
                                     metadataConnection.setUrl(connection.getURL());
-                                    JavaSqlFactory.doHivePreSetup(connection);
+                                    if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                                        JavaSqlFactory.doHivePreSetup(connection);
+                                    }
                                 } else {
 
                                     String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
@@ -987,8 +988,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             if (creation) {
                                 String hiveMode = (String) metadataConnection
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-                                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
-                                        && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
                                     try {
                                         HiveConnectionManager.getInstance().checkConnection(metadataConnection);
                                     } catch (Exception e) {
