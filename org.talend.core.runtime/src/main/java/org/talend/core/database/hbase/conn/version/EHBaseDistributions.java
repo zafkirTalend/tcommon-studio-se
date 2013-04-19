@@ -30,7 +30,7 @@ public enum EHBaseDistributions {
 
     AMAZON_EMR("AmazonEMR"),
 
-    CUSTOM("Custom");
+    CUSTOM("Custom - Unsupported");
 
     private String displayName;
 

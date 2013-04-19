@@ -918,7 +918,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void updateHBaseVersionPart(String distribution) {
-        EHadoopDistributions dis = EHadoopDistributions.getDistributionByName(distribution, false);
+        EHadoopDistributions dis = EHadoopDistributions.getDistributionByDisplayName(distribution);
         if (dis == EHadoopDistributions.CUSTOM) {
             hbaseVersionCombo.setHideWidgets(true);
             hbaseCustomButton.setVisible(true);

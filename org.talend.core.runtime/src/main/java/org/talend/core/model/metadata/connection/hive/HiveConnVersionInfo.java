@@ -39,7 +39,7 @@ public enum HiveConnVersionInfo {
 
     AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR"), //$NON-NLS-1$//$NON-NLS-2$
 
-    DISTRO_CUSTOM(0, "CUSTOM", "Custom"), //$NON-NLS-1$//$NON-NLS-2$
+    DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported"), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_1_0(1, "HDP_1_0", "HDP V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
