@@ -104,7 +104,8 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
         } else if ("SERVICES".equals(id) && isItemShow("SERVICES")) {
             String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsServices.Title");
             createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_service.png", title);
-            latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
+            ERepositoryObjectType repositoryServicesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "SERVICES");
+            latestItems = getLatestModifiedItems(repositoryServicesType, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&"
                     + "class=org.talend.repository.services.action.OpenWSDLEditorAction&"
                     + "id=org.talend.repository.services.action.OpenWSDLEditorAction&nodeId=";
@@ -266,9 +267,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     * 
+     *
      * DOC create title for the CREATE_NEW_ITEM in the second column
-     * 
+     *
      * @param dom
      * @param parent
      * @param title
@@ -281,9 +282,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     * 
+     *
      * DOC create a new create item for the CREATE_NEW_ITEM in the second column
-     * 
+     *
      * @param dom
      * @param parent
      * @param title
@@ -307,9 +308,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     * 
+     *
      * DOC create fixed part for the CREATE_NEW_ITEM in the second column
-     * 
+     *
      * @param dom
      * @param parent
      * @param title
