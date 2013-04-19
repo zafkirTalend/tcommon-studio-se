@@ -54,6 +54,9 @@
                <documentation>
                   The index to search the classloader.
                </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="libraries" type="string" use="required">
