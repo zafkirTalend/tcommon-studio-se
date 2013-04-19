@@ -434,8 +434,20 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
+            // UNIQUE_ID
+            String uniqueId = DefaultTokenCollector.calcUniqueId();
+            uniqueId = uniqueId.replace("#", "%23");
+            uniqueId = uniqueId.replace("$", "%24");
+            uniqueId = uniqueId.replace("%", "%25");
+            uniqueId = uniqueId.replace("&", "%26");
+            uniqueId = uniqueId.replace("+", "%2B");
+            uniqueId = uniqueId.replace("/", "%2F");
+            uniqueId = uniqueId.replace(";", "%3B");
+            uniqueId = uniqueId.replace("=", "%3D");
+            uniqueId = uniqueId.replace("?", "%3F");
+            uniqueId = uniqueId.replace("\\", "%5C");
             registURL = new URL(
-                    "http://www.talend.com/designer_post_install?uid=" + DefaultTokenCollector.calcUniqueId() + "&prd=" + brandingService.getAcronym()); //$NON-NLS-1$ //$NON-NLS-2$
+                    "http://www.talend.com/designer_post_install?uid=" + uniqueId + "&prd=" + brandingService.getAcronym()); //$NON-NLS-1$ //$NON-NLS-2$
             PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(registURL);
         } catch (PartInitException e) {
             // if no default browser (like on linux), try to open directly with firefox.
