@@ -304,6 +304,25 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         installAllBtn = new Button(footComposite, SWT.NONE);
         installAllBtn.setText(Messages.getString("ExternalModulesInstallDialog_InstallAll")); //$NON-NLS-1$
+        
+        List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
+        boolean isEnable = false;
+        if (!jarsInstalledSuccuss.isEmpty()) {
+            for (ModuleToInstall module : inputList) {
+                if (!jarsInstalledSuccuss.contains(module.getName()) && module.isRequired()) {
+                    isEnable = true;
+                    break;
+                }
+            }
+        } else {
+            for (ModuleToInstall module : inputList) {
+                if (module.isRequired()) {
+                    isEnable = true;
+                    break;
+                }
+            }
+        }
+        installAllBtn.setEnabled(isEnable);
 
         createFooter(composite);
         setTitle(title);
