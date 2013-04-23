@@ -125,15 +125,9 @@ public enum EDatabaseVersion4Drivers {
     // ,"jackson-mapper-asl-1.8.8.jar"})),
 
     // All jars are referred from tHiveConnection_java.xml
-    HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] {
-            "commons-logging-1.0.4.jar", "datanucleus-api-jdo-3.0.7.jar", "datanucleus-core-3.0.9.jar",
-            "datanucleus-rdbms-3.0.8.jar", "hadoop-core-1.0.3.jar", "hive-builtins-0.9.0.jar", "libfb303-0.7.0.jar",
-            "libthrift-0.7.0.jar", "log4j-1.2.15.jar", "slf4j-api-1.6.1.jar", "antlr-runtime-3.0.1.jar", "jdo2-api-2.3-ec.jar",
-            "commons-dbcp-1.4.jar", "commons-pool-1.5.4.jar", "derby-10.4.2.0.jar", "commons-configuration-1.6.jar",
-            "commons-lang-2.4.jar", "slf4j-log4j12-1.6.1.jar", "jackson-core-asl-1.8.8.jar", "jackson-mapper-asl-1.8.8.jar" })),
+    HIVE_EMBEDDED(new DbVersion4Drivers(EDatabaseTypeName.HIVE, "EMBEDDED", "EMBEDDED", new String[] {})),
     // Changed by Marvin Wang on Oct.9, 2012, just because the libs checking can not pass, Remy updated some jars from
-    HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] { "hadoop-core-1.0.0.jar", "hbase-0.90.1-cdh3u0.jar",
-            "commons-lang3-3.0.jar", "commons-logging-1.1.1.jar", "log4j-1.2.16.jar" })),
+    HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] {})),
 
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$
 
