@@ -425,9 +425,7 @@ public class RegisterManagement {
     }
 
     public void validateRegistration() {
-        if (registNumber == null) {
-            // PTODO
-            // if did not register this time.
+        if (isProductRegistered()) {
             return;
         }
         URL registURL = null;
