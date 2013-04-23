@@ -14,11 +14,13 @@ package org.talend.core.prefs.collector;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.token.TokenCollectorFactory;
 
 /**
  * ggu class global comment. Detailled comment
@@ -30,6 +32,7 @@ public class TalendDataCollectorPreferencePage extends FieldEditorPreferencePage
         setDescription(Messages.getString("TalendDataCollectorPreferencePage_Description")); //$NON-NLS-1$
     }
 
+    @Override
     public void init(IWorkbench workbench) {
 
     }
@@ -38,5 +41,23 @@ public class TalendDataCollectorPreferencePage extends FieldEditorPreferencePage
     protected void createFieldEditors() {
         addField(new BooleanFieldEditor(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED,
                 Messages.getString("TalendDataCollectorPreferencePage_EnableCapture"), getFieldEditorParent())); //$NON-NLS-1$
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
+     */
+    @Override
+    public boolean performOk() {
+        final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        boolean valueBeforeOk = preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED);
+
+        boolean ok = super.performOk();
+
+        if (valueBeforeOk != preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
+            TokenCollectorFactory.getFactory().send();
+        }
+        return ok;
     }
 }
