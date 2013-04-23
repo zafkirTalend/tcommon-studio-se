@@ -112,7 +112,7 @@ public class DynaEnum<E extends DynaEnum<E>> {
                 self.getDeclaringClass() != other.getDeclaringClass()) {
             throw new ClassCastException();
         }
-        return self.ordinal - other.ordinal;
+        return self.ordinal - other.ordinal();
     }
 
     @SuppressWarnings("unchecked")
