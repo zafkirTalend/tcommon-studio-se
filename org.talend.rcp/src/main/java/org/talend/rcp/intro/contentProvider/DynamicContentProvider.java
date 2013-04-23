@@ -56,7 +56,7 @@ public class DynamicContentProvider extends IntroProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
     @Override
@@ -75,7 +75,7 @@ public class DynamicContentProvider extends IntroProvider {
             }
         } else if (ERepositoryObjectType.SERVICESPORT != null && ERepositoryObjectType.SERVICESPORT.name().equals(id)) {
             ERepositoryObjectType serviceType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "SERVICES");
-            //latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
+            // latestItems = getLatestModifiedItems(ERepositoryObjectType.SERVICESPORT, 8);
             latestItems = getLatestModifiedItems(serviceType, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.repository.services&"
                     + "class=org.talend.repository.services.action.OpenWSDLEditorAction&"
@@ -191,7 +191,7 @@ public class DynamicContentProvider extends IntroProvider {
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setUseCaches(false);
-            urlConnection.setReadTimeout(1000);
+            urlConnection.setReadTimeout(2000);
             urlConnection.getInputStream();
             setDIVStyle(dom, true);
         } catch (Exception e) {
@@ -299,7 +299,7 @@ public class DynamicContentProvider extends IntroProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String, java.io.PrintWriter)
      */
     @Override
@@ -310,7 +310,7 @@ public class DynamicContentProvider extends IntroProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String,
      * org.eclipse.swt.widgets.Composite, org.eclipse.ui.forms.widgets.FormToolkit)
      */
@@ -322,7 +322,7 @@ public class DynamicContentProvider extends IntroProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#dispose()
      */
     @Override
@@ -333,7 +333,7 @@ public class DynamicContentProvider extends IntroProvider {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
