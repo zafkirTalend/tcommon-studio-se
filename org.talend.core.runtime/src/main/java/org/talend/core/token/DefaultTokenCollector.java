@@ -15,9 +15,12 @@ package org.talend.core.token;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.utils.security.CryptoHelper;
@@ -35,6 +38,8 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
 
     private static final TokenKey TYPE_STUDIO = new TokenKey("typeStudio"); //$NON-NLS-1$
 
+    private static final TokenKey STOP_COLLECTOR = new TokenKey("stopUsageCollection"); //$NON-NLS-1$
+
     public DefaultTokenCollector() {
         super();
     }
@@ -51,6 +56,13 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
                     IBrandingService.class);
             tokenStudioObject.put(TYPE_STUDIO.getKey(), brandingService.getAcronym());
             // tokenStudioObject.put(TYPE_STUDIO.getKey(), brandingService.getShortProductName());
+        }
+
+        final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        if (!preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
+            tokenStudioObject.put(STOP_COLLECTOR.getKey(), "1"); //$NON-NLS-1$
+        } else {
+            tokenStudioObject.put(STOP_COLLECTOR.getKey(), "0"); //$NON-NLS-1$
         }
 
     }
