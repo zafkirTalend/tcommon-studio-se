@@ -483,8 +483,14 @@ public class MetadataDialogForMerge extends Dialog {
             compositeRight.setLayoutData(new GridData(GridData.FILL_BOTH));
             compositeRight.setLayout(new GridLayout());
 
-            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)", true), outputReadOnly, true, false, //$NON-NLS-1$
+            MetadataTableEditor metadataTableEditorForOutput;
+            if (isRepository(outputNode)) {
+                metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)", true);
+            } else {
+                metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)");
+            }
+            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, metadataTableEditorForOutput, outputReadOnly,
+                    true, false, //$NON-NLS-1$
                     false);
             outputMetaView.setIsRepository(isRepository(outputNode));
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
