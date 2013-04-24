@@ -49,4 +49,15 @@ public interface RegisterUserPortType extends java.rmi.Remote {
             java.lang.String lastname, java.lang.String country, java.lang.String designerversion, java.lang.String productname,
             java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion, java.lang.String totalMemory,
             java.lang.String memRAM, java.lang.String nbProc) throws java.rmi.RemoteException;
+
+    public java.math.BigInteger createUser53(java.lang.String email, java.lang.String pseudo, java.lang.String password,
+            java.lang.String firstname, java.lang.String lastname, java.lang.String country, java.lang.String designerversion,
+            java.lang.String productname, java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion,
+            java.lang.String totalMemory, java.lang.String memRAM, java.lang.String nbProc, java.lang.String uniqueId)
+            throws java.rmi.RemoteException;
+
+    public java.math.BigInteger updateUser53(java.lang.String pseudo, java.lang.String password, java.lang.String firstname,
+            java.lang.String lastname, java.lang.String country, java.lang.String designerversion, java.lang.String productname,
+            java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion, java.lang.String totalMemory,
+            java.lang.String memRAM, java.lang.String nbProc, java.lang.String uniqueId) throws java.rmi.RemoteException;
 }

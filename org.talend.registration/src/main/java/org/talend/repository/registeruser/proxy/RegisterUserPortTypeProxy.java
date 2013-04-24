@@ -134,4 +134,25 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
         return registerUserPortType.createUser50(pseudo, password, firstname, lastname, country, designerversion, productname,
                 osName, osVersion, javaVersion, totalMemory, memRAM, nbProc);
     }
+
+    public java.math.BigInteger createUser53(java.lang.String email, java.lang.String pseudo, java.lang.String password,
+            java.lang.String firstname, java.lang.String lastname, java.lang.String country, java.lang.String designerversion,
+            java.lang.String productname, java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion,
+            java.lang.String totalMemory, java.lang.String memRAM, java.lang.String nbProc, java.lang.String uniqueId)
+            throws java.rmi.RemoteException {
+        if (registerUserPortType == null)
+            _initRegisterUserPortTypeProxy();
+        return registerUserPortType.createUser53(email, pseudo, password, firstname, lastname, country, designerversion,
+                productname, osName, osVersion, javaVersion, totalMemory, memRAM, nbProc, uniqueId);
+    }
+
+    public java.math.BigInteger updateUser53(java.lang.String pseudo, java.lang.String password, java.lang.String firstname,
+            java.lang.String lastname, java.lang.String country, java.lang.String designerversion, java.lang.String productname,
+            java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion, java.lang.String totalMemory,
+            java.lang.String memRAM, java.lang.String nbProc, java.lang.String uniqueId) throws java.rmi.RemoteException {
+        if (registerUserPortType == null)
+            _initRegisterUserPortTypeProxy();
+        return registerUserPortType.updateUser53(pseudo, password, firstname, lastname, country, designerversion, productname,
+                osName, osVersion, javaVersion, totalMemory, memRAM, nbProc, uniqueId);
+    }
 }
