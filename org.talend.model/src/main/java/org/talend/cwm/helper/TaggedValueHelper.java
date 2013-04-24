@@ -268,4 +268,17 @@ public final class TaggedValueHelper {
         } // else return default value
         return result;
     }
+
+    /**
+     * get the String value according to the tag name, if the TaggedValue is null, return empty string.
+     * 
+     * @param tag
+     * @param element
+     * @return
+     */
+    public static String getValueString(String tag, ModelElement element) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(tag, element.getTaggedValue());
+        return taggedValue == null ? "" : taggedValue.getValue(); //$NON-NLS-1$
+    }
+
 }
