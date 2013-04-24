@@ -2796,8 +2796,7 @@ public class DatabaseForm extends AbstractForm {
                 }
                 s = DatabaseConnStrUtil.getURLString(dbTypeCombo.getText(), versionStr, serverText.getText(),
                         usernameText.getText(), passwordText.getText(), portText.getText(), sidOrDatabaseText.getText(),
-                        fileField.getText().toLowerCase(), datasourceText.getText(), directoryField.getText(),
-                        additionParamText.getText());
+                        fileField.getText(), datasourceText.getText(), directoryField.getText(), additionParamText.getText());
             }
         }
 
