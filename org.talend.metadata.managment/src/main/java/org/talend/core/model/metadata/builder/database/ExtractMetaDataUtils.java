@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.database.AS400DatabaseMetaData;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
@@ -192,6 +193,8 @@ public class ExtractMetaDataUtils {
                     dbMetaData = createSybaseFakeDatabaseMetaData(conn);
                 } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbeddedConn(conn)) {
                     dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
+                } else if (EDatabaseTypeName.AS400.getXmlName().equals(dbType)) {
+                    dbMetaData = createAS400FakeDatabaseMetaData(conn);
                 } else {
                     dbMetaData = conn.getMetaData();
                 }
@@ -301,6 +304,11 @@ public class ExtractMetaDataUtils {
 
     private static DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
         SybaseDatabaseMetaData dmd = new SybaseDatabaseMetaData(conn);
+        return dmd;
+    }
+
+    private static DatabaseMetaData createAS400FakeDatabaseMetaData(Connection conn) throws SQLException {
+        AS400DatabaseMetaData dmd = new AS400DatabaseMetaData(conn);
         return dmd;
     }
 
