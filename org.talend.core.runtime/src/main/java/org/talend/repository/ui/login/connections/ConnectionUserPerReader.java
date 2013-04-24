@@ -350,4 +350,28 @@ public class ConnectionUserPerReader {
             e.printStackTrace();
         }
     }
+
+    public boolean isInstallDone() {
+        if (!isRead)
+            this.readProperties();
+        String tmp = proper.getProperty("connection.installDone"); //$NON-NLS-1$
+        if (Boolean.TRUE.toString().equals(tmp)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setInstallDone() {
+        if (!isHaveUserPer())
+            createPropertyFile();
+        if (!isRead)
+            this.readProperties();
+        proper.setProperty("connection.installDone", Boolean.TRUE.toString()); //$NON-NLS-1$
+        try {
+            FileOutputStream out = new FileOutputStream(perfile);
+            proper.store(out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
