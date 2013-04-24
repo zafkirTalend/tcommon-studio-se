@@ -254,9 +254,9 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.registerUserWithAllUserInformationsUniqueIdAndReturnId(email, country, version,
-                    brandingService.getAcronym(), "java", osName, osVersion, javaVersion, totalMemory + "", memRAM + "", nbProc
-                            + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$
+            result = proxy.createUser53(email, pseudo, password, firstname, lastname, country, version,
+                    brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$ 
+                            + "", nbProc + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$ 
             if (result.signum() > 0) {
                 PlatformUI.getPreferenceStore().setValue("REGISTRATION_DONE", 1); //$NON-NLS-1$
                 saveRegistoryBean();
@@ -320,14 +320,17 @@ public class RegisterManagement {
         // VERSION
         String version = VersionUtils.getVersion();
 
+        // UNIQUE_ID
+        String uniqueId = DefaultTokenCollector.calcUniqueId();
+
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
         proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
-            result = proxy.createUser50(pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
+            result = proxy.updateUser53(pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
                     osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
-                            + "", nbProc + ""); //$NON-NLS-1$ //$NON-NLS-2$
+                            + "", nbProc + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$
             if (result.intValue() != -110 && result.signum() < 0) {
                 checkErrors(result.intValue());
             }
@@ -425,13 +428,19 @@ public class RegisterManagement {
     }
 
     public void validateRegistration() {
-        if (isProductRegistered()) {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        if (!brandingService.getBrandingConfiguration().isUseProductRegistration()) {
             return;
         }
+        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+        boolean install_done = read.isInstallDone();
+        if (install_done) {
+            return;
+        }
+        read.setInstallDone();
         URL registURL = null;
         try {
-            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                    IBrandingService.class);
             // UNIQUE_ID
             String uniqueId = DefaultTokenCollector.calcUniqueId();
             uniqueId = uniqueId.replace("#", "%23");
