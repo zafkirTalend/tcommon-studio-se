@@ -115,6 +115,11 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         }
     }
 
+    public String getRepositoryPath() {
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        return service.getRepositoryPath(this).toString();
+    }
+
     /*
      * (non-Javadoc)
      * 
