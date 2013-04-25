@@ -47,7 +47,7 @@ public class ErrorDialogWidthDetailArea {
      * @param detailMessage (\n an \t are interpreted ; \r are deleted)
      */
     public ErrorDialogWidthDetailArea(Shell shell, String pid, String mainMessage, String detailMessage) {
-        this(shell, pid, mainMessage, detailMessage, IStatus.INFO);
+        this(shell, pid, mainMessage, detailMessage, IStatus.ERROR);
     }
 
     public ErrorDialogWidthDetailArea(Shell shell, String pid, String mainMessage, String detailMessage, int status) {
