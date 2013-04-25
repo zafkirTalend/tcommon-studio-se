@@ -17,7 +17,7 @@
     <!-- define unit test from file and locally-->
     <property file="${this.test.build.file.dir}/unit.test.properties"/>
 	<property name="unit.junit.results.path" value="${rcp-app-home}/unit-junit-results-for-${test-application}.xml" />
- 	<property name="unit.log.path" value="${rcp-app-home}/unit-log-for-${test-application}.log" />
+ 	<property name="unit.log.path" value="${rcp-app-home}/../unit-log-for-${test-application}.log" />
 	<propertyset id="unit.test.class.collector.properties" description="defines all the prefix and suffix used to find the classes to tested">
 		<propertyref prefix="unit.test."/>
 		<mapper type="glob" from="unit.test.*" to="test.*"/>
