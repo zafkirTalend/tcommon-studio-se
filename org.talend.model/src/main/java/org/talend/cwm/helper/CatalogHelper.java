@@ -106,6 +106,10 @@ public final class CatalogHelper {
         return addPackages(schemas, catalog);
     }
 
+    public static boolean addSchemas(Schema schema, Catalog catalog) {
+        return addPackage(schema, catalog);
+    }
+
     public static boolean addTables(Collection<TdTable> tables, Catalog catalog) {
         return addPackages(tables, catalog);
     }
@@ -141,6 +145,24 @@ public final class CatalogHelper {
                 eResource.getContents().addAll(elements);
             }
             added = elementList.addAll(elements);
+        }
+        return added;
+    }
+
+    private static boolean addPackage(ModelElement element, Catalog catalog) {
+        boolean added = false;
+        if ((catalog != null) && (element != null)) {
+            List<ModelElement> elementList = catalog.getOwnedElement();
+            // MOD xqliu 2010-10-22 bug 16499: reload table/view will remove table informations
+            // if (elementList != null && elementList.size() > 0) {
+            // elementList.clear();
+            // }
+            // ~ 16499
+            Resource eResource = catalog.eResource();
+            if (eResource != null) {
+                eResource.getContents().add(element);
+            }
+            added = elementList.add(element);
         }
         return added;
     }
