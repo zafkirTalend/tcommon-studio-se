@@ -91,4 +91,22 @@ public abstract class AbstractDataCleaner {
 
     protected abstract void clean();
 
+    /**
+     * Getter for frequencyCleaningAction.
+     * 
+     * @return the frequencyCleaningAction
+     */
+    public int getFrequencyCleaningAction() {
+        return this.frequencyCleaningAction;
+    }
+
+    /**
+     * Sets the frequencyCleaningAction.
+     * 
+     * @param frequencyCleaningAction the frequencyCleaningAction to set
+     */
+    public void setFrequencyCleaningAction(int frequencyCleaningAction) {
+        this.frequencyCleaningAction = frequencyCleaningAction;
+    }
+
 }

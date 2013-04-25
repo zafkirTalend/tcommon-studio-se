@@ -185,7 +185,7 @@ public class FileDirCleaner {
             if (compareResult == 0) {
                 return 0;
             }
-            return (int) (long) (compareResult / Math.abs(compareResult));
+            return (int) (compareResult / Math.abs(compareResult));
             // }
         }
 
@@ -250,34 +250,41 @@ public class FileDirCleaner {
         try {
             File[] listFilesDirs = dir.listFiles();
             Arrays.sort(listFilesDirs, datComparatorFiles);
-            int countDirs = 0;
-            int countFiles = 0;
-            int indexDir = 0;
-            int indexFile = 0;
-            for (int i = 0; i < listFilesDirs.length; i++) {
-                File fileDirJob = listFilesDirs[i];
+            int countMatchingDirs = 0;
+            int countMatchingFiles = 0;
+            int levelDeletedDir = 0;
+            int levelDeletedFile = 0;
+            for (File fileDirJob : listFilesDirs) {
                 boolean isDirectory = fileDirJob.isDirectory();
+                boolean fileMatches = false;
+                boolean dirMatches = false;
+                String fileDirName = fileDirJob.getName();
                 if (isDirectory) {
-                    countDirs++;
+                    dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
                 } else {
-                    countFiles++;
+                    fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
+                }
+                if (isDirectory && dirMatches) {
+                    countMatchingDirs++;
+                } else if (!isDirectory && fileMatches) {
+                    countMatchingFiles++;
                 }
 
             }
 
             boolean parentDirMatches = directoriesRegExpPattern == null || dir.getName().matches(directoriesRegExpPattern);
 
-            for (int i = 0; i < listFilesDirs.length; i++) {
-                File fileDirJob = listFilesDirs[i];
+            for (File fileDirJob : listFilesDirs) {
                 // System.out.println(fileDirJob.getAbsolutePath());
                 String fileDirName = fileDirJob.getName();
                 boolean fileMatches = false;
                 boolean dirMatches = false;
                 boolean isDirectory = fileDirJob.isDirectory();
                 boolean tooManyDirs = (isRootDirectory || !isRootDirectory && recursively) && isDirectory
-                        && maxEntriesByDirectoryAndByType > 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
+                        && maxEntriesByDirectoryAndByType > 0
+                        && countMatchingDirs - levelDeletedDir > maxEntriesByDirectoryAndByType;
                 boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType > 0
-                        && indexFile < countFiles - maxEntriesByDirectoryAndByType;
+                        && countMatchingFiles - levelDeletedFile > maxEntriesByDirectoryAndByType;
                 boolean timeExceeded = maxDurationBeforeCleaning > 0
                         && currentTime - fileDirJob.lastModified() > maxDurationBeforeCleaning * 1000;
                 try {
@@ -288,7 +295,6 @@ public class FileDirCleaner {
                             fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
                         }
                         if (isDirectory) {
-                            indexDir++;
                             if (cleanDirectories && dirMatches) {
                                 if (checkFilter(fileDirJob)) {
                                     if (doAction) {
@@ -307,12 +313,12 @@ public class FileDirCleaner {
                                                 + reason.toString() + "): " + fileDirJob);
                                     }
                                     cleanResult.deletedEntries++;
+                                    levelDeletedDir++;
                                 }
                             } else if (recursively) {
                                 cleanFilesDirRecursively(fileDirJob, false);
                             }
                         } else {
-                            indexFile++;
                             if (cleanFiles && fileMatches && parentDirMatches) {
                                 if (checkFilter(fileDirJob)) {
                                     if (doAction) {
@@ -331,11 +337,12 @@ public class FileDirCleaner {
                                                 + fileDirJob);
                                     }
                                     cleanResult.deletedEntries++;
+                                    levelDeletedFile++;
                                 }
                             }
                         }
                     } else if (recursively && isDirectory) {
-                        indexDir++;
+                        levelDeletedDir++;
                         cleanFilesDirRecursively(fileDirJob, false);
                     }
                 } catch (Throwable t) {
