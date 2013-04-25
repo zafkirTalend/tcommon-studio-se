@@ -307,16 +307,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
         boolean isEnable = false;
-        if (!jarsInstalledSuccuss.isEmpty()) {
+        if (!inputList.isEmpty()) {
             for (ModuleToInstall module : inputList) {
-                if (!jarsInstalledSuccuss.contains(module.getName()) && module.isRequired()) {
-                    isEnable = true;
-                    break;
-                }
-            }
-        } else {
-            for (ModuleToInstall module : inputList) {
-                if (module.isRequired()) {
+                if (module.getUrl_download() != null) {
                     isEnable = true;
                     break;
                 }
