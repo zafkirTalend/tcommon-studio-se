@@ -32,45 +32,38 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     private boolean readOnly;
 
-    private String id, version;
-
-    private String name;
-
     public RepositoryEditorInput(IFile file, Item item) {
         super(file);
-        this.item = item;
-        this.id = item.getProperty().getId();
-        this.version = item.getProperty().getVersion();
-        this.name = getItem().getProperty().getLabel();
+        setItem(item);
     }
 
     @Override
     public String getName() {
-        return name;
+        return item.getProperty().getLabel();
     }
 
-    public Item getItem() {
+    @Override
+	public Item getItem() {
         return this.item;
     }
 
-    public void setItem(Item item) {
+    @Override
+	public void setItem(Item item) {
         this.item = item;
-        if (item != null) {
-            this.id = item.getProperty().getId();
-            this.version = item.getProperty().getVersion();
-            this.name = getItem().getProperty().getLabel();
-        }
     }
 
-    public boolean isReadOnly() {
+    @Override
+	public boolean isReadOnly() {
         return this.readOnly;
     }
 
-    public void setReadOnly(boolean readOnly) {
+    @Override
+	public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
-    public boolean equals(final Object obj) {
+    @Override
+	public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -89,7 +82,8 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         return true;
     }
 
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         if (getItem() != null) {
             return super.hashCode() & getItem().hashCode();
         }
@@ -98,7 +92,8 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     protected RepositoryNode repositoryNode;
 
-    public RepositoryNode getRepositoryNode() {
+    @Override
+	public RepositoryNode getRepositoryNode() {
         return this.repositoryNode;
     }
 
@@ -107,7 +102,8 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
      * 
      * @param node
      */
-    public void setRepositoryNode(IRepositoryNode repositoryNode) {
+    @Override
+	public void setRepositoryNode(IRepositoryNode repositoryNode) {
         if (repositoryNode != null) {
             this.repositoryNode = (RepositoryNode) repositoryNode;
         } else {
@@ -118,7 +114,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
     }
 
     @Override
-    public Object getAdapter(Class adapter) {
+    public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
         if (adapter.equals(RepositoryEditorInput.class)) {
             return this;
         }
@@ -135,12 +131,14 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         this.item = null;
     }
 
-    public String getId() {
-        return id;
+    @Override
+	public String getId() {
+        return item.getProperty().getId();
     }
 
-    public String getVersion() {
-        return version;
+    @Override
+	public String getVersion() {
+        return item.getProperty().getVersion();
     }
 
 }
