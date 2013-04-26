@@ -259,34 +259,18 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     private String addTypesToSql(String sql, String[] types, String and) {
         String result = sql;
-        boolean checkContainTable = checkContainTable(types);
-        String typeClause = ""; //$NON-NLS-1$
-        if (checkContainTable && types.length > 1) {
-            typeClause += " ("; //$NON-NLS-1$
-        }
         if (types != null && types.length > 0) {
-            typeClause += " type in("; //$NON-NLS-1$
+            String typeClause = " type in("; //$NON-NLS-1$
             int len = types.length;
-            String comma = ""; //$NON-NLS-1$
             for (int i = 0; i < len; ++i) {
-                // ADDED yyin 20120516 TDQ-5190, same action as DB2
-                if (TABLE.equals(types[i])) {
-                    continue;
+                String comma = ""; //$NON-NLS-1$
+                if (i > 0) {
+                    comma = " , "; //$NON-NLS-1$
                 }
-
                 typeClause = typeClause + comma + "'" + getDb2zosTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
-                comma = " , "; //$NON-NLS-1$
             }
-            if (checkContainTable && types.length == 1) {
-                typeClause = typeClause + "'" + getDb2zosTypeName(types[0]) + "'" + ") and TBSPACE!='SYSCATSPACE'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            } else {
-                typeClause = typeClause + ")"; //$NON-NLS-1$
-            }
+            typeClause = typeClause + ")"; //$NON-NLS-1$
             result = sql + and + typeClause;
-            // ADDED yyin 20120516 TDQ-5190, same action as DB2
-            if (checkContainTable && types.length > 1) {
-                result = result + "  or( TBSPACE!='SYSCATSPACE' and type in('T') ))";
-            }
         }
         return result;
     }
