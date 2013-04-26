@@ -18,6 +18,8 @@ import java.util.List;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreePathViewerSorter;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -84,6 +86,7 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
         return checkingTypes;
     }
 
+    @Override
     protected void addProviders(TreeViewer treeViewer) {
         final IStructuredContentProvider contentProvider = getContextProvider();
         if (contentProvider != null) {
@@ -95,49 +98,49 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
         }
     }
 
+    @Override
     protected void checkSorter(TreeViewer treeViewer) {
         ViewerSorter sorter = null;
         if (getRepView() != null) {
             final StructuredViewer viewer = getRepView().getViewer();
             sorter = viewer.getSorter();
         }
-        if (sorter == null) {
-            // when the repository view is not opened, so used this one by default.
-            sorter = new RepositoryNameSorter();
-        }
-        if (sorter != null) {
-            final ViewerSorter viewerSorter = sorter;
-            // TDI-20528
-            // treeViewer.setSorter(sorter);
-            treeViewer.setSorter(new ViewerSorter() {
+        final ViewerSorter viewerSorter = sorter;
+        // TDI-20528
+        // treeViewer.setSorter(sorter);
+        treeViewer.setSorter(new TreePathViewerSorter() {
 
-                @Override
-                public int compare(Viewer viewer, Object e1, Object e2) {
-                    if (e1 instanceof RepositoryNode && e2 instanceof RepositoryNode) {
-                        final RepositoryNode node1 = (RepositoryNode) e1;
-                        final RepositoryNode node2 = (RepositoryNode) e2;
-                        if (node1.isBin()) { // recycle bin is always in bottom
-                            return 1;
-                        }
-                        if (node2.isBin()) { // recycle bin is always in bottom
-                            return -1;
-                        }
-                        // do special for simple folder， TDI-20528
-                        if (node1.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER
-                                || node2.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER) {
-                            return e1.toString().compareTo(e2.toString());
+            @Override
+            public int compare(Viewer viewer, TreePath parentPath, Object e1, Object e2) {
+                if (e1 instanceof RepositoryNode && e2 instanceof RepositoryNode) {
+                    final RepositoryNode node1 = (RepositoryNode) e1;
+                    final RepositoryNode node2 = (RepositoryNode) e2;
+                    if (node1.isBin()) { // recycle bin is always in bottom
+                        return 1;
+                    }
+                    if (node2.isBin()) { // recycle bin is always in bottom
+                        return -1;
+                    }
+                    // do special for simple folder， TDI-20528
+                    if (node1.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER
+                            || node2.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER) {
+                        return e1.toString().compareTo(e2.toString());
+                    } else if (viewerSorter != null) {
+                        if (viewerSorter instanceof TreePathViewerSorter) {
+                            return ((TreePathViewerSorter) viewerSorter).compare(viewer, parentPath, e1, e2);
                         } else {
                             return viewerSorter.compare(viewer, e1, e2);
                         }
                     }
-                    return super.compare(viewer, e1, e2);
-
                 }
+                return super.compare(viewer, parentPath, e1, e2);
 
-            });
-        }
+            }
+
+        });
     }
 
+    @Override
     public IProjectRepositoryNode getProjectRepositoryNode() {
         if (getRepView() != null) { // in fact, they are same
             return getRepView().getRoot();
@@ -146,10 +149,12 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
         }
     }
 
+    @Override
     protected TreeViewer createTreeViewer(final Composite parent, final int style) {
         return new CheckboxRepositoryTreeViewer(parent, style);
     }
 
+    @Override
     protected IRepositoryNode getInputRoot(final IProjectRepositoryNode projectRepoNode) {
         return RecombineRepositoryNodeUtil.getFixingTypesInputRoot(projectRepoNode, getCheckingTypes());
     }

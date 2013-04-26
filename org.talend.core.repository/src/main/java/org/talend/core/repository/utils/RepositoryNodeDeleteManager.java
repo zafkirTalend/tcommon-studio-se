@@ -181,19 +181,31 @@ public class RepositoryNodeDeleteManager {
     }
 
     private void sortReferenceBeans(List<ItemReferenceBean> beans) {
+
         Collections.sort(beans, new Comparator<ItemReferenceBean>() {
 
             @Override
             public int compare(ItemReferenceBean bean1, ItemReferenceBean bean2) {
-                int ordinal1 = bean1.getItemType().ordinal();
-                int ordinal2 = bean2.getItemType().ordinal();
-                if (ordinal1 > ordinal2) {
-                    return 1;
-                } else if (ordinal1 < ordinal2) {
-                    return -1;
-                } else {
-                    return 0;
+                // int ordinal1 = bean1.getItemType().ordinal();
+                // int ordinal2 = bean2.getItemType().ordinal();
+                // if (ordinal1 > ordinal2) {
+                // return 1;
+                // } else if (ordinal1 < ordinal2) {
+                // return -1;
+                // } else {
+                // return 0;
+                // }
+                ERepositoryObjectType b1Type = bean1.getItemType();
+                ERepositoryObjectType b2Type = bean2.getItemType();
+                String b1Name = bean2.getItemName();
+                String b2Name = bean2.getItemName();
+                if (b1Type != null) {
+                    if (b1Type.equals(b2Type) && b1Name != null && b2Name != null) {
+                        return b1Name.compareTo(b2Name);
+                    }
+                    return b1Type.getType().compareTo(b2Type.getType());
                 }
+                return 0;
             }
         });
     }

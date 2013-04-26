@@ -25,7 +25,9 @@ import org.talend.repository.model.RepositoryNode;
  * 
  * $Id$
  * 
+ * @deprecated by TUP-507
  */
+@Deprecated
 public class RepositoryNameSorter extends ViewerSorter {
 
     /*

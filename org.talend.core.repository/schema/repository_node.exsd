@@ -127,7 +127,8 @@ like this: DI|DQ ....
          <attribute name="ordinal" type="string">
             <annotation>
                <documentation>
-                  must be int. and &gt;=0
+                  @Deprecated, won&apos;t use.
+must be int. and &gt;=0
                </documentation>
                <appinfo>
                   <meta.attribute deprecated="true"/>
