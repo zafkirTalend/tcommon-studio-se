@@ -39,7 +39,7 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     @Override
     public String getName() {
-        return item.getProperty().getLabel();
+        return item==null?null:item.getProperty().getLabel();
     }
 
     @Override
@@ -133,12 +133,12 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
 
     @Override
 	public String getId() {
-        return item.getProperty().getId();
+        return item==null?null:item.getProperty().getId();
     }
 
     @Override
 	public String getVersion() {
-        return item.getProperty().getVersion();
+        return item==null?null:item.getProperty().getVersion();
     }
 
 }
