@@ -384,9 +384,11 @@ public class SelectorTableForm extends AbstractForm {
         tableType.setText(Messages.getString("SelectorTableForm.TableType")); //$NON-NLS-1$
         tableType.setWidth(columnWidth2);
 
-        TreeColumn nbColumns = new TreeColumn(tree, SWT.RIGHT);
-        nbColumns.setText(Messages.getString("SelectorTableForm.ColumnNumber")); //$NON-NLS-1$
-        nbColumns.setWidth(columnWidth3);
+        if (!this.typeName.getProduct().equals(EDatabaseTypeName.HBASE.getProduct())) {
+            TreeColumn nbColumns = new TreeColumn(tree, SWT.RIGHT);
+            nbColumns.setText(Messages.getString("SelectorTableForm.ColumnNumber")); //$NON-NLS-1$
+            nbColumns.setWidth(columnWidth3);
+        }
 
         TreeColumn creationStatus = new TreeColumn(tree, SWT.RIGHT);
         creationStatus.setText(Messages.getString("SelectorTableForm.CreationStatus")); //$NON-NLS-1$
@@ -928,7 +930,7 @@ public class SelectorTableForm extends AbstractForm {
                         && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
                         || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                     ExtractMetaDataUtils.closeConnection();
                 }
