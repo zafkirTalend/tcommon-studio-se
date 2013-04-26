@@ -74,12 +74,10 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
             return false;
         }
         final RepositoryEditorInput other = (RepositoryEditorInput) obj;
-        if (!this.getId().equals(other.getId())) {
-            return false;
-        } else if (!this.getVersion().equals(other.getVersion())) {
-            return false;
+        if(item==null) {
+        	return false;
         }
-        return true;
+        return item==other.getItem();
     }
 
     @Override
