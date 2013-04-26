@@ -96,7 +96,6 @@ import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
-import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -811,15 +810,19 @@ public class DatabaseForm extends AbstractForm {
         hcSelectBtn.setVisible(fromRepository);
         hcRepositoryText.setVisible(fromRepository);
 
-        dbTypeCombo.setReadOnly(fromRepository);
+        dbTypeCombo.setReadOnly(fromRepository || isContextMode());
 
-        hbaseDistributionCombo.setReadOnly(fromRepository);
-        hbaseVersionCombo.setReadOnly(fromRepository);
+        hbaseDistributionCombo.setReadOnly(fromRepository || isContextMode());
+        hbaseVersionCombo.setReadOnly(fromRepository || isContextMode());
 
-        distributionCombo.setReadOnly(fromRepository);
-        hiveVersionCombo.setReadOnly(fromRepository);
-        nameNodeURLTxt.setReadOnly(fromRepository);
-        jobTrackerURLTxt.setReadOnly(fromRepository);
+        distributionCombo.setReadOnly(fromRepository || isContextMode());
+        hiveVersionCombo.setReadOnly(fromRepository || isContextMode());
+        nameNodeURLTxt.setReadOnly(fromRepository || isContextMode());
+        jobTrackerURLTxt.setReadOnly(fromRepository || isContextMode());
+
+        hcPropertyTypeCombo.setReadOnly(isContextMode());
+        hiveModeCombo.setReadOnly(isContextMode());
+        hiveServerVersionCombo.setReadOnly(isContextMode());
     }
 
     private void updateHCRelatedParameters(String hcId) {
@@ -1355,7 +1358,7 @@ public class DatabaseForm extends AbstractForm {
             selectedContextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
             String urlStr = DBConnectionContextUtils.setManagerConnectionValues(managerConnection, connectionItem,
                     selectedContextType, dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()), dbTypeCombo.getSelectionIndex());
-            if (urlStr == null) {
+            if (urlStr == null || isHiveDBConnSelected()) {
                 if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
                     DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
 
@@ -1405,6 +1408,9 @@ public class DatabaseForm extends AbstractForm {
             databaseSettingIsValide = managerConnection.check(metadataConn);
         } else if (isHiveDBConnSelected()) {
             IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            if (isHiveEmbeddedMode()) {
+                doHivePreSetup((DatabaseConnection) metadataConn.getCurrentConnection());
+            }
             databaseSettingIsValide = managerConnection.checkHiveConnection(metadataConn);
         } else {
             // check the connection
@@ -1588,11 +1594,6 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 // ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
-                if (isHiveDBConnSelected()) {
-                    if (isHiveEmbeddedMode()) {
-                        doHivePreSetup();
-                    }
-                }
                 checkConnection();
                 if (isHiveDBConnSelected()) {
                     if (isHiveEmbeddedMode()) {
@@ -2764,31 +2765,8 @@ public class DatabaseForm extends AbstractForm {
             s = DBConnectionContextUtils.getUrlConnectionString(connectionItem, true);
         } else {
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
-                int distributionIndex = distributionCombo.getSelectionIndex();
-                int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-                int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-                versionStr = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex).getKey();
-                if (HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex)) {
-                    if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
-                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex)) {
-                            s = DatabaseConnStrUtil.getHive2EmbeddedURLString(getConnection(), false);
-                        } else {
-                            s = DatabaseConnStrUtil.getHive2StandaloneURLString(getConnection(), false);
-                        }
-                    } else if (HiveServerVersionInfo.HIVE_SERVER_1.getDisplayName().equals(hiveServerVersionCombo.getText())) {
-                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex)) {
-                            s = DatabaseConnStrUtil.getHive1EmbeddedURLString(getConnection(), false);
-                        } else {
-                            s = DatabaseConnStrUtil.getHive1StandaloneURLString(getConnection(), false);
-                        }
-                    }
-                } else {
-                    if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex)) {
-                        s = DatabaseConnStrUtil.getHive1EmbeddedURLString(getConnection(), false);
-                    } else {
-                        s = DatabaseConnStrUtil.getHive1StandaloneURLString(getConnection(), false);
-                    }
-                }
+                s =  DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection().getPort(),
+                        getConnection().getSID());
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {
@@ -3255,6 +3233,29 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+
+        // recheck context params for hive
+        if (isHiveDBConnSelected()) {
+            getConetxtParams().clear();
+            if (isHiveEmbeddedMode()) {
+                addContextParams(EDBParamName.Server, true);
+                addContextParams(EDBParamName.Port, true);
+
+                // if from cluster no need to export the two params
+                String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+                if (hcId == null) {
+                    addContextParams(EDBParamName.NameNode, true);
+                    addContextParams(EDBParamName.JobTracker, true);
+                }
+            } else {
+                addContextParams(EDBParamName.Login, true);
+                addContextParams(EDBParamName.Password, true);
+                addContextParams(EDBParamName.Server, true);
+                addContextParams(EDBParamName.Port, true);
+                addContextParams(EDBParamName.Database, true);
+            }
+        }
+
     }
 
     /**
@@ -3455,6 +3456,9 @@ public class DatabaseForm extends AbstractForm {
         } else {
             passwordText.getTextControl().setEchoChar('*');
             generalJdbcPasswordText.getTextControl().setEchoChar('*');
+        }
+        if (isHiveDBConnSelected()) {
+            adaptHadoopLinkedPartToReadOnly();
         }
     }
 
@@ -4290,14 +4294,14 @@ public class DatabaseForm extends AbstractForm {
      * 
      * Added by Marvin Wang on Oct 17, 2012.
      */
-    protected void doHivePreSetup() {
+    protected void doHivePreSetup(DatabaseConnection connection) {
         String dbType = dbTypeCombo.getText();
         if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
             String hiveModeDisplayName = hiveModeCombo.getText();
             if (hiveModeDisplayName != null
                     && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) { //$NON-NLS-1$
 
-                JavaSqlFactory.doHivePreSetup(getConnection());
+                JavaSqlFactory.doHivePreSetup(connection);
             }
         }
     }

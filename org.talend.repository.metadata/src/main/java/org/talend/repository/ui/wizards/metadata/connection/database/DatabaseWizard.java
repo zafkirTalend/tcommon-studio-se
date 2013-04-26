@@ -443,7 +443,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     String hiveMode = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
                     if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
                             && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
-                        JavaSqlFactory.doHivePreSetup(connection);
+                        JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
                     }
                     MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
 

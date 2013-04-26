@@ -963,7 +963,8 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                     // .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
                                     metadataConnection.setUrl(connection.getURL());
                                     if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
-                                        JavaSqlFactory.doHivePreSetup(connection);
+                                        JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection
+                                                .getCurrentConnection());
                                     }
                                 } else {
 

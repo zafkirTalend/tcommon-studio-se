@@ -24,11 +24,11 @@ public class DbConnStrForHive extends DbConnStr {
 
     private static final String URL_HIVE_1_STANDALONE = "jdbc:hive://<host>:<port>/<sid>"; //$NON-NLS-1$
 
-    private static final String URL_HIVE_1_EMBEDDED = "jdbc:hive://";//$NON-NLS-1$
+    public static final String URL_HIVE_1_TEMPLATE = "jdbc:hive://";//$NON-NLS-1$
 
     private static final String URL_HIVE_2_STANDALONE = "jdbc:hive2://<host>:<port>/<sid>";//$NON-NLS-1$
 
-    private static final String URL_HIVE_2_EMBEDDED = "jdbc:hive2://";//$NON-NLS-1$
+    public static final String URL_HIVE_2_TEMPLATE = "jdbc:hive2://";//$NON-NLS-1$
 
     /**
      * DOC Marvin DbConnStrForHive constructor comment.
@@ -50,9 +50,9 @@ public class DbConnStrForHive extends DbConnStr {
         case HIVE:
             return URL_HIVE_1_STANDALONE;
         case HIVE_EMBEDDED:
-            return URL_HIVE_1_EMBEDDED;
+            return URL_HIVE_1_TEMPLATE;
         case HIVE_2_EMBEDDED:
-            return URL_HIVE_2_EMBEDDED;
+            return URL_HIVE_2_TEMPLATE;
         case HIVE_2_STANDALONE:
             return URL_HIVE_2_STANDALONE;
         default:
@@ -66,9 +66,9 @@ public class DbConnStrForHive extends DbConnStr {
         case HIVE:
             return calcPattern(URL_HIVE_1_STANDALONE);
         case HIVE_EMBEDDED:
-            return calcPattern(URL_HIVE_1_EMBEDDED);
+            return calcPattern(URL_HIVE_1_TEMPLATE);
         case HIVE_2_EMBEDDED:
-            return calcPattern(URL_HIVE_2_EMBEDDED);
+            return calcPattern(URL_HIVE_2_TEMPLATE);
         case HIVE_2_STANDALONE:
             return calcPattern(URL_HIVE_2_STANDALONE);
         default:

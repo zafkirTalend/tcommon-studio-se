@@ -26,6 +26,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.language.ECodeLanguage;
@@ -78,6 +79,9 @@ public final class DBConnectionContextUtils {
         Sid,
         Database,
         ServiceName,
+        // hive
+        NameNode,
+        JobTracker,
     }
 
     static List<IContextParameter> getDBVariables(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
@@ -165,6 +169,14 @@ public final class DBConnectionContextUtils {
                 case Login:
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
                     break;
+                case JobTracker:
+                    String value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case NameNode:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
                 default:
                 }
             }
@@ -239,6 +251,15 @@ public final class DBConnectionContextUtils {
                 case Login:
                     conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
+                case JobTracker:
+                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
+                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case NameNode:
+                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
+                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+
                 default:
                 }
             }
@@ -336,6 +357,11 @@ public final class DBConnectionContextUtils {
 
         filePath = TalendQuoteUtils.removeQuotes(filePath);
         dbRootPath = TalendQuoteUtils.removeQuotes(dbRootPath);
+
+        // for hive :
+        if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
+            return DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase);
+        }
 
         String newUrl = DatabaseConnStrUtil.getURLString(dbConn.getDatabaseType(), dbConn.getDbVersionString(), server, username,
                 password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam, jdbcUrl, driverJar,
@@ -454,6 +480,14 @@ public final class DBConnectionContextUtils {
         // cloneConn.setContextId(dbConn.getContextId());
         // cloneConn.setContextMode(dbConn.isContextMode()); // if use context
 
+        // for hive :
+        if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
+            String newURl = DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase);
+
+            cloneConn.setURL(newURl);
+            return cloneConn;
+        }
+
         // Added 20130311 TDQ-7000, when it is context mode and not general jdbc, reset the url.
         if (contextType != null
                 && !EDatabaseTypeName.GENERAL_JDBC.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
@@ -463,8 +497,7 @@ public final class DBConnectionContextUtils {
             return cloneConn;
         }// ~
 
-        if (dbConn.getURL() != null
-                && !dbConn.getURL().equals("")) { //$NON-NLS-1$
+        if (dbConn.getURL() != null && !dbConn.getURL().equals("")) { //$NON-NLS-1$
             // for general db, url is given directly.
             cloneConn.setURL(url);
         } else {
@@ -547,6 +580,15 @@ public final class DBConnectionContextUtils {
         conn.setDbmsId(mappingFile);
         revertConnSubElement(conn, contextType);
 
+        // for hive
+        if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
+            String jobTracker = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
+                    ConnectionContextHelper.getOriginalValue(contextType, jobTracker));
+            String nameNode = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
+                    ConnectionContextHelper.getOriginalValue(contextType, nameNode));
+        }
     }
 
     /**

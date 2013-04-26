@@ -18,9 +18,11 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -156,50 +158,61 @@ public class DatabaseConnStrUtil {
         return string;
     }
 
-    public static String getHive1EmbeddedURLString(DatabaseConnection dbConn, boolean supportContext) {
+    public static String getHiveURLString(DatabaseConnection dbConn, String server, String port, String sidOrDatabase) {
+        String hiveModel = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+        String url = dbConn.getURL();
+        if (url != null) {
+            if (url.startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+                if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+                    url = getHive2EmbeddedURLString();
+                } else {
+                    url = getHive2StandaloneURLString(false, server, port, sidOrDatabase);
+                }
+            } else if (url.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
+                if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+                    url = getHive1EmbeddedURLString();
+                } else {
+                    url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
+                }
+            }
+
+        } else {
+            // set a default
+            url = getHive1EmbeddedURLString();
+        }
+        return url;
+    }
+
+    private static String getHive1EmbeddedURLString() {
         return EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_EMBEDDED);
     }
 
-    public static String getHive2EmbeddedURLString(DatabaseConnection dbConn, boolean supportContext) {
+    private static String getHive2EmbeddedURLString() {
         return EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_EMBEDDED);
     }
 
-    public static String getHive1StandaloneURLString(DatabaseConnection dbConn, boolean supportContext) {
+    private static String getHive1StandaloneURLString(boolean supportContext, String server, String port, String sid) {
         String s = EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE);
+        return getHiveStandaloneURlString(s, supportContext, server, port, sid);
+    }
+
+    private static String getHiveStandaloneURlString(String template, boolean supportContext, String server, String port,
+            String sid) {
+        String s = template;
         if (s != null) {
             if (supportContext) { // if context mode, should quote the original "connStr".
                 s = TalendQuoteUtils.addQuotes(s);
             }
-            s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), dbConn.getUsername(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), dbConn.getPassword(), supportContext, true);
-            s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), dbConn.getServerName(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), dbConn.getPort(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), dbConn.getSID(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), dbConn.getSID(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), dbConn.getDatasourceName(), supportContext);
-            // PTODO OCA : if needed, adapt the file separator to all OS (not only backslashes)
-            s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), dbConn.getFileFieldName(), supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), server, supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), port, supportContext);
+            s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), sid, supportContext);
         }
         return s;
     }
 
-    public static String getHive2StandaloneURLString(DatabaseConnection dbConn, boolean supportContext) {
+    private static String getHive2StandaloneURLString(boolean supportContext, String server, String port, String sid) {
         String s = EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_STANDALONE);
-        if (s != null) {
-            if (supportContext) { // if context mode, should quote the original "connStr".
-                s = TalendQuoteUtils.addQuotes(s);
-            }
-            s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), dbConn.getUsername(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), dbConn.getPassword(), supportContext, true);
-            s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), dbConn.getServerName(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), dbConn.getPort(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), dbConn.getSID(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), dbConn.getSID(), supportContext);
-            s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), dbConn.getDatasourceName(), supportContext);
-            // PTODO OCA : if needed, adapt the file separator to all OS (not only backslashes)
-            s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), dbConn.getFileFieldName(), supportContext);
-        }
-        return s;
+        return getHiveStandaloneURlString(s, supportContext, server, port, sid);
     }
 
     public static String getURLString(DatabaseConnection conn) {
@@ -266,14 +279,15 @@ public class DatabaseConnStrUtil {
 
         for (EDatabaseConnTemplate template : EDatabaseConnTemplate.values()) {
             String urlTemplate = template.getUrlTemplate(version);
-
-            startTemplateString = urlTemplate.substring(0, urlTemplate.indexOf("<")); //$NON-NLS-1$
-            if (startTemplateString.length() <= stringConnection.length()) {
-                startStringConnection = stringConnection.substring(0, startTemplateString.length());
-                if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
-                    return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
-                } else if (!startTemplateString.equals("") && startTemplateString.equals(startStringConnection)) {
-                    return template.getDBDisplayName();
+            if (urlTemplate.indexOf("<") != -1) {
+                startTemplateString = urlTemplate.substring(0, urlTemplate.indexOf("<")); //$NON-NLS-1$
+                if (startTemplateString.length() <= stringConnection.length()) {
+                    startStringConnection = stringConnection.substring(0, startTemplateString.length());
+                    if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
+                        return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
+                    } else if (!startTemplateString.equals("") && startTemplateString.equals(startStringConnection)) {
+                        return template.getDBDisplayName();
+                    }
                 }
             }
         }

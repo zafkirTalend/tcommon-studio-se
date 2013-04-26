@@ -360,7 +360,8 @@ public final class JavaSqlFactory {
      * 
      * @param conn
      */
-    public static void doHivePreSetup(Connection conn) {
+    public static void doHivePreSetup(Connection connection) {
+        Connection conn = connection;
         if (conn instanceof DatabaseConnection) {
             IProject project = ProjectManager.getInstance().getResourceProject(
                     ProjectManager.getInstance().getCurrentProject().getEmfProject());
@@ -371,6 +372,17 @@ public final class JavaSqlFactory {
             // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
+
+            // for dq if connection is not converted
+            if (conn.isContextMode()) {
+                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+                if (repositoryService != null) {
+                    // get the original value and select the defalut context
+                    String contextName = conn.getContextName();
+                    conn = repositoryService
+                            .cloneOriginalValueConnection(dbConn, contextName == null ? true : false, contextName);
+                }
+            }
 
             // metastore uris
             String thriftURL = "thrift://" + dbConn.getServerName() + ":" + dbConn.getPort(); //$NON-NLS-1$//$NON-NLS-2$
