@@ -842,7 +842,9 @@ public class DatabaseForm extends AbstractForm {
      * Check data connection.
      */
     private void checkConnection() {
-
+        if (isSqliteFileFieldInvalidate()) {
+            return;
+        }
         checkButton.setEnabled(false);
         if (connectionItem.getConnection() instanceof DatabaseConnection) {
             DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
@@ -919,6 +921,59 @@ public class DatabaseForm extends AbstractForm {
             }
             new ErrorDialogWidthDetailArea(getShell(), PID, mainMsg, managerConnection.getMessageException());
         }
+    }
+
+    /**
+     * DOC zshen check whether the file is exist
+     */
+    private boolean isSqliteFileFieldInvalidate() {
+        String fileFullPath = null;
+        String urlText = null;
+        if (isGeneralJDBC()) {
+            urlText = generalJdbcUrlText.getText();
+        } else if (isSqlite()) {
+            urlText = DBConnectionContextUtils.getUrlConnectionString(connectionItem, false);
+        }
+
+        String[] analyseURL = DatabaseConnStrUtil.analyseURL(dbTypeCombo.getText(), "", urlText); //$NON-NLS-1$
+        if (analyseURL[1] != null && analyseURL.length > 1) {
+            fileFullPath = getSqliteFileFullPath(analyseURL[0], analyseURL[1]);
+        }
+
+        if (fileFullPath != null) {
+
+            File file = new File(fileFullPath);
+            if (file.exists()) {
+                return false;
+            }
+
+            MessageDialog.openWarning(getShell(), Messages.getString("SelectDatabaseJarDialog.warningTitle"), //$NON-NLS-1$
+                    Messages.getString("DatabaseForm.checkFileExist", fileFullPath)); //$NON-NLS-1$
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * DOC zshen Comment method "isSqlite".
+     * 
+     * @return
+     */
+    private boolean isSqlite() {
+        return dbTypeCombo.getText().equals(EDatabaseConnTemplate.SQLITE.getDBDisplayName());
+    }
+
+    /**
+     * DOC zshen Comment method "getFileFullPath".
+     * 
+     * @param urlText
+     * @return
+     */
+    private String getSqliteFileFullPath(String dbType, String fileName) {
+        if (dbType.equalsIgnoreCase(EDatabaseConnTemplate.SQLITE.getDBDisplayName())) {
+            return fileName;
+        }
+        return null;
     }
 
     private boolean enableDbVersion() {
