@@ -402,6 +402,10 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                             HashSet libInSameGroup = new HashSet<LibraryFile>();
                             for (ECustomVersionType type : types) {
                                 if (type.getGroup() == group) {
+                                    // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
+                                    if (ECustomVersionType.HCATALOG == type || ECustomVersionType.OOZIE == type) {
+                                        type = ECustomVersionType.HDFS;
+                                    }
                                     Set<String> hadoopLibraries = hadoopService.getHadoopLibrariesByType(type, getDistribution(),
                                             getVersion());
                                     Set<LibraryFile> convertToLibraryFile = customLibUtil.convertToLibraryFile(hadoopLibraries);
@@ -428,4 +432,5 @@ public class HadoopVersionDialog extends TitleAreaDialog {
 
         return libMap;
     }
+
 }
