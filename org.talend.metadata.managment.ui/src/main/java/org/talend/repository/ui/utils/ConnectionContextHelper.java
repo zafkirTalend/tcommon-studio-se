@@ -185,9 +185,12 @@ public final class ConnectionContextHelper {
         if (dlg.open() == Window.OK) {
             ContextItem contextItem = contextWizard.getContextItem();
             contextManager = contextWizard.getContextManager();
-            if (contextItem != null) {
-                contextItem.getProperty().setLabel(contextName);
-            }
+            // 1) in the ContextWizard when user click ok, there will set the ContextItem property's label with it's
+            // displayName; 2) in the ContextWizard, user may change the context name; so needn't to set the
+            // ContextItem property's label with contextName here
+            // if (contextItem != null) {
+            // contextItem.getProperty().setLabel(contextName);
+            // }
             return contextItem;
         }
         return null;
