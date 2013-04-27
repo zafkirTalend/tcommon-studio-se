@@ -28,6 +28,8 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
+import org.talend.cwm.helper.SubItemHelper;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -171,7 +173,7 @@ public class QueryRepositoryObject extends org.talend.core.model.metadata.Query 
 
     @Override
     public boolean isDeleted() {
-        return repObj.isDeleted();
+        return SubItemHelper.isDeleted(query);
     }
 
     @Override
