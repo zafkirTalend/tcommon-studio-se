@@ -13,8 +13,6 @@
 package org.talend.core.model.components;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -79,23 +77,11 @@ public interface IComponentsFactory {
 
     public IComponent get(String name, String paletteType);
 
-    /**
-     * Shouldn't be used anymore.
-     * 
-     * @return
-     * @throws IOException
-     * @deprecated
-     */
-    @Deprecated
-    public URL getComponentPath() throws IOException;
-
     public List<String> getSkeletons();
 
     public String getFamilyTranslation(Object component, String text);
 
     public void loadUserComponentsFromComponentsProviderExtension();
-
-    public Map<String, String> getAllComponentsCanBeProvided();
 
     public void initializeComponents(IProgressMonitor monitor);
 
