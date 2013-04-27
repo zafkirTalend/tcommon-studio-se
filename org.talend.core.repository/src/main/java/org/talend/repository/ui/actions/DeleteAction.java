@@ -381,7 +381,7 @@ public class DeleteAction extends AContextualAction {
      * @param deleteActionCache
      * @param updatePalette
      */
-    protected void synchUI(final DeleteActionCache deleteActionCache) {
+    public void synchUI(final DeleteActionCache deleteActionCache) {
         final boolean updatePalette = needToUpdataPalette;
         Display.getCurrent().syncExec(new Runnable() {
 
