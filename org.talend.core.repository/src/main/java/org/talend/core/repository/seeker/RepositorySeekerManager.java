@@ -66,13 +66,14 @@ public final class RepositorySeekerManager {
     }
 
     public IRepositoryNode searchRepoViewNode(String itemId, boolean expand) {
-        return searchRepoViewNode(itemId, true, 1);
+        return searchRepoViewNode(itemId, expand, 1);
     }
 
     /**
      * This work for the repository view of Integration and Mediation
      */
-    public IRepositoryNode searchRepoViewNode(String itemId, boolean expand, int expandLevel) {
+    @SuppressWarnings("deprecation")
+	public IRepositoryNode searchRepoViewNode(String itemId, boolean expand, int expandLevel) {
         final TreeViewer repoTreeViewer = getRepoTreeViewer();
 
         IRepositorySeeker<IRepositoryNode>[] allSeeker = getSeekerReader().getAllSeeker();

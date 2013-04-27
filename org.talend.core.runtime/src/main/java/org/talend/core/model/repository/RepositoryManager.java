@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -35,7 +35,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -186,7 +186,7 @@ public final class RepositoryManager {
      * 
      * for save
      */
-    public static void refreshSavedNode(RepositoryNode node) {
+    public static void refreshSavedNode(IRepositoryNode node) {
         // TDI-21143 : Studio repository view : remove all refresh call to repo view
         // if (node == null) {
         // return;
