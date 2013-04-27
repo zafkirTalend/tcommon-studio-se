@@ -49,6 +49,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getRepositoryType <em>Repository Type</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSourceBundleName <em>Source Bundle Name</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSha1 <em>Sha1</em>}</li>
  * </ul>
  * </p>
  *
@@ -304,6 +305,26 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @ordered
      */
     protected String type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSha1() <em>Sha1</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSha1()
+     * @generated
+     * @ordered
+     */
+    protected static final String SHA1_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSha1() <em>Sha1</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSha1()
+     * @generated
+     * @ordered
+     */
+    protected String sha1 = SHA1_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -596,6 +617,27 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSha1() {
+        return sha1;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSha1(String newSha1) {
+        String oldSha1 = sha1;
+        sha1 = newSha1;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__SHA1, oldSha1, sha1));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -641,6 +683,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return getSourceBundleName();
             case ComponentCachePackage.COMPONENT_INFO__TYPE:
                 return getType();
+            case ComponentCachePackage.COMPONENT_INFO__SHA1:
+                return getSha1();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -699,6 +743,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__TYPE:
                 setType((String)newValue);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__SHA1:
+                setSha1((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -753,6 +800,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__SHA1:
+                setSha1(SHA1_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -793,6 +843,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return SOURCE_BUNDLE_NAME_EDEFAULT == null ? sourceBundleName != null : !SOURCE_BUNDLE_NAME_EDEFAULT.equals(sourceBundleName);
             case ComponentCachePackage.COMPONENT_INFO__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case ComponentCachePackage.COMPONENT_INFO__SHA1:
+                return SHA1_EDEFAULT == null ? sha1 != null : !SHA1_EDEFAULT.equals(sha1);
         }
         return super.eIsSet(featureID);
     }
@@ -833,6 +885,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         result.append(sourceBundleName);
         result.append(", type: ");
         result.append(type);
+        result.append(", sha1: ");
+        result.append(sha1);
         result.append(')');
         return result.toString();
     }
