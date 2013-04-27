@@ -34,6 +34,11 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
+import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 
 /**
@@ -402,12 +407,17 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                             HashSet libInSameGroup = new HashSet<LibraryFile>();
                             for (ECustomVersionType type : types) {
                                 if (type.getGroup() == group) {
-                                    // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
-                                    if (ECustomVersionType.HCATALOG == type || ECustomVersionType.OOZIE == type) {
-                                        type = ECustomVersionType.HDFS;
+                                    Set<String> hadoopLibraries = new HashSet<String>();
+                                    if (ECustomVersionType.PIG == type) {
+                                        hadoopLibraries = getLibrariesForPig();
+                                    } else {
+                                        // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
+                                        if (ECustomVersionType.HCATALOG == type || ECustomVersionType.OOZIE == type) {
+                                            type = ECustomVersionType.HDFS;
+                                        }
+                                        hadoopLibraries = hadoopService.getHadoopLibrariesByType(type, getDistribution(),
+                                                getVersion());
                                     }
-                                    Set<String> hadoopLibraries = hadoopService.getHadoopLibrariesByType(type, getDistribution(),
-                                            getVersion());
                                     Set<LibraryFile> convertToLibraryFile = customLibUtil.convertToLibraryFile(hadoopLibraries);
                                     libInSameGroup.addAll(convertToLibraryFile);
                                 }
@@ -433,4 +443,30 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         return libMap;
     }
 
+    private Set<String> getLibrariesForPig() {
+        Set<String> neededLibraries = new HashSet<String>();
+        IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
+        INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService().getRefrenceNode("tPigLoad");
+
+        IElementParameter elementParameter = node.getElementParameter("MAPREDUCE");
+        if (elementParameter != null) {
+            elementParameter.setValue(true);
+        }
+        elementParameter = node.getElementParameter("DISTRIBUTION");
+        if (elementParameter != null) {
+            elementParameter.setValue(distribution);
+        }
+
+        elementParameter = node.getElementParameter("PIG_VERSION");
+        if (elementParameter != null) {
+            elementParameter.setValue(version);
+        }
+        List<ModuleNeeded> modulesNeeded = node.getModulesNeeded();
+        for (ModuleNeeded module : modulesNeeded) {
+            if (module.isRequired(node.getElementParameters())) {
+                neededLibraries.add(module.getModuleName());
+            }
+        }
+        return neededLibraries;
+    }
 }
