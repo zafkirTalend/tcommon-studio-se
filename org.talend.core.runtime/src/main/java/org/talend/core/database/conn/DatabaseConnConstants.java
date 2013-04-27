@@ -30,7 +30,7 @@ public class DatabaseConnConstants {
 
     public static final String PATTERN_SID = "([\\w\\.\\-_]{0,})"; //$NON-NLS-1$
 
-    public static final String PATTERN_FILE = "([\\w\\.\\-_]{0,})"; //$NON-NLS-1$
+    public static final String PATTERN_FILE = "([\\:\\/\\w\\.\\-_]{0,})"; //$NON-NLS-1$
 
     public static final String PATTERN_FILEMDB = "([\\w\\.\\-_]{0,}).mdb"; //$NON-NLS-1$
 
