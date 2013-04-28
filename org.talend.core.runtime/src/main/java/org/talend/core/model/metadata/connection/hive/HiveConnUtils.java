@@ -328,7 +328,7 @@ public class HiveConnUtils {
      */
     public static HiveConnVersionInfo getDistributionObj(int index) {
         List<HiveConnVersionInfo> distributions = getObjectsByLevel(0);
-        if (distributions != null && distributions.size() > 0) {
+        if (distributions != null && distributions.size() > 0 && index != -1) {
             return distributions.get(index);
         }
         return null;
