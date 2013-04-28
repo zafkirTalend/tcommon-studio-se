@@ -150,11 +150,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_RULES_MANAGEMENT = new ERepositoryObjectType(
             "repository.metadataRulesManagement", "", "METADATA_RULES_MANAGEMENT", 30, true, "repository.metadataRulesManagement.alias", new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_CONNECTIONS = new ERepositoryObjectType(
-            "repository.metadataConnections", "metadata/connections", "METADATA_CONNECTIONS", 31, true, "repository.metadataConnections.alias", new String[] { PROD_DI, PROD_DQ }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_CONNECTIONS = new ERepositoryObjectType(
+    //            "repository.metadataConnections", "metadata/connections", "METADATA_CONNECTIONS", 31, true, "repository.metadataConnections.alias", new String[] { PROD_DI, PROD_DQ }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_SAPCONNECTIONS = new ERepositoryObjectType(
-            "repository.metadataSAPConnections", "metadata/sapconnections", "METADATA_SAPCONNECTIONS", 32, true, "repository.metadataSAPConnections.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_SAPCONNECTIONS = new ERepositoryObjectType(
+    //            "repository.metadataSAPConnections", "metadata/sapconnections", "METADATA_SAPCONNECTIONS", 32, true, "repository.metadataSAPConnections.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_EDIFACT = new ERepositoryObjectType("repositorymetadataEDIFact",
             "metadata/EDISchema", "METADATA_EDIFACT", 50, true, "repositorymetadataEDIFact.alias", new String[] { PROD_DI },
@@ -163,24 +163,24 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SQLPATTERNS = new ERepositoryObjectType(
             "repository.metadataSQLPatterns", "sqlPatterns", "SQLPATTERNS", 33, true, "repository.metadataSQLPatterns.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_FILE_EBCDIC = new ERepositoryObjectType(
-            "repository.metadataFileEDCDIC", "metadata/fileEBCDIC", "METADATA_FILE_EBCDIC", 34, true, "repository.metadataFileEDCDIC.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_FILE_EBCDIC = new ERepositoryObjectType(
+    //            "repository.metadataFileEDCDIC", "metadata/fileEBCDIC", "METADATA_FILE_EBCDIC", 34, true, "repository.metadataFileEDCDIC.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_FILE_HL7 = new ERepositoryObjectType(
-            "repository.metadataFileHL7", "metadata/fileHL7", "METADATA_FILE_HL7", 35, true, "repository.metadataFileHL7.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_FILE_HL7 = new ERepositoryObjectType(
+    //            "repository.metadataFileHL7", "metadata/fileHL7", "METADATA_FILE_HL7", 35, true, "repository.metadataFileHL7.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_FILE_FTP = new ERepositoryObjectType(
-            "repository.metadataFileFTP", "metadata/FTPconnections", "METADATA_FILE_FTP", 36, true, "repository.metadataFileFTP.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_FILE_FTP = new ERepositoryObjectType(
+    //            "repository.metadataFileFTP", "metadata/FTPconnections", "METADATA_FILE_FTP", 36, true, "repository.metadataFileFTP.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     // 0015169 added
     public final static ERepositoryObjectType METADATA_FILE_BRMS = new ERepositoryObjectType(
             "repository.metadataFileBRMS", "metadata/BRMSconnections", "METADATA_FILE_BRMS", 37, true, "repository.metadataFileBRMS.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_FILE_DELIMITED = new ERepositoryObjectType(
-            "repository.metadataFileDelimited", "metadata/fileDelimited", "METADATA_FILE_DELIMITED", 39, true, "repository.metadataFileDelimited.alias", new String[] { PROD_DI, PROD_DQ }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_FILE_DELIMITED = new ERepositoryObjectType(
+    //            "repository.metadataFileDelimited", "metadata/fileDelimited", "METADATA_FILE_DELIMITED", 39, true, "repository.metadataFileDelimited.alias", new String[] { PROD_DI, PROD_DQ }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_VALIDATION_RULES = new ERepositoryObjectType(
-            "repository.metadataValidationRules", "metadata/validationRules", "METADATA_VALIDATION_RULES", 48, true, "repository.metadataValidationRules.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType METADATA_VALIDATION_RULES = new ERepositoryObjectType(
+    //            "repository.metadataValidationRules", "metadata/validationRules", "METADATA_VALIDATION_RULES", 48, true, "repository.metadataValidationRules.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType METADATA_VALIDATIONS_RULES_FOLDER = new ERepositoryObjectType(
             "repository.metadataValidationRulesFolder", "", "METADATA_VALIDATIONS_RULES_FOLDER", 49, true, "repository.metadataValidationRulesFolder.alias", new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
@@ -394,6 +394,21 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf("METADATA_MDMCONNECTION"); //$NON-NLS-1$
 
     public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_CONNECTIONS = ERepositoryObjectType.valueOf("METADATA_CONNECTIONS");
+
+    public final static ERepositoryObjectType METADATA_FILE_DELIMITED = ERepositoryObjectType.valueOf("METADATA_FILE_DELIMITED");
+
+    public final static ERepositoryObjectType METADATA_FILE_FTP = ERepositoryObjectType.valueOf("METADATA_FILE_FTP");
+
+    public final static ERepositoryObjectType METADATA_SAPCONNECTIONS = ERepositoryObjectType.valueOf("METADATA_SAPCONNECTIONS");
+
+    public final static ERepositoryObjectType METADATA_FILE_EBCDIC = ERepositoryObjectType.valueOf("METADATA_FILE_EBCDIC");
+
+    public final static ERepositoryObjectType METADATA_VALIDATION_RULES = ERepositoryObjectType
+            .valueOf("METADATA_VALIDATION_RULES");
+
+    public final static ERepositoryObjectType METADATA_FILE_HL7 = ERepositoryObjectType.valueOf("METADATA_FILE_HL7");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean... isResouce) {

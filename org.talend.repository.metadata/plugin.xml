@@ -1228,6 +1228,28 @@
              products="DI"
              type="METADATA_GENERIC_SCHEMA">
        </repositoryNode>
+       <repositoryNode
+             alias="repository.metadataConnections.alias"
+             folder="metadata/connections"
+             isResouce="true"
+             key="repository.metadataConnections"
+             label="%repository.metadataDbConnection"
+             ordinal="31"
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_CONNECTIONS">
+       </repositoryNode>
+       <repositoryNode
+             alias="repository.metadataFileDelimited.alias"
+             folder="metadata/fileDelimited"
+             isResouce="true"
+             key="repository.metadataFileDelimited"
+             label="%repository.metadataFileDelimited"
+             ordinal="39"
+             parentNodeType="METADATA"
+             products="DI"
+             type="METADATA_FILE_DELIMITED">
+       </repositoryNode>
 
    </extension>
 
