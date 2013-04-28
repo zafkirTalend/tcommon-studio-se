@@ -384,7 +384,12 @@ public class SelectorTableForm extends AbstractForm {
         tableType.setText(Messages.getString("SelectorTableForm.TableType")); //$NON-NLS-1$
         tableType.setWidth(columnWidth2);
 
-        if (!this.typeName.getProduct().equals(EDatabaseTypeName.HBASE.getProduct())) {
+        if (this.typeName.getProduct().equals(EDatabaseTypeName.HBASE.getProduct())) {
+            TreeColumn nbColumns = new TreeColumn(tree, SWT.RIGHT);
+            nbColumns.setText(Messages.getString("SelectorTableForm.ColumnNumber")); //$NON-NLS-1$
+            nbColumns.setWidth(0);
+            nbColumns.setResizable(false);
+        } else {
             TreeColumn nbColumns = new TreeColumn(tree, SWT.RIGHT);
             nbColumns.setText(Messages.getString("SelectorTableForm.ColumnNumber")); //$NON-NLS-1$
             nbColumns.setWidth(columnWidth3);
