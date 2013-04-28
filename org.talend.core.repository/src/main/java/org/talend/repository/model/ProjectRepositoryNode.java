@@ -440,12 +440,13 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         // metadataNode.getChildren().add(metadataValidationRulesNode);
         // }
         // 7.19 Edifact schemas
-        if (PluginChecker.isEDIFACTPluginLoaded()) {
-            metadataEDIFactConnectionNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
-            metadataEDIFactConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_EDIFACT);
-            metadataEDIFactConnectionNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_EDIFACT);
-            metadataNode.getChildren().add(metadataEDIFactConnectionNode);
-        }
+        // if (PluginChecker.isEDIFACTPluginLoaded()) {
+        // metadataEDIFactConnectionNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
+        // metadataEDIFactConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_EDIFACT);
+        // metadataEDIFactConnectionNode.setProperties(EProperties.CONTENT_TYPE,
+        // ERepositoryObjectType.METADATA_EDIFACT);
+        // metadataNode.getChildren().add(metadataEDIFactConnectionNode);
+        // }
         // Reference Projects
         if (PluginChecker.isRefProjectLoaded() && getParent() != this && project != null
                 && project.getEmfProject().getReferencedProjects().size() > 0) {

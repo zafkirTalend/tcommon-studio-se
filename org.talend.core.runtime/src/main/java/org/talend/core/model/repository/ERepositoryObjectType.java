@@ -156,9 +156,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // public final static ERepositoryObjectType METADATA_SAPCONNECTIONS = new ERepositoryObjectType(
     //            "repository.metadataSAPConnections", "metadata/sapconnections", "METADATA_SAPCONNECTIONS", 32, true, "repository.metadataSAPConnections.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public final static ERepositoryObjectType METADATA_EDIFACT = new ERepositoryObjectType("repositorymetadataEDIFact",
-            "metadata/EDISchema", "METADATA_EDIFACT", 50, true, "repositorymetadataEDIFact.alias", new String[] { PROD_DI },
-            new String[] {});
+    // public final static ERepositoryObjectType METADATA_EDIFACT = new
+    // ERepositoryObjectType("repositorymetadataEDIFact",
+    // "metadata/EDISchema", "METADATA_EDIFACT", 50, true, "repositorymetadataEDIFact.alias", new String[] { PROD_DI },
+    // new String[] {});
 
     public final static ERepositoryObjectType SQLPATTERNS = new ERepositoryObjectType(
             "repository.metadataSQLPatterns", "sqlPatterns", "SQLPATTERNS", 33, true, "repository.metadataSQLPatterns.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
@@ -409,6 +410,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             .valueOf("METADATA_VALIDATION_RULES");
 
     public final static ERepositoryObjectType METADATA_FILE_HL7 = ERepositoryObjectType.valueOf("METADATA_FILE_HL7");
+
+    public final static ERepositoryObjectType METADATA_EDIFACT = ERepositoryObjectType.valueOf("METADATA_EDIFACT");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean... isResouce) {
