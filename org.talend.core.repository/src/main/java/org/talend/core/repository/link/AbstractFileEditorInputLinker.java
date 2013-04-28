@@ -14,7 +14,7 @@ package org.talend.core.repository.link;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -32,8 +32,8 @@ public abstract class AbstractFileEditorInputLinker extends AbstractEditorInputW
      */
     @Override
     public RepositoryNode getRelationNode(IEditorInput editorInput) {
-        if (editorInput != null && editorInput.getClass().equals(FileEditorInput.class)) {
-            FileEditorInput fileEditorInput = (FileEditorInput) editorInput;
+        if (editorInput != null && editorInput instanceof IFileEditorInput) {
+        	IFileEditorInput fileEditorInput = (IFileEditorInput) editorInput;
             final IFile file = fileEditorInput.getFile();
             if (checkFileExtension(file)) {
                 return getRepoNodeFromEditor(getEditor(fileEditorInput));
