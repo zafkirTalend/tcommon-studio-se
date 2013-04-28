@@ -154,7 +154,7 @@ public class ReflectionUtils {
         Object returnValue = null;
         Class ownerClass = owner.getClass();
         Class[] argsClass = new Class[args.length];
-        if (argTypes != null && argTypes.length == args.length) {
+        if (argTypes.length > 0 && argTypes.length == args.length) {
             argsClass = argTypes;
         } else {
             for (int i = 0, j = args.length; i < j; i++) {
@@ -197,7 +197,7 @@ public class ReflectionUtils {
             ownerClass = Class.forName(className);
         }
         Class[] argsClass = new Class[args.length];
-        if (argTypes != null && argTypes.length == args.length) {
+        if (argTypes.length > 0 && argTypes.length == args.length) {
             argsClass = argTypes;
         } else {
             for (int i = 0, j = args.length; i < j; i++) {
@@ -246,7 +246,7 @@ public class ReflectionUtils {
             newClass = Class.forName(className);
         }
         Class[] argsClass = new Class[args.length];
-        if (argTypes != null && argTypes.length == args.length) {
+        if (argTypes.length > 0 && argTypes.length == args.length) {
             argsClass = argTypes;
         } else {
             for (int i = 0, j = args.length; i < j; i++) {
