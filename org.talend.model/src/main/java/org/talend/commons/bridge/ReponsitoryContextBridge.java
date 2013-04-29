@@ -110,6 +110,15 @@ public final class ReponsitoryContextBridge {
     }
 
     /**
+     * Sets the project.
+     * 
+     * @param project the project to set
+     */
+    public static void setProject(Project project) {
+        ReponsitoryContextBridge.project = project;
+    }
+
+    /**
      * Getter for user.
      * 
      * @return the user
@@ -136,4 +145,5 @@ public final class ReponsitoryContextBridge {
     public static void setDefaultProjectName(String projectName) {
         PROJECT_DEFAULT_NAME = projectName;
     }
+
 }
