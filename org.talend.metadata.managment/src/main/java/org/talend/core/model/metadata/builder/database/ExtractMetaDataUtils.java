@@ -903,7 +903,8 @@ public class ExtractMetaDataUtils {
                     Path path = new Path(driverJarPathArg);
                     File driverFile = new File(driverJarPathArg);
                     boolean isExist = driverFile.exists();
-                    if (!isExist || !driverJarPathArg.contains(":")) {
+                    // if (!isExist || !driverJarPathArg.contains(":")) { Removed by Marvin Wang for TDI-25766.
+                    if (!isExist) {
                         jarPathList.add("");
                     } else if (jarsAvailable.contains(path.lastSegment())) {
                         String jarUnderLib = getJavaLibPath() + path.lastSegment();
