@@ -1010,7 +1010,9 @@ public class DatabaseForm extends AbstractForm {
         hadoopPropGrp.setText(Messages.getString("DatabaseForm.hiveEmbedded.hadoopInfo")); //$NON-NLS-1$
         GridDataFactory.fillDefaults().span(layout2.numColumns, 1).applyTo(hadoopPropGrp);
 
-        hadoopPropGrp.setLayout(new GridLayout(2, false));
+        GridLayout layout = new GridLayout(2, false);
+        layout.marginHeight = 0;
+        hadoopPropGrp.setLayout(layout);
 
         nameNodeURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.nameNodeURL"), 1); //$NON-NLS-1$
         jobTrackerURLTxt = new LabelledText(hadoopPropGrp, Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL"), 1); //$NON-NLS-1$
@@ -1327,8 +1329,7 @@ public class DatabaseForm extends AbstractForm {
      * Check DBType is AS400,set systemButton and stardardButton visible.a
      */
     private void checkDBTypeAS400() {
-        if (dbTypeCombo.getSelectionIndex() == 16 || dbTypeCombo.getSelectionIndex() == 25
-                || dbTypeCombo.getSelectionIndex() == 26) {
+        if (isDBTypeSelected(EDatabaseConnTemplate.AS400)) {
             standardButton.setVisible(true);
             systemButton.setVisible(true);
         } else {
@@ -2020,8 +2021,8 @@ public class DatabaseForm extends AbstractForm {
                 switchBetweenTypeandGeneralDB(hiddenGeneral);
 
                 if (!isContextMode()) {
-                    setPropertiesFormEditable(true);
                     getConnection().setDatabaseType(dbTypeCombo.getText());
+                    setPropertiesFormEditable(true);
                     EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
                     if (template != null) {
                         portText.setText(template.getDefaultPort());
@@ -2622,9 +2623,9 @@ public class DatabaseForm extends AbstractForm {
         }
         updateCheckButton();
 
-        if (!isModify) {
-            setPropertiesFormEditable(false);
-        }
+        // if (!isModify) {
+        // setPropertiesFormEditable(false);
+        // }
 
         if (dbTypeCombo.getSelectionIndex() < 0) {
             updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.alert", dbTypeCombo.getLabel())); //$NON-NLS-1$
@@ -2632,9 +2633,9 @@ public class DatabaseForm extends AbstractForm {
         }
 
         // Show Database Properties
-        if (!isModify) {
-            setPropertiesFormEditable(true);
-        }
+        // if (!isModify) {
+        // setPropertiesFormEditable(true);
+        // }
 
         if (!checkGeneralDB) {
             if (!checkTypeDBFieldValues()) {
@@ -2820,8 +2821,8 @@ public class DatabaseForm extends AbstractForm {
             s = DBConnectionContextUtils.getUrlConnectionString(connectionItem, true);
         } else {
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
-                s =  DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection().getPort(),
-                        getConnection().getSID());
+                s = DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection()
+                        .getPort(), getConnection().getSID());
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {
