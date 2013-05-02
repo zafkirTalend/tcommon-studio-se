@@ -422,7 +422,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (isResouce != null && isResouce.length == 1) {
             this.isResouce = isResouce[0];
         }
-        this.label = super.toString(); // reuse super
     }
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
@@ -440,7 +439,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (isResouce != null && isResouce.length == 1) {
             this.isResouce = isResouce[0];
         }
-        this.label = super.toString(); // reuse super
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
@@ -520,6 +518,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     public String getLabel() {
+        if (this.label == null) {
+            if (isStaticNode()) {
+                return super.toString();
+            } else {
+                return getType();
+            }
+        }
         return this.label;
     }
 
