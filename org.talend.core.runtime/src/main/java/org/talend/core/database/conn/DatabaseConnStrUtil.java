@@ -174,8 +174,10 @@ public class DatabaseConnStrUtil {
                 } else {
                     url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
                 }
+            } else {
+                // set a default
+                url = getHive1EmbeddedURLString();
             }
-
         } else {
             // set a default
             url = getHive1EmbeddedURLString();
