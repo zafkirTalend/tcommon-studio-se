@@ -529,7 +529,7 @@ public final class MetadataToolHelper {
         target.getListUnusedColumns().removeAll(columnsToRemove);
 
         List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
-        for (IMetadataColumn column : source.getListColumns(true)) {
+        for (IMetadataColumn column : source.getListColumns()) {
             IMetadataColumn targetColumn = target.getColumn(column.getLabel());
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
