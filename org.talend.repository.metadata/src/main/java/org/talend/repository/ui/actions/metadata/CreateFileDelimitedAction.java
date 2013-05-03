@@ -114,7 +114,8 @@ public class CreateFileDelimitedAction extends AbstractCreateAction {
     @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
-        if (!ERepositoryObjectType.METADATA_FILE_DELIMITED.equals(nodeType)) {
+        if (ERepositoryObjectType.METADATA_FILE_DELIMITED != null
+                && !ERepositoryObjectType.METADATA_FILE_DELIMITED.equals(nodeType)) {
             return;
         }
 
