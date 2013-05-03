@@ -28,6 +28,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
@@ -107,6 +108,8 @@ public class RelationshipItemBuilder {
     private Map<Relation, Set<Relation>> currentProjectItemsRelations;
 
     private Map<Relation, Set<Relation>> referencesItemsRelations;
+
+    private Map<String, String> hadoopItemReferences = new HashMap<String, String>();
 
     private boolean loaded = false;
 
@@ -652,6 +655,9 @@ public class RelationshipItemBuilder {
                             if (builtIn != null && currentValue != null) {
                                 if (!builtIn) {
                                     addRelationShip(item, currentValue, LATEST_VERSION, relationType);
+                                    if (PROPERTY_RELATION.equals(relationType)) {
+                                        addHadoopClusterRelationShips(item, currentValue, LATEST_VERSION);
+                                    }
                                 }
                                 builtIn = null;
                                 currentValue = null;
@@ -701,7 +707,8 @@ public class RelationshipItemBuilder {
                                 }
                             }
                         }
-                        IComponent cc = compService.getComponentsFactory().get(currentNode.getComponentName(), ComponentCategory.CATEGORY_4_DI.getName());
+                        IComponent cc = compService.getComponentsFactory().get(currentNode.getComponentName(),
+                                ComponentCategory.CATEGORY_4_DI.getName());
                         IJobletProviderService service = null;
                         if (PluginChecker.isJobLetPluginLoaded()) {
                             service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
@@ -766,6 +773,28 @@ public class RelationshipItemBuilder {
             if (!fromMigration && modified) {
                 saveRelations();
             }
+        }
+    }
+
+    private void addHadoopClusterRelationShips(Item baseItem, String relatedHadoopSubitemId, String relatedVersion) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService == null) {
+            return;
+        }
+        String hcId = hadoopItemReferences.get(relatedHadoopSubitemId);
+        if (hcId == null) {
+            Item hadoopClusterItem = hadoopClusterService.getHadoopClusterBySubitemId(relatedHadoopSubitemId);
+            if (hadoopClusterItem != null) {
+                hcId = hadoopClusterItem.getProperty().getId();
+                hadoopItemReferences.put(relatedHadoopSubitemId, hcId);
+            }
+        }
+        if (hcId != null) {
+            addRelationShip(baseItem, hcId, relatedVersion, PROPERTY_RELATION);
         }
     }
 

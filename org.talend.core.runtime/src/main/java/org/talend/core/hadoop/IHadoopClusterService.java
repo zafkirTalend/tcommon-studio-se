@@ -119,6 +119,8 @@ public interface IHadoopClusterService extends IService {
      */
     public List<String> getSubitemIdsOfHadoopCluster(Item item);
 
+    public Item getHadoopClusterBySubitemId(String subItemId);
+
     /**
      * DOC ycbai Comment method "refreshCluster".
      * 
