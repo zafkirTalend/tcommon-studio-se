@@ -74,6 +74,7 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.EDatabaseConnVar;
+import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
@@ -96,6 +97,7 @@ import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
+import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -2821,8 +2823,14 @@ public class DatabaseForm extends AbstractForm {
             s = DBConnectionContextUtils.getUrlConnectionString(connectionItem, true);
         } else {
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+                String template = null;
+                if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
+                    template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
+                } else {
+                    template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
+                }
                 s = DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection()
-                        .getPort(), getConnection().getSID());
+                        .getPort(), getConnection().getSID(), template);
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {

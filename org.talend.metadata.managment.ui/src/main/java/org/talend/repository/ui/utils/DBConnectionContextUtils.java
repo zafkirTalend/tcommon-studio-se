@@ -28,6 +28,7 @@ import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
+import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -360,7 +361,13 @@ public final class DBConnectionContextUtils {
 
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
-            return DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase);
+            String template = null;
+            if (dbConn.getURL() != null && dbConn.getURL().startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+                template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
+            } else {
+                template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
+            }
+            return DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase, template);
         }
 
         String newUrl = DatabaseConnStrUtil.getURLString(dbConn.getDatabaseType(), dbConn.getDbVersionString(), server, username,
@@ -482,7 +489,13 @@ public final class DBConnectionContextUtils {
 
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
-            String newURl = DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase);
+            String template = null;
+            if (dbConn.getURL() != null && dbConn.getURL().startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+                template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
+            } else {
+                template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
+            }
+            String newURl = DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase, template);
 
             cloneConn.setURL(newURl);
             return cloneConn;

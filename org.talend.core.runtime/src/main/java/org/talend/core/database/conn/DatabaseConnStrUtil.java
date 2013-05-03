@@ -158,27 +158,26 @@ public class DatabaseConnStrUtil {
         return string;
     }
 
-    public static String getHiveURLString(DatabaseConnection dbConn, String server, String port, String sidOrDatabase) {
+    public static String getHiveURLString(DatabaseConnection dbConn, String server, String port, String sidOrDatabase,
+            String template) {
         String hiveModel = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        String url = dbConn.getURL();
-        if (url != null) {
-            if (url.startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
-                if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
-                    url = getHive2EmbeddedURLString();
-                } else {
-                    url = getHive2StandaloneURLString(false, server, port, sidOrDatabase);
-                }
-            } else if (url.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
-                if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
-                    url = getHive1EmbeddedURLString();
-                } else {
-                    url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
-                }
+        // DbConnStrForHive.URL_HIVE_2_TEMPLATE or DbConnStrForHive.URL_HIVE_1_TEMPLATE
+        // set a default
+        String url = null;
+        if (template.startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+                url = getHive2EmbeddedURLString();
             } else {
-                // set a default
-                url = getHive1EmbeddedURLString();
+                url = getHive2StandaloneURLString(false, server, port, sidOrDatabase);
             }
-        } else {
+        } else if (template.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
+            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+                url = getHive1EmbeddedURLString();
+            } else {
+                url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
+            }
+        }
+        if (url == null) {
             // set a default
             url = getHive1EmbeddedURLString();
         }
