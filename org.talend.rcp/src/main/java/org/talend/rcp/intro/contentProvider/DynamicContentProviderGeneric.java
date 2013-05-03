@@ -190,12 +190,13 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             // String huGuide = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle");
             // String hrGuide =
             // Messages.getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle");
-            String userManuals = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserManuals");
-            String[] hyperlinkText = new String[] { userManuals };
+            String talendHelpCenter = Messages.getString("WelcomePageDynamicContentProvider.DocumentationTalendHelpCenter");
+            String docForDownload = Messages.getString("WelcomePageDynamicContentProvider.DocumentationForDownload");
+            String[] hyperlinkText = new String[] { talendHelpCenter, docForDownload };
 
-            String[] urls = new String[] { BROWSER_URL + "showUserGuide" };
+            String[] urls = new String[] { BROWSER_URL + "showTalendHelpCenter", BROWSER_URL + "showUserGuide" };
 
-            String[] extTexts = new String[1];
+            String[] extTexts = new String[2];
             parent.appendChild(dom.createElement("br"));
             createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
 
@@ -267,9 +268,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     *
+     * 
      * DOC create title for the CREATE_NEW_ITEM in the second column
-     *
+     * 
      * @param dom
      * @param parent
      * @param title
@@ -282,9 +283,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     *
+     * 
      * DOC create a new create item for the CREATE_NEW_ITEM in the second column
-     *
+     * 
      * @param dom
      * @param parent
      * @param title
@@ -308,9 +309,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
     }
 
     /**
-     *
+     * 
      * DOC create fixed part for the CREATE_NEW_ITEM in the second column
-     *
+     * 
      * @param dom
      * @param parent
      * @param title

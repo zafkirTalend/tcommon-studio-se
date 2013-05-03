@@ -34,6 +34,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
      * 
      * @see org.eclipse.ui.intro.config.IIntroXHTMLContentProvider#createContent(java.lang.String, org.w3c.dom.Element)
      */
+    @Override
     public void createContent(String id, Element parent) {
         Document dom = parent.getOwnerDocument();
         String content = dom.getBaseURI();
@@ -385,27 +386,20 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(hyperlinkRoute);
 
         } else if ("DOCUMENTATIONTITLE".equals(id)) {
-            Element pDoc = dom.createElement("p");
-            pDoc.setAttribute("class", "style_1 style_2 style_3");
-            pDoc.setAttribute("style", "padding-top:10px;");
-            pDoc.appendChild(dom.createTextNode(Messages.getString("WelcomePageDynamicContentProvider.DocumentationTitle")));
-            parent.appendChild(pDoc);
-            Element blockquoteDoc = dom.createElement("blockquote");
-            Element blockquotePDoc = dom.createElement("p");
-            Element blockquoteA1Doc = dom.createElement("a");
-            blockquoteA1Doc.setAttribute("href", BROWSER_URL + "showUserGuide");
-            blockquoteA1Doc.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.DocumentationUserManuals")));
+            // documentation
+            String title = Messages.getString("WelcomePageDynamicContentProvider.DocumentationTitle");
+            // String huGuide = Messages.getString("WelcomePageDynamicContentProvider.DocumentationUserGuideTitle");
+            // String hrGuide =
+            // Messages.getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle");
+            String talendHelpCenter = Messages.getString("WelcomePageDynamicContentProvider.DocumentationTalendHelpCenter");
+            String docForDownload = Messages.getString("WelcomePageDynamicContentProvider.DocumentationForDownload");
+            String[] hyperlinkText = new String[] { talendHelpCenter, docForDownload };
 
-            Element blockquoteA2Doc = dom.createElement("a");
-            blockquoteA2Doc.setAttribute("href", BROWSER_URL + "showReferenceGuide");
-            blockquoteA2Doc.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.DocumentationReferenceGuideTitle")));
-            blockquotePDoc.appendChild(blockquoteA1Doc);
-            blockquotePDoc.appendChild(dom.createElement("br"));
-            // blockquotePDoc.appendChild(blockquoteA2Doc);
-            blockquoteDoc.appendChild(blockquotePDoc);
-            parent.appendChild(blockquoteDoc);
+            String[] urls = new String[] { BROWSER_URL + "showTalendHelpCenter", BROWSER_URL + "showUserGuide" };
+
+            String[] extTexts = new String[2];
+            parent.appendChild(dom.createElement("br"));
+            createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
         } else if ("GETTINGSTARTEDTITLE".equals(id)) {
             Element pGS = dom.createElement("p");
             pGS.setAttribute("class", "style_1 style_2 style_3");
@@ -445,12 +439,39 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
         }
     }
 
+    private void createFixedPart(Document dom, Element parent, String pTitle, String hyperlinkText[], String urls[],
+            String extText[]) {
+        Element span = dom.createElement("p");
+        span.setAttribute("class", "style_1 style_2 style_3");
+        span.setAttribute("style", "padding-top:10px;");
+        span.appendChild(dom.createTextNode(pTitle));
+        parent.appendChild(span);
+        Element blockquote = dom.createElement("blockquote");
+        parent.appendChild(blockquote);
+        Element p = dom.createElement("p");
+        blockquote.appendChild(p);
+        for (int i = 0; i < hyperlinkText.length; i++) {
+            Element hyperlink = dom.createElement("a");
+            hyperlink.setAttribute("href", urls[i]);
+            p.appendChild(hyperlink);
+            hyperlink.appendChild(dom.createTextNode(hyperlinkText[i]));
+            if (extText[i] != null && !"".equals(extText[i])) {
+                p.appendChild(dom.createTextNode(extText[i]));
+            }
+            if (i != hyperlinkText.length - 1) {
+                p.appendChild(dom.createElement("br"));
+            }
+
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see
      * org.eclipse.ui.intro.config.IIntroContentProvider#init(org.eclipse.ui.intro.config.IIntroContentProviderSite)
      */
+    @Override
     public void init(IIntroContentProviderSite site) {
         // TODO Auto-generated method stub
     }
@@ -460,6 +481,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
      * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String, java.io.PrintWriter)
      */
+    @Override
     public void createContent(String id, PrintWriter out) {
         // TODO Auto-generated method stub
 
@@ -471,6 +493,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#createContent(java.lang.String,
      * org.eclipse.swt.widgets.Composite, org.eclipse.ui.forms.widgets.FormToolkit)
      */
+    @Override
     public void createContent(String id, Composite parent, FormToolkit toolkit) {
         // TODO Auto-generated method stub
 
@@ -481,6 +504,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
      * 
      * @see org.eclipse.ui.intro.config.IIntroContentProvider#dispose()
      */
+    @Override
     public void dispose() {
         // TODO Auto-generated method stub
 

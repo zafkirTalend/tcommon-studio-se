@@ -45,11 +45,14 @@ public class OpenWebBrowserAction implements IIntroAction {
 
     private static final String TOS_BD = "http://www.talend.com/download/big-data?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
+    private static final String TALEND_HELP_CENTER = "https://help.talend.com/display/HOME/Current+Documentation";
+
     /*
      * (non-Javadoc)
      * 
      * @see org.eclipse.ui.intro.config.IIntroAction#run(org.eclipse.ui.intro.IIntroSite, java.util.Properties)
      */
+    @Override
     public void run(IIntroSite site, Properties params) {
         if (params == null) {
             return;
@@ -81,6 +84,8 @@ public class OpenWebBrowserAction implements IIntroAction {
                 Program.launch(FORUMS_URL);
             } else if ("showTrainning".equals(type.toString())) {
                 Program.launch(TRAINNING_URL);
+            } else if ("showTalendHelpCenter".equals(type.toString())) {
+                Program.launch(TALEND_HELP_CENTER);
             }
         }
     }
