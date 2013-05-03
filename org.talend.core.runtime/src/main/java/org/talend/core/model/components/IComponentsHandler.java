@@ -36,4 +36,13 @@ public interface IComponentsHandler {
      * @return
      */
     List<IComponent> sortComponents(List<IComponent> filteredComponents);
+
+    /**
+     * Returns the category for these components, it means all components handled by the handler have the same category.
+     * More details refer to {@link ComponentCategory}. Added by Marvin Wang on May 3, 2013.
+     * 
+     * @return
+     */
+    ComponentCategory extractComponentsCategory();
+
 }
