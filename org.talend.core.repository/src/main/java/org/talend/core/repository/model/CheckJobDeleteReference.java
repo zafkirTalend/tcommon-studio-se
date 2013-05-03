@@ -20,7 +20,7 @@ import java.util.Set;
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -36,7 +36,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.ui.actions.DeleteActionCache;
 
@@ -49,16 +48,16 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
     private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
 
     // almost move from the method checkRepositoryNodeFromProcess of DeleteAction class.
-    public Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
-            IRepositoryNode currentJobNode) {
-        IRepositoryViewObject object = currentJobNode.getObject();
+    @Override
+	public Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
+			IRepositoryViewObject object) {
         Item nodeItem = object.getProperty().getItem();
         boolean needCheckJobIfUsedInProcess = false;
         if (nodeItem instanceof ProcessItem) {
             needCheckJobIfUsedInProcess = true;
         }
         Set<ItemReferenceBean> list = new HashSet<ItemReferenceBean>();
-        if (object != null && needCheckJobIfUsedInProcess) {
+        if (needCheckJobIfUsedInProcess) {
             Property property = object.getProperty();
             if (property != null) {
                 String label = property.getLabel();
@@ -69,7 +68,7 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                 if (!(item instanceof ProcessItem)) {
                     return list;
                 }
-                EList nodesList = null;
+                EList<?> nodesList = null;
                 // fix bug 10050
                 Set<Project> refParentProjects = new HashSet<Project>();
                 try {

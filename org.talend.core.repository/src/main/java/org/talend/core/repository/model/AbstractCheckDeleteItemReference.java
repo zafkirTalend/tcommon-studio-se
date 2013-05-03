@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,8 @@ public abstract class AbstractCheckDeleteItemReference implements ICheckDeleteIt
 
     protected List<? extends IRepositoryNode> deleteNodes;
 
-    public Set<ItemReferenceBean> getItemReferenceBeans(List<? extends IRepositoryNode> deleteNodes,
+    @Override
+	public Set<ItemReferenceBean> getItemReferenceBeans(List<? extends IRepositoryNode> deleteNodes,
             DeleteActionCache deleteActionCache) {
         this.deleteNodes = deleteNodes;
         Set<ItemReferenceBean> refBeans = new HashSet<ItemReferenceBean>();
@@ -45,16 +47,27 @@ public abstract class AbstractCheckDeleteItemReference implements ICheckDeleteIt
         }
 
         for (IRepositoryNode repositoryNode : deleteNodes) {
-            refBeans.addAll(checkItemReferenceBeans(factory, deleteActionCache, repositoryNode));
+        	IRepositoryViewObject repoObject = repositoryNode.getObject();
+        	if(repoObject!=null) {
+        		refBeans.addAll(checkItemReferenceBeans(factory, deleteActionCache, repoObject));
+        	}
         }
 
         return refBeans;
     }
 
-    protected abstract Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory,
-            DeleteActionCache deleteActionCache, IRepositoryNode currentJobNode);
+    /**
+     * Find reference beans.
+     *
+     * @param factory the factory, not null
+     * @param deleteActionCache the delete action cache, not null
+     * @param repoObject the repository object, not null.
+     * @return the reference beans collection
+     */
+    protected abstract Collection<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory,
+			DeleteActionCache deleteActionCache,IRepositoryViewObject repoObject);
 
-    protected boolean isItemInDeleteList(ItemReferenceBean bean, boolean isRefer) {
+	protected boolean isItemInDeleteList(ItemReferenceBean bean, boolean isRefer) {
         if (deleteNodes == null) {
             return false;
         }
