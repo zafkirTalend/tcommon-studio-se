@@ -388,6 +388,96 @@ public class NodeUtil {
         return mergeNode;
     }
 
+    public static IConnection getNextMergeConnection(INode node) {
+
+        List<? extends IConnection> outConns = getOutgoingConnections(node, IConnectionCategory.MERGE);
+        if (outConns == null || outConns.size() == 0) {
+            List<? extends IConnection> conns = node.getOutgoingConnections(EConnectionType.FLOW_MAIN);
+            if (conns != null && conns.size() > 0) {
+                for (IConnection conn : conns) {
+                    node = conn.getTarget();
+                    if (node.isActivate() || node.isDummy()) {
+                        IConnection connection = getNextMergeConnection(node);
+                        if (connection != null) {
+                            return connection;
+                        }
+                    }
+                }
+            } else if (node.getVirtualLinkTo() != null) {
+                return getNextMergeConnection(node.getOutgoingConnections().get(0).getTarget());
+            }
+            return null;
+        } else {
+            return outConns.get(0);
+        }
+    }
+
+    /**
+     * DOC bchen
+     * <p>
+     * This method works for the virtual component which the inner link is ON_COMPONENT_OK and the output connection
+     * contains Merge type and the order is not 1.
+     * </p>
+     * <p>
+     * notice: 1. the node is not in main branch, so there is not possible to have ON_SUBJOB_OK/ON_COMPONENT_OK in
+     * start.
+     * 
+     * 2. if there are two or more tUnite components, it will be tHash virtual component, no inner link in this virtual
+     * component
+     * 
+     * 3. if there have tIteratToFlow component, no inner link ,as this component also adapt to Merge connection.
+     * </p>
+     * <p>
+     * return: 1. if there have another virtual component(ON_COMPONENT_OK) in the incoming connection, it will be
+     * returned.
+     * 
+     * 2. if there have not another virtual component(ON_COMPENT_OK), it will return the start node as it ignore other
+     * type of virtual components
+     * </p>
+     * 
+     * @param node
+     * @return node
+     */
+    public static INode getSpecificStartNode(INode node) {
+        List<? extends IConnection> inConns = node.getIncomingConnections();
+        if (inConns == null || inConns.size() == 0) {
+            return node;
+        } else {
+            if (inConns.size() == 1 && inConns.get(0).getLineStyle().equals(EConnectionType.ON_COMPONENT_OK)) {
+                INode sNode = inConns.get(0).getSource();
+                if (sNode != null && sNode.getVirtualLinkTo() != null
+                        && sNode.getVirtualLinkTo().equals(EConnectionType.ON_COMPONENT_OK)) {
+                    return node;
+                }
+            }
+            for (IConnection inConn : inConns) {
+                INode sourceNode = inConn.getSource();
+                if (inConn.getLineStyle().equals(EConnectionType.FLOW_MAIN) || sourceNode.getVirtualLinkTo() != null) {
+                    INode activeNode = findActiveNode(sourceNode);
+                    if (activeNode != null) {
+                        INode findNode = getSpecificStartNode(activeNode);
+                        if (findNode != null) {
+                            return findNode;
+                        }
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
+
+    private static INode findActiveNode(INode node) {
+        if (node.isActivate()) {
+            return node;
+        } else if (node.isDummy()) {
+            if (node.getIncomingConnections() != null && node.getIncomingConnections().size() == 1) {
+                return findActiveNode(node.getIncomingConnections().get(0).getSource());
+            }
+        }
+        return null;
+    }
+
     public static boolean isLastFromMergeTree(INode node) {
         INode firstMergeNode = getFirstMergeNode(node);
         int totMerge = NodeUtil.getIncomingConnections(firstMergeNode, IConnectionCategory.MERGE).size();
@@ -527,23 +617,23 @@ public class NodeUtil {
      * @return
      */
     public static String getPrivateConnClassName(final IConnection conn) {
-    	
-    	if (conn.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
-    		INode node = conn.getSource();
-	        if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
-	            return conn.getUniqueName();
-	        }
-	        List<? extends IConnection> listInConns = node.getIncomingConnections();
-	        if (listInConns != null && listInConns.size() > 0) {
-	            String retResult = getPrivateConnClassName(listInConns.get(0)); //$NON-NLS-1$
-            	if (retResult==null) {
-            		return conn.getUniqueName();
-            	} else {
-            		return retResult;
-            	}
-	        }
-    	}
-    	return null; //$NON-NLS-2$
-    	
+
+        if (conn.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+            INode node = conn.getSource();
+            if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
+                return conn.getUniqueName();
+            }
+            List<? extends IConnection> listInConns = node.getIncomingConnections();
+            if (listInConns != null && listInConns.size() > 0) {
+                String retResult = getPrivateConnClassName(listInConns.get(0));
+                if (retResult == null) {
+                    return conn.getUniqueName();
+                } else {
+                    return retResult;
+                }
+            }
+        }
+        return null;
+
     }
 }
