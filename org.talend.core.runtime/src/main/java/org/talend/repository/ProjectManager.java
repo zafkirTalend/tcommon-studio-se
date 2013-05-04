@@ -73,7 +73,7 @@ public final class ProjectManager {
 
     private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
-    private static Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
+    private Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
 
     private ProjectManager() {
         initCurrentProject();
@@ -185,6 +185,11 @@ public final class ProjectManager {
         // if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
         allReferencedprojects.clear();
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            if (this.getCurrentProject() == null) {
+                // only appears if there is some other exception before.
+                // just return an empty list in this case.
+                return allReferencedprojects;
+            }
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IProxyRepositoryService.class);
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
@@ -545,5 +550,14 @@ public final class ProjectManager {
         if (branchValue != null) {
             fields.put(key, branchValue);
         }
+    }
+
+    /**
+     * Expected to be called when logoff project, to clear all infos in memory.
+     */
+    public void clearAll() {
+        getAllReferencedProjects().clear();
+        mapProjectUrlToBranchUrl.clear();
+        foldersMap.clear();
     }
 }

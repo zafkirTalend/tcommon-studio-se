@@ -114,7 +114,7 @@ public class XmiResourceManager {
         if (!isAvoidUnloadResource()) {
             unloadResource(uri.toString());
         }
-        // unloadResources();
+
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());

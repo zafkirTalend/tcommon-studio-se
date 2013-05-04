@@ -29,6 +29,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
 
@@ -58,10 +59,12 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
 
     private List<IRepositoryWorkUnitListener> listeners = new ArrayList<IRepositoryWorkUnitListener>();
 
+    @Override
     public List<DynamicButtonBean> getButtons() {
         return buttons;
     }
 
+    @Override
     public List<DynamicChoiceBean> getChoices() {
         return choices;
     }
@@ -71,6 +74,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * 
      * @return the authenticationNeeded
      */
+    @Override
     public boolean isAuthenticationNeeded() {
         return this.authenticationNeeded;
     }
@@ -80,6 +84,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * 
      * @param authenticationNeeded the authenticationNeeded to set
      */
+    @Override
     public void setAuthenticationNeeded(boolean authenticationNeeded) {
         this.authenticationNeeded = authenticationNeeded;
     }
@@ -89,6 +94,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * 
      * @return the name
      */
+    @Override
     public String getName() {
         return this.name;
     }
@@ -98,22 +104,27 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * 
      * @param name the name to set
      */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getId() {
         return this.id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public List<DynamicFieldBean> getFields() {
         return this.fields;
     }
 
+    @Override
     public void setFields(List<DynamicFieldBean> fields) {
         this.fields = fields;
     }
@@ -137,6 +148,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * @throws PersistenceException
      * @throws PersistenceException if processes cannot be retrieved
      */
+    @Override
     public String getNextId() {
         return EcoreUtil.generateUUID();
     }
@@ -152,6 +164,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     }
 
     // gather all the metadata connections (file / db / etc ...)
+    @Override
     public List<ConnectionItem> getMetadataConnectionsItem(Project project) throws PersistenceException {
 
         List<ConnectionItem> result = new ArrayList<ConnectionItem>();
@@ -174,6 +187,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     }
 
     // gather all the contexts
+    @Override
     public List<ContextItem> getContextItem(Project project) throws PersistenceException {
         List<ContextItem> result = new ArrayList<ContextItem>();
 
@@ -188,14 +202,17 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
         return result;
     }
 
+    @Override
     public boolean isDisplayToUser() {
         return displayToUser;
     }
 
+    @Override
     public void setDisplayToUser(boolean displayToUser) {
         this.displayToUser = displayToUser;
     }
 
+    @Override
     public void beforeLogon(Project project) throws PersistenceException, LoginException {
         // do nothing by default
     }
@@ -204,20 +221,26 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
         // do nothing by default
     }
 
+    @Override
     public boolean isUserReadOnlyOnCurrentProject() {
         return false;
     }
 
+    @Override
     public void checkAvailability() {
         // is available by default
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         workUnit.executeRun();
     }
 
+    @Override
     public void logOffProject() {
+        ProjectManager.getInstance().clearAll();
+        unloadResources();
         loggedOnProject = false;
         listeners.clear();
     }
@@ -236,6 +259,7 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * @seeorg.talend.repository.model.IRepositoryFactory#addRepositoryWorkUnitListener(org.talend.repository.model.
      * IRepositoryWorkUnitListener)
      */
+    @Override
     public void addRepositoryWorkUnitListener(IRepositoryWorkUnitListener listener) {
         synchronized (lock) {
             listeners.add(listener);
@@ -262,9 +286,11 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
      * 
      * @see org.talend.repository.model.IRepositoryFactory#readProject(boolean)
      */
+    @Override
     public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException {
         return readProject();
     }
+
     @Override
     public void updateLockStatus() throws PersistenceException {
         // nothing to do, by default
