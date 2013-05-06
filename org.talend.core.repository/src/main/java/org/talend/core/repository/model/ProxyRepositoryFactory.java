@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -1797,6 +1798,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
                 coreService.synchronizeMapptingXML();
 
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 fullLogonFinished = true;
             } finally {
                 TimeMeasure.end("logOnProject");
