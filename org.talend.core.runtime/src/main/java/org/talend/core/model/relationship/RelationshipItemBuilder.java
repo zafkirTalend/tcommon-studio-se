@@ -578,9 +578,9 @@ public class RelationshipItemBuilder {
                         ElementParameterType param = (ElementParameterType) o;
                         if (param.getName().startsWith("SCHEMA:")) { //$NON-NLS-1$ 
                             relationType = SCHEMA_RELATION;
-                        } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
+                        } else if (param.getName().startsWith("PROPERTY:") || param.getName().startsWith("MR_PROPERTY:")) { //$NON-NLS-1$ //$NON-NLS-2$ 
                             relationType = PROPERTY_RELATION;
-                        } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) {
+                        } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) { //$NON-NLS-1$
                             relationType = VALIDATION_RULE_RELATION;
                         } else { // if no relation parameter, reset variables in case.
                             builtIn = null;
