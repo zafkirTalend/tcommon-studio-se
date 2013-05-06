@@ -278,16 +278,19 @@ public class DatabaseConnStrUtil {
         String startTemplateString;
         EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(dbVersion);
 
-        for (EDatabaseConnTemplate template : EDatabaseConnTemplate.values()) {
-            String urlTemplate = template.getUrlTemplate(version);
-            if (urlTemplate.indexOf("<") != -1) {
-                startTemplateString = urlTemplate.substring(0, urlTemplate.indexOf("<")); //$NON-NLS-1$
-                if (startTemplateString.length() <= stringConnection.length()) {
-                    startStringConnection = stringConnection.substring(0, startTemplateString.length());
-                    if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
-                        return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
-                    } else if (!startTemplateString.equals("") && startTemplateString.equals(startStringConnection)) {
-                        return template.getDBDisplayName();
+        // Added by Marvin Wang on May. 6, 2013 for bug TDI-25873.
+        if (version != null) {
+            for (EDatabaseConnTemplate template : EDatabaseConnTemplate.values()) {
+                String urlTemplate = template.getUrlTemplate(version);
+                if (urlTemplate.indexOf("<") != -1) {
+                    startTemplateString = urlTemplate.substring(0, urlTemplate.indexOf("<")); //$NON-NLS-1$
+                    if (startTemplateString.length() <= stringConnection.length()) {
+                        startStringConnection = stringConnection.substring(0, startTemplateString.length());
+                        if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
+                            return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
+                        } else if (!startTemplateString.equals("") && startTemplateString.equals(startStringConnection)) {
+                            return template.getDBDisplayName();
+                        }
                     }
                 }
             }
