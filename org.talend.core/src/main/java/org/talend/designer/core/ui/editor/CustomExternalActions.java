@@ -20,9 +20,12 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.service.IMRProcessService;
 
 /**
  * DOC qzhang class global comment. Detailled comment
@@ -41,8 +44,7 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final String EXTENSION_ID = "org.talend.core.component_custom_action"; //$NON-NLS-1$
 
-    protected static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-            .getActiveEditor();
+    protected static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 
     /**
      * DOC qzhang AbstractContextMenuProvider constructor comment.
@@ -70,8 +72,7 @@ public abstract class CustomExternalActions extends SelectionAction {
         IConfigurationElement[] configurationElementsFor = extensionRegistry.getConfigurationElementsFor(EXTENSION_ID);
         for (IConfigurationElement configurationElement : configurationElementsFor) {
             try {
-                CustomExternalActions action = (CustomExternalActions) configurationElement
-                        .createExecutableExtension(ELEM_CLASS);
+                CustomExternalActions action = (CustomExternalActions) configurationElement.createExecutableExtension(ELEM_CLASS);
                 String attribute = configurationElement.getAttribute(ELEM_LABEL);
                 action.setText(attribute);
                 attribute = configurationElement.getAttribute(ELEM_ID);
@@ -83,5 +84,14 @@ public abstract class CustomExternalActions extends SelectionAction {
 
         }
         return actions;
+    }
+
+    protected boolean isMapReduceEditorActive() {
+        IMRProcessService mrService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(IMRProcessService.class);
+        if (mrService == null) {
+            return false;
+        }
+        IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        return mrService.isMapReduceEditor(activeEditor);
     }
 }

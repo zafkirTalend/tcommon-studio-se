@@ -14,6 +14,7 @@ package org.talend.core.service;
 
 import java.util.List;
 
+import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Item;
 import org.talend.repository.model.IRepositoryNode;
@@ -34,5 +35,7 @@ public interface IMRProcessService extends IService {
     public boolean collectStandardProcessNode(List<String> filteredContents, Object node);
 
     public boolean isMapReduceItem(Item item);
+
+    public boolean isMapReduceEditor(IEditorPart editorPart);
 
 }
