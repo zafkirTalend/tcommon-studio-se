@@ -1002,6 +1002,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         for (Project refP : ProjectManager.getInstance().getAllReferencedProjects()) {
                             if (refP.getTechnicalLabel().equals(p.getName())) {
                                 toReturn.add(refP);
+                                foundInRefs = true;
                                 break;
                             }
                         }
