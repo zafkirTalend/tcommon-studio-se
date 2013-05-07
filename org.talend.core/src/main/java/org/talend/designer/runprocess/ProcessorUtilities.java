@@ -657,22 +657,22 @@ public class ProcessorUtilities {
                 process2.checkProcess();
             }
 
-            // set the last jobinfos to be able to set check the errors in the problems view (errors of compilations
-            // only)
-            // here we recreate a new JobInfo, to be sure to don't have link in memory to Emf or IProcess
-            JobInfo generatedJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
-            generatedJobInfo.setJobName(currentProcess.getName());
-            String projectFolderName;
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                projectFolderName = JavaResourcesHelper.getProjectFolderName(selectedProcessItem);
-            } else {
-                projectFolderName = PerlResourcesHelper.getRootProjectName(selectedProcessItem);
-            }
-            generatedJobInfo.setProjectFolderName(projectFolderName);
-            LastGenerationInfo.getInstance().getLastGeneratedjobs().add(generatedJobInfo);
-            if (isMainJob) {
-                LastGenerationInfo.getInstance().setLastMainJob(generatedJobInfo);
-            }
+        }
+        // set the last jobinfos to be able to set check the errors in the problems view (errors of compilations
+        // only)
+        // here we recreate a new JobInfo, to be sure to don't have link in memory to Emf or IProcess
+        JobInfo generatedJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+        generatedJobInfo.setJobName(currentProcess.getName());
+        String projectFolderName;
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            projectFolderName = JavaResourcesHelper.getProjectFolderName(selectedProcessItem);
+        } else {
+            projectFolderName = PerlResourcesHelper.getRootProjectName(selectedProcessItem);
+        }
+        generatedJobInfo.setProjectFolderName(projectFolderName);
+        LastGenerationInfo.getInstance().getLastGeneratedjobs().add(generatedJobInfo);
+        if (isMainJob) {
+            LastGenerationInfo.getInstance().setLastMainJob(generatedJobInfo);
         }
     }
 
