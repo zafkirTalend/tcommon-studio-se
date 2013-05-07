@@ -43,9 +43,13 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        Shell shell = Display.getCurrent().getActiveShell();
-        if (shell == null) {
-            shell = new Shell();
+        Display display = Display.getCurrent();
+        Shell shell = null;
+        if (display != null) {
+            display.getActiveShell();
+            if (shell == null) {
+                shell = new Shell();
+            }
         }
         process(ex, shell);
     }
