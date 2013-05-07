@@ -111,6 +111,9 @@
 				<dbType type="ARRAYS">
 					<talendType type="id_Object" default="true"/>
 				</dbType>
+				<dbType type="TIMESTAMP">
+                    <talendType type="id_Date" default="true"/>
+                </dbType>
 			</dbToTalendTypes>
 		</language>
 	</dbms>
