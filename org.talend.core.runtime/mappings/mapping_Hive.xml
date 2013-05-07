@@ -13,6 +13,7 @@
 			<dbType type="STRUCTS" ignoreLen="true" ignorePre="true"/>
 			<dbType type="MAPS" ignoreLen="true" ignorePre="true"/>
 			<dbType type="ARRAYS" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 		
 		<language name="java">
@@ -31,7 +32,9 @@
 				<talendType type="id_Character">
 					<dbType type="STRING"/>
 				</talendType>
-				<talendType type="id_Date"/>
+				<talendType type="id_Date">
+				    <dbType type="TIMESTAMP" default="true"/>
+				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="BIGINT" default="true"/>
 					<dbType type="FLOAT"/>
