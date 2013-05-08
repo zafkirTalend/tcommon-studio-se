@@ -162,4 +162,22 @@ public class IODataComponent {
     public void setConnMetadataTable(IMetadataTable connMetadataTable) {
         this.connMetadataTable = connMetadataTable;
     }
+
+    /**
+     * Getter for newMetadataTable.
+     * 
+     * @return the newMetadataTable
+     */
+    public IMetadataTable getNewMetadataTable() {
+        return this.newMetadataTable;
+    }
+
+    /**
+     * Sets the newMetadataTable.
+     * 
+     * @param newMetadataTable the newMetadataTable to set
+     */
+    public void setNewMetadataTable(IMetadataTable newMetadataTable) {
+        this.newMetadataTable = newMetadataTable;
+    }
 }
