@@ -40,6 +40,8 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
 
     protected boolean isAddColumn = false;
 
+    protected static boolean isColumnUsed = false;
+
     /**
      * ggu AbstractUpdateManager constructor comment.
      * 
@@ -90,10 +92,12 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
         getUpdatesNeeded().clear();
     }
 
+    @Override
     public List<UpdateResult> getUpdatesNeeded() {
         return this.updatedResultList;
     }
 
+    @Override
     public boolean isUpdatedNeeded(EUpdateItemType type) {
         if (type == null) {
             return false;
@@ -112,14 +116,17 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
      * 
      * for joblet updated.
      */
+    @Override
     public void addNodesPropertyChanger(PropertyChangeEvent event) {
         nodesChangerList.add(event);
     }
 
+    @Override
     public boolean update(EUpdateItemType type) {
         return executeUpdates(getUpdatesNeeded(type));
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void checkAllModification() {
         clearResult();
@@ -134,6 +141,7 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     /**
      * udpate all difference.
      */
+    @Override
     public boolean updateAll() {
         checkAllModification();
         return executeUpdates();
@@ -142,6 +150,7 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     /**
      * execute Updates.
      */
+    @Override
     public boolean executeUpdates() {
         return executeUpdates(getUpdatesNeeded());
     }
@@ -170,6 +179,9 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
      */
     public void setAddColumn(boolean isAddColumn) {
         this.isAddColumn = isAddColumn;
+        if (isAddColumn) {
+            this.isColumnUsed = true;
+        }
     }
 
 }
