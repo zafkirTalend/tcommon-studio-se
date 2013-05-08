@@ -316,11 +316,13 @@ public class MetadataDialogForMerge extends Dialog {
 
             folderInput.addSelectionListener(new SelectionListener() {
 
+                @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // TODO Auto-generated method stub
 
                 }
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     // TODO Auto-generated method stub
                     CTabFolder source = (CTabFolder) e.getSource();
@@ -376,6 +378,7 @@ public class MetadataDialogForMerge extends Dialog {
 
             copySelectionToOutput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     // qli comment
                     // Input => Output(the selection)
@@ -400,12 +403,13 @@ public class MetadataDialogForMerge extends Dialog {
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
+                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData(), true);
                         outputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
@@ -427,6 +431,7 @@ public class MetadataDialogForMerge extends Dialog {
             copySelectionToInput.setLayoutData(gridData);
             copySelectionToInput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     // qli comment
                     // Output => Input(selection)
@@ -453,6 +458,7 @@ public class MetadataDialogForMerge extends Dialog {
             copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
@@ -490,8 +496,7 @@ public class MetadataDialogForMerge extends Dialog {
                 metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)");
             }
             outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, metadataTableEditorForOutput, outputReadOnly,
-                    true, false, //$NON-NLS-1$
-                    false);
+                    true, false, false);
             outputMetaView.setIsRepository(isRepository(outputNode));
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
@@ -513,6 +518,7 @@ public class MetadataDialogForMerge extends Dialog {
         CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, null, null, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                 if (outputMetaTable.isReadOnly() && outputNode.getComponent().isSchemaAutoPropagated()) {
                     MetadataToolHelper.copyTable(inputMetaTable, outputMetaTable);

@@ -15,7 +15,6 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -484,6 +483,10 @@ public final class MetadataToolHelper {
         copyTable(source, target, null);
     }
 
+    public static void copyTable(IMetadataTable source, IMetadataTable target, boolean avoidUsedColumnsFromInput) {
+        copyTable(source, target, null, avoidUsedColumnsFromInput);
+    }
+
     /**
      * @author wzhang Comment method "copyTable".
      * @param dbmsid
@@ -512,6 +515,11 @@ public final class MetadataToolHelper {
     }
 
     public static void copyTable(IMetadataTable source, IMetadataTable target, String targetDbms) {
+        copyTable(source, target, targetDbms, false);
+    }
+
+    public static void copyTable(IMetadataTable source, IMetadataTable target, String targetDbms,
+            boolean avoidUsedColumnsFromInput) {
         if (source == null || target == null) {
             return;
         }
@@ -529,7 +537,7 @@ public final class MetadataToolHelper {
         target.getListUnusedColumns().removeAll(columnsToRemove);
 
         List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
-        for (IMetadataColumn column : source.getListColumns()) {
+        for (IMetadataColumn column : source.getListColumns(!avoidUsedColumnsFromInput)) {
             IMetadataColumn targetColumn = target.getColumn(column.getLabel());
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
@@ -1271,8 +1279,7 @@ public final class MetadataToolHelper {
         result.setListColumns(columns);
         Map<String, String> newProperties = result.getAdditionalProperties();
         EMap<String, String> oldProperties = old.getAdditionalProperties();
-        for (Iterator<Entry<String, String>> iterator = oldProperties.iterator(); iterator.hasNext();) {
-            Entry<String, String> entry = iterator.next();
+        for (Entry<String, String> entry : oldProperties) {
             newProperties.put(entry.getKey(), entry.getValue());
         }
         return result;

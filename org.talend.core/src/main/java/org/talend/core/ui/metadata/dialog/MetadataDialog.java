@@ -406,6 +406,7 @@ public class MetadataDialog extends Dialog {
 
             copySelectionToOutput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     // qli comment
                     // Input => Output(the selection)
@@ -431,12 +432,13 @@ public class MetadataDialog extends Dialog {
 
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData());
+                        MetadataToolHelper.copyTable(getInputMetaData(), getOutputMetaData(), true);
                         outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
@@ -458,6 +460,7 @@ public class MetadataDialog extends Dialog {
             copySelectionToInput.setLayoutData(gridData);
             copySelectionToInput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     // qli comment
                     // Output => Input(selection)
@@ -483,6 +486,7 @@ public class MetadataDialog extends Dialog {
             copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
@@ -506,8 +510,7 @@ public class MetadataDialog extends Dialog {
                 metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)");
             }
             outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
-                    metadataTableEditorForOutput, outputReadOnly, true, true, //$NON-NLS-1$
-                    false);
+                    metadataTableEditorForOutput, outputReadOnly, true, true, false);
             outputMetaView.setIsRepository(isRepository(outputNode));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -516,6 +519,7 @@ public class MetadataDialog extends Dialog {
             // see bug 7471,add a listener for outputView
             outputMetaView.getMetadataTableEditor().addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
+                @Override
                 public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                     if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                         IMetadataColumn modifiedObject = event.bean;
@@ -544,6 +548,7 @@ public class MetadataDialog extends Dialog {
                 inputMetaTable, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                 if ((inputMetaTable != null) && outputMetaTable.isReadOnly()
                         && outputNode.getComponent().isSchemaAutoPropagated()) {
