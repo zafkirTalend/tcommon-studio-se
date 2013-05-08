@@ -319,6 +319,12 @@ public class SelectorTableForm extends AbstractForm {
         metadataEditor = new MetadataEmfTableEditor(""); //$NON-NLS-1$
         parentWizardPage.setPageComplete(false);
         // addUtilsButtonListeners();
+        if (this.typeName != null && this.typeName.getProduct().equals(EDatabaseTypeName.HBASE.getProduct())) {
+            selectAllTablesButton.setEnabled(false);
+            selectAllTablesButton.setToolTipText(Messages.getString("SelectorTableForm.toolTip"));
+            selectNoneTablesButton.setEnabled(false);
+            selectNoneTablesButton.setToolTipText(Messages.getString("SelectorTableForm.toolTip"));
+        }
     }
 
     /**
@@ -933,7 +939,7 @@ public class SelectorTableForm extends AbstractForm {
                         && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
                         || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                     ExtractMetaDataUtils.closeConnection();
                 }
