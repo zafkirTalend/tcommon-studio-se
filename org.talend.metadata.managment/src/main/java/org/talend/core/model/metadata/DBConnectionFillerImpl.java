@@ -267,10 +267,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         boolean hasSchema = false;
         try {
+            boolean iscdhhive2 = HiveConnectionManager.getInstance().isCDHHive2(metaConnection);
             if (schemas != null) {
                 String schemaName = null;
                 while (schemas.next()) {
-                    if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+                    if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata) && !iscdhhive2) {
                         schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
                         if (schemaName == null) {
                             schemaName = schemas.getString(DatabaseConstant.ODBC_ORACLE_SCHEMA_NAME);
@@ -283,8 +284,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         schemaName = schemas.getString(1);
                     }
                     hasSchema = true;
-                    if (!isNullUiSchema(dbConn) && dbConn != null) {
-                        String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                    // for hive2 db name is treat as schema
+                    String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                    if (iscdhhive2) {
+                        uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                    }
+
+                    if ((!isEmptyString(uiSchemaOnConnWizard) || !isNullUiSchema(dbConn)) && dbConn != null) {
                         // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
                         Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
                         returnSchemas.add(schema);
@@ -771,8 +777,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return schemaList;
     }
 
-    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
-            String tablePattern, String[] tableType) {
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> tableFilter, String tablePattern, String[] tableType) {
+
         List<MetadataTable> list = new ArrayList<MetadataTable>();
         if (dbJDBCMetadata == null) {
             return null;
@@ -820,14 +827,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
             }
 
+            boolean cdhHive2 = HiveConnectionManager.getInstance().isCDHHive2(metaConnection);
+            if (cdhHive2) {
+                // for CDH4 HIVE2 , the table type are MANAGED_TABLE and EXTERNAL_TABLE 。。。。。。
+                // tableType = null;
+            }
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
 
             boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
             while (tables.next()) {
                 String tableSchema = null;
+                String coloumnName = GetTable.TABLE_SCHEM.name();
+                if (cdhHive2) {
+                    coloumnName = GetTable.TABLE_SCHEMA.name();
+                }
                 if (schemaPattern != null) {
-                    tableSchema = tables.getString(GetTable.TABLE_SCHEM.name());
+                    tableSchema = tables.getString(coloumnName);
                 } else {
                     tableSchema = " "; //$NON-NLS-1$
                 }
@@ -875,7 +891,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 metadatatable.setName(tableName);
                 // Added by Marvin Wang on Feb. 6, 2012 for bug TDI-24413, it is just for hive external table.
-                if (ETableTypes.TABLETYPE_EXTERNAL_TABLE.getName().equals(temptableType)) {
+                if (ETableTypes.TABLETYPE_EXTERNAL_TABLE.getName().equals(temptableType)
+                        || ETableTypes.EXTERNAL_TABLE.getName().equals(temptableType)
+                        || ETableTypes.MANAGED_TABLE.getName().equals(temptableType)) {
                     metadatatable.setTableType(ETableTypes.TABLETYPE_TABLE.getName());
                 } else {
                     metadatatable.setTableType(temptableType);
@@ -952,6 +970,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return list;
+
+    }
+
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
+            String tablePattern, String[] tableType) {
+        return fillAll(pack, dbJDBCMetadata, null, tableFilter, tablePattern, tableType);
     }
 
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
@@ -969,7 +993,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (catalogOrSchema instanceof Catalog) {
                 catalogName = catalogOrSchema.getName();
                 if (MetadataConnectionUtils.isAS400(catalogOrSchema)) {
-                   return tableList;
+                    return tableList;
                 }
             } else {// schema
                 Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);

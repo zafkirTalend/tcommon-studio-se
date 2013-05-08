@@ -168,6 +168,11 @@ public class MetadataFillFactory {
         return metadataFiller.fillAll(pack, dbJDBCMetadata, tableFilter, tablePattern, tableType);
     }
 
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> tableFilter, String tablePattern, String[] tableType) {
+        return metadataFiller.fillAll(pack, dbJDBCMetadata, metaConnection, tableFilter, tablePattern, tableType);
+    }
+
     /**
      * 
      * zshen Comment method "fillTables".

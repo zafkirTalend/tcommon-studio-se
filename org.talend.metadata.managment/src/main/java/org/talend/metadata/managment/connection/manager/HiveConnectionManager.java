@@ -265,4 +265,19 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return conn.getMetaData();
     }
 
+    public boolean isCDHHive2(IMetadataConnection metadataConn) {
+        if (metadataConn != null) {
+            String connURL = metadataConn.getUrl();
+            if (connURL != null) {
+                if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
+                    String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+                    if ("Cloudera_CDH4".equals(distroVersion)) { //$NON-NLS-1$
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }

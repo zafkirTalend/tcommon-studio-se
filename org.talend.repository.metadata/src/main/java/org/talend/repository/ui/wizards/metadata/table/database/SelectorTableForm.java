@@ -890,9 +890,9 @@ public class SelectorTableForm extends AbstractForm {
             DatabaseMetaData dm = null;
             try {
                 dm = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
+                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm, metadataConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
+                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm, metadataConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

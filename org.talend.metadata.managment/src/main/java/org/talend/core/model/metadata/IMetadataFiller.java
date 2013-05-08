@@ -118,6 +118,9 @@ public interface IMetadataFiller {
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType);
 
+    public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+            List<String> tableFilter, String tablePattern, String[] tableType);
+
     /**
      * 
      /**

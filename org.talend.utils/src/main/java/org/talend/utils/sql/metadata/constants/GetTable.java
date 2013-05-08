@@ -21,6 +21,8 @@ package org.talend.utils.sql.metadata.constants;
 public enum GetTable {
     TABLE_CAT,
     TABLE_SCHEM,
+    // for cdh4 hive2
+    TABLE_SCHEMA,
     TABLE_NAME,
     TABLE_TYPE,
     REMARKS,
