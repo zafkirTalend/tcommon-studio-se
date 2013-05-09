@@ -1193,10 +1193,12 @@ public class DatabaseForm extends AbstractForm {
     private boolean isSqliteFileFieldInvalidate() {
         String fileFullPath = null;
         String urlText = null;
-        if (isGeneralJDBC()) {
+        if (isGeneralJDBCSqlite()) {
             urlText = generalJdbcUrlText.getText();
         } else if (isSqlite()) {
             urlText = DBConnectionContextUtils.getUrlConnectionString(connectionItem, false);
+        } else {
+            return false;
         }
 
         String[] analyseURL = DatabaseConnStrUtil.analyseURL(dbTypeCombo.getText(), "", urlText); //$NON-NLS-1$
@@ -1214,6 +1216,21 @@ public class DatabaseForm extends AbstractForm {
             MessageDialog.openWarning(getShell(), Messages.getString("SelectDatabaseJarDialog.warningTitle"), //$NON-NLS-1$
                     Messages.getString("DatabaseForm.checkFileExist", fileFullPath)); //$NON-NLS-1$
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * DOC zshen Comment method "isGeneralJDBCSqlite".
+     * 
+     * @return
+     */
+    private boolean isGeneralJDBCSqlite() {
+        if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
+            String urlText = generalJdbcUrlText.getText();
+            if (urlText.startsWith("jdbc:sqlite:")) { //$NON-NLS-1$
+                return true;
+            }
         }
         return false;
     }
