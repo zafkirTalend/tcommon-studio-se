@@ -16,6 +16,46 @@
    <extension-point id="java_type" name="Java Type" schema="schema/java_type.exsd"/>
    <extension-point id="org.talend.designer.core.ui.editorHandler" name="org.talend.designer.core.ui.editorHandler" schema="schema/org.talend.designer.core.ui.editor.handler.exsd"/>
 	
+	
+	   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.runtime.MetadataPrecisionPage"
+            id="org.talend.core.runtime.MetadataPrecisionPage"
+            name="%Metadata">
+      </page>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreferencePage"
+            id="org.talend.core.prefs.datacollector"
+            name="%TalendDataCollector">
+      </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            name="%TalendDataCollectorPreview">
+      </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            name="%TalendDataCollectorUploading">
+      </page>
+     <page
+           class="org.talend.core.prefs.ui.CorePreferencePage"
+           id="org.talend.core.prefs"
+           name="%prefs">
+     </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer"/>
+      <initializer
+            class="org.talend.core.runtime.MetadataPreferenceInitializer">
+      </initializer>
+   </extension>
 	<extension
          point="org.eclipse.ui.preferencePages">
       <page
