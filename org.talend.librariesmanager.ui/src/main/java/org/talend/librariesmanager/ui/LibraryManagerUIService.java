@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
@@ -39,7 +39,7 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
 
     @Override
     public void installModules(String[] jarNames) {
-        Shell shell = Display.getCurrent().getActiveShell();
+        Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
         ModulesInstaller.installModules(new Shell(shell), jarNames);
     }
 
