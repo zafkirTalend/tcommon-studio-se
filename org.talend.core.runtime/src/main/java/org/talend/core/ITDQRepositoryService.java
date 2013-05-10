@@ -112,4 +112,7 @@ public interface ITDQRepositoryService extends IService {
 
     // Add zshen 2013-01-05
     public void refreshCurrentAnalysisAndConnectionEditor();
+
+    // Add qiongli 2013-05-10 TDQ-7217
+    public boolean isDQEditorOpened(Item item);
 }
