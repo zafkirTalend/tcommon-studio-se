@@ -1164,7 +1164,7 @@ public class RepositoryToComponentProperty {
             return true;
         }
 
-        if (value.equals("LOAD")) {
+        if (value.equals("LOAD") || value.equals("STORE")) {
             return "HBaseStorage";
         }
 
