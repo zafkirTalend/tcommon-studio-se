@@ -158,8 +158,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -819,7 +819,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Resource projectResource = xmiResourceManager.createProjectResource(prj);
         projectResource.getContents().add(project.getEmfProject());
         projectResource.getContents().add(project.getAuthor());
-        projectResource.getContents().add(project.getExchangeUser());
         xmiResourceManager.saveResource(projectResource);
     }
 
