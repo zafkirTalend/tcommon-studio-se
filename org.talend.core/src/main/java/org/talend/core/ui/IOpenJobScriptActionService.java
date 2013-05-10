@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.talend.core.IService;
+import org.talend.core.model.properties.Item;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -22,4 +26,6 @@ import org.talend.core.IService;
 public interface IOpenJobScriptActionService extends IService {
 
     public Action getOpenJobScriptAction(IWorkbenchWindow window);
+
+    public IFile createWorkspaceLink(IProject fsProject, Item item) throws CoreException;
 }
