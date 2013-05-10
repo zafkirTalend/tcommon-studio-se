@@ -284,10 +284,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         schemaName = schemas.getString(1);
                     }
                     hasSchema = true;
-                    // for hive2 db name is treat as schema
-                    String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
-                    if (iscdhhive2) {
-                        uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                    String uiSchemaOnConnWizard = null;
+                    if (dbConn != null) {
+                        uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                        // for hive2 db name is treat as schema
+                        if (iscdhhive2) {
+                            uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                        }
                     }
 
                     if ((!isEmptyString(uiSchemaOnConnWizard) || !isNullUiSchema(dbConn)) && dbConn != null) {
