@@ -145,6 +145,25 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                     jarsToRelativePath.put(name, relativePath);
                                     modified = true;
                                 } else {
+                                    // fix for TDI-25834 , in case the index.xml already stored some locations not exist
+                                    // in product , replace it with a new location
+                                    boolean jarFound = false;
+                                    String existedPath = jarsToRelativePath.get(name);
+                                    if (existedPath != null && existedPath.startsWith("platform:/")) {
+                                        try {
+                                            URI uri = new URI(existedPath);
+                                            URL url = FileLocator.toFileURL(uri.toURL());
+                                            File testFile = new File(url.getFile());
+                                            if (testFile.exists()) {
+                                                jarFound = true;
+                                            }
+                                        } catch (Exception e) {
+                                            // do nothing
+                                        }
+                                    }
+                                    if (!jarFound) {
+                                        jarsToRelativePath.put(name, relativePath);
+                                    }
                                     // System.out.println("duplicate jar " + name + " found\n in :" +
                                     // jarsToRelativePath.get(name)
                                     // + "\n and : " + relativePath);
@@ -514,10 +533,32 @@ public class LocalLibraryManager implements ILibraryManagerService {
         LibrariesIndex index = LibrariesIndexManager.getInstance().getIndex();
         EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
         for (ModuleNeeded module : modules) {
-            if (module.getModuleLocaion() != null && !"".equals(module.getModuleLocaion())) {
+            String moduleLocaion = module.getModuleLocaion();
+            if (moduleLocaion != null && !"".equals(moduleLocaion)) {
                 if (!jarsToRelativePath.keySet().contains(module.getModuleName())) {
-                    jarsToRelativePath.put(module.getModuleName(), module.getModuleLocaion());
+                    jarsToRelativePath.put(module.getModuleName(), moduleLocaion);
                     modified = true;
+                } else {
+                    boolean jarFound = false;
+                    String existePath = jarsToRelativePath.get(module.getModuleName());
+                    if (existePath != null && existePath.startsWith("platform:/")) {
+                        try {
+                            URI uri = new URI(existePath);
+                            URL url = FileLocator.toFileURL(uri.toURL());
+                            File file = new File(url.getFile());
+                            if (file.exists()) {
+                                jarFound = true;
+                            }
+                        } catch (Exception e) {
+                            // do nothing
+                        }
+                    }
+                    // in case the index.xml already stored some locations not exist in product , replace it with a new
+                    // location
+                    if (!jarFound) {
+                        jarsToRelativePath.put(module.getModuleName(), moduleLocaion);
+                        modified = true;
+                    }
                 }
             }
         }
