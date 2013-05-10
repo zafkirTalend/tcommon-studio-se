@@ -2041,7 +2041,7 @@ public class DatabaseForm extends AbstractForm {
 
                 if (!isContextMode()) {
                     getConnection().setDatabaseType(dbTypeCombo.getText());
-                    setPropertiesFormEditable(true);
+
                     EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
                     if (template != null) {
                         portText.setText(template.getDefaultPort());
@@ -2062,8 +2062,10 @@ public class DatabaseForm extends AbstractForm {
                     if (mapping == null) {
                         mapping = "mysql_id"; // default value //$NON-NLS-1$
                     }
-
                     getConnection().setDbmsId(mapping);
+
+                    setPropertiesFormEditable(true);
+
                     additionParamText.setText(EDatabaseConnTemplate.getAdditionProperty(dbTypeCombo.getText()));
                     if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.INFORMIX.getDBDisplayName())) {
                         datasourceText.setLabelText(Messages.getString("DatabaseForm.informixInstance")); //$NON-NLS-1$
