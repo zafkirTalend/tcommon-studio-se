@@ -123,4 +123,7 @@ public interface ITDQRepositoryService extends IService {
      * @return a hive connection or null
      */
     public Connection createHiveConnection(IMetadataConnection metadataConnection);
+
+    // Add qiongli 2013-05-10 TDQ-7217
+    public boolean isDQEditorOpened(Item item);
 }
