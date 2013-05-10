@@ -87,6 +87,9 @@ public abstract class CustomExternalActions extends SelectionAction {
     }
 
     protected boolean isMapReduceEditorActive() {
+        if (!GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
+            return false;
+        }
         IMRProcessService mrService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(IMRProcessService.class);
         if (mrService == null) {
             return false;
