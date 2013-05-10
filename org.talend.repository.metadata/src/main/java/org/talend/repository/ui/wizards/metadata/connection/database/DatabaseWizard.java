@@ -712,4 +712,21 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         }
     }
+
+    @Override
+    /**
+     * TDQ-7217 if the related connection editor is opened in DQ side,shoud not unlock.
+     */
+    public void closeLockStrategy() {
+        ITDQRepositoryService tdqRepService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+        }
+        if (tdqRepService != null) {
+            if (tdqRepService.isDQEditorOpened(connectionItem)) {
+                return;
+            }
+        }
+        super.closeLockStrategy();
+    }
 }
