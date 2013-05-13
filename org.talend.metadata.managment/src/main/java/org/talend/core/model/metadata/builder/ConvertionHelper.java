@@ -14,7 +14,6 @@ package org.talend.core.model.metadata.builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -72,7 +71,7 @@ public final class ConvertionHelper {
      */
     public static IMetadataConnection convert(Connection sourceConnection, boolean defaultContext) {
         // MOD 20130407 TDQ-7074 popup many times of context selection dialogs
-            return convert(sourceConnection, defaultContext, sourceConnection.getContextName());
+        return convert(sourceConnection, defaultContext, sourceConnection.getContextName());
         // ~
     }
 
@@ -212,6 +211,9 @@ public final class ConvertionHelper {
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
         result.setUiSchema(connection.getUiSchema());
+        if (result.getSchema() == null) {
+            result.setSchema(connection.getUiSchema());
+        }
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
         result.setAdditionalParams(connection.getAdditionalParams());
@@ -409,8 +411,7 @@ public final class ConvertionHelper {
         result.setListColumns(columns);
         Map<String, String> newProperties = result.getAdditionalProperties();
         EMap<String, String> oldProperties = old.getAdditionalProperties();
-        for (Iterator<Entry<String, String>> iterator = oldProperties.iterator(); iterator.hasNext();) {
-            Entry<String, String> entry = iterator.next();
+        for (Entry<String, String> entry : oldProperties) {
             newProperties.put(entry.getKey(), entry.getValue());
         }
 
