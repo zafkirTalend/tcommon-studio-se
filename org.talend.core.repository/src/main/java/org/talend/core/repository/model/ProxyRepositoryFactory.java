@@ -1247,6 +1247,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // no listener if from import, or it will be too slow.
             fireRepositoryPropertyChange(ERepositoryActionName.CREATE.getName(), null, item);
         }
+        if (isImportItem.length > 0 && item instanceof ProcessItem) {
+            fireRepositoryPropertyChange(ERepositoryActionName.IMPORT.getName(), null, item);
+        }
     }
 
     /*

@@ -20,6 +20,7 @@ public enum ERepositoryActionName {
     RESTORE("restore"), //$NON-NLS-1$
     MOVE("move"), //$NON-NLS-1$
     COPY("copy"), //$NON-NLS-1$
+    IMPORT("import"), //$NON-NLS-1$
 
     CREATE("create"), //$NON-NLS-1$
     SAVE("save"), //$NON-NLS-1$
