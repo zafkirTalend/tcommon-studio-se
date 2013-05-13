@@ -3,13 +3,9 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -61,13 +57,6 @@ public class ExtractMetaDataUtilsTest {
         java.sql.DatabaseMetaData databaseMetaData1 = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, mockDBConn, true);
         java.sql.DatabaseMetaData databaseMetaData2 = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, mockDBConn, false);
 
-        try {
-            verify(mockConn).getMetaData();
-            verify(mockDBConn, times(2)).getDatabaseType();
-            verify(mockDBConn, times(2)).getSID();
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
         if (!(databaseMetaData1 instanceof TeradataDataBaseMetadata && databaseMetaData2 instanceof DatabaseMetaData)) {
             fail();
         }
@@ -177,6 +166,7 @@ public class ExtractMetaDataUtilsTest {
         neededList.add(EDatabaseTypeName.IBMDB2ZOS);
         neededList.add(EDatabaseTypeName.TERADATA); // need isSqlMode
         neededList.add(EDatabaseTypeName.SAS);
+        neededList.add(EDatabaseTypeName.AS400);
         return neededList;
     }
 
@@ -613,8 +603,8 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testGetDBConnectionSchema() {
         DatabaseConnection conn = mock(DatabaseConnection.class);
-        when(conn.getUiSchema()).thenReturn("schemaTest");
-        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), "schemaTest");
+        when(conn.getUiSchema()).thenReturn("schemaTest"); //$NON-NLS-1$
+        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), "schemaTest"); //$NON-NLS-1$
     }
 
     @Test
