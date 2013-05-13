@@ -1312,20 +1312,6 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /*
      * (non-Javadoc)
      * 
-     * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName()
-     */
-    @Override
-    public String getName() {
-        if (super.getName() == null) {
-            return getLabel();
-        } else {
-            return super.getName();
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel()
      */
     @Override
