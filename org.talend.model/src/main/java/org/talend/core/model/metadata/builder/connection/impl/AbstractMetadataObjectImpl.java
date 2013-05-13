@@ -7,10 +7,10 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.HashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -22,24 +22,30 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getComment <em>Comment</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isSynchronised <em>Synchronised</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isDivergency <em>Divergency</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getProperties <em>
+ * Properties</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getComment <em>Comment
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel <em>Label</em>}
+ * </li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isReadOnly <em>Read Only
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isSynchronised <em>
+ * Synchronised</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isDivergency <em>
+ * Divergency</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implements AbstractMetadataObject {
 
     /**
-     * The default value of the '{@link #getProperties() <em>Properties</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getProperties() <em>Properties</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getProperties()
      * @generated
      * @ordered
@@ -57,8 +63,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected HashMap properties = (HashMap) PROPERTIES_EDEFAULT.clone();
 
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @see #getId()
      * @generated
@@ -67,8 +72,8 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final String ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getId()
      * @generated
      * @ordered
@@ -76,9 +81,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected String id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -86,9 +91,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final String COMMENT_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -96,9 +101,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected String comment = COMMENT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -106,9 +111,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -116,9 +121,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #isReadOnly()
      * @generated
      * @ordered
@@ -126,9 +131,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final boolean READ_ONLY_EDEFAULT = false;
 
     /**
-     * The default value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #isSynchronised()
      * @generated
      * @ordered
@@ -136,9 +141,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final boolean SYNCHRONISED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isSynchronised()
      * @generated
      * @ordered
@@ -146,9 +151,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected boolean synchronised = SYNCHRONISED_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isDivergency() <em>Divergency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isDivergency() <em>Divergency</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isDivergency()
      * @generated
      * @ordered
@@ -156,9 +161,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     protected static final boolean DIVERGENCY_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isDivergency() <em>Divergency</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isDivergency() <em>Divergency</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isDivergency()
      * @generated
      * @ordered
@@ -167,6 +172,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected AbstractMetadataObjectImpl() {
@@ -175,6 +181,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -184,6 +191,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public HashMap getProperties() {
@@ -192,18 +200,21 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProperties(HashMap newProperties) {
         HashMap oldProperties = properties;
         properties = newProperties;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES,
                     oldProperties, properties));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getId() {
@@ -212,17 +223,20 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setId(String newId) {
         String oldId = id;
         id = newId;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID, oldId, id));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getComment() {
@@ -231,38 +245,48 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setComment(String newComment) {
         String oldComment = comment;
         comment = newComment;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT,
                     oldComment, comment));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT
      */
     public String getLabel() {
-        return label;
+        if (StringUtils.isEmpty(this.label)) {
+            return getName();
+        }
+        return this.label;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT
      */
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
-        if (eNotificationRequired())
+        setLabel(newLabel);
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel,
                     label));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isReadOnly() {
@@ -273,6 +297,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setReadOnly(boolean newReadOnly) {
@@ -282,8 +307,8 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isSynchronised() {
@@ -291,21 +316,22 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setSynchronised(boolean newSynchronised) {
         boolean oldSynchronised = synchronised;
         synchronised = newSynchronised;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED,
                     oldSynchronised, synchronised));
+        }
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isDivergency() {
@@ -313,20 +339,22 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDivergency(boolean newDivergency) {
         boolean oldDivergency = divergency;
         divergency = newDivergency;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY,
                     oldDivergency, divergency));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -352,6 +380,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -384,6 +413,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -416,6 +446,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -441,12 +472,14 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
+        if (eIsProxy()) {
             return super.toString();
+        }
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (properties: ");
