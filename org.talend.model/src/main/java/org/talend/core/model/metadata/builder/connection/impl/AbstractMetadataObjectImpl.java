@@ -7,6 +7,7 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.HashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -259,10 +260,13 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated
+     * @generated NOT
      */
     public String getLabel() {
-        return label;
+        if (StringUtils.isEmpty(this.label)) {
+            return getName();
+        }
+        return this.label;
     }
 
     /**
