@@ -67,15 +67,10 @@ public class DeleteNodeAction extends SelectionProviderAction {
                 disconnectSubTree(node);
             }
             parent.removeChild(node);
-
-            if (node.isLoop() || node.isGroup()) {
-                form.updateStatus();
-            }
-
             xmlViewer.refresh(parent);
         }
-        xmlViewer.expandAll();
         form.updateConnection();
+        form.updateStatus();
         form.redrawLinkers();
 
     }

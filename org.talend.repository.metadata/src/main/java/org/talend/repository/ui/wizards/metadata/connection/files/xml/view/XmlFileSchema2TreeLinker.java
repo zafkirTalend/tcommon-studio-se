@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.view;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -37,9 +35,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.drawing.link.ExtremityLink;
 import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 import org.talend.commons.ui.swt.drawing.link.IStyleLink;
@@ -49,7 +44,6 @@ import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.swt.linking.TableToTreeLinker;
 import org.talend.commons.ui.utils.TableUtils;
-import org.talend.commons.ui.utils.TreeUtils;
 import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlExtractorBgRefresher;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -116,6 +110,7 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
         selectedRelativeLinkColor = new Color(display, 110, 168, 0);
         getSource().addDisposeListener(new DisposeListener() {
 
+            @Override
             public void widgetDisposed(DisposeEvent e) {
                 selectedLoopLinkColor.dispose();
                 selectedRelativeLinkColor.dispose();
@@ -149,67 +144,41 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
     }
 
     public void createLinks() {
-
+        Map<String, TableItem> nameToTableItem = new HashMap<String, TableItem>();
+        for (TableItem curTableItem : getSource().getItems()) {
+            nameToTableItem.put(curTableItem.getText(), curTableItem);
+        }
         removeAllLinks();
         getBackgroundRefresher().refreshBackground();
+        List<FOXTreeNode> treeData = form.getTreeData();
+        createLoopLinks(treeData, nameToTableItem);
+        getBackgroundRefresher().refreshBackground();
+    }
 
-        ProgressDialog progressDialog = new ProgressDialog(getSource().getShell(), 1000) {
-
-            private IProgressMonitor monitorWrap;
-
-            @Override
-            public void run(IProgressMonitor monitor) {
-
-                TreeItem root = xmlViewer.getTree().getItem(0);
-                // if (getManager().getFoxComponent().istFileOutputMSXML()) {
-                // List<FOXTreeNode> treeData = getManager().getTreeData(getManager().getCurrentSchema());
-                // if (treeData != null && treeData.size() > 0) {
-                // FOXTreeNode rootTreeData = treeData.get(0);
-                // for (TreeItem item : xmlViewer.getTree().getItems()) {
-                // if (rootTreeData == item.getData()) {
-                // root = item;
-                // break;
-                // }
-                // }
-                // }
-                // }
-                List<TreeItem> allItems = TreeUtils.collectAllItems(root);
-                monitorWrap = new EventLoopProgressMonitor(monitor);
-
-                String taskName = "Loop links creation ...";
-                int totalWork = allItems.size();
-
-                monitorWrap.beginTask(taskName, totalWork); //$NON-NLS-1$
-
-                for (int i = 0; i < totalWork; i++) {
-
-                    if (monitorWrap.isCanceled()) {
-                        return;
-                    }
-
-                    TreeItem treeItem = allItems.get(i);
-                    FOXTreeNode node = (FOXTreeNode) treeItem.getData();
-                    if (node.getColumn() == null) { //$NON-NLS-1$
-                        continue;
-                    }
-                    createLoopLinks(node.getColumn().getLabel(), treeItem, monitorWrap, i == totalWork - 1);
-
-                    monitorWrap.worked(1);
+    private void createLoopLinks(List<FOXTreeNode> treeData, Map<String, TableItem> nameToTableItem) {
+        for (FOXTreeNode treeNode : treeData) {
+            if (treeNode.getColumn() != null) {
+                TableItem tableItem = nameToTableItem.get(treeNode.getColumnLabel());
+                if (tableItem == null) {
+                    continue;
                 }
-
-                monitorWrap.done();
+                String path = tableItem.getText();
+                if (path != null) {
+                    addLoopLink(tableItem, tableItem.getData(), xmlViewer.getTree(), treeNode);
+                }
             }
-        };
-
-        try {
-            progressDialog.executeProcess();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            ExceptionHandler.process(e);
-        } catch (InterruptedException e) {
-            ExceptionHandler.process(e);
+            createLoopLinks(treeNode.getChildren(), nameToTableItem);
         }
+    }
 
+    public String getAbsoluteXPath(FOXTreeNode foxTreeNode) {
+        FOXTreeNode item = foxTreeNode;
+        String path = "";
+        while (item != null) {
+            path = "/" + item.getLabelForViewer() + path;
+            item = item.getParent();
+        }
+        return path;
     }
 
     public void removeAllLinks() {
@@ -226,19 +195,6 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
 
     public int linkSize() {
         return this.getLinksManager().getLinks().size();
-    }
-
-    private void createLoopLinks(String xPathExpression, TreeItem tableItemTarget, IProgressMonitor monitorWrap, boolean lastOne) {
-
-        if (monitorWrap != null && monitorWrap.isCanceled()) {
-            return;
-        }
-
-        TableItem treeItemFromAbsoluteXPath = getItem(xPathExpression);
-        if (treeItemFromAbsoluteXPath != null) {
-            addLoopLink(treeItemFromAbsoluteXPath, (Object) treeItemFromAbsoluteXPath.getData(), tableItemTarget.getParent(),
-                    (FOXTreeNode) tableItemTarget.getData(), lastOne);
-        }
     }
 
     private TableItem getItem(String path) {
@@ -259,23 +215,44 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
     }
 
     public LinkDescriptor<Item, Object, Tree, Object> addLoopLink(Item tableItem, Object dataItem1, Tree tree,
-            FOXTreeNode dataItem2, boolean lastOne) {
-        return addLink(tableItem, dataItem1, tree, dataItem2, lastOne);
+            FOXTreeNode dataItem2) {
+        return addLink(tableItem, dataItem1, tree, dataItem2);
     }
 
-    private LinkDescriptor<Item, Object, Tree, Object> addLink(Item tableItem, Object dataItem1, Tree tree, Object dataItem2,
-            boolean lastOne) {
+    private LinkDescriptor<Item, Object, Tree, Object> addLink(Item tableItem, Object dataItem1, Tree tree, Object dataItem2) {
         LinkDescriptor<Item, Object, Tree, Object> link = new LinkDescriptor<Item, Object, Tree, Object>(
                 new ItemExtremityDescriptor(tableItem, dataItem1), new ExtremityLink<Tree, Object>(tree, dataItem2));
 
         link.setStyleLink(getUnselectedStyleLink());
         getLinksManager().addLink(link);
-        updateLinksStyleAndControlsSelection(tree, lastOne);
+        updateLinksStyleAndControlsSelection(tree);
         return link;
     }
 
-    public void updateLinksStyleAndControlsSelection(Control currentControl, boolean lastOne) {
-        // super.updateLinksStyleAndControlsSelection(currentControl);
+    public TreeItem getFirstVisibleTreeItemOfPath(FOXTreeNode foxTreeNode) {
+        String path = getAbsoluteXPath(foxTreeNode);
+
+        TreeItem[] items = xmlViewer.getTree().getItems();
+        TreeItem item = null;
+        while (!path.isEmpty()) {
+            for (TreeItem curItem : items) {
+                if (path.startsWith("/" + curItem.getText())) {
+                    item = curItem;
+                    path = path.replaceFirst("/" + curItem.getText(), "");
+                    break;
+                }
+            }
+            if (!path.isEmpty()) {
+                if (!item.getExpanded()) {
+                    return item;
+                }
+                items = item.getItems();
+            }
+        }
+        return item;
+    }
+
+    public void updateLinksStyleAndControlsSelection(Control currentControl) {
         boolean isTarget = false;
         if (getSource() != currentControl) {
             isTarget = true;
@@ -290,14 +267,12 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
             getTarget().deselectAll();
 
             TreeItem[] selection = getTarget().getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TreeItem tableItem = selection[i];
+            for (TreeItem tableItem : selection) {
                 selectedItems.add(tableItem.getData());
             }
         } else {
             TableItem[] selection = getSource().getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TableItem treeItem = selection[i];
+            for (TableItem treeItem : selection) {
                 selectedItems.add(treeItem.getData());
             }
         }
@@ -325,7 +300,7 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
                     styleLink = getSelectedStyleLink();
                     if (isTarget) {
 
-                        itemsToSelect.put((TableItem) otherExtremity.getGraphicalObject(), null);
+                        itemsToSelect.put(otherExtremity.getGraphicalObject(), null);
 
                     } else {
 
@@ -357,7 +332,7 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
                 for (Table table : set) {
                     ArrayList<TableItem> tableItemsToSelect = (ArrayList<TableItem>) itemsToSelect.get(table);
                     table.deselectAll();
-                    TableItem[] tableItems = (TableItem[]) tableItemsToSelect.toArray(new TableItem[0]);
+                    TableItem[] tableItems = tableItemsToSelect.toArray(new TableItem[0]);
                     table.setSelection(tableItems);
                 }
             } else {
@@ -365,10 +340,6 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
             }
         }
         getLinksManager().sortLinks(getDrawingLinksComparator());
-        // for bug 9279
-        if (lastOne) {
-            getBackgroundRefresher().refreshBackground();
-        }
     }
 
     public StyleLink getSelectedLoopStyleLink() {
@@ -383,6 +354,7 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
         if (this.drawingLinksComparator == null) {
             this.drawingLinksComparator = new Comparator<LinkDescriptor<Item, Object, Tree, Object>>() {
 
+                @Override
                 public int compare(LinkDescriptor<Item, Object, Tree, Object> link1,
                         LinkDescriptor<Item, Object, Tree, Object> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
@@ -406,4 +378,15 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
         }
         return this.drawingLinksComparator;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.linking.TableToTreeLinker#getFirstVisibleTreeItemOfPath(java.lang.Object)
+     */
+    @Override
+    protected TreeItem getFirstVisibleTreeItemOfPath(Object dataItem) {
+        return getFirstVisibleTreeItemOfPath((FOXTreeNode) dataItem);
+    }
+
 }

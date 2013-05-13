@@ -36,6 +36,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -162,15 +163,13 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
     @Override
     protected void initialize() {
         getConnection().setInputModel(true);
-        this.treePopulator = new TreePopulator(availableXmlTree);
+        TreeViewer treeViewer = new TreeViewer(availableXmlTree);
+        treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
+        treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
+        treeViewer.setUseHashlookup(true);
 
-        // add init of CheckBoxIsGuess and Determine the Initialize checkFileXsdorXml
-        // if (getConnection().getXsdFilePath() != null) {
-        // fileFieldXsd.setText(getConnection().getXsdFilePath().replace("\\\\", "\\"));
-        // // init the fileViewer
-        // this.treePopulator.populateTree(fileFieldXsd.getText(), treeNode);
-        // checkFieldsValue();
-        // }
+        this.treePopulator = new TreePopulator(treeViewer);
+
         if (getConnection().getXmlFilePath() != null) {
             fileFieldXml.setText(getConnection().getXmlFilePath().replace("\\\\", "\\")); //$NON-NLS-1$ //$NON-NLS-2$
             // init the fileViewer
@@ -309,7 +308,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         // labelIsGuess.setText(Messages.getString("XmlFileStep1.checkBoxIsGuess"));
 
         // file Field XML
-        String[] xmlExtensions = { "*.xml;*.xsd", "*.*", "*" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        String[] xmlExtensions = { "*.xml;*.xsd", "*.*", "*" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
         fileFieldXml = new LabelledFileField(compositeFileLocation, Messages.getString("XmlFileStep1.filepathXml"), //$NON-NLS-1$
                 xmlExtensions);
 
@@ -334,6 +333,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
         commonNodesLimitation.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
 
                 String str = commonNodesLimitation.getText();
@@ -357,10 +357,12 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
         commonNodesLimitation.addFocusListener(new FocusListener() {
 
+            @Override
             public void focusGained(FocusEvent e) {
 
             }
 
+            @Override
             public void focusLost(FocusEvent e) {
                 commonNodesLimitation.setText(String.valueOf(TreePopulator.getLimit()));
             }
@@ -378,7 +380,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         gridData.minimumWidth = WIDTH_GRIDDATA_PIXEL;
         // gridData.minimumHeight = 150;
 
-        availableXmlTree = new Tree(compositeFileViewer, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        availableXmlTree = new Tree(compositeFileViewer, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.VIRTUAL);
         availableXmlTree.setLayoutData(gridData);
 
         if (!isInWizard()) {
@@ -427,6 +429,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
         fileFieldXml.addSelectionListener(new SelectionListener() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 if (fileFieldXml.getResult() == null) {
                     return;
@@ -473,8 +476,9 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                             if (nodeList.size() > 0) {
                                 FOXTreeNode foxTreeNode = nodeList.get(0);
                                 EList root = getConnection().getRoot();
-                                if (root == null)
+                                if (root == null) {
                                     return;
+                                }
                                 XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
                                 String currentPath = "/" + foxTreeNode.getLabel();
                                 xmlFileNode.setXMLPath(currentPath);
@@ -504,6 +508,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
             }
 
+            @Override
             public void widgetDefaultSelected(SelectionEvent e) {
 
             }
@@ -512,6 +517,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         // fileFieldXml : Event modifyText
         fileFieldXml.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 String text = fileFieldXml.getText();
                 if (isContextMode()) {
@@ -561,7 +567,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
                 // if (getConnection().getFileContent() == null || getConnection().getFileContent().length <= 0 &&
                 // !isModifing) {
-                if (!XmlUtil.isXMLFile(file.getPath())) { //$NON-NLS-1$
+                if (!XmlUtil.isXMLFile(file.getPath())) {
                     setFileContent(file);
                 }
                 // }
@@ -639,6 +645,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         // Event encodingCombo
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setEncoding(encodingCombo.getText());
                 checkFieldsValue();
@@ -715,7 +722,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                         ILibrariesService.class);
                 try {
                     ELibraryInstallStatus status = moduleService.getLibraryStatus("XML::LibXML"); //$NON-NLS-1$
-                    if (status != ELibraryInstallStatus.INSTALLED) { //$NON-NLS-1$
+                    if (status != ELibraryInstallStatus.INSTALLED) {
                         new ErrorDialogWidthDetailArea(
                                 getShell(),
                                 PID,
@@ -767,9 +774,9 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         }
         String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp"; //$NON-NLS-1$
         String fileName = ""; //$NON-NLS-1$
-        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) {
             fileName = StringUtil.TMP_XML_FILE;
-        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) {
             fileName = StringUtil.TMP_XSD_FILE;
         }
         File temfile = new File(temPath + File.separator + fileName);

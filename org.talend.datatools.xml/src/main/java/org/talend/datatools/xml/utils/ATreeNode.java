@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 /**
  * The instance of this class is used as tree node of the xml schema tree that is passed to gui.
  */
@@ -79,10 +78,11 @@ public class ATreeNode {
 
     private static String getDataType(String type) throws OdaException {
         Object result = xmlTypeToDataType.get(type);
-        if (result == null)
+        if (result == null) {
             return type;
-        else
+        } else {
             return result.toString();
+        }
 
     }
 
@@ -156,9 +156,9 @@ public class ATreeNode {
      * @param children
      */
     public void addChild(Object[] children) {
-        for (int i = 0; i < children.length; i++) {
-            this.children.add(children[i]);
-            ((ATreeNode) children[i]).setNodeParent(this);
+        for (Object element : children) {
+            this.children.add(element);
+            ((ATreeNode) element).setNodeParent(this);
         }
     }
 
@@ -191,6 +191,7 @@ public class ATreeNode {
     /*
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString() {
         return value.toString();
     }
@@ -254,35 +255,54 @@ public class ATreeNode {
         result = prime * result + ((this.originalDataType == null) ? 0 : this.originalDataType.hashCode());
         result = prime * result + this.type;
         result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());
+        // if (this.children != null) {
+        // for (Object node : this.children) {
+        // result = prime * result + this.type;
+        // }
+        // }
+        // result = prime * result + ((this.children == null) ? 0 : this.children.);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ATreeNode other = (ATreeNode) obj;
         if (this.dataType == null) {
-            if (other.dataType != null)
+            if (other.dataType != null) {
                 return false;
-        } else if (!this.dataType.equals(other.dataType))
+            }
+        } else if (!this.dataType.equals(other.dataType)) {
             return false;
+        }
         if (this.originalDataType == null) {
-            if (other.originalDataType != null)
+            if (other.originalDataType != null) {
                 return false;
-        } else if (!this.originalDataType.equals(other.originalDataType))
+            }
+        } else if (!this.originalDataType.equals(other.originalDataType)) {
             return false;
-        if (this.type != other.type)
+        }
+        if (this.type != other.type) {
             return false;
+        }
         if (this.value == null) {
-            if (other.value != null)
+            if (other.value != null) {
                 return false;
-        } else if (!this.value.equals(other.value))
+            }
+        } else if (!this.value.equals(other.value)) {
             return false;
+        }
+        if (!this.children.equals(other.children)) {
+            return false;
+        }
         return true;
     }
 

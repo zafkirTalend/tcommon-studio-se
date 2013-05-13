@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -55,7 +56,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
-import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -199,6 +199,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
@@ -217,6 +218,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -225,6 +227,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -341,7 +344,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                 .getXmlFilePath()) || XmlUtil.isXSDFile(tempXmlFilePath)) {
             // no preview for XSD file
 
-            refreshMetaDataTable(null, ((XmlXPathLoopDescriptor) connection2.getSchema().get(0)).getSchemaTargets(), flag);
+            refreshMetaDataTable(null, connection2.getSchema().get(0).getSchemaTargets(), flag);
             checkFieldsValue();
             return;
         }
@@ -354,7 +357,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                 informationLabel.setText("   " + Messages.getString("FileStep3.guessFailure")); //$NON-NLS-1$ //$NON-NLS-2$
 
             } else {
-                refreshMetaDataTable(csvArray, ((XmlXPathLoopDescriptor) connection2.getSchema().get(0)).getSchemaTargets(), flag);
+                refreshMetaDataTable(csvArray, connection2.getSchema().get(0).getSchemaTargets(), flag);
             }
 
         } catch (CoreException e) {
@@ -372,7 +375,12 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
     private void prepareColumnsFromXSD(String file, List<MetadataColumn> columns, List<SchemaTarget> schemaTarget) {
         Composite composite = Form.startNewGridLayout(this, 2, false, SWT.CENTER, SWT.CENTER);
         composite.setVisible(false);
-        TreePopulator treePopulator = new TreePopulator(new Tree(composite, SWT.None));
+        TreeViewer treeViewer = new TreeViewer(new Tree(composite, SWT.VIRTUAL));
+        treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
+        treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
+        treeViewer.setUseHashlookup(true);
+
+        TreePopulator treePopulator = new TreePopulator(treeViewer);
 
         XSDSchema xsdSchema = null;
         ATreeNode treeRootNode = null;
@@ -392,8 +400,9 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             xsdSchema = updateXSDSchema(file);
             treeRootNode = wizard.getTreeRootNode();
         }
-        if (treeRootNode == null)
+        if (treeRootNode == null) {
             return;
+        }
         treePopulator.populateTree(xsdSchema, treeRootNode, null);
 
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
@@ -485,7 +494,7 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
             // the first rows is used to define the label of any metadata
             String[] label = new String[numberOfCol];
             for (int i = 0; i < numberOfCol; i++) {
-                label[i] = DEFAULT_LABEL + i; //$NON-NLS-1$
+                label[i] = DEFAULT_LABEL + i;
 
                 if (firstRowToExtractMetadata == 0) {
                     if (schemaTarget.get(i).getTagName() != null && !schemaTarget.get(i).getTagName().equals("")) { //$NON-NLS-1$

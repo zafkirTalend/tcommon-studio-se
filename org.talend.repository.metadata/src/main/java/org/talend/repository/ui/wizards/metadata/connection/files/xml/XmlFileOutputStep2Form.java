@@ -14,7 +14,6 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
@@ -49,7 +48,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
@@ -200,43 +198,19 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         }
     }
 
-    private void initLinker(TreeItem node, TableItem[] tableItems) {
-        FOXTreeNode treeNode = (FOXTreeNode) node.getData();
-        IMetadataColumn column = treeNode.getColumn();
-        Properties prop = System.getProperties();
-        String os = prop.getProperty("os.name");
-        boolean isLastOne = false;
-        if (column != null) {
-            for (int i = 0; i < tableItems.length; i++) {
-                MetadataColumn metadataColumn = (MetadataColumn) tableItems[i].getData();
-                if (metadataColumn.getLabel().equals(column.getLabel())) {
-                    // TDI-19250: if in linux,just need to refresh one time when addLoopLink,should not set
-                    // "isLastOne" directly to false
-                    if (os.startsWith("Linux")) {
-                        isLastOne = true;
-                    }
-                    linker.addLoopLink(tableItems[i], tableItems[i].getData(), xmlViewer.getTree(), treeNode, isLastOne);
-                    break;
-                }
-            }
-        }
-        TreeItem[] children = node.getItems();
-        for (int i = 0; i < children.length; i++) {
-            initLinker(children[i], tableItems);
-        }
-    }
-
+    @Override
     public void redrawLinkers() {
         int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
                 .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
         if (schemaViewer.getTable().getItems().length <= maxColumnsNumber + 1) {
-            linker.removeAllLinks();
-            TreeItem root = xmlViewer.getTree().getItem(0);
-            TableItem[] tableItems = schemaViewer.getTable().getItems();
-            initLinker(root, tableItems);
-            // if (linker.linkSize() == 0) {
-            linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
-            // }
+            // linker.removeAllLinks();
+            // TreeItem root = xmlViewer.getTree().getItem(0);
+            // TableItem[] tableItems = schemaViewer.getTable().getItems();
+            // initLinker(root, tableItems);
+            // // if (linker.linkSize() == 0) {
+            // linker.updateLinksStyleAndControlsSelection(xmlViewer.getTree(), true);
+            // // }
+            linker.createLinks();
         }
     }
 
@@ -287,6 +261,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
         xmlViewer.setCellModifier(new ICellModifier() {
 
+            @Override
             public void modify(Object element, String property, Object value) {
                 TreeItem treeItem = (TreeItem) element;
                 FOXTreeNode node = (FOXTreeNode) treeItem.getData();
@@ -299,6 +274,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 xmlViewer.refresh(node);
             }
 
+            @Override
             public Object getValue(Object element, String property) {
                 FOXTreeNode node = (FOXTreeNode) element;
                 if (property.equals("C1")) { //$NON-NLS-1$
@@ -311,6 +287,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 return null;
             }
 
+            @Override
             public boolean canModify(Object element, String property) {
                 FOXTreeNode node = (FOXTreeNode) element;
                 if (property.equals("C1")) {
@@ -345,6 +322,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
 
+            @Override
             public void menuAboutToShow(IMenuManager manager) {
                 fillContextMenu(manager);
             }
@@ -353,6 +331,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         xmlViewer.getControl().setMenu(menu);
         xmlViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
 
             }
@@ -363,8 +342,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     private void displayRootCombo(boolean visible) {
-        if (rootCombo == null)
+        if (rootCombo == null) {
             return;
+        }
         rootCombo.setVisible(visible);
         GridData layoutData = (GridData) rootCombo.getLayoutData();
         layoutData.exclude = !visible;
@@ -446,6 +426,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     protected void addFieldsListeners() {
         rootComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 ATreeNode node = (ATreeNode) selection.getFirstElement();
@@ -463,7 +444,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 initXmlTreeData();
                 initSchemaTable();
                 xmlViewer.setInput(treeData);
-                xmlViewer.expandAll();
+                xmlViewer.expandToLevel(3);
                 redrawLinkers();
                 if (!creation) {
                     checkFieldsValue();
@@ -549,13 +530,21 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             msgError.append("No source and target linked");
         }
         if ("".equals(msgError.toString())) {
+            if (this.order > 5000) { // order here is in fact the number of element
+                updateStatus(IStatus.WARNING,
+                        "The number of elements seems too important, please reduce the size of the tree.\nActually there is: "
+                                + this.order + 1 + "elements.");
+                return true;
+            }
             updateStatus(IStatus.OK, null);
             return true;
         }
+
         updateStatus(IStatus.ERROR, msgError.toString());
         return false;
     }
 
+    @Override
     public void updateStatus() {
         checkFieldsValue();
     }
@@ -605,8 +594,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 parent = tmpParent;
             }
 
-            if (parent != null)
+            if (parent != null) {
                 parent.addChild(temp);
+            }
         }
 
         return temp;
@@ -624,6 +614,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
     }
 
     private void initXmlTreeData() {
+        // This function initialize the FOXTreeNode from the emf model.
+
         treeData.clear();
         // metadataColumnList.clear();
         EList root = getConnection().getRoot();
@@ -682,6 +674,9 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             }
             if (haveOrder) {
                 temp.setOrder(nodeOrder);
+                if (this.order < nodeOrder) {
+                    this.order = nodeOrder;
+                }
             }
             String columnName = node.getRelatedColumn();
             if (columnName != null && columnName.length() > 0) {
@@ -807,17 +802,23 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             orderNode(rootNode);
         }
         treeData.add(rootNode);
+        initNodeOrder(rootNode);
     }
 
+    @Override
     public MetadataTable getMetadataTable() {
         return ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0];
     }
 
+    @Override
     public TableViewer getSchemaViewer() {
         return this.schemaViewer;
     }
 
+    @Override
     public void updateConnection() {
+        // This function initialize the emf model from the data available in the FOXTreeNode elements
+
         ConnectionHelper.getTables(getConnection());
         EList root = getConnection().getRoot();
         EList loop = getConnection().getLoop();
@@ -897,10 +898,12 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     }
 
+    @Override
     public void setSelectedText(String label) {
         selectedText = label;
     }
 
+    @Override
     public List<FOXTreeNode> getTreeData() {
         return treeData;
     }
@@ -949,7 +952,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                 initRootCombo();
             }
             xmlViewer.setInput(treeData);
-            xmlViewer.expandAll();
+            xmlViewer.expandToLevel(3);
             redrawLinkers();
             // if (!creation) {
             checkFieldsValue();
@@ -972,14 +975,17 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
         Boolean validateLabel;
 
+        @Override
         public void applyEditorValue() {
             String text = getControl().getText();
             onValueChanged(text, true, property);
         }
 
+        @Override
         public void cancelEditor() {
         }
 
+        @Override
         public void editorValueChanged(boolean oldValidState, boolean newValidState) {
             onValueChanged(getControl().getText(), false, property);
         }

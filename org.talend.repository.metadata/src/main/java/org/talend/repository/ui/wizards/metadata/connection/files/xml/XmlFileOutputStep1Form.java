@@ -37,6 +37,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
@@ -136,7 +137,12 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     @Override
     protected void initialize() {
         getConnection().setInputModel(false);
-        this.treePopulator = new TreePopulator(availableXmlTree);
+        TreeViewer treeViewer = new TreeViewer(availableXmlTree);
+        treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
+        treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
+        treeViewer.setUseHashlookup(true);
+
+        this.treePopulator = new TreePopulator(treeViewer);
         if (getConnection().getXmlFilePath() != null) {
             xmlXsdFilePath.setText(getConnection().getXmlFilePath().replace("\\\\", "\\"));
             checkFieldsValue();
@@ -261,7 +267,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
         GridData gridData = new GridData(GridData.FILL_BOTH);
 
-        availableXmlTree = new Tree(compositeFileViewer, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        availableXmlTree = new Tree(compositeFileViewer, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.VIRTUAL);
         availableXmlTree.setLayoutData(gridData);
     }
 

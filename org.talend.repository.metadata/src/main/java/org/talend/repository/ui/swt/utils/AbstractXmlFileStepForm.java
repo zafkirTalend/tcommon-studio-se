@@ -17,7 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,8 +68,6 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
     protected XmlFileConnection connection;
 
     protected int order = 1;
-
-    protected Map<String, Integer> orderMap = new HashMap<String, Integer>();
 
     protected boolean xsdPathChanged = false;
 
@@ -178,28 +175,16 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         FOXTreeNode parent = node.getParent();
         if (parent == null) {
             node.setOrder(1);
-            String path = TreeUtil.getPath(node);
-            orderMap.put(path, order);
-            order++;
+            order = 1;
         }
         List<FOXTreeNode> childNode = node.getChildren();
         for (FOXTreeNode child : childNode) {
             child.setOrder(order);
-            String path = TreeUtil.getPath(child);
-            orderMap.put(path, order);
             order++;
             if (child.getChildren().size() > 0) {
                 initNodeOrder(child);
             }
         }
-    }
-
-    protected int getNodeOrder(FOXTreeNode node) {
-        if (node != null) {
-            String path = TreeUtil.getPath(node);
-            return orderMap.get(path);
-        }
-        return 0;
     }
 
     protected void tableLoader(Element element, String parentPath, List<XMLFileNode> table, String defaultValue) {
@@ -210,7 +195,7 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         xmlFileNode.setAttribute(element.isMain() ? "main" : "branch");
         xmlFileNode.setDefaultValue(defaultValue);
         xmlFileNode.setType(element.getDataType());
-        xmlFileNode.setOrder(getNodeOrder(element));
+        xmlFileNode.setOrder(element.getOrder());
         table.add(xmlFileNode);
         for (FOXTreeNode att : element.getAttributeChildren()) {
             xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
@@ -219,7 +204,7 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             xmlFileNode.setAttribute("attri");
             xmlFileNode.setDefaultValue(att.getDefaultValue());
             xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
+            xmlFileNode.setOrder(att.getOrder());
             table.add(xmlFileNode);
         }
         for (FOXTreeNode att : element.getNameSpaceChildren()) {
@@ -229,7 +214,7 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
             xmlFileNode.setAttribute("ns");
             xmlFileNode.setDefaultValue(att.getDefaultValue());
             xmlFileNode.setType(att.getDataType());
-            xmlFileNode.setOrder(getNodeOrder(att));
+            xmlFileNode.setOrder(att.getOrder());
             table.add(xmlFileNode);
         }
         List<FOXTreeNode> children = element.getElementChildren();
@@ -393,9 +378,9 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         }
         String temPath = fsProject.getLocationURI().getPath() + File.separator + "temp"; //$NON-NLS-1$
         String fileName = ""; //$NON-NLS-1$
-        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+        if (getConnection().getXmlFilePath() != null && XmlUtil.isXMLFile(getConnection().getXmlFilePath())) {
             fileName = StringUtil.TMP_XML_FILE;
-        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) { //$NON-NLS-1$
+        } else if (getConnection().getXmlFilePath() != null && XmlUtil.isXSDFile(getConnection().getXmlFilePath())) {
             fileName = StringUtil.TMP_XSD_FILE;
         }
         File temfile = new File(temPath + File.separator + fileName);
@@ -454,26 +439,33 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
         return null;
     }
 
+    @Override
     public void redrawLinkers() {
     }
 
+    @Override
     public void updateConnection() {
     }
 
+    @Override
     public void updateStatus() {
     }
 
+    @Override
     public List<FOXTreeNode> getTreeData() {
         return null;
     }
 
+    @Override
     public void setSelectedText(String label) {
     }
 
+    @Override
     public MetadataTable getMetadataTable() {
         return null;
     }
 
+    @Override
     public TableViewer getSchemaViewer() {
         return null;
     }

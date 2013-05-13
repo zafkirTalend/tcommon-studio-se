@@ -69,12 +69,14 @@ public class XSDPopulationUtil2 {
 
     private boolean supportSubstitution = false;
 
+    private Map<XSDElementDeclaration, ATreeNode> particleToTreeNode = new HashMap<XSDElementDeclaration, ATreeNode>();
+
     ResourceSet resourceSet = new ResourceSetImpl();
 
     public XSDPopulationUtil2() {
     }
 
-   public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
+    public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
         return getXSDSchema(fileName, false);
     }
 
@@ -115,7 +117,6 @@ public class XSDPopulationUtil2 {
         }
         return xsdSchema;
     }
-
 
     public void addSchema(String fileName) throws IOException {
         resourceSet.getResource(URI.createFileURI(fileName), true);
@@ -197,7 +198,7 @@ public class XSDPopulationUtil2 {
             if (resource instanceof XSDResourceImpl) {
                 XSDResourceImpl xsdResource = (XSDResourceImpl) resource;
                 XSDSchema schema = xsdResource.getSchema();
-                if (schema.getTargetNamespace().equals(namespace)) {
+                if (schema.getTargetNamespace() != null && schema.getTargetNamespace().equals(namespace)) {
                     return schema;
                 }
             }
@@ -210,7 +211,21 @@ public class XSDPopulationUtil2 {
         XSDTerm xsdTerm = xsdParticle.getTerm();
         if (xsdTerm instanceof XSDElementDeclaration) {
             XSDElementDeclaration xsdElementDeclarationParticle = (XSDElementDeclaration) xsdTerm;
+            if (particleToTreeNode.containsKey(xsdElementDeclarationParticle)) {
+                ATreeNode originalTreeNode = particleToTreeNode.get(xsdElementDeclarationParticle);
+                // create a duplicate from this one with the same childs and just return.
+                // this will avoid to recheck the same thing again
+                ATreeNode partNode = new ATreeNode();
+                partNode.setCurrentNamespace(originalTreeNode.getCurrentNamespace());
+                partNode.setValue(originalTreeNode.getValue());
+                partNode.setType(ATreeNode.ELEMENT_TYPE);
+                partNode.setDataType(originalTreeNode.getDataType());
+                partNode.addChild(originalTreeNode.getChildren());
+                parentNode.addChild(partNode);
+                return;
+            }
             ATreeNode partNode = new ATreeNode();
+            particleToTreeNode.put(xsdElementDeclarationParticle, partNode);
             String elementName = xsdElementDeclarationParticle.getName();
             String prefix = null;
             String namespace = xsdElementDeclarationParticle.getTargetNamespace();
@@ -322,8 +337,8 @@ public class XSDPopulationUtil2 {
             XSDModelGroup xsdModelGroup = (XSDModelGroup) xsdTerm;
             ATreeNode node = addChoiceDetails(parentNode, xsdModelGroup);
             handleOptionalAttribute(node, xsdParticle);
-            for (Iterator j = xsdModelGroup.getParticles().iterator(); j.hasNext();) {
-                XSDParticle childParticle = (XSDParticle) j.next();
+            for (Object element : xsdModelGroup.getParticles()) {
+                XSDParticle childParticle = (XSDParticle) element;
                 addParticleDetail(xsdSchema, childParticle, node, currentPath);
             }
         }
@@ -364,6 +379,7 @@ public class XSDPopulationUtil2 {
         this.includeAttribute = includeAttribute;
         this.supportChoice = supportChoice;
         this.supportSubstitution = supportSubstitution;
+        particleToTreeNode.clear();
         List<ATreeNode> rootNodes = new ArrayList<ATreeNode>();
 
         prefixNumberGenerated = 1;
@@ -510,6 +526,8 @@ public class XSDPopulationUtil2 {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            particleToTreeNode.clear();
         }
 
         return rootNodes.get(0);
@@ -694,8 +712,8 @@ public class XSDPopulationUtil2 {
         if (xsdComplexTypeDefinition.getContentType() instanceof XSDParticle) {
             addParticleDetail(xsdSchema, (XSDParticle) xsdComplexTypeDefinition.getContentType(), node, currentPath);
         }
-        for (Iterator attributeUses = xsdComplexTypeDefinition.getAttributeUses().iterator(); attributeUses.hasNext();) {
-            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) attributeUses.next();
+        for (Object element : xsdComplexTypeDefinition.getAttributeUses()) {
+            XSDAttributeUse xsdAttributeUse = (XSDAttributeUse) element;
             XSDAttributeDeclaration xsdAttributeDeclaration = xsdAttributeUse.getAttributeDeclaration();
             String attributeDeclarationName = xsdAttributeDeclaration.getName();
             ATreeNode childNode = new ATreeNode();

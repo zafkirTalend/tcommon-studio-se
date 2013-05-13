@@ -15,7 +15,6 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
@@ -31,6 +30,7 @@ public class XmlFileOutputWizardPage extends XmlFileWizardPage {
         super(creation, step, connectionItem, isRepositoryObjectEditable, existingNames);
     }
 
+    @Override
     public void createControl(final Composite parent) {
         currentComposite = null;
 
@@ -39,10 +39,10 @@ public class XmlFileOutputWizardPage extends XmlFileWizardPage {
         } else if (step == 2) {
             currentComposite = new XmlFileOutputStep2Form(creation, parent, connectionItem);
         } else if (step == 3) {
-            MetadataTable metadataTable = (MetadataTable) ConnectionHelper.getTables(
-                    (XmlFileConnection) connectionItem.getConnection()).toArray(new MetadataTable[0])[0];
+            MetadataTable metadataTable = ConnectionHelper.getTables(connectionItem.getConnection())
+                    .toArray(new MetadataTable[0])[0];
             currentComposite = new XmlFileOutputStep3Form(parent, connectionItem, metadataTable, TableHelper.getTableNames(
-                    ((XmlFileConnection) connectionItem.getConnection()), metadataTable.getLabel()));
+                    connectionItem.getConnection(), metadataTable.getLabel()));
         }
 
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
@@ -50,6 +50,7 @@ public class XmlFileOutputWizardPage extends XmlFileWizardPage {
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
 
                 if (source.isStatusOnError()) {
@@ -58,13 +59,13 @@ public class XmlFileOutputWizardPage extends XmlFileWizardPage {
                 } else {
                     XmlFileOutputWizardPage.this.setPageComplete(isRepositoryObjectEditable);
                     setErrorMessage(null);
-                    setMessage(source.getStatus());
+                    setMessage(source.getStatus(), source.getStatusLevel());
                 }
             }
         };
 
         currentComposite.setListener(listener);
-        setControl((Composite) currentComposite);
+        setControl(currentComposite);
     }
 
     @Override

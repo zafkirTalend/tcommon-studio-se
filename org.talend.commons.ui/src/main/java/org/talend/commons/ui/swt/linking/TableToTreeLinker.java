@@ -41,6 +41,7 @@ import org.talend.commons.ui.swt.drawing.link.IStyleLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
+import org.talend.commons.ui.utils.TreeUtils;
 
 /**
  * bqian class global comment. Detailled comment <br/>
@@ -69,8 +70,6 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
     private Table source;
 
     private Tree target;
-
-    private DataToTreeItemCache dataToTreeItemCache;
 
     private DataToTableItemCache dataToTableItemCache;
 
@@ -104,7 +103,6 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
         this.target = targetTree;
         this.source = sourceTable;
 
-        dataToTreeItemCache = new DataToTreeItemCache(targetTree);
         dataToTableItemCache = new DataToTableItemCache(sourceTable);
 
     }
@@ -229,9 +227,8 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             // see bug 7360
             dataToTableItemCache.clear();
             TableItem tableItem = dataToTableItemCache.getTableItem(extremity1.getDataItem());
-            TableItem firstExpandedAscTableItem = tableItem;
 
-            Rectangle tableItemBounds = firstExpandedAscTableItem.getBounds();
+            Rectangle tableItemBounds = tableItem.getBounds();
 
             int yStraight = sourceToCommonPoint.y + treeItemHeight / 2 + tableItemBounds.y;
 
@@ -241,7 +238,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             pointEndStraight.x = sourceToCommonPoint.x + xStartBezierLink;
             pointEndStraight.y = yStraight;
 
-            TreeItem treeItem = dataToTreeItemCache.getTreeItem(extremity2.getDataItem());
+            TreeItem treeItem = getFirstVisibleTreeItemOfPath(extremity2.getDataItem());
             Rectangle treeItemBounds = treeItem.getBounds();
             Rectangle treeBounds = tree.getBounds();
 
@@ -285,7 +282,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
 
                 boolean lineStyleDot = isStartOutOfView || isEndOutOfView;
 
-                if (firstExpandedAscTableItem == tableItem && !lineStyleDot) {
+                if ((treeItem.getData() == extremity2.getDataItem()) && !lineStyleDot) {
                     gc.setLineStyle(SWT.LINE_SOLID);
                 } else {
                     gc.setLineStyle(SWT.LINE_DOT);
@@ -323,6 +320,16 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
         // System.out.println("countStraight=" + countStraight);
         // System.out.println("drawnLinks=" + drawnLinks);
 
+    }
+
+    /**
+     * DOC nrousseau Comment method "getFirstVisibleTreeItemOfPath".
+     * 
+     * @param dataItem
+     * @return
+     */
+    protected TreeItem getFirstVisibleTreeItemOfPath(D2 dataItem) {
+        return TreeUtils.getTreeItem(this.target, dataItem);
     }
 
     /**

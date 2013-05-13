@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -168,6 +169,8 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
 
     private Composite outputComposite;
 
+    private TreeViewer treeViewer;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -188,8 +191,12 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
     @Override
     protected void initialize() {
 
-        this.treePopulator = new TreePopulator(availableXmlTree);
+        treeViewer = new TreeViewer(availableXmlTree);
+        treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
+        treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
+        treeViewer.setUseHashlookup(true);
 
+        this.treePopulator = new TreePopulator(treeViewer);
         checkFieldsValue();
 
         if (xmlXPathLoopDescriptor == null) {
@@ -293,7 +300,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         Group group = Form.createGroup(mainComposite, 1, Messages.getString("XmlFileStep1.sourceSchema"), height); //$NON-NLS-1$
         group.setBackground(null);
 
-        availableXmlTree = new Tree(group, SWT.MULTI | SWT.BORDER);
+        availableXmlTree = new Tree(group, SWT.MULTI | SWT.BORDER | SWT.VIRTUAL);
 
         // availableXmlTree.setVisible(false);
         GridData gridData2 = new GridData(GridData.FILL_BOTH);
@@ -309,6 +316,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             schemaTargetGroup.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), schemaTargetGroup, new Point(0, 0));
                     linker.setOffset(offsetPoint);
@@ -338,6 +346,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             loopTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), loopTableEditorComposite, new Point(0,
                             0));
@@ -363,6 +372,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             fieldTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), fieldTableEditorComposite, new Point(
                             0, 0));
@@ -541,6 +551,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                     clearPreview();
                     Display.getDefault().asyncExec(new Runnable() {
 
+                        @Override
                         public void run() {
                             handleErrorOutput(outputComposite, tabFolder, outputTabItem);
 
@@ -589,6 +600,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         // add listener to tableMetadata (listen the event of the toolbars)
         fieldsTableEditorView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -596,6 +608,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
 
         fieldsTableEditorView.getExtendedTableModel().addModifiedBeanListener(new IModifiedBeanListener<SchemaTarget>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<SchemaTarget> event) {
                 checkFieldsValue();
                 // updateStatus(IStatus.OK, null);
@@ -702,12 +715,10 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
             public void widgetSelected(final SelectionEvent e) {
                 if (!previewButton.getText().equals(Messages.getString("FileStep2.wait"))) { //$NON-NLS-1$
                     previewButton.setText(Messages.getString("FileStep2.wait")); //$NON-NLS-1$
-                    if (getConnection().getXmlFilePath() != null
-                            && getConnection().getXmlFilePath().length() != 0 //$NON-NLS-1$
-                            && getConnection().getSchema() != null
-                            && !getConnection().getSchema().isEmpty()
+                    if (getConnection().getXmlFilePath() != null && getConnection().getXmlFilePath().length() != 0
+                            && getConnection().getSchema() != null && !getConnection().getSchema().isEmpty()
                             && (getConnection().getSchema().get(0)).getAbsoluteXPathQuery() != null
-                            && (getConnection().getSchema().get(0)).getAbsoluteXPathQuery().length() != 0 //$NON-NLS-1$
+                            && (getConnection().getSchema().get(0)).getAbsoluteXPathQuery().length() != 0
                             && (getConnection().getSchema().get(0)).getSchemaTargets() != null
                             && (getConnection().getSchema().get(0)).getSchemaTargets().size() != 0) {
                         refreshPreview();
@@ -721,6 +732,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
                             clearPreview();
                             Display.getDefault().asyncExec(new Runnable() {
 
+                                @Override
                                 public void run() {
                                     handleErrorOutput(outputComposite, tabFolder, outputTabItem);
 
@@ -920,7 +932,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
 
             if (this.linker == null) {
                 this.linker = new XmlToXPathLinker(this.xmlToSchemaSash);
-                this.linker.init(availableXmlTree, loopTableEditorView, fieldsTableEditorView, treePopulator);
+                this.linker.init(treeViewer.getTree(), loopTableEditorView, fieldsTableEditorView, treePopulator);
                 loopTableEditorView.setLinker(this.linker);
                 fieldsTableEditorView.setLinker(this.linker);
             } else {
@@ -996,6 +1008,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }

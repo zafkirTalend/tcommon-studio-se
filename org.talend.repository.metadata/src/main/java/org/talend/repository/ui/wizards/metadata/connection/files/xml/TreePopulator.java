@@ -14,15 +14,12 @@ package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.BidiMap;
 import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.xerces.xs.XSModel;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.xsd.XSDSchema;
@@ -43,7 +40,7 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyD
  */
 public class TreePopulator {
 
-    private final Tree availableXmlTree;
+    private final TreeViewer availableXmlTree;
 
     private final BidiMap xPathToTreeItem = new DualHashBidiMap();
 
@@ -52,11 +49,26 @@ public class TreePopulator {
     private static int limit;
 
     /**
+     * Use the constructor with TreeViewer instead.
+     * 
+     * @param tree
+     * @deprecated
+     */
+    @Deprecated
+    public TreePopulator(Tree tree) {
+        super();
+        availableXmlTree = new TreeViewer(tree);
+        availableXmlTree.setContentProvider(new VirtualXmlTreeNodeContentProvider(availableXmlTree));
+        availableXmlTree.setLabelProvider(new VirtualXmlTreeLabelProvider());
+        availableXmlTree.setUseHashlookup(true);
+    }
+
+    /**
      * DOC amaumont TreePopulator constructor comment.
      * 
      * @param availableXmlTree
      */
-    public TreePopulator(Tree availableXmlTree) {
+    public TreePopulator(TreeViewer availableXmlTree) {
         super();
         this.availableXmlTree = availableXmlTree;
     }
@@ -70,7 +82,6 @@ public class TreePopulator {
     }
 
     public boolean populateTree(String filePath, ATreeNode treeNode, String selectedEntity) {
-        availableXmlTree.removeAll();
         xPathToTreeItem.clear();
         if (filePath != null && !filePath.equals("")) { //$NON-NLS-1$
             String newFilePath;
@@ -116,9 +127,11 @@ public class TreePopulator {
                     if (selected == null && childs.length > 0) {
                         selected = childs[0];
                     }
-                    populateTreeItems(isXml, availableXmlTree, new Object[] { selected }, 0, "", "/"); //$NON-NLS-1$
+                    availableXmlTree.setInput(new Object[] { selected });
+                    availableXmlTree.expandToLevel(3);
                 } else {
-                    populateTreeItems(isXml, availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
+                    availableXmlTree.setInput(childs);
+                    availableXmlTree.expandToLevel(3);
                 }
                 this.filePath = filePath;
                 return true;
@@ -128,7 +141,6 @@ public class TreePopulator {
     }
 
     public boolean populateTree(XSModel xsModel, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
-        availableXmlTree.removeAll();
         xPathToTreeItem.clear();
         ATreeNode treeNode = null;
         if (xsModel != null) {
@@ -155,7 +167,8 @@ public class TreePopulator {
                 return false;
             } else {
                 Object[] childs = treeNode.getChildren();
-                populateTreeItems(false, availableXmlTree, childs, 0, "", "/"); //$NON-NLS-1$
+                availableXmlTree.setInput(childs);
+                availableXmlTree.expandToLevel(3);
                 return true;
             }
         }
@@ -167,7 +180,6 @@ public class TreePopulator {
     }
 
     public boolean populateTree(XSDPopulationUtil2 popUtil, XSDSchema schema, ATreeNode selectedNode, List<ATreeNode> treeNodes) {
-        availableXmlTree.removeAll();
         xPathToTreeItem.clear();
         ATreeNode treeNode = null;
         if (schema != null) {
@@ -193,104 +205,41 @@ public class TreePopulator {
             if (treeNode == null || treeNode.getChildren().length == 0) {
                 return false;
             } else {
-                populateTreeItems(false, availableXmlTree, new Object[] { treeNode }, 0, "", "/"); //$NON-NLS-1$
+                availableXmlTree.setInput(new Object[] { treeNode });
+                availableXmlTree.expandToLevel(3);
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * populate tree items.
-     * 
-     * @param tree
-     * @param node
-     */
-    private void populateTreeItems(boolean isXml, Object tree, Object[] node, int level, String parentPathForTreeLink,
-            String parentPathToAvoidLoop) {
-        level++;
-        // if (level > 10) {
-        // return;
-        // } else {
-        for (Object element : node) {
-            TreeItem treeItem;
-            if (tree instanceof Tree) {
-                treeItem = new TreeItem((Tree) tree, 0);
-            } else {
-                treeItem = new TreeItem((TreeItem) tree, 0);
-            }
-
-            ATreeNode treeNode = (ATreeNode) element;
-            treeItem.setData(treeNode);
-            int type = treeNode.getType();
-            if (type == ATreeNode.NAMESPACE_TYPE) {
-                if ("".equals(treeNode.getDataType())) {
-                    treeItem.setText("xmlns=" + treeNode.getLabel());
-                } else {
-                    treeItem.setText("xmlns:" + treeNode.getDataType() + "=" + treeNode.getLabel());
-                }
-                treeItem.setForeground(new Color(Display.getDefault(), new RGB(0, 130, 0)));
-            } else if (type == ATreeNode.ATTRIBUTE_TYPE) {
-                treeItem.setText("@" + treeNode.getLabel()); //$NON-NLS-1$
-            } else {
-                treeItem.setText(treeNode.getLabel());
-            }
-            if (!isXml && parentPathToAvoidLoop.contains("/" + treeItem.getText() + "/")) {
-                treeItem.setForeground(new Color(Display.getDefault(), new RGB(255, 102, 102)));
-                continue;
-            }
-
-            String currentXPathForTreeLink = parentPathForTreeLink + "/" + treeItem.getText(); //$NON-NLS-1$
-            xPathToTreeItem.put(currentXPathForTreeLink, treeItem);
-
-            String currentXPathToAvoidLoop = parentPathForTreeLink + treeItem.getText() + "/"; //$NON-NLS-1$
-            if (treeNode.getChildren() != null && treeNode.getChildren().length > 0) {
-                populateTreeItems(isXml, treeItem, treeNode.getChildren(), level, currentXPathForTreeLink,
-                        currentXPathToAvoidLoop);
-            }
-            setExpanded(treeItem);
-        }
-        // }
-    }
-
-    private boolean haveParentWithSameType(ATreeNode item) {
-        List<ATreeNode> parentList = getParentList(item);
-        for (ATreeNode pNode : parentList) {
-            if (item.getOriginalDataType() != null && pNode.getOriginalDataType() != null
-                    && pNode.getOriginalDataType().equals(item.getOriginalDataType())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private List<ATreeNode> getParentList(ATreeNode item) {
-        List<ATreeNode> parentList = new ArrayList<ATreeNode>();
-        ATreeNode parentitem = item.getParent();
-        if (parentitem == null) {
-            return parentList;
-        }
-        parentList.add(parentitem);
-        if (parentitem.getParent() != null) {
-            parentList.addAll(getParentList(parentitem));
-        }
-        return parentList;
-    }
-
-    // expand the tree
-    private void setExpanded(TreeItem treeItem) {
-        // if (treeItem.getParentItem() != null) {
-        // setExpanded(treeItem.getParentItem());
-        // }
-        treeItem.setExpanded(true);
     }
 
     public TreeItem getTreeItem(String absoluteXPath) {
-        return (TreeItem) xPathToTreeItem.get(absoluteXPath);
+        TreeItem[] items = availableXmlTree.getTree().getItems();
+        String path = absoluteXPath;
+        TreeItem item = null;
+        while (!path.isEmpty()) {
+            for (TreeItem curItem : items) {
+                if (path.startsWith("/" + curItem.getText())) { //$NON-NLS-1$
+                    item = curItem;
+                    path = path.replaceFirst("/" + curItem.getText(), ""); //$NON-NLS-1$//$NON-NLS-2$
+                    break;
+                }
+            }
+            if (!path.isEmpty()) {
+                items = item.getItems();
+            }
+        }
+        return item;
     }
 
     public String getAbsoluteXPath(TreeItem treeItem) {
-        return (String) xPathToTreeItem.getKey(treeItem);
+        TreeItem item = treeItem;
+        String path = ""; //$NON-NLS-1$
+        while (item != null) {
+            path = "/" + item.getText() + path; //$NON-NLS-1$
+            item = item.getParentItem();
+        }
+        return path;
     }
 
     /**
