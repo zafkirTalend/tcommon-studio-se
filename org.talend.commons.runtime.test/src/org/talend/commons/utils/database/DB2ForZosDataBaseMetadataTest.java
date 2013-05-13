@@ -51,7 +51,7 @@ public class DB2ForZosDataBaseMetadataTest {
     public void testGetTablescase1() {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = "dbo"; //$NON-NLS-1$
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  type in('T') and TBSPACE!='SYSCATSPACE'"; //$NON-NLS-1$ //$NON-NLS-2$
+        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  type in('T')"; //$NON-NLS-1$ //$NON-NLS-2$
         String tableNamePattern = null;
         String[] types = new String[] { TableType.TABLE.name() };
         // java.sql.ResultSet mock
@@ -113,7 +113,7 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = "dbo"; //$NON-NLS-1$
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  ( type in('V' , 'S' , 'A')  or( TBSPACE!='SYSCATSPACE' and type in('T') ))"; //$NON-NLS-1$ //$NON-NLS-2$
+        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  type in('T' , 'V' , 'S' , 'A')"; //$NON-NLS-1$ //$NON-NLS-2$
         String[] types = new String[] { TableType.TABLE.name(), TableType.VIEW.name(), TableType.SYNONYM.name(),
                 TableType.ALIAS.name() };
         // java.sql.ResultSet mock
@@ -175,7 +175,7 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = null;
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  ( type in('V' , 'S' , 'A')  or( TBSPACE!='SYSCATSPACE' and type in('T') ))"; //$NON-NLS-1$ 
+        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  type in('T' , 'V' , 'S' , 'A')"; //$NON-NLS-1$ 
         String[] types = new String[] { TableType.TABLE.name(), TableType.VIEW.name(), TableType.SYNONYM.name(),
                 TableType.ALIAS.name() };
         // java.sql.ResultSet mock
@@ -237,7 +237,7 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = null;
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  type in('T') and TBSPACE!='SYSCATSPACE'"; //$NON-NLS-1$
+        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  type in('T')"; //$NON-NLS-1$
         String[] types = new String[] { TableType.TABLE.name() };
         // java.sql.ResultSet mock
         ResultSet resultSet = Mockito.mock(ResultSet.class);
