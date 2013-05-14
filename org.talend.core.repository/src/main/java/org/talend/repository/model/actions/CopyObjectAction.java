@@ -13,6 +13,7 @@
 package org.talend.repository.model.actions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +35,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -182,13 +184,24 @@ public class CopyObjectAction {
 
                         @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
-                            String id = null;
-                            String label = null;
-                            boolean isfirst = true;
-                            boolean needSys = true;
-                            for (IRepositoryViewObject object : selectedVersionItems) {
-                                Item selectedItem = object.getProperty().getItem();
-                                try {
+                            try {
+                                Iterator<IRepositoryViewObject> iterator = selectedVersionItems.iterator();
+                                while (iterator.hasNext()) {
+                                    IRepositoryViewObject repObj = iterator.next();
+                                    Item selectedItem = repObj.getProperty().getItem();
+                                    if (!iterator.hasNext() && isHadoopClusterItem(selectedItem)) {
+                                        copyHadoopClusterItem(selectedItem, path);
+                                        return;
+                                    }
+                                }
+
+                                String id = null;
+                                String label = null;
+                                boolean isfirst = true;
+                                boolean needSys = true;
+                                for (IRepositoryViewObject object : selectedVersionItems) {
+                                    Item selectedItem = object.getProperty().getItem();
+
                                     Item copy = null;
                                     if (isfirst) {
                                         copy = factory.copy(selectedItem, path);
@@ -211,11 +224,11 @@ public class CopyObjectAction {
                                     }
 
                                     factory.save(copy);
-                                } catch (PersistenceException e) {
-                                    ExceptionHandler.process(e);
-                                } catch (BusinessException e) {
-                                    ExceptionHandler.process(e);
                                 }
+                            } catch (PersistenceException e) {
+                                ExceptionHandler.process(e);
+                            } catch (BusinessException e) {
+                                ExceptionHandler.process(e);
                             }
                         }
 
@@ -266,6 +279,10 @@ public class CopyObjectAction {
                     @Override
                     public void run(IProgressMonitor monitor) throws CoreException {
                         try {
+                            if (isHadoopClusterItem(item)) {
+                                copyHadoopClusterItem(item, path);
+                                return;
+                            }
                             Item newItem = factory.copy(item, path, true);
                             // qli modified to fix the bug 5400 and 6185.
                             if (newItem instanceof RoutineItem) {
@@ -383,6 +400,27 @@ public class CopyObjectAction {
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }
+        }
+    }
+
+    private boolean isHadoopClusterItem(Item item) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+
+        return hadoopClusterService != null && hadoopClusterService.isHadoopClusterItem(item);
+    }
+
+    public void copyHadoopClusterItem(final Item item, final IPath path) throws PersistenceException, BusinessException {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            hadoopClusterService.copyHadoopCluster(item, path);
         }
     }
 

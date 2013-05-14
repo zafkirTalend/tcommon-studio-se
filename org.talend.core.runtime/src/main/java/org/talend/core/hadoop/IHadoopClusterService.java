@@ -15,6 +15,9 @@ package org.talend.core.hadoop;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -140,6 +143,34 @@ public interface IHadoopClusterService extends IService {
      */
     public Map<String, String> getHadoopDbParameters(String clusterId);
 
+    /**
+     * DOC ycbai Comment method "removeHadoopDbParameters".
+     * 
+     * @param connection
+     */
     public void removeHadoopDbParameters(DatabaseConnection connection);
+
+    /**
+     * DOC ycbai Comment method "copyHadoopCluster".
+     * 
+     * @param sourceItem
+     * @param path
+     * @throws PersistenceException
+     * @throws BusinessException
+     */
+    public void copyHadoopCluster(final Item sourceItem, final IPath path) throws PersistenceException, BusinessException;
+
+    /**
+     * 
+     * DOC ycbai Comment method "copyHadoopCluster".
+     * 
+     * @param sourceItem
+     * @param path
+     * @param newName
+     * @throws PersistenceException
+     * @throws BusinessException
+     */
+    public void copyHadoopCluster(final Item sourceItem, final IPath path, String newName) throws PersistenceException,
+            BusinessException;
 
 }

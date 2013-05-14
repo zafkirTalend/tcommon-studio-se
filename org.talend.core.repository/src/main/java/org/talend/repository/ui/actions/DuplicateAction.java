@@ -15,6 +15,7 @@ package org.talend.repository.ui.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -50,6 +51,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.ConnectionItem;
@@ -438,21 +440,29 @@ public class DuplicateAction extends AContextualAction {
 
                 if (allVersion.size() == 1) {
                     duplicateSingleVersionItem(originalItem, path, newJobName);
-
                 } else if (allVersion.size() > 1) {
                     final PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
                             sourceNode);
                     final Item item = originalItem;
                     if (dialog.open() == Window.OK) {
+                        final Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
                         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
                             @Override
                             public void run(IProgressMonitor monitor) throws CoreException {
-                                Set<IRepositoryViewObject> selectedVersionItems = dialog.getSelectedVersionItems();
-                                String id = null;
-                                boolean isfirst = true;
-                                boolean needSys = true;
                                 try {
+                                    Iterator<IRepositoryViewObject> iterator = selectedVersionItems.iterator();
+                                    while (iterator.hasNext()) {
+                                        IRepositoryViewObject repObj = iterator.next();
+                                        Item selectedItem = repObj.getProperty().getItem();
+                                        if (!iterator.hasNext() && isHadoopClusterItem(selectedItem)) {
+                                            copyHadoopClusterItem(selectedItem, path, newJobName);
+                                            return;
+                                        }
+                                    }
+                                    String id = null;
+                                    boolean isfirst = true;
+                                    boolean needSys = true;
                                     for (IRepositoryViewObject object : selectedVersionItems) {
                                         Item selectedItem = object.getProperty().getItem();
                                         Item copy;
@@ -492,6 +502,7 @@ public class DuplicateAction extends AContextualAction {
                                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                                 }
                             }
+
                         };
                         IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
@@ -532,6 +543,11 @@ public class DuplicateAction extends AContextualAction {
             @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
+                    if (isHadoopClusterItem(item)) {
+                        copyHadoopClusterItem(item, path, newName);
+                        return;
+                    }
+
                     final Item newItem = factory.copy(item, path, newName);
 
                     // qli modified to fix the bug 5400 and 6185.
@@ -665,6 +681,28 @@ public class DuplicateAction extends AContextualAction {
             if (tdqRepService != null) {
                 tdqRepService.notifySQLExplorer(item);
             }
+        }
+    }
+
+    private boolean isHadoopClusterItem(Item item) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+
+        return hadoopClusterService != null && hadoopClusterService.isHadoopClusterItem(item);
+    }
+
+    public void copyHadoopClusterItem(final Item item, final IPath path, String newName) throws PersistenceException,
+            BusinessException {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            hadoopClusterService.copyHadoopCluster(item, path, newName);
         }
     }
 }
