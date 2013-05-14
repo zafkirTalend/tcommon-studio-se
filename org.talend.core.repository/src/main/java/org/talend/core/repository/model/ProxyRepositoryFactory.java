@@ -1243,7 +1243,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 isImportItem);
 
         this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-        if (isImportItem.length == 0) {
+        if (isImportItem.length == 0 || !isImportItem[0]) {
             // no listener if from import, or it will be too slow.
             fireRepositoryPropertyChange(ERepositoryActionName.CREATE.getName(), null, item);
         }
@@ -1265,7 +1265,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException {
         this.repositoryFactoryFromProvider.save(project, item);
-        if (isMigrationTask == null || isMigrationTask.length == 0) {
+        if (isMigrationTask == null || isMigrationTask.length == 0 || !isMigrationTask[0]) {
             fireRepositoryPropertyChange(ERepositoryActionName.SAVE.getName(), null, item);
         }
     }
