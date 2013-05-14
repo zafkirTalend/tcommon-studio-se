@@ -17,12 +17,10 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.talend.commons.ui.html.BrowserDynamicPartLocationListener;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -35,10 +33,6 @@ public class StartingBrowser extends EditorPart {
     public static final String ID = "org.talend.rcp.intro.starting.StartingBrowser";
 
     public StartingBrowser() {
-        Image[] images = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getImages();
-        if (images.length > 0) {
-            this.setTitleImage(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getImages()[0]);
-        }
     }
 
     protected Browser browser;
