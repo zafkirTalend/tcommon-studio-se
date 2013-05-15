@@ -91,4 +91,12 @@
          id="org.talend.rcp.splashHandler">
    </splashHandler>
 </extension>
+<extension
+      point="org.eclipse.ui.presentationFactories">
+   <factory
+         class="org.talend.rcp.intro.linksbar.TalendActionBarPresentationFactory"
+         id="org.talend.rcp.presentationfactory"
+         name="Talend presentation for coolbar">
+   </factory>
+</extension>
 </plugin>
