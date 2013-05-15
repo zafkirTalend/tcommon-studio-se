@@ -85,7 +85,10 @@ public class FolderWizard extends Wizard {
      */
     @Override
     public void addPages() {
-        mainPage = new FolderWizardPage(defaultLabel);
+    	//only route resources is considered as plain folder currently
+    	boolean isPlainFolder = (type ==  ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES"));  
+    	
+        mainPage = new FolderWizardPage(defaultLabel, isPlainFolder);
         addPage(mainPage);
         if (defaultLabel != null) {
             setWindowTitle(Messages.getString("RenameFolderAction.action.title")); //$NON-NLS-1$

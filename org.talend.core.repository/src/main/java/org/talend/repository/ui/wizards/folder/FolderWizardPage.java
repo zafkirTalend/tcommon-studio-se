@@ -14,6 +14,8 @@ package org.talend.repository.ui.wizards.folder;
 
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.WizardPage;
@@ -45,14 +47,16 @@ public class FolderWizardPage extends WizardPage {
 
     private final String defaultLabel;
 
+	private boolean isPlainFolder = false;
+
     /**
      * Constructs a new NewProjectWizardPage.
      * 
      */
-    public FolderWizardPage(String defaultLabel) {
+    public FolderWizardPage(String defaultLabel, boolean isPlainFolder) {
         super("WizardPage"); //$NON-NLS-1$
         this.defaultLabel = defaultLabel;
-
+        this.isPlainFolder = isPlainFolder;
         setTitle(Messages.getString("NewFolderWizard.title")); //$NON-NLS-1$
         if (defaultLabel == null) {
             setDescription(DESC);
@@ -105,19 +109,23 @@ public class FolderWizardPage extends WizardPage {
      */
     protected void checkFieldsValue() {
         // Field Name
-        if (nameText.getText().length() == 0) {
-            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
-                    Messages.getString("NewFolderWizard.nameEmpty"), null); //$NON-NLS-1$
-        } else if (!Pattern.matches(RepositoryConstants.FOLDER_PATTERN, nameText.getText())) {
-            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
-                    Messages.getString("NewFolderWizard.nameIncorrect"), null); //$NON-NLS-1$
-        } else if ((defaultLabel == null || !defaultLabel.equals(nameText.getText()))
-                && !((FolderWizard) getWizard()).isValid(nameText.getText())) {
-            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
-                    "NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
-        } else {
-            nameStatus = createOkStatus();
-        }
+    	if(isPlainFolder){
+    		nameStatus = ResourcesPlugin.getWorkspace().validateName(nameText.getText(), IResource.FOLDER);
+    	}else{
+	        if (nameText.getText().length() == 0) {
+	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
+	                    Messages.getString("NewFolderWizard.nameEmpty"), null); //$NON-NLS-1$
+	        } else if (!Pattern.matches(RepositoryConstants.FOLDER_PATTERN, nameText.getText())) {
+	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
+	                    Messages.getString("NewFolderWizard.nameIncorrect"), null); //$NON-NLS-1$
+	        } else if ((defaultLabel == null || !defaultLabel.equals(nameText.getText()))
+	                && !((FolderWizard) getWizard()).isValid(nameText.getText())) {
+	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
+	                    "NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
+	        } else {
+	            nameStatus = createOkStatus();
+	        }
+    	}
         updatePageStatus();
     }
 
