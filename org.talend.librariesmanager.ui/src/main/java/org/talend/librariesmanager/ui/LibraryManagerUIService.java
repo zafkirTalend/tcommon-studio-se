@@ -38,9 +38,16 @@ import org.talend.librariesmanager.utils.ModulesInstaller;
 public class LibraryManagerUIService implements ILibraryManagerUIService {
 
     @Override
-    public void installModules(String[] jarNames) {
-        Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
-        ModulesInstaller.installModules(new Shell(shell), jarNames);
+    public void installModules(final String[] jarNames) {
+        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
+                ModulesInstaller.installModules(new Shell(shell), jarNames);
+            }
+        });
+
     }
 
     /*
