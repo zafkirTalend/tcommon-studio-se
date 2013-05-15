@@ -128,7 +128,6 @@ public enum EImage implements IImage {
     RECOLLECTOR_ICON("/icons/recollector.png"), //$NON-NLS-1$
     COLLECTOR_ICON("/icons/collector.png"), //$NON-NLS-1$
     REPARTITION_ICON("/icons/repartition.png"), //$NON-NLS-1$
-    AUTOMAP_ICON("/icons/automap.gif"), //$NON-NLS-1$
 
     HADOOP_WIZ_ICON("/icons/hadoop-logo-wiz.png");//$NON-NLS-1$
 
