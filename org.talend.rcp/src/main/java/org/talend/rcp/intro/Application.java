@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
@@ -29,9 +30,8 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.tweaklets.Tweaklets;
-import org.eclipse.ui.internal.tweaklets.WorkbenchImplementation;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.system.EclipseCommandLine;
@@ -39,8 +39,8 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.tis.ICoreTisService;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
-import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RegistrationPlugin;
 import org.talend.repository.license.LicenseManagement;
 import org.talend.repository.model.IRepositoryService;
@@ -128,8 +128,16 @@ public class Application implements IApplication {
                 return IApplication.EXIT_RESTART;
             }
 
-            Tweaklets.setDefault(WorkbenchImplementation.KEY, new Workbench3xImplementation4CoolBar());
+            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
 
+            // for talend product only to add the links on the left of the coolbar
+            // other products will simply reuse the default presentation factory.
+            if (brandingService.isPoweredbyTalend()) {
+                // setup the presentation factory, which is defined in the plugin.xml of the org.talend.rcp
+                IPreferenceStore store = PlatformUI.getPreferenceStore();
+                store.putValue(IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID, "org.talend.rcp.presentationfactory");
+            }
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the

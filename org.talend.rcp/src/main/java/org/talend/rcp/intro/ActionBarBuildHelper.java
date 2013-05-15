@@ -68,7 +68,6 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
-import org.talend.rcp.intro.linksbar.Workbench3xImplementation4CoolBar;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
@@ -131,8 +130,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.search.searchActionSet",
-            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ 
 
+    @Override
     public void fillMenuBar(final IMenuManager menuBar) {
 
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
@@ -145,9 +145,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
             list.add("org.talend.repository.CreateactionSet"); //$NON-NLS-1$
         }
-        for (int i = 0; i < actionSets.length; i++) {
-            if (list.contains(actionSets[i].getId())) {
-                removeAction(reg, actionSets[i]);
+        for (IActionSetDescriptor actionSet : actionSets) {
+            if (list.contains(actionSet.getId())) {
+                removeAction(reg, actionSet);
             }
         }
 
@@ -166,6 +166,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
              * 
              * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
              */
+            @Override
             public IWorkbenchAction create(IWorkbenchWindow window) {
                 if (window == null) {
                     throw new IllegalArgumentException();
@@ -209,6 +210,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
              * 
              * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
              */
+            @Override
             public IWorkbenchAction create(IWorkbenchWindow window) {
                 if (window == null) {
                     throw new IllegalArgumentException();
@@ -258,6 +260,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
              * 
              * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
              */
+            @Override
             public IWorkbenchAction create(IWorkbenchWindow window) {
                 if (window == null) {
                     throw new IllegalArgumentException();
@@ -381,6 +384,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
     }
 
+    @Override
     public void fillCoolBar(ICoolBarManager coolBar) {
         this.coolBar = coolBar;
         IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
@@ -396,9 +400,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 service.addMergeAction(window, toolBar);
             }
         }
-
-        // add feature:15174
-        Workbench3xImplementation4CoolBar.createLinksToolbarItem(coolBar);
     }
 
     public void printCoolBar() {
@@ -611,8 +612,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         System.out.println("IContributionManager-" + menuBar); //$NON-NLS-1$
         IContributionItem[] items = menuBar.getItems();
         for (IContributionItem item : items) {
-            if (item.isVisible())
+            if (item.isVisible()) {
                 System.out.println(" " + item.getId()); //$NON-NLS-1$
+            }
         }
     }
 
