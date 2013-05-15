@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -1732,10 +1733,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
                 executeMigrations(project, false, currentMonitor);
                 TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)");
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 // clean workspace
                 coreService.deleteAllJobs(false);
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
                 try {
@@ -1745,25 +1750,37 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 } catch (SystemException e1) {
                     //
                 }
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 // rules
                 if (PluginChecker.isRulesPluginLoaded()) {
                     coreService.syncAllRules();
                 }
                 TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
                 coreService.syncLibraries(currentMonitor);
+                
                 TimeMeasure.step("logOnProject", "sync components libraries");
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 // sap
                 if (PluginChecker.isSAPWizardPluginLoaded()) {
                     coreService.synchronizeSapLib();
                 }
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 coreService.resetUniservLibraries();
                 TimeMeasure.step("logOnProject", "sync specific libraries");
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 // remove the auto-build to enhance the build speed and application's use
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceDescription description = workspace.getDescription();
@@ -1774,8 +1791,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     // do nothing
                 }
                 coreService.createStatsLogAndImplicitParamter(project);
-
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 coreService.synchronizeMapptingXML();
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(""); //$NON-NLS-1$
+                }
                 fullLogonFinished = true;
             } finally {
                 TimeMeasure.end("logOnProject");
