@@ -57,8 +57,9 @@ public class TreePopulator {
     @Deprecated
     public TreePopulator(Tree tree) {
         super();
+        // no virtual mode on this case.
         availableXmlTree = new TreeViewer(tree);
-        availableXmlTree.setContentProvider(new VirtualXmlTreeNodeContentProvider(availableXmlTree));
+        availableXmlTree.setContentProvider(new ATreeNodeContentProvider());
         availableXmlTree.setLabelProvider(new VirtualXmlTreeLabelProvider());
         availableXmlTree.setUseHashlookup(true);
     }

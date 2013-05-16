@@ -69,7 +69,10 @@ public class VirtualXmlTreeNodeContentProvider extends TreeNodeContentProvider i
         } else if (element == elements) {
             length = elements.length;
         }
-        viewer.setChildCount(element, length);
+        if (length != currentChildCount) {
+            // no need to update the viewer if it's to set the same value !
+            viewer.setChildCount(element, length);
+        }
     }
 
     /*
