@@ -97,7 +97,7 @@ public class RepositoryConstants {
         // Added the m/r for TDI-25928.
                 || type == ERepositoryObjectType.PROCESS_MR) {
             return CODE_ITEM_PATTERN;
-        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF) {
+        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF ||  "BEANS".equals(type.getType())) {
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
         } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT || type == ERepositoryObjectType.TDQ_DATA_PROFILING
