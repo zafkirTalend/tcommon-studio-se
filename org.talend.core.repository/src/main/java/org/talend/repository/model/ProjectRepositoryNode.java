@@ -34,8 +34,6 @@ import org.talend.commons.utils.data.container.Container;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
@@ -1435,6 +1433,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             org.talend.core.model.metadata.builder.connection.MetadataTable metadataTable,
             ERepositoryObjectType repositoryObjectType) {
         IRepositoryViewObject vo = node.getObject();
+        if (vo instanceof MetadataTableRepositoryObject) {
+            vo = ((MetadataTableRepositoryObject) vo).getViewObject();
+        }
         if (vo != null && vo.getProperty() != null) {
             String schema = vo.getProperty().getId();
             schema = schema + " - " + metadataTable.getLabel(); //$NON-NLS-1$
