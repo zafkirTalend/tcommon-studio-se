@@ -277,7 +277,9 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
-        setName(newLabel);
+        if (!StringUtils.isEmpty(newLabel)) {
+            setName(newLabel);
+        }
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel,
                     label));
