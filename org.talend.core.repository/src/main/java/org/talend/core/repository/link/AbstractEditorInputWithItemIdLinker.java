@@ -76,7 +76,7 @@ public abstract class AbstractEditorInputWithItemIdLinker extends AbstractRepoVi
                         for (IEditorReference er : editorReferences) {
                             try {
                                 if (editorInput.equals(er.getEditorInput())) {
-                                    return er.getEditor(true);
+                                    return er.getEditor(false);
                                 }
                             } catch (PartInitException e) {
                                 ExceptionHandler.process(e);
