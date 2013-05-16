@@ -333,9 +333,14 @@ public class JobContextManager implements IContextManager {
             context.setConfirmationNeeded(contextType.isConfirmationNeeded());
             contextParamList = new ArrayList<IContextParameter>();
             contextTypeParamList = contextType.getContextParameter();
+            Set<String> paramNamesInCurrentContext = new HashSet<String>();
 
             for (int j = 0; j < contextTypeParamList.size(); j++) {
                 contextParamType = (ContextParameterType) contextTypeParamList.get(j);
+                if (paramNamesInCurrentContext.contains(contextParamType.getName())) {
+                    continue;
+                }
+                paramNamesInCurrentContext.add(contextParamType.getName());
                 contextParam = new JobContextParameter();
                 contextParam.setContext(context);
                 contextParam.setName(contextParamType.getName());
