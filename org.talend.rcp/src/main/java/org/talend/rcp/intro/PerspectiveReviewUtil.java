@@ -48,6 +48,7 @@ import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.util.PrefUtil;
+import org.talend.core.PluginChecker;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -420,6 +421,34 @@ public final class PerspectiveReviewUtil {
                         }
                     }
                 }
+                // check if bpm is installed to fix for TUP-647
+                if (!reset) {
+                    if (PluginChecker.isBPMloaded()) {
+                        IMemento[] hideMenuArray = memento.getChildren(IWorkbenchConstants.TAG_HIDE_MENU);
+                        if (hideMenuArray.length == 0) {
+                            stateFile.delete(); // if delete, it will recaculate the hide menus
+                            reset = true;
+                        } else {
+                            // if no bonita menue is filtered ,need to recaculate
+                            String bonitaMenues = "org.bonitasoft.studio";
+                            boolean isBPMFilterWork = false;
+                            for (int i = 0; hideMenuArray != null && i < hideMenuArray.length; i++) {
+                                IMemento hideMenu = hideMenuArray[i];
+                                String string = hideMenu.getString(IWorkbenchConstants.TAG_ID);
+                                if (string != null && string.startsWith(bonitaMenues)) {
+                                    isBPMFilterWork = true;
+                                    break;
+                                }
+                            }
+                            if (!isBPMFilterWork) {
+                                stateFile.delete(); // if delete, it will recaculate the hide menus
+                                reset = true;
+                            }
+
+                        }
+                    }
+
+                }
             } catch (FileNotFoundException e) {
                 //
             } catch (UnsupportedEncodingException e) {
@@ -458,8 +487,8 @@ public final class PerspectiveReviewUtil {
             String customPerspectives = store.getString(IPreferenceConstants.PERSPECTIVES);
             String[] perspectivesList = StringConverter.asArray(customPerspectives);
 
-            for (int i = 0; i < perspectivesList.length; i++) {
-                store.setValue(perspectivesList[i] + "_persp", ""); //$NON-NLS-1$
+            for (String element : perspectivesList) {
+                store.setValue(element + "_persp", ""); //$NON-NLS-1$
             }
             store.setValue(IPreferenceConstants.PERSPECTIVES, ""); //$NON-NLS-1$
             if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
@@ -474,8 +503,7 @@ public final class PerspectiveReviewUtil {
             File folder = path.toFile();
             if (folder.isDirectory()) {
                 File[] fileList = folder.listFiles();
-                for (int nX = 0; nX < fileList.length; nX++) {
-                    File file = fileList[nX];
+                for (File file : fileList) {
                     if (file.getName().endsWith("_persp.xml")) { //$NON-NLS-1$
                         file.delete();
                     }
