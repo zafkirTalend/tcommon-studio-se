@@ -139,15 +139,11 @@ public class FolderWizardPage extends WizardPage {
     }
 
     private void setMessage(IStatus status) {
-        String message2 = status.getMessage();
         if (IStatus.ERROR == status.getSeverity()) {
-            setErrorMessage(message2);
+            setErrorMessage(status.getMessage());
             setMessage(""); //$NON-NLS-1$
         } else {
-            if (message2.length() == 0 && defaultLabel == null) {
-                message2 = DESC;
-            }
-            setMessage(message2);
+            setMessage(DESC);
             setErrorMessage(null);
         }
     }
