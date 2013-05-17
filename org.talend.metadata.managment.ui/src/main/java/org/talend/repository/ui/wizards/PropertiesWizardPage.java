@@ -1117,7 +1117,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (nameText.getText().length() == 0) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
+                || nameText.getText().startsWith(" ") || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
         } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
