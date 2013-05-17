@@ -236,7 +236,7 @@ public class XmlFileSchema2TreeLinker extends TableToTreeLinker<Object, Object> 
         TreeItem item = null;
         while (!path.isEmpty()) {
             for (TreeItem curItem : items) {
-                if (path.startsWith("/" + curItem.getText())) {
+                if (path.equals("/" + curItem.getText()) || path.startsWith("/" + curItem.getText() + "/")) {
                     item = curItem;
                     path = path.replaceFirst("/" + curItem.getText(), "");
                     break;
