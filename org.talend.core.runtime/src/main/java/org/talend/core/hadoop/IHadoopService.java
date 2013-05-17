@@ -34,4 +34,13 @@ public interface IHadoopService extends IService {
 
     public Set<String> getHadoopLibrariesByType(ECustomVersionType type, String distribution, String version);
 
+    /**
+     * DOC Talend Comment method "getMissingLibraries".
+     * 
+     * @param distribution
+     * @param version
+     * @return
+     */
+    public Set<String> getMissingLibraries(String distribution, String version);
+
 }
