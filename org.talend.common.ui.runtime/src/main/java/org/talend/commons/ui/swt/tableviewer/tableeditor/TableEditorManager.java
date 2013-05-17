@@ -393,6 +393,9 @@ public class TableEditorManager {
         if (tableItem.getData() == null) {
             return null;
         }
+        if (tableEditorContent == null) {
+            return null;
+        }
 
         tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
