@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -115,13 +116,15 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
                 if (e1 instanceof RepositoryNode && e2 instanceof RepositoryNode) {
                     final RepositoryNode node1 = (RepositoryNode) e1;
                     final RepositoryNode node2 = (RepositoryNode) e2;
-                    if (node1.isBin()) { // recycle bin is always in bottom
+                    if (node1.isBin() || node1.getType().equals(ENodeType.REFERENCED_PROJECT)) { // recycle bin is
+                                                                                                 // always in bottom
                         return 1;
                     }
-                    if (node2.isBin()) { // recycle bin is always in bottom
+                    if (node2.isBin() || node2.getType().equals(ENodeType.REFERENCED_PROJECT)) { // recycle bin is
+                                                                                                 // always in bottom
                         return -1;
                     }
-                    // do special for simple folder， TDI-20528
+                    // do special for simple folder,TDI-20528
                     if (node1.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER
                             || node2.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER) {
                         return e1.toString().compareTo(e2.toString());
