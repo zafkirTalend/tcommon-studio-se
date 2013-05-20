@@ -484,15 +484,25 @@ public final class FilesUtils {
     }
 
     /**
+     * zip a new file with specified name to the user folder.
+     * 
+     * @param sourceFileName
+     * @param zippedFileName
+     * @throws IOException
+     */
+    public static void zip(String sourceFileName, String zippedFileName) throws IOException {
+        zip(new File(sourceFileName), zippedFileName);
+    }
+
+    /**
      * zip the file to the user folder.
      * 
      * @param sourceFile
      * @param zippedFileName
-     * @throws Exception
+     * @throws IOException
      */
-    public static void zip(File sourceFile, String zippedFileName) throws Exception {
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
-        zip(out, sourceFile, null);
+    public static void zip(File sourceFile, String zippedFileName) throws IOException {
+        zips(new File[] { sourceFile }, zippedFileName);
     }
 
     /**
@@ -501,62 +511,23 @@ public final class FilesUtils {
      * 
      * @param sourceFile
      * @param zippedFileName
-     * @throws Exception
+     * @throws IOException
      */
-    public static void zips(File[] sourceFile, String zippedFileName) throws Exception {
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
-        for (File theFile : sourceFile) {
-            zips(out, theFile, null);
+    public static void zips(File[] sourceFile, String zippedFileName) throws IOException {
+        FileOutputStream fos = new FileOutputStream(zippedFileName);
+        ZipOutputStream out = new ZipOutputStream(fos);
+        try {
+            for (File theFile : sourceFile) {
+                zips(out, theFile, null);
+            }
+        } finally {
+            // http://stackoverflow.com/questions/4681459/closing-zipoutputstream
+            if (sourceFile.length > 0) {
+                out.close();
+            } else {
+                fos.close();
+            }
         }
-        out.close();
-    }
-
-    /**
-     * zip a new file with specified name to the user folder.
-     * 
-     * @param sourceFileName
-     * @param zippedFileName
-     * @throws Exception
-     */
-    public static void zip(String sourceFileName, String zippedFileName) throws Exception {
-        File sourceFile = new File(sourceFileName);
-        zip(sourceFile, zippedFileName);
-    }
-
-    /**
-     * zip the file stream to the user folder.
-     * 
-     * @param out
-     * @param f
-     * @param base
-     * @throws Exception
-     */
-    private static void zip(ZipOutputStream out, File f, String base) throws Exception {
-        String baseValue = base;
-        if (f.isDirectory()) {
-            File[] fc = f.listFiles();
-            if (baseValue != null) {
-                out.putNextEntry(new ZipEntry(baseValue + "/"));
-            }
-            baseValue = baseValue == null ? "" : baseValue + "/";
-            for (File element : fc) {
-                zip(out, element, baseValue + element.getName());
-            }
-        } else {
-            out.putNextEntry(new ZipEntry(f.getName()));
-            FileInputStream in = new FileInputStream(f);
-
-            // byte[] b = new byte[BUFFER_SIZE];
-            int readBytes = 0;
-            while ((readBytes = in.read()) != -1) {
-                out.write(readBytes);
-            }
-
-            out.flush();
-            in.close();
-        }
-
-        out.close();
     }
 
     /**
@@ -566,18 +537,18 @@ public final class FilesUtils {
      * @param out
      * @param f
      * @param base
-     * @throws Exception
+     * @throws IOException
      */
-    private static void zips(ZipOutputStream out, File f, String base) throws Exception {
+    private static void zips(ZipOutputStream out, File f, String base) throws IOException {
         String baseValue = base;
         if (f.isDirectory()) {
             File[] fc = f.listFiles();
             if (baseValue != null) {
-                out.putNextEntry(new ZipEntry(baseValue + "/"));
+                out.putNextEntry(new ZipEntry(baseValue + '/'));
             }
-            baseValue = baseValue == null ? "" : baseValue + "/";
+            baseValue = baseValue == null ? "" : baseValue + '/';
             for (File element : fc) {
-                zip(out, element, baseValue + element.getName());
+                zips(out, element, baseValue + element.getName());
             }
         } else {
             out.putNextEntry(new ZipEntry(f.getName()));
@@ -590,9 +561,7 @@ public final class FilesUtils {
             }
             in.close();
             out.flush();
-
         }
-
     }
 
     public static void zipFiles(String source, String target) throws Exception {
