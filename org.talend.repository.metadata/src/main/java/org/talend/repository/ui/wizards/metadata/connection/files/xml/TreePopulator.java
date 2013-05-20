@@ -219,8 +219,10 @@ public class TreePopulator {
         String path = absoluteXPath;
         TreeItem item = null;
         while (!path.isEmpty()) {
+            boolean flag = false;
             for (TreeItem curItem : items) {
                 if (path.startsWith("/" + curItem.getText())) { //$NON-NLS-1$
+                    flag = true;
                     item = curItem;
                     path = path.replaceFirst("/" + curItem.getText(), ""); //$NON-NLS-1$//$NON-NLS-2$
                     break;
@@ -228,6 +230,9 @@ public class TreePopulator {
             }
             if (!path.isEmpty()) {
                 items = item.getItems();
+            }
+            if (!flag) {
+                break;
             }
         }
         return item;
