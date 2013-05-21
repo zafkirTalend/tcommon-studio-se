@@ -23,7 +23,7 @@ import org.talend.repository.model.RepositoryNode;
 /**
  * DOC mhelleboid class global comment. Detailled comment <br/>
  * 
- * $Id: RepositoryEditorInput.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: RepositoryEditorInput.java 1 2006-09-29 17:06:40 +0000 (æ˜ŸæœŸäº”, 29 ä¹�æœˆ 2006) nrousseau $
  * 
  */
 public class RepositoryEditorInput extends FileEditorInput implements IRepositoryEditorInput {
@@ -77,7 +77,13 @@ public class RepositoryEditorInput extends FileEditorInput implements IRepositor
         if(item==null) {
         	return false;
         }
-        return item==other.getItem();
+        if(!getId().equals(other.getId())){
+        	return false;
+        }
+        if(!getVersion().equals(other.getVersion())){
+        	return false;
+        }
+        return true;
     }
 
     @Override
