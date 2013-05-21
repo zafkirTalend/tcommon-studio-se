@@ -21,7 +21,10 @@ import java.util.List;
 
 import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 
@@ -192,6 +195,38 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
         if (hiveObject != null) { // got the hive object
             try {
                 Class hiveClass = hiveObject.getClass();
+                Method method = hiveClass.getDeclaredMethod("getConf");//$NON-NLS-1$ 
+                Object hiveConf = method.invoke(hiveObject);
+                Class hiveConfClass = hiveConf.getClass();
+                // find ConfVar enum in the HiveConf class.
+                Class confVarClass = null;
+                for (Class curClass : hiveConfClass.getClasses()) {
+                    if (curClass.getSimpleName().equals("ConfVars")) { //$NON-NLS-1$
+                        confVarClass = curClass;
+                        break;
+                    }
+                }
+                if (confVarClass != null) {
+                    Object confVar = null;
+                    // try to find enumeration: ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT
+                    for (Object curConfVar : confVarClass.getEnumConstants()) {
+                        if (curConfVar.toString().equals("hive.metastore.client.socket.timeout")) { //$NON-NLS-1$
+                            confVar = curConfVar;
+                            break;
+                        }
+                    }
+                    if (confVar != null) {
+                        Method setIntVarMethod = hiveConfClass.getDeclaredMethod("setIntVar", confVarClass, int.class); //$NON-NLS-1$
+                        int timeout = 15;
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                            IDesignerCoreService designerService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                    .getService(IDesignerCoreService.class);
+                            timeout = designerService.getDesignerCorePreferenceStore().getInt(
+                                    ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+                        }
+                        setIntVarMethod.invoke(hiveConf, confVar, timeout);
+                    }
+                }
                 Method getAllTablesMethod = hiveClass.getDeclaredMethod("getAllTables");//$NON-NLS-1$ 
                 Object tables = getAllTablesMethod.invoke(hiveObject);
                 if (tables instanceof List) {
