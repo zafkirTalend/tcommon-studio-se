@@ -90,7 +90,7 @@ public class PluginChecker {
 
     private static final String BPM_PLUGIN_ID = "org.talend.bpm";//$NON-NLS-1$
 
-    private static final String MDM_BPM_PLUGIN_ID = "org.talend.mdm.bpm";//$NON-NLS-1$
+    private static final String MDM_BOS_PLUGIN_ID = "org.talend.mdm.bos";//$NON-NLS-1$
 
     private static final String PIGUDF_PLUGIN_ID = "org.talend.repository.pigudf";//$NON-NLS-1$
 
@@ -282,7 +282,7 @@ public class PluginChecker {
     }
 
     public static boolean isBPMloaded() {
-        return isPluginLoaded(BPM_PLUGIN_ID) || isPluginLoaded(MDM_BPM_PLUGIN_ID);
+        return isPluginLoaded(BPM_PLUGIN_ID) || isPluginLoaded(MDM_BOS_PLUGIN_ID);
     }
 
     public static String getBundlePath(String bundleName) {
