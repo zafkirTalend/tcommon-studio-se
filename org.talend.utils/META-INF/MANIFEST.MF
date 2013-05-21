@@ -24,7 +24,8 @@ Export-Package:
  org.talend.utils.string,
  org.talend.utils.sugars,
  org.talend.utils.thread,
- org.talend.utils.time
+ org.talend.utils.time,
+ org.talend.utils.wsdl
 Bundle-ClassPath: .
 Require-Bundle: org.apache.commons.lang,
  org.talend.libraries.apache;visibility:=reexport,
