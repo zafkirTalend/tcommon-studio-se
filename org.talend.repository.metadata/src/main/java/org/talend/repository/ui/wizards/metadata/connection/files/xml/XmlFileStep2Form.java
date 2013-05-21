@@ -191,12 +191,13 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
     @Override
     protected void initialize() {
 
-        treeViewer = new TreeViewer(availableXmlTree);
-        treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
-        treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
-        treeViewer.setUseHashlookup(true);
-
-        this.treePopulator = new TreePopulator(treeViewer);
+        if (treeViewer == null) {
+            treeViewer = new TreeViewer(availableXmlTree);
+            treeViewer.setContentProvider(new VirtualXmlTreeNodeContentProvider(treeViewer));
+            treeViewer.setLabelProvider(new VirtualXmlTreeLabelProvider());
+            treeViewer.setUseHashlookup(true);
+            this.treePopulator = new TreePopulator(treeViewer);
+        }
         checkFieldsValue();
 
         if (xmlXPathLoopDescriptor == null) {
