@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -12,6 +14,24 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 public class BaseConnectionContextHelper {
 
     public static final String EMPTY = ""; //$NON-NLS-1$
+
+    /**
+     * get context original value by context code
+     * 
+     * @param contextManager
+     * @param contextCode
+     * @return
+     */
+    public static String getOriginalValue(IContextManager contextManager, String contextCode) {
+        if (ContextParameterUtils.containContextVariables(contextCode)) {
+            String variable = ContextParameterUtils.getVariableFromCode(contextCode);
+            IContext context = contextManager.getDefaultContext();
+            if (context != null) {
+                return context.getContextParameter(variable).getValue();
+            }
+        }
+        return contextCode;
+    }
 
     /**
      * 
