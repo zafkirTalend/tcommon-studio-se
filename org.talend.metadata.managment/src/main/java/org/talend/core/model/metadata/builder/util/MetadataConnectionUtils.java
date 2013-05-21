@@ -562,6 +562,7 @@ public class MetadataConnectionUtils {
      * @param metadataBean
      * @param driver
      * @return
+     * @throws Exception
      */
     private static Driver getDriver(IMetadataConnection metadataBean) {
         Driver driver = null;
@@ -580,6 +581,9 @@ public class MetadataConnectionUtils {
             }
         } catch (Exception e) {
             log.error(e, e);
+            // Added 20130521 TUP-735 yyin,when connection error should throw the exception to transfer the error
+            // message
+            throw new RuntimeException(e);
         } finally {
             // ADD msjian TDQ-5952: we should close the unused connection at once.
             try {
