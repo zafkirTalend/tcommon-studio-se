@@ -45,4 +45,12 @@
          </Component>
       </SortedComponents>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.talend.core.prefs.ui.CorePreferencePage"
+           id="org.talend.core.prefs"
+           name="%prefs">
+     </page>
+   </extension>
 </plugin>
