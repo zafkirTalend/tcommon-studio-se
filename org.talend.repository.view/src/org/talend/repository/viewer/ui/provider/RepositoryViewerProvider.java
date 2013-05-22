@@ -130,6 +130,9 @@ public class RepositoryViewerProvider extends AbstractViewerProvider {
                         return e1.toString().compareTo(e2.toString());
                     } else if (viewerSorter != null) {
                         if (viewerSorter instanceof TreePathViewerSorter) {
+                            if (!node1.isInitialized() && !node2.isInitialized()) {
+                                return viewerSorter.compare(viewer, e1, e2);
+                            }
                             return ((TreePathViewerSorter) viewerSorter).compare(viewer, parentPath, e1, e2);
                         } else {
                             return viewerSorter.compare(viewer, e1, e2);
