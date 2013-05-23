@@ -27,13 +27,17 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
+import org.talend.commons.exception.LoginException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.TalendSplashHandler;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.registeruser.RegisterManagement;
 import org.talend.repository.utils.LoginTaskRegistryReader;
 
@@ -131,6 +135,13 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         }
         // feature 19053
         PerspectiveReviewUtil.setPerspectiveTabs();
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(new RepositoryWorkUnit<Object>("") {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                // nothing, just commit what has not been commited during the logon time.
+            }
+        });
     }
 
 }
