@@ -94,11 +94,9 @@ public class ExportFileResource {
         Set<URL> storeList = map.get(relativePath);
         if (storeList == null) {
             storeList = new HashSet<URL>();
-            storeList.add(resource);
             map.put(relativePath, storeList);
-        } else {
-            storeList.add(resource);
         }
+        storeList.add(resource);
     }
 
     public void removeResources(String relativePath, URL resource) {
