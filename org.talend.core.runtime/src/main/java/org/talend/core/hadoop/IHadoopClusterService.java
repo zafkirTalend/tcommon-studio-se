@@ -173,4 +173,6 @@ public interface IHadoopClusterService extends IService {
     public void copyHadoopCluster(final Item sourceItem, final IPath path, String newName) throws PersistenceException,
             BusinessException;
 
+    public Map<String, String> getHadoopCustomLibraries(String clusterId);
+
 }

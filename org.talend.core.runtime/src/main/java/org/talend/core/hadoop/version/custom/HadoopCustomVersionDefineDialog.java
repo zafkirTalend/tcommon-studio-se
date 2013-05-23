@@ -475,7 +475,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         // filter ALL and PIG
         ECustomVersionType[] values = ECustomVersionType.values();
         Object[] removeElement = ArrayUtils.removeElement(values, ECustomVersionType.ALL);
-        removeElement = ArrayUtils.removeElement(removeElement, ECustomVersionType.PIG);
+        // removeElement = ArrayUtils.removeElement(removeElement, ECustomVersionType.PIG);
         return (ECustomVersionType[]) removeElement;
     }
 

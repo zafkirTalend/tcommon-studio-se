@@ -34,7 +34,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
-import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -100,7 +99,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
-        newShell.setSize(500, 450);
+        newShell.setSize(580, 450);
         setHelpAvailable(false);
     }
 
@@ -409,8 +408,9 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                             for (ECustomVersionType type : types) {
                                 if (type.getGroup() == group) {
                                     Set<String> hadoopLibraries = new HashSet<String>();
-                                    if (ECustomVersionType.PIG == type) {
-                                        hadoopLibraries = getLibrariesForPig();
+                                    if (ECustomVersionType.PIG == type || ECustomVersionType.PIG_HBASE == type
+                                            || ECustomVersionType.PIG_HCATALOG == type) {
+                                        hadoopLibraries = getLibrariesForPig(type);
                                     } else {
                                         // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
                                         if (!commonGroupCalculated
@@ -448,24 +448,33 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         return libMap;
     }
 
-    private Set<String> getLibrariesForPig() {
+    private Set<String> getLibrariesForPig(ECustomVersionType type) {
         Set<String> neededLibraries = new HashSet<String>();
-        IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
-        INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService().getRefrenceNode("tPigLoad");
+        INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService().getRefrenceNode("tPigLoad");//$NON-NLS-1$
 
-        IElementParameter elementParameter = node.getElementParameter("MAPREDUCE");
+        IElementParameter elementParameter = node.getElementParameter("MAPREDUCE");//$NON-NLS-1$
         if (elementParameter != null) {
             elementParameter.setValue(true);
         }
-        elementParameter = node.getElementParameter("DISTRIBUTION");
+        elementParameter = node.getElementParameter("DISTRIBUTION");//$NON-NLS-1$
         if (elementParameter != null) {
             elementParameter.setValue(distribution);
         }
 
-        elementParameter = node.getElementParameter("PIG_VERSION");
+        elementParameter = node.getElementParameter("PIG_VERSION");//$NON-NLS-1$
         if (elementParameter != null) {
             elementParameter.setValue(version);
         }
+
+        elementParameter = node.getElementParameter("LOAD");//$NON-NLS-1$
+        if (elementParameter != null) {
+            if (ECustomVersionType.PIG_HBASE == type) {
+                elementParameter.setValue("HBASESTORAGE");//$NON-NLS-1$
+            } else if (ECustomVersionType.PIG_HCATALOG == type) {
+                elementParameter.setValue("HCATLOADER");//$NON-NLS-1$
+            }
+        }
+
         List<ModuleNeeded> modulesNeeded = node.getModulesNeeded();
         for (ModuleNeeded module : modulesNeeded) {
             if (module.isRequired(node.getElementParameters())) {

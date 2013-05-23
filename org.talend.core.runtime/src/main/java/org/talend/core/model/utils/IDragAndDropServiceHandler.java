@@ -47,6 +47,8 @@ public interface IDragAndDropServiceHandler {
      */
     public Object getComponentValue(Connection connection, String value, IMetadataTable table);
 
+    public Object getComponentValue(Connection connection, String value, IMetadataTable table, String targetComponent);
+
     /**
      * DOC hwang Comment method "filterNeededComponents".
      * 

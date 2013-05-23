@@ -31,6 +31,8 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
@@ -91,7 +93,8 @@ import org.talend.cwm.helper.ConnectionHelper;
  */
 public class RepositoryToComponentProperty {
 
-    public static Object getValue(Connection connection, String value, IMetadataTable table) {
+    public static Object getValue(Connection connection, String value, IMetadataTable table, String targetComponent) {
+
         if (connection instanceof HL7Connection) {
             return getHL7Value((HL7Connection) connection, value);
         }
@@ -103,7 +106,7 @@ public class RepositoryToComponentProperty {
             return getXmlFileValue((XmlFileConnection) connection, value);
         }
         if (connection instanceof DatabaseConnection) {
-            return getDatabaseValue((DatabaseConnection) connection, value);
+            return getDatabaseValue((DatabaseConnection) connection, value, targetComponent);
         }
 
         if (connection instanceof FTPConnection) {
@@ -145,10 +148,15 @@ public class RepositoryToComponentProperty {
 
         for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
             if (handler.canHandle(connection)) {
-                return handler.getComponentValue(connection, value, table);
+                return handler.getComponentValue(connection, value, table, targetComponent);
             }
         }
         return null;
+
+    }
+
+    public static Object getValue(Connection connection, String value, IMetadataTable table) {
+        return getValue(connection, value, table, null);
     }
 
     /**
@@ -777,14 +785,8 @@ public class RepositoryToComponentProperty {
 
     }
 
-    /**
-     * DOC nrousseau Comment method "getDatabaseValue".
-     * 
-     * @param connection
-     * @param value
-     * @return
-     */
-    private static Object getDatabaseValue(DatabaseConnection connection, String value) {
+    private static Object getDatabaseValue(DatabaseConnection connection, String value, String targetComponent) {
+
         String databaseType = connection.getDatabaseType();
         if (value.equals("TYPE")) { //$NON-NLS-1$
             String typeByProduct = getStandardDbTypeFromConnection(databaseType);
@@ -1133,6 +1135,22 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
+            if (targetComponent != null && targetComponent.startsWith("tPig")) {
+                // for pig component
+                String clusterID = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+                if (clusterID != null) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+                        IHadoopClusterService hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
+                                .getService(IHadoopClusterService.class);
+                        Map<String, String> hadoopCustomLibraries = hadoopClusterService.getHadoopCustomLibraries(clusterID);
+
+                        if (EDatabaseTypeName.HBASE.getDisplayName().equals(connection.getDatabaseType())) {
+                            return hadoopCustomLibraries.get(ECustomVersionGroup.PIG_HBASE.getName()) == null ? ""
+                                    : hadoopCustomLibraries.get(ECustomVersionGroup.PIG_HBASE.getName());
+                        }
+                    }
+                }
+            }
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
         }
 
@@ -1225,6 +1243,18 @@ public class RepositoryToComponentProperty {
         }
 
         return null;
+
+    }
+
+    /**
+     * DOC nrousseau Comment method "getDatabaseValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getDatabaseValue(DatabaseConnection connection, String value) {
+        return getDatabaseValue(connection, value, null);
     }
 
     private static boolean isContextMode(Connection connection, String value) {
