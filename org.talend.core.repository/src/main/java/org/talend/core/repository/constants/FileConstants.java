@@ -12,75 +12,80 @@
 // ============================================================================
 package org.talend.core.repository.constants;
 
+import java.io.File;
+
 /**
  */
-public class FileConstants {
+public interface FileConstants {
 
-    public static final String OLD_TALEND_PROJECT_FILENAME = "talendProject"; //$NON-NLS-1$
+    String OLD_TALEND_PROJECT_FILENAME = "talendProject"; //$NON-NLS-1$
 
-    public static final String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
+    String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
 
-    public static final String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
+    String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
 
-    public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
+    String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
-    public static final String SCREENSHOT_EXTENSION = "screenshot"; //$NON-NLS-1$
+    String SCREENSHOT_EXTENSION = "screenshot"; //$NON-NLS-1$
 
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
-    public static final String ANA_EXTENSION = "ana"; //$NON-NLS-1$
+    String ANA_EXTENSION = "ana"; //$NON-NLS-1$
 
-    public static final String REP_EXTENSION = "rep"; //$NON-NLS-1$
-
-    // MOD klliu 2010-11-26
-    public static final String DEF_EXTENSION = "definition"; //$NON-NLS-1$
+    String REP_EXTENSION = "rep"; //$NON-NLS-1$
 
     // MOD klliu 2010-11-26
-    public static final String PAT_EXTENSION = "pattern"; //$NON-NLS-1$
+    String DEF_EXTENSION = "definition"; //$NON-NLS-1$
 
     // MOD klliu 2010-11-26
-    public static final String RULE_EXTENSION = "rules"; //$NON-NLS-1$
+    String PAT_EXTENSION = "pattern"; //$NON-NLS-1$
 
     // MOD klliu 2010-11-26
-    public static final String SQL_EXTENSION = "sql"; //$NON-NLS-1$
+    String RULE_EXTENSION = "rules"; //$NON-NLS-1$
 
     // MOD klliu 2010-11-26
-    public static final String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
+    String SQL_EXTENSION = "sql"; //$NON-NLS-1$
+
+    // MOD klliu 2010-11-26
+    String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
 
     /*
      * file suffix
      */
-    public static final String PROPERTIES_FILE_SUFFIX = '.' + PROPERTIES_EXTENSION;
+    String PROPERTIES_FILE_SUFFIX = '.' + PROPERTIES_EXTENSION;
 
-    public static final String ITEM_FILE_SUFFIX = '.' + ITEM_EXTENSION;
+    String ITEM_FILE_SUFFIX = '.' + ITEM_EXTENSION;
 
-    public static final String SCREENSHOT_FILE_SUFFIX = '.' + SCREENSHOT_EXTENSION;
+    String SCREENSHOT_FILE_SUFFIX = '.' + SCREENSHOT_EXTENSION;
 
-    public static final String ZIP_FILE_SUFFIX = ".zip"; //$NON-NLS-1$
+    String ZIP_FILE_SUFFIX = ".zip"; //$NON-NLS-1$
 
-    public static final String TAR_FILE_SUFFIX = ".tar"; //$NON-NLS-1$
+    String TAR_FILE_SUFFIX = ".tar"; //$NON-NLS-1$
 
-    public static final String TAR_GZ_FILE_SUFFIX = ".tar.gz"; //$NON-NLS-1$
+    String TAR_GZ_FILE_SUFFIX = ".tar.gz"; //$NON-NLS-1$
 
-    public static final String JAR_FILE_SUFFIX = ".jar"; //$NON-NLS-1$
+    String JAR_FILE_SUFFIX = ".jar"; //$NON-NLS-1$
 
-    public static final String WAR_FILE_SUFFIX = ".war"; //$NON-NLS-1$
+    String WAR_FILE_SUFFIX = ".war"; //$NON-NLS-1$
 
-    public static final String ESB_FILE_SUFFIX = ".esb"; //$NON-NLS-1$
+    String ESB_FILE_SUFFIX = ".esb"; //$NON-NLS-1$
 
-    public static final String SH_FILE_SUFFIX = ".sh"; //$NON-NLS-1$
+    String SH_FILE_SUFFIX = ".sh"; //$NON-NLS-1$
 
-    public static final String BAT_FILE_SUFFIX = ".bat"; //$NON-NLS-1$
+    String BAT_FILE_SUFFIX = ".bat"; //$NON-NLS-1$
 
-    public static final String KAR_FILE_SUFFIX = ".kar"; //$NON-NLS-1$
+    String KAR_FILE_SUFFIX = ".kar"; //$NON-NLS-1$
 
-    public static final String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
+    String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
 
-    public static final String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
+    String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
 
     /*
      * file names
      */
-    public static final String MANIFEST_MF_FILE_NAME = "MANIFEST.MF"; //$NON-NLS-1$
+    String MANIFEST_MF_FILE_NAME = "MANIFEST.MF"; //$NON-NLS-1$
 
-    public static final String META_INF_FOLDER_NAME = "META-INF"; //$NON-NLS-1$
+    String META_INF_FOLDER_NAME = "META-INF"; //$NON-NLS-1$
+
+    String BLUEPRINT_FOLDER_NAME = "OSGI-INF" + File.separatorChar + "blueprint"; //$NON-NLS-1$ //$NON-NLS-2$
+
 }
