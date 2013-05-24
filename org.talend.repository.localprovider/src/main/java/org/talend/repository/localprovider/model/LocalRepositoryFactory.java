@@ -792,7 +792,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getItemState());
         // item
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getItem());
-        // item
+        // property
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getProperty());
         // project authorization
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getUserProjectAuthorization());
