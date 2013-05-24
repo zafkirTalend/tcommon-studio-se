@@ -18,9 +18,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,8 +35,8 @@ public class NetworkUtil {
     private static final Pattern macPattern = Pattern
             .compile(".*((:?[0-9a-f]{2}[-:]){5}[0-9a-f]{2}).*", Pattern.CASE_INSENSITIVE); //$NON-NLS-1$
 
-    private final static List<String> getMacAddressList() throws IOException {
-        final ArrayList<String> macAddressList = new ArrayList<String>();
+    private final static Set<String> getMacAddressList() throws IOException {
+        final Set<String> macAddressList = new HashSet<String>();
 
         final String os = System.getProperty("os.name"); //$NON-NLS-1$
 
@@ -54,6 +53,7 @@ public class NetworkUtil {
         // Discard the stderr
         new Thread() {
 
+            @Override
             public void run() {
                 try {
                     InputStream errorStream = process.getErrorStream();
@@ -79,12 +79,19 @@ public class NetworkUtil {
         return macAddressList;
     }
 
+    /**
+     * Note： should rename as "getFullMacAddresses" later since it takes in fact the concatenation of all mac address.
+     * 
+     * @return
+     */
     public static String getMacAddress() {
         try {
-            List<String> addressList = getMacAddressList();
+            Set<String> addressList = getMacAddressList();
             StringBuffer sb = new StringBuffer();
-            for (Iterator<String> iter = addressList.iterator(); iter.hasNext();) {
-                sb.append(iter.next());
+            // remove empty mac address
+            addressList.remove("0000000000E0"); //$NON-NLS-1$
+            for (String curMacAddress : addressList) {
+                sb.append(curMacAddress);
             }
             return sb.toString();
         } catch (IOException e) {
