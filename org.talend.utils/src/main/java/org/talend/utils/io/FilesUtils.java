@@ -31,6 +31,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.ZipEntry;
@@ -502,7 +504,20 @@ public final class FilesUtils {
      * @throws IOException
      */
     public static void zip(File sourceFile, String zippedFileName) throws IOException {
-        zips(new File[] { sourceFile }, zippedFileName);
+        if (sourceFile.isDirectory()) {
+            zips(sourceFile.listFiles(), zippedFileName);
+        } else {
+            zips(new File[] { sourceFile }, zippedFileName);
+        }
+    }
+
+    public static void jar(Manifest manifest, File sourceDir, File zip) throws IOException {
+        ZipOutputStream out = new JarOutputStream(new FileOutputStream(zip), manifest);
+        try {
+            zips(sourceDir.listFiles(), out);
+        } finally {
+            out.close();
+        }
     }
 
     /**
@@ -514,12 +529,10 @@ public final class FilesUtils {
      * @throws IOException
      */
     public static void zips(File[] sourceFile, String zippedFileName) throws IOException {
-        FileOutputStream fos = new FileOutputStream(zippedFileName);
+        OutputStream fos = new FileOutputStream(zippedFileName);
         ZipOutputStream out = new ZipOutputStream(fos);
         try {
-            for (File theFile : sourceFile) {
-                zips(out, theFile, null);
-            }
+            zips(sourceFile, out);
         } finally {
             // http://stackoverflow.com/questions/4681459/closing-zipoutputstream
             if (sourceFile.length > 0) {
@@ -527,6 +540,12 @@ public final class FilesUtils {
             } else {
                 fos.close();
             }
+        }
+    }
+
+    private static void zips(File[] sourceFile, ZipOutputStream out) throws IOException {
+        for (File theFile : sourceFile) {
+            zips(out, theFile, ""); //$NON-NLS-1$
         }
     }
 
@@ -540,24 +559,20 @@ public final class FilesUtils {
      * @throws IOException
      */
     private static void zips(ZipOutputStream out, File f, String base) throws IOException {
-        String baseValue = base;
         if (f.isDirectory()) {
-            File[] fc = f.listFiles();
-            if (baseValue != null) {
-                out.putNextEntry(new ZipEntry(baseValue + '/'));
-            }
-            baseValue = baseValue == null ? "" : baseValue + '/';
-            for (File element : fc) {
-                zips(out, element, baseValue + element.getName());
+            base += f.getName() + '/';
+            out.putNextEntry(new ZipEntry(base));
+            for (File element : f.listFiles()) {
+                zips(out, element, base);
             }
         } else {
-            out.putNextEntry(new ZipEntry(f.getName()));
-            FileInputStream in = new FileInputStream(f);
+            out.putNextEntry(new ZipEntry(base + f.getName()));
+            InputStream in = new FileInputStream(f);
 
-            // byte[] b = new byte[BUFFER_SIZE];
+            byte[] b = new byte[BUFFER_SIZE];
             int readBytes = 0;
-            while ((readBytes = in.read()) != -1) {
-                out.write(readBytes);
+            while ((readBytes = in.read(b, 0, BUFFER_SIZE)) != -1) {
+                out.write(b, 0, readBytes);
             }
             in.close();
             out.flush();
@@ -565,102 +580,11 @@ public final class FilesUtils {
     }
 
     public static void zipFiles(String source, String target) throws Exception {
-        File sourceFile = new File(source);
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(target));
-        zipFiles(sourceFile, out);
-    }
-
-    private static void zipFiles(File f, ZipOutputStream out) throws Exception {
-        if (f.isDirectory()) {
-            File[] fc = f.listFiles();
-            for (File element : fc) {
-                zipFiles(element, out);
-            }
-        } else {
-            out.putNextEntry(new ZipEntry(f.getName()));
-            FileInputStream in = new FileInputStream(f);
-
-            byte[] b = new byte[BUFFER_SIZE];
-            int readBytes = 0;
-            while ((readBytes = in.read()) != -1) {
-                out.write(b, 0, readBytes);
-            }
-
-            out.flush();
-            in.close();
-            return;
-        }
-
-        out.close();
+        zip(source, target);
     }
 
     public static void zipFolderRecursion(String sourceFileName, String zippedFileName) throws Exception {
-        File sourceFile = new File(sourceFileName);
-
-        if (!sourceFile.exists()) {
-            System.out.println(sourceFileName + " not exitst!");
-            return;
-        }
-
-        if (sourceFile.isFile()) {
-            System.out.println("source can't be file!");
-            return;
-        }
-
-        if (sourceFile.isDirectory()) {
-            if (sourceFile.listFiles().length > 0) {
-                zipFolderRecursion(sourceFile, zippedFileName);
-            } else {
-                System.out.println(sourceFileName + " have nothing!");
-                return;
-            }
-        }
-    }
-
-    private static void zipFolderRecursion(File sourceFile, String zippedFileName) throws Exception {
-        ZipOutputStream out = null;
-        try {
-            out = new ZipOutputStream(new FileOutputStream(zippedFileName));
-            zipFolderRecursion(out, sourceFile, null);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-        }
-    }
-
-    private static void zipFolderRecursion(ZipOutputStream out, File f, String base) throws Exception {
-        String baseValue = base;
-        if (f.isDirectory()) {
-            File[] fc = f.listFiles();
-            if (baseValue != null && !"".equals(baseValue)) { //$NON-NLS-1$
-                out.putNextEntry(new ZipEntry(baseValue + "/")); //$NON-NLS-1$
-            }
-            baseValue = baseValue == null ? "" : baseValue + "/";
-            for (File element : fc) {
-                zipFolderRecursion(out, element, baseValue + element.getName());
-            }
-        } else {
-            FileInputStream in = null;
-            try {
-                // System.out.println(base);
-                out.putNextEntry(new ZipEntry(baseValue));
-                in = new FileInputStream(f);
-                byte[] b = new byte[BUFFER_SIZE];
-                int readBytes = 0;
-                while ((readBytes = in.read(b, 0, BUFFER_SIZE)) != -1) {
-                    out.write(b, 0, readBytes);
-                }
-                out.flush();
-                return;
-            } finally {
-                if (in != null) {
-                    in.close();
-                }
-            }
-        }
+        zip(sourceFileName, zippedFileName);
     }
 
     /**
