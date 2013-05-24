@@ -13,7 +13,9 @@
 package org.talend.core.properties.tab;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
@@ -147,12 +149,14 @@ public class TalendTabbedPropertyList extends Composite {
 
             addPaintListener(new PaintListener() {
 
+                @Override
                 public void paintControl(PaintEvent e) {
                     paint(e);
                 }
             });
             addMouseListener(new MouseAdapter() {
 
+                @Override
                 public void mouseUp(MouseEvent e) {
                     if (!selected) {
                         select(getIndex(ListElement.this));
@@ -172,6 +176,7 @@ public class TalendTabbedPropertyList extends Composite {
             });
             addMouseMoveListener(new MouseMoveListener() {
 
+                @Override
                 public void mouseMove(MouseEvent e) {
                     if (!hover) {
                         hover = true;
@@ -181,6 +186,7 @@ public class TalendTabbedPropertyList extends Composite {
             });
             addMouseTrackListener(new MouseTrackAdapter() {
 
+                @Override
                 public void mouseExit(MouseEvent e) {
                     hover = false;
                     redraw();
@@ -289,6 +295,7 @@ public class TalendTabbedPropertyList extends Composite {
             return tab;
         }
 
+        @Override
         public String toString() {
             return tab.getText();
         }
@@ -309,12 +316,14 @@ public class TalendTabbedPropertyList extends Composite {
             super(parent, SWT.NO_FOCUS);
             addPaintListener(new PaintListener() {
 
+                @Override
                 public void paintControl(PaintEvent e) {
                     paint(e);
                 }
             });
             addMouseListener(new MouseAdapter() {
 
+                @Override
                 public void mouseUp(MouseEvent e) {
                     if (isUpScrollRequired()) {
                         bottomVisibleIndex--;
@@ -391,12 +400,14 @@ public class TalendTabbedPropertyList extends Composite {
             super(parent, SWT.NO_FOCUS);
             addPaintListener(new PaintListener() {
 
+                @Override
                 public void paintControl(PaintEvent e) {
                     paint(e);
                 }
             });
             addMouseListener(new MouseAdapter() {
 
+                @Override
                 public void mouseUp(MouseEvent e) {
                     if (isDownScrollRequired()) {
                         topVisibleIndex++;
@@ -485,6 +496,7 @@ public class TalendTabbedPropertyList extends Composite {
 
         this.addFocusListener(new FocusListener() {
 
+            @Override
             public void focusGained(FocusEvent e) {
                 int i = getSelectionIndex();
                 if (i >= 0) {
@@ -492,6 +504,7 @@ public class TalendTabbedPropertyList extends Composite {
                 }
             }
 
+            @Override
             public void focusLost(FocusEvent e) {
                 int i = getSelectionIndex();
                 if (i >= 0) {
@@ -501,12 +514,14 @@ public class TalendTabbedPropertyList extends Composite {
         });
         this.addControlListener(new ControlAdapter() {
 
+            @Override
             public void controlResized(ControlEvent e) {
                 computeTopAndBottomTab();
             }
         });
         this.addTraverseListener(new TraverseListener() {
 
+            @Override
             public void keyTraversed(TraverseEvent e) {
                 if (e.detail == SWT.TRAVERSE_ARROW_PREVIOUS || e.detail == SWT.TRAVERSE_ARROW_NEXT) {
                     int nMax = elements.length - 1;
@@ -568,8 +583,8 @@ public class TalendTabbedPropertyList extends Composite {
      */
     public void removeAll() {
         if (elements != null) {
-            for (int i = 0; i < elements.length; i++) {
-                elements[i].dispose();
+            for (ListElement element : elements) {
+                element.dispose();
             }
         }
         elements = ELEMENTS_EMPTY;
@@ -666,8 +681,8 @@ public class TalendTabbedPropertyList extends Composite {
                     for (int i = 0; i <= index2; i++) {
                         children[counter++] = elements[i].getTabItem();
                     }
-                    for (int i = 0; i < subItems.length; i++) {
-                        children[counter++] = subItems[i];
+                    for (IStructuredTabItem subItem : subItems) {
+                        children[counter++] = subItem;
 
                     }
                     for (int i = index2 + 1; i < elements.length; i++) {
@@ -742,6 +757,7 @@ public class TalendTabbedPropertyList extends Composite {
         return element.index;
     }
 
+    @Override
     public Point computeSize(int wHint, int hHint, boolean changed) {
         Point result = super.computeSize(hHint, wHint, changed);
         if (widestLabelIndex == -1) {
@@ -768,6 +784,8 @@ public class TalendTabbedPropertyList extends Composite {
         return result;
     }
 
+    Map<String, Point> textToDimensionMap = new HashMap<String, Point>();
+
     /**
      * Get the dimensions of the provided string.
      * 
@@ -775,6 +793,9 @@ public class TalendTabbedPropertyList extends Composite {
      * @return the dimensions of the provided string.
      */
     private Point getTextDimension(String text) {
+        if (textToDimensionMap.containsKey(text)) {
+            return textToDimensionMap.get(text);
+        }
         Shell shell = new Shell();
         GC gc = new GC(shell);
         gc.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
@@ -782,6 +803,7 @@ public class TalendTabbedPropertyList extends Composite {
         point.x++;
         gc.dispose();
         shell.dispose();
+        textToDimensionMap.put(text, point);
         return point;
     }
 
@@ -849,6 +871,7 @@ public class TalendTabbedPropertyList extends Composite {
                 FormColors.blend(white, widgetBackground.getRGB(), 75));
     }
 
+    @Override
     public void dispose() {
         hoverGradientStart.dispose();
         hoverGradientEnd.dispose();
@@ -1021,12 +1044,14 @@ public class TalendTabbedPropertyList extends Composite {
         final Accessible accessible = getAccessible();
         accessible.addAccessibleListener(new AccessibleAdapter() {
 
+            @Override
             public void getName(AccessibleEvent e) {
                 if (getSelectionIndex() != NONE) {
                     e.result = elements[getSelectionIndex()].getTabItem().getText();
                 }
             }
 
+            @Override
             public void getHelp(AccessibleEvent e) {
                 if (getSelectionIndex() != NONE) {
                     e.result = elements[getSelectionIndex()].getTabItem().getText();
@@ -1036,11 +1061,13 @@ public class TalendTabbedPropertyList extends Composite {
 
         accessible.addAccessibleControlListener(new AccessibleControlAdapter() {
 
+            @Override
             public void getChildAtPoint(AccessibleControlEvent e) {
                 Point pt = toControl(new Point(e.x, e.y));
                 e.childID = (getBounds().contains(pt)) ? ACC.CHILDID_SELF : ACC.CHILDID_NONE;
             }
 
+            @Override
             public void getLocation(AccessibleControlEvent e) {
                 if (getSelectionIndex() != NONE) {
                     Rectangle location = elements[getSelectionIndex()].getBounds();
@@ -1052,14 +1079,17 @@ public class TalendTabbedPropertyList extends Composite {
                 }
             }
 
+            @Override
             public void getChildCount(AccessibleControlEvent e) {
                 e.detail = 0;
             }
 
+            @Override
             public void getRole(AccessibleControlEvent e) {
                 e.detail = ACC.ROLE_TABITEM;
             }
 
+            @Override
             public void getState(AccessibleControlEvent e) {
                 e.detail = ACC.STATE_NORMAL | ACC.STATE_SELECTABLE | ACC.STATE_SELECTED | ACC.STATE_FOCUSED | ACC.STATE_FOCUSABLE;
             }
@@ -1067,6 +1097,7 @@ public class TalendTabbedPropertyList extends Composite {
 
         addListener(SWT.Selection, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 if (isFocusControl()) {
                     accessible.setFocus(ACC.CHILDID_SELF);
@@ -1076,6 +1107,7 @@ public class TalendTabbedPropertyList extends Composite {
 
         addListener(SWT.FocusIn, new Listener() {
 
+            @Override
             public void handleEvent(Event event) {
                 accessible.setFocus(ACC.CHILDID_SELF);
             }
