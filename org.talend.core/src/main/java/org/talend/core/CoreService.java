@@ -36,13 +36,18 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.DirectoryFieldEditor;
+import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
 import org.eclipse.osgi.framework.adaptor.BundleData;
 import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
@@ -50,6 +55,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.xml.XmlUtil;
+import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.general.LibraryInfo;
@@ -72,7 +78,9 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.prefs.ui.CorePreferencePage;
 import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.actions.ActionsHelper;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -97,34 +105,42 @@ public class CoreService implements ICoreService {
 
     private static Logger log = Logger.getLogger(CoreService.class);
 
+    @Override
     public List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         return MetadataToolHelper.getColumnNameChanged(oldTable, newTable);
     }
 
+    @Override
     public List<ColumnNameChanged> getNewMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
         return MetadataToolHelper.getNewMetadataColumns(oldTable, newTable);
     }
 
+    @Override
     public List<ColumnNameChanged> getRemoveMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
         return MetadataToolHelper.getRemoveMetadataColumns(oldTable, newTable);
     }
 
+    @Override
     public void initializeForTalendStartupJob() {
         CorePlugin.getDefault().getRepositoryService().initializeForTalendStartupJob();
     }
 
+    @Override
     public String getLanTypeString() {
         return getPreferenceStore().getString(CorePlugin.PROJECT_LANGUAGE_TYPE);
     }
 
+    @Override
     public Image getImageWithDocExt(String extension) {
         return OverlayImageProvider.getImageWithDocExt(extension);
     }
 
+    @Override
     public ImageDescriptor getImageWithSpecial(Image source) {
         return OverlayImageProvider.getImageWithSpecial(source);
     }
 
+    @Override
     public boolean isContainContextParam(String code) {
         return ContextParameterUtils.isContainContextParam(code);
     }
@@ -134,6 +150,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#setFlagForQueryUtils(boolean)
      */
+    @Override
     public void setFlagForQueryUtils(boolean flag) {
         QueryUtil.isContextQuery = flag;
 
@@ -144,6 +161,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getFlagFromQueryUtils()
      */
+    @Override
     public boolean getContextFlagFromQueryUtils() {
         return QueryUtil.isContextQuery;
     }
@@ -153,6 +171,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getRoutineAndJars()
      */
+    @Override
     public Map<String, List<LibraryInfo>> getRoutineAndJars() {
         return RoutineLibraryMananger.getInstance().getRoutineAndJars();
     }
@@ -162,6 +181,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getTemplateString()
      */
+    @Override
     public String getTemplateString() {
         return ITalendSynchronizer.TEMPLATE;
     }
@@ -171,42 +191,52 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#getParameterUNIQUENAME()
      */
+    @Override
     public String getParameterUNIQUENAME(NodeType node) {
         return ElementParameterParser.getUNIQUENAME(node);
     }
 
+    @Override
     public boolean isAlreadyBuilt(Project project) {
         return !project.getEmfProject().getItemsRelations().isEmpty();
     }
 
+    @Override
     public void removeItemRelations(Item item) {
         RelationshipItemBuilder.getInstance().removeItemRelations(item);
     }
 
+    @Override
     public String getJavaJobFolderName(String jobName, String version) {
         return JavaResourcesHelper.getJobFolderName(jobName, version);
     }
 
+    @Override
     public String getJavaProjectFolderName(Item item) {
         return JavaResourcesHelper.getProjectFolderName(item);
     }
 
+    @Override
     public IResource getSpecificResourceInJavaProject(IPath path) throws CoreException {
         return JavaResourcesHelper.getSpecificResourceInJavaProject(path);
     }
 
+    @Override
     public String getContextFileNameForPerl(String projectName, String jobName, String version, String context) {
         return PerlResourcesHelper.getContextFileName(projectName, jobName, version, context);
     }
 
+    @Override
     public String getRootProjectNameForPerl(Item item) {
         return PerlResourcesHelper.getRootProjectName(item);
     }
 
+    @Override
     public IResource getSpecificResourceInPerlProject(IPath path) throws CoreException {
         return PerlResourcesHelper.getSpecificResourceInPerlProject(path);
     }
 
+    @Override
     public void syncLibraries(IProgressMonitor... monitorWrap) {
         CorePlugin.getDefault().getLibrariesService().syncLibraries(monitorWrap);
         // if (!CommonsPlugin.isHeadless()) {
@@ -214,15 +244,18 @@ public class CoreService implements ICoreService {
         // }
     }
 
+    @Override
     public void componentsReset() {
         ComponentsFactoryProvider.getInstance().reset();
     }
 
+    @Override
     public void initializeComponents(IProgressMonitor monitor) {
         // second parameter to say only during login
         ComponentsFactoryProvider.getInstance().initializeComponents(monitor, true);
     }
 
+    @Override
     public void removeJobLaunch(IRepositoryViewObject objToDelete) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
             IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
@@ -231,6 +264,7 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public void deleteRoutinefile(IRepositoryViewObject objToDelete) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
@@ -239,6 +273,7 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public void deleteBeanfile(IRepositoryViewObject objToDelete) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
@@ -247,6 +282,7 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public boolean checkJob(String name) throws BusinessException {
         IJobCheckService jobCheckService = (IJobCheckService) GlobalServiceRegister.getDefault().getService(
                 IJobCheckService.class);
@@ -261,6 +297,7 @@ public class CoreService implements ICoreService {
      * 
      * @see org.talend.core.ICoreService#syncAllRoutines()
      */
+    @Override
     public void syncAllRoutines() throws SystemException {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
@@ -271,6 +308,7 @@ public class CoreService implements ICoreService {
 
     }
 
+    @Override
     public void syncAllBeans() throws SystemException {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
@@ -283,6 +321,7 @@ public class CoreService implements ICoreService {
 
     }
 
+    @Override
     public void syncAllRules() {
         if (PluginChecker.isRulesPluginLoaded()
                 && GlobalServiceRegister.getDefault().isServiceRegistered(IRulesProviderService.class)) {
@@ -295,10 +334,12 @@ public class CoreService implements ICoreService {
 
     }
 
+    @Override
     public Job initializeTemplates() {
         return CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
     }
 
+    @Override
     public void createStatsLogAndImplicitParamter(Project project) {
         IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
         if (designerCoreService != null) {
@@ -306,6 +347,7 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public void deleteAllJobs(boolean fromPluginModel) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
             IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
@@ -314,33 +356,40 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public void addWorkspaceTaskDone(String task) {
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         prefManipulator.addWorkspaceTaskDone(task);
     }
 
+    @Override
     public String filterSpecialChar(String input) {
         return TalendTextUtils.filterSpecialChar(input);
     }
 
+    @Override
     public String getLastUser() {
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         return prefManipulator.getLastUser();
     }
 
+    @Override
     public boolean isKeyword(String word) {
         return KeywordsValidator.isKeyword(word);
     }
 
+    @Override
     public List<String> readWorkspaceTasksDone() {
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         return prefManipulator.readWorkspaceTasksDone();
     }
 
+    @Override
     public String validateValueForDBType(String columnName) {
         return MetadataToolHelper.validateValueForDBType(columnName);
     }
 
+    @Override
     public void synchronizeMapptingXML() {
         try {
             URL url = MetadataTalendType.getFolderURLOfMappingsFile();
@@ -360,6 +409,7 @@ public class CoreService implements ICoreService {
                         File mappingSource = new File(url.getPath());
                         FilenameFilter filter = new FilenameFilter() {
 
+                            @Override
                             public boolean accept(File dir, String name) {
                                 if (XmlUtil.isXMLFile(name)) {
                                     return true;
@@ -443,6 +493,7 @@ public class CoreService implements ICoreService {
         fis.close();
     }
 
+    @Override
     public void synchronizeSapLib() {
         ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
@@ -468,6 +519,7 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public void resetUniservLibraries() {
         ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
@@ -494,27 +546,72 @@ public class CoreService implements ICoreService {
         }
     }
 
+    @Override
     public IPreferenceStore getPreferenceStore() {
         return CorePlugin.getDefault().getPreferenceStore();
     }
 
+    @Override
     public boolean isOpenedItemInEditor(IRepositoryViewObject object) {
         return RepositoryManager.isOpenedItemInEditor(object);
     }
 
+    @Override
     public void updatePalette() {
         ComponentUtilities.updatePalette();
     }
 
+    @Override
     public IMetadataTable convert(MetadataTable originalTable) {
         return ConvertionHelper.convert(originalTable);
     }
 
+    @Override
     public MenuManager[] getRepositoryContextualsActionGroups() {
         return ActionsHelper.getRepositoryContextualsActionGroups();
     }
 
+    @Override
     public List<ITreeContextualAction> getRepositoryContextualsActions() {
         return ActionsHelper.getRepositoryContextualsActions();
+    }
+
+    @Override
+    public void createTalendCorePreference(CorePreferencePage page, Composite parentComposite) {
+
+        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
+                Messages.getString("CorePreferencePage.temporaryFiles"), parentComposite); //$NON-NLS-1$
+        page.addField(filePathTemp);
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
+                Messages.getString("CorePreferencePage.javaInterpreter"), true, parentComposite) {; //$NON-NLS-1$
+
+            @Override
+            protected boolean checkState() {
+                return super.checkState();
+            }
+        };
+
+        page.addField(javaInterpreter);
+
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
+                Messages.getString("CorePreferencePage.previewLimit"), parentComposite, 9); //$NON-NLS-1$
+        previewLimit.setEmptyStringAllowed(false);
+        previewLimit.setValidRange(1, 999999999);
+        page.addField(previewLimit);
+
+        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
+                Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+                parentComposite);
+        page.addField(runInMultiThread);
+
+        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH,
+                Messages.getString("CorePreferencePage.iReportPath"), parentComposite); //$NON-NLS-1$
+        page.addField(ireportPath);
+
+        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(ITalendCorePrefConstants.ALWAYS_WELCOME,
+                Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
+                parentComposite);
+        page.addField(alwaysWelcome);
+
     }
 }
