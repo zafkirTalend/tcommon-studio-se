@@ -56,6 +56,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
@@ -166,8 +167,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -793,26 +794,33 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 projectResource = project.getEmfProject().eResource();
             }
         }
-        Collection<FolderItem> folders = EcoreUtil.getObjectsByType(projectResource.getContents(),
-                PropertiesPackage.eINSTANCE.getFolderItem());
-        if (!folders.isEmpty()) {
-            projectResource.getContents().removeAll(folders);
-        }
-        Collection<ItemState> itemStates = EcoreUtil.getObjectsByType(projectResource.getContents(),
-                PropertiesPackage.eINSTANCE.getItemState());
-        if (!itemStates.isEmpty()) {
-            projectResource.getContents().removeAll(itemStates);
-        }
-        Collection<Item> items = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
-        if (!items.isEmpty()) {
-            projectResource.getContents().removeAll(items);
-        }
-        Collection<Property> properties = EcoreUtil.getObjectsByType(projectResource.getContents(),
-                PropertiesPackage.eINSTANCE.getProperty());
-        if (!properties.isEmpty()) {
-            projectResource.getContents().removeAll(properties);
+        // folder
+        removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getFolderItem());
+        // item state
+        removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getItemState());
+        // item
+        removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getItem());
+        // property
+        removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getProperty());
+        // project authorization
+        removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getUserProjectAuthorization());
+
+        // clean the authorization for user
+        Collection<User> localUsers = EcoreUtil.getObjectsByType(projectResource.getContents(),
+                PropertiesPackage.eINSTANCE.getUser());
+        if (!localUsers.isEmpty()) {
+            for (User user : localUsers) {
+                user.getProjectAuthorization().clear();
+            }
         }
         xmiResourceManager.saveResource(projectResource);
+    }
+
+    private void removeContentsFromProject(Resource projectResource, EClassifier type) {
+        Collection contents = EcoreUtil.getObjectsByType(projectResource.getContents(), type);
+        if (!contents.isEmpty()) {
+            projectResource.getContents().removeAll(contents);
+        }
     }
 
     /**
