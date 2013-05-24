@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.rcp.intro.linksbar;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
@@ -36,11 +37,14 @@ public class TalendCoolBarManager extends CoolBarManager2 {
     @Override
     public void refresh() {
         IContributionItem linksCoolItem = find(TalendActionBarPresentationFactory.COOLITEM_LINKS_ID);
-        // means: adjust the order, make sure the Links of Studio coolItem always at the last postion.
-        // (deal with the case: the Extention point add new coolitem dynamically. )
-        if (linksCoolItem != null) {
-            remove(linksCoolItem);
-            add(linksCoolItem);
+        int index = ArrayUtils.indexOf(getItems(), linksCoolItem);
+        if (index != (getItems().length - 1)) {
+            // if the coolbar is not the latest, just force to move to last one again.
+            // don't deal with the case index = 0 and only have this one, since it's impossible !
+            if (linksCoolItem != null) {
+                remove(linksCoolItem);
+                add(linksCoolItem);
+            }
         }
 
         super.refresh();
