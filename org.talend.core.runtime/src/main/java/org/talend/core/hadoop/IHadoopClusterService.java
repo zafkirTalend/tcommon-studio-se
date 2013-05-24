@@ -23,6 +23,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryTypeProcessor;
 import org.talend.repository.model.IRepositoryNode;
 
 /**
@@ -174,5 +175,7 @@ public interface IHadoopClusterService extends IService {
             BusinessException;
 
     public Map<String, String> getHadoopCustomLibraries(String clusterId);
+
+    public IRepositoryTypeProcessor getHadoopSubMultiRepTypeProcessor(String[] repositoryTypes);
 
 }
