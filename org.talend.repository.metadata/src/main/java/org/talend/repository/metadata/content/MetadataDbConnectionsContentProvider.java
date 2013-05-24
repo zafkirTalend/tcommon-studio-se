@@ -13,6 +13,7 @@
 package org.talend.repository.metadata.content;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -28,6 +29,27 @@ public class MetadataDbConnectionsContentProvider extends AbstractMetadataConten
     @Override
     protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectNode) {
         return projectNode.getRootRepositoryNode(ERepositoryObjectType.METADATA_CONNECTIONS);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#refreshTopLevelNode(org.talend.repository
+     * .model.RepositoryNode)
+     */
+    @Override
+    protected void refreshTopLevelNode(RepositoryNode repoNode) {
+        super.refreshTopLevelNode(repoNode);
+
+        // Make sure the linked Hadoop Cluster to do refresh synchronously
+        ERepositoryObjectType hcType = ERepositoryObjectType.valueOf("HADOOPCLUSTER"); //$NON-NLS-1$
+        if (hcType != null) {
+            IRepositoryNode hcRootNode = repoNode.getRoot().getRootRepositoryNode(hcType);
+            if (hcRootNode != null && hcRootNode instanceof RepositoryNode) {
+                super.refreshTopLevelNode((RepositoryNode) hcRootNode);
+            }
+        }
     }
 
 }
