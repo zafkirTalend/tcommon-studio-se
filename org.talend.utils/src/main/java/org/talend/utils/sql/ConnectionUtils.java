@@ -122,7 +122,7 @@ public final class ConnectionUtils {
      * @return
      */
     private static boolean isODBCServer(String url) {
-        return url.indexOf("odbc") > -1; //$NON-NLS-1$
+        return url.startsWith("jdbc:odbc:"); //$NON-NLS-1$
     }
 
     /**
