@@ -106,8 +106,23 @@ public final class ConnectionUtils {
                     log.info(exception);
                 }
             }
+        } else {
+            // add for odbc mssql: driver is null
+            if (isODBCServer(url)) {
+                connection = DriverManager.getConnection(url, props);
+            }
         }
         return connection;
+    }
+
+    /**
+     * if the url include "odbc", return true, else return false
+     * 
+     * @param url
+     * @return
+     */
+    private static boolean isODBCServer(String url) {
+        return url.indexOf("odbc") > -1; //$NON-NLS-1$
     }
 
     /**
