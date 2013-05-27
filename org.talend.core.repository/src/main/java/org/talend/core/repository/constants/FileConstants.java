@@ -86,6 +86,6 @@ public interface FileConstants {
 
     String META_INF_FOLDER_NAME = "META-INF"; //$NON-NLS-1$
 
-    String BLUEPRINT_FOLDER_NAME = "OSGI-INF" + File.separatorChar + "blueprint"; //$NON-NLS-1$ //$NON-NLS-2$
+    String BLUEPRINT_FOLDER_NAME = "OSGI-INF/blueprint"; //$NON-NLS-1$
 
 }
