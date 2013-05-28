@@ -169,16 +169,15 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     }
 
     private String showSVNRoot() {
-        String urlPath = ProjectManager.getInstance().getCurrentBranchURL(project);
-        if (!urlPath.contains(SVNConstant.NAME_TRUNK) && !urlPath.contains(SVNConstant.NAME_BRANCHES)
-                && !urlPath.contains(SVNConstant.NAME_TAGS)) {
+        String branch = ProjectManager.getInstance().getMainProjectBranch(project);
+        if ("".equals(branch) || branch == null) { //$NON-NLS-1$
             return null;
         }
-        if ("".equals(urlPath) || urlPath == null) { //$NON-NLS-1$
+        if (!branch.contains(SVNConstant.NAME_TRUNK) && !branch.contains(SVNConstant.NAME_BRANCHES)
+                && !branch.contains(SVNConstant.NAME_TAGS)) {
             return null;
         }
-        String[] urlEles = urlPath.split("/"); //$NON-NLS-1$
-        return urlEles[urlEles.length - 1];
+        return branch;
     }
 
     public void initialize(String currentPerspective) {
