@@ -18,12 +18,6 @@
    </license>
 
    <plugin
-         id="org.talend.libraries.jdbc.db2"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.talend.libraries.jdbc.jtds"
          download-size="0"
          install-size="0"
@@ -36,31 +30,13 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.talend.libraries.jdbc.oracle"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.talend.libraries.jdbc.postgresql"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="org.talend.libraries.jdbc.sybase"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.talend.libraries.jdbc.ingres"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.talend.libraries.jdbc.informix"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
@@ -89,47 +65,40 @@
          install-size="0"
          version="0.0.0"/>
 
-
    <plugin
          id="org.talend.libraries.jdbc.derby"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.exasol"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.firebird"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.h2"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.paraccel"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
    <plugin
          id="org.talend.libraries.jdbc.vertica"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-        />
+         version="0.0.0"/>
 
 </feature>
