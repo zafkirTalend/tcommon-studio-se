@@ -123,7 +123,7 @@ public class MetadataConnectionUtils {
 
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
             try {
-                HiveConnectionManager.getInstance().checkConnection(metadataBean);
+                // HiveConnectionManager.getInstance().checkConnection(metadataBean);
                 java.sql.Connection createConnection = HiveConnectionManager.getInstance().createConnection(metadataBean);
                 rc.setOk(true);
                 rc.setObject(createConnection);

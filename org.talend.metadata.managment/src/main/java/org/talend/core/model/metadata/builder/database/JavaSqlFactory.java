@@ -365,7 +365,9 @@ public final class JavaSqlFactory {
         if (conn instanceof DatabaseConnection) {
             IProject project = ProjectManager.getInstance().getResourceProject(
                     ProjectManager.getInstance().getCurrentProject().getEmfProject());
-            String fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
+            // put to diffirent folder in case it will conflict when create connection with diffirent distribution
+            String fullPathTemp = project
+                    .getFolder("temp").getLocation().append("metastore_db").append(connection.getId()).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
             DatabaseConnection dbConn = (DatabaseConnection) conn;
