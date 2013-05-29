@@ -26,8 +26,13 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.osgi.baseadaptor.BaseData;
+import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
+import org.eclipse.osgi.framework.adaptor.BundleData;
+import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.osgi.framework.Bundle;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
@@ -78,7 +83,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public URL getPigudfTemplate(PigTemplate template) {
         Bundle bundle = Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI);
-        return bundle.getEntry("templates/" + SOURCE_JAVA_PIGUDF_FOLDER + "/" + template.getFileName() + ".java");
+        return bundle.getEntry("templates/" + SOURCE_JAVA_PIGUDF_FOLDER + "/" + template.getFileName() + ".java"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     @Override
@@ -188,7 +193,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         ModulesNeededProvider.getUnUsedModules().clear();
         for (String library : existLibraries) {
             if (!modulesNeededNames.contains(library)) {
-                ModulesNeededProvider.userAddUnusedModules("Unknown", library);
+                ModulesNeededProvider.userAddUnusedModules("Unknown", library); //$NON-NLS-1$
             }
         }
     }
@@ -252,6 +257,36 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
         checkInstalledLibraries();
 
+        // for AMC libraries
+
+        // check if org.talend.amc.libraries exists
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
+            Bundle bundle = Platform.getBundle("org.talend.amc.libraries"); //$NON-NLS-1$
+            if (bundle instanceof BundleHost) {
+                BundleHost bundleHost = (BundleHost) bundle;
+                final BundleData bundleData = bundleHost.getBundleData();
+                if (bundleData instanceof BaseData) {
+                    BaseData baseData = (BaseData) bundleData;
+                    final BundleFile bundleFile = baseData.getBundleFile();
+                    final File baseFile = bundleFile.getBaseFile();
+                    final File file = new File(baseFile.getAbsolutePath() + File.separator + JavaUtils.JAVA_LIB_DIRECTORY);
+                    String[] allNeededModuls = {
+                            "db2jcc.jar", "db2jcc_license_cu.jar", "jconn3.jar", "ojdbc14.jar", "ifxjdbcx.jar", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                            "ifxlang.jar", "ifxlsupp.jar", "ifxsqlj.jar", "ifxtools.jar", "ifxjdbc.jar" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                    for (String allNeededModul : allNeededModuls) {
+                        String name = allNeededModul;
+                        if (!libManager.contains(name)) {
+                            continue;
+                        }
+                        if (file.exists() && file.isDirectory()) {
+                            libManager.retrieve(name, file.getAbsolutePath(), new NullProgressMonitor());
+                        }
+                    }
+                }
+            }
+        }
         // clean the temp library of job needed in .java\lib
         cleanTempProLib();
 
