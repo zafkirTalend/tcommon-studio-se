@@ -21,6 +21,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryTypeProcessor;
@@ -177,5 +178,18 @@ public interface IHadoopClusterService extends IService {
     public Map<String, String> getHadoopCustomLibraries(String clusterId);
 
     public IRepositoryTypeProcessor getHadoopSubMultiRepTypeProcessor(String[] repositoryTypes);
+
+    /**
+     * DOC ycbai Comment method "hasDiffsFromClusterToProcess".
+     * 
+     * <p>
+     * Check whether there is any change of hadoop related parameters from Process to Hadoop cluster.
+     * </p>
+     * 
+     * @param hcConnection
+     * @param process
+     * @return true if there are some changes from them, otherwise return false.
+     */
+    public boolean hasDiffsFromClusterToProcess(Connection hcConnection, IProcess process);
 
 }
