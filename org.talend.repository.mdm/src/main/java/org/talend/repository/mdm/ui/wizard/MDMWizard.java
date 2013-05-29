@@ -381,10 +381,9 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
             tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
         }
-        if (tdqRepService != null) {
-            if (tdqRepService.isDQEditorOpened(connectionItem)) {
-                return;
-            }
+        if (tdqRepService != null && tdqRepService.isDQEditorOpened(connectionItem)) {
+            tdqRepService.refreshConnectionEditor(connectionItem);
+            return;
         }
         super.closeLockStrategy();
     }
