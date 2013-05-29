@@ -55,6 +55,10 @@ public class WSDLLoader {
 	private static final String WSDL_NS = "http://schemas.xmlsoap.org/wsdl/"; //$NON-NLS-1$
 	private static final String XMLNS_NS = "http://www.w3.org/2000/xmlns/"; //$NON-NLS-1$
 
+	private static final String NAME_ELEMENT_SCHEMA = "schema"; //$NON-NLS-1$
+	private static final String NAME_ATTRIBUTE_TARGET_NAMESPACE = "targetNamespace"; //$NON-NLS-1$
+	private static final String NAME_ATTRIBUTE_SCHEMA_LOCATION = "schemaLocation"; //$NON-NLS-1$
+
 	private static DocumentBuilder documentBuilder = null;
 	private static int filenameIndex;
 
@@ -72,14 +76,14 @@ public class WSDLLoader {
 			final Document wsdlDocument = getDocumentBuilder().parse(wsdlURL.toExternalForm());
 
 			final NodeList schemas = wsdlDocument.getElementsByTagNameNS(
-					XSD_NS, "schema");
+					XSD_NS, NAME_ELEMENT_SCHEMA);
 			// copy elements to avoid reiterate
 			Element[] schemaElements = new Element[schemas.getLength()];
 			for(int index = 0; index < schemas.getLength(); ++index) {
 				schemaElements[index] = (Element)schemas.item(index);
 			}
 			for (Element schema : schemaElements) {
-				importedSchemas.put(schema.getAttribute("targetNamespace"), new HashSet<URL>()); //$NON-NLS-1$
+				importedSchemas.put(schema.getAttribute(NAME_ATTRIBUTE_TARGET_NAMESPACE), new HashSet<URL>());
 				loadSchemas (schema, schema, wsdlURL);
 			}
 
@@ -137,7 +141,7 @@ public class WSDLLoader {
 	private void loadSchemas(
 			final Element ownerSchemaNode,
 			final Element schemaNode,
-			final URL ownerFile) throws InvocationTargetException {
+			final URL ownerFile) throws InvocationTargetException, IOException {
 		final Map<String, String> prefixMapping = new HashMap<String, String>();
 
 		Node childNode = schemaNode.getFirstChild();
@@ -148,105 +152,86 @@ public class WSDLLoader {
 				if ("import".equals(childNode.getLocalName())) { //$NON-NLS-1$
 					Element importElement = (Element)childNode;
 
-					String schemaLocation = importElement.getAttribute("schemaLocation"); //$NON-NLS-1$
+					String schemaLocation = importElement.getAttribute(NAME_ATTRIBUTE_SCHEMA_LOCATION);
 					final String schemaNS = importElement.getAttribute("namespace"); //$NON-NLS-1$
 
 					if ((null != schemaLocation && 0 != schemaLocation.length())
 							&& (null != schemaNS && 0 != schemaNS.length())) {
 
-						if (!importedSchemas.containsKey(schemaNS)) {
-							try {
-								URL schemaURL = getURL(ownerFile, schemaLocation);
-								Element schemaElement = loadSchema(schemaURL, false);
+						try {
+							URL schemaURL = getURL(ownerFile, schemaLocation);
+							if (!importedSchemas.containsKey(schemaNS)) {
 								Element schemaImported =
 									(Element)ownerSchemaNode.getOwnerDocument().importNode(
-											schemaElement, true);
+											loadSchema(schemaURL, false), true);
 								ownerSchemaNode.getParentNode().insertBefore(schemaImported, ownerSchemaNode);
 
 								// add the schemas doc to the schemas imported map.
-								importedSchemas.put(schemaNS, new HashSet<URL>());
+								Collection<URL> urls = new HashSet<URL>();
+								urls.add(schemaURL);
+								importedSchemas.put(schemaNS, urls);
 
 								loadSchemas(schemaImported, schemaImported, schemaURL);
-							} catch (InvocationTargetException e) {
-								throw e;
-							} catch (Exception e) {
-								final String errMsg =
-									"Unexpected error while loading external schema file: " + e.getMessage(); 
-								throw new InvocationTargetException(e, errMsg);
-							}
-						} else {
-							// schema already imported
-							NodeList nl = ((Element) ownerSchemaNode.getParentNode()).getElementsByTagNameNS(XSD_NS, "schema"); //$NON-NLS-1$
-							for (int i = 0; i < nl.getLength(); ++i) {
-								Element schema = (Element) nl.item(i);
-								if (schemaNS.equals(schema.getAttribute("targetNamespace"))) { //$NON-NLS-1$
-									try {
-										URL schemaURL = getURL(ownerFile, schemaLocation);
-										Element schemaElement = loadSchema(schemaURL, true);
-										Element schemaImported =
-											(Element) ownerSchemaNode.getOwnerDocument().importNode(
-													schemaElement, true);
-
-										loadSchemas(schema, schemaImported, schemaURL);
-
-										NodeList childs = schemaImported.getChildNodes();
-										for (int j = 0; j < childs.getLength(); ++j) {
-											Node child = childs.item(j);
-											child = schema.getOwnerDocument().importNode(child, true);
-											// TODO: fix prefixes?
-//											if(child.getNodeType() == Node.ELEMENT_NODE) {
-//												fixPrefixes((Element) child, prefixMapping);
-//											}
-											child = schema.appendChild(child);
+							} else {
+								// schema already exist
+								if (importedSchemas.get(schemaNS).add(schemaURL)) {
+									NodeList nl = ((Element) ownerSchemaNode.getParentNode()).getElementsByTagNameNS(XSD_NS, NAME_ELEMENT_SCHEMA);
+									for (int i = 0; i < nl.getLength(); ++i) {
+										Element schema = (Element) nl.item(i);
+										if (schemaNS.equals(schema.getAttribute(NAME_ATTRIBUTE_TARGET_NAMESPACE))) {
+											Element schemaElement = loadSchema(schemaURL, true);
+	
+											loadSchemas(schema, schemaElement, schemaURL);
+	
+											Node refChild = getInsertLocation(schema.getLastChild());
+											Node child = schemaElement.getFirstChild();
+											while (child != null) {
+												Node next = child.getNextSibling();
+												child = schema.getOwnerDocument().importNode(child, true);
+												// TODO: fix prefixes?
+//												if(child.getNodeType() == Node.ELEMENT_NODE) {
+//													fixPrefixes((Element) child, prefixMapping);
+//												}
+												schema.insertBefore(child, refChild);
+												child = next;
+											}
+											break;
 										}
-									} catch (InvocationTargetException e) {
-										throw e;
-									} catch (Exception e) {
-										final String errMsg =
-											"Unexpected error while loading external schema file: " + e.getMessage(); 
-										throw new InvocationTargetException(e, errMsg);
 									}
-									break;
 								}
 							}
+						} catch (InvocationTargetException e) {
+							throw e;
+						} catch (IOException e) {
+							throw e;
+						} catch (Exception e) {
+							throw new InvocationTargetException(e,
+									"Unexpected error while loading external schema file: " + e.getMessage());
 						}
 					} else {
 						// ignore
 					}
 
-					// update import node
-					importElement.removeAttribute("schemaLocation"); //$NON-NLS-1$
-					// move up
-					Node refChild;
-					for (refChild = importElement.getPreviousSibling(); refChild != null; refChild = refChild.getPreviousSibling()) {
-						if (refChild.getNodeType() == Node.ELEMENT_NODE
-							&& XSD_NS.equals(refChild.getNamespaceURI())
-							&& "import".equals(refChild.getLocalName())) { //$NON-NLS-1$
-							refChild = refChild.getNextSibling();
-							break;
-						}
+					if (null != importElement) {
+						// update import node
+						importElement.removeAttribute(NAME_ATTRIBUTE_SCHEMA_LOCATION);
+						// move up
+						importElement.getParentNode().insertBefore(importElement, getInsertLocation(importElement));
 					}
-					if (null == refChild) {
-						for (refChild = importElement.getParentNode().getFirstChild();
-								refChild.getNodeType() != Node.ELEMENT_NODE; refChild = refChild.getNextSibling()) {
-						}
-					}
-					importElement.getParentNode().insertBefore(importElement, refChild);
 				} else if ("include".equals(childNode.getLocalName())) { //$NON-NLS-1$
 					Element includeElement = (Element)childNode;
 
-					String schemaLocation = includeElement.getAttribute("schemaLocation"); //$NON-NLS-1$
+					String schemaLocation = includeElement.getAttribute(NAME_ATTRIBUTE_SCHEMA_LOCATION);
 					if ((null == schemaLocation || 0 == schemaLocation.length())) {
 						final String errMsg = "The schema include is incorrect: schemaLocation = [" + schemaLocation + "]";
 						throw new InvocationTargetException(new Exception(errMsg));
 					}
 					try {
 						URL schemaURL = getURL(ownerFile, schemaLocation);
-						final String schemaNamespace = ownerSchemaNode.getAttribute("targetNamespace"); //$NON-NLS-1$
-						Collection<URL> includedSchemas = importedSchemas.get(schemaNamespace);
-						if(includedSchemas.add(schemaURL)) {
+						final String schemaNamespace = ownerSchemaNode.getAttribute(NAME_ATTRIBUTE_TARGET_NAMESPACE);
+						if(importedSchemas.get(schemaNamespace).add(schemaURL)) {
 							Element schemaIncluded = loadSchema(schemaURL, true);
-							String includeNamespace = schemaIncluded.getAttribute("targetNamespace"); //$NON-NLS-1$
+							String includeNamespace = schemaIncluded.getAttribute(NAME_ATTRIBUTE_TARGET_NAMESPACE);
 							if((includeNamespace != null && includeNamespace.length() != 0) // skip chameleon schema check
 								&& !schemaNamespace.equals(includeNamespace)) {
 								String errMsg = "The schema include is incorrect: namespaces are not equals";
@@ -291,23 +276,9 @@ public class WSDLLoader {
 
 							// add child elements
 							Node firstIncludedNode = null;
-							NodeList childs = schemaIncluded.getChildNodes();
-							/*iterate:*/ for(int i = 0; i < childs.getLength(); ++i) {
-								Node child = childs.item(i);
-								// check if element already present
-								/*if(child.getNodeType() == Node.ELEMENT_NODE) {
-									final String name = ((Element)child).getAttribute("name");
-									if(name.length() > 0) {
-										for(Node node = schemaNode.getFirstChild(); node != null; node = node.getNextSibling()) {
-											if(node.getNodeType() == Node.ELEMENT_NODE) {
-												if(name.equals(((Element)node).getAttribute("name"))) {
-													continue iterate;
-												}
-											}
-											
-										}
-									}
-								}*/
+							Node child = schemaIncluded.getFirstChild();
+							while (child != null) {
+								Node next = child.getNextSibling();
 								child = schemaNode.getOwnerDocument().importNode(child, true);
 								if(child.getNodeType() == Node.ELEMENT_NODE) {
 									fixPrefixes((Element) child, prefixMapping);
@@ -316,6 +287,7 @@ public class WSDLLoader {
 								if(firstIncludedNode == null) {
 									firstIncludedNode = child;
 								}
+								child = next;
 							}
 							if(firstIncludedNode != null) {
 								nextNode = firstIncludedNode;
@@ -323,10 +295,11 @@ public class WSDLLoader {
 						}
 					} catch (InvocationTargetException e) {
 						throw e;
+					} catch (IOException e) {
+						throw e;
 					} catch (Exception e) {
-						String errMsg =
-							"Unexpected error while loading external schema file: " + e.getMessage(); 
-						throw new InvocationTargetException(e, errMsg);
+						throw new InvocationTargetException(e,
+								"Unexpected error while loading external schema file: " + e.getMessage());
 					}
 					// remove include node
 					includeElement.getParentNode().removeChild(includeElement);
@@ -394,7 +367,9 @@ public class WSDLLoader {
 					prefixNew = prefixMapping.get("xmlns"); //$NON-NLS-1$
 					if (null != prefixNew) {
 						String name = attr.getLocalName();
-						if ("type".equals(name) || "base".equals(name) || "ref".equals(name)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						if ("type".equals(name) //$NON-NLS-1$
+								|| "base".equals(name) //$NON-NLS-1$
+								|| "ref".equals(name)) { //$NON-NLS-1$
 							attr.setNodeValue(prefixNew + ':' + value);
 						}
 					}
@@ -433,7 +408,7 @@ public class WSDLLoader {
 			} else if(Node.ELEMENT_NODE == node.getNodeType()) {
 				Element child = (Element)node;
 				if(XSD_NS.equals(child.getNamespaceURI())
-						&& "annotation".equals(child.getLocalName())) {
+						&& "annotation".equals(child.getLocalName())) { //$NON-NLS-1$
 					element.removeChild(child);
 				} else {
 					cleanupSchemaElement(child);
@@ -441,6 +416,24 @@ public class WSDLLoader {
 			}
 			node = next;
 		}
+	}
+	
+	private static Node getInsertLocation(Node currentNode) {
+		Node refChild;
+		for (refChild = currentNode.getPreviousSibling(); refChild != null; refChild = refChild.getPreviousSibling()) {
+			if (refChild.getNodeType() == Node.ELEMENT_NODE
+				&& XSD_NS.equals(refChild.getNamespaceURI())
+				&& "import".equals(refChild.getLocalName())) { //$NON-NLS-1$
+				refChild = refChild.getNextSibling();
+				break;
+			}
+		}
+		if (null == refChild) {
+			for (refChild = currentNode.getParentNode().getFirstChild();
+					refChild.getNodeType() != Node.ELEMENT_NODE; refChild = refChild.getNextSibling()) {
+			}
+		}
+		return refChild;
 	}
 
 	private static DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {
