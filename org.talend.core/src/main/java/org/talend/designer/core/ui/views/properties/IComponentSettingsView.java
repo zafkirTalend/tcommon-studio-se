@@ -24,4 +24,6 @@ public interface IComponentSettingsView {
     void cleanDisplay();
 
     void setElement(Element element);
+
+    Element getElement();
 }
