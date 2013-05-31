@@ -272,8 +272,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                     final BundleFile bundleFile = baseData.getBundleFile();
                     final File baseFile = bundleFile.getBaseFile();
                     final File file = new File(baseFile.getAbsolutePath() + File.separator + JavaUtils.JAVA_LIB_DIRECTORY);
-                    String[] allNeededModuls = {
-                            "db2jcc.jar", "db2jcc_license_cu.jar", "jconn3.jar", "ojdbc14.jar", "ifxjdbcx.jar", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                    String[] allNeededModuls = { "db2jcc.jar", "db2jcc_license_cu.jar", "jconn3.jar", "ifxjdbcx.jar", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ 
                             "ifxlang.jar", "ifxlsupp.jar", "ifxsqlj.jar", "ifxtools.jar", "ifxjdbc.jar" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
                     for (String allNeededModul : allNeededModuls) {
                         String name = allNeededModul;
