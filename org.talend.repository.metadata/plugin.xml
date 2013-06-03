@@ -1240,7 +1240,7 @@
              type="METADATA_GENERIC_SCHEMA">
        </repositoryNode>
        <repositoryNode
-             alias="repository.metadataConnections.alias"
+             alias="%repository.metadataConnections.alias"
              folder="metadata/connections"
              isResouce="true"
              key="repository.metadataConnections"
@@ -1251,7 +1251,7 @@
              type="METADATA_CONNECTIONS">
        </repositoryNode>
        <repositoryNode
-             alias="repository.metadataFileDelimited.alias"
+             alias="%repository.metadataFileDelimited.alias"
              folder="metadata/fileDelimited"
              isResouce="true"
              key="repository.metadataFileDelimited"
