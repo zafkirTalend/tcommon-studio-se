@@ -863,9 +863,8 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             // Adapt Custom Label
             rowSeparatorText.setLabelText(rowSeparatorCombo.getText());
             rowSeparatorText.setEditable(true);
-            rowSeparatorText.setText(""); //$NON-NLS-1$
-            getConnection().setRowSeparatorValue(""); //$NON-NLS-1$
             rowSeparatorText.forceFocus();
+            rowSeparatorText.setReadOnly(false);
         } else {
             // set the Flag width the char value of the Combo
             // { "Standard EOL", "Custom String" };
@@ -880,6 +879,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             rowSeparatorText.setLabelText(Messages.getString("FileStep2.correspondingCharacter")); //$NON-NLS-1$
             getConnection().setRowSeparatorValue(rowSeparatorText.getText());
             rowSeparatorText.setEditable(true);
+            rowSeparatorText.setReadOnly(true);
         }
     }
 

@@ -919,6 +919,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             rowSeparatorText.setLabelText(rowSeparatorCombo.getText());
             rowSeparatorText.setEditable(true);
             rowSeparatorText.forceFocus();
+            rowSeparatorText.setReadOnly(false);
         } else {
             // set the Flag width the char value of the Combo
             // { "Standard EOL", "Custom String" };
@@ -933,6 +934,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             rowSeparatorText.setLabelText(Messages.getString("FileStep2.correspondingCharacter")); //$NON-NLS-1$
             getConnection().setRowSeparatorValue(rowSeparatorText.getText());
             rowSeparatorText.setEditable(true);
+            rowSeparatorText.setReadOnly(true);
         }
     }
 
