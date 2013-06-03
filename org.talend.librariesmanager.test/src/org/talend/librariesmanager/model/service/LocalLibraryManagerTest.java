@@ -64,6 +64,13 @@ public class LocalLibraryManagerTest {
         notDilivers.add("sas.core.jar");
         notDilivers.add("sas.intrnet.javatools.jar");
         notDilivers.add("sas.security.sspi.jar");
+        notDilivers.add("db2jcc.jar");
+        notDilivers.add("interclient.jar");
+        notDilivers.add("db2jcc_license_cisuz.jar");
+        notDilivers.add("ifxjdbc.jar");
+        notDilivers.add("jconn3.jar");
+        notDilivers.add("sapdbc.jar");
+        notDilivers.add("db2jcc_license_cu.jar");
     }
 
     /**
