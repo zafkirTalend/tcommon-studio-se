@@ -105,9 +105,9 @@ public class MetadataConnectionUtils {
     public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms"; //$NON-NLS-1$
 
     /**
-     * 
+     *
      * method "checkConnection".
-     * 
+     *
      * @param metadataBean pass the parameter for java.sql.Connection.
      * @return one object which adjust whether the Connection can be connected and take one object for
      * java.sql.connection. Note if use this method, you need to care for the value of return and close the Connect
@@ -218,9 +218,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * method "checkConnection".
-     * 
+     *
      * @param metadataBean pass the parameter for java.sql.Connection.
      * @return one object which adjust whether the Connection can be connected and take one object for
      * java.sql.connection. Note if use this method, you need to care for the value of return and close the Connect
@@ -285,7 +285,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC xqliu Comment method "isOdbcPostgresql".
-     * 
+     *
      * @param connection
      * @return
      * @throws SQLException
@@ -306,7 +306,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC zshen Comment method "isOdbcMssql". feature 10630
-     * 
+     *
      * @param connection
      * @return
      * @throws SQLException
@@ -326,9 +326,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * DOC qiongli Comment method "isAccess".
-     * 
+     *
      * @param connection
      * @return
      * @throws SQLException
@@ -347,7 +347,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC zshen Comment method "isSybase".
-     * 
+     *
      * @param connection
      * @return decide to whether is sybase connection
      * @throws SQLException
@@ -372,7 +372,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC xqliu Comment method "isTeradata".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -386,7 +386,7 @@ public class MetadataConnectionUtils {
 
     /**
      * zshen Comment method "isOdbcConnection". feature 10630
-     * 
+     *
      * @param connection
      * @return
      * @throws SQLException
@@ -405,7 +405,7 @@ public class MetadataConnectionUtils {
 
     /**
      * zshen Comment method "isODBCCatalog".
-     * 
+     *
      * @param catalogName the name for need to be decided.
      * @param connection
      * @return if connection is a ODBC connection and catalogName isn't which be found then return ture, else return
@@ -495,7 +495,7 @@ public class MetadataConnectionUtils {
      * yyi 2010-08-25 for 14851, Sybase DB has several names with different productions and versions. For example the
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
      * it is user by org.talend.cwm.db.connection.ConnectionUtils.isSybase
-     * 
+     *
      * @return All Sybase DB products name
      * ,"Adaptive Server Enterprise","Sybase Adaptive Server IQ","Sybase IQ","Sybase"
      */
@@ -513,7 +513,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC qzhang Comment method "getClassDriver".
-     * 
+     *
      * @param driverClassName
      * @return
      * @throws IllegalAccessException
@@ -558,7 +558,7 @@ public class MetadataConnectionUtils {
 
     /**
      * get driver.
-     * 
+     *
      * @param metadataBean
      * @param driver
      * @return
@@ -579,6 +579,8 @@ public class MetadataConnectionUtils {
                     }
                 }
             }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         } catch (Exception e) {
             log.error(e, e);
             // Added 20130521 TUP-735 yyin,when connection error should throw the exception to transfer the error
@@ -607,7 +609,7 @@ public class MetadataConnectionUtils {
 
     /**
      * This method to get all database template supported by TDQ.
-     * 
+     *
      * @return
      */
     public static List<String> getTDQSupportDBTemplate() {
@@ -627,7 +629,7 @@ public class MetadataConnectionUtils {
 
     /**
      * This method try to return whether the conn is supported by TDQ.
-     * 
+     *
      * @return
      */
     public static boolean isTDQSupportDBTemplate(Connection conn) {
@@ -651,9 +653,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * DOC zshen Comment method "getCommonQueryStr".
-     * 
+     *
      * @param sqlConn
      * @return null only if conn is null.or can not find the
      */
@@ -686,7 +688,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC xqliu Comment method "createDataType".
-     * 
+     *
      * @param dataType
      * @param typeName
      * @param decimalDigits
@@ -703,9 +705,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * zshen Comment method "getXtentisBindingStub".
-     * 
+     *
      * @param metadataBean
      * @return
      * @throws ServiceException
@@ -717,9 +719,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * zshen Comment method "getXtentisBindingStub".
-     * 
+     *
      * @param dataProvider
      * @return
      * @throws ServiceException
@@ -730,9 +732,9 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * zshen Comment method "getXtentisBindingStub".
-     * 
+     *
      * @param url
      * @param universe
      * @param userName
@@ -766,7 +768,7 @@ public class MetadataConnectionUtils {
     /**
      * Method "createTechnicalName" creates a technical name used for file system storage. MOD mzhao make this method as
      * public access.
-     * 
+     *
      * @param functionalName the user friendly name
      * @return the technical name created from the user given name.
      */
@@ -851,8 +853,8 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC connection created by TOS need to fill the basic information for useing in TOP.<br>
-     * 
-     * 
+     *
+     *
      * @param conn
      * @return
      */
@@ -912,12 +914,12 @@ public class MetadataConnectionUtils {
     }
 
     /**
-     * 
+     *
      * DOC zshen Comment method "setMDMConnectionParameter".
-     * 
+     *
      * @param conn
      * @param metadataConnection
-     * 
+     *
      * set the parameter of MDMConnection from metadataConnection
      */
     public static void setMDMConnectionParameter(MDMConnection conn, IMetadataConnection metadataConnection) {
@@ -944,7 +946,7 @@ public class MetadataConnectionUtils {
 
     /**
      * DOC xqliu Comment method "fillDbConnectionInformation".
-     * 
+     *
      * @param dbConn
      * @return
      */
@@ -1081,7 +1083,7 @@ public class MetadataConnectionUtils {
 
     /**
      * Check a package is the one of AS400. return false if it's not.
-     * 
+     *
      * @param packge
      * @return
      */
@@ -1104,7 +1106,7 @@ public class MetadataConnectionUtils {
     /**
      * return the MetadataColumn's name, the input object should be MetadataColumn, TdColumn or TdXmlElementType, if
      * not, return null.
-     * 
+     *
      * @param element MetadataColumn, TdColumn or TdXmlElementType
      * @return
      */
