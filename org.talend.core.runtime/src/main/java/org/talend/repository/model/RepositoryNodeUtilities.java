@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.FolderItem;
@@ -691,6 +692,9 @@ public class RepositoryNodeUtilities {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             List<IRepositoryViewObject> all = factory.getAll(tempProject, ERepositoryObjectType.ROUTINES);
+            if (PluginChecker.isPigudfPluginLoaded()) {
+                all.addAll(factory.getAll(tempProject, ERepositoryObjectType.PIG_UDF));
+            }
             for (IRepositoryViewObject obj : all) {
                 if (obj != null && obj.getProperty() != null) {
                     Item item = obj.getProperty().getItem();
