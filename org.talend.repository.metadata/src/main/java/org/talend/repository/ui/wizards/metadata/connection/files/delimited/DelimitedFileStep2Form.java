@@ -1034,6 +1034,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             rowSeparatorText.setLabelText(rowSeparatorCombo.getText());
             rowSeparatorText.setEditable(true);
             rowSeparatorText.forceFocus();
+            rowSeparatorText.setReadOnly(false);
         } else {
             // set the Flag width the char value of the Combo
             // { "Standard EOL", "Custom String" };
@@ -1048,6 +1049,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             rowSeparatorText.setLabelText(Messages.getString("FileStep2.correspondingCharacter")); //$NON-NLS-1$
             getConnection().setRowSeparatorValue(rowSeparatorText.getText());
             rowSeparatorText.setEditable(true);
+            rowSeparatorText.setReadOnly(true);
         }
     }
 
@@ -1067,6 +1069,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             fieldSeparatorText.setEditable(true);
             fieldSeparatorText.setText(getConnection().getFieldSeparatorValue());
             fieldSeparatorText.forceFocus();
+            fieldSeparatorText.setReadOnly(false);
         } else {
             // set the Flag width the char value of the Combo
             // { "Tabulation", "Semicolon", "Comma", "Space", "''(Alt 65, #A4)", "Custom ANSI", "Custom UTF8",
@@ -1093,7 +1096,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
             // Init Custom Label
             getConnection().setFieldSeparatorValue(fieldSeparatorText.getText());
             fieldSeparatorText.setLabelText(Messages.getString("FileStep2.correspondingCharacter")); //$NON-NLS-1$
-            fieldSeparatorText.setEditable(true);
+            fieldSeparatorText.setReadOnly(true);
         }
     }
 
