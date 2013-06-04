@@ -103,7 +103,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
         }
         String languageType = Locale.getDefault().getLanguage();
-        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
+        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.AS400_SQL_SEG, true);
         CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, "id_String"); //$NON-NLS-1$
