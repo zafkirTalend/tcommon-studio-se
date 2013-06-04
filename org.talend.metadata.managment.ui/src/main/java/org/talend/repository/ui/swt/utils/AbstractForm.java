@@ -183,6 +183,7 @@ public abstract class AbstractForm extends Composite {
         }
         addFields();
         addExportContextButton();
+        addHelpInfoFields();
         initialize();
         addUtilsButtonListeners();
         addFieldsListeners();
@@ -428,6 +429,18 @@ public abstract class AbstractForm extends Composite {
 
             refreshContextBtn();
         }
+    }
+
+    /**
+     * DOC ycbai Comment method "addHelpInfoFields".
+     * 
+     * <p>
+     * Create some fields which display help infos.
+     * </p>
+     * 
+     */
+    protected void addHelpInfoFields() {
+        // Add nothing by default.
     }
 
     /**

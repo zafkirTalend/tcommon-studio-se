@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
 import java.io.File;
+import java.net.URL;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -41,6 +42,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -49,6 +52,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
@@ -661,6 +665,40 @@ public class DatabaseForm extends AbstractForm {
                 Rectangle r = scrolledComposite.getClientArea();
                 // scrolledComposite.setMinSize(newParent.computeSize(r.width-100, 550));
                 scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
+            }
+        });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.ui.swt.utils.AbstractForm#addHelpInfoFields()
+     */
+    @Override
+    protected void addHelpInfoFields() {
+        Composite helpComposite = new Composite(this, SWT.NONE);
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        gridData.minimumHeight = 45;
+        helpComposite.setLayoutData(gridData);
+        GC gc = new GC(helpComposite);
+        String linkUrl = Messages.getString("DatabaseForm.helpInfo.installDriverLink.url"); //$NON-NLS-1$
+        String linkLabel = Messages.getString("DatabaseForm.helpInfo.installDriverLink.label"); //$NON-NLS-1$
+        String linkText = "<a href=\"" + linkUrl + "\">" + linkLabel + "</a>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        Point linkSize = gc.stringExtent(linkLabel);
+        Link link = new Link(helpComposite, SWT.NONE);
+        link.setText(linkText);
+        link.setSize(linkSize.x + 15, 30);
+        gc.dispose();
+        link.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                try {
+                    // Open the url with default external browser
+                    PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(new URL(e.text));
+                } catch (Exception ex) {
+                    ExceptionHandler.process(ex);
+                }
             }
         });
     }
