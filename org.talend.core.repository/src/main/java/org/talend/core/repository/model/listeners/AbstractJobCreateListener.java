@@ -17,7 +17,8 @@ public abstract class AbstractJobCreateListener implements PropertyChangeListene
     @Override
     public void propertyChange(PropertyChangeEvent event) {
 
-        if (!event.getPropertyName().equals(ERepositoryActionName.CREATE.getName())) {
+        if (!event.getPropertyName().equals(ERepositoryActionName.CREATE.getName())
+                && !event.getPropertyName().equals(ERepositoryActionName.IMPORT.getName())) {
             return;
         }
 
