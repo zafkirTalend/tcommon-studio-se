@@ -380,10 +380,10 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         Composite mainComposite = Form.startNewGridLayout(this, 2);
 
-        addGroupDelimitedFileSettings(mainComposite, 280, 80);
-        addGroupRowsToSkip(mainComposite, 300, 80);
-        addGroupDieOnErrorSettings(mainComposite, 280, 60);
-        addGroupLimit(mainComposite, 300, 60);
+        addGroupDelimitedFileSettings(mainComposite, 280, 120);
+        addGroupRowsToSkip(mainComposite, 300, 120);
+        addGroupDieOnErrorSettings(mainComposite, 280, 67);
+        addGroupLimit(mainComposite, 300, 67);
 
         Composite mainComposite2 = Form.startNewGridLayout(this, 1);
 
