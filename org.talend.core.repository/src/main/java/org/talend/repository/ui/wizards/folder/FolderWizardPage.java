@@ -111,6 +111,11 @@ public class FolderWizardPage extends WizardPage {
         // Field Name
     	if(isPlainFolder){
     		nameStatus = ResourcesPlugin.getWorkspace().validateName(nameText.getText(), IResource.FOLDER);
+    		if(nameStatus.isOK() && (defaultLabel == null || !defaultLabel.equals(nameText.getText()))
+    				&& !((FolderWizard) getWizard()).isValid(nameText.getText())) {
+    			nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
+    					"NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
+    		}
     	}else{
 	        if (nameText.getText().length() == 0) {
 	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
