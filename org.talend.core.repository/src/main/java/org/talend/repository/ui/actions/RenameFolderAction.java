@@ -81,8 +81,8 @@ public class RenameFolderAction extends AContextualAction {
         String firstChildOpen = getFirstOpenedChild(node);
         if (firstChildOpen != null) {
             MessageDialog.openWarning(new Shell(), Messages.getString("RenameFolderAction.warning.editorOpen.title"), Messages //$NON-NLS-1$
-                    .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, node //$NON-NLS-1$
-                            .getProperties(EProperties.LABEL)));
+                    .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, //$NON-NLS-1$
+                            getLabelOfNode(node)));
             return;
         }
 
@@ -93,6 +93,11 @@ public class RenameFolderAction extends AContextualAction {
         objectType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
 
         openFolderWizard(node, objectType, path);
+    }
+
+    // Extracted to get different type of label to show, yyin 2013 TDQ-7143
+    protected Object getLabelOfNode(RepositoryNode node) {
+        return node.getProperties(EProperties.LABEL);
     }
 
     protected void openFolderWizard(RepositoryNode node, ERepositoryObjectType objectType, IPath path) {
@@ -112,6 +117,7 @@ public class RenameFolderAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = !selection.isEmpty() && selection.size() == 1;
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
