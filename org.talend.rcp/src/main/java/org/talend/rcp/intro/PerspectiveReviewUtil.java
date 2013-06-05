@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
@@ -60,11 +61,11 @@ public final class PerspectiveReviewUtil {
 
     private static String isfirst = "";
 
-    static List<String> diViewList = new ArrayList<String>();
+    static List<String> diViewList = Collections.synchronizedList(new ArrayList<String>());
 
-    static List<String> dqViewList = new ArrayList<String>();
+    static List<String> dqViewList = Collections.synchronizedList(new ArrayList<String>());
 
-    static List<String> mdmViewList = new ArrayList<String>();
+    static List<String> mdmViewList = Collections.synchronizedList(new ArrayList<String>());
 
     // DI View
     static String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
@@ -330,26 +331,26 @@ public final class PerspectiveReviewUtil {
                 if ((!"".equals(perId) && null != perId)) {
                     // eg : use DI, then switch to DQ : All view from DI must be hidden when switch
                     if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DI_ID)) {
-                        for (String strId : dqViewList) {
+                        for (String strId : dqViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
                             }
                         }
-                        for (String strId : mdmViewList) {
+                        for (String strId : mdmViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
                             }
                         }
                     } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
-                        for (String strId : diViewList) {
+                        for (String strId : diViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
                             }
                         }
-                        for (String strId : mdmViewList) {
+                        for (String strId : mdmViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
@@ -357,13 +358,13 @@ public final class PerspectiveReviewUtil {
                         }
 
                     } else if (perId.equalsIgnoreCase(IBrandingConfiguration.PERSPECTIVE_MDM_ID)) {
-                        for (String strId : diViewList) {
+                        for (String strId : diViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
                             }
                         }
-                        for (String strId : dqViewList) {
+                        for (String strId : dqViewList.toArray(new String[0])) {
                             IViewPart viewPart = page.findView(strId);
                             if (viewPart != null) {
                                 page.hideView(viewPart);
@@ -457,8 +458,8 @@ public final class PerspectiveReviewUtil {
             String customPerspectives = store.getString(IPreferenceConstants.PERSPECTIVES);
             String[] perspectivesList = StringConverter.asArray(customPerspectives);
 
-            for (int i = 0; i < perspectivesList.length; i++) {
-                store.setValue(perspectivesList[i] + "_persp", ""); //$NON-NLS-1$
+            for (String element : perspectivesList) {
+                store.setValue(element + "_persp", ""); //$NON-NLS-1$
             }
             store.setValue(IPreferenceConstants.PERSPECTIVES, ""); //$NON-NLS-1$
             if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
@@ -473,8 +474,7 @@ public final class PerspectiveReviewUtil {
             File folder = path.toFile();
             if (folder.isDirectory()) {
                 File[] fileList = folder.listFiles();
-                for (int nX = 0; nX < fileList.length; nX++) {
-                    File file = fileList[nX];
+                for (File file : fileList) {
                     if (file.getName().endsWith("_persp.xml")) { //$NON-NLS-1$
                         file.delete();
                     }
