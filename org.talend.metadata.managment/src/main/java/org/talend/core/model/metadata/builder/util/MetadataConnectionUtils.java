@@ -65,6 +65,7 @@ import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.utils.exceptions.MissingDriverException;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -579,8 +580,8 @@ public class MetadataConnectionUtils {
                     }
                 }
             }
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+        } catch (MissingDriverException e) {
+            throw e;
         } catch (Exception e) {
             log.error(e, e);
             // Added 20130521 TUP-735 yyin,when connection error should throw the exception to transfer the error

@@ -77,6 +77,7 @@ import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
+import org.talend.utils.exceptions.MissingDriverException;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
@@ -802,8 +803,8 @@ public class ExtractMetaDataUtils {
                 if (wapperDriver != null) {
                     conList.add(wapperDriver);
                 }
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (MissingDriverException e) {
+                throw e;
             } catch (SQLException e) {
                 log.error(e.toString());
                 throw new RuntimeException(e);
@@ -1039,7 +1040,7 @@ public class ExtractMetaDataUtils {
                         errorMessage = errorMessage + "\n" + new Path(jarName).lastSegment(); //$NON-NLS-1$
                     }
                 }
-                throw new ClassNotFoundException(errorMessage);
+                throw new MissingDriverException(errorMessage);
             }
         }
 
