@@ -753,34 +753,33 @@ public class ProcessorUtilities {
                                             GENERATE_ALL_CHILDS, progressMonitor);
                                     currentProcess.setNeedRegenerateCode(true);
                                 }
+                            }
+                            LastGenerationInfo
+                                    .getInstance()
+                                    .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                    .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+
+                            if (exportAsOSGI) {
                                 LastGenerationInfo
                                         .getInstance()
-                                        .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .getModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi", jobInfo.getJobVersion())
                                         .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
-                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+                                                subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
+                            }
 
-                                if (exportAsOSGI) {
-                                    LastGenerationInfo
-                                            .getInstance()
-                                            .getModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi",
-                                                    jobInfo.getJobVersion())
-                                            .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
-                                                    subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
-                                }
+                            LastGenerationInfo
+                                    .getInstance()
+                                    .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                    .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
+                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                                LastGenerationInfo
-                                        .getInstance()
-                                        .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                        .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
-                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
-
-                                if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
-                                    LastGenerationInfo.getInstance().setUseDynamic(
-                                            jobInfo.getJobId(),
-                                            jobInfo.getJobVersion(),
-                                            LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
-                                                    subJobInfo.getJobVersion()));
-                                }
+                            if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                                LastGenerationInfo.getInstance().setUseDynamic(
+                                        jobInfo.getJobId(),
+                                        jobInfo.getJobVersion(),
+                                        LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
+                                                subJobInfo.getJobVersion()));
                             }
                         }
                     }
