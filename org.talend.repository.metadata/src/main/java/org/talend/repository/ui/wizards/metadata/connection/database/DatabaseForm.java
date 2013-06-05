@@ -110,6 +110,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -676,6 +677,12 @@ public class DatabaseForm extends AbstractForm {
      */
     @Override
     protected void addHelpInfoFields() {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        if (!brandingService.isPoweredbyTalend()) {
+            return;
+        }
+
         Composite helpComposite = new Composite(this, SWT.NONE);
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.minimumHeight = 45;
