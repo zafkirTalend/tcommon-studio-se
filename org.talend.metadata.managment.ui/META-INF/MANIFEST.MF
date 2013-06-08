@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.commons,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.xsd,
- org.talend.datatools.xml
+ org.talend.datatools.xml,
+ org.eclipse.jdt.core
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.core.model.metadata.editor,
