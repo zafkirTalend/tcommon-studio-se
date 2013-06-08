@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -159,6 +160,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private boolean isSaveAs = false;
 
     private boolean allowVerchange = true;
+    
+    private static String CLASS = ".class"; //$NON-NLS-1$
 
     public void initializeSaveAs(String orignalName, String orignalVersion, boolean isSaveAs) {
         this.orignalName = orignalName;
@@ -1005,7 +1008,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
                 || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-        } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
+        } else if (JavaConventions.validateClassFileName(nameText.getText() + CLASS).getSeverity() == IStatus.ERROR 
+        		|| "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
         } else if (nameModifiedByUser) {
             if (retrieveNameFinished) {
