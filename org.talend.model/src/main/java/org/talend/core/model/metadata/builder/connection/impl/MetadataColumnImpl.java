@@ -520,8 +520,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
 
     /**
      * The default value of the '{@link #getOriginalLength() <em>Original Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getOriginalLength()
      * @generated
      * @ordered
@@ -530,8 +530,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
 
     /**
      * The cached value of the '{@link #getOriginalLength() <em>Original Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getOriginalLength()
      * @generated
      * @ordered
@@ -559,9 +559,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     protected String relatedEntity = RELATED_ENTITY_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRelationshipType()
      * @generated
      * @ordered
@@ -569,9 +569,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     protected static final String RELATIONSHIP_TYPE_EDEFAULT = "";
 
     /**
-     * The cached value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getRelationshipType() <em>Relationship Type</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRelationshipType()
      * @generated
      * @ordered
@@ -992,6 +992,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                     newInitialValue, newInitialValue));
     }
 
+    @Override
     public boolean isReadOnly() {
         MetadataTable table = getTable();
         return table == null ? false : table.isReadOnly();
@@ -1187,8 +1188,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getOriginalLength() {
@@ -1196,8 +1196,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOriginalLength(long newOriginalLength) {
@@ -1209,8 +1208,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getRelatedEntity() {
@@ -1218,8 +1216,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRelatedEntity(String newRelatedEntity) {
@@ -1231,8 +1228,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getRelationshipType() {
@@ -1240,8 +1236,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRelationshipType(String newRelationshipType) {
@@ -1483,12 +1478,24 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     }
 
     /**
+     * overides the eSet to avoid name=label behaviour in super.setLabel
+     * to fix TDI-26322
+     * */
+    @Override
+    public void eSet(int featureID, Object newValue) {
+        if (ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL == featureID) {
+            setLabelFix((String) newValue);
+            return;
+        }
+        eSetGen(featureID, newValue);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
-    @Override
-    public void eSet(int featureID, Object newValue) {
+    public void eSetGen(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.METADATA_COLUMN__OWNER_SCOPE:
             setOwnerScope((ScopeKind) newValue);
@@ -1601,6 +1608,19 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             return;
         }
         super.eSet(featureID, newValue);
+    }
+    /**
+     * original setLabel used for eSet (deserialization) to override
+     * super.setLabel bbehaviour that should also set the Name
+     * */
+    private void setLabelFix(String newValue) {
+        String oldLabel = label;
+        label = newValue;
+        if (eNotificationRequired()) {
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel,
+                    label));
+        }
+
     }
 
     /**
