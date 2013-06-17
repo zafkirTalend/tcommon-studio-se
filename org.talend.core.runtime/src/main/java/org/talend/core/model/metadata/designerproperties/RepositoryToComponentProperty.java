@@ -74,11 +74,13 @@ import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTy
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.repository.DragAndDropManager;
+import org.talend.core.model.update.UpdatesConstants;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.core.service.IMetadataManagmentUiService;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 
@@ -1925,25 +1927,48 @@ public class RepositoryToComponentProperty {
                 if (xmlDesc != null) {
                     List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
                     List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-                     for (IMetadataColumn col : metadataTable.getListColumns()) {
-                     Map<String, Object> map = new HashMap<String, Object>();
-                                            map.put("QUERY", null); //$NON-NLS-1$
-                     for (int i = 0; i < schemaTargets.size(); i++) {
-                     SchemaTarget sch = schemaTargets.get(i);
-                     if (col.getLabel().equals(sch.getTagName())) {
-                     // map.put("SCHEMA_COLUMN", sch.getTagName());
-                                                    map.put("QUERY", TalendQuoteUtils.addQuotes(sch.getRelativeXPathQuery())); //$NON-NLS-1$
-                     }
-                     }
-                     maps.add(map);
-                     }
+                    for (IMetadataColumn col : metadataTable.getListColumns()) {
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("QUERY", null); //$NON-NLS-1$
+                        for (int i = 0; i < schemaTargets.size(); i++) {
+                            SchemaTarget sch = schemaTargets.get(i);
+                            if (col.getLabel().equals(sch.getTagName())) {
+                                // map.put("SCHEMA_COLUMN", sch.getTagName());
+                                map.put("QUERY", TalendQuoteUtils.addQuotes(sch.getRelativeXPathQuery())); //$NON-NLS-1$
+                            }
+                        }
+                        // if the Xml File Connection have the Keyword Column, can not get QUERY value .
+                        if (map.get(UpdatesConstants.QUERY) == null) {
+                            if (col.getLabel() != null && col.getLabel().startsWith("Column")) {
+                                String temp = col.getLabel().substring(6, col.getLabel().length());
+                                if (temp != null) {
+                                    char c[] = temp.toCharArray();
+                                    boolean flag = true;
+                                    for (char element : c) {
+                                        if (element < '0' || element > '9') {
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                    if (flag) {
+                                        int j = Integer.parseInt(temp);
+                                        SchemaTarget schema = schemaTargets.get(j);
+                                        if (schema != null && KeywordsValidator.isKeyword(schema.getTagName())) {
+                                            map.put("QUERY", TalendQuoteUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        maps.add(map);
+                    }
 
-//                    for (int i = 0; i < schemaTargets.size(); i++) {
-//                        Map<String, Object> map = new HashMap<String, Object>();
-//                        SchemaTarget sch = schemaTargets.get(i);
-//                        map.put("QUERY", TalendQuoteUtils.addQuotes(sch.getRelativeXPathQuery()));
-//                        maps.add(map);
-//                    }
+                    // for (int i = 0; i < schemaTargets.size(); i++) {
+                    // Map<String, Object> map = new HashMap<String, Object>();
+                    // SchemaTarget sch = schemaTargets.get(i);
+                    // map.put("QUERY", TalendQuoteUtils.addQuotes(sch.getRelativeXPathQuery()));
+                    // maps.add(map);
+                    // }
                     return maps;
                 }
             }
