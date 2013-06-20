@@ -15,7 +15,9 @@ package org.talend.core.model.repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -28,11 +30,198 @@ import org.junit.Test;
  */
 public class ERepositoryObjectTypeTest {
 
+    /**
+     * 
+     * Copy from TAC, if there are some updated items, need update this enum
+     */
+    public enum ItemType implements java.io.Serializable {
+
+        // DI
+        SERVICES("Services"),
+        ROUTES("Routes"),
+        RESOURCES("Resources"),
+        BEANS("Beans"),
+        HDFS("HDFS"),
+        HCATALOG("HCatalog"),
+        REPOSITORYMETADATAEDIFACT("repositorymetadataEDIFact"),
+        CONTEXT("repository.context"),
+        PROCESS("repository.process"),
+        JOBLET("repository.joblet"),
+        JOBSCRIPT("repository.jobscript"),
+        ROUTINES("repository.routines"),
+        DOCUMENTATION("repository.documentation"),
+        BUSINESSPROCESS("repository.businessProcess"),
+        METADATASQLPATTERNS("repository.metadataSQLPatterns"),
+        METADATACONNECTIONS("repository.metadataConnections"),
+        METADATAFILEDELIMITED("repository.metadataFileDelimited"),
+        METADATAFILEEDCDIC("repository.metadataFileEDCDIC"),
+        METADATAFILEEXCEL("repository.metadataFileExcel"),
+        METADATAFILELDIF("repository.metadataFileLdif"),
+        METADATAFILEPOSITIONAL("repository.metadataFilePositional"),
+        METADATAFILEREGEXP("repository.metadataFileRegexp"),
+        METADATAFILERULES("repository.metadataFileRules"),
+        METADATAFILEXML("repository.metadataFileXml"),
+        METADATAGENERICSCHEMA("repository.metadataGenericSchema"),
+        METADATALDAPSCHEMA("repository.metadataLDAPSchema"),
+        METADATAMDMCONNECTIONS("repository.metadataMDMConnections"),
+        METADATASAPCONNECTIONS("repository.metadataSAPConnections"),
+        METADATAWSDLSCHEMA("repository.metadataWSDLSchema"),
+        METADATASALESFORCESCHEMA("repository.metadataSalesforceSchema"),
+        METADATAVALIDATIONRULES("repository.metadataValidationRules"),
+        METADATAFILEFTP("repository.metadataFileFTP"),
+        METADATAFILEHL7("repository.metadataFileHL7"),
+
+        PROCESS_MR("repository.mapReduceProcess"),
+        HADOOPCLUSTER("repository.hadoopCluster"),
+        PIG_UDF("repository.pigUdf"),
+        JOB_DOC("repository.jobdoc"),
+        JSON("JSON"),
+        METADATA_FILE_BRMS("repository.metadataFileBRMS"),
+        METADATA_FILE_LINKRULES("repository.metadataLinkFileRules"),
+        METADATA_HEADER_FOOTER("METADATA_HEADER_FOOTER"),
+        OOZIE("OOZIE"),
+        SURVIVORSHIP_FILE_ITEM("SURVIVORSHIP_FILE_ITEM"),
+
+        // DQ
+        TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis"),
+        TDQ_REPORT_ELEMENT("repository.tdqelement.report"),
+        TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator"),
+        TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern"),
+        TDQ_SOURCE_FILE_ELEMENT("repository.tdqelement.sourceFile"),
+        TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml"),
+
+        // MDM
+        MDM_DATACONTAINER("Data Container"),
+        MDM_DATAMODEL("Data Model"),
+        MDM_JOB("Job"),
+        MDM_MENU("Menu"),
+        MDM_RECYCLEBIN("Recycle bin"),
+        MDM_TRIGGER("Trigger"),
+        MDM_SERVICECONFIGURATION("Service Configuration"),
+        MDM_STOREDPROCEDURE("Stored Procedure"),
+        MDM_PROCESS("Process"),
+        MDM_VIEW("View")
+
+        ;
+
+        private String i18nKey;
+
+        private ItemType(String i18nKey) {
+            this.i18nKey = i18nKey;
+        }
+
+        /**
+         * Getter for i18nKey.
+         * 
+         * @return the i18nKey
+         */
+        public String getI18nKey() {
+            return i18nKey;
+        }
+
+        public static ItemType get(String status) {
+            for (ItemType taskStatus : values()) {
+                if (taskStatus.toString().equals(status)) {
+                    return taskStatus;
+                }
+            }
+            return null;
+        }
+
+        // /**
+        // * return the message value according to Messages.properties
+        // *
+        // * @return
+        // */
+        // public String getMessage() {
+        // if (GWT.isClient()) {
+        // return I18nUtils.getString(getI18nKey());
+        // }
+        // return null;
+        // }
+
+    }
+
+    static abstract class ObjectTypeMatcher {
+
+        private ERepositoryObjectType[] testTypes;
+
+        private List<ERepositoryObjectType> unusedTypes;
+
+        public ObjectTypeMatcher(ERepositoryObjectType[] testTypes) {
+            super();
+            this.testTypes = testTypes;
+        }
+
+        public void setUnusedTypes(List<ERepositoryObjectType> unusedTypes) {
+            this.unusedTypes = unusedTypes;
+        }
+
+        String match() {
+            // Please check with TAC Team for Class ItemType, after add/delete some types for DI.
+            StringBuffer missTypes = new StringBuffer(100);
+            Map<ERepositoryObjectType, ItemType> notMatchedTypes = new LinkedHashMap<ERepositoryObjectType, ItemType>(10);
+
+            for (ERepositoryObjectType type : this.testTypes) {
+                if (this.unusedTypes != null && this.unusedTypes.contains(type)) {
+                    continue;
+                }
+                if (valid(type)) {
+                    String typeName = type.getType();
+                    ItemType itemType = ItemType.get(typeName);
+                    if (itemType == null) {
+                        typeName = type.getType().replaceAll("_", "");
+                        itemType = ItemType.get(typeName);
+                    }
+                    if (itemType == null) { // not found
+                        missTypes.append(type.getType() + "(\"" + type.getKey() + "\"),");
+                        missTypes.append('\n');
+                    } else if (!itemType.name().equals(typeName) || !itemType.getI18nKey().equals(type.getKey())) {
+                        notMatchedTypes.put(type, itemType);
+                    }
+                    // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
+                }
+            }
+            StringBuffer sb = new StringBuffer(200);
+
+            if (missTypes.length() > 0) {
+                sb.append("The following should be added in class ItemType for TAC:\n");
+                sb.append(missTypes);
+                sb.append("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+            }
+            if (!notMatchedTypes.isEmpty()) {
+                sb.append("The following are not matched for TAC and Studio:\n");
+                sb.append("Expected   <====>   Actual\n");
+                for (ERepositoryObjectType type : notMatchedTypes.keySet()) {
+                    sb.append(type.getType() + "(\"" + type.getKey() + "\")");
+                    sb.append("   <====>   ");
+                    ItemType itemType = notMatchedTypes.get(type);
+                    sb.append(itemType.name() + "(\"" + itemType.getI18nKey() + "\")");
+                    sb.append('\n');
+                }
+                sb.append("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+            }
+            if (sb.length() > 0) {
+                sb.insert(0, "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+            }
+            return sb.toString();
+        }
+
+        boolean valid(ERepositoryObjectType type) {
+            return type.isResouce() && Arrays.asList(type.getProducts()).contains(getCurrentProductName());
+        }
+
+        abstract String getCurrentProductName();
+
+    }
+
     private ERepositoryObjectType[] allTypes;
+
+    private List<ERepositoryObjectType> unusedTypes;
 
     @Before
     public void setUp() {
-        allTypes = (ERepositoryObjectType[]) ERepositoryObjectType.values();
+        allTypes = ERepositoryObjectType.values(ERepositoryObjectType.class);
         Arrays.sort(allTypes, new Comparator<ERepositoryObjectType>() {
 
             @Override
@@ -41,69 +230,117 @@ public class ERepositoryObjectTypeTest {
             }
 
         });
+
+        //
+        unusedTypes = new ArrayList<ERepositoryObjectType>();
+        unusedTypes.add(ERepositoryObjectType.SVG_BUSINESS_PROCESS);
+        unusedTypes.add(ERepositoryObjectType.SNIPPETS);
     }
 
     @After
     public void tearDown() throws Exception {
         allTypes = null;
+        unusedTypes.clear();
+        unusedTypes = null;
     }
 
     @Test
-    public void testLoadedDITypes() {
-        List<ERepositoryObjectType> resourceTypes = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : allTypes) {
-            if (type.isResouce() && type.isDIItemType()) {
-                resourceTypes.add(type);
-                // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
+    public void testTacMatchedDITypes() {
+        ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
+
+            @Override
+            boolean valid(ERepositoryObjectType type) {
+                return type.isResouce() && type.isDIItemType();
             }
-        }
-        // System.out.println("DI Types totals:" + resourceTypes.size());
-        Assert.assertEquals("Please check with TAC Team for Class ItemType, after add/delete some types for DI.", 41,
-                resourceTypes.size());
+
+            @Override
+            String getCurrentProductName() {
+                return ERepositoryObjectType.PROD_DI;
+            }
+        };
+        matcher.setUnusedTypes(unusedTypes);
+
+        String result = matcher.match();
+        Assert.assertTrue(result.toString(), result.length() == 0);
+
     }
 
     @Test
-    public void testLoadedCamelTypes() {
-        List<ERepositoryObjectType> resourceTypes = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : allTypes) {
-            if (type.isResouce() && Arrays.asList(type.getProducts()).contains(ERepositoryObjectType.PROD_CAMEL)) {
-                resourceTypes.add(type);
-                // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
+    public void testTacMatchedCamelTypes() {
+        ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
+
+            @Override
+            String getCurrentProductName() {
+                return ERepositoryObjectType.PROD_CAMEL;
             }
-        }
-        // System.out.println("Camel Types totals:" + resourceTypes.size());
-        Assert.assertEquals("Please check with TAC Team for Class ItemType, after add/delete some types for Camel.", 4,
-                resourceTypes.size());
+
+        };
+        matcher.setUnusedTypes(unusedTypes);
+
+        String result = matcher.match();
+        Assert.assertTrue(result.toString(), result.length() == 0);
     }
 
-    // @Test
-    public void testLoadedDQTypes() {
-        List<ERepositoryObjectType> resourceTypes = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : allTypes) {
-            if (type.isDQItemType()) {
-                resourceTypes.add(type);
-                // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
+    @Test
+    public void testTacMatchedDQTypes() {
+        ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
+
+            @Override
+            boolean valid(ERepositoryObjectType type) {
+                return type.isResouce() && type.isDQItemType();
             }
-        }
-        // PTODO
-        // Assert.assertEquals("Please check with TAC Team for Class ItemType, after add/delete some types for DQ.", -1,
-        // resourceTypes.size());
-        // System.out.println("DQ Types totals:" + resourceTypes.size());
+
+            @Override
+            String getCurrentProductName() {
+                return ERepositoryObjectType.PROD_DQ;
+            }
+
+        };
+        matcher.setUnusedTypes(unusedTypes);
+
+        String result = matcher.match();
+        Assert.assertTrue(result.toString(), result.length() == 0);
     }
 
-    // @Test
-    public void testLoadedMDMTypes() {
-        List<ERepositoryObjectType> resourceTypes = new ArrayList<ERepositoryObjectType>();
-        for (ERepositoryObjectType type : allTypes) {
-            if (type.getType().startsWith("MDM")) {
-                resourceTypes.add(type);
-                // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
+    @Test
+    public void testTacMatchedMDMTypes() {
+        ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
+
+            @Override
+            String getCurrentProductName() {
+                return ERepositoryObjectType.PROD_MDM;
+            }
+
+        };
+        matcher.setUnusedTypes(unusedTypes);
+
+        String result = matcher.match();
+        Assert.assertTrue(result.toString(), result.length() == 0);
+
+    }
+
+    @Test
+    public void testTacUnknownTypes() {
+        StringBuffer unknownKeyTypes = new StringBuffer(200);
+        for (ItemType itemType : ItemType.values()) {
+            ERepositoryObjectType objType = null;
+            for (ERepositoryObjectType t : this.allTypes) {
+                if (itemType.getI18nKey().equals(t.getKey())) {
+                    objType = t;
+                    break;
+                }
+            }
+            if (objType == null) {
+                unknownKeyTypes.append(itemType.name() + "(\"" + itemType.getI18nKey() + "\"),");
+                unknownKeyTypes.append('\n');
             }
         }
-        // PTODO
-        // Assert.assertEquals("Please check with TAC Team for Class ItemType, after add/delete some types for MDM.",
-        // -1,
-        // resourceTypes.size());
-        // System.out.println("MDM Types totals:" + resourceTypes.size());
+        if (unknownKeyTypes.length() > 0) {
+            unknownKeyTypes.insert(0, "There are no ERepositoryObjectType(s) to match with the following ItemType(s):\n");
+            unknownKeyTypes.insert(0, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+            unknownKeyTypes.append("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        }
+        Assert.assertTrue(unknownKeyTypes.toString(), unknownKeyTypes.length() == 0);
     }
+
 }

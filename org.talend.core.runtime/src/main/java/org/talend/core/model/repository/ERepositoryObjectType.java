@@ -76,9 +76,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static final String PROD_DI = "DI"; //$NON-NLS-1$
 
-    private static final String PROD_DQ = "DQ"; //$NON-NLS-1$
+    public static final String PROD_DQ = "DQ"; //$NON-NLS-1$
 
     public static final String PROD_CAMEL = "CAMEL"; //$NON-NLS-1$
+
+    public static final String PROD_MDM = "MDM"; //$NON-NLS-1$
 
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
             new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
