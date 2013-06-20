@@ -167,8 +167,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -2036,7 +2036,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource save(ProcessItem item) {
-        item.getProcess().setScreenshot(null);
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getProcess());
@@ -2044,7 +2043,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource save(JobletProcessItem item) {
-        item.getJobletProcess().setScreenshot(null);
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
         itemResource.getContents().clear();
