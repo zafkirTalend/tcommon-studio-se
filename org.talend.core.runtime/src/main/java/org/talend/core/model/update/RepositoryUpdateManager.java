@@ -1459,14 +1459,27 @@ public abstract class RepositoryUpdateManager {
     }
 
     /**
+     * DOC PLV Comment method "updateFileConnection".
+     * 
+     * @param connectionItem
+     * @param oldMetadataTable
+     */
+    public static boolean updateFileConnection(ConnectionItem connection, List<IMetadataTable> oldMetadataTable) {
+        if (oldMetadataTable != null) {
+            List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connection
+                    .getConnection());
+            isAddColumn = isAddColumn(newMetadataTable, oldMetadataTable);
+        }
+        return updateFileConnection(connection, true, false);
+    }
+
+    /**
      * 
      * ggu Comment method "updateQuery".
      * 
      * if show is false, will work for context menu action.
      */
     public static boolean updateFileConnection(ConnectionItem connectionItem, boolean show, boolean onlySimpleShow) {
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
                 connectionItem.getProperty().getId(), RelationshipItemBuilder.LATEST_VERSION,
                 RelationshipItemBuilder.PROPERTY_RELATION);
