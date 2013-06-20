@@ -25,7 +25,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 public class CwmResource extends XMIResourceImpl {
 
     public static final String ENCODING = "UTF-8"; //$NON-NLS-1$
+
     public CwmResource() {
+        super();
     }
 
     public CwmResource(URI uri) {

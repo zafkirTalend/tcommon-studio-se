@@ -13,11 +13,13 @@
 package org.talend.commons.emf;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -138,18 +140,7 @@ public class EmfHelper {
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> loadEmfModel(EPackage pkg, String file) throws IOException {
-        ResourceSet resourceSet = new ResourceSetImpl();
-
-        Resource.Factory.Registry registry = resourceSet.getResourceFactoryRegistry();
-        registry.getExtensionToFactoryMap().put("ecore", //$NON-NLS-1$
-                new EcoreResourceFactoryImpl());
-        registry.getExtensionToFactoryMap().put("xml", //$NON-NLS-1$
-                new XMLResourceFactoryImpl());
-        registry.getExtensionToFactoryMap().put("xmi", //$NON-NLS-1$
-                new XMIResourceFactoryImpl());
-
-        EPackage.Registry reg = resourceSet.getPackageRegistry();
-        reg.put(pkg.getNsURI(), pkg);
+        ResourceSet resourceSet = getResourceSet(pkg);
 
         List<T> list = new ArrayList<T>();
 
@@ -172,6 +163,20 @@ public class EmfHelper {
      * @throws IOException
      */
     public static void saveEmfModel(EPackage pkg, List<? extends EObject> models, String file) throws IOException {
+        ResourceSet resourceSet = getResourceSet(pkg);
+
+        URI uri = URI.createFileURI(file);
+
+        Resource resource = resourceSet.createResource(uri);
+
+        for (EObject model : models) {
+            resource.getContents().add(model);
+        }
+
+        resource.save(null);
+    }
+
+    private static ResourceSet getResourceSet(EPackage pkg) {
         ResourceSet resourceSet = new ResourceSetImpl();
 
         Resource.Factory.Registry registry = resourceSet.getResourceFactoryRegistry();
@@ -185,15 +190,8 @@ public class EmfHelper {
         EPackage.Registry reg = resourceSet.getPackageRegistry();
         reg.put(pkg.getNsURI(), pkg);
 
-        URI uri = URI.createFileURI(file);
+        return resourceSet;
 
-        Resource resource = resourceSet.createResource(uri);
-
-        for (EObject model : models) {
-            resource.getContents().add(model);
-        }
-
-        resource.save(null);
     }
 
     public static void saveResource(Resource resource) throws PersistenceException {
@@ -204,9 +202,10 @@ public class EmfHelper {
             return;
         }
 
+        HashMap options = new HashMap(2);
+        options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+        options.put(XMLResource.OPTION_ESCAPE_USING_CDATA, Boolean.TRUE);
         try {
-            HashMap options = new HashMap(2);
-            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
             resource.save(options);
 
         } catch (IOException e) {
@@ -216,15 +215,18 @@ public class EmfHelper {
             log.warn("could not save resource: " + resource.getURI() + "\nLet us try to save using xml version 1.1", e);
             // if use the xml version 1.0 to store failed, try to use the xml
             // version 1.1 to store again
-            HashMap options = new HashMap(2);
-            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
             options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+
             try {
                 resource.save(options);
             } catch (IOException e1) {
                 throw new PersistenceException(e);
             }
         }
+    }
+
+    public static void loadResource(Resource resource, InputStream inputStream, Map<?, ?> options) throws IOException {
+        resource.load(inputStream, options);
     }
 
     /**
