@@ -2134,7 +2134,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource save(ProcessItem item) {
-        item.getProcess().setScreenshot(null);
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getProcess());
@@ -2142,7 +2141,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource save(JobletProcessItem item) {
-        item.getJobletProcess().setScreenshot(null);
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
         itemResource.getContents().clear();
