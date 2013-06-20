@@ -15,12 +15,10 @@ package org.talend.core.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.skife.csv.CSVReader;
-import org.skife.csv.SimpleReader;
 
 /**
  * Detailled comment <br/>
@@ -34,32 +32,31 @@ public class CsvArray {
 
     private List<String[]> rows;
 
-    public CsvArray createFrom(File is) throws IOException {
+    public CsvArray createFrom(File file) throws IOException {
+        return createFrom(new java.io.FileInputStream(file), ENCODING);
+    }
+
+    public CsvArray createFrom(InputStream is) throws IOException {
         return createFrom(is, ENCODING);
     }
 
-    /**
-     * 
-     * DOC YeXiaowei Comment method "createFrom".
-     * 
-     * @param is
-     * @return
-     * @throws IOException
-     */
-    public CsvArray createFrom(File is, final String encoding) throws IOException {
+    public CsvArray createFrom(File file, final String encoding) throws IOException {
+        return createFrom(new java.io.FileInputStream(file), encoding);
+    }
+
+    public CsvArray createFrom(InputStream is, final String encoding) throws IOException {
         CsvArray array = new CsvArray();
 
-        String[] row = null;
+        com.talend.csv.CSVReader reader = new com.talend.csv.CSVReader(new BufferedReader(new InputStreamReader(is,
+                encoding == null ? ENCODING : encoding)), ';');
 
-        CSVReader csvReader = new SimpleReader();
-        csvReader.setSeperator(';');
-        List items = csvReader.parse(new BufferedReader(new InputStreamReader(new java.io.FileInputStream(is),
-                encoding == null ? ENCODING : encoding)));
-        for (Object item : items) {
-            array.add((String[]) item);
+        reader.setQuoteChar('\"');
+
+        reader.setEscapeChar('\\');
+        while (reader.readNext()) {
+            array.add(reader.getValues());
         }
 
-        this.add(row);
         return array;
     }
 
