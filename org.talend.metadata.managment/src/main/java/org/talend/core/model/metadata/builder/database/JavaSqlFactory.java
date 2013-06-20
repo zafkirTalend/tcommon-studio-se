@@ -30,11 +30,13 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -366,8 +368,12 @@ public final class JavaSqlFactory {
             IProject project = ProjectManager.getInstance().getResourceProject(
                     ProjectManager.getInstance().getCurrentProject().getEmfProject());
             // put to diffirent folder in case it will conflict when create connection with diffirent distribution
-            String fullPathTemp = project
-                    .getFolder("temp").getLocation().append("metastore_db").append(connection.getId()).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
+            String id = connection.getId();
+            if (id == null) {
+                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                id = factory.getNextId();
+            }
+            String fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").append(id).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
             DatabaseConnection dbConn = (DatabaseConnection) conn;
