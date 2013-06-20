@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
@@ -27,7 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.talend.core.repository.constants.FileConstants;
+import org.talend.core.model.general.Project;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -58,40 +56,29 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
 
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
-            boolean talendProChange = false;
-            IResource resource = delta.getResource();
-            IPath path = resource.getFullPath();
-            if (path != null && path.lastSegment() != null) {
-                talendProChange = FileConstants.LOCAL_PROJECT_FILENAME.equals(path.lastSegment());
-            }
-            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
-            for (final RepositoryNode repoNode : topLevelNodes) {
-                IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
-                if (topLevelNodeWorkspaceRelativePath != null) {
-                    int matchingFirstSegments = path.matchingFirstSegments(topLevelNodeWorkspaceRelativePath);
-                    if (path.segmentCount() == matchingFirstSegments
-                            || matchingFirstSegments == topLevelNodeWorkspaceRelativePath.segmentCount() || talendProChange) {
-                        // be sure we are the last path of the resources and then check for the right folder and then
-                        // check
-                        // for
-                        // file of type .properties or folder or talend.project.
-                        if ((delta.getAffectedChildren().length == 0)
-                                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || talendProChange || (resource instanceof IContainer))) {
-                            if (viewer instanceof RepoViewCommonViewer) {
-                                runnables.add(new Runnable() {
+            VisitResourceHelper visitHelper = new VisitResourceHelper(delta);
+            boolean merged = false;
 
-                                    @Override
-                                    public void run() {
-                                        refreshTopLevelNode(repoNode);
-                                    }
-                                });
-                            }// else nothing to update so stop visiting.
-                            return false;
-                        } else {// not the propoer resouce change so ignors and continue exploring
-                            return true;
-                        }
-                    }// else not the projer project or folder so stop visiting.
-                }// else no root node so ignor children
+            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
+
+            for (final RepositoryNode repoNode : topLevelNodes) {
+                IProjectRepositoryNode root = repoNode.getRoot();
+                if (!merged && root instanceof ProjectRepositoryNode) {
+                    merged = ((ProjectRepositoryNode) root).getMergeRefProject();
+                }
+                IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
+                if (topLevelNodeWorkspaceRelativePath != null && visitHelper.valid(topLevelNodeWorkspaceRelativePath, merged)) {
+                    if (viewer instanceof RepoViewCommonViewer) {
+                        runnables.add(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                refreshTopLevelNode(repoNode);
+                            }
+                        });
+                        return true;
+                    }// else nothing to update so stop visiting.
+                }// else no root node so ignore children
             }
             return false;
         }
@@ -121,17 +108,35 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
      * @param topLevelNode
      */
     protected void refreshTopLevelNode(RepositoryNode repoNode) {
-        getTopLevelNodes();
-        resetTopLevelNode(repoNode);
+        Project project = repoNode.getRoot().getProject();
 
-        beforeRefreshTopLevelNode(repoNode);
+        ProjectRepositoryNode projectNode = ProjectRepositoryNode.getInstance();
+        Project mainProject = projectNode.getProject();
+
+        RepositoryNode testNode = repoNode;
+        // if ref-node and merged, force to refresh the related node for main project.
+        if (projectNode.getMergeRefProject() && !mainProject.getTechnicalLabel().equals(project.getTechnicalLabel())) {
+            // find the related node in main project
+            if (testNode.isBin()) {
+                testNode = projectNode.getRecBinNode();
+            } else {
+                testNode = projectNode.getRootRepositoryNode(testNode.getContentType());
+            }
+        }
+        if (testNode == null) {
+            return;
+        }
+        getTopLevelNodes();
+        resetTopLevelNode(testNode);
+
+        beforeRefreshTopLevelNode(testNode);
 
         // for bug 11786
-        if (repoNode.getParent() instanceof ProjectRepositoryNode) {
-            ((ProjectRepositoryNode) repoNode.getParent()).clearNodeAndProjectCash();
+        if (testNode.getParent() instanceof ProjectRepositoryNode) {
+            ((ProjectRepositoryNode) testNode.getParent()).clearNodeAndProjectCash();
         }
         if (viewer != null && !viewer.getTree().isDisposed()) {
-            viewer.refresh(repoNode);
+            viewer.refresh(testNode);
         }
     }
 

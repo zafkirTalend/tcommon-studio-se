@@ -102,7 +102,19 @@ public class FilesUtils {
 
     public static boolean isSVNFolder(IResource resource) {
         if (resource != null) {
-            return isSVNFolder(resource.getName());
+            if (isSVNFolder(resource.getName())) {
+                return true;
+            } else { // check the resources under svn folder.
+                IPath path = resource.getFullPath();
+                if (path != null) {
+                    for (int index = 0; index < path.segmentCount(); index++) {
+                        String segment = path.segment(index);
+                        if (isSVNFolder(segment)) {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }

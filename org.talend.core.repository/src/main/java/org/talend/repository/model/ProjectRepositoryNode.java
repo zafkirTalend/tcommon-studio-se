@@ -672,6 +672,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     }
 
     private void intitializeRefProject(Project project, Object parent) {
+        if (parent instanceof IRepositoryNode && ((IRepositoryNode) parent).isBin()) {
+            return; // don't check the deleted item for ref-projects
+        }
         for (ProjectReference refProject : (List<ProjectReference>) project.getReferencedProjects()) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
             if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
@@ -801,7 +804,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 if (newProject != null && newProject.getEmfProject() != null) {
                     List<FolderItem> folderItems = ProjectManager.getInstance().getFolders(newProject.getEmfProject());
                     for (FolderItem folder : new ArrayList<FolderItem>(folderItems)) {
-                        addItemToRecycleBin(recBinNode, folder, foldersList);
+                        addItemToRecycleBin(newProject, (RepositoryNode) parent, folder, foldersList);
                     }
                 }
             } else if (parent instanceof RepositoryNode) {
@@ -863,7 +866,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return null;
     }
 
-    private void addItemToRecycleBin(RepositoryNode parentNode, Item item, List<RepositoryNode> foldersList) {
+    private void addItemToRecycleBin(org.talend.core.model.general.Project newProject, RepositoryNode parentNode, Item item,
+            List<RepositoryNode> foldersList) {
         if (isGeneratedJobItem(item)) {
             return;
         }
@@ -905,21 +909,19 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 }
 
                 for (Item curItem : (List<Item>) new ArrayList(((FolderItem) item).getChildren())) {
-                    addItemToRecycleBin(folderNode, curItem, foldersList);
+                    addItemToRecycleBin(newProject, folderNode, curItem, foldersList);
                 }
                 currentParentNode = folderNode;
             } else {
                 for (Item curItem : (List<Item>) new ArrayList(((FolderItem) item).getChildren())) {
-                    addItemToRecycleBin(parentNode, curItem, foldersList);
+                    addItemToRecycleBin(newProject, parentNode, curItem, foldersList);
                 }
             }
         } else if (item.getState() != null && item.getState().isDeleted()) {
             try {
-                if (ProxyRepositoryFactory.getInstance().getLastVersion(item.getProperty().getId()) != null
-                        && item.getProperty()
-                                .getVersion()
-                                .equals(ProxyRepositoryFactory.getInstance().getLastVersion(item.getProperty().getId())
-                                        .getVersion())) {
+                IRepositoryViewObject lastVersion = ProxyRepositoryFactory.getInstance().getLastVersion(newProject,
+                        item.getProperty().getId());
+                if (lastVersion != null && item.getProperty().getVersion().equals(lastVersion.getVersion())) {
                     RepositoryNode repNode = new RepositoryNode(new RepositoryViewObject(item.getProperty()), currentParentNode,
                             ENodeType.REPOSITORY_ELEMENT);
                     repNode.setProperties(EProperties.CONTENT_TYPE, itemType);
