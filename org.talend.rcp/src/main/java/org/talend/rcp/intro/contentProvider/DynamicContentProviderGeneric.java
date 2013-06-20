@@ -44,7 +44,7 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
         String imgBrandingPath = "";
         String imgCommonPath = "";
 
-        String content = dom.getBaseURI();
+        String content = dom.getDocumentURI();
         // baseUri like :file:///D:/Talend_trunk_gtk/org.talend.rcp.branding.generic/content/root.xhtml
         if (content != null && !"".equals(content)) {
             File file = new File(content);
