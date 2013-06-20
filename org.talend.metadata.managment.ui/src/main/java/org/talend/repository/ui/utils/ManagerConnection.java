@@ -36,6 +36,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
@@ -334,15 +335,21 @@ public class ManagerConnection {
                 if (extractorToUse != null) {
                     testConnection = extractorToUse.testConnection(metadataConnection);
                 }
-            } else {
-                if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
-                    String key = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())) {
+                String key = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+                testConnection = new ConnectionStatus();
+                testConnection.setResult(false);
+                try {
                     if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
-                        System.setProperty("hive.metastore.local", "false");
-                        System.setProperty("hive.metastore.uris", "thrift://" + metadataConnection.getServerName() + ":"
-                                + metadataConnection.getPort());
+                        JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
                     }
+                    HiveConnectionManager.getInstance().checkConnection(metadataConnection);
+                    testConnection.setResult(true);
+                } catch (Exception e) {
+                    testConnection.setResult(false);
+                    log.error(Messages.getString("CommonWizard.exception") + "\n" + e.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 }
+            } else {
                 testConnection = ExtractMetaDataFromDataBase.testConnection(metadataConnection.getDbType(),
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),

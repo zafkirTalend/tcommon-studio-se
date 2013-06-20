@@ -473,8 +473,10 @@ public class ExtractManager {
         String dbType = "";
 
         try {
+            dbType = metadataConnection.getDbType();
             // WARNING Schema equals sid or database
-            if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
+            boolean isHive = EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType);
+            if (!isHive && (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed())) {
                 List list = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
                         metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
@@ -488,10 +490,10 @@ public class ExtractManager {
                     }
                 }
             }
-            dbType = metadataConnection.getDbType();
+
             DatabaseMetaData dbMetaData = null;
             // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
-            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            if (isHive) {
                 dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
             } else {
                 dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
