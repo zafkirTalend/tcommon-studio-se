@@ -859,12 +859,6 @@ public class ProcessorUtilities {
                                     .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
                                             subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                            LastGenerationInfo
-                                    .getInstance()
-                                    .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                    .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
-                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
-
                             if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
                                 LastGenerationInfo.getInstance().setUseDynamic(
                                         jobInfo.getJobId(),
