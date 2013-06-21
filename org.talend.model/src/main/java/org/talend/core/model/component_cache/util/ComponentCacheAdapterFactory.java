@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.Notifier;
 
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.talend.core.model.component_cache.*;
@@ -82,7 +83,7 @@ public class ComponentCacheAdapterFactory extends AdapterFactoryImpl {
                 return createComponentInfoAdapter();
             }
             @Override
-            public Adapter caseComponentEntryMap(Map.Entry<String, ComponentInfo> object) {
+            public Adapter caseComponentEntryMap(Map.Entry<String, EList<ComponentInfo>> object) {
                 return createComponentEntryMapAdapter();
             }
             @Override

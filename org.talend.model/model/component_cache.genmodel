@@ -12,7 +12,7 @@
     </genClasses>
     <genClasses ecoreClass="component_cache.ecore#//ComponentInfo">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/originalFamilyName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/pluginFullName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/pluginExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/translatedFamilyName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/isTechnical"/>
@@ -23,6 +23,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/uriString"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/pathSource"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/repositoryType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/sourceBundleName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentInfo/sha1"/>
     </genClasses>
     <genClasses ecoreClass="component_cache.ecore#//ComponentEntryMap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute component_cache.ecore#//ComponentEntryMap/key"/>

@@ -8,6 +8,7 @@ package org.talend.core.model.component_cache.impl;
 
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -95,7 +96,7 @@ public class ComponentCacheFactoryImpl extends EFactoryImpl implements Component
      * <!-- end-user-doc -->
      * @generated
      */
-    public Map.Entry<String, ComponentInfo> createComponentEntryMap() {
+    public Map.Entry<String, EList<ComponentInfo>> createComponentEntryMap() {
         ComponentEntryMapImpl componentEntryMap = new ComponentEntryMapImpl();
         return componentEntryMap;
     }

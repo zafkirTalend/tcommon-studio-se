@@ -215,13 +215,22 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_INFO__SOURCE_BUNDLE_NAME = 12;
 
     /**
+     * The feature id for the '<em><b>Sha1</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_INFO__SHA1 = 13;
+
+    /**
      * The number of structural features of the '<em>Component Info</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_INFO_FEATURE_COUNT = 13;
+    int COMPONENT_INFO_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
@@ -243,7 +252,7 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_ENTRY_MAP__KEY = 0;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' containment reference.
+     * The feature id for the '<em><b>Value</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -436,13 +445,24 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentInfo_SourceBundleName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getSha1 <em>Sha1</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sha1</em>'.
+     * @see org.talend.core.model.component_cache.ComponentInfo#getSha1()
+     * @see #getComponentInfo()
+     * @generated
+     */
+    EAttribute getComponentInfo_Sha1();
+
+    /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Component Entry Map</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for class '<em>Component Entry Map</em>'.
      * @see java.util.Map.Entry
      * @model keyDataType="org.eclipse.emf.ecore.EString"
-     *        valueType="org.talend.core.model.component_cache.ComponentInfo" valueContainment="true"
+     *        valueType="org.talend.core.model.component_cache.ComponentInfo" valueContainment="true" valueMany="true"
      * @generated
      */
     EClass getComponentEntryMap();
@@ -459,10 +479,10 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentEntryMap_Key();
 
     /**
-     * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+     * Returns the meta object for the containment reference list '{@link java.util.Map.Entry <em>Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Value</em>'.
+     * @return the meta object for the containment reference list '<em>Value</em>'.
      * @see java.util.Map.Entry
      * @see #getComponentEntryMap()
      * @generated
@@ -624,6 +644,14 @@ public interface ComponentCachePackage extends EPackage {
         EAttribute COMPONENT_INFO__SOURCE_BUNDLE_NAME = eINSTANCE.getComponentInfo_SourceBundleName();
 
         /**
+         * The meta object literal for the '<em><b>Sha1</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_INFO__SHA1 = eINSTANCE.getComponentInfo_Sha1();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -642,7 +670,7 @@ public interface ComponentCachePackage extends EPackage {
         EAttribute COMPONENT_ENTRY_MAP__KEY = eINSTANCE.getComponentEntryMap_Key();
 
         /**
-         * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+         * The meta object literal for the '<em><b>Value</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

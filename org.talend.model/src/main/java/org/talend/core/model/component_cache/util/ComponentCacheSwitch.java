@@ -9,6 +9,7 @@ package org.talend.core.model.component_cache.util;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -101,7 +102,7 @@ public class ComponentCacheSwitch<T> {
                 return result;
             }
             case ComponentCachePackage.COMPONENT_ENTRY_MAP: {
-                @SuppressWarnings("unchecked") Map.Entry<String, ComponentInfo> componentEntryMap = (Map.Entry<String, ComponentInfo>)theEObject;
+                @SuppressWarnings("unchecked") Map.Entry<String, EList<ComponentInfo>> componentEntryMap = (Map.Entry<String, EList<ComponentInfo>>)theEObject;
                 T result = caseComponentEntryMap(componentEntryMap);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -151,7 +152,7 @@ public class ComponentCacheSwitch<T> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseComponentEntryMap(Map.Entry<String, ComponentInfo> object) {
+    public T caseComponentEntryMap(Map.Entry<String, EList<ComponentInfo>> object) {
         return null;
     }
 

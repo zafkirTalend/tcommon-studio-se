@@ -8,6 +8,7 @@ package org.talend.core.model.component_cache.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
@@ -45,7 +46,7 @@ public class ComponentsCacheImpl extends EObjectImpl implements ComponentsCache 
      * @generated
      * @ordered
      */
-    protected EMap<String, ComponentInfo> componentEntryMap;
+    protected EMap<String, EList<ComponentInfo>> componentEntryMap;
 
     /**
      * <!-- begin-user-doc -->
@@ -71,9 +72,9 @@ public class ComponentsCacheImpl extends EObjectImpl implements ComponentsCache 
      * <!-- end-user-doc -->
      * @generated
      */
-    public EMap<String, ComponentInfo> getComponentEntryMap() {
+    public EMap<String, EList<ComponentInfo>> getComponentEntryMap() {
         if (componentEntryMap == null) {
-            componentEntryMap = new EcoreEMap<String,ComponentInfo>(ComponentCachePackage.Literals.COMPONENT_ENTRY_MAP, ComponentEntryMapImpl.class, this, ComponentCachePackage.COMPONENTS_CACHE__COMPONENT_ENTRY_MAP);
+            componentEntryMap = new EcoreEMap<String,EList<ComponentInfo>>(ComponentCachePackage.Literals.COMPONENT_ENTRY_MAP, ComponentEntryMapImpl.class, this, ComponentCachePackage.COMPONENTS_CACHE__COMPONENT_ENTRY_MAP);
         }
         return componentEntryMap;
     }
