@@ -84,8 +84,8 @@ public class RenameFolderAction extends AContextualAction {
         String firstChildOpen = getFirstOpenedChild(node);
         if (firstChildOpen != null) {
             MessageDialog.openWarning(new Shell(), Messages.getString("RenameFolderAction.warning.editorOpen.title"), Messages //$NON-NLS-1$
-                    .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, node //$NON-NLS-1$
-                            .getProperties(EProperties.LABEL)));
+                    .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, //$NON-NLS-1$
+                            getLabelOfNode(node)));
             return;
         }
 
@@ -96,6 +96,11 @@ public class RenameFolderAction extends AContextualAction {
         objectType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
 
         openFolderWizard(node, objectType, path);
+    }
+
+    // Extracted to get different type of label to show, yyin 2013 TDQ-7143
+    protected Object getLabelOfNode(RepositoryNode node) {
+        return node.getProperties(EProperties.LABEL);
     }
 
     protected void openFolderWizard(RepositoryNode node, ERepositoryObjectType objectType, IPath path) {
@@ -124,7 +129,7 @@ public class RenameFolderAction extends AContextualAction {
         if (canWork) {
             Object o = selection.getFirstElement();
             RepositoryNode node = (RepositoryNode) o;
-            Object obj = node.getProperties(EProperties.LABEL);
+            Object obj = getLabelOfNode(node);
             switch (node.getType()) {
             case SIMPLE_FOLDER:
                 String label = null;
@@ -159,6 +164,7 @@ public class RenameFolderAction extends AContextualAction {
             for (IEditorReference tmp : editorReferences) {
                 try {
                     IEditorInput editorInput = tmp.getEditorInput();
+
                     if (editorInput instanceof RepositoryEditorInput) {
                         RepositoryEditorInput rei = (RepositoryEditorInput) editorInput;
                         openEditor.add(rei.getItem().getProperty().getId());
