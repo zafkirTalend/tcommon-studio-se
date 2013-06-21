@@ -47,7 +47,7 @@ public class CreateElementAction extends SelectionProviderAction {
     @Override
     public void run() {
         FOXTreeNode node = (FOXTreeNode) this.getStructuredSelection().getFirstElement();
-        if (createChildNode(node)) {
+        if (node != null && createChildNode(node)) {
             form.redrawLinkers();
         }
         form.updateConnection();
