@@ -132,6 +132,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private String currentPerspective; // set the current perspective
 
+    private List<FolderItem> delFolderItems = new ArrayList<FolderItem>();
+
     /**
      * DOC nrousseau ProjectRepositoryNode constructor comment.
      * 
@@ -797,6 +799,36 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return null;
     }
 
+    private List<FolderItem> getDelFolderItems(List list, List<FolderItem> delFolderItems) {
+        for (Object obj : list) {
+            if (obj instanceof FolderItem) {
+                FolderItem folderItem = (FolderItem) obj;
+                if (folderItem.getState().isDeleted()) {
+                    delFolderItems.add(folderItem);
+                } else if (folderItem.getChildren() != null && !folderItem.getChildren().isEmpty()) {
+                    getDelFolderItems(folderItem.getChildren(), delFolderItems);
+                }
+            }
+        }
+        return delFolderItems;
+    }
+
+    private void handleDelFolderItems(org.talend.core.model.general.Project newProject, RepositoryNode parent) {
+        if (!delFolderItems.isEmpty()) {
+            delFolderItems.clear();
+        }
+        if (newProject != null && newProject.getEmfProject() != null) {
+            List<FolderItem> folderItems = ProjectManager.getInstance().getFolders(newProject.getEmfProject());
+            for (FolderItem folder : folderItems) {
+                String folderName = folder.getProperty().getLabel();
+                if (("process".equals(folderName) || "joblets".equals(folderName)) && folder.getChildren() != null
+                        && !folder.getChildren().isEmpty()) {
+                    getDelFolderItems(folder.getChildren(), delFolderItems);
+                }
+            }
+        }
+    }
+
     private void convert(org.talend.core.model.general.Project newProject, Container fromModel, RepositoryNode parent,
             ERepositoryObjectType type, RepositoryNode recBinNode) {
 
@@ -804,9 +836,38 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             return;
         }
 
+        if ((ERepositoryObjectType.DOCUMENTATION).equals(type)) {
+            handleDelFolderItems(newProject, parent);
+        }
+
         for (Object obj : fromModel.getSubContainer()) {
             Container container = (Container) obj;
             Folder oFolder = new Folder((Property) container.getProperty(), type);
+            boolean found = false;
+            // add for bug TDI-26084, whether or not hide folders under job_doc/joblet_doc.
+            if (ERepositoryObjectType.JOB_DOC.equals(type) || ERepositoryObjectType.JOBLET_DOC.equals(type)) {
+                for (FolderItem delFolder : delFolderItems) {
+                    String parentName = ((FolderItem) delFolder.getParent()).getProperty().getLabel();
+                    String oFolderPath = oFolder.getPath();
+                    String jobPath = "jobs" + delFolder.getState().getPath();
+                    String jobPath1 = "jobs/" + delFolder.getState().getPath();
+                    String jobletPath = "joblets" + delFolder.getState().getPath();
+                    String jobletPath1 = "joblets/" + delFolder.getState().getPath();
+                    if (oFolder.getLabel().equals(delFolder.getProperty().getLabel())) {
+                        if ("process".equals(parentName) && oFolderPath.equals(jobPath)) {
+                            found = true;
+                        } else if ("joblets".equals(parentName) && oFolderPath.equals(jobletPath)) {
+                            found = true;
+                        } else if (oFolderPath.equals(jobPath1) || oFolderPath.equals(jobletPath1)) {
+                            found = true;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (found) {
+                continue;
+            }
             if (oFolder.getProperty() == null) {
                 continue;
             }
