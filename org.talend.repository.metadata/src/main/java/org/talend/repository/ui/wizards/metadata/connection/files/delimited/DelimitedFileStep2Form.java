@@ -539,10 +539,10 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // compositeFileDelimitor Main Fields
         Composite mainComposite = Form.startNewGridLayout(this, 2);
 
-        addGroupDelimitedFileSettings(mainComposite, 400, 100);
-        addGroupRowsToSkip(mainComposite, 300, 100);
-        addGroupEscapeChar(mainComposite, 400, 105);
-        addGroupLimit(mainComposite, 300, 105);
+        addGroupDelimitedFileSettings(mainComposite, 400, 105);
+        addGroupRowsToSkip(mainComposite, 300, 105);
+        addGroupEscapeChar(mainComposite, 400, 110);
+        addGroupLimit(mainComposite, 300, 110);
         addGroupFileViewer(this, 700, 200);
 
         if (!isInWizard()) {
