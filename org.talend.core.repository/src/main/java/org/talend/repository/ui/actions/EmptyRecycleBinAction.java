@@ -26,7 +26,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorReference;
@@ -61,6 +63,7 @@ import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.dialog.ItemReferenceDialog;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Action used to empty the recycle bin.<br/>
@@ -250,6 +253,9 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
     protected void deleteElements(final IProxyRepositoryFactory factory, final RepositoryNode currentNode)
             throws PersistenceException, BusinessException {
+        if (!validElement(currentNode)) {
+            return;
+        }
         final IRepositoryViewObject objToDelete = currentNode.getObject();
         if (objToDelete == null) {
             return;
@@ -364,4 +370,22 @@ public class EmptyRecycleBinAction extends AContextualAction {
         setEnabled(canWork);
     }
 
+    private boolean validElement(IRepositoryNode node) {
+        IRepositoryView viewPart = getViewPart();
+        if (viewPart != null) {
+            StructuredViewer viewer = viewPart.getViewer();
+            if (viewer != null) {
+                ViewerFilter[] filters = viewer.getFilters();
+                if (filters != null) {
+                    for (ViewerFilter vf : filters) {
+                        if (!vf.select(viewer, node.getParent(), node)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true; // other condition
+    }
 }
