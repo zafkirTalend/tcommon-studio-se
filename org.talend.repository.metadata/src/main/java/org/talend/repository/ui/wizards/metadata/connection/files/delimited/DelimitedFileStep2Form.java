@@ -539,10 +539,10 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // compositeFileDelimitor Main Fields
         Composite mainComposite = Form.startNewGridLayout(this, 2);
 
-        addGroupDelimitedFileSettings(mainComposite, 400, 100);
-        addGroupRowsToSkip(mainComposite, 300, 100);
-        addGroupEscapeChar(mainComposite, 400, 105);
-        addGroupLimit(mainComposite, 300, 105);
+        addGroupDelimitedFileSettings(mainComposite, 400, 105);
+        addGroupRowsToSkip(mainComposite, 300, 105);
+        addGroupEscapeChar(mainComposite, 400, 110);
+        addGroupLimit(mainComposite, 300, 110);
         addGroupFileViewer(this, 700, 200);
 
         if (!isInWizard()) {
@@ -691,9 +691,11 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
                 String textEnclosureComboOldValue = ""; //$NON-NLS-1$
 
+                @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                 }
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     Boolean b = !(csvRadio.getSelection());
                     getConnection().setEscapeType(b ? Escape.DELIMITED : Escape.CSV);
@@ -736,6 +738,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // Escape Char Combo
         escapeCharCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (escapeCharCombo.getText() != null && !("").equals(escapeCharCombo.getText()) //$NON-NLS-1$
                         && !(EMPTY_VALUE).equals(escapeCharCombo.getText())) {
@@ -748,6 +751,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         });
         textEnclosureCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (textEnclosureCombo.getText() != null && !("").equals(textEnclosureCombo.getText()) //$NON-NLS-1$
                         && !(EMPTY_VALUE).equals(textEnclosureCombo.getText())) {
@@ -806,6 +810,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // Event : Modify (to control the use of Ctrl V)
         rowsToSkipHeaderCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipHeaderCheckboxCombo.isEmpty()) {
@@ -840,6 +845,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         rowsToSkipFooterCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipFooterCheckboxCombo.isEmpty()) {
@@ -865,6 +871,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
@@ -939,6 +946,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // Event encodingCombo
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setEncoding(encodingCombo.getText());
                 checkFieldsValue();
@@ -948,6 +956,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // Separator Combo (field and row)
         fieldSeparatorCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 // Label Custom of fieldSeparatorText
                 fieldSeparatorManager();
@@ -955,6 +964,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         });
         rowSeparatorCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 // Label Custom of rowSeparatorText
                 rowSeparatorManager();
@@ -964,6 +974,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // Separator Text (field and row)
         fieldSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setFieldSeparatorValue(fieldSeparatorText.getText());
                 checkFieldsValue();
@@ -992,6 +1003,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
         rowSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setRowSeparatorValue(rowSeparatorText.getText());
                 checkFieldsValue();
@@ -1282,6 +1294,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -1380,6 +1393,7 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
