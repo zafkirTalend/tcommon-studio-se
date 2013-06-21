@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.handler.demo;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.IRepositoryTypeProcessor;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -278,6 +280,68 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#createScreenShotResource(org.eclipse.core.resources
+     * .IProject, org.talend.core.model.properties.Item, int, org.eclipse.core.runtime.IPath)
+     */
+    @Override
+    public Resource createScreenShotResource(IProject project, Item item, int classifierID, IPath path)
+            throws PersistenceException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#saveScreenShots(org.talend.core.model.properties.Item)
+     */
+    @Override
+    public Resource saveScreenShots(Item item) throws PersistenceException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#copyScreenShotFile(org.talend.core.model.properties
+     * .Item, org.talend.core.model.properties.Item)
+     */
+    @Override
+    public void copyScreenShotFile(Item originalItem, Item newItem) throws IOException {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#deleteNode(org.talend.core.model.repository.
+     * IRepositoryViewObject)
+     */
+    @Override
+    public void deleteNode(IRepositoryViewObject repViewObject) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#getRepositoryTypeProcessor(java.lang.String)
+     */
+    @Override
+    public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType) {
         // TODO Auto-generated method stub
         return null;
     }

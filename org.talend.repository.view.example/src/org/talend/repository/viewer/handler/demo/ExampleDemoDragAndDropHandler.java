@@ -178,4 +178,17 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.utils.IDragAndDropServiceHandler#getComponentValue(org.talend.core.model.metadata.builder
+     * .connection.Connection, java.lang.String, org.talend.core.model.metadata.IMetadataTable, java.lang.String)
+     */
+    @Override
+    public Object getComponentValue(Connection connection, String value, IMetadataTable table, String targetComponent) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
