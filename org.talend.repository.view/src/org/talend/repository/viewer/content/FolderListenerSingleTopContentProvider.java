@@ -57,15 +57,11 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
             VisitResourceHelper visitHelper = new VisitResourceHelper(delta);
-            boolean merged = false;
+            boolean merged = ProjectRepositoryNode.getInstance().getMergeRefProject();
 
             Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
 
             for (final RepositoryNode repoNode : topLevelNodes) {
-                IProjectRepositoryNode root = repoNode.getRoot();
-                if (!merged && root instanceof ProjectRepositoryNode) {
-                    merged = ((ProjectRepositoryNode) root).getMergeRefProject();
-                }
                 IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
                 if (topLevelNodeWorkspaceRelativePath != null && visitHelper.valid(topLevelNodeWorkspaceRelativePath, merged)) {
                     if (viewer instanceof RepoViewCommonViewer) {
@@ -76,9 +72,11 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
                                 refreshTopLevelNode(repoNode);
                             }
                         });
-                        return true;
                     }// else nothing to update so stop visiting.
-                }// else no root node so ignore children
+                    return false;
+                } else { // not the propoer resouce change so ignors and continue exploring
+                    return true;
+                }
             }
             return false;
         }

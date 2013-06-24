@@ -94,18 +94,24 @@ public class VisitResourceHelper {
         }
         IResourceDelta[] affectedChildren = delta.getAffectedChildren();
 
+        IResource res = delta.getResource();
         IPath path = delta.getFullPath();
+
+        boolean noChild = (affectedChildren == null || (affectedChildren.length == 0));
         // be sure we are the last path of the resources and then check for the right folder and then check for file of
         // type .properties or folder
-        if (path != null && (affectedChildren.length == 0)
-                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || (delta instanceof IContainer))) {
+        if (path != null && noChild
+                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || (res instanceof IContainer))) {
             if (isMatchedPath(topLevelNodeWorkspaceRelativePath, path)) {
                 return true;
             } else if (refMerged) { // if merged
                 // remove the project segment
-                path = path.removeFirstSegments(1);
+                if (res != null) {
+                    path = res.getProjectRelativePath();
+                } else {
+                    path = path.removeFirstSegments(1);
+                }
                 IPath relativePath = topLevelNodeWorkspaceRelativePath.removeFirstSegments(1);
-
                 if (isMatchedPath(relativePath, path)) {
                     return true;
                 }
