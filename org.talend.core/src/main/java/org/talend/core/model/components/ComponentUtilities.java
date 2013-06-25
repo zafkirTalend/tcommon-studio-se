@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -28,7 +27,6 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -188,8 +186,9 @@ public class ComponentUtilities {
         CorePlugin.getDefault().getDesignerCoreService().setPaletteFilter(filer);
         if (faState) {
             ComponentUtilities.updatePalette(true);
-        } else
+        } else {
             ComponentUtilities.updatePalette(false);
+        }
 
         markEmptyDrawer(paletteRoot);
         emptyEntry.clear();
@@ -410,48 +409,45 @@ public class ComponentUtilities {
     }
 
     public static PaletteRoot createPaletteRootWithAllComponents() {
-        Map<String, String> allComponentsCanBeProvided = ComponentsFactoryProvider.getInstance().getAllComponentsCanBeProvided();
-        Set<String> components = allComponentsCanBeProvided.keySet();
+        Set<IComponent> components = ComponentsFactoryProvider.getInstance().getComponents();
 
         List<String> families = new ArrayList<String>();
         Hashtable<String, PaletteDrawer> ht = new Hashtable<String, PaletteDrawer>();
         PaletteRoot palette = new PaletteRoot();
 
         // for family folders
-        for (String nameAndFamily : components) {
-            String[] split = nameAndFamily.split(FAMILY_SPEARATOR);
-            if (split.length != 2) {
+        for (IComponent component : components) {
+            if (component.isTechnical() || component.getComponentType() == EComponentType.JOBLET) {
                 continue;
             }
-            families.add(split[0]);
+            String family = component.getOriginalFamilyName();
+            families.add(family);
         }
         Collections.sort(families);
-        for (Iterator iter = families.iterator(); iter.hasNext();) {
-            String oraFam = (String) iter.next();
-            String family = getTranslatedFamilyName(oraFam);
-            PaletteDrawer componentsDrawer = ht.get(family);
-            if (componentsDrawer == null) {
-                componentsDrawer = createComponentDrawer(palette, ht, family, oraFam);
-            }
 
+        for (String family : families) {
+            String[] strings = family.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
+            for (String string : strings) {
+                PaletteDrawer componentsDrawer = ht.get(string);
+                if (componentsDrawer == null) {
+                    componentsDrawer = createComponentDrawer(palette, ht, string, family);
+                }
+            }
         }
 
         // for components
-        for (String nameAndFamily : components) {
-            String[] split = nameAndFamily.split(FAMILY_SPEARATOR);
-            if (split.length != 2) {
+        for (IComponent component : components) {
+            if (component.isTechnical() || component.getComponentType() == EComponentType.JOBLET) {
                 continue;
             }
-            String family = getTranslatedFamilyName(split[0]);
+            String family = component.getOriginalFamilyName();
             String[] strings = family.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-            for (int j = 0; j < strings.length; j++) {
-                ImageDescriptor imageDescriptor = ComponentsFactoryProvider.getInstance().getComponentsImageRegistry()
-                        .get(allComponentsCanBeProvided.get(nameAndFamily));
-                CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(split[1], split[1], null, null,
-                        imageDescriptor, imageDescriptor);
-                PaletteDrawer componentsDrawer = ht.get(strings[j]);
-                component.setParent(componentsDrawer);
-                componentsDrawer.add(component);
+            for (String string : strings) {
+                CombinedTemplateCreationEntry componentEntry = new CombinedTemplateCreationEntry(component.getName(),
+                        component.getName(), null, null, component.getIcon24(), component.getIcon32());
+                PaletteDrawer componentsDrawer = ht.get(string);
+                componentEntry.setParent(componentsDrawer);
+                componentsDrawer.add(componentEntry);
             }
         }
 
@@ -560,8 +556,8 @@ public class ComponentUtilities {
                     if (component != null) {
                         String originalFamilyName = component.getOriginalFamilyName();
                         String original[] = originalFamilyName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-                        for (int i = 0; i < original.length; i++) {
-                            components.add(original[i] + FAMILY_SPEARATOR + component.getName());
+                        for (String element : original) {
+                            components.add(element + FAMILY_SPEARATOR + component.getName());
                         }
                     }
                 }
