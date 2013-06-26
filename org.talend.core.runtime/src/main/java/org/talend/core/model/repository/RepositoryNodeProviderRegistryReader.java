@@ -274,6 +274,10 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                     // IImage icon = null;
                     // PTODO
                     String namePatternAttribute = element.getAttribute("name_pattern");
+                    String isAllowMultiName = element.getAttribute("isAllowMultiName");
+                    if(isAllowMultiName == null || isAllowMultiName.trim().equals("")){
+                    	isAllowMultiName = "false";
+                    }
 
                     String[] products = getProducts(element);
 
@@ -303,16 +307,16 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                     if (namePatternAttribute == null || "".equals(namePatternAttribute.trim())) {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
                                 String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
-                                String[].class, boolean[].class });
+                                boolean.class, String[].class, boolean[].class });
                         instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
-                                user_right, resource);
+                        		Boolean.parseBoolean(isAllowMultiName), user_right, resource);
 
                     } else {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
                                 String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
-                                String[].class, String.class, boolean[].class });
+                                String[].class, boolean.class, String.class, boolean[].class });
                         instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
-                                user_right, namePatternAttribute.trim(), resource);
+                                user_right, Boolean.parseBoolean(isAllowMultiName), namePatternAttribute.trim(), resource);
                     }
 
                     if (instance != null && instance instanceof ERepositoryObjectType) {

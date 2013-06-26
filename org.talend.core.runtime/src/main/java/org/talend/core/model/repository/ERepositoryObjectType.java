@@ -347,6 +347,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     private String[] userRight;
 
     private String namePattern = null;
+    
+    /*
+     * this used to indicate the multiple same name items are allowed
+     * to created or not, In generic, those resources or items should
+     * be in different folder.
+     */
+    private boolean isAllowMultiName = false;
 
     private List<ERepositoryObjectType> parentTypes = new ArrayList<ERepositoryObjectType>();
 
@@ -416,60 +423,84 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_EDIFACT = ERepositoryObjectType.valueOf("METADATA_EDIFACT");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
-            String[] userRight, boolean... isResouce) {
-        super(key, type, isStaticNode, ordinal);
-        this.folder = folder;
-        this.products = products;
-        this.userRight = userRight;
-        if (isResouce != null && isResouce.length == 1) {
-            this.isResouce = isResouce[0];
-        }
+    		String[] userRight, boolean... isResouce) {
+    	super(key, type, isStaticNode, ordinal);
+    	this.folder = folder;
+    	this.products = products;
+    	this.userRight = userRight;
+    	if (isResouce != null && isResouce.length == 1) {
+    		this.isResouce = isResouce[0];
+    	}
     }
-
+    
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
-            String[] userRight, String namePattern, boolean... isResouce) {
-        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+            boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
+    	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+    	this.isAllowMultiName = isAllowMultiName;
+    }
+    
+    ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
+            String[] userRight, boolean isAllowMultiName, String namePattern, boolean... isResouce) {
+        this(key, folder, type, isStaticNode, ordinal, products, isAllowMultiName, userRight, isResouce);
         this.namePattern = namePattern;
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
-            String[] userRight, boolean... isResouce) {
-        super(key, type, isStaticNode, ordinal);
-        this.subItem = subItem;
-        this.products = products;
-        this.userRight = userRight;
-        if (isResouce != null && isResouce.length == 1) {
-            this.isResouce = isResouce[0];
-        }
+    		String[] userRight, boolean... isResouce) {
+    	super(key, type, isStaticNode, ordinal);
+    	this.subItem = subItem;
+    	this.products = products;
+    	this.userRight = userRight;
+    	if (isResouce != null && isResouce.length == 1) {
+    		this.isResouce = isResouce[0];
+    	}
+    }
+    
+    ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
+            boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
+    	this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
+        this.isAllowMultiName = isAllowMultiName;
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
-            String[] userRight, String namePattern, boolean... isResouce) {
-        this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
+            String[] userRight, boolean isAllowMultiName, String namePattern, boolean... isResouce) {
+        this(key, type, ordinal, isStaticNode, subItem, products, isAllowMultiName, userRight, isResouce);
         this.namePattern = namePattern;
     }
 
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-            String[] products, String[] userRight, boolean... isResouce) {
-        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
-        this.alias = alias;
+    		String[] products, String[] userRight, boolean... isResouce) {
+    	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+    	this.alias = alias;
+    }
+    
+    ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
+            String[] products, boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.isAllowMultiName = isAllowMultiName;
     }
 
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-            String[] products, String[] userRight, String namePattern, boolean... isResouce) {
-        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+            String[] products, String[] userRight, boolean isAllowMultiName, String namePattern, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, isAllowMultiName, userRight, isResouce);
         this.namePattern = namePattern;
     }
 
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-            String[] products, String[] userRight, boolean... isResouce) {
-        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
-        this.label = label;
+    		String[] products, String[] userRight, boolean... isResouce) {
+    	this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+    	this.label = label;
+    }
+    
+    ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
+            String[] products, boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
+        this(key, label, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.isAllowMultiName = isAllowMultiName;
     }
 
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-            String[] products, String[] userRight, String namePattern, boolean... isResouce) {
-        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+            String[] products, String[] userRight, boolean isAllowMultiName, String namePattern, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, isAllowMultiName, userRight, isResouce);
         this.namePattern = namePattern;
         this.label = label;
     }
@@ -1048,6 +1079,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public String getNamePattern() {
         return namePattern;
     }
+    
+    public boolean isAllowMultiName() {
+		return isAllowMultiName;
+	}
 
     public boolean addExtraProducts(String[] productsArray) {
         if (productsArray != null && productsArray.length > 0) {

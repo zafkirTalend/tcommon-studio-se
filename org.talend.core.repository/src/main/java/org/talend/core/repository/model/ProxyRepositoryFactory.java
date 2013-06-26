@@ -300,7 +300,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // no check needed for table
             return false;
         }
-        boolean isAllowMultipleName = (type == ERepositoryObjectType.SQLPATTERNS || type == ERepositoryObjectType.METADATA_FILE_XML);
+        boolean isAllowMultipleName = (type == ERepositoryObjectType.SQLPATTERNS || type == ERepositoryObjectType.METADATA_FILE_XML|| type.isAllowMultiName());
 
         List<IRepositoryViewObject> list;
 

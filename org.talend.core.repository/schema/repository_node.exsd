@@ -168,6 +168,14 @@ can use the SYSTEM_FOLDER and STABLE_SYSTEM_FOLDER for enum IRepositoryNode.ENod
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="isAllowMultiName" type="boolean">
+            <annotation>
+               <documentation>
+                  Default is false.
+This attribute is used to indicate the multiple same name is allowed when creating a resource or item, in generic, the same name resources or items should be in different folder.
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
