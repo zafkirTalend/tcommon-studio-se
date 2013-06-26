@@ -20,8 +20,8 @@ import java.io.LineNumberReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -155,10 +155,36 @@ public class ExportLogsWizardPage extends WizardPage {
         label.setText(Messages.getString("ExportLogsWizardPage.selectItem")); //$NON-NLS-1$
 
         addLogsButton = new Button(workArea, SWT.CHECK);
+        addLogsButton.setSelection(true);
         addLogsButton.setText(Messages.getString("ExportLogsWizardPage.addLog")); //$NON-NLS-1$
 
         sysConfigButton = new Button(workArea, SWT.CHECK);
+        sysConfigButton.setSelection(true);
         sysConfigButton.setText(Messages.getString("ExportLogsWizardPage.sysConfig")); //$NON-NLS-1$
+
+        addLogsButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (addLogsButton.getSelection() == false && sysConfigButton.getSelection() == false) {
+                    setPageComplete(false);
+                } else {
+                    setPageComplete(true);
+                }
+            }
+        });
+
+        sysConfigButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (addLogsButton.getSelection() == false && sysConfigButton.getSelection() == false) {
+                    setPageComplete(false);
+                } else {
+                    setPageComplete(true);
+                }
+            }
+        });
     }
 
     protected void handleLocationArchiveButtonPressed() {
