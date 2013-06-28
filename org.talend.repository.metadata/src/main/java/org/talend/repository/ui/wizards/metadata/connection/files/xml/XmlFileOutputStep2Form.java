@@ -141,6 +141,14 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     private boolean creation;
 
+    private AddTreeNodeButton addTreeNodeBtn;
+
+    private RemoveTreeNodeButton removeNodeBtn;
+
+    private MoveUpTreeNodeButton moveUpBtn;
+
+    private MoveDownTreeNodeButton moveDown;
+
     public XmlFileOutputStep2Form(boolean creation, Composite parent, ConnectionItem connectionItem) {
         super(parent, connectionItem);
         this.creation = creation;
@@ -359,10 +367,10 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
         toolBarComp.setLayout(layout);
         toolBarComp.setLayoutData(data);
-        AddTreeNodeButton addTreeNodeBtn = new AddTreeNodeButton(toolBarComp, this);
-        RemoveTreeNodeButton removeNodeBtn = new RemoveTreeNodeButton(toolBarComp, this);
-        MoveUpTreeNodeButton moveUpBtn = new MoveUpTreeNodeButton(toolBarComp, this);
-        MoveDownTreeNodeButton moveDown = new MoveDownTreeNodeButton(toolBarComp, this);
+        addTreeNodeBtn = new AddTreeNodeButton(toolBarComp, this);
+        removeNodeBtn = new RemoveTreeNodeButton(toolBarComp, this);
+        moveUpBtn = new MoveUpTreeNodeButton(toolBarComp, this);
+        moveDown = new MoveDownTreeNodeButton(toolBarComp, this);
     }
 
     private void createAction() {
@@ -401,6 +409,17 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         column.setText("Schema List");
         column.setWidth(100);
         table.setLayoutData(gridData);
+
+        table.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                addTreeNodeBtn.getButton().setEnabled(false);
+                removeNodeBtn.getButton().setEnabled(false);
+                moveUpBtn.getButton().setEnabled(false);
+                moveDown.getButton().setEnabled(false);
+            }
+        });
     }
 
     private void fillContextMenu(IMenuManager manager) {
