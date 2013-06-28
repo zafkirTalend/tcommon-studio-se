@@ -396,6 +396,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         }
                     }
                 } else {
+                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
                         ReturnCode reloadCheck = new ReturnCode(false);
@@ -424,7 +425,20 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         if (reloadCheck.isOk()) {
                             if (needReload(reloadCheck.getMessage())) {
                                 if (tdqCompareService != null) {
+                                    // MOD 20130627 TDQ-7438 yyin: if the db name is changed, the db can not be reload
+                                    // properly, so if the name is changed, make sure that the reload action use the old
+                                    // name to reload
+                                    String tempName = null;
+                                    if (isNameModified) {
+                                        tempName = connectionProperty.getLabel();
+                                        connectionProperty.setLabel(connectionItem.getConnection().getLabel());
+                                        connectionProperty.setDisplayName(connectionItem.getConnection().getLabel());
+                                    }
                                     ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
+                                    if (isNameModified) {
+                                        connectionProperty.setLabel(tempName);
+                                        connectionProperty.setDisplayName(tempName);
+                                    }// ~
                                     if (!retCode.isOk()) {
                                         return Boolean.FALSE;
                                     }
@@ -446,7 +460,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
                     // factory.save(connectionItem);
                     // 0005170: Schema renamed - new name not pushed out to dependant jobs
-                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
                     updateTdqDependencies();
                     // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
                     if (isNameModified && tdqRepService != null) {
