@@ -106,6 +106,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         return getObjectFromFolder(project, type, true, options);
     }
 
+    public void setXmiResourceManager(XmiResourceManager xmiResourceManager) {
+        this.xmiResourceManager = xmiResourceManager;
+    }
+
     // MOD sgandon 31/03/2010 : moved from local variable to static variable for optimisation purpose.
     static final ERepositoryObjectType[] REPOSITORY_OBJECT_TYPE_LIST = new ERepositoryObjectType[] {
             ERepositoryObjectType.PROCESS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.METADATA_CONNECTIONS,
