@@ -72,6 +72,7 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -392,6 +393,11 @@ public class DatabaseTableForm extends AbstractForm {
 
         // init the fields
         String label = MetadataToolHelper.validateValue(metadataTable.getLabel());
+        // Some DB support the name contains "." such as MySql,So should not change "." to "_"
+        if (getConnection().getDbVersionString().equals(EDatabaseVersion4Drivers.MYSQL_5.name())
+                && metadataTable.getName().contains(".")) {//$NON-NLS-1$
+            label = metadataTable.getName();
+        }
         nameText.setText(label);
         commentText.setText(metadataTable.getComment());
         if (metadataTable.getTableType() != null) {
