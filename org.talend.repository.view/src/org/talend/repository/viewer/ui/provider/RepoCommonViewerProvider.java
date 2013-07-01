@@ -13,12 +13,14 @@
 package org.talend.repository.viewer.ui.provider;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.eclipse.ui.navigator.INavigatorFilterService;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.viewer.filter.PerspectiveFilterActionProvider;
 import org.talend.repository.viewer.filter.PerspectiveFilterHelper;
@@ -45,27 +47,15 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
     public TreeViewer createViewer(Composite parent) {
         TreeViewer treeViewer = super.createViewer(parent);
         doFilterForCommonViewer(treeViewer);
-
-        // Maybe, no need filter in dialog, because it's not for view
-        // if (treeViewer instanceof IRepoNavigatorContentService) {
-        //
-        // INavigatorContentService navigatorContentService = ((IRepoNavigatorContentService) treeViewer)
-        // .getNavigatorContentService();
-        // INavigatorFilterService filterService = navigatorContentService.getFilterService();
-        // ViewerFilter[] visibleFilters = filterService.getVisibleFilters(true);
-        // for (int i = 0; i < visibleFilters.length; i++) {
-        // treeViewer.addFilter(visibleFilters[i]);
-        // }
-        //
-        // }
-
         return treeViewer;
     }
 
+    @Override
     protected TreeViewer createTreeViewer(final Composite parent, final int style) {
         return new RepoCommonViewer(getViewId(), parent, style);
     }
 
+    @Override
     protected void checkSorter(TreeViewer treeViewer) {
         treeViewer.setSorter(new CommonViewerSorter());
     }
@@ -75,6 +65,7 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
             INavigatorContentService navigatorContentService = ((IRepoNavigatorContentService) treeViewer)
                     .getNavigatorContentService();
 
+            // perspecitive filter
             IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
             if (activeWorkbenchWindow != null) {
                 IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
@@ -88,6 +79,13 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
                     helper.doFiltering(perspectiveId);
 
                 }
+            }
+
+            // filers
+            INavigatorFilterService filterService = navigatorContentService.getFilterService();
+            ViewerFilter[] visibleFilters = filterService.getVisibleFilters(true);
+            for (ViewerFilter visibleFilter : visibleFilters) {
+                treeViewer.addFilter(visibleFilter);
             }
         }
     }
