@@ -462,7 +462,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
                     // Add this parameter to control only ask user refresh the opened analysis once, TDQ-7438 20130628
                     // yyin
-                    boolean hasReloaded = false;// ~
+                    boolean isNeedRefreshEditor = false;// ~
                     if (connectionItem.getConnection() instanceof DatabaseConnection) {
                         DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
                         ReturnCode reloadCheck = new ReturnCode(false);
@@ -508,7 +508,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                     if (!retCode.isOk()) {
                                         return Boolean.FALSE;
                                     }
-                                    hasReloaded = true;
+                                    isNeedRefreshEditor = true;
                                 }
                             }
                         } else {
@@ -537,7 +537,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     }
                     // MOD 20130628 TDQ-7438, If the analysis editor is opened, popup the dialog which ask user refresh
                     // the editor or not once should enough(use hasReloaded to control,because the reload will refresh)
-                    if ((isNameModified || IsVersionChange()) && tdqRepService != null && !hasReloaded) {
+                    if (tdqRepService != null && !isNeedRefreshEditor && (isNameModified || IsVersionChange())) {
                         tdqRepService.refreshCurrentAnalysisEditor();
                     }
                     // ~
