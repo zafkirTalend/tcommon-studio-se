@@ -243,6 +243,10 @@ public class TalendTextUtils {
             b = b && c >= '0' && c <= '9';
         }
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        if (name.equals(EDatabaseTypeName.MYSQL) && fieldName.contains(JAVA_END_STRING)) {
+            String newFieldName = TalendQuoteUtils.addQuotes(fieldName);
+            return newFieldName;
+        }
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
             if (isCheck && isPSQLSimilar(name)) {
