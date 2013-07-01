@@ -61,6 +61,8 @@ public interface IJobletProviderService extends IService {
 
     public List<INode> getTriggerNodes(INode jobletNode);
 
+    public List<? extends INode> getGraphNodesForJoblet(INode jobletNode);
+
     public EConnectionType getTriggerNodeConnType(INode triggerNode);
 
     public boolean isBuiltTriggerConnector(INode jobletNode, INodeConnector connector);
