@@ -96,6 +96,13 @@ public class VisitResourceHelper {
         IPath path = delta.getFullPath();
 
         boolean noChild = (affectedChildren == null || (affectedChildren.length == 0));
+
+        // check for the empty folder, except the ".svn"
+        if (!noChild && affectedChildren != null && affectedChildren.length == 1
+                && FilesUtils.isSVNFolder(affectedChildren[0].getResource())) {
+            noChild = true;
+        }
+
         // be sure we are the last path of the resources and then check for the right folder and then check for file of
         // type .properties or folder
         if (path != null && noChild

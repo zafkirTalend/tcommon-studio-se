@@ -26,6 +26,7 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.viewer.ui.provider.IRepoNavigatorContentService;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -40,10 +41,13 @@ public class RecycleBinViewerFilter extends ViewerFilter {
     @SuppressWarnings("rawtypes")
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if (viewer instanceof CommonViewer && element instanceof RepositoryNode) {
-            final CommonViewer commonViewer = (CommonViewer) viewer;
-            final INavigatorContentService navigatorContentService = commonViewer.getNavigatorContentService();
-
+        INavigatorContentService navigatorContentService = null;
+        if (viewer instanceof CommonViewer) {
+            navigatorContentService = ((CommonViewer) viewer).getNavigatorContentService();
+        } else if (viewer instanceof IRepoNavigatorContentService) { // for export dialogs
+            navigatorContentService = ((IRepoNavigatorContentService) viewer).getNavigatorContentService();
+        }
+        if (navigatorContentService != null && element instanceof RepositoryNode) {
             final RepositoryNode node = (RepositoryNode) element;
 
             if (isUnderRecycleBinNode(node)) { // olny process the nodes are under Recycle Bin.
