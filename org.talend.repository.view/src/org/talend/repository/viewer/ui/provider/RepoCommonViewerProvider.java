@@ -61,8 +61,8 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
     }
 
     protected void doFilterForCommonViewer(TreeViewer treeViewer) {
-        if (treeViewer instanceof IRepoNavigatorContentService) {
-            INavigatorContentService navigatorContentService = ((IRepoNavigatorContentService) treeViewer)
+        if (treeViewer instanceof INavigatorContentServiceProvider) {
+            INavigatorContentService navigatorContentService = ((INavigatorContentServiceProvider) treeViewer)
                     .getNavigatorContentService();
 
             // perspecitive filter
