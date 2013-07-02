@@ -19,12 +19,12 @@ import org.eclipse.swt.widgets.Item;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.repository.viewer.ui.provider.AgentTreeViewerListener;
-import org.talend.repository.viewer.ui.provider.IRepoNavigatorContentService;
+import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class RepoCommonViewer extends CommonViewer implements ITreeViewerListener, IRepoNavigatorContentService {
+public class RepoCommonViewer extends CommonViewer implements ITreeViewerListener, INavigatorContentServiceProvider {
 
     private AgentTreeViewerListener agent = new AgentTreeViewerListener();
 

@@ -16,14 +16,13 @@ import java.util.Set;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
-import org.talend.repository.viewer.ui.provider.IRepoNavigatorContentService;
+import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>
@@ -43,10 +42,8 @@ public class RecycleBinViewerFilter extends ViewerFilter {
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         INavigatorContentService navigatorContentService = null;
-        if (viewer instanceof CommonViewer) {
-            navigatorContentService = ((CommonViewer) viewer).getNavigatorContentService();
-        } else if (viewer instanceof IRepoNavigatorContentService) { // for export dialogs
-            navigatorContentService = ((IRepoNavigatorContentService) viewer).getNavigatorContentService();
+        if (viewer instanceof INavigatorContentServiceProvider) {
+            navigatorContentService = ((INavigatorContentServiceProvider) viewer).getNavigatorContentService();
         }
 
         if (navigatorContentService != null && element instanceof RepositoryNode) {

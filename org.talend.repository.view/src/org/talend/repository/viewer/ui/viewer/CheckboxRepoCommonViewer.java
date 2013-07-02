@@ -26,13 +26,13 @@ import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.navigator.INavigatorPipelineService;
 import org.eclipse.ui.navigator.PipelinedViewerUpdate;
-import org.talend.repository.viewer.ui.provider.IRepoNavigatorContentService;
+import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 @SuppressWarnings("restriction")
-public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer implements IRepoNavigatorContentService {
+public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer implements INavigatorContentServiceProvider {
 
     private final NavigatorContentService contentService;
 

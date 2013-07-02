@@ -17,7 +17,7 @@ import org.eclipse.ui.navigator.INavigatorContentService;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IRepoNavigatorContentService {
+public interface INavigatorContentServiceProvider {
 
     public INavigatorContentService getNavigatorContentService();
 }
