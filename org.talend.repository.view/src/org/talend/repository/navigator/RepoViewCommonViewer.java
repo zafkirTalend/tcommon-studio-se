@@ -34,6 +34,7 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
 import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
+import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -41,7 +42,7 @@ import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
  * 
  */
-public class RepoViewCommonViewer extends CommonViewer {
+public class RepoViewCommonViewer extends CommonViewer implements INavigatorContentServiceProvider {
 
     private Map<String, Boolean> expanded = new HashMap<String, Boolean>();
 
@@ -166,4 +167,8 @@ public class RepoViewCommonViewer extends CommonViewer {
 
     }
 
+    @Override
+    public INavigatorContentService getNavigatorContentService() {
+        return super.getNavigatorContentService();
+    }
 }
