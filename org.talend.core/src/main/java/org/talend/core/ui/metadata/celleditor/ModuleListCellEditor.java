@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.celleditor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
@@ -58,7 +59,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
 
     private final IElementParameter param, tableParam;
 
-    private AbstractDataTableEditorView tableEditorView;
+    private AbstractDataTableEditorView<?> tableEditorView;
 
     public ModuleListCellEditor(Composite parent, IElementParameter param, IElementParameter tableParam) {
         super(parent, SWT.NONE);
@@ -84,15 +85,15 @@ public class ModuleListCellEditor extends DialogCellEditor {
         }
     }
 
-    public AbstractDataTableEditorView getTableEditorView() {
+    public AbstractDataTableEditorView<?> getTableEditorView() {
         return this.tableEditorView;
     }
 
     private TableViewer getTableViewer() {
         if (this.tableEditorView != null) {
-            AbstractExtendedTableViewer extendedTableViewer = this.tableEditorView.getExtendedTableViewer();
+            AbstractExtendedTableViewer<?> extendedTableViewer = this.tableEditorView.getExtendedTableViewer();
             if (extendedTableViewer != null) {
-                TableViewerCreator tableViewerCreator = extendedTableViewer.getTableViewerCreator();
+                TableViewerCreator<?> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
                 if (tableViewerCreator != null) {
                     return tableViewerCreator.getTableViewer();
                 }
@@ -101,7 +102,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
         return null;
     }
 
-    public void setTableEditorView(AbstractDataTableEditorView tableEditorView) {
+    public void setTableEditorView(AbstractDataTableEditorView<?> tableEditorView) {
         this.tableEditorView = tableEditorView;
     }
 
@@ -150,7 +151,8 @@ public class ModuleListCellEditor extends DialogCellEditor {
 
         @Override
         public void execute() {
-            List<Map<String, Object>> values = (List<Map<String, Object>>) param.getValue();
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> values = (List<Map<String, Object>>) param.getValue();
             if (values == null) {
                 values = new ArrayList<Map<String, Object>>();
                 param.setValue(values);
@@ -294,12 +296,10 @@ public class ModuleListCellEditor extends DialogCellEditor {
             } else {
                 IPath path = Path.fromOSString(selectField.getText());
                 String lastSegment = path.lastSegment();
-                if (!selecteModule.equals(lastSegment)) {
-                    try {
-                        CorePlugin.getDefault().getLibrariesService().deployLibrary(path.toFile().toURL());
-                    } catch (Exception ee) {
-                        ExceptionHandler.process(ee);
-                    }
+                try {
+                    CorePlugin.getDefault().getLibrariesService().deployLibrary(path.toFile().toURI().toURL());
+                } catch (IOException ee) {
+                    ExceptionHandler.process(ee);
                 }
                 selecteModule = lastSegment;
             }
