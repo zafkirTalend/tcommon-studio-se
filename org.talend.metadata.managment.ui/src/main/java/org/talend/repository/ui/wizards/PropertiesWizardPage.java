@@ -1112,41 +1112,57 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
-        if (readOnly) {
-            return;
-        }
-        if (nameText == null || nameText.isDisposed()) {
-            return;
-        }
-        if (nameText.getText().length() == 0) {
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
-        } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                || nameText.getText().startsWith(" ") || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-        } else if (JavaConventions.validateClassFileName(nameText.getText() + CLASS,
-                JavaCore.getOption(JavaCore.COMPILER_SOURCE), JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE)).getSeverity() == IStatus.ERROR
-                || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-        } else if (nameModifiedByUser) {
-            if (retrieveNameFinished) {
-                if (!isValid(nameText.getText())) {
-                    nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
-                } else {
-                    nameStatus = createOkStatus();
-                }
-            } else {
-                nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
-            }
-        } else {
-            nameStatus = createOkStatus();
-        }
-        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-            property.setLabel(getPropertyLabel(StringUtils.trimToNull(nameText.getText())));
-            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
-            property.setModificationDate(new Date());
-        }
-        updatePageStatus();
-    }
+        ERepositoryObjectType type = ERepositoryObjectType.getItemType(this.property.getItem());
+       if (readOnly) {
+           return;
+       }
+       if (nameText == null || nameText.isDisposed()) {
+           return;
+       }
+       if (nameText.getText().length() == 0) {
+           nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
+       } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
+               || nameText.getText().startsWith(" ") || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
+           nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
+       }else if (type!=null&&type.getType().equals("ROUTE_RESOURCES")) {//$NON-NLS-1$
+		   	if(isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())){
+		   		 nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
+		   	}
+		   	if (nameModifiedByUser) {
+		        if (retrieveNameFinished) {
+		            if (!isValid(nameText.getText())) {
+		                nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+		            } else {
+		                nameStatus = createOkStatus();
+		            }
+		        } else {
+		            nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
+		        }
+		   }
+       }else if (JavaConventions.validateClassFileName(nameText.getText() + CLASS,
+               JavaCore.getOption(JavaCore.COMPILER_SOURCE), JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE)).getSeverity() == IStatus.ERROR
+               || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
+           nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
+       } else if (nameModifiedByUser) {
+           if (retrieveNameFinished) {
+               if (!isValid(nameText.getText())) {
+                   nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+               } else {
+                   nameStatus = createOkStatus();
+               }
+           } else {
+               nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
+           }
+       } else {
+           nameStatus = createOkStatus();
+       }
+       if (property != null && nameStatus.getSeverity() == IStatus.OK) {
+           property.setLabel(getPropertyLabel(StringUtils.trimToNull(nameText.getText())));
+           property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
+           property.setModificationDate(new Date());
+       }
+       updatePageStatus();
+   }
 
     protected String getPropertyLabel(String name) {
         return name;
