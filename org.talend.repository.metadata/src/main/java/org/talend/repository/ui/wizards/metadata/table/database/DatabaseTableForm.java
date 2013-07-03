@@ -406,7 +406,8 @@ public class DatabaseTableForm extends AbstractForm {
         // init the fields
         String label = MetadataToolHelper.validateValue(metadataTable.getLabel());
         // Some DB support the name contains "." such as MySql,So should not change "." to "_"
-        if (getConnection().getDbVersionString().equals(EDatabaseVersion4Drivers.MYSQL_5.name())
+        if (getConnection().getDbVersionString() != null
+                && getConnection().getDbVersionString().equals(EDatabaseVersion4Drivers.MYSQL_5.name())
                 && metadataTable.getName().contains(".")) {//$NON-NLS-1$
             label = metadataTable.getName();
         }
