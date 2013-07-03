@@ -10,9 +10,6 @@
                id="org.talend.debug.ui.launchActionSet">
          </actionSet>
          <actionSet
-               id="org.talend.repository.CreateactionSet">
-         </actionSet>
-         <actionSet
                id="org.talend.repository.actionSet">
          </actionSet>
          <actionSet

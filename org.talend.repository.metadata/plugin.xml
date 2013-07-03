@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+
+    <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.talend.rcp.perspective">
+         <actionSet
+               id="org.talend.repository.CreateactionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+
    <extension
          point="org.talend.core.runtime.service">
       <Service
