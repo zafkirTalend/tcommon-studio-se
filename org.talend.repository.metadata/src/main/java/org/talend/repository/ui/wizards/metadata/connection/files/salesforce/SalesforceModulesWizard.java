@@ -124,9 +124,6 @@ public class SalesforceModulesWizard extends CheckLastVersionRepositoryWizard im
         connectionItem.setConnection((SalesforceSchemaConnection) EcoreUtil.copy(temConnection));
 
         if (formIsPerformed) {
-            // update
-            RepositoryUpdateManager.updateFileConnection(connectionItem);
-
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
