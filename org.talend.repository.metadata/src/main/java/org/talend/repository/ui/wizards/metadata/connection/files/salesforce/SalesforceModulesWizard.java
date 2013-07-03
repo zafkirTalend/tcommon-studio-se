@@ -38,7 +38,6 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.ProjectManager;
@@ -124,9 +123,6 @@ public class SalesforceModulesWizard extends CheckLastVersionRepositoryWizard im
         connectionItem.setConnection((SalesforceSchemaConnection) EcoreUtil.copy(temConnection));
 
         if (formIsPerformed) {
-            // update
-            RepositoryUpdateManager.updateFileConnection(connectionItem);
-
             final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
