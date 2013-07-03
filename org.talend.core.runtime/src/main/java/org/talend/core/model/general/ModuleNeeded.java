@@ -181,8 +181,17 @@ public class ModuleNeeded {
 
     public void setModuleName(String moduleName) {
         if (moduleName != null) {
+        	int indexParam = moduleName.indexOf('?');
+        	String params = null;
+        	if(indexParam > 0) {
+        		params=moduleName.substring(indexParam+1);
+        		moduleName = moduleName.substring(0, indexParam);
+        	}
             this.moduleName = moduleName.replace(QUOTATION_MARK, "").replace(SINGLE_QUOTE, //$NON-NLS-1$
                     ""); //$NON-NLS-1$
+            if(params!=null) {
+            	this.moduleName+="?"+params;
+            }
         } else {
             this.moduleName = moduleName;
         }
