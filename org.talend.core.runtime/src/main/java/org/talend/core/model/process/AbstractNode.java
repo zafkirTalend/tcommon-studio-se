@@ -826,7 +826,9 @@ public abstract class AbstractNode implements INode {
 
     @Override
     public IExternalData getExternalData() {
-        // TODO Auto-generated method stub
+        if (externalNode != null) {
+            return externalNode.getExternalData();
+        }
         return null;
     }
 
@@ -877,7 +879,9 @@ public abstract class AbstractNode implements INode {
 
     @Override
     public boolean isExternalNode() {
-        // TODO Auto-generated method stub
+        if (externalNode != null) {
+            return true;
+        }
         return false;
     }
 
