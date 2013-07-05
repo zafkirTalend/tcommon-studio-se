@@ -61,11 +61,11 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
 
             Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
 
-            boolean valid = false;
+            boolean visitChildren = false;
             for (final RepositoryNode repoNode : topLevelNodes) {
                 IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
                 if (topLevelNodeWorkspaceRelativePath != null && visitHelper.valid(topLevelNodeWorkspaceRelativePath, merged)) {
-                    valid = true;
+                    visitChildren = false; // if valid, don't visit the children any more.
                     if (viewer instanceof RepoViewCommonViewer) {
                         runnables.add(new Runnable() {
 
@@ -77,7 +77,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
                     }
                 }
             }
-            return valid;
+            return visitChildren;
         }
     }
 
