@@ -6,7 +6,6 @@
 package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
@@ -278,8 +277,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
-        String COLUMN_NAME_PATTERN = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
-        if (!StringUtils.isEmpty(newLabel) && name != null ? Pattern.matches(COLUMN_NAME_PATTERN, name) : true) {
+        if (!StringUtils.isEmpty(newLabel)) {
             setName(newLabel);
         }
         if (eNotificationRequired()) {
