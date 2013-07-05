@@ -514,7 +514,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
                     columnList.clear();
                     columnList.addAll(inputList);
 
-                    updateXmlTreeViewer();
+                    updateXmlTreeViewer(inputList);
                     redrawLinkers();
                     checkFieldsValue();
                 }
@@ -522,7 +522,11 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
         });
     }
 
-    private void updateXmlTreeViewer() {
+    private void updateXmlTreeViewer(List<MetadataColumn> metaColumns) {
+    	 List<String> cloumnNames = new ArrayList<String>();
+         for (MetadataColumn column : metaColumns) {
+             cloumnNames.add(column.getName());
+         }
         LinksManager<Item, Object, Tree, Object> linkManager = linker.getLinkManager();
         List<LinkDescriptor<Item, Object, Tree, Object>> links = linkManager.getLinks();
         for (int i = 0; i < links.size(); i++) {
@@ -531,13 +535,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             IExtremityLink<Tree, Object> ex2 = linkDescriptor.getExtremity2();
             MetadataColumn metaColumn = (MetadataColumn) ex1.getDataItem();
             FOXTreeNode node = (FOXTreeNode) ex2.getDataItem();
-            if (ex1.getGraphicalObject() != null) {
-                Item item = ex1.getGraphicalObject();
-                if (!item.isDisposed() && metaColumn.equals(item.getData())) {
-                    node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metaColumn));
-                } else {
-                    node.setColumn(null);
-                }
+            if (!cloumnNames.contains(metaColumn.getName())) {
+                node.setColumn(null);
             }
             node.setDataType(metaColumn.getTalendType());
         }
