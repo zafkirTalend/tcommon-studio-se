@@ -14,7 +14,6 @@ package org.talend.core.ui.metadata.celleditor;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -53,7 +51,6 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
-import org.talend.utils.json.JSONObject;
 
 /**
  * ggu class global comment. Detailled comment
@@ -69,22 +66,6 @@ public class ModuleListCellEditor extends DialogCellEditor {
         this.param = param;
         this.tableParam = tableParam;
     }
-    @Override
-	protected void updateContents(Object value) {
-		if (getDefaultLabel() == null) {
-			return;
-		}
-
-		String text = "";//$NON-NLS-1$
-		if (value != null) {
-			text = value.toString();
-			int indexParam = text.indexOf('?');
-			if (indexParam > 0) {
-				text = text.substring(0, indexParam);
-			}
-		}
-		getDefaultLabel().setText(text);
-	}
 
     private void executeCommand(Command cmd) {
         IProcess2 process = null;
@@ -205,8 +186,6 @@ public class ModuleListCellEditor extends DialogCellEditor {
         private ListViewer jarsViewer;
 
         private LabelledFileField selectField;
-        private Button refreshWhenRun;
-        private Button refetchWhenRun;
 
         private boolean isInner;
 
@@ -266,16 +245,6 @@ public class ModuleListCellEditor extends DialogCellEditor {
             c.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             selectField = new LabelledFileField(c, Messages.getString("ModuleListCellEditor.selectLabel"), FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
 
-            refreshWhenRun = new Button(c, SWT.CHECK);
-            refreshWhenRun.setText(Messages.getString("ModuleListCellEditor.refreshWhenRun"));
-            refreshWhenRun.setToolTipText(Messages.getString("ModuleListCellEditor.refreshWhenRun.tooltip"));
-            GridData fillVertical = GridDataFactory.fillDefaults().span(3, 1).create();
-			refreshWhenRun.setLayoutData(fillVertical);
-            refetchWhenRun = new Button(c, SWT.CHECK);
-            refetchWhenRun.setText(Messages.getString("ModuleListCellEditor.refetchWhenRun"));
-            refetchWhenRun.setToolTipText(Messages.getString("ModuleListCellEditor.refetchWhenRun.tooltip"));
-            refetchWhenRun.setLayoutData(fillVertical);
-
             addListeners();
             checkField(true); // init
             jarsViewer.getList().setSelection(new String[] { selecteModule });
@@ -333,19 +302,6 @@ public class ModuleListCellEditor extends DialogCellEditor {
                     ExceptionHandler.process(ee);
                 }
                 selecteModule = lastSegment;
-
-                Map<String, Object> params=new HashMap<String, Object>();
-                if(refreshWhenRun.getSelection()) {
-                	params.put("refreshWhenRun", true);
-                }
-                if(refetchWhenRun.getSelection()) {
-                	params.put("refetchWhenRun", true);
-                	params.put("sourceFile", path.toFile());
-                }
-                if(!params.isEmpty()) {
-                	String paramString = new JSONObject(params).toString();
-					selecteModule+="?"+paramString;
-                }
             }
             super.okPressed();
         }
