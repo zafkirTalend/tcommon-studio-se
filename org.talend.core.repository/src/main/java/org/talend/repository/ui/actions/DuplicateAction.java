@@ -454,7 +454,7 @@ public class DuplicateAction extends AContextualAction {
                                     for (IRepositoryViewObject object : selectedVersionItems) {
                                         Item selectedItem = object.getProperty().getItem();
                                         Item copy;
-                                        copy = factory.copy(selectedItem, path);
+                                        copy = factory.copy(selectedItem, path, newJobName);
                                         if (isfirst) {
                                             id = copy.getProperty().getId();
                                             label = copy.getProperty().getLabel();
@@ -534,7 +534,7 @@ public class DuplicateAction extends AContextualAction {
             @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
-                    final Item newItem = factory.copy(item, path, true);
+                    final Item newItem = factory.copy(item, path, newName);
 
                     newItem.getProperty().setLabel(newName);
                     // changed by hqzhang for TDI-19965
