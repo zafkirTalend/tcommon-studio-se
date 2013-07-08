@@ -537,6 +537,8 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
             FOXTreeNode node = (FOXTreeNode) ex2.getDataItem();
             if (!cloumnNames.contains(metaColumn.getName())) {
                 node.setColumn(null);
+            } else {
+                node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metaColumn));
             }
             node.setDataType(metaColumn.getTalendType());
         }
