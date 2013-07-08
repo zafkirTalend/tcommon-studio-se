@@ -325,7 +325,7 @@ public class XSDPopulationUtil2 {
             if (!resolvedAsComplex) {
                 String dataType = xsdElementDeclarationParticle.getTypeDefinition().getQName();
                 if (xsdElementDeclarationParticle.getTypeDefinition().getBaseType() != null) {
-                    if (!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
+                    if (dataType==null&&!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
                         dataType = xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName();
                     }
                 }
