@@ -1191,6 +1191,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                tablePattern = "`" + tablePattern + "`";
+            }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             int index = 0;
@@ -1343,6 +1346,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             // MOD zshen bug 11934 to add schemaPattern by owner of table
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
+            }
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                tablePattern = "`" + tablePattern + "`";
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
