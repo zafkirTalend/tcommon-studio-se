@@ -129,37 +129,37 @@ public final class Java2SqlType {
 
     public static int getJavaTypeBySqlType(String sqlType) {
         // MOD klliu bug TDQ-1164 2011-09-26
-        if (sqlType.trim().equals("DATE")) { //$NON-NLS-1$
+        if ("DATE".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DATE;
-        } else if (sqlType.trim().equals("BIGINT")) { //$NON-NLS-1$
+        } else if ("BIGINT".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.BIGINT;
-        } else if (sqlType.trim().equals("INTEGER")) { //$NON-NLS-1$
+        } else if ("INTEGER".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.INTEGER;
-        } else if (sqlType.trim().equals("SMALLINT")) { //$NON-NLS-1$
+        } else if ("SMALLINT".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.SMALLINT;
-        } else if (sqlType.trim().equals("FLOAT")) { //$NON-NLS-1$
+        } else if ("FLOAT".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.FLOAT;
-        } else if (sqlType.trim().equals("CHAR")) { //$NON-NLS-1$
+        } else if ("CHAR".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.CHAR;
-        } else if (sqlType.trim().equals("VARCHAR")) { //$NON-NLS-1$
+        } else if ("VARCHAR".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.VARCHAR;
-        } else if (sqlType.trim().equals("DECIMAL")) { //$NON-NLS-1$
+        } else if ("DECIMAL".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DECIMAL;
-        } else if (sqlType.trim().equals("TIME")) { //$NON-NLS-1$
+        } else if ("TIME".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.TIME;
-        } else if (sqlType.trim().equals("TIMESTMP")) { //$NON-NLS-1$
+        } else if ("TIMESTMP".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.TIMESTAMP;
-        } else if (sqlType.trim().equals("BLOB")) { //$NON-NLS-1$
+        } else if ("BLOB".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.BLOB;
-        } else if (sqlType.trim().equals("CLOB")) { //$NON-NLS-1$
+        } else if ("CLOB".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.CLOB;
-        } else if (sqlType.trim().equals("DISTINCT")) { //$NON-NLS-1$
+        } else if ("DISTINCT".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DISTINCT;
-        } else if (sqlType.trim().equals("DOUBLE")) { //$NON-NLS-1$
+        } else if ("DOUBLE".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DOUBLE;
-        } else if (sqlType.trim().equals("LONGVAR")) { //$NON-NLS-1$
+        } else if ("LONGVAR".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.LONGVARCHAR;
-        } else if (sqlType.trim().equals("REAL")) { //$NON-NLS-1$
+        } else if ("REAL".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.REAL;
         }
         return 0;
@@ -186,7 +186,7 @@ public final class Java2SqlType {
             return Types.FLOAT;
         } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$ //$NON-NLS-2$
             return Types.CHAR;
-        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ 
             return Types.VARCHAR;
         } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$
             return Types.DECIMAL;
@@ -223,11 +223,11 @@ public final class Java2SqlType {
             return "SMALLINT"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("F")) { //$NON-NLS-1$
             return "FLOAT"; //$NON-NLS-1$
-        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        } else if (sqlType.trim().equals("CF") || sqlType.trim().equals("BF")) { //$NON-NLS-1$ //$NON-NLS-2$ 
             return "CHAR"; //$NON-NLS-1$
-        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        } else if (sqlType.trim().equals("CV") || sqlType.trim().equals("BV")) { //$NON-NLS-1$ //$NON-NLS-2$ 
             return "VARCHAR"; //$NON-NLS-1$
-        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$ //$NON-NLS-2$
+        } else if (sqlType.trim().equals("D")) { //$NON-NLS-1$ 
             return "DECIMAL"; //$NON-NLS-1$
         } else if (sqlType.trim().equals("TS") || sqlType.trim().equals("SZ")) { //$NON-NLS-1$ //$NON-NLS-2$
             return "TIMESTAMP"; //$NON-NLS-1$
