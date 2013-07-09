@@ -308,7 +308,7 @@ public abstract class TableEditor extends FieldEditor {
     protected void editItem(ISelection sel) {
         IStructuredSelection selection = (IStructuredSelection) sel;
         String existing = (String) selection.getFirstElement();
-        String value = getExistingInputObject(existing);
+        String value = getExistingInputObject(existing.replace(" ", ""));
         if (value != null) {
             int indexOf = list.indexOf(existing);
             list.remove(existing);
