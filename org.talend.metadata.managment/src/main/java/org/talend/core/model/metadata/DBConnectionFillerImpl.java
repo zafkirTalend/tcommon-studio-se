@@ -1139,6 +1139,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) { 
+             	tablePattern = "`" + tablePattern + "`"; 
+            } 
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             int index = 0;
@@ -1292,6 +1295,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) { 
+             	tablePattern = "`" + tablePattern + "`"; 
+            } 
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             // MOD qiongli 2012-8-15 TDQ-5898,Odbc Terdata don't support some API.
