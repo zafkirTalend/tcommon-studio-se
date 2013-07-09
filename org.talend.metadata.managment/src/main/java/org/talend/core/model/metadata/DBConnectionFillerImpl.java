@@ -832,7 +832,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
             boolean cdhHive2 = HiveConnectionManager.getInstance().isCDHHive2(metaConnection);
             if (cdhHive2) {
-                // for CDH4 HIVE2 , the table type are MANAGED_TABLE and EXTERNAL_TABLE 。。。。。。
+                // for CDH4 HIVE2 , the table type are MANAGED_TABLE and EXTERNAL_TABLE ......
                 // tableType = null;
             }
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
@@ -1190,6 +1190,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             // MOD zshen bug 11934 to add schemaPattern by owner of table
             if (MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
+            }
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                tablePattern = "`" + tablePattern + "`";
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);

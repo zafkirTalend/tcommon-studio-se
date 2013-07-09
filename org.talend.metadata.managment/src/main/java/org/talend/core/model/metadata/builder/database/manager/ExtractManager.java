@@ -53,6 +53,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -617,15 +618,19 @@ public class ExtractManager {
         Map<String, String> primaryKeys = new HashMap<String, String>();
         ResultSet columns = null;
         Statement stmt = null;
+        String tablePattern = tableName;
 
         try {
+            if (MetadataConnectionUtils.isMysql(dbMetaData)) {
+                tablePattern = "`" + tablePattern + "`";
+            }
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
             if (isAccess) {
-                primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tableName);
+                primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tablePattern);
             } else {
-                primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
+                primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tablePattern);
             }
-            columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
+            columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tablePattern);
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
