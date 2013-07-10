@@ -149,6 +149,8 @@ public final class Java2SqlType {
             return Types.TIME;
         } else if ("TIMESTMP".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.TIMESTAMP;
+        } else if ("TIMESTAMP".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
+            return Types.TIMESTAMP;
         } else if ("BLOB".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.BLOB;
         } else if ("CLOB".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
@@ -158,6 +160,8 @@ public final class Java2SqlType {
         } else if ("DOUBLE".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DOUBLE;
         } else if ("LONGVAR".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
+            return Types.LONGVARCHAR;
+        } else if ("LONGVARCHAR".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.LONGVARCHAR;
         } else if ("REAL".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.REAL;
