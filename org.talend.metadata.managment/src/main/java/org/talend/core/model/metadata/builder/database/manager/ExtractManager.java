@@ -607,13 +607,13 @@ public class ExtractManager {
 
         try {
         	if (MetadataConnectionUtils.isMysql(dbMetaData)) { 
-        	 		                tablePattern = "`" + tablePattern + "`"; 
-        	 		            } 
+        		tablePattern = "`" + tablePattern + "`"; 
+        	} 
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
             if (isAccess) {
-                primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tablePattern);
+                primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tableName);
             } else {
-                primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tablePattern);
+                primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tablePattern);
 
