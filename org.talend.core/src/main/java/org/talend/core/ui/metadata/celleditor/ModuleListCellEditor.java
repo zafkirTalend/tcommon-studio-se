@@ -241,7 +241,8 @@ public class ModuleListCellEditor extends DialogCellEditor {
             Composite c = new Composite(comp, SWT.NONE);
             c.setLayout(new GridLayout(3, false));
             c.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            selectField = new LabelledFileField(c, Messages.getString("ModuleListCellEditor.selectLabel"), FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
+            selectField = new LabelledFileField(c,
+                    Messages.getString("ModuleListCellEditor.selectLabel"), FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
 
             addListeners();
             checkField(true); // init
@@ -252,6 +253,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
         private void addListeners() {
             innerBtn.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     checkField(true);
                 }
@@ -259,6 +261,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
             });
             extBtn.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     checkField(false);
                 }
@@ -294,12 +297,10 @@ public class ModuleListCellEditor extends DialogCellEditor {
             } else {
                 IPath path = Path.fromOSString(selectField.getText());
                 String lastSegment = path.lastSegment();
-                if (!selecteModule.equals(lastSegment)) {
-                    try {
-                        CorePlugin.getDefault().getLibrariesService().deployLibrary(path.toFile().toURL());
-                    } catch (Exception ee) {
-                        ExceptionHandler.process(ee);
-                    }
+                try {
+                    CorePlugin.getDefault().getLibrariesService().deployLibrary(path.toFile().toURL());
+                } catch (Exception ee) {
+                    ExceptionHandler.process(ee);
                 }
                 selecteModule = lastSegment;
             }
