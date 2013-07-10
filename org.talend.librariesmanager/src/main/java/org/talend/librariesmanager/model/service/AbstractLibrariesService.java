@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -31,6 +32,7 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -146,6 +148,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                             File source = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
                                     + name);
                             FilesUtils.copyFile(source, libsTargetFile);
+                            synJavaLibs(source);
                         }
                         eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
                     } catch (IOException e) {
@@ -160,6 +163,29 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                     .executeRepositoryWorkUnit(repositoryWorkUnit);
         }
 
+    }
+
+    /**
+     * DOC ycbai Comment method "synJavaLibs".
+     * 
+     * <p>
+     * Synchronize the lib of the same name with this lib in .Java\lib.
+     * </p>
+     * 
+     * @param lib
+     * @throws IOException
+     */
+    private void synJavaLibs(File lib) throws IOException {
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject javaProject = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
+        File libFolder = javaProject.getFolder(JavaUtils.JAVA_LIB_DIRECTORY).getLocation().toFile();
+        if (libFolder.exists()) {
+            for (File externalLib : libFolder.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
+                if (externalLib.getName().equals(lib.getName())) {
+                    FilesUtils.copyFile(lib, externalLib);
+                }
+            }
+        }
     }
 
     protected void addResolvedClasspathPath(String libName) {
