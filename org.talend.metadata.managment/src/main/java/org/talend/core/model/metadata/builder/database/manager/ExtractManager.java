@@ -656,9 +656,6 @@ public class ExtractManager {
                         label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
-                    metadataColumn.setLabel(label);
-                    metadataColumn.setOriginalField(label2);
-
                     // Validate the column if it contains space or illegal
                     // characters.
                     // if (repositoryService != null) {
@@ -666,6 +663,7 @@ public class ExtractManager {
                     // columnIndex));
                     label = MetadataToolHelper.validateColumnName(label, columnIndex, columnLabels);
                     metadataColumn.setLabel(label);
+                    metadataColumn.setOriginalField(label2);
                     // }
                     columnIndex++;
 

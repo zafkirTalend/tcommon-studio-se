@@ -170,8 +170,8 @@ public class TDColumnAttributeHelper {
                 }
             }
         }
-        column.setName(columnName);
         column.setLabel(label);
+        column.setName(columnName);
 
         // dataType
         int dataType = 0;
