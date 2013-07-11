@@ -202,7 +202,6 @@ public class ServerSocketFreePortOpenerTest {
              * org.talend.commons.utils.threading.AbstractThreadSafetyTester#initInstance(org.talend.commons.utils.threading
              * .IThreadSafetyOperator)
              */
-            @Override
             protected void initInstance(ServerSocketFreePortOpenerOperator operatorInstance) {
                 operatorInstance.setDebug(DEBUG);
                 operatorInstance.setServerSocketFreePortOpener(serverSocketFreePortOpener);
@@ -214,7 +213,6 @@ public class ServerSocketFreePortOpenerTest {
              * 
              * @see org.talend.commons.utils.threading.AbstractThreadSafetyTester#assertFinal()
              */
-            @Override
             protected void assertFinal() throws IOException {
 
                 for (int port = ServerSocketFreePortOpenerOperator.portRangeBound1; port <= ServerSocketFreePortOpenerOperator.portRangeBound2; port++) {

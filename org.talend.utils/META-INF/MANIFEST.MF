@@ -32,5 +32,5 @@ Require-Bundle: org.apache.commons.lang,
  org.apache.log4j,
  org.apache.commons.io
 Eclipse-BuddyPolicy: registered
-Eclipse-RegisterBuddy: org.apache.log4j
+Eclipse-RegisterBuddy: org.apache.log4j, org.talend.testutils
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
