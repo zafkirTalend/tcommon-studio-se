@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.navigator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
+import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
 import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
@@ -49,6 +51,8 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     private final RepoViewCommonNavigator repViewCommonNavigator;
 
     private Listener dragDetectListener;
+
+    private List<IRefreshNodePerspectiveListener> refreshNodeLisenters;
 
     /**
      * Getter for repViewCommonNavigator.
@@ -170,5 +174,31 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     @Override
     public INavigatorContentService getNavigatorContentService() {
         return super.getNavigatorContentService();
+    }
+
+    public void addRefreshNodePerspectiveLisenter(IRefreshNodePerspectiveListener listener) {
+        if (refreshNodeLisenters == null) {
+            refreshNodeLisenters = new ArrayList<IRefreshNodePerspectiveListener>();
+        }
+        if (listener != null) {
+            refreshNodeLisenters.add(listener);
+        }
+    }
+
+    public void removeRefreshNodePerspectiveLisenter(IRefreshNodePerspectiveListener listener) {
+        if (refreshNodeLisenters == null) {
+            return;
+        }
+        if (listener != null) {
+            refreshNodeLisenters.remove(listener);
+        }
+    }
+
+    public void fireRefreshNodePerspectiveLisenter() {
+        if (refreshNodeLisenters != null) {
+            for (IRefreshNodePerspectiveListener listener : refreshNodeLisenters) {
+                listener.refreshNode();
+            }
+        }
     }
 }

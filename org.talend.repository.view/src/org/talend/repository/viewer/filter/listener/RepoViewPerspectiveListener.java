@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
+import org.talend.repository.navigator.RepoViewCommonViewer;
 import org.talend.repository.viewer.filter.PerspectiveFilterHelper;
 import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 
@@ -110,8 +111,14 @@ public class RepoViewPerspectiveListener implements IPerspectiveListener, IPersp
      */
     @Override
     public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-        RepositoryNodeFilterHelper.filter(getCommonViewer(), RepositoryNodeFilterHelper.isActivedFilter(),
+        final CommonViewer commonViewer2 = getCommonViewer();
+        RepositoryNodeFilterHelper.filter(commonViewer2, RepositoryNodeFilterHelper.isActivedFilter(),
                 PerspectiveFilterHelper.isActivedPerspectiveFilter());
+
+        if (commonViewer2 instanceof RepoViewCommonViewer) {
+            ((RepoViewCommonViewer) commonViewer2).fireRefreshNodePerspectiveLisenter();
+        }
+
     }
 
     /*

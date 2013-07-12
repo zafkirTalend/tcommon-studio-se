@@ -18,6 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
@@ -100,6 +104,7 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.viewer.RepoViewPartListener;
+import org.talend.repository.viewer.content.listener.ResourcePostChangeRunnableListener;
 import org.talend.repository.viewer.filter.listener.RepoViewPerspectiveListener;
 
 /**
@@ -239,6 +244,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     private RepoViewPerspectiveListener perspectiveListener;
 
     private RepoViewPartListener partListener;
+
+    private ResourcePostChangeRunnableListener resourcePostChangeRunnableListener;
 
     /**
      * yzhang Comment method "addPreparedListeners".
@@ -455,6 +462,12 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(getRepoViewPerspectiveListener());
 
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().addPartListener(getRepoViewPartListener());
+
+        // resource post change listener.
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        if (workspace != null) {
+            workspace.addResourceChangeListener(getResourcePostChangerRunnableListener(), IResourceChangeEvent.POST_CHANGE);
+        }
     }
 
     private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
@@ -469,6 +482,21 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             partListener = new RepoViewPartListener();
         }
         return partListener;
+    }
+
+    private ResourcePostChangeRunnableListener getResourcePostChangerRunnableListener() {
+        if (resourcePostChangeRunnableListener == null) {
+            resourcePostChangeRunnableListener = new ResourcePostChangeRunnableListener(getCommonViewer());
+        }
+        return resourcePostChangeRunnableListener;
+    }
+
+    public boolean addVisitor(IResourceDeltaVisitor visitor) {
+        return getResourcePostChangerRunnableListener().addVisitor(visitor);
+    }
+
+    public boolean removeVisitor(IResourceDeltaVisitor visitor) {
+        return getResourcePostChangerRunnableListener().removeVisitor(visitor);
     }
 
     /**
@@ -887,6 +915,11 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void dispose() {
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().removePerspectiveListener(getRepoViewPerspectiveListener());
+
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        if (workspace != null) {
+            workspace.removeResourceChangeListener(getResourcePostChangerRunnableListener());
+        }
         super.dispose();
     }
 
