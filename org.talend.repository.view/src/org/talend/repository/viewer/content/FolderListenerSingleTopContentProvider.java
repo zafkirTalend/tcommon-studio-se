@@ -17,19 +17,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.core.model.general.Project;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.navigator.RepoViewCommonNavigator;
 import org.talend.repository.navigator.RepoViewCommonViewer;
+import org.talend.repository.viewer.content.listener.RunnableResourceVisitor;
+import org.talend.repository.viewer.content.listener.TopLevelNodeRunnable;
 
 /**
  * this handle content that root node is of type ProjectRepositoryNode
@@ -52,7 +54,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
      * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
      * 
      */
-    private final class DirectChildrenNodeVisitor extends ResouceChangeVisitorListener.RunnableResourceVisitor {
+    private final class DirectChildrenNodeVisitor extends RunnableResourceVisitor {
 
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
@@ -67,7 +69,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
                 if (topLevelNodeWorkspaceRelativePath != null && visitHelper.valid(topLevelNodeWorkspaceRelativePath, merged)) {
                     visitChildren = false; // if valid, don't visit the children any more.
                     if (viewer instanceof RepoViewCommonViewer) {
-                        runnables.add(new Runnable() {
+                        runnables.add(new TopLevelNodeRunnable(repoNode) {
 
                             @Override
                             public void run() {
@@ -170,7 +172,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
 
     protected CommonViewer viewer;
 
-    private ResouceChangeVisitorListener resouceChangeVisitor;
+    private DirectChildrenNodeVisitor visitor;
 
     /*
      * (non-Javadoc)
@@ -187,30 +189,36 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         super.inputChanged(arg0, arg1, arg2);
         topLevelNodeToPathMap.clear();
 
-        addResourceChangeListener();
+        addResourceVisitor(this.viewer);
+
     }
 
     /**
-     * DOC sgandon Comment method "addResourceChangeListener".
-     */
-    protected void addResourceChangeListener() {
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        if (workspace != null) {
-            if (resouceChangeVisitor != null) {// remove the previous listener
-                workspace.removeResourceChangeListener(resouceChangeVisitor);
-            }
-            resouceChangeVisitor = createResourceChangedVisitor();
-            workspace.addResourceChangeListener(resouceChangeVisitor, IResourceChangeEvent.POST_CHANGE);
-        }// else workspace not accessible any more so do nothing
-    }
-
-    /**
-     * DOC sgandon Comment method "createResourceChangedVisitor".
      * 
-     * @return
+     * DOC ggu Comment method "addResourceVisitor".
+     * 
+     * @param v
      */
-    protected ResouceChangeVisitorListener createResourceChangedVisitor() {
-        return new ResouceChangeVisitorListener(viewer, new DirectChildrenNodeVisitor());
+    protected void addResourceVisitor(CommonViewer v) {
+        if (v == null) {
+            return;
+        }
+        RepoViewCommonNavigator navigator = null;
+        if (v instanceof RepoViewCommonViewer) {
+            CommonNavigator commonNavigator = ((RepoViewCommonViewer) v).getCommonNavigator();
+            if (commonNavigator instanceof RepoViewCommonNavigator) {
+                navigator = ((RepoViewCommonNavigator) commonNavigator);
+            }
+        }
+        if (navigator == null) {
+            return;
+        }
+        //
+        if (this.visitor != null) {
+            navigator.removeVisitor(this.visitor);
+        }
+        this.visitor = new DirectChildrenNodeVisitor();
+        navigator.addVisitor(this.visitor);
     }
 
     /*
@@ -220,14 +228,20 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
      */
     @Override
     public void dispose() {
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        if (workspace != null && resouceChangeVisitor != null) {
-            workspace.removeResourceChangeListener(resouceChangeVisitor);
-        }// else workspace not accessible any more so do nothing
-         // to help garbage collection
+        // visitor
+        if (this.viewer != null && this.visitor != null && this.viewer instanceof RepoViewCommonViewer) {
+            final Control control = this.viewer.getControl();
+            if (control != null && !control.isDisposed()) {
+                CommonNavigator commonNavigator = ((RepoViewCommonViewer) this.viewer).getCommonNavigator();
+                if (commonNavigator instanceof RepoViewCommonNavigator) {
+                    ((RepoViewCommonNavigator) commonNavigator).removeVisitor(this.visitor);
+                }
+            }
+        }
+
+        // to help garbage collection
         topLevelNodeToPathMap.clear();
         topLevelNodeToPathMap = null;
         super.dispose();
     }
-
 }
