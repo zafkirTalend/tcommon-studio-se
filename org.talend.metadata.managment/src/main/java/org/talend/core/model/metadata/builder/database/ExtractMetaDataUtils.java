@@ -24,6 +24,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -82,9 +83,9 @@ import orgomg.cwm.objectmodel.core.Expression;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
- *
+ * 
  * $Id: ExtractMetaDataUtils.java 38999 2010-03-24 03:33:58Z cli $
- *
+ * 
  */
 public class ExtractMetaDataUtils {
 
@@ -109,7 +110,7 @@ public class ExtractMetaDataUtils {
      * Gets an instance of <code>DatabaseMetadata</code> by the given argument. The reason why it provides this method
      * is sometimes the database metadata you want to get is not from the <code>Connection</code>, in talend product
      * maybe a "fake" database metadata is created like "HiveDatabaseMetadata". Added by Marvin Wang on Mar 13, 2013.
-     *
+     * 
      * @param metadataConn
      * @return
      */
@@ -128,13 +129,13 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     *
+     * 
      * FIXME sizhaoliu remove repetitions of specific DB conditions.
-     *
+     * 
      * @param Connection conn
      * @param Connection dbType
      * @return DatabaseMetaData
-     *
+     * 
      * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
@@ -147,11 +148,11 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     *
+     * 
      * @param Connection conn
      * @param DatabaseConnection dbConn
      * @return DatabaseMetaData
-     *
+     * 
      * MOD by zshen this method don't care about sqlMode
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection) {
@@ -160,13 +161,13 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     *
+     * 
      * @param Connection conn
      * @param isSqlMode
      * @param DatabaseConnection dbConn
      * @return DatabaseMetaData
-     *
-     *
+     * 
+     * 
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection, boolean isSqlMode) {
         IMetadataConnection metadataConnection = ConvertionHelper.convert(dbConnection);
@@ -190,15 +191,15 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
-     *
+     * 
+     * 
      * @param conn
      * @return
      * @throws SQLException
-     *
+     * 
      * this method will pass a mistake databaseType to get DatabaseMetDdata(e.x. db2->db2 for zos) if you can, you
      * should use getDatabaseMetaData() instead of this method
-     *
+     * 
      */
     public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         if (conn != null) {
@@ -216,13 +217,13 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
-     *
+     * 
      * @param Connection conn
      * @param isSqlMode whether is sqlMode
      * @param String dbType
      * @return DatabaseMetaData
-     *
-     *
+     * 
+     * 
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
@@ -294,9 +295,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * Added by Marvin Wang on Dec 6, 2012.
-     *
+     * 
      * @param metadataConnection
      * @return
      */
@@ -320,7 +321,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * Added by Marvin Wang on Dec 6, 2012.
-     *
+     * 
      * @param dbType
      * @param isSqlMode
      * @return
@@ -345,7 +346,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * only for db2 on z/os right now.
-     *
+     * 
      * @param conn2
      * @return
      */
@@ -389,7 +390,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
-     *
+     * 
      * @param ResultSet columns
      * @param String infoType
      * @return String : the result of column's information MetaData
@@ -422,9 +423,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * DOC xye Comment method "getStringMetaDataInfo".
-     *
+     * 
      * @param columns
      * @param infoType
      * @return
@@ -448,7 +449,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
-     *
+     * 
      * @param ResultSet columns
      * @param String infoType
      * @return int : the result of column's information MetaData
@@ -501,7 +502,7 @@ public class ExtractMetaDataUtils {
     /**
      * Return boolean value, used only to check if one field is nullable or not. If used to something else than nullable
      * check, take care of the default values returned. Actually returns null if there is any error during the check.
-     *
+     * 
      * @param ResultSet columns
      * @param String infoType
      * @return boolean : the result of column's information MetaData
@@ -528,7 +529,7 @@ public class ExtractMetaDataUtils {
     // OCA : save connectionString and associated regex in the same place.
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
-     *
+     * 
      * @param ResultSet columns
      * @param String infoType
      * @return String : the result of column's information MetaData
@@ -566,9 +567,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * DOC YeXiaowei Comment method "isValidJarFile".
-     *
+     * 
      * @param driverJarPath
      * @return
      */
@@ -586,9 +587,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * cli Comment method "retrieveSchemaPatternForAS400".
-     *
+     * 
      * bug 12179
      */
     public static String retrieveSchemaPatternForAS400(String url) {
@@ -645,9 +646,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * cli Comment method "getMultiSchems".
-     *
+     * 
      * bug 12179
      */
     public static String[] getMultiSchems(String schemas) {
@@ -697,9 +698,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * ggu Comment method "checkDBConnectionTimeout".
-     *
+     * 
      * there is no effect for oracle.
      */
     public static void checkDBConnectionTimeout() {
@@ -721,9 +722,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * ggu Comment method "setQueryStatementTimeout".
-     *
+     * 
      * @param statement
      */
     public static void setQueryStatementTimeout(Statement statement) {
@@ -739,7 +740,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC cantoine. Method to connect to DataBase.
-     *
+     * 
      * @param String driverClass
      * @param String urlString pwdT
      * @param String username
@@ -821,7 +822,7 @@ public class ExtractMetaDataUtils {
      * JDBCDriverLoader.java. Due to the limitation on code structure, I have to put it here, so if the part of metadata
      * connection will be refactored later, then developer could remove it to anyway they want. Added by Marvin Wang on
      * Oct 24, 2012.
-     *
+     * 
      * @param dbType
      * @param dbVersion
      */
@@ -845,7 +846,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC xye Comment method "connect".
-     *
+     * 
      * @param dbType
      * @param url
      * @param username
@@ -871,10 +872,9 @@ public class ExtractMetaDataUtils {
         if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
             List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
             if (driverNames != null) {
+                // fix for TUP-857 , to retreive needed jar one time
+                librairesManagerService.retrieve(driverNames, getJavaLibPath(), new NullProgressMonitor());
                 for (String jar : driverNames) {
-                    if (!new File(getJavaLibPath() + jar).exists()) {
-                        librairesManagerService.retrieve(jar, getJavaLibPath(), new NullProgressMonitor());
-                    }
                     jarPathList.add(getJavaLibPath() + jar);
                 }
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
@@ -890,18 +890,21 @@ public class ExtractMetaDataUtils {
             if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
                 if (driverJarPathArg.contains(";")) {
                     String jars[] = driverJarPathArg.split(";");
+                    List<String> jarsToRetreive = new ArrayList<String>();
                     for (String jar : jars) {
                         Path path = new Path(jar);
                         // fix for 19020
                         if (jarsAvailable.contains(path.lastSegment())) {
                             if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
-                                librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new NullProgressMonitor());
+                                jarsToRetreive.add(path.lastSegment());
                             }
                             jarPathList.add(getJavaLibPath() + path.lastSegment());
                         } else {
+                            jarsToRetreive.add(path.lastSegment());
                             jarPathList.add(jar);
                         }
                     }
+                    librairesManagerService.retrieve(jarsToRetreive, getJavaLibPath(), new NullProgressMonitor());
                 } else {
                     Path path = new Path(driverJarPathArg);
                     File driverFile = new File(driverJarPathArg);
@@ -923,11 +926,9 @@ public class ExtractMetaDataUtils {
             } else {
                 if (driverJarPathArg.contains(";")) {
                     String jars[] = driverJarPathArg.split(";");
-                    for (int i = 0; i < jars.length; i++) {
-                        if (!new File(getJavaLibPath() + jars[i]).exists()) {
-                            librairesManagerService.retrieve(jars[i], getJavaLibPath(), new NullProgressMonitor());
-                        }
-                        jarPathList.add(getJavaLibPath() + jars[i]);
+                    librairesManagerService.retrieve(Arrays.asList(jars), getJavaLibPath(), new NullProgressMonitor());
+                    for (String jar : jars) {
+                        jarPathList.add(getJavaLibPath() + jar);
                     }
                 } else {
                     if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
@@ -1019,18 +1020,18 @@ public class ExtractMetaDataUtils {
             // Don't use DriverManager
 
             try {
-            Class<?> klazz = Class.forName(driverClassName);
+                Class<?> klazz = Class.forName(driverClassName);
 
-            Properties info = new Properties();
-            info.put("user", username); //$NON-NLS-1$
-            info.put("password", pwd); //$NON-NLS-1$
-            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-                if (systemCharset != null && systemCharset.displayName() != null) {
-                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                Properties info = new Properties();
+                info.put("user", username); //$NON-NLS-1$
+                info.put("password", pwd); //$NON-NLS-1$
+                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                    Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                    if (systemCharset != null && systemCharset.displayName() != null) {
+                        info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                    }
                 }
-            }
-            connection = ((Driver) klazz.newInstance()).connect(url, info);
+                connection = ((Driver) klazz.newInstance()).connect(url, info);
             } catch (ClassNotFoundException e) {
                 String errorMessage = Messages.getString("ExtractMetaDataUtils.missDriver.1") + driverClassName; //$NON-NLS-1$
                 if (driverJarPath != null && driverJarPath.length > 0) {
@@ -1065,9 +1066,9 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     *
+     * 
      * DOC YeXiaowei Comment method "getJavaLibPath".
-     *
+     * 
      * @return
      */
     public static String getJavaLibPath() {
@@ -1153,7 +1154,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC ycbai Comment method "getMeataConnectionSchema".
-     *
+     * 
      * @param metadataConnection
      * @return
      */
@@ -1170,7 +1171,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC ycbai Comment method "getDBConnectionSchema".
-     *
+     * 
      * @param dbConnection
      * @return
      */
@@ -1215,7 +1216,7 @@ public class ExtractMetaDataUtils {
 
     /**
      * DOC ycbai Comment method "handleDefaultValue".
-     *
+     * 
      * @param column
      */
     public static void handleDefaultValue(MetadataColumn column, DatabaseMetaData dbMetaData) {
