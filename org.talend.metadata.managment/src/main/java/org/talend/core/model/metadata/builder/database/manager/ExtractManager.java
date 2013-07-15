@@ -603,19 +603,15 @@ public class ExtractManager {
         Map<String, String> primaryKeys = new HashMap<String, String>();
         ResultSet columns = null;
         Statement stmt = null;
-        String tablePattern = tableName; 
 
         try {
-        	if (MetadataConnectionUtils.isMysql(dbMetaData)) { 
-        		tablePattern = "`" + tablePattern + "`"; 
-        	} 
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
             if (isAccess) {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, null, null, tableName);
             } else {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
-            columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tablePattern);
+            columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {

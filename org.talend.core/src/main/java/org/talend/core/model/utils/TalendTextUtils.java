@@ -244,7 +244,7 @@ public class TalendTextUtils {
         }
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         if (name.equals(EDatabaseTypeName.MYSQL) && fieldName.contains(JAVA_END_STRING)) {
-            String newFieldName = "`" + fieldName + "`"; 
+            String newFieldName = TalendQuoteUtils.addQuotes(fieldName); 
             return newFieldName;
         }
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
