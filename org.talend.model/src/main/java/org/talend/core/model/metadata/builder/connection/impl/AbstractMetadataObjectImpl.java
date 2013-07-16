@@ -1,6 +1,6 @@
 /**
  * <copyright> </copyright>
- * 
+ *
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -55,7 +55,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     /**
      * The cached value of the '{@link #getProperties() <em>Properties</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getProperties()
      * @ordered
      */
@@ -63,7 +63,7 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getId()
      * @generated
      * @ordered
@@ -171,7 +171,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected AbstractMetadataObjectImpl() {
@@ -180,7 +179,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -190,7 +188,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public HashMap getProperties() {
@@ -199,7 +196,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setProperties(HashMap newProperties) {
@@ -213,7 +209,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getId() {
@@ -222,7 +217,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setId(String newId) {
@@ -235,7 +229,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getComment() {
@@ -244,7 +237,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setComment(String newComment) {
@@ -258,7 +250,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getLabel() {
@@ -267,7 +258,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -281,7 +271,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isReadOnly() {
@@ -292,7 +281,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setReadOnly(boolean newReadOnly) {
@@ -349,7 +337,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -375,7 +362,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -408,7 +394,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -441,7 +426,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -467,7 +451,6 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

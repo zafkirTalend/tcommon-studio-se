@@ -1,12 +1,13 @@
 /**
  * <copyright> </copyright>
- * 
+ *
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -99,7 +100,7 @@ import orgomg.cwmx.resource.express.SimpleDimension;
  * Additional Properties</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class MetadataTableImpl extends AbstractMetadataObjectImpl implements MetadataTable {
@@ -107,7 +108,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getOwnedElement() <em>Owned Element</em>}' containment reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getOwnedElement()
      * @generated
      * @ordered
@@ -117,7 +118,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The default value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -127,7 +128,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #isIsAbstract() <em>Is Abstract</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #isIsAbstract()
      * @generated
      * @ordered
@@ -139,9 +140,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * --> This is not generated because this type has been specialized in this class so that getColumns returns alist
      * of Columns changed for EList<Feature> to EList<? extends Feature>.<br>
      * see getFeature() and getColumns()
-     * 
+     *
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #getFeature()
      * @generated NOT
      * @ordered
@@ -151,7 +152,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getStructuralFeature() <em>Structural Feature</em>}' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getStructuralFeature()
      * @generated
      * @ordered
@@ -161,7 +162,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getParameter()
      * @generated
      * @ordered
@@ -171,7 +172,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getGeneralization() <em>Generalization</em>}' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getGeneralization()
      * @generated
      * @ordered
@@ -181,7 +182,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getSpecialization() <em>Specialization</em>}' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getSpecialization()
      * @generated
      * @ordered
@@ -191,7 +192,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getInstance()
      * @generated
      * @ordered
@@ -201,7 +202,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getAlias() <em>Alias</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getAlias()
      * @generated
      * @ordered
@@ -211,7 +212,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getExpressionNode() <em>Expression Node</em>}' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getExpressionNode()
      * @generated
      * @ordered
@@ -221,7 +222,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getMappingFrom() <em>Mapping From</em>}' reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #getMappingFrom()
      * @generated
      * @ordered
@@ -231,7 +232,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getMappingTo() <em>Mapping To</em>}' reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #getMappingTo()
      * @generated
      * @ordered
@@ -241,7 +242,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getClassifierMap() <em>Classifier Map</em>}' reference list. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getClassifierMap()
      * @generated
      * @ordered
@@ -251,7 +252,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getCfMap() <em>Cf Map</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getCfMap()
      * @generated
      * @ordered
@@ -261,7 +262,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getDomain() <em>Domain</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getDomain()
      * @generated
      * @ordered
@@ -271,7 +272,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getSimpleDimension() <em>Simple Dimension</em>}' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getSimpleDimension()
      * @generated
      * @ordered
@@ -281,7 +282,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getIndex()
      * @generated
      * @ordered
@@ -291,7 +292,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The default value of the '{@link #getSourceName() <em>Source Name</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getSourceName()
      * @generated
      * @ordered
@@ -301,7 +302,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getTableType()
      * @generated
      * @ordered
@@ -311,7 +312,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getTableType() <em>Table Type</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #getTableType()
      * @generated
      * @ordered
@@ -321,7 +322,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The default value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #isAttachedCDC()
      * @generated
      * @ordered
@@ -331,7 +332,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #isAttachedCDC()
      * @generated
      * @ordered
@@ -341,7 +342,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The default value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #isActivatedCDC()
      * @generated
      * @ordered
@@ -351,7 +352,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #isActivatedCDC()
      * @generated
      * @ordered
@@ -361,7 +362,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getAdditionalProperties()
      * @generated
      * @ordered
@@ -370,7 +371,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected MetadataTableImpl() {
@@ -379,7 +380,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -389,7 +390,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<ModelElement> getOwnedElement() {
@@ -402,7 +403,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public boolean isIsAbstract() {
@@ -411,7 +412,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void setIsAbstract(boolean newIsAbstract) {
@@ -425,7 +426,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * this is no more generated because we changed the type of feature to specialize is to store only TdColumns
-     * 
+     *
      * @generated NOT
      */
     @SuppressWarnings("unchecked")
@@ -439,7 +440,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<StructuralFeature> getStructuralFeature() {
@@ -452,7 +453,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Parameter> getParameter() {
@@ -465,7 +466,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Generalization> getGeneralization() {
@@ -478,7 +479,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Generalization> getSpecialization() {
@@ -491,7 +492,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Instance> getInstance() {
@@ -504,7 +505,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<TypeAlias> getAlias() {
@@ -517,7 +518,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<ExpressionNode> getExpressionNode() {
@@ -530,7 +531,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<TypeMapping> getMappingFrom() {
@@ -543,7 +544,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<TypeMapping> getMappingTo() {
@@ -556,7 +557,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<ClassifierMap> getClassifierMap() {
@@ -569,7 +570,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<ClassifierFeatureMap> getCfMap() {
@@ -582,7 +583,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Domain> getDomain() {
@@ -595,7 +596,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<SimpleDimension> getSimpleDimension() {
@@ -608,7 +609,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EList<Index> getIndex() {
@@ -627,7 +628,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated NOT
      */
     public String getSourceName() {
@@ -636,7 +637,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated NOT
      */
     public void setSourceName(String newSourceName) {
@@ -651,7 +652,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     /**
      * this is no more generated because we changed the type of feature to specialize is to store only TdColumns and
      * return it here
-     * 
+     *
      * @generated NOT
      */
     @SuppressWarnings("unchecked")
@@ -662,7 +663,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public Connection getConnection() {
@@ -673,7 +674,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated NOT
      */
     public Connection basicGetConnection() {
@@ -682,7 +683,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EMap<String, String> getAdditionalProperties() {
@@ -695,7 +696,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public String getTableType() {
@@ -704,7 +705,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void setTableType(String newTableType) {
@@ -718,7 +719,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public boolean isAttachedCDC() {
@@ -727,7 +728,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void setAttachedCDC(boolean newAttachedCDC) {
@@ -741,7 +742,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public boolean isActivatedCDC() {
@@ -750,7 +751,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void setActivatedCDC(boolean newActivatedCDC) {
@@ -764,7 +765,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -809,7 +810,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -855,7 +856,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -922,7 +923,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -1021,7 +1022,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -1102,7 +1103,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -1162,7 +1163,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -1224,7 +1225,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -1286,7 +1287,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -1306,6 +1307,33 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         result.append(activatedCDC);
         result.append(')');
         return result.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName()
+     */
+    @Override
+    public String getName() {
+        if (super.getName() == null) {
+            return this.label;
+        } else {
+            return super.getName();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel()
+     */
+    @Override
+    public String getLabel() {
+        if (StringUtils.isEmpty(this.label)) {
+            return getName();
+        }
+        return this.label;
     }
 
     public String getOriginalLabel() {
