@@ -60,7 +60,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author scorreia
- * 
+ *
  * Services for the DQ Repository view.
  */
 public final class DqRepositoryViewService {
@@ -71,9 +71,9 @@ public final class DqRepositoryViewService {
 
     /**
      * if true, the catalogs (and schemas) are stored in the same file as the data provider. Used for tests only.
-     * 
+     *
      * TODO scorreia (saving catalog outside data provider's file) set it to false for big databases.
-     * 
+     *
      * In case when optimization is needed: set this boolean to false and correct code so that everything works as
      * before (DQ Repository view must not show catalog's files and Catalogs must still be children of the Data
      * provider). Check also that old files (.prv) are still readable by the application.
@@ -89,7 +89,7 @@ public final class DqRepositoryViewService {
     /**
      * Method "createTechnicalName" creates a technical name used for file system storage. MOD mzhao make this method as
      * public access.
-     * 
+     *
      * @param functionalName the user friendly name
      * @return the technical name created from the user given name.
      */
@@ -121,7 +121,7 @@ public final class DqRepositoryViewService {
      * Method "refreshDataProvider" reload database structure. Existing elements (catalogs, tables...) must not be
      * replaced by new elements. Only their content must be updated because these elements can be refered to by
      * analysis.
-     * 
+     *
      * @param dataProvider
      * @param catalogPattern the catalogs to load (can be null, meaning all are loaded)
      * @param schemaPattern the schema to load (can be null, meaning all are loaded)
@@ -134,7 +134,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshTables".
-     * 
+     *
      * @param schema
      * @param tablePattern
      * @return
@@ -146,7 +146,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshViews".
-     * 
+     *
      * @param schema
      * @param viewPattern
      * @return
@@ -158,7 +158,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshColumns".
-     * 
+     *
      * @param table
      * @param columnPattern
      * @return
@@ -170,7 +170,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "getTables" loads the tables from the database or get the tables from the catalog .
-     * 
+     *
      * @param dataProvider the data provider
      * @param catalog the catalog (must not be null)
      * @param tablePattern the pattern of the tables to be loaded (from the DB)
@@ -240,18 +240,15 @@ public final class DqRepositoryViewService {
     }
 
     /**
-     * Method "getColumns". The link between the column set and its columns is set in this method when required.
-     * 
      * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
      * from the database)
      * @param columnSet a column set (Table or View)
-     * @param columnPattern the pattern of the columns to get (can be null)
      * @param loadFromDB true if columns must be loaded from the database
      * @return
-     * @throws Exception
+     * @throws Exception the exception the connection checking is not ok.
      */
-    public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, String columnPattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, boolean loadFromDB) throws Exception {
+
         if (loadFromDB) {
             // MOD by zshen use new API to fill Columns
             List<TdColumn> columnList = new ArrayList<TdColumn>();
@@ -276,6 +273,26 @@ public final class DqRepositoryViewService {
         } else {
             return ColumnSetHelper.getColumns(columnSet);
         }
+
+    }
+
+    /**
+     * Method "getColumns". The link between the column set and its columns is set in this method when required.
+     *
+     * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
+     * from the database)
+     * @param columnSet a column set (Table or View)
+     * @param columnPattern the pattern of the columns to get (can be null)
+     * @param loadFromDB true if columns must be loaded from the database
+     * @return
+     * @throws Exception
+     * @Deprecated use {@link DqRepositoryViewService#getColumns(Connection, ColumnSet, boolean)}
+     */
+    @Deprecated
+    public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, String columnPattern, boolean loadFromDB)
+            throws Exception {
+        return getColumns(dataProvider, columnSet, loadFromDB);
+
     }
 
     // private static String getName(ModelElement element) {
@@ -284,7 +301,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "createFilename".
-     * 
+     *
      * @param folder the folder
      * @param basename the filename without extension
      * @param extension the extension of the file
@@ -296,7 +313,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "loadTables".
-     * 
+     *
      * @param dataProvider
      * @param catalog (must not be null)
      * @param tablePattern
@@ -411,7 +428,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "readFromFile".
-     * 
+     *
      * @param file the file to read
      * @return the Data provider if found.
      * @deprecated use repository API or use resourceFileMap instead it
@@ -439,9 +456,9 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC bZhou Comment method "getAllRepositoryResourceObjects".
-     * 
+     *
      * Use this method to get all repository view objects used in TDQ Repository.
-     * 
+     *
      * @param withDeleted
      * @return
      * @throws PersistenceException
@@ -460,7 +477,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC bZhou Comment method "buildElementName".
-     * 
+     *
      * @param element
      * @return
      */
@@ -481,10 +498,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     * 
+     *
      * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
      * tables.
-     * 
+     *
      * @param dataProvider
      * @param catalog
      * @param tablePattern
@@ -533,10 +550,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     * 
+     *
      * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
      * tables.
-     * 
+     *
      * @param dataProvider
      * @param schema
      * @param tablePattern
@@ -591,10 +608,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     * 
+     *
      * DOC gdbu Comment method "isContainsView". This method used to connect to database to check if this catalog has
      * views.
-     * 
+     *
      * @param dataProvider
      * @param catalog
      * @param viewPattern
@@ -635,10 +652,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     * 
+     *
      * DOC gdbu Comment method "isContainsView".This method used to connect to database to check if this schema has
      * views.
-     * 
+     *
      * @param dataProvider
      * @param schema
      * @param viewPattern

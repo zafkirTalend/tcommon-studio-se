@@ -340,6 +340,8 @@ public class ExtractMetaDataUtils {
             return true;
         } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbedded) {
             return true;
+        } else if (EDatabaseTypeName.AS400.getDisplayName().equals(dbType)) {
+            return true;
         }
         return false;
     }
