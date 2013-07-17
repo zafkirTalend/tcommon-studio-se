@@ -6,9 +6,7 @@
 package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -261,26 +259,20 @@ public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implem
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated NOT
+     * @generated
      */
     public String getLabel() {
-        if (StringUtils.isEmpty(this.label)) {
-            return getName();
-        }
         return this.label;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated NOT
+     * @generated
      */
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
-        if (!StringUtils.isEmpty(newLabel)) {
-            setName(newLabel);
-        }
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel,
                     label));

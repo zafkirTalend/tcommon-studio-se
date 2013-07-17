@@ -7,6 +7,7 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -1309,6 +1310,33 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     }
 
     public String getOriginalLabel() {
+        return this.label;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName()
+     */
+    @Override
+    public String getName() {
+        if (super.getName() == null) {
+            return this.label;
+        } else {
+            return super.getName();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel()
+     */
+    @Override
+    public String getLabel() {
+        if (StringUtils.isEmpty(this.label)) {
+            return getName();
+        }
         return this.label;
     }
 
