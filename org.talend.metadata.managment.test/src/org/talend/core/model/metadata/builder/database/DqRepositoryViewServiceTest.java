@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package org.talend.core.model.metadata.builder.database;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -17,10 +18,10 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
-import org.talend.commons.utils.database.TeradataDataBaseMetadata;
-import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.CatalogHelper;
@@ -28,6 +29,7 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -35,14 +37,13 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author zshen
- * 
+ *
  */
 
 @PrepareForTest({ MetadataConnectionUtils.class, ConnectionUtils.class, MetadataFillFactory.class, ColumnSetHelper.class,
@@ -56,101 +57,73 @@ public class DqRepositoryViewServiceTest {
      * Test method for
      * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#getColumns(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.ColumnSet, java.lang.String, boolean)}
      * .
-     * 
+     *
      * @throws SQLException
      */
     @Test
-    public void testGetColumns() throws SQLException {
-        List<TdColumn> columns1 = null;
-        List<TdColumn> columns2 = null;
-        // mock TeraDatabaseMetaData
-        TeradataDataBaseMetadata metaData = Mockito.mock(TeradataDataBaseMetadata.class);
-        // ~mock
-
-        // mock DatabaseConnection
-        DatabaseConnection mockDbConn = Mockito.mock(DatabaseConnection.class);
-        Mockito.when(mockDbConn.getDatabaseType()).thenReturn(EDatabaseTypeName.TERADATA.getXmlName());
-        Mockito.when(mockDbConn.getSID()).thenReturn("talendDB");//$NON-NLS-1$
-        Mockito.when(mockDbConn.isSQLMode()).thenReturn(true);
-        // ~DatabaseConnection
-
-        // prepare data for reConn
-        TypedReturnCode<java.sql.Connection> reConn = new TypedReturnCode<java.sql.Connection>();
-        java.sql.Connection sqlConn = Mockito.mock(java.sql.Connection.class);
-        ReturnCode rc = new ReturnCode(true);
-        reConn.setOk(true);
-        reConn.setObject(sqlConn);
+    public void testGetColumns() {
+        ColumnSet columnSet = RelationalPackage.eINSTANCE.getRelationalFactory().createTdTable();
+        TdColumn column1 = RelationalPackage.eINSTANCE.getRelationalFactory().createTdColumn();
+        column1.setName("col1"); //$NON-NLS-1$
+        ColumnSetHelper.addColumn(column1, columnSet);
+        TdColumn column2 = RelationalPackage.eINSTANCE.getRelationalFactory().createTdColumn();
+        column2.setName("col2"); //$NON-NLS-1$
+        ColumnSetHelper.addColumn(column2, columnSet);
+        String connFailedMessage = "CONNECTION TO DB FAILED"; //$NON-NLS-1$
         try {
-            Mockito.when(sqlConn.getMetaData()).thenReturn(metaData);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
-        // ~reConn
+            // Assert the case that is not loading from DB
+            List<TdColumn> columns = DqRepositoryViewService.getColumns(null, columnSet, null, false);
+            assertEquals(2, columns.size());
 
-        // prepare data for columnSet
-        ColumnSet mockColumnSet = Mockito.mock(ColumnSet.class);
-        // ~columnSet
+            // Assert the case that is loading from DB but connection cannot be established.
+            DatabaseConnection dbConn = createDatabaseConn();
+            // Mock the MetadataConnectionUtils.checkConnection()
+            TypedReturnCode<java.sql.Connection> retCode = new TypedReturnCode<java.sql.Connection>();
+            retCode.setOk(Boolean.FALSE);
+            PowerMockito.mockStatic(MetadataConnectionUtils.class);
+            when(MetadataConnectionUtils.checkConnection(dbConn)).thenReturn(retCode);
+            retCode.setMessage(connFailedMessage);
+            DqRepositoryViewService.getColumns(dbConn, columnSet, null, true);
 
-        // prepare data for columnPattern
-        String columnPattern = null;
-        // ~columnPattern
+            // Assert the case that loading from DB and connection can be established, it will need a real database
+            // (mocked) connection.
+            List<TdColumn> columnsExpected = new ArrayList<TdColumn>(3);
+            java.sql.Connection sqlConn = null;
+            DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
+            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn)).thenReturn(databaseMetaData);
+            MetadataFillFactory metadataFactory = mock(MetadataFillFactory.class);
+            when(metadataFactory.fillColumns(columnSet, databaseMetaData, null, null)).thenReturn(columnsExpected);
+            PowerMockito.mockStatic(MetadataFillFactory.class);
+            when(MetadataFillFactory.getDBInstance()).thenReturn(metadataFactory);
+            List<TdColumn> columnsActual = DqRepositoryViewService.getColumns(dbConn, columnSet, null, true);
+            assertEquals(columnsExpected.size(), columnsActual.size());
 
-        // prepare data for loadFromDB
-        boolean loadFromDB = true;
-        // ~loadFromDB
-
-        // prepare data for FillFactory
-        List<TdColumn> returnColumns = new ArrayList<TdColumn>();
-        // ~FillFactory
-        MetadataFillFactory metadataMock = Mockito.mock(MetadataFillFactory.class);
-        Mockito.when(
-                metadataMock.fillColumns(Mockito.eq(mockColumnSet), (DatabaseMetaData) Mockito.any(),
-                        (List<String>) Mockito.isNull(), (String) Mockito.isNull())).thenReturn(returnColumns);
-        // MetadataFillFactory.getDBInstance()
-        PowerMockito.mockStatic(MetadataFillFactory.class);
-        // EasyMock.expect(MetadataFillFactory.getDBInstance()).andReturn(metadataMock);
-        Mockito.when(MetadataFillFactory.getDBInstance()).thenReturn(metadataMock);
-        // Mockito.doReturn(returnColumns).when(spyFillFactory).fillColumns(mockColumnSet, metaData, null, null);
-        // MetadataConnectionUtils.checkConnection(mockDbConn)
-        PowerMockito.mockStatic(MetadataConnectionUtils.class);
-        // EasyMock.expect(MetadataConnectionUtils.checkConnection(mockDbConn)).andReturn(reConn);
-        Mockito.when(MetadataConnectionUtils.checkConnection(mockDbConn)).thenReturn(reConn);
-
-        // ConnectionUtils.closeConnection(sqlConn)
-        PowerMockito.mockStatic(ConnectionUtils.class);
-        // EasyMock.expect(ConnectionUtils.closeConnection(sqlConn)).andReturn(rc);
-        Mockito.when(ConnectionUtils.closeConnection(sqlConn)).thenReturn(rc);
-        // ColumnSetHelper.getColumns(mockColumnSet)
-        PowerMockito.mockStatic(ColumnSetHelper.class);
-        // EasyMock.expect(ColumnSetHelper.getColumns(mockColumnSet)).andReturn(returnColumns);
-        Mockito.when(ColumnSetHelper.getColumns(mockColumnSet)).thenReturn(returnColumns);
-
-        PowerMockito.mockStatic(ConnectionHelper.class);
-        Mockito.when(ConnectionHelper.getOtherParameter((ModelElement) Mockito.any())).thenReturn(""); //$NON-NLS-1$
-        // ExtractMetaDataUtils.getDatabaseMetaData
-        // PowerMock.mockStatic(ExtractMetaDataUtils.class);
-        // EasyMock.expect(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn,mockDbConn)).andReturn(metaData);
-
-        // PowerMock.replay(MetadataConnectionUtils.class, ConnectionUtils.class, MetadataFillFactory.class,
-        // ColumnSetHelper.class);
-
-        try {
-            columns1 = DqRepositoryViewService.getColumns(mockDbConn, mockColumnSet, columnPattern, loadFromDB);
-            loadFromDB = false;
-            columns2 = DqRepositoryViewService.getColumns(mockDbConn, mockColumnSet, columnPattern, loadFromDB);
         } catch (Exception e) {
-            e.printStackTrace();
-            fail(e.getMessage());
+            // Assert the error message when failed connecting to database.
+            assertEquals(connFailedMessage, e.getMessage());
         }
-        assertSame(returnColumns, columns1);
-        assertSame(returnColumns, columns2);
+
+    }
+
+
+    private DatabaseConnection createDatabaseConn() {
+        DatabaseConnection databaseConnection = ConnectionPackage.eINSTANCE.getConnectionFactory().createDatabaseConnection();
+        databaseConnection.setLabel(getClass().getName() + "_CONN"); //$NON-NLS-1$
+        databaseConnection.setURL("mysql:jdbc://FACK_IP:3306/tbi"); //$NON-NLS-1$
+        databaseConnection.setPassword(""); //$NON-NLS-1$
+        databaseConnection.setUsername(""); //$NON-NLS-1$
+        databaseConnection.setDatabaseType(EDatabase4DriverClassName.MYSQL.getDbTypeName());
+        databaseConnection.setDriverClass(EDatabase4DriverClassName.MYSQL.getDriverClass());
+        databaseConnection.setSID("tbi"); //$NON-NLS-1$
+        return databaseConnection;
     }
 
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#isContainsTable(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Catalog, java.lang.String)}
      * .
-     * 
+     *
      */
     @Test
     public void testIsContainsTableConnectionCatalogString() {
