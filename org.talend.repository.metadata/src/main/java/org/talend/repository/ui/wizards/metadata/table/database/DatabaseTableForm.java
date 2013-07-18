@@ -1121,10 +1121,8 @@ public class DatabaseTableForm extends AbstractForm {
                     }
 
                     String columnLabel = metadataColumn.getLabel();
-                    String columnName = metadataColumn.getName();
                     // Check the label and add it to the table
                     metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(columnLabel));
-                    metadataColumn.setName(columnName);
                     metadataColumnsValid.add(metadataColumn);
                 }
                 // see bug 3738
