@@ -50,6 +50,7 @@
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE"/>
+					<dbType type="TIME"/>
 					<dbType type="TIMESTAMP" default="true"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
