@@ -27,7 +27,6 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -36,9 +35,10 @@ import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.ui.IRulesProviderService;
+import org.talend.core.service.IRulesProviderService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.rule.AbstractRlueOperationChoice;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IRepositoryService;
 
@@ -102,7 +102,7 @@ public class RuleCellEditor extends DialogCellEditor {
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IRulesProviderService ruleService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
                 IRulesProviderService.class);
-        final IMetadataService metadataService = CorePlugin.getDefault().getMetadataService();
+        final IMetadataService metadataService = CoreUIPlugin.getDefault().getMetadataService();
         // IProxyRepositoryFactory repositoryFactory =
         // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
@@ -110,8 +110,8 @@ public class RuleCellEditor extends DialogCellEditor {
             if (allRules != null) {
                 int rulesItemsNo = 0;
                 int linkItemsNo = 0;
-                for (int i = 0; i < allRules.length; i++) {
-                    IRepositoryObject obj = ((IRepositoryObject) allRules[i]);
+                for (Object allRule : allRules) {
+                    IRepositoryObject obj = ((IRepositoryObject) allRule);
                     if (obj.getProperty().getItem() instanceof RulesItem) {
                         RulesItem tempRuleItem = (RulesItem) obj.getProperty().getItem();
                         listRulesItems.add(tempRuleItem);
@@ -138,10 +138,10 @@ public class RuleCellEditor extends DialogCellEditor {
             String itemId;
             RulesItem rulesItem = null;
             AbstractRlueOperationChoice ruleChoiceDialog = null;
-            if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
-                    && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
+            if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-1$ 
+                    && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-1$ //$NON-NLS-2$ 
                 itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString(); //$NON-NLS-1$
-                IRepositoryViewObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
+                IRepositoryViewObject obj = CoreUIPlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
                 if (obj.getProperty().getItem() != null && obj.getProperty().getItem() instanceof RulesItem) {
                     rulesItem = (RulesItem) obj.getProperty().getItem();
                     findRepositoryItem = true;
@@ -158,8 +158,7 @@ public class RuleCellEditor extends DialogCellEditor {
                 }
 
                 if (ruleChoiceDialog != null && ruleChoiceDialog.open() == Window.OK && ruleChoiceDialog.isRepositoryBtnChecked()) {
-                    return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
-                            + TalendTextUtils.QUOTATION_MARK;
+                    return TalendQuoteUtils.addQuotes(ruleChoiceDialog.getSelectedRuleFileName());
                 } else if (ruleChoiceDialog != null && !ruleChoiceDialog.isCancel()) {
                     if (!ruleChoiceDialog.isCheckViewRules()) {
                         // create a rule
@@ -180,7 +179,7 @@ public class RuleCellEditor extends DialogCellEditor {
                         createDialog.create();
                         if (createDialog.open() == Window.OK) {
                             if (createDialog.getName() != null && !createDialog.getName().equals("")) { //$NON-NLS-1$
-                                return TalendTextUtils.addQuotes(createDialog.getName());
+                                return TalendQuoteUtils.addQuotes(createDialog.getName());
                             } else {
                                 return ""; //$NON-NLS-1$
                             }
@@ -232,8 +231,7 @@ public class RuleCellEditor extends DialogCellEditor {
                             this.setValue(oldValue);
                             return oldValue;
                         }
-                        return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
-                                + TalendTextUtils.QUOTATION_MARK;
+                        return TalendQuoteUtils.addQuotes(ruleChoiceDialog.getSelectedRuleFileName());
                     } else {
                         this.setValue(oldValue);
                         return oldValue;
@@ -245,8 +243,7 @@ public class RuleCellEditor extends DialogCellEditor {
                             linkRuleItems, EProcessTypeForRule.BUILTIN, ruleToEdit, node.getProcess().isReadOnly());
                 }
                 if (ruleChoiceDialog != null && ruleChoiceDialog.open() == Window.OK) {
-                    return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName()
-                            + TalendTextUtils.QUOTATION_MARK;
+                    return TalendQuoteUtils.addQuotes(ruleChoiceDialog.getSelectedRuleFileName());
                 } else {
                     this.setValue(oldValue);
                     return oldValue;

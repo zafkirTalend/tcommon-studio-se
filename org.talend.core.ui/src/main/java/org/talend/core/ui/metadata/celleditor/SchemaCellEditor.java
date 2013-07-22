@@ -33,7 +33,6 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -49,10 +48,11 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
-import org.talend.core.ui.IEBCDICProviderService;
-import org.talend.core.ui.IHL7ProviderService;
-import org.talend.core.ui.IRulesProviderService;
-import org.talend.core.ui.ISAPProviderService;
+import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IEBCDICProviderService;
+import org.talend.core.service.IHL7ProviderService;
+import org.talend.core.service.IRulesProviderService;
+import org.talend.core.service.ISAPProviderService;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProcessType;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.ESelectionCategory;
 import org.talend.core.ui.metadata.command.ChangeRuleMetadataCommand;
@@ -187,6 +187,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                     Messages.getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
                     "", new IInputValidator() { //$NON-NLS-1$
 
+                        @Override
                         public String isValid(String newText) {
                             if ("".equals(newText.trim())) { //$NON-NLS-1$
                                 return Messages.getString("SchemaCellEditor.inputName"); //$NON-NLS-1$

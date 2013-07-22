@@ -35,7 +35,6 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.i18n.Messages;
 
 /**
  * Operation for exporting a resource and its children to a new .zip or .tar.gz file.
@@ -151,7 +150,7 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
 
             if (createLeadupStructure) {
                 if (rootName != null && !"".equals(destinationName)) { //$NON-NLS-1$
-                    if (file.getName().equals(Messages.getString("ArchiveFileExportOperationFullPath.SpecialFile"))) { //$NON-NLS-1$
+                    if (file.getName().equals("spagic.properties")) { //$NON-NLS-1$
                         destinationName = rootName.substring(0, rootName.indexOf("/")) + SEPARATOR + destinationName; //$NON-NLS-1$
                     } else if (!"".equals(rootName) && !rootName.equals(SEPARATOR)) { //$NON-NLS-1$
                         if (rootName.endsWith(SEPARATOR)) {
@@ -183,6 +182,7 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
             try {
                 children = file.listFiles(new FileFilter() {
 
+                    @Override
                     public boolean accept(File pathname) {
 
                         boolean result = true;
@@ -288,6 +288,7 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
      * Export the resources that were previously specified for export (or if a single resource was specified then
      * export. it recursively)
      */
+    @Override
     public void run(IProgressMonitor progressMonitor) throws InvocationTargetException, InterruptedException {
         this.monitor = progressMonitor;
 

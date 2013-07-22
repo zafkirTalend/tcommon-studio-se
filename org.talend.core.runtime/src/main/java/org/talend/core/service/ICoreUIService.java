@@ -14,6 +14,7 @@ package org.talend.core.service;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
@@ -32,4 +33,9 @@ public interface ICoreUIService extends IService {
 
     List<ITreeContextualAction> getRepositoryContextualsActions();
 
+    void componentsReset();
+
+    void initializeComponents(IProgressMonitor monitor);
+
+    void syncAllRules();
 }

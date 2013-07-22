@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: Libraries Manager UI plug-in
 Bundle-SymbolicName: org.talend.librariesmanager.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.talend.librariesmanager.ui.LibManagerUiPlugin
@@ -11,7 +11,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.talend.librariesmanager,
  org.talend.core,
+ org.talend.core.ui,
  org.talend.commons.ui
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.librariesmanager.ui.views,
  org.talend.librariesmanager.utils
+Bundle-Vendor: .Talend SA.

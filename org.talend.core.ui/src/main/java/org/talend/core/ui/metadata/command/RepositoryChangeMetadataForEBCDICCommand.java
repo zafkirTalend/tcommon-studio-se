@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
@@ -26,6 +25,7 @@ import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * nrousseau class global comment. Detailled comment
@@ -162,7 +162,7 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
         valueMap.put(IEbcdicConstant.FIELD_SCHEMA + IEbcdicConstant.REF_TYPE, IEbcdicConstant.REF_ATTR_REPOSITORY);
 
         if (oldOutputMetadata != null) {
-            CorePlugin.getDefault().getDesignerCoreService().removeConnection(node, oldOutputMetadata.getTableName());
+            CoreUIPlugin.getDefault().getDesignerCoreService().removeConnection(node, oldOutputMetadata.getTableName());
             node.getMetadataList().remove(oldOutputMetadata);
         }
 

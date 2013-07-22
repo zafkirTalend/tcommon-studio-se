@@ -20,6 +20,7 @@ import org.talend.core.IService;
 import org.talend.core.service.IOpenJobScriptActionService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -96,5 +97,10 @@ public class CoreUIPlugin extends AbstractUIPlugin {
 
     public IOpenJobScriptActionService getOpenJobScriptActionService() {
         return (IOpenJobScriptActionService) GlobalServiceRegister.getDefault().getService(IOpenJobScriptActionService.class);
+    }
+
+    public IMetadataService getMetadataService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+        return (IMetadataService) service;
     }
 }

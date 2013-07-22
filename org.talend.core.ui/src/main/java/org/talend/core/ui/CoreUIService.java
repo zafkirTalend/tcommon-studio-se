@@ -14,12 +14,17 @@ package org.talend.core.ui;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.components.ComponentPaletteUtilities;
 import org.talend.core.service.ICoreUIService;
+import org.talend.core.service.IRulesProviderService;
 import org.talend.core.ui.actions.ActionsHelper;
+import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -49,5 +54,29 @@ public class CoreUIService implements ICoreUIService {
     @Override
     public List<ITreeContextualAction> getRepositoryContextualsActions() {
         return ActionsHelper.getRepositoryContextualsActions();
+    }
+
+    @Override
+    public void componentsReset() {
+        ComponentsFactoryProvider.getInstance().reset();
+    }
+
+    @Override
+    public void initializeComponents(IProgressMonitor monitor) {
+        // second parameter to say only during login
+        ComponentsFactoryProvider.getInstance().initializeComponents(monitor, true);
+    }
+
+    @Override
+    public void syncAllRules() {
+        if (PluginChecker.isRulesPluginLoaded()
+                && GlobalServiceRegister.getDefault().isServiceRegistered(IRulesProviderService.class)) {
+            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
+                    IRulesProviderService.class);
+            if (rulesService != null) {
+                rulesService.syncAllRules();
+            }
+        }
+
     }
 }

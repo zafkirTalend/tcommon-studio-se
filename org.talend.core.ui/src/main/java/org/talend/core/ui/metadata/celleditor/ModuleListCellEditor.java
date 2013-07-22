@@ -46,11 +46,12 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
-import org.talend.core.i18n.Messages;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * ggu class global comment. Detailled comment
@@ -151,8 +152,8 @@ public class ModuleListCellEditor extends DialogCellEditor {
 
         @Override
         public void execute() {
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> values = (List<Map<String, Object>>) param.getValue();
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> values = (List<Map<String, Object>>) param.getValue();
             if (values == null) {
                 values = new ArrayList<Map<String, Object>>();
                 param.setValue(values);
@@ -243,7 +244,8 @@ public class ModuleListCellEditor extends DialogCellEditor {
             Composite c = new Composite(comp, SWT.NONE);
             c.setLayout(new GridLayout(3, false));
             c.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            selectField = new LabelledFileField(c, Messages.getString("ModuleListCellEditor.selectLabel"), FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
+            selectField = new LabelledFileField(c,
+                    Messages.getString("ModuleListCellEditor.selectLabel"), FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
 
             addListeners();
             checkField(true); // init
@@ -254,6 +256,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
         private void addListeners() {
             innerBtn.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     checkField(true);
                 }
@@ -261,6 +264,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
             });
             extBtn.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     checkField(false);
                 }
@@ -297,7 +301,11 @@ public class ModuleListCellEditor extends DialogCellEditor {
                 IPath path = Path.fromOSString(selectField.getText());
                 String lastSegment = path.lastSegment();
                 try {
-                    CorePlugin.getDefault().getLibrariesService().deployLibrary(path.toFile().toURI().toURL());
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                        ILibrariesService service = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                                ILibrariesService.class);
+                        service.deployLibrary(path.toFile().toURI().toURL());
+                    }
                 } catch (IOException ee) {
                     ExceptionHandler.process(ee);
                 }
@@ -305,6 +313,5 @@ public class ModuleListCellEditor extends DialogCellEditor {
             }
             super.okPressed();
         }
-
     }
 }

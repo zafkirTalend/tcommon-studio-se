@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.IRuleConstant;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -111,7 +111,7 @@ public class ChangeRuleMetadataCommand extends Command {
         // }
 
         if (oldOutputMetadata != null) {
-            CorePlugin.getDefault().getDesignerCoreService().removeConnection(node, oldOutputMetadata.getTableName());
+            CoreUIPlugin.getDefault().getDesignerCoreService().removeConnection(node, oldOutputMetadata.getTableName());
             node.getMetadataList().remove(oldOutputMetadata);
         }
 

@@ -85,10 +85,6 @@ public interface ICoreService extends IService {
 
     public void syncLibraries(IProgressMonitor... monitorWrap);
 
-    public void componentsReset();
-
-    public void initializeComponents(IProgressMonitor monitor);
-
     public void removeJobLaunch(IRepositoryViewObject objToDelete);
 
     public void deleteRoutinefile(IRepositoryViewObject objToDelete);
@@ -100,8 +96,6 @@ public interface ICoreService extends IService {
     public void syncAllRoutines() throws SystemException;
 
     public void syncAllBeans() throws SystemException;
-
-    public void syncAllRules();
 
     public Job initializeTemplates();
 

@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -43,6 +42,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
+import org.talend.core.runtime.i18n.Messages;
 import org.talend.cwm.helper.ConnectionHelper;
 
 /**
@@ -286,6 +286,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
         }
         schemaCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 setButtonAndStatus(checkSchema());
             }

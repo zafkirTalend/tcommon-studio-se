@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.eclipse.gef.palette.PaletteContainer;
-import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IFolderLayout;
@@ -51,10 +49,12 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     private boolean useProductRegistration = true;
 
+    @Override
     public IActionBarHelper getHelper() {
         return this.helper;
     }
 
+    @Override
     public void setHelper(IActionBarHelper helper) {
         this.helper = helper;
     }
@@ -67,12 +67,14 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         this.actionBarConfigurer = actionBarConfigurer;
     }
 
+    @Override
     public void fillMenuBar(IMenuManager menuBar) {
         if (helper != null) {
             helper.fillMenuBar(menuBar);
         }
     }
 
+    @Override
     public void fillCoolBar(ICoolBarManager coolBar) {
         if (helper != null) {
             helper.fillCoolBar(coolBar);
@@ -84,6 +86,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getHiddenRepositoryCategory()
      */
+    @Override
     public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent, String type) {
 
         List<IRepositoryNode> nodes = new ArrayList<IRepositoryNode>();
@@ -96,6 +99,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#initPerspective(org.eclipse.ui.IPageLayout)
      */
+    @Override
     public void initPerspective(IPageLayout layout) {
         try {
             String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
@@ -159,40 +163,9 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getAvailableComponents()
      */
+    @Override
     public String[] getAvailableComponents() {
         return null;
-    }
-
-    private int getIndex(List<PaletteEntry> children, String label) {
-        int ret = -1;
-        for (int i = 0; i < children.size(); i++) {
-            PaletteEntry n = children.get(i);
-            if (label.equals(n.getLabel())) {
-                ret = i;
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * 
-     * DOC achen Comment method "hideComponents".
-     * 
-     * @param container
-     * @param label
-     */
-    protected void hideComponents(PaletteEntry container, String label) {
-        if (container instanceof PaletteContainer) {
-            List<PaletteEntry> children = ((PaletteContainer) container).getChildren();
-            int index = getIndex(children, label);
-            if (index != -1) {
-                children.remove(index);
-            } else {
-                for (PaletteEntry n : children) {
-                    hideComponents(n, label);
-                }
-            }
-        }
     }
 
     /*
@@ -200,6 +173,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getAvailableLanguages()
      */
+    @Override
     public String[] getAvailableLanguages() {
         String[] languages;
 
@@ -212,6 +186,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobEditorSettings()
      */
+    @Override
     public Map<String, Object> getJobEditorSettings() {
         // no specific settings by default.
         return new HashMap<String, Object>();
@@ -222,6 +197,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseMailLoginCheck()
      */
+    @Override
     public boolean isUseMailLoginCheck() {
         return useMainLoginCheck;
     }
@@ -231,6 +207,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseProductRegistration()
      */
+    @Override
     public boolean isUseProductRegistration() {
         return useProductRegistration;
     }
@@ -240,6 +217,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isAllowDebugMode()
      */
+    @Override
     public boolean isAllowDebugMode() {
         return true;
     }
@@ -249,6 +227,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseDemoProjects()
      */
+    @Override
     public boolean isUseDemoProjects() {
         return true;
     }
@@ -258,6 +237,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getAdditionalTitle()
      */
+    @Override
     public String getAdditionalTitle() {
         return title;
     }
@@ -267,10 +247,12 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#setAdditionalTitle(java.lang.String)
      */
+    @Override
     public void setAdditionalTitle(String title) {
         this.title = title;
     }
 
+    @Override
     public String getInitialWindowPerspectiveId() {
         return "org.talend.rcp.perspective"; //$NON-NLS-1$
     }
@@ -291,6 +273,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#setUseMailLoginCheck(boolean)
      */
+    @Override
     public void setUseMailLoginCheck(boolean useMainLoginCheck) {
         this.useMainLoginCheck = useMainLoginCheck;
     }
@@ -300,14 +283,17 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#setUseProductRegistration(boolean)
      */
+    @Override
     public void setUseProductRegistration(boolean useProductRegistration) {
         this.useProductRegistration = useProductRegistration;
     }
 
+    @Override
     public boolean isOnlyRemoteConnection() {
         return false;
     }
 
+    @Override
     public boolean isAllowChengeVersion() {
         return true;
     }

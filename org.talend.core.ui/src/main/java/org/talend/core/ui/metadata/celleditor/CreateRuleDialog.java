@@ -36,15 +36,16 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.ui.IRulesProviderService;
+import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IRulesProviderService;
+import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.utils.TalendQuoteUtils;
 
 /**
  * DOC hywang class global comment. Detailled comment
@@ -86,9 +87,10 @@ public class CreateRuleDialog extends SelectionDialog {
         return composite;
     }
 
+    @Override
     protected Label createMessageArea(Composite composite) {
         Label label = new Label(composite, SWT.NONE);
-        label.setText(Messages.getString("CreateRuleDialog.messageLabel")); //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
+        label.setText(Messages.getString("CreateRuleDialog.messageLabel")); //$NON-NLS-1$ 
         label.setFont(composite.getFont());
         return label;
     }
@@ -117,6 +119,7 @@ public class CreateRuleDialog extends SelectionDialog {
         nameText = new Text(composite, SWT.BORDER);
         nameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 setButtonAndStatus(checkRule());
             }
@@ -145,7 +148,7 @@ public class CreateRuleDialog extends SelectionDialog {
             if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null) { //$NON-NLS-1$
                 itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString(); //$NON-NLS-1$
                 try {
-                    obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
+                    obj = CoreUIPlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
                     IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
                             IRulesProviderService.class);
                     if (obj != null) {
@@ -175,7 +178,7 @@ public class CreateRuleDialog extends SelectionDialog {
         String[] ruleNames = null;
         if (content != null && !content.equals("")) { //$NON-NLS-1$
             try {
-                Pattern regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
+                Pattern regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-1$ 
                         Pattern.CANON_EQ);
                 Matcher regexMatcher = regex.matcher(content);
                 while (regexMatcher.find()) {
@@ -183,7 +186,7 @@ public class CreateRuleDialog extends SelectionDialog {
 
                 }
                 if (names.isEmpty()) {
-                    regex = Pattern.compile("\\s*rule\\x20(.*)", //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
+                    regex = Pattern.compile("\\s*rule\\x20(.*)", //$NON-NLS-1$ 
                             Pattern.CANON_EQ);
                     regexMatcher = regex.matcher(content);
                     while (regexMatcher.find()) {
@@ -219,7 +222,7 @@ public class CreateRuleDialog extends SelectionDialog {
                         Map map = (Map) list.get(index);
                         selectedRuleName = (String) map.get("RULE"); //$NON-NLS-1$
                         if (selectedRuleName != null && !"".equals(selectedRuleName)) {
-                            selectedRuleName = TalendTextUtils.removeQuotes(selectedRuleName);
+                            selectedRuleName = TalendQuoteUtils.removeQuotes(selectedRuleName);
                             if (nameText.getText().equals(selectedRuleName)) {
                                 valid = false;
                                 break;

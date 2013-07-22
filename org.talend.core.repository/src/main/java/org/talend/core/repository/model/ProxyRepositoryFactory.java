@@ -109,6 +109,7 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.ICoreUIService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
@@ -300,7 +301,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // no check needed for table
             return false;
         }
-        boolean isAllowMultipleName = (type == ERepositoryObjectType.SQLPATTERNS || type == ERepositoryObjectType.METADATA_FILE_XML|| type.isAllowMultiName());
+        boolean isAllowMultipleName = (type == ERepositoryObjectType.SQLPATTERNS
+                || type == ERepositoryObjectType.METADATA_FILE_XML || type.isAllowMultiName());
 
         List<IRepositoryViewObject> list;
 
@@ -485,11 +487,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_ALL_ITEM_PATTERN, type, path, true);
         } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
             checkFileNameAndPath(project, label, RepositoryConstants.SIMPLE_FOLDER_PATTERN, type, path, true);
-        } else if(type == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES")){
-        	if(org.eclipse.core.runtime.Status.OK_STATUS != ResourcesPlugin.getWorkspace().validateName(label, IResource.FOLDER)){
-        		 throw new IllegalArgumentException(Messages.getString(
-                         "ProxyRepositoryFactory.illegalArgumentException.labelNotMatchPattern",  label)); //$NON-NLS-1$
-        	}
+        } else if (type == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES")) {
+            if (org.eclipse.core.runtime.Status.OK_STATUS != ResourcesPlugin.getWorkspace().validateName(label, IResource.FOLDER)) {
+                throw new IllegalArgumentException(Messages.getString(
+                        "ProxyRepositoryFactory.illegalArgumentException.labelNotMatchPattern", label)); //$NON-NLS-1$
+            }
         } else {
             checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
         }
@@ -1752,8 +1754,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.load.componnents"), 1); //$NON-NLS-1$
-                coreService.componentsReset();
-                coreService.initializeComponents(currentMonitor);
+                ICoreUIService coreUiService = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+                    coreUiService = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+                }
+                if (coreUiService != null) {
+                    coreUiService.componentsReset();
+                    coreUiService.initializeComponents(currentMonitor);
+                }
                 // monitorWrap.worked(1);
                 TimeMeasure.step("logOnProject", "initializeComponents");
 
@@ -1780,8 +1788,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     throw new OperationCanceledException(""); //$NON-NLS-1$
                 }
                 // rules
-                if (PluginChecker.isRulesPluginLoaded()) {
-                    coreService.syncAllRules();
+                if (coreUiService != null && PluginChecker.isRulesPluginLoaded()) {
+                    coreUiService.syncAllRules();
                 }
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(""); //$NON-NLS-1$

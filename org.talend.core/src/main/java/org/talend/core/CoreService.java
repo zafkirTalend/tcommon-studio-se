@@ -78,7 +78,6 @@ import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.prefs.ui.CorePreferencePage;
-import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -87,7 +86,6 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.joblet.ui.IJobCheckService;
 import org.talend.designer.runprocess.IRunProcessService;
-import org.talend.repository.model.ComponentsFactoryProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -241,17 +239,6 @@ public class CoreService implements ICoreService {
     }
 
     @Override
-    public void componentsReset() {
-        ComponentsFactoryProvider.getInstance().reset();
-    }
-
-    @Override
-    public void initializeComponents(IProgressMonitor monitor) {
-        // second parameter to say only during login
-        ComponentsFactoryProvider.getInstance().initializeComponents(monitor, true);
-    }
-
-    @Override
     public void removeJobLaunch(IRepositoryViewObject objToDelete) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
             IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
@@ -312,19 +299,6 @@ public class CoreService implements ICoreService {
             ITalendSynchronizer talendSynchronizer = codeGenService.createCamelBeanSynchronizer();
             if (talendSynchronizer != null) {
                 talendSynchronizer.syncAllBeans();
-            }
-        }
-
-    }
-
-    @Override
-    public void syncAllRules() {
-        if (PluginChecker.isRulesPluginLoaded()
-                && GlobalServiceRegister.getDefault().isServiceRegistered(IRulesProviderService.class)) {
-            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
-                    IRulesProviderService.class);
-            if (rulesService != null) {
-                rulesService.syncAllRules();
             }
         }
 
