@@ -15,10 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Properties;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 
 /**
@@ -92,8 +90,8 @@ public class I18NChecker {
                 processMapper(mapper);
             }
         } catch (Exception e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
+            e.printStackTrace();
+            // ExceptionHandler.process(e);
         }
 
     }
@@ -142,8 +140,8 @@ public class I18NChecker {
         otherPro.load(new FileInputStream(otherProperties));
 
         // Add the key that otherPro lacks.
-        for (Iterator iter = enPro.keySet().iterator(); iter.hasNext();) {
-            String enKey = (String) iter.next();
+        for (Object element : enPro.keySet()) {
+            String enKey = (String) element;
 
             if (!otherPro.containsKey(enKey)) {
                 otherPro.put(enKey, ""); //$NON-NLS-1$
@@ -151,8 +149,8 @@ public class I18NChecker {
         }
 
         // Remove the key that is redundant in otherPro.
-        for (Iterator iter = otherPro.keySet().iterator(); iter.hasNext();) {
-            String otherKey = (String) iter.next();
+        for (Object element : otherPro.keySet()) {
+            String otherKey = (String) element;
 
             if (!enPro.containsKey(otherKey)) {
                 otherPro.remove(otherKey);
@@ -187,13 +185,11 @@ public class I18NChecker {
         nlProjects = workspace.listFiles(nlProjectFilter);
 
         mapperList = new ArrayList<ProjectMapper>();
-        for (int i = 0; i < projects.length; i++) {
-            File project = projects[i];
-
+        for (File project : projects) {
             File nlproject = null;
-            for (int j = 0; j < nlProjects.length; j++) {
-                if (nlProjects[j].getName().equals(project.getName() + ".nl")) { //$NON-NLS-1$
-                    nlproject = nlProjects[j];
+            for (File nlProject2 : nlProjects) {
+                if (nlProject2.getName().equals(project.getName() + ".nl")) { //$NON-NLS-1$
+                    nlproject = nlProject2;
                     break;
                 }
             }
@@ -212,6 +208,7 @@ public class I18NChecker {
 
     FilenameFilter projectFilter = new FilenameFilter() {
 
+        @Override
         public boolean accept(File dir, String name) {
             if (!name.startsWith("org.talend.")) { //$NON-NLS-1$
                 return false;
@@ -225,6 +222,7 @@ public class I18NChecker {
 
     FilenameFilter nlProjectFilter = new FilenameFilter() {
 
+        @Override
         public boolean accept(File dir, String name) {
             return name.startsWith("org.talend.") && name.endsWith(".nl"); //$NON-NLS-1$ //$NON-NLS-2$
         }

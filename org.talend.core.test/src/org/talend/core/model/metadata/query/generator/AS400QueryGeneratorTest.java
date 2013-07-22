@@ -1,15 +1,10 @@
 package org.talend.core.model.metadata.query.generator;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -19,8 +14,20 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.service.ICoreUIService;
+
+import static org.junit.Assert.*;
+
+import static org.mockito.Mockito.*;
 
 public class AS400QueryGeneratorTest {
+
+    private void set4AS400(boolean flag) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            service.getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, flag);
+        }
+    }
 
     @Test
     public void testGenerateQuery() {
@@ -48,7 +55,7 @@ public class AS400QueryGeneratorTest {
 
         String testSystemSQL = "SELECT \n  mytable/newColumn\nFROM mytable";
 
-        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, true);
+        set4AS400(true);
 
         IMetadataTable newTable = new MetadataTable();
 
@@ -84,7 +91,7 @@ public class AS400QueryGeneratorTest {
         assertTrue(expectString.equals(resultString));
 
         // test system Sql for AS400
-        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, false);
+        set4AS400(false);
 
         asQg.setParameters(as400Element, newTable, "", "mytable");
 

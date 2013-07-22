@@ -12,9 +12,7 @@
 // ============================================================================
 import java.util.Collection;
 
-import org.apache.oro.text.regex.MalformedPatternException;
 import org.junit.Test;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.utils.SQLFormatUtil;
 
 /**
@@ -24,17 +22,14 @@ public class TestSQLFormatUtil {
 
     /**
      * Test method for {@link org.talend.core.utils.SQLFormatUtil#separate(java.lang.String, java.lang.String)}.
+     * 
+     * @throws Exception
      */
     @Test
-    public void testSeparate() {
+    public void testSeparate() throws Exception {
         SQLFormatUtil util = new SQLFormatUtil();
-        try {
-            Collection<String> res = util.separate("select * from table", "sel|table"); //$NON-NLS-1$ //$NON-NLS-2$
-            System.out.println(res);
-        } catch (MalformedPatternException e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-        }
+        Collection<String> res = util.separate("select * from table", "sel|table"); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println(res);
     }
 
 }
