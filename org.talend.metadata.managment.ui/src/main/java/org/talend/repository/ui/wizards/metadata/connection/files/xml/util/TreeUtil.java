@@ -829,7 +829,7 @@ public class TreeUtil {
 
             String rootName = "";
             if (treeNode.getValue() instanceof String) {
-                rootName += "/" + treeNode.getValue();
+                rootName += "/" + treeNode.getValue() + "[" + treeNode.getDataType() + "]";
             }
             FOXTreeNode root = cloneATreeNode(treeNode, rootName, true);
             if (root instanceof Element) {
@@ -951,7 +951,7 @@ public class TreeUtil {
                     ATreeNode child = (ATreeNode) element;
                     String newPath = currentPath + "/";
                     if (child.getValue() instanceof String) {
-                        String elementName = (String) child.getValue();
+                        String elementName = (String) child.getValue() + "[" + child.getDataType() + "]";
                         if (currentPath.contains("/" + elementName + "/") && isXsd) {
                             // ExceptionHandler.process(new Exception("XSD ERROR: loop found. Item: " + elementName
                             // + " is already in the currentPath (" + currentPath + ")."));
