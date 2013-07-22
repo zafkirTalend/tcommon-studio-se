@@ -20,14 +20,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -133,13 +131,7 @@ public interface ICoreService extends IService {
 
     public boolean isOpenedItemInEditor(IRepositoryViewObject object);
 
-    public void updatePalette();
-
     public IMetadataTable convert(MetadataTable originalTable);
-
-    public MenuManager[] getRepositoryContextualsActionGroups();
-
-    public List<ITreeContextualAction> getRepositoryContextualsActions();
 
     public void createTalendCorePreference(CorePreferencePage page, Composite parentComposite);
 }

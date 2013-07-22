@@ -491,23 +491,6 @@ public class QueryUtil {
     }
 
     /**
-     * 
-     * ggu Comment method "checkAndRemoveQuotes".
-     * 
-     * if the query is common string and start with quote, will remove the quotes.
-     */
-    public static String checkAndRemoveQuotes(String query) {
-        if (query == null) {
-            query = ""; //$NON-NLS-1$
-        }
-        query = query.trim();
-        if (query.startsWith(TalendTextUtils.getQuoteChar()) && TalendTextUtils.isCommonString(query)) {
-            return TalendTextUtils.removeQuotes(query);
-        }
-        return query; // keep it
-    }
-
-    /**
      * Wanghaoyu Comment method "checkIfIsNoQuotesAtAll"
      * 
      * to check a query if has any quote

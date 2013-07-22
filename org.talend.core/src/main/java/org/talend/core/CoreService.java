@@ -35,7 +35,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -52,12 +51,10 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -82,7 +79,6 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.prefs.ui.CorePreferencePage;
 import org.talend.core.ui.IRulesProviderService;
-import org.talend.core.ui.actions.ActionsHelper;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -557,23 +553,8 @@ public class CoreService implements ICoreService {
     }
 
     @Override
-    public void updatePalette() {
-        ComponentUtilities.updatePalette();
-    }
-
-    @Override
     public IMetadataTable convert(MetadataTable originalTable) {
         return ConvertionHelper.convert(originalTable);
-    }
-
-    @Override
-    public MenuManager[] getRepositoryContextualsActionGroups() {
-        return ActionsHelper.getRepositoryContextualsActionGroups();
-    }
-
-    @Override
-    public List<ITreeContextualAction> getRepositoryContextualsActions() {
-        return ActionsHelper.getRepositoryContextualsActions();
     }
 
     @Override

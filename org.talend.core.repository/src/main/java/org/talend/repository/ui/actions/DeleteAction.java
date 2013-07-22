@@ -50,7 +50,6 @@ import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.context.Context;
@@ -88,6 +87,7 @@ import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.RepositoryReferenceBeanUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.ICoreUIService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -389,8 +389,9 @@ public class DeleteAction extends AContextualAction {
             public void run() {
                 // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
                 if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
-                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+                        ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(
+                                ICoreUIService.class);
                         service.updatePalette();
                     }
 

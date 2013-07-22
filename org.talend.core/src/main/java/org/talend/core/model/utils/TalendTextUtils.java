@@ -32,14 +32,6 @@ import org.talend.core.utils.TalendQuoteUtils;
  */
 public class TalendTextUtils {
 
-    public static final String SQL_BUILDER_TITLE_COMP_PREFIX = "SQL Builder [Component Mode] - Job:"; //$NON-NLS-1$
-
-    public static final String SQL_BUILDER_TITLE_COMP_NAME = " - Component:"; //$NON-NLS-1$
-
-    public static final String SQL_BUILDER_TITLE_REP = "SQL Builder [Repository Mode]"; //$NON-NLS-1$
-
-    public static final String SQL_BUILDER_TITLE_COMP_MODPREFIX = "SQL Builder - Component Mode - Job:"; //$NON-NLS-1$
-
     public static final String SINGLE_QUOTE = TalendQuoteUtils.SINGLE_QUOTE;
 
     public static final String ANTI_QUOTE = TalendQuoteUtils.ANTI_QUOTE;

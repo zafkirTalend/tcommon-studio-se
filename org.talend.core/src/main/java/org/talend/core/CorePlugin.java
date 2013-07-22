@@ -13,14 +13,9 @@
 package org.talend.core;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -29,10 +24,8 @@ import org.talend.core.service.IDesignerXMLMapperService;
 import org.talend.core.service.IWebService;
 import org.talend.core.service.IWebServiceTos;
 import org.talend.core.ui.ICreateXtextProcessService;
-import org.talend.core.ui.IOpenJobScriptActionService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.rcp.IRcpService;
@@ -82,15 +75,7 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     @Override
     public void stop(BundleContext contextP) throws Exception {
-        try {
-            if (EditorsPlugin.getDefault() != null) {
-                ECodeLanguage lan = LanguageManager.getCurrentLanguage();
-                getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
-            }
-            plugin = null;
-        } catch (RuntimeException e) {
-            logger.log(Priority.DEBUG, e.getMessage(), e);
-        }
+        plugin = null;
         super.stop(contextP);
     }
 
@@ -105,16 +90,6 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     public static Context getContext() {
         return CoreRuntimePlugin.getInstance().getContext();
-    }
-
-    /**
-     * Returns an image descriptor for the image file at the given plug-in relative path.
-     * 
-     * @param path the path
-     * @return the image descriptor
-     */
-    public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
     }
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
@@ -158,11 +133,6 @@ public class CorePlugin extends AbstractUIPlugin {
     public IRepositoryLocalProviderService getRepositoryLocalProviderService() {
         return (IRepositoryLocalProviderService) GlobalServiceRegister.getDefault().getService(
                 IRepositoryLocalProviderService.class);
-    }
-
-    public IComponentsLocalProviderService getComponentsLocalProviderService() {
-        return (IComponentsLocalProviderService) GlobalServiceRegister.getDefault().getService(
-                IComponentsLocalProviderService.class);
     }
 
     public ICodeGeneratorService getCodeGeneratorService() {
@@ -214,7 +184,4 @@ public class CorePlugin extends AbstractUIPlugin {
         return (ICreateXtextProcessService) GlobalServiceRegister.getDefault().getService(ICreateXtextProcessService.class);
     }
 
-    public IOpenJobScriptActionService getOpenJobScriptActionService() {
-        return (IOpenJobScriptActionService) GlobalServiceRegister.getDefault().getService(IOpenJobScriptActionService.class);
-    }
 }

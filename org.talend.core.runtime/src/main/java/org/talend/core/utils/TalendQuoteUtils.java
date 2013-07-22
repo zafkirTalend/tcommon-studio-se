@@ -397,4 +397,21 @@ public final class TalendQuoteUtils {
     public static void setLeft(boolean left) {
         isLeft = left;
     }
+
+    /**
+     * 
+     * ggu Comment method "checkAndRemoveQuotes".
+     * 
+     * if the query is common string and start with quote, will remove the quotes.
+     */
+    public static String checkAndRemoveQuotes(String query) {
+        if (query == null) {
+            query = ""; //$NON-NLS-1$
+        }
+        query = query.trim();
+        if (query.startsWith(getQuoteChar()) && isCommonString(query)) {
+            return removeQuotes(query);
+        }
+        return query; // keep it
+    }
 }

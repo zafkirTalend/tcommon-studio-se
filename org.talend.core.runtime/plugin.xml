@@ -52,5 +52,38 @@
            id="org.talend.core.prefs"
            name="%prefs">
      </page>
+     <page
+           category="org.talend.core.prefs"
+           class="org.talend.core.runtime.MetadataPrecisionPage"
+           id="org.talend.core.runtime.MetadataPrecisionPage"
+           name="%Metadata">
+     </page>
+     <page
+           category="org.talend.core.prefs"
+           class="org.talend.core.prefs.collector.TalendDataCollectorPreferencePage"
+           id="org.talend.core.prefs.datacollector"
+           name="%TalendDataCollector">
+     </page>
+     <page
+           category="org.talend.core.prefs.datacollector"
+           class="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+           id="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+           name="%TalendDataCollectorPreview">
+     </page>
+     <page
+           category="org.talend.core.prefs.datacollector"
+           class="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+           id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+           name="%TalendDataCollectorUploading">
+     </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer">
+      </initializer>
+      <initializer
+            class="org.talend.core.runtime.MetadataPreferenceInitializer">
+      </initializer>
    </extension>
 </plugin>

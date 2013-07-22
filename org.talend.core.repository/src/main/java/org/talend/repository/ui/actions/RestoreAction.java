@@ -37,7 +37,6 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.properties.ConnectionItem;
@@ -49,6 +48,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.service.ICoreUIService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -233,8 +233,9 @@ public class RestoreAction extends AContextualAction {
 
                 @Override
                 public void run() {
-                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                        ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                    if (updatePalette && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+                        ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(
+                                ICoreUIService.class);
                         service.updatePalette();
                     }
                 }

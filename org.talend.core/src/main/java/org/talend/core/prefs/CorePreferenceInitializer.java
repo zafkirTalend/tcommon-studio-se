@@ -27,7 +27,6 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
@@ -99,8 +98,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
             store.setValue(editorLineNumberRuler, true);
 
-            // default colors for the ColorStyledText.
-            ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
         }
         String languageType = Locale.getDefault().getLanguage();
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);

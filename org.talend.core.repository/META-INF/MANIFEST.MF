@@ -14,7 +14,6 @@ Require-Bundle: org.eclipse.ui,
  org.talend.libraries.apache,
  org.eclipse.osgi.services
 Export-Package: org.talend.core.ldap,
- org.talend.core.model.genhtml,
  org.talend.core.model.metadata,
  org.talend.core.repository,
  org.talend.core.repository.constants,
@@ -38,3 +37,4 @@ Export-Package: org.talend.core.ldap,
  org.talend.repository.utils
 Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: .Talend SA.
