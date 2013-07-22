@@ -73,7 +73,7 @@ public class CustomVersionLibsManager {
             boolean isOk = false;
             File jarFile = new File(jarPath);
             if (!jarFile.exists()) {
-                isOk = librairesService.retrieve(jarName, tmpFolder, new NullProgressMonitor());
+                isOk = librairesService.retrieve(jarName, tmpFolder, false, new NullProgressMonitor());
             }
             if (isOk) {
                 desc = getJarDescFromManifest(jarFile);

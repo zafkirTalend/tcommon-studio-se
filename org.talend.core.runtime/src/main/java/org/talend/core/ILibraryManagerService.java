@@ -66,6 +66,8 @@ public interface ILibraryManagerService extends IService {
      */
     public boolean retrieve(String jarNeeded, String pathToStore, IProgressMonitor... monitorWrap);
 
+    public boolean retrieve(String jarNeeded, String pathToStore, boolean showDialog, IProgressMonitor... monitorWrap);
+
     public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, IProgressMonitor... monitorWrap);
 
     public boolean retrieve(Collection<String> jarsNeeded, String pathToStore, boolean showDialog,
