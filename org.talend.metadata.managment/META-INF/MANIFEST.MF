@@ -37,6 +37,7 @@ Bundle-ClassPath: .,
  lib/axis.jar,
  lib/commons-discovery-0.2.jar,
  lib/wsdl4j-1.5.1.jar
+Bundle-Vendor: .Talend SA.
 
 
 

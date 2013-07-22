@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -73,7 +72,6 @@ import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.ui.utils.loader.MyURLClassLoader;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -109,6 +107,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -528,15 +527,8 @@ public class DatabaseForm extends AbstractForm {
     private void checkAS400SpecificCase() {
         if (getConnection().isStandardSQL() == getConnection().isSystemSQL()) { // create
             // connection
-            boolean b = false;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-                IPreferenceStore preferenceStore = coreService.getPreferenceStore();
-                if (preferenceStore != null) {
-                    b = preferenceStore.getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
-                }
+            boolean b = CoreUIPlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
 
-            }
             standardButton.setSelection(b);
             systemButton.setSelection(!b);
             getConnection().setStandardSQL(b);

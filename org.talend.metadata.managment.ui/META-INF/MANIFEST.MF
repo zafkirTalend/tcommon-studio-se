@@ -13,22 +13,19 @@ Require-Bundle: org.eclipse.ui,
  org.talend.commons.ui,
  org.talend.core.runtime,
  org.talend.core.repository,
- org.talend.core.ui,
  org.talend.metadata.managment,
  org.talend.utils,
  org.talend.libraries.dom4j-jaxen,
  org.eclipse.xsd,
  org.talend.datatools.xml,
  org.apache.log4j,
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.talend.core.ui
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
-Export-Package: org.talend.core.model.metadata.editor,
- org.talend.core.prefs.ui,
- org.talend.core.ui.metadata.celleditor,
+Bundle-Localization: plugin
+Export-Package: org.talend.core.ui.metadata.celleditor,
  org.talend.core.ui.metadata.dialog,
- org.talend.core.ui.metadata.editor,
- org.talend.core.ui.metadata.extended.command,
  org.talend.metadata.managment.ui,
  org.talend.metadata.managment.ui.i18n,
  org.talend.repository.model,

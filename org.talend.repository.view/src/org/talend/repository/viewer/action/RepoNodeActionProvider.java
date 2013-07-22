@@ -34,7 +34,7 @@ import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
+import org.talend.core.service.ICoreUIService;
 
 public class RepoNodeActionProvider extends CommonActionProvider {
 
@@ -82,8 +82,9 @@ public class RepoNodeActionProvider extends CommonActionProvider {
         // FIXME need check this service for other product. because the extension point is in org.talend.core.
         IStructuredSelection sel = (IStructuredSelection) getContext().getSelection();
         MenuManager[] menuManagerGroups = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            final ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            final ICoreUIService coreService = (ICoreUIService) GlobalServiceRegister.getDefault().getService(
+                    ICoreUIService.class);
             if (coreService != null) {
                 menuManagerGroups = coreService.getRepositoryContextualsActionGroups();
             }
@@ -168,8 +169,9 @@ public class RepoNodeActionProvider extends CommonActionProvider {
             ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
             IHandlerService handlerService = (IHandlerService) navWorkSite.getSite().getService(IHandlerService.class);
             IHandler handler = null;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-                final ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+                final ICoreUIService coreService = (ICoreUIService) GlobalServiceRegister.getDefault().getService(
+                        ICoreUIService.class);
                 if (coreService != null) {
                     contextualsActions = coreService.getRepositoryContextualsActions();
                     for (ITreeContextualAction action : contextualsActions) {

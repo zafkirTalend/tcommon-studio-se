@@ -25,6 +25,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.Dbms;
+import org.talend.core.model.metadata.IConvertionConstants;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -49,8 +50,6 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
 public final class ConvertionHelper {
 
     private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-
-    public static String ADDITIONAL_FIELD_PREFIX = "additionalField:"; //$NON-NLS-1$
 
     /**
      * This method doesn't perform a deep copy. DOC tguiu Comment method "convert".
@@ -377,7 +376,7 @@ public final class ConvertionHelper {
             if (column.getTaggedValue().size() > 0) {
                 for (TaggedValue tv : column.getTaggedValue()) {
                     String additionalTag = tv.getTag();
-                    if (additionalTag.startsWith(ADDITIONAL_FIELD_PREFIX)) {
+                    if (additionalTag.startsWith(IConvertionConstants.ADDITIONAL_FIELD_PREFIX)) {
                         String[] splits = additionalTag.split(":");
                         additionalTag = splits[1];
                     }

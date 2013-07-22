@@ -22,8 +22,8 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.DbDefaultLengthAndPrecision;
 import org.talend.core.model.metadata.Dbms;
+import org.talend.core.model.metadata.IConvertionConstants;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
@@ -455,7 +455,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 String value = null;
                 for (TaggedValue tgValue : bean.getTaggedValue()) {
                     String tag = tgValue.getTag();
-                    if (tag != null && tag.startsWith(ConvertionHelper.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
+                    if (tag != null && tag.startsWith(IConvertionConstants.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
                         value = tgValue.getValue();
                         break;
                     }
@@ -467,14 +467,14 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 // try to find the tag if exists
                 for (TaggedValue tgValue : bean.getTaggedValue()) {
                     String tag = tgValue.getTag();
-                    if (tag != null && tag.startsWith(ConvertionHelper.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
+                    if (tag != null && tag.startsWith(IConvertionConstants.ADDITIONAL_FIELD_PREFIX) && tag.endsWith(field)) {
                         tgValue.setValue(value);
                         return;
                     }
                 }
                 // if no tag exists, create a new one
                 TaggedValue tgValue = orgomg.cwm.objectmodel.core.CoreFactory.eINSTANCE.createTaggedValue();
-                tgValue.setTag(ConvertionHelper.ADDITIONAL_FIELD_PREFIX + field);
+                tgValue.setTag(IConvertionConstants.ADDITIONAL_FIELD_PREFIX + field);
                 tgValue.setValue(value);
             }
 

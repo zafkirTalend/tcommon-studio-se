@@ -63,7 +63,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.ui.IOpenJobScriptActionService;
+import org.talend.core.service.IOpenJobScriptActionService;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;

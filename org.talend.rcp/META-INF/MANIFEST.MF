@@ -7,6 +7,7 @@ Bundle-Activator: org.talend.rcp.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.intro,
  org.talend.core,
+ org.talend.core.ui,
  org.talend.repository,
  org.talend.designer.runprocess,
  org.talend.designer.codegen,
