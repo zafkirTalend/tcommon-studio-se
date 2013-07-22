@@ -216,7 +216,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return retrieve(jarNeeded, pathToStore, true, monitorWrap);
     }
 
-    private boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
+    public boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
 
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
