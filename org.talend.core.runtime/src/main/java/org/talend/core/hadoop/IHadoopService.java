@@ -30,7 +30,7 @@ public interface IHadoopService extends IService {
      * @param version
      * @return jars which this hadoop distribution(and version) needed.
      */
-    public Set<String> getHadoopLibraries(String distribution, String version);
+    public Set<String> getHadoopLibraries(String distribution, String version, boolean showDownloadIfNotExist);
 
     public Set<String> getHadoopLibrariesByType(ECustomVersionType type, String distribution, String version);
 

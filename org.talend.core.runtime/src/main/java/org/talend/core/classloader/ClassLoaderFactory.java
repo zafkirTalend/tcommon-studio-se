@@ -66,12 +66,16 @@ public class ClassLoaderFactory {
      * @return the classLoader by index
      */
     public static DynamicClassLoader getClassLoader(String index) {
+        return getClassLoader(index, true);
+    }
+
+    public static DynamicClassLoader getClassLoader(String index, boolean showDownloadIfNotExist) {
         if (classLoadersMap == null) {
             init();
         }
         DynamicClassLoader classLoader = classLoadersMap.get(index);
         if (classLoader == null) {
-            classLoader = findLoader(index);
+            classLoader = findLoader(index, showDownloadIfNotExist);
         }
 
         return classLoader;
@@ -129,7 +133,7 @@ public class ClassLoaderFactory {
 
     private static DynamicClassLoader createCustomClassLoader(String index, Set<String> libraries) {
         DynamicClassLoader classLoader = new DynamicClassLoader();
-        loadLibraries(classLoader, libraries.toArray(new String[0]));
+        loadLibraries(classLoader, libraries.toArray(new String[0]), false);
         classLoadersMap.put(index, classLoader);
 
         return classLoader;
@@ -143,7 +147,7 @@ public class ClassLoaderFactory {
         classLoadersMap = new HashMap<String, DynamicClassLoader>();
     }
 
-    private static DynamicClassLoader findLoader(String index) {
+    private static DynamicClassLoader findLoader(String index, boolean showDownloadIfNotExist) {
         if (index != null && configurationElements != null) {
             for (IConfigurationElement current : configurationElements) {
                 String key = current.getAttribute(INDEX_ATTR);
@@ -154,7 +158,7 @@ public class ClassLoaderFactory {
                         boolean putInCache = true;
                         if (StringUtils.isNotEmpty(libraries)) {
                             String[] librariesArray = libraries.split(SEPARATOR);
-                            putInCache = loadLibraries(classLoader, librariesArray);
+                            putInCache = loadLibraries(classLoader, librariesArray, showDownloadIfNotExist);
                         }
                         if (putInCache) {
                             // if any libraries can't be retreived , do not put it in cache
@@ -169,7 +173,7 @@ public class ClassLoaderFactory {
         return null;
     }
 
-    private static boolean loadLibraries(DynamicClassLoader classLoader, String[] driversArray) {
+    private static boolean loadLibraries(DynamicClassLoader classLoader, String[] driversArray, boolean showDownloadIfNotExist) {
         List<String> jarPathList = new ArrayList<String>();
         if (driversArray == null || driversArray.length == 0) {
             return true;
@@ -190,7 +194,8 @@ public class ClassLoaderFactory {
         // retreive all needed libs in one time
         boolean putInCache = false;
         if (!driverNotExist.isEmpty()) {
-            putInCache = librairesManagerService.retrieve(driverNotExist, libPath, new NullProgressMonitor());
+            putInCache = librairesManagerService.retrieve(driverNotExist, libPath, showDownloadIfNotExist,
+                    new NullProgressMonitor());
         }
 
         classLoader.setLibStorePath(libPath);
