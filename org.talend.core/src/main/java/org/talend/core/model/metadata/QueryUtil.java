@@ -13,8 +13,6 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -28,6 +26,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.utils.TalendQuoteUtils;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -223,9 +222,8 @@ public class QueryUtil {
             if (dbType != null
                     && (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName()) || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED
                             .getDisplayName()))) {
-                Pattern pattern = Pattern.compile("[^\\w.]");
-                Matcher matcher = pattern.matcher(columnStr);
-                columnStr = TalendTextUtils.addQuotes(matcher.replaceAll(""));
+
+                columnStr = TalendQuoteUtils.addQuotesIfNotExist(metaDataColumn.getOriginalDbColumnName());
             }
             if (i != index - 1) {
                 columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE)); //$NON-NLS-1$
