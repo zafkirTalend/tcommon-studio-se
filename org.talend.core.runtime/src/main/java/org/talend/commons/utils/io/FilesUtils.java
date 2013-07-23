@@ -909,6 +909,13 @@ public class FilesUtils {
         }
     }
 
+    /**
+     * copy the dirictory(include sub folders and files) from the source to the target, the copyed dirictory will be
+     * under the target.
+     * 
+     * @param source
+     * @param target
+     */
     public static void copyDirectory(File source, File target) {
         File tarpath = new File(target, source.getName());
         if (source.isDirectory()) {
@@ -936,6 +943,13 @@ public class FilesUtils {
         }
     }
 
+    /**
+     * copy the dirictory(include sub folders and files, don't include ".svn" folders) from the source to the target,
+     * the copyed dirictory will be under the target.
+     * 
+     * @param source
+     * @param target
+     */
     public static void copyDirectoryWithoutSvnFolder(File source, File target) {
         File tarpath = new File(target, source.getName());
         if (source.isDirectory()) {
