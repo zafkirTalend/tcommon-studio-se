@@ -27,13 +27,14 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
  */
 public class TDQServiceRegister {
 
-    private static IConfigurationElement[] configurationElements;
+    private static IConfigurationElement[] configurationElements = new IConfigurationElement[0];
 
     private static TDQServiceRegister instance = null;
 
     private TDQServiceRegister() {
 
     }
+
     public static TDQServiceRegister getInstance() {
         if (instance == null) {
             instance = new TDQServiceRegister();
@@ -43,12 +44,12 @@ public class TDQServiceRegister {
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        configurationElements = registry.getConfigurationElementsFor("org.talend.core.repository.resource_change"); //$NON-NLS-1$
+        if (registry != null) {
+            configurationElements = registry.getConfigurationElementsFor("org.talend.core.repository.resource_change"); //$NON-NLS-1$
+        }
     }
 
     private Map<Class<?>, AbstractResourceChangesService> services = new HashMap<Class<?>, AbstractResourceChangesService>();
-
-
 
     public AbstractResourceChangesService getResourceChangeService(Class<?> klass) {
         AbstractResourceChangesService service = services.get(klass);
@@ -68,8 +69,7 @@ public class TDQServiceRegister {
      * @return IService
      */
     private AbstractResourceChangesService findService(Class<?> klass) {
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
+        for (IConfigurationElement element : configurationElements) {
             try {
                 Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
                 if (klass.isInstance(service)) {
@@ -81,6 +81,5 @@ public class TDQServiceRegister {
         }
         return null;
     }
-
 
 }
