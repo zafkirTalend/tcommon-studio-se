@@ -242,18 +242,16 @@ public class TalendTextUtils {
             char c = fieldName.charAt(i);
             b = b && c >= '0' && c <= '9';
         }
+        // if fieldName include special symbol,need add quote
+        boolean check = Pattern.matches("^.[A-Za-z_]+$", fieldName);//$NON-NLS-1$
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
-        if (name.equals(EDatabaseTypeName.MYSQL) && fieldName.contains(JAVA_END_STRING)) {
-            String newFieldName = TalendQuoteUtils.addQuotes(fieldName);
-            return newFieldName;
-        }
         if (name.equals(EDatabaseTypeName.MYSQL) && fieldName.contains(JAVA_END_STRING)) {
             String newFieldName = TalendQuoteUtils.addQuotes(fieldName);
             return newFieldName;
         }
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
-            if (isCheck && isPSQLSimilar(name)) {
+            if (isCheck && isPSQLSimilar(name) && check) {
                 return fieldName;
             }
         }
