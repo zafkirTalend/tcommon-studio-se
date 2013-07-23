@@ -12,11 +12,6 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Date;
 
 import org.eclipse.core.runtime.Path;
@@ -46,6 +41,8 @@ import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
+
+import static org.junit.Assert.*;
 
 /**
  * DOC hwang class global comment. Detailled comment <br/>
@@ -234,8 +231,8 @@ public class MetadataToolHelperTest {
      */
     @Test
     public void testValidateColumnName() {
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
+        CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .setPreferenceStoreValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
 
         String columnName = MetadataToolHelper.validateColumnName("public", 0);
         assertEquals(columnName, "Column0");
@@ -267,8 +264,8 @@ public class MetadataToolHelperTest {
         columnName = MetadataToolHelper.validateColumnName("你好", 0);
         assertEquals("Column0", columnName);
 
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, true);
+        CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .setPreferenceStoreValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, true);
 
         columnName = MetadataToolHelper.validateColumnName("你好", 0);
         assertEquals("你好", columnName);
@@ -276,8 +273,8 @@ public class MetadataToolHelperTest {
         columnName = MetadataToolHelper.validateColumnName("My Strange (?) Column !", 0);
         assertEquals("My_Strange_____Column__", columnName);
 
-        CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                .setToDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+        CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .setPreferenceStoreToDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
 
     }
 
