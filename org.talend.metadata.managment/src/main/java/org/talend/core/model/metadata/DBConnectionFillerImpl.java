@@ -725,7 +725,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         List<String> schemaNameCacheTmp = new ArrayList<String>();
         List<Schema> schemaList = new ArrayList<Schema>();
 
-        if (schemaRs != null) {
+        if (schemaRs == null) {
+            log.error("Schema result set is null"); //$NON-NLS-1$
+        } else {
             try {
                 while (schemaRs.next()) {
                     String schemaName = null;
@@ -733,8 +735,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     try {
                         schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
                         // MOD klliu bug 19004 2011-03-31
-                        if (!(MetadataConnectionUtils.isPostgresql(dbJDBCMetadata) || MetadataConnectionUtils
-                                .isSybase(dbJDBCMetadata))) {
+                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)
+                                && !MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                             catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
                         }
 

@@ -19,11 +19,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * created by xqliu on Oct 26, 2012 Detailled comment
  * 
  */
 public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
+
+    private static Logger log = Logger.getLogger(SybaseDatabaseMetaData.class);
 
     /**
      * DOC xqliu SybaseDatabaseMetaData constructor comment.
@@ -40,6 +44,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
         while (rsCat.next()) {
             catList.add(rsCat.getString("TABLE_CAT")); //$NON-NLS-1$
         }
+        rsCat.close();
 
         for (String catalogName : catList) {
             String sql = "select count(*) from " + catalogName //$NON-NLS-1$
@@ -60,7 +65,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
                     }
                 }
             } catch (SQLException e) {
-                // do nothing here !!!
+                log.error(e);
             } finally {
                 try {
                     if (rs != null) {
@@ -70,7 +75,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
                         stmt.close();
                     }
                 } catch (Exception e) {
-                    // do nothing here ???
+                    log.error(e);
                 }
             }
         }
@@ -109,7 +114,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
                     stmt.close();
                 }
             } catch (Exception e) {
-                // do nothing here ???
+                log.error(e);
             }
         }
 

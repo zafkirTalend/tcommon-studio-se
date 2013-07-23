@@ -15,6 +15,7 @@ package org.talend.commons.utils.database;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.TalendDBUtils;
 import org.talend.fakejdbc.FakeResultSet;
@@ -45,15 +46,6 @@ public class SybaseResultSet extends FakeResultSet {
         return true;
     }
 
-    public static int indexOf(String string, String[] search) {
-        for (int i = 0; i < search.length; i++) {
-            if (search[i].equals(string)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -61,7 +53,7 @@ public class SybaseResultSet extends FakeResultSet {
      */
     @Override
     public String getString(String columnLabel) throws SQLException {
-        int columnIndex = indexOf(columnLabel, tableMeta);
+        int columnIndex = ArrayUtils.indexOf(tableMeta, columnLabel);
 
         if (columnIndex == -1) {
             throw new SQLException(Messages.getString("SybaseResultSet.unknowCloumn") + columnLabel); //$NON-NLS-1$
