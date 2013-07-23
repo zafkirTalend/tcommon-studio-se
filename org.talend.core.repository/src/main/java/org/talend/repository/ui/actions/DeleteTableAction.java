@@ -20,11 +20,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
@@ -94,6 +96,37 @@ public class DeleteTableAction extends AContextualAction {
                 RepositoryNode node = (RepositoryNode) obj;
                 ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
                 if (node.getType() == ENodeType.REPOSITORY_ELEMENT && nodeType.isSubItem()) {
+                    IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+                    IRepositoryViewObject nodeObject = node.getObject();
+
+                    boolean locked = false;
+
+                    if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
+                        if (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
+                                || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER) {
+                            locked = true;
+                        }
+                    }
+                    // Avoid to delete node which is locked.
+                    if ((locked || RepositoryManager.isOpenedItemInEditor(nodeObject))
+                            && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+
+                        final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$ 
+                        String nodeName = nodeObject.getRepositoryObjectType().getLabel();
+                        final String message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$ 
+                        Display.getDefault().syncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                MessageDialog dialog = new MessageDialog(new Shell(), title, null, message, MessageDialog.ERROR,
+                                        new String[] { IDialogConstants.OK_LABEL }, 0);
+                                dialog.open();
+                            }
+                        });
+                        return;
+                    }
+
                     Connection connection = null;
                     ERepositoryObjectType parentNodeType = (ERepositoryObjectType) node.getParent().getProperties(
                             EProperties.CONTENT_TYPE);
