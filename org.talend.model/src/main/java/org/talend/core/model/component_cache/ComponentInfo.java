@@ -35,6 +35,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getSourceBundleName <em>Source Bundle Name</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getSha1 <em>Sha1</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.ComponentInfo#getLongName <em>Long Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -405,5 +406,31 @@ public interface ComponentInfo extends EObject {
      * @generated
      */
     void setSha1(String value);
+
+    /**
+     * Returns the value of the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Long Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Long Name</em>' attribute.
+     * @see #setLongName(String)
+     * @see org.talend.core.model.component_cache.ComponentCachePackage#getComponentInfo_LongName()
+     * @model
+     * @generated
+     */
+    String getLongName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.component_cache.ComponentInfo#getLongName <em>Long Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Long Name</em>' attribute.
+     * @see #getLongName()
+     * @generated
+     */
+    void setLongName(String value);
 
 } // ComponentInfo

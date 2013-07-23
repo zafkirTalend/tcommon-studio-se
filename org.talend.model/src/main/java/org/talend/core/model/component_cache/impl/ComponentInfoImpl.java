@@ -50,6 +50,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSourceBundleName <em>Source Bundle Name</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getSha1 <em>Sha1</em>}</li>
+ *   <li>{@link org.talend.core.model.component_cache.impl.ComponentInfoImpl#getLongName <em>Long Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -325,6 +326,26 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * @ordered
      */
     protected String sha1 = SHA1_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLongName()
+     * @generated
+     * @ordered
+     */
+    protected static final String LONG_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLongName()
+     * @generated
+     * @ordered
+     */
+    protected String longName = LONG_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -638,6 +659,27 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getLongName() {
+        return longName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLongName(String newLongName) {
+        String oldLongName = longName;
+        longName = newLongName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentCachePackage.COMPONENT_INFO__LONG_NAME, oldLongName, longName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -685,6 +727,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return getType();
             case ComponentCachePackage.COMPONENT_INFO__SHA1:
                 return getSha1();
+            case ComponentCachePackage.COMPONENT_INFO__LONG_NAME:
+                return getLongName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -746,6 +790,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__SHA1:
                 setSha1((String)newValue);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__LONG_NAME:
+                setLongName((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -803,6 +850,9 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
             case ComponentCachePackage.COMPONENT_INFO__SHA1:
                 setSha1(SHA1_EDEFAULT);
                 return;
+            case ComponentCachePackage.COMPONENT_INFO__LONG_NAME:
+                setLongName(LONG_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -845,6 +895,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case ComponentCachePackage.COMPONENT_INFO__SHA1:
                 return SHA1_EDEFAULT == null ? sha1 != null : !SHA1_EDEFAULT.equals(sha1);
+            case ComponentCachePackage.COMPONENT_INFO__LONG_NAME:
+                return LONG_NAME_EDEFAULT == null ? longName != null : !LONG_NAME_EDEFAULT.equals(longName);
         }
         return super.eIsSet(featureID);
     }
@@ -887,6 +939,8 @@ public class ComponentInfoImpl extends EObjectImpl implements ComponentInfo {
         result.append(type);
         result.append(", sha1: ");
         result.append(sha1);
+        result.append(", longName: ");
+        result.append(longName);
         result.append(')');
         return result.toString();
     }

@@ -281,6 +281,15 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getComponentInfo_LongName() {
+        return (EAttribute)componentInfoEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getComponentEntryMap() {
         return componentEntryMapEClass;
     }
@@ -350,6 +359,7 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
         createEAttribute(componentInfoEClass, COMPONENT_INFO__SOURCE_BUNDLE_NAME);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__TYPE);
         createEAttribute(componentInfoEClass, COMPONENT_INFO__SHA1);
+        createEAttribute(componentInfoEClass, COMPONENT_INFO__LONG_NAME);
 
         componentEntryMapEClass = createEClass(COMPONENT_ENTRY_MAP);
         createEAttribute(componentEntryMapEClass, COMPONENT_ENTRY_MAP__KEY);
@@ -408,6 +418,7 @@ public class ComponentCachePackageImpl extends EPackageImpl implements Component
         initEAttribute(getComponentInfo_SourceBundleName(), ecorePackage.getEString(), "sourceBundleName", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentInfo_Type(), ecorePackage.getEString(), "type", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentInfo_Sha1(), ecorePackage.getEString(), "sha1", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getComponentInfo_LongName(), ecorePackage.getEString(), "longName", null, 0, 1, ComponentInfo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(componentEntryMapEClass, Map.Entry.class, "ComponentEntryMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getComponentEntryMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

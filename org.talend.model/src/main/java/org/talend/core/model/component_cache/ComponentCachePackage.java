@@ -233,13 +233,22 @@ public interface ComponentCachePackage extends EPackage {
     int COMPONENT_INFO__SHA1 = 14;
 
     /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_INFO__LONG_NAME = 15;
+
+    /**
      * The number of structural features of the '<em>Component Info</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_INFO_FEATURE_COUNT = 15;
+    int COMPONENT_INFO_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
@@ -476,6 +485,17 @@ public interface ComponentCachePackage extends EPackage {
     EAttribute getComponentInfo_Sha1();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.component_cache.ComponentInfo#getLongName <em>Long Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Long Name</em>'.
+     * @see org.talend.core.model.component_cache.ComponentInfo#getLongName()
+     * @see #getComponentInfo()
+     * @generated
+     */
+    EAttribute getComponentInfo_LongName();
+
+    /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Component Entry Map</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -678,6 +698,14 @@ public interface ComponentCachePackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_INFO__SHA1 = eINSTANCE.getComponentInfo_Sha1();
+
+        /**
+         * The meta object literal for the '<em><b>Long Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_INFO__LONG_NAME = eINSTANCE.getComponentInfo_LongName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.component_cache.impl.ComponentEntryMapImpl <em>Component Entry Map</em>}' class.
