@@ -72,7 +72,6 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -286,20 +285,20 @@ public class DatabaseTableForm extends AbstractForm {
     private void initTreeNavigatorNodes() {
         initTables = ConnectionHelper.getTablesWithOrders(getConnection());
 
-            if (initTables != null && !initTables.isEmpty()) {
-                boolean isAllDeleted = true;
-                for (int i = 0; i < initTables.size(); i++) {
-                    if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
-                        metadataTable = (MetadataTable) initTables.toArray()[i];
-                        isAllDeleted = false;
-                    }
+        if (initTables != null && !initTables.isEmpty()) {
+            boolean isAllDeleted = true;
+            for (int i = 0; i < initTables.size(); i++) {
+                if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
+                    metadataTable = (MetadataTable) initTables.toArray()[i];
+                    isAllDeleted = false;
                 }
-                if (isAllDeleted) {
-                    addMetadataTable(true);
-                }
-            } else {
-                addMetadataTable(false);
             }
+            if (isAllDeleted) {
+                addMetadataTable(true);
+            }
+        } else {
+            addMetadataTable(false);
+        }
 
         tableNavigator.removeAll();
 
@@ -392,7 +391,7 @@ public class DatabaseTableForm extends AbstractForm {
         });
 
         // init the fields
-        nameText.setText(metadataTable.getName());
+        nameText.setText(MetadataToolHelper.validateValue(metadataTable.getLabel()));
         commentText.setText(metadataTable.getComment());
         if (metadataTable.getTableType() != null) {
             typeText.setText(Messages.getString("DatabaseTableForm.type", metadataTable.getTableType())); //$NON-NLS-1$
