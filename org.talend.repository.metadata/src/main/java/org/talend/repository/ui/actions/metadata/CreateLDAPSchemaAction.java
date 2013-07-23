@@ -20,7 +20,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -39,7 +38,7 @@ import org.talend.repository.ui.wizards.metadata.connection.ldap.LDAPSchemaWizar
  */
 public class CreateLDAPSchemaAction extends AbstractCreateAction {
 
-    private final String editLabel; //$NON-NLS-1$
+    private final String editLabel;
 
     private final String createLabel;
 
@@ -106,10 +105,6 @@ public class CreateLDAPSchemaAction extends AbstractCreateAction {
         } else {
             wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new LDAPSchemaWizard(
                     PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames(), false));
-        }
-
-        if (!creation) {
-            RepositoryManager.refreshSavedNode(repositoryNode);
         }
 
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);

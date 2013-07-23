@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
@@ -50,7 +50,7 @@ public final class SAPConnectionUtils {
         }
 
         for (int i = 0; i < connection.getFuntions().size(); i++) {
-            SAPFunctionUnit unit = (SAPFunctionUnit) connection.getFuntions().get(i);
+            SAPFunctionUnit unit = connection.getFuntions().get(i);
             if (unit.getLabel().equals(functionName)) {
                 return unit;
             }
@@ -71,7 +71,7 @@ public final class SAPConnectionUtils {
         }
 
         for (int i = 0; i < connection.getIDocs().size(); i++) {
-            SAPIDocUnit unit = (SAPIDocUnit) connection.getIDocs().get(i);
+            SAPIDocUnit unit = connection.getIDocs().get(i);
             if (unit.getName().equals(iDocName)) {
                 return unit;
             }

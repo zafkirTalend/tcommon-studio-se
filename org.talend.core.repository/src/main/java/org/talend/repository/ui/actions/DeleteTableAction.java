@@ -214,13 +214,7 @@ public class DeleteTableAction extends AContextualAction {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        Display.getCurrent().syncExec(new Runnable() {
 
-            @Override
-            public void run() {
-                RepositoryManager.refreshDeletedNode(types);
-            }
-        });
         notifySQLBuilder(connections);
         // IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(
         // RepositoryView.VIEW_ID);

@@ -25,7 +25,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
@@ -217,7 +216,6 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             }
             refresh(node);
         }
-        RepositoryManager.refreshSavedNode(node);
         // node = null;
     }
 

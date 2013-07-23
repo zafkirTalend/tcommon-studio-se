@@ -24,7 +24,7 @@ import org.talend.commons.utils.StringUtils;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -52,8 +52,8 @@ public class SnippetManager {
 
     public List<SnippetItem> getListSnippet() {
         try {
-            List<IRepositoryViewObject> snippets = CoreUIPlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                    .getMetadata(ERepositoryObjectType.SNIPPETS).getMembers();
+            List<IRepositoryViewObject> snippets = CoreRuntimePlugin.getInstance().getRepositoryService()
+                    .getProxyRepositoryFactory().getMetadata(ERepositoryObjectType.SNIPPETS).getMembers();
 
             List<SnippetItem> list = new ArrayList<SnippetItem>(snippets.size());
             for (IRepositoryViewObject repositoryObject : snippets) {

@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
@@ -27,6 +26,8 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -200,11 +201,11 @@ public final class RoutinesUtil {
     public static List<RoutinesParameterType> createDependenciesInPreference() throws PersistenceException {
         List<RoutinesParameterType> itemInfors = new ArrayList<RoutinesParameterType>();
 
-        IPreferenceStore preferenceStore = CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore();
-        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
+        final IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+        if (designerCoreService.getPreferenceStoreBooleanValue(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
             itemInfors.addAll(createJobRoutineDependencies(true));
         }
-        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
+        if (designerCoreService.getPreferenceStoreBooleanValue(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
             itemInfors.addAll(createJobRoutineDependencies(false));
         }
         return itemInfors;
@@ -261,11 +262,11 @@ public final class RoutinesUtil {
     public static List<ItemInforType> createOldDependenciesInPreference() throws PersistenceException {
         List<ItemInforType> itemInfors = new ArrayList<ItemInforType>();
 
-        IPreferenceStore preferenceStore = CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore();
-        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
+        final IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+        if (designerCoreService.getPreferenceStoreBooleanValue(ITalendCorePrefConstants.ADD_SYSTEM_ROUTINES)) {
             itemInfors.addAll(createOldJobRoutineDependencies(true));
         }
-        if (preferenceStore.getBoolean(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
+        if (designerCoreService.getPreferenceStoreBooleanValue(ITalendCorePrefConstants.ADD_USER_ROUTINES)) {
             itemInfors.addAll(createOldJobRoutineDependencies(false));
         }
         return itemInfors;

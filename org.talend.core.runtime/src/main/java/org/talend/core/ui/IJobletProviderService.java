@@ -15,7 +15,7 @@ package org.talend.core.ui;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -85,9 +85,9 @@ public interface IJobletProviderService extends IService {
 
     public IEditorPart openJobletItem(JobletProcessItem item);
 
-    public SelectionAction getMoveToJobletAction(IWorkbenchPart part, INode jobletNode, Map<INode, IConnection> nodeMap);
+    public Action getMoveToJobletAction(IWorkbenchPart part, INode jobletNode, Map<INode, IConnection> nodeMap);
 
-    public SelectionAction getMoveToJobAction(IWorkbenchPart part);
+    public Action getMoveToJobAction(IWorkbenchPart part);
 
     public MultiPageEditorPart openJobletEditor(INode jobletNode, IWorkbenchPage page);
 

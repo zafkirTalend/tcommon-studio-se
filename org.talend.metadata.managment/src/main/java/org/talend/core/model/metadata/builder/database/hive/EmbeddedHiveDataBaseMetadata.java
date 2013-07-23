@@ -23,7 +23,6 @@ import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
@@ -221,8 +220,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                             IDesignerCoreService designerService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
                                     .getService(IDesignerCoreService.class);
-                            timeout = designerService.getDesignerCorePreferenceStore().getInt(
-                                    ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+                            timeout = designerService.getDBConnectionTimeout();
                         }
                         setIntVarMethod.invoke(hiveConf, confVar, timeout);
                     }

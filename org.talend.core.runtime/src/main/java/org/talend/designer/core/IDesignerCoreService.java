@@ -18,18 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.gef.palette.PaletteDrawer;
-import org.eclipse.gef.palette.PaletteEntry;
-import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
-import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -91,21 +86,11 @@ public interface IDesignerCoreService extends IService {
 
     public String getPreferenceStore(String key);
 
-    public IPreferenceStore getDesignerCorePreferenceStore();
+    public boolean getPreferenceStoreBooleanValue(String key);
 
-    public PaletteRoot createPalette(IComponentsFactory factory);
+    public void setPreferenceStoreValue(String key, Object value);
 
-    public PaletteRoot createPalette(IComponentsFactory factory, boolean isFavorite);
-
-    public PaletteRoot getAllNodeStructure(IComponentsFactory factory);
-
-    public void setPaletteFilter(String filter);
-
-    public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root);
-
-    public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root, boolean isFavorite);
-
-    public PaletteDrawer createTalendPaletteDrawer(String family);
+    public void setPreferenceStoreToDefault(String key);
 
     public IAction getCreateProcessAction(boolean isToolbar);
 
@@ -118,11 +103,6 @@ public interface IDesignerCoreService extends IService {
      * @return
      */
     public IProcess getProcessFromJobletProcessItem(JobletProcessItem item);
-
-    /**
-     * yzhang Comment method "createJobletEtnry".
-     */
-    public List<PaletteEntry> createJobletEtnry();
 
     public boolean isTalendEditor(IEditorPart activeEditor);
 
@@ -180,13 +160,7 @@ public interface IDesignerCoreService extends IService {
      */
     public void refreshComponentView(Item item);
 
-    /**
-     * DOC guanglong.du Comment method "createEmptyPalette".
-     * 
-     * @return
-     */
-    public PaletteRoot createEmptyPalette();
-
     public boolean evaluate(final String string, List<? extends IElementParameter> listParam);
 
+    public int getDBConnectionTimeout();
 }

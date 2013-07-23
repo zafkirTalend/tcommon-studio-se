@@ -21,7 +21,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.IManagementService;
 import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
@@ -62,11 +61,13 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
         return plugin;
     }
 
+    @Override
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
     }
 
+    @Override
     public void stop(BundleContext context) throws Exception {
         super.stop(context);
         plugin = null;
@@ -148,11 +149,6 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
 
     public ILibrariesService getLibrariesService() {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
-    }
-
-    public IManagementService getManagementService() {
-        return (IManagementService) GlobalServiceRegister.getDefault().getService(IManagementService.class);
-
     }
 
     public IStatusPreferenceInitService getStatusPreferenceInitService() {

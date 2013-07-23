@@ -20,7 +20,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -46,7 +45,7 @@ public class CreateWSDLSchemaAction extends AbstractCreateAction {
 
     private final String openLabel;
 
-    private final String editLabel; //$NON-NLS-1$
+    private final String editLabel;
 
     protected static final int WIZARD_WIDTH = 800;
 
@@ -153,10 +152,6 @@ public class CreateWSDLSchemaAction extends AbstractCreateAction {
             // selection = getSelection();
             wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new WSDLSchemaWizard(
                     PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames(), false));
-        }
-
-        if (!creation) {
-            RepositoryManager.refreshSavedNode(repositoryNode);
         }
 
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);

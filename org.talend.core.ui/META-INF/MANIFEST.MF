@@ -58,8 +58,7 @@ Export-Package: org.talend.core.model.components,
  org.talend.repository.documentation,
  org.talend.repository.documentation.generation,
  org.talend.repository.editor,
- org.talend.repository.model,
- org.talend.runprocess.data
+ org.talend.repository.model
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.talend.core.ui.CoreUIPlugin

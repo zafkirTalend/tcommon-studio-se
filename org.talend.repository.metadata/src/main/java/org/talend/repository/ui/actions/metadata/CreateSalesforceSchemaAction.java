@@ -20,7 +20,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -97,10 +96,6 @@ public class CreateSalesforceSchemaAction extends AbstractCreateAction {
         } else {
             wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), new SalesforceSchemaWizard(
                     PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames(), false));
-        }
-
-        if (!creation) {
-            RepositoryManager.refreshSavedNode(repositoryNode);
         }
 
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);

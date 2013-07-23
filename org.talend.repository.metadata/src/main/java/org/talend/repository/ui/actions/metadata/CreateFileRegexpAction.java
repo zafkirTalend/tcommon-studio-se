@@ -20,7 +20,6 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -106,9 +105,6 @@ public class CreateFileRegexpAction extends AbstractCreateAction {
                     PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames()));
         }
 
-        if (!creation) {
-            RepositoryManager.refreshSavedNode(repositoryNode);
-        }
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();

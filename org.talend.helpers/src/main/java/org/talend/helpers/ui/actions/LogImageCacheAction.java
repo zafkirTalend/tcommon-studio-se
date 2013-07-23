@@ -10,12 +10,12 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.action;
+package org.talend.helpers.ui.actions;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.i18n.Messages;
+import org.talend.helpers.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

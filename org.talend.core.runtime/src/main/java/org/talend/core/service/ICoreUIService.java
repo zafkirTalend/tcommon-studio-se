@@ -38,4 +38,6 @@ public interface ICoreUIService extends IService {
     void initializeComponents(IProgressMonitor monitor);
 
     void syncAllRules();
+
+    String getPreferenceValue(String key);
 }

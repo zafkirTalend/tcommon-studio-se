@@ -24,7 +24,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ProjectManager;
 
@@ -92,7 +92,7 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
             Element componentElement = generateComponentDetailsInfo(false, node, this.internalNodeElement, this.picFilePathMap,
                     this.sourceConnectionMap, this.targetConnectionMap, this.repositoryDBIdAndNameMap);
 
-            CoreUIPlugin.getDefault().getRepositoryService().setInternalNodeHTMLMap(node, internalNodeHTMLMap);
+            CoreRuntimePlugin.getInstance().getRepositoryService().setInternalNodeHTMLMap(node, internalNodeHTMLMap);
             generateComponentElemParamters(node, componentElement);
         }
     }

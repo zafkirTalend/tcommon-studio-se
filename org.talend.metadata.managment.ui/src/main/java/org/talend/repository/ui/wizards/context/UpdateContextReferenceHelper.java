@@ -20,24 +20,26 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.JobContextManager;
-import org.talend.core.model.context.UpdateRunJobComponentContextHelper;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.process.UpdateRunJobComponentContextHelper;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -138,10 +140,10 @@ public final class UpdateContextReferenceHelper {
                 // UpdateContextVariablesHelper.updateProcessForRenamed(process, realRenamedVarMap);
 
                 // update the job state
-                if (process instanceof IProcess2) {
-                    CommandStack commandStack = process.getCommandStack();
-                    if (commandStack != null) {
-                        commandStack.execute(new Command() {
+                if (process instanceof IGEFProcess) {
+                    IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+                    if (designerCoreUIService != null) {
+                        designerCoreUIService.executeCommand((IGEFProcess) process, new Command() {
                         });
                     }
                 }

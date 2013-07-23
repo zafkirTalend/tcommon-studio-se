@@ -10,14 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core;
+package org.talend.core.model.process;
 
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.gef.commands.CommandStack;
 
 /**
- * DOC hywang class global comment. Detailled comment
+ * DOC ggu class global comment. Detailled comment
  */
-public interface IManagementService extends IService {
+public interface IGEFProcess {
 
-    public IPreferenceStore getDesignerCorePreferenceStore();
+    public CommandStack getCommandStack();
 }

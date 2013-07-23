@@ -49,9 +49,12 @@ import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * ggu class global comment. Detailled comment
@@ -79,9 +82,15 @@ public class ModuleListCellEditor extends DialogCellEditor {
                 }
             }
         }
-        if (process != null && process.getCommandStack() != null) {
-            process.getCommandStack().execute(cmd);
-        } else {
+
+        boolean executed = false;
+        if (process != null && process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+            }
+        }
+        if (!executed) {
             cmd.execute();
         }
     }

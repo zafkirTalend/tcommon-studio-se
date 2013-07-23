@@ -33,7 +33,7 @@ import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ResourceModelHelper;
-import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
@@ -127,7 +127,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
 
             // loadedProcess.setXmlStream(getFile().getContents());
 
-            IRepositoryService service = CoreUIPlugin.getDefault().getRepositoryService();
+            IRepositoryService service = CoreRuntimePlugin.getInstance().getRepositoryService();
             final IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
 
             if (path != null) {
@@ -198,7 +198,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
      */
     public void resetItem() throws PersistenceException {
         if (getItem().getProperty().eResource() == null || getItem().eResource() == null) {
-            IRepositoryService service = CoreUIPlugin.getDefault().getRepositoryService();
+            IRepositoryService service = CoreRuntimePlugin.getInstance().getRepositoryService();
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
             //
             // Property updated = factory.getUptodateProperty(getItem().getProperty());

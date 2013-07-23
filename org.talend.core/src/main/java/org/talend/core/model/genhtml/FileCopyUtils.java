@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * This class is used for copying file from one place to the other.
@@ -74,11 +74,11 @@ public class FileCopyUtils {
             File a = new File(oldPath);
             String[] file = a.list();
             File temp = null;
-            for (int i = 0; i < file.length; i++) {
+            for (String element : file) {
                 if (oldPath.endsWith(File.separator)) {
-                    temp = new File(oldPath + file[i]);
+                    temp = new File(oldPath + element);
                 } else {
-                    temp = new File(oldPath + File.separator + file[i]);
+                    temp = new File(oldPath + File.separator + element);
                 }
 
                 if (temp.isFile()) {
@@ -94,7 +94,7 @@ public class FileCopyUtils {
                     input.close();
                 }
                 if (temp.isDirectory()) {
-                    copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i]);
+                    copyFolder(oldPath + "/" + element, newPath + "/" + element);
                 }
             }
         } catch (Exception e) {

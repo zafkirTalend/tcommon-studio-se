@@ -42,10 +42,10 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.constants.Constant;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -189,8 +189,9 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
                 }
             };
             // the merge only for DI repository,need to judge null for other product
-            if (CoreRuntimePlugin.getInstance().getDesignerCoreService() != null) {
-                IPreferenceStore preferenceStore = RepositoryManager.getRepositoryPreferenceStore();
+            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+            if (repositoryService != null) {
+                IPreferenceStore preferenceStore = repositoryService.getRepositoryPreferenceStore();
                 preferenceStore.addPropertyChangeListener(mergeRefListener);
             }
 
@@ -333,8 +334,11 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             deleteFolderListener = null;
         }// else nothing to remove
         if (mergeRefListener != null) {
-            IPreferenceStore preferenceStore = RepositoryManager.getPreferenceStore();
-            preferenceStore.removePropertyChangeListener(mergeRefListener);
+            IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
+            if (repositoryService != null) {
+                IPreferenceStore preferenceStore = repositoryService.getRepositoryPreferenceStore();
+                preferenceStore.removePropertyChangeListener(mergeRefListener);
+            }
             mergeRefListener = null;
         }
         if (lockService != null) {

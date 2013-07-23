@@ -79,4 +79,9 @@ public class CoreUIService implements ICoreUIService {
         }
 
     }
+
+    @Override
+    public String getPreferenceValue(String key) {
+        return CoreUIPlugin.getDefault().getPreferenceStore().getString(key);
+    }
 }

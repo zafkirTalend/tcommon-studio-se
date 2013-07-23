@@ -218,8 +218,8 @@ public final class MetadataToolHelper {
 
     private static boolean isAllowSpecificCharacters() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore()
-                    .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+            return CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                    .getPreferenceStoreBooleanValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
         }
         return false;
     }

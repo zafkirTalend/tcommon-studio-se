@@ -36,8 +36,8 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.IPaletteFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -75,7 +75,7 @@ public class ComponentPaletteUtilities {
 
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
-            paletteRoot = CoreUIPlugin.getDefault().getDesignerCoreService().createEmptyPalette();
+            paletteRoot = CoreUIPlugin.getDefault().getDesignerCoreUIService().createEmptyPalette();
         }
         return paletteRoot;
     }
@@ -106,7 +106,7 @@ public class ComponentPaletteUtilities {
             public void run() {
                 IComponentsFactory components = ComponentsFactoryProvider.getInstance();
 
-                final IDesignerCoreService designerCoreService = CoreUIPlugin.getDefault().getDesignerCoreService();
+                final IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
                 if (paletteRoot != null) {
                     List oldRoots = new ArrayList(paletteRoot.getChildren());
 
@@ -118,14 +118,14 @@ public class ComponentPaletteUtilities {
                         it.remove();
                     }
                     paletteRoot.setChildren(oldRoots);
-                    paletteRoot = designerCoreService.createPalette(components, paletteRoot);
+                    paletteRoot = designerCoreUIService.createPalette(components, paletteRoot);
 
                 } else {
-                    paletteRoot = designerCoreService.createPalette(components);
+                    paletteRoot = designerCoreUIService.createPalette(components);
                 }
 
                 if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-                    extraPaletteEntry = designerCoreService.createJobletEtnry();
+                    extraPaletteEntry = designerCoreUIService.createJobletEtnry();
                 }
             }
         });
@@ -145,7 +145,7 @@ public class ComponentPaletteUtilities {
             public void run() {
                 IComponentsFactory components = ComponentsFactoryProvider.getInstance();
 
-                final IDesignerCoreService designerCoreService = CoreUIPlugin.getDefault().getDesignerCoreService();
+                final IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
                 if (paletteRoot != null) {
                     List oldRoots = new ArrayList(paletteRoot.getChildren());
 
@@ -157,12 +157,12 @@ public class ComponentPaletteUtilities {
                         it.remove();
                     }
                     paletteRoot.setChildren(oldRoots);
-                    paletteRoot = designerCoreService.createPalette(components, paletteRoot, isFavorite);
+                    paletteRoot = designerCoreUIService.createPalette(components, paletteRoot, isFavorite);
                 } else {
-                    paletteRoot = designerCoreService.createPalette(components, isFavorite);
+                    paletteRoot = designerCoreUIService.createPalette(components, isFavorite);
                 }
                 if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-                    extraPaletteEntry = designerCoreService.createJobletEtnry();
+                    extraPaletteEntry = designerCoreUIService.createJobletEtnry();
                 }
             }
         });
@@ -174,7 +174,7 @@ public class ComponentPaletteUtilities {
      * @param filer
      */
     public static void filterPalette(String filer) {
-        CoreUIPlugin.getDefault().getDesignerCoreService().setPaletteFilter(filer);
+        CoreUIPlugin.getDefault().getDesignerCoreUIService().setPaletteFilter(filer);
         if (faState) {
             updatePalette(true);
         } else {
@@ -320,7 +320,7 @@ public class ComponentPaletteUtilities {
             orgFamily = originalFamily;
         }
 
-        PaletteDrawer paletteDrawer = CoreUIPlugin.getDefault().getDesignerCoreService().createTalendPaletteDrawer(family);
+        PaletteDrawer paletteDrawer = CoreUIPlugin.getDefault().getDesignerCoreUIService().createTalendPaletteDrawer(family);
         if (parentPaletteDrawer == null) {
             palette.add(paletteDrawer);
         } else {

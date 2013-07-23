@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
-import java.util.Set;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
@@ -22,8 +20,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.exception.SystemException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -35,8 +33,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
-import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -45,10 +41,6 @@ import org.talend.repository.ui.views.IRepositoryView;
 public final class RepositoryManager {
 
     public static final String PATTERNS_SEPARATOR = ","; //$NON-NLS-1$
-
-    public static IPreferenceStore getPreferenceStore() {
-        return CoreRuntimePlugin.getInstance().getDesignerCoreService().getDesignerCorePreferenceStore();
-    }
 
     /**
      * 
@@ -60,22 +52,6 @@ public final class RepositoryManager {
         return CoreRuntimePlugin.getInstance().getRepositoryService().getRepositoryPreferenceStore();
     }
 
-    public static boolean isRefreshManually() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.MANUALLY_REFRESH);
-    }
-
-    public static boolean isRefreshCreated() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.CREATING_REFRESH);
-    }
-
-    public static boolean isRefreshSaved() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.SAVING_REFRESH);
-    }
-
-    public static boolean isRefreshDeleted() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.DELETING_REFRESH);
-    }
-
     public static IRepositoryView getRepositoryView() {
         return RepositoryManagerHelper.getRepositoryView();
     }
@@ -85,145 +61,10 @@ public final class RepositoryManager {
      * for create
      */
     public static void refreshCreatedNode(ERepositoryObjectType type) {
-        // if (isRefreshManually() || !isRefreshCreated()) {
-        refresh(type);
-        // } else {
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (repositoryView != null) {
-        // repositoryView.refresh();
-        // }
-        // }
         // qli modified to fix the bug 6659.
         if (type != null) {
             syncRoutineAndJoblet(type);
         }
-    }
-
-    /**
-     * 
-     * for editorProperties
-     */
-    public static void refreshEditorPropertiesNode(ERepositoryObjectType type) {
-        // TDI-21143 : Studio repository view : remove all refresh call to repo view
-        // if (isRefreshManually() || !isRefreshCreated()) {
-        // refresh(type);
-        // } else {
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (repositoryView != null) {
-        // repositoryView.refresh();
-        // }
-        // }
-        // if (type != null) {
-        // syncRoutineAndJoblet(type);
-        // }
-    }
-
-    public static void refreshCreatedNode(IProjectRepositoryNode projectNode, ERepositoryObjectType type) {
-        // TDI-21143 : Studio repository view : remove all refresh call to repo view
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (repositoryView != null) {
-        // if ((isRefreshManually() || !isRefreshCreated()) && !type.isSubItem()) {
-        // if (projectNode != null) {
-        // RepositoryNode rootNode = (RepositoryNode) projectNode.getRootRepositoryNode(type);
-        // repositoryView.refreshAllChildNodes(rootNode);
-        // } else {
-        // // main project
-        // refresh(type);
-        // }
-        // } else {
-        // repositoryView.refresh();
-        // }
-        // // qli modified to fix the bug 6659.
-        // if (type != null) {
-        // syncRoutineAndJoblet(type);
-        // }
-        // }
-
-    }
-
-    /**
-     * 
-     * for delete
-     */
-    public static void refreshDeletedNode(Set<ERepositoryObjectType> types) {
-        IRepositoryView repositoryView = getRepositoryView();
-        if (repositoryView != null) {
-            // if (isRefreshManually() || !isRefreshDeleted()) {
-            //
-            // RepositoryNode root = repositoryView.getRoot();
-            // if (root != null && root instanceof IProjectRepositoryNode) {
-            // RepositoryNode recBinNode = ((IProjectRepositoryNode) root).getRecBinNode();
-            //
-            // Set<ERepositoryObjectType> existedTypes = new HashSet<ERepositoryObjectType>();
-            // for (RepositoryNode child : recBinNode.getChildren()) {
-            // ERepositoryObjectType objectType = child.getObjectType();
-            // if (objectType.isSubItem()) {
-            // RepositoryNode parent = child.getParent();
-            // if (parent.getObject() == null) { // for db connection
-            // parent = parent.getParent();
-            // }
-            // existedTypes.add(parent.getObjectType());
-            // }
-            // }
-            // repositoryView.refreshAllChildNodes(recBinNode);
-            //
-            // if (types != null) {
-            // refresh(types);
-            // existedTypes.removeAll(types);
-            // }
-            // refresh(existedTypes);
-            //
-            // repositoryView.refresh(recBinNode);
-            // }
-            //
-            // } else {
-            // repositoryView.refresh();
-            // }
-        }
-    }
-
-    /**
-     * 
-     * for save
-     */
-    public static void refreshSavedNode(IRepositoryNode node) {
-        // TDI-21143 : Studio repository view : remove all refresh call to repo view
-        // if (node == null) {
-        // return;
-        // }
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (repositoryView != null) {
-        // if (isRefreshManually() || !isRefreshSaved()) {
-        // repositoryView.refresh(node);
-        // } else {
-        // repositoryView.refresh();
-        // }
-        // }
-    }
-
-    /**
-     * 
-     * 
-     */
-    public static void refresh(ERepositoryObjectType type) {
-        // TDI-21143 : Studio repository view : remove all refresh call to repo view
-        // if (type != null) {
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (repositoryView != null) {
-        // repositoryView.refresh(type);
-        // repositoryView.refresh();
-        // }
-        // }
-    }
-
-    public static void refresh(Set<ERepositoryObjectType> types) {
-        // TDI-21143 : Studio repository view : remove all refresh call to repo view
-        // IRepositoryView repositoryView = getRepositoryView();
-        // if (types != null && repositoryView != null) {
-        // for (ERepositoryObjectType type : types) {
-        // repositoryView.refresh(type);
-        // }
-        // }
     }
 
     /**

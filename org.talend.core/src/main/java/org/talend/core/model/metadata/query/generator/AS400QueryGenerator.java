@@ -12,8 +12,8 @@
 // ============================================================================
 package org.talend.core.model.metadata.query.generator;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -110,6 +110,7 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
         }
     }
 
+    @Override
     protected String getTableNameWithDBAndSchema(final String dbName, final String schema, String tableName) {
         if (tableName == null || EMPTY.equals(tableName.trim())) {
             tableName = QueryUtil.DEFAULT_TABLE_NAME;

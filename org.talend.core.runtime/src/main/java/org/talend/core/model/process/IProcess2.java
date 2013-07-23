@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -35,6 +34,7 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     ProcessType saveXmlFile(boolean checkJoblet) throws IOException;
 
+    @Override
     void setPropertyValue(String id, Object value);
 
     void updateProperties();
@@ -67,11 +67,13 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
      * 
      * @param b
      */
+    @Override
     void setActivate(boolean b);
 
     /**
      * DOC qzhang Comment method "checkStartNodes".
      */
+    @Override
     void checkStartNodes();
 
     /**
@@ -87,8 +89,6 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
     void setProcessModified(boolean processModified);
 
     boolean isProcessModified();
-
-    public CommandStack getCommandStack();
 
     public List<? extends ISubjobContainer> getSubjobContainers();
 
@@ -126,10 +126,11 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
     boolean isSubjobEnabled();
 
     void removeProblems4ProcessDeleted();
-    
-    //ADDED for TESB-7887 By GangLiu
+
+    // ADDED for TESB-7887 By GangLiu
     boolean needsSpring();
+
     String getSpringContent();
-    //END TESB-7887
+    // END TESB-7887
 
 }

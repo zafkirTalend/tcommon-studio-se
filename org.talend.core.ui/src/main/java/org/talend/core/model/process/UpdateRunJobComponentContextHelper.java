@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.context;
+package org.talend.core.model.process;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +18,17 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IContextManager;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess;
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -119,10 +114,10 @@ public final class UpdateRunJobComponentContextHelper {
                 }
             }
             // update the job state
-            if (changed && process instanceof IProcess2) {
-                CommandStack commandStack = process.getCommandStack();
-                if (commandStack != null) {
-                    commandStack.execute(new Command() {
+            if (changed && process instanceof IGEFProcess) {
+                IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+                if (designerCoreUIService != null) {
+                    designerCoreUIService.executeCommand((IGEFProcess) process, new Command() {
                     });
                 }
             }

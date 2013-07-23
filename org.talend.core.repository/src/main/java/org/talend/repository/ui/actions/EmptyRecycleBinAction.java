@@ -48,14 +48,12 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.TDQServiceRegister;
-import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -229,28 +227,6 @@ public class EmptyRecycleBinAction extends AContextualAction {
             shell = new Shell();
         }
         return shell;
-    }
-
-    /**
-     * 
-     * ggu Comment method "refreshRelations".
-     * 
-     * bug 12883
-     */
-    private void refreshRelations() {
-        // refresh
-        RepositoryManager.refreshDeletedNode(null);
-        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        if (activeWorkbenchWindow != null && GlobalServiceRegister.getDefault().isServiceRegistered(IDiagramModelService.class)) {
-            IWorkbenchPage page = activeWorkbenchWindow.getActivePage();
-            IDiagramModelService sevice = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
-                    IDiagramModelService.class);
-            if (page != null && sevice != null) {
-                for (IEditorReference editors : page.getEditorReferences()) {
-                    sevice.refreshBusinessModel(editors);
-                }
-            }
-        }
     }
 
     protected void deleteElements(final IProxyRepositoryFactory factory, final RepositoryNode currentNode)

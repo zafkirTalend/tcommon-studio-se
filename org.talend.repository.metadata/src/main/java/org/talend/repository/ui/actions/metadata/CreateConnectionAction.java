@@ -30,7 +30,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
@@ -200,9 +199,6 @@ public class CreateConnectionAction extends AbstractCreateAction {
         } else {
             databaseWizard = new DatabaseWizard(PlatformUI.getWorkbench(), creation, node, getExistingNames());
         }
-        if (!creation) {
-            RepositoryManager.refreshSavedNode(node);
-        }
 
         // Open the Wizard
         WizardDialog wizardDialog = new WizardDialog(Display.getCurrent().getActiveShell(), databaseWizard);
@@ -210,7 +206,6 @@ public class CreateConnectionAction extends AbstractCreateAction {
         wizardDialog.create();
         wizardDialog.open();
         connItem = databaseWizard.getConnectionItem();
-        RepositoryManager.refreshSavedNode(node);
 
     }
 

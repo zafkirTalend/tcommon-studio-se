@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -70,6 +69,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -80,6 +80,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.SelectRepositoryContextGroupDialog;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -780,7 +782,6 @@ public final class ConnectionContextHelper {
         if (process == null || contextItem == null || contextManager == null) {
             return;
         }
-        CommandStack commandStack = process.getCommandStack();
 
         Command cmd = new Command() {
 
@@ -789,10 +790,15 @@ public final class ConnectionContextHelper {
                 checkAndAddContextsVarDND(contextItem, contextManager);
             }
         };
-        if (commandStack == null) {
+        boolean executed = false;
+        if (process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+            }
+        }
+        if (!executed) {
             cmd.execute();
-        } else {
-            commandStack.execute(cmd);
         }
 
     }
@@ -804,7 +810,6 @@ public final class ConnectionContextHelper {
         }
         final IContextManager contextManager = process.getContextManager();
         if (contextManager != null) {
-            CommandStack commandStack = process.getCommandStack();
 
             Command cmd = new Command() {
 
@@ -814,10 +819,15 @@ public final class ConnectionContextHelper {
                 }
             };
 
-            if (commandStack == null) {
+            boolean executed = false;
+            if (process instanceof IGEFProcess) {
+                IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+                if (designerCoreUIService != null) {
+                    executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+                }
+            }
+            if (!executed) {
                 cmd.execute();
-            } else {
-                commandStack.execute(cmd);
             }
         }
     }
@@ -827,7 +837,6 @@ public final class ConnectionContextHelper {
         if (process == null || contextItem == null || contextManager == null || addedVars == null || addedVars.isEmpty()) {
             return;
         }
-        CommandStack commandStack = process.getCommandStack();
 
         Command cmd = new Command() {
 
@@ -836,11 +845,17 @@ public final class ConnectionContextHelper {
                 checkAndAddContextVariables(contextItem, contextManager, addedVars, contextGoupNameSet);
             }
         };
-        if (commandStack == null) {
-            cmd.execute();
-        } else {
-            commandStack.execute(cmd);
+        boolean executed = false;
+        if (process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+            }
         }
+        if (!executed) {
+            cmd.execute();
+        }
+
     }
 
     public static void checkAndAddContextVariables(ContextItem item, IContextManager contextManager, Set<String> addedVars,
@@ -1144,6 +1159,7 @@ public final class ConnectionContextHelper {
 
                                 // method may be called from other threads.
 
+                                @Override
                                 public void run() {
                                     setsDialog.open();
                                 }

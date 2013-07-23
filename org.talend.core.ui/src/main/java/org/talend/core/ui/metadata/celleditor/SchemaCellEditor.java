@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.DialogCellEditor;
@@ -43,16 +42,19 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.service.IEBCDICProviderService;
 import org.talend.core.service.IHL7ProviderService;
 import org.talend.core.service.IRulesProviderService;
 import org.talend.core.service.ISAPProviderService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProcessType;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.ESelectionCategory;
 import org.talend.core.ui.metadata.command.ChangeRuleMetadataCommand;
@@ -535,17 +537,18 @@ public class SchemaCellEditor extends DialogCellEditor {
     }
 
     private void executeCommand(Command cmd) {
-        if (node.getProcess() instanceof IProcess2) {
-            IProcess2 process = (IProcess2) node.getProcess();
-            CommandStack commandStack = process.getCommandStack();
-            if (commandStack != null) {
-                commandStack.execute(cmd);
-            } else {
-                cmd.execute();
+        final IProcess process = node.getProcess();
+
+        boolean executed = false;
+        if (process != null && process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
             }
-            return;
         }
-        cmd.execute();
+        if (!executed) {
+            cmd.execute();
+        }
     }
 
     private void copyHL7OutputMetadata(INode node, IMetadataTable tableToEdit) {

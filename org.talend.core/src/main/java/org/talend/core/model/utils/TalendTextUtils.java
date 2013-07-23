@@ -12,15 +12,14 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.swt.graphics.RGB;
-import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.service.ICoreUIService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -237,7 +236,13 @@ public class TalendTextUtils {
         // if fieldName include special symbol,need add quote
         boolean check = Pattern.matches("^.[A-Za-z_]+$", fieldName);//$NON-NLS-1$
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
-        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+
+        boolean isCheck = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+            isCheck = !Boolean.parseBoolean(preferenceValue);
+        }
         if (!b) {
             if (isCheck && isPSQLSimilar(name) && check) {
                 return fieldName;
@@ -261,7 +266,12 @@ public class TalendTextUtils {
             b = b && c >= '0' && c <= '9';
         }
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
-        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        boolean isCheck = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+            isCheck = !Boolean.parseBoolean(preferenceValue);
+        }
         if (!b) {
             if (isCheck && isPSQLSimilar(name)) {
                 return fieldName;
@@ -285,8 +295,12 @@ public class TalendTextUtils {
 
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         final String quote = getQuoteByDBType(name);
-        boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
-
+        boolean isCheck = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+            isCheck = !Boolean.parseBoolean(preferenceValue);
+        }
         // added by hyWang(bug 6637),to see if the column name need to be add queotes
         if (!isCheck) {
             // check the field name.
@@ -363,25 +377,6 @@ public class TalendTextUtils {
         TalendQuoteUtils.setLeft(b);
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         return getQuoteByDBType(name);
-    }
-
-    public static RGB stringToRGB(String string) {
-        RGB rgb;
-        int r = 0;
-        int g = 0;
-        int b = 0;
-        StringTokenizer token = new StringTokenizer(string, ";"); //$NON-NLS-1$
-        if (token.hasMoreTokens()) {
-            r = new Integer(token.nextToken());
-        }
-        if (token.hasMoreTokens()) {
-            g = new Integer(token.nextToken());
-        }
-        if (token.hasMoreTokens()) {
-            b = new Integer(token.nextToken());
-        }
-        rgb = new RGB(r, g, b);
-        return rgb;
     }
 
     public static String removeQuotes(String text) {

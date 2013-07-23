@@ -153,4 +153,23 @@ public class ColorUtils {
         }
         return null;
     }
+
+    public static RGB stringToRGB(String string) {
+        RGB rgb;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        StringTokenizer token = new StringTokenizer(string, ";"); //$NON-NLS-1$
+        if (token.hasMoreTokens()) {
+            r = new Integer(token.nextToken());
+        }
+        if (token.hasMoreTokens()) {
+            g = new Integer(token.nextToken());
+        }
+        if (token.hasMoreTokens()) {
+            b = new Integer(token.nextToken());
+        }
+        rgb = new RGB(r, g, b);
+        return rgb;
+    }
 }

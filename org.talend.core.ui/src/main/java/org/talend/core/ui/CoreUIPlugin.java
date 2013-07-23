@@ -17,6 +17,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.service.IOpenJobScriptActionService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -76,7 +78,7 @@ public class CoreUIPlugin extends AbstractUIPlugin {
     }
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
-        IRepositoryService service = getRepositoryService();
+        IRepositoryService service = CoreRuntimePlugin.getInstance().getRepositoryService();
         return service.getProxyRepositoryFactory();
     }
 
@@ -86,13 +88,19 @@ public class CoreUIPlugin extends AbstractUIPlugin {
     }
 
     public IDesignerCoreService getDesignerCoreService() {
-        IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
-        return (IDesignerCoreService) service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
+            return (IDesignerCoreService) service;
+        }
+        return null;
     }
 
-    public IRepositoryService getRepositoryService() {
-        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        return (IRepositoryService) service;
+    public IDesignerCoreUIService getDesignerCoreUIService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreUIService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreUIService.class);
+            return (IDesignerCoreUIService) service;
+        }
+        return null;
     }
 
     public IOpenJobScriptActionService getOpenJobScriptActionService() {

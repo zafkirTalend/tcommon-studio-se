@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.designer.runprocess.IPerformanceData;
 
@@ -91,14 +90,9 @@ public class ParallelPerformance extends CommonPerformance {
         return this.label;
     }
 
-    /**
-     * DOC hcw Comment method "computeLabelOffset".
-     * 
-     * @return
-     */
-    public Point computeLabelOffset() {
+    public int computeLabelOffsetY() {
         if (isOnTop) {
-            return new Point(0, -30);
+            return -30;
         }
         int size = performanceDataMap.keySet().size();
         if (size > DISPLAY_LIMIT) {
@@ -107,7 +101,7 @@ public class ParallelPerformance extends CommonPerformance {
         if (displayedExecutionId.size() > DISPLAY_LIMIT) {
             size++;
         }
-        return new Point(0, -14 * size);
+        return -14 * size;
     }
 
     private void displayIfPossible(String execId, IPerformanceData data) {

@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -28,9 +27,12 @@ import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.metadata.celleditor.SchemaXPathQuerysCellEditor;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -209,16 +211,16 @@ public class SchemaXPathQuerysDialog extends Dialog {
     }
 
     private void executeCommand(Command cmd) {
-        boolean exe = false;
-        if (node.getProcess() instanceof IProcess2) {
-            IProcess2 process = (IProcess2) node.getProcess();
-            CommandStack commandStack = process.getCommandStack();
-            if (commandStack != null) {
-                commandStack.execute(cmd);
-                exe = true;
+        final IProcess process = node.getProcess();
+
+        boolean executed = false;
+        if (process != null && process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
             }
         }
-        if (!exe) {
+        if (!executed) {
             cmd.execute();
         }
     }

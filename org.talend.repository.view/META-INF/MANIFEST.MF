@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Viewer
+Bundle-Name: Repository View
 Bundle-SymbolicName: org.talend.repository.view;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: .Talend.
+Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
