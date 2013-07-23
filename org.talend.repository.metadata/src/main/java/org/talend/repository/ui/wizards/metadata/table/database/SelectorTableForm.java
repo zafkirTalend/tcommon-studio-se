@@ -939,7 +939,7 @@ public class SelectorTableForm extends AbstractForm {
                         && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
+                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
                         || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
                     ExtractMetaDataUtils.closeConnection();
                 }
@@ -1946,7 +1946,7 @@ public class SelectorTableForm extends AbstractForm {
                 if (ownedElement != null) {
                     for (ModelElement m : ownedElement) {
                         if (m instanceof MetadataTable) {
-                            String label = ((MetadataTable) m).getLabel();
+                            String label = ((MetadataTable) m).getName();
                             if (label.equals(tableNode.getValue())) {
                                 return true;
                             }

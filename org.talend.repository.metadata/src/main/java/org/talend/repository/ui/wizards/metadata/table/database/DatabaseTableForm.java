@@ -403,7 +403,7 @@ public class DatabaseTableForm extends AbstractForm {
         });
 
         // init the fields
-        nameText.setText(metadataTable.getName());
+        nameText.setText(MetadataToolHelper.validateValue(metadataTable.getLabel()));
         commentText.setText(metadataTable.getComment());
         if (metadataTable.getTableType() != null) {
             typeText.setText(Messages.getString("DatabaseTableForm.type", metadataTable.getTableType())); //$NON-NLS-1$
