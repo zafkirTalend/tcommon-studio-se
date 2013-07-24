@@ -86,6 +86,14 @@ public class ModulesNeededProvider {
 
     private static List<ModuleNeeded> unUsedModules = new ArrayList<ModuleNeeded>();
 
+    private static boolean isCreated = false;
+
+    private static boolean cleanDone = false;
+
+    private static final String TALEND_COMPONENT_CACHE = "ComponentsCache.";
+
+    private static final String TALEND_FILE_NAME = "cache";
+
     private static IRepositoryService service = null;
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
@@ -258,14 +266,6 @@ public class ModulesNeededProvider {
             return importNeedsList;
         }
     }
-
-    private static boolean isCreated = false;
-
-    private static boolean cleanDone = false;
-
-    private static final String TALEND_COMPONENT_CACHE = "ComponentsCache.";
-
-    private static final String TALEND_FILE_NAME = "cache";
 
     public static List<String> getInstallURL(IMPORTType importType) {
         List<String> list = new ArrayList<String>();
