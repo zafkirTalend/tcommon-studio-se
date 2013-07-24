@@ -1197,14 +1197,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
-            if (columns.getRow() == 0 && MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                 boolean check = !Pattern.matches("^\\w+$", tablePattern);//$NON-NLS-1$
-                if (check) {
+                if (check && !columns.next()) {
                     columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern,
                             TalendQuoteUtils.addQuotes(tablePattern, TalendQuoteUtils.ANTI_QUOTE), columnPattern);
                 }
+                columns.beforeFirst();
             }
-
             int index = 0;
             while (columns.next()) {
                 int decimalDigits = 0;

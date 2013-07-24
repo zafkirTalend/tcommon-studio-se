@@ -629,12 +629,13 @@ public class ExtractManager {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
-            if (columns.getRow() == 0 && MetadataConnectionUtils.isMysql(dbMetaData)) {
+            if (MetadataConnectionUtils.isMysql(dbMetaData)) {
                 boolean check = !Pattern.matches("^\\w+$", tableName);//$NON-NLS-1$
-                if (check) {
+                if (check && !columns.next()) {
                     columns = getColumnsResultSet(dbMetaData, catalogName, schemaName,
                             TalendQuoteUtils.addQuotes(tableName, TalendQuoteUtils.ANTI_QUOTE));
                 }
+                columns.beforeFirst();
             }
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
