@@ -613,6 +613,13 @@
             priority="high">
       </loginTask>
    </extension>
+   <extension
+         point="org.talend.core.repository.login.task">
+      <loginTask
+            class="org.talend.core.repository.SyncLibrariesLoginTask"
+            priority="high">
+      </loginTask>
+   </extension>
 
 
 </plugin>
