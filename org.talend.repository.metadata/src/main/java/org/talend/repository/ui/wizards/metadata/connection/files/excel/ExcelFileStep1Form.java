@@ -40,6 +40,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -57,6 +58,7 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.preview.ExcelSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
 
 /**
@@ -88,6 +90,20 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
     private List<String> allsheets = new ArrayList<String>();
 
+    private Button selectModeBtn = null;
+
+    private LabelledCombo modeCombo = null;
+
+    private ExcelSchemaBean bean;
+
+    private boolean isXlsx = false;
+
+    private String generationMode = null;
+
+    private static final String USER_MODE = "USER_MODE";
+
+    private static final String EVENT_MODE = "EVENT_MODE";
+
     /**
      * DOC yexiaowei ExcelFileStep1Form constructor comment.
      * 
@@ -100,6 +116,14 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         super(parent, connectionItem, existingNames);
         setContextModeManager(contextModeManager);
         setupForm();
+    }
+
+    public ExcelFileStep1Form(Composite parent, ConnectionItem connectionItem, String[] existingNames,
+            IMetadataContextModeManager contextModeManager, ExcelSchemaBean bean) {
+        super(parent, connectionItem, existingNames);
+        setContextModeManager(contextModeManager);
+        setupForm();
+        this.bean = bean;
     }
 
     /*
@@ -128,8 +152,20 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         serverCombo = new LabelledCombo(compositeFileLocation, Messages.getString("FileStep1.server"), Messages //$NON-NLS-1$
                 .getString("FileStep1.serverTip"), serverLocation, 2, true, SWT.NONE); //$NON-NLS-1$
 
-        String[] extensions = { "*.xls;*.xlsx" }; //$NON-NLS-1$ //$NON-NLS-2$  hywang add "*.xlsx"
+        String[] extensions = { "*.xls;*.xlsx" }; //$NON-NLS-1$ //  hywang add "*.xlsx"
         fileField = new LabelledFileField(compositeFileLocation, Messages.getString("FileStep1.filepath"), extensions); //$NON-NLS-1$
+
+        selectModeBtn = new Button(compositeFileLocation, SWT.CHECK);
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        gridData.horizontalSpan = 3;
+        selectModeBtn.setLayoutData(gridData);
+        selectModeBtn.setText(Messages.getString("FileStep1.modeButText")); //$NON-NLS-1$
+
+        String[] modeItem = { "Memory-consuming(User mode)", "Less memory consumed for large excel(Event mode)" };//$NON-NLS-1$
+        modeCombo = new LabelledCombo(compositeFileLocation,
+                Messages.getString("FileStep1.readMode"), "", modeItem, 2, true, SWT.NONE); //$NON-NLS-1$
+        modeCombo.setReadOnly(true);
+        modeCombo.select(0);// default select index 1
 
         int numColumnForViewer = 4;
 
@@ -181,6 +217,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         sheetViewer.setContentProvider(new ITreeContentProvider() {
 
+            @Override
             public Object[] getChildren(Object parentElement) {
                 if (parentElement instanceof SheetNode) {
                     return ((SheetNode) parentElement).getChildren().toArray();
@@ -188,11 +225,13 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return null;
             }
 
+            @Override
             public Object getParent(Object element) {
 
                 return null;
             }
 
+            @Override
             public boolean hasChildren(Object element) {
                 if (element instanceof SheetNode) {
                     return ((SheetNode) element).getChildren() != null && ((SheetNode) element).getChildren().size() > 0;
@@ -200,6 +239,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return false;
             }
 
+            @Override
             public Object[] getElements(Object inputElement) {
                 if (inputElement instanceof List) {
                     return ((List) inputElement).toArray();
@@ -207,10 +247,12 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return null;
             }
 
+            @Override
             public void dispose() {
 
             }
 
+            @Override
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
             }
@@ -218,10 +260,12 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         sheetViewer.setLabelProvider(new ILabelProvider() {
 
+            @Override
             public Image getImage(Object element) {
                 return null;
             }
 
+            @Override
             public String getText(Object element) {
                 if (element instanceof SheetNode) {
                     return ((SheetNode) element).getLabel();
@@ -229,19 +273,23 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return null;
             }
 
+            @Override
             public void addListener(ILabelProviderListener listener) {
 
             }
 
+            @Override
             public void dispose() {
 
             }
 
+            @Override
             public boolean isLabelProperty(Object element, String property) {
 
                 return false;
             }
 
+            @Override
             public void removeListener(ILabelProviderListener listener) {
 
             }
@@ -281,6 +329,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         sheetViewer.addCheckStateListener(new ICheckStateListener() {
 
+            @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 fillSheetList();
                 checkFieldsValue();
@@ -333,6 +382,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         viewer.setContentProvider(new IStructuredContentProvider() {
 
+            @Override
             public Object[] getElements(Object inputElement) {
                 if (inputElement instanceof List) {
                     return ((List) inputElement).toArray();
@@ -340,10 +390,12 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return null;
             }
 
+            @Override
             public void dispose() {
 
             }
 
+            @Override
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
             }
@@ -352,10 +404,12 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         viewer.setLabelProvider(new ITableLabelProvider() {
 
+            @Override
             public Image getColumnImage(Object element, int columnIndex) {
                 return null;
             }
 
+            @Override
             public String getColumnText(Object element, int columnIndex) {
                 if (element instanceof String[]) {
                     try {
@@ -367,18 +421,22 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 return ""; //$NON-NLS-1$
             }
 
+            @Override
             public void addListener(ILabelProviderListener listener) {
 
             }
 
+            @Override
             public void dispose() {
 
             }
 
+            @Override
             public boolean isLabelProperty(Object element, String property) {
                 return true;
             }
 
+            @Override
             public void removeListener(ILabelProviderListener listener) {
 
             }
@@ -397,6 +455,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         serverCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setServer(serverCombo.getText());
                 checkFieldsValue();
@@ -405,6 +464,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
         fileField.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (isVisible()) {
@@ -421,6 +481,19 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                             updateErrorStatus(e1.getMessage());
                             makeViewerGroupAvailable(false);
                         }
+                        if (isXlsx) {
+                            selectModeBtn.setSelection(true);
+                            modeCombo.setReadOnly(false);
+                        } else {
+                            selectModeBtn.setSelection(false);
+                            modeCombo.setReadOnly(true);
+                        }
+                        if ((EVENT_MODE).equals(generationMode)) {
+                            modeCombo.select(1);
+                        } else {
+                            modeCombo.select(0);
+                        }
+                        updateStatus();
                     }
                 }
             }
@@ -438,6 +511,52 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
                 }
             }
         });
+
+        selectModeBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (selectModeBtn.getSelection()) {
+                    modeCombo.setReadOnly(false);
+                } else {
+                    modeCombo.setReadOnly(true);
+                    generationMode = USER_MODE;
+                }
+                updateStatus();
+            }
+        });
+
+        modeCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                int index = modeCombo.getSelectionIndex();
+                if (index == 0) {
+                    generationMode = USER_MODE;
+                } else {
+                    generationMode = EVENT_MODE;
+                }
+                updateStatus();
+            }
+        });
+
+        modeCombo.getCombo().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                checkFieldsValue();
+            }
+        });
+    }
+
+    private void updateStatus() {
+        if (isXlsx) {
+            bean.setGenerationMode(generationMode);
+            getConnection().setGenerationMode(generationMode);
+        } else {
+            bean.setGenerationMode(null);
+            getConnection().setGenerationMode(null);
+        }
     }
 
     /**
@@ -484,7 +603,22 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
             filePath = PathUtils.getPortablePath(fileStr);
         }
 
-        excelReader = new ExcelReader(filePath);
+        if (filePath.endsWith(".xlsx")) {
+            isXlsx = true;
+        } else if (filePath.endsWith(".xls")) {
+            isXlsx = false;
+        }
+
+        String genMode = getConnection().getGenerationMode();
+        if (isXlsx && genMode != null && !("").equals(genMode)) {
+            generationMode = getConnection().getGenerationMode();
+        }
+
+        if (isXlsx) {
+            excelReader = new ExcelReader(filePath, isXlsx, generationMode);
+        } else {
+            excelReader = new ExcelReader(filePath);
+        }
 
         String[] sheets = excelReader.getSheetNames();
 
@@ -511,6 +645,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         try {
             dialog.run(true, false, new IRunnableWithProgress() {
 
+                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
                     monitor.beginTask("Excel Preview", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
@@ -519,6 +654,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
 
                     Display.getDefault().syncExec(new Runnable() {
 
+                        @Override
                         @SuppressWarnings("unchecked")
                         public void run() {
 
@@ -629,6 +765,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         if (!isInWizard()) {
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -648,6 +785,13 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         }
         if (fileField.getText() == "") { //$NON-NLS-1$
             updateStatus(IStatus.ERROR, Messages.getString("FileStep1.filepathAlert")); //$NON-NLS-1$
+            return false;
+        }
+
+        String modeText = modeCombo.getText();
+        if (!(modeText.equals("Memory-consuming(User mode)") || modeText
+                .equals("Less memory consumed for large excel(Event mode)"))) {
+            updateStatus(IStatus.ERROR, Messages.getString("FileStep1.modeComboAlert")); //$NON-NLS-1$
             return false;
         }
 
@@ -716,6 +860,7 @@ public class ExcelFileStep1Form extends AbstractExcelFileStepForm {
         sheetViewer.expandAll();
     }
 
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (isReadOnly() != readOnly) {

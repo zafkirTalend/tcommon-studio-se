@@ -38,6 +38,8 @@ public class ExcelSchemaBean {
 
     private ArrayList sheetsList = null;
 
+    private String generationMode = null;
+
     /**
      * Getter for advancedSeparator.
      * 
@@ -198,6 +200,24 @@ public class ExcelSchemaBean {
      */
     public void setSheetsList(ArrayList sheetsList) {
         this.sheetsList = sheetsList;
+    }
+
+    /**
+     * Getter for generationMode.
+     * 
+     * @return the generationMode
+     */
+    public String getGenerationMode() {
+        return this.generationMode;
+    }
+
+    /**
+     * Sets the generationMode.
+     * 
+     * @param generationMode the generationMode to set
+     */
+    public void setGenerationMode(String generationMode) {
+        this.generationMode = generationMode;
     }
 
 }

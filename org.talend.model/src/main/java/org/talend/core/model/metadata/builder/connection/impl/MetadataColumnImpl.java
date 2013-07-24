@@ -1609,6 +1609,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         }
         super.eSet(featureID, newValue);
     }
+
     /**
      * original setLabel used for eSet (deserialization) to override
      * super.setLabel bbehaviour that should also set the Name

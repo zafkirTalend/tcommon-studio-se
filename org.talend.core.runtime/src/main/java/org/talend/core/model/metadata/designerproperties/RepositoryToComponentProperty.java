@@ -1461,6 +1461,10 @@ public class RepositoryToComponentProperty {
             return getExcelSheetTableValue(connection);
         }
 
+        if (value.equals("GENERATION_MODE")) { //$NON-NLS-1$
+            return connection.getGenerationMode();
+        }
+
         return null;
     }
 
@@ -2057,8 +2061,8 @@ public class RepositoryToComponentProperty {
                                 if (temp != null) {
                                     char c[] = temp.toCharArray();
                                     boolean flag = true;
-                                    for (int i = 0; i < c.length; i++) {
-                                        if (c[i] < '0' || c[i] > '9') {
+                                    for (char element : c) {
+                                        if (element < '0' || element > '9') {
                                             flag = false;
                                             break;
                                         }

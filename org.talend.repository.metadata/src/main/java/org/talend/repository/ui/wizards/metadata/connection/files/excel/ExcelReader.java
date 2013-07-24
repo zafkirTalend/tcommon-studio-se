@@ -29,8 +29,11 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.util.PackageHelper;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 
 /**
  * DOC yexiaowei class global comment. Detailled comment
@@ -46,6 +49,12 @@ public class ExcelReader {
     private String[] sheetNamesForXlsx = null;
 
     private boolean isXlsx = false;
+
+    private int maximumRowsToPreview = RepositoryManagerHelper.getMaximumRowsToPreview();
+
+    private String generationMode = null;
+
+    private static final String EVENT_MODE = "EVENT_MODE";
 
     public ExcelReader() {
 
@@ -66,19 +75,36 @@ public class ExcelReader {
         init();
     }
 
+    /**
+     * 
+     * DOC wf ExcelReader constructor comment. add for bug TDI-26614
+     * 
+     * @param excel
+     * @param isSelect
+     * @param isForUserMode
+     * @throws BiffException
+     * @throws IOException
+     */
+    public ExcelReader(String excel, boolean isXlsx, String generationMode) throws BiffException, IOException {
+        this.excelPath = excel;
+        this.isXlsx = isXlsx;
+        this.generationMode = generationMode;
+        init();
+    }
+
     private void init() throws BiffException, IOException {
         // hywang modified for excel 2007
-        if (excelPath.endsWith(".xls")) { //$NON-NLS-1$
-            isXlsx = false;
-        } else if (excelPath.endsWith(".xlsx")) { //$NON-NLS-1$
-            isXlsx = true;
-        }
+        //        if (excelPath.endsWith(".xls")) { //$NON-NLS-1$
+        // isXlsx = false;
+        //        } else if (excelPath.endsWith(".xlsx")) { //$NON-NLS-1$
+        // isXlsx = true;
+        // }
 
         if (!isXlsx) {
             WorkbookSettings worksetting = new WorkbookSettings();
             //worksetting.setEncoding("ISO-8859-15"); //$NON-NLS-1$
-            worksetting.setCellValidationDisabled(true); //$NON-NLS-1$
-            worksetting.setSuppressWarnings(true); //$NON-NLS-1$
+            worksetting.setCellValidationDisabled(true);
+            worksetting.setSuppressWarnings(true);
             workbook = Workbook.getWorkbook(new File(excelPath), worksetting);
         } else {
             // modify for bug 12174.
@@ -98,10 +124,26 @@ public class ExcelReader {
                 e.printStackTrace();
             }
             if (clone != null) {
-                xwb = new XSSFWorkbook(clone);
                 List<String> sheetlist = new ArrayList<String>();
-                for (XSSFSheet sheet : xwb) {
-                    sheetlist.add(sheet.getSheetName());
+                // modified for bug TDI-26614, Use XSSF and SAX (Event API) to parse excel 2007, only need small memory
+                // footprint
+                if (isXlsx && (EVENT_MODE).equals(generationMode)) {
+                    try {
+                        XSSFReader xssfReader = new XSSFReader(clone);
+                        XSSFReader.SheetIterator sheets = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
+                        while (sheets.hasNext()) {
+                            sheets.next();
+                            String sheetName = sheets.getSheetName();
+                            sheetlist.add(sheetName);
+                        }
+                    } catch (OpenXML4JException e) {
+                        CommonExceptionHandler.process(e);
+                    }
+                } else {
+                    xwb = new XSSFWorkbook(clone);
+                    for (XSSFSheet sheet : xwb) {
+                        sheetlist.add(sheet.getSheetName());
+                    }
                 }
                 sheetNamesForXlsx = new String[sheetlist.size()];
                 for (int i = 0; i < sheetlist.size(); i++) {
@@ -122,6 +164,7 @@ public class ExcelReader {
 
     public List<String[]> readSheet(String sheetName) {
         List<String[]> res = new ArrayList<String[]>();
+        int recordReadRow = 0;
 
         // hywang modified for excel 2007
         if (!this.isXlsx) {
@@ -134,17 +177,49 @@ public class ExcelReader {
             int rows = sheet.getRows();
 
             for (int i = 0; i < rows; i++) {
+                if (recordReadRow >= maximumRowsToPreview) {
+                    break;
+                }
                 Cell[] cells = sheet.getRow(i);
                 String[] contents = new String[cells.length];
                 for (int j = 0, k = cells.length; j < k; j++) {
                     contents[j] = cells[j].getContents();
                 }
                 res.add(contents);
+                recordReadRow++;
+            }
+        } else if (isXlsx && (EVENT_MODE).equals(generationMode)) {
+            try {
+                com.talend.excel.xssf.event.ExcelReader reader = new com.talend.excel.xssf.event.ExcelReader();
+                reader.addSheetName(sheetName, false);
+                reader.parse(excelPath, "UTF-8");//$NON-NLS-1$
+                while (reader.hasNext()) {
+                    if (recordReadRow >= maximumRowsToPreview) {
+                        reader.stopRead();
+                        break;
+                    }
+                    List<String> row = reader.next();
+                    String[] rowContents = new String[row.size()];
+                    for (int i = 0; i < row.size(); i++) {
+                        String cellContent = row.get(i);
+                        if (cellContent != null) {
+                            rowContents[i] = cellContent;
+                        } else {
+                            rowContents[i] = "";//$NON-NLS-1$
+                        }
+                    }
+                    res.add(rowContents);
+                    recordReadRow++;
+                }
+            } catch (Exception e) {
+                CommonExceptionHandler.process(e);
             }
         } else {
-
             XSSFSheet sheet = xwb.getSheet(sheetName);
             for (int i = sheet.getFirstRowNum(); i < sheet.getPhysicalNumberOfRows(); i++) {
+                if (recordReadRow >= maximumRowsToPreview) {
+                    break;
+                }
                 Row row = sheet.getRow(i);
                 if (row != null) {
                     List<String> contents = new ArrayList<String>();
@@ -163,6 +238,7 @@ public class ExcelReader {
                         rowContents[k] = objs[k].toString();
                     }
                     res.add(rowContents);
+                    recordReadRow++;
                 }
             }
         }

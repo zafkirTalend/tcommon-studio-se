@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#isAdvancedSpearator <em>Advanced Spearator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#isSelectAllSheets <em>Select All Sheets</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#getSheetList <em>Sheet List</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#getGenerationMode <em>Generation Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -210,6 +211,26 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * @ordered
      */
     protected ArrayList sheetList = SHEET_LIST_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getGenerationMode() <em>Generation Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGenerationMode()
+     * @generated
+     * @ordered
+     */
+    protected static final String GENERATION_MODE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGenerationMode() <em>Generation Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGenerationMode()
+     * @generated
+     * @ordered
+     */
+    protected String generationMode = GENERATION_MODE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -424,6 +445,28 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getGenerationMode() {
+        return generationMode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGenerationMode(String newGenerationMode) {
+        String oldGenerationMode = generationMode;
+        generationMode = newGenerationMode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__GENERATION_MODE,
+                    oldGenerationMode, generationMode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -445,6 +488,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
             return isSelectAllSheets();
         case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
             return getSheetList();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__GENERATION_MODE:
+            return getGenerationMode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -486,6 +531,9 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
             setSheetList((ArrayList) newValue);
             return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__GENERATION_MODE:
+            setGenerationMode((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -525,6 +573,9 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
             setSheetList(SHEET_LIST_EDEFAULT);
             return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__GENERATION_MODE:
+            setGenerationMode(GENERATION_MODE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -557,6 +608,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
             return selectAllSheets != SELECT_ALL_SHEETS_EDEFAULT;
         case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
             return SHEET_LIST_EDEFAULT == null ? sheetList != null : !SHEET_LIST_EDEFAULT.equals(sheetList);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__GENERATION_MODE:
+            return GENERATION_MODE_EDEFAULT == null ? generationMode != null : !GENERATION_MODE_EDEFAULT.equals(generationMode);
         }
         return super.eIsSet(featureID);
     }
@@ -590,6 +643,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         result.append(selectAllSheets);
         result.append(", sheetList: ");
         result.append(sheetList);
+        result.append(", generationMode: ");
+        result.append(generationMode);
         result.append(')');
         return result.toString();
     }

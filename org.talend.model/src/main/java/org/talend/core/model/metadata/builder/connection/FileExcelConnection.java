@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets <em>Select All Sheets</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList <em>Sheet List</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getGenerationMode <em>Generation Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -257,5 +258,31 @@ public interface FileExcelConnection extends FileConnection {
      * @generated
      */
     void setSheetList(ArrayList value);
+
+    /**
+     * Returns the value of the '<em><b>Generation Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Generation Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Generation Mode</em>' attribute.
+     * @see #setGenerationMode(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_GenerationMode()
+     * @model
+     * @generated
+     */
+    String getGenerationMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getGenerationMode <em>Generation Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Generation Mode</em>' attribute.
+     * @see #getGenerationMode()
+     * @generated
+     */
+    void setGenerationMode(String value);
 
 } // FileExcelConnection

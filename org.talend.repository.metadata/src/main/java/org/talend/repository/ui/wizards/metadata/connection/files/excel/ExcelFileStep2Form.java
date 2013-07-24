@@ -84,6 +84,15 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         setupForm(true);
     }
 
+    public ExcelFileStep2Form(Composite parent, ConnectionItem connectionItem, IMetadataContextModeManager contextModeManager,
+            ExcelSchemaBean bean) {
+        super(parent, connectionItem);
+        setConnectionItem(connectionItem);
+        setContextModeManager(contextModeManager);
+        setupForm(true);
+        this.bean = bean;
+    }
+
     private static Logger log = Logger.getLogger(ExcelFileStep2Form.class);
 
     private static final String EMPTY_VALUE = Messages.getString("FileStep2.empty"); //$NON-NLS-1$
@@ -114,6 +123,8 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
     private LabelledText firstColumnText;
 
     private LabelledText lastColumnText;
+
+    private ExcelSchemaBean bean;
 
     /**
      * Fields use to preview.
@@ -435,7 +446,9 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         processDescription.setEncoding(TalendQuoteUtils.addQuotes(originalValueConnection.getEncoding()));
         processDescription.setRemoveEmptyRow(originalValueConnection.isRemoveEmptyRow());
 
-        ExcelSchemaBean bean = new ExcelSchemaBean();
+        if (bean == null) {
+            bean = new ExcelSchemaBean();
+        }
 
         bean.setSheetName(originalValueConnection.getSheetName());
         bean.setFirstColumn(originalValueConnection.getFirstColumn());

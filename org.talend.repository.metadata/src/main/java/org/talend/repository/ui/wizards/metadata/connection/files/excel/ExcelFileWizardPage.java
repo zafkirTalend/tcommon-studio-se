@@ -16,11 +16,11 @@ import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.repository.preview.ExcelSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
@@ -41,6 +41,8 @@ public class ExcelFileWizardPage extends WizardPage {
 
     private IMetadataContextModeManager contextModeManager;
 
+    private ExcelSchemaBean bean;
+
     /**
      * DOC ocarbone LdifFileWizardPage constructor comment.
      * 
@@ -50,37 +52,40 @@ public class ExcelFileWizardPage extends WizardPage {
      * @param existingNames
      */
     public ExcelFileWizardPage(int step, ConnectionItem connectionItem, boolean isRepositoryObjectEditable,
-            String[] existingNames, IMetadataContextModeManager contextModeManager) {
+            String[] existingNames, IMetadataContextModeManager contextModeManager, ExcelSchemaBean bean) {
         super("wizardPage"); //$NON-NLS-1$
         this.step = step;
         this.connectionItem = connectionItem;
         this.existingNames = existingNames;
         this.isRepositoryObjectEditable = isRepositoryObjectEditable;
         this.contextModeManager = contextModeManager;
+        this.bean = bean;
     }
 
     /**
      * 
      * @see IDialogPage#createControl(Composite)
      */
+    @Override
     public void createControl(final Composite parent) {
         currentComposite = null;
 
         if (step == 1) {
-            currentComposite = new ExcelFileStep1Form(parent, connectionItem, existingNames, contextModeManager);
+            currentComposite = new ExcelFileStep1Form(parent, connectionItem, existingNames, contextModeManager, bean);
         } else if (step == 2) {
-            currentComposite = new ExcelFileStep2Form(parent, connectionItem, contextModeManager);
+            currentComposite = new ExcelFileStep2Form(parent, connectionItem, contextModeManager, bean);
         } else if (step == 3) {
-            MetadataTable metadataTable = ConnectionHelper.getTables((FileExcelConnection) connectionItem.getConnection())
+            MetadataTable metadataTable = ConnectionHelper.getTables(connectionItem.getConnection())
                     .toArray(new MetadataTable[0])[0]; // hywang
             currentComposite = new ExcelFileStep3Form(parent, connectionItem, metadataTable, TableHelper.getTableNames(
-                    ((FileExcelConnection) connectionItem.getConnection()), metadataTable.getLabel()), contextModeManager);
+                    connectionItem.getConnection(), metadataTable.getLabel()), contextModeManager, bean);
         }
 
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
 
                 if (source.isStatusOnError()) {
@@ -95,6 +100,6 @@ public class ExcelFileWizardPage extends WizardPage {
         };
 
         currentComposite.setListener(listener);
-        setControl((Composite) currentComposite);
+        setControl(currentComposite);
     }
 }

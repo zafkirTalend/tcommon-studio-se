@@ -43,6 +43,7 @@ import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.preview.ExcelSchemaBean;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
@@ -331,7 +332,8 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
             setWindowTitle(Messages.getString("ExcelFileWizard.windowTitleUpdate")); //$NON-NLS-1$
         }
 
-        page1 = new ExcelFileWizardPage(1, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager);
+        ExcelSchemaBean bean = new ExcelSchemaBean();
+        page1 = new ExcelFileWizardPage(1, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager, bean);
 
         page1.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 2 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + " 4"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -339,7 +341,7 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
 
         addPage(page1);
 
-        page2 = new ExcelFileWizardPage(2, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager);
+        page2 = new ExcelFileWizardPage(2, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager, bean);
 
         page2.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 3 " //$NON-NLS-1$ //$NON-NLS-2$
                 + Messages.getString("FileWizardPage.of") + " 4"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -348,7 +350,8 @@ public class ExcelFileWizard extends CheckLastVersionRepositoryWizard implements
         addPage(page2);
 
         if (creation) {
-            page3 = new ExcelFileWizardPage(3, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager);
+            page3 = new ExcelFileWizardPage(3, connectionItem, isRepositoryObjectEditable(), existingNames, contextModeManager,
+                    bean);
 
             page3.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 4 " //$NON-NLS-1$ //$NON-NLS-2$
                     + Messages.getString("FileWizardPage.of") + " 4 "); //$NON-NLS-1$ //$NON-NLS-2$
