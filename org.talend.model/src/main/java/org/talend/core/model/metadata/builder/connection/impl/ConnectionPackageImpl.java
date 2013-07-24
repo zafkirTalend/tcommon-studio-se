@@ -2139,6 +2139,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_GenerationMode() {
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4063,6 +4072,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR);
         createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS);
         createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SHEET_LIST);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__GENERATION_MODE);
 
         xmlXPathLoopDescriptorEClass = createEClass(XML_XPATH_LOOP_DESCRIPTOR);
         createEAttribute(xmlXPathLoopDescriptorEClass, XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE);
@@ -4921,6 +4931,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFileExcelConnection_SheetList(), this.getList(), "sheetList", null, 0, 1, FileExcelConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_GenerationMode(), ecorePackage.getEString(), "generationMode", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(xmlXPathLoopDescriptorEClass, XmlXPathLoopDescriptor.class, "XmlXPathLoopDescriptor", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

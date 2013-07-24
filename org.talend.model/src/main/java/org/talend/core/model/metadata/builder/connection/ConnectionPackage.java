@@ -9657,13 +9657,22 @@ public interface ConnectionPackage extends EPackage {
     int FILE_EXCEL_CONNECTION__SHEET_LIST = FILE_CONNECTION_FEATURE_COUNT + 8;
 
     /**
+     * The feature id for the '<em><b>Generation Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__GENERATION_MODE = FILE_CONNECTION_FEATURE_COUNT + 9;
+
+    /**
      * The number of structural features of the '<em>File Excel Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 9;
+    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 10;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
@@ -19881,6 +19890,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileExcelConnection_SheetList();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getGenerationMode <em>Generation Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Generation Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getGenerationMode()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_GenerationMode();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Xml XPath Loop Descriptor</em>'.
@@ -23659,6 +23679,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SHEET_LIST = eINSTANCE.getFileExcelConnection_SheetList();
+
+        /**
+         * The meta object literal for the '<em><b>Generation Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__GENERATION_MODE = eINSTANCE.getFileExcelConnection_GenerationMode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
