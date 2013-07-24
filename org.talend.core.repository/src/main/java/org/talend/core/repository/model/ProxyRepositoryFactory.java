@@ -27,10 +27,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -132,8 +129,6 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  */
 public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
-    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-
     private static final int MAX_TASKS = 8;
 
     private static Logger log = Logger.getLogger(ProxyRepositoryFactory.class);
@@ -181,6 +176,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             singleton = new ProxyRepositoryFactory();
         }
         return singleton;
+    }
+
+    private ICoreService getCoreService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            return (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        }
+        return null;
     }
 
     /*
@@ -730,27 +732,30 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         boolean isExtendPoint = false;
 
         fireRepositoryPropertyChange(ERepositoryActionName.DELETE_FOREVER.getName(), null, object);
-
         ERepositoryObjectType repositoryObjectType = object.getRepositoryObjectType();
-        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            isExtendPoint = handler.isRepObjType(repositoryObjectType);
-            if (isExtendPoint == true) {
-                if (repositoryObjectType == handler.getProcessType()) {
-                    coreService.removeJobLaunch(object);
-                }
-                if (repositoryObjectType == handler.getCodeType()) {
-                    try {
-                        coreService.deleteBeanfile(object);
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
+
+        ICoreService coreService = getCoreService();
+        if (coreService != null) {
+            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                isExtendPoint = handler.isRepObjType(repositoryObjectType);
+                if (isExtendPoint == true) {
+                    if (repositoryObjectType == handler.getProcessType()) {
+                        coreService.removeJobLaunch(object);
                     }
+                    if (repositoryObjectType == handler.getCodeType()) {
+                        try {
+                            coreService.deleteBeanfile(object);
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
+                    break;
                 }
-                break;
             }
-        }
-        if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
-            // delete the job launch, for bug 8878
-            coreService.removeJobLaunch(object);
+            if (repositoryObjectType == ERepositoryObjectType.PROCESS) {
+                // delete the job launch, for bug 8878
+                coreService.removeJobLaunch(object);
+            }
         }
 
         if (repositoryObjectType == ERepositoryObjectType.ROUTINES || repositoryObjectType == ERepositoryObjectType.PIG_UDF) {
@@ -1236,8 +1241,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 break;
             }
         }
-
-        if (isOherProcess || item instanceof ProcessItem) {
+        ICoreService coreService = getCoreService();
+        if (coreService != null && (isOherProcess || item instanceof ProcessItem)) {
             try {
                 coreService.checkJob(item.getProperty().getLabel());
             } catch (BusinessException e) {
@@ -1301,7 +1306,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public Item copy(Item sourceItem, IPath targetPath) throws PersistenceException, BusinessException {
-        if (sourceItem instanceof ProcessItem) {
+        ICoreService coreService = getCoreService();
+        if (coreService != null && sourceItem instanceof ProcessItem) {
             try {
                 coreService.checkJob(sourceItem.getProperty().getLabel());
             } catch (BusinessException e) {
@@ -1322,7 +1328,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public Item copy(Item sourceItem, IPath targetPath, boolean changeLabelWithCopyPrefix) throws PersistenceException,
             BusinessException {
 
-        if (sourceItem instanceof ProcessItem) {
+        ICoreService coreService = getCoreService();
+        if (coreService != null && sourceItem instanceof ProcessItem) {
             try {
                 coreService.checkJob(sourceItem.getProperty().getLabel());
             } catch (BusinessException e) {
@@ -1342,7 +1349,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public Item copy(Item sourceItem, IPath targetPath, String newItemLabel) throws PersistenceException, BusinessException {
 
-        if (sourceItem instanceof ProcessItem) {
+        ICoreService coreService = getCoreService();
+        if (coreService != null && sourceItem instanceof ProcessItem) {
             try {
                 coreService.checkJob(sourceItem.getProperty().getLabel());
             } catch (BusinessException e) {
@@ -1772,17 +1780,20 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(""); //$NON-NLS-1$
                 }
-                // clean workspace
-                coreService.deleteAllJobs(false);
+                ICoreService coreService = getCoreService();
+                if (coreService != null) {
+                    // clean workspace
+                    coreService.deleteAllJobs(false);
 
-                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
-                try {
-                    coreService.syncAllRoutines();
-                    // PTODO need refactor later, this is not good, I think
-                    coreService.syncAllBeans();
-                } catch (SystemException e1) {
-                    //
+                    currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                    currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
+                    try {
+                        coreService.syncAllRoutines();
+                        // PTODO need refactor later, this is not good, I think
+                        coreService.syncAllBeans();
+                    } catch (SystemException e1) {
+                        //
+                    }
                 }
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(""); //$NON-NLS-1$

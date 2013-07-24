@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core;
 
-import org.apache.log4j.Logger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
@@ -47,8 +46,6 @@ public class CorePlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
 
     public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE"; //$NON-NLS-1$
-
-    private static Logger logger = Logger.getLogger(CorePlugin.class);
 
     // The shared instance
     private static CorePlugin plugin;

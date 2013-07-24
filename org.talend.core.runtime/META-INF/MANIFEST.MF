@@ -85,18 +85,17 @@ Require-Bundle: org.eclipse.emf.edit.ui,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
  org.eclipse.jdt.ui,
+ org.eclipse.jface.text,
+ org.eclipse.ui.views.properties.tabbed,
  org.apache.commons.collections,
  org.apache.commons.lang,
- org.talend.commons.runtime;visibility:=reexport,
- org.talend.commons.ui,
+ org.apache.log4j,
  org.talend.model,
  org.talend.utils;visibility:=reexport,
  org.talend.libraries.dom4j-jaxen,
- org.eclipse.jface.text,
- org.eclipse.ui.editors,
  org.talend.libraries.csv,
- org.eclipse.ui.views.properties.tabbed,
- org.apache.log4j
+ org.talend.commons.runtime;visibility:=reexport,
+ org.talend.commons.ui
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
