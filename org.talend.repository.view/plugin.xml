@@ -203,9 +203,41 @@
          <commonSorter
                class="org.talend.repository.viewer.ui.provider.RepFolderOnTopAlwaysViewerSorter">
             <parentExpression>
-               <instanceof
-                     value="org.talend.repository.model.RepositoryNode">
-               </instanceof>
+               <and>
+                  <instanceof
+                        value="org.talend.repository.model.RepositoryNode">
+                  </instanceof>
+                  <not>
+                     <test
+                           property="org.talend.repository.node.metadata.isSchemaColumnFolder">
+                     </test>
+                  </not>
+               </and>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            appearsBefore="org.talend.repository.view.sorter.RepFolderOnTopAlways"
+            contentProvider="org.talend.repository.viewer.content.EmptyContentProvider"
+            id="org.talend.repository.view.sorter.noSorter4MetadataColumn"
+            labelProvider="org.talend.repository.viewer.label.EmptyLabelProvider"
+            name="No sorter for MetadataColumn"
+            priority="normal"
+            sortOnly="true">
+         <triggerPoints></triggerPoints>
+         <possibleChildren></possibleChildren>
+         <commonSorter
+               class="org.talend.repository.viewer.ui.provider.MetadataColumnViewerSorter">
+            <parentExpression>
+               <and>
+                  <instanceof
+                        value="org.talend.repository.model.RepositoryNode">
+                  </instanceof>
+                  <test
+                        property="org.talend.repository.node.metadata.isSchemaColumnFolder">
+                  </test>
+               </and>
             </parentExpression>
          </commonSorter>
       </navigatorContent>
@@ -371,5 +403,15 @@
             products="DI"
             type="CODE">
       </repositoryNode>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.talend.repository.tester.SchemaColumnFolderNodeTester"
+            id="org.talend.repository.node.tester.metadata.schema.columnFolder"
+            namespace="org.talend.repository.node.metadata"
+            properties="isSchemaColumnFolder"
+            type="org.talend.repository.model.RepositoryNode">
+      </propertyTester>
    </extension>
 </plugin>
