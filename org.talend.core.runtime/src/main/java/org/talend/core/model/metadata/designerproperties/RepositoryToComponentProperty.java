@@ -1461,6 +1461,10 @@ public class RepositoryToComponentProperty {
             return getExcelSheetTableValue(connection);
         }
 
+        if (value.equals("GENERATION_MODE")) { //$NON-NLS-1$
+            return connection.getGenerationMode();
+        }
+
         return null;
     }
 

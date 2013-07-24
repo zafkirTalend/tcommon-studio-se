@@ -96,6 +96,8 @@ public class ExcelFileStep3Form extends AbstractExcelFileStepForm {
 
     private boolean readOnly;
 
+    private ExcelSchemaBean bean;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -111,6 +113,15 @@ public class ExcelFileStep3Form extends AbstractExcelFileStepForm {
         this.metadataTable = metadataTable;
         setContextModeManager(contextModeManager);
         setupForm();
+    }
+
+    public ExcelFileStep3Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable,
+            String[] existingNames, IMetadataContextModeManager contextModeManager, ExcelSchemaBean bean) {
+        super(parent, connectionItem, metadataTable, existingNames);
+        this.metadataTable = metadataTable;
+        setContextModeManager(contextModeManager);
+        setupForm();
+        this.bean = bean;
     }
 
     /**
@@ -296,7 +307,9 @@ public class ExcelFileStep3Form extends AbstractExcelFileStepForm {
 
         processDescription.setEncoding(TalendQuoteUtils.addQuotes(originalValueConnection.getEncoding()));
 
-        ExcelSchemaBean bean = new ExcelSchemaBean();
+        if (bean == null) {
+            bean = new ExcelSchemaBean();
+        }
 
         bean.setSheetName(originalValueConnection.getSheetName());
         // for bug 12907
