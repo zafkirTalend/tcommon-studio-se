@@ -25,6 +25,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import metadata.managment.i18n.Messages;
 
@@ -53,9 +54,11 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
+import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -101,11 +104,11 @@ public class ExtractManager {
 
     private static Logger log = Logger.getLogger(ExtractManager.class);
 
-    private EDatabaseTypeName dbType;
+    private final EDatabaseTypeName dbType;
 
-    private Map<String, String> tableTypeMap = new Hashtable<String, String>();
+    private final Map<String, String> tableTypeMap = new Hashtable<String, String>();
 
-    private Map<String, String> tableCommentsMap = new HashMap<String, String>();
+    private final Map<String, String> tableCommentsMap = new HashMap<String, String>();
 
     private int columnIndex;
 
@@ -626,6 +629,14 @@ public class ExtractManager {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
+            if (MetadataConnectionUtils.isMysql(dbMetaData)) {
+                boolean check = !Pattern.matches("^\\w+$", tableName);//$NON-NLS-1$
+                if (check && !columns.next()) {
+                    columns = getColumnsResultSet(dbMetaData, catalogName, schemaName,
+                            TalendQuoteUtils.addQuotes(tableName, TalendQuoteUtils.ANTI_QUOTE));
+                }
+                columns.beforeFirst();
+            }
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
