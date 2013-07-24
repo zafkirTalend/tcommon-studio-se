@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.librariesmanager.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +23,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
@@ -33,6 +44,12 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
+import org.talend.core.model.component_cache.ComponentCachePackage;
+import org.talend.core.model.component_cache.ComponentInfo;
+import org.talend.core.model.component_cache.ComponentsCache;
+import org.talend.core.model.component_cache.util.ComponentCacheResourceFactoryImpl;
+import org.talend.core.model.components.ComponentManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
@@ -48,6 +65,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.librariesmanager.i18n.Messages;
@@ -192,17 +210,135 @@ public class ModulesNeededProvider {
     }
 
     private static List<ModuleNeeded> getModulesNeededForComponents() {
-        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                    IComponentsService.class);
-            IComponentsFactory compFac = service.getComponentsFactory();
-            Set<IComponent> componentList = compFac.getComponents();
-            for (IComponent comp : componentList.toArray(new IComponent[0])) {
-                importNeedsList.addAll(comp.getModulesNeeded());
+        initCache();
+        if (isCreated) {
+            List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+            ComponentsCache cache = ComponentManager.getComponentCache();
+            EMap<String, EList<ComponentInfo>> map = cache.getComponentEntryMap();
+            Set<String> set = map.keySet();
+            Iterator it = set.iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                EList<ComponentInfo> value = map.get(key);
+                for (ComponentInfo info : value) {
+                    EList emfImportList = info.getImportType();
+                    for (int i = 0; i < emfImportList.size(); i++) {
+                        IMPORTType importType = (IMPORTType) emfImportList.get(i);
+                        //                    String msg = getTranslatedValue(importType.getNAME() + ".INFO"); //$NON-NLS-1$
+                        // if (msg.startsWith(Messages.KEY_NOT_FOUND_PREFIX)) {
+                        //                        msg = Messages.getString("modules.required"); //$NON-NLS-1$
+                        // }
+                        String msg = importType.getMESSAGE();
+                        if (msg == null) {
+                            msg = Messages.getString("modules.required");
+                        }
+                        List<String> list = getInstallURL(importType);
+                        ModuleNeeded componentImportNeeds = new ModuleNeeded(key, importType.getMODULE(), msg,
+                                importType.isREQUIRED(), list, importType.getREQUIREDIF());
+                        initBundleID(importType, componentImportNeeds);
+                        componentImportNeeds.setMrRequired(importType.isMRREQUIRED());
+                        componentImportNeeds.setShow(importType.isSHOW());
+                        componentImportNeeds.setModuleLocaion(importType.getUrlPath());
+                        importNeedsList.add(componentImportNeeds);
+                    }
+                }
             }
+            return importNeedsList;
+        } else {
+            List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                IComponentsFactory compFac = service.getComponentsFactory();
+                Set<IComponent> componentList = compFac.getComponents();
+                for (IComponent comp : componentList.toArray(new IComponent[0])) {
+                    importNeedsList.addAll(comp.getModulesNeeded());
+                }
+            }
+            return importNeedsList;
         }
-        return importNeedsList;
+    }
+
+    private static boolean isCreated = false;
+
+    private static boolean cleanDone = false;
+
+    private static final String TALEND_COMPONENT_CACHE = "ComponentsCache.";
+
+    private static final String TALEND_FILE_NAME = "cache";
+
+    public static List<String> getInstallURL(IMPORTType importType) {
+        List<String> list = new ArrayList<String>();
+        EList emfInstall = importType.getURL();
+        for (int j = 0; j < emfInstall.size(); j++) {
+            String installtype = (String) emfInstall.get(j);
+            list.add(installtype);
+        }
+        return list;
+    }
+
+    protected static void initBundleID(IMPORTType importType, ModuleNeeded componentImportNeeds) {
+        String bundleID = importType.getBundleID();
+        if (bundleID != null) {
+            String bundleName = null;
+            String bundleVersion = null;
+            if (bundleID.contains(":")) {
+                String[] nameAndVersion = bundleID.split(":");
+                bundleName = nameAndVersion[0];
+                bundleVersion = nameAndVersion[1];
+            } else {
+                bundleName = bundleID;
+            }
+            componentImportNeeds.setBundleName(bundleName);
+            componentImportNeeds.setBundleVersion(bundleVersion);
+        }
+    }
+
+    private static void initCache() {
+        String installLocation = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
+        boolean isNeedClean = !cleanDone && TalendCacheUtils.isSetCleanComponentCache();
+        cleanDone = true;
+        isCreated = hasComponentFile(installLocation) && !isNeedClean;
+        ComponentsCache cache = ComponentManager.getComponentCache();
+        try {
+            if (isCreated) {
+                if (cache.getComponentEntryMap().isEmpty()) {
+                    ComponentsCache loadCache = loadComponentResource(installLocation);
+                    cache.getComponentEntryMap().putAll(loadCache.getComponentEntryMap());
+                }
+            } else {
+                cache.getComponentEntryMap().clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            cache.getComponentEntryMap().clear();
+            isCreated = false;
+        }
+    }
+
+    private static boolean hasComponentFile(String installLocation) {
+        String filePath = ModulesNeededProvider.TALEND_COMPONENT_CACHE
+                + LanguageManager.getCurrentLanguage().toString().toLowerCase() + ModulesNeededProvider.TALEND_FILE_NAME;
+        File file = new File(new Path(installLocation).append(filePath).toString());
+        return file.exists();
+    }
+
+    private static ComponentsCache loadComponentResource(String installLocation) throws IOException {
+        String filePath = ModulesNeededProvider.TALEND_COMPONENT_CACHE
+                + LanguageManager.getCurrentLanguage().toString().toLowerCase() + ModulesNeededProvider.TALEND_FILE_NAME;
+        URI uri = URI.createFileURI(installLocation).appendSegment(filePath);
+        ComponentCacheResourceFactoryImpl compFact = new ComponentCacheResourceFactoryImpl();
+        Resource resource = compFact.createResource(uri);
+        Map optionMap = new HashMap();
+        optionMap.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+        optionMap.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+        optionMap.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+        optionMap.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap());
+        optionMap.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+        resource.load(optionMap);
+        ComponentsCache cache = (ComponentsCache) EcoreUtil.getObjectByType(resource.getContents(),
+                ComponentCachePackage.eINSTANCE.getComponentsCache());
+        return cache;
     }
 
     public static List<ModuleNeeded> getModulesNeededForJobs() {
