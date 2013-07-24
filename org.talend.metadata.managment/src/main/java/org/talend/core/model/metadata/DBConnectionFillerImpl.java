@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -56,6 +57,7 @@ import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.TalendCWMService;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -1141,6 +1143,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
+            if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
+                boolean check = !Pattern.matches("^\\w+$", tablePattern);//$NON-NLS-1$
+                if (check && !columns.next()) {
+                    columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern,
+                            TalendQuoteUtils.addQuotes(tablePattern, TalendQuoteUtils.ANTI_QUOTE), columnPattern);
+                }
+                columns.beforeFirst();
+            }
             int index = 0;
             while (columns.next()) {
                 int decimalDigits = 0;

@@ -25,6 +25,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import metadata.managment.i18n.Messages;
 
@@ -57,6 +58,7 @@ import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.builder.util.TDColumnAttributeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -612,6 +614,14 @@ public class ExtractManager {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
+            if (MetadataConnectionUtils.isMysql(dbMetaData)) {
+                boolean check = !Pattern.matches("^\\w+$", tableName);//$NON-NLS-1$
+                if (check && !columns.next()) {
+                    columns = getColumnsResultSet(dbMetaData, catalogName, schemaName,
+                            TalendQuoteUtils.addQuotes(tableName, TalendQuoteUtils.ANTI_QUOTE));
+                }
+                columns.beforeFirst();
+            }
 
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
