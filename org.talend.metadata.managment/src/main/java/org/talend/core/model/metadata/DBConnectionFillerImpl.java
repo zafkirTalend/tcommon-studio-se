@@ -888,7 +888,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     }
                 }
                 MetadataTable metadatatable = null;
-                if (TableType.VIEW.toString().equals(temptableType)) {
+                if (TableType.VIEW.toString().equals(temptableType) || ETableTypes.VIRTUAL_VIEW.getName().equals(temptableType)) {
                     metadatatable = RelationalFactory.eINSTANCE.createTdView();
                 } else {
                     metadatatable = RelationalFactory.eINSTANCE.createTdTable();
@@ -898,8 +898,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 // Added by Marvin Wang on Feb. 6, 2012 for bug TDI-24413, it is just for hive external table.
                 if (ETableTypes.TABLETYPE_EXTERNAL_TABLE.getName().equals(temptableType)
                         || ETableTypes.EXTERNAL_TABLE.getName().equals(temptableType)
-                        || ETableTypes.MANAGED_TABLE.getName().equals(temptableType)) {
+                        || ETableTypes.MANAGED_TABLE.getName().equals(temptableType)
+                        || ETableTypes.INDEX_TABLE.getName().equals(temptableType)) {
                     metadatatable.setTableType(ETableTypes.TABLETYPE_TABLE.getName());
+                } else if (ETableTypes.VIRTUAL_VIEW.getName().equals(temptableType)) {
+                    metadatatable.setTableType(ETableTypes.TABLETYPE_VIEW.getName());
                 } else {
                     metadatatable.setTableType(temptableType);
                 }

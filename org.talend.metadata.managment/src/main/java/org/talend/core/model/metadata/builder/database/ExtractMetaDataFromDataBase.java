@@ -78,9 +78,11 @@ public class ExtractMetaDataFromDataBase {
         TABLETYPE_SYNONYM("SYNONYM"), //$NON-NLS-1$
         TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"), //$NON-NLS-1$
         TABLETYPE_ALIAS("ALIAS"), //$NON-NLS-1$
-        EXTERNAL_TABLE("EXTERNAL_TABLE"), //$NON-NLS-1$
-        MANAGED_TABLE("MANAGED_TABLE"), //$NON-NLS-1$
-        TABLETYPE_EXTERNAL_TABLE("EXTERNAL TABLE");//$NON-NLS-1$ //Added by Marvin Wang on Feb. 5, 2012 for bug TDI-24413.
+        TABLETYPE_EXTERNAL_TABLE("EXTERNAL TABLE"), //$NON-NLS-1$ //Added by Marvin Wang on Feb. 5, 2012 for bug TDI-24413.
+        EXTERNAL_TABLE("EXTERNAL_TABLE"), //$NON-NLS-1$ // for hive
+        MANAGED_TABLE("MANAGED_TABLE"), //$NON-NLS-1$ // for hive
+        INDEX_TABLE("INDEX_TABLE"), //$NON-NLS-1$ // for hive
+        VIRTUAL_VIEW("VIRTUAL_VIEW"); //$NON-NLS-1$ // for hive
 
         private final String name;
 

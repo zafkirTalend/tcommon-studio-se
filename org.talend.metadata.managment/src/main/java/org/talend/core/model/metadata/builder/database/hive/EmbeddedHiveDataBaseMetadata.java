@@ -23,7 +23,9 @@ import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
@@ -232,8 +234,11 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                 if (tables instanceof List) {
                     List<String> tableList = (List<String>) tables;
                     for (String tableName : tableList) {
-                        String[] array = new String[] { "", HIVE_SCHEMA_DEFAULT, tableName, TABLE_TYPE, "" }; //$NON-NLS-1$//$NON-NLS-2$
-                        list.add(array);
+                        String tableType = getTableType(HIVE_SCHEMA_DEFAULT, tableName);
+                        if (tableType != null) {
+                            String[] array = new String[] { "", HIVE_SCHEMA_DEFAULT, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
+                            list.add(array);
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -244,6 +249,26 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
         }
         return tableResultSet;
+    }
+
+    /**
+     * DOC ycbai Comment method "getTableType".
+     * 
+     * @param dbName
+     * @param tableName
+     * @return the type of table.
+     * @throws Exception
+     */
+    private String getTableType(String dbName, String tableName) throws Exception {
+        if (dbName == null || tableName == null) {
+            return null;
+        }
+        Object table = ReflectionUtils.invokeMethod(hiveObject, "getTable", new Object[] { dbName, tableName }); //$NON-NLS-1$
+        if (table != null) {
+            return String.valueOf(ReflectionUtils.invokeMethod(table, "getTableType", new Object[0])); //$NON-NLS-1$
+        }
+
+        return ETableTypes.TABLETYPE_TABLE.getName();
     }
 
     /*
