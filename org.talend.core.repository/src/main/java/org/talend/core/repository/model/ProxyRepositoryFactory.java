@@ -27,7 +27,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -55,6 +58,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.data.container.RootContainer;
@@ -1768,7 +1772,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
                 if (coreUiService != null) {
                     coreUiService.componentsReset();
-                    coreUiService.initializeComponents(currentMonitor);
                 }
                 // monitorWrap.worked(1);
                 TimeMeasure.step("logOnProject", "initializeComponents");
@@ -1806,6 +1809,47 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     throw new OperationCanceledException(""); //$NON-NLS-1$
                 }
                 TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
+
+                boolean headless = CommonUIPlugin.isFullyHeadless();
+                if (headless) {
+                    currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                    currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
+                    coreService.syncLibraries(currentMonitor);
+                    TimeMeasure.step("logOnProject", "sync components libraries");
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(""); //$NON-NLS-1$
+                    }
+                    // sap
+                    if (PluginChecker.isSAPWizardPluginLoaded()) {
+                        coreService.synchronizeSapLib();
+                    }
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(""); //$NON-NLS-1$
+                    }
+                    coreService.resetUniservLibraries();
+                    TimeMeasure.step("logOnProject", "sync specific libraries");
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(""); //$NON-NLS-1$
+                    }
+                    // remove the auto-build to enhance the build speed and application's use
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    IWorkspaceDescription description = workspace.getDescription();
+                    description.setAutoBuilding(false);
+                    try {
+                        workspace.setDescription(description);
+                    } catch (CoreException e) {
+                        // do nothing
+                    }
+                    coreService.createStatsLogAndImplicitParamter(project);
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(""); //$NON-NLS-1$
+                    }
+                    coreService.synchronizeMapptingXML();
+
+                    if (monitor != null && monitor.isCanceled()) {
+                        throw new OperationCanceledException(""); //$NON-NLS-1$
+                    }
+                }
                 fullLogonFinished = true;
             } finally {
                 TimeMeasure.end("logOnProject");
