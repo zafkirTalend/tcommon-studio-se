@@ -129,7 +129,9 @@ public enum EImage implements IImage {
     COLLECTOR_ICON("/icons/collector.png"), //$NON-NLS-1$
     REPARTITION_ICON("/icons/repartition.png"), //$NON-NLS-1$
 
-    HADOOP_WIZ_ICON("/icons/hadoop-logo-wiz.png");//$NON-NLS-1$
+    HADOOP_WIZ_ICON("/icons/hadoop-logo-wiz.png"), //$NON-NLS-1$
+
+    HIGHTLIGHT_ICON("/icons/hightLight.png");//$NON-NLS-1$
 
     private String path;
 
