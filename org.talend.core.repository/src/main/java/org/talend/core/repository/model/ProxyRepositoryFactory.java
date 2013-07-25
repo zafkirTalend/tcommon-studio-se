@@ -1810,8 +1810,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
                 TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
 
-                boolean headless = CommonUIPlugin.isFullyHeadless();
-                if (headless) {
+                if (CommonsPlugin.isHeadless()) {
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
                     coreService.syncLibraries(currentMonitor);
