@@ -39,7 +39,7 @@ public class SwitchProjectAction extends Action {
      */
     public SwitchProjectAction() {
         super(Messages.getString("SwitchProjectAction_actionLabel")); //$NON-NLS-1$
-        setEnabled(false);
+        setEnabled(true);
     }
 
     /*
