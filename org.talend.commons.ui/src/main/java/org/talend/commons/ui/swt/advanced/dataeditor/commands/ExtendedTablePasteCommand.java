@@ -29,9 +29,9 @@ import org.talend.commons.utils.data.list.UniqueStringGenerator;
  */
 public abstract class ExtendedTablePasteCommand extends Command implements IExtendedTableCommand {
 
-    private ExtendedTableModel extendedTable;
+    private final ExtendedTableModel extendedTable;
 
-    private Integer indexStart;
+    private final Integer indexStart;
 
     public static final String LABEL = Messages.getString("ExtendedTablePasteCommand.Paste.Label"); //$NON-NLS-1$
 
@@ -78,7 +78,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
      */
     @Override
     public boolean canUndo() {
-        return true;
+        return false;
     }
 
     public String validateColumnName(final String columnName, List<String> labels) {
