@@ -213,7 +213,7 @@ public final class ProcessUtils {
         dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items, withSystem));
         dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem, false));
 
-        if (org.talend.commons.utils.platform.PluginChecker.isTDQLoaded()) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQItemService.class)) {
             ITDQItemService tdqItemService = (ITDQItemService) GlobalServiceRegister.getDefault().getService(
                     ITDQItemService.class);
             if (tdqItemService != null && tdqItemService.hasProcessItemDependencies(items)) {
