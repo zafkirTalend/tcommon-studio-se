@@ -78,7 +78,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
      */
     @Override
     public boolean canUndo() {
-        return true;
+        return false;
     }
 
     public String validateColumnName(final String columnName, List<String> labels) {
