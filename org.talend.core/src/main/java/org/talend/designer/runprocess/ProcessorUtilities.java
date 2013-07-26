@@ -1022,6 +1022,38 @@ public class ProcessorUtilities {
     }
 
     public static IProcessor generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
+            boolean contextProperties, boolean applyToChildren) throws ProcessorException {
+        ISVNProviderService service = null;
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(ISVNProviderService.class);
+        }
+        if (service != null && service.isProjectInSvnMode()) {
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.PIG_UDF);
+        }
+        // achen modify to fix 0006107
+        ProcessItem pItem = null;
+
+        if (process instanceof IProcess2) {
+            pItem = (ProcessItem) ((IProcess2) process).getProperty().getItem();
+        }
+        JobInfo jobInfo;
+        if (pItem != null) { // ProcessItem is null for shadow process
+            jobInfo = new JobInfo(pItem, context.getName());
+            jobInfo.setProcess(process);
+            jobInfo.setContext(context);
+        } else {
+            jobInfo = new JobInfo(process, context);
+        }
+        jobInfo.setApplyContextToChildren(applyToChildren);
+        jobList.clear();
+        IProcessor genCode = generateCode(jobInfo, context.getName(), statistics, trace, contextProperties, GENERATE_ALL_CHILDS,
+                new NullProgressMonitor());
+        jobList.clear();
+        return genCode;
+    }
+
+    public static IProcessor generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
             boolean properties) throws ProcessorException {
         jobList.clear();
         IProcessor returnValue = generateCode(process, context, statistics, trace, properties, new NullProgressMonitor());
