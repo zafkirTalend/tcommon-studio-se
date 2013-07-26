@@ -1055,7 +1055,8 @@ public class DatabaseForm extends AbstractForm {
         GridLayout layout2 = (GridLayout) parent.getLayout();
         hadoopPropGrp = new Group(parent, SWT.NONE);
         hadoopPropGrp.setText(Messages.getString("DatabaseForm.hiveEmbedded.hadoopInfo")); //$NON-NLS-1$
-        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).applyTo(hadoopPropGrp);
+        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+                .applyTo(hadoopPropGrp);
 
         GridLayout layout = new GridLayout(2, false);
         layout.marginHeight = 0;
@@ -3166,6 +3167,7 @@ public class DatabaseForm extends AbstractForm {
                         serverText.setEditable(visible);
                         hideMappingFileRelatedWidgets(true);
                     }
+                    sidOrDatabaseText.setEditable(true);
                     addContextParams(EDBParamName.Server, visible);
                 } else {
                     serverText.hide();
@@ -3201,17 +3203,15 @@ public class DatabaseForm extends AbstractForm {
                             portText.show();
                             serverText.show();
                             serverText.setEditable(true);
-                            sidOrDatabaseText.hide();
-                            sidOrDatabaseText.setEditable(false);
                             hideMappingFileRelatedWidgets(true);
                         } else {
                             portText.show();
                             serverText.show();
                             serverText.setEditable(true);
-                            sidOrDatabaseText.show();
-                            sidOrDatabaseText.setEditable(true);
                             hideMappingFileRelatedWidgets(true);
                         }
+                        sidOrDatabaseText.show();
+                        sidOrDatabaseText.setEditable(true);
                     } else {
                         sidOrDatabaseText.show();
                         sidOrDatabaseText.setEditable(visible);
@@ -3222,7 +3222,7 @@ public class DatabaseForm extends AbstractForm {
                     addContextParams(sidOrDatabase, false);
                 }
             } else {
-                if (template.getDbType() != EDatabaseTypeName.JAVADB_EMBEDED) {
+                if (template.getDbType() != EDatabaseTypeName.JAVADB_EMBEDED && !isHiveDBConnSelected()) {
                     sidOrDatabaseText.hide();
                     addContextParams(sidOrDatabase, false);
                 }
@@ -4253,8 +4253,8 @@ public class DatabaseForm extends AbstractForm {
         portText.setEditable(true);
         usernameText.setHideWidgets(hide);
         passwordText.setHideWidgets(hide);
-        sidOrDatabaseText.setHideWidgets(hide);
-        sidOrDatabaseText.setEditable(!hide);
+        sidOrDatabaseText.setHideWidgets(false);
+        sidOrDatabaseText.setEditable(true);
         schemaText.setHideWidgets(true);
     }
 
