@@ -167,7 +167,10 @@ public class MigrationToolService implements IMigrationToolService {
 
         if (beforeLogon) {
             boolean isNewProject = project.getEmfProject().getProductVersion() == null ? true : false;
-            setMigrationOnNewProject(beforeLogon && isNewProject);
+            setMigrationOnNewProject(beforeLogon && isNewProject && done.isEmpty());
+            if (isNewProject && !RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())) {
+                project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
+            }
         }
         sortMigrationTasks(toExecute);
 
