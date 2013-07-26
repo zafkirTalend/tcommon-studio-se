@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Talend Ui runtime lib
+Bundle-Name: Common UI runtime Plug-in
 Bundle-SymbolicName: org.talend.common.ui.runtime;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
@@ -50,3 +50,4 @@ Import-Package: org.eclipse.jface.bindings.keys,
  org.eclipse.ui.forms.widgets
 Bundle-Activator: org.talend.commons.ui.runtime.CommonUIPlugin
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: .Talend SA.

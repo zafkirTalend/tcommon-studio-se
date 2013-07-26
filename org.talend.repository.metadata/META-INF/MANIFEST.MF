@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Metadata
+Bundle-Name: Repository Metadata Plug-in
 Bundle-SymbolicName: org.talend.repository.metadata;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.talend.repository.metadata.Activator
@@ -64,3 +64,4 @@ Export-Package: org.talend.core.ui.metadata.celleditor,
  org.talend.repository.ui.wizards.metadata.connection.wsdl,
  org.talend.repository.ui.wizards.metadata.table.database,
  org.talend.repository.ui.wizards.metadata.table.files
+Bundle-Vendor: .Talend SA.

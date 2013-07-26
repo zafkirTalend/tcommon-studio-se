@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: runtime (low dependencies) for Talend common classes
+Bundle-Name: Common Runtime Plug-in
 Bundle-SymbolicName: org.talend.commons.runtime
 Bundle-Version: 2.2.0.qualifier
 Require-Bundle: org.apache.log4j;visibility:=reexport,
@@ -51,3 +51,4 @@ Export-Package: org.talend.commons,
  org.talend.repository.model
 Bundle-ClassPath: .,
  fakejdbc_driver.jar
+Bundle-Vendor: .Talend SA.
