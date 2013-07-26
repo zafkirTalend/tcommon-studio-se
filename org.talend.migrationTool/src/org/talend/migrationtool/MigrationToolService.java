@@ -168,9 +168,6 @@ public class MigrationToolService implements IMigrationToolService {
         if (beforeLogon) {
             boolean isNewProject = project.getEmfProject().getProductVersion() == null ? true : false;
             setMigrationOnNewProject(beforeLogon && isNewProject && done.isEmpty());
-            if (isNewProject && !RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())) {
-                project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
-            }
         }
         sortMigrationTasks(toExecute);
 
@@ -474,6 +471,7 @@ public class MigrationToolService implements IMigrationToolService {
             done.add(MigrationUtil.convertMigrationTask(task));
         }
 
+        project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
         saveProjectMigrationTasksDone(project, done);
     }
 
