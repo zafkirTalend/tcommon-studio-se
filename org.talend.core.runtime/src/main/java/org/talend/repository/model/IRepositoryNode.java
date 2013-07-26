@@ -94,4 +94,11 @@ public interface IRepositoryNode {
      * @return
      */
     public List<IRepositoryNode> getChildren(boolean withDeleted);
+
+    /**
+     * get the display text show in the DQ Repostory view(now just used for DQ).
+     * 
+     * @return
+     */
+    public String getDisplayText();
 }

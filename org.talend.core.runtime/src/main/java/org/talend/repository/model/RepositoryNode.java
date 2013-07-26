@@ -534,4 +534,14 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
     public boolean isDisposed() {
         return this.isDisposed;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryNode#getDisplayText()
+     */
+    @Override
+    public String getDisplayText() {
+        return getLabel();
+    }
 }
