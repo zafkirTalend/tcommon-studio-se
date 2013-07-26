@@ -73,7 +73,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
 import org.talend.utils.exceptions.MissingDriverException;
@@ -118,8 +117,7 @@ public class ExtractMetaDataUtils {
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
             Object hiveModelObj = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
             if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModelObj == null ? null : (String) hiveModelObj)) {
-                ClassLoader classLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-                databaseMetadata = new EmbeddedHiveDataBaseMetadata(classLoader);
+                databaseMetadata = new EmbeddedHiveDataBaseMetadata(metadataConn);
             }
         }
         return databaseMetadata;

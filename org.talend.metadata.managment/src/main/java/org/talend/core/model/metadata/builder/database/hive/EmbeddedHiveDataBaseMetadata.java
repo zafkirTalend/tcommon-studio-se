@@ -13,19 +13,22 @@
 package org.talend.core.model.metadata.builder.database.hive;
 
 import java.lang.reflect.Method;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 
@@ -38,28 +41,24 @@ import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
-    private static final String TABLE_TYPE = "TABLE";
+    private static final String TABLE_TYPE = "TABLE"; //$NON-NLS-1$
 
-    private static final String HIVE_SCHEMA_DEFAULT = "default";
+    private static final String HIVE_SCHEMA_DEFAULT = "default"; //$NON-NLS-1$
 
     private Object hiveObject;
 
+    private IMetadataConnection metadataConn;
+
     private ClassLoader classLoader;
 
-    /**
-     * DOC ggu HiveDataBaseMetadata constructor comment.
-     */
-    protected EmbeddedHiveDataBaseMetadata(Connection connection) {
-        super(connection);
-
-    }
-
-    public EmbeddedHiveDataBaseMetadata(ClassLoader classLoader) {
+    public EmbeddedHiveDataBaseMetadata(IMetadataConnection metadataConn) {
         super();
-        this.classLoader = classLoader;
+        this.metadataConn = metadataConn;
+        this.classLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+        init();
     }
 
-    private void init() throws SQLException {
+    private void init() {
         if (hiveObject == null) {
             try {
                 Class calss = Class.forName("org.apache.hadoop.hive.ql.metadata.Hive", true, classLoader); //$NON-NLS-1$
@@ -70,7 +69,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
                 hiveObject = hiveGetMethod.invoke(null);
             } catch (Exception e) {
-                throw new SQLException(e);
+                ExceptionHandler.process(e);
             }
         }
     }
@@ -84,7 +83,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      * @throws SQLException
      */
     public boolean checkConnection() throws SQLException {
-        getTables(null, null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        getTables(this.metadataConn.getDatabase(), null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         return true;
     }
 
@@ -114,7 +113,21 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
         EmbeddedHiveResultSet resultSet = new EmbeddedHiveResultSet();
         resultSet.setMetadata(new String[] { MetaDataConstants.TABLE_CAT.name() });
         List<String[]> list = new ArrayList<String[]>();
-        list.add(new String[] { HIVE_SCHEMA_DEFAULT });
+        String currentDB = this.metadataConn.getDatabase();
+        if (StringUtils.isBlank(currentDB)) {
+            try {
+                List<String> dbs = (List<String>) ReflectionUtils.invokeMethod(hiveObject, "getAllDatabases", new Object[0]); //$NON-NLS-1$
+                if (dbs != null) {
+                    for (String db : dbs) {
+                        list.add(new String[] { db });
+                    }
+                }
+            } catch (Exception e) {
+                throw new SQLException(e);
+            }
+        } else {
+            list.add(new String[] { currentDB });
+        }
         resultSet.setData(list);
         return resultSet;
     }
@@ -182,7 +195,9 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
-        init();
+        if (StringUtils.isBlank(catalog)) {
+            catalog = HIVE_SCHEMA_DEFAULT;
+        }
 
         // Added this for TDI-25456 by Marvin Wang on Apr. 11, 2013.
         ClassLoader currCL = Thread.currentThread().getContextClassLoader();
@@ -227,14 +242,13 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                         setIntVarMethod.invoke(hiveConf, confVar, timeout);
                     }
                 }
-                Method getAllTablesMethod = hiveClass.getDeclaredMethod("getAllTables");//$NON-NLS-1$ 
-                Object tables = getAllTablesMethod.invoke(hiveObject);
+                Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { catalog }); //$NON-NLS-1$
                 if (tables instanceof List) {
                     List<String> tableList = (List<String>) tables;
                     for (String tableName : tableList) {
-                        String tableType = getTableType(HIVE_SCHEMA_DEFAULT, tableName);
+                        String tableType = getTableType(catalog, tableName);
                         if (tableType != null) {
-                            String[] array = new String[] { "", HIVE_SCHEMA_DEFAULT, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
+                            String[] array = new String[] { "", catalog, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
                             list.add(array);
                         }
                     }
@@ -279,20 +293,16 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
     @Override
     public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
             throws SQLException {
-        init();
-
         EmbeddedHiveResultSet tableResultSet = new EmbeddedHiveResultSet();
         tableResultSet.setMetadata(COLUMN_META);
         List<String[]> list = new ArrayList<String[]>();
         tableResultSet.setData(list);
 
         if (hiveObject != null) { // got the hive object
+            ClassLoader currCL = Thread.currentThread().getContextClassLoader();
+            Thread.currentThread().setContextClassLoader(classLoader);
             try {
-                Thread.currentThread().setContextClassLoader(classLoader);
-                Class hiveClass = hiveObject.getClass();
-                Method getTableMethod = hiveClass.getDeclaredMethod("getTable", String.class);//$NON-NLS-1$ 
-                Object table = getTableMethod.invoke(hiveObject, tableNamePattern);
-
+                Object table = ReflectionUtils.invokeMethod(hiveObject, "getTable", new Object[] { catalog, tableNamePattern }); //$NON-NLS-1$
                 if (table != null) {
                     Class tableClass = table.getClass();
                     Method getAllColsMethod = tableClass.getDeclaredMethod("getAllCols");//$NON-NLS-1$ 
@@ -326,9 +336,10 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                         }
                     }
                 }
-
             } catch (Exception e) {
                 throw new SQLException(e);
+            } finally {
+                Thread.currentThread().setContextClassLoader(currCL);
             }
         }
         return tableResultSet;

@@ -228,8 +228,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
             createHiveStandloneConnection(metadataConn);
         } else {
-            EmbeddedHiveDataBaseMetadata embeddedHiveDatabaseMetadata = new EmbeddedHiveDataBaseMetadata(HiveClassLoaderFactory
-                    .getInstance().getClassLoader(metadataConn));
+            EmbeddedHiveDataBaseMetadata embeddedHiveDatabaseMetadata = new EmbeddedHiveDataBaseMetadata(metadataConn);
             embeddedHiveDatabaseMetadata.checkConnection();
         }
     }
@@ -256,7 +255,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     }
 
     private DatabaseMetaData extractHiveEmbeddedDatabaseMetaData(IMetadataConnection metadataConn) {
-        return new EmbeddedHiveDataBaseMetadata(HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn));
+        return new EmbeddedHiveDataBaseMetadata(metadataConn);
     }
 
     private DatabaseMetaData extractHiveStandaloneDatabaseMetaData(IMetadataConnection metadataConn)
