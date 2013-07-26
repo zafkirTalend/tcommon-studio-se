@@ -1830,20 +1830,21 @@ public class DatabaseForm extends AbstractForm {
 
         });
 
+        // removed for bug TDI-14797 on 26 July, 2013. for support search by keyboard's letter.
         // When the DbType is selected, disabled the action of keyboard's letter
         // to modify the combo
         // utils when the user use the keyboard to write the connection string
-        dbTypeCombo.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (dbTypeCombo.getSelectionIndex() > -1) {
-                    if (Character.isLetterOrDigit(e.character)) {
-                        e.doit = false;
-                    }
-                }
-            }
-        });
+        // dbTypeCombo.addKeyListener(new KeyAdapter() {
+        //
+        // @Override
+        // public void keyPressed(KeyEvent e) {
+        // if (dbTypeCombo.getSelectionIndex() > -1) {
+        // if (Character.isLetterOrDigit(e.character)) {
+        // e.doit = false;
+        // }
+        // }
+        // }
+        // });
 
         // Event fileField
         fileField.addListener(SWT.FocusIn, new Listener() {
