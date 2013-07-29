@@ -18,7 +18,6 @@ import java.util.Set;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -48,7 +47,7 @@ public final class RoutinesUtil {
 
     public static List<IRepositoryViewObject> getCurrentSystemRoutines() {
         List<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
 
         try {
             List<IRepositoryViewObject> all = factory.getAll(ProjectManager.getInstance().getCurrentProject(),
@@ -69,7 +68,7 @@ public final class RoutinesUtil {
 
     public static IRepositoryViewObject getUserRoutines(String id) {
         IRepositoryViewObject repositoryObjects = null;
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             repositoryObjects = factory.getLastVersion(id);
         } catch (PersistenceException e) {
@@ -89,7 +88,7 @@ public final class RoutinesUtil {
             return null;
         }
 
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             List<IRepositoryViewObject> all = factory.getAll(ProjectManager.getInstance().getCurrentProject(),
                     ERepositoryObjectType.ROUTINES);
@@ -136,7 +135,7 @@ public final class RoutinesUtil {
     private static void collectUserRoutines(List<IRepositoryViewObject> allRoutines,
             org.talend.core.model.general.Project project, Set<String> includeRoutineIdOrNames, ERepositoryObjectType type) {
         try {
-            List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+            List<IRepositoryViewObject> all = CoreRuntimePlugin.getInstance().getRepositoryService().getProxyRepositoryFactory()
                     .getAll(project, type, allowDeletedRoutine());
             for (IRepositoryViewObject obj : all) {
                 if (includeRoutineIdOrNames == null || includeRoutineIdOrNames.contains(obj.getId())) {
@@ -169,7 +168,7 @@ public final class RoutinesUtil {
     private static void createJobRoutineDependencies(List<RoutinesParameterType> itemInfors, Project project)
             throws PersistenceException {
 
-        List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+        List<IRepositoryViewObject> all = CoreRuntimePlugin.getInstance().getRepositoryService().getProxyRepositoryFactory()
                 .getAll(project, ERepositoryObjectType.ROUTINES, allowDeletedRoutine());
         for (IRepositoryViewObject object : all) {
             Property property = object.getProperty();
@@ -230,7 +229,7 @@ public final class RoutinesUtil {
     private static void createOldJobRoutineDependencies(List<ItemInforType> itemInfors, Project project)
             throws PersistenceException {
 
-        List<IRepositoryViewObject> all = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+        List<IRepositoryViewObject> all = CoreRuntimePlugin.getInstance().getRepositoryService().getProxyRepositoryFactory()
                 .getAll(project, ERepositoryObjectType.ROUTINES, allowDeletedRoutine());
         for (IRepositoryViewObject object : all) {
             Property property = object.getProperty();

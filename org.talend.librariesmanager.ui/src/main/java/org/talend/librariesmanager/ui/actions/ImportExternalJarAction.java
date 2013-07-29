@@ -25,8 +25,8 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
-import org.talend.core.i18n.Messages;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
+import org.talend.librariesmanager.ui.i18n.Messages;
 
 /**
  * Imports the external jar files into talend.
@@ -56,19 +56,20 @@ public class ImportExternalJarAction extends Action {
 
         FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.OPEN
                 | SWT.MULTI);
-        fileDialog.setFilterExtensions(FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
+        fileDialog.setFilterExtensions(FilesUtils.getAcceptJARFilesSuffix());
         fileDialog.open();
         final String path = fileDialog.getFilterPath();
         final String[] fileNames = fileDialog.getFileNames();
 
         BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
 
+            @Override
             public void run() {
-                for (int i = 0; i < fileNames.length; i++) {
+                for (String fileName : fileNames) {
 
-                    final File file = new File(path + File.separatorChar + fileNames[i]);
+                    final File file = new File(path + File.separatorChar + fileName);
                     try {
-                        CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                        LibManagerUiPlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
                         emptyLibs();
                     } catch (Exception e) {
                         ExceptionHandler.process(e);

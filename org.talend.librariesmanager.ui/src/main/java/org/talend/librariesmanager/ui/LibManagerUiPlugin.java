@@ -4,6 +4,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
 
 public class LibManagerUiPlugin extends AbstractUIPlugin {
 
@@ -52,4 +54,10 @@ public class LibManagerUiPlugin extends AbstractUIPlugin {
         return plugin;
     }
 
+    public ILibrariesService getLibrariesService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
+        }
+        return null;
+    }
 }

@@ -5,7 +5,7 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 
 public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
@@ -49,7 +49,7 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
         // final String newPath = PreferencesUtilities.getLibrariesPath();
         if (toReturn) {// && !oldPath.equals(newPath)) {
             try {
-                CorePlugin.getDefault().getLibrariesService().syncLibraries();
+                LibManagerUiPlugin.getDefault().getLibrariesService().syncLibraries();
             } catch (Exception e) {
                 ExceptionHandler.process(e);
                 return false;

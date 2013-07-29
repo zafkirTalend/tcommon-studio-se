@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.constants;
 
-import java.io.File;
+import org.talend.commons.utils.resource.FileExtensions;
 
 /**
  */
@@ -22,31 +22,31 @@ public interface FileConstants {
 
     String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
 
-    String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
+    String PROPERTIES_EXTENSION = FileExtensions.PROPERTIES_EXTENSION;
 
-    String ITEM_EXTENSION = "item"; //$NON-NLS-1$
+    String ITEM_EXTENSION = FileExtensions.ITEM_EXTENSION;
 
-    String SCREENSHOT_EXTENSION = "screenshot"; //$NON-NLS-1$
+    String SCREENSHOT_EXTENSION = FileExtensions.SCREENSHOT_EXTENSION;
 
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
-    String ANA_EXTENSION = "ana"; //$NON-NLS-1$
+    String ANA_EXTENSION = FileExtensions.ANA_EXTENSION;
 
-    String REP_EXTENSION = "rep"; //$NON-NLS-1$
-
-    // MOD klliu 2010-11-26
-    String DEF_EXTENSION = "definition"; //$NON-NLS-1$
+    String REP_EXTENSION = FileExtensions.REP_EXTENSION;
 
     // MOD klliu 2010-11-26
-    String PAT_EXTENSION = "pattern"; //$NON-NLS-1$
+    String DEF_EXTENSION = FileExtensions.DEF_EXTENSION;
 
     // MOD klliu 2010-11-26
-    String RULE_EXTENSION = "rules"; //$NON-NLS-1$
+    String PAT_EXTENSION = FileExtensions.PAT_EXTENSION;
 
     // MOD klliu 2010-11-26
-    String SQL_EXTENSION = "sql"; //$NON-NLS-1$
+    String RULE_EXTENSION = FileExtensions.RULE_EXTENSION;
 
     // MOD klliu 2010-11-26
-    String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
+    String SQL_EXTENSION = FileExtensions.SQL_EXTENSION;
+
+    // MOD klliu 2010-11-26
+    String JRXML_EXTENSION = FileExtensions.JRXML_EXTENSION;
 
     /*
      * file suffix
@@ -57,27 +57,27 @@ public interface FileConstants {
 
     String SCREENSHOT_FILE_SUFFIX = '.' + SCREENSHOT_EXTENSION;
 
-    String ZIP_FILE_SUFFIX = ".zip"; //$NON-NLS-1$
+    String ZIP_FILE_SUFFIX = FileExtensions.ZIP_FILE_SUFFIX;
 
-    String TAR_FILE_SUFFIX = ".tar"; //$NON-NLS-1$
+    String TAR_FILE_SUFFIX = FileExtensions.TAR_FILE_SUFFIX;
 
-    String TAR_GZ_FILE_SUFFIX = ".tar.gz"; //$NON-NLS-1$
+    String TAR_GZ_FILE_SUFFIX = FileExtensions.TAR_GZ_FILE_SUFFIX;
 
-    String JAR_FILE_SUFFIX = ".jar"; //$NON-NLS-1$
+    String JAR_FILE_SUFFIX = FileExtensions.JAR_FILE_SUFFIX;
 
-    String WAR_FILE_SUFFIX = ".war"; //$NON-NLS-1$
+    String WAR_FILE_SUFFIX = FileExtensions.WAR_FILE_SUFFIX;
 
-    String ESB_FILE_SUFFIX = ".esb"; //$NON-NLS-1$
+    String ESB_FILE_SUFFIX = FileExtensions.ESB_FILE_SUFFIX;
 
-    String SH_FILE_SUFFIX = ".sh"; //$NON-NLS-1$
+    String SH_FILE_SUFFIX = FileExtensions.SH_FILE_SUFFIX;
 
-    String BAT_FILE_SUFFIX = ".bat"; //$NON-NLS-1$
+    String BAT_FILE_SUFFIX = FileExtensions.BAT_FILE_SUFFIX;
 
-    String KAR_FILE_SUFFIX = ".kar"; //$NON-NLS-1$
+    String KAR_FILE_SUFFIX = FileExtensions.KAR_FILE_SUFFIX;
 
-    String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
+    String XLS_FILE_SUFFIX = FileExtensions.XLS_FILE_SUFFIX;
 
-    String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
+    String WSDL_FILE_SUFFIX = FileExtensions.WSDL_FILE_SUFFIX;
 
     /*
      * file names

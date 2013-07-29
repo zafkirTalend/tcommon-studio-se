@@ -22,9 +22,9 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.DownloadExternalJarAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
@@ -74,15 +74,15 @@ public class ModulesView extends ViewPart {
                 modulesViewComposite.refresh();
             }
         };
-        CorePlugin.getDefault().getLibrariesService().addChangeLibrariesListener(changedLibrariesListener);
+        LibManagerUiPlugin.getDefault().getLibrariesService().addChangeLibrariesListener(changedLibrariesListener);
 
-        CorePlugin.getDefault().getLibrariesService().checkLibraries();
+        LibManagerUiPlugin.getDefault().getLibrariesService().checkLibraries();
     }
 
     @Override
     public void dispose() {
         if (changedLibrariesListener != null) {
-            CorePlugin.getDefault().getLibrariesService().removeChangeLibrariesListener(changedLibrariesListener);
+            LibManagerUiPlugin.getDefault().getLibrariesService().removeChangeLibrariesListener(changedLibrariesListener);
         }
         super.dispose();
     }

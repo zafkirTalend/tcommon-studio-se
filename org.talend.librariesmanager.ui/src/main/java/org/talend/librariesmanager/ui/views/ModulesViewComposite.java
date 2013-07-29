@@ -32,11 +32,9 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SORT;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.i18n.Messages;
-import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * This is the composite filled in the ModulesView. So it implemented the inferface IModulesViewComposite. Know more see
@@ -88,7 +86,7 @@ public class ModulesViewComposite extends Composite {
         tableViewerCreator.createTable();
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("PerlModulesViewComposite.Status.TitleText")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("ModulesViewComposite.Status.TitleText")); //$NON-NLS-1$
         column.setId(ID_STATUS);
         column.setSortable(true);
         column.setImageProvider(new StatusImageProvider());
@@ -122,7 +120,7 @@ public class ModulesViewComposite extends Composite {
         column.setModifiable(false);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("PerlModulesViewComposite.Component.TitleText")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("ModulesViewComposite.Component.TitleText")); //$NON-NLS-1$
         column.setSortable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleNeeded, String>() {
 
@@ -140,7 +138,7 @@ public class ModulesViewComposite extends Composite {
         column.setWeight(4);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("PerlModulesViewComposite.Module.TitleText")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("ModulesViewComposite.Module.TitleText")); //$NON-NLS-1$
         column.setSortable(true);
         tableViewerCreator.setDefaultSort(column, SORT.ASC);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleNeeded, String>() {
@@ -159,7 +157,7 @@ public class ModulesViewComposite extends Composite {
         column.setWeight(6);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("PerlModulesViewComposite.Required.TitleText")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("ModulesViewComposite.Required.TitleText")); //$NON-NLS-1$
 
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleNeeded, String>() {
 
@@ -177,7 +175,7 @@ public class ModulesViewComposite extends Composite {
         column.setWeight(10);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("PerlModulesViewComposite.Required.Title")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("ModulesViewComposite.Required.Title")); //$NON-NLS-1$
         column.setImageProvider(new RequiredImageProvider());
         column.setSortable(true);
         column.setDisplayedValue(""); //$NON-NLS-1$
@@ -195,8 +193,10 @@ public class ModulesViewComposite extends Composite {
 
         column.setModifiable(false);
         column.setWeight(2);
-        IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
-        compFac.getComponents();
+        // need check it's ok to remove, or caused bug
+        // removed by TUP-833
+        // IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
+        // compFac.getComponents();
         List<ModuleNeeded> modules = ModulesNeededProvider.getModulesNeeded();
 
         tableViewerCreator.init(filterHidenModule(modules));

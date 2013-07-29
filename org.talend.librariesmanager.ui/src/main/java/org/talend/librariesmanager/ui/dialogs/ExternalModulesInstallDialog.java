@@ -67,7 +67,6 @@ import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.download.DownloadHelper;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
@@ -711,7 +710,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     @Override
                     public void run() {
                         try {
-                            CorePlugin.getDefault().getLibrariesService()
+                            LibManagerUiPlugin.getDefault().getLibrariesService()
                                     .deployLibrarys(downloadOk.toArray(new URL[downloadOk.size()]));
                         } catch (IOException e) {
                             ExceptionHandler.process(e);

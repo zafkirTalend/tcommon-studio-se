@@ -33,9 +33,9 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**
@@ -65,10 +65,12 @@ public class RemoveExternalJarAction extends Action {
         if (ModulesViewComposite.getTableViewerCreator() != null) {
             ModulesViewComposite.getTableViewerCreator().getTable().addSelectionListener(new SelectionListener() {
 
+                @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
 
                 }
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     modules.clear();
                     TableItem[] selection = ModulesViewComposite.getTableViewerCreator().getTable().getSelection();
@@ -97,10 +99,11 @@ public class RemoveExternalJarAction extends Action {
     public void run() {
         BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
 
+            @Override
             public void run() {
                 for (ModuleNeeded module : modules) {
                     try {
-                        CorePlugin.getDefault().getLibrariesService().undeployLibrary(module.getModuleName());
+                        LibManagerUiPlugin.getDefault().getLibrariesService().undeployLibrary(module.getModuleName());
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }

@@ -26,10 +26,10 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
-import org.talend.core.CorePlugin;
+import org.talend.commons.utils.resource.FileExtensions;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.LibraryInfo;
-import org.talend.core.repository.constants.FileConstants;
 
 /**
  * wchen class global comment. Detailled comment
@@ -70,7 +70,11 @@ public class RoutineLibraryMananger {
      */
     public void initializeSystemLibs() {
         if (!initialized) {
-            ILibraryManagerService libraryManagerService = CorePlugin.getDefault().getRepositoryBundleService();
+            ILibraryManagerService libManagerService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+                libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerService.class);
+            }
             for (IConfigurationElement current : configurationElements) {
                 String bundleName = current.getContributor().getName();
                 Bundle bundle = Platform.getBundle(bundleName);
@@ -82,12 +86,12 @@ public class RoutineLibraryMananger {
                     Object entryPath = entryPaths.nextElement();
                     if (entryPath != null && entryPath instanceof String) {
                         String path = (String) entryPath;
-                        if (path.endsWith(FileConstants.JAR_FILE_SUFFIX)) {
+                        if (path.endsWith(FileExtensions.JAR_FILE_SUFFIX)) {
                             URL entry = bundle.getEntry(path);
-                            if (entry != null) {
+                            if (entry != null && libManagerService != null) {
                                 try {
                                     URL fileUrl = FileLocator.toFileURL(entry);
-                                    libraryManagerService.deploy(fileUrl.toURI());
+                                    libManagerService.deploy(fileUrl.toURI());
                                 } catch (Exception e) {
                                     log.warn("Cannot deploy: " + bundleName + path);
                                     continue;

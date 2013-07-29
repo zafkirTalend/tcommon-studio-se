@@ -15,7 +15,7 @@ package org.talend.librariesmanager.ui.actions;
 import org.eclipse.jface.action.Action;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.CorePlugin;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 
 /**
@@ -41,7 +41,7 @@ public class CheckModulesAction extends Action {
      */
     @Override
     public void run() {
-        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
+        LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
     }
 
 }
