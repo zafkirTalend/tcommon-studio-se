@@ -21,7 +21,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -63,7 +65,7 @@ public class CopyDeleteFileUtilForWizard {
         String newFile;
         try {
             newFile = copyNeededFiles(oldFile, temPath);
-            getImportFiles(oldFile, temPath);
+            getImportFiles(oldFile, temPath, new HashSet<String>());
         } catch (IOException e) {
             throw new PersistenceException(e);
         } catch (URISyntaxException e) {
@@ -132,6 +134,7 @@ public class CopyDeleteFileUtilForWizard {
 
                 ByteArrayInputStream bytes = new ByteArrayInputStream(emptyDtd.getBytes());
 
+                @Override
                 public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
                     File file = new File(systemId);
                     if (file.exists()) {
@@ -164,7 +167,7 @@ public class CopyDeleteFileUtilForWizard {
         return attri;
     }
 
-    private static void getImportFiles(String xsdFile, String newPath) {
+    private static void getImportFiles(String xsdFile, String newPath, Set<String> filePaths) {
         File file = new File(xsdFile);
         if (!file.exists()) {
             return;
@@ -196,11 +199,11 @@ public class CopyDeleteFileUtilForWizard {
                     File f = new File(importFile);
                     if (f.exists()) {
                         File newFile = new File(newPath + attr.getValue());
-                        // fix for TDI-24495
-                        // if (!newFile.exists()) {
-                        FilesUtils.copyFile(f, newFile);
-                        getImportFiles(importFile, newFile.getParent() + File.separator);
-                        // }
+                        if (!filePaths.contains(newFile.getCanonicalPath())) {
+                            filePaths.add(newFile.getCanonicalPath());
+                            FilesUtils.copyFile(f, newFile);
+                            getImportFiles(importFile, newFile.getParent() + File.separator, filePaths);
+                        }
                     }
                 }
             }
