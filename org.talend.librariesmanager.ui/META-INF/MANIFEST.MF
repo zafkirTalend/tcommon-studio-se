@@ -12,6 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.core.runtime,
  org.talend.librariesmanager
 Bundle-ActivationPolicy: lazy
-Export-Package: org.talend.librariesmanager.ui.views,
+Export-Package: org.talend.librariesmanager.ui,
+ org.talend.librariesmanager.ui.dialogs,
+ org.talend.librariesmanager.ui.views,
  org.talend.librariesmanager.utils
 Bundle-Vendor: .Talend SA.

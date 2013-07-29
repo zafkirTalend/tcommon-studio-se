@@ -12,14 +12,8 @@
 // ============================================================================
 package org.talend.librariesmanager.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.swt.widgets.Shell;
-import org.talend.core.model.components.IComponent;
-import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
-import org.talend.librariesmanager.ui.dialogs.ComponentExternalModulesDialog;
 import org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog;
 import org.talend.librariesmanager.ui.dialogs.OperationExternalModulesDialog;
 import org.talend.librariesmanager.ui.i18n.Messages;
@@ -30,40 +24,11 @@ import org.talend.librariesmanager.ui.i18n.Messages;
  */
 public class ModulesInstaller {
 
-    public static void installModules(Shell shell, IComponent component) {
-        if (!LibManagerUiPlugin.getDefault().getPreferenceStore()
-                .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = Messages.getString("ModulesInstaller_text1", component.getName());//$NON-NLS-1$
-            String title = Messages.getString("ModulesInstaller_title1") + component.getName(); //$NON-NLS-1$
-            if (!component.getModulesNeeded().isEmpty()) {
-                ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, component.getModulesNeeded(),
-                        text, title);
-                dialog.openDialog();
-            }
-        }
-    }
-
-    public static void installModules(Shell shell, List<IComponent> components) {
-        if (!LibManagerUiPlugin.getDefault().getPreferenceStore()
-                .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = Messages.getString("ModulesInstaller_text2"); //$NON-NLS-1$
-            String title = Messages.getString("ModulesInstaller_title2"); //$NON-NLS-1$
-            List<ModuleNeeded> needed = new ArrayList<ModuleNeeded>();
-            for (IComponent component : components) {
-                needed.addAll(component.getModulesNeeded());
-            }
-            if (!needed.isEmpty()) {
-                ComponentExternalModulesDialog dialog = new ComponentExternalModulesDialog(shell, needed, text, title);
-                dialog.openDialog();
-            }
-        }
-    }
-
     public static void installModules(Shell shell, String[] jarNames) {
         if (!LibManagerUiPlugin.getDefault().getPreferenceStore()
                 .getBoolean(ExternalModulesInstallDialog.DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG)) {
-            String text = Messages.getString("ModulesInstaller_text3"); //$NON-NLS-1$
-            String title = Messages.getString("ModulesInstaller_title3"); //$NON-NLS-1$
+            String text = Messages.getString("ModulesInstaller_text"); //$NON-NLS-1$
+            String title = Messages.getString("ModulesInstaller_title"); //$NON-NLS-1$
             OperationExternalModulesDialog dialog = new OperationExternalModulesDialog(shell, jarNames, text, title);
             dialog.openDialog();
         }

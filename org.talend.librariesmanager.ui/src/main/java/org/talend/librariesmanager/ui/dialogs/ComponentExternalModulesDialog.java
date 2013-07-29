@@ -46,7 +46,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      * @param modulesToInstall
      */
     public ComponentExternalModulesDialog(Shell shell, List<ModuleNeeded> modules, String text, String title) {
-        super(shell, text, title);
+        this(shell, text, title);
         this.modules = modules;
     }
 
