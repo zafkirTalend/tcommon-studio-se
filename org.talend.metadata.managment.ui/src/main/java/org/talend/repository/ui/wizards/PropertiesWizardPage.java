@@ -130,7 +130,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected IStatus commentStatus;
 
-    private boolean nameModifiedByUser = false;
+    protected boolean nameModifiedByUser = false;
 
     private boolean update = false;
 
@@ -140,7 +140,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private String path;
 
-    private boolean readOnly;
+    protected boolean readOnly;
 
     private StatusHelper statusHelper = null;
 
@@ -148,7 +148,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private List<IRepositoryViewObject> listExistingObjects;
 
-    private boolean retrieveNameFinished = false;
+    protected boolean retrieveNameFinished = false;
 
     private static final boolean NEED_CANCEL_BUTTON = true;
 
@@ -166,8 +166,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private Item item;
 
     protected IProcessConvertService converter;// Just for the page which would like to convert self to another process.
-
-    private static String CLASS = ".class"; //$NON-NLS-1$
 
     // private Button convertBtn;// For convertation between M/R job and common job
 
@@ -1112,7 +1110,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void evaluateTextField() {
-        ERepositoryObjectType type = ERepositoryObjectType.getItemType(this.property.getItem());
         if (readOnly) {
             return;
         }
@@ -1122,16 +1119,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (nameText.getText().length() == 0) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                || nameText.getText().startsWith(" ") || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
+                || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-        } else if (type != null
-                && !type.getType().equals("PROCESS") && (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText()))) {//$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-        } else if (type != null
-                && type.getType().equals("PROCESS")
-                && (JavaConventions.validateClassFileName(nameText.getText() + CLASS,
-                        JavaCore.getOption(JavaCore.COMPILER_SOURCE), JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE))
-                        .getSeverity() == IStatus.ERROR || "java".equalsIgnoreCase(nameText.getText()))) {//$NON-NLS-1$
+        } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
         } else if (nameModifiedByUser) {
             if (retrieveNameFinished) {
@@ -1240,7 +1230,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * @param itemName
      * @return
      */
-    private boolean isKeywords(String itemName) {
+    protected boolean isKeywords(String itemName) {
         if (property != null) {
             Item item = property.getItem();
             // see bug 0004157: Using specific name for (main) tream
