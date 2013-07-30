@@ -63,6 +63,7 @@ public class CustomTableManager {
             final boolean toPropagate) {
         tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table, linkedTableEditorView, linkedTable,
                         readOnly);
@@ -91,9 +92,11 @@ public class CustomTableManager {
         } else {
             tableEditorView.getToolBar().getAddButton().getButton().addSelectionListener(new SelectionListener() {
 
+                @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                 }
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     table.sortCustomColumns();
                     tableEditorView.getTableViewerCreator().getTableViewer().refresh();
@@ -103,9 +106,11 @@ public class CustomTableManager {
         }
         SelectionListener customListener = new SelectionListener() {
 
+            @Override
             public void widgetDefaultSelected(SelectionEvent e) {
             }
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 updateToolBarButtonsOnSelection(tableEditorView.getTableViewerCreator().getTableViewer().getSelection(),
                         tableEditorView, table, linkedTableEditorView, linkedTable, readOnly);
@@ -119,11 +124,14 @@ public class CustomTableManager {
             if (linkedTable.isReadOnly()) {
                 SelectionListener updateLinkedTableListener = new SelectionListener() {
 
+                    @Override
                     public void widgetDefaultSelected(SelectionEvent e) {
                     }
 
+                    @Override
                     public void widgetSelected(SelectionEvent e) {
                         MetadataToolHelper.copyTable(table, linkedTable);
+                        linkedTableEditorView.getTableViewerCreator().refresh();
                         if (linkedTableEditorView != null) {
                             linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
                         }
