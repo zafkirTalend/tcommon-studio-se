@@ -377,6 +377,10 @@ public final class JavaSqlFactory {
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
             DatabaseConnection dbConn = (DatabaseConnection) conn;
+            String userName = dbConn.getUsername();
+            if (StringUtils.isNotBlank(userName)) {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HADOOP_USER_NAME.getKey(), dbConn.getUsername());
+            }
             // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$

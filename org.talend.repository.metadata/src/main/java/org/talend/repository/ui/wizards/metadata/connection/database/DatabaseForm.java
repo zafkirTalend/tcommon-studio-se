@@ -3330,7 +3330,7 @@ public class DatabaseForm extends AbstractForm {
                     // Need to revert if required, changed by Marvin Wang on Nov. 22, 2012.
                     // portText.hide();
                     // serverText.hide();
-                    usernameText.hide();
+                    // usernameText.hide();
                     passwordText.hide();
                     portText.show();
                     serverText.show();
@@ -3663,6 +3663,7 @@ public class DatabaseForm extends AbstractForm {
             // Hadoop properties
             String nameNodeURLstr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             String jobTrackerURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            String hadoopUserName = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
 
             // Parameters for connecting to metastore.
             String metastoreConnURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL);
@@ -3677,6 +3678,7 @@ public class DatabaseForm extends AbstractForm {
 
             nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr); //$NON-NLS-1$
             jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr); //$NON-NLS-1$
+            usernameText.setText(hadoopUserName == null ? "" : hadoopUserName); //$NON-NLS-1$
 
             metastoreConnURLTxt.setText(metastoreConnURLStr == null ? "" : metastoreConnURLStr); //$NON-NLS-1$
             metastoreConnUserName.setText(metastoreConnUserNameStr == null ? "" : metastoreConnUserNameStr); //$NON-NLS-1$
@@ -4241,9 +4243,9 @@ public class DatabaseForm extends AbstractForm {
         // portText.setHideWidgets(hide);
         serverText.show();
         portText.show();
+        usernameText.show();
         serverText.setEditable(true);
         portText.setEditable(true);
-        usernameText.setHideWidgets(hide);
         passwordText.setHideWidgets(hide);
         sidOrDatabaseText.setHideWidgets(false);
         sidOrDatabaseText.setEditable(true);

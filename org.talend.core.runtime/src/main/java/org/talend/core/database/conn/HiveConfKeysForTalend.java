@@ -23,6 +23,8 @@ public enum HiveConfKeysForTalend {
      */
     HIVE_CONF_KEY_FS_DEFAULT_NAME("fs.default.name"), //$NON-NLS-1$
 
+    HIVE_CONF_KEY_HADOOP_USER_NAME("HADOOP_USER_NAME"), //$NON-NLS-1$
+
     /**
      * This key is for job traker url, value of the key is <code>mapred.job.tracker</code>.
      */
