@@ -124,6 +124,7 @@ public class CustomTableManager {
 
                     public void widgetSelected(SelectionEvent e) {
                         MetadataToolHelper.copyTable(table, linkedTable);
+                        linkedTableEditorView.getTableViewerCreator().refresh();
                         if (linkedTableEditorView != null) {
                             linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
                         }
