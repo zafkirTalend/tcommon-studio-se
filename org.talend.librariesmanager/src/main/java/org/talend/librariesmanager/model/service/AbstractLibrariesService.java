@@ -14,6 +14,8 @@ package org.talend.librariesmanager.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -26,9 +28,11 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -147,8 +151,27 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                             path = path + File.separatorChar + projectLabel + File.separatorChar
                                     + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
                             File libsTargetFile = new File(path);
-                            File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA)
-                                    + File.separatorChar + name);
+
+                            File source = null;
+                            EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex()
+                                    .getJarsToRelativePath();
+                            String relativePath = jarsToRelative.get(name);
+                            if (relativePath != null) {
+                                if (relativePath.startsWith("platform:/")) {
+                                    try {
+                                        URI uri = new URI(relativePath);
+                                        URL url = FileLocator.toFileURL(uri.toURL());
+                                        source = new File(url.getFile());
+                                    } catch (URISyntaxException e) {
+                                        CommonExceptionHandler.process(e);
+                                    }
+                                }
+                            }
+                            if (source == null) {
+                                source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
+                                        + name);
+                            }
+
                             FilesUtils.copyFile(source, libsTargetFile);
                             synJavaLibs(source);
                         }
