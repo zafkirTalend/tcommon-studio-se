@@ -10,6 +10,7 @@
    <extension-point id="hidePreferencePages_provider" name="Hide Preference Pages" schema="schema/hidePreferencePages_provider.exsd"/>
    <extension-point id="classloader_provider" name="Classloader Provider" schema="schema/classloader_provider.exsd"/>
    <extension-point id="librariesNeeded" name="librariesNeeded" schema="schema/librariesNeeded.exsd"/>
+   <extension-point id="demoProjects_provider" name="Demo Projects Provider" schema="schema/demoProjects_provider.exsd"/>
 
    <extension
          point="org.talend.core.runtime.tokenInfo_provider">

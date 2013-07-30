@@ -69,4 +69,8 @@ public final class TalendPropertiesUtil {
     public static boolean isEnabledCsvFormat4Exchange() {
         return isEnabled("talend.exchange.csv"); //$NON-NLS-1$
     }
+
+    public static boolean isEnabledUseBrowser() {
+        return isEnabled("USE_BROWSER"); //$NON-NLS-1$
+    }
 }

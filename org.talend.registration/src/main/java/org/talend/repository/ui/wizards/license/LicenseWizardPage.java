@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.repository.i18n.Messages;
 
@@ -91,7 +92,7 @@ public class LicenseWizardPage extends WizardPage {
         try {
             URL url = brandingService.getLicenseFile();
             filePath = url.getFile();
-            if ("yes".equalsIgnoreCase(System.getProperty("USE_BROWSER"))) { //$NON-NLS-1$ //$NON-NLS-2$
+            if (TalendPropertiesUtil.isEnabledUseBrowser()) {
                 IPath file = new Path(filePath).removeFileExtension();
                 file = file.addFileExtension("html"); //$NON-NLS-1$
                 if (new File(file.toPortableString()).exists()) {

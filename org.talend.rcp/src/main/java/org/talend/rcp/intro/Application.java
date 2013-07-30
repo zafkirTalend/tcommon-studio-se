@@ -70,10 +70,10 @@ public class Application implements IApplication {
             CoreRepositoryPlugin.getDefault().setRCPMode();
             try {
                 Browser browser = new Browser(new Shell(), SWT.BORDER);
-                System.setProperty("USE_BROWSER", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+                System.setProperty("USE_BROWSER", Boolean.TRUE.toString()); //$NON-NLS-1$ 
                 browser.dispose();
             } catch (Throwable t) {
-                System.setProperty("USE_BROWSER", "no"); //$NON-NLS-1$ //$NON-NLS-2$
+                System.setProperty("USE_BROWSER", Boolean.FALSE.toString()); //$NON-NLS-1$ 
             }
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)

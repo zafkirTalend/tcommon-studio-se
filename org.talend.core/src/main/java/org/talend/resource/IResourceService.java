@@ -13,7 +13,6 @@
 package org.talend.resource;
 
 import org.talend.core.IService;
-import org.talend.core.language.ECodeLanguage;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -22,12 +21,5 @@ import org.talend.core.language.ECodeLanguage;
  * 
  */
 public interface IResourceService extends IService {
-
-    public String getJavaLibraryPath();
-
-    public String getResourcesPath();
-
-    // MOD gdbu 2011-5-10 bug : 21138
-    public String getDemoDescription(ECodeLanguage language, String projectname);
 
 }

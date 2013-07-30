@@ -8,6 +8,17 @@
             serviceId="IResourceService">
       </Service>
    </extension>
+   <extension
+         point="org.talend.core.runtime.demoProjects_provider">
+      <demoProvider
+            descHtml="resources/demoprojects/di_demos.html"
+            description="Data Integration Demos Project"
+            id="org.talend.demo.project.di"
+            name="DI_DEMOS"
+            order="10"
+            projectUrl="resources/demoprojects/DI_DEMOs.zip">
+      </demoProvider>
+   </extension>
 
 
 
