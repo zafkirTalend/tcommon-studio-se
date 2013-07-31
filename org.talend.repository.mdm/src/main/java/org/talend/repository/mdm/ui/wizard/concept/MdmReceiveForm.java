@@ -174,6 +174,8 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
     private boolean creation;
 
+    private boolean populated;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -333,6 +335,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             schemaTargetGroup.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), schemaTargetGroup, new Point(0, 0));
                     linker.setOffset(offsetPoint);
@@ -380,6 +383,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             loopTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), loopTableEditorComposite, new Point(0,
                             0));
@@ -403,6 +407,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         if (WindowSystem.isGTK() && firstTimeWizardOpened.equals(Boolean.TRUE)) {
             fieldTableEditorComposite.addListener(SWT.Paint, new Listener() {
 
+                @Override
                 public void handleEvent(Event event) {
                     Point offsetPoint = event.display.map(linker.getBgDrawableComposite(), fieldTableEditorComposite, new Point(
                             0, 0));
@@ -600,6 +605,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
     protected void addFieldsListeners() {
         prefixCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (concept != null) {
                     concept.setXPathPrefix(getXPathPrefixByDisplayName(prefixCombo.getText()));
@@ -611,6 +617,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
         // add listener to tableMetadata (listen the event of the toolbars)
         fieldsTableEditorView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -618,6 +625,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
         fieldsTableEditorView.getExtendedTableModel().addModifiedBeanListener(new IModifiedBeanListener<ConceptTarget>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<ConceptTarget> event) {
 
                 updateStatus(IStatus.OK, null);
@@ -736,10 +744,10 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
                     //&& !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
                     getConnection().getSchemas() != null
                             && !getConnection().getSchemas().isEmpty()
-                            && ((Concept) getConnection().getSchemas().get(0)).getLoopExpression() != null
-                            && !("").equals(((Concept) getConnection().getSchemas().get(0)).getLoopExpression()) //$NON-NLS-1$
-                            && ((Concept) getConnection().getSchemas().get(0)).getConceptTargets() != null
-                            && !((Concept) getConnection().getSchemas().get(0)).getConceptTargets().isEmpty()) {
+                            && getConnection().getSchemas().get(0).getLoopExpression() != null
+                            && !("").equals(getConnection().getSchemas().get(0).getLoopExpression()) //$NON-NLS-1$
+                            && getConnection().getSchemas().get(0).getConceptTargets() != null
+                            && !getConnection().getSchemas().get(0).getConceptTargets().isEmpty()) {
                         refreshPreview();
                     } else {
                         previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
@@ -750,6 +758,7 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
                             Display.getDefault().asyncExec(new Runnable() {
 
+                                @Override
                                 public void run() {
                                     handleErrorOutput(outputComposite, tabFolder, outputTabItem);
 
@@ -896,49 +905,57 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             } else {
                 prefixCombo.setText(getXPathPrefix(concept.getXPathPrefix()));
             }
-
-            String selectedEntity = null;
-            if (wizardPage != null && wizardPage.getPreviousPage() instanceof MdmConceptWizardPage2) {
-                selectedEntity = ((MdmConceptWizardPage2) wizardPage.getPreviousPage()).getSelectedEntity();
-            }
-
-            ATreeNode selectedTreeNode = getSelectedTreeNode(xsdFilePath, selectedEntity);
-            List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
-            CreateConceptWizard wizard = ((CreateConceptWizard) getPage().getWizard());
-            this.treePopulator.populateTree(wizard.getXSDSchema(), selectedTreeNode, treeNodes);
-            if (!treeNodes.isEmpty()) {
-                treeNode = treeNodes.get(0);
-            }
-
-            ScrollBar verticalBar = availableXmlTree.getVerticalBar();
-            if (verticalBar != null) {
-                verticalBar.setSelection(0);
-            }
-            // fix bug: when the xml file is changed, the linker doesn't work.
-            resetStatusIfNecessary(selectedEntity);
-
-            if (this.linker == null) {
-                this.linker = new MDMLinker(this.xmlToSchemaSash, isTemplateExist);
-                this.linker.init(availableXmlTree, loopTableEditorView, fieldsTableEditorView, treePopulator);
-                loopTableEditorView.setLinker(this.linker);
-                fieldsTableEditorView.setLinker(this.linker);
-            } else {
-                this.linker.init(treePopulator);
-                this.linker.createLinks();
-            }
-            checkFilePathAndManageIt();
-
-            if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
-                previewButton.setEnabled(false);
-                previewButton.setText(Messages.getString("MdmReceiveForm.previewNotAvailable")); //$NON-NLS-1$
-                previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-                previewButton.getParent().layout();
-            }
-            if (isContextMode()) {
-                adaptFormToEditable();
-            }
+            populateTree();
 
         }
+    }
+
+    private void populateTree() {
+        if (populated) {
+            return;
+        }
+        populated = true;
+        String selectedEntity = null;
+        if (wizardPage != null && wizardPage.getPreviousPage() instanceof MdmConceptWizardPage2) {
+            selectedEntity = ((MdmConceptWizardPage2) wizardPage.getPreviousPage()).getSelectedEntity();
+        }
+
+        ATreeNode selectedTreeNode = getSelectedTreeNode(xsdFilePath, selectedEntity);
+        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+        CreateConceptWizard wizard = ((CreateConceptWizard) getPage().getWizard());
+        this.treePopulator.populateTree(wizard.getXSDSchema(), selectedTreeNode, treeNodes);
+        if (!treeNodes.isEmpty()) {
+            treeNode = treeNodes.get(0);
+        }
+
+        ScrollBar verticalBar = availableXmlTree.getVerticalBar();
+        if (verticalBar != null) {
+            verticalBar.setSelection(0);
+        }
+        // fix bug: when the xml file is changed, the linker doesn't work.
+        resetStatusIfNecessary(selectedEntity);
+
+        if (this.linker == null) {
+            this.linker = new MDMLinker(this.xmlToSchemaSash, isTemplateExist);
+            this.linker.init(availableXmlTree, loopTableEditorView, fieldsTableEditorView, treePopulator);
+            loopTableEditorView.setLinker(this.linker);
+            fieldsTableEditorView.setLinker(this.linker);
+        } else {
+            this.linker.init(treePopulator);
+            this.linker.createLinks();
+        }
+        checkFilePathAndManageIt();
+
+        if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
+            previewButton.setEnabled(false);
+            previewButton.setText(Messages.getString("MdmReceiveForm.previewNotAvailable")); //$NON-NLS-1$
+            previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+            previewButton.getParent().layout();
+        }
+        if (isContextMode()) {
+            adaptFormToEditable();
+        }
+
     }
 
     private void resetStatusIfNecessary(String selectedEntity) {
@@ -981,14 +998,18 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
 
+    @Override
     protected void createTable() {
         if (concept == null) {
             return;
         }
+        populateTree();
+
         if (metadataTable == null) {
             metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -1042,16 +1063,20 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
                 if (curNode == null || retriever == null) {
                     metadataColumn.setTalendType(MetadataTalendType.getDefaultTalendType());
                 } else {
-
-                    metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType("xs:" + curNode.getOriginalDataType())); //$NON-NLS-1$
+                    String currentNodeType = curNode.getOriginalDataType();
+                    if (currentNodeType != null && !currentNodeType.startsWith("xs:")) {
+                        currentNodeType = "xs:" + currentNodeType;
+                    }
+                    metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType(currentNodeType));
                 }
                 // Changed by Marvin Wang on May 21, 2012. Refer to the line above which is commentted
                 // "metadataTable.getColumns().clear();".
                 int index = removeOriginalColumn(target.getTargetName());
-                if (index < 0)
+                if (index < 0) {
                     metadataTable.getColumns().add(metadataColumn);
-                else
+                } else {
                     metadataTable.getColumns().add(index, metadataColumn);
+                }
                 // if (!metadataTable.getColumns().contains(metadataColumn)) {
                 // metadataTable.getColumns().add(metadataColumn);
                 // }
@@ -1082,9 +1107,9 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
             return "\"\"";
         }
         final XPathPrefix[] values = XPathPrefix.values();
-        for (int i = 0; i < values.length; i++) {
-            if (values[i].getPrefix().equals(prefix)) {
-                return values[i].getDisplayName();
+        for (XPathPrefix value : values) {
+            if (value.getPrefix().equals(prefix)) {
+                return value.getDisplayName();
             }
         }
         return prefix;
@@ -1092,12 +1117,12 @@ public class MdmReceiveForm extends AbstractMDMFileStepForm implements IRefresha
 
     private String getXPathPrefixByDisplayName(String dispalyName) {
         final XPathPrefix[] values = XPathPrefix.values();
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] == XPathPrefix.USER_DEFINED_ITEM) {
+        for (XPathPrefix value : values) {
+            if (value == XPathPrefix.USER_DEFINED_ITEM) {
                 continue;
             }
-            if (values[i].getDisplayName().equals(dispalyName)) {
-                return values[i].getPrefix();
+            if (value.getDisplayName().equals(dispalyName)) {
+                return value.getPrefix();
             }
         }
         return dispalyName;
