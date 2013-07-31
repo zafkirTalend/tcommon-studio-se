@@ -672,18 +672,35 @@ public class TreeUtil {
     }
 
     public static List<FOXTreeNode> getFoxTreeNodes(String filePath, String selectedEntity, boolean forMDM) {
-        if (selectedEntity == null || "".equals(selectedEntity)) {
-            return getFoxTreeNodes(filePath);
-        } else {
-            List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        List<String> attList = new ArrayList<String>();
+        attList.add(selectedEntity);
+        List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
+        try {
+            XSDSchema xsdSchema = TreeUtil.getXSDSchema(filePath);
+            List<ATreeNode> rootNodes = new XSDPopulationUtil2().getAllRootNodes(xsdSchema);
+            ATreeNode selectedNode = null;
+            if (!rootNodes.isEmpty()) {
+                for (Object obj : rootNodes) {
+                    ATreeNode node = (ATreeNode) obj;
+                    if (node.getValue() != null && node.getValue().equals(selectedEntity)) {
+                        selectedNode = node;
+                        break;
+                    }
+                }
+                if (selectedNode != null) {
+                    return TreeUtil.getFoxTreeNodesByRootNode(xsdSchema, selectedNode, false);
+                }
+            }
+
+            // normally the code bellow is not usefull , keep it incase xsd is parsed failed by the new way
+
             if (filePath == null) {
                 return list;
             }
-            List<String> attList = new ArrayList<String>();
-            attList.add(selectedEntity);
-            try {
+            if (selectedEntity == null || "".equals(selectedEntity)) {
+                return getFoxTreeNodes(filePath);
+            } else {
                 ATreeNode treeNode = SchemaPopulationUtil.getSchemaTree(filePath, true, forMDM, 0, attList);
-                ATreeNode selectedNode = null;
                 if (treeNode != null) {
                     if (forMDM) {
                         if (selectedEntity.equals(treeNode.getValue())) {
@@ -713,11 +730,11 @@ public class TreeUtil {
                         }
                     }
                 }
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
             }
-            return list;
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
         }
+        return list;
 
     }
 
