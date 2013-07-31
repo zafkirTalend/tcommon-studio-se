@@ -58,7 +58,6 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.data.container.RootContainer;
@@ -1566,12 +1565,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (!projectManager.isInCurrentMainProject(item)) {
             return false;
         }
-        if (getRepositoryContext().isEditableAsReadOnly()) {
-            return true;
-        }
 
         ERepositoryStatus status = getStatus(item);
-        if (status.isPotentiallyEditable()) {
+        boolean potentiallyEditable = status.isPotentiallyEditable();
+        if (potentiallyEditable) {
+            if (getRepositoryContext().isEditableAsReadOnly()) {
+                return true;
+            }
             try {
                 lock(item);
             } catch (PersistenceException e) {
