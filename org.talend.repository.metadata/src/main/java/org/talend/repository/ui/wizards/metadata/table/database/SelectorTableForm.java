@@ -181,6 +181,10 @@ public class SelectorTableForm extends AbstractForm {
 
     private String locker = "";
 
+    private boolean firstExpand = true;
+
+    private Map<String, Boolean> mapCheckState = new HashMap<String, Boolean>();
+
     /**
      * TableForm Constructor to use by RCP Wizard.
      * 
@@ -356,6 +360,11 @@ public class SelectorTableForm extends AbstractForm {
             @Override
             public void handleEvent(Event event) {
                 TreeItem treeItem = (TreeItem) event.item;
+                boolean needUpdate = treeItem.getChecked();
+                boolean firstExpandForSchema = false;
+                if (!mapCheckState.isEmpty()) {
+                    firstExpandForSchema = mapCheckState.get(treeItem.getText());
+                }
                 for (TreeItem item : treeItem.getItems()) {
                     if (item.getData() != null) {
                         TableNode node = (TableNode) item.getData();
@@ -369,15 +378,26 @@ public class SelectorTableForm extends AbstractForm {
                                 }
                             }
                         } else if (node.getType() == TableNode.TABLE) {
-                            if (isExistTable(node)) {
+                            if ((firstExpand || firstExpandForSchema) && needUpdate && item.getData() != null) {
+                                updateItem(item, true, true);
+                            } else if (isExistTable(node)) {
                                 item.setChecked(true);
                             } else {
                                 item.setChecked(false);
                             }
+                        } else if (firstExpand && needUpdate && node.getType() == TableNode.SCHEMA) {
+                            item.setChecked(true);
+                            mapCheckState.put(item.getText(), firstExpand);
                         } else {
                             item.setGrayed(item.getChecked());
                         }
                     }
+                }
+                if (firstExpandForSchema) {
+                    mapCheckState.put(treeItem.getText(), false);
+                }
+                if (firstExpand) {
+                    firstExpand = false;
                 }
             }
         });
