@@ -20,6 +20,8 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.update.EUpdateItemType;
@@ -46,16 +48,26 @@ public class ConfigureContextAction extends Action {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void run() {
         ContextSetConfigurationDialog dialog = new ContextSetConfigurationDialog(shell, manager);
         if (dialog.open() == IDialogConstants.OK_ID) {
             List<IContext> result = dialog.getResultContexts();
             manager.getContextManager().setListContext(result);
+            // refresh context view of DQ
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                        ITDQRepositoryService.class);
+                if (tdqRepositoryService != null) {
+                    tdqRepositoryService.updateContextView(true, false);
+                }
+            }
             Command command = new Command() {
 
+                @Override
                 public void execute() {
                     if (manager.getProcess() != null && manager.getProcess() instanceof IProcess2) {
-                        IUpdateManager updateManager = ((IProcess2) manager.getProcess()).getUpdateManager();
+                        IUpdateManager updateManager = manager.getProcess().getUpdateManager();
                         if (updateManager != null) {
                             updateManager.update(EUpdateItemType.CONTEXT);
                         }

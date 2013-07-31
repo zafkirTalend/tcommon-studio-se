@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -24,10 +27,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.MultiPageEditorPart;
+import org.talend.core.model.context.JobContextManager;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.ui.editor.cmd.ContextAddParameterCommand;
+import org.talend.designer.core.ui.editor.cmd.ContextChangeDefaultCommand;
+import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
+import org.talend.designer.core.ui.editor.cmd.ContextRenameParameterCommand;
+import org.talend.designer.core.ui.editor.cmd.ContextTemplateModifyCommand;
 
 /**
  * This class must be extended for implementing the specific context composite. <br/>
@@ -51,6 +63,8 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private static final int PAGE = 2;
 
+    protected EditorPart part = null;
+
     /**
      * bqian ContextComposite constructor comment.
      * 
@@ -72,6 +86,13 @@ public abstract class ContextComposite extends Composite implements IContextMode
         this.setBackground(parent.getBackground());
         this.setLayout(new GridLayout());
         initializeUI();
+    }
+
+    public void setPart(EditorPart part) {
+        this.part = part;
+        refreshTemplateTab();
+        refreshTableTab();
+        refreshTreeTab();
     }
 
     public void setTabEnable(boolean enable) {
@@ -101,12 +122,14 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
     }
 
+    @Override
     public void refresh() {
         refreshTemplateTab();
         refreshTableTab();
         refreshTreeTab();
     }
 
+    @Override
     public void refreshTemplateTab() {
         if (getContextManager() == null) {
             this.setEnabled(false);
@@ -123,6 +146,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
     }
 
+    @Override
     public void refreshTableTab() {
         if (getContextManager() != null && tableValues != null) {
             tableValues.refresh();
@@ -141,6 +165,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
     }
 
+    @Override
     public void refreshTreeTab() {
         if (getContextManager() == null) {
             this.setEnabled(false);
@@ -174,6 +199,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         composite.setNeedRefresh(true);
     }
 
+    @Override
     public IContextManager getContextManager() {
         return this.contextManager;
     }
@@ -186,6 +212,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         tab = new CTabFolder(this, SWT.FLAT | SWT.BORDER);
         tab.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 CTabItem cTabItem = (CTabItem) e.item;
                 Control control = cTabItem.getControl();
@@ -244,6 +271,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         this.readOnly = readOnly;
     }
 
+    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
@@ -253,6 +281,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * 
      * @see org.talend.core.ui.context.IContextModelManager#getProcess()
      */
+    @Override
     public IProcess2 getProcess() {
         return null;
     }
@@ -262,6 +291,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * 
      * @see org.talend.core.ui.context.IContextModelManager#getCommandStack()
      */
+    @Override
     public CommandStack getCommandStack() {
         return null;
     }
@@ -271,6 +301,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * 
      * @return the isRepositoryContext
      */
+    @Override
     public boolean isRepositoryContext() {
         return this.isRepositoryContext;
     }
@@ -279,4 +310,102 @@ public abstract class ContextComposite extends Composite implements IContextMode
         return this.template;
     }
 
+    @Override
+    public void onContextChangeDefault(IContextManager contextManager, IContext newDefault) {
+        getCommandStack().execute(new ContextChangeDefaultCommand(contextManager, newDefault));
+    }
+
+    @Override
+    public void onContextRenameParameter(IContextManager contextManager, String sourceId, String oldName, String newName) {
+        if (contextManager instanceof JobContextManager) {
+            JobContextManager manager = (JobContextManager) contextManager;
+            manager.addNewName(newName, oldName);
+            // record the modified operation.
+            setModifiedFlag(contextManager);
+        }
+        getCommandStack().execute(new ContextRenameParameterCommand(contextManager, sourceId, oldName, newName));
+        // update variable reference for current job, for 2608
+        switchSettingsView(oldName, newName);
+    }
+
+    protected void switchSettingsView(String oldName, String newName) {
+        // sub-class implement this method.
+    }
+
+    @Override
+    public void onContextRenameParameter(IContextManager contextManager, String oldName, String newName) {
+        if (contextManager instanceof JobContextManager) {
+            JobContextManager manager = (JobContextManager) contextManager;
+            manager.addNewName(newName, oldName);
+            // record the modified operation.
+            setModifiedFlag(contextManager);
+        }
+        getCommandStack().execute(new ContextRenameParameterCommand(contextManager, oldName, newName));
+        // update variable reference for current job, for 2608
+        switchSettingsView(oldName, newName);
+    }
+
+    @Override
+    public void onContextModify(IContextManager contextManager, IContextParameter parameter) {
+        // record the modified operation.
+        setModifiedFlag(contextManager);
+        getCommandStack().execute(new ContextTemplateModifyCommand(getProcess(), contextManager, parameter));
+    }
+
+    @Override
+    public void onContextAddParameter(IContextManager contextManager, IContextParameter parameter) {
+        getCommandStack().execute(new ContextAddParameterCommand(getContextManager(), parameter));
+    }
+
+    @Override
+    public void onContextRemoveParameter(IContextManager contextManager, String paramName) {
+        Set<String> names = new HashSet<String>();
+        names.add(paramName);
+        onContextRemoveParameter(contextManager, names);
+    }
+
+    private void setModifiedFlag(IContextManager contextManager) {
+        if (contextManager != null && contextManager instanceof JobContextManager) {
+            JobContextManager manager = (JobContextManager) contextManager;
+            // record the modified operation.
+            manager.setModified(true);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @seeorg.talend.core.ui.context.IContextModelManager#onContextRemoveParameter(org.talend.core.model.process.
+     * IContextManager, java.util.List)
+     */
+    @Override
+    public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames) {
+        // record the modified operation.
+        setModifiedFlag(contextManager);
+        getCommandStack().execute(new ContextRemoveParameterCommand(getContextManager(), paramNames));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.context.IContextModelManager#onContextRemoveParameter(org.talend.core.model.process.
+     * IContextManager, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void onContextRemoveParameter(IContextManager contextManager, String paramName, String sourceId) {
+        setModifiedFlag(contextManager);
+        getCommandStack().execute(new ContextRemoveParameterCommand(getContextManager(), paramName, sourceId));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.context.IContextModelManager#onContextRemoveParameter(org.talend.core.model.process.
+     * IContextManager, java.util.Set, java.lang.String)
+     */
+    @Override
+    public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames, String sourceId) {
+        setModifiedFlag(contextManager);
+        getCommandStack().execute(new ContextRemoveParameterCommand(getContextManager(), paramNames, sourceId));
+    }
 }

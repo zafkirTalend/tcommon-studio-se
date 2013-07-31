@@ -126,4 +126,10 @@ public interface ITDQRepositoryService extends IService {
 
     // Add qiongli 2013-05-10 TDQ-7217
     public boolean isDQEditorOpened(Item item);
+
+    public void updateContextView(boolean isBuildIn);
+
+    public void updateContextView(boolean isBuildIn, boolean isDisposeAll);
+
+    public void updateContextView(boolean isBuildIn, boolean isDisposeAll, boolean refreshView);
 }
