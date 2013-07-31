@@ -95,6 +95,9 @@ public abstract class AbstractNode implements INode {
     // for the component which will generate multiple mapreduce jobs, count the size of mapreduce jobs.
     private Integer mrJobInGroupCount;
 
+    // for the component which will generate multiple mapreduce jobs
+    private Integer mrJobIDInGroup;
+
     public String getComponentName() {
         return componentName;
     }
@@ -1051,6 +1054,24 @@ public abstract class AbstractNode implements INode {
      */
     public void setMRJobInGroupCount(Integer mrJobInGroupCount) {
         this.mrJobInGroupCount = mrJobInGroupCount;
+    }
+
+    /**
+     * Getter for mrJobIDInGroup.
+     * 
+     * @return the mrJobIDInGroup
+     */
+    public Integer getMrJobIDInGroup() {
+        return mrJobIDInGroup;
+    }
+
+    /**
+     * Sets the mrJobIDInGroup.
+     * 
+     * @param mrJobIDInGroup the mrJobIDInGroup to set
+     */
+    public void setMrJobIDInGroup(Integer mrJobIDInGroup) {
+        this.mrJobIDInGroup = mrJobIDInGroup;
     }
 
 }

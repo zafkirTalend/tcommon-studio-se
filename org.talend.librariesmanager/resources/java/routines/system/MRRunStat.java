@@ -37,7 +37,7 @@ public class MRRunStat implements Runnable {
 
         private int groupID;
 
-        private String masterCID;
+        private int mrJobID;
 
         private float mapProgress;
 
@@ -62,21 +62,21 @@ public class MRRunStat implements Runnable {
         }
 
         /**
-         * Getter for masterCID.
+         * Getter for mrJobID.
          * 
-         * @return the masterCID
+         * @return the mrJobID
          */
-        public String getMasterCID() {
-            return this.masterCID;
+        public int getMRJobID() {
+            return this.mrJobID;
         }
 
         /**
-         * Sets the masterCID.
+         * Sets the mrJobID.
          * 
-         * @param masterCID the masterCID to set
+         * @param mrJobID the mrJobID to set
          */
-        public void setMasterCID(String masterCID) {
-            this.masterCID = masterCID;
+        public void setMRJobID(int mrJobID) {
+            this.mrJobID = mrJobID;
         }
 
         /**
@@ -121,7 +121,7 @@ public class MRRunStat implements Runnable {
          * @return
          */
         public String toStatFormat() {
-            return this.groupID + "|" + this.masterCID + "|" + this.mapProgress + "|" + this.reduceProgress;
+            return this.groupID + "|" + this.mrJobID + "|" + this.mapProgress + "|" + this.reduceProgress;
         }
 
     }
