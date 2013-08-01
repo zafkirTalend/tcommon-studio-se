@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -254,6 +255,13 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
+            if (country == null) {
+                country = Locale.getDefault().getCountry();
+                if (country == null) {
+                    country = "unknown";
+                }
+            }
+
             result = proxy.createUser53(email, pseudo, password, firstname, lastname, country, version,
                     brandingService.getAcronym(), osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$ 
                             + "", nbProc + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$ 
@@ -328,6 +336,13 @@ public class RegisterManagement {
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
+            if (country == null) {
+                country = Locale.getDefault().getCountry();
+                if (country == null) {
+                    country = "unknown";
+                }
+            }
+
             result = proxy.updateUser53(pseudo, password, firstname, lastname, country, version, brandingService.getAcronym(),
                     osName, osVersion, javaVersion, totalMemory + "", memRAM //$NON-NLS-1$
                             + "", nbProc + "", uniqueId); //$NON-NLS-1$ //$NON-NLS-2$
