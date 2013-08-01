@@ -907,14 +907,17 @@ public class ExtractMetaDataUtils {
                     // if (!isExist || !driverJarPathArg.contains(":")) { Removed by Marvin Wang for TDI-25766.
                     if (!isExist) {
                         jarPathList.add("");
-                    } else if (jarsAvailable.contains(path.lastSegment())) {
-                        String jarUnderLib = getJavaLibPath() + path.lastSegment();
-                        File file = new File(jarUnderLib);
-                        if (!file.exists()) {
-                            librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new NullProgressMonitor());
-                        }
-                        jarPathList.add(jarUnderLib);
                     } else {
+                        // removed by fwang for bug TDI-24594
+                        // if (jarsAvailable.contains(path.lastSegment())) {
+                        // String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                        // File file = new File(jarUnderLib);
+                        // if (!file.exists()) {
+                        // librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new
+                        // NullProgressMonitor());
+                        // }
+                        // jarPathList.add(jarUnderLib);
+                        // } else {
                         jarPathList.add(driverJarPathArg);
                     }
                 }
