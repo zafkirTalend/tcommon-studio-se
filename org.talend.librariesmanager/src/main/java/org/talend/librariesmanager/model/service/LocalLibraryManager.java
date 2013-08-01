@@ -88,9 +88,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         try {
             File file = new File(jarFileUri);
             String contributeID = "";
-            IComponentsService service = null;
+            // MOD qiongli 2013,avoid NPE.TOP dosen't contain IComponentsService.
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-                service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
                 Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
                 Set<String> contributeIdSet = componentsFolders.keySet();
                 for (String contributor : contributeIdSet) {
