@@ -1217,17 +1217,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
                 String label = column.getLabel();
                 label = ManagementTextUtils.filterSpecialChar(label);
-                String sub = ""; //$NON-NLS-1$
-                String sub2 = ""; //$NON-NLS-1$
                 String label2 = label;
-                if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
-                    sub = label.substring(1);
-                    if (sub != null && sub.length() > 0) {
-                        sub2 = sub.substring(1);
-                    }
-                }
                 ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
-                if (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2)) {
+                if (coreService != null && coreService.isKeyword(label)) {
                     label = "_" + label; //$NON-NLS-1$
                 }
 
