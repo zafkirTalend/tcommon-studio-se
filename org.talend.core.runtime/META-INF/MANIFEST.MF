@@ -95,7 +95,8 @@ Require-Bundle: org.eclipse.emf.edit.ui,
  org.talend.libraries.dom4j-jaxen,
  org.talend.libraries.csv,
  org.talend.commons.runtime;visibility:=reexport,
- org.talend.commons.ui
+ org.talend.commons.ui,
+ org.eclipse.ui.ide
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
