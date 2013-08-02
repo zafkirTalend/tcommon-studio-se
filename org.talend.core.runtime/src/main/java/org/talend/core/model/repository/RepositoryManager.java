@@ -14,6 +14,7 @@ package org.talend.core.model.repository;
 
 import java.util.Set;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
@@ -22,6 +23,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
@@ -29,6 +31,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.properties.BusinessProcessItem;
+import org.talend.core.model.properties.JobScriptItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -330,6 +333,14 @@ public final class RepositoryManager {
                                         }
                                     }
 
+                                }else if (objectToMove.getProperty().getItem() instanceof JobScriptItem
+                                        && editorInput instanceof FileEditorInput) {
+                                    FileEditorInput rInput = (FileEditorInput) editorInput;
+                                    IPath path = rInput.getPath();
+                                    String[] seg = path.lastSegment().split("_");
+                                    if (objectToMove.getProperty().getItem().getProperty().getLabel().equals(seg[0])) {
+                                        return true;
+                                    }
                                 }
                             }
                         }

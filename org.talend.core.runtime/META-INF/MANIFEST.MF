@@ -93,7 +93,8 @@ Require-Bundle: org.eclipse.gef,
  org.eclipse.ui.editors,
  org.talend.libraries.csv,
  org.eclipse.ui.views.properties.tabbed,
- org.apache.log4j
+ org.apache.log4j,
+ org.eclipse.ui.ide
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
