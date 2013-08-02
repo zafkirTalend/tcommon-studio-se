@@ -81,7 +81,7 @@ public class MigrationToolService implements IMigrationToolService {
     private static final String RELATION_TASK = "org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask"; //$NON-NLS-1$ 
 
     // FIXME SML Change that
-    public List<IProjectMigrationTask> doneThisSession;
+    private List<IProjectMigrationTask> doneThisSession;
 
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
@@ -332,6 +332,7 @@ public class MigrationToolService implements IMigrationToolService {
                                             log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
                                             break;
                                         case FAILURE:
+                                            doneThisSession.add(task);
                                         default:
                                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                             break;
@@ -555,6 +556,28 @@ public class MigrationToolService implements IMigrationToolService {
     @Override
     public boolean needExecutemigration() {
         return !AlertUserOnLogin.executed;
+    }
+
+    /**
+     * Getter for doneThisSession.
+     * 
+     * @return the doneThisSession
+     */
+    public List<IProjectMigrationTask> getDoneThisSession() {
+        Comparator comparator = new Comparator<IProjectMigrationTask>() {
+
+            @Override
+            public int compare(IProjectMigrationTask o1, IProjectMigrationTask o2) {
+                if (o1.getStatus() == ExecutionResult.FAILURE && o2.getStatus() == ExecutionResult.SUCCESS_WITH_ALERT) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+
+        };
+        Collections.sort(doneThisSession, comparator);
+        return this.doneThisSession;
     }
 
 }

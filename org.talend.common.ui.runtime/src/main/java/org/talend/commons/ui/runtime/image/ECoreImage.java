@@ -169,9 +169,10 @@ public enum ECoreImage implements IImage {
     PROGRESSGRAYBAR("/icons1/gray.gif"), //$NON-NLS-1$
     PROGRESSGRAYGEBAR("/icons1/graygeBar.gif"), //$NON-NLS-1$
     TRIANGLE("/icons1/triangle.gif"), // triangle.gif //$NON-NLS-1$
-    COMPARE("/icons1/compare.gif"), //$NON-NLS-N$
+    COMPARE("/icons1/compare.gif"),
     EXCHNAGETAB("/icons/exchangeTab.jpg"), // $NON-NLS-1$
-    EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"); // $NON-NLS-1$
+    EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"), // $NON-NLS-1$
+    STATUS_OK("/icons/ok.png"); // $NON-NLS-1$
 
     private String path;
 
@@ -188,6 +189,7 @@ public enum ECoreImage implements IImage {
      * 
      * @return the path
      */
+    @Override
     public String getPath() {
         return this.path;
     }
@@ -197,6 +199,7 @@ public enum ECoreImage implements IImage {
      * 
      * @return the clazz
      */
+    @Override
     public Class getLocation() {
         return ECoreImage.class;
         // return CorePlugin.class;
