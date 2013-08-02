@@ -37,12 +37,13 @@ public class SummaryDialog extends TitleAreaDialog {
         super(parentShell);
         this.tasks = tasks;
         setHelpAvailable(false);
+        // setShellStyle(SWT.Resize | getShellStyle());
     }
 
     @Override
     protected Control createContents(Composite parent) {
         Control control = super.createContents(parent);
-        this.setMessage(Messages.getString("migrationTasksRecapDialog.description")); //$NON-NLS-1$
+        this.setMessage(Messages.getString("migrationTasksRecapDialog.descriptions")); //$NON-NLS-1$
         return control;
     }
 
@@ -59,6 +60,7 @@ public class SummaryDialog extends TitleAreaDialog {
         newShell.setSize(600, DIALOG_HEIGHT);
     }
 
+    @Override
     protected void createButtonsForButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
     }
