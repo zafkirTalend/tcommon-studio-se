@@ -81,5 +81,5 @@ public interface ICodeGeneratorService extends IService {
 
     public ITalendSynchronizer createCamelBeanSynchronizer();
 
-    public boolean isInitializeJet();
+    public boolean isInitializingJet();
 }
