@@ -54,5 +54,7 @@ public interface ICamelDesignerCoreService extends IService {
 	 * @param item
 	 */
 	public List<IPath> synchronizeRouteResource(Item item);
+	
+	public String getDeleteFolderName(ERepositoryObjectType type);
 
 }

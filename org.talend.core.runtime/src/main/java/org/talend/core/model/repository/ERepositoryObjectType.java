@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.AbstractDQModelService;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.BRMSConnectionItem;
@@ -67,6 +68,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -710,9 +712,16 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return "components";
         } else if (type.getType().equals("SERVICES")) {
             return "Services";
-        } else {
-            return "job";
+        } else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
+                    .getService(ICamelDesignerCoreService.class);
+            String deleteFolderName = camelService.getDeleteFolderName(type);
+            if(deleteFolderName != null){
+            	return deleteFolderName;
+            }
         }
+           
+        return "job";
     }
 
     public static ERepositoryObjectType getItemType(Item item) {
