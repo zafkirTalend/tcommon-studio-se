@@ -23,5 +23,12 @@
             class="org.talend.core.ui.preference.CoreUIPreferenceInitializer">
       </initializer>
    </extension>
-
+   <extension
+         id="tos.variables"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="true"
+            class="org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer">
+      </javaCompletionProposalComputer>
+   </extension>
 </plugin>
