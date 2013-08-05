@@ -172,7 +172,10 @@ public enum ECoreImage implements IImage {
     COMPARE("/icons1/compare.gif"),
     EXCHNAGETAB("/icons/exchangeTab.jpg"), // $NON-NLS-1$
     EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"),
-    STATUS_OK("/icons/ok.png"); // $NON-NLS-1$
+    STATUS_OK("/icons/ok.png"), // $NON-NLS-1$
+    MRGREEBAR("/icons1/mrGreeBar.gif"), //$NON-NLS-1$
+    MRREDBAR("/icons1/mrRedBar.gif"), //$NON-NLS-1$
+    MRGRAYBAR("/icons1/mrGrayBar.gif"); //$NON-NLS-1$
 
     private String path;
 
