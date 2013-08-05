@@ -17,6 +17,7 @@ import java.util.Map;
 import org.talend.core.IProviderService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.SAPConnectionItem;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC wzhang class global comment
@@ -26,6 +27,8 @@ public interface ISAPProviderService extends IProviderService {
     public SAPConnectionItem getRepositoryItem(final INode node);
 
     public boolean isSAPNode(final INode node);
+
+    public boolean isSAPNode(final RepositoryNode node);
 
     public boolean isRepositorySchemaLine(INode node, Map<String, Object> lineValue);
 }
