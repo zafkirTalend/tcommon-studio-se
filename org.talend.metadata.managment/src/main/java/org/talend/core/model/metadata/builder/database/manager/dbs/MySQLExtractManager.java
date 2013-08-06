@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;

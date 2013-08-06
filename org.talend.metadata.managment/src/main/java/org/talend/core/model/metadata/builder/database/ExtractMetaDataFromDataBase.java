@@ -32,7 +32,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.eclipse.core.runtime.Platform;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -133,27 +134,28 @@ public class ExtractMetaDataFromDataBase {
 
     static {
         providerObjects = new ArrayList<IDBMetadataProviderObject>();
-        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.repository.metadata_provider", //$NON-NLS-1$
-                "DBMetadataProvider"); //$NON-NLS-1$
-        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
-        for (IConfigurationElement element : extension) {
-            try {
-                String dbType = element.getAttribute("dbType");
-                String dbVersion = element.getAttribute("dbVersion");
-                String useJDBC = element.getAttribute("supportJDBC");
-                IDBMetadataProvider provider = (IDBMetadataProvider) element.createExecutableExtension("class");
-                IDBMetadataProviderObject object = new DBMetadataProviderObject();
-                object.setProvider(provider);
-                object.setDbType(dbType);
-                object.setDbVersion(dbVersion);
-                object.setSupportJDBC(Boolean.valueOf(useJDBC));
-                providerObjects.add(object);
-            } catch (CoreException e) {
-                e.printStackTrace();
+        if (Platform.isRunning()) { // MOD sizhaoliu 2013-8-6 for TDQ-7453
+            IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                    "org.talend.core.repository.metadata_provider", //$NON-NLS-1$
+                    "DBMetadataProvider"); //$NON-NLS-1$
+            List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
+            for (IConfigurationElement element : extension) {
+                try {
+                    String dbType = element.getAttribute("dbType");
+                    String dbVersion = element.getAttribute("dbVersion");
+                    String useJDBC = element.getAttribute("supportJDBC");
+                    IDBMetadataProvider provider = (IDBMetadataProvider) element.createExecutableExtension("class");
+                    IDBMetadataProviderObject object = new DBMetadataProviderObject();
+                    object.setProvider(provider);
+                    object.setDbType(dbType);
+                    object.setDbVersion(dbVersion);
+                    object.setSupportJDBC(Boolean.valueOf(useJDBC));
+                    providerObjects.add(object);
+                } catch (CoreException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
 
     /**
