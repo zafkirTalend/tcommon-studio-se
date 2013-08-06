@@ -91,6 +91,8 @@ public class XmiResourceManager {
 
     private boolean avoidUnloadResource;
 
+    private final Object lock = new Object();
+
     public XmiResourceManager() {
         setUseOldProjectFile(false);
         resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
@@ -115,7 +117,7 @@ public class XmiResourceManager {
             unloadResource(uri.toString());
         }
 
-        Resource resource = resourceSet.getResource(uri, true);
+        Resource resource = getResourceSet().getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         return emfProject;
@@ -140,42 +142,45 @@ public class XmiResourceManager {
         }
     }
 
-    public synchronized Property loadProperty(IResource iResource) {
+    public Property loadProperty(IResource iResource) {
+        Property property = null;
         // force unload old version, or the UI won't be synchronized all the time to the current file.
         // this is only if a user update itself a .item or .properties, or for SVN repository.
         //
-        URI propertyUri = URIHelper.convert(iResource.getFullPath());
-        URI itemResourceURI = getItemResourceURI(propertyUri);
-        URI screenshotResourceURI = getScreenshotResourceURI(itemResourceURI);
-        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        for (Resource res : resources) {
-            if (res != null) {
-                if (propertyUri.toString().equals(res.getURI().toString())) {
-                    res.unload();
-                    resourceSet.getResources().remove(res);
-                }
-                if (itemResourceURI.toString().equals(res.getURI().toString())) {
-                    res.unload();
-                    resourceSet.getResources().remove(res);
-                }
-                if (screenshotResourceURI.toString().equals(res.getURI().toString())) {
-                    res.unload();
-                    resourceSet.getResources().remove(res);
+        synchronized (lock) {
+            URI propertyUri = URIHelper.convert(iResource.getFullPath());
+            URI itemResourceURI = getItemResourceURI(propertyUri);
+            URI screenshotResourceURI = getScreenshotResourceURI(itemResourceURI);
+            List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+            for (Resource res : resources) {
+                if (res != null) {
+                    if (propertyUri.toString().equals(res.getURI().toString())) {
+                        res.unload();
+                        resourceSet.getResources().remove(res);
+                    }
+                    if (itemResourceURI.toString().equals(res.getURI().toString())) {
+                        res.unload();
+                        resourceSet.getResources().remove(res);
+                    }
+                    if (screenshotResourceURI.toString().equals(res.getURI().toString())) {
+                        res.unload();
+                        resourceSet.getResources().remove(res);
+                    }
                 }
             }
+
+            Resource propertyResource = resourceSet.getResource(propertyUri, true);
+
+            property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
+                    PropertiesPackage.eINSTANCE.getProperty());
         }
-
-        Resource propertyResource = resourceSet.getResource(propertyUri, true);
-
-        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(),
-                PropertiesPackage.eINSTANCE.getProperty());
         return property;
     }
 
     public Property forceReloadProperty(Property property) {
         URI propertyURI = property.eResource().getURI();
         unloadResources(property);
-        Resource propertyResource = resourceSet.getResource(propertyURI, true);
+        Resource propertyResource = getResourceSet().getResource(propertyURI, true);
         return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
     }
 
@@ -205,7 +210,9 @@ public class XmiResourceManager {
 
     public Resource createProjectResource(IProject project) {
         URI uri = getProjectResourceUri(project);
-        return resourceSet.createResource(uri);
+        synchronized (lock) {
+            return getResourceSet().createResource(uri);
+        }
     }
 
     public Resource createTempProjectResource() {
@@ -215,7 +222,9 @@ public class XmiResourceManager {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-        return resourceSet.createResource(uri);
+        synchronized (lock) {
+            return getResourceSet().createResource(uri);
+        }
     }
 
     private URI getProjectResourceUri(IProject project) {
@@ -225,49 +234,53 @@ public class XmiResourceManager {
 
     public Resource createPropertyResource(Resource itemResource) {
         URI propertyResourceURI = getPropertyResourceURI(itemResource.getURI());
-        Resource propResource = resourceSet.getResource(propertyResourceURI, false);
-        if (propResource != null) {
-            propResource.unload();
-            resourceSet.getResources().remove(propResource);
+        synchronized (lock) {
+            Resource propResource = getResourceSet().getResource(propertyResourceURI, false);
+            if (propResource != null) {
+                propResource.unload();
+                getResourceSet().getResources().remove(propResource);
+            }
+            return getResourceSet().createResource(propertyResourceURI);
         }
-        return resourceSet.createResource(propertyResourceURI);
     }
 
     public Resource getReferenceFileResource(Resource itemResource, ReferenceFileItem refFile, boolean needLoad) {
         URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), refFile.getExtension());
-        URIConverter converter = resourceSet.getURIConverter();
+        URIConverter converter = getResourceSet().getURIConverter();
         Resource referenceResource = new ByteArrayResource(referenceFileURI);
         InputStream inputStream = null;
-
-        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        // in case ESB load reference file from the physcial file,but DI need reference from the EMF,so add this flag
-        if (refFile.isReloadFromFile()) {
-            for (Resource res : resources) {
-                if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
-                    res.unload();
-                    resourceSet.getResources().remove(res);
+        synchronized (lock) {
+            List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
+            // in case ESB load reference file from the physcial file,but DI need reference from the EMF,so add this
+            // flag
+            if (refFile.isReloadFromFile()) {
+                for (Resource res : resources) {
+                    if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
+                        res.unload();
+                        getResourceSet().getResources().remove(res);
+                    }
                 }
-            }
 
-            resourceSet.getResources().add(referenceResource);
-            try {
-                if (needLoad) {
-                    inputStream = converter.createInputStream(referenceFileURI);
-                    referenceResource.load(inputStream, null);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
+                getResourceSet().getResources().add(referenceResource);
                 try {
-                    if (inputStream != null) {
-                        inputStream.close();
+                    if (needLoad) {
+                        inputStream = converter.createInputStream(referenceFileURI);
+                        referenceResource.load(inputStream, null);
                     }
                 } catch (IOException e) {
-                    ExceptionHandler.process(e);
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    }
                 }
+            } else {
+                referenceResource = getResourceSet().getResource(referenceFileURI, true);
             }
-        } else {
-            referenceResource = resourceSet.getResource(referenceFileURI, true);
         }
         return referenceResource;
     }
@@ -312,51 +325,58 @@ public class XmiResourceManager {
 
     private Resource createItemResource(boolean byteArrayResource, URI itemResourceURI) {
         Resource itemResource;
-        itemResource = resourceSet.getResource(itemResourceURI, false);
-        if (itemResource != null) {
-            itemResource.unload();
-            resourceSet.getResources().remove(itemResource);
-        }
-        if (byteArrayResource) {
-            itemResource = new ByteArrayResource(itemResourceURI);
-            resourceSet.getResources().add(itemResource);
-        } else {
-            itemResource = resourceSet.createResource(itemResourceURI);
+        synchronized (lock) {
+            itemResource = getResourceSet().getResource(itemResourceURI, false);
+            if (itemResource != null) {
+                itemResource.unload();
+                getResourceSet().getResources().remove(itemResource);
+            }
+            if (byteArrayResource) {
+                itemResource = new ByteArrayResource(itemResourceURI);
+                getResourceSet().getResources().add(itemResource);
+            } else {
+                itemResource = getResourceSet().createResource(itemResourceURI);
+            }
         }
         return itemResource;
     }
 
     public void deleteResource(Resource resource) throws PersistenceException {
-        ResourceUtils.deleteFile(URIHelper.getFile(resource.getURI()));
-        resourceSet.getResources().remove(resource);
+        synchronized (lock) {
+            ResourceUtils.deleteFile(URIHelper.getFile(resource.getURI()));
+            getResourceSet().getResources().remove(resource);
+        }
     }
 
     public void deleteLogiclResource(Resource resource) throws PersistenceException {
         ResourceUtils.deleteRevisionFile(URIHelper.getFile(resource.getURI()));
-        resourceSet.getResources().remove(resource);
+        synchronized (lock) {
+            getResourceSet().getResources().remove(resource);
+        }
     }
 
     public Resource getItemResource(Item item) {
         URI itemResourceURI = null;
-        if (item.getFileExtension() != null) {
-            itemResourceURI = getItemResourceURI(getItemURI(item), item.getFileExtension());
-        } else if (item instanceof TDQItem) {
-            IPath fileName = new Path(((TDQItem) item).getFilename());
-            itemResourceURI = getItemResourceURI(getItemURI(item), fileName.getFileExtension());
-        } else {
-            itemResourceURI = getItemResourceURI(getItemURI(item));
-        }
-        Resource itemResource = resourceSet.getResource(itemResourceURI, false);
-
-        if (itemResource == null) {
-            if (item instanceof FileItem) {
-                itemResource = new ByteArrayResource(itemResourceURI);
-                resourceSet.getResources().add(itemResource);
+        synchronized (lock) {
+            if (item.getFileExtension() != null) {
+                itemResourceURI = getItemResourceURI(getItemURI(item), item.getFileExtension());
+            } else if (item instanceof TDQItem) {
+                IPath fileName = new Path(((TDQItem) item).getFilename());
+                itemResourceURI = getItemResourceURI(getItemURI(item), fileName.getFileExtension());
+            } else {
+                itemResourceURI = getItemResourceURI(getItemURI(item));
             }
-            itemResource = resourceSet.getResource(itemResourceURI, true);
-        }
+            Resource itemResource = getResourceSet().getResource(itemResourceURI, false);
 
-        return itemResource;
+            if (itemResource == null) {
+                if (item instanceof FileItem) {
+                    itemResource = new ByteArrayResource(itemResourceURI);
+                    getResourceSet().getResources().add(itemResource);
+                }
+                itemResource = getResourceSet().getResource(itemResourceURI, true);
+            }
+            return itemResource;
+        }
     }
 
     public Resource getScreenshotResource(Item item) {
@@ -372,47 +392,49 @@ public class XmiResourceManager {
 
     public Resource getScreenshotResource(Item item, boolean createIfNotExist, boolean forceReload) {
         URI itemResourceURI = null;
-        itemResourceURI = getScreenshotResourceURI(getItemURI(item));
-        boolean fileExist = false;
-        if (itemResourceURI.isFile()) {
-            fileExist = new File(itemResourceURI.toFileString()).exists();
-        } else {
-            IPath path = URIHelper.convert(itemResourceURI);
-            if (path != null) {
-                IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-                if (file.exists()) {
-                    fileExist = true;
-                }
+        synchronized (lock) {
+            itemResourceURI = getScreenshotResourceURI(getItemURI(item));
+            boolean fileExist = false;
+            if (itemResourceURI.isFile()) {
+                fileExist = new File(itemResourceURI.toFileString()).exists();
             } else {
-                fileExist = false;
+                IPath path = URIHelper.convert(itemResourceURI);
+                if (path != null) {
+                    IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+                    if (file.exists()) {
+                        fileExist = true;
+                    }
+                } else {
+                    fileExist = false;
+                }
             }
-        }
-        Resource itemResource = null;
-        if (fileExist) {
-            List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-            if (forceReload) {
-                for (Resource res : resources) {
-                    if (res != null) {
-                        if (itemResourceURI.toString().equals(res.getURI().toString())) {
-                            res.unload();
-                            resourceSet.getResources().remove(res);
-                            break;
+            Resource itemResource = null;
+            if (fileExist) {
+                List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
+                if (forceReload) {
+                    for (Resource res : resources) {
+                        if (res != null) {
+                            if (itemResourceURI.toString().equals(res.getURI().toString())) {
+                                res.unload();
+                                getResourceSet().getResources().remove(res);
+                                break;
+                            }
                         }
                     }
                 }
+                try {
+                    // judge whether the physical file exists or not
+                    itemResource = getResourceSet().getResource(itemResourceURI, true);
+                } catch (Exception e) {
+                    // do nothing, consider the file don't exist
+                    itemResource = null;
+                }
             }
-            try {
-                // judge whether the physical file exists or not
-                itemResource = resourceSet.getResource(itemResourceURI, true);
-            } catch (Exception e) {
-                // do nothing, consider the file don't exist
-                itemResource = null;
+            if (itemResource == null && createIfNotExist) {
+                itemResource = getResourceSet().createResource(itemResourceURI);
             }
+            return itemResource;
         }
-        if (itemResource == null && createIfNotExist) {
-            itemResource = resourceSet.createResource(itemResourceURI);
-        }
-        return itemResource;
     }
 
     private URI getItemURI(Item item) {
@@ -481,8 +503,10 @@ public class XmiResourceManager {
                 if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                     resources.add(currentResource);
                 }
-                if (!resourceSet.getResources().contains(currentResource)) {
-                    resourceSet.getResources().add(currentResource);
+                if (!getResourceSet().getResources().contains(currentResource)) {
+                    synchronized (lock) {
+                        getResourceSet().getResources().add(currentResource);
+                    }
                 }
             }
             if (object instanceof ReferenceFileItem) {
@@ -518,8 +542,10 @@ public class XmiResourceManager {
                         resources.add(currentResource);
                     }
                 }
-                if (!resourceSet.getResources().contains(currentResource)) {
-                    resourceSet.getResources().add(currentResource);
+                if (!getResourceSet().getResources().contains(currentResource)) {
+                    synchronized (lock) {
+                        getResourceSet().getResources().add(currentResource);
+                    }
                 }
             }
         }
@@ -773,20 +799,24 @@ public class XmiResourceManager {
     }
 
     public void unloadResources() {
-        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        for (Resource resource : resources) {
-            if (resource != null) {
-                resource.unload();
-                resourceSet.getResources().remove(resource);
+        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
+        synchronized (lock) {
+            for (Resource resource : resources) {
+                if (resource != null) {
+                    resource.unload();
+                    getResourceSet().getResources().remove(resource);
+                }
             }
         }
     }
 
     public void unloadResources(Property property) {
-        for (Resource resource : getAffectedResources(property)) {
-            if (resource != null) {
-                resource.unload();
-                resourceSet.getResources().remove(resource);
+        synchronized (lock) {
+            for (Resource resource : getAffectedResources(property)) {
+                if (resource != null) {
+                    resource.unload();
+                    getResourceSet().getResources().remove(resource);
+                }
             }
         }
     }
@@ -796,12 +826,14 @@ public class XmiResourceManager {
      * 
      * @param uriString the uri sting of resource.
      */
-    public synchronized void unloadResource(String uriString) {
-        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
-        for (Resource res : resources) {
-            if (res != null && uriString.equals(res.getURI().toString())) {
-                res.unload();
-                resourceSet.getResources().remove(res);
+    public void unloadResource(String uriString) {
+        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
+        synchronized (lock) {
+            for (Resource res : resources) {
+                if (res != null && uriString.equals(res.getURI().toString())) {
+                    res.unload();
+                    getResourceSet().getResources().remove(res);
+                }
             }
         }
     }
@@ -812,5 +844,9 @@ public class XmiResourceManager {
 
     public void setAvoidUnloadResource(boolean avoidUnloadResource) {
         this.avoidUnloadResource = avoidUnloadResource;
+    }
+
+    public ResourceSet getResourceSet() {
+        return resourceSet;
     }
 }
