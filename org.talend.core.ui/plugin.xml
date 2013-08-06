@@ -2,15 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.talend.designer.core.ui.preferences.AppearancePreferencePage"
-            class="org.talend.core.ui.preference.ColorsCodeViewerPreferencePage"
-            id="org.talend.core.ui.pref.colorCodeViewer"
-            name="%colorCodeViewer">
-      </page>
-   </extension>
-   <extension
          point="org.talend.core.runtime.service">
       <Service
             class="org.talend.core.ui.CoreUIService"

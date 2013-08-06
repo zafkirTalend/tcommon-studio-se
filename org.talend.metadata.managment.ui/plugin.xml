@@ -8,20 +8,5 @@
             serviceId="IMetadataManagmentUiService">
       </Service>
    </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
-            class="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
-            id="org.talend.metadata.managment.ui.pref.metadataTalendType"
-            name="%metadataofTalendType">
-      </page>
-      <page
-            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
-            class="org.talend.core.prefs.ui.MetadataTypeLengthPreferencePage"
-            id="org.talend.metadata.managment.ui.pref.defaultMetadataTypeAndLength"
-            name="%defaultTypeAndLength">
-      </page>
-   </extension>
 
 </plugin>

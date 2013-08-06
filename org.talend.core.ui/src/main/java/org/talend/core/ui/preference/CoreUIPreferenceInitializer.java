@@ -13,8 +13,6 @@
 package org.talend.core.ui.preference;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
-import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -28,8 +26,7 @@ public class CoreUIPreferenceInitializer extends AbstractPreferenceInitializer {
      */
     @Override
     public void initializeDefaultPreferences() {
-        // default colors for the ColorStyledText.
-        ColorManager.initDefaultColors(CoreUIPlugin.getDefault().getPreferenceStore());
+        //
 
     }
 
