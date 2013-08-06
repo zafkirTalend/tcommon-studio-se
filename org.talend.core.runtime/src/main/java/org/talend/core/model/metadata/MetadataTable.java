@@ -51,6 +51,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private Map<String, String> additionalProperties = new HashMap<String, String>();
 
+    private boolean isRepository = false;
+
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
     }
@@ -231,25 +233,29 @@ public class MetadataTable implements IMetadataTable, Cloneable {
                 return false;
             }
         } else {
-            if (thisColumnListWithUnselected.size() == inputColumnListWithUnselected.size()) { // test if standard
-                                                                                               // columns (no
-                // custom, or
-                // same
-                // input / output)
+            if (thisColumnListWithUnselected.size() == inputColumnListWithUnselected.size()) {
+                // test if standard columns (no custom, or same input / output)
                 for (int i = 0; i < inputColumnListWithUnselected.size(); i++) {
                     IMetadataColumn otherColumn = inputColumnListWithUnselected.get(i);
-                    boolean exist = false;
-                    for (int j = 0; j < thisColumnListWithUnselected.size(); j++) {
-                        IMetadataColumn myColumn = thisColumnListWithUnselected.get(j);
-                        if (otherColumn.getLabel().equals(myColumn.getLabel())) {
-                            exist = true;
-                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
-                                return false;
+                    if (isRepository) {
+                        boolean exist = false;
+                        for (int j = 0; j < thisColumnListWithUnselected.size(); j++) {
+                            IMetadataColumn myColumn = thisColumnListWithUnselected.get(j);
+                            if (otherColumn.getLabel().equals(myColumn.getLabel())) {
+                                exist = true;
+                                if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
+                                    return false;
+                                }
                             }
                         }
-                    }
-                    if (!exist) {
-                        return false;
+                        if (!exist) {
+                            return false;
+                        }
+                    } else {
+                        IMetadataColumn myColumn = thisColumnListWithUnselected.get(i);
+                        if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
+                            return false;
+                        }
                     }
                 }
             } else {
@@ -418,5 +424,13 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     public void setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
+    }
+
+    public boolean isRepository() {
+        return this.isRepository;
+    }
+
+    public void setRepository(boolean isRepository) {
+        this.isRepository = isRepository;
     }
 }

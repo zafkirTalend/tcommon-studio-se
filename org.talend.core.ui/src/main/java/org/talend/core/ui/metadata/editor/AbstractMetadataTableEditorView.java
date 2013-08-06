@@ -1070,4 +1070,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     public void setIsRepository(boolean isRepository) {
         this.isRepository = isRepository;
     }
+
+    public boolean isRepository() {
+        return this.isRepository;
+    }
 }
