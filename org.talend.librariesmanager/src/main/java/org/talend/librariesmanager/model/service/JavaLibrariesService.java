@@ -26,12 +26,9 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
 import org.eclipse.osgi.framework.adaptor.BundleData;
@@ -211,41 +208,35 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     }
 
     @Override
-    public void syncLibraries(final IProgressMonitor... monitorWrap) {
+    public void syncLibraries(IProgressMonitor... monitorWrap) {
         // 1. Talend libraries:
         // File talendLibraries = new File(FileLocator
         //                    .resolve(Platform.getBundle(BUNDLE_DI).getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
         // repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
 
-    	  Job job = new Job("syncLibraries") {
+        if (TalendCacheUtils.cleanComponentCache()) {
+            repositoryBundleService.clearCache();
+        }
+        // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
+        // if clean the component cache, it will automatically recheck all libs still.
+        if (!repositoryBundleService.isInitialized()) {
+            // 2. Components libraries
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
+                Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+                Set<String> contributeIdSet = componentsFolders.keySet();
+                for (String contributeID : contributeIdSet) {
+                    repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
+                }
 
-              @Override
-              protected IStatus run(IProgressMonitor monitor) {
-                  // Add a new system file, if exists, means all components libs are already setup, so no need to do
-                  // again.
-                  // if clean the component cache, it will automatically recheck all libs still.
-                  // 2. Components libraries
-                  if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-                      IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                              IComponentsService.class);
-                      repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
-                      Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-                      Set<String> contributeIdSet = componentsFolders.keySet();
-                      for (String contributeID : contributeIdSet) {
-                          repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
-                      }
+                // / for test
+                syncLibrariesFromApp(monitorWrap);
 
-                      // / for test
-                      syncLibrariesFromApp(monitorWrap);
-
-                      repositoryBundleService.setInitialized();
-                  }
-                  return Status.OK_STATUS;
-              }
-
-          };
-          job.setPriority(Job.INTERACTIVE);
-          job.schedule();
+                repositoryBundleService.setInitialized();
+            }
+        }
 
         // 3. system routine libraries
         // Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
