@@ -776,10 +776,26 @@ public final class ConnectionContextHelper {
      * 
      * @param process
      * @param contextItem
-     * @param contextManager added for bug 15608
+     * @param ctxManager added for bug 15608
      */
-    public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager contextManager) {
-        if (process == null || contextItem == null || contextManager == null) {
+    public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager ctxManager) {
+        addContextVarForJob(process, contextItem.getContext(), contextItem.getDefaultContext(),
+                contextItem.getProperty().getId(), ctxManager);
+    }
+
+    /**
+     * 
+     * DOC xqliu Comment method "addContextVarForJob".
+     * 
+     * @param process
+     * @param contexts
+     * @param defaultContextName
+     * @param contextItemId
+     * @param ctxManager
+     */
+    public static void addContextVarForJob(IProcess2 process, final List<ContextType> contexts, final String defaultContextName,
+            final String contextItemId, final IContextManager ctxManager) {
+        if (process == null || contexts == null || defaultContextName == null || ctxManager == null) {
             return;
         }
 
@@ -787,7 +803,7 @@ public final class ConnectionContextHelper {
 
             @Override
             public void execute() {
-                checkAndAddContextsVarDND(contextItem, contextManager);
+                checkAndAddContextsVarDND(contexts, defaultContextName, contextItemId, ctxManager);
             }
         };
         boolean executed = false;
@@ -805,17 +821,23 @@ public final class ConnectionContextHelper {
 
     @SuppressWarnings("unchecked")
     public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final Set<String> addedVars) {
-        if (process == null || contextItem == null || addedVars == null || addedVars.isEmpty()) {
+        addContextVarForJob(process, contextItem.getContext(), contextItem.getDefaultContext(),
+                contextItem.getProperty().getId(), addedVars);
+    }
+
+    public static void addContextVarForJob(IProcess2 process, final List<ContextType> contexts, final String defaultContextName,
+            final String contextItemId, final Set<String> addedVars) {
+        if (process == null || contexts == null || defaultContextName == null || addedVars == null || addedVars.isEmpty()) {
             return;
         }
-        final IContextManager contextManager = process.getContextManager();
-        if (contextManager != null) {
+        final IContextManager ctxManger = process.getContextManager();
+        if (ctxManger != null) {
 
             Command cmd = new Command() {
 
                 @Override
                 public void execute() {
-                    checkAndAddContextVariables(contextItem, addedVars, contextManager, true);
+                    checkAndAddContextVariables(contexts, defaultContextName, contextItemId, addedVars, ctxManger, true);
                 }
             };
 
@@ -832,9 +854,9 @@ public final class ConnectionContextHelper {
         }
     }
 
-    public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem,
-            final IContextManager contextManager, final Set<String> addedVars, final Set<String> contextGoupNameSet) {
-        if (process == null || contextItem == null || contextManager == null || addedVars == null || addedVars.isEmpty()) {
+    public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager ctxManager,
+            final Set<String> addedVars, final Set<String> contextGoupNameSet) {
+        if (process == null || contextItem == null || ctxManager == null || addedVars == null || addedVars.isEmpty()) {
             return;
         }
 
@@ -842,7 +864,7 @@ public final class ConnectionContextHelper {
 
             @Override
             public void execute() {
-                checkAndAddContextVariables(contextItem, contextManager, addedVars, contextGoupNameSet);
+                checkAndAddContextVariables(contextItem, ctxManager, addedVars, contextGoupNameSet);
             }
         };
         boolean executed = false;
@@ -992,12 +1014,28 @@ public final class ConnectionContextHelper {
      * ggu Comment method "checkAndAddContextVariables".
      */
     public static Set<String> checkAndAddContextVariables(final ContextItem contextItem, final Set<String> neededVars,
-            final IContextManager contextManager, boolean added) {
-        Set<String> addedVars = new HashSet<String>();
-        for (IContext context : contextManager.getListContext()) {
+            final IContextManager ctxManager, boolean added) {
+        return checkAndAddContextVariables(contextItem.getContext(), contextItem.getDefaultContext(), contextItem.getProperty()
+                .getId(), neededVars, ctxManager, added);
+    }
 
-            ContextType type = ContextUtils.getContextTypeByName(contextItem.getContext(), context.getName(),
-                    contextItem.getDefaultContext());
+    /**
+     * DOC xqliu Comment method "checkAndAddContextVariables".
+     * 
+     * @param contexts
+     * @param defaultContextName
+     * @param contextItemId
+     * @param neededVars
+     * @param ctxManager
+     * @param added
+     * @return
+     */
+    public static Set<String> checkAndAddContextVariables(final List<ContextType> contexts, final String defaultContextName,
+            final String contextItemId, final Set<String> neededVars, final IContextManager ctxManager, boolean added) {
+        Set<String> addedVars = new HashSet<String>();
+        for (IContext context : ctxManager.getListContext()) {
+
+            ContextType type = ContextUtils.getContextTypeByName(contexts, context.getName(), defaultContextName);
             if (type != null) {
                 for (String var : neededVars) {
                     if (context.getContextParameter(var) != null) {
@@ -1010,8 +1048,9 @@ public final class ConnectionContextHelper {
                             JobContextParameter contextParam = new JobContextParameter();
 
                             ContextUtils.updateParameter(param, contextParam);
-
-                            contextParam.setSource(contextItem.getProperty().getId());
+                            if (contextItemId != null) {
+                                contextParam.setSource(contextItemId);
+                            }
                             contextParam.setContext(context);
 
                             context.getContextParameterList().add(contextParam);
@@ -1039,11 +1078,11 @@ public final class ConnectionContextHelper {
      * 
      * wzhang Comment method "containsVariable".
      * 
-     * @param contextManager
+     * @param ctxManager
      * @return
      */
-    public static boolean containsVariable(IContextManager contextManager) {
-        List<IContext> listContext = contextManager.getListContext();
+    public static boolean containsVariable(IContextManager ctxManager) {
+        List<IContext> listContext = ctxManager.getListContext();
         for (IContext context : listContext) {
             List<IContextParameter> paraList = context.getContextParameterList();
             if (!paraList.isEmpty()) {
@@ -1058,12 +1097,24 @@ public final class ConnectionContextHelper {
      * wzhang Comment method "checkAndAddContextsVarDND".
      * 
      * @param item
-     * @param contextManager
+     * @param ctxManager
      */
-    public static void checkAndAddContextsVarDND(ContextItem item, IContextManager contextManager) {
-        EList context = item.getContext();
+    public static void checkAndAddContextsVarDND(ContextItem item, IContextManager ctxManager) {
+        checkAndAddContextsVarDND(item.getContext(), item.getDefaultContext(), item.getProperty().getId(), ctxManager);
+    }
+
+    /**
+     * DOC xqliu Comment method "checkAndAddContextsVarDND".
+     * 
+     * @param contexts
+     * @param defaultContextName
+     * @param contextItemId
+     * @param ctxManager
+     */
+    public static void checkAndAddContextsVarDND(List<ContextType> contexts, String defaultContextName, String contextItemId,
+            IContextManager ctxManager) {
         Map<String, List<ContextParameterTypeImpl>> map = new HashMap<String, List<ContextParameterTypeImpl>>();
-        Iterator iterator = context.iterator();
+        Iterator iterator = contexts.iterator();
         while (iterator.hasNext()) {
             Object obj = iterator.next();
             if (obj instanceof ContextTypeImpl) {
@@ -1082,8 +1133,7 @@ public final class ConnectionContextHelper {
         if (map.isEmpty()) {
             return;
         }
-        contextManager.getListContext().clear();
-        String defaultContextName = item.getDefaultContext();
+        ctxManager.getListContext().clear();
 
         for (String key : map.keySet()) {
             List<ContextParameterTypeImpl> list = map.get(key);
@@ -1091,13 +1141,15 @@ public final class ConnectionContextHelper {
             for (ContextParameterTypeImpl contextImpl : list) {
                 JobContextParameter contextParam = new JobContextParameter();
                 ContextUtils.updateParameter(contextImpl, contextParam);
-                contextParam.setSource(item.getProperty().getId());
+                if (contextItemId != null) {
+                    contextParam.setSource(contextItemId);
+                }
                 contextParam.setContext(jobContext);
                 jobContext.getContextParameterList().add(contextParam);
             }
-            contextManager.getListContext().add(jobContext);
+            ctxManager.getListContext().add(jobContext);
             if (key.equals(defaultContextName)) {
-                contextManager.setDefaultContext(jobContext);
+                ctxManager.setDefaultContext(jobContext);
             }
         }
 
