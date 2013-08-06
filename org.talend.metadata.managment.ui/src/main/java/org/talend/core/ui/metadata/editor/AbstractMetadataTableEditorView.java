@@ -503,6 +503,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             column.setWeight(16);
             final ColumnCellModifier columnCellModifier = new ColumnCellModifier(column) {
 
+                @Override
                 public boolean canModify(Object bean) {
                     boolean typeIsDate = currentBeanHasJavaDateType(bean) && !isReadOnly();
                     boolean typeIsDynamic = isCurrentBeanHasType(bean, "id_Dynamic") && !isReadOnly(); //$NON-NLS-1$
@@ -854,7 +855,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
             String[] arrayDbTypes = new String[0];
-            arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
+            arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms());
             // System.out.println("currentDbms:" + getCurrentDbms() + "
             // dbTypes:" + arrayDbTypes);
             ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes,
@@ -925,6 +926,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param minimumWidth
      * @param minimumHeight
      */
+    @Override
     public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
         getMainComposite().setSize(minimumWidth, minimumHeight);
 
@@ -973,8 +975,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @return
      */
     public boolean isCurrentBeanHasType(Object element, String typeId) {
-        if (element == null || typeId == null)
+        if (element == null || typeId == null) {
             return false;
+        }
         String talendType = getTalendTypeAccessor().get((B) element);
         return typeId.equals(talendType);
     }
@@ -1058,5 +1061,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public void setIsRepository(boolean isRepository) {
         this.isRepository = isRepository;
+    }
+
+    public boolean isRepository() {
+        return this.isRepository;
     }
 }
