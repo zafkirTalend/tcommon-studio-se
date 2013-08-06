@@ -292,7 +292,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // if the check comes from create item when import item, then no need to check the name availability
         // since we already checked before.
         if (isImportItem.length == 0) {
-            return checkIfHaveDuplicateName(project, item, path);
+            checkIfHaveDuplicateName(project, item, path);
         }
         return false;
     }
@@ -367,8 +367,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     if (box.open() == SWT.OK) {
                         deleteObjectPhysical(duplicateNameObject);
                         isThrow = false;
-                    } else {
-                        return false;
                     }
                 }
                 if (isThrow) {
@@ -1256,18 +1254,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 // don't do anything
             }
         }
-        boolean canCreate = checkFileNameAndPath(project, item,
-                RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false, isImportItem);
+        checkFileNameAndPath(project, item, RepositoryConstants.getPattern(ERepositoryObjectType.getItemType(item)), path, false,
+                isImportItem);
 
-        if (canCreate) {
-            this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
-            if (isImportItem.length == 0 || !isImportItem[0]) {
-                // no listener if from import, or it will be too slow.
-                fireRepositoryPropertyChange(ERepositoryActionName.CREATE.getName(), null, item);
-            }
-            if (isImportItem.length > 0 && isImportItem[0]) {
-                fireRepositoryPropertyChange(ERepositoryActionName.IMPORT.getName(), null, item);
-            }
+        this.repositoryFactoryFromProvider.create(project, item, path, isImportItem);
+        if (isImportItem.length == 0 || !isImportItem[0]) {
+            // no listener if from import, or it will be too slow.
+            fireRepositoryPropertyChange(ERepositoryActionName.CREATE.getName(), null, item);
+        }
+        if (isImportItem.length > 0 && isImportItem[0]) {
+            fireRepositoryPropertyChange(ERepositoryActionName.IMPORT.getName(), null, item);
         }
     }
 
