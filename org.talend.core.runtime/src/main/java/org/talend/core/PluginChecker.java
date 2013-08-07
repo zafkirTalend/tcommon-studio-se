@@ -24,8 +24,6 @@ public class PluginChecker {
 
     private static final String DOCUMENTATION_PLUGIN_ID = "org.talend.repository.documentation"; //$NON-NLS-1$
 
-    private static final String SNIPPET_PLUGIN_ID = "org.talend.snippets"; //$NON-NLS-1$
-
     private static final String JOBLET_PLUGIN_ID = "org.talend.designer.joblet"; //$NON-NLS-1$
 
     private static final String WSDL_PLUGIN_ID = "org.talend.wsdl.advancement"; //$NON-NLS-1$
@@ -139,15 +137,6 @@ public class PluginChecker {
 
     public static boolean isPerformancePluginLoaded() {
         return isPluginLoaded(PERFORMANCE_PLUGIN_ID);
-    }
-
-    /**
-     * Check if snippets plug-in is loaded.
-     * 
-     * @return isLoaded
-     */
-    public static boolean isSnippetsPluginLoaded() {
-        return isPluginLoaded(SNIPPET_PLUGIN_ID);
     }
 
     /**
