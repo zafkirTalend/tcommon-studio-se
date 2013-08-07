@@ -875,7 +875,8 @@ public class ExtractMetaDataUtils {
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
-                        && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)) {
+                        && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion) || EDatabaseVersion4Drivers.VERTICA_5_1
+                                .getVersionValue().equals(dbVersion))) {
                     driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                 }
             }
