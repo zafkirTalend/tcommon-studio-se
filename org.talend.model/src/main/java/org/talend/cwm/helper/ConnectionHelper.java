@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.cwm.helper;
 
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -25,7 +23,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -38,9 +35,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
-import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
@@ -397,6 +392,7 @@ public class ConnectionHelper {
      * @return
      * @deprecated software system is not used any more
      */
+    @Deprecated
     public static TdSoftwareSystem getSoftwareSystem(Connection dataProvider) {
 
         final Component component = dataProvider.getComponent();
@@ -409,72 +405,6 @@ public class ConnectionHelper {
             }
         }
         return null;
-    }
-
-    /**
-     * @param connection
-     * @return
-     * @throws SQLException
-     * @deprecated software system is not used any more
-     */
-    public static TdSoftwareSystem getSoftwareSystem(java.sql.Connection connection) throws SQLException {
-
-        // MOD xqliu 2009-07-13 bug 7888
-        DatabaseMetaData databaseMetadata = org.talend.utils.sql.ConnectionUtils.getConnectionMetadata(connection);
-        // ~
-        // --- get informations
-        String databaseProductName = null;
-        try {
-            databaseProductName = databaseMetadata.getDatabaseProductName();
-            if (log.isInfoEnabled()) {
-                log.info(Messages.getString("DatabaseContentRetriever.PRODUCTNAME") + databaseProductName);//$NON-NLS-1$
-            }
-        } catch (Exception e1) {
-            log.warn(Messages.getString("DatabaseContentRetriever.CANNOTGETPRODUCTNAME") + e1, e1);//$NON-NLS-1$
-        }
-        String databaseProductVersion = null;
-        try {
-            databaseProductVersion = databaseMetadata.getDatabaseProductVersion();
-            if (log.isInfoEnabled()) {
-                log.info(Messages.getString("DatabaseContentRetriever.PRODUCTVERSION") + databaseProductVersion);//$NON-NLS-1$
-            }
-        } catch (Exception e1) {
-            log.warn(Messages.getString("DatabaseContentRetriever.CANNOTGETPRODUCTVERSION") + e1, e1);//$NON-NLS-1$
-        }
-        // Hive connection dosen't have getDatabaseMinorVersion/getDatabaseMinorVersion
-        if (!"Hive".equals(databaseProductName)) { //$NON-NLS-1$
-            try {
-                int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
-                int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
-                // simplify the database product version when these informations are accessible
-                databaseProductVersion = Integer.toString(databaseMajorVersion) + DOT_STRING + databaseMinorVersion;
-
-                if (log.isDebugEnabled()) {
-                    log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + ". DB version: "//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-                            + databaseMajorVersion + DOT_STRING + databaseMinorVersion);
-                }
-            } catch (RuntimeException e) {
-                // happens for Sybase ASE for example
-                if (log.isDebugEnabled()) {
-                    log.debug("Database=" + databaseProductName + " | " + databaseProductVersion + " " + e, e);//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-                }
-            }
-        }
-
-        // --- create and fill the software system
-        TdSoftwareSystem system = SoftwaredeploymentFactory.eINSTANCE.createTdSoftwareSystem();
-        if (databaseProductName != null) {
-            system.setName(databaseProductName);
-            system.setSubtype(databaseProductName);
-        }
-        system.setType(SoftwareSystemConstants.DBMS.toString());
-        if (databaseProductVersion != null) {
-            system.setVersion(databaseProductVersion);
-        }
-        Component component = orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentFactory.eINSTANCE.createComponent();
-        system.getOwnedElement().add(component);
-
-        return system;
     }
 
     /**
@@ -1420,6 +1350,7 @@ public class ConnectionHelper {
         return TaggedValueHelper.getValueBoolean(TaggedValueHelper.IS_CONN_NEED_RELOAD, conn);
 
     }
+
     // ~
 
     /**

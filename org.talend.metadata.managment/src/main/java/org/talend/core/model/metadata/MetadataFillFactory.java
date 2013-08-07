@@ -305,8 +305,20 @@ public class MetadataFillFactory {
      * @param metadataBean connection information.can not be null.
      * @return the object of TypedReturnCode if connected have be build the object will take a java.sql.connection else
      * it will take a error message.
+     * @deprecated use {@link #createConnection(IMetadataConnection)} instead.
      */
+    @Deprecated
     public ReturnCode checkConnection(IMetadataConnection metadataBean) {
+        return metadataFiller.checkConnection(metadataBean);
+    }
+
+    /**
+     * 
+     * @param metadataBean connection information.can not be null.
+     * @return the object of TypedReturnCode if the connection is established. The object will be a instance of
+     * java.sql.Connection if success, otherwise an error message will be returned.
+     */
+    public ReturnCode createConnection(IMetadataConnection metadataBean) {
         return metadataFiller.checkConnection(metadataBean);
     }
 
