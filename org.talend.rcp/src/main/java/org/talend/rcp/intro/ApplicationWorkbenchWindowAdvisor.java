@@ -251,6 +251,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     ITDQRepositoryService.class);
             if (tdqRepositoryService != null) {
                 tdqRepositoryService.addPartListener();
+                tdqRepositoryService.addSoftwareSystemUpdateListener();
             }
         }
 
