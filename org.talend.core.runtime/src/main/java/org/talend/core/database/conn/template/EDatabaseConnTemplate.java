@@ -291,6 +291,7 @@ public enum EDatabaseConnTemplate {
             case ORACLEFORSID:
             case ORACLESN:
             case ORACLE_OCI:
+            case ORACLE_RAC:
             case PSQL:
             case PLUSPSQL:
             case GREENPLUM:
