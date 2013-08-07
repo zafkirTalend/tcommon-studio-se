@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -2765,120 +2765,126 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<Resource> resourceToUnload = new ArrayList<Resource>();
         List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
         EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
-        for (int i = 0; i < kaka.size(); i++) {
-            Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
-            if (resource == null) {
-                // only in case of bug from some items in the repository, to keep the repository stable even if a
-                // problem happens
-                continue;
-            }
-            final EList<EObject> contents = resource.getContents();
-            for (int j = 0; j < contents.size(); j++) {
-                EObject object = contents.get(j);
-                if (object instanceof Property) {
-                    if (((Property) object).getItem() instanceof FolderItem) {
-                        continue;
-                    }
-                    if (((Property) object).getItem() instanceof RoutineItem) {
-                        RoutineItem item = (RoutineItem) ((Property) object).getItem();
-                        if (item.isBuiltIn()) {
+        synchronized (kaka) {
+            for (int i = 0; i < kaka.size(); i++) {
+                Resource resource = kaka.get(i);
+                if (resource == null) {
+                    // only in case of bug from some items in the repository, to keep the repository stable even if a
+                    // problem happens
+                    continue;
+                }
+                final EList<EObject> contents = resource.getContents();
+                for (int j = 0; j < contents.size(); j++) {
+                    EObject object = contents.get(j);
+                    if (object instanceof Property) {
+                        if (((Property) object).getItem() instanceof FolderItem) {
                             continue;
                         }
-                    }
-                    if (((Property) object).getItem() instanceof SQLPatternItem) {
-                        SQLPatternItem item = (SQLPatternItem) ((Property) object).getItem();
-                        if (item.isSystem()) {
+                        if (((Property) object).getItem() instanceof RoutineItem) {
+                            RoutineItem item = (RoutineItem) ((Property) object).getItem();
+                            if (item.isBuiltIn()) {
+                                continue;
+                            }
+                        }
+                        if (((Property) object).getItem() instanceof SQLPatternItem) {
+                            SQLPatternItem item = (SQLPatternItem) ((Property) object).getItem();
+                            if (item.isSystem()) {
+                                continue;
+                            }
+                        }
+
+                        ERepositoryStatus status = getStatus(((Property) object).getItem());
+                        if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
+                            // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
                             continue;
                         }
-                    }
+                        resourceToUnload.add(resource);
+                        if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
+                                && (((Property) object).getItem().getParent()) instanceof FolderItem) {
 
-                    ERepositoryStatus status = getStatus(((Property) object).getItem());
-                    if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
-                        // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
-                        continue;
-                    }
-                    resourceToUnload.add(resource);
-                    if (((Property) object).getItem() != null && ((Property) object).getItem().getParent() != null
-                            && (((Property) object).getItem().getParent()) instanceof FolderItem) {
+                            // bug 17768 :
+                            boolean toKeepInMemorySinceDeleted = false;
 
-                        // bug 17768 :
-                        boolean toKeepInMemorySinceDeleted = false;
-
-                        if (((Property) object).getItem().getState().isDeleted()) {
-                            toKeepInMemorySinceDeleted = true;
-                        } else if (((Property) object).getItem() instanceof ConnectionItem) {
-                            // should check if item is ConnectionItem, then check if any of the table is deleted.
-                            // if yes, then don't unload all.
-                            Connection connection = ((ConnectionItem) ((Property) object).getItem()).getConnection();
-
-                            boolean haveTableDeleted = false;
-
-                            for (MetadataTable table : ConnectionHelper.getTables(connection)) {
-                                if (SubItemHelper.isDeleted(table)) {
-                                    haveTableDeleted = true;
-                                    break;
-                                }
-                            }
-                            if (!haveTableDeleted && connection != null) {
-                                QueriesConnection queriesConnection = connection.getQueries();
-                                if (queriesConnection != null) {
-                                    for (Query query : queriesConnection.getQuery()) {
-                                        if (SubItemHelper.isDeleted(query)) {
-                                            haveTableDeleted = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if (connection instanceof SAPConnection) {
-                                    SAPConnection sapConn = (SAPConnection) connection;
-                                    if (!haveTableDeleted) {
-                                        EList<SAPFunctionUnit> funtions = sapConn.getFuntions();
-                                        for (SAPFunctionUnit unit : funtions) {
-                                            if (SubItemHelper.isDeleted(unit)) {
-                                                haveTableDeleted = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (!haveTableDeleted) {
-                                        EList<SAPIDocUnit> iDocs = sapConn.getIDocs();
-                                        for (SAPIDocUnit iDoc : iDocs) {
-                                            if (SubItemHelper.isDeleted(iDoc)) {
-                                                haveTableDeleted = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-
-                            if (haveTableDeleted) {
+                            if (((Property) object).getItem().getState().isDeleted()) {
                                 toKeepInMemorySinceDeleted = true;
+                            } else if (((Property) object).getItem() instanceof ConnectionItem) {
+                                // should check if item is ConnectionItem, then check if any of the table is deleted.
+                                // if yes, then don't unload all.
+                                Connection connection = ((ConnectionItem) ((Property) object).getItem()).getConnection();
+
+                                boolean haveTableDeleted = false;
+
+                                for (MetadataTable table : ConnectionHelper.getTables(connection)) {
+                                    if (SubItemHelper.isDeleted(table)) {
+                                        haveTableDeleted = true;
+                                        break;
+                                    }
+                                }
+                                if (!haveTableDeleted && connection != null) {
+                                    QueriesConnection queriesConnection = connection.getQueries();
+                                    if (queriesConnection != null) {
+                                        for (Query query : queriesConnection.getQuery()) {
+                                            if (SubItemHelper.isDeleted(query)) {
+                                                haveTableDeleted = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (connection instanceof SAPConnection) {
+                                        SAPConnection sapConn = (SAPConnection) connection;
+                                        if (!haveTableDeleted) {
+                                            EList<SAPFunctionUnit> funtions = sapConn.getFuntions();
+                                            for (SAPFunctionUnit unit : funtions) {
+                                                if (SubItemHelper.isDeleted(unit)) {
+                                                    haveTableDeleted = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (!haveTableDeleted) {
+                                            EList<SAPIDocUnit> iDocs = sapConn.getIDocs();
+                                            for (SAPIDocUnit iDoc : iDocs) {
+                                                if (SubItemHelper.isDeleted(iDoc)) {
+                                                    haveTableDeleted = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                if (haveTableDeleted) {
+                                    toKeepInMemorySinceDeleted = true;
+                                }
+                            }
+
+                            // to free memory or parent will still hold the item
+                            if (!toKeepInMemorySinceDeleted) {
+                                ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
+                                        ((Property) object).getItem());
+                                ((Property) object).getItem().setParent(null);
                             }
                         }
-
-                        // to free memory or parent will still hold the item
-                        if (!toKeepInMemorySinceDeleted) {
-                            ((FolderItem) ((Property) object).getItem().getParent()).getChildren().remove(
-                                    ((Property) object).getItem());
-                            ((Property) object).getItem().setParent(null);
-                        }
+                        possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                     }
-                    possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                 }
             }
-        }
-        kaka = xmiResourceManager.resourceSet.getResources();
-        for (int i = 0; i < kaka.size(); i++) {
-            Resource resource = kaka.get(i);
-            final EList<EObject> contents = resource.getContents();
-            for (int j = 0; j < contents.size(); j++) {
-                EObject object = contents.get(j);
-                if (!(object instanceof Property)) {
-                    if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
-                        resourceToUnload.add(resource);
+            for (int i = 0; i < kaka.size(); i++) {
+                Resource resource = kaka.get(i);
+                if (resource == null) {
+                    // only in case of bug from some items in the repository, to keep the repository stable even if a
+                    // problem happens
+                    continue;
+                }
+                final EList<EObject> contents = resource.getContents();
+                for (int j = 0; j < contents.size(); j++) {
+                    EObject object = contents.get(j);
+                    if (!(object instanceof Property)) {
+                        if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
+                            resourceToUnload.add(resource);
+                        }
                     }
                 }
             }
