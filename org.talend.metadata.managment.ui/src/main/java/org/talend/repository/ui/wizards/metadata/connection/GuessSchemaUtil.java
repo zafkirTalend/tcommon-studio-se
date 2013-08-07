@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.ICoreService;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -28,7 +28,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlDataTypeHelper;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
 import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
@@ -157,35 +157,21 @@ public class GuessSchemaUtil {
                                 precisionValue = lengthValue - positionDecimal;
                             }
                         } else {
-                            ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
-
-                            IPreferenceStore preferenceStore = coreService.getPreferenceStore();
-                            if (preferenceStore != null) {
-                                if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                                    if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
-                                            && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals(
-                                                    "")) { //$NON-NLS-1$
-                                        globalType = preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
-                                        if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
-                                                && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH)
-                                                        .equals("")) { //$NON-NLS-1$
-                                            lengthValue = Integer.parseInt(preferenceStore
-                                                    .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
-                                        }
-                                    }
-                                } else {
-                                    if (preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE) != null
-                                            && !preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE)
-                                                    .equals("")) { //$NON-NLS-1$
-                                        globalType = preferenceStore
-                                                .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE);
-                                        if (preferenceStore.getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH) != null
-                                                && !preferenceStore.getString(
-                                                        MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
-                                            lengthValue = Integer.parseInt(preferenceStore
-                                                    .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH));
-                                        }
-                                    }
+                            IPreferenceStore preferenceStore = null;
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreUIService.class)) {
+                                IDesignerCoreUIService designerCoreUiService = (IDesignerCoreUIService) GlobalServiceRegister
+                                        .getDefault().getService(IDesignerCoreUIService.class);
+                                preferenceStore = designerCoreUiService.getPreferenceStore();
+                            }
+                            if (preferenceStore != null
+                                    && preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
+                                    && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
+                                globalType = preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
+                                if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
+                                        && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH)
+                                                .equals("")) { //$NON-NLS-1$
+                                    lengthValue = Integer.parseInt(preferenceStore
+                                            .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
                                 }
                             }
 

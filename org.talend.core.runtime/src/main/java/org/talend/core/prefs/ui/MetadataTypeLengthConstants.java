@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.prefs.ui;
 
+import org.talend.core.model.metadata.types.JavaTypesManager;
+
 /**
  * DOC qwei class global comment. Detailled comment
  */
@@ -19,58 +21,38 @@ public class MetadataTypeLengthConstants {
 
     public static final String VALUE_DEFAULT_TYPE = "VALUE_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String PERL_VALUE_DEFAULT_TYPE = "PERL_VALUE_DEFAULT_TYPE"; //$NON-NLS-1$
-
     public static final String VALUE_DEFAULT_LENGTH = "VALUE_DEFAULT_LENGTH"; //$NON-NLS-1$
-
-    public static final String PERL_VALUE_DEFAULT_LENGTH = "PERL_VALUE_DEFAULT_LENGTH"; //$NON-NLS-1$
 
     public static final String FIELD_DEFAULT_TYPE = "FIELD_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String PERL_FIELD_DEFAULT_TYPE = "PERL_FIELD_DEFAULT_TYPE"; //$NON-NLS-1$
-
     public static final String FIELD_DEFAULT_LENGTH = "FIELD_DEFAULT_LENGTH"; //$NON-NLS-1$
 
-    public static final String PERL_FIELD_DEFAULT_LENGTH = "PERL_FIELD_DEFAULT_LENGTH"; //$NON-NLS-1$
+    public static final String ID_BOOLEAN = JavaTypesManager.BOOLEAN.getId();
 
-    public static final String ID_BOOLEAN = "ID_BOOLEAN"; //$NON-NLS-1$
+    public static final String ID_BIGDECIMAL = JavaTypesManager.BIGDECIMAL.getId();
 
-    public static final String ID_BIGDECIMAL = "ID_BIGDECIMAL"; //$NON-NLS-1$
+    public static final String ID_BYTE = JavaTypesManager.BYTE.getId();
 
-    public static final String ID_BYTE = "ID_BYTE"; //$NON-NLS-1$
+    public static final String ID_INTEGER = JavaTypesManager.INTEGER.getId();
 
-    public static final String ID_INTEGER = "ID_INTEGER"; //$NON-NLS-1$
+    public static final String ID_BYTEARRAY = JavaTypesManager.BYTE_ARRAY.getId();
 
-    public static final String ID_BYTEARRAY = "ID_BYTEARRAY"; //$NON-NLS-1$
+    public static final String ID_LONG = JavaTypesManager.LONG.getId();
 
-    public static final String ID_LONG = "ID_LONG"; //$NON-NLS-1$
+    public static final String ID_CHARACTER = JavaTypesManager.CHARACTER.getId();
 
-    public static final String ID_CHARACTER = "ID_CHARACTER"; //$NON-NLS-1$
+    public static final String ID_OBJECT = JavaTypesManager.OBJECT.getId();
 
-    public static final String ID_OBJECT = "ID_OBJECT"; //$NON-NLS-1$
+    public static final String ID_DATE = JavaTypesManager.DATE.getId();
 
-    public static final String ID_DATE = "ID_DATE"; //$NON-NLS-1$
+    public static final String ID_SHORT = JavaTypesManager.SHORT.getId();
 
-    public static final String ID_SHORT = "ID_SHORT"; //$NON-NLS-1$
+    public static final String ID_DOUBLE = JavaTypesManager.DOUBLE.getId();
 
-    public static final String ID_DOUBLE = "ID_DOUBLE"; //$NON-NLS-1$
+    public static final String ID_STRING = JavaTypesManager.STRING.getId();
 
-    public static final String ID_STRING = "ID_STRING"; //$NON-NLS-1$
+    public static final String ID_FLOAT = JavaTypesManager.FLOAT.getId();
 
-    public static final String ID_FLOAT = "ID_FLOAT"; //$NON-NLS-1$
-
-    public static final String ID_LIST = "ID_LIST"; //$NON-NLS-1$
-
-    public static final String PERL_DATE = "DATE"; //$NON-NLS-1$
-
-    public static final String PERL_BOOLEAN = "BOOLEAN"; //$NON-NLS-1$
-
-    public static final String PERL_DATETIME = "DATETIME"; //$NON-NLS-1$
-
-    public static final String PERL_INT = "INT"; //$NON-NLS-1$
-
-    public static final String PERL_DECIMAL = "DECIMAL"; //$NON-NLS-1$
-
-    public static final String PERL_STRING = "STRING"; //$NON-NLS-1$
+    public static final String ID_LIST = JavaTypesManager.LIST.getId();
 
 }

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -39,10 +40,10 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -50,11 +51,11 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.PerlDataTypeHelper;
-import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -112,6 +113,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         setupForm();
     }
 
+    @Override
     protected void addFields() {
 
         // Header Fields
@@ -155,11 +157,13 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
      * 
      * @param cancelButton
      */
+    @Override
     protected void addUtilsButtonListeners() {
 
         // Event guessButton
         guessButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
 
@@ -189,6 +193,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
             // Event CancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -201,6 +206,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
      * 
      * Initialize value, forceFocus first field.
      */
+    @Override
     protected void initialize() {
         // init the metadata Table
         Set<org.talend.core.model.metadata.builder.connection.MetadataTable> tables = ConnectionHelper.getTables(connection);
@@ -260,10 +266,12 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
     /**
      * Main Fields addControls.
      */
+    @Override
     protected void addFieldsListeners() {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
@@ -273,6 +281,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         // metadataNameText : Event KeyListener
         metadataNameText.addKeyListener(new KeyAdapter() {
 
+            @Override
             public void keyPressed(KeyEvent e) {
                 MetadataToolHelper.checkSchema(getShell(), e);
             }
@@ -281,6 +290,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -289,6 +299,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -300,6 +311,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
      * 
      * @return
      */
+    @Override
     protected boolean checkFieldsValue() {
         if (metadataNameText.getCharCount() == 0) {
             metadataNameText.forceFocus();
@@ -389,7 +401,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
             // the first rows is used to define the label of any metadata
             String[] label = new String[numberOfCol.intValue()];
             for (int i = 0; i < numberOfCol; i++) {
-                label[i] = DEFAULT_LABEL + i; //$NON-NLS-1$
+                label[i] = DEFAULT_LABEL + i;
                 if (firstRowToExtractMetadata == 0) {
                     label[i] = "" + processDescription.getSchema().get(0).getListColumns().get(i); //$NON-NLS-1$
                 }
@@ -455,37 +467,21 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
                                 precisionValue = lengthValue - positionDecimal;
                             }
                         } else {
-                            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                                if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                        .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
-                                        && !CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                                .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
-                                    globalType = CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                            .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
-                                    if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                            .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
-                                            && !CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                                    .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
-                                        lengthValue = Integer
-                                                .parseInt(CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                                        .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
-                                    }
-                                }
-                            } else {
-                                if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                        .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE) != null
-                                        && !CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                                .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
-                                    globalType = CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                            .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE);
-                                    if (CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                            .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH) != null
-                                            && !CoreRuntimePlugin.getInstance().getCoreService().getPreferenceStore()
-                                                    .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
-                                        lengthValue = Integer.parseInt(CoreRuntimePlugin.getInstance().getCoreService()
-                                                .getPreferenceStore()
-                                                .getString(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH));
-                                    }
+                            IPreferenceStore preferenceStore = null;
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreUIService.class)) {
+                                IDesignerCoreUIService designerCoreUiService = (IDesignerCoreUIService) GlobalServiceRegister
+                                        .getDefault().getService(IDesignerCoreUIService.class);
+                                preferenceStore = designerCoreUiService.getPreferenceStore();
+                            }
+                            if (preferenceStore != null
+                                    && preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE) != null
+                                    && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
+                                globalType = preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE);
+                                if (preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH) != null
+                                        && !preferenceStore.getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH)
+                                                .equals("")) { //$NON-NLS-1$
+                                    lengthValue = Integer.parseInt(preferenceStore
+                                            .getString(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH));
                                 }
                             }
                         }
@@ -496,19 +492,10 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                 // Convert javaType to TalendType
                 String talendType = null;
-                if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                    talendType = globalType;
-                } else {
-                    talendType = PerlTypesManager.getNewTypeName(MetadataTalendType.loadTalendType(globalType,
-                            "TALENDDEFAULT", false)); //$NON-NLS-1$
-                }
+                talendType = globalType;
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setLength(lengthValue);
-                if (globalType.equals("FLOAT") || globalType.equals("DOUBLE")) { //$NON-NLS-1$ //$NON-NLS-2$
-                    metadataColumn.setPrecision(precisionValue);
-                } else {
-                    metadataColumn.setPrecision(0);
-                }
+                metadataColumn.setPrecision(0);
                 // Check the label and add it to the table
                 metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
                 columns.add(i, metadataColumn);
@@ -546,6 +533,7 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (super.isVisible()) {

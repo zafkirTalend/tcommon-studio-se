@@ -30,7 +30,6 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
-import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 
 /**
  * Intializer of core preferences. <br/>
@@ -103,10 +102,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.AS400_SQL_SEG, true);
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, "id_String"); //$NON-NLS-1$
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, "id_String"); //$NON-NLS-1$
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, "string"); //$NON-NLS-1$
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, "string"); //$NON-NLS-1$
 
         // As default, sets the choice which automatic generate corresponding documentation files if job is saved to
         // true:
