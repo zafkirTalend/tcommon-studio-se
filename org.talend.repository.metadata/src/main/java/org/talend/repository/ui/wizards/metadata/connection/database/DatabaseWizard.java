@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -408,149 +409,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
 
             try {
+                // TODO use seperate subclass to handle the create and update logic , using a varable "creation" is not
+                // a good practice.
                 if (creation) {
-                    connectionProperty.setId(propertyId);
-                    if (connectionItem.getConnection() instanceof DatabaseConnection) {
-                        DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-                        final boolean equals = c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
-                        if (equals && !c.isContextMode()) {
-                            if (c.getUiSchema() == null) {
-                                c.setUiSchema(""); //$NON-NLS-1$
-                            } else {
-                                c.setUiSchema(c.getUiSchema().toUpperCase());
-                            }
-                        }
-                    }
-                    EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
-                    if (!type.equals(EDatabaseTypeName.GENERAL_JDBC)) {
-                        this.connection.setDriverClass(EDatabase4DriverClassName.getDriverClassByDbType(metadataConnection
-                                .getDbType()));
-                    }
-                    String displayName = connectionProperty.getDisplayName();
-                    this.connection.setName(displayName);
-                    this.connection.setLabel(displayName);
-
-                    if (tdqRepService != null) {
-                        tdqRepService.checkUsernameBeforeSaveConnection(connectionItem);
-                    }
-                    repFactory.create(connectionItem, propertiesWizardPage.getDestinationPath());
-
-                    // MOD yyi 2011-04-14:20362 reload connection
-                    ConnectionHelper.setIsConnNeedReload(connection, Boolean.FALSE);
-                    // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
-                    ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
-
-                    String hiveMode = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-                    if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
-                            && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
-                        JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
-                    }
-                    MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
-
-                    // if after fillConnection there is still no dataPackages, need to fill them from extractor
-                    List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
-                    List<Schema> schemas = ConnectionHelper.getSchema(connection);
-                    if (catalogs.isEmpty() && schemas.isEmpty()) {
-                        IDBMetadataProvider extractor = ExtractMetaDataFromDataBase.getProviderByDbType(metadataConnection
-                                .getDbType());
-                        if (extractor != null && type.isUseProvider()) {
-                            extractor.fillConnection(connection);
-                            repFactory.save(connectionItem);
-                        }
-                    }
+                    handleCreation(connection, metadataConnection, tdqRepService);
                 } else {
-                    boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
-                    // Add this parameter to control only ask user refresh the opened analysis once, TDQ-7438 20130628
-                    // yyin
-                    boolean isNeedRefreshEditor = false;// ~
-                    if (connectionItem.getConnection() instanceof DatabaseConnection) {
-                        DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
-                        ReturnCode reloadCheck = new ReturnCode(false);
-                        ITDQCompareService tdqCompareService = null;
-
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQCompareService.class)) {
-                            tdqCompareService = (ITDQCompareService) GlobalServiceRegister.getDefault().getService(
-                                    ITDQCompareService.class);
-                        }
-                        if (tdqCompareService != null && ConnectionHelper.isUrlChanged(conn)
-                                && MetadataConnectionUtils.isTDQSupportDBTemplate(conn)) {
-                            reloadCheck = openConfirmReloadConnectionDialog(Display.getCurrent().getActiveShell());
-                            if (!reloadCheck.isOk()) {
-                                return false;
-                            }
-                        }
-                        final boolean isOracle = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
-                        if (isOracle && !conn.isContextMode()) {
-                            if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
-                                // MOD mzhao bug 4227 , don't set the uiScheme after 4.2(included) as the connection
-                                // wizard is uniformed.
-                                conn.setUiSchema(conn.getUiSchema().toUpperCase());
-                            }
-                        }
-                        // bug 20700
-                        if (reloadCheck.isOk()) {
-                            if (needReload(reloadCheck.getMessage())) {
-                                if (tdqCompareService != null) {
-                                    // MOD 20130627 TDQ-7438 yyin: if the db name is changed, the db can not be reload
-                                    // properly, so if the name is changed, make sure that the reload action use the old
-                                    // name to reload
-                                    String tempName = null;
-                                    if (isNameModified) {
-                                        tempName = connectionProperty.getLabel();
-                                        connectionProperty.setLabel(connectionItem.getConnection().getLabel());
-                                        connectionProperty.setDisplayName(connectionItem.getConnection().getLabel());
-                                    }
-                                    ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
-                                    if (isNameModified) {
-                                        connectionProperty.setLabel(tempName);
-                                        connectionProperty.setDisplayName(tempName);
-                                    }// ~
-                                    if (!retCode.isOk()) {
-                                        return Boolean.FALSE;
-                                    }
-                                    isNeedRefreshEditor = true;
-                                }
-                            }
-                        } else {
-                            DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-                            if (dbConn != null) {
-                                updateConnectionInformation(dbConn, metadataConnection);
-                            }
-                        }
-                        // update
-                        RepositoryUpdateManager.updateDBConnection(connectionItem);
-                    }
-
-                    this.connection.setName(connectionProperty.getDisplayName());
-                    this.connection.setLabel(connectionProperty.getDisplayName());
-
-                    // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
-                    // factory.save(connectionItem);
-                    // 0005170: Schema renamed - new name not pushed out to dependant jobs
-                    updateTdqDependencies();
-                    // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
-                    if (isNameModified && tdqRepService != null) {
-                        tdqRepService.saveConnectionWithDependency(connectionItem);
-                        closeLockStrategy();
-                    } else {
-                        updateConnectionItem();
-                    }
-                    // MOD 20130628 TDQ-7438, If the analysis editor is opened, popup the dialog which ask user refresh
-                    // the editor or not once should enough(use hasReloaded to control,because the reload will refresh)
-                    if (tdqRepService != null && !isNeedRefreshEditor && (isNameModified || IsVersionChange())) {
-                        tdqRepService.refreshCurrentAnalysisEditor();
-                    }
-                    // ~
-
-                    if (isNameModified) {
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                            IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                    IDesignerCoreService.class);
-                            if (service != null) {
-                                service.refreshComponentView(connectionItem);
-                            }
-                        }
-
+                    Boolean isSuccess = handleUpdate(metadataConnection, tdqRepService);
+                    if (!isSuccess) {
+                        return false;
                     }
                 }
             } catch (Exception e) {
@@ -590,6 +456,194 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * DOC zhao Comment method "handleUpdate".
+     * 
+     * @param metadataConnection
+     * @param tdqRepService
+     * @return True if handled successfully.
+     */
+    private Boolean handleUpdate(IMetadataConnection metadataConnection, ITDQRepositoryService tdqRepService) throws Exception {
+        boolean isNameModified = propertiesWizardPage.isNameModifiedByUser();
+        // Add this parameter to control only ask user refresh the opened analysis once, TDQ-7438 20130628
+        // yyin
+        boolean isNeedRefreshEditor = false;// ~
+        if (connectionItem.getConnection() instanceof DatabaseConnection) {
+            DatabaseConnection conn = (DatabaseConnection) connectionItem.getConnection();
+            ReturnCode reloadCheck = new ReturnCode(false);
+            ITDQCompareService tdqCompareService = null;
+
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQCompareService.class)) {
+                tdqCompareService = (ITDQCompareService) GlobalServiceRegister.getDefault().getService(ITDQCompareService.class);
+            }
+            if (tdqCompareService != null && ConnectionHelper.isUrlChanged(conn)
+                    && MetadataConnectionUtils.isTDQSupportDBTemplate(conn)) {
+                reloadCheck = openConfirmReloadConnectionDialog(Display.getCurrent().getActiveShell());
+                if (!reloadCheck.isOk()) {
+                    return false;
+                }
+            }
+            final boolean isOracle = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
+            if (isOracle && !conn.isContextMode()) {
+                if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
+                    // MOD mzhao bug 4227 , don't set the uiScheme after 4.2(included) as the connection
+                    // wizard is uniformed.
+                    conn.setUiSchema(conn.getUiSchema().toUpperCase());
+                }
+            }
+            // bug 20700
+            if (reloadCheck.isOk()) {
+                if (needReload(reloadCheck.getMessage())) {
+                    if (tdqCompareService != null) {
+                        // When TDQ comparison service available, relaod the database.
+                        Boolean isReloadSuccess = reloadDatabase(isNameModified, tdqCompareService, tdqRepService, conn);
+                        if (!isReloadSuccess) {
+                            return Boolean.FALSE;
+                        }
+                        isNeedRefreshEditor = true;
+                    }
+                }
+            } else {
+                DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+                if (dbConn != null) {
+                    updateConnectionInformation(dbConn, metadataConnection);
+                }
+            }
+            // update
+            RepositoryUpdateManager.updateDBConnection(connectionItem);
+        }
+
+        this.connection.setName(connectionProperty.getDisplayName());
+        this.connection.setLabel(connectionProperty.getDisplayName());
+
+        // Modified by Marvin Wang on Apr. 40, 2012 for bug TDI-20744
+        // factory.save(connectionItem);
+        // 0005170: Schema renamed - new name not pushed out to dependant jobs
+        updateTdqDependencies();
+        // MOD yyin 20121115 TDQ-6395, save all dependency of the connection when the name is changed.
+        if (isNameModified && tdqRepService != null) {
+            tdqRepService.saveConnectionWithDependency(connectionItem);
+            closeLockStrategy();
+        } else {
+            updateConnectionItem();
+        }
+        // MOD 20130628 TDQ-7438, If the analysis editor is opened, popup the dialog which ask user refresh
+        // the editor or not once should enough(use hasReloaded to control,because the reload will refresh)
+        if (tdqRepService != null && !isNeedRefreshEditor && (isNameModified || IsVersionChange())) {
+            tdqRepService.refreshCurrentAnalysisEditor();
+        }
+        // ~
+
+        if (isNameModified) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                if (service != null) {
+                    service.refreshComponentView(connectionItem);
+                }
+            }
+
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * Note that normally this method will only be usefull when reloading database structure from real database in DQ
+     * perspective.<br>
+     * The caller must check if the DQ service extentions is avaible or not.
+     */
+    private Boolean reloadDatabase(Boolean isNameModified, ITDQCompareService tdqCompareService,
+            ITDQRepositoryService tdqRepService, DatabaseConnection dbConn) {
+        // MOD 20130627 TDQ-7438 yyin: if the db name is changed, the db can not be reload
+        // properly, so if the name is changed, make sure that the reload action use the old
+        // name to reload
+        String tempName = null;
+        if (isNameModified) {
+            tempName = connectionProperty.getLabel();
+            connectionProperty.setLabel(connectionItem.getConnection().getLabel());
+            connectionProperty.setDisplayName(connectionItem.getConnection().getLabel());
+        }
+        ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
+        if (isNameModified) {
+            connectionProperty.setLabel(tempName);
+            connectionProperty.setDisplayName(tempName);
+        }// ~
+        if (!retCode.isOk()) {
+            return Boolean.FALSE;
+        } else {
+            // Update the software system.
+            if (tdqRepService != null) {
+                // Update software system when TDQ service available.
+                tdqRepService.publishSoftwareSystemUpdateEvent(dbConn);
+            }
+
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * DOC zhao Comment method "handleCreation".
+     * 
+     * @param dbConn
+     * @param metadataConnection
+     * @param tdqRepService
+     * @throws PersistenceException
+     */
+    private void handleCreation(DatabaseConnection dbConn, IMetadataConnection metadataConnection,
+            ITDQRepositoryService tdqRepService) throws PersistenceException {
+        connectionProperty.setId(propertyId);
+        if (connectionItem.getConnection() instanceof DatabaseConnection) {
+            DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
+            final boolean equals = c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
+            if (equals && !c.isContextMode()) {
+                if (c.getUiSchema() == null) {
+                    c.setUiSchema(""); //$NON-NLS-1$
+                } else {
+                    c.setUiSchema(c.getUiSchema().toUpperCase());
+                }
+            }
+        }
+        EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
+        if (!type.equals(EDatabaseTypeName.GENERAL_JDBC)) {
+            this.connection.setDriverClass(EDatabase4DriverClassName.getDriverClassByDbType(metadataConnection.getDbType()));
+        }
+        String displayName = connectionProperty.getDisplayName();
+        this.connection.setName(displayName);
+        this.connection.setLabel(displayName);
+
+        if (tdqRepService != null) {
+            tdqRepService.checkUsernameBeforeSaveConnection(connectionItem);
+        }
+        repFactory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+
+        // MOD yyi 2011-04-14:20362 reload connection
+        ConnectionHelper.setIsConnNeedReload(connection, Boolean.FALSE);
+        // MOD klliu 2012-02-08 TDQ-4645 add package filter for connection
+        ConnectionHelper.setPackageFilter(connection, "");//$NON-NLS-1$
+
+        String hiveMode = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+        if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
+                && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+            JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
+        }
+        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
+
+        // if after fillConnection there is still no dataPackages, need to fill them from extractor
+        List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
+        List<Schema> schemas = ConnectionHelper.getSchema(connection);
+        if (catalogs.isEmpty() && schemas.isEmpty()) {
+            IDBMetadataProvider extractor = ExtractMetaDataFromDataBase.getProviderByDbType(metadataConnection.getDbType());
+            if (extractor != null && type.isUseProvider()) {
+                extractor.fillConnection(connection);
+                repFactory.save(connectionItem);
+            }
+        }
+        if (tdqRepService != null) {
+            // Update software system when TDQ service available.
+            tdqRepService.publishSoftwareSystemUpdateEvent(dbConn);
         }
     }
 
