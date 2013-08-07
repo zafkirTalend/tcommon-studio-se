@@ -21,6 +21,7 @@ import java.util.Map;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -132,4 +133,21 @@ public interface ITDQRepositoryService extends IService {
     public void updateContextView(boolean isBuildIn, boolean isDisposeAll);
 
     public void updateContextView(boolean isBuildIn, boolean isDisposeAll, boolean refreshView);
+
+    /**
+     * 
+     * Add the software system update listener. The listener will be triggered when a new connection created, an
+     * existing connection reloaded, modifed with another type and updated from SVN repository. <br>
+     * Note that this listener will be registered only once a time when application startup.
+     */
+    public void addSoftwareSystemUpdateListener();
+
+    /**
+     * 
+     * Publish software system update event.
+     * 
+     * @param databaseConnection
+     */
+    public void publishSoftwareSystemUpdateEvent(DatabaseConnection databaseConnection);
+
 }
