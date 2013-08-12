@@ -26,6 +26,8 @@ public final class QuartzConstants {
 
     public static final String GROUP_SYSTEM = "SYSTEM";
 
+    public static final String GROUP_DATABASE_SVN_BACKUP = "DATABASE_SVN_BACKUP";
+
     public static boolean equals(String group1, String group2) {
         return group1 == group2 || group1 != null && group1.equals(group2) || group1 == null && "DEFAULT".equals(group2)
                 || "DEFAULT".equals(group1) && group2 == null;
