@@ -4,9 +4,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.talend.repository.viewer.content.example.JobWithoutAnAContentProvider;
-import org.talend.repository.viewer.label.RepositoryViewLabelProvider;
+import org.talend.repository.viewer.label.AbstractRepoViewLabelProvider;
 
-public class JobWithoutAnALabelProvider extends RepositoryViewLabelProvider {
+public class JobWithoutAnALabelProvider extends AbstractRepoViewLabelProvider {
 
     /*
      * (non-Javadoc)
@@ -21,7 +21,7 @@ public class JobWithoutAnALabelProvider extends RepositoryViewLabelProvider {
     @Override
     public String getText(Object element) {
         if (element == JobWithoutAnAContentProvider.ROOT) {
-            return "Job Without an A";
+            return element.toString();
         }
         return super.getText(element);
     }

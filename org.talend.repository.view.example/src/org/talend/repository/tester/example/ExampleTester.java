@@ -17,6 +17,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.viewer.content.example.JobOnlyWithAnAContentProvider;
+import org.talend.repository.viewer.content.example.JobWithoutAnAContentProvider;
 
 public class ExampleTester extends org.eclipse.core.expressions.PropertyTester {
 
@@ -34,6 +36,15 @@ public class ExampleTester extends org.eclipse.core.expressions.PropertyTester {
 
             boolean isBm = receiver != null && receiver.toString().startsWith("bm"); //$NON-NLS-1$
             return isBm;
+        }
+        if ("isJobOnlyWithAnA".equals(property)) { //$NON-NLS-1$
+            return isJobOnlyWithAnA(receiver);
+        }
+        if ("isJobOnlyWithAnARoot".equals(property)) { //$NON-NLS-1$
+            return receiver == JobOnlyWithAnAContentProvider.ROOT;
+        }
+        if ("isJobWithoutAnARoot".equals(property)) { //$NON-NLS-1$
+            return receiver == JobWithoutAnAContentProvider.ROOT;
         }
         Assert.isTrue(false);
         return false;
@@ -55,6 +66,17 @@ public class ExampleTester extends org.eclipse.core.expressions.PropertyTester {
                     && repositoryNode.getType() == ENodeType.REPOSITORY_ELEMENT;
         }// else return false
         return isJob;
+    }
+
+    public boolean isJobOnlyWithAnA(Object receiver) {
+        if (isJob(receiver)) {
+            RepositoryNode repositoryNode = (RepositoryNode) receiver;
+            final String label = repositoryNode.getLabel();
+            if (label != null && label.toLowerCase().contains("a")) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

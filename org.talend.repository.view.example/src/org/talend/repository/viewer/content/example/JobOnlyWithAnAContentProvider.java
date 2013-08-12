@@ -12,54 +12,41 @@
 // ============================================================================
 package org.talend.repository.viewer.content.example;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.tester.example.ExampleTester;
+import org.talend.repository.model.ExampleRootNode;
 
 /**
  * created by sgandon on 1 août 2012 Detailled comment
  * 
  */
-public class JobOnlyWithAnAContentProvider extends org.talend.repository.view.di.viewer.content.JobDesignsContentProvider {
+public class JobOnlyWithAnAContentProvider extends JobWithXLableContentProvider {
 
-    ExampleTester jobTester = new ExampleTester();
+    public static final Object ROOT = new ExampleRootNode() {
+
+        @Override
+        public String toString() {
+            return "Job With an A"; //$NON-NLS-1$
+        }
+
+    };
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+     * @see org.talend.repository.viewer.content.example.JobWithXLableContentProvider#getRoot()
      */
     @Override
-    public Object[] getChildren(Object parentElement) {
-        Object[] children = super.getChildren(parentElement);
-        HashSet<Object> childrenSet = new HashSet<Object>();
-        Collections.addAll(childrenSet, children);
-        filterJobWithAnA(childrenSet);
-        return childrenSet.toArray();
+    protected Object getRoot() {
+        return ROOT;
     }
 
-    /**
-     * DOC sgandon Comment method "filterJobWithAnA".
+    /*
+     * (non-Javadoc)
      * 
-     * @param refreshTargets
+     * @see org.talend.repository.viewer.content.example.JobWithXLableContentProvider#validJob(java.lang.Object)
      */
-    private void filterJobWithAnA(Set potentialJobs) {
-        List<Object> removedObjects = new ArrayList<Object>(potentialJobs.size());
-        for (Object potentialJob : potentialJobs) {
-            if (jobTester.isJob(potentialJob)) {
-                RepositoryNode job = (RepositoryNode) potentialJob;
-                String jobLabel = job.getLabel();
-                if (jobLabel != null && !jobLabel.toLowerCase().contains("a")) {
-                    removedObjects.add(potentialJob);
-                }// else ignor the job
-            }// else not a job.
-        }
-        potentialJobs.removeAll(removedObjects);
+    @Override
+    protected boolean validJob(Object potentialJob) {
+        return !jobTester.isJobOnlyWithAnA(potentialJob);
     }
 
 }

@@ -12,90 +12,36 @@
 // ============================================================================
 package org.talend.repository.viewer.content.example;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.eclipse.swt.widgets.Display;
-import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.tester.example.ExampleTester;
+import org.talend.repository.model.ExampleRootNode;
 
 /**
  * created by sgandon on 1 août 2012 Detailled comment
  * 
  */
-public class JobWithoutAnAContentProvider extends org.talend.repository.view.di.viewer.content.JobDesignsContentProvider {
+public class JobWithoutAnAContentProvider extends JobWithXLableContentProvider {
 
-    ExampleTester jobTester = new ExampleTester();
+    public static final Object ROOT = new ExampleRootNode() {
 
-    public static final Object ROOT = new Object();
+        @Override
+        public String toString() {
+            return "Job Without an A"; //$NON-NLS-1$
+        }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-     */
+    };
+
     @Override
-    public Object[] getChildren(Object parentElement) {
-        if (parentElement == ROOT) {
-            parentElement = getTopLevelNodes().iterator().next();
-        }
-        Object[] children = super.getChildren(parentElement);
-        // if the children is the job root then return a new root.
-        RepositoryNode theRootNode = null;
-        if (isRootNodeType(parentElement)) {
-            theRootNode = extractPotentialRootNode(parentElement);
-        }// else not a root type so keep going
-         // if root then return the the root
-        if (theRootNode != null) {
-            return new Object[] { ROOT };
-        } else {
-            HashSet<Object> childrenSet = new HashSet<Object>();
-            Collections.addAll(childrenSet, children);
-            filterJobWithAnA(childrenSet);
-            return childrenSet.toArray();
-        }
-    }
-
-    /**
-     * DOC sgandon Comment method "filterJobWithAnA".
-     * 
-     * @param refreshTargets
-     */
-    private void filterJobWithAnA(Set potentialJobs) {
-        List<Object> removedObjects = new ArrayList<Object>(potentialJobs.size());
-        for (Object potentialJob : potentialJobs) {
-            if (jobTester.isJob(potentialJob)) {
-                RepositoryNode job = (RepositoryNode) potentialJob;
-                String jobLabel = job.getLabel();
-                if (jobLabel != null && jobLabel.toLowerCase().contains("a")) {
-                    removedObjects.add(potentialJob);
-                }// else ignor the job
-            }// else not a job.
-        }
-        potentialJobs.removeAll(removedObjects);
+    protected Object getRoot() {
+        return ROOT;
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.talend.repository.viewer.content.SingleTopLevelContentProvider#resetTopLevelNode(org.talend.repository.model
-     * .RepositoryNode)
+     * @see org.talend.repository.viewer.content.example.JobWithXLableContentProvider#validJob(java.lang.Object)
      */
     @Override
-    protected void resetTopLevelNode(RepositoryNode aTopLevelNode) {
-        super.resetTopLevelNode(aTopLevelNode);
-        if (viewer != null && !viewer.getTree().isDisposed()) {
-            Display.getDefault().asyncExec(new Runnable() {
-
-                @Override
-                public void run() {
-                    viewer.refresh(ROOT);
-                }
-            });
-        }
+    protected boolean validJob(Object potentialJob) {
+        return jobTester.isJobOnlyWithAnA(potentialJob);
     }
+
 }
