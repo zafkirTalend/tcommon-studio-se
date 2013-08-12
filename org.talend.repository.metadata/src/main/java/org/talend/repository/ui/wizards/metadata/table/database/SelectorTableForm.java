@@ -181,8 +181,6 @@ public class SelectorTableForm extends AbstractForm {
 
     private String locker = "";
 
-    private boolean firstExpand = true;
-
     private Map<String, Boolean> mapCheckState = new HashMap<String, Boolean>();
 
     /**
@@ -360,10 +358,13 @@ public class SelectorTableForm extends AbstractForm {
             @Override
             public void handleEvent(Event event) {
                 TreeItem treeItem = (TreeItem) event.item;
+                String itemText = treeItem.getText();
                 boolean needUpdate = treeItem.getChecked();
-                boolean firstExpandForSchema = false;
-                if (!mapCheckState.isEmpty()) {
-                    firstExpandForSchema = mapCheckState.get(treeItem.getText());
+                boolean firstExpand = false;
+                if (mapCheckState.containsKey(itemText)) {
+                    firstExpand = mapCheckState.get(itemText);
+                } else {
+                    firstExpand = true;
                 }
                 for (TreeItem item : treeItem.getItems()) {
                     if (item.getData() != null) {
@@ -378,7 +379,7 @@ public class SelectorTableForm extends AbstractForm {
                                 }
                             }
                         } else if (node.getType() == TableNode.TABLE) {
-                            if ((firstExpand || firstExpandForSchema) && needUpdate && item.getData() != null) {
+                            if (firstExpand && needUpdate && item.getData() != null) {
                                 updateItem(item, true, true);
                             } else if (isExistTable(node)) {
                                 item.setChecked(true);
@@ -393,11 +394,8 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     }
                 }
-                if (firstExpandForSchema) {
-                    mapCheckState.put(treeItem.getText(), false);
-                }
                 if (firstExpand) {
-                    firstExpand = false;
+                    mapCheckState.put(itemText, false);
                 }
             }
         });
