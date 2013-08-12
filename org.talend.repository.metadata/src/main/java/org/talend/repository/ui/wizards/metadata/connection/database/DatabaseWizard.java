@@ -102,6 +102,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     private DatabaseWizardPage databaseWizardPage;
 
+    // TODO Remove this refrence, use connectionItem (at super class) instead.
     private DatabaseConnection connection;
 
     private Property connectionProperty;
@@ -500,7 +501,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 if (needReload(reloadCheck.getMessage())) {
                     if (tdqCompareService != null) {
                         // When TDQ comparison service available, relaod the database.
-                        Boolean isReloadSuccess = reloadDatabase(isNameModified, tdqCompareService, tdqRepService, conn);
+                        Boolean isReloadSuccess = reloadDatabase(isNameModified, tdqCompareService, tdqRepService);
                         if (!isReloadSuccess) {
                             return Boolean.FALSE;
                         }
@@ -557,7 +558,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * The caller must check if the DQ service extentions is avaible or not.
      */
     private Boolean reloadDatabase(Boolean isNameModified, ITDQCompareService tdqCompareService,
-            ITDQRepositoryService tdqRepService, DatabaseConnection dbConn) {
+            ITDQRepositoryService tdqRepService) {
         // MOD 20130627 TDQ-7438 yyin: if the db name is changed, the db can not be reload
         // properly, so if the name is changed, make sure that the reload action use the old
         // name to reload
@@ -568,6 +569,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             connectionProperty.setDisplayName(connectionItem.getConnection().getLabel());
         }
         ReturnCode retCode = tdqCompareService.reloadDatabase(connectionItem);
+        connection = (DatabaseConnection) connectionItem.getConnection();
         if (isNameModified) {
             connectionProperty.setLabel(tempName);
             connectionProperty.setDisplayName(tempName);
@@ -578,7 +580,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // Update the software system.
             if (tdqRepService != null) {
                 // Update software system when TDQ service available.
-                tdqRepService.publishSoftwareSystemUpdateEvent(dbConn);
+                tdqRepService.publishSoftwareSystemUpdateEvent(connection);
             }
 
         }
