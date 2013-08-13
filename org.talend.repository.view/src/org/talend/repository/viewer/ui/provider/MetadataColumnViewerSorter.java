@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.repository.viewer.ui.provider;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -37,7 +39,14 @@ public class MetadataColumnViewerSorter extends ViewerSorter {
                     MetadataTableRepositoryObject tableObject = (MetadataTableRepositoryObject) parent.getObject();
                     MetadataColumnRepositoryObject columnObject = (MetadataColumnRepositoryObject) ((RepositoryNode) element)
                             .getObject();
-                    return tableObject.getTable().getColumns().indexOf(columnObject.getTdColumn());
+                    MetadataColumn tColumn = columnObject.getTdColumn();
+                    EList<MetadataColumn> columns = tableObject.getTable().getColumns();
+                    for (int i = 0; i < columns.size(); i++) {
+                        MetadataColumn column = columns.get(i);
+                        if (column.getName() != null && column.getName().equals(tColumn.getName())) {
+                            return i;
+                        }
+                    }
                 }
             }
         }
