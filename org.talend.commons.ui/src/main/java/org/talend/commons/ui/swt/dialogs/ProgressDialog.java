@@ -70,23 +70,18 @@ public abstract class ProgressDialog {
 
                 public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     final InvocationTargetException[] iteHolder1 = new InvocationTargetException[1];
-                    display.syncExec(new Runnable() {
+                    try {
+                        ProgressDialog.this.run(monitor);
+                    } catch (InvocationTargetException e) {
+                        // Pass it outside the workspace runnable
+                        iteHolder1[0] = e;
+                    } catch (InterruptedException e) {
+                        // Re-throw as OperationCanceledException, which will be
+                        // caught and re-thrown as InterruptedException below.
+                        throw new OperationCanceledException(e.getMessage());
+                    }
+                    // CoreException and OperationCanceledException are propagated
 
-                        public void run() {
-                            try {
-                                ProgressDialog.this.run(monitor);
-                            } catch (InvocationTargetException e) {
-                                // Pass it outside the workspace runnable
-                                iteHolder1[0] = e;
-                            } catch (InterruptedException e) {
-                                // Re-throw as OperationCanceledException, which will be
-                                // caught and re-thrown as InterruptedException below.
-                                throw new OperationCanceledException(e.getMessage());
-                            }
-                            // CoreException and OperationCanceledException are propagated
-                        }
-
-                    });
                     // Re-throw the InvocationTargetException, if any occurred
                     if (iteHolder1[0] != null) {
                         throw iteHolder1[0];

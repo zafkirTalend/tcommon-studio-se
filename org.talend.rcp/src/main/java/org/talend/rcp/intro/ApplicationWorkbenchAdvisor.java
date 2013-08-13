@@ -15,9 +15,11 @@ package org.talend.rcp.intro;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IPerspectiveDescriptor;
@@ -135,13 +137,25 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         }
         // feature 19053
         PerspectiveReviewUtil.setPerspectiveTabs();
-        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(new RepositoryWorkUnit<Object>("") {
+        Job myJob = new Job("SVN update and commit on startup") {
 
             @Override
-            protected void run() throws LoginException, PersistenceException {
-                // nothing, just commit what has not been commited during the logon time.
+            protected IStatus run(IProgressMonitor monitor) {
+                RepositoryWorkUnit rwu = new RepositoryWorkUnit<Object>("") {
+
+                    @Override
+                    protected void run() throws LoginException, PersistenceException {
+                        // nothing, just commit what has not been commited during the logon time.
+                    }
+                };
+                rwu.setAvoidUnloadResources(true);
+                rwu.setUnloadResourcesAfterRun(true);
+                rwu.setForceTransaction(true);
+                ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
+                return org.eclipse.core.runtime.Status.OK_STATUS;
             }
-        });
+        };
+        myJob.schedule();
     }
 
 }

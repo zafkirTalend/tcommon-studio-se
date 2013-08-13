@@ -2773,11 +2773,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     // problem happens
                     continue;
                 }
+                if (!resource.isLoaded()) {
+                    continue;
+                }
                 final EList<EObject> contents = resource.getContents();
                 for (int j = 0; j < contents.size(); j++) {
                     EObject object = contents.get(j);
                     if (object instanceof Property) {
                         if (((Property) object).getItem() instanceof FolderItem) {
+                            continue;
+                        }
+                        Resource itemResource = xmiResourceManager.getItemResource(((Property) object).getItem(), false);
+                        if (itemResource == null || !itemResource.isLoaded()) {
                             continue;
                         }
                         if (((Property) object).getItem() instanceof RoutineItem) {

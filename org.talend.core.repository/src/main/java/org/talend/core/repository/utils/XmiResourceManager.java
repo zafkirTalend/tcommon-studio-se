@@ -92,11 +92,7 @@ public class XmiResourceManager {
 
     public XmiResourceManager() {
         setUseOldProjectFile(false);
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+        resetResourceSet();
     }
 
     public void resetResourceSet() {
@@ -106,6 +102,8 @@ public class XmiResourceManager {
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+        resourceSet.setURIResourceMap(new HashMap<URI, Resource>());
+
     }
 
     public Project loadProject(IProject project) throws PersistenceException {
@@ -151,19 +149,20 @@ public class XmiResourceManager {
         List<Resource> resources = resourceSet.getResources();
         synchronized (resources) {
             for (Resource res : new ArrayList<Resource>(resources)) {
-                if (res != null) {
+                if (res != null && res.isLoaded()) {
                     URI normalizedURI = theURIConverter.normalize(res.getURI());
                     if (propertyUri.equals(normalizedURI)) {
+                        System.out.println("force unload: " + propertyUri.toString());
                         res.unload();
-                        resourceSet.getResources().remove(res);
+                        // resourceSet.getResources().remove(res);
                     }
                     if (itemResourceURI.equals(normalizedURI)) {
                         res.unload();
-                        resourceSet.getResources().remove(res);
+                        // resourceSet.getResources().remove(res);
                     }
                     if (screenshotResourceURI.equals(normalizedURI)) {
                         res.unload();
-                        resourceSet.getResources().remove(res);
+                        // resourceSet.getResources().remove(res);
                     }
                 }
             }
@@ -341,6 +340,10 @@ public class XmiResourceManager {
     }
 
     public Resource getItemResource(Item item) {
+        return getItemResource(item, true);
+    }
+
+    public Resource getItemResource(Item item, boolean forceLoad) {
         URI itemResourceURI = null;
         if (item.getFileExtension() != null) {
             itemResourceURI = getItemResourceURI(getItemURI(item), item.getFileExtension());
@@ -351,8 +354,7 @@ public class XmiResourceManager {
             itemResourceURI = getItemResourceURI(getItemURI(item));
         }
         Resource itemResource = getResourceSet().getResource(itemResourceURI, false);
-
-        if (itemResource == null) {
+        if (forceLoad && itemResource == null) {
             if (item instanceof FileItem) {
                 itemResource = new ByteArrayResource(itemResourceURI);
                 getResourceSet().getResources().add(itemResource);
