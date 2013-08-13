@@ -13,9 +13,12 @@
 package org.talend.core.runtime;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
@@ -36,7 +39,7 @@ import org.talend.repository.model.IRepositoryService;
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public class CoreRuntimePlugin extends AbstractUIPlugin {
+public class CoreRuntimePlugin extends Plugin {
 
     public static final String PLUGIN_ID = "org.talend.core.runtime"; //$NON-NLS-1$
 
@@ -80,6 +83,25 @@ public class CoreRuntimePlugin extends AbstractUIPlugin {
      */
     public Context getContext() {
         return this.context;
+    }
+
+    private ScopedPreferenceStore preferenceStore;
+
+    /**
+     * 
+     * DOC ggu Comment method "getPreferenceStore".
+     * 
+     * just want to remove the extended AbstractUIPlugin for this class.
+     * 
+     * @return
+     */
+    public IPreferenceStore getPreferenceStore() {
+        // Create the preference store lazily.
+        if (preferenceStore == null) {
+            preferenceStore = new ScopedPreferenceStore(new InstanceScope(), getBundle().getSymbolicName());
+
+        }
+        return preferenceStore;
     }
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {

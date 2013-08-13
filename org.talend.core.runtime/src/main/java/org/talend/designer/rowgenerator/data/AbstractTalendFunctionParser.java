@@ -25,77 +25,46 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.SourceType;
-import org.eclipse.jdt.ui.JavadocContentAccess;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.data.container.Container;
-import org.talend.commons.utils.data.container.RootContainer;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
-import org.talend.repository.model.RepositoryConstants;
 
 /**
- * qzhang class global comment. Detailled comment <br/>
- * 
- * $Id: talend-code-templates.xml 1 2007-3-28 下午02:37:17 (星期五, 29 九月 2006) qzhang $
- * 
+ * DOC ggu class global comment. Detailled comment
  */
-public class JavaFunctionParser extends AbstractFunctionParser {
+public abstract class AbstractTalendFunctionParser extends AbstractFunctionParser {
 
-    private static Logger logger = Logger.getLogger(JavaFunctionParser.class);
+    private static Logger logger = Logger.getLogger(AbstractTalendFunctionParser.class);
 
     // k: (Talend type Name).(method Name) v:(class Name).(method Name)
-    private static Map<String, String> typeMethods = new HashMap<String, String>();
+    protected static Map<String, String> typeMethods = new HashMap<String, String>();
 
-    private static Map<String, String> typePackgeMethods = new HashMap<String, String>();
+    protected static Map<String, String> typePackgeMethods = new HashMap<String, String>();
 
-    private List<String> systems;
+    public static Map<String, String> getTypeMethods() {
+        return typeMethods;
+    }
 
-    /**
-     * qzhang JavaFunctionParser constructor comment.
-     */
-    public JavaFunctionParser() {
-        super();
+    public static Map<String, String> getTypePackgeMethods() {
+        return typePackgeMethods;
     }
 
     @Override
-    @SuppressWarnings("restriction")
     public void parse() {
-        typeMethods.clear();
-        systems = new ArrayList<String>();
-        if (!GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-            return;
-        }
-        IRepositoryService rpositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
-
-        IProxyRepositoryFactory factory = rpositoryService.getProxyRepositoryFactory();
         try {
-            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getMetadata(ERepositoryObjectType.ROUTINES);
-            final List<Container<String, IRepositoryViewObject>> subContainer = routineContainer.getSubContainer();
-            for (Container<String, IRepositoryViewObject> container : subContainer) {
-                if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
-                    final List<IRepositoryViewObject> members = container.getMembers();
-                    for (IRepositoryViewObject object : members) {
-                        systems.add(object.getLabel());
-                    }
-                }
-            }
             if (!GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
                 return;
             }
@@ -106,13 +75,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             if (javaProject != null) {
                 IProject project = javaProject.getProject();
                 IFolder srcFolder = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY);
-
                 IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(srcFolder);
-
                 List<IJavaElement> elements = new ArrayList<IJavaElement>();
-
                 addEveryProjectElements(root, elements);
-
                 // for (IJavaElement element : elements) {
                 // see bug 8055,reversal the getLastName() method
                 for (int i = elements.size(); i > 0; i--) {
@@ -122,27 +87,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                         IType[] types = compilationUnit.getAllTypes();
                         if (types.length > 0) {
                             SourceType sourceType = (SourceType) types[0];
-                            IMethod[] methods = sourceType.getMethods();
-                            for (IMethod method : methods) {
-                                try {
-                                    Reader reader = JavadocContentAccess.getContentReader(method, true);
-                                    if (reader != null) {
-                                        char[] charBuffer = new char[1024];
-                                        StringBuffer str = new StringBuffer();
-                                        int index = 0;
-                                        while ((index = reader.read(charBuffer)) != -1) {
-                                            str.append(charBuffer, 0, index);
-                                            index = 0;
-                                        }
-                                        reader.close();
-                                        parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(),
-                                                sourceType.getFullyQualifiedName(), method.getElementName(),
-                                                systems.contains(sourceType.getElementName()));
-                                    }
-                                } catch (Exception e) {
-                                    ExceptionHandler.process(e);
-                                    continue;
-                                }
+                            if (sourceType != null) {
+                                processSourceType(sourceType, sourceType.getElementName(), sourceType.getFullyQualifiedName(),
+                                        sourceType.getElementName(), false);
                             }
                         }
                     }
@@ -153,33 +100,58 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         }
     }
 
-    private void addEveryProjectElements(IPackageFragmentRoot root, List<IJavaElement> elements) throws JavaModelException {
+    protected void processSourceType(IMember member, String className, String fullName, String funcName, boolean isSystem) {
+        if (member != null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+            try {
+                IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                Reader reader = designerCoreService.getJavadocContentAccessContentReader(member);
+                if (reader != null) {
+                    char[] charBuffer = new char[1024];
+                    StringBuffer str = new StringBuffer();
+                    int index = 0;
+                    while ((index = reader.read(charBuffer)) != -1) {
+                        str.append(charBuffer, 0, index);
+                        index = 0;
+                    }
+                    reader.close();
+                    parseJavaCommentToFunctions(str.toString(), className, fullName, funcName, isSystem);
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    protected void addEveryProjectElements(IPackageFragmentRoot root, List<IJavaElement> elements) throws JavaModelException {
         if (root == null || elements == null) {
             return;
         }
         // system
-        IPackageFragment routinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-        if (routinesPkg != null && routinesPkg.exists()) {
-            elements.addAll(Arrays.asList(routinesPkg.getChildren()));
+        IPackageFragment Pkg = root.getPackageFragment(getPackageFragment());
+        if (Pkg != null && Pkg.exists()) {
+            elements.addAll(Arrays.asList(Pkg.getChildren()));
         }
 
         ProjectManager projectManager = ProjectManager.getInstance();
         Project currentProject = projectManager.getCurrentProject();
         // current project
-        IPackageFragment userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." //$NON-NLS-1$
+        IPackageFragment userPkg = root.getPackageFragment(getPackageFragment() + "." //$NON-NLS-1$
                 + currentProject.getLabel().toLowerCase());
-        if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
-            elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
+        if (userPkg != null && userPkg.exists()) {
+            elements.addAll(Arrays.asList(userPkg.getChildren()));
         }
         // referenced project.
         projectManager.retrieveReferencedProjects();
         for (Project p : projectManager.getReferencedProjects()) {
-            userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + p.getLabel().toLowerCase()); //$NON-NLS-1$
-            if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
-                elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
+            userPkg = root.getPackageFragment(getPackageFragment() + "." + p.getLabel().toLowerCase()); //$NON-NLS-1$
+            if (userPkg != null && userPkg.exists()) {
+                elements.addAll(Arrays.asList(userPkg.getChildren()));
             }
         }
     }
+
+    protected abstract String getPackageFragment();
 
     /*
      * (non-Javadoc)
@@ -203,7 +175,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
     @Override
     protected String parseFunctionType(String string) {
         String string2 = super.parseFunctionType(string);
-        if (string2 != null && !string2.trim().equals("")) { //$NON-NLS-1$
+        if (string2 != null && !string2.trim().equals("")) {
             JavaType type = JavaTypesManager.getJavaTypeFromLabel(string2);
             if (type == null) {
                 type = JavaTypesManager.getJavaTypeFromName(string2);
@@ -215,13 +187,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         return EMPTY_STRING;
     }
 
-    /**
-     * qzhang Comment method "parseJavaCommentToFunctions".
-     * 
-     * @param string
-     * @param isSystem
-     */
-    private void parseJavaCommentToFunctions(String string, String className, String fullName, String funcName, boolean isSystem) {
+    protected Function parseJavaCommentToFunctions(String string, String className, String fullName, String funcName,
+            boolean isSystem) {
         try {
             String des = parseDescription(string);
             String category = parseCategoryType(string);
@@ -243,22 +210,11 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                 typeMethods.put(functionType + "." + funcName, className + "." + funcName); //$NON-NLS-1$ //$NON-NLS-2$
                 typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName); //$NON-NLS-1$ //$NON-NLS-2$
                 function.setTalendType(talendType);
+                return function;
             }
         } catch (Exception e) {
-            logger.error(Messages.getString("JavaFunctionParser.checkMethod", fullName, funcName), e); //$NON-NLS-1$
+            logger.error(Messages.getString("AbstractTalendFunctionParser.checkMethod", fullName, funcName), e); //$NON-NLS-1$
         }
-    }
-
-    public static Map<String, String> getTypeMethods() {
-        return typeMethods;
-    }
-
-    /**
-     * Getter for typePackgeMethods.
-     * 
-     * @return the typePackgeMethods
-     */
-    public static Map<String, String> getTypePackgeMethods() {
-        return typePackgeMethods;
+        return null;
     }
 }

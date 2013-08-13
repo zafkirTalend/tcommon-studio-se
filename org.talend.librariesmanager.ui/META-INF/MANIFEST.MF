@@ -8,6 +8,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,
+ org.eclipse.ui.workbench,
  org.talend.commons.ui,
  org.talend.core.runtime,
  org.talend.librariesmanager

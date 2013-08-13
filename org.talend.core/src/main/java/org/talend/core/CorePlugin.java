@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
@@ -40,7 +43,7 @@ import org.talend.resource.IResourceService;
  * $Id$
  * 
  */
-public class CorePlugin extends AbstractUIPlugin {
+public class CorePlugin extends Plugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
@@ -78,6 +81,25 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public static CorePlugin getDefault() {
         return plugin;
+    }
+
+    private ScopedPreferenceStore preferenceStore;
+
+    /**
+     * 
+     * DOC ggu Comment method "getPreferenceStore".
+     * 
+     * just want to remove the extended AbstractUIPlugin for this class.
+     * 
+     * @return
+     */
+    public IPreferenceStore getPreferenceStore() {
+        // Create the preference store lazily.
+        if (preferenceStore == null) {
+            preferenceStore = new ScopedPreferenceStore(new InstanceScope(), getBundle().getSymbolicName());
+
+        }
+        return preferenceStore;
     }
 
     /**

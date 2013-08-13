@@ -13,11 +13,14 @@
 package org.talend.designer.core;
 
 import java.beans.PropertyChangeEvent;
+import java.io.Reader;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.IMember;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorPart;
@@ -163,4 +166,6 @@ public interface IDesignerCoreService extends IService {
     public boolean evaluate(final String string, List<? extends IElementParameter> listParam);
 
     public int getDBConnectionTimeout();
+
+    public Reader getJavadocContentAccessContentReader(IMember member) throws JavaModelException;
 }

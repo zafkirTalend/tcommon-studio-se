@@ -102,7 +102,7 @@ public class FunctionManager {
         // }
         // }
         AbstractFunctionParser parser = null;
-        parser = new JavaFunctionParser();
+        parser = new RoutineFunctionParser();
         parser.parse();
         talendTypes = parser.getList();
     }

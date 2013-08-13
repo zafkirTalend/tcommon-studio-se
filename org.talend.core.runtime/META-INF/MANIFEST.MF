@@ -84,9 +84,9 @@ Export-Package: org.talend.commons.utils.generation,
 Require-Bundle: org.eclipse.emf.edit.ui,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
- org.eclipse.jdt.ui,
  org.eclipse.jface.text,
  org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.ui.ide,
  org.apache.commons.collections,
  org.apache.commons.lang,
  org.apache.log4j,
@@ -95,8 +95,8 @@ Require-Bundle: org.eclipse.emf.edit.ui,
  org.talend.libraries.dom4j-jaxen,
  org.talend.libraries.csv,
  org.talend.commons.runtime;visibility:=reexport,
- org.talend.commons.ui,
- org.eclipse.ui.ide
+ org.talend.common.ui.runtime,
+ org.talend.commons.ui
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

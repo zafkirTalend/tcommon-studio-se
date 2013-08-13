@@ -17,8 +17,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EmfHelper;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.component_cache.ComponentCacheFactory;
 import org.talend.core.model.component_cache.ComponentsCache;
@@ -52,7 +52,6 @@ public class ComponentManager {
                 resource.getContents().add(cache);
                 EmfHelper.saveResource(cache.eResource());
             } catch (PersistenceException e1) {
-                // TODO Auto-generated catch block
                 ExceptionHandler.process(e1);
             }
             setModified(false);

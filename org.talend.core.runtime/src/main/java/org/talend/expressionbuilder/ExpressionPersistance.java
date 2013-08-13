@@ -35,9 +35,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.expressionbuilder.Expression;
 import org.talend.commons.expressionbuilder.Variable;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.RuntimeExceptionHandler;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.context.Context;
@@ -207,7 +207,7 @@ public class ExpressionPersistance {
             options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
             resource.save(new FileOutputStream(file), options);
         } catch (IOException e) {
-            RuntimeExceptionHandler.process(e);
+            ExceptionHandler.process(e);
         }
 
     }
@@ -320,7 +320,7 @@ public class ExpressionPersistance {
                     try {
                         configurationFolder.create(true, true, null);
                     } catch (CoreException e) {
-                        RuntimeExceptionHandler.process(e);
+                        ExceptionHandler.process(e);
                     }
                 }
 

@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MetadataTalendType;
 
 /**
@@ -86,8 +86,7 @@ public class ContextParameterJavaTypeManager {
         javaTypes = new ArrayList<JavaType>();
 
         perlTypes = new ArrayList<String>();
-        for (int i = 0; i < JAVA_TYPES.length; i++) {
-            JavaType javaType = JAVA_TYPES[i];
+        for (JavaType javaType : JAVA_TYPES) {
             addJavaType(javaType);
         }
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -115,7 +114,7 @@ public class ContextParameterJavaTypeManager {
             }
         }
 
-        final String[] loadTalendTypes = MetadataTalendType.getTalendTypesLabels(); //$NON-NLS-1$
+        final String[] loadTalendTypes = MetadataTalendType.getTalendTypesLabels();
         perlTypes.addAll(Arrays.asList(loadTalendTypes));
         perlTypes.add(PERL_FILE);
         perlTypes.add(PERL_DIRECTORY);

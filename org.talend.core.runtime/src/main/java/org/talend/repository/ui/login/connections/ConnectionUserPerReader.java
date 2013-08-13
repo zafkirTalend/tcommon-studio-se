@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.adaptor.LocationManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
@@ -72,8 +72,9 @@ public class ConnectionUserPerReader {
 
     public static ConnectionUserPerReader getInstance() {
         synchronized (con) {
-            if (con == null)
+            if (con == null) {
                 con = new ConnectionUserPerReader();
+            }
             return con;
         }
     }
@@ -125,8 +126,9 @@ public class ConnectionUserPerReader {
     }
 
     private ConnectionUserPerReader readProperties() {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
+        }
         try {
             proper.load(new FileInputStream(perfile));
             isRead = true;
@@ -139,8 +141,9 @@ public class ConnectionUserPerReader {
     }
 
     public String readLastConncetion() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String tmp = proper.getProperty("connection.lastConnection"); //$NON-NLS-1$
         if (tmp == null) {
             tmp = "";//$NON-NLS-1$
@@ -149,8 +152,9 @@ public class ConnectionUserPerReader {
     }
 
     public String readLastWorkSpace() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String workSpace = proper.getProperty("connection.lastWorkSpace"); //$NON-NLS-1$
 
         if (workSpace == null) {
@@ -164,10 +168,12 @@ public class ConnectionUserPerReader {
     // }
 
     public void saveConnections(List<ConnectionBean> cons) {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         if (cons == null || cons.size() == 0) {
             proper.remove("connection.users");//$NON-NLS-1$
         } else {
@@ -199,10 +205,12 @@ public class ConnectionUserPerReader {
     }
 
     public void saveLastConnectionBean(ConnectionBean bean) {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         if (bean == null) {
             proper.remove("connection.lastConnection"); //$NON-NLS-1$
             proper.remove("connection.lastWorkSpace"); //$NON-NLS-1$
@@ -256,14 +264,16 @@ public class ConnectionUserPerReader {
      * @return
      */
     public String readRegistFailTimes() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         return StringUtils.trimToEmpty(proper.getProperty(CONNECTION_REGISTFAILTIMES));
     }
 
     public String readRegistration() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String tmp = proper.getProperty("connection.readRegistration"); //$NON-NLS-1$
         if (tmp == null) {
             tmp = "";//$NON-NLS-1$
@@ -272,8 +282,9 @@ public class ConnectionUserPerReader {
     }
 
     public String readRegistrationDone() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String tmp = proper.getProperty("connection.readRegistrationDone"); //$NON-NLS-1$
         if (tmp == null) {
             tmp = "";//$NON-NLS-1$
@@ -282,8 +293,9 @@ public class ConnectionUserPerReader {
     }
 
     public String readLicenseManagement() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String tmp = proper.getProperty("connection.licenseManagement"); //$NON-NLS-1$
         if (tmp == null) {
             tmp = "";//$NON-NLS-1$
@@ -292,10 +304,12 @@ public class ConnectionUserPerReader {
     }
 
     public void saveRegistoryBean() {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
         proper.setProperty("connection.readRegistration", Integer.toString(prefStore.getInt("REGISTRATION_TRIES")));
         proper.setProperty("connection.readRegistrationDone", Integer.toString(prefStore.getInt("REGISTRATION_DONE")));
@@ -314,12 +328,15 @@ public class ConnectionUserPerReader {
      * @param propertyMap
      */
     public void saveRegistoryBean(Map<String, String> propertyMap) {
-        if (propertyMap == null)
+        if (propertyMap == null) {
             return;
-        if (!isHaveUserPer())
+        }
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         Iterator<Entry<String, String>> iter = propertyMap.entrySet().iterator();
         while (iter.hasNext()) {
             Entry<String, String> entry = iter.next();
@@ -336,10 +353,12 @@ public class ConnectionUserPerReader {
     }
 
     public void saveLiscenseManagement() {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
         proper.setProperty("connection.licenseManagement", Integer.toString(prefStore.getInt("LICENSE_VALIDATION_DONE")));
         try {
@@ -352,8 +371,9 @@ public class ConnectionUserPerReader {
     }
 
     public boolean isInstallDone() {
-        if (!isRead)
+        if (!isRead) {
             this.readProperties();
+        }
         String tmp = proper.getProperty("connection.installDone"); //$NON-NLS-1$
         if (Boolean.TRUE.toString().equals(tmp)) {
             return true;
@@ -362,10 +382,12 @@ public class ConnectionUserPerReader {
     }
 
     public void setInstallDone() {
-        if (!isHaveUserPer())
+        if (!isHaveUserPer()) {
             createPropertyFile();
-        if (!isRead)
+        }
+        if (!isRead) {
             this.readProperties();
+        }
         proper.setProperty("connection.installDone", Boolean.TRUE.toString()); //$NON-NLS-1$
         try {
             FileOutputStream out = new FileOutputStream(perfile);
