@@ -53,7 +53,6 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -91,9 +90,9 @@ public class MetadataDialog extends Dialog {
 
     private Point size;
 
-    private IMetadataTable outputMetaTable;
+    private final IMetadataTable outputMetaTable;
 
-    private IMetadataTable inputMetaTable;
+    private final IMetadataTable inputMetaTable;
 
     private String text = ""; //$NON-NLS-1$
 
@@ -105,27 +104,27 @@ public class MetadataDialog extends Dialog {
 
     private boolean outputReadOnly = false;
 
-    private Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
+    private final Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
-    private Map<String, String> changeNameInColumns = new HashMap<String, String>();
+    private final Map<String, String> changeNameInColumns = new HashMap<String, String>();
 
-    private Map<String, String> changeNameOutColumns = new HashMap<String, String>();
+    private final Map<String, String> changeNameOutColumns = new HashMap<String, String>();
 
     private CommandStack commandStack;
 
-    private INode inputNode;
+    private final INode inputNode;
 
-    private INode outputNode;
+    private final INode outputNode;
 
     private ThreeCompositesSashForm compositesSachForm;
 
     private TableItem[] tableItem;
 
-    private List<IMetadataColumn> list;
+    private final List<IMetadataColumn> list;
 
-    private Set<String> preOutputColumnSet = new HashSet<String>();
+    private final Set<String> preOutputColumnSet = new HashSet<String>();
 
-    private Set<String> preInputColumnSet = new HashSet<String>();
+    private final Set<String> preInputColumnSet = new HashSet<String>();
 
     private IMetadataColumn column;
 
@@ -285,10 +284,6 @@ public class MetadataDialog extends Dialog {
             fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
             fieldList.add("Signed"); //$NON-NLS-1$
             metaView.setAdditionalFields(fieldList);
-        }
-
-        if (node != null && metadataTable != null && metadataTable instanceof MetadataTable) {
-            ((MetadataTable) metadataTable).setRepository(metaView.isRepository());
         }
     }
 
