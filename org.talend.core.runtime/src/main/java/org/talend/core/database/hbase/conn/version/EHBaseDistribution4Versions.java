@@ -24,6 +24,8 @@ public enum EHBaseDistribution4Versions {
 
     HDP_1_2(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
 
+    HDP_1_3(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3"),
+
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 
     APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),

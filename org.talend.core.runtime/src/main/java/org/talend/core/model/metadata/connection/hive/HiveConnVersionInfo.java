@@ -41,9 +41,11 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported"), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "HDP V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_2(1, "HDP_1_2", "HDP V1.2.0(Bimota)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+
+    HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -69,6 +71,7 @@ public enum HiveConnVersionInfo {
                   "Embedded",//$NON-NLS-1$
                   HiveConnVersionInfo.HDP_1_0,
                   HiveConnVersionInfo.HDP_1_2,
+                  HiveConnVersionInfo.HDP_1_3,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.MAPR2,

@@ -26,6 +26,8 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_2(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2")),
 
+    HDP_1_3(new HadoopVersion4Drivers(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3")),
+
     APACHE_1_0_0(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0")),
 
     APACHE_0_20_204(new HadoopVersion4Drivers(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204")),
