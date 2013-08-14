@@ -73,7 +73,7 @@ public class VisitResourceHelper {
             // if not under talend project. ignore
             try {
                 if (resource.getProject() != null && !resource.getProject().hasNature(TalendNature.ID)) {
-                    return false; // if not talend project, ignore.
+                    return true; // if not talend project, ignore.
                 }
             } catch (CoreException e) {
                 return false;

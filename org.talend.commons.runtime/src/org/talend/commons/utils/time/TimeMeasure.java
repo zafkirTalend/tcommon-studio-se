@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.CommonsPlugin;
+
 /**
  * Timer to measure elapsed time of any process or between steps.
  * 
@@ -35,14 +37,14 @@ public class TimeMeasure {
     /**
      * measureActive is true by default. A true value means that all methods calls are processed else no one.
      */
-    public static boolean measureActive = true;
+    public static boolean measureActive = CommonsPlugin.isDebugMode();
 
     /**
      * display is true by default. A true value means that all informations are displayed.
      */
-    public static boolean display = true;
+    public static boolean display = CommonsPlugin.isDebugMode();
 
-    public static boolean displaySteps = true;
+    public static boolean displaySteps = CommonsPlugin.isDebugMode();
 
     public static boolean isLogToFile = false;
 
