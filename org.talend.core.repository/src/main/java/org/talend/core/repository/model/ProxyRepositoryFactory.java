@@ -492,7 +492,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_ALL_ITEM_PATTERN, type, path, true);
         } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
             checkFileNameAndPath(project, label, RepositoryConstants.SIMPLE_FOLDER_PATTERN, type, path, true);
-        } else if (type == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES")) {
+        } else if (type == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES")) { //$NON-NLS-1$
             if (org.eclipse.core.runtime.Status.OK_STATUS != ResourcesPlugin.getWorkspace().validateName(label, IResource.FOLDER)) {
                 throw new IllegalArgumentException(Messages.getString(
                         "ProxyRepositoryFactory.illegalArgumentException.labelNotMatchPattern", label)); //$NON-NLS-1$
@@ -525,7 +525,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path, boolean fromEmptyRecycleBin)
             throws PersistenceException {
         if (hasLockedItems(type, path)) {
-            throw new PersistenceException("Cannot delete a folder which contains locked items");
+            throw new PersistenceException(Messages.getString("ProxyRepositoryFactory.DeleteFolderContainsLockedItem")); //$NON-NLS-1$
         }
         this.repositoryFactoryFromProvider.deleteFolder(project, type, path, fromEmptyRecycleBin);
         if (type == ERepositoryObjectType.PROCESS) {
@@ -572,7 +572,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
         if (hasLockedItems(type, sourcePath)) {
-            throw new PersistenceException("Cannot move a folder which contains locked items");
+            throw new PersistenceException(Messages.getString("ProxyRepositoryFactory.MoveFolderContainsLockedItem")); //$NON-NLS-1$
         }
         this.repositoryFactoryFromProvider.moveFolder(type, sourcePath, targetPath);
         if (type == ERepositoryObjectType.PROCESS) {
@@ -643,7 +643,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         if (hasLockedItems(type, path)) {
-            throw new PersistenceException("Cannot rename a folder which contains locked items");
+            throw new PersistenceException(Messages.getString("ProxyRepositoryFactory.RenameFolderContainsLockedItem")); //$NON-NLS-1$
         }
         this.repositoryFactoryFromProvider.renameFolder(type, path, label);
         if (type == ERepositoryObjectType.PROCESS) {
@@ -859,7 +859,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         this.repositoryFactoryFromProvider.moveObjectMulti(objToMoves, targetPath);
         for (IRepositoryViewObject objToMove : objToMoves) {
             IPath sourcePath = map.get(objToMove);
-            String str[] = new String[] { objToMove + "", targetPath + "" };
+            String str[] = new String[] { objToMove + "", targetPath + "" }; //$NON-NLS-1$ //$NON-NLS-2$
             log.debug(Messages.getString("ProxyRepositoryFactory.log.move", str)); //$NON-NLS-1$
 
             if (sourcePath != null) {
@@ -1729,9 +1729,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
             TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
-            TimeMeasure.begin("logOnProject");
+            TimeMeasure.begin("logOnProject"); //$NON-NLS-1$
             try {
-                System.getProperties().put("ReadOnlyUser", Boolean.FALSE.toString());
+                System.getProperties().put("ReadOnlyUser", Boolean.FALSE.toString()); //$NON-NLS-1$
 
                 fullLogonFinished = false;
                 SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
@@ -1745,7 +1745,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
                 this.repositoryFactoryFromProvider.beforeLogon(project);
                 // monitorWrap.worked(1);
-                TimeMeasure.step("logOnProject", "beforeLogon");
+                TimeMeasure.step("logOnProject", "beforeLogon"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 // Check project compatibility
                 checkProjectCompatibility(project);
@@ -1754,13 +1754,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$
                 executeMigrations(project, true, currentMonitor);
                 // monitorWrap.worked(1);
-                TimeMeasure.step("logOnProject", "executeMigrations(beforeLogonTasks)");
+                TimeMeasure.step("logOnProject", "executeMigrations(beforeLogonTasks)"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
                 this.repositoryFactoryFromProvider.logOnProject(project);
                 // monitorWrap.worked(1);
-                TimeMeasure.step("logOnProject", "logOnProject");
+                TimeMeasure.step("logOnProject", "logOnProject"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 emptyTempFolder(project);
 
@@ -1774,18 +1774,19 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     coreUiService.componentsReset();
                 }
                 // monitorWrap.worked(1);
-                TimeMeasure.step("logOnProject", "initializeComponents");
+                TimeMeasure.step("logOnProject", "initializeComponents"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
                 executeMigrations(project, false, currentMonitor);
-                TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)");
+                TimeMeasure.step("logOnProject", "executeMigrations(afterLogonTasks)"); //$NON-NLS-1$ //$NON-NLS-2$
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(""); //$NON-NLS-1$
                 }
                 ICoreService coreService = getCoreService();
                 if (coreService != null) {
                     // clean workspace
+                    currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.cleanWorkspace"), 1); //$NON-NLS-1$
                     coreService.deleteAllJobs(false);
 
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
@@ -1808,13 +1809,13 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(""); //$NON-NLS-1$
                 }
-                TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)");
+                TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 if (CommonsPlugin.isHeadless()) {
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
                     coreService.syncLibraries(currentMonitor);
-                    TimeMeasure.step("logOnProject", "sync components libraries");
+                    TimeMeasure.step("logOnProject", "sync components libraries"); //$NON-NLS-1$ //$NON-NLS-2$
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
@@ -1826,7 +1827,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
                     coreService.resetUniservLibraries();
-                    TimeMeasure.step("logOnProject", "sync specific libraries");
+                    TimeMeasure.step("logOnProject", "sync specific libraries"); //$NON-NLS-1$ //$NON-NLS-2$
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
@@ -1851,7 +1852,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
                 fullLogonFinished = true;
             } finally {
-                TimeMeasure.end("logOnProject");
+                TimeMeasure.end("logOnProject"); //$NON-NLS-1$
                 TimeMeasure.display = false;
                 TimeMeasure.displaySteps = false;
                 TimeMeasure.measureActive = false;
