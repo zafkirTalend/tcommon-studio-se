@@ -15,6 +15,7 @@ package org.talend.core.ui.metadata.extended.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -92,6 +93,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
         ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
         ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
+        ArrayList<String> DBColumnsExisted = getDBColumnsExisted(extendedTable);
         for (Object current : copiedObjectsList) {
             if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
@@ -102,7 +104,10 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
                 }
                 labelsExisted.add(nextGeneratedColumnName);
                 copy.setLabel(nextGeneratedColumnName);
-                copy.setOriginalDbColumnName(nextGeneratedColumnName);
+                if (copy.getOriginalDbColumnName() != null && !StringUtils.isEmpty(copy.getOriginalDbColumnName())) {
+                    String nextGeneratedDbColumnName = validateColumnName(copy.getOriginalDbColumnName(), DBColumnsExisted);
+                    copy.setOriginalDbColumnName(nextGeneratedDbColumnName);
+                }
                 addItemList.add(copy);
             }
             // Add a new statement to fix the MetadataColumn type.
@@ -148,5 +153,15 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
             }
         }
         return labelsExisted;
+    }
+
+    public ArrayList<String> getDBColumnsExisted(ExtendedTableModel extendedTable) {
+        ArrayList<String> DBColumnsExisted = new ArrayList<String>();
+        for (Object obj : extendedTable.getBeansList()) {
+            if (obj instanceof IMetadataColumn) {
+                DBColumnsExisted.add(((IMetadataColumn) obj).getOriginalDbColumnName());
+            }
+        }
+        return DBColumnsExisted;
     }
 }
