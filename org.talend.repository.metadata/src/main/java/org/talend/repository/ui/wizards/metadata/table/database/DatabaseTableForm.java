@@ -374,8 +374,8 @@ public class DatabaseTableForm extends AbstractForm {
 
         metadataEditor.setMetadataTable(metadataTable);
 
-        Boolean flag = CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getPreferenceStoreBooleanValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+        Boolean flag = CoreRuntimePlugin.getInstance().getPreferenceStore()
+                .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
         if (!flag.booleanValue()) {
             List<MetadataColumn> list = metadataEditor.getMetadataColumnList();
             for (MetadataColumn column : list) {

@@ -28,7 +28,6 @@ import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 
 /**
@@ -116,9 +115,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         //
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_WARNING, true);
-
-        CorePlugin.getDefault().getPreferenceStore()
-                .setDefault(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
 
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);

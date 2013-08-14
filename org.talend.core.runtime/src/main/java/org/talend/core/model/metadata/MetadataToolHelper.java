@@ -62,7 +62,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -217,11 +216,8 @@ public final class MetadataToolHelper {
     }
 
     private static boolean isAllowSpecificCharacters() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-            return CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                    .getPreferenceStoreBooleanValue(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
-        }
-        return false;
+        return CoreRuntimePlugin.getInstance().getPreferenceStore()
+                .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
     }
 
     /**
