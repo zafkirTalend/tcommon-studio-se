@@ -10,9 +10,9 @@
 			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="STRING" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
-			<dbType type="STRUCTS" ignoreLen="true" ignorePre="true"/>
-			<dbType type="MAPS" ignoreLen="true" ignorePre="true"/>
-			<dbType type="ARRAYS" ignoreLen="true" ignorePre="true"/>
+			<dbType type="STRUCT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="MAP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="ARRAY" ignoreLen="true" ignorePre="true"/>
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 		
@@ -56,9 +56,9 @@
 					<dbType type="BIGINT" default="true" />		
 				</talendType>
 				<talendType type="id_Object">
-					<dbType type="STRUCTS" default="true" />
-					<dbType type="MAPS" />
-					<dbType type="ARRAYS" />	
+					<dbType type="STRUCT" default="true" />
+					<dbType type="MAP" />
+					<dbType type="ARRAY" />	
 				</talendType>
 				<talendType type="id_Short">
 					<dbType type="SMALLINT" default="true" />
@@ -102,13 +102,13 @@
 					<talendType type="id_Double"/>
 					<talendType type="id_BigDecimal"/>
 				</dbType>
-				<dbType type="STRUCTS">
+				<dbType type="STRUCT">
 					<talendType type="id_Object" default="true"/>
 				</dbType>
-				<dbType type="MAPS">
+				<dbType type="MAP">
 					<talendType type="id_Object" default="true"/>
 				</dbType>
-				<dbType type="ARRAYS">
+				<dbType type="ARRAY">
 					<talendType type="id_Object" default="true"/>
 				</dbType>
 				<dbType type="TIMESTAMP">
