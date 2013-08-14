@@ -51,7 +51,6 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -285,10 +284,6 @@ public class MetadataDialog extends Dialog {
             fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
             fieldList.add("Signed"); //$NON-NLS-1$
             metaView.setAdditionalFields(fieldList);
-        }
-
-        if (node != null && metadataTable != null && metadataTable instanceof MetadataTable) {
-            ((MetadataTable) metadataTable).setRepository(metaView.isRepository());
         }
     }
 
