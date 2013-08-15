@@ -500,7 +500,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         } else {
             checkFileNameAndPath(project, label, RepositoryConstants.FOLDER_PATTERN, type, path, true);
         }
-        Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label, isImportItem);
+        Folder createFolder = this.repositoryFactoryFromProvider.createFolder(project, type, path, label);
         fireRepositoryPropertyChange(ERepositoryActionName.FOLDER_CREATE.getName(), path, new Object[] { createFolder, type });
         return createFolder;
     }
