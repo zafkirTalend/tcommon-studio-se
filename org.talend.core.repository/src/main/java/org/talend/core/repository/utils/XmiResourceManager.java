@@ -152,7 +152,6 @@ public class XmiResourceManager {
                 if (res != null && res.isLoaded()) {
                     URI normalizedURI = theURIConverter.normalize(res.getURI());
                     if (propertyUri.equals(normalizedURI)) {
-                        System.out.println("force unload: " + propertyUri.toString());
                         res.unload();
                         // resourceSet.getResources().remove(res);
                     }
