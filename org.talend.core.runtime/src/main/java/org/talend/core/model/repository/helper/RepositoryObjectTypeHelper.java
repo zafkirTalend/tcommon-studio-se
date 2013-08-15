@@ -129,10 +129,10 @@ public final class RepositoryObjectTypeHelper {
         }
         if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(connType)) {
             return ConnectionFactory.eINSTANCE.createDatabaseConnection();
-        } else if (ERepositoryObjectType.METADATA_MDMCONNECTION.equals(connType)) {
-            return ConnectionFactory.eINSTANCE.createMDMConnection();
         } else if (ERepositoryObjectType.METADATA_FILE_DELIMITED.equals(connType)) {
             return ConnectionFactory.eINSTANCE.createDelimitedFileConnection();
+        } else if (ERepositoryObjectType.METADATA_MDMCONNECTION.equals(connType)) {
+            return ConnectionFactory.eINSTANCE.createMDMConnection();
         } else {
             throw new UnsupportedOperationException();
         }

@@ -119,7 +119,7 @@ public interface ITDQRepositoryService extends IService {
     /**
      * create a hive connection(embedded or standalone) according to the IMetadataConnection, if it is not a hive
      * connection type, return null.
-     * 
+     *
      * @param metadataConnection the db type should be hive
      * @return a hive connection or null
      */
@@ -135,7 +135,7 @@ public interface ITDQRepositoryService extends IService {
     public void updateContextView(boolean isBuildIn, boolean isDisposeAll, boolean refreshView);
 
     /**
-     * 
+     *
      * Add the software system update listener. The listener will be triggered when a new connection created, an
      * existing connection reloaded, modifed with another type and updated from SVN repository. <br>
      * Note that this listener will be registered only once a time when application startup.
@@ -143,11 +143,13 @@ public interface ITDQRepositoryService extends IService {
     public void addSoftwareSystemUpdateListener();
 
     /**
-     * 
+     *
      * Publish software system update event.
-     * 
+     *
      * @param databaseConnection
      */
     public void publishSoftwareSystemUpdateEvent(DatabaseConnection databaseConnection);
+
+    public void setNoNeedToOpenConnectionEditor(boolean noNeedToOpenConnectionEditor);
 
 }
