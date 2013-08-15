@@ -50,8 +50,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.LoginException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
@@ -74,10 +77,13 @@ import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
+import org.talend.core.model.utils.ResourceModelHelper;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.prefs.ui.CorePreferencePage;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -86,6 +92,8 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.joblet.ui.IJobCheckService;
 import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -568,5 +576,38 @@ public class CoreService implements ICoreService {
                 parentComposite);
         page.addField(alwaysWelcome);
 
+    }
+
+    @Override
+    public void syncLog4jSettings() {
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        String log = ".."; //$NON-NLS-1$ 
+        final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, log) {
+
+            @Override
+            public void run() throws PersistenceException, LoginException {
+                IRunProcessService service = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+                    service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
+                }
+                if (service != null) {
+                    try {
+                        IFolder prefSettingFolder = ResourceUtils.getFolder(
+                                ResourceModelHelper.getProject(ProjectManager.getInstance().getCurrentProject()), ".settings",
+                                false);
+                        if (!prefSettingFolder.exists()) {
+                            prefSettingFolder.create(true, true, null);
+                        }
+                        service.updateLogFiles(ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject()),
+                                false);
+                    } catch (PersistenceException e) {
+                        e.printStackTrace();
+                    } catch (CoreException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
     }
 }
