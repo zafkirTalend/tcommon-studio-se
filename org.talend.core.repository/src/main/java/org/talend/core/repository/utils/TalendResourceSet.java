@@ -28,8 +28,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.util.NotifyingInternalEListImpl;
 
 /**
- * created by nrousseau on Aug 7, 2013 Detailled comment
+ * created by nrousseau on Aug 7, 2013<br>
+ * <br>
  * 
+ * This class reimplement some of the original classes from the emf ResourceSetImpl, to try to have a synchronzed list.
+ * It should avoid any concurrent access. <br>
+ * <br>
+ * <i>Note that when using method getResources, it's advised to do something like:</i><br>
+ * List<Resource> resources = resourceSet.getResources();<br>
+ * synchronized (resources) {<br>
+ * ...<br>
+ * }<br>
+ * To ensure that there will be no concurrent access while using the list.
  */
 public class TalendResourceSet extends ResourceSetImpl {
 
@@ -41,7 +51,7 @@ public class TalendResourceSet extends ResourceSetImpl {
     @Override
     public EList<Resource> getResources() {
         if (resources == null) {
-            resources = new TalendResourcesEList<Resource>();
+            resources = new SynchronizedResourcesEList<Resource>();
         }
         return resources;
     }
@@ -113,7 +123,7 @@ public class TalendResourceSet extends ResourceSetImpl {
     /**
      * A notifying list implementation for supporting {@link ResourceSet#getResources}.
      */
-    protected class TalendResourcesEList<E extends Object & Resource> extends NotifyingInternalEListImpl<E> implements
+    private class SynchronizedResourcesEList<E extends Object & Resource> extends NotifyingInternalEListImpl<E> implements
             InternalEList<E> {
 
         /*
@@ -124,7 +134,6 @@ public class TalendResourceSet extends ResourceSetImpl {
         @Override
         public synchronized boolean add(E object) {
             if (object == null) {
-                System.out.println();
                 return false;
             }
             return super.add(object);
