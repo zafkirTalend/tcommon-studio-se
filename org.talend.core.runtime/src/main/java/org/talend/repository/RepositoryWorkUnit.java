@@ -39,6 +39,8 @@ public abstract class RepositoryWorkUnit<T> {
 
     private boolean unloadResourcesAfterRun;
 
+    private boolean filesModifiedOutsideOfRWU;
+
     /**
      * Usefull for some save only actions, where we're sure everything is up to date.
      */
@@ -156,5 +158,23 @@ public abstract class RepositoryWorkUnit<T> {
      */
     public void setAvoidSvnUpdate(boolean avoidSvnUpdate) {
         this.avoidSvnUpdate = avoidSvnUpdate;
+    }
+
+    /**
+     * Getter for filesModifiedOutsideOfRWU.
+     * 
+     * @return the filesModifiedOutsideOfRWU
+     */
+    public boolean isFilesModifiedOutsideOfRWU() {
+        return this.filesModifiedOutsideOfRWU;
+    }
+
+    /**
+     * Sets the filesModifiedOutsideOfRWU.
+     * 
+     * @param filesModifiedOutsideOfRWU the filesModifiedOutsideOfRWU to set
+     */
+    public void setFilesModifiedOutsideOfRWU(boolean filesModifiedOutsideOfRWU) {
+        this.filesModifiedOutsideOfRWU = filesModifiedOutsideOfRWU;
     }
 }

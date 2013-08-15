@@ -150,7 +150,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
                 };
                 rwu.setAvoidUnloadResources(true);
                 rwu.setUnloadResourcesAfterRun(true);
-                rwu.setForceTransaction(true);
+                rwu.setFilesModifiedOutsideOfRWU(true);
                 ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
                 return org.eclipse.core.runtime.Status.OK_STATUS;
             }
