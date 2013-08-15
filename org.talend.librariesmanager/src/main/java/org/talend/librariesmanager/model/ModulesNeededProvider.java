@@ -76,9 +76,9 @@ import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
- * 
+ *
  * $Id: ModulesNeededProvider.java 1893 2007-02-07 11:33:35Z mhirt $
- * 
+ *
  */
 public class ModulesNeededProvider {
 
@@ -109,13 +109,13 @@ public class ModulesNeededProvider {
         /*
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForRoutines");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForRoutines");
-         * 
+         *
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForComponents");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForComponents");
-         * 
+         *
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForApplication");
-         * 
+         *
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForJobs");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForJobs");
          */
@@ -139,17 +139,20 @@ public class ModulesNeededProvider {
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForJobs"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");
-            componentImportNeedsList.addAll(getModulesNeededForComponents());
+            // MOD qiongli TOP NO nedd to add the related components ModuleNeeded
+            if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
+                componentImportNeedsList.addAll(getModulesNeededForComponents());
+            }
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForComponents"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         /*
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForRoutines");
-         * 
+         *
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForComponents");
-         * 
+         *
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForApplication");
-         * 
+         *
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
            // TimeMeasure.display = false;
@@ -171,7 +174,7 @@ public class ModulesNeededProvider {
 
     /**
      * ftang Comment method "resetCurrentJobNeededModuleList".
-     * 
+     *
      * @param process
      */
     public static void resetCurrentJobNeededModuleList(IProcess process) {
@@ -360,9 +363,9 @@ public class ModulesNeededProvider {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getModulesNeededForRoutines".
-     * 
+     *
      */
     @SuppressWarnings("unchecked")
     public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem[] processItems, ERepositoryObjectType type) {
@@ -617,7 +620,7 @@ public class ModulesNeededProvider {
 
     /**
      * qiang.zhang Comment method "getImportModules".
-     * 
+     *
      * @param name
      * @param context
      */
@@ -652,7 +655,7 @@ public class ModulesNeededProvider {
 
     /**
      * Getter for unUsedModules.
-     * 
+     *
      * @return the unUsedModules
      */
     public static List<ModuleNeeded> getUnUsedModules() {
