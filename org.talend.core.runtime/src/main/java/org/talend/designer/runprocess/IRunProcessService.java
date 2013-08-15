@@ -152,6 +152,8 @@ public interface IRunProcessService extends IService {
      * 
      * @param project
      */
-    public void updateLogFiles(IProject project);
+    public void updateLogFiles(IProject project, boolean isLogForJob);
+
+    public String getLogTemplate(String path);
 
 }

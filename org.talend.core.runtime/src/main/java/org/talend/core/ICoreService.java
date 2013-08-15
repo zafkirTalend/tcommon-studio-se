@@ -85,6 +85,8 @@ public interface ICoreService extends IService {
 
     public void syncLibraries(IProgressMonitor... monitorWrap);
 
+    public void syncLog4jSettings();
+
     public void removeJobLaunch(IRepositoryViewObject objToDelete);
 
     public void deleteRoutinefile(IRepositoryViewObject objToDelete);

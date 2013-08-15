@@ -1811,6 +1811,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
                 TimeMeasure.step("logOnProject", "sync repository (routines/rules/beans)"); //$NON-NLS-1$ //$NON-NLS-2$
 
+                // log4j
+                if (coreUiService != null) {
+                    coreService.syncLog4jSettings();
+                }
+
                 if (CommonsPlugin.isHeadless()) {
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synchronizeLibraries"), 1); //$NON-NLS-1$
