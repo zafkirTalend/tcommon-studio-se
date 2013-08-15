@@ -89,18 +89,30 @@ public class ERepositoryObjectTypeTest {
         TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern"),
         TDQ_SOURCE_FILE_ELEMENT("repository.tdqelement.sourceFile"),
         TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml"),
+        TDQ_EXCHANGE("repository.tdqExchange"),
+        TDQ_RULES("repository.rules"),
+        TDQ_RULESPARSER("repository.rulesparser"),
+        TDQ_RULESSQL("repository.rulessql"),
 
         // MDM
-        MDM_DATACONTAINER("Data Container"),
-        MDM_DATAMODEL("Data Model"),
         MDM_JOB("Job"),
-        MDM_MENU("Menu"),
         MDM_RECYCLEBIN("Recycle bin"),
-        MDM_TRIGGER("Trigger"),
-        MDM_SERVICECONFIGURATION("Service Configuration"),
-        MDM_STOREDPROCEDURE("Stored Procedure"),
-        MDM_PROCESS("Process"),
-        MDM_VIEW("View")
+        MDM_CUSTOMFORM("MDM.CustomForm"), // Custom Layout
+        MDM_DATACLUSTER("MDM.DataCluster"), // Data Container
+        MDM_DATAMODEL("MDM.DataModel"), // Data Model
+        MDM_EVENTMANAGER("MDM.EventManager"), // Event Management
+        MDM_MENU("MDM.Menu"), // Menu
+        MDM_RESOURCE("MDM.Resource"), // Resource
+        MDM_ROLE("MDM.Role"), // Role
+        MDM_ROUTINGRULE("MDM.RoutingRule"), // Trigger
+        MDM_SERVERDEF("MDM.ServerDef"),
+        MDM_SERVICECONFIGURATION("MDM.ServiceConfiguration"),
+        MDM_STOREDPROCEDURE("MDM.StoredProcedure"), // Stored Procedure
+        MDM_SYNCHRONIZATIONPLAN("MDM.SynchronizationPlan"), // Synchronization Plan
+        MDM_TRANSFORMERV2("MDM.TransformerV2"), // process
+        MDM_UNIVERSE("MDM.Universe"), // Version
+        MDM_VIEW("MDM.View"), // View
+        MDM_WORKFLOW("MDM.Workflow")// Workflow
 
         ;
 
