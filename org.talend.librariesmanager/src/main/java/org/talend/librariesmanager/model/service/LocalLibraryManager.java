@@ -50,16 +50,13 @@ import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
  */
 public class LocalLibraryManager implements ILibraryManagerService {
 
-    private static final String JAR_INDEX = "/index.xml"; //$NON-NLS-1$
-
     private Set<String> jarList = new HashSet<String>();
 
     // private long totalSizeCanBeReduced = 0;
 
     @Override
     public boolean isInitialized() {
-        String installLocation = getStorageDirectory().getAbsolutePath();
-        File indexFile = new File(installLocation + JAR_INDEX);
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
         if (indexFile.exists()) {
             LibrariesIndexManager.getInstance().loadResource();
             return LibrariesIndexManager.getInstance().getIndex().isInitialized();
@@ -80,7 +77,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
         String installLocation = getStorageDirectory().getAbsolutePath();
-        File indexFile = new File(installLocation + JAR_INDEX);
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
         if (indexFile.exists()) {
             LibrariesIndexManager.getInstance().loadResource();
         }
@@ -117,7 +114,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
                             FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
                 } else {
-                    File target = new File(getStorageDirectory().getAbsolutePath(), file.getName());
+                    File target = new File(installLocation, file.getName());
                     FilesUtils.copyFile(file, target);
                 }
             } else {
@@ -128,7 +125,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,
                                 monitorWrap);
                     } else {
-                        File target = new File(getStorageDirectory().getAbsolutePath(), file.getName());
+                        File target = new File(installLocation, file.getName());
                         FilesUtils.copyFile(file, target);
                     }
                 } else {
@@ -195,7 +192,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#deploy(java.util.Collection,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -211,7 +208,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.lang.String, java.lang.String)
      */
     @Override
@@ -221,7 +218,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
-
         LibrariesIndexManager.getInstance().loadResource();
         String sourcePath = null, targetPath = pathToStore;
         try {
@@ -353,7 +349,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -364,7 +360,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#list(org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
@@ -485,7 +481,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Jsdoc)
-     *
+     * 
      * @see org.talend.core.ILibraryManagerService#delete(java.lang.String)
      */
     @Override
@@ -512,7 +508,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.ILibraryManagerService#deploy(java.util.Set, org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
@@ -527,9 +523,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap) {
-        String installLocation = getStorageDirectory().getAbsolutePath();
-
-        File indexFile = new File(installLocation + JAR_INDEX);
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
         if (indexFile.exists()) {
             LibrariesIndexManager.getInstance().loadResource();
         }
