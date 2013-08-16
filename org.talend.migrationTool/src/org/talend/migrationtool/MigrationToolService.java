@@ -263,6 +263,13 @@ public class MigrationToolService implements IMigrationToolService {
                                             }
                                             MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
                                             if (mgTask == null && !task.isDeprecated()) {
+                                                if (item.getProperty().eResource() == null) {
+                                                    item = ProxyRepositoryFactory
+                                                            .getInstance()
+                                                            .getSpecificVersion(item.getProperty().getId(),
+                                                                    item.getProperty().getVersion(), true).getProperty()
+                                                            .getItem();
+                                                }
                                                 ExecutionResult status = task.execute(project, item);
                                                 switch (status) {
                                                 case SUCCESS_WITH_ALERT:

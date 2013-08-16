@@ -620,10 +620,16 @@ public class XmiResourceManager {
         ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(resourceProperty.eResource(),
                 resourceProperty, lastVersionProperty);
 
-        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
+        boolean mustChangeLabel = ResourceFilenameHelper.mustChangeLabel(fileNameTest);
+        if (mustChangeLabel) {
+            if (resourceProperty.getLabel().equals(lastVersionProperty.getLabel())
+                    && resourceProperty.getDisplayName().equals(lastVersionProperty.getDisplayName())) {
+                mustChangeLabel = false;
+            }
+        }
+        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !mustChangeLabel) {
             return;
         }
-
         // now we now we need all the resources to change the file, we can load them, and execute all code of this
         // function.
         // note: at the end of the function, it will try to unload everything but not the .properties
@@ -656,7 +662,8 @@ public class XmiResourceManager {
                 if (isPropertyFile(file)) {
                     propertyFile = file;
                 }
-            } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
+            }
+            if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                 resourceProperty.setLabel(lastVersionProperty.getLabel());
                 resourceProperty.setDisplayName(lastVersionProperty.getDisplayName());
                 if (!ResourceFilenameHelper.hasSameNameButDifferentCase(fileName)) {
