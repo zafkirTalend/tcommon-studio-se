@@ -20,9 +20,6 @@
    
 <extension
       point="org.eclipse.ui.commands">
-   <category
-         id="talend"
-         name="Talend"/>
    <command
          id="org.talend.rcp.command.closeIntro"
          name="name">

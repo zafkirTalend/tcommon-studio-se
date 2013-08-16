@@ -98,4 +98,11 @@
             class="org.talend.core.runtime.MetadataPreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="talend"
+            name="Talend">
+      </category>
+   </extension>
 </plugin>
