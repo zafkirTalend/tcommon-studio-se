@@ -1193,7 +1193,7 @@ public final class ConnectionContextHelper {
     public static void checkAndAddContextVariables(ContextItem contextItem, IContextManager ctxManager, Set<String> addedVars,
             Set<String> contextGoupNameSet) {
         mergeContextVariables(contextItem.getContext(), contextItem.getDefaultContext(), contextItem.getProperty().getId(),
-                ctxManager, addedVars, contextGoupNameSet, true);
+                ctxManager, addedVars, contextGoupNameSet, false);
     }
 
     /**
