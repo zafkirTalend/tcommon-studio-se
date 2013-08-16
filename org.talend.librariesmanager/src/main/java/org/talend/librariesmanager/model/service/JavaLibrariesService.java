@@ -46,6 +46,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
+import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.codegen.PigTemplate;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -212,24 +213,29 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         // File talendLibraries = new File(FileLocator
         //                    .resolve(Platform.getBundle(BUNDLE_DI).getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
         // repositoryBundleService.deploy(talendLibraries.toURI(), monitorWrap);
-        // Add a new system file, if exists, means all components libs are already setup, so no need to do
-        // again.
+
+        if (TalendCacheUtils.cleanComponentCache()) {
+            repositoryBundleService.clearCache();
+        }
+        // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
         // if clean the component cache, it will automatically recheck all libs still.
-        // 2. Components libraries
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                    IComponentsService.class);
-            repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
-            Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-            Set<String> contributeIdSet = componentsFolders.keySet();
-            for (String contributeID : contributeIdSet) {
-                repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
+        if (!repositoryBundleService.isInitialized()) {
+            // 2. Components libraries
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                repositoryBundleService.deploy(service.getComponentsFactory().getComponents(), monitorWrap);
+                Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
+                Set<String> contributeIdSet = componentsFolders.keySet();
+                for (String contributeID : contributeIdSet) {
+                    repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
+                }
+
+                // / for test
+                syncLibrariesFromApp(monitorWrap);
+
+                repositoryBundleService.setInitialized();
             }
-
-            // / for test
-            syncLibrariesFromApp(monitorWrap);
-
-            repositoryBundleService.setInitialized();
         }
 
         // 3. system routine libraries

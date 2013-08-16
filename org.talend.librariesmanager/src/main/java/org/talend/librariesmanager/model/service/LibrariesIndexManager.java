@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -37,7 +39,7 @@ public class LibrariesIndexManager {
 
     private static LibrariesIndexManager manager;
 
-    private static final String LIBRARIES_INDEX = "index.xml";
+    private static final String LIBRARIES_INDEX = "librariesIndex.xml";
 
     private boolean loaded = false;
 
@@ -54,9 +56,8 @@ public class LibrariesIndexManager {
 
     public void loadResource() {
         if (!loaded) {
-            String installLocation = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
             try {
-                Resource resource = createLibrariesIndexResource(installLocation);
+                Resource resource = createLibrariesIndexResource(getIndexFileInstallFolder());
                 Map optionMap = new HashMap();
                 optionMap.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
                 optionMap.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
@@ -75,9 +76,8 @@ public class LibrariesIndexManager {
 
     public void saveResource() {
         LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
-        String installLocation = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         try {
-            Resource resource = createLibrariesIndexResource(installLocation);
+            Resource resource = createLibrariesIndexResource(getIndexFileInstallFolder());
             resource.getContents().add(index);
             EmfHelper.saveResource(index.eResource());
         } catch (PersistenceException e1) {
@@ -91,6 +91,14 @@ public class LibrariesIndexManager {
         return indexFact.createResource(uri);
     }
 
+    private String getIndexFileInstallFolder() {
+        return new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
+    }
+
+    public String getIndexFilePath() {
+        return new Path(getIndexFileInstallFolder()).append(LIBRARIES_INDEX).toFile().getAbsolutePath();
+    }
+
     public LibrariesIndex getIndex() {
         return index;
     }
@@ -98,4 +106,5 @@ public class LibrariesIndexManager {
     public void setIndex(LibrariesIndex index) {
         this.index = index;
     }
+
 }
