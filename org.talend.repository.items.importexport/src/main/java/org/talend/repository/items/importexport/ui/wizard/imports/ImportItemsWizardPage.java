@@ -16,9 +16,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -35,12 +37,15 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.utils.TalendPropertiesUtil;
+import org.talend.core.service.IExchangeService;
 import org.talend.repository.items.importexport.i18n.Messages;
 
 /**
@@ -64,7 +69,9 @@ public class ImportItemsWizardPage extends WizardPage {
     /*
      * 
      */
-    private String previouslyBrowsedDirectory;
+    private static final String[] ARCHIVE_FILE_MASK = { "*.jar;*.zip;*.tar;*.tar.gz;*.tgz", "*.*" }; //$NON-NLS-1$ //$NON-NLS-2$
+
+    private String previouslyBrowsedDirectoryPath, previouslyBrowsedArchivePath;
 
     /**
      * 
@@ -82,20 +89,17 @@ public class ImportItemsWizardPage extends WizardPage {
 
     @Override
     public void createControl(Composite parent) {
-        Composite workArea = new Composite(parent, SWT.NONE);
-        setControl(workArea);
+        Composite composite = new Composite(parent, SWT.NONE);
+        setControl(composite);
+        composite.setLayout(new GridLayout());
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
-        workArea.setLayout(new GridLayout());
-        workArea.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
+        createSelectionArea(composite);
+        createItemListArea(composite);
+        createErrorsListArea(composite);
+        createAdditionArea(composite);
 
-        createSelectionArea(workArea);
-
-        createItemListArea(workArea);
-        createErrorsListArea(workArea);
-
-        createAdditionArea(workArea);
-
-        Dialog.applyDialogFont(workArea);
+        Dialog.applyDialogFont(composite);
     }
 
     private void createSelectionArea(Composite parent) {
@@ -211,14 +215,14 @@ public class ImportItemsWizardPage extends WizardPage {
         });
 
         this.browseArchivesButton = new Button(selectionArea, SWT.PUSH);
-        this.browseArchivesButton.setText("Browse...");
+        this.browseArchivesButton.setText(Messages.getString("ImportItemsWizardPage_browseText")); //$NON-NLS-1$
         setButtonLayoutData(this.browseArchivesButton);
 
         this.browseArchivesButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                // handleLocationArchiveButtonPressed();
+                handleArchiveButtonPressed();
             }
         });
 
@@ -232,19 +236,23 @@ public class ImportItemsWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IExchangeService.class)) {
+                        archivePathField.setEditable(false);
 
-                    // archivePathField.setEditable(false);
-                    //
-                    // IExchangeService service = (IExchangeService) GlobalServiceRegister.getDefault().getService(
-                    // IExchangeService.class);
-                    //
-                    // selectedArchive = service.openExchangeDialog();
-                    // if (selectedArchive != null) {
-                    // previouslyBrowsedArchive = selectedArchive;
-                    // archivePathField.setText(previouslyBrowsedArchive);
-                    // updateItemsList(selectedArchive, false);
-                    // }
+                        IExchangeService service = (IExchangeService) GlobalServiceRegister.getDefault().getService(
+                                IExchangeService.class);
 
+                        String selectedArchive = service.openExchangeDialog();
+                        if (selectedArchive != null) {
+                            archivePathField.setText(previouslyBrowsedArchivePath);
+                            previouslyBrowsedArchivePath = selectedArchive;
+                            updateItemsList(selectedArchive, false);
+                        }
+                    } else {
+                        MessageDialog.openWarning(getShell(),
+                                Messages.getString("ImportItemsWizardPage_fromExchangeWarningTitle"), //$NON-NLS-1$
+                                Messages.getString("ImportItemsWizardPage_fromExchangeWarningMessage")); //$NON-NLS-1$
+                    }
                 }
             });
         }
@@ -371,17 +379,15 @@ public class ImportItemsWizardPage extends WizardPage {
      */
     private void createAdditionArea(Composite workArea) {
         // see feature 3949
-        overwriteButton = new Button(workArea, SWT.CHECK);
-        overwriteButton.setText(Messages.getString("ImportItemsWizardPage_overwriteItemsText")); //$NON-NLS-1$
-        overwriteButton.addSelectionListener(new SelectionAdapter() {
+        this.overwriteButton = new Button(workArea, SWT.CHECK);
+        this.overwriteButton.setText(Messages.getString("ImportItemsWizardPage_overwriteItemsText")); //$NON-NLS-1$
+        this.overwriteButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                // overwrite = overwriteButton.getSelection();
-                // if (StringUtils.isNotEmpty(directoryPathField.getText()) ||
-                // StringUtils.isNotEmpty(archivePathField.getText())) {
-                // populateItems();
-                // }
+                if (StringUtils.isNotEmpty(directoryPathField.getText()) || StringUtils.isNotEmpty(archivePathField.getText())) {
+                    populateItems();
+                }
             }
 
         });
@@ -410,11 +416,12 @@ public class ImportItemsWizardPage extends WizardPage {
      */
     private void handleBrowseDirectoryButtonPressed() {
         DirectoryDialog dialog = new DirectoryDialog(this.getShell());
-        dialog.setMessage(Messages.getString("ImportItemsWizardPage_selectDirectoryDialogMessage")); //$NON-NLS-1$
+        dialog.setText(Messages.getString("ImportItemsWizardPage_selectDirectoryDialogTitle")); //$NON-NLS-1$
+        dialog.setMessage(dialog.getText()); // FIXME
 
         String dirPath = this.directoryPathField.getText().trim();
         if (dirPath.length() == 0) {
-            dirPath = previouslyBrowsedDirectory;
+            dirPath = previouslyBrowsedDirectoryPath;
         }
 
         if (dirPath.length() == 0) {
@@ -429,7 +436,7 @@ public class ImportItemsWizardPage extends WizardPage {
         String selectedDirectory = dialog.open();
         if (selectedDirectory != null) {
             this.directoryPathField.setText(selectedDirectory);
-            previouslyBrowsedDirectory = selectedDirectory;
+            previouslyBrowsedDirectoryPath = selectedDirectory;
             updateItemsList(selectedDirectory, false);
         }
 
@@ -448,7 +455,43 @@ public class ImportItemsWizardPage extends WizardPage {
         }
     }
 
+    /**
+     * From archive
+     * 
+     */
+    private void handleArchiveButtonPressed() {
+        FileDialog dialog = new FileDialog(archivePathField.getShell());
+        dialog.setText(Messages.getString("ImportItemsWizardPage_selectArchiveDialogTitle")); //$NON-NLS-1$
+        dialog.setFilterExtensions(ARCHIVE_FILE_MASK);
+
+        String filePath = this.archivePathField.getText().trim();
+        if (filePath.length() == 0) {
+            filePath = previouslyBrowsedArchivePath;
+        }
+
+        if (filePath.length() == 0) {
+            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+        } else {
+            File file = new File(filePath);
+            if (file.exists()) {
+                dialog.setFilterPath(new Path(filePath).toOSString());
+            }
+        }
+
+        String selectedArchive = dialog.open();
+        if (selectedArchive != null) {
+            this.archivePathField.setText(selectedArchive);
+            previouslyBrowsedArchivePath = selectedArchive;
+            updateItemsList(selectedArchive, false);
+        }
+
+    }
+
     public void updateItemsList(final String path, boolean isneedUpdate) {
+        // TODO
+    }
+
+    private void populateItems() {
         // TODO
     }
 

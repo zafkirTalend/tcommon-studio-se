@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.talend.repository.items.importexport.actionSet"
+            label="ImportExport"
+            visible="false">
+         <action
+               class="org.talend.repository.items.importexport.ui.actions.ImportItemsAction"
+               icon="platform:/plugin/org.talend.common.ui.runtime/icons/import.gif"
+               id="org.talend.repository.items.importexport.action.importItems"
+               label="%ImportItemsAction_title"
+               style="push"
+               toolbarPath="Default"
+               tooltip="%ImportItemsAction_title">
+            <enablement>
+               <systemProperty
+                     name="ReadOnlyUser"
+                     value="false">
+               </systemProperty>
+            </enablement>
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>

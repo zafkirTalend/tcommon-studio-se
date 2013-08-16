@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
-import org.talend.core.model.general.IExchangeService;
 import org.talend.core.model.utils.TalendPropertiesUtil;
+import org.talend.core.service.IExchangeService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 
