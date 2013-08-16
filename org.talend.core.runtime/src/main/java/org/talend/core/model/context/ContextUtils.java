@@ -217,6 +217,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemById(String contextId) {
         if (checkObject(contextId)) {
             return null;
@@ -273,6 +274,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemByName(String name) {
         if (checkObject(name)) {
             return null;
@@ -289,6 +291,7 @@ public class ContextUtils {
      * 
      * @deprecated by bug 13184
      */
+    @Deprecated
     public static ContextItem getContextItemByName(List<ContextItem> contextItemList, String name) {
         if (checkObject(contextItemList) || checkObject(name)) {
             return null;
@@ -344,6 +347,47 @@ public class ContextUtils {
     }
 
     /**
+     * DOC xqliu Comment method "updateParameter".
+     * 
+     * @param sourceParam
+     * @param targetParam
+     */
+    public static void updateParameter(IContextParameter sourceParam, IContextParameter targetParam) {
+        if (checkObject(sourceParam) || checkObject(targetParam)) {
+            return;
+        }
+
+        targetParam.setName(sourceParam.getName());
+        targetParam.setPrompt(sourceParam.getPrompt());
+        boolean exists = false;
+        ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
+        if (curLanguage == ECodeLanguage.JAVA) {
+            exists = true;
+            try {
+                ContextParameterJavaTypeManager.getJavaTypeFromId(sourceParam.getType());
+            } catch (IllegalArgumentException e) {
+                exists = false;
+            }
+        } else {
+            String[] existingTypes;
+            existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
+            for (String existingType : existingTypes) {
+                if (existingType.equals(sourceParam.getType())) {
+                    exists = true;
+                }
+            }
+        }
+        if (exists) {
+            targetParam.setType(sourceParam.getType());
+        } else {
+            targetParam.setType(MetadataTalendType.getDefaultTalendType());
+        }
+        targetParam.setValue(sourceParam.getValue());
+        targetParam.setPromptNeeded(sourceParam.isPromptNeeded());
+        targetParam.setComment(sourceParam.getComment());
+    }
+
+    /**
      * 
      * update the JobContextParameter form the ContextParameterType.
      */
@@ -366,8 +410,8 @@ public class ContextUtils {
         } else {
             String[] existingTypes;
             existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int k = 0; k < existingTypes.length; k++) {
-                if (existingTypes[k].equals(sourceParam.getType())) {
+            for (String existingType : existingTypes) {
+                if (existingType.equals(sourceParam.getType())) {
                     exists = true;
                 }
             }
@@ -593,8 +637,8 @@ public class ContextUtils {
         } else {
             String[] existingTypes;
             existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int k = 0; k < existingTypes.length; k++) {
-                if (existingTypes[k].equals(contextParamType.getType())) {
+            for (String existingType : existingTypes) {
+                if (existingType.equals(contextParamType.getType())) {
                     exists = true;
                 }
             }

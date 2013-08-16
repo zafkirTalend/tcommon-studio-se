@@ -88,7 +88,6 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl;
 import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextTypeImpl;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.UpdateRepositoryUtils;
@@ -784,13 +783,12 @@ public final class ConnectionContextHelper {
     }
 
     /**
-     * 
-     * DOC xqliu Comment method "addContextVarForJob".
+     * add the context list into the job.
      * 
      * @param process
      * @param contexts
      * @param defaultContextName
-     * @param contextItemId
+     * @param contextItemId the ContextItem's property Id or null
      * @param ctxManager
      */
     public static void addContextVarForJob(IProcess2 process, final List<ContextType> contexts, final String defaultContextName,
@@ -825,6 +823,15 @@ public final class ConnectionContextHelper {
                 contextItem.getProperty().getId(), addedVars);
     }
 
+    /**
+     * add the context variables into the job.
+     * 
+     * @param process
+     * @param contexts
+     * @param defaultContextName the default context name of contexts
+     * @param contextItemId the ContextItem's property Id or null
+     * @param addedVars the variables need to adding
+     */
     public static void addContextVarForJob(IProcess2 process, final List<ContextType> contexts, final String defaultContextName,
             final String contextItemId, final Set<String> addedVars) {
         if (process == null || contexts == null || defaultContextName == null || addedVars == null || addedVars.isEmpty()) {
@@ -854,6 +861,301 @@ public final class ConnectionContextHelper {
         }
     }
 
+    /**
+     * merge the context variables and groups: add variables into the job; add context group into the job.
+     * 
+     * @param process
+     * @param contexts
+     * @param defaultContextName the default context name of contexts
+     * @param contextItemId the ContextItem's property Id or null
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
+    public static void mergeContextVarForJob(IProcess2 process, final List<ContextType> contexts,
+            final String defaultContextName, final String contextItemId, final IContextManager ctxManager,
+            final Set<String> addedVars, final Set<String> contextGoupNameSet) {
+        if (process == null || contexts == null || defaultContextName == null || ctxManager == null || addedVars == null
+                || contextGoupNameSet == null || (addedVars.isEmpty() && contextGoupNameSet.isEmpty())) {
+            return;
+        }
+
+        Command cmd = new Command() {
+
+            @Override
+            public void execute() {
+                mergeContextVariables(contexts, defaultContextName, contextItemId, ctxManager, addedVars, contextGoupNameSet);
+            }
+        };
+        boolean executed = false;
+        if (process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+            }
+        }
+        if (!executed) {
+            cmd.execute();
+        }
+
+    }
+
+    /**
+     * merge the context variables and groups: add variables into the job; add context group into the job.
+     * 
+     * @param process
+     * @param contextItem
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
+    public static void mergeContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager ctxManager,
+            final Set<String> addedVars, final Set<String> contextGoupNameSet) {
+        if (process == null || contextItem == null || ctxManager == null || addedVars == null || contextGoupNameSet == null
+                || (addedVars.isEmpty() && contextGoupNameSet.isEmpty())) {
+            return;
+        }
+
+        Command cmd = new Command() {
+
+            @Override
+            public void execute() {
+                mergeContextVariables(contextItem, ctxManager, addedVars, contextGoupNameSet);
+            }
+        };
+        boolean executed = false;
+        if (process instanceof IGEFProcess) {
+            IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+            if (designerCoreUIService != null) {
+                executed = designerCoreUIService.executeCommand((IGEFProcess) process, cmd);
+            }
+        }
+        if (!executed) {
+            cmd.execute();
+        }
+
+    }
+
+    /**
+     * merge the context variables and groups: add variables from contexts into ctxManager; add context group from
+     * contexts into ctxManager.
+     * 
+     * @param contexts
+     * @param defaultContextName the default context name of contexts
+     * @param contextItemId the ContextItem's property Id or null
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
+    protected static void mergeContextVariables(List<ContextType> contexts, String defaultContextName, String contextItemId,
+            IContextManager ctxManager, Set<String> addedVars, Set<String> contextGoupNameSet) {
+        mergeContextVariables(contexts, defaultContextName, contextItemId, ctxManager, addedVars, contextGoupNameSet, true);
+    }
+
+    /**
+     * merge the context variables and groups: add variables from contexts into ctxManager; add context group from
+     * contexts into ctxManager.
+     * 
+     * @param contexts
+     * @param defaultContextName the default context name of contexts
+     * @param contextItemId the ContextItem's property Id or null
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     * @param fillFlag fill the added context group with the default value of the ctxManager
+     */
+    protected static void mergeContextVariables(List<ContextType> contexts, String defaultContextName, String contextItemId,
+            IContextManager ctxManager, Set<String> addedVars, Set<String> contextGoupNameSet, boolean fillFlag) {
+        Map<String, List<ContextParameterType>> map = getContextNameParamsMap(contexts);
+        if (map.isEmpty()) {
+            return;
+        }
+        Set<String> existGroupNameSet = new HashSet<String>();
+        Set<String> addedContextGroupNames = new HashSet<String>();
+        Set<String> alreadyUpdateNameSet = new HashSet<String>();
+        for (IContext con : ctxManager.getListContext()) {
+            existGroupNameSet.add(con.getName());
+        }
+        if (contextGoupNameSet.isEmpty()) {
+            contextGoupNameSet.add(defaultContextName);
+        }
+        for (String key : map.keySet()) {
+            for (String groupName : contextGoupNameSet) {
+                boolean isExtraGroup = false;
+                for (String existGroup : existGroupNameSet) {
+                    if (key.equals(existGroup)) {
+                        isExtraGroup = true;
+                        alreadyUpdateNameSet.add(existGroup);
+                        break;
+                    }
+                }
+                if (key.equals(groupName) || isExtraGroup) {
+                    List<ContextParameterType> list = map.get(key);
+                    JobContext jobContext = new JobContext(key);
+                    boolean isExistContext = false;
+                    if (isExtraGroup) {
+                        for (IContext con : ctxManager.getListContext()) {
+                            if (key.equals(con.getName())) {
+                                if (con instanceof JobContext) {
+                                    jobContext = (JobContext) con;
+                                    isExistContext = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    // add the new context's parameter into the new context group
+                    setContextParameter(contextItemId, addedVars, list, jobContext);
+                    if (!isExistContext) {
+                        ctxManager.getListContext().add(jobContext);
+                        addedContextGroupNames.add(jobContext.getName());
+                    }
+                    break;
+                }
+            }
+        }
+        // if job context group is not in current add's context,then update context group value to default group value
+        existGroupNameSet.removeAll(alreadyUpdateNameSet);
+        List<ContextParameterType> list = map.get(defaultContextName);
+        if (list == null) {
+            return;
+        }
+        for (String existGroup : existGroupNameSet) {
+            for (IContext con : ctxManager.getListContext()) {
+                if ((existGroup).equals(con.getName())) {
+                    if (con instanceof JobContext) {
+                        JobContext jobContext = (JobContext) con;
+                        setContextParameter(contextItemId, addedVars, list, jobContext);
+                    }
+                }
+            }
+        }
+        if (fillFlag) {
+            // if the new conext group not in the job's context, then update the new context group value to the default
+            // group value of the job
+            List<IContextParameter> contextParameterList = ctxManager.getDefaultContext().getContextParameterList();
+            if (contextParameterList == null) {
+                return;
+            }
+            Set<String> existVars = new HashSet<String>();
+            for (IContextParameter ctxPara : contextParameterList) {
+                String ctxParaName = ctxPara.getName();
+                if (!addedVars.contains(ctxParaName)) {
+                    existVars.add(ctxParaName);
+                }
+            }
+            for (String addedGroup : addedContextGroupNames) {
+                for (IContext con : ctxManager.getListContext()) {
+                    if (addedGroup.equals(con.getName())) {
+                        if (con instanceof JobContext) {
+                            JobContext jobContext = (JobContext) con;
+                            setContextParameter(existVars, contextParameterList, jobContext);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "getContextNameParamsMap".
+     * 
+     * @param contexts
+     * @return
+     */
+    private static Map<String, List<ContextParameterType>> getContextNameParamsMap(List<ContextType> contexts) {
+        Map<String, List<ContextParameterType>> map = new HashMap<String, List<ContextParameterType>>();
+        Iterator<ContextType> iterator = contexts.iterator();
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            if (obj instanceof ContextTypeImpl) {
+                ContextTypeImpl contextTypeImpl = (ContextTypeImpl) obj;
+                String name = contextTypeImpl.getName();
+                EList<ContextParameterType> contextParameters = contextTypeImpl.getContextParameter();
+                Iterator<ContextParameterType> contextParas = contextParameters.iterator();
+                List<ContextParameterType> list = new ArrayList<ContextParameterType>();
+                while (contextParas.hasNext()) {
+                    ContextParameterType contextParameterType = contextParas.next();
+                    list.add(contextParameterType);
+                }
+                map.put(name, list);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * merge the context variables and groups: add variables from contextItem into ctxManager; add context group from
+     * contextItem into ctxManager.
+     * 
+     * @param contextItem
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
+    protected static void mergeContextVariables(ContextItem contextItem, IContextManager ctxManager, Set<String> addedVars,
+            Set<String> contextGoupNameSet) {
+        mergeContextVariables(contextItem.getContext(), contextItem.getDefaultContext(), contextItem.getProperty().getId(),
+                ctxManager, addedVars, contextGoupNameSet);
+    }
+
+    /**
+     * add the variables from ctxParams into JobContext.
+     * 
+     * @param addedVars the variables need to adding
+     * @param ctxParams the list of IContextParameter
+     * @param jobContext the JobContext
+     */
+    private static void setContextParameter(Set<String> addedVars, List<IContextParameter> ctxParams, JobContext jobContext) {
+        for (IContextParameter contextImpl : ctxParams) {
+            for (String var : addedVars) {
+                if (var.equals(contextImpl.getName())) {
+                    JobContextParameter contextParam = new JobContextParameter();
+                    ContextUtils.updateParameter(contextImpl, contextParam);
+                    if (contextImpl.getSource() != null) {
+                        contextParam.setSource(contextImpl.getSource());
+                    }
+                    contextParam.setContext(jobContext);
+                    jobContext.getContextParameterList().add(contextParam);
+                }
+            }
+        }
+    }
+
+    /**
+     * add the variables from ctxParams into JobContext.
+     * 
+     * @param contextItemId the ContextItem's property Id
+     * @param addedVars the variables need to adding
+     * @param ctxParams the list of IContextParameter
+     * @param jobContext the JobContext
+     */
+    public static void setContextParameter(String contextItemId, Set<String> addedVars, List<ContextParameterType> ctxParams,
+            JobContext jobContext) {
+        for (ContextParameterType contextImpl : ctxParams) {
+            for (String var : addedVars) {
+                if (var.equals(contextImpl.getName())) {
+                    JobContextParameter contextParam = new JobContextParameter();
+                    ContextUtils.updateParameter(contextImpl, contextParam);
+                    if (contextItemId != null) {
+                        contextParam.setSource(contextItemId);
+                    }
+                    contextParam.setContext(jobContext);
+                    jobContext.getContextParameterList().add(contextParam);
+                }
+            }
+        }
+    }
+
+    /**
+     * add the context from the ContextItem into the job.
+     * 
+     * @param process the job
+     * @param contextItem the ContextItem
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
     public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager ctxManager,
             final Set<String> addedVars, final Set<String> contextGoupNameSet) {
         if (process == null || contextItem == null || ctxManager == null || addedVars == null || addedVars.isEmpty()) {
@@ -880,102 +1182,31 @@ public final class ConnectionContextHelper {
 
     }
 
-    public static void checkAndAddContextVariables(ContextItem item, IContextManager contextManager, Set<String> addedVars,
+    /**
+     * add the context from contextItem into the ctxManager: add the variables and the context groups.
+     * 
+     * @param contextItem
+     * @param ctxManager
+     * @param addedVars the variables need to adding
+     * @param contextGoupNameSet the context group need to adding
+     */
+    public static void checkAndAddContextVariables(ContextItem contextItem, IContextManager ctxManager, Set<String> addedVars,
             Set<String> contextGoupNameSet) {
-        EList context = item.getContext();
-        Map<String, List<ContextParameterTypeImpl>> map = new HashMap<String, List<ContextParameterTypeImpl>>();
-        Iterator iterator = context.iterator();
-        while (iterator.hasNext()) {
-            Object obj = iterator.next();
-            if (obj instanceof ContextTypeImpl) {
-                ContextTypeImpl contextTypeImpl = (ContextTypeImpl) obj;
-                String name = contextTypeImpl.getName();
-                EList contextParameters = contextTypeImpl.getContextParameter();
-                Iterator contextParas = contextParameters.iterator();
-                List<ContextParameterTypeImpl> list = new ArrayList<ContextParameterTypeImpl>();
-                while (contextParas.hasNext()) {
-                    ContextParameterTypeImpl contextParameterType = (ContextParameterTypeImpl) contextParas.next();
-                    list.add(contextParameterType);
-                }
-                map.put(name, list);
-            }
-        }
-        if (map.isEmpty()) {
-            return;
-        }
-        String defaultContextName = item.getDefaultContext();
-        Set<String> existGroupNameSet = new HashSet<String>();
-        for (IContext con : contextManager.getListContext()) {
-            existGroupNameSet.add(con.getName());
-        }
-        if (contextGoupNameSet.isEmpty()) {
-            contextGoupNameSet.add(defaultContextName);
-        }
-        Set<String> alreadyUpdateNameSet = new HashSet<String>();
-        for (String key : map.keySet()) {
-            for (String groupName : contextGoupNameSet) {
-                boolean isExtraGroup = false;
-                for (String existGroup : existGroupNameSet) {
-                    if (key.equals(existGroup)) {
-                        isExtraGroup = true;
-                        alreadyUpdateNameSet.add(existGroup);
-                        break;
-                    }
-                }
-                if (key.equals(groupName) || isExtraGroup) {
-                    List<ContextParameterTypeImpl> list = map.get(key);
-                    JobContext jobContext = new JobContext(key);
-                    boolean isExistContext = false;
-                    if (isExtraGroup) {
-                        for (IContext con : contextManager.getListContext()) {
-                            if (key.equals(con.getName())) {
-                                if (con instanceof JobContext) {
-                                    jobContext = (JobContext) con;
-                                    isExistContext = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    setContextParameter(item, addedVars, list, jobContext);
-                    if (!isExistContext) {
-                        contextManager.getListContext().add(jobContext);
-                    }
-                    break;
-                }
-            }
-        }
-        // if job context group is not in current add's context,then update context group value to default group value
-        existGroupNameSet.removeAll(alreadyUpdateNameSet);
-        List<ContextParameterTypeImpl> list = map.get(defaultContextName);
-        if (list == null) {
-            return;
-        }
-        for (String existGroup : existGroupNameSet) {
-            for (IContext con : contextManager.getListContext()) {
-                if ((existGroup).equals(con.getName())) {
-                    if (con instanceof JobContext) {
-                        JobContext jobContext = (JobContext) con;
-                        setContextParameter(item, addedVars, list, jobContext);
-                    }
-                }
-            }
-        }
+        mergeContextVariables(contextItem.getContext(), contextItem.getDefaultContext(), contextItem.getProperty().getId(),
+                ctxManager, addedVars, contextGoupNameSet, true);
     }
 
-    public static void setContextParameter(ContextItem item, Set<String> addedVars, List<ContextParameterTypeImpl> list,
+    /**
+     * add the variables from ctxParams into JobContext.
+     * 
+     * @param contextItem
+     * @param addedVars the variables need to adding
+     * @param ctxParams
+     * @param jobContext
+     */
+    public static void setContextParameter(ContextItem contextItem, Set<String> addedVars, List<ContextParameterType> ctxParams,
             JobContext jobContext) {
-        for (ContextParameterTypeImpl contextImpl : list) {
-            for (String var : addedVars) {
-                if (var.equals(contextImpl.getName())) {
-                    JobContextParameter contextParam = new JobContextParameter();
-                    ContextUtils.updateParameter(contextImpl, contextParam);
-                    contextParam.setSource(item.getProperty().getId());
-                    contextParam.setContext(jobContext);
-                    jobContext.getContextParameterList().add(contextParam);
-                }
-            }
-        }
+        setContextParameter(contextItem.getProperty().getId(), addedVars, ctxParams, jobContext);
     }
 
     public static boolean isAddContextVar(ContextItem contextItem, IContextManager contextManager, Set<String> neededVars) {
@@ -1020,14 +1251,14 @@ public final class ConnectionContextHelper {
     }
 
     /**
-     * DOC xqliu Comment method "checkAndAddContextVariables".
+     * check if there exist variables which need to add into the ctxManager.
      * 
      * @param contexts
      * @param defaultContextName
      * @param contextItemId
      * @param neededVars
      * @param ctxManager
-     * @param added
+     * @param added add the variable or not
      * @return
      */
     public static Set<String> checkAndAddContextVariables(final List<ContextType> contexts, final String defaultContextName,
@@ -1104,41 +1335,25 @@ public final class ConnectionContextHelper {
     }
 
     /**
-     * DOC xqliu Comment method "checkAndAddContextsVarDND".
+     * add the context into the ctxManager.
      * 
      * @param contexts
-     * @param defaultContextName
-     * @param contextItemId
+     * @param defaultContextName the default context name of the contexts
+     * @param contextItemId the ContextItem's property Id or null
      * @param ctxManager
      */
     public static void checkAndAddContextsVarDND(List<ContextType> contexts, String defaultContextName, String contextItemId,
             IContextManager ctxManager) {
-        Map<String, List<ContextParameterTypeImpl>> map = new HashMap<String, List<ContextParameterTypeImpl>>();
-        Iterator iterator = contexts.iterator();
-        while (iterator.hasNext()) {
-            Object obj = iterator.next();
-            if (obj instanceof ContextTypeImpl) {
-                ContextTypeImpl contextTypeImpl = (ContextTypeImpl) obj;
-                String name = contextTypeImpl.getName();
-                EList contextParameters = contextTypeImpl.getContextParameter();
-                Iterator contextParas = contextParameters.iterator();
-                List<ContextParameterTypeImpl> list = new ArrayList<ContextParameterTypeImpl>();
-                while (contextParas.hasNext()) {
-                    ContextParameterTypeImpl contextParameterType = (ContextParameterTypeImpl) contextParas.next();
-                    list.add(contextParameterType);
-                }
-                map.put(name, list);
-            }
-        }
+        Map<String, List<ContextParameterType>> map = getContextNameParamsMap(contexts);
         if (map.isEmpty()) {
             return;
         }
         ctxManager.getListContext().clear();
 
         for (String key : map.keySet()) {
-            List<ContextParameterTypeImpl> list = map.get(key);
+            List<ContextParameterType> list = map.get(key);
             JobContext jobContext = new JobContext(key);
-            for (ContextParameterTypeImpl contextImpl : list) {
+            for (ContextParameterType contextImpl : list) {
                 JobContextParameter contextParam = new JobContextParameter();
                 ContextUtils.updateParameter(contextImpl, contextParam);
                 if (contextItemId != null) {
@@ -1152,7 +1367,6 @@ public final class ConnectionContextHelper {
                 ctxManager.setDefaultContext(jobContext);
             }
         }
-
     }
 
     /*
