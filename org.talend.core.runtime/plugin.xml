@@ -84,7 +84,7 @@
      </page>
            <page
             category="org.talend.core.prefs"
-            class="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
+            class="org.talend.core.prefs.SpecificSettingPreferencePage"
             id="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
             name="%specificSetting">
       </page>
