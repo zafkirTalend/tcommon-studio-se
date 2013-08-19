@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -219,6 +220,7 @@ public class QueryUtil {
             String columnStr = columnName;
             // Remove special symbols for mssql column
             if (dbType != null
+                    && Pattern.matches("^\\w+$", metaDataColumn.getOriginalDbColumnName())
                     && (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName()) || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED
                             .getDisplayName()))) {
 
