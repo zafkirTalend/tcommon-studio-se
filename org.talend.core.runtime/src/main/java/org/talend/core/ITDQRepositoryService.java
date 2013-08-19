@@ -150,6 +150,14 @@ public interface ITDQRepositoryService extends IService {
      */
     public void publishSoftwareSystemUpdateEvent(DatabaseConnection databaseConnection);
 
-    public void setNoNeedToOpenConnectionEditor(boolean noNeedToOpenConnectionEditor);
+
+    /**
+     * After creating the database connection, will open the connection editor when this parameter= false (used in
+     * ConnectionTypePage, which will use DatabaseWizard but no need to open the connection editor after creating the db
+     * from here); will not open the connection editor when this parameter=true;
+     * 
+     * @param noNeedToOpenConnectionEditor: true--open the connection editor after creating, false-- not open
+     */
+    public void setIsOpenConnectionEditorAfterCreate(boolean noNeedToOpenConnectionEditor);
 
 }
