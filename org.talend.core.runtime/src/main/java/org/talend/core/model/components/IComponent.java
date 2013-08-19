@@ -160,4 +160,6 @@ public interface IComponent {
     boolean isReduce();
 
     String getPartitioning();
+
+    boolean isSupportDbType();
 }
