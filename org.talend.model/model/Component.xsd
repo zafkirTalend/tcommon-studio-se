@@ -114,44 +114,75 @@
     <xsd:attribute ecore:name="lABEL" name="LABEL" type="xsd:string"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="HEADERType" name="HEADER_._type">
-    <xsd:sequence>
-      <xsd:element ecore:name="sIGNATURE" name="SIGNATURE" type="xsd:string">
-        <xsd:annotation>
-          <xsd:documentation>
-							Not used for the moment
-						</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element ecore:name="fORMAT" minOccurs="0" name="FORMAT" type="FORMAT_._type"/>
-    </xsd:sequence>
-    <xsd:attribute ecore:name="aUTHOR" name="AUTHOR" type="xsd:string" use="required"/>
-    <xsd:attribute ecore:name="cOMBINE" name="COMBINE" type="xsd:string"/>
-    <xsd:attribute ecore:name="cOMPATIBILITY" name="COMPATIBILITY" type="xsd:string" use="required"/>
-    <xsd:attribute default="true" ecore:name="dATAAUTOPROPAGATE" name="DATA_AUTO_PROPAGATE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="eXTENSION" name="EXTENSION" type="xsd:string"/>
-    <xsd:attribute ecore:name="hASCONDITIONALOUTPUTS" name="HAS_CONDITIONAL_OUTPUTS" type="xsd:boolean"/>
-    <xsd:attribute default="false" ecore:name="hASHCOMPONENT" name="HASH_COMPONENT" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="iSMULTIPLYINGOUTPUTS" name="IS_MULTIPLYING_OUTPUTS" type="xsd:boolean"/>
-    <xsd:attribute default="true" ecore:name="mAINCODECALLED" name="MAIN_CODE_CALLED" type="xsd:boolean"/>
-    <xsd:attribute default="2" ecore:name="nUMBERPARALLELIZE" name="NUMBER_PARALLELIZE" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="pARALLELIZE" name="PARALLELIZE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="pLATEFORM" name="PLATEFORM" type="xsd:string" use="required"/>
-    <xsd:attribute ecore:name="rELEASEDATE" name="RELEASE_DATE" type="xsd:string" use="required"/>
-    <xsd:attribute default="true" ecore:name="sCHEMAAUTOPROPAGATE" name="SCHEMA_AUTO_PROPAGATE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="sERIAL" name="SERIAL" type="xsd:string" use="required"/>
-    <xsd:attribute ecore:name="sHORTNAME" name="SHORTNAME" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="sINGLETON" name="SINGLETON" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="sTARTABLE" name="STARTABLE" type="xsd:boolean" use="required"/>
-    <xsd:attribute ecore:name="sTATUS" name="STATUS" type="xsd:string" use="required"/>
-    <xsd:attribute ecore:name="sUBJOBCOLOR" name="SUBJOB_COLOR" type="xsd:string"/>
-    <xsd:attribute ecore:name="sUBJOBTITLECOLOR" name="SUBJOB_TITLE_COLOR" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="tECHNICAL" name="TECHNICAL" type="xsd:boolean"/>
-    <xsd:attribute default="false" ecore:name="tSTATCATCHERSTATS" name="TSTATCATCHER_STATS" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="vERSION" name="VERSION" type="xsd:decimal" use="required"/>
-    <xsd:attribute default="true" ecore:name="vISIBLE" name="VISIBLE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="pARTITIONING" name="PARTITIONING" type="xsd:string"/>
+  	<xsd:sequence>
+  		<xsd:element ecore:name="sIGNATURE" name="SIGNATURE"
+  			type="xsd:string">
+  			<xsd:annotation>
+  				<xsd:documentation>
+  					Not used for the moment
+  				</xsd:documentation>
+  			</xsd:annotation>
+  		</xsd:element>
+  		<xsd:element ecore:name="fORMAT" minOccurs="0" name="FORMAT"
+  			type="FORMAT_._type" />
+  	</xsd:sequence>
+  	<xsd:attribute ecore:name="aUTHOR" name="AUTHOR" type="xsd:string"
+  		use="required" />
+  	<xsd:attribute ecore:name="cOMBINE" name="COMBINE"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="cOMPATIBILITY" name="COMPATIBILITY"
+  		type="xsd:string" use="required" />
+  	<xsd:attribute default="true" ecore:name="dATAAUTOPROPAGATE"
+  		name="DATA_AUTO_PROPAGATE" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="eXTENSION" name="EXTENSION"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="hASCONDITIONALOUTPUTS"
+  		name="HAS_CONDITIONAL_OUTPUTS" type="xsd:boolean" />
+  	<xsd:attribute default="false" ecore:name="hASHCOMPONENT"
+  		name="HASH_COMPONENT" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="iSMULTIPLYINGOUTPUTS"
+  		name="IS_MULTIPLYING_OUTPUTS" type="xsd:boolean" />
+  	<xsd:attribute default="true" ecore:name="mAINCODECALLED"
+  		name="MAIN_CODE_CALLED" type="xsd:boolean" />
+  	<xsd:attribute default="2" ecore:name="nUMBERPARALLELIZE"
+  		name="NUMBER_PARALLELIZE" type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="pARALLELIZE"
+  		name="PARALLELIZE" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="pLATEFORM" name="PLATEFORM"
+  		type="xsd:string" use="required" />
+  	<xsd:attribute ecore:name="rELEASEDATE" name="RELEASE_DATE"
+  		type="xsd:string" use="required" />
+  	<xsd:attribute default="true" ecore:name="sCHEMAAUTOPROPAGATE"
+  		name="SCHEMA_AUTO_PROPAGATE" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="sERIAL" name="SERIAL" type="xsd:string"
+  		use="required" />
+  	<xsd:attribute ecore:name="sHORTNAME" name="SHORTNAME"
+  		type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="sINGLETON"
+  		name="SINGLETON" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="sTARTABLE" name="STARTABLE"
+  		type="xsd:boolean" use="required" />
+  	<xsd:attribute ecore:name="sTATUS" name="STATUS" type="xsd:string"
+  		use="required" />
+  	<xsd:attribute ecore:name="sUBJOBCOLOR" name="SUBJOB_COLOR"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="sUBJOBTITLECOLOR"
+  		name="SUBJOB_TITLE_COLOR" type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="tECHNICAL"
+  		name="TECHNICAL" type="xsd:boolean" />
+  	<xsd:attribute default="false" ecore:name="tSTATCATCHERSTATS"
+  		name="TSTATCATCHER_STATS" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="vERSION" name="VERSION"
+  		type="xsd:decimal" use="required" />
+  	<xsd:attribute default="true" ecore:name="vISIBLE" name="VISIBLE"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="pARTITIONING" name="PARTITIONING"
+  		type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="sUPPORTS_DB_TYPE" name="SUPPORTS_DB_TYPE" 
+  	    type="xsd:boolean" />
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTSType" name="IMPORTS_._type">
     <xsd:sequence>

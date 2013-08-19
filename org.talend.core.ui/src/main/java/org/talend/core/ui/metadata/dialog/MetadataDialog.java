@@ -193,7 +193,8 @@ public class MetadataDialog extends Dialog {
         if (node != null && node.getComponent() != null) {
             eltComponent = node.isELTComponent();
             isEBCDIC = node.getComponent().getName().contains("EBCDIC");
-            if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent || isEBCDIC) {
+            if (node.getComponent().isSupportDbType() || node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL)
+                    || eltComponent || isEBCDIC) {
                 dbComponent = true && !isEBCDIC;
                 for (IElementParameter currentParam : node.getElementParameters()) {
                     if (currentParam.getFieldType().equals(EParameterFieldType.MAPPING_TYPE)) {

@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isREDUCE <em>REDUCE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPARTITIONING <em>PARTITIONING</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSUPPORTS_DB_TYPE <em>SUPPORTS DB TYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -1203,6 +1204,34 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setPARTITIONING(String value);
+
+    /**
+     * Returns the value of the '<em><b>SUPPORTS DB TYPE</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SUPPORTS DB TYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SUPPORTS DB TYPE</em>' attribute.
+     * @see #setSUPPORTS_DB_TYPE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUPPORTS_DB_TYPE()
+     * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='SUPPORTS_DB_TYPE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isSUPPORTS_DB_TYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSUPPORTS_DB_TYPE <em>SUPPORTS DB TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SUPPORTS DB TYPE</em>' attribute.
+     * @see #isSUPPORTS_DB_TYPE()
+     * @generated
+     */
+    void setSUPPORTS_DB_TYPE(boolean value);
 
     /**
      * Returns the value of the '<em><b>COMBINE</b></em>' attribute.

@@ -55,6 +55,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isREDUCE <em>REDUCE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPARTITIONING <em>PARTITIONING</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSUPPORTS_DB_TYPE <em>SUPPORTS DB TYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -767,6 +768,26 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String pARTITIONING = PARTITIONING_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSUPPORTS_DB_TYPE() <em>SUPPORTS DB TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSUPPORTS_DB_TYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SUPPORTS_DB_TYPE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSUPPORTS_DB_TYPE() <em>SUPPORTS DB TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSUPPORTS_DB_TYPE()
+     * @generated
+     * @ordered
+     */
+    protected boolean sUPPORTS_DB_TYPE = SUPPORTS_DB_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1748,6 +1769,27 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isSUPPORTS_DB_TYPE() {
+        return sUPPORTS_DB_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSUPPORTS_DB_TYPE(boolean newSUPPORTS_DB_TYPE) {
+        boolean oldSUPPORTS_DB_TYPE = sUPPORTS_DB_TYPE;
+        sUPPORTS_DB_TYPE = newSUPPORTS_DB_TYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUPPORTS_DB_TYPE, oldSUPPORTS_DB_TYPE, sUPPORTS_DB_TYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getCOMBINE() {
         return cOMBINE;
     }
@@ -1846,6 +1888,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isREDUCE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__PARTITIONING:
                 return getPARTITIONING();
+            case ComponentPackage.HEADER_TYPE__SUPPORTS_DB_TYPE:
+                return isSUPPORTS_DB_TYPE() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1947,6 +1991,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__PARTITIONING:
                 setPARTITIONING((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SUPPORTS_DB_TYPE:
+                setSUPPORTS_DB_TYPE(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2050,6 +2097,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__PARTITIONING:
                 setPARTITIONING(PARTITIONING_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__SUPPORTS_DB_TYPE:
+                setSUPPORTS_DB_TYPE(SUPPORTS_DB_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2122,6 +2172,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return rEDUCE != REDUCE_EDEFAULT;
             case ComponentPackage.HEADER_TYPE__PARTITIONING:
                 return PARTITIONING_EDEFAULT == null ? pARTITIONING != null : !PARTITIONING_EDEFAULT.equals(pARTITIONING);
+            case ComponentPackage.HEADER_TYPE__SUPPORTS_DB_TYPE:
+                return sUPPORTS_DB_TYPE != SUPPORTS_DB_TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -2194,6 +2246,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(rEDUCE);
         result.append(", pARTITIONING: ");
         result.append(pARTITIONING);
+        result.append(", sUPPORTS_DB_TYPE: ");
+        result.append(sUPPORTS_DB_TYPE);
         result.append(')');
         return result.toString();
     }

@@ -1181,13 +1181,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__PARTITIONING = 29;
 
     /**
+     * The feature id for the '<em><b>SUPPORTS DB TYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SUPPORTS_DB_TYPE = 30;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 30;
+    int HEADER_TYPE_FEATURE_COUNT = 31;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3604,6 +3613,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_PARTITIONING();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSUPPORTS_DB_TYPE <em>SUPPORTS DB TYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SUPPORTS DB TYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isSUPPORTS_DB_TYPE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SUPPORTS_DB_TYPE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5776,6 +5796,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__PARTITIONING = eINSTANCE.getHEADERType_PARTITIONING();
+
+        /**
+         * The meta object literal for the '<em><b>SUPPORTS DB TYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SUPPORTS_DB_TYPE = eINSTANCE.getHEADERType_SUPPORTS_DB_TYPE();
 
         /**
          * The meta object literal for the '<em><b>COMBINE</b></em>' attribute feature.

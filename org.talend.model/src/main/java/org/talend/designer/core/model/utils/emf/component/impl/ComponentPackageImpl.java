@@ -1339,6 +1339,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getHEADERType_SUPPORTS_DB_TYPE() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(30);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getHEADERType_COMBINE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(3);
     }
@@ -2520,6 +2529,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__TYPE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__REDUCE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__PARTITIONING);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__SUPPORTS_DB_TYPE);
 
         importsTypeEClass = createEClass(IMPORTS_TYPE);
         createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORT);
@@ -2807,6 +2817,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_TYPE(), ecorePackage.getEString(), "tYPE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_REDUCE(), ecorePackage.getEBoolean(), "rEDUCE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_PARTITIONING(), ecorePackage.getEString(), "pARTITIONING", "AUTO", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_SUPPORTS_DB_TYPE(), theXMLTypePackage.getBoolean(), "sUPPORTS_DB_TYPE", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importsTypeEClass, IMPORTSType.class, "IMPORTSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIMPORTSType_IMPORT(), this.getIMPORTType(), null, "iMPORT", null, 0, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3831,6 +3842,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "PARTITIONING",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_SUPPORTS_DB_TYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SUPPORTS_DB_TYPE",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
