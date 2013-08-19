@@ -25,6 +25,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.component_cache.ComponentCacheFactory;
 import org.talend.core.model.component_cache.ComponentsCache;
 import org.talend.core.model.component_cache.util.ComponentCacheResourceFactoryImpl;
+import org.talend.core.model.general.ILibrariesService;
 
 /**
  * DOC zwzhao class global comment. Detailled comment
@@ -59,6 +60,13 @@ public class ComponentManager {
             ILibraryManagerService repositoryBundleService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
                     .getService(ILibraryManagerService.class);
             repositoryBundleService.clearCache();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                        ILibrariesService.class);
+                if (libService != null) {
+                    libService.syncLibraries();
+                }
+            }
             setModified(false);
         }
     }
