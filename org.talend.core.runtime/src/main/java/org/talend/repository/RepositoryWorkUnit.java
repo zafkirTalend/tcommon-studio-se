@@ -41,6 +41,8 @@ public abstract class RepositoryWorkUnit<T> {
 
     private boolean filesModifiedOutsideOfRWU;
 
+    private boolean refreshRepository = true; // added for TDI-27085
+
     /**
      * Usefull for some save only actions, where we're sure everything is up to date.
      */
@@ -176,5 +178,13 @@ public abstract class RepositoryWorkUnit<T> {
      */
     public void setFilesModifiedOutsideOfRWU(boolean filesModifiedOutsideOfRWU) {
         this.filesModifiedOutsideOfRWU = filesModifiedOutsideOfRWU;
+    }
+
+    public boolean isRefreshRepository() {
+        return this.refreshRepository;
+    }
+
+    public void setRefreshRepository(boolean refreshRepository) {
+        this.refreshRepository = refreshRepository;
     }
 }
