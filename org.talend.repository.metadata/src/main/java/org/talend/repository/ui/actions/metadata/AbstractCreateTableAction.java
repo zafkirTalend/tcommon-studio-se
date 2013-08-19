@@ -85,6 +85,7 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.repository.ui.utils.SwitchContextGroupNameImpl;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModulesWizard;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceSchemaTableWizard;
@@ -948,7 +949,19 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             final ManagerConnection managerConnection = new ManagerConnection();
 
                             DatabaseConnection connection = (DatabaseConnection) item.getConnection();
-                            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection);
+                            // TUP-596 : Update the context name in connection when the user does a context switch in DI
+                            String oldContextName = connection.getContextName();
+                            IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, null);
+                            String newContextName = connection.getContextName();
+                            if (oldContextName != null && newContextName != null && !oldContextName.equals(newContextName)) {
+                                if (node != null && node.getObject() != null && node.getObject().getProperty() != null) {
+                                    Item itemTemp = node.getObject().getProperty().getItem();
+                                    if (itemTemp != null && itemTemp instanceof ConnectionItem) {
+                                        ConnectionItem connItem = (ConnectionItem) itemTemp;
+                                        SwitchContextGroupNameImpl.getInstance().updateContextGroup(connItem, newContextName);
+                                    }
+                                }
+                            }
                             if (!metadataConnection.getDbType().equals(EDatabaseConnTemplate.GODBC.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(
