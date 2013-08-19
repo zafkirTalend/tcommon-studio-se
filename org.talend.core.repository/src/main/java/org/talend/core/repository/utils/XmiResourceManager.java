@@ -620,15 +620,7 @@ public class XmiResourceManager {
         // this should save quite lots of memory when call this function.
         ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(resourceProperty.eResource(),
                 resourceProperty, lastVersionProperty);
-        // TDI-27052 Project can not be opened after migrate from 5.1.2 to 5.3.1
-        boolean mustChangeLabel = ResourceFilenameHelper.mustChangeLabel(fileNameTest);
-        if (mustChangeLabel) {
-            if (resourceProperty.getLabel().equals(lastVersionProperty.getLabel())
-                    && resourceProperty.getDisplayName().equals(lastVersionProperty.getDisplayName())) {
-                mustChangeLabel = false;
-            }
-        }
-        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !mustChangeLabel) {
+        if (!ResourceFilenameHelper.mustChangeVersion(fileNameTest) && !ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
             return;
         }
 
