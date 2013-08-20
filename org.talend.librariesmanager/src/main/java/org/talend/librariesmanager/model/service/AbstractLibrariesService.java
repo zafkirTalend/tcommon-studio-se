@@ -150,28 +150,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                             path = path + File.separatorChar + projectLabel + File.separatorChar
                                     + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
                             File libsTargetFile = new File(path);
-                            
-                            File source = null;
-                            EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex()
-                                    .getJarsToRelativePath();
-                            String relativePath = jarsToRelative.get(name);
-                            if (relativePath != null) {
-                                if (!relativePath.startsWith("platform:/")) {
-                                	relativePath = "platform:/plugin/" + relativePath;
-                                }
-                                try {
-                                    URI uri = new URI(relativePath);
-                                    URL url = FileLocator.toFileURL(uri.toURL());
-                                    source = new File(url.getFile());
-                                } catch (URISyntaxException e) {
-                                    CommonExceptionHandler.process(e);
-                                }
-                            }
-                            if (source == null) {
-                                source = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
-                                        + name);
-                            }
-                            
+                            File source = new File(PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar
+                                    + name);
                             FilesUtils.copyFile(source, libsTargetFile);
                             synJavaLibs(source);
                         }
