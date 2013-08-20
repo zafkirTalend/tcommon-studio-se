@@ -193,7 +193,7 @@ public final class TokenCollectorFactory {
                 AbstractContent ac = Resty.content(tokenInfors);
                 MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
 
-                TextResource result = r.text("http://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
+                TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
                 try {
                     String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
                     return (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
