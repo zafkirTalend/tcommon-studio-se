@@ -153,15 +153,15 @@ public class XmiResourceManager {
                     URI normalizedURI = theURIConverter.normalize(res.getURI());
                     if (propertyUri.equals(normalizedURI)) {
                         res.unload();
-                        // resourceSet.getResources().remove(res);
+                        resourceSet.getResources().remove(res);
                     }
                     if (itemResourceURI.equals(normalizedURI)) {
                         res.unload();
-                        // resourceSet.getResources().remove(res);
+                        resourceSet.getResources().remove(res);
                     }
                     if (screenshotResourceURI.equals(normalizedURI)) {
                         res.unload();
-                        // resourceSet.getResources().remove(res);
+                        resourceSet.getResources().remove(res);
                     }
                 }
             }
