@@ -656,8 +656,7 @@ public class XmiResourceManager {
                 if (isPropertyFile(file)) {
                     propertyFile = file;
                 }
-            }
-            if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
+            } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                 resourceProperty.setLabel(lastVersionProperty.getLabel());
                 resourceProperty.setDisplayName(lastVersionProperty.getDisplayName());
                 if (!ResourceFilenameHelper.hasSameNameButDifferentCase(fileName)) {

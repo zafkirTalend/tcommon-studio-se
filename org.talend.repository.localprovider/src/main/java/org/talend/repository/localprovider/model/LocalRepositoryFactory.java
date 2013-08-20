@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -2304,7 +2304,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // ~ 15750
         }
 
-        propagateFileName(project, item);
+        propagateFileName(project, item.getProperty());
         if (item.eResource() != null && itemResource != null) {
             List<Resource> referenceFileReources = getReferenceFilesResources(item, item.eResource());
             for (Resource referenceFileResource : referenceFileReources) {
@@ -2469,83 +2469,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 xmiResourceManager.propagateFileName(property, object.getProperty());
             }
         }
-    }
-
-    private void propagateFileName(Project project, Item item) throws PersistenceException {
-        Property property = item.getProperty();
-        String originalVersionText = null;
-        URI uri = property.eResource().getURI();
-        String fileNameString = uri.trimFileExtension().lastSegment();
-        int index = fileNameString.lastIndexOf("_"); //$NON-NLS-1$
-
-        originalVersionText = fileNameString.substring(index + 1);
-        Version originalVersion = new Version(originalVersionText);
-
-        List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), false);
-        int lastVersionCheck = 0;
-        for (IRepositoryViewObject object : allVersionToMove) {
-            if (originalVersion != null && new Version(object.getVersion()).compareTo(originalVersion) > 0) {
-                lastVersionCheck++;
-            }
-        }
-
-        if (lastVersionCheck > 1) {
-            // we should go here ONLY if we want to get one old version, then reuse it to create a new version
-            // in this case, it will call the propagate only one time.
-
-            // ex: old versions 0.1, 0.2, 0.3 / create a version 1.0 from 0.1
-            // we will have one problem because:
-            // version 0.1 will be real version to modify
-            // version 0.3 will be detected by (XmiResourceManager.propagateFileName) as version to modify also.
-            // result: 0.1 > 1.0 = ok / 0.3 > 1.0 = exception (file exist)
-            // for now simply avoid to call several times the function propagateFileName, then everything is ok.
-
-            // the rename must be forbidden at this point.
-            // (or will have another bug since only one file will be renamed only one time)
-
-            // was done originally for the Open Another Version
-
-            // TODO to refactor one day, maybe better have 2 functions, one only for edit properties, one for open
-            // another version
-            // all this code is executed for each call of the save item, this could be avoided
-            for (IRepositoryViewObject object : allVersionToMove) {
-                ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(object.getProperty().eResource(),
-                        object.getProperty(), property);
-                if (fileNameTest.getResourceVersion().equals(originalVersionText)) {
-                    if (ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
-                        throw new PersistenceException("Rename item is forbidden at this point"); //$NON-NLS-1$
-                    }
-                    if (isWrongFile(object.getProperty())) {
-                        continue;
-                    }
-                    xmiResourceManager.propagateFileName(property, object.getProperty());
-                }
-            }
-        } else if (lastVersionCheck == 0) {
-            // for standard renaming like in the edit properties.
-            // it's only allowed to upgrade from last version of the item here.
-
-            // rename is allowed, and rename + change version (from last one) is allowed.
-            for (IRepositoryViewObject object : allVersionToMove) {
-                if (isWrongFile(object.getProperty())) {
-                    continue;
-                }
-                xmiResourceManager.propagateFileName(property, object.getProperty());
-            }
-        }
-    }
-
-    private boolean isWrongFile(Property resourceProperty) {
-        String originalVersionText = null;
-        URI uri = resourceProperty.eResource().getURI();
-        String fileNameString = uri.trimFileExtension().lastSegment();
-        int index = fileNameString.lastIndexOf("_"); //$NON-NLS-1$
-
-        originalVersionText = fileNameString.substring(index + 1);
-        if (!originalVersionText.equals(resourceProperty.getVersion())) {
-            return true;
-        }
-        return false;
     }
 
     @Override
