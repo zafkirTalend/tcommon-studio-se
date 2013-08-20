@@ -1263,6 +1263,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
         FolderItem newFolder = folderHelper.getFolder(completeNewPath);
+        boolean isDel = emfFolder.getState().isDeleted();
+        if (isDel) {
+            newFolder.getState().setDeleted(isDel);
+        }
 
         Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
         for (Item children2 : childrens) {
