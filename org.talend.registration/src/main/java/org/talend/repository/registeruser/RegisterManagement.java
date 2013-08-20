@@ -101,7 +101,7 @@ public class RegisterManagement {
         }
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
-        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        proxy.setEndpoint("https://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
@@ -173,7 +173,7 @@ public class RegisterManagement {
         String version = VersionUtils.getVersion();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
-        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        proxy.setEndpoint("https://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
@@ -251,7 +251,7 @@ public class RegisterManagement {
         String uniqueId = DefaultTokenCollector.calcUniqueId();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
-        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        proxy.setEndpoint("https://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
@@ -332,7 +332,7 @@ public class RegisterManagement {
         String uniqueId = DefaultTokenCollector.calcUniqueId();
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
-        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        proxy.setEndpoint("https://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
@@ -434,7 +434,7 @@ public class RegisterManagement {
         }
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
-        proxy.setEndpoint("http://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
+        proxy.setEndpoint("https://www.talend.com/TalendRegisterWS/registerws.php"); //$NON-NLS-1$
         try {
             return proxy.checkUser(email);
         } catch (RemoteException e) {
@@ -469,7 +469,7 @@ public class RegisterManagement {
             uniqueId = uniqueId.replace("?", "%3F");
             uniqueId = uniqueId.replace("\\", "%5C");
             registURL = new URL(
-                    "http://www.talend.com/designer_post_install?uid=" + uniqueId + "&prd=" + brandingService.getAcronym()); //$NON-NLS-1$ //$NON-NLS-2$
+                    "https://www.talend.com/designer_post_install?uid=" + uniqueId + "&prd=" + brandingService.getAcronym()); //$NON-NLS-1$ //$NON-NLS-2$
             PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(registURL);
         } catch (PartInitException e) {
             // if no default browser (like on linux), try to open directly with firefox.

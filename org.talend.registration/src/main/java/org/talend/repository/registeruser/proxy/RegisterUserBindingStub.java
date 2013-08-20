@@ -707,7 +707,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[0]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/RegisterUser");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/RegisterUser");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "RegisterUser"));
 
@@ -739,7 +739,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithProductName");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithProductName");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl",
                 "RegisterUserWithProductName"));
@@ -774,7 +774,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[2]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformations");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformations");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl",
                 "RegisterUserWithAllUserInformations"));
@@ -810,7 +810,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformationsAndReturnId");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformationsAndReturnId");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl",
                 "RegisterUserWithAllUserInformationsAndReturnId"));
@@ -854,7 +854,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[4]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformationsUniqueIdAndReturnId");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/RegisterUserWithAllUserInformationsUniqueIdAndReturnId");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl",
                 "RegisterUserWithAllUserInformationsUniqueIdAndReturnId"));
@@ -887,7 +887,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[5]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/ListUsers");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/ListUsers");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "ListUsers"));
 
@@ -919,7 +919,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[6]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/CheckUser");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/CheckUser");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "CheckUser"));
 
@@ -953,7 +953,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[7]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/CreateUser");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/CreateUser");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "CreateUser"));
 
@@ -989,7 +989,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[8]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/UpdateUser");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/UpdateUser");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UpdateUser"));
 
@@ -1025,7 +1025,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[9]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/CreateUser50");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/CreateUser50");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "CreateUser50"));
 
@@ -1061,7 +1061,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[10]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/CreateUser53");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/CreateUser53");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "CreateUser53"));
 
@@ -1096,7 +1096,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[11]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://www.talend.com/TalendRegisterWS/registerws.php/UpdateUser53");
+        _call.setSOAPActionURI("https://www.talend.com/TalendRegisterWS/registerws.php/UpdateUser53");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UpdateUser53"));
 
