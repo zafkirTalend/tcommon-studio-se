@@ -135,7 +135,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
-     * 
+     *
      * @param selection
      * @param existingNames
      */
@@ -217,7 +217,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
-     * 
+     *
      * @param selection
      * @param existingNames
      */
@@ -290,11 +290,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC ycbai DatabaseWizard constructor comment.
-     * 
+     *
      * <p>
      * If you want to initialize connection before creation you can use this constructor.
      * </p>
-     * 
+     *
      * @param workbench
      * @param creation
      * @param node
@@ -322,7 +322,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * yzhang Comment method "setToolBar".
-     * 
+     *
      * @param isToolbar
      */
     public void setToolBar(boolean isToolbar) {
@@ -463,7 +463,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC zhao Comment method "handleUpdate".
-     * 
+     *
      * @param metadataConnection
      * @param tdqRepService
      * @return True if handled successfully.
@@ -589,7 +589,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC zhao Comment method "handleCreation".
-     * 
+     *
      * @param dbConn
      * @param metadataConnection
      * @param tdqRepService
@@ -610,9 +610,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         }
         EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
-        if (!type.equals(EDatabaseTypeName.GENERAL_JDBC)) {
-            this.connection.setDriverClass(EDatabase4DriverClassName.getDriverClassByDbType(metadataConnection.getDbType()));
-        }
         String displayName = connectionProperty.getDisplayName();
         this.connection.setName(displayName);
         this.connection.setLabel(displayName);
@@ -707,7 +704,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * We will accept the selection in the workbench to see if we can initialize from it.
-     * 
+     *
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
     @Override
@@ -718,7 +715,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
     @Override
@@ -727,9 +724,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     }
 
     /**
-     * 
+     *
      * DOC Comment method "updateConnectionInformation".
-     * 
+     *
      * @param dbConn
      * @throws SQLException
      * @throws IllegalAccessException
@@ -790,7 +787,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * judgement reload the connection or not
-     * 
+     *
      * @param reloadFlag
      * @return
      */
@@ -800,7 +797,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * open the confirm dialog
-     * 
+     *
      * @param shell
      * @return
      */
@@ -816,7 +813,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * replace the package(catalog and/or schema) name with the new name if needed.
-     * 
+     *
      * @param dbConnection
      */
     private void relpacePackageName(DatabaseConnection dbConnection) {
