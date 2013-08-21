@@ -123,8 +123,8 @@ public interface IProcessor {
      * @deprecated please use the run with multiple option parameters
      */
     @Deprecated
-    public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
-            IProcessMessageManager processMessageManager) throws ProcessorException;
+    public Process run(int statisticsPort, int tracePort, String watchParam, String log4jLevel, String applyLog4jToChildren,
+            IProgressMonitor monitor, IProcessMessageManager processMessageManager) throws ProcessorException;
 
     public Process run(String[] optionsParam, int statisticsPort, int tracePort) throws ProcessorException;
 
