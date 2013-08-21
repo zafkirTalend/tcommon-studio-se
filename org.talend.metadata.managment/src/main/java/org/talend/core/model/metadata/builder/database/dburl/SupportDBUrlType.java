@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * DOC rli class global comment. Detailled comment <br/>
- * 
+ *
  */
 public enum SupportDBUrlType {
     ODBCDEFAULTURL("Generic ODBC", //$NON-NLS-1$
@@ -40,7 +40,7 @@ public enum SupportDBUrlType {
                             "dbname", //$NON-NLS-1$
                             null,
                             // MOD scorreia 2008-08-22: oracle.jdbc.driver package is not supported anymore: replaced
-                            "oracle.jdbc.OracleDriver", //$NON-NLS-1$ 
+                            "oracle.jdbc.OracleDriver", //$NON-NLS-1$
                             null,
                             "Oracle"), //$NON-NLS-1$
     ORACLEWITHSERVICENAMEDEFAULTURL("Oracle with service name", //$NON-NLS-1$
@@ -48,7 +48,7 @@ public enum SupportDBUrlType {
                                     "1521", //$NON-NLS-1$
                                     "dbname", //$NON-NLS-1$
                                     null, // replaced
-                                    "oracle.jdbc.OracleDriver", //$NON-NLS-1$ 
+                                    "oracle.jdbc.OracleDriver", //$NON-NLS-1$
                                     null,
                                     "Oracle"), //$NON-NLS-1$
     MSSQLDEFAULTURL("Microsoft SQL Server", //$NON-NLS-1$
@@ -192,7 +192,21 @@ public enum SupportDBUrlType {
              null,
              "", //$NON-NLS-1$
              null,
-             "Redshift"); //$NON-NLS-1$
+             "Redshift"), //$NON-NLS-1$
+    VERTICA("Vertica", //$NON-NLS-1$
+            null,
+            "5433", //$NON-NLS-1$
+            "dbname", //$NON-NLS-1$
+            null,
+            "com.vertica.Driver", //$NON-NLS-1$
+            "", "Vertica"), //$NON-NLS-1$ //$NON-NLS-2$
+    VERTICA2("Vertica", //$NON-NLS-1$
+             null,
+             "5433", //$NON-NLS-1$
+             "dbname", //$NON-NLS-1$
+             null,
+             "com.vertica.jdbc.Driver", //$NON-NLS-1$
+             "", "Vertica");//$NON-NLS-1$ //$NON-NLS-2$
 
     private final String dbKey;
 
@@ -212,7 +226,7 @@ public enum SupportDBUrlType {
 
     /**
      * SupportDBUrlType constructor.
-     * 
+     *
      * @param dbKey the key identifying the connection string in dburl.properties file
      * @param hostName the hostname
      * @param port the port
@@ -256,7 +270,7 @@ public enum SupportDBUrlType {
 
     /**
      * Getter for dbDriver.
-     * 
+     *
      * @return the dbDriver
      */
     public String getDbDriver() {
@@ -277,7 +291,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC bZhou Comment method "getDBTypeByKey".
-     * 
+     *
      * @param dbKey
      * @return
      */
@@ -300,7 +314,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "isMssql".
-     * 
+     *
      * @param dbKey
      * @return
      */
@@ -311,7 +325,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "hasCatalog". (just have catalog: mysql)
-     * 
+     *
      * @param dbKey
      * @return
      */
@@ -322,7 +336,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "hasSchema". (just have schema: oracle,teredata,ingres,DB2)
-     * 
+     *
      * @param dbKey
      * @return
      */

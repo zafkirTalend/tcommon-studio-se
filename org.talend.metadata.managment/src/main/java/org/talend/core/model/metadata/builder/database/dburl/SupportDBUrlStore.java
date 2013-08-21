@@ -29,7 +29,7 @@ import org.talend.core.model.metadata.builder.database.PluginConstant;
 
 /**
  * This class store the all the support database connection url.
- * 
+ *
  */
 public final class SupportDBUrlStore {
 
@@ -90,6 +90,8 @@ public final class SupportDBUrlStore {
         supportDBUrlMap.put(SupportDBUrlType.MDM.getDBKey(), SupportDBUrlType.MDM);
         supportDBUrlMap.put(SupportDBUrlType.NETEZZADEFAULTURL.getDBKey(), SupportDBUrlType.NETEZZADEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.HIVEDEFAULTURL.getDBKey(), SupportDBUrlType.HIVEDEFAULTURL);
+        supportDBUrlMap.put(SupportDBUrlType.VERTICA.getDBKey(), SupportDBUrlType.VERTICA);
+        supportDBUrlMap.put(SupportDBUrlType.VERTICA2.getDBKey(), SupportDBUrlType.VERTICA2);
 
         // MOD mzhao bug 12313, 2010-04-02 There is not dbType in prv files before 4.0 release, here use driver class
         // name
@@ -123,6 +125,8 @@ public final class SupportDBUrlStore {
         supportDiverNameDBUrlMap.put(SupportDBUrlType.MDM.getDbDriver(), SupportDBUrlType.MDM);
         supportDiverNameDBUrlMap.put(SupportDBUrlType.NETEZZADEFAULTURL.getDbDriver(), SupportDBUrlType.NETEZZADEFAULTURL);
         supportDiverNameDBUrlMap.put(SupportDBUrlType.HIVEDEFAULTURL.getDbDriver(), SupportDBUrlType.HIVEDEFAULTURL);
+        supportDiverNameDBUrlMap.put(SupportDBUrlType.VERTICA.getDbDriver(), SupportDBUrlType.VERTICA);
+        supportDiverNameDBUrlMap.put(SupportDBUrlType.VERTICA2.getDbDriver(), SupportDBUrlType.VERTICA2);
         // ~12313
     }
 
@@ -169,7 +173,7 @@ public final class SupportDBUrlStore {
 
     /**
      * Get dburl which content are replaced by parameter value.
-     * 
+     *
      * @param dbType
      * @param host
      * @param port
@@ -201,7 +205,7 @@ public final class SupportDBUrlStore {
 
     /**
      * Get the dburl via the dbType, and the dburl content come from the default value of SupportDBUrlType.
-     * 
+     *
      * @param dbType
      * @return
      */
@@ -224,7 +228,7 @@ public final class SupportDBUrlStore {
 
     /**
      * MOD mzhao bug 12313, 2010-04-02 There is not dbType in prv files before 4.0 release, here use driver class name.
-     * 
+     *
      * @param dbType
      * @return
      */
@@ -270,7 +274,7 @@ public final class SupportDBUrlStore {
 
     /**
      * DOC bZhou Comment method "findDBTypeByName".
-     * 
+     *
      * @param dbName
      * @return
      */
