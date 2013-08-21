@@ -3,11 +3,3 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Vertica
 Bundle-SymbolicName: org.talend.libraries.jdbc.vertica
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: lib/vertica_3.0_jdk_5.jar,
- lib/vertica_3.5_jdk_5.jar,
- lib/vertica_4.0_jdk_5.jar,
- lib/vertica_4.1.14_jdk_5.jar,
- lib/vertica_4.1.7_jdk_5.jar,
- lib/vertica_5.1.6_jdk_5.jar,
- lib/vertica-jdk5-6.0.0-0.jar,
- .
