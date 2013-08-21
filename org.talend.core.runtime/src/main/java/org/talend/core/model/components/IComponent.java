@@ -57,6 +57,8 @@ public interface IComponent {
 
     public void setImageRegistry(Map<String, ImageDescriptor> imageRegistry);
 
+    public Map<String, ImageDescriptor> getImageRegistry();
+
     public ImageDescriptor getIcon32();
 
     public ImageDescriptor getIcon24();
