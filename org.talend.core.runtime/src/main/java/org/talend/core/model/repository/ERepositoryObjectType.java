@@ -268,6 +268,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType TDQ_RULES_PARSER = new ERepositoryObjectType(
             "repository.rulesParser", "TDQ_Libraries/Rules/Parser", "TDQ_RULES_PARSER", 81, true, "repository.rulesParser.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    public final static ERepositoryObjectType TDQ_RULES_MATCHER = new ERepositoryObjectType(
+            "repository.rulesMatcher", "TDQ_Libraries/Rules/Match", "TDQ_RULES_MATCHER", 82, true, "repository.rulesMatcher.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+
     // ~
     // MOD klliu 2010-11-26 definition type
 
@@ -349,7 +352,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     private String[] userRight;
 
     private String namePattern = null;
-    
+
     /*
      * this used to indicate the multiple same name items are allowed
      * to created or not, In generic, those resources or items should
@@ -434,13 +437,13 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     		this.isResouce = isResouce[0];
     	}
     }
-    
+
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
     	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
     	this.isAllowMultiName = isAllowMultiName;
     }
-    
+
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean isAllowMultiName, String namePattern, boolean... isResouce) {
         this(key, folder, type, isStaticNode, ordinal, products, isAllowMultiName, userRight, isResouce);
@@ -457,7 +460,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     		this.isResouce = isResouce[0];
     	}
     }
-    
+
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
             boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
     	this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
@@ -475,7 +478,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
     	this.alias = alias;
     }
-    
+
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
             String[] products, boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
         this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
@@ -493,7 +496,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     	this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
     	this.label = label;
     }
-    
+
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
             String[] products, boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
         this(key, label, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
@@ -565,7 +568,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.DynaEnum#toString()
      */
     @Override
@@ -628,7 +631,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             return type.getFolder();
         }
-        throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ 
+        throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$
     }
 
     public static String getDeleteFolderName(ERepositoryObjectType type) {
@@ -701,7 +704,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         } else if (type == TDQ_INDICATOR_ELEMENT) {
             return "Indicators"; //$NON-NLS-1$
         } else if (type == TDQ_PATTERN_ELEMENT) {
-            return "Patterns"; //$NON-NLS-1$ 
+            return "Patterns"; //$NON-NLS-1$
         } else if (type == TDQ_JRAXML_ELEMENT) {
             return "JRXML Template";
         } else if (type == TDQ_REPORT_ELEMENT) {
@@ -720,7 +723,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             	return deleteFolderName;
             }
         }
-           
+
         return "job";
     }
 
@@ -763,7 +766,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobDocumentationItem
              * (org.talend.core.model.properties.JobDocumentationItem)
              */
@@ -774,7 +777,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobletDocumentationItem
              * (org.talend.core.model.properties.JobletDocumentationItem)
              */
@@ -785,7 +788,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see
              * org.talend.core.model.properties.util.PropertiesSwitch#casePigudfItem(org.talend.core.model.properties
              * .PigudfItem)
@@ -811,7 +814,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseSQLPatternItem
              * (org.talend.core.model.properties.SQLPatternItem)
              */
@@ -828,7 +831,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobletProcessItem
              * (org.talend.core.model.properties.JobletProcessItem)
              */
@@ -1011,9 +1014,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isDQItemType".
-     * 
+     *
      * This method is to estimat a type is a TDQ item or not.
-     * 
+     *
      * @return
      */
     public boolean isDQItemType() {
@@ -1022,9 +1025,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isDIType".
-     * 
+     *
      * This method is to estimat a type belongs to Data Intergration.
-     * 
+     *
      * @param type
      * @return
      */
@@ -1034,9 +1037,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isSharedType".
-     * 
+     *
      * This method is to estimat a type belongs to both DQ and DI product.
-     * 
+     *
      * @param type
      * @return
      */
@@ -1046,7 +1049,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.DynaEnum#name()
      */
     @Override
@@ -1088,7 +1091,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public String getNamePattern() {
         return namePattern;
     }
-    
+
     public boolean isAllowMultiName() {
 		return isAllowMultiName;
 	}
@@ -1154,11 +1157,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     /**
-     * 
+     *
      * DOC ggu Comment method "valueOf".
-     * 
+     *
      * in order to adapte old codes. and enable to init this class at same times.
-     * 
+     *
      * @param clazz
      * @param name
      * @return
