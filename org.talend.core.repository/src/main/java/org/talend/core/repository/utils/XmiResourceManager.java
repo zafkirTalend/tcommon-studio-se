@@ -776,12 +776,16 @@ public class XmiResourceManager {
     }
 
     public void unloadResources() {
-        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
-        for (Resource resource : resources) {
-            if (resource != null) {
-                resource.unload();
-                getResourceSet().getResources().remove(resource);
+        List<Resource> resources = getResourceSet().getResources();
+        synchronized (resources) {
+            List<Resource> toRemove = new ArrayList<Resource>();
+            for (Resource resource : resources) {
+                if (resource != null) {
+                    resource.unload();
+                    toRemove.add(resource);
+                }
             }
+            resources.removeAll(toRemove);
         }
     }
 
@@ -800,12 +804,16 @@ public class XmiResourceManager {
      * @param uriString the uri sting of resource.
      */
     public void unloadResource(String uriString) {
-        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
-        for (Resource res : resources) {
-            if (res != null && uriString.equals(res.getURI().toString())) {
-                res.unload();
-                getResourceSet().getResources().remove(res);
+        List<Resource> resources = getResourceSet().getResources();
+        synchronized (resources) {
+            List<Resource> toRemove = new ArrayList<Resource>();
+            for (Resource res : resources) {
+                if (res != null && uriString.equals(res.getURI().toString())) {
+                    res.unload();
+                    toRemove.add(res);
+                }
             }
+            resources.removeAll(toRemove);
         }
     }
 
