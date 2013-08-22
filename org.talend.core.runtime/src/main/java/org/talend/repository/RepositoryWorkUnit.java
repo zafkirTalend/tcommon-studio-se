@@ -40,6 +40,11 @@ public abstract class RepositoryWorkUnit<T> {
     private boolean unloadResourcesAfterRun;
 
     private boolean refreshRepository = true; // added for TDI-27085
+    
+    /**
+     * Usefull for some save only actions, where we're sure everything is up to date.
+     */
+    private boolean avoidSvnUpdate;
 
     public Object getStartingPoint() {
         return startingPoint;
@@ -153,6 +158,24 @@ public abstract class RepositoryWorkUnit<T> {
      */
     public void setRefreshRepository(boolean refreshRepository) {
         this.refreshRepository = refreshRepository;
+    }
+    
+    /**
+     * Getter for avoidSvnUpdate.
+     * 
+     * @return the avoidSvnUpdate
+     */
+    public boolean isAvoidSvnUpdate() {
+        return this.avoidSvnUpdate;
+    }
+
+    /**
+     * Sets the avoidSvnUpdate.
+     * 
+     * @param avoidSvnUpdate the avoidSvnUpdate to set
+     */
+    public void setAvoidSvnUpdate(boolean avoidSvnUpdate) {
+        this.avoidSvnUpdate = avoidSvnUpdate;
     }
 
 }
