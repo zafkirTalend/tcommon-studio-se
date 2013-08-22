@@ -149,7 +149,7 @@ public class XmiResourceManager {
         List<Resource> resources = resourceSet.getResources();
         synchronized (resources) {
             for (Resource res : new ArrayList<Resource>(resources)) {
-                if (res != null && res.isLoaded()) {
+                if (res != null) {
                     URI normalizedURI = theURIConverter.normalize(res.getURI());
                     if (propertyUri.equals(normalizedURI)) {
                         res.unload();
