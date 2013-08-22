@@ -206,7 +206,7 @@ public final class ProjectManager {
             }
         }
         // }
-        return this.allReferencedprojects;
+        return new ArrayList<Project>(this.allReferencedprojects);
     }
 
     /**
