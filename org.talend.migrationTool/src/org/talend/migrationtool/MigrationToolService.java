@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.migrationtool;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,12 +28,14 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
@@ -52,6 +57,7 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.utils.MigrationUtil;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.RoutineUtils;
+import org.talend.core.repository.utils.URIHelper;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migration.IMigrationTask;
@@ -61,6 +67,7 @@ import org.talend.migration.IWorkspaceMigrationTask;
 import org.talend.migrationtool.i18n.Messages;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.migrationtool.model.summary.AlertUserOnLogin;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -82,6 +89,10 @@ public class MigrationToolService implements IMigrationToolService {
 
     // FIXME SML Change that
     private List<IProjectMigrationTask> doneThisSession;
+    
+    private static String FULL_LOG_FILE = "migration.log"; //$NON-NLS-1$
+    
+    private boolean migrationOnNewProject = false;
 
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
@@ -226,7 +237,10 @@ public class MigrationToolService implements IMigrationToolService {
 
                     @Override
                     public void run(IProgressMonitor monitor) throws CoreException {
-
+                    	if (!isMigrationOnNewProject() && beforeLogon) {
+                            appendToLogFile(project, " ---=== Start Migration of project " + project.getLabel() + " ===---\n"); //$NON-NLS-1$//$NON-NLS-2$
+                        }
+                    	
                         try {
                             boolean needSave = false;
                             if (!beforeLogon) {
@@ -254,7 +268,7 @@ public class MigrationToolService implements IMigrationToolService {
                                     for (IRepositoryViewObject object : objects) {
                                         Item item = object.getProperty().getItem();
                                         monitorWrap.subTask("Migrate... " + item.getProperty().getLabel());
-
+                                        boolean hadFailed = false;
                                         subProgressMonitor.worked(1);
                                         for (IProjectMigrationTask task : toExecute) {
                                             if (monitorWrap.isCanceled()) {
@@ -263,37 +277,86 @@ public class MigrationToolService implements IMigrationToolService {
                                             }
                                             MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
                                             if (mgTask == null && !task.isDeprecated()) {
-                                                ExecutionResult status = task.execute(project, item);
-                                                switch (status) {
-                                                case SUCCESS_WITH_ALERT:
-                                                    if (task.getStatus() != ExecutionResult.FAILURE) {
+                                            	try {
+                                                    ExecutionResult status = task.execute(project, item);
+                                                    switch (status) {
+                                                    case SUCCESS_WITH_ALERT:
+                                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                            task.setStatus(status);
+                                                        }
+                                                        //$FALL-THROUGH$
+                                                    case SUCCESS_NO_ALERT:
+                                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                            task.setStatus(status);
+                                                        }
+                                                        //$FALL-THROUGH$
+                                                    case NOTHING_TO_DO:
+                                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                                && task.getStatus() != ExecutionResult.FAILURE) {
+                                                            task.setStatus(status);
+                                                        }
+                                                        break;
+                                                    case SKIPPED:
+                                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                                && task.getStatus() != ExecutionResult.FAILURE) {
+                                                            task.setStatus(status);
+                                                        }
+                                                        break;
+                                                    case FAILURE:
                                                         task.setStatus(status);
-                                                    }
-                                                case SUCCESS_NO_ALERT:
-                                                    if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                        //$FALL-THROUGH$
+                                                    default:
                                                         task.setStatus(status);
+                                                        if (!isMigrationOnNewProject()) {
+                                                            if (!hadFailed) {
+                                                                hadFailed = true;
+                                                                Property prop = object.getProperty();
+                                                                Resource resource = prop.eResource();
+                                                                String itemInfo = null;
+                                                                if (resource != null) {
+                                                                    IPath path = URIHelper.convert(resource.getURI());
+                                                                    if (path != null) {
+                                                                        itemInfo = path.toPortableString();
+                                                                    }
+                                                                }
+                                                                if (itemInfo == null) {
+                                                                    itemInfo = prop.toString();
+                                                                }
+                                                                appendToLogFile(project,
+                                                                        " * FAILED Task(s) on item: " + itemInfo + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
+                                                            }
+                                                            appendToLogFile(project, "      " + task.getName() + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
+                                                        }
+
+                                                        break;
                                                     }
-                                                case NOTHING_TO_DO:
-                                                    if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
-                                                            && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
-                                                            && task.getStatus() != ExecutionResult.FAILURE) {
-                                                        task.setStatus(status);
+                                                } catch (Exception e) {
+                                                    doneThisSession.add(task);
+                                                    ExceptionHandler.process(e);
+                                                    if (!isMigrationOnNewProject()) {
+                                                        if (!hadFailed) {
+                                                            hadFailed = true;
+                                                            Property prop = object.getProperty();
+                                                            Resource resource = prop.eResource();
+                                                            String itemInfo = null;
+                                                            if (resource != null) {
+                                                                IPath path = URIHelper.convert(resource.getURI());
+                                                                if (path != null) {
+                                                                    itemInfo = path.toPortableString();
+                                                                }
+                                                            }
+                                                            if (itemInfo == null) {
+                                                                itemInfo = prop.toString();
+                                                            }
+                                                            appendToLogFile(project,
+                                                                    " * FAILED Task(s) on item: " + itemInfo + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
+                                                        }
+                                                        appendToLogFile(project, "      " + task.getName() + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
                                                     }
-                                                    break;
-                                                case SKIPPED:
-                                                    if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
-                                                            && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
-                                                            && task.getStatus() != ExecutionResult.FAILURE) {
-                                                        task.setStatus(status);
-                                                    }
-                                                    break;
-                                                case FAILURE:
-                                                    task.setStatus(status);
-                                                default:
-                                                    task.setStatus(status);
-                                                    break;
+                                                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                                 }
-                                                // monitorWrap.setTaskName("");
                                             }
                                         }
 
@@ -323,14 +386,23 @@ public class MigrationToolService implements IMigrationToolService {
                                                 doneThisSession.add(task);
                                             }
                                         case SUCCESS_NO_ALERT:
-                                            log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                                        	  if (!isMigrationOnNewProject()) {
+                                                  log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                                                  appendToLogFile(project,
+                                                          " * Task [" + task.getName() + "] : Applied successfully\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                              }
                                         case NOTHING_TO_DO:
-                                            done.add(MigrationUtil.convertMigrationTask(task));
-                                            needSave = true;
-                                            break;
+                                        	 if (!isMigrationOnNewProject()
+                                                     && task.getStatus() == ExecutionResult.NOTHING_TO_DO) {
+                                                 appendToLogFile(project, " * Task [" + task.getName() + "] : Nothing to do\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                             }
+                                             break;
                                         case SKIPPED:
-                                            log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
-                                            break;
+                                        	 log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
+                                             if (!isMigrationOnNewProject()) {
+                                                 appendToLogFile(project, " * Task [" + task.getName() + "] : Skipped\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                             }
+                                             break;
                                         case FAILURE:
                                             doneThisSession.add(task);
                                         default:
@@ -341,10 +413,9 @@ public class MigrationToolService implements IMigrationToolService {
                                         ExceptionHandler.process(e);
                                         log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                     }
-                                } else if (mgTask == null && task.isDeprecated()) {
-                                    done.add(MigrationUtil.convertMigrationTask(task));
-                                    needSave = true;
                                 }
+                                done.add(MigrationUtil.convertMigrationTask(task));
+                                needSave = true;
                             }
                             if (needSave) {
                                 saveProjectMigrationTasksDone(project, done);
@@ -354,7 +425,10 @@ public class MigrationToolService implements IMigrationToolService {
                             }
                             RelationshipItemBuilder.getInstance().saveRelations();
                         } catch (PersistenceException e) {
-                            throw new CoreException(new Status(Status.ERROR, "org.talend.migrationTool", e.getMessage(), e));
+                            throw new CoreException(new Status(Status.ERROR, "org.talend.migrationTool", e.getMessage(), e)); //$NON-NLS-1$
+                        }
+                        if (!isMigrationOnNewProject() && !beforeLogon) {
+                            appendToLogFile(project, " ---=== Enf of migration ===---\n"); //$NON-NLS-1$
                         }
                     }
                 };
@@ -372,6 +446,28 @@ public class MigrationToolService implements IMigrationToolService {
         repositoryWorkUnit.setAvoidUnloadResources(true);
         repFactory.executeRepositoryWorkUnit(repositoryWorkUnit);
         // repositoryWorkUnit.throwPersistenceExceptionIfAny();
+    }
+    
+    private void appendToLogFile(Project sourceProject, String logTxt) {
+        IProject project = ProjectManager.getInstance().getResourceProject(sourceProject.getEmfProject());
+        File fullLogFile = new File(project.getFile(FULL_LOG_FILE).getLocation().toPortableString());
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(fullLogFile, true);
+            writer.append(logTxt);
+        } catch (IOException e) {
+            // nothing
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
+        }
+
     }
 
     @Override
@@ -556,6 +652,14 @@ public class MigrationToolService implements IMigrationToolService {
     @Override
     public boolean needExecutemigration() {
         return !AlertUserOnLogin.executed;
+    }
+    
+    public boolean isMigrationOnNewProject() {
+        return migrationOnNewProject;
+    }
+
+    public void setMigrationOnNewProject(boolean migrationOnNewProject) {
+        this.migrationOnNewProject = migrationOnNewProject;
     }
 
     /**
