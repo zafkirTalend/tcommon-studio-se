@@ -173,6 +173,11 @@ public class MigrationToolService implements IMigrationToolService {
 
         final List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         final List<MigrationTask> done = new ArrayList<MigrationTask>(project.getEmfProject().getMigrationTask());
+        
+        if (beforeLogon) {
+            boolean isNewProject = project.getEmfProject().getProductVersion() == null ? true : false;
+            setMigrationOnNewProject(beforeLogon && isNewProject && done.isEmpty());
+        }
 
         final boolean newProject = done.isEmpty();
 
