@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -1774,8 +1775,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (coreUiService != null) {
                     coreUiService.componentsReset();
                 }
-                // monitorWrap.worked(1);
-                TimeMeasure.step("logOnProject", "initializeComponents"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.exec.migration.tasks"), 1); //$NON-NLS-1$
@@ -1789,6 +1788,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     // clean workspace
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.cleanWorkspace"), 1); //$NON-NLS-1$
                     coreService.deleteAllJobs(false);
+                    TimeMeasure.step("logOnProject", "clean Java project"); //$NON-NLS-1$ //$NON-NLS-2$
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    if (workspace instanceof Workspace) {
+                        ((Workspace) workspace).getFileSystemManager().getHistoryStore().clean(currentMonitor);
+                    }
+                    TimeMeasure.step("logOnProject", "clean workspace history"); //$NON-NLS-1$ //$NON-NLS-2$
 
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
@@ -1816,6 +1821,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (coreUiService != null) {
                     coreService.syncLog4jSettings();
                 }
+                TimeMeasure.step("logOnProject", "sync log4j"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 if (CommonUIPlugin.isFullyHeadless()) {
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
