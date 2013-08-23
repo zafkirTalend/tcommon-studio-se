@@ -12,11 +12,11 @@
 // ============================================================================
 package org.talend.utils.cache;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * DOC amaumont class global comment. Detailled comment
@@ -32,7 +32,7 @@ public class SimpleCache<K, V> {
      * 
      * @param <K> key
      */
-    class HashKeyValue<K, V> {
+    class HashKeyValue<K, V> implements Comparable<HashKeyValue<K, V>> {
 
         private K key;
 
@@ -70,19 +70,36 @@ public class SimpleCache<K, V> {
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             HashKeyValue other = (HashKeyValue) obj;
             if (key == null) {
-                if (other.key != null)
+                if (other.key != null) {
                     return false;
-            } else if (!key.equals(other.key))
+                }
+            } else if (!key.equals(other.key)) {
                 return false;
+            }
             return true;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Comparable#compareTo(java.lang.Object)
+         */
+        public int compareTo(HashKeyValue<K, V> o) {
+            if (this.equals(o)) {
+                return 0;
+            }
+            return (getAddTime() < o.getAddTime()) ? -1 : 1;
         }
 
         /**
@@ -114,7 +131,7 @@ public class SimpleCache<K, V> {
 
     }
 
-    private List<HashKeyValue<K, V>> keysOrderedByPutTime = new ArrayList<HashKeyValue<K, V>>();
+    private Set<HashKeyValue<K, V>> keysOrderedByPutTime = new TreeSet<HashKeyValue<K, V>>();
 
     private Map<HashKeyValue<K, V>, HashKeyValue<K, V>> cache = new HashMap<HashKeyValue<K, V>, HashKeyValue<K, V>>();
 
@@ -195,8 +212,12 @@ public class SimpleCache<K, V> {
         }
         sizeItems = keysOrderedByPutTime.size();
         if (maxItems != null && maxItems >= 0 && maxItems != Integer.MAX_VALUE && sizeItems > maxItems && sizeItems > 0) {
-            HashKeyValue<K, V> removedFromList = keysOrderedByPutTime.remove(0);
-            cache.remove(removedFromList);
+            Iterator<HashKeyValue<K, V>> setIterator = keysOrderedByPutTime.iterator();
+            if (setIterator.hasNext()) {
+                HashKeyValue<K, V> toRemoveFromMap = setIterator.next();
+                setIterator.remove();
+                cache.remove(toRemoveFromMap);
+            }
         }
         if (previousKeyValue != null) {
             return previousKeyValue.getValue();

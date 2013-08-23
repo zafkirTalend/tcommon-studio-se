@@ -72,7 +72,7 @@ public class SimpleCacheTest {
         assertThat(simpleCache.getAddTime(3), is(nullValue()));
         assertThat(simpleCache.getAddTime(4), is(notNullValue()));
         assertThat(simpleCache.getAddTime(5), is(notNullValue()));
-        assertTrue((long) simpleCache.getAddTime(4) < (long) simpleCache.getAddTime(5));
+        assertTrue(simpleCache.getAddTime(4) < simpleCache.getAddTime(5));
     }
 
     @Test
@@ -98,7 +98,37 @@ public class SimpleCacheTest {
         assertThat(simpleCache.getAddTime(3), is(nullValue()));
         assertThat(simpleCache.getAddTime(4), is(notNullValue()));
         assertThat(simpleCache.getAddTime(5), is(notNullValue()));
-        assertTrue((long) simpleCache.getAddTime(4) < (long) simpleCache.getAddTime(5));
+        assertTrue(simpleCache.getAddTime(4) < simpleCache.getAddTime(5));
+
+    }
+
+    @Test
+    public void testCacheWithCountLimitAndPutSameKeyTwice() throws Exception {
+        logTestName();
+        int maxTime = -1;
+        int maxItems = 2;
+        int expectedSize = maxItems;
+
+        long sleepTimeBetweenEachAdd = 5; // 5 ms
+
+        SimpleCacheTestClass simpleCache = new SimpleCacheTestClass(maxTime, maxItems);
+        int itemsCount = 5;
+        int value = 0;
+        value = 1;
+        simpleCache.put(value, String.valueOf(value));
+        ThreadUtils.waitTimeBool(5);
+        value = 2;
+        simpleCache.put(value, String.valueOf(value));
+        ThreadUtils.waitTimeBool(5);
+        value = 1;
+        simpleCache.put(value, String.valueOf(value));
+        ThreadUtils.waitTimeBool(5);
+
+        assertThat(simpleCache.size(), is(expectedSize));
+        assertThat(simpleCache.internalTimeListSize(), is(expectedSize));
+        assertThat(simpleCache.get(1), is("1"));
+        assertThat(simpleCache.get(2), is("2"));
+        assertTrue(simpleCache.getAddTime(1) > simpleCache.getAddTime(2));
 
     }
 
@@ -189,8 +219,9 @@ public class SimpleCacheTest {
         int itemsCount = 5;
         for (int i = 1; i <= itemsCount; i++) {
             simpleCache.put(i, String.valueOf(i));
-            if (sleepTimeBetweenEachAdd != null)
+            if (sleepTimeBetweenEachAdd != null) {
                 ThreadUtils.waitTimeBool(sleepTimeBetweenEachAdd);
+            }
         }
         return simpleCache;
     }
