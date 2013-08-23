@@ -10,7 +10,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/cglib-2.1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/asm.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hibernate-3.2-patched1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-3.2-patched1.7.jar"/>
 	<classpathentry kind="output" path="class"/>
 </classpath>
