@@ -192,7 +192,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IRepositoryBundleService#deploy(java.util.Collection,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -208,7 +208,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.lang.String, java.lang.String)
      */
     @Override
@@ -349,7 +349,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -360,7 +360,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IRepositoryBundleService#list(org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
@@ -481,7 +481,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Jsdoc)
-     * 
+     *
      * @see org.talend.core.ILibraryManagerService#delete(java.lang.String)
      */
     @Override
@@ -508,7 +508,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.ILibraryManagerService#deploy(java.util.Set, org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
@@ -563,6 +563,42 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (modified) {
             LibrariesIndexManager.getInstance().saveResource();
         }
+    }
+
+    @Override
+    public String getJDBCJarPath(String jarName) {
+        String libPath = null;
+        List<File> jarFiles = null;
+        try {
+            jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), jarName);
+            if (jarFiles.size() > 0) {
+                File file = jarFiles.get(0);
+                libPath = file.getAbsolutePath();
+            } else {
+                EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
+                String relativePath = jarsToRelative.get(jarName);
+                if (relativePath != null && relativePath.startsWith("platform:/")) { //$NON-NLS-1$
+                    URI uri = new URI(relativePath);
+                    URL url;
+                    try {
+                        url = FileLocator.toFileURL(uri.toURL());
+                    } catch (IOException e) {
+                        CommonExceptionHandler.log("\"" + jarName + "\"" + " doesn't exsit: " + relativePath); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        return libPath;
+                    }
+                    File file = new File(url.getFile());
+                    if (file.exists()) {
+                        libPath = file.getAbsolutePath();
+                    }
+                }
+            }
+
+        } catch (MalformedURLException e) {
+            CommonExceptionHandler.process(e);
+        } catch (URISyntaxException e) {
+            CommonExceptionHandler.process(e);
+        }
+        return libPath;
     }
 
 }

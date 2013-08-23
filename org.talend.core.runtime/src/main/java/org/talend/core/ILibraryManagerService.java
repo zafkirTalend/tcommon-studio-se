@@ -28,9 +28,9 @@ public interface ILibraryManagerService extends IService {
 
     /**
      * DOC ycbai Comment method "isInitialized".
-     * 
+     *
      * Check whether the OBR has been initialized.
-     * 
+     *
      * @param monitorWrap
      * @return
      */
@@ -44,9 +44,9 @@ public interface ILibraryManagerService extends IService {
 
     /**
      * DOC ycbai Comment method "deploy".
-     * 
+     *
      * Deploy jar file to OBR.
-     * 
+     *
      * @param jarFileUri
      * @param monitorWrap
      */
@@ -56,9 +56,9 @@ public interface ILibraryManagerService extends IService {
 
     /**
      * DOC ycbai Comment method "retrieve".
-     * 
+     *
      * Retrieve jar file from OBR.
-     * 
+     *
      * @param jarNeeded
      * @param pathToStore
      * @param monitorWrap
@@ -75,7 +75,7 @@ public interface ILibraryManagerService extends IService {
 
     /**
      * List all the jars (or other files) available.
-     * 
+     *
      * @param monitorWrap
      * @return
      */
@@ -83,8 +83,17 @@ public interface ILibraryManagerService extends IService {
 
     /**
      * 
+     * get jdbc jar path by jar name.
+     *
+     * @param jarName
+     * @return
+     */
+    public String getJDBCJarPath(String jarName);
+
+    /**
+     *
      * List all .dll files
-     * 
+     *
      * @return
      */
     public Set<String> listAllDllFiles();
