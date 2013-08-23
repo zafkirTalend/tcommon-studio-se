@@ -62,17 +62,35 @@ public class ContextSetsSelectionDialog extends SelectionDialog {
 
     public ContextSetsSelectionDialog(Shell parentShell, Object source, boolean canCancel) {
         super(parentShell == null ? calcShell() : parentShell);
-        this.source = source;
-        this.canCancel = canCancel;
+        initDialog(source, canCancel, Messages.getString("ContextSetsSelectionDialog.Messages")); //$NON-NLS-1$
+        initSets();
+    }
+
+    /**
+     * DOC xqliu Comment method "initDialog".
+     * 
+     * @param object
+     * @param cancelFlag
+     * @param message
+     */
+    private void initDialog(Object object, boolean cancelFlag, String message) {
+        this.source = object;
+        this.canCancel = cancelFlag;
         setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setHelpAvailable(false);
         setTitle(TITLE);
-        setMessage(Messages.getString("ContextSetsSelectionDialog.Messages")); //$NON-NLS-1$
-        initSets();
+        setMessage(message);
     }
 
     public ContextSetsSelectionDialog(ContextItem contextItem) {
         this(calcShell(), contextItem, false);
+    }
+
+    public ContextSetsSelectionDialog(List<ContextType> contexts, String defaultContextName, boolean canCancel) {
+        super(calcShell());
+        initDialog(contexts, canCancel, Messages.getString("ContextSetsSelectionDialog.ReportMessages")); //$NON-NLS-1$
+        this.defalutContext = defaultContextName;
+        initSets();
     }
 
     /**
@@ -98,6 +116,7 @@ public class ContextSetsSelectionDialog extends SelectionDialog {
                 final Display tmp = dis;
                 dis.syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         Shell activeShell = tmp.getActiveShell();
 
@@ -120,7 +139,7 @@ public class ContextSetsSelectionDialog extends SelectionDialog {
         return null;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     private void initSets() {
         if (source != null) {
             if (source instanceof ContextItem) {
@@ -141,6 +160,17 @@ public class ContextSetsSelectionDialog extends SelectionDialog {
                         name = name + DEFAULT_FLAG;
                     }
                     contextSetsList.add(name);
+                }
+            } else if (source instanceof List<?>) {
+                for (Object obj : (List<?>) source) {
+                    if (obj instanceof ContextType) {
+                        ContextType context = (ContextType) obj;
+                        String name = context.getName();
+                        if (name.equals(defalutContext)) {
+                            name = name + DEFAULT_FLAG;
+                        }
+                        contextSetsList.add(name);
+                    }
                 }
             }
         }

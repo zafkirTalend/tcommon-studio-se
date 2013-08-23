@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core;
 
+
 /**
  * cli class global comment. Detailled comment
  */
@@ -22,7 +23,8 @@ public interface ITDQReportService extends ITDQService {
      * 
      * @param names Report name, more names delimited by comma.
      * @param pathes Report relative current project path, more pathes delimited by comma.
+     * @param contextName Report context name, more contextName delimited by comma.
      * @throws Exception
      */
-    public void executeReport(String names, String pathes) throws Exception;
+    public void executeReport(String names, String pathes, String contextName) throws Exception;
 }
