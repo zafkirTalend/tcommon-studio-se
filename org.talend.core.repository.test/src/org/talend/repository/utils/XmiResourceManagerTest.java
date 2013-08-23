@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.utils;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -53,8 +55,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
-
-import static org.junit.Assert.*;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -966,12 +966,19 @@ public class XmiResourceManagerTest {
         processItem.getProperty().setVersion("1.0");
         processItem.getProperty().setLabel("myJob");
         ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("1.0");
+        // one call to create the latest version (1.0)
         xrm.propagateFileName(processItem.getProperty(), processItem.getProperty());
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
                 + "/myJob3_0.1.properties"));
+        // one call only here for rename the 0.1 version
         xrm.propagateFileName(processItem.getProperty(), xrm.loadProperty(file));
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
                 + "/myJob3_0.2.properties"));
+        // one call only here for rename the 0.2 version
+        xrm.propagateFileName(processItem.getProperty(), xrm.loadProperty(file));
+        file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.PROCESS)
+                + "/myJob3_0.3.properties"));
+        // one call only here for rename the 0.3 version
         xrm.propagateFileName(processItem.getProperty(), xrm.loadProperty(file));
         checkFileExists(project, ERepositoryObjectType.PROCESS, "myJob", "0.1");
         checkFileExists(project, ERepositoryObjectType.PROCESS, "myJob", "0.2");
@@ -1097,6 +1104,9 @@ public class XmiResourceManagerTest {
         xrm.propagateFileName(routineItem.getProperty(), xrm.loadProperty(file));
         file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 + "/myRoutine3_0.2.properties"));
+        xrm.propagateFileName(routineItem.getProperty(), xrm.loadProperty(file));
+        file = project.getFile(new Path(ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                + "/myRoutine3_0.3.properties"));
         xrm.propagateFileName(routineItem.getProperty(), xrm.loadProperty(file));
         checkFileExists(project, ERepositoryObjectType.ROUTINES, "myRoutine", "0.1");
         checkFileExists(project, ERepositoryObjectType.ROUTINES, "myRoutine", "0.2");
