@@ -501,7 +501,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         if (node == null) {
             return false;
         }
-        if (node.getType() == ENodeType.SYSTEM_FOLDER
+        if ((node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.STABLE_SYSTEM_FOLDER)
                 && node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_CONNECTIONS) {
             return true;
         }
