@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.io.IOException;
 import java.util.Properties;
 
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.intro.IIntroSite;
 import org.eclipse.ui.intro.config.IIntroAction;
@@ -37,6 +39,13 @@ public class AlwaysWelcomeAction implements IIntroAction {
         String showIntro = (String) params.get("showIntro");
         IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
         store.setValue(ITalendCorePrefConstants.ALWAYS_WELCOME, !store.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME));
+        if (store instanceof IPersistentPreferenceStore) {
+            try {
+                ((IPersistentPreferenceStore) store).save();
+            } catch (IOException e) {
+
+            }
+        }
     }
 
 }

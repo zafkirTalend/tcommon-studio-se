@@ -16,12 +16,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.CoolBarManager;
@@ -51,6 +60,8 @@ import org.eclipse.ui.internal.util.PrefUtil;
 import org.talend.core.PluginChecker;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * DOC yhch class global comment. Detailled comment
@@ -448,12 +459,48 @@ public final class PerspectiveReviewUtil {
                         }
                     }
 
+                    if (!reset) {
+                        IMemento window = memento.getChild(IWorkbenchConstants.TAG_WINDOW);
+                        if (window != null) {
+                            IMemento child = window.getChild(IWorkbenchConstants.TAG_INTRO);
+                            if (child != null) {
+                                // child.putBoolean(IWorkbenchConstants.TAG_INTRO, true);
+                                Class<? extends IMemento> mementoClass = window.getClass();
+                                Field factoryField = mementoClass.getDeclaredField("factory");
+                                Field elementFied = mementoClass.getDeclaredField("element");
+                                if (factoryField != null && elementFied != null) {
+                                    elementFied.setAccessible(true);
+                                    factoryField.setAccessible(true);
+                                    Element element = (Element) elementFied.get(child);
+                                    Element winElement = (Element) elementFied.get(window);
+                                    Document document = (Document) factoryField.get(window);
+                                    winElement.removeChild(element.getNextSibling());
+                                    winElement.removeChild(element);
+
+                                    document.normalize();
+                                    FileOutputStream stream = new FileOutputStream(stateFile);
+                                    OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8"); //$NON-NLS-1$
+                                    Transformer tf = TransformerFactory.newInstance().newTransformer();
+
+                                    tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                                    tf.setOutputProperty(OutputKeys.INDENT, "yes");
+                                    tf.transform(new DOMSource(document), new StreamResult(writer));
+
+                                    writer.close();
+
+                                }
+                            }
+                        }
+                    }
+
                 }
             } catch (FileNotFoundException e) {
                 //
             } catch (UnsupportedEncodingException e) {
                 //
             } catch (WorkbenchException e) {
+                //
+            } catch (Exception e) {
                 //
             } finally {
                 if (input != null) {
@@ -511,5 +558,4 @@ public final class PerspectiveReviewUtil {
             }
         }
     }
-
 }
