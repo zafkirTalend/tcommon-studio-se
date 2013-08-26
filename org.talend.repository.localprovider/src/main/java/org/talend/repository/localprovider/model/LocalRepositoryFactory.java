@@ -694,7 +694,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (currentFolderItem != null) { // for bin directory
                     // in case any property has been deleted manually, should delete from the emf model
                     List<Item> itemsDeleted = new ArrayList<Item>();
-                    for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                    for (Item curItem : new ArrayList<Item>(currentFolderItem.getChildren())) {
                         if (!(curItem instanceof FolderItem)) {
                             String name;
                             if (curItem.eResource() != null) {
@@ -2434,62 +2434,72 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    private void propagateFileName(Project project, Property property) throws PersistenceException {
-        String originalVersionText = null;
-        URI uri = property.eResource().getURI();
-        String fileNameString = uri.trimFileExtension().lastSegment();
-        int index = fileNameString.lastIndexOf("_"); //$NON-NLS-1$
-
-        originalVersionText = fileNameString.substring(index + 1);
-        Version originalVersion = new Version(originalVersionText);
-
-        List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), false);
-        int lastVersionCheck = 0;
-        for (IRepositoryViewObject object : allVersionToMove) {
-            if (originalVersion != null && new Version(object.getVersion()).compareTo(originalVersion) > 0) {
-                lastVersionCheck++;
-            }
+    private void propagateFileName(Project project, final Property property) throws PersistenceException {
+        final ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(property.eResource(), property,
+                property);
+        final boolean mustChangeVersion = ResourceFilenameHelper.mustChangeVersion(fileNameTest);
+        boolean mustChangeLabel = ResourceFilenameHelper.mustChangeLabel(fileNameTest);
+        // if no change of name or version needed, ignore the propagate
+        if (!mustChangeVersion && !mustChangeLabel) {
+            return;
         }
 
-        if (lastVersionCheck > 1) {
-            // we should go here ONLY if we want to get one old version, then reuse it to create a new version
-            // in this case, it will call the propagate only one time.
+        List<IRepositoryViewObject> versions = getAllVersion(project, property.getId(), true);
+        VersionList latest = new VersionList(false);
+        for (IRepositoryViewObject object : versions) {
+            latest.add(object);
+        }
+        if (!latest.get(0).getProperty().getVersion().equals(property.getVersion())) {
+            // if the current file is not the latest version, just propagate to have the same as the latest.
+            // this should appear only for migrations, since we don't allow to modify old versions usually
 
-            // ex: old versions 0.1, 0.2, 0.3 / create a version 1.0 from 0.1
-            // we will have one problem because:
-            // version 0.1 will be real version to modify
-            // version 0.3 will be detected by (XmiResourceManager.propagateFileName) as version to modify also.
-            // result: 0.1 > 1.0 = ok / 0.3 > 1.0 = exception (file exist)
-            // for now simply avoid to call several times the function propagateFileName, then everything is ok.
+            // if the case is different here, don't change anything
+            // we'll only do the rename for different case when the latest version is modified
+            if (!ResourceFilenameHelper.hasSameNameButDifferentCase(fileNameTest)) {
+                xmiResourceManager.propagateFileName(latest.get(0).getProperty(), property);
+            }
+            return;
+        }
+        final String versionToSkip = property.getVersion();
+        if (mustChangeVersion) {
+            // this call, will create the new version, no matter label changed or not
+            xmiResourceManager.propagateFileName(property, property);
+        }
+        if (mustChangeLabel) {
+            final List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId(), true);
+            if (ResourceFilenameHelper.hasSameNameButDifferentCase(fileNameTest)) {
+                RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("") {
 
-            // the rename must be forbidden at this point.
-            // (or will have another bug since only one file will be renamed only one time)
-
-            // was done originally for the Open Another Version
-
-            // TODO to refactor one day, maybe better have 2 functions, one only for edit properties, one for open
-            // another version
-            // all this code is executed for each call of the save item, this could be avoided
-            for (IRepositoryViewObject object : allVersionToMove) {
-                ResourceFilenameHelper.FileName fileNameTest = ResourceFilenameHelper.create(object.getProperty().eResource(),
-                        object.getProperty(), property);
-                if (fileNameTest.getResourceVersion().equals(originalVersionText)) {
-                    if (ResourceFilenameHelper.mustChangeLabel(fileNameTest)) {
-                        throw new PersistenceException("Rename item is forbidden at this point"); //$NON-NLS-1$
+                    @Override
+                    public void run() throws PersistenceException {
+                        String label = property.getLabel();
+                        String tmpLabel = label.concat(EcoreUtil.generateUUID());
+                        property.setLabel(tmpLabel);
+                        // propagate one time with the other name
+                        for (IRepositoryViewObject object : allVersionToMove) {
+                            if (!mustChangeVersion || !object.getProperty().getVersion().equals(versionToSkip)) {
+                                xmiResourceManager.propagateFileName(property, object.getProperty());
+                            }
+                        }
+                        // set back the old name to do the normal propagate.
+                        property.setLabel(label);
                     }
+                };
+                repositoryWorkUnit.setForceTransaction(true);
+                repositoryWorkUnit.setRefreshRepository(false);
+                repositoryWorkUnit.setAvoidSvnUpdate(true);
+                repositoryWorkUnit.setAvoidUnloadResources(true);
+                executeRepositoryWorkUnit(repositoryWorkUnit);
+                repositoryWorkUnit.throwPersistenceExceptionIfAny();
+            }
 
+            for (IRepositoryViewObject object : allVersionToMove) {
+                if (!mustChangeVersion || !object.getProperty().getVersion().equals(versionToSkip)) {
                     xmiResourceManager.propagateFileName(property, object.getProperty());
                 }
             }
-        } else {
-            // for standard renaming like in the edit properties.
-            // it's only allowed to upgrade from last version of the item here.
-
-            // rename is allowed, and rename + change version (from last one) is allowed.
-            for (IRepositoryViewObject object : allVersionToMove) {
-                xmiResourceManager.propagateFileName(property, object.getProperty());
-            }
         }
+
     }
 
     @Override
