@@ -17,9 +17,7 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.common.ui.runtime,
  org.talend.commons.ui,
  org.talend.core.runtime,
- org.talend.core.repository,
- org.talend.metadata.managment,
- org.talend.libraries.ui
+ org.talend.core.repository
 Import-Package: org.eclipse.jdt.internal.ui.workingsets
 Export-Package: org.talend.core.model.components,
  org.talend.core.model.metadata.editor,

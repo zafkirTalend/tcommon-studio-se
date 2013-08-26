@@ -32,6 +32,8 @@ public class RepositoryConstants {
 
     public static final String IMG_DIRECTORY_OF_JOBLET_OUTLINE = "images/joblet_outlines"; //$NON-NLS-1$
 
+    public static final String DOCUMENTATION_GENERATED_PATH = "generated"; //$NON-NLS-1$
+
     public static final String JOB_DOCUMENTATION_PATH = "documentations/generated/jobs"; //$NON-NLS-1$
 
     public static final String JOBLET_DOCUMENTATION_PATH = "documentations/generated/joblets"; //$NON-NLS-1$
@@ -97,7 +99,8 @@ public class RepositoryConstants {
         // Added the m/r for TDI-25928.
                 || type == ERepositoryObjectType.PROCESS_MR) {
             return CODE_ITEM_PATTERN;
-        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF ||  "BEANS".equals(type.getType())) {
+        } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF
+                || "BEANS".equals(type.getType())) {
             // for bug 10356
             return ROUTINES_ITEM_PATTERN;
         } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT || type == ERepositoryObjectType.TDQ_DATA_PROFILING

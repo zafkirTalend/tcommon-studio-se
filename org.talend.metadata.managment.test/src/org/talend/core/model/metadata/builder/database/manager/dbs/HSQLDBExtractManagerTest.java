@@ -28,7 +28,7 @@ import org.mockito.Mockito;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.MetadataConnection;
+import org.talend.core.model.metadata.builder.MetadataConnection;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 
 /**

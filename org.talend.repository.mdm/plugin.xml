@@ -79,6 +79,18 @@
              type="METADATA_MDMCONNECTION">
        </extraProducts>
    </extension>
+   <extension
+         point="org.talend.repository.items.importexport.handler">
+      <importProvider
+            class="org.talend.repository.mdm.ui.wizard.handler.MdmImportHandler"
+            id="org.talend.repository.mdm.importProvider"
+            name="MDM Importer"
+            priority="NORMAL">
+         <repType
+               type="METADATA_MDMCONNECTION">
+         </repType>
+      </importProvider>
+   </extension>
    <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">

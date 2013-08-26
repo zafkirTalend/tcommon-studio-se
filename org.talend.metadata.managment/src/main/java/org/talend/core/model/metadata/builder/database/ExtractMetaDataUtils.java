@@ -57,7 +57,6 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
-import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -67,7 +66,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -547,21 +545,7 @@ public class ExtractMetaDataUtils {
     }
 
     public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
-        List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
-        if (t4d.size() == 1) {
-            return t4d.get(0).getDbTypeName();
-        } else if (t4d.size() > 1) {
-            // for some dbs use the same driverClassName.
-            if (driverJar == null || "".equals(driverJar) || !driverJar.contains(FileConstants.JAR_FILE_SUFFIX)) {
-                return t4d.get(0).getDbTypeName();
-            } else if (driverJar.contains("postgresql-8.3-603.jdbc3.jar") || driverJar.contains("postgresql-8.3-603.jdbc4.jar")
-                    || driverJar.contains("postgresql-8.3-603.jdbc2.jar")) {//
-                return EDatabase4DriverClassName.PSQL.getDbTypeName();
-            } else {
-                return t4d.get(0).getDbTypeName(); // first default
-            }
-        }
-        return null;
+        return ConvertionHelper.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
     }
 
     /**
@@ -1158,14 +1142,7 @@ public class ExtractMetaDataUtils {
      * @return
      */
     public static String getMeataConnectionSchema(IMetadataConnection metadataConnection) {
-        String schema = metadataConnection.getSchema();
-        String dbType = metadataConnection.getDbType();
-        String url = metadataConnection.getUrl();
-        String generalJDBCDisplayName = EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName();
-        if (generalJDBCDisplayName.equals(dbType) && url.contains("oracle")) {//$NON-NLS-1$
-            schema = metadataConnection.getUsername().toUpperCase();
-        }
-        return schema;
+        return ConvertionHelper.getMeataConnectionSchema(metadataConnection);
     }
 
     /**

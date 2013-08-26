@@ -21,9 +21,10 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
+import org.talend.commons.utils.resource.FileExtensions;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IConvertionConstants;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -38,8 +39,8 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.model.IRepositoryService;
 import orgomg.cwm.objectmodel.core.TaggedValue;
@@ -48,8 +49,6 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
  * 
  */
 public final class ConvertionHelper {
-
-    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
 
     /**
      * This method doesn't perform a deep copy. DOC tguiu Comment method "convert".
@@ -187,13 +186,13 @@ public final class ConvertionHelper {
         } else {
             connection = originalValueConnection;
         }
-        IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
+        IMetadataConnection result = new MetadataConnection();
         result.setComment(connection.getComment());
         result.setDatabase(connection.getSID());
         result.setDataSourceName(connection.getDatasourceName());
 
         if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594 //$NON-NLS-1$
-            String trueDbType = ExtractMetaDataUtils.getDbTypeByClassName(connection.getDriverClass());
+            String trueDbType = getDbTypeByClassNameAndDriverJar(connection.getDriverClass(), null);
             result.setDbType(trueDbType);
         } else {
             result.setDbType(connection.getDatabaseType());
@@ -230,7 +229,7 @@ public final class ConvertionHelper {
         result.setContextId(connection.getContextId());
         result.setContextName(connection.getContextName());
         // handle oracle database connnection of general_jdbc.
-        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+        result.setSchema(getMeataConnectionSchema(result));
         convertOtherParameters(result, connection);
         // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
         fillUIParams(result, connection);
@@ -277,7 +276,7 @@ public final class ConvertionHelper {
 
         connection = sourceConnection;
 
-        IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
+        IMetadataConnection result = new MetadataConnection();
         result.setComment(connection.getComment());
 
         result.setId(connection.getId());
@@ -294,7 +293,7 @@ public final class ConvertionHelper {
 
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         // handle oracle database connnection of general_jdbc.
-        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+        result.setSchema(getMeataConnectionSchema(result));
 
         return result;
 
@@ -320,7 +319,7 @@ public final class ConvertionHelper {
 
         connection = sourceConnection;
 
-        IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
+        IMetadataConnection result = new MetadataConnection();
         result.setComment(connection.getComment());
 
         result.setId(connection.getId());
@@ -330,7 +329,7 @@ public final class ConvertionHelper {
 
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         // handle oracle database connnection of general_jdbc.
-        result.setSchema(ExtractMetaDataUtils.getMeataConnectionSchema(result));
+        result.setSchema(getMeataConnectionSchema(result));
 
         return result;
 
@@ -355,10 +354,8 @@ public final class ConvertionHelper {
             newColumn.setDefault(column.getDefaultValue());
             newColumn.setKey(column.isKey());
             String label2 = column.getLabel();
-            if (coreService != null) {
-                if (coreService.isKeyword(label2)) {
-                    label2 = "_" + label2; //$NON-NLS-1$
-                }
+            if (KeywordsValidator.isKeyword(label2)) {
+                label2 = "_" + label2; //$NON-NLS-1$
             }
             newColumn.setLabel(label2);
             newColumn.setPattern(column.getPattern());
@@ -395,10 +392,8 @@ public final class ConvertionHelper {
                 String label = label2;
                 if (label != null && label.length() > 0) {
                     String substring = label.substring(1);
-                    if (coreService != null) {
-                        if (label.startsWith("_") && coreService.isKeyword(substring)) { //$NON-NLS-1$
-                            label = substring;
-                        }
+                    if (label.startsWith("_") && KeywordsValidator.isKeyword(substring)) { //$NON-NLS-1$
+                        label = substring;
                     }
                 }
                 newColumn.setOriginalDbColumnName(label);
@@ -534,4 +529,39 @@ public final class ConvertionHelper {
         return result;
     }
 
+    /**
+     * DOC ycbai Comment method "getMeataConnectionSchema".
+     * 
+     * @param metadataConnection
+     * @return
+     */
+    public static String getMeataConnectionSchema(IMetadataConnection metadataConnection) {
+        String schema = metadataConnection.getSchema();
+        String dbType = metadataConnection.getDbType();
+        String url = metadataConnection.getUrl();
+        String generalJDBCDisplayName = EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName();
+        if (generalJDBCDisplayName.equals(dbType) && url.contains("oracle")) {//$NON-NLS-1$
+            schema = metadataConnection.getUsername().toUpperCase();
+        }
+        return schema;
+    }
+
+    // hywang add for bug 7575
+    public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
+        List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
+        if (t4d.size() == 1) {
+            return t4d.get(0).getDbTypeName();
+        } else if (t4d.size() > 1) {
+            // for some dbs use the same driverClassName.
+            if (driverJar == null || "".equals(driverJar) || !driverJar.contains(FileExtensions.JAR_FILE_SUFFIX)) {
+                return t4d.get(0).getDbTypeName();
+            } else if (driverJar.contains("postgresql-8.3-603.jdbc3.jar") || driverJar.contains("postgresql-8.3-603.jdbc4.jar")
+                    || driverJar.contains("postgresql-8.3-603.jdbc2.jar")) {//
+                return EDatabase4DriverClassName.PSQL.getDbTypeName();
+            } else {
+                return t4d.get(0).getDbTypeName(); // first default
+            }
+        }
+        return null;
+    }
 }

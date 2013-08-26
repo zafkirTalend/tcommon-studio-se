@@ -66,7 +66,7 @@ public abstract class AbstractGeneratedDocRepoViewSeeker extends AbstractRepoVie
         preExpandTypes.add(ERepositoryObjectType.DOCUMENTATION);
         preExpandTypes.add(ERepositoryObjectType.getType("GENERATED")); //$NON-NLS-1$
         preExpandTypes.add(getProcessType());
-
+        preExpandTypes.remove(null); // remove all null
         return preExpandTypes;
     }
 

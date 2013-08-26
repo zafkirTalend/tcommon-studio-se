@@ -15,7 +15,6 @@ package org.talend.repository.items.importexport.i18n;
 import java.util.ResourceBundle;
 
 import org.talend.commons.i18n.MessagesCore;
-import org.talend.repository.items.importexport.ImportExportItemsPlugin;
 
 /**
  * Default implementation of MessageCore from org.talend.commons plug-in.<br/>
@@ -30,6 +29,8 @@ import org.talend.repository.items.importexport.ImportExportItemsPlugin;
  */
 public class Messages extends MessagesCore {
 
+    private static final String PLUGIN_ID = "org.talend.repository.items.importexport"; //$NON-NLS-1$
+
     private static final String BUNDLE_NAME = "org.talend.repository.items.importexport.messages"; //$NON-NLS-1$
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
@@ -43,6 +44,6 @@ public class Messages extends MessagesCore {
      * @see MessagesCore#getString(String, ResourceBundle, Object[])
      */
     public static String getString(String key, Object... args) {
-        return getString(key, ImportExportItemsPlugin.PLUGIN_ID, resourceBundle, args);
+        return getString(key, PLUGIN_ID, resourceBundle, args);
     }
 }

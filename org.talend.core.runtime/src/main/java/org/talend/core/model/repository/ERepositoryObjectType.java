@@ -19,6 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
@@ -93,8 +96,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SNIPPETS = new ERepositoryObjectType("repository.snippets", "code/snippets",
             "SNIPPETS", true, 10, new String[] { PROD_DI }, new String[] {}, false);
 
-    public final static ERepositoryObjectType DOCUMENTATION = new ERepositoryObjectType("repository.documentation",
-            "documentations", "DOCUMENTATION", true, 11, new String[] { PROD_DI }, new String[] {});
+    // public final static ERepositoryObjectType DOCUMENTATION = new ERepositoryObjectType("repository.documentation",
+    // "documentations", "DOCUMENTATION", true, 11, new String[] { PROD_DI }, new String[] {});
 
     public final static ERepositoryObjectType METADATA = new ERepositoryObjectType("repository.metadata", "metadata", "METADATA",
             true, 12, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
@@ -165,8 +168,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // "metadata/EDISchema", "METADATA_EDIFACT", 50, true, "repositorymetadataEDIFact.alias", new String[] { PROD_DI },
     // new String[] {});
 
-    public final static ERepositoryObjectType SQLPATTERNS = new ERepositoryObjectType(
-            "repository.metadataSQLPatterns", "sqlPatterns", "SQLPATTERNS", 33, true, "repository.metadataSQLPatterns.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
+    // public final static ERepositoryObjectType SQLPATTERNS = new ERepositoryObjectType(
+    //            "repository.metadataSQLPatterns", "sqlPatterns", "SQLPATTERNS", 33, true, "repository.metadataSQLPatterns.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
 
     // public final static ERepositoryObjectType METADATA_FILE_EBCDIC = new ERepositoryObjectType(
     //            "repository.metadataFileEDCDIC", "metadata/fileEBCDIC", "METADATA_FILE_EBCDIC", 34, true, "repository.metadataFileEDCDIC.alias", new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$ //$NON-NLS-2$
@@ -354,9 +357,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     private String namePattern = null;
 
     /*
-     * this used to indicate the multiple same name items are allowed
-     * to created or not, In generic, those resources or items should
-     * be in different folder.
+     * this used to indicate the multiple same name items are allowed to created or not, In generic, those resources or
+     * items should be in different folder.
      */
     private boolean isAllowMultiName = false;
 
@@ -385,6 +387,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType PIG_UDF = ERepositoryObjectType.valueOf("PIG_UDF"); //$NON-NLS-1$
 
     public final static ERepositoryObjectType CONTEXT = ERepositoryObjectType.valueOf("CONTEXT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType SQLPATTERNS = ERepositoryObjectType.valueOf("SQLPATTERNS"); //$NON-NLS-1$ 
+
+    public final static ERepositoryObjectType DOCUMENTATION = ERepositoryObjectType.valueOf("DOCUMENTATION"); //$NON-NLS-1$ 
 
     public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType
             .valueOf("METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
@@ -428,20 +434,20 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_EDIFACT = ERepositoryObjectType.valueOf("METADATA_EDIFACT");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
-    		String[] userRight, boolean... isResouce) {
-    	super(key, type, isStaticNode, ordinal);
-    	this.folder = folder;
-    	this.products = products;
-    	this.userRight = userRight;
-    	if (isResouce != null && isResouce.length == 1) {
-    		this.isResouce = isResouce[0];
-    	}
+            String[] userRight, boolean... isResouce) {
+        super(key, type, isStaticNode, ordinal);
+        this.folder = folder;
+        this.products = products;
+        this.userRight = userRight;
+        if (isResouce != null && isResouce.length == 1) {
+            this.isResouce = isResouce[0];
+        }
     }
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
-    	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
-    	this.isAllowMultiName = isAllowMultiName;
+        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+        this.isAllowMultiName = isAllowMultiName;
     }
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
@@ -451,19 +457,19 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
-    		String[] userRight, boolean... isResouce) {
-    	super(key, type, isStaticNode, ordinal);
-    	this.subItem = subItem;
-    	this.products = products;
-    	this.userRight = userRight;
-    	if (isResouce != null && isResouce.length == 1) {
-    		this.isResouce = isResouce[0];
-    	}
+            String[] userRight, boolean... isResouce) {
+        super(key, type, isStaticNode, ordinal);
+        this.subItem = subItem;
+        this.products = products;
+        this.userRight = userRight;
+        if (isResouce != null && isResouce.length == 1) {
+            this.isResouce = isResouce[0];
+        }
     }
 
     ERepositoryObjectType(String key, String type, int ordinal, boolean isStaticNode, boolean subItem, String[] products,
             boolean isAllowMultiName, String[] userRight, boolean... isResouce) {
-    	this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
+        this(key, type, ordinal, isStaticNode, subItem, products, userRight, isResouce);
         this.isAllowMultiName = isAllowMultiName;
     }
 
@@ -474,9 +480,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-    		String[] products, String[] userRight, boolean... isResouce) {
-    	this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
-    	this.alias = alias;
+            String[] products, String[] userRight, boolean... isResouce) {
+        this(key, folder, type, isStaticNode, ordinal, products, userRight, isResouce);
+        this.alias = alias;
     }
 
     ERepositoryObjectType(String key, String folder, String type, int ordinal, boolean isStaticNode, String alias,
@@ -492,9 +498,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
-    		String[] products, String[] userRight, boolean... isResouce) {
-    	this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
-    	this.label = label;
+            String[] products, String[] userRight, boolean... isResouce) {
+        this(key, folder, type, ordinal, isStaticNode, alias, products, userRight, isResouce);
+        this.label = label;
     }
 
     ERepositoryObjectType(String key, String label, String folder, String type, int ordinal, boolean isStaticNode, String alias,
@@ -716,11 +722,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         } else if (type.getType().equals("SERVICES")) {
             return "Services";
         } else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
-                    .getService(ICamelDesignerCoreService.class);
+            ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
             String deleteFolderName = camelService.getDeleteFolderName(type);
-            if(deleteFolderName != null){
-            	return deleteFolderName;
+            if (deleteFolderName != null) {
+                return deleteFolderName;
             }
         }
 
@@ -1093,8 +1099,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     public boolean isAllowMultiName() {
-		return isAllowMultiName;
-	}
+        return isAllowMultiName;
+    }
 
     public boolean addExtraProducts(String[] productsArray) {
         if (productsArray != null && productsArray.length > 0) {
@@ -1172,5 +1178,38 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static ERepositoryObjectType valueOf(String name) {
         return valueOf(ERepositoryObjectType.class, name);
+    }
+
+    public static ERepositoryObjectType findParentType(ERepositoryObjectType curtype) {
+        if (curtype == null) {
+            return null;
+        }
+        ERepositoryObjectType parentType = null;
+        ERepositoryObjectType[] parentTypesArray = curtype.getParentTypesArray();
+        if (parentTypesArray != null && parentTypesArray.length > 0) {
+            parentType = parentTypesArray[0]; // only process first parent.
+        }
+        // maybe find by path again
+        if (parentType == null) {
+            String folder = curtype.getFolder();
+            if (StringUtils.isNotEmpty(folder)) {
+                IPath folderPath = new Path(folder);
+                parentType = findParentTypeByPath(folderPath);
+            }
+        }
+        return parentType;
+    }
+
+    private static ERepositoryObjectType findParentTypeByPath(IPath folderPath) {
+        if (folderPath != null && folderPath.segmentCount() > 1) { // if only 1, should be no parent
+            IPath parentPath = folderPath.removeLastSegments(1);
+            for (ERepositoryObjectType type : (ERepositoryObjectType[]) ERepositoryObjectType.values()) {
+                if (StringUtils.isNotEmpty(type.getFolder()) && parentPath.equals(new Path(type.getFolder()))) {
+                    return type;
+                }
+            }
+            return findParentTypeByPath(parentPath);
+        }
+        return null;
     }
 }

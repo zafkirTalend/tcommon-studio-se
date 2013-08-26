@@ -59,7 +59,7 @@ public class ImportItemsWizard extends Wizard implements IImportWizard {
      */
     @Override
     public boolean performCancel() {
-        return true;
+        return mainPage.performCancel();
     }
 
     /*
@@ -69,8 +69,7 @@ public class ImportItemsWizard extends Wizard implements IImportWizard {
      */
     @Override
     public boolean performFinish() {
-        //
-        return true;
+        return mainPage.performFinish();
     }
 
 }

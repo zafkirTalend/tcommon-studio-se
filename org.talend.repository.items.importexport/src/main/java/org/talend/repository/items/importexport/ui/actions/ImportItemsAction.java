@@ -101,7 +101,7 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
 
     private void setSelection(IAction action, IStructuredSelection selection) {
         this.structureSelection = selection;
-        action.setEnabled(this.structureSelection != null && !this.structureSelection.isEmpty());
+        // action.setEnabled(this.structureSelection != null && !this.structureSelection.isEmpty());
     }
 
     @Override

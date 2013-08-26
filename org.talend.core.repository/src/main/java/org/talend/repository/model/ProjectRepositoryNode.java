@@ -212,18 +212,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         recBinNode = new BinRepositoryNode(this);
         nodes.add(recBinNode);
 
-        // 5. Sql patterns
-        sqlPatternNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
-        sqlPatternNode.setProperties(EProperties.LABEL, ERepositoryObjectType.SQLPATTERNS);
-        sqlPatternNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
-        nodes.add(sqlPatternNode);
-
-        // 6. Documentation
-        docNode = new RepositoryNode(null, this, ENodeType.SYSTEM_FOLDER);
-        docNode.setProperties(EProperties.LABEL, ERepositoryObjectType.DOCUMENTATION);
-        docNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.DOCUMENTATION);
-        nodes.add(docNode);
-
         // 7. Metadata
         metadataNode = new RepositoryNode(null, this, ENodeType.STABLE_SYSTEM_FOLDER);
         metadataNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA);
@@ -836,7 +824,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             return;
         }
 
-        if ((ERepositoryObjectType.DOCUMENTATION).equals(type)) {
+        if (type.equals(ERepositoryObjectType.DOCUMENTATION)) {
             handleDelFolderItems(newProject, parent);
         }
 

@@ -7,9 +7,21 @@ Bundle-Vendor: .Talend SA.
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
+ org.eclipse.ui.ide,
  org.apache.commons.lang,
+ org.talend.model,
  org.talend.commons.runtime,
  org.talend.commons.ui,
- org.talend.core.runtime
+ org.talend.core.runtime,
+ org.talend.core.repository,
+ org.talend.core.ui
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
+Export-Package: org.talend.repository.items.importexport.handlers,
+ org.talend.repository.items.importexport.handlers.imports,
+ org.talend.repository.items.importexport.handlers.model,
+ org.talend.repository.items.importexport.ui.actions,
+ org.talend.repository.items.importexport.ui.wizard.imports,
+ org.talend.repository.items.importexport.ui.wizard.imports.managers,
+ org.talend.repository.items.importexport.ui.wizard.imports.models,
+ org.talend.repository.items.importexport.ui.wizard.imports.providers

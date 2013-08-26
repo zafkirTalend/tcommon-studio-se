@@ -12,11 +12,6 @@
 // ============================================================================
 package org.talend.core.model.genhtml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
-import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * This class is used for copying file from one place to the other.
@@ -34,72 +29,10 @@ public class FileCopyUtils {
      * @throws Exception
      */
     public static void copy(String srcFilePath, String destFilePath) {
-        FileInputStream input = null;
-        FileOutputStream output = null;
-        try {
-            byte[] bytearray = new byte[512];
-            int len = 0;
-            input = new FileInputStream(srcFilePath);
-            output = new FileOutputStream(destFilePath);
-            while ((len = input.read(bytearray)) != -1) {
-                output.write(bytearray, 0, len);
-            }
-
-        } catch (Exception fe) {
-            ExceptionHandler.process(fe);
-        }
-
-        finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-        }
+        org.talend.commons.utils.io.FileCopyUtils.copy(srcFilePath, destFilePath);
     }
 
     public static void copyFolder(String oldPath, String newPath) {
-
-        try {
-            (new File(newPath)).mkdirs();
-            File a = new File(oldPath);
-            String[] file = a.list();
-            File temp = null;
-            for (String element : file) {
-                if (oldPath.endsWith(File.separator)) {
-                    temp = new File(oldPath + element);
-                } else {
-                    temp = new File(oldPath + File.separator + element);
-                }
-
-                if (temp.isFile()) {
-                    FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(newPath + "/" + (temp.getName()).toString());
-                    byte[] b = new byte[1024 * 5];
-                    int len;
-                    while ((len = input.read(b)) != -1) {
-                        output.write(b, 0, len);
-                    }
-                    output.flush();
-                    output.close();
-                    input.close();
-                }
-                if (temp.isDirectory()) {
-                    copyFolder(oldPath + "/" + element, newPath + "/" + element);
-                }
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-
+        org.talend.commons.utils.io.FileCopyUtils.copyFolder(oldPath, newPath);
     }
 }

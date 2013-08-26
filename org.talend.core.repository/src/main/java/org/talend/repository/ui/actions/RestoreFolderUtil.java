@@ -67,4 +67,8 @@ public class RestoreFolderUtil {
         return folders;
     }
 
+    public void clear() {
+        foldersMap.clear();
+    }
+
 }
