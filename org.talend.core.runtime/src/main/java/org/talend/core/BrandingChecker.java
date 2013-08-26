@@ -12,8 +12,12 @@
 // ============================================================================
 package org.talend.core;
 
+import java.io.IOException;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
@@ -50,6 +54,13 @@ public class BrandingChecker {
                         if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
                             isBrandingChanged = true;
                             preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
+                            if (preferenceStore instanceof ScopedPreferenceStore) {
+                                try {
+                                    ((ScopedPreferenceStore) preferenceStore).save();
+                                } catch (IOException e) {
+                                    ExceptionHandler.process(e);
+                                }
+                            }
                         }
                     }
                 });

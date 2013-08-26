@@ -1735,6 +1735,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             try {
                 System.getProperties().put("ReadOnlyUser", Boolean.FALSE.toString()); //$NON-NLS-1$
 
+                // remove the auto-build to enhance the build speed and application's use
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                IWorkspaceDescription description = workspace.getDescription();
+                if (description.isAutoBuilding()) {
+                    description.setAutoBuilding(false);
+                    try {
+                        workspace.setDescription(description);
+                    } catch (CoreException e) {
+                        // do nothing
+                    }
+                }
+
                 fullLogonFinished = false;
                 SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
                 SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
@@ -1789,7 +1801,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.cleanWorkspace"), 1); //$NON-NLS-1$
                     coreService.deleteAllJobs(false);
                     TimeMeasure.step("logOnProject", "clean Java project"); //$NON-NLS-1$ //$NON-NLS-2$
-                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
                     if (workspace instanceof Workspace) {
                         ((Workspace) workspace).getFileSystemManager().getHistoryStore().clean(currentMonitor);
                     }
@@ -1842,15 +1853,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     TimeMeasure.step("logOnProject", "sync specific libraries"); //$NON-NLS-1$ //$NON-NLS-2$
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
-                    }
-                    // remove the auto-build to enhance the build speed and application's use
-                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                    IWorkspaceDescription description = workspace.getDescription();
-                    description.setAutoBuilding(false);
-                    try {
-                        workspace.setDescription(description);
-                    } catch (CoreException e) {
-                        // do nothing
                     }
                     coreService.createStatsLogAndImplicitParamter(project);
                     if (monitor != null && monitor.isCanceled()) {

@@ -52,6 +52,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private Set<String> jarList = new HashSet<String>();
 
+    boolean listToUpdate = false;
+
     // private long totalSizeCanBeReduced = 0;
 
     @Override
@@ -109,6 +111,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (file == null || !file.exists()) {
                 return;
             }
+            listToUpdate = true;
             if (contributeID.equals("")) {
                 if (file.isDirectory()) {
                     FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
@@ -472,10 +475,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean contains(String jarName) {
-        if (jarList.contains(jarName)) {
-            return true;
+        if (jarList.isEmpty() || listToUpdate) {
+            jarList = list(new NullProgressMonitor());
+            listToUpdate = false;
         }
-        jarList = list(new NullProgressMonitor());
         return jarList.contains(jarName);
     }
 

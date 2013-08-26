@@ -201,10 +201,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public void syncLibrariesFromApp(IProgressMonitor... monitorWrap) {
         List<ModuleNeeded> modulesNeededForApplication = ModulesNeededProvider.getModulesNeededForApplication();
-        if (!repositoryBundleService.isInitialized()) {
-            repositoryBundleService.deploy(modulesNeededForApplication, monitorWrap);
-            repositoryBundleService.setInitialized();
-        }
+        repositoryBundleService.deploy(modulesNeededForApplication, monitorWrap);
     }
 
     @Override
@@ -231,7 +228,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                     repositoryBundleService.deploy(componentsFolders.get(contributeID).toURI(), monitorWrap);
                 }
 
-                // / for test
                 syncLibrariesFromApp(monitorWrap);
 
                 repositoryBundleService.setInitialized();
