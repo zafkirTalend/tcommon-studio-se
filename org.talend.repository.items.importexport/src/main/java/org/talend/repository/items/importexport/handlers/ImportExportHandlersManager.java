@@ -143,8 +143,8 @@ public final class ImportExportHandlersManager {
     }
 
     public void importItemRecords(final IProgressMonitor progressMonitor, final ResourcesManager resManager,
-            final List<ItemRecord> itemRecords, final boolean overwrite, final IPath destinationPath,
-            final ERepositoryObjectType contentType) throws InvocationTargetException {
+            final List<ItemRecord> checkedItemRecords, final boolean overwrite, final IPath destinationPath,
+            final ERepositoryObjectType contentType, final ItemRecord[] allImportItemRecords) throws InvocationTargetException {
         TimeMeasure.display = CommonsPlugin.isDebugMode();
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
@@ -153,11 +153,11 @@ public final class ImportExportHandlersManager {
         try {
             ImportCacheHelper.getInstance().beforeImportItems();
 
-            if (resManager == null || itemRecords.isEmpty()) {
+            if (resManager == null || checkedItemRecords.isEmpty()) {
                 return;
             }
             progressMonitor.beginTask(
-                    Messages.getString("ImportExportHandlersManager_importingItemsMessage"), itemRecords.size() * 2 + 1); //$NON-NLS-1$
+                    Messages.getString("ImportExportHandlersManager_importingItemsMessage"), checkedItemRecords.size() * 2 + 1); //$NON-NLS-1$
 
             /*
              * FIXME ????? why need sort it?
@@ -200,7 +200,7 @@ public final class ImportExportHandlersManager {
 
                             Map<String, String> nameToIdMap = new HashMap<String, String>();
 
-                            for (ItemRecord itemRecord : itemRecords) {
+                            for (ItemRecord itemRecord : checkedItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
                                 }
@@ -224,8 +224,8 @@ public final class ImportExportHandlersManager {
                                 }
                             }
 
-                            importItemRecordsWithRelatations(monitor, resManager, itemRecords, overwrite, destinationPath,
-                                    contentType, overwriteDeletedItems, idDeletedBeforeImport);
+                            importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite, destinationPath,
+                                    contentType, overwriteDeletedItems, idDeletedBeforeImport, allImportItemRecords);
 
                             if (PluginChecker.isJobLetPluginLoaded()) {
                                 IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault()
@@ -261,11 +261,12 @@ public final class ImportExportHandlersManager {
                             }
                         }
 
-                        private void importItemRecordsWithRelatations(final IProgressMonitor monitor,
-                                final ResourcesManager manager, final List<ItemRecord> records, final boolean overwrite1,
-                                final IPath destPath, final ERepositoryObjectType type, final Set<String> overwriteDeletedItems,
-                                final Set<String> idDeletedBeforeImport) {
-                            for (ItemRecord itemRecord : records) {
+                        private void importItemRecordsWithRelations(final IProgressMonitor monitor,
+                                final ResourcesManager manager, final List<ItemRecord> processingItemRecords,
+                                final boolean overwriting, final IPath destPath, final ERepositoryObjectType type,
+                                final Set<String> overwriteDeletedItems, final Set<String> idDeletedBeforeImport,
+                                ItemRecord[] allPopulatedImportItemRecords) {
+                            for (ItemRecord itemRecord : processingItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
                                 }
@@ -275,19 +276,20 @@ public final class ImportExportHandlersManager {
                                 final IImportHandler importHandler = itemRecord.getImportHandler();
                                 if (importHandler != null && itemRecord.isValid()) {
                                     List<ItemRecord> relatedItemRecord = importHandler.findRelatedItemRecord(monitor, manager,
-                                            itemRecord, records);
+                                            itemRecord, allPopulatedImportItemRecords);
                                     // import related items first
                                     if (importHandler.needImportRelatedItemRecordFirst()) {
-                                        if (relatedItemRecord.isEmpty()) {
-                                            importItemRecordsWithRelatations(monitor, manager, relatedItemRecord, overwrite1,
-                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport);
+                                        if (!relatedItemRecord.isEmpty()) {
+                                            importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
+                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport,
+                                                    allPopulatedImportItemRecords);
                                         }
                                     }
                                     if (monitor.isCanceled()) {
                                         return;
                                     }
                                     // will import
-                                    importHandler.importItemRecord(monitor, manager, itemRecord, overwrite1, destPath, type,
+                                    importHandler.importItemRecord(monitor, manager, itemRecord, overwriting, destPath, type,
                                             overwriteDeletedItems, idDeletedBeforeImport);
 
                                     if (monitor.isCanceled()) {
@@ -295,9 +297,10 @@ public final class ImportExportHandlersManager {
                                     }
                                     // if import related items behind current item
                                     if (!importHandler.needImportRelatedItemRecordFirst()) {
-                                        if (relatedItemRecord.isEmpty()) {
-                                            importItemRecordsWithRelatations(monitor, manager, relatedItemRecord, overwrite1,
-                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport);
+                                        if (!relatedItemRecord.isEmpty()) {
+                                            importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
+                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport,
+                                                    allPopulatedImportItemRecords);
                                         }
                                     }
 

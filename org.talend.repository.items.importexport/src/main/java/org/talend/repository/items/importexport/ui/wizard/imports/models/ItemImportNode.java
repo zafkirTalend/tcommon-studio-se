@@ -29,7 +29,7 @@ public class ItemImportNode extends ImportNode {
     public ItemImportNode(ItemRecord itemRecord) {
         super();
         this.itemRecord = itemRecord;
-        this.setVisible(itemRecord.isVisible());
+        this.setVisible(itemRecord.isVisible() && itemRecord.getErrors().isEmpty());
     }
 
     @Override

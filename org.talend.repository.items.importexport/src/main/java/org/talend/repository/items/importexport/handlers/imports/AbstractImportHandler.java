@@ -956,11 +956,12 @@ public abstract class AbstractImportHandler extends ImportHandler {
      * @see
      * org.talend.repository.items.importexport.handlers.imports.IImportHandler#findRelatedItemRecord(org.eclipse.core
      * .runtime.IProgressMonitor, org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
-     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord, java.util.List)
+     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord,
+     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord[])
      */
     @Override
     public List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager,
-            ItemRecord selectedItemRecord, List<ItemRecord> allPopulatedItemRecords) {
+            ItemRecord selectedItemRecord, ItemRecord[] allImportItemRecords) {
         return Collections.emptyList(); // default, it's nothing.
     }
 

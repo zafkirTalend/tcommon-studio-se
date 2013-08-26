@@ -56,7 +56,7 @@ public interface IImportHandler {
      * @return the related item for selected items.
      */
     List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            List<ItemRecord> allPopulatedItemRecords);
+            ItemRecord[] allImportItemRecords);
 
     boolean needImportRelatedItemRecordFirst();
 

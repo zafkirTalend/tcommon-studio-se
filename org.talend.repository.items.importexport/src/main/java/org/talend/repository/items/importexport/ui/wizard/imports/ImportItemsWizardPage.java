@@ -27,7 +27,6 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -123,8 +122,6 @@ public class ImportItemsWizardPage extends WizardPage {
     private List<ItemRecord> selectedItemRecords = new ArrayList<ItemRecord>();
 
     private final ImportNodesBuilder nodesBuilder = new ImportNodesBuilder();
-
-    private ImportItemUtil importItemUtil = new ImportItemUtil();
 
     private ResourcesManager resManager;
 
@@ -872,7 +869,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
     public boolean performCancel() {
         selectedItemRecords.clear();
-        importItemUtil.clearAllData();
+        nodesBuilder.clear();
         return true;
     }
 
@@ -919,24 +916,15 @@ public class ImportItemsWizardPage extends WizardPage {
                     // contentType = rNode.getContentType().name();
                     // }
                     ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
-                            overwrite, null, null);
+                            overwrite, null, null, nodesBuilder.getAllImportItemRecords());
 
                 }
             };
 
             new ProgressMonitorDialog(getShell()).run(true, true, iRunnableWithProgress);
 
-        } catch (InvocationTargetException e) {
-            Throwable targetException = e.getTargetException();
-            if (importItemUtil.getRoutineExtModulesMap().isEmpty()) {
-                if (targetException instanceof CoreException) {
-                    MessageDialog.openWarning(getShell(), Messages.getString("ImportItemWizardPage.ImportSelectedItems"), //$NON-NLS-1$
-                            Messages.getString("ImportItemWizardPage.ErrorsOccured")); //$NON-NLS-1$
-                }
-            }
-
-        } catch (InterruptedException e) {
-            //
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
         }
         // clean
         if (resManager instanceof ProviderManager) {
