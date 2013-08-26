@@ -569,7 +569,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
     }
 
     @Override
-    public String getJDBCJarPath(String jarName) {
+    public String getJarPath(String jarName) {
         String libPath = null;
         List<File> jarFiles = null;
         try {

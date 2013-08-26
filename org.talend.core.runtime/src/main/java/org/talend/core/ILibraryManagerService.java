@@ -82,13 +82,13 @@ public interface ILibraryManagerService extends IService {
     public Set<String> list(IProgressMonitor... monitorWrap);
 
     /**
-     * 
-     * get jdbc jar path by jar name.
      *
+     * get jar path by jar name.
+     * 
      * @param jarName
      * @return
      */
-    public String getJDBCJarPath(String jarName);
+    public String getJarPath(String jarName);
 
     /**
      *
