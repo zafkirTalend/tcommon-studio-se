@@ -248,72 +248,99 @@ public class MigrationToolService implements IMigrationToolService {
                     	
                         try {
                             boolean needSave = false;
-                            if (!beforeLogon) {
-                                ERepositoryObjectType[] types = (ERepositoryObjectType[]) ERepositoryObjectType.values();
-                                Arrays.sort(types, new Comparator<ERepositoryObjectType>() {
+                            if (!isMigrationOnNewProject()) {
+                            	if (!beforeLogon) {
+                                    ERepositoryObjectType[] types = (ERepositoryObjectType[]) ERepositoryObjectType.values();
+                                    Arrays.sort(types, new Comparator<ERepositoryObjectType>() {
 
-                                    @Override
-                                    public int compare(ERepositoryObjectType arg0, ERepositoryObjectType arg1) {
-                                        if (arg0 == ERepositoryObjectType.PROCESS) {
-                                            return 1;
-                                        }
-                                        if (arg0 == ERepositoryObjectType.JOBLET) {
-                                            return 1;
-                                        }
-                                        return 0;
-                                    }
-                                });
-
-                                for (ERepositoryObjectType type : types) {
-                                    if (!type.isResourceItem()) {
-                                        continue;
-                                    }
-                                    List<IRepositoryViewObject> objects = repFactory.getAll(project, type, true, true);
-
-                                    for (IRepositoryViewObject object : objects) {
-                                        Item item = object.getProperty().getItem();
-                                        monitorWrap.subTask("Migrate... " + item.getProperty().getLabel());
-                                        boolean hadFailed = false;
-                                        subProgressMonitor.worked(1);
-                                        for (IProjectMigrationTask task : toExecute) {
-                                            if (monitorWrap.isCanceled()) {
-                                                throw new OperationCanceledException(Messages.getString(
-                                                        "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
+                                        @Override
+                                        public int compare(ERepositoryObjectType arg0, ERepositoryObjectType arg1) {
+                                            if (arg0 == ERepositoryObjectType.PROCESS) {
+                                                return 1;
                                             }
-                                            MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
-                                            if (mgTask == null && !task.isDeprecated()) {
-                                            	try {
-                                                    ExecutionResult status = task.execute(project, item);
-                                                    switch (status) {
-                                                    case SUCCESS_WITH_ALERT:
-                                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                            if (arg0 == ERepositoryObjectType.JOBLET) {
+                                                return 1;
+                                            }
+                                            return 0;
+                                        }
+                                    });
+
+                                    for (ERepositoryObjectType type : types) {
+                                        if (!type.isResourceItem()) {
+                                            continue;
+                                        }
+                                        List<IRepositoryViewObject> objects = repFactory.getAll(project, type, true, true);
+
+                                        for (IRepositoryViewObject object : objects) {
+                                            Item item = object.getProperty().getItem();
+                                            monitorWrap.subTask("Migrate... " + item.getProperty().getLabel());
+                                            boolean hadFailed = false;
+                                            subProgressMonitor.worked(1);
+                                            for (IProjectMigrationTask task : toExecute) {
+                                                if (monitorWrap.isCanceled()) {
+                                                    throw new OperationCanceledException(Messages.getString(
+                                                            "MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
+                                                }
+                                                MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
+                                                if (mgTask == null && !task.isDeprecated()) {
+                                                	try {
+                                                        ExecutionResult status = task.execute(project, item);
+                                                        switch (status) {
+                                                        case SUCCESS_WITH_ALERT:
+                                                            if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                                task.setStatus(status);
+                                                            }
+                                                            //$FALL-THROUGH$
+                                                        case SUCCESS_NO_ALERT:
+                                                            if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                                task.setStatus(status);
+                                                            }
+                                                            //$FALL-THROUGH$
+                                                        case NOTHING_TO_DO:
+                                                            if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                                    && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                                    && task.getStatus() != ExecutionResult.FAILURE) {
+                                                                task.setStatus(status);
+                                                            }
+                                                            break;
+                                                        case SKIPPED:
+                                                            if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
+                                                                    && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
+                                                                    && task.getStatus() != ExecutionResult.FAILURE) {
+                                                                task.setStatus(status);
+                                                            }
+                                                            break;
+                                                        case FAILURE:
                                                             task.setStatus(status);
-                                                        }
-                                                        //$FALL-THROUGH$
-                                                    case SUCCESS_NO_ALERT:
-                                                        if (task.getStatus() != ExecutionResult.FAILURE) {
+                                                            //$FALL-THROUGH$
+                                                        default:
                                                             task.setStatus(status);
+                                                            if (!isMigrationOnNewProject()) {
+                                                                if (!hadFailed) {
+                                                                    hadFailed = true;
+                                                                    Property prop = object.getProperty();
+                                                                    Resource resource = prop.eResource();
+                                                                    String itemInfo = null;
+                                                                    if (resource != null) {
+                                                                        IPath path = URIHelper.convert(resource.getURI());
+                                                                        if (path != null) {
+                                                                            itemInfo = path.toPortableString();
+                                                                        }
+                                                                    }
+                                                                    if (itemInfo == null) {
+                                                                        itemInfo = prop.toString();
+                                                                    }
+                                                                    appendToLogFile(project,
+                                                                            " * FAILED Task(s) on item: " + itemInfo + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
+                                                                }
+                                                                appendToLogFile(project, "      " + task.getName() + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
+                                                            }
+
+                                                            break;
                                                         }
-                                                        //$FALL-THROUGH$
-                                                    case NOTHING_TO_DO:
-                                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
-                                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
-                                                                && task.getStatus() != ExecutionResult.FAILURE) {
-                                                            task.setStatus(status);
-                                                        }
-                                                        break;
-                                                    case SKIPPED:
-                                                        if (task.getStatus() != ExecutionResult.SUCCESS_WITH_ALERT
-                                                                && task.getStatus() != ExecutionResult.SUCCESS_NO_ALERT
-                                                                && task.getStatus() != ExecutionResult.FAILURE) {
-                                                            task.setStatus(status);
-                                                        }
-                                                        break;
-                                                    case FAILURE:
-                                                        task.setStatus(status);
-                                                        //$FALL-THROUGH$
-                                                    default:
-                                                        task.setStatus(status);
+                                                    } catch (Exception e) {
+                                                        doneThisSession.add(task);
+                                                        ExceptionHandler.process(e);
                                                         if (!isMigrationOnNewProject()) {
                                                             if (!hadFailed) {
                                                                 hadFailed = true;
@@ -334,101 +361,86 @@ public class MigrationToolService implements IMigrationToolService {
                                                             }
                                                             appendToLogFile(project, "      " + task.getName() + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
                                                         }
-
-                                                        break;
+                                                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                                     }
-                                                } catch (Exception e) {
-                                                    doneThisSession.add(task);
-                                                    ExceptionHandler.process(e);
-                                                    if (!isMigrationOnNewProject()) {
-                                                        if (!hadFailed) {
-                                                            hadFailed = true;
-                                                            Property prop = object.getProperty();
-                                                            Resource resource = prop.eResource();
-                                                            String itemInfo = null;
-                                                            if (resource != null) {
-                                                                IPath path = URIHelper.convert(resource.getURI());
-                                                                if (path != null) {
-                                                                    itemInfo = path.toPortableString();
-                                                                }
-                                                            }
-                                                            if (itemInfo == null) {
-                                                                itemInfo = prop.toString();
-                                                            }
-                                                            appendToLogFile(project,
-                                                                    " * FAILED Task(s) on item: " + itemInfo + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
-                                                        }
-                                                        appendToLogFile(project, "      " + task.getName() + "\n"); //$NON-NLS-1$//$NON-NLS-2$ 
-                                                    }
-                                                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                                 }
                                             }
-                                        }
 
-                                        if (object instanceof RepositoryObject) {
-                                            ((RepositoryObject) object).unload();
-                                        }
-                                    }
-                                    monitorWrap.subTask(""); //$NON-NLS-1$
-                                }
-                            }
-                            for (IProjectMigrationTask task : toExecute) {
-                                MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
-                                if (mgTask == null && !task.isDeprecated()) {
-                                    try {
-                                        ExecutionResult status;
-                                        if (beforeLogon) {
-                                            status = task.execute(project);
-                                            task.setStatus(status);
-                                        } else {
-                                            status = task.getStatus();
-                                        }
-                                        switch (status) {
-                                        case SUCCESS_WITH_ALERT:
-                                            if (!newProject) { // if it's a new project, no need to display any alert,
-                                                               // since no real
-                                                               // migration.
-                                                doneThisSession.add(task);
+                                            if (object instanceof RepositoryObject) {
+                                                ((RepositoryObject) object).unload();
                                             }
-                                        case SUCCESS_NO_ALERT:
-                                        	  if (!isMigrationOnNewProject()) {
-                                                  log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
-                                                  appendToLogFile(project,
-                                                          " * Task [" + task.getName() + "] : Applied successfully\n"); //$NON-NLS-1$//$NON-NLS-2$
-                                              }
-                                        case NOTHING_TO_DO:
-                                        	 if (!isMigrationOnNewProject()
-                                                     && task.getStatus() == ExecutionResult.NOTHING_TO_DO) {
-                                                 appendToLogFile(project, " * Task [" + task.getName() + "] : Nothing to do\n"); //$NON-NLS-1$//$NON-NLS-2$
-                                             }
-                                             break;
-                                        case SKIPPED:
-                                        	 log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
-                                             if (!isMigrationOnNewProject()) {
-                                                 appendToLogFile(project, " * Task [" + task.getName() + "] : Skipped\n"); //$NON-NLS-1$//$NON-NLS-2$
-                                             }
-                                             break;
-                                        case FAILURE:
-                                            doneThisSession.add(task);
-                                        default:
-                                            log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
-                                            break;
                                         }
-                                    } catch (Exception e) {
-                                        ExceptionHandler.process(e);
-                                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                                        monitorWrap.subTask(""); //$NON-NLS-1$
                                     }
                                 }
-                                done.add(MigrationUtil.convertMigrationTask(task));
+                                for (IProjectMigrationTask task : toExecute) {
+                                    MigrationTask mgTask = MigrationUtil.findMigrationTask(done, task);
+                                    if (mgTask == null && !task.isDeprecated()) {
+                                        try {
+                                            ExecutionResult status;
+                                            if (beforeLogon) {
+                                                status = task.execute(project);
+                                                task.setStatus(status);
+                                            } else {
+                                                status = task.getStatus();
+                                            }
+                                            switch (status) {
+                                            case SUCCESS_WITH_ALERT:
+                                                if (!newProject) { // if it's a new project, no need to display any alert,
+                                                                   // since no real
+                                                                   // migration.
+                                                    doneThisSession.add(task);
+                                                }
+                                            case SUCCESS_NO_ALERT:
+                                            	  if (!isMigrationOnNewProject()) {
+                                                      log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                                                      appendToLogFile(project,
+                                                              " * Task [" + task.getName() + "] : Applied successfully\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                                  }
+                                            case NOTHING_TO_DO:
+                                            	 if (!isMigrationOnNewProject()
+                                                         && task.getStatus() == ExecutionResult.NOTHING_TO_DO) {
+                                                     appendToLogFile(project, " * Task [" + task.getName() + "] : Nothing to do\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                                 }
+                                                 break;
+                                            case SKIPPED:
+                                            	 log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
+                                                 if (!isMigrationOnNewProject()) {
+                                                     appendToLogFile(project, " * Task [" + task.getName() + "] : Skipped\n"); //$NON-NLS-1$//$NON-NLS-2$
+                                                 }
+                                                 break;
+                                            case FAILURE:
+                                                doneThisSession.add(task);
+                                            default:
+                                                log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                                                break;
+                                            }
+                                        } catch (Exception e) {
+                                            ExceptionHandler.process(e);
+                                            log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                                        }
+                                    }
+                                    done.add(MigrationUtil.convertMigrationTask(task));
+                                    needSave = true;
+                                }
+                            }else{
+                            	 // new project
+                                for (IProjectMigrationTask task : toExecute) {
+                                    task.setStatus(ExecutionResult.NOTHING_TO_DO);
+                                    done.add(MigrationUtil.convertMigrationTask(task));
+                                }
                                 needSave = true;
                             }
+                            
                             if (needSave) {
                                 saveProjectMigrationTasksDone(project, done);
                             }
                             if (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion())) {
                                 project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
                             }
-                            RelationshipItemBuilder.getInstance().saveRelations();
+                            if (!isMigrationOnNewProject()) {
+                                RelationshipItemBuilder.getInstance().saveRelations();
+                            }
                         } catch (PersistenceException e) {
                             throw new CoreException(new Status(Status.ERROR, "org.talend.migrationTool", e.getMessage(), e)); //$NON-NLS-1$
                         }
