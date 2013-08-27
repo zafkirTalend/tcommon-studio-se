@@ -27,9 +27,11 @@ import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -77,6 +79,7 @@ import org.talend.core.exception.TalendInternalPersistenceException;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.migration.IMigrationToolService;
@@ -112,6 +115,7 @@ import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ICoreUIService;
+import org.talend.core.service.ITransformService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
@@ -1742,6 +1746,34 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     description.setAutoBuilding(false);
                     try {
                         workspace.setDescription(description);
+                    } catch (CoreException e) {
+                        // do nothing
+                    }
+                }
+
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+                    ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                            ITransformService.class);
+                    try {
+                        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+                        IProject prj = root.getProject(project.getTechnicalLabel());
+                        IProjectDescription desc;
+
+                        desc = prj.getDescription();
+
+                        String transformNatureId = transformService.getTransformProjectNature();
+                        String[] natureIds = desc.getNatureIds();
+                        boolean found = false;
+                        for (String id : natureIds) {
+                            if (id == transformNatureId) {
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            String[] natures = new String[] { TalendNature.ID, transformNatureId };
+                            desc.setNatureIds(natures);
+                            prj.setDescription(desc, monitor);
+                        }
                     } catch (CoreException e) {
                         // do nothing
                     }

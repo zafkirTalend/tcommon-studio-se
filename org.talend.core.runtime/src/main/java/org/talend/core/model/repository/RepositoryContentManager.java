@@ -30,6 +30,8 @@ public class RepositoryContentManager {
 
     static List<IRepositoryContentHandler> handlers = null;
 
+    static List<IExtendedNodeHandler> extendedNodeHandler = null;
+
     public static List<IRepositoryContentHandler> getHandlers() {
         if (handlers == null) {
             handlers = new ArrayList<IRepositoryContentHandler>();
@@ -53,5 +55,36 @@ public class RepositoryContentManager {
             }
         }
         return handlers;
+    }
+
+    /**
+     * Getter for extendedNodeHandler.
+     * 
+     * @return the extendedNodeHandler
+     */
+    public static List<IExtendedNodeHandler> getExtendedNodeHandler() {
+        if (extendedNodeHandler == null) {
+            extendedNodeHandler = new ArrayList<IExtendedNodeHandler>();
+            IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+            IExtensionPoint extensionPoint = extensionRegistry
+                    .getExtensionPoint("org.talend.core.repository.extended_repositorynode_handler"); //$NON-NLS-1$
+            if (extensionPoint != null) {
+                IExtension[] extensions = extensionPoint.getExtensions();
+                for (IExtension extension : extensions) {
+                    IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+                    for (IConfigurationElement configurationElement : configurationElements) {
+                        try {
+                            Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
+                            if (service instanceof IExtendedNodeHandler) {
+                                extendedNodeHandler.add((IExtendedNodeHandler) service);
+                            }
+                        } catch (CoreException e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
+                }
+            }
+        }
+        return extendedNodeHandler;
     }
 }

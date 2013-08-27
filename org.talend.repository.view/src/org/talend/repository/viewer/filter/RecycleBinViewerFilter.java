@@ -21,6 +21,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.service.ITransformService;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
@@ -110,6 +111,14 @@ public class RecycleBinViewerFilter extends ViewerFilter {
         }
         if (hadoopClusterService != null && hadoopClusterService.isHadoopSubnode(node)) {
             return hadoopClusterService.getHadoopClusterType();
+        }
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+            ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                    ITransformService.class);
+            if (transformService.isTransformNode(node)) {
+                return transformService.getTransformRootType();
+            }
         }
 
         ERepositoryObjectType contentType = null;

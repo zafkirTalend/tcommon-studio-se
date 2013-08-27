@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.IWizard;
@@ -158,5 +159,7 @@ public interface IRepositoryContentHandler {
      * @return the type processor which handles the appearance of node in RepositoryReviewDialog.
      */
     public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType);
+
+    public URI getReferenceFileURI(Item item, String extension);
 
 }

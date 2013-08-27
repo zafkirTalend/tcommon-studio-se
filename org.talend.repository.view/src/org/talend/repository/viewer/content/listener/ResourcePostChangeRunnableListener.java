@@ -149,14 +149,17 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
             Runnable runnable = iterator.next();
             if (runnable instanceof TopLevelNodeRunnable) {
                 TopLevelNodeRunnable nodeRunnable = (TopLevelNodeRunnable) runnable;
-                RepositoryNode topLevelNode = nodeRunnable.getTopLevelNode();
-                if (topLevelNode != null && topLevelNode.isBin()) {
-                    if (ProjectManager.getInstance().isInCurrentMainProject(topLevelNode)) {
-                        mainBinNodeRunnable = runnable;
-                    } else { // others for ref-project
-                        binNodeRunnables.add(runnable);
+                Object repNode = nodeRunnable.getTopLevelNode();
+                if (repNode instanceof RepositoryNode) {
+                    RepositoryNode topLevelNode = (RepositoryNode) repNode;
+                    if (topLevelNode != null && topLevelNode.isBin()) {
+                        if (ProjectManager.getInstance().isInCurrentMainProject(topLevelNode)) {
+                            mainBinNodeRunnable = runnable;
+                        } else { // others for ref-project
+                            binNodeRunnables.add(runnable);
+                        }
+                        iterator.remove(); // remove the bin runnables.
                     }
-                    iterator.remove(); // remove the bin runnables.
                 }
             }
         }

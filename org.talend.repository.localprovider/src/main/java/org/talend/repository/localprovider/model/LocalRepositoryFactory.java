@@ -145,6 +145,7 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.core.service.ITransformService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
@@ -756,7 +757,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             } else {
                 desc = workspace.newProjectDescription(projectInfor.getLabel());
             }
-            desc.setNatureIds(new String[] { TalendNature.ID });
+            String[] natures = new String[] { TalendNature.ID };
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+                ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                        ITransformService.class);
+                String transformNatureId = transformService.getTransformProjectNature();
+                natures = new String[] { TalendNature.ID, transformNatureId };
+            }
+            desc.setNatureIds(natures);
             desc.setComment(projectInfor.getDescription());
 
             if (!prj.exists()) {
@@ -2324,7 +2332,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         propagateFileName(project, item.getProperty());
         if (item.eResource() != null && itemResource != null) {
-            List<Resource> referenceFileReources = getReferenceFilesResources(item, item.eResource());
+            List<Resource> referenceFileReources = getReferenceFilesResources(item, item.eResource(), true);
             for (Resource referenceFileResource : referenceFileReources) {
                 xmiResourceManager.saveResource(referenceFileResource);
             }
@@ -2689,12 +2697,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.setParent(parentFolderItem);
         }
 
-        List referenceResources = item.getReferenceResources();
-        for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
-            Resource referenceFileResource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, false);
-            referenceFileResource.getContents().add(refFile.getContent());
+        // List referenceResources = item.getReferenceResources();
+        // for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
+        // Resource referenceFileResource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile,
+        // false);
+        // referenceFileResource.getContents().add(refFile.getContent());
+        // xmiResourceManager.saveResource(referenceFileResource);
+        // propertyResource.getContents().add(refFile);
+        // }
+
+        List<Resource> referenceFileReources = getReferenceFilesResources(item, item.eResource(), false);
+        for (Resource referenceFileResource : referenceFileReources) {
             xmiResourceManager.saveResource(referenceFileResource);
-            propertyResource.getContents().add(refFile);
         }
         xmiResourceManager.saveResource(screenshotsResource);
         xmiResourceManager.saveResource(itemResource);
@@ -2705,14 +2719,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    private List<Resource> getReferenceFilesResources(Item item, Resource propertyResource) {
+    private List<Resource> getReferenceFilesResources(Item item, Resource propertyResource, boolean needLoad) {
         List referenceResources = item.getReferenceResources();
         List<Resource> referenceFileReources = new ArrayList<Resource>();
+
         for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
-            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, true);
-            if (referenceFileReource.getContents() != null) {
-                refFile.setContent((ByteArray) referenceFileReource.getContents().get(0));
+            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(item, refFile, needLoad);
+            if (needLoad) {
+                if (referenceFileReource.getContents() != null) {
+                    refFile.setContent((ByteArray) referenceFileReource.getContents().get(0));
+                }
+            } else {
+                referenceFileReource.getContents().add(refFile.getContent());
             }
+
             referenceFileReources.add(referenceFileReource);
         }
         propertyResource.getContents().addAll(referenceResources);

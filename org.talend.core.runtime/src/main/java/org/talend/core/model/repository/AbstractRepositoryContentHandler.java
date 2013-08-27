@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.IWizard;
@@ -284,6 +285,18 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
     @Override
     public void copyScreenShotFile(Item originalItem, Item newItem) throws IOException {
         // Does nothing.
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#getReferenceFileURI(org.eclipse.emf.common.util.URI,
+     * java.lang.String)
+     */
+    @Override
+    public URI getReferenceFileURI(Item item, String extension) {
+        return null;
     }
 
 }

@@ -28,6 +28,8 @@ public interface FileConstants {
 
     String SCREENSHOT_EXTENSION = FileExtensions.SCREENSHOT_EXTENSION;
 
+    String XML_EXTENSION = FileExtensions.XML_EXTENSION;
+
     // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
     String ANA_EXTENSION = FileExtensions.ANA_EXTENSION;
 

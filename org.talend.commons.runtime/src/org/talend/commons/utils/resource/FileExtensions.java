@@ -43,6 +43,8 @@ public interface FileExtensions {
     // MOD klliu 2010-11-26
     String JRXML_EXTENSION = "jrxml"; //$NON-NLS-1$
 
+    String XML_EXTENSION = "xml"; //$NON-NLS-1$
+
     /*
      * file suffix
      */
@@ -73,4 +75,6 @@ public interface FileExtensions {
     String XLS_FILE_SUFFIX = ".xls"; //$NON-NLS-1$
 
     String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
+
+    String XML_FILE_SUFFIX = ".xml"; //$NON-NLS-1$
 }

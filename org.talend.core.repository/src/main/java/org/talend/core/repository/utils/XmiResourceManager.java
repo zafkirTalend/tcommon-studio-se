@@ -68,6 +68,8 @@ import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.utils.ResourceFilenameHelper.FileName;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -233,6 +235,54 @@ public class XmiResourceManager {
             getResourceSet().getResources().remove(propResource);
         }
         return getResourceSet().createResource(propertyResourceURI);
+    }
+
+    public Resource getReferenceFileResource(Item item, ReferenceFileItem refFile, boolean needLoad) {
+        URI referenceFileURI = null;
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            referenceFileURI = handler.getReferenceFileURI(item, refFile.getExtension());
+            if (referenceFileURI != null) {
+                break;
+            }
+        }
+        if (referenceFileURI == null) {
+            referenceFileURI = getReferenceFileURI(item.eResource().getURI(), refFile.getExtension());
+        }
+        URIConverter converter = getResourceSet().getURIConverter();
+        Resource referenceResource = new ByteArrayResource(referenceFileURI);
+        InputStream inputStream = null;
+        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
+        // in case ESB load reference file from the physcial file,but DI need reference from the EMF,so add this
+        // flag
+        if (refFile.isReloadFromFile()) {
+            for (Resource res : resources) {
+                if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
+                    res.unload();
+                    getResourceSet().getResources().remove(res);
+                }
+            }
+
+            getResourceSet().getResources().add(referenceResource);
+            try {
+                if (needLoad) {
+                    inputStream = converter.createInputStream(referenceFileURI);
+                    referenceResource.load(inputStream, null);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        } else {
+            referenceResource = getResourceSet().getResource(referenceFileURI, true);
+        }
+        return referenceResource;
     }
 
     public Resource getReferenceFileResource(Resource itemResource, ReferenceFileItem refFile, boolean needLoad) {

@@ -12,21 +12,20 @@
 // ============================================================================
 package org.talend.repository.viewer.content.listener;
 
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public abstract class TopLevelNodeRunnable implements Runnable {
 
-    private final RepositoryNode topLevelNode;
+    private final Object topLevelNode;
 
-    public TopLevelNodeRunnable(RepositoryNode node) {
+    public TopLevelNodeRunnable(Object node) {
         super();
         this.topLevelNode = node;
     }
 
-    public RepositoryNode getTopLevelNode() {
+    public Object getTopLevelNode() {
         return this.topLevelNode;
     }
 

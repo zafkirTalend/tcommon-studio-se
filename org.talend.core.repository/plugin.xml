@@ -13,6 +13,7 @@
    <extension-point id="checkDeleteItemReference" name="Check Delete Item Reference" schema="schema/checkDeleteItemReference.exsd"/>
    <extension-point id="repoViewLinker" name="Repo View Linker" schema="schema/repoViewLinker.exsd"/>
    <extension-point id="repositorySeeker" name="Repository Seeker" schema="schema/repositorySeeker.exsd"/>
+   <extension-point id="extended_repositorynode_handler" name="Extended Repository Node Handler" schema="schema/extended_repositorynode_handler.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">
