@@ -2483,6 +2483,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     }
                 };
                 repositoryWorkUnit.setForceTransaction(true);
+                repositoryWorkUnit.setAvoidSvnUpdate(true);
+                repositoryWorkUnit.setAvoidUnloadResources(true);
                 repositoryWorkUnit.setRefreshRepository(false);
                 executeRepositoryWorkUnit(repositoryWorkUnit);
                 repositoryWorkUnit.throwPersistenceExceptionIfAny();
