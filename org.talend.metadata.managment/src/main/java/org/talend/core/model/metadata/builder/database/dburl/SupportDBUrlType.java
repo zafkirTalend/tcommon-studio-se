@@ -199,14 +199,14 @@ public enum SupportDBUrlType {
             "dbname", //$NON-NLS-1$
             null,
             "com.vertica.Driver", //$NON-NLS-1$
-            "", "Vertica"), //$NON-NLS-1$ //$NON-NLS-2$
+            "", "Vertica Database"), //$NON-NLS-1$ //$NON-NLS-2$
     VERTICA2("Vertica", //$NON-NLS-1$
              null,
              "5433", //$NON-NLS-1$
              "dbname", //$NON-NLS-1$
              null,
              "com.vertica.jdbc.Driver", //$NON-NLS-1$
-             "", "Vertica");//$NON-NLS-1$ //$NON-NLS-2$
+             "", "Vertica Database");//$NON-NLS-1$ //$NON-NLS-2$
 
     private final String dbKey;
 
