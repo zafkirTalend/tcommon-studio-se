@@ -93,10 +93,10 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.HandlerUtil;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
 import org.talend.repository.items.importexport.i18n.Messages;
-import org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord.State;
+import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.ERepositoryStatus;
 
 /**

@@ -26,7 +26,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 
 /**
  * DOC ggu class global comment. Detailled comment

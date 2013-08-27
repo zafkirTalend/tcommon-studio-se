@@ -48,10 +48,10 @@ import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
 import org.talend.repository.items.importexport.i18n.Messages;
-import org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord.State;
+import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**

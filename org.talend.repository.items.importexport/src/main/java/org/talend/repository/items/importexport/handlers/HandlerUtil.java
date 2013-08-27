@@ -27,8 +27,8 @@ import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager;
-import org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
  * DOC ggu class global comment. Detailled comment
