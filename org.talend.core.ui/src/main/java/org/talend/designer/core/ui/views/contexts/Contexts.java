@@ -19,7 +19,6 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.context.view.AbstractContextView;
 
@@ -125,13 +124,13 @@ public class Contexts {
             String perId = page.getPerspective().getId();
             if (StringUtils.isNotEmpty(perId) && perspectiveIds.contains(perId)) {
                 IViewPart view = page.findView(viewId);
-                if (view == null) {
-                    try {
-                        view = page.showView(viewId);
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
+                // if (view == null) {
+                // try {
+                // view = page.showView(viewId);
+                // } catch (Exception e) {
+                // ExceptionHandler.process(e);
+                // }
+                // }
                 if (view instanceof AbstractContextView) {
                     return (AbstractContextView) view;
                 }
