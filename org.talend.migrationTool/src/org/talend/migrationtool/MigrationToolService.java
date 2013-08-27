@@ -179,8 +179,6 @@ public class MigrationToolService implements IMigrationToolService {
             setMigrationOnNewProject(beforeLogon && isNewProject && done.isEmpty());
         }
 
-        final boolean newProject = done.isEmpty();
-
         sortMigrationTasks(toExecute);
 
         int nbMigrationsToDo = 0;
@@ -386,11 +384,13 @@ public class MigrationToolService implements IMigrationToolService {
                                             }
                                             switch (status) {
                                             case SUCCESS_WITH_ALERT:
-                                                if (!newProject) { // if it's a new project, no need to display any alert,
-                                                                   // since no real
-                                                                   // migration.
-                                                    doneThisSession.add(task);
-                                                }
+                                            	 if (!isMigrationOnNewProject()) { // if it's a new project, no need to
+		                                              // display any
+								                      // alert,
+								                      // since no real
+								                      // migration.
+								                      doneThisSession.add(task);	
+                                                  }
                                             case SUCCESS_NO_ALERT:
                                             	  if (!isMigrationOnNewProject()) {
                                                       log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -416,6 +416,7 @@ public class MigrationToolService implements IMigrationToolService {
                                                 break;
                                             }
                                         } catch (Exception e) {
+                                        	doneThisSession.add(task);
                                             ExceptionHandler.process(e);
                                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                         }
@@ -462,6 +463,9 @@ public class MigrationToolService implements IMigrationToolService {
         };
         repositoryWorkUnit.setAvoidUnloadResources(true);
         repFactory.executeRepositoryWorkUnit(repositoryWorkUnit);
+        if (!beforeLogon) {
+            setMigrationOnNewProject(false);
+        }
         // repositoryWorkUnit.throwPersistenceExceptionIfAny();
     }
     
