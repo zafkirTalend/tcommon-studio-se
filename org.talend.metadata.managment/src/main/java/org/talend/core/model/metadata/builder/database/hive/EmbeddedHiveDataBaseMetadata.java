@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
@@ -196,8 +197,13 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
-        if (StringUtils.isBlank(catalog)) {
-            catalog = HIVE_SCHEMA_DEFAULT;
+        String hiveCat = catalog;
+        if (StringUtils.isBlank(hiveCat)) {
+            hiveCat = HIVE_SCHEMA_DEFAULT;
+        }
+        String[] hiveTypes = types;
+        if (hiveTypes == null) {
+            hiveTypes = new String[0];
         }
 
         // Added this for TDI-25456 by Marvin Wang on Apr. 11, 2013.
@@ -244,13 +250,13 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                         setIntVarMethod.invoke(hiveConf, confVar, timeout);
                     }
                 }
-                Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { catalog }); //$NON-NLS-1$
+                Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { hiveCat }); //$NON-NLS-1$
                 if (tables instanceof List) {
                     List<String> tableList = (List<String>) tables;
                     for (String tableName : tableList) {
-                        String tableType = getTableType(catalog, tableName);
-                        if (tableType != null) {
-                            String[] array = new String[] { "", catalog, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
+                        String tableType = getTableType(hiveCat, tableName);
+                        if (tableType != null && ArrayUtils.contains(hiveTypes, tableType)) {
+                            String[] array = new String[] { "", hiveCat, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
                             list.add(array);
                         }
                     }

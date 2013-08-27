@@ -39,7 +39,6 @@ import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 
@@ -112,10 +111,10 @@ public class DatabaseTableFilterForm extends AbstractForm {
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_EXTERNAL_TABLE, tableCheck.getSelection());
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_VIEW, viewCheck.getSelection());
         getTableInfoParameters().changeType(ETableTypes.TABLETYPE_SYNONYM, synonymCheck.getSelection());
-        if (HiveConnectionManager.getInstance().isCDHHive2(metadataconnection)) {
-            getTableInfoParameters().changeType(ETableTypes.EXTERNAL_TABLE, tableCheck.getSelection());
-            getTableInfoParameters().changeType(ETableTypes.MANAGED_TABLE, tableCheck.getSelection());
-        }
+        getTableInfoParameters().changeType(ETableTypes.EXTERNAL_TABLE, tableCheck.getSelection());
+        getTableInfoParameters().changeType(ETableTypes.MANAGED_TABLE, tableCheck.getSelection());
+        getTableInfoParameters().changeType(ETableTypes.INDEX_TABLE, tableCheck.getSelection());
+        getTableInfoParameters().changeType(ETableTypes.VIRTUAL_VIEW, viewCheck.getSelection());
         // hide for the bug 7959
         if (isOracle()) {
             getTableInfoParameters().changeType(ETableTypes.TABLETYPE_ALL_SYNONYM, publicSynonymCheck.getSelection());
@@ -410,6 +409,9 @@ public class DatabaseTableFilterForm extends AbstractForm {
                 // types are reqired, it could invoke like
                 // "DatabaseTableWizardPage.getTableInfoParameters().getTypes()".
                 getTableInfoParameters().changeType(ETableTypes.TABLETYPE_EXTERNAL_TABLE, tableCheck.getSelection());
+                getTableInfoParameters().changeType(ETableTypes.EXTERNAL_TABLE, tableCheck.getSelection());
+                getTableInfoParameters().changeType(ETableTypes.MANAGED_TABLE, tableCheck.getSelection());
+                getTableInfoParameters().changeType(ETableTypes.INDEX_TABLE, tableCheck.getSelection());
             }
 
         });
@@ -419,6 +421,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 getTableInfoParameters().changeType(ETableTypes.TABLETYPE_VIEW, viewCheck.getSelection());
+                getTableInfoParameters().changeType(ETableTypes.VIRTUAL_VIEW, viewCheck.getSelection());
             }
 
         });
