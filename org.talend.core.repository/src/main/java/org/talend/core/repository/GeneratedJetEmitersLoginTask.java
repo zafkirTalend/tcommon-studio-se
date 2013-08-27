@@ -15,15 +15,12 @@ public class GeneratedJetEmitersLoginTask implements IRunnableWithProgress {
 
     @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-        // TDI-26796 Avoid the generation of JET Emitters when start the studio
 
-        //        log.info("Generating JetEmiters"); //$NON-NLS-1$
-        // SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
-        // subMonitor.setTaskName("Generating Jet Emiters.");
-        // ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-        // coreService.initializeTemplates();
-        // subMonitor.done();
-
+        SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
+        subMonitor.setTaskName("Generating Jet Emitters.");
+        ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        coreService.initializeTemplates();
+        subMonitor.done();
     }
 
 }
