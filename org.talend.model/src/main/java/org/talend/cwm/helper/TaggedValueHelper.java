@@ -135,6 +135,8 @@ public final class TaggedValueHelper {
 
     public static final String REP_LAST_RUN_CONTEXT = "REP_LAST_RUN_CONTEXT"; //$NON-NLS-1$
 
+    public static final String REP_PASSWORD_CONTEXT = "REP_PASSWORD_CONTEXT"; //$NON-NLS-1$
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
     /**
      * The tag used for setting a technical name.
