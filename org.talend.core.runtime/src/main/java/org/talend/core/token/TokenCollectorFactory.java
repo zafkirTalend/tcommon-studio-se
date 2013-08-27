@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.token;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,8 +24,12 @@ import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
@@ -32,7 +37,6 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingService;
 
-import us.monoid.json.JSONException;
 import us.monoid.json.JSONObject;
 import us.monoid.web.AbstractContent;
 import us.monoid.web.FormData;
@@ -167,6 +171,14 @@ public final class TokenCollectorFactory {
                 // set new days
                 final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
                 preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+                if (preferenceStore instanceof ScopedPreferenceStore) {
+                    try {
+                        ((ScopedPreferenceStore) preferenceStore).save();
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+
                 result = true;
             }
         } catch (Exception e) {
@@ -176,35 +188,56 @@ public final class TokenCollectorFactory {
         return result;
     }
 
-    public boolean send() {
-        try {
-            boolean isPoweredbyTalend = false;
+    public void send() {
+        send(false);
+    }
 
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
-                IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                        IBrandingService.class);
-                isPoweredbyTalend = service.isPoweredbyTalend();
-            }
-            if (isPoweredbyTalend && NetworkUtil.isNetworkValid()) {
-                JSONObject tokenInfors = collectTokenInfors();
+    public void send(boolean background) {
+        boolean isPoweredbyTalend = false;
 
-                Resty r = new Resty();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            isPoweredbyTalend = service.isPoweredbyTalend();
+        }
+        if (isPoweredbyTalend) {
+            Job job = new Job("Initialize token") {
 
-                AbstractContent ac = Resty.content(tokenInfors);
-                MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
+                @Override
+                protected IStatus run(IProgressMonitor monitor) {
+                    if (NetworkUtil.isNetworkValid()) {
+                        try {
+                            JSONObject tokenInfors = collectTokenInfors();
 
-                TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
+                            Resty r = new Resty();
+
+                            AbstractContent ac = Resty.content(tokenInfors);
+                            MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
+
+                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
+                            String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
+                            boolean okReturned = (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
+                            // returned value not checked yet, we might need in the future, but actually the token is
+                            // still "optional".
+                        } catch (Exception e) {
+                            // nothing
+                        }
+                    }
+                    return org.eclipse.core.runtime.Status.OK_STATUS;
+                }
+
+            };
+            job.setUser(false);
+            job.setSystem(true);
+            job.setPriority(Job.LONG);
+            job.schedule();
+            job.wakeUp(); // start as soon as possible
+            if (!background) {
                 try {
-                    String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
-                    return (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
-                } catch (JSONException je) {
-                    //
+                    job.join();
+                } catch (InterruptedException e) {
+                    // nothing
                 }
             }
-        } catch (Exception e) {
-            // if want to test, enable this
-            // ExceptionHandler.process(e);
         }
-        return false;
     }
 }

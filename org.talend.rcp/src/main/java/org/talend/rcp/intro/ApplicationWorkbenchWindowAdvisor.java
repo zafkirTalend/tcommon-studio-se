@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -50,7 +51,9 @@ import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
@@ -265,8 +268,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // tmp for token
         final IPreferenceStore store = CoreRuntimePlugin.getInstance().getPreferenceStore();
         if (!store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
-            TokenCollectorFactory.getFactory().send();
+            TokenCollectorFactory.getFactory().send(true);
             store.setValue(ITalendCorePrefConstants.DATA_COLLECTOR, true);
+            if (store instanceof ScopedPreferenceStore) {
+                try {
+                    ((ScopedPreferenceStore) store).save();
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
         }
 
         IWorkbenchActivitySupport activitySupport = getWindowConfigurer().getWindow().getWorkbench().getActivitySupport();
