@@ -54,7 +54,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author scorreia
- * 
+ *
  * Utility class for data provider handling.
  */
 /**
@@ -74,7 +74,7 @@ public class ConnectionHelper {
 
     /**
      * Method "createTdDataProvider" creates a data provider with the given name.
-     * 
+     *
      * @param name the name of the data provider (could be null)
      * @return the created data provider.
      */
@@ -86,7 +86,7 @@ public class ConnectionHelper {
 
     /**
      * Method create MDM connection
-     * 
+     *
      * @param name
      * @return
      */
@@ -126,7 +126,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getTdDataProvider".
-     * 
+     *
      * @param column
      * @return the data provider or null
      */
@@ -140,7 +140,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getDataProvider".
-     * 
+     *
      * @param columnSetOwner
      * @return the data provider or null
      */
@@ -164,7 +164,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getTdDataProviders".
-     * 
+     *
      * @param objects a collection of objects
      * @return the subset of objects containing only the TdDataProviders.
      */
@@ -176,7 +176,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getTdDataProvider" adds the TdDataProviders found in the objects collection into the resultingCollection.
-     * 
+     *
      * @param objects collection in which to search for TdDataProviders (must not be null)
      * @param resultingCollection the collection in which the TdDataProviders are added (must not be null).
      * @return true if resulting collection is not empty.
@@ -196,7 +196,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setTechnicalName".
-     * 
+     *
      * @param dataProvider the data provider
      * @param technicalName the technical name of the given data provider
      * @return true if the technical name was not set before.
@@ -207,7 +207,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getTechnicalName".
-     * 
+     *
      * @param element a cwm element
      * @return the technical name of the element (or null if none)
      */
@@ -222,7 +222,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setIdentifierQuoteString" sets a comment on the given element.
-     * 
+     *
      * @param identifierQuoteString the quote to set
      * @param dataProvider the data provider
      * @return true if the value was not set before.
@@ -234,7 +234,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getIdentifierQuoteString".
-     * 
+     *
      * @param dataProvider
      * @return the identifier quote string
      */
@@ -250,7 +250,7 @@ public class ConnectionHelper {
     /**
      * Method "getDatabaseConnection" returns the data provider when the catalog (or schema) is associated to only one
      * data provider. It returns null if there is no data provider or more than one data provider.
-     * 
+     *
      * @param catalog the catalog or schema
      * @return the associated data provider or null
      */
@@ -272,7 +272,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "getDatabaseConnection".
-     * 
+     *
      * @param xmlElement
      * @return
      */
@@ -282,7 +282,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getDatabaseConnection".
-     * 
+     *
      * @param column
      * @return the data provider or null
      */
@@ -296,7 +296,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getDatabaseConnection".
-     * 
+     *
      * @param columnSetOwner
      * @return the data provider or null
      */
@@ -314,7 +314,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getDatabaseConnections".
-     * 
+     *
      * @param objects a collection of objects
      * @return the subset of objects containing only the DatabaseConnections.
      */
@@ -327,7 +327,7 @@ public class ConnectionHelper {
     /**
      * Method "getDatabaseConnection" adds the DatabaseConnections found in the objects collection into the
      * resultingCollection.
-     * 
+     *
      * @param objects collection in which to search for DatabaseConnections (must not be null)
      * @param resultingCollection the collection in which the DatabaseConnections are added (must not be null).
      * @return true if resulting collection is not empty.
@@ -386,7 +386,7 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * @deprecated use {@link SoftwareSystemManager#getSoftwareSystem(Connection dataProvider)} instead.
      * @param dataProvider
      * @return
@@ -409,7 +409,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setSoftwareSystem" sets the relation between the dataprovider and the software system.
-     * 
+     *
      * @param dataProvider (must not be null)
      * @param softwareSystem (must not be null)
      * @return true if the link between the data provider and the software system is set
@@ -450,7 +450,7 @@ public class ConnectionHelper {
 
     /**
      * add the give package to the Conneciton. You may directly use Connection.getDataPackage.add()
-     * 
+     *
      * @param pack the package to be added (never null)
      * @param connection the connection to own the Package (never null)
      * @return true if add was suscesful
@@ -472,7 +472,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getCatalogs".
-     * 
+     *
      * @param dataProvider the data provider
      * @return the catalogs contained in the data provider
      */
@@ -481,9 +481,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * Judge whether contain Catalog for the dataProvider
-     * 
+     *
      * @param dataProvider
      * @return
      */
@@ -494,7 +494,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getSchema".
-     * 
+     *
      * @param dataProvider the data provider
      * @return the schemas contained in the data provider
      */
@@ -503,9 +503,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * Two case has been contain one is only schema another one is schema contain in some catalog
-     * 
+     *
      * @param dataProvider
      * @return
      */
@@ -524,7 +524,7 @@ public class ConnectionHelper {
 
     /**
      * DOC ycbai Comment method "getSchemaByName".
-     * 
+     *
      * @param dataProvider
      * @param schemaName
      * @return
@@ -534,9 +534,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * DOC mzhao Comment method "getTdXmlDocument".
-     * 
+     *
      * @param dataProvider
      * @return
      */
@@ -546,7 +546,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "getUniverse".
-     * 
+     *
      * @param element
      * @return
      */
@@ -560,7 +560,7 @@ public class ConnectionHelper {
 
     /**
      * zshen Comment method "getDataFilter".
-     * 
+     *
      * @param element the connection which contain dataFilter tag.It should be a MdmConnection.
      * @return the value of datafilter tag.empty string will be return when the element havn't contain datafilter tag.
      */
@@ -574,7 +574,7 @@ public class ConnectionHelper {
 
     /**
      * zshen Comment method "getDataFilter".
-     * 
+     *
      * @param element the connection which contain dataFilter tag.It should be a MdmConnection.
      * @return the value of datafilter tag.empty string will be return when the element havn't contain datafilter tag.
      */
@@ -584,7 +584,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setUniverse".
-     * 
+     *
      * @param universe
      * @param element
      */
@@ -594,7 +594,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "getUniverse".
-     * 
+     *
      * @param element
      * @return
      */
@@ -608,7 +608,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setUniverse".
-     * 
+     *
      * @param universe
      * @param element
      */
@@ -621,9 +621,9 @@ public class ConnectionHelper {
 
     // MOD klliu 2010-10-09 feature 15821
     /**
-     * 
+     *
      * DOC klliu Comment method "getOtherParameter".
-     * 
+     *
      * @return
      */
     public static String getOtherParameter(ModelElement element) {
@@ -635,9 +635,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * DOC klliu Comment method "setOtherParameter".
-     * 
+     *
      * @param otherParameter
      */
     public static void setOtherParameter(String otherParameter, ModelElement element) {
@@ -646,7 +646,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setRetrieveAllMetadata". ADD xqliu 2010-03-03 feature 11412
-     * 
+     *
      * @param retrieveAllMetadata
      * @param element
      * @deprecated don't use TaggedValue any more
@@ -658,7 +658,7 @@ public class ConnectionHelper {
 
     /**
      * if the connection has sid return false, else return true (don't need the TaggedValue any more)
-     * 
+     *
      * @param element
      * @return
      */
@@ -716,7 +716,7 @@ public class ConnectionHelper {
 
     /**
      * DOC bZhou Comment method "isJDBC".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -731,7 +731,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isOracle".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -746,7 +746,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isMysql".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -761,7 +761,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isMssql".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -776,7 +776,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isPostgresql".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -791,7 +791,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isInformix".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -806,7 +806,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isIngress".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -821,7 +821,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isDb2".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -836,7 +836,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isSybase".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -851,7 +851,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isTeradata".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -866,7 +866,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "isNetezza".
-     * 
+     *
      * @param connection
      * @return
      */
@@ -880,9 +880,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * judge if it is hive connection by DatabaseType.
-     * 
+     *
      * @param connection
      * @return
      */
@@ -895,9 +895,18 @@ public class ConnectionHelper {
         return false;
     }
 
+    public static boolean isVertica(Connection connection) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(connection);
+        if (dbConn != null) {
+            String databaseType = dbConn.getDatabaseType() == null ? "" : dbConn.getDatabaseType(); //$NON-NLS-1$
+            return "Vertica".equalsIgnoreCase(databaseType); //$NON-NLS-1$
+        }
+        return false;
+    }
+
     /**
      * Gets the metadata table by id from connection. Created by Marvin Wang on May 8, 2012.
-     * 
+     *
      * @param connection
      * @param id
      * @return the metadata table if found, otherwise, return <code>null</code>.
@@ -917,7 +926,7 @@ public class ConnectionHelper {
     /**
      * return a set of all MetadataTable linked to this connection by inspecting through all the connection Package and
      * sub-packages
-     * 
+     *
      * @param connection the connection to find the related table
      * @return a set of tables.
      */
@@ -981,7 +990,7 @@ public class ConnectionHelper {
     /**
      * return the list of schemas related to a Connectio, it is look for direct Schema and all the potential Schema
      * owned by a Schema.
-     * 
+     *
      * @param connection, the connection to look for schemas
      * @return Set of unique Schemas related to the connection
      */
@@ -992,7 +1001,7 @@ public class ConnectionHelper {
     /**
      * return the list of Catalogs related to a Connectio, it is look for direct Catalog and all the potential Catalog
      * owned by a Catalog.
-     * 
+     *
      * @param connection, the connection to look for Catalogs
      * @return Set of unique Catalogs related to the connection
      */
@@ -1015,7 +1024,7 @@ public class ConnectionHelper {
 
     /**
      * get all the packages and their sub(owned) packages of the connection.
-     * 
+     *
      * @param connection the connection that refers to the packages
      * @return the list of TdTables found in the given list (never null, but can be empty).
      */
@@ -1036,7 +1045,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "getDecryptPassword".
-     * 
+     *
      * @param password
      * @return
      */
@@ -1047,7 +1056,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "getEncryptPassword".
-     * 
+     *
      * @param password
      * @return
      */
@@ -1058,7 +1067,7 @@ public class ConnectionHelper {
 
     /**
      * DOC bZhou Comment method "setAuthor".
-     * 
+     *
      * @param element
      * @param author
      * @return
@@ -1069,7 +1078,7 @@ public class ConnectionHelper {
 
     /**
      * DOC bZhou Comment method "getAuthor".
-     * 
+     *
      * @param element
      * @return
      */
@@ -1083,7 +1092,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setDevStatus" sets the development status of the given element.
-     * 
+     *
      * @param element
      * @param status the state to set.
      * @return
@@ -1098,7 +1107,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getDevStatus". MOD mzhao feature 7479
-     * 
+     *
      * @param element such as Analysis, DataProvider...
      * @return the development status of the element
      */
@@ -1113,7 +1122,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setVersion" sets the version of the given element.
-     * 
+     *
      * @param version the version to set
      * @param element the element
      * @return true if the value was not set before.
@@ -1125,7 +1134,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getVersion".
-     * 
+     *
      * @param element
      * @return the version of the element
      */
@@ -1139,7 +1148,7 @@ public class ConnectionHelper {
 
     /**
      * Method "setPurpose".
-     * 
+     *
      * @param purpose the purpose to set or create
      * @param element a CWM element
      */
@@ -1149,7 +1158,7 @@ public class ConnectionHelper {
 
     /**
      * Method "getPurpose".
-     * 
+     *
      * @param element a CWM element
      * @return the purpose or null
      */
@@ -1163,7 +1172,7 @@ public class ConnectionHelper {
 
     /**
      * DOC bZhou Comment method "getDescription".
-     * 
+     *
      * @param element
      * @return
      */
@@ -1177,7 +1186,7 @@ public class ConnectionHelper {
 
     /**
      * DOC bZhou Comment method "setDescription".
-     * 
+     *
      * @param description
      * @param element
      * @return
@@ -1188,7 +1197,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setServerName".
-     * 
+     *
      * @param conn
      * @param serverName
      */
@@ -1205,7 +1214,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setPort".
-     * 
+     *
      * @param conn
      * @param port
      */
@@ -1222,7 +1231,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setSID".
-     * 
+     *
      * @param conn
      * @param sid
      */
@@ -1239,7 +1248,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setURL".
-     * 
+     *
      * @param conn
      * @param url
      */
@@ -1256,7 +1265,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setUsername".
-     * 
+     *
      * @param conn
      * @param username
      */
@@ -1273,7 +1282,7 @@ public class ConnectionHelper {
 
     /**
      * DOC xqliu Comment method "setPassword".
-     * 
+     *
      * @param conn
      * @param password
      */
@@ -1290,7 +1299,7 @@ public class ConnectionHelper {
 
     /**
      * zshen Comment method "getPassword".
-     * 
+     *
      * @param conn
      * @param password
      */
@@ -1307,9 +1316,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * DOC qiongli Comment method "getTdDataProvider".
-     * 
+     *
      * @param column
      * @return
      */
@@ -1322,9 +1331,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * DOC qiongli Comment method "getTdDataProvider".
-     * 
+     *
      * @param mTable
      * @return
      */
@@ -1356,7 +1365,7 @@ public class ConnectionHelper {
     /**
      * Compares this Using URL tagged value to the specified connection. The result is true if and only if the url is
      * not equal with the tagged value. yyi 2011-04-14
-     * 
+     *
      * @param conn
      * @return <code>true</code> if the <code>Url </code>are not equal; <code>false</code> otherwise.
      */
@@ -1370,9 +1379,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * Get "filter" attribute in data base connection file.
-     * 
+     *
      * @return
      */
     public static String getPackageFilter(ModelElement element) {
@@ -1384,9 +1393,9 @@ public class ConnectionHelper {
     }
 
     /**
-     * 
+     *
      * Add "filter" attribute to data base connection file.
-     * 
+     *
      * @param otherParameter
      */
     public static void setPackageFilter(ModelElement element, String packageFilter) {
