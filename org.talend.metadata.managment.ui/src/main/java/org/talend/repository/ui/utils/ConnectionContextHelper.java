@@ -315,7 +315,7 @@ public final class ConnectionContextHelper {
         createParameters(varList, paramName, value, null);
     }
 
-    static void createParameters(List<IContextParameter> varList, String paramName, String value, JavaType type) {
+    public static void createParameters(List<IContextParameter> varList, String paramName, String value, JavaType type) {
         if (varList == null || paramName == null) {
             return;
         }
@@ -364,7 +364,7 @@ public final class ConnectionContextHelper {
         varList.add(contextParam);
     }
 
-    private static ISelection getRepositoryContext(final String contextNameOrId, boolean isId) {
+    public static ISelection getRepositoryContext(final String contextNameOrId, boolean isId) {
         if (contextNameOrId == null || "".equals(contextNameOrId.trim())) { //$NON-NLS-1$
             return null;
         }
