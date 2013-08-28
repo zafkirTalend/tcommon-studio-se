@@ -421,8 +421,8 @@ public class MigrationToolService implements IMigrationToolService {
                                             ExceptionHandler.process(e);
                                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                         }
+                                        done.add(MigrationUtil.convertMigrationTask(task));
                                     }
-                                    done.add(MigrationUtil.convertMigrationTask(task));
                                     needSave = true;
                                 }
                             } else {
