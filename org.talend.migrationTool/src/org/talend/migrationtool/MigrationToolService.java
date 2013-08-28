@@ -48,6 +48,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MigrationStatus;
 import org.talend.core.model.properties.MigrationTask;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
@@ -60,6 +61,7 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.migration.IMigrationTask;
 import org.talend.migration.IMigrationTask.ExecutionResult;
 import org.talend.migration.IProjectMigrationTask;
@@ -420,8 +422,8 @@ public class MigrationToolService implements IMigrationToolService {
                                             ExceptionHandler.process(e);
                                             log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                                         }
+                                        done.add(MigrationUtil.convertMigrationTask(task));
                                     }
-                                    done.add(MigrationUtil.convertMigrationTask(task));
                                     needSave = true;
                                 }
                             }else{
@@ -568,7 +570,7 @@ public class MigrationToolService implements IMigrationToolService {
         for (IProjectMigrationTask task : toExecute) {
             done.add(MigrationUtil.convertMigrationTask(task));
         }
-
+        project.getEmfProject().setItemsRelationVersion(RelationshipItemBuilder.INDEX_VERSION);
         saveProjectMigrationTasksDone(project, done);
     }
 
