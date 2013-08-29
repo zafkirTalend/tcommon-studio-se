@@ -45,7 +45,6 @@ import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.talend.commons.emf.CwmResource;
-import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -152,7 +151,7 @@ public abstract class AbstractImportHandler extends ImportHandler {
                     return inputStream;
                 }
             });
-            EmfHelper.loadResource(resource, stream, null);
+            resource.load(stream, null);
             resource.getResourceSet().setURIConverter(uriConverter);
             itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
                     PropertiesPackage.eINSTANCE.getProperty()));
@@ -386,7 +385,7 @@ public abstract class AbstractImportHandler extends ImportHandler {
                 stream = manager.getStream(path);
                 Resource resource = createResource(itemRecord, path, false);
                 resource.load(stream, null);
-                EmfHelper.loadResource(resource, stream, null);
+                // EmfHelper.loadResource(resource, stream, null);
                 pathWithProjects.put(path,
                         (Project) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject()));
             }
