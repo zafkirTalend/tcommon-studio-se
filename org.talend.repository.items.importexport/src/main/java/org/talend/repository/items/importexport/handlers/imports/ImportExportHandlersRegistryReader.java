@@ -12,17 +12,14 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.utils.RegistryReader;
 import org.talend.repository.items.importexport.handlers.model.EPriority;
 import org.talend.repository.items.importexport.handlers.model.ImportRegistry;
@@ -45,18 +42,18 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
         Collections.sort(this.imortRegisties, new Comparator<ImportRegistry>() {
 
             @Override
-            public int compare(ImportRegistry o1, ImportRegistry o2) {
-                return o1.getPriority().ordinal() - o2.getPriority().ordinal();
+            public int compare(ImportRegistry arg0, ImportRegistry arg1) {
+                return arg1.getPriority().compareTo(arg0.getPriority());
             }
         });
     }
 
-    public IImportHandler[] getImportHandlers() {
-        List<IImportHandler> handers = new ArrayList<IImportHandler>();
+    public AbstractImportExecutableHandler[] getImportHandlers() {
+        List<AbstractImportExecutableHandler> handers = new ArrayList<AbstractImportExecutableHandler>();
         for (ImportRegistry ir : this.imortRegisties) {
             handers.add(ir.getHandler());
         }
-        return handers.toArray(new IImportHandler[0]);
+        return handers.toArray(new AbstractImportExecutableHandler[0]);
     }
 
     /*
@@ -79,12 +76,12 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
 
                         EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority
                                 .valueOf(priorityString.toUpperCase()) : EPriority.NORMAL;
-                        IImportHandler handler = (IImportHandler) element.createExecutableExtension("class"); //$NON-NLS-1$
+                        AbstractImportExecutableHandler handler = (AbstractImportExecutableHandler) element
+                                .createExecutableExtension("handler"); //$NON-NLS-1$
                         if (handler == null) {
                             log.error("Can't create handlder for " + name); //$NON-NLS-1$
                             return;
                         }
-                        setProcessTypes(element, handler, id);
 
                         ImportRegistry importRegistry = new ImportRegistry(element.getContributor().getName(), id);
                         importRegistry.setName(name);
@@ -105,32 +102,4 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
         return false;
     }
 
-    private void setProcessTypes(final IConfigurationElement element, IImportHandler handler, String id) throws Exception {
-        IConfigurationElement[] typeChildren = element.getChildren("repType"); //$NON-NLS-1$
-        // only process Type import handler
-        if (typeChildren != null && handler != null && handler instanceof ImportHandler) {
-            // use reflect to set types.
-            List<ERepositoryObjectType> processTypes = null;
-            Field processTypesField = ImportHandler.class.getDeclaredField("processTypes"); //$NON-NLS-1$
-            if (processTypesField != null) {
-                processTypesField.setAccessible(true);
-                processTypes = (List<ERepositoryObjectType>) processTypesField.get(handler);
-            }
-            if (processTypes != null) {
-                for (IConfigurationElement child : typeChildren) {
-                    String repType = child.getAttribute("type"); //$NON-NLS-1$
-                    if (StringUtils.isNotEmpty(repType)) {
-                        ERepositoryObjectType type = ERepositoryObjectType.valueOf(repType);
-                        if (type != null) {
-                            processTypes.add(type);
-                        } else {
-                            log.warn("It's wrong type (" + repType + ") for handler: " + id);//$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                    } else {
-                        log.warn("The type is empty for handler: " + id);//$NON-NLS-1$
-                    }
-                }
-            }
-        }
-    }
 }

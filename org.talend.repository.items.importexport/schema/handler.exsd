@@ -48,14 +48,20 @@
    </element>
 
    <element name="importProvider">
+      <annotation>
+         <documentation>
+            If don&apos;t set the basePath parameters, can set the data after class attribute.
+For example, XxxxImportHandler:TEST
+         </documentation>
+      </annotation>
       <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="repType" minOccurs="1" maxOccurs="unbounded"/>
-         </sequence>
+         <choice>
+            <element ref="handler"/>
+         </choice>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  Unique import provider id.
                </documentation>
             </annotation>
          </attribute>
@@ -76,7 +82,8 @@
          <attribute name="priority">
             <annotation>
                <documentation>
-                  
+                  Use to override the handler.
+Could be used in case both handlers return true in the &quot;valid&quot; method.
                </documentation>
                <appinfo>
                   <meta.attribute kind="identifier"/>
@@ -97,29 +104,64 @@
                </restriction>
             </simpleType>
          </attribute>
+      </complexType>
+   </element>
+
+   <element name="handler">
+      <annotation>
+         <documentation>
+            The class attribute must extends to AbstractImportExecutableHandler. and the parameter children will be a java.util.Map &quot;data&quot;  arguments for method setInitializationData.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  imlement the interface IImportHandler
+                  must extends to AbstractImportExecutableHandler
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.talend.repository.items.importexport.handlers.imports.IImportHandler"/>
+                  <meta.attribute kind="java" basedOn="org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler:"/>
                </appinfo>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
-   <element name="repType">
+   <element name="parameter">
+      <annotation>
+         <documentation>
+            should be a map for handler
+         </documentation>
+      </annotation>
       <complexType>
-         <attribute name="type" type="string">
+         <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The name must be unique, because this is key of java.util.Map for the handler.
+                                      
+- if the name is &quot;path&quot;, the value should be a relative path for resources. for example, XML File metadata is &quot;metadata/fileXml&quot;. @see ImportBasicHandler
+                                      
+- if the name is &quot;type&quot;, the value should be the &quot;Type&quot; of extension &quot;org.talend.core.repository.repository_node_provider&quot; or &quot;ERepositoryObjectType&quot;. @see ImportRepTypeHandler
+                                      
+- if the name is others, need do it by yourself  in the method setInitializationData of handler.
                </documentation>
-               <appinfo>
-                  <meta.attribute kind="identifier" basedOn="org.talend.core.repository.repository_node_provider/repositoryNode/@type"/>
-               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="value" type="string">
+            <annotation>
+               <documentation>
+                  the value can be multi, and split by comma &quot;,&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="comment" type="string">
+            <annotation>
+               <documentation>
+                  juse for some comments
+               </documentation>
             </annotation>
          </attribute>
       </complexType>

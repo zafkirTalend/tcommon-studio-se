@@ -22,14 +22,15 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -100,25 +101,140 @@ import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * DOC ggu class global comment. Detailled comment
- * 
- * 
- * most of importers should extends this class, just recommend.
  */
-public abstract class AbstractImportHandler extends ImportHandler {
+public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
+    protected static final String SEP_COMMA = ","; //$NON-NLS-1$
+
+    protected static final String PARAM_PATH = "path"; //$NON-NLS-1$
+
+    /**
+     * set by extension point, will be the base path which relative to import project.
+     * 
+     * for example, for job designer, will be "process"; for xml file connections, will be "metadata/fileXml"
+     */
+    protected final Set<String> checkedBasePathes = new HashSet<String>();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement
+     * , java.lang.String, java.lang.Object)
+     */
+    @SuppressWarnings("rawtypes")
     @Override
-    protected boolean isValidPath(IPath path) {
+    public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
+        if (data != null && data instanceof Map) {
+            Map parametersMap = (Map) data;
+            Object object = parametersMap.get(PARAM_PATH);
+            if (object != null) {
+                String[] pathes = object.toString().split(SEP_COMMA);
+                for (String path : pathes) {
+                    if (StringUtils.isNotEmpty(path)) {
+                        path = path.trim();
+                        if (StringUtils.isNotEmpty(path)) {
+                            checkedBasePathes.add(path);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 
+     * check the file is valid to import or not.
+     */
+    protected boolean isValidFile(IPath path) {
         return ImportCacheHelper.getInstance().getXmiResourceManager().isPropertyFile(path.lastSegment());
+    }
+
+    /**
+     * Check the path is valid to import or ignore.
+     */
+    @Override
+    public boolean valid(ResourcesManager resManager, IPath path) {
+        boolean valid = isValidFile(path);
+        if (valid) {
+            IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, path);
+            if (projectFilePath != null) {
+                // remove the last segments "talend.project"
+                IPath projectRootPath = projectFilePath.removeLastSegments(1);
+                // relative to import project
+                IPath relativePath = path.makeRelativeTo(projectRootPath);
+                return validRelativePath(relativePath);
+            } else {
+                valid = false;
+            }
+
+        }
+        return valid;
+    }
+
+    /**
+     * 
+     * Check the relative path (relative import project).
+     */
+    protected boolean validRelativePath(IPath relativePath) {
+        for (String baseFolder : checkedBasePathes) {
+            if (StringUtils.isNotEmpty(baseFolder)) {
+                IPath typeFolder = new Path(baseFolder);
+                // the relativePath is under the base folder.
+                if (typeFolder.isPrefixOf(relativePath)) {
+                    return true;
+                }
+            }
+        }
+        //
+        return false;
     }
 
     /*
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.IImportHandler#computeItemRecord(org.talend.repository.items
-     * .importexport.ui.wizard.imports.managers.ResourcesManager, org.eclipse.core.runtime.IPath)
+     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#populateItemRecord(org.eclipse.core.
+     * runtime.IProgressMonitor, org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
+     * org.eclipse.core.runtime.IPath, boolean, java.util.List)
      */
     @Override
+    public ItemRecord calcItemRecord(IProgressMonitor progressMonitor, ResourcesManager resManager, IPath resourcePath,
+            boolean overwrite, List<ItemRecord> existeditems) {
+
+        ItemRecord itemRecord = computeItemRecord(resManager, resourcePath);
+        if (progressMonitor.isCanceled()) {
+            return null;
+        }
+        if (itemRecord != null && itemRecord.getProperty() != null) {
+            boolean alreadyInList = false;
+            for (ItemRecord currentItemRecord : existeditems) {
+                if (isSame(itemRecord, currentItemRecord)) {
+                    // if have any duplicate item from same project & same folder, just don't do
+                    // anything,
+                    // no need to display.
+                    alreadyInList = true;
+                    break;
+                }
+            }
+            if (alreadyInList) {
+                return null; // if existed, it not valid.
+            }
+
+            if (checkItem(resManager, itemRecord, overwrite)) {
+                if (progressMonitor.isCanceled()) {
+                    return null;
+                }
+                checkAndSetProject(resManager, itemRecord);
+            }
+            // set the import handler
+            itemRecord.setImportHandler(this);
+            return itemRecord;
+        }
+        return null;
+
+    }
+
     public ItemRecord computeItemRecord(ResourcesManager resManager, IPath path) {
         ItemRecord itemRecord = new ItemRecord(path);
         computeProperty(resManager, itemRecord);
@@ -191,29 +307,18 @@ public abstract class AbstractImportHandler extends ImportHandler {
         return new CwmResource(pathUri);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.talend.repository.items.importexport.handlers.IImportHandler#isSame(org.talend.repository.items.importexport
-     * .ui.wizard.imports.models.ItemRecord,
-     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord)
+    /**
+     * it's same item or not.
      */
-    @Override
     public boolean isSame(ItemRecord itemRecord1, ItemRecord itemRecord2) {
         return StringUtils.equals(itemRecord1.getProperty().getId(), itemRecord2.getProperty().getId())
                 && StringUtils.equals(itemRecord1.getProperty().getVersion(), itemRecord2.getProperty().getVersion());
     }
 
-    /*
-     * (non-Javadoc)
+    /**
      * 
-     * @see
-     * org.talend.repository.items.importexport.handlers.IImportHandler#checkItem(org.talend.repository.items.importexport
-     * .ui.wizard.imports.managers.ResourcesManager,
-     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord, boolean)
+     * check the item is valid or not。
      */
-    @Override
     public boolean checkItem(ResourcesManager resManager, ItemRecord itemRecord, boolean overwrite) {
         try {
             Item item = itemRecord.getItem();
@@ -308,6 +413,10 @@ public abstract class AbstractImportHandler extends ImportHandler {
         return true;
     }
 
+    /**
+     * 
+     * different id with same name.
+     */
     protected boolean isSameName(ItemRecord itemRecord, IRepositoryViewObject repObject) {
         final Property property = itemRecord.getProperty();
         if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(repObject.getLabel())) // same label
@@ -347,7 +456,6 @@ public abstract class AbstractImportHandler extends ImportHandler {
         return false;
     }
 
-    @Override
     public void checkAndSetProject(ResourcesManager resManager, ItemRecord itemRecord) {
         InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
         URI uri = null;
@@ -953,21 +1061,6 @@ public abstract class AbstractImportHandler extends ImportHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#findRelatedItemRecord(org.eclipse.core
-     * .runtime.IProgressMonitor, org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
-     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord,
-     * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord[])
-     */
-    @Override
-    public List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager,
-            ItemRecord selectedItemRecord, ItemRecord[] allImportItemRecords) {
-        return Collections.emptyList(); // default, it's nothing.
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
      * org.talend.repository.items.importexport.handlers.imports.IImportHandler#afterImportingItemRecords(org.talend
      * .repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
@@ -992,4 +1085,5 @@ public abstract class AbstractImportHandler extends ImportHandler {
         }
 
     }
+
 }

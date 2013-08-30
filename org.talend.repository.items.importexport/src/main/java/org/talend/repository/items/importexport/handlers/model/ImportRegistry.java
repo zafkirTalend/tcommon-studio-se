@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.model;
 
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -25,7 +25,7 @@ public class ImportRegistry {
 
     private EPriority priority = EPriority.NORMAL;
 
-    private IImportHandler handler;
+    private AbstractImportExecutableHandler importExecutableHandler;
 
     public ImportRegistry(String bundleId, String id) {
         super();
@@ -70,21 +70,21 @@ public class ImportRegistry {
     }
 
     /**
-     * Getter for handler.
+     * Getter for importExecutableHandler.
      * 
-     * @return the handler
+     * @return the importExecutableHandler
      */
-    public IImportHandler getHandler() {
-        return this.handler;
+    public AbstractImportExecutableHandler getHandler() {
+        return this.importExecutableHandler;
     }
 
     /**
-     * Sets the handler.
+     * Sets the importExecutableHandler.
      * 
-     * @param handler the handler to set
+     * @param importExecutableHandler the importExecutableHandler to set
      */
-    public void setHandler(IImportHandler handler) {
-        this.handler = handler;
+    public void setHandler(AbstractImportExecutableHandler handler) {
+        this.importExecutableHandler = handler;
     }
 
     /**
@@ -121,6 +121,46 @@ public class ImportRegistry {
      */
     public String getName() {
         return this.name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ImportRegistry other = (ImportRegistry) obj;
+        if (this.id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!this.id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -45,7 +45,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
@@ -63,7 +63,7 @@ public final class ImportExportHandlersManager {
 
     private final ImportExportHandlersRegistryReader registryReader;
 
-    private IImportHandler[] importHandlers;
+    private AbstractImportExecutableHandler[] importHandlers;
 
     private ImportExportHandlersManager() {
         registryReader = new ImportExportHandlersRegistryReader();
@@ -74,15 +74,15 @@ public final class ImportExportHandlersManager {
         return instance;
     }
 
-    public IImportHandler[] getImportHandlers() {
+    public AbstractImportExecutableHandler[] getImportHandlers() {
         if (importHandlers == null) {
             importHandlers = registryReader.getImportHandlers();
         }
         return importHandlers;
     }
 
-    private IImportHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
-        for (IImportHandler handler : getImportHandlers()) {
+    private AbstractImportExecutableHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
+        for (AbstractImportExecutableHandler handler : getImportHandlers()) {
             if (handler.valid(resManager, path)) {
                 return handler;
             }
@@ -120,7 +120,7 @@ public final class ImportExportHandlersManager {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                IImportHandler importHandler = findValidImportHandler(resManager, path);
+                AbstractImportExecutableHandler importHandler = findValidImportHandler(resManager, path);
                 if (importHandler != null) {
                     ItemRecord itemRecord = importHandler.calcItemRecord(progressMonitor, resManager, path, overwrite, items);
                     if (itemRecord != null) {
@@ -273,12 +273,12 @@ public final class ImportExportHandlersManager {
                                 if (itemRecord.isImported()) {
                                     return; // have imported
                                 }
-                                final IImportHandler importHandler = itemRecord.getImportHandler();
+                                final AbstractImportExecutableHandler importHandler = itemRecord.getImportHandler();
                                 if (importHandler != null && itemRecord.isValid()) {
                                     List<ItemRecord> relatedItemRecord = importHandler.findRelatedItemRecord(monitor, manager,
                                             itemRecord, allPopulatedImportItemRecords);
                                     // import related items first
-                                    if (importHandler.needImportRelatedItemRecordFirst()) {
+                                    if (importHandler.isImportRelatedItemRecordPrior()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
                                                     destPath, type, overwriteDeletedItems, idDeletedBeforeImport,
@@ -296,7 +296,7 @@ public final class ImportExportHandlersManager {
                                         return;
                                     }
                                     // if import related items behind current item
-                                    if (!importHandler.needImportRelatedItemRecordFirst()) {
+                                    if (!importHandler.isImportRelatedItemRecordPrior()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
                                                     destPath, type, overwriteDeletedItems, idDeletedBeforeImport,

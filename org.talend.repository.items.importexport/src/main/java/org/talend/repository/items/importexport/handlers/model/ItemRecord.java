@@ -27,7 +27,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler;
 
 /**
  */
@@ -77,7 +77,7 @@ public class ItemRecord {
      */
     private boolean visible = true;
 
-    private IImportHandler importHandler;
+    private AbstractImportExecutableHandler importExecutableHandler;
 
     public ItemRecord(IPath path) {
         this.path = path;
@@ -303,12 +303,12 @@ public class ItemRecord {
         this.visible = visible;
     }
 
-    public IImportHandler getImportHandler() {
-        return this.importHandler;
+    public AbstractImportExecutableHandler getImportHandler() {
+        return this.importExecutableHandler;
     }
 
-    public void setImportHandler(IImportHandler importHandler) {
-        this.importHandler = importHandler;
+    public void setImportHandler(AbstractImportExecutableHandler importHandler) {
+        this.importExecutableHandler = importHandler;
     }
 
 }

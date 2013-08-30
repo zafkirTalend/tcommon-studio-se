@@ -371,4 +371,20 @@
          </Item>
       </RepositoryComponent>
    </extension>
+   <extension
+         point="org.talend.repository.items.importexport.handler">
+      <importProvider
+            id="org.talend.repository.view.example.importProvider"
+            name="Example Demo importer"
+            priority="LOW">
+         <handler
+               class="org.talend.repository.viewer.handler.ExampleDemoImportHandler">
+            <parameter
+                  comment="for the value, same as &quot;EXAMPLE_DEMO&quot; too."
+                  name="path"
+                  value="metadata/exmple_demo">
+            </parameter>
+         </handler>
+      </importProvider>
+   </extension>
 </plugin>

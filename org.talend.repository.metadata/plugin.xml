@@ -1271,44 +1271,17 @@
    <extension
          point="org.talend.repository.items.importexport.handler">
       <importProvider
-            class="org.talend.repository.metadata.importexport.SomeMetadatasImportHandler"
             description="Dbs, Files"
             id="org.talend.repository.metadata.importProvider.some"
             name="Metadatas Import"
             priority="LOW">
-         <repType
-               type="METADATA_CONNECTIONS">
-         </repType>
-         <repType
-               type="METADATA_FILE_DELIMITED">
-         </repType>
-         <repType
-               type="METADATA_FILE_POSITIONAL">
-         </repType>
-         <repType
-               type="METADATA_FILE_REGEXP">
-         </repType>
-         <repType
-               type="METADATA_FILE_XML">
-         </repType>
-         <repType
-               type="METADATA_FILE_LDIF">
-         </repType>
-         <repType
-               type="METADATA_FILE_EXCEL">
-         </repType>
-         <repType
-               type="METADATA_SALESFORCE_SCHEMA">
-         </repType>
-         <repType
-               type="METADATA_LDAP_SCHEMA">
-         </repType>
-         <repType
-               type="METADATA_WSDL_SCHEMA">
-         </repType>
-         <repType
-               type="METADATA_GENERIC_SCHEMA">
-         </repType>
+         <handler
+               class="org.talend.repository.metadata.importexport.SomeMetadatasImportHandler">
+            <parameter
+                  name="type"
+                  value="METADATA_CONNECTIONS,METADATA_FILE_DELIMITED,METADATA_FILE_POSITIONAL,METADATA_FILE_REGEXP,METADATA_FILE_XML,METADATA_FILE_LDIF,METADATA_FILE_EXCEL,METADATA_SALESFORCE_SCHEMA,METADATA_LDAP_SCHEMA,METADATA_WSDL_SCHEMA,METADATA_GENERIC_SCHEMA">
+            </parameter>
+         </handler>
       </importProvider>
    </extension>
 

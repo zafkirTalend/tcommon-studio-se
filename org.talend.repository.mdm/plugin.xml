@@ -82,13 +82,16 @@
    <extension
          point="org.talend.repository.items.importexport.handler">
       <importProvider
-            class="org.talend.repository.mdm.ui.wizard.handler.MdmImportHandler"
             id="org.talend.repository.mdm.importProvider"
             name="MDM Importer"
             priority="NORMAL">
-         <repType
-               type="METADATA_MDMCONNECTION">
-         </repType>
+         <handler
+               class="org.talend.repository.mdm.ui.wizard.handler.MdmImportHandler">
+            <parameter
+                  name="type"
+                  value="METADATA_MDMCONNECTION">
+            </parameter>
+         </handler>
       </importProvider>
    </extension>
    <!--

@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.IWizard;
@@ -342,6 +343,19 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public IRepositoryTypeProcessor getRepositoryTypeProcessor(String repositoryType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.repository.IRepositoryContentHandler#getReferenceFileURI(org.talend.core.model.properties
+     * .Item, java.lang.String)
+     */
+    @Override
+    public URI getReferenceFileURI(Item item, String extension) {
         // TODO Auto-generated method stub
         return null;
     }

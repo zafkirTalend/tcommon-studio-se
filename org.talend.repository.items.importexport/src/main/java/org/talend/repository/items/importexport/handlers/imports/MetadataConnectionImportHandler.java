@@ -31,7 +31,7 @@ import org.talend.repository.items.importexport.manager.ResourcesManager;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MetadataConnectionImportHandler extends AbstractImportHandler {
+public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
 
     public MetadataConnectionImportHandler() {
         super();
@@ -40,7 +40,7 @@ public class MetadataConnectionImportHandler extends AbstractImportHandler {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.items.importexport.handlers.imports.AbstractImportHandler#afterCreatedItem(org.
+     * @see org.talend.repository.items.importexport.handlers.imports.ImportRepTypeHandler#afterCreatedItem(org.
      * talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
      * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
