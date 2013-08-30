@@ -30,6 +30,9 @@ import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -46,6 +49,7 @@ import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -102,6 +106,10 @@ public class RepositoryViewObject implements IRepositoryViewObject {
     private PersistenceException exception;
 
     private boolean modified = false;
+
+    private static final String DI = "DI";
+
+    private static final String TIP = "same name item with other project";
 
     public RepositoryViewObject(Property property, boolean avoidGuiInfos) {
         this.id = property.getId();
@@ -300,6 +308,25 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                         && item.getIcon().getInnerContent().length != 0) {
                     customImage = getJobletCustomIcon(property);
                     customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
+                }
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                IJobletProviderService jobletservice = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                        IJobletProviderService.class);
+                if (service != null && jobletservice != null) {
+                    IComponentsFactory factorySingleton = service.getComponentsFactory();
+                    IComponent component = factorySingleton.get(property.getLabel(), DI);
+                    if (component != null) {
+                        try {
+                            Property tProperty = jobletservice.getJobletComponentItem(component);
+                            if (!tProperty.getId().equals(this.id)) {
+                                informationStatus = ERepositoryStatus.WARN;
+                                property.setDescription(TIP);
+                            }
+                        } catch (Exception e) {
+                            // tProperty is null
+                        }
+                    }
                 }
             } else if (type == ERepositoryObjectType.DOCUMENTATION) {
                 this.customImage = ImageProvider.getImage(RepositoryImageProvider.getIcon(type));
