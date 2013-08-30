@@ -16,6 +16,12 @@
                id="org.talend.repository.localprovider.actionSet">
          </actionSet>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="*">
+         <hiddenToolBarItem
+               id="opengroovyprojectwizard">
+         </hiddenToolBarItem>
+      </perspectiveExtension>
    </extension>
    
 <extension
