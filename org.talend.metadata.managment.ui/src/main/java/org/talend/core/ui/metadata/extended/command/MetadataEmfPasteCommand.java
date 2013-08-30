@@ -15,6 +15,7 @@ package org.talend.core.ui.metadata.extended.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -92,7 +93,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
         ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
         ArrayList<String> labelsExisted = getLabelsExisted(extendedTable);
-        int indice = 1;
+        ArrayList<String> DBColumnsExisted = getDBColumnsExisted(extendedTable);
         MetadataEmfTableEditor tableEditor = (MetadataEmfTableEditor) extendedTable;
         for (Object current : copiedObjectsList) {
             if (current instanceof MetadataColumn) {
@@ -105,6 +106,10 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 labelsExisted.add(nextGeneratedColumnName);
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
+                if (metadataColumn.getName() != null && !StringUtils.isEmpty(metadataColumn.getName())) {
+                    String nextGeneratedDbColumnName = validateColumnName(metadataColumn.getName(), DBColumnsExisted);
+                    newColumnCopy.setName(nextGeneratedDbColumnName);
+                }
                 addItemList.add(newColumnCopy);
             } else if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
@@ -146,5 +151,15 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
             }
         }
         return labelsExisted;
+    }
+
+    private ArrayList<String> getDBColumnsExisted(ExtendedTableModel extendedTable) {
+        ArrayList<String> DBColumnsExisted = new ArrayList<String>();
+        for (Object obj : extendedTable.getBeansList()) {
+            if (obj instanceof MetadataColumn) {
+                DBColumnsExisted.add(((MetadataColumn) obj).getName());
+            }
+        }
+        return DBColumnsExisted;
     }
 }
