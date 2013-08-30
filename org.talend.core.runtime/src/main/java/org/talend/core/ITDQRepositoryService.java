@@ -28,6 +28,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.utils.sugars.ReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -159,5 +160,13 @@ public interface ITDQRepositoryService extends IService {
      * @param noNeedToOpenConnectionEditor: true--open the connection editor after creating, false-- not open
      */
     public void setIsOpenConnectionEditorAfterCreate(boolean noNeedToOpenConnectionEditor);
+
+    /**
+     * Refresh the table in data sample section of match analysis after running DOC yyin Comment method
+     * "refreshTableWithResult".
+     * 
+     * @param result
+     */
+    public void refreshTableWithResult(ModelElement analysis, List<Object[]> result);
 
 }
