@@ -67,10 +67,6 @@ public final class ProjectManager {
 
     private Project currentProject;
 
-    private List<Project> referencedprojects = new ArrayList<Project>();
-
-    private List<Project> allReferencedprojects = new ArrayList<Project>();
-
     private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
     private Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
@@ -116,7 +112,7 @@ public final class ProjectManager {
         }
     }
 
-    private void resolveSubRefProject(org.talend.core.model.properties.Project p) {
+    private void resolveSubRefProject(org.talend.core.model.properties.Project p, List<Project> allReferencedprojects) {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null && p != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
@@ -125,7 +121,7 @@ public final class ProjectManager {
                     if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
                         Project project = new Project(pr.getReferencedProject());
                         allReferencedprojects.add(project);
-                        resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+                        resolveSubRefProject(pr.getReferencedProject(), allReferencedprojects); // only to resolve all
                     }
                 }
             }
@@ -136,7 +132,7 @@ public final class ProjectManager {
      * 
      * retrieve the referenced projects of current project.
      */
-    public void retrieveReferencedProjects() {
+    public void retrieveReferencedProjects(List<Project> referencedprojects) {
         referencedprojects.clear();
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
@@ -156,6 +152,11 @@ public final class ProjectManager {
         }
     }
 
+    @Deprecated
+    public void retrieveReferencedProjects() {
+        // not usefull anymore
+    }
+
     /**
      * return current project.
      * 
@@ -170,11 +171,9 @@ public final class ProjectManager {
      * return the referenced projects of current project.
      */
     public List<Project> getReferencedProjects() {
-        // if (this.referencedprojects.isEmpty() || CommonsPlugin.isHeadless())
-        // {
-        retrieveReferencedProjects();
-        // }
-        return this.referencedprojects;
+        List<Project> referencedprojects = new ArrayList<Project>();
+        retrieveReferencedProjects(referencedprojects);
+        return referencedprojects;
     }
 
     /**
@@ -182,8 +181,7 @@ public final class ProjectManager {
      * return all the referenced projects of current project.
      */
     public List<Project> getAllReferencedProjects() {
-        // if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
-        allReferencedprojects.clear();
+        List<Project> allReferencedprojects = new ArrayList<Project>();
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
             if (this.getCurrentProject() == null) {
                 // only appears if there is some other exception before.
@@ -200,13 +198,12 @@ public final class ProjectManager {
                     for (org.talend.core.model.properties.Project p : rProjects) {
                         Project project = new Project(p);
                         allReferencedprojects.add(project);
-                        resolveSubRefProject(p);
+                        resolveSubRefProject(p, allReferencedprojects);
                     }
                 }
             }
         }
-        // }
-        return new ArrayList<Project>(this.allReferencedprojects);
+        return allReferencedprojects;
     }
 
     /**
