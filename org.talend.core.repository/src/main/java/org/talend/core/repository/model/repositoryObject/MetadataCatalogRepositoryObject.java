@@ -17,11 +17,15 @@ import java.util.List;
 
 import org.talend.core.model.metadata.MetadataCatalog;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
+import org.talend.cwm.helper.CatalogHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -38,7 +42,7 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
         return this.viewObject;
     }
 
-    private final Catalog catalog;
+    private Catalog catalog;
 
     private IRepositoryNode repositoryNode;
 
@@ -95,8 +99,25 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     public void removeFromParent() {
     }
 
+    /**
+     * update the Catalog object according to the Property, because when the connection has been reloaded, the catalog
+     * object should be changed, so need use the new catalog object.
+     * 
+     * @param property
+     */
     private void updateCatalog(Property property) {
-        // FIXME empty method ?
+        if (catalog != null) {
+            Item item = property.getItem();
+            if (item != null && item instanceof ConnectionItem) {
+                Connection connection = ((ConnectionItem) item).getConnection();
+                if (connection != null) {
+                    Catalog catalog2 = CatalogHelper.getCatalog(connection, catalog.getName());
+                    if (catalog2 != null) {
+                        catalog = catalog2;
+                    }
+                }
+            }
+        }
     }
 
     @Override
