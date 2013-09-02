@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -73,13 +72,13 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.service.IExchangeService;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
-import org.talend.repository.items.importexport.handlers.imports.IImportConstants;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
@@ -920,20 +919,23 @@ public class ImportItemsWizardPage extends WizardPage {
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     IPath destinationPath = null;
-                    String contentType = null;
                     Object firstElement = getSelection().getFirstElement();
                     if (firstElement != null && firstElement instanceof RepositoryNode) {
                         final RepositoryNode rNode = (RepositoryNode) firstElement;
                         if (rNode.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER) {
                             destinationPath = RepositoryNodeUtilities.getPath(rNode);
-                            contentType = rNode.getContentType().name();
+                            // add the type of path
+                            ERepositoryObjectType contentType = rNode.getContentType();
+                            if (contentType.isResouce()) {
+                                IPath typePath = new Path(contentType.getFolder());
+                                if (!typePath.isPrefixOf(destinationPath)) {
+                                    destinationPath = typePath.append(destinationPath);
+                                }
+                            }
                         }
                     }
-                    Map<String, Object> options = new HashMap<String, Object>();
-                    options.put(IImportConstants.OPTION_CONTEXT_PATH, destinationPath);
-                    options.put(IImportConstants.OPTION_CONTEXT_TYPE, contentType);
                     ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
-                            overwrite, nodesBuilder.getAllImportItemRecords(), options);
+                            overwrite, nodesBuilder.getAllImportItemRecords(), destinationPath);
 
                 }
             };

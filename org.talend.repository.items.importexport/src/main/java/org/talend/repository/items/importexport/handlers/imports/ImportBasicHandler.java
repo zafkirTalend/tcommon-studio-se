@@ -610,12 +610,12 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @see
      * org.talend.repository.items.importexport.handlers.imports.IImportHandler#importItemRecord(org.eclipse.core.runtime
      * .IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
-     * org.talend.repository.items.importexport.handlers.model.ItemRecord, boolean, java.util.Map)
+     * org.talend.repository.items.importexport.handlers.model.ItemRecord, boolean, org.eclipse.core.runtime.IPath,
+     * java.util.Set, java.util.Set)
      */
     @Override
     public void importItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            boolean overwrite, Map<?, ?> options) {
-
+            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
         resolveItem(resManager, selectedItemRecord);
 
@@ -645,7 +645,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
 
-            IPath path = checkAndCreatePath(selectedItemRecord, options);
+            IPath path = checkAndCreatePath(selectedItemRecord, destinationPath);
 
             try {
                 Item tmpItem = item;
@@ -662,32 +662,25 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                                 || selectedItemRecord.getState() == State.NAME_EXISTED || selectedItemRecord.getState() == State.NAME_AND_ID_EXISTED)
                         && !ImportCacheHelper.getInstance().getDeletedItems().contains(id)) {
 
-                    if (options.containsKey(IImportConstants.OPTION_OVERWRITE_DELETED_ITEMS)) {
-                        List<String> overwriteDeletedItems = (List<String>) options
-                                .get(IImportConstants.OPTION_OVERWRITE_DELETED_ITEMS);
-                        if (overwriteDeletedItems != null && !overwriteDeletedItems.contains(id)) { // bug 10520.
-                            ERepositoryStatus status = repFactory.getStatus(lastVersion);
-                            if (status == ERepositoryStatus.DELETED) {
-                                repFactory.restoreObject(lastVersion, path); // restore first.
-                            }
-                            overwriteDeletedItems.add(id);
+                    if (overwriteDeletedItems != null && !overwriteDeletedItems.contains(id)) { // bug 10520.
+                        ERepositoryStatus status = repFactory.getStatus(lastVersion);
+                        if (status == ERepositoryStatus.DELETED) {
+                            repFactory.restoreObject(lastVersion, path); // restore first.
                         }
+                        overwriteDeletedItems.add(id);
                     }
+
                     /* only delete when name exsit rather than id exist */
                     if (selectedItemRecord.getState().equals(ItemRecord.State.NAME_EXISTED)
                             || selectedItemRecord.getState().equals(ItemRecord.State.NAME_AND_ID_EXISTED)) {
-                        if (options.containsKey(IImportConstants.OPTION_ID_DELETED_BEFORE_IMPORT)) {
-                            List<String> idDeletedBeforeImport = (List<String>) options
-                                    .get(IImportConstants.OPTION_ID_DELETED_BEFORE_IMPORT);
-                            if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
-                                // TDI-19535 (check if exists, delete all items with same id)
-                                List<IRepositoryViewObject> allVersionToDelete = repFactory.getAllVersion(ProjectManager
-                                        .getInstance().getCurrentProject(), lastVersion.getId(), false);
-                                for (IRepositoryViewObject currentVersion : allVersionToDelete) {
-                                    repFactory.forceDeleteObjectPhysical(lastVersion, currentVersion.getVersion());
-                                }
-                                idDeletedBeforeImport.add(id);
+                        if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
+                            // TDI-19535 (check if exists, delete all items with same id)
+                            List<IRepositoryViewObject> allVersionToDelete = repFactory.getAllVersion(ProjectManager
+                                    .getInstance().getCurrentProject(), lastVersion.getId(), false);
+                            for (IRepositoryViewObject currentVersion : allVersionToDelete) {
+                                repFactory.forceDeleteObjectPhysical(lastVersion, currentVersion.getVersion());
                             }
+                            idDeletedBeforeImport.add(id);
                         }
                     }
                     lastVersion = null;
@@ -789,27 +782,19 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param contentType
      * @return
      */
-    protected IPath checkAndCreatePath(ItemRecord selectedItemRecord, Map<?, ?> options) {
+    protected IPath checkAndCreatePath(ItemRecord selectedItemRecord, IPath destinationPath) {
         final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         final Item item = selectedItemRecord.getItem();
         final ERepositoryObjectType curItemType = ERepositoryObjectType.getItemType(item);
 
-        IPath destinationPath = null;
-        if (options.containsKey(IImportConstants.OPTION_CONTEXT_PATH)) {
-            destinationPath = (IPath) options.get(IImportConstants.OPTION_CONTEXT_PATH);
-        }
-        ERepositoryObjectType contextType = null;
-        if (options.containsKey(IImportConstants.OPTION_CONTEXT_TYPE)) {
-            Object obj = options.get(IImportConstants.OPTION_CONTEXT_TYPE);
-            if (obj instanceof ERepositoryObjectType) {
-                contextType = (ERepositoryObjectType) obj;
-            } else if (obj instanceof String) {
-                contextType = ERepositoryObjectType.getType(obj.toString());
-            }
-        }
         IPath path = new Path(item.getState().getPath());
-        if (destinationPath != null && contextType != null && curItemType.equals(contextType)) {
-            path = destinationPath.append(path);
+        if (destinationPath != null && curItemType.isResouce()) {
+            IPath typePath = new Path(curItemType.getFolder());
+            // only process the same type of items.
+            if (typePath.isPrefixOf(destinationPath)) {
+                IPath newDesPath = destinationPath.makeRelativeTo(typePath);
+                path = newDesPath.append(path);
+            }
         }
 
         try {

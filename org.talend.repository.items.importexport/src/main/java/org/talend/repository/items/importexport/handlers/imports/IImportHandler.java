@@ -13,7 +13,7 @@
 package org.talend.repository.items.importexport.handlers.imports;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IPath;
@@ -63,10 +63,12 @@ public interface IImportHandler extends IExecutableExtension {
      * 
      * @param selectedItemRecord the importing item
      * @param overwrite If true will overwrite the original item. else will ignore to import the selected item.
-     * @param options Can put any parameters or options in this Map.
+     * @param destinationPath, only used for contextual import otherwise it is null. If not null it is to the handler
+     * responsibility to use it if the items it handles should be placed in this contextual folder. Handlers that do not
+     * recognize this destination path may import their items by ignoring this value.
      */
     void importItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            boolean overwrite, Map<?, ?> options);
+            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport);
 
     /**
      * When there are some related items to be import, will use this flag.

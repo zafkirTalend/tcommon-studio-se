@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.utils.io.FileCopyUtils;
@@ -40,10 +41,16 @@ public final class HandlerUtil {
     }
 
     public static IPath getItemPath(IPath path, Item item) {
+        IPath removeFileExtension = path.removeFileExtension();
+        if (!item.isNeedVersion()) {
+            String portableString = removeFileExtension.toPortableString();
+            String substring = portableString.substring(0, portableString.lastIndexOf('_'));
+            removeFileExtension = new Path(substring);
+        }
         if (item.getFileExtension() != null) {
-            return path.removeFileExtension().addFileExtension(item.getFileExtension());
+            return removeFileExtension.addFileExtension(item.getFileExtension());
         } else {
-            return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
+            return removeFileExtension.addFileExtension(FileConstants.ITEM_EXTENSION);
         }
     }
 
