@@ -160,8 +160,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -2680,7 +2680,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
         }
-        Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
+        Resource propertyResource = xmiResourceManager.createPropertyResource(item, itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
@@ -2724,7 +2724,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<Resource> referenceFileReources = new ArrayList<Resource>();
 
         for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
-            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(item, refFile, needLoad);
+            Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, needLoad);
             if (needLoad) {
                 if (referenceFileReource.getContents() != null) {
                     refFile.setContent((ByteArray) referenceFileReource.getContents().get(0));

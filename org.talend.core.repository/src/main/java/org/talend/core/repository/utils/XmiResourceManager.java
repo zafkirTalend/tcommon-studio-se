@@ -68,8 +68,6 @@ import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.ValidationRulesConnectionItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryContentHandler;
-import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.utils.ResourceFilenameHelper.FileName;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -140,6 +138,7 @@ public class XmiResourceManager {
     }
 
     public Property loadProperty(IResource iResource) {
+
         Property property = null;
         // force unload old version, or the UI won't be synchronized all the time to the current file.
         // this is only if a user update itself a .item or .properties, or for SVN repository.
@@ -227,62 +226,24 @@ public class XmiResourceManager {
         return uri;
     }
 
-    public Resource createPropertyResource(Resource itemResource) {
-        URI propertyResourceURI = getPropertyResourceURI(itemResource.getURI());
+    public Resource createPropertyResource(Item item, Resource itemResource) {
+        URI itemUri = itemResource.getURI();
+        URI propertyResourceURI = itemUri.trimFileExtension();
+        if (item.isNeedVersion()) {
+            propertyResourceURI = propertyResourceURI.appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+        } else {
+            IPath converted = URIHelper.convert(propertyResourceURI);
+            IPath propertyPath = new Path(converted.toPortableString() + '_' + item.getProperty().getVersion());
+            propertyResourceURI = URIHelper.convert(propertyPath);
+            propertyResourceURI = propertyResourceURI.appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+        }
+        // URI propertyResourceURI = getPropertyResourceURI(uri);
         Resource propResource = getResourceSet().getResource(propertyResourceURI, false);
         if (propResource != null) {
             propResource.unload();
             getResourceSet().getResources().remove(propResource);
         }
         return getResourceSet().createResource(propertyResourceURI);
-    }
-
-    public Resource getReferenceFileResource(Item item, ReferenceFileItem refFile, boolean needLoad) {
-        URI referenceFileURI = null;
-        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-            referenceFileURI = handler.getReferenceFileURI(item, refFile.getExtension());
-            if (referenceFileURI != null) {
-                break;
-            }
-        }
-        if (referenceFileURI == null) {
-            referenceFileURI = getReferenceFileURI(item.eResource().getURI(), refFile.getExtension());
-        }
-        URIConverter converter = getResourceSet().getURIConverter();
-        Resource referenceResource = new ByteArrayResource(referenceFileURI);
-        InputStream inputStream = null;
-        List<Resource> resources = new ArrayList<Resource>(getResourceSet().getResources());
-        // in case ESB load reference file from the physcial file,but DI need reference from the EMF,so add this
-        // flag
-        if (refFile.isReloadFromFile()) {
-            for (Resource res : resources) {
-                if (res != null && referenceFileURI.toString().equals(res.getURI().toString())) {
-                    res.unload();
-                    getResourceSet().getResources().remove(res);
-                }
-            }
-
-            getResourceSet().getResources().add(referenceResource);
-            try {
-                if (needLoad) {
-                    inputStream = converter.createInputStream(referenceFileURI);
-                    referenceResource.load(inputStream, null);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (inputStream != null) {
-                        inputStream.close();
-                    }
-                } catch (IOException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-        } else {
-            referenceResource = getResourceSet().getResource(referenceFileURI, true);
-        }
-        return referenceResource;
     }
 
     public Resource getReferenceFileResource(Resource itemResource, ReferenceFileItem refFile, boolean needLoad) {
@@ -496,7 +457,11 @@ public class XmiResourceManager {
                 path = path.append(folder);
                 path = path.append(item.getState().getPath());
                 Property property = item.getProperty();
-                String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ //$NON-NLS-2$
+                String version = "";
+                if (item.isNeedVersion()) {
+                    version = "_" + property.getVersion();
+                }
+                String itemStr = property.getLabel() + version + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ 
                 path = path.append(itemStr);
                 return URIHelper.convert(path);
             }
@@ -607,9 +572,25 @@ public class XmiResourceManager {
         }
     }
 
-    private URI getPropertyResourceURI(URI itemResourceURI) {
-        return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+    public URI getItemResourceURI(URI propertyResourceURI, boolean needVersion, String... fileExtension) {
+        URI trimFileExtension = propertyResourceURI.trimFileExtension();
+        if (!needVersion) {
+            IPath convert = URIHelper.convert(trimFileExtension);
+            String portableString = convert.toPortableString();
+            int lastIndexOf = portableString.lastIndexOf('_');
+            String filePathWithoutVersion = portableString.substring(0, lastIndexOf);
+            trimFileExtension = URIHelper.convert(new Path(filePathWithoutVersion));
+        }
+        if (fileExtension == null || fileExtension.length == 0) {
+            return trimFileExtension.appendFileExtension(FileConstants.ITEM_EXTENSION);
+        } else {
+            return trimFileExtension.appendFileExtension(fileExtension[0]);
+        }
     }
+
+    // private URI getPropertyResourceURI(URI itemResourceURI) {
+    // return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
+    // }
 
     private URI getScreenshotResourceURI(URI itemResourceURI) {
         // return itemResourceURI.trimFileExtension().appendFileExtension(FileConstants.PROPERTIES_EXTENSION);
@@ -623,9 +604,11 @@ public class XmiResourceManager {
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
         IPath resourcePath = null;
         if (item.getFileExtension() == null) {
-            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION,
+                    item.isNeedVersion());
         } else {
-            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, item.getFileExtension());
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, item.getFileExtension(),
+                    item.isNeedVersion());
         }
         return URIHelper.convert(resourcePath);
     }
@@ -635,7 +618,8 @@ public class XmiResourceManager {
             String fileExtension) throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension);
+        IPath resourcePath = ResourceFilenameHelper
+                .getExpectedFilePath(fileName, folderPath, fileExtension, item.isNeedVersion());
         return URIHelper.convert(resourcePath);
     }
 
@@ -644,9 +628,11 @@ public class XmiResourceManager {
             String... fileExtension) throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.SCREENSHOT_EXTENSION);
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.SCREENSHOT_EXTENSION,
+                item.isNeedVersion());
         if (fileExtension != null && fileExtension.length > 0) {
-            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0]);
+            resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, fileExtension[0],
+                    item.isNeedVersion());
         }
         return URIHelper.convert(resourcePath);
     }

@@ -32,14 +32,20 @@ public class ResourceFilenameHelper {
         StringBuffer stringBuffer = new StringBuffer();
 
         stringBuffer.append(label.replace('#', '$'));
-        stringBuffer.append(ResourceFilenameHelper.SEPARATOR);
-        stringBuffer.append(version);
+        if (version != null) {
+            stringBuffer.append(ResourceFilenameHelper.SEPARATOR);
+            stringBuffer.append(version);
+        }
 
         return stringBuffer.toString();
     }
 
-    public static IPath getExpectedFilePath(FileName fileName, IPath parentPath, String extension) {
-        String expectedFileName = getExpectedFileName(fileName.getProperty().getLabel(), fileName.getProperty().getVersion());
+    public static IPath getExpectedFilePath(FileName fileName, IPath parentPath, String extension, boolean needVersion) {
+        String version = null;
+        if (needVersion) {
+            version = fileName.getProperty().getVersion();
+        }
+        String expectedFileName = getExpectedFileName(fileName.getProperty().getLabel(), version);
         return parentPath.append(expectedFileName).addFileExtension(extension);
     }
 

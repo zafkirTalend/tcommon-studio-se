@@ -918,12 +918,21 @@ public interface PropertiesPackage extends EPackage {
     int ITEM__FILE_EXTENSION = 4;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM__NEED_VERSION = 5;
+
+    /**
      * The number of structural features of the '<em>Item</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_FEATURE_COUNT = 5;
+    int ITEM_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.
@@ -976,6 +985,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_DOCUMENTATION_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_DOCUMENTATION_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1086,6 +1104,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int BUSINESS_PROCESS_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_PROCESS_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Notation</b></em>' reference.
@@ -1805,6 +1832,15 @@ public interface PropertiesPackage extends EPackage {
     int FILE_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1898,6 +1934,15 @@ public interface PropertiesPackage extends EPackage {
     int DOCUMENTATION_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1972,6 +2017,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int ROUTINE_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2076,6 +2130,15 @@ public interface PropertiesPackage extends EPackage {
     int CONNECTION_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2177,6 +2240,15 @@ public interface PropertiesPackage extends EPackage {
     int SNIPPET_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2253,6 +2325,15 @@ public interface PropertiesPackage extends EPackage {
     int DELIMITED_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2311,6 +2392,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -2373,6 +2463,15 @@ public interface PropertiesPackage extends EPackage {
     int REG_EX_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2431,6 +2530,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CSV_FILE_CONNECTION_ITEM__FILE_EXTENSION = DELIMITED_FILE_CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__NEED_VERSION = DELIMITED_FILE_CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -2493,6 +2601,15 @@ public interface PropertiesPackage extends EPackage {
     int DATABASE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2551,6 +2668,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SAP_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -2613,6 +2739,15 @@ public interface PropertiesPackage extends EPackage {
     int XML_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2671,6 +2806,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LDIF_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -2733,6 +2877,15 @@ public interface PropertiesPackage extends EPackage {
     int EXCEL_FILE_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2793,6 +2946,15 @@ public interface PropertiesPackage extends EPackage {
     int EBCDIC_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2851,6 +3013,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int MDM_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -2915,6 +3086,15 @@ public interface PropertiesPackage extends EPackage {
     int VALIDATION_RULES_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALIDATION_RULES_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2974,6 +3154,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int PROCESS_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Process</b></em>' reference.
@@ -3317,6 +3506,15 @@ public interface PropertiesPackage extends EPackage {
     int FOLDER_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Children</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -3526,6 +3724,15 @@ public interface PropertiesPackage extends EPackage {
     int CONTEXT_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Context</b></em>' reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -3710,6 +3917,15 @@ public interface PropertiesPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -3795,6 +4011,15 @@ public interface PropertiesPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -3853,6 +4078,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -6960,6 +7194,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_PROCESS_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Joblet Process</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -7026,6 +7269,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOB_DOCUMENTATION_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7104,6 +7356,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_DOCUMENTATION_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -7178,6 +7439,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -7288,6 +7558,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SQL_PATTERN_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7840,6 +8119,15 @@ public interface PropertiesPackage extends EPackage {
     int RULES_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -7983,6 +8271,15 @@ public interface PropertiesPackage extends EPackage {
     int SVG_BUSINESS_PROCESS_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -8066,6 +8363,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_RULES_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8245,6 +8551,15 @@ public interface PropertiesPackage extends EPackage {
     int HL7_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -8334,6 +8649,15 @@ public interface PropertiesPackage extends EPackage {
     int HEADER_FOOTER_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8395,6 +8719,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int FTP_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -8487,6 +8820,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM__FILE_EXTENSION = ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__NEED_VERSION = ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8550,6 +8892,15 @@ public interface PropertiesPackage extends EPackage {
     int BRMS_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BRMS_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8611,6 +8962,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOB_SCRIPT_ITEM__FILE_EXTENSION = FILE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_SCRIPT_ITEM__NEED_VERSION = FILE_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8692,6 +9052,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EDIFACT_CONNECTION_ITEM__FILE_EXTENSION = CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EDIFACT_CONNECTION_ITEM__NEED_VERSION = CONNECTION_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -9057,6 +9426,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int PIGUDF_ITEM__FILE_EXTENSION = ROUTINE_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PIGUDF_ITEM__NEED_VERSION = ROUTINE_ITEM__NEED_VERSION;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9803,6 +10181,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getItem_FileExtension();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Item#isNeedVersion <em>Need Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Need Version</em>'.
+     * @see org.talend.core.model.properties.Item#isNeedVersion()
+     * @see #getItem()
+     * @generated
+     */
+    EAttribute getItem_NeedVersion();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LinkDocumentationItem <em>Link Documentation Item</em>}'.
@@ -15710,6 +16099,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM__FILE_EXTENSION = eINSTANCE.getItem_FileExtension();
+
+        /**
+         * The meta object literal for the '<em><b>Need Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM__NEED_VERSION = eINSTANCE.getItem_NeedVersion();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.

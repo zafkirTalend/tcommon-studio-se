@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -23,5 +24,7 @@ public interface IExtendedNodeHandler {
     public Property getProperty(Object nodeObject);
 
     public boolean isExportEnable(Object nodeObject);
+
+    public boolean exportFilter(Viewer viewer, Object parentElement, Object element);
 
 }

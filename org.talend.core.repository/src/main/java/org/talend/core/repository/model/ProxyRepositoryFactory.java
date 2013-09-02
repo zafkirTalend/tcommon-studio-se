@@ -1751,6 +1751,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     }
                 }
 
+                fullLogonFinished = false;
+                SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
+                SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
+                LanguageManager.reset();
+                getRepositoryContext().setProject(project);
+
+                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
+                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
+                this.repositoryFactoryFromProvider.beforeLogon(project);
+
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
                     ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
                             ITransformService.class);
@@ -1775,21 +1787,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                             prj.setDescription(desc, monitor);
                         }
                     } catch (CoreException e) {
-                        // do nothing
+                        //
                     }
                 }
 
-                fullLogonFinished = false;
-                SubMonitor subMonitor = SubMonitor.convert(monitor, MAX_TASKS);
-                SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-
-                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
-                LanguageManager.reset();
-                getRepositoryContext().setProject(project);
-
-                currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
-                currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.initializeProjectConnection"), 1); //$NON-NLS-1$
-                this.repositoryFactoryFromProvider.beforeLogon(project);
                 // monitorWrap.worked(1);
                 TimeMeasure.step("logOnProject", "beforeLogon"); //$NON-NLS-1$ //$NON-NLS-2$
 

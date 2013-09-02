@@ -177,8 +177,12 @@ public class RepositoryFilterSettingDialog extends Dialog {
         extensionsInstructionLabel.setText("");
 
         repoProvider = RepoCommonViewerProvider.CHECKBOX;
-        checkboxCommonViewer = (CheckboxRepoCommonViewer) repoProvider.createViewer(parent);
+        if (actionSite != null && actionSite.getViewSite() != null) {
+            String baseViewId = actionSite.getViewSite().getId();
+            repoProvider.setViewId(baseViewId);
+        }
 
+        checkboxCommonViewer = (CheckboxRepoCommonViewer) repoProvider.createViewer(parent);
         checkboxCommonViewer.addFilter(new ViewerFilter() {
 
             @Override

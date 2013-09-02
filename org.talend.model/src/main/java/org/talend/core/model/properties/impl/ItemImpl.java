@@ -32,6 +32,7 @@ import org.talend.core.model.properties.ReferenceFileItem;
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getReferenceResources <em>Reference Resources</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getFileExtension <em>File Extension</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#isNeedVersion <em>Need Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,6 +98,26 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
      * @ordered
      */
     protected String fileExtension = FILE_EXTENSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isNeedVersion() <em>Need Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNeedVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NEED_VERSION_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isNeedVersion() <em>Need Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNeedVersion()
+     * @generated
+     * @ordered
+     */
+    protected boolean needVersion = NEED_VERSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -287,6 +308,27 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isNeedVersion() {
+        return needVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNeedVersion(boolean newNeedVersion) {
+        boolean oldNeedVersion = needVersion;
+        needVersion = newNeedVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM__NEED_VERSION, oldNeedVersion, needVersion));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -334,6 +376,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return getReferenceResources();
             case PropertiesPackage.ITEM__FILE_EXTENSION:
                 return getFileExtension();
+            case PropertiesPackage.ITEM__NEED_VERSION:
+                return isNeedVersion() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -362,6 +406,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__FILE_EXTENSION:
                 setFileExtension((String)newValue);
                 return;
+            case PropertiesPackage.ITEM__NEED_VERSION:
+                setNeedVersion(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -388,6 +435,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__FILE_EXTENSION:
                 setFileExtension(FILE_EXTENSION_EDEFAULT);
                 return;
+            case PropertiesPackage.ITEM__NEED_VERSION:
+                setNeedVersion(NEED_VERSION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -409,6 +459,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return referenceResources != null && !referenceResources.isEmpty();
             case PropertiesPackage.ITEM__FILE_EXTENSION:
                 return FILE_EXTENSION_EDEFAULT == null ? fileExtension != null : !FILE_EXTENSION_EDEFAULT.equals(fileExtension);
+            case PropertiesPackage.ITEM__NEED_VERSION:
+                return needVersion != NEED_VERSION_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }

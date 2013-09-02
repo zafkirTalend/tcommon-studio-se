@@ -13,14 +13,13 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Pigudf Item</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class PigudfItemImpl extends RoutineItemImpl implements PigudfItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected PigudfItemImpl() {
@@ -29,7 +28,6 @@ public class PigudfItemImpl extends RoutineItemImpl implements PigudfItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

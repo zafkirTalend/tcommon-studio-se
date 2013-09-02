@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Item#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Item#getReferenceResources <em>Reference Resources</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Item#getFileExtension <em>File Extension</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Item#isNeedVersion <em>Need Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,5 +149,32 @@ public interface Item extends EObject {
      * @generated
      */
     void setFileExtension(String value);
+
+    /**
+     * Returns the value of the '<em><b>Need Version</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Need Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Need Version</em>' attribute.
+     * @see #setNeedVersion(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItem_NeedVersion()
+     * @model default="true"
+     * @generated
+     */
+    boolean isNeedVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Item#isNeedVersion <em>Need Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Need Version</em>' attribute.
+     * @see #isNeedVersion()
+     * @generated
+     */
+    void setNeedVersion(boolean value);
 
 } // Item

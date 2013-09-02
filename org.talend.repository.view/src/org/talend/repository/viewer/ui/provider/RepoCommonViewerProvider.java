@@ -43,6 +43,8 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
 
     };
 
+    private String baseViewId = null;
+
     @Override
     public TreeViewer createViewer(Composite parent) {
         TreeViewer treeViewer = super.createViewer(parent);
@@ -91,7 +93,14 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
     }
 
     protected String getViewId() {
+        if (baseViewId != null && !"".equals(baseViewId)) {
+            return baseViewId;
+        }
         return IRepositoryView.VIEW_ID;
+    }
+
+    public void setViewId(String id) {
+        this.baseViewId = id;
     }
 
 }
