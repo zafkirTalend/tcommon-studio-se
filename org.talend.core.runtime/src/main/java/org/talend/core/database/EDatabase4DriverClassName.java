@@ -23,7 +23,6 @@ public enum EDatabase4DriverClassName {
     AS400(EDatabaseTypeName.AS400, "com.ibm.as400.access.AS400JDBCDriver"), //$NON-NLS-1$
     FIREBIRD(EDatabaseTypeName.FIREBIRD, "org.firebirdsql.jdbc.FBDriver"), //$NON-NLS-1$
     GODBC(EDatabaseTypeName.GODBC, "sun.jdbc.odbc.JdbcOdbcDriver"), //$NON-NLS-1$
-    GREENPLUM(EDatabaseTypeName.GREENPLUM, "org.postgresql.Driver"), //$NON-NLS-1$
 
     HSQLDB(EDatabaseTypeName.HSQLDB, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
     HSQLDB_IN_PROGRESS(EDatabaseTypeName.HSQLDB_IN_PROGRESS, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
@@ -60,8 +59,11 @@ public enum EDatabase4DriverClassName {
     PARACCEL(EDatabaseTypeName.PARACCEL, "com.paraccel.Driver"), //$NON-NLS-1$
     REDSHIFT(EDatabaseTypeName.REDSHIFT, "com.paraccel.Driver"), //$NON-NLS-1$
 
-    PLUSPSQL(EDatabaseTypeName.PLUSPSQL, "org.postgresql.Driver"), //$NON-NLS-1$
+    // Take care, PSQL is set as first here since actually the audit will take the first db with the postgresql driver
+    // if change the order, it might break the audit for PSQL.
     PSQL(EDatabaseTypeName.PSQL, "org.postgresql.Driver"), //$NON-NLS-1$
+    PLUSPSQL(EDatabaseTypeName.PLUSPSQL, "org.postgresql.Driver"), //$NON-NLS-1$
+    GREENPLUM(EDatabaseTypeName.GREENPLUM, "org.postgresql.Driver"), //$NON-NLS-1$
 
     SAS(EDatabaseTypeName.SAS, "com.sas.rio.MVADriver"), //$NON-NLS-1$
     SQLITE(EDatabaseTypeName.SQLITE, "org.sqlite.JDBC"), //$NON-NLS-1$
