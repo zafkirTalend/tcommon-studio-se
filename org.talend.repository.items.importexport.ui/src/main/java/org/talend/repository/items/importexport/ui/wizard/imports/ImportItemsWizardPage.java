@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -38,6 +39,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -77,6 +79,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.service.IExchangeService;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
+import org.talend.repository.items.importexport.handlers.imports.IImportConstants;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
@@ -90,6 +93,9 @@ import org.talend.repository.items.importexport.wizard.models.ImportNodesBuilder
 import org.talend.repository.items.importexport.wizard.models.ItemImportNode;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNodeUtilities;
 
 /**
  * 
@@ -124,6 +130,8 @@ public class ImportItemsWizardPage extends WizardPage {
 
     private ResourcesManager resManager;
 
+    private IStructuredSelection selection;
+
     /**
      * 
      * DOC ggu ImportItemsWizardPage constructor comment.
@@ -131,11 +139,15 @@ public class ImportItemsWizardPage extends WizardPage {
      * @param pageName
      */
     @SuppressWarnings("restriction")
-    public ImportItemsWizardPage(String pageName) {
-
+    public ImportItemsWizardPage(String pageName, IStructuredSelection s) {
         super(pageName);
+        this.selection = s;
         setDescription(Messages.getString("ImportItemsWizardPage_importDescription")); //$NON-NLS-1$
         setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
+    }
+
+    public IStructuredSelection getSelection() {
+        return this.selection;
     }
 
     @Override
@@ -908,14 +920,20 @@ public class ImportItemsWizardPage extends WizardPage {
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     IPath destinationPath = null;
-                    String contentType = "";
-                    // TODO
-                    // if (rNode != null && rNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
-                    // destinationPath = RepositoryNodeUtilities.getPath(rNode);
-                    // contentType = rNode.getContentType().name();
-                    // }
+                    String contentType = null;
+                    Object firstElement = getSelection().getFirstElement();
+                    if (firstElement != null && firstElement instanceof RepositoryNode) {
+                        final RepositoryNode rNode = (RepositoryNode) firstElement;
+                        if (rNode.getType() == IRepositoryNode.ENodeType.SIMPLE_FOLDER) {
+                            destinationPath = RepositoryNodeUtilities.getPath(rNode);
+                            contentType = rNode.getContentType().name();
+                        }
+                    }
+                    Map<String, Object> options = new HashMap<String, Object>();
+                    options.put(IImportConstants.OPTION_CONTEXT_PATH, destinationPath);
+                    options.put(IImportConstants.OPTION_CONTEXT_TYPE, contentType);
                     ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
-                            overwrite, null, null, nodesBuilder.getAllImportItemRecords());
+                            overwrite, nodesBuilder.getAllImportItemRecords(), options);
 
                 }
             };
@@ -933,5 +951,4 @@ public class ImportItemsWizardPage extends WizardPage {
         nodesBuilder.clear();
         return true;
     }
-
 }

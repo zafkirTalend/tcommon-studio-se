@@ -44,7 +44,7 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             Map parametersMap = (Map) data;
             Object object = parametersMap.get(PARAM_TYPE);
             if (object != null) {
-                String[] types = object.toString().split(SEP_COMMA);
+                String[] types = object.toString().split(IImportConstants.SEP_COMMA);
                 for (String type : types) {
                     if (StringUtils.isNotEmpty(type)) {
                         type = type.trim();

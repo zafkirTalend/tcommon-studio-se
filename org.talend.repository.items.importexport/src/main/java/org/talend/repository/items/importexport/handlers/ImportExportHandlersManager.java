@@ -45,7 +45,8 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler;
+import org.talend.repository.items.importexport.handlers.imports.IImportConstants;
+import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
@@ -63,7 +64,7 @@ public final class ImportExportHandlersManager {
 
     private final ImportExportHandlersRegistryReader registryReader;
 
-    private AbstractImportExecutableHandler[] importHandlers;
+    private IImportHandler[] importHandlers;
 
     private ImportExportHandlersManager() {
         registryReader = new ImportExportHandlersRegistryReader();
@@ -74,15 +75,15 @@ public final class ImportExportHandlersManager {
         return instance;
     }
 
-    public AbstractImportExecutableHandler[] getImportHandlers() {
+    public IImportHandler[] getImportHandlers() {
         if (importHandlers == null) {
             importHandlers = registryReader.getImportHandlers();
         }
         return importHandlers;
     }
 
-    private AbstractImportExecutableHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
-        for (AbstractImportExecutableHandler handler : getImportHandlers()) {
+    private IImportHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
+        for (IImportHandler handler : getImportHandlers()) {
             if (handler.valid(resManager, path)) {
                 return handler;
             }
@@ -120,7 +121,7 @@ public final class ImportExportHandlersManager {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                AbstractImportExecutableHandler importHandler = findValidImportHandler(resManager, path);
+                IImportHandler importHandler = findValidImportHandler(resManager, path);
                 if (importHandler != null) {
                     ItemRecord itemRecord = importHandler.calcItemRecord(progressMonitor, resManager, path, overwrite, items);
                     if (itemRecord != null) {
@@ -143,8 +144,8 @@ public final class ImportExportHandlersManager {
     }
 
     public void importItemRecords(final IProgressMonitor progressMonitor, final ResourcesManager resManager,
-            final List<ItemRecord> checkedItemRecords, final boolean overwrite, final IPath destinationPath,
-            final ERepositoryObjectType contentType, final ItemRecord[] allImportItemRecords) throws InvocationTargetException {
+            final List<ItemRecord> checkedItemRecords, final boolean overwrite, final ItemRecord[] allImportItemRecords,
+            final Map<String, Object> options) throws InvocationTargetException {
         TimeMeasure.display = CommonsPlugin.isDebugMode();
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
@@ -198,6 +199,9 @@ public final class ImportExportHandlersManager {
                             final Set<String> overwriteDeletedItems = new HashSet<String>();
                             final Set<String> idDeletedBeforeImport = new HashSet<String>();
 
+                            options.put(IImportConstants.OPTION_OVERWRITE_DELETED_ITEMS, overwriteDeletedItems);
+                            options.put(IImportConstants.OPTION_ID_DELETED_BEFORE_IMPORT, idDeletedBeforeImport);
+
                             Map<String, String> nameToIdMap = new HashMap<String, String>();
 
                             for (ItemRecord itemRecord : checkedItemRecords) {
@@ -224,8 +228,8 @@ public final class ImportExportHandlersManager {
                                 }
                             }
 
-                            importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite, destinationPath,
-                                    contentType, overwriteDeletedItems, idDeletedBeforeImport, allImportItemRecords);
+                            importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
+                                    allImportItemRecords, options);
 
                             if (PluginChecker.isJobLetPluginLoaded()) {
                                 IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault()
@@ -263,9 +267,7 @@ public final class ImportExportHandlersManager {
 
                         private void importItemRecordsWithRelations(final IProgressMonitor monitor,
                                 final ResourcesManager manager, final List<ItemRecord> processingItemRecords,
-                                final boolean overwriting, final IPath destPath, final ERepositoryObjectType type,
-                                final Set<String> overwriteDeletedItems, final Set<String> idDeletedBeforeImport,
-                                ItemRecord[] allPopulatedImportItemRecords) {
+                                final boolean overwriting, ItemRecord[] allPopulatedImportItemRecords, Map<?, ?> options) {
                             for (ItemRecord itemRecord : processingItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
@@ -273,7 +275,7 @@ public final class ImportExportHandlersManager {
                                 if (itemRecord.isImported()) {
                                     return; // have imported
                                 }
-                                final AbstractImportExecutableHandler importHandler = itemRecord.getImportHandler();
+                                final IImportHandler importHandler = itemRecord.getImportHandler();
                                 if (importHandler != null && itemRecord.isValid()) {
                                     List<ItemRecord> relatedItemRecord = importHandler.findRelatedItemRecord(monitor, manager,
                                             itemRecord, allPopulatedImportItemRecords);
@@ -281,16 +283,15 @@ public final class ImportExportHandlersManager {
                                     if (importHandler.isImportRelatedItemRecordPrior()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
-                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport,
-                                                    allPopulatedImportItemRecords);
+                                                    allPopulatedImportItemRecords, options);
                                         }
                                     }
                                     if (monitor.isCanceled()) {
                                         return;
                                     }
+
                                     // will import
-                                    importHandler.importItemRecord(monitor, manager, itemRecord, overwriting, destPath, type,
-                                            overwriteDeletedItems, idDeletedBeforeImport);
+                                    importHandler.importItemRecord(monitor, manager, itemRecord, overwriting, options);
 
                                     if (monitor.isCanceled()) {
                                         return;
@@ -299,8 +300,7 @@ public final class ImportExportHandlersManager {
                                     if (!importHandler.isImportRelatedItemRecordPrior()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
-                                                    destPath, type, overwriteDeletedItems, idDeletedBeforeImport,
-                                                    allPopulatedImportItemRecords);
+                                                    allPopulatedImportItemRecords, options);
                                         }
                                     }
 

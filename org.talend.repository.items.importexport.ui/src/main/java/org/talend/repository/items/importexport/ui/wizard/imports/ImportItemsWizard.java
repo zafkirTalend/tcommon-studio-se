@@ -48,7 +48,7 @@ public class ImportItemsWizard extends Wizard implements IImportWizard {
     @Override
     public void addPages() {
         super.addPages();
-        mainPage = new ImportItemsWizardPage(this.getWindowTitle());
+        mainPage = new ImportItemsWizardPage(this.getWindowTitle(), this.selection);
         addPage(mainPage);
     }
 

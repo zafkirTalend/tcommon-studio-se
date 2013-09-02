@@ -110,7 +110,7 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
    <element name="handler">
       <annotation>
          <documentation>
-            The class attribute must extends to AbstractImportExecutableHandler. and the parameter children will be a java.util.Map &quot;data&quot;  arguments for method setInitializationData.
+            The class attribute must implement the interface IImportHandler and the parameter children will be a java.util.Map &quot;data&quot;  arguments for method setInitializationData.
          </documentation>
       </annotation>
       <complexType>
@@ -120,10 +120,10 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  must extends to AbstractImportExecutableHandler
+                  must implement the interface IImportHandler
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler:"/>
+                  <meta.attribute kind="java" basedOn=":org.talend.repository.items.importexport.handlers.imports.IImportHandler"/>
                </appinfo>
             </annotation>
          </attribute>

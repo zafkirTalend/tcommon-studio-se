@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.model;
 
-import org.talend.repository.items.importexport.handlers.imports.AbstractImportExecutableHandler;
+import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -25,7 +25,7 @@ public class ImportRegistry {
 
     private EPriority priority = EPriority.NORMAL;
 
-    private AbstractImportExecutableHandler importExecutableHandler;
+    private IImportHandler importHandler;
 
     public ImportRegistry(String bundleId, String id) {
         super();
@@ -70,21 +70,21 @@ public class ImportRegistry {
     }
 
     /**
-     * Getter for importExecutableHandler.
+     * Getter for importHandler.
      * 
-     * @return the importExecutableHandler
+     * @return the importHandler
      */
-    public AbstractImportExecutableHandler getHandler() {
-        return this.importExecutableHandler;
+    public IImportHandler getImportHandler() {
+        return this.importHandler;
     }
 
     /**
-     * Sets the importExecutableHandler.
+     * Sets the importHandler.
      * 
-     * @param importExecutableHandler the importExecutableHandler to set
+     * @param importHandler the importHandler to set
      */
-    public void setHandler(AbstractImportExecutableHandler handler) {
-        this.importExecutableHandler = handler;
+    public void setImportHandler(IImportHandler handler) {
+        this.importHandler = handler;
     }
 
     /**

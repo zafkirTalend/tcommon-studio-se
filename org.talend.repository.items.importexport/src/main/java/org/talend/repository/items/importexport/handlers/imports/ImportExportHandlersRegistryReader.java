@@ -48,12 +48,12 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
         });
     }
 
-    public AbstractImportExecutableHandler[] getImportHandlers() {
-        List<AbstractImportExecutableHandler> handers = new ArrayList<AbstractImportExecutableHandler>();
+    public IImportHandler[] getImportHandlers() {
+        List<IImportHandler> handers = new ArrayList<IImportHandler>();
         for (ImportRegistry ir : this.imortRegisties) {
-            handers.add(ir.getHandler());
+            handers.add(ir.getImportHandler());
         }
-        return handers.toArray(new AbstractImportExecutableHandler[0]);
+        return handers.toArray(new IImportHandler[0]);
     }
 
     /*
@@ -76,8 +76,7 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
 
                         EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority
                                 .valueOf(priorityString.toUpperCase()) : EPriority.NORMAL;
-                        AbstractImportExecutableHandler handler = (AbstractImportExecutableHandler) element
-                                .createExecutableExtension("handler"); //$NON-NLS-1$
+                        IImportHandler handler = (IImportHandler) element.createExecutableExtension("handler"); //$NON-NLS-1$
                         if (handler == null) {
                             log.error("Can't create handlder for " + name); //$NON-NLS-1$
                             return;
@@ -86,7 +85,7 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                         ImportRegistry importRegistry = new ImportRegistry(element.getContributor().getName(), id);
                         importRegistry.setName(name);
                         importRegistry.setDescription(description);
-                        importRegistry.setHandler(handler);
+                        importRegistry.setImportHandler(handler);
                         importRegistry.setPriority(priority);
 
                         imortRegisties.add(importRegistry);
