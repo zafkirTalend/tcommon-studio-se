@@ -17,14 +17,20 @@ import java.util.List;
 
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
 
@@ -33,9 +39,29 @@ import orgomg.cwm.resource.relational.Schema;
  */
 public class MetadataSchemaRepositoryObject extends MetadataSchema implements ISubRepositoryObject {
 
+    private MetadataCatalogRepositoryObject parentCatalogObject;
+
+    /**
+     * Getter for parentCatalogObject.
+     * 
+     * @return the parentCatalogObject
+     */
+    public MetadataCatalogRepositoryObject getParentCatalogObject() {
+        return this.parentCatalogObject;
+    }
+
+    /**
+     * Sets the parentCatalogObject.
+     * 
+     * @param parentCatalogObject the parentCatalogObject to set
+     */
+    public void setParentCatalogObject(MetadataCatalogRepositoryObject parentCatalogObject) {
+        this.parentCatalogObject = parentCatalogObject;
+    }
+
     private final IRepositoryViewObject viewObject;
 
-    private final Schema schema;
+    private Schema schema;
 
     private IRepositoryNode repositoryNode;
 
@@ -60,8 +86,8 @@ public class MetadataSchemaRepositoryObject extends MetadataSchema implements IS
 
     public Property getProperty() {
         Property property = viewObject.getProperty();
-        // update table
-        updateCatalog(property);
+        // update schema
+        updateSchema(property);
         return property;
     }
 
@@ -85,7 +111,35 @@ public class MetadataSchemaRepositoryObject extends MetadataSchema implements IS
     public void removeFromParent() {
     }
 
-    private void updateCatalog(Property property) {
+    /**
+     * update the Schema object according to the Property, because when the connection has been reloaded, the schema
+     * object should be changed, so need use the new schema object.
+     * 
+     * @param property
+     */
+    private void updateSchema(Property property) {
+        if (schema != null) {
+            Item item = property.getItem();
+            if (item != null && item instanceof ConnectionItem) {
+                Connection connection = ((ConnectionItem) item).getConnection();
+                if (connection != null) {
+                    Schema schema2 = null;
+                    if (getParentCatalogObject() == null) {
+                        // the database have schema only
+                        schema2 = SchemaHelper.getSchema(connection, schema.getName());
+                    } else {
+                        // the database have catalog and schema
+                        Catalog catalog = CatalogHelper.getCatalog(connection, getParentCatalogObject().getLabel());
+                        if (catalog != null) {
+                            schema2 = SchemaHelper.getSchemaByName(catalog.getOwnedElement(), schema.getName());
+                        }
+                    }
+                    if (schema2 != null) {
+                        schema = schema2;
+                    }
+                }
+            }
+        }
     }
 
     public User getAuthor() {
