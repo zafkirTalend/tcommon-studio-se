@@ -69,12 +69,11 @@ public class MetadataCatalogRepositoryObject extends MetadataCatalog implements 
     @Override
     public Property getProperty() {
         Property property = viewObject.getProperty();
-        // update table
+        // update catalog
         updateCatalog(property);
         return property;
     }
 
-    // @Override
     @Override
     public String getVersion() {
         return viewObject.getVersion();
