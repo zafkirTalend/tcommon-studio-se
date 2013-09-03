@@ -655,7 +655,6 @@ public class XmiResourceManager {
 
         for (Resource resource : resourcesToSave) {
         	 saveResource(resource);
-             getResourceSet().getResources().remove(resource);
         }
         if (!resourceProperty.equals(lastVersionProperty)) {
             // this version was only used to rename the file.
