@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -86,6 +87,8 @@ public class XmiResourceManager {
 
     public TalendResourceSet resourceSet = new TalendResourceSet();
 
+    private Map<URI, Resource> resourcesMap = new HashMap<URI, Resource>();
+
     private boolean useOldProjectFile;
 
     private boolean avoidUnloadResource;
@@ -102,7 +105,8 @@ public class XmiResourceManager {
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
         resourceSet.getLoadOptions().put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
-        resourceSet.setURIResourceMap(new HashMap<URI, Resource>());
+        resourcesMap.clear();
+        resourceSet.setURIResourceMap(resourcesMap);
 
     }
 
@@ -341,11 +345,13 @@ public class XmiResourceManager {
 
     public void deleteResource(Resource resource) throws PersistenceException {
         ResourceUtils.deleteFile(URIHelper.getFile(resource.getURI()));
+        resourcesMap.remove(resource.getURI());
         getResourceSet().getResources().remove(resource);
     }
 
     public void deleteLogiclResource(Resource resource) throws PersistenceException {
         ResourceUtils.deleteRevisionFile(URIHelper.getFile(resource.getURI()));
+        resourcesMap.remove(resource.getURI());
         getResourceSet().getResources().remove(resource);
     }
 
@@ -555,8 +561,10 @@ public class XmiResourceManager {
     }
 
     public void moveResource(Resource resource, IPath path) throws PersistenceException {
+        resourcesMap.remove(resource.getURI());
         ResourceUtils.moveResource(URIHelper.getFile(resource.getURI()), path);
         resource.setURI(URIHelper.convert(path));
+        resourcesMap.put(resource.getURI(), resource);
     }
 
     public void saveResource(Resource resource) throws PersistenceException {
@@ -680,7 +688,9 @@ public class XmiResourceManager {
             // to simplify now, in case of both changes needed, we simply call the function 2 times
             if (ResourceFilenameHelper.mustChangeVersion(fileName)) {
                 IPath path = ResourceFilenameHelper.getExpectedFilePath(fileName, false);
+                resourcesMap.remove(resource.getURI());
                 resource.setURI(URIHelper.convert(path));
+                resourcesMap.put(resource.getURI(), resource);
                 resourcesToSave.add(resource);
             } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                 resourceProperty.setLabel(lastVersionProperty.getLabel());
@@ -692,7 +702,6 @@ public class XmiResourceManager {
 
         for (Resource resource : resourcesToSave) {
             saveResource(resource);
-            getResourceSet().getResources().remove(resource);
         }
         if (!resourceProperty.equals(lastVersionProperty)) {
             // this version was only used to rename the file.
