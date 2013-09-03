@@ -24,7 +24,9 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -116,7 +118,12 @@ public final class PerspectiveReviewUtil {
     // MDM View
     static String mdmServerViewId = "org.talend.mdm.workbench.views.ServerView";
 
-    private static IContributionItem lastPerspective = null;
+    // toolbar
+    private static final String JOB_SCRIPT_ACTION = "org.talend.metalanguage.jobscript.JobScript";
+
+    private static final String ASSIST_ACTION_SET = "org.talend.designer.core.assist.actionSet";
+
+    private static Map<String, IContributionItem> lastPerspectives = new HashMap<String, IContributionItem>();
 
     public static void setPerspectiveReviewUtil() {
         // DI
@@ -295,7 +302,8 @@ public final class PerspectiveReviewUtil {
             public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
                 String pId = perspective.getId();
                 // bug TDI-8867
-                disappearGenerateJobCoolBar(pId, PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+                hideToolBarItem(pId);
+
                 if (null == isfirst || "".equals(isfirst)) {
                     isfirst = perspective.getId();
                     refreshAll();
@@ -306,21 +314,55 @@ public final class PerspectiveReviewUtil {
                     refreshAll();
                 }
             }
+
         });
     }
 
-    private static void disappearGenerateJobCoolBar(String pId, IWorkbenchWindow activeWorkbenchWindow) {
+    /**
+     * DOC PLV Comment method "hideToolBarItem".
+     * 
+     * @param pId
+     */
+    private static void hideToolBarItem(String pId) {
+        hideToolBarItem(pId, JOB_SCRIPT_ACTION, new String[] { IBrandingConfiguration.PERSPECTIVE_DI_ID });
+        hideToolBarItem(pId, ASSIST_ACTION_SET, new String[] { IBrandingConfiguration.PERSPECTIVE_DI_ID,
+                IBrandingConfiguration.PERSPECTIVE_CAMEL_ID });
+    }
+
+    /**
+     * DOC PLV Comment method "hideToolBarItem".
+     * 
+     * @param pId
+     * @param actionID the actionID you want to hide
+     * @param perspectivesID the perspectivesID you want to show
+     */
+    private static void hideToolBarItem(String pId, String actionID, String[] perspectivesID) {
+        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null && pId != null && !"".equals(pId)) {
             CoolBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getCoolBarManager();
             if (barManager != null && (barManager instanceof CoolBarManager)) {
-                IContributionItem diCItem = barManager.find("org.talend.metalanguage.jobscript.JobScript");
+                IContributionItem diCItem = barManager.find(actionID);
                 if (diCItem != null) {
-                    if (!IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
-                        lastPerspective = diCItem;
+                    boolean flag = false;
+                    for (String perspective : perspectivesID) {
+                        if (perspective.equals(pId)) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        lastPerspectives.put(actionID, diCItem);
                         barManager.remove(diCItem);
                     }
-                } else if (diCItem == null && lastPerspective != null && IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
-                    barManager.add(lastPerspective);
+
+                } else {
+                    if (lastPerspectives.get(actionID) != null) {
+                        for (String perspective : perspectivesID) {
+                            if (perspective.equals(pId)) {
+                                barManager.add(lastPerspectives.get(actionID));
+                            }
+                        }
+                    }
                 }
             }
         }
