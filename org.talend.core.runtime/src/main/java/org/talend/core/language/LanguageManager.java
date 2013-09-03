@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.language;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.context.Context;
@@ -58,8 +58,8 @@ public class LanguageManager {
 
             if (((RepositoryContext) CoreRuntimePlugin.getInstance().getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
                     .getProject() != null) {
-                currentLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+                currentLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                        .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
             } else {
                 currentLanguage = ECodeLanguage.PERL;
             }

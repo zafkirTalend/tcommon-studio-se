@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
 
 /**
@@ -125,8 +125,7 @@ public final class JavaTypesManager {
         javaTypes = new ArrayList<JavaType>();
         javaTypeMappingFromExtension = new HashMap<String, Map<String, List<DBTypeUtil>>>();
 
-        for (int i = 0; i < JAVA_TYPES.length; i++) {
-            JavaType javaType = JAVA_TYPES[i];
+        for (JavaType javaType : JAVA_TYPES) {
             addJavaType(javaType);
         }
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -375,6 +374,7 @@ public final class JavaTypesManager {
      * @return true if given type represents a primitive java type
      * @deprecated use same method without boolean <code>nullable</code>
      */
+    @Deprecated
     public static boolean isNumberType(JavaType javaType, boolean nullable) {
         return Number.class.isAssignableFrom(javaType.getNullableClass());
     }

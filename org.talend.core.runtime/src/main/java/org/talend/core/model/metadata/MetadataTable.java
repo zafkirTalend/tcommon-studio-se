@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.components.EReadOnlyComlumnPosition;
 
 /**
@@ -53,10 +53,12 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private boolean isRepository = false;
 
+    @Override
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
     }
 
+    @Override
     public void setReadOnlyColumnPosition(String readOnlyColumnPosition) {
         this.readOnlyColumnPosition = readOnlyColumnPosition;
     }
@@ -75,6 +77,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataTable#getTableName()
      */
+    @Override
     public String getTableName() {
         return this.tableName;
     }
@@ -84,18 +87,22 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataTable#setTableName(java.lang.String)
      */
+    @Override
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
 
+    @Override
     public List<IMetadataColumn> getListUsedColumns() {
         return this.listColumns;
     }
 
+    @Override
     public List<IMetadataColumn> getListUnusedColumns() {
         return this.unusedColumns;
     }
 
+    @Override
     public void setUnusedColumns(List<IMetadataColumn> unusedColumns) {
         this.unusedColumns = unusedColumns;
     }
@@ -105,6 +112,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataTable#getListColumns()
      */
+    @Override
     public List<IMetadataColumn> getListColumns() {
         // List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
         // for (IMetadataColumn column : this.listColumns) {
@@ -117,6 +125,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         // return this.listColumns;
     }
 
+    @Override
     public synchronized List<IMetadataColumn> getListColumns(boolean withUnselected) {
         Iterator<IMetadataColumn> it = this.listColumns.iterator();
         while (it.hasNext()) {
@@ -143,6 +152,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         return this.listColumns;
     }
 
+    @Override
     public boolean isDynamicSchema() {
 
         int sizeListColumns = listColumns.size();
@@ -157,6 +167,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     }
 
+    @Override
     public IMetadataColumn getDynamicColumn() {
         if (isDynamicSchema()) {
             for (int i = 0; i < listColumns.size(); i++) {
@@ -173,10 +184,12 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataTable#setListColumns(Hashtable)
      */
+    @Override
     public void setListColumns(List<IMetadataColumn> listColumns) {
         this.listColumns = listColumns;
     }
 
+    @Override
     public IMetadataTable clone(boolean withCustoms) {
         IMetadataTable clonedMetadata = null;
         try {
@@ -216,6 +229,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * Note: for a table with custom columns, the order for the test is really important. It should be
      * outputMetadata.sameMetadataAs (inputMetadata).
      */
+    @Override
     public boolean sameMetadataAs(IMetadataTable input, int options) {
         if (this == input) {
             return true;
@@ -288,6 +302,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         return true;
     }
 
+    @Override
     public boolean sameMetadataAs(IMetadataTable other) {
         return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME | IMetadataColumn.OPTIONS_IGNORE_DEFAULT
                 | IMetadataColumn.OPTIONS_IGNORE_COMMENT);
@@ -298,6 +313,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @return the parent
      */
+    @Override
     public IMetadataConnection getParent() {
         return this.parent;
     }
@@ -307,10 +323,12 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @param parent the parent to set
      */
+    @Override
     public void setParent(IMetadataConnection parent) {
         this.parent = parent;
     }
 
+    @Override
     public IMetadataColumn getColumn(String columnName) {
         for (int i = 0; i < getListColumns(true).size(); i++) {
             IMetadataColumn column = getListColumns(true).get(i);
@@ -321,6 +339,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         return null;
     }
 
+    @Override
     public void sortCustomColumns() {
         List<IMetadataColumn> customColumns = new ArrayList<IMetadataColumn>();
         List<IMetadataColumn> tempCustomColumns = new ArrayList<IMetadataColumn>();
@@ -360,18 +379,22 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         }
     }
 
+    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
+    @Override
     public String getDbms() {
         return dbms;
     }
 
+    @Override
     public void setDbms(String dbms) {
         this.dbms = dbms;
     }
@@ -381,6 +404,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @return the attachedConnector
      */
+    @Override
     public String getAttachedConnector() {
         return attachedConnector;
     }
@@ -390,38 +414,47 @@ public class MetadataTable implements IMetadataTable, Cloneable {
      * 
      * @param attachedConnector the attachedConnector to set
      */
+    @Override
     public void setAttachedConnector(String attachedConnector) {
         this.attachedConnector = attachedConnector;
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
 
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }
 
+    @Override
     public String getComment() {
         return comment;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public Map<String, String> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
+    @Override
     public void setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
     }

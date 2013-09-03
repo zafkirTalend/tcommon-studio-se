@@ -15,7 +15,7 @@ package org.talend.designer.rowgenerator.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.i18n.Messages;
 
 /**

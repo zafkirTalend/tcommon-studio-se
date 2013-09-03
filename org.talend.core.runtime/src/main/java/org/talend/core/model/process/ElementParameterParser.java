@@ -34,7 +34,6 @@ import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
-import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -74,17 +73,6 @@ public final class ElementParameterParser {
                 }
             }
         }
-        // see feature 3725 replace tMsgBox MESSAGE parameter
-        if (node instanceof INode) {
-            INode valueNode = (INode) node;
-            /*
-             * Apply to all components in Perl mode
-             */
-            if (isPerlProject()) {
-                return PerlVarParserUtils.findAndReplacesAll(value, valueNode);
-            }
-        }
-
         return value;
     }
 

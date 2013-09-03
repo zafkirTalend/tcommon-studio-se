@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.expressionbuilder.Expression;
 import org.talend.commons.expressionbuilder.Variable;
-import org.talend.commons.ui.runtime.exception.RuntimeExceptionHandler;
 import org.talend.commons.xml.XmlUtil;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -329,7 +328,7 @@ public class ExpressionPersistance {
                     try {
                         expressionFolder.create(true, true, null);
                     } catch (CoreException e) {
-                        RuntimeExceptionHandler.process(e);
+                        ExceptionHandler.process(e);
                     }
                 }
                 path = expressionFolder.getLocation().toOSString();

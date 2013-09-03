@@ -36,8 +36,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -93,6 +93,7 @@ public final class MetadataTalendType {
 
     private static Comparator<String> comparatorIgnoreCase = new Comparator<String>() {
 
+        @Override
         public int compare(String o1, String o2) {
             if (o1 == null) {
                 return 1;
@@ -123,6 +124,7 @@ public final class MetadataTalendType {
      * @return
      * @deprecated Use {@link MetadataTalendType#getTalendTypesLabels()} method instead.
      */
+    @Deprecated
     public static String loadTalendType(String type, String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
         checkTypesAreInitialized(dbms, reload);
@@ -141,6 +143,7 @@ public final class MetadataTalendType {
      * @return
      * @deprecated
      */
+    @Deprecated
     public static String loadDBMSType(String talendType, String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
         checkTypesAreInitialized(dbms, reload);
@@ -158,6 +161,7 @@ public final class MetadataTalendType {
      * @return
      * @deprecated Use {@link MetadataTalendType#getTalendTypesLabels()} method instead.
      */
+    @Deprecated
     public static String[] loadTalendTypes(String dbms, boolean reload) {
 
         if (getCodeLanguage() == ECodeLanguage.JAVA) {
@@ -182,6 +186,7 @@ public final class MetadataTalendType {
      * @return
      * @deprecated
      */
+    @Deprecated
     public static String[] loadDatabaseTypes(String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
         Collection<String> types = new TreeSet<String>();
@@ -258,6 +263,7 @@ public final class MetadataTalendType {
      * @return
      * @deprecated
      */
+    @Deprecated
     private static String[] createStringArray(Collection<String> types) {
         SortedSet<String> sortedTypes = new TreeSet<String>(comparatorIgnoreCase);
         sortedTypes.addAll(types);
@@ -272,6 +278,7 @@ public final class MetadataTalendType {
      * @throws SystemException
      * @deprecated
      */
+    @Deprecated
     private static void checkTypesAreInitialized(String dbms, boolean reload) {
         if (dbms == null) {
             throw new NullPointerException(Messages.getString("MetadataTalendType.DBMSNotSetted")); //$NON-NLS-1$
@@ -338,8 +345,7 @@ public final class MetadataTalendType {
         }
         Dbms[] allDbmsArray = getAllDbmsArray();
         ArrayList<Dbms> list = new ArrayList<Dbms>();
-        for (int i = 0; i < allDbmsArray.length; i++) {
-            Dbms dbms = allDbmsArray[i];
+        for (Dbms dbms : allDbmsArray) {
             if (sameDBProductType(product, dbms.getProduct())) {
                 list.add(dbms);
             }
@@ -353,8 +359,7 @@ public final class MetadataTalendType {
         }
         Dbms[] allDbmsArray = getAllDbmsArray();
         Dbms defaultDbms = null;
-        for (int i = 0; i < allDbmsArray.length; i++) {
-            Dbms dbms = allDbmsArray[i];
+        for (Dbms dbms : allDbmsArray) {
             if (sameDBProductType(product, dbms.getProduct())) {
                 if (dbms.isDefaultDbms()) {
                     return dbms;
@@ -394,8 +399,7 @@ public final class MetadataTalendType {
             throw new IllegalArgumentException();
         }
         Dbms[] allDbmsArray = getAllDbmsArray();
-        for (int i = 0; i < allDbmsArray.length; i++) {
-            Dbms dbms = allDbmsArray[i];
+        for (Dbms dbms : allDbmsArray) {
             if (dbmsId.equals(dbms.getId())) {
                 return dbms;
             }

@@ -15,7 +15,7 @@ package org.talend.core.model.metadata;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * Definition of a column in the Meta Data. <br/>
@@ -127,6 +127,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @return the id
      */
+    @Override
     public String getId() {
         return this.id;
     }
@@ -136,6 +137,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @param id the id to set
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -145,6 +147,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getLabel()
      */
+    @Override
     public String getLabel() {
         return this.label;
     }
@@ -164,6 +167,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setLabel(java.lang.String)
      */
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }
@@ -173,6 +177,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#isKey()
      */
+    @Override
     public boolean isKey() {
         return this.key;
     }
@@ -182,6 +187,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setKey(boolean)
      */
+    @Override
     public void setKey(boolean key) {
         this.key = key;
     }
@@ -191,6 +197,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getType()
      */
+    @Override
     public String getType() {
         return this.sourceType;
     }
@@ -200,6 +207,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setType(java.lang.String)
      */
+    @Override
     public void setType(String sourceType) {
         this.sourceType = sourceType;
     }
@@ -209,6 +217,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.core.model.metadata.IMetadataColumn#getTalendType()
      */
+    @Override
     public String getTalendType() {
         // if ((talendType == null) || (talendType.compareTo("") == 0)) { //$NON-NLS-1$
         // this.talendType = MetadataTalendType.loadTalendType(this.type, this.dbms, false);
@@ -221,6 +230,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.core.model.metadata.IMetadataColumn#setTalendType(java.lang.String)
      */
+    @Override
     public void setTalendType(String talendType) {
         this.talendType = talendType;
     }
@@ -248,6 +258,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getLength()
      */
+    @Override
     public Integer getLength() {
         return this.length;
     }
@@ -257,6 +268,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setLength(Integer)
      */
+    @Override
     public void setLength(Integer length) {
         this.length = length;
     }
@@ -266,6 +278,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#isNullable()
      */
+    @Override
     public boolean isNullable() {
         return this.nullable;
     }
@@ -275,6 +288,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setNullable(boolean)
      */
+    @Override
     public void setNullable(boolean nullable) {
         this.nullable = nullable;
     }
@@ -284,6 +298,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getPrecision()
      */
+    @Override
     public Integer getPrecision() {
         return this.precision;
     }
@@ -293,6 +308,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setPrecision(Integer)
      */
+    @Override
     public void setPrecision(Integer precision) {
         this.precision = precision;
     }
@@ -302,6 +318,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getDefault()
      */
+    @Override
     public String getDefault() {
         return this.defaut;
     }
@@ -311,6 +328,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setDefault(java.lang.String)
      */
+    @Override
     public void setDefault(String defaut) {
         this.defaut = defaut;
     }
@@ -320,6 +338,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#getComment()
      */
+    @Override
     public String getComment() {
         return this.comment;
     }
@@ -329,6 +348,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setComment(java.lang.String)
      */
+    @Override
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -338,6 +358,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.core.model.metadata.IMetadataColumn#getPattern()
      */
+    @Override
     public String getPattern() {
         return this.pattern;
     }
@@ -347,6 +368,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @see org.talend.core.model.metadata.IMetadataColumn#setPattern(java.lang.String)
      */
+    @Override
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }
@@ -356,6 +378,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return clone(false);
     }
 
+    @Override
     public IMetadataColumn clone(boolean withCustoms) {
         IMetadataColumn clonedMetacolumn = null;
         try {
@@ -370,6 +393,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return clonedMetacolumn;
     }
 
+    @Override
     public boolean sameMetacolumnAs(IMetadataColumn other, int options) {
         if (this == other) {
             return true;
@@ -477,6 +501,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return true;
     }
 
+    @Override
     public boolean sameMetacolumnAs(IMetadataColumn other) {
         return sameMetacolumnAs(other, OPTIONS_NONE);
     }
@@ -534,6 +559,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @return the custom
      */
+    @Override
     public boolean isCustom() {
         return custom;
     }
@@ -543,6 +569,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @param custom the custom to set
      */
+    @Override
     public void setCustom(boolean custom) {
         this.custom = custom;
     }
@@ -552,6 +579,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @return the readOnly
      */
+    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
@@ -561,22 +589,27 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * 
      * @param readOnly the readOnly to set
      */
+    @Override
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
+    @Override
     public int getCustomId() {
         return customId;
     }
 
+    @Override
     public void setCustomId(int customId) {
         this.customId = customId;
     }
 
+    @Override
     public String getOriginalDbColumnName() {
         return originalDbColumnName;
     }
 
+    @Override
     public void setOriginalDbColumnName(String originalDbColumnName) {
         this.originalDbColumnName = originalDbColumnName;
     }
@@ -584,6 +617,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     /**
      * @return the relatedEntity
      */
+    @Override
     public String getRelatedEntity() {
         return relatedEntity;
     }
@@ -591,6 +625,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     /**
      * @param relatedEntity the relatedEntity to set
      */
+    @Override
     public void setRelatedEntity(String relatedEntity) {
         this.relatedEntity = relatedEntity;
     }
@@ -598,6 +633,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     /**
      * @return the relationshipType
      */
+    @Override
     public String getRelationshipType() {
         return relationshipType;
     }
@@ -605,22 +641,27 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     /**
      * @param relationshipType the relationshipType to set
      */
+    @Override
     public void setRelationshipType(String relationshipType) {
         this.relationshipType = relationshipType;
     }
 
+    @Override
     public String getExpression() {
         return this.expression;
     }
 
+    @Override
     public void setExpression(String expression) {
         this.expression = expression;
     }
 
+    @Override
     public Integer getOriginalLength() {
         return originalLength;
     }
 
+    @Override
     public void setOriginalLength(Integer originalLength) {
         this.originalLength = originalLength;
     }
