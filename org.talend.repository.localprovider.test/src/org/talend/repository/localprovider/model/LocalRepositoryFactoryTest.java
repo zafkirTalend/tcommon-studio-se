@@ -500,7 +500,7 @@ public class LocalRepositoryFactoryTest {
         XmiResourceManager xrm = new XmiResourceManager();
         Resource processItemResource = xrm.createItemResource(project, routineItem, new Path(path),
                 ERepositoryObjectType.ROUTINES, false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(routineItem, processItemResource);
 
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
@@ -603,7 +603,7 @@ public class LocalRepositoryFactoryTest {
         XmiResourceManager xrm = new XmiResourceManager();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(path),
                 ERepositoryObjectType.PROCESS, false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
 
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());

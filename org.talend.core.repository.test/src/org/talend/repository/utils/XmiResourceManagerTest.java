@@ -342,7 +342,7 @@ public class XmiResourceManagerTest {
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
         assertTrue(processItemResource != null);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         assertTrue(propertyResource != null);
         xrm.deleteResource(propertyResource);
         xrm.deleteResource(processItemResource);
@@ -351,7 +351,7 @@ public class XmiResourceManagerTest {
         processItem.setFileExtension("process"); // test with file extension change
         processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
         assertTrue(processItemResource != null);
-        propertyResource = xrm.createPropertyResource(processItemResource);
+        propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         assertTrue(propertyResource != null);
         xrm.deleteResource(propertyResource);
         xrm.deleteResource(processItemResource);
@@ -360,7 +360,7 @@ public class XmiResourceManagerTest {
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
         assertTrue(routineItemResource != null);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         assertTrue(propertyResource != null);
         xrm.deleteResource(propertyResource);
         xrm.deleteResource(routineItemResource);
@@ -384,7 +384,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -402,7 +402,7 @@ public class XmiResourceManagerTest {
         processItem = createTempProcessItem();
         processItem.setFileExtension("process");
         processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        propertyResource = xrm.createPropertyResource(processItemResource);
+        propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -421,7 +421,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
@@ -454,7 +454,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -481,7 +481,7 @@ public class XmiResourceManagerTest {
         processItem = createTempProcessItem();
         processItem.setFileExtension("process");
         processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS, false);
-        propertyResource = xrm.createPropertyResource(processItemResource);
+        propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -509,7 +509,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
@@ -543,7 +543,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -567,7 +567,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
@@ -607,7 +607,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -628,7 +628,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
@@ -667,7 +667,7 @@ public class XmiResourceManagerTest {
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
         assertTrue(processItemResource != null);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         assertTrue(propertyResource != null);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
@@ -700,7 +700,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
@@ -737,7 +737,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
 
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
@@ -758,7 +758,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
 
         routineItemResource.getContents().add(routineItem.getContent());
         propertyResource.getContents().add(routineItem.getProperty());
@@ -807,7 +807,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
 
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
@@ -895,7 +895,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -1030,7 +1030,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        Resource propertyResource = xrm.createPropertyResource(routineItemResource);
+        Resource propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
 
         routineItemResource.getContents().add(routineItem.getContent());
         propertyResource.getContents().add(routineItem.getProperty());
@@ -1191,7 +1191,7 @@ public class XmiResourceManagerTest {
         ProcessItem processItem = createTempProcessItem();
         Resource processItemResource = xrm.createItemResource(project, processItem, new Path(""), ERepositoryObjectType.PROCESS,
                 false);
-        Resource propertyResource = xrm.createPropertyResource(processItemResource);
+        Resource propertyResource = xrm.createPropertyResource(processItem, processItemResource);
         propertyResource.getContents().add(processItem.getProperty());
         propertyResource.getContents().add(processItem.getState());
         propertyResource.getContents().add(processItem);
@@ -1217,7 +1217,7 @@ public class XmiResourceManagerTest {
         RoutineItem routineItem = createTempRoutineItem();
         Resource routineItemResource = xrm.createItemResource(project, routineItem, new Path(""), ERepositoryObjectType.ROUTINES,
                 true);
-        propertyResource = xrm.createPropertyResource(routineItemResource);
+        propertyResource = xrm.createPropertyResource(routineItem, routineItemResource);
         propertyResource.getContents().add(routineItem.getProperty());
         propertyResource.getContents().add(routineItem.getState());
         propertyResource.getContents().add(routineItem);
