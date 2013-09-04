@@ -31,17 +31,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
-import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
-import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.utils.CloneConnectionUtils;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -236,142 +234,43 @@ public final class FileConnectionContextUtils {
      * 
      * ggu Comment method "cloneOriginalValueConnection".
      * 
-     * perhaps, if connection is in context mode, will open dialog to choose context sets.
+     * @deprecated use instead CloneConnectionUtils.cloneOriginalValueConnection
      */
+    @Deprecated
     public static FileConnection cloneOriginalValueConnection(FileConnection fileConn) {
-        return cloneOriginalValueConnection(null, fileConn, false);
+        return CloneConnectionUtils.cloneOriginalValueConnection(fileConn, false);
     }
 
+    /**
+     * @deprecated use instead CloneConnectionUtils.cloneOriginalValueConnection
+     */
+    @Deprecated
     public static FileConnection cloneOriginalValueConnection(Shell shell, FileConnection fileConn, boolean defaultContext) {
-        if (fileConn == null) {
-            return null;
-        }
-        ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(shell, fileConn, defaultContext);
-        return cloneOriginalValueConnection(fileConn, contextType);
+
+        return CloneConnectionUtils.cloneOriginalValueConnection(fileConn, defaultContext);
     }
 
     /**
      * 
      * ggu Comment method "cloneOriginalValueConnection".
      * 
-     * 
+     * @deprecated use instead CloneConnectionUtils.cloneOriginalValueConnection
      */
+    @Deprecated
     @SuppressWarnings("unchecked")
     public static FileConnection cloneOriginalValueConnection(FileConnection fileConn, ContextType contextType) {
-        if (fileConn == null) {
-            return null;
-        }
-
-        FileConnection cloneConn = null;
-        if (fileConn instanceof DelimitedFileConnection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createDelimitedFileConnection();
-        } else if (fileConn instanceof PositionalFileConnection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createPositionalFileConnection();
-        } else if (fileConn instanceof RegexpFileConnection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createRegexpFileConnection();
-        } else if (fileConn instanceof FileExcelConnection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createFileExcelConnection();
-        } else if (fileConn instanceof HL7Connection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createHL7Connection();
-        } else if (fileConn instanceof EbcdicConnection) {
-            cloneConn = ConnectionFactory.eINSTANCE.createEbcdicConnection();
-        }
-
-        if (cloneConn != null) {
-            String filePath = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getFilePath());
-            String encoding = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getEncoding());
-            String headValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getHeaderValue());
-            String footerValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getFooterValue());
-            String limitValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getLimitValue());
-
-            filePath = TalendQuoteUtils.removeQuotes(filePath);
-            // qli modified to fix the bug 6995.
-            encoding = TalendQuoteUtils.removeQuotes(encoding);
-            cloneConn.setFilePath(filePath);
-            cloneConn.setEncoding(encoding);
-            cloneConn.setHeaderValue(headValue);
-            cloneConn.setFooterValue(footerValue);
-            cloneConn.setLimitValue(limitValue);
-
-            //
-            if (fileConn instanceof DelimitedFileConnection || fileConn instanceof PositionalFileConnection
-                    || fileConn instanceof RegexpFileConnection) {
-                String fieldSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType,
-                        fileConn.getFieldSeparatorValue());
-                String rowSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getRowSeparatorValue());
-
-                cloneConn.setFieldSeparatorValue(fieldSeparatorValue);
-                cloneConn.setRowSeparatorValue(rowSeparatorValue);
-
-                if (fileConn instanceof DelimitedFileConnection) {
-                    ((DelimitedFileConnection) cloneConn).setFieldSeparatorType(((DelimitedFileConnection) fileConn)
-                            .getFieldSeparatorType());
-                }
-            }
-            // excel
-            if (fileConn instanceof FileExcelConnection) {
-                FileExcelConnection excelConnection = (FileExcelConnection) fileConn;
-                FileExcelConnection cloneExcelConnection = (FileExcelConnection) cloneConn;
-
-                String thousandSeparator = ConnectionContextHelper.getOriginalValue(contextType,
-                        excelConnection.getThousandSeparator());
-                String decimalSeparator = ConnectionContextHelper.getOriginalValue(contextType,
-                        excelConnection.getDecimalSeparator());
-                String firstColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getFirstColumn());
-                String lastColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getLastColumn());
-
-                cloneExcelConnection.setThousandSeparator(thousandSeparator);
-                cloneExcelConnection.setDecimalSeparator(decimalSeparator);
-                cloneExcelConnection.setFirstColumn(firstColumn);
-                cloneExcelConnection.setLastColumn(lastColumn);
-
-                cloneExcelConnection.setSelectAllSheets(excelConnection.isSelectAllSheets());
-                cloneExcelConnection.setSheetName(excelConnection.getSheetName());
-
-                ArrayList sheetList = excelConnection.getSheetList();
-                cloneExcelConnection.setSheetList((ArrayList) sheetList.clone());
-
-                EList sheetColumns = excelConnection.getSheetColumns();
-                if (sheetColumns != null && sheetColumns instanceof BasicEList) {
-                    cloneExcelConnection.getSheetColumns().addAll((EList) ((BasicEList) sheetColumns).clone());
-                }
-
-                cloneExcelConnection.setAdvancedSpearator(excelConnection.isAdvancedSpearator());
-
-                cloneConn.setFieldSeparatorValue(fileConn.getFieldSeparatorValue());
-                cloneConn.setRowSeparatorType(fileConn.getRowSeparatorType());
-                cloneConn.setRowSeparatorValue(fileConn.getRowSeparatorValue());
-            }
-
-            cloneConn.setRowSeparatorType(fileConn.getRowSeparatorType());
-
-            cloneConn.setCsvOption(fileConn.isCsvOption());
-            cloneConn.setEscapeChar(fileConn.getEscapeChar());
-            cloneConn.setEscapeType(fileConn.getEscapeType());
-            cloneConn.setFirstLineCaption(fileConn.isFirstLineCaption());
-            cloneConn.setFormat(fileConn.getFormat());
-            cloneConn.setRemoveEmptyRow(fileConn.isRemoveEmptyRow());
-            cloneConn.setServer(fileConn.getServer());
-            cloneConn.setTextEnclosure(fileConn.getTextEnclosure());
-            cloneConn.setTextIdentifier(fileConn.getTextIdentifier());
-            cloneConn.setUseFooter(fileConn.isUseFooter());
-            cloneConn.setUseHeader(fileConn.isUseHeader());
-            cloneConn.setUseLimit(fileConn.isUseLimit());
-
-            ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
-        }
-        return cloneConn;
+        return CloneConnectionUtils.cloneOriginalValueConnection(fileConn, contextType);
     }
 
     static void revertPropertiesForContextMode(FileConnection fileConn, ContextType contextType) {
         if (fileConn == null || contextType == null) {
             return;
         }
-        String filePath = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getFilePath());
-        String encoding = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getEncoding());
-        String headValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getHeaderValue());
-        String footerValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getFooterValue());
-        String limitValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getLimitValue());
+        String filePath = ContextParameterUtils.getOriginalValue(contextType, fileConn.getFilePath());
+        String encoding = ContextParameterUtils.getOriginalValue(contextType, fileConn.getEncoding());
+        String headValue = ContextParameterUtils.getOriginalValue(contextType, fileConn.getHeaderValue());
+        String footerValue = ContextParameterUtils.getOriginalValue(contextType, fileConn.getFooterValue());
+        String limitValue = ContextParameterUtils.getOriginalValue(contextType, fileConn.getLimitValue());
 
         filePath = TalendQuoteUtils.removeQuotes(filePath);
         // qli modified to fix the bug 6995.
@@ -385,8 +284,8 @@ public final class FileConnectionContextUtils {
         //
         if (fileConn instanceof DelimitedFileConnection || fileConn instanceof PositionalFileConnection
                 || fileConn instanceof RegexpFileConnection) {
-            String fieldSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getFieldSeparatorValue());
-            String rowSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getRowSeparatorValue());
+            String fieldSeparatorValue = ContextParameterUtils.getOriginalValue(contextType, fileConn.getFieldSeparatorValue());
+            String rowSeparatorValue = ContextParameterUtils.getOriginalValue(contextType, fileConn.getRowSeparatorValue());
 
             fileConn.setFieldSeparatorValue(fieldSeparatorValue);
             fileConn.setRowSeparatorValue(rowSeparatorValue);
@@ -396,12 +295,12 @@ public final class FileConnectionContextUtils {
         if (fileConn instanceof FileExcelConnection) {
             FileExcelConnection excelConnection = (FileExcelConnection) fileConn;
 
-            String thousandSeparator = ConnectionContextHelper.getOriginalValue(contextType,
-                    excelConnection.getThousandSeparator());
+            String thousandSeparator = ContextParameterUtils
+                    .getOriginalValue(contextType, excelConnection.getThousandSeparator());
             String decimalSeparator = ConnectionContextHelper
                     .getOriginalValue(contextType, excelConnection.getDecimalSeparator());
-            String firstColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getFirstColumn());
-            String lastColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getLastColumn());
+            String firstColumn = ContextParameterUtils.getOriginalValue(contextType, excelConnection.getFirstColumn());
+            String lastColumn = ContextParameterUtils.getOriginalValue(contextType, excelConnection.getLastColumn());
 
             excelConnection.setThousandSeparator(thousandSeparator);
             excelConnection.setDecimalSeparator(decimalSeparator);
@@ -445,11 +344,11 @@ public final class FileConnectionContextUtils {
             return;
         }
 
-        String filePath = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getFilePath());
-        String encoding = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getEncoding());
-        String headValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getHeaderValue());
-        String footerValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getFooterValue());
-        String limitValue = ConnectionContextHelper.getOriginalValue(contextType, sourceFileConnection.getLimitValue());
+        String filePath = ContextParameterUtils.getOriginalValue(contextType, sourceFileConnection.getFilePath());
+        String encoding = ContextParameterUtils.getOriginalValue(contextType, sourceFileConnection.getEncoding());
+        String headValue = ContextParameterUtils.getOriginalValue(contextType, sourceFileConnection.getHeaderValue());
+        String footerValue = ContextParameterUtils.getOriginalValue(contextType, sourceFileConnection.getFooterValue());
+        String limitValue = ContextParameterUtils.getOriginalValue(contextType, sourceFileConnection.getLimitValue());
 
         filePath = TalendQuoteUtils.removeQuotes(filePath);
         // qli modified to fix the bug 6995.
@@ -463,9 +362,9 @@ public final class FileConnectionContextUtils {
         //
         if (sourceFileConnection instanceof DelimitedFileConnection || sourceFileConnection instanceof PositionalFileConnection
                 || sourceFileConnection instanceof RegexpFileConnection) {
-            String fieldSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType,
+            String fieldSeparatorValue = ContextParameterUtils.getOriginalValue(contextType,
                     sourceFileConnection.getFieldSeparatorValue());
-            String rowSeparatorValue = ConnectionContextHelper.getOriginalValue(contextType,
+            String rowSeparatorValue = ContextParameterUtils.getOriginalValue(contextType,
                     sourceFileConnection.getRowSeparatorValue());
 
             targetFileConnection.setFieldSeparatorValue(fieldSeparatorValue);
@@ -481,12 +380,11 @@ public final class FileConnectionContextUtils {
             FileExcelConnection excelConnection = (FileExcelConnection) sourceFileConnection;
             FileExcelConnection cloneExcelConnection = (FileExcelConnection) targetFileConnection;
 
-            String thousandSeparator = ConnectionContextHelper.getOriginalValue(contextType,
-                    excelConnection.getThousandSeparator());
-            String decimalSeparator = ConnectionContextHelper
-                    .getOriginalValue(contextType, excelConnection.getDecimalSeparator());
-            String firstColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getFirstColumn());
-            String lastColumn = ConnectionContextHelper.getOriginalValue(contextType, excelConnection.getLastColumn());
+            String thousandSeparator = ContextParameterUtils
+                    .getOriginalValue(contextType, excelConnection.getThousandSeparator());
+            String decimalSeparator = ContextParameterUtils.getOriginalValue(contextType, excelConnection.getDecimalSeparator());
+            String firstColumn = ContextParameterUtils.getOriginalValue(contextType, excelConnection.getFirstColumn());
+            String lastColumn = ContextParameterUtils.getOriginalValue(contextType, excelConnection.getLastColumn());
 
             cloneExcelConnection.setThousandSeparator(thousandSeparator);
             cloneExcelConnection.setDecimalSeparator(decimalSeparator);

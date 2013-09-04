@@ -42,9 +42,7 @@ import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
@@ -52,10 +50,6 @@ import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.QueriesConnection;
-import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -78,13 +72,13 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.CloneConnectionUtils;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.SelectRepositoryContextGroupDialog;
-import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -99,7 +93,6 @@ import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.ui.wizards.context.ContextWizard;
 import org.talend.repository.ui.wizards.metadata.ContextSetsSelectionDialog;
 import org.talend.repository.ui.wizards.metadata.ShowAddedContextdialog;
-import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * ggu class global comment. Detailled comment
@@ -1462,148 +1455,22 @@ public final class ConnectionContextHelper {
      * ggu Comment method "getOriginalValue".
      * 
      * if value is context mode, return original value.
+     * 
+     * @deprecated use instead ContextParameterUtils.getOriginalValue
      */
+    @Deprecated
     @SuppressWarnings("unchecked")
     public static String getOriginalValue(ContextType contextType, final String value) {
-        if (value == null) {
-            return EMPTY;
-        }
-        if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
-            String var = ContextParameterUtils.getVariableFromCode(value);
-            if (var != null) {
-                ContextParameterType param = null;
-                for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
-                    if (paramType.getName().equals(var)) {
-                        param = paramType;
-                        break;
-                    }
-                }
-                if (param != null) {
-                    String value2 = param.getValue();
-                    if (value2 != null) {
-                        // return TalendTextUtils.removeQuotes(value2); //some value can't be removed for quote
-                        return value2;
-                    }
-                }
-                return EMPTY;
-            }
-        }
-        return value;
+        return ContextParameterUtils.getOriginalValue(contextType, value);
     }
 
+    /**
+     * @deprecated use instead CloneConnectionUtils.cloneConnectionProperties
+     */
+    @Deprecated
     @SuppressWarnings("unchecked")
     public static void cloneConnectionProperties(Connection sourceConn, Connection targetConn) {
-        if (sourceConn == null || targetConn == null) {
-            return;
-        }
-        cloneConnectionProperties((AbstractMetadataObject) sourceConn, (AbstractMetadataObject) targetConn);
-
-        // not clone
-        // targetConn.setContextId(sourceConn.getContextId());
-        // targetConn.setContextMode(sourceConn.isContextMode());
-        targetConn.setVersion(sourceConn.getVersion());
-        QueriesConnection queryConnection = sourceConn.getQueries();
-        if (queryConnection != null) {
-            QueriesConnection cloneQueriesConnection = ConnectionFactory.eINSTANCE.createQueriesConnection();
-
-            cloneQueriesConnection.getQuery().clear();
-            List<Query> queries = queryConnection.getQuery();
-            for (Query query : queries) {
-                Query cloneQuery = ConnectionFactory.eINSTANCE.createQuery();
-                cloneConnectionProperties(query, cloneQuery);
-                cloneQuery.setValue(query.getValue());
-
-                cloneQuery.setQueries(cloneQueriesConnection);
-                cloneQueriesConnection.getQuery().add(cloneQuery);
-            }
-
-            cloneQueriesConnection.setConnection(targetConn);
-            targetConn.setQueries(cloneQueriesConnection);
-
-        }
-        // no need to clean targetconn's datapackage because when clone the connection,the datapacage won't be cloned.
-
-        // Package pkg = (Package) ConnectionHelper.getPackage(targetConn.getName(), targetConn, Package.class);
-
-        Set<MetadataTable> tables = ConnectionHelper.getTables(sourceConn);
-        for (MetadataTable table : tables) {
-            MetadataTable cloneTable = ConnectionFactory.eINSTANCE.createMetadataTable();
-
-            cloneConnectionProperties(table, cloneTable);
-
-            cloneTable.setActivatedCDC(table.isActivatedCDC());
-            cloneTable.setAttachedCDC(table.isAttachedCDC());
-            cloneTable.setTableType(table.getTableType());
-            cloneTable.setSourceName(table.getSourceName());
-
-            cloneTable.getColumns().clear();
-
-            List<MetadataColumn> columns = table.getColumns();
-            for (MetadataColumn column : columns) {
-                MetadataColumn cloneColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-
-                cloneConnectionProperties(column, cloneColumn);
-
-                cloneColumn.setDefaultValue(column.getDefaultValue());
-                cloneColumn.setDisplayField(column.getDisplayField());
-                cloneColumn.setKey(column.isKey());
-                cloneColumn.setLength(column.getLength());
-                cloneColumn.setNullable(column.isNullable());
-                cloneColumn.setOriginalField(column.getOriginalField());
-                cloneColumn.setPattern(column.getPattern());
-                cloneColumn.setPrecision(column.getPrecision());
-                cloneColumn.setSourceType(column.getSourceType());
-                cloneColumn.setTalendType(column.getTalendType());
-
-                cloneColumn.setTable(cloneTable);
-                cloneTable.getColumns().add(cloneColumn);
-            }
-            if (cloneTable.getNamespace() instanceof Package) {
-                Package pkg = (Package) cloneTable.getNamespace();
-                pkg.getDataManager().add(targetConn);
-            }
-            // if (targetConn instanceof DatabaseConnection) { // hywang,need to see if schema or catalog
-            // // Catalog c = (Catalog) ConnectionHelper.getPackage(((DatabaseConnection) targetConn).getSID(),
-            // // ((DatabaseConnection) targetConn), Catalog.class);
-            // // Schema s = (Schema) ConnectionHelper.getPackage(((DatabaseConnection) targetConn).getUiSchema(),
-            // // ((DatabaseConnection) targetConn), Schema.class);
-            // // if (c != null) {
-            // // PackageHelper.addMetadataTable(cloneTable, c);
-            // // } else if (s != null) {
-            // // PackageHelper.addMetadataTable(cloneTable, s);
-            // // }
-            // Catalog c = (Catalog) ConnectionHelper.getPackage(((DatabaseConnection) targetConn).getSID(), targetConn,
-            // Catalog.class);
-            // if (c != null) {
-            // PackageHelper.addMetadataTable(cloneTable, c);
-            // }
-            // } else {
-            // Package pkg = (Package) ConnectionHelper.getPackage(targetConn.getName(), targetConn, Package.class);
-            // if (pkg != null) {
-            // PackageHelper.addMetadataTable(cloneTable, pkg);
-            // }
-            // }
-            // cloneTable.setConnection(targetConn);
-            // targetConn.getTables().add(cloneTable);
-        }
-
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void cloneConnectionProperties(AbstractMetadataObject sourceObj, AbstractMetadataObject targetObj) {
-        if (sourceObj == null || targetObj == null) {
-            return;
-        }
-        targetObj.setComment(sourceObj.getComment());
-        targetObj.setDivergency(sourceObj.isDivergency());
-        targetObj.setId(sourceObj.getId());
-        targetObj.setLabel(sourceObj.getLabel());
-        // targetObj.setReadOnly(sourceObj.isReadOnly()); //can't set
-        targetObj.setSynchronised(sourceObj.isSynchronised());
-        HashMap properties = sourceObj.getProperties();
-        if (properties != null) {
-            targetObj.setProperties((HashMap) properties.clone());
-        }
+        CloneConnectionUtils.cloneConnectionProperties(sourceConn, targetConn);
     }
 
     /*

@@ -14,6 +14,7 @@ package org.talend.core.model.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +38,7 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 
 /**
  * Utilities to work with IContextParamet objects. <br/>
@@ -55,6 +57,8 @@ public final class ContextParameterUtils {
     private static final String JAVA_STARTWITH = "((String)context.getProperty(\""; //$NON-NLS-1$
 
     private static final String JAVA_ENDWITH = "\"))"; //$NON-NLS-1$
+
+    private static final String EMPTY = ""; //$NON-NLS-1$
 
     /**
      * Constructs a new ContextParameterUtils.
@@ -456,5 +460,32 @@ public final class ContextParameterUtils {
         }
         return value; // keep original value
 
+    }
+
+    public static String getOriginalValue(ContextType contextType, final String value) {
+        if (value == null) {
+            return EMPTY;
+        }
+        if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
+            String var = ContextParameterUtils.getVariableFromCode(value);
+            if (var != null) {
+                ContextParameterType param = null;
+                for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
+                    if (paramType.getName().equals(var)) {
+                        param = paramType;
+                        break;
+                    }
+                }
+                if (param != null) {
+                    String value2 = param.getValue();
+                    if (value2 != null) {
+                        // return TalendTextUtils.removeQuotes(value2); //some value can't be removed for quote
+                        return value2;
+                    }
+                }
+                return EMPTY;
+            }
+        }
+        return value;
     }
 }
