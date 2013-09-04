@@ -1410,7 +1410,7 @@ public final class ConnectionContextHelper {
             return null;
         }
         // TDI-17320
-        Shell sqlBuilderDialogShell = ContextUtils.getSqlBuilderDialogShell();
+        Shell sqlBuilderDialogShell = getSqlBuilderDialogShell();
         if (sqlBuilderDialogShell != null && !sqlBuilderDialogShell.isDisposed() && shell == null) {
             shell = sqlBuilderDialogShell;
         }
@@ -1648,4 +1648,15 @@ public final class ConnectionContextHelper {
         conn.setContextMode(false);
         conn.setContextId(EMPTY);
     }
+
+    private static Shell sqlBuilderDialogShell;
+
+    public static Shell getSqlBuilderDialogShell() {
+        return sqlBuilderDialogShell;
+    }
+
+    public static void setSqlBuilderDialogShell(Shell sqlBuilderDialogShellTem) {
+        sqlBuilderDialogShell = sqlBuilderDialogShellTem;
+    }
+
 }

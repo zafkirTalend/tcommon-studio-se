@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.model.context;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,13 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -54,41 +50,18 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class ContextUtils {
 
-    private static List<String> keywords = new ArrayList<String>();
-
-    private static Shell sqlBuilderDialogShell;
-
-    static {
-        initJavaKeyWords();
-    }
-
-    private static void initJavaKeyWords() {
-        if (Platform.getOS().equals(Platform.OS_AIX)) {
-            return;
-        }
-        keywords.clear();
-        Mode mode = Modes.getMode("java.xml"); //$NON-NLS-1$
-        KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("LITERAL2"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("INVALID"))); //$NON-NLS-1$    
-    }
-
     /**
      * 
      * ggu Comment method "isJavaKeyWords".
      * 
      */
     public static boolean isJavaKeyWords(final String name) {
-        if (name == null) {
-            return false;
+        IStatus status = JavaConventions.validateFieldName(name, JavaCore.getOption(JavaCore.COMPILER_SOURCE),
+                JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE));
+        if (status.getSeverity() == IStatus.ERROR) {
+            return true;
         }
-        if (keywords == null || keywords.isEmpty()) {
-            initJavaKeyWords();
-        }
-        return keywords.contains(name);
+        return false;
     }
 
     /**
@@ -653,14 +626,6 @@ public class ContextUtils {
         contextParam.setComment(contextParamType.getComment());
         contextParam.setSource(contextItem.getProperty().getId());
         return contextParam;
-    }
-
-    public static Shell getSqlBuilderDialogShell() {
-        return sqlBuilderDialogShell;
-    }
-
-    public static void setSqlBuilderDialogShell(Shell sqlBuilderDialogShellTem) {
-        sqlBuilderDialogShell = sqlBuilderDialogShellTem;
     }
 
 }
