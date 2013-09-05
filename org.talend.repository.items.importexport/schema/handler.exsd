@@ -56,9 +56,9 @@ For example, XxxxImportHandler:TEST
          </documentation>
       </annotation>
       <complexType>
-         <choice>
+         <sequence>
             <element ref="importItemsHandler"/>
-         </choice>
+         </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
@@ -133,9 +133,9 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
 
    <element name="importResourcesProvider">
       <complexType>
-         <choice>
+         <sequence>
             <element ref="importResoucesHandler"/>
-         </choice>
+         </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>

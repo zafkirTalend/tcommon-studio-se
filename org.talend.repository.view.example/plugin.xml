@@ -378,7 +378,7 @@
             name="Example Demo importer"
             priority="LOW">
          <importItemsHandler
-               class="org.talend.repository.viewer.handler.ExampleDemoImportHandler">
+               class="org.talend.repository.viewer.handler.demo.ExampleDemoImportHandler">
             <parameter
                   comment="for the value, same as &quot;EXAMPLE_DEMO&quot; too."
                   name="path"
@@ -386,5 +386,12 @@
             </parameter>
          </importItemsHandler>
       </importItemsProvider>
+      <importResourcesProvider
+            description="Demo impl"
+            id="org.talend.repository.view.example.importResourcesProvider.demo"
+            priority="LOWEST">
+         <importResoucesHandler
+               class="org.talend.repository.viewer.handler.demo.DemoImportResourcesHandler"></importResoucesHandler>
+      </importResourcesProvider>
    </extension>
 </plugin>
