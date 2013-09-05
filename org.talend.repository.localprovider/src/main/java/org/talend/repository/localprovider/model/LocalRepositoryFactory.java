@@ -145,7 +145,6 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
-import org.talend.core.service.ITransformService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
@@ -757,14 +756,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             } else {
                 desc = workspace.newProjectDescription(projectInfor.getLabel());
             }
-            String[] natures = new String[] { TalendNature.ID };
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
-                ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
-                        ITransformService.class);
-                String transformNatureId = transformService.getTransformProjectNature();
-                natures = new String[] { TalendNature.ID, transformNatureId };
-            }
-            desc.setNatureIds(natures);
+            desc.setNatureIds(new String[] { TalendNature.ID });
             desc.setComment(projectInfor.getDescription());
 
             if (!prj.exists()) {
