@@ -395,6 +395,8 @@ public class ImportItemsWizardPage extends WizardPage {
         });
         setButtonLayoutData(refresh);
 
+        new Label(buttonsComposite, SWT.NONE);
+
         Button selectAll = new Button(buttonsComposite, SWT.PUSH);
         selectAll.setText(Messages.getString("ImportItemsWizardPage_selectButtonText")); //$NON-NLS-1$
         selectAll.addSelectionListener(new SelectionAdapter() {
@@ -428,6 +430,8 @@ public class ImportItemsWizardPage extends WizardPage {
             }
         });
         setButtonLayoutData(deselectAll);
+
+        new Label(buttonsComposite, SWT.NONE);
 
         Button expandAll = new Button(buttonsComposite, SWT.PUSH);
         expandAll.setText(Messages.getString("ImportItemsWizardPage_expandAllButtonText")); //$NON-NLS-1$

@@ -12,16 +12,16 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.model.internal;
 
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class ImportProviderRegistry extends BasicRegistry {
+public class ImportItemsProviderRegistry extends BasicRegistry {
 
-    private IImportHandler importHandler;
+    private IImportItemsHandler importHandler;
 
-    public ImportProviderRegistry(String bundleId, String id) {
+    public ImportItemsProviderRegistry(String bundleId, String id) {
         super(bundleId, id);
     }
 
@@ -30,7 +30,7 @@ public class ImportProviderRegistry extends BasicRegistry {
      * 
      * @return the importHandler
      */
-    public IImportHandler getImportHandler() {
+    public IImportItemsHandler getImportItemsHandler() {
         return this.importHandler;
     }
 
@@ -39,7 +39,7 @@ public class ImportProviderRegistry extends BasicRegistry {
      * 
      * @param importHandler the importHandler to set
      */
-    public void setImportHandler(IImportHandler handler) {
+    public void setImportItemsHandler(IImportItemsHandler handler) {
         this.importHandler = handler;
     }
 

@@ -45,7 +45,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler;
 import org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
@@ -64,7 +64,7 @@ public final class ImportExportHandlersManager {
 
     private final ImportExportHandlersRegistryReader registryReader;
 
-    private IImportHandler[] importHandlers;
+    private IImportItemsHandler[] importHandlers;
 
     private IImportResourcesHandler[] resImportHandlers;
 
@@ -77,7 +77,7 @@ public final class ImportExportHandlersManager {
         return instance;
     }
 
-    public IImportHandler[] getImportHandlers() {
+    public IImportItemsHandler[] getImportHandlers() {
         if (importHandlers == null) {
             importHandlers = registryReader.getImportHandlers();
         }
@@ -91,8 +91,8 @@ public final class ImportExportHandlersManager {
         return resImportHandlers;
     }
 
-    private IImportHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
-        for (IImportHandler handler : getImportHandlers()) {
+    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
+        for (IImportItemsHandler handler : getImportHandlers()) {
             if (handler.valid(resManager, path)) {
                 return handler;
             }
@@ -130,7 +130,7 @@ public final class ImportExportHandlersManager {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                IImportHandler importHandler = findValidImportHandler(resManager, path);
+                IImportItemsHandler importHandler = findValidImportHandler(resManager, path);
                 if (importHandler != null) {
                     ItemRecord itemRecord = importHandler.calcItemRecord(progressMonitor, resManager, path, overwrite, items);
                     if (itemRecord != null) {
@@ -282,7 +282,7 @@ public final class ImportExportHandlersManager {
                                 if (itemRecord.isImported()) {
                                     return; // have imported
                                 }
-                                final IImportHandler importHandler = itemRecord.getImportHandler();
+                                final IImportItemsHandler importHandler = itemRecord.getImportHandler();
                                 if (importHandler != null && itemRecord.isValid()) {
                                     List<ItemRecord> relatedItemRecord = importHandler.findRelatedItemRecord(monitor, manager,
                                             itemRecord, allPopulatedImportItemRecords);

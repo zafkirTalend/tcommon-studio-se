@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence minOccurs="0" maxOccurs="unbounded">
-            <element ref="importProvider" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="importItemsProvider" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="importResourcesProvider" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
@@ -48,7 +48,7 @@
       </complexType>
    </element>
 
-   <element name="importProvider">
+   <element name="importItemsProvider">
       <annotation>
          <documentation>
             If don&apos;t set the basePath parameters, can set the data after class attribute.
@@ -57,7 +57,7 @@ For example, XxxxImportHandler:TEST
       </annotation>
       <complexType>
          <choice>
-            <element ref="handler"/>
+            <element ref="importItemsHandler"/>
          </choice>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -108,7 +108,7 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
       </complexType>
    </element>
 
-   <element name="handler">
+   <element name="importItemsHandler">
       <annotation>
          <documentation>
             The class attribute must implement the interface IImportHandler and the parameter children will be a java.util.Map &quot;data&quot;  arguments for method setInitializationData.

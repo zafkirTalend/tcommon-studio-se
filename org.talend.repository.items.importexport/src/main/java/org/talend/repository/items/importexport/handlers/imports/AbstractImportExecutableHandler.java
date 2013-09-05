@@ -23,7 +23,7 @@ import org.talend.repository.items.importexport.manager.ResourcesManager;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public abstract class AbstractImportExecutableHandler implements IImportHandler {
+public abstract class AbstractImportExecutableHandler implements IImportItemsHandler {
 
     protected final static Logger log = Logger.getLogger(AbstractImportExecutableHandler.class);
 
@@ -31,7 +31,7 @@ public abstract class AbstractImportExecutableHandler implements IImportHandler 
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#findRelatedItemRecord(org.eclipse.core
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#findRelatedItemRecord(org.eclipse.core
      * .runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
      * org.talend.repository.items.importexport.handlers.model.ItemRecord,
      * org.talend.repository.items.importexport.handlers.model.ItemRecord[])
@@ -45,7 +45,7 @@ public abstract class AbstractImportExecutableHandler implements IImportHandler 
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.items.importexport.handlers.imports.IImportHandler#isImportRelatedItemRecordPrior()
+     * @see org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#isImportRelatedItemRecordPrior()
      */
     @Override
     public boolean isImportRelatedItemRecordPrior() {
@@ -56,7 +56,7 @@ public abstract class AbstractImportExecutableHandler implements IImportHandler 
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#afterImportingItemRecords(org.eclipse
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#afterImportingItemRecords(org.eclipse
      * .core.runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
      * org.talend.repository.items.importexport.handlers.model.ItemRecord)
      */

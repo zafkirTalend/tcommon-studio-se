@@ -24,7 +24,7 @@ import org.talend.repository.items.importexport.manager.ResourcesManager;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IImportHandler extends IExecutableExtension {
+public interface IImportItemsHandler extends IExecutableExtension {
 
     /**
      * Check the path is valid to import or ignore.

@@ -190,7 +190,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#populateItemRecord(org.eclipse.core.
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#populateItemRecord(org.eclipse.core.
      * runtime.IProgressMonitor, org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
      * org.eclipse.core.runtime.IPath, boolean, java.util.List)
      */
@@ -608,7 +608,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#importItemRecord(org.eclipse.core.runtime
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#importItemRecord(org.eclipse.core.runtime
      * .IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
      * org.talend.repository.items.importexport.handlers.model.ItemRecord, boolean, org.eclipse.core.runtime.IPath,
      * java.util.Set, java.util.Set)
@@ -1061,7 +1061,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportHandler#afterImportingItemRecords(org.talend
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#afterImportingItemRecords(org.talend
      * .repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
     @Override

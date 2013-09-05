@@ -1270,19 +1270,19 @@
    </extension>
    <extension
          point="org.talend.repository.items.importexport.handler">
-      <importProvider
+      <importItemsProvider
             description="Dbs, Files"
             id="org.talend.repository.metadata.importProvider.some"
             name="Metadatas Import"
             priority="LOW">
-         <handler
+         <importItemsHandler
                class="org.talend.repository.metadata.importexport.SomeMetadatasImportHandler">
             <parameter
                   name="type"
                   value="METADATA_CONNECTIONS,METADATA_FILE_DELIMITED,METADATA_FILE_POSITIONAL,METADATA_FILE_REGEXP,METADATA_FILE_XML,METADATA_FILE_LDIF,METADATA_FILE_EXCEL,METADATA_SALESFORCE_SCHEMA,METADATA_LDAP_SCHEMA,METADATA_WSDL_SCHEMA,METADATA_GENERIC_SCHEMA">
             </parameter>
-         </handler>
-      </importProvider>
+         </importItemsHandler>
+      </importItemsProvider>
    </extension>
 
 </plugin>

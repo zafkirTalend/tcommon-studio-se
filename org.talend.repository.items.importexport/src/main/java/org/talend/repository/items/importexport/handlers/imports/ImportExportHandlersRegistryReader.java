@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
 import org.talend.core.utils.RegistryReader;
 import org.talend.repository.items.importexport.handlers.model.internal.EPriority;
-import org.talend.repository.items.importexport.handlers.model.internal.ImportProviderRegistry;
+import org.talend.repository.items.importexport.handlers.model.internal.ImportItemsProviderRegistry;
 import org.talend.repository.items.importexport.handlers.model.internal.ImportResourcesProviderRegistry;
 
 /**
@@ -32,7 +32,7 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
 
     private static Logger log = Logger.getLogger(ImportExportHandlersRegistryReader.class);
 
-    private List<ImportProviderRegistry> imortRegistries = new ArrayList<ImportProviderRegistry>();
+    private List<ImportItemsProviderRegistry> imortRegistries = new ArrayList<ImportItemsProviderRegistry>();
 
     private List<ImportResourcesProviderRegistry> resImportResistries = new ArrayList<ImportResourcesProviderRegistry>();
 
@@ -44,10 +44,10 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
         readRegistry();
 
         // according to the priority
-        Collections.sort(this.imortRegistries, new Comparator<ImportProviderRegistry>() {
+        Collections.sort(this.imortRegistries, new Comparator<ImportItemsProviderRegistry>() {
 
             @Override
-            public int compare(ImportProviderRegistry arg0, ImportProviderRegistry arg1) {
+            public int compare(ImportItemsProviderRegistry arg0, ImportItemsProviderRegistry arg1) {
                 return arg1.getPriority().compareTo(arg0.getPriority());
             }
         });
@@ -61,12 +61,12 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
         });
     }
 
-    public IImportHandler[] getImportHandlers() {
-        List<IImportHandler> handers = new ArrayList<IImportHandler>();
-        for (ImportProviderRegistry ir : this.imortRegistries) {
-            handers.add(ir.getImportHandler());
+    public IImportItemsHandler[] getImportHandlers() {
+        List<IImportItemsHandler> handers = new ArrayList<IImportItemsHandler>();
+        for (ImportItemsProviderRegistry ir : this.imortRegistries) {
+            handers.add(ir.getImportItemsHandler());
         }
-        return handers.toArray(new IImportHandler[0]);
+        return handers.toArray(new IImportItemsHandler[0]);
     }
 
     public IImportResourcesHandler[] getImportResourcesHandlers() {
@@ -84,7 +84,7 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
      */
     @Override
     protected boolean readElement(final IConfigurationElement element) {
-        if ("importProvider".equals(element.getName())) { //$NON-NLS-1$
+        if ("importItemsProvider".equals(element.getName())) { //$NON-NLS-1$
             SafeRunner.run(new RegistryReader.RegistrySafeRunnable() {
 
                 @Override
@@ -98,16 +98,18 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                         EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority
                                 .valueOf(priorityString.toUpperCase()) : EPriority.NORMAL;
 
-                        IImportHandler handler = (IImportHandler) element.createExecutableExtension("handler"); //$NON-NLS-1$
-                        if (handler == null) {
+                        IImportItemsHandler importItemsHandler = (IImportItemsHandler) element
+                                .createExecutableExtension("importItemsHandler"); //$NON-NLS-1$
+                        if (importItemsHandler == null) {
                             log.error("Can't create handlder for " + name); //$NON-NLS-1$
                             return;
                         }
 
-                        ImportProviderRegistry importRegistry = new ImportProviderRegistry(element.getContributor().getName(), id);
+                        ImportItemsProviderRegistry importRegistry = new ImportItemsProviderRegistry(element.getContributor()
+                                .getName(), id);
                         importRegistry.setName(name);
                         importRegistry.setDescription(description);
-                        importRegistry.setImportHandler(handler);
+                        importRegistry.setImportItemsHandler(importItemsHandler);
                         importRegistry.setPriority(priority);
 
                         imortRegistries.add(importRegistry);
@@ -135,7 +137,8 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                         IImportResourcesHandler resImportHandler = (IImportResourcesHandler) element
                                 .createExecutableExtension("importResoucesHandler");//$NON-NLS-1$
 
-                        ImportResourcesProviderRegistry registry = new ImportResourcesProviderRegistry(element.getContributor().getName(), id);
+                        ImportResourcesProviderRegistry registry = new ImportResourcesProviderRegistry(element.getContributor()
+                                .getName(), id);
                         registry.setDescription(description);
                         registry.setPriority(priority);
                         registry.setImportResourcesHandler(resImportHandler);
