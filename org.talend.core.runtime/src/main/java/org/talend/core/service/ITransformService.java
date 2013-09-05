@@ -26,6 +26,4 @@ public interface ITransformService extends IService {
 
     public ERepositoryObjectType getTransformRootType();
 
-    public String getTransformProjectNature();
-
 }
