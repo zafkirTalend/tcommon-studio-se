@@ -12,12 +12,8 @@
 // ============================================================================
 package org.talend.core.language;
 
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
-import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -36,39 +32,6 @@ public class LanguageManager {
     }
 
     public static ECodeLanguage getCurrentLanguage() {
-        if (CoreRuntimePlugin.getInstance().getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY) == null) {
-            if (coreService != null) {
-
-                coreService.initializeForTalendStartupJob();
-                String lanType = coreService.getLanTypeString();
-
-                for (ECodeLanguage language : ECodeLanguage.values()) {
-                    if (language.getName().equals(lanType)) {
-                        return language;
-                    }
-                }
-            }
-
-            // the first time run talend in eclipse
-            // TODO
-            return ECodeLanguage.JAVA;
-        }
-
-        try {
-
-            if (((RepositoryContext) CoreRuntimePlugin.getInstance().getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                    .getProject() != null) {
-                currentLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                        .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } else {
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        } catch (RuntimeException e) {
-            // should be run only when testing
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-            currentLanguage = ECodeLanguage.JAVA;
-        }
-        return currentLanguage;
+        return ECodeLanguage.JAVA;
     }
 }

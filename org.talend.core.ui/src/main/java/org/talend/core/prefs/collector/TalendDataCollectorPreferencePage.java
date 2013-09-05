@@ -18,9 +18,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.token.TokenCollectorFactory;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * ggu class global comment. Detailled comment
@@ -28,7 +28,7 @@ import org.talend.core.token.TokenCollectorFactory;
 public class TalendDataCollectorPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     public TalendDataCollectorPreferencePage() {
-        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
+        setPreferenceStore(CoreUIPlugin.getDefault().getPreferenceStore());
         setDescription(Messages.getString("TalendDataCollectorPreferencePage_Description")); //$NON-NLS-1$
     }
 
@@ -50,7 +50,7 @@ public class TalendDataCollectorPreferencePage extends FieldEditorPreferencePage
      */
     @Override
     public boolean performOk() {
-        final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         boolean valueBeforeOk = preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED);
 
         boolean ok = super.performOk();

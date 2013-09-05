@@ -17,12 +17,12 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 
 public class SpecificSettingPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     public SpecificSettingPreferencePage() {
-        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
+        setPreferenceStore(CoreUIPlugin.getDefault().getPreferenceStore());
     }
 
     /*

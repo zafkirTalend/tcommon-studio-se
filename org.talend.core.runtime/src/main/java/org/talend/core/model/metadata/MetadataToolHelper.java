@@ -22,6 +22,8 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
@@ -58,6 +60,7 @@ import org.talend.core.model.properties.impl.ConnectionItemImpl;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesService;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.utils.KeywordsValidator;
@@ -216,8 +219,8 @@ public final class MetadataToolHelper {
     }
 
     private static boolean isAllowSpecificCharacters() {
-        return CoreRuntimePlugin.getInstance().getPreferenceStore()
-                .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
+        IEclipsePreferences coreUIPluginNode = new InstanceScope().getNode(ITalendCorePrefConstants.CoreUIPlugin_ID);
+        return coreUIPluginNode.getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
     }
 
     /**

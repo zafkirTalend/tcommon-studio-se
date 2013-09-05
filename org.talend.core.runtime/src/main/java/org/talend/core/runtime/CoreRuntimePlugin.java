@@ -14,11 +14,8 @@ package org.talend.core.runtime;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
@@ -45,6 +42,8 @@ public class CoreRuntimePlugin extends Plugin {
 
     // The data profiling perspective id.
     protected static final String DATA_PROFILING_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
+
+    public static final String EMPTY_STRING = "";
 
     /** Context. */
     private final Context context;
@@ -83,25 +82,6 @@ public class CoreRuntimePlugin extends Plugin {
      */
     public Context getContext() {
         return this.context;
-    }
-
-    private ScopedPreferenceStore preferenceStore;
-
-    /**
-     * 
-     * DOC ggu Comment method "getPreferenceStore".
-     * 
-     * just want to remove the extended AbstractUIPlugin for this class.
-     * 
-     * @return
-     */
-    public IPreferenceStore getPreferenceStore() {
-        // Create the preference store lazily.
-        if (preferenceStore == null) {
-            preferenceStore = new ScopedPreferenceStore(new InstanceScope(), getBundle().getSymbolicName());
-
-        }
-        return preferenceStore;
     }
 
     public IProxyRepositoryFactory getProxyRepositoryFactory() {

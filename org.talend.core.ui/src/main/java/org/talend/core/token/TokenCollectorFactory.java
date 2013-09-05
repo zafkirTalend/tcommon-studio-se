@@ -34,7 +34,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingService;
 
 import us.monoid.json.JSONObject;
@@ -129,7 +129,7 @@ public final class TokenCollectorFactory {
     }
 
     private boolean isActiveAndValid(boolean timeExpired) {
-        final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
             int days = preferenceStore.getInt(ITalendCorePrefConstants.DATA_COLLECTOR_UPLOAD_PERIOD);
@@ -169,7 +169,7 @@ public final class TokenCollectorFactory {
                 TokenCollectorFactory.getFactory().priorCollect();
                 send();
                 // set new days
-                final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+                final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
                 preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
                 if (preferenceStore instanceof ScopedPreferenceStore) {
                     try {

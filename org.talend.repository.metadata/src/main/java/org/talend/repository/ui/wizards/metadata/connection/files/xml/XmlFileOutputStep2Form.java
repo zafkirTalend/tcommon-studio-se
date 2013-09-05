@@ -66,7 +66,7 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
@@ -208,7 +208,7 @@ public class XmlFileOutputStep2Form extends AbstractXmlFileStepForm {
 
     @Override
     public void redrawLinkers() {
-        int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
+        int maxColumnsNumber = CoreUIPlugin.getDefault().getPreferenceStore()
                 .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
         if (schemaViewer.getTable().getItems().length <= maxColumnsNumber + 1) {
             // linker.removeAllLinks();

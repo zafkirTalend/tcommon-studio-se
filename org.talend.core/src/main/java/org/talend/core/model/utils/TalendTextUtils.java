@@ -15,11 +15,10 @@ package org.talend.core.model.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.talend.core.GlobalServiceRegister;
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.service.ICoreUIService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -238,11 +237,8 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
 
         boolean isCheck = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
-            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
-            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
-            isCheck = !Boolean.parseBoolean(preferenceValue);
-        }
+        String preferenceValue = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        isCheck = !Boolean.parseBoolean(preferenceValue);
         if (!b) {
             if (isCheck && isPSQLSimilar(name) && check) {
                 return fieldName;
@@ -267,11 +263,8 @@ public class TalendTextUtils {
         }
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         boolean isCheck = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
-            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
-            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
-            isCheck = !Boolean.parseBoolean(preferenceValue);
-        }
+        String preferenceValue = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        isCheck = !Boolean.parseBoolean(preferenceValue);
         if (!b) {
             if (isCheck && isPSQLSimilar(name)) {
                 return fieldName;
@@ -296,11 +289,8 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         final String quote = getQuoteByDBType(name);
         boolean isCheck = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
-            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
-            String preferenceValue = service.getPreferenceValue(ITalendCorePrefConstants.SQL_ADD_QUOTE);
-            isCheck = !Boolean.parseBoolean(preferenceValue);
-        }
+        String preferenceValue = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        isCheck = !Boolean.parseBoolean(preferenceValue);
         // added by hyWang(bug 6637),to see if the column name need to be add queotes
         if (!isCheck) {
             // check the field name.

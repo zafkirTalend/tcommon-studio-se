@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * ggu class global comment. Detailled comment
@@ -36,7 +36,7 @@ public class TalendDataCollectorUploadingPreferencePage extends FieldEditorPrefe
 
     public TalendDataCollectorUploadingPreferencePage() {
         super();
-        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
+        setPreferenceStore(CoreUIPlugin.getDefault().getPreferenceStore());
         setDescription(Messages.getString("TalendDataCollectorUploadingPreferencePage_Description")); //$NON-NLS-1$
     }
 

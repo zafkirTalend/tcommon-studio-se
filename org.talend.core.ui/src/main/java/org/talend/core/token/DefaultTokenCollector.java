@@ -20,7 +20,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.utils.security.CryptoHelper;
@@ -58,7 +58,7 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
             // tokenStudioObject.put(TYPE_STUDIO.getKey(), brandingService.getShortProductName());
         }
 
-        final IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         if (!preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             tokenStudioObject.put(STOP_COLLECTOR.getKey(), "1"); //$NON-NLS-1$
         } else {

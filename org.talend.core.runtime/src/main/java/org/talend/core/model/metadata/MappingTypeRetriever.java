@@ -21,11 +21,11 @@ import java.util.Set;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.log4j.Logger;
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.talend.core.model.metadata.types.DBTypeUtil;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -295,8 +295,8 @@ public class MappingTypeRetriever {
                 return MetadataTalendType.getDefaultTalendType();
             }
         }
-        IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-        if (preferenceStore != null && !preferenceStore.getBoolean(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC)) {
+        IEclipsePreferences corePluginNode = new InstanceScope().getNode(ITalendCorePrefConstants.CoreUIPlugin_ID);
+        if (!corePluginNode.getBoolean(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false)) {
             TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
             String mappingType = talendTypePre.getMappingType();
             if (listMappingtype.size() != 0) {

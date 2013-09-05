@@ -34,9 +34,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.token.TokenCollectorFactory;
+import org.talend.core.ui.CoreUIPlugin;
 
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONException;
@@ -49,7 +49,7 @@ public class TalendDataCollectorPreviewPreferencePage extends PreferencePage imp
 
     public TalendDataCollectorPreviewPreferencePage() {
         super();
-        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
+        setPreferenceStore(CoreUIPlugin.getDefault().getPreferenceStore());
         setDescription(Messages.getString("TalendDataCollectorPreviewPreferencePage_Description")); //$NON-NLS-1$
         noDefaultAndApplyButton();
     }

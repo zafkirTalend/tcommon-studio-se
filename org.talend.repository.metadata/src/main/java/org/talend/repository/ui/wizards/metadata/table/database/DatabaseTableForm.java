@@ -91,6 +91,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -374,7 +375,7 @@ public class DatabaseTableForm extends AbstractForm {
 
         metadataEditor.setMetadataTable(metadataTable);
 
-        Boolean flag = CoreRuntimePlugin.getInstance().getPreferenceStore()
+        Boolean flag = CoreUIPlugin.getDefault().getPreferenceStore()
                 .getBoolean(IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS);
         if (!flag.booleanValue()) {
             List<MetadataColumn> list = metadataEditor.getMetadataColumnList();

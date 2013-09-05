@@ -35,8 +35,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.token.DefaultTokenCollector;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -169,7 +169,7 @@ public class DynamicContentProvider extends IntroProvider {
             }
         }
         //
-        IPreferenceStore prefStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        IPreferenceStore prefStore = CoreUIPlugin.getDefault().getPreferenceStore();
         boolean activeDataCollector = prefStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED);
         if (activeDataCollector && version != null && edition != null) {
             // uuid

@@ -1,4 +1,4 @@
-package org.talend.core.runtime;
+package org.talend.core.prefs.metadata;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -8,13 +8,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.CoreUIPlugin;
 
 public class MetadataPrecisionPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     IntegerFieldEditor xmlColumnsLimit;
 
     public MetadataPrecisionPage() {
-        setPreferenceStore(CoreRuntimePlugin.getInstance().getPreferenceStore());
+        setPreferenceStore(CoreUIPlugin.getDefault().getPreferenceStore());
     }
 
     @Override

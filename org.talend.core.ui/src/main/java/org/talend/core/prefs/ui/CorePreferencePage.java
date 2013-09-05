@@ -17,14 +17,21 @@ import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.IntegerFieldEditor;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.model.xml.XmlArray;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * DOC msjian class global comment. Detailled comment <br/>
@@ -62,50 +69,40 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     @Override
     protected void createFieldEditors() {
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            ICoreService service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-            service.createTalendCorePreference(this, getFieldEditorParent());
-        }
+        Composite fieldEditorParent = getFieldEditorParent();
+        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
+                Messages.getString("CorePreferencePage.temporaryFiles"), fieldEditorParent); //$NON-NLS-1$
+        addField(filePathTemp);
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
+                Messages.getString("CorePreferencePage.javaInterpreter"), true, fieldEditorParent) {; //$NON-NLS-1$
 
-        // DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
-        //                Messages.getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
-        // addField(filePathTemp);
-        // FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
-        //                Messages.getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()) {; //$NON-NLS-1$
-        //
-        // @Override
-        // protected boolean checkState() {
-        // return super.checkState();
-        // }
-        // };
-        //
-        // addField(javaInterpreter);
-        //
-        // IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
-        //                Messages.getString("CorePreferencePage.previewLimit"), getFieldEditorParent(), 9); //$NON-NLS-1$
-        // previewLimit.setEmptyStringAllowed(false);
-        // previewLimit.setValidRange(1, 999999999);
-        // addField(previewLimit);
-        //
-        // BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
-        //                Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
-        // getFieldEditorParent());
-        // addField(runInMultiThread);
-        //
-        // DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH,
-        //                Messages.getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
-        // addField(ireportPath);
-        //
-        // BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(ITalendCorePrefConstants.ALWAYS_WELCOME,
-        //                Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
-        // getFieldEditorParent());
-        // addField(alwaysWelcome);
+            @Override
+            protected boolean checkState() {
+                return super.checkState();
+            }
+        };
 
-        // groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
-        //                    .getString("CorePreferencePage.groupBySource"),  getFieldEditorParent());//$NON-NLS-1$
-        // addField(groupBySource);
+        addField(javaInterpreter);
 
-        // ends
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
+                Messages.getString("CorePreferencePage.previewLimit"), fieldEditorParent, 9); //$NON-NLS-1$
+        previewLimit.setEmptyStringAllowed(false);
+        previewLimit.setValidRange(1, 999999999);
+        addField(previewLimit);
+
+        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
+                Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+                fieldEditorParent);
+        addField(runInMultiThread);
+
+        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH,
+                Messages.getString("CorePreferencePage.iReportPath"), fieldEditorParent); //$NON-NLS-1$
+        addField(ireportPath);
+
+        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(ITalendCorePrefConstants.ALWAYS_WELCOME,
+                Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
+                fieldEditorParent);
+        addField(alwaysWelcome);
     }
 
     /*

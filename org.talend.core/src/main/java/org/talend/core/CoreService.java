@@ -35,18 +35,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
 import org.eclipse.osgi.framework.adaptor.BundleData;
 import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
@@ -56,7 +51,6 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.commons.xml.XmlUtil;
-import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
@@ -79,9 +73,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.model.utils.ResourceModelHelper;
 import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
-import org.talend.core.prefs.ui.CorePreferencePage;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.ui.images.OverlayImageProvider;
@@ -537,45 +529,6 @@ public class CoreService implements ICoreService {
     @Override
     public IMetadataTable convert(MetadataTable originalTable) {
         return ConvertionHelper.convert(originalTable);
-    }
-
-    @Override
-    public void createTalendCorePreference(CorePreferencePage page, Composite parentComposite) {
-
-        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
-                Messages.getString("CorePreferencePage.temporaryFiles"), parentComposite); //$NON-NLS-1$
-        page.addField(filePathTemp);
-        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
-                Messages.getString("CorePreferencePage.javaInterpreter"), true, parentComposite) {; //$NON-NLS-1$
-
-            @Override
-            protected boolean checkState() {
-                return super.checkState();
-            }
-        };
-
-        page.addField(javaInterpreter);
-
-        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
-                Messages.getString("CorePreferencePage.previewLimit"), parentComposite, 9); //$NON-NLS-1$
-        previewLimit.setEmptyStringAllowed(false);
-        previewLimit.setValidRange(1, 999999999);
-        page.addField(previewLimit);
-
-        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
-                Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
-                parentComposite);
-        page.addField(runInMultiThread);
-
-        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH,
-                Messages.getString("CorePreferencePage.iReportPath"), parentComposite); //$NON-NLS-1$
-        page.addField(ireportPath);
-
-        BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(ITalendCorePrefConstants.ALWAYS_WELCOME,
-                Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
-                parentComposite);
-        page.addField(alwaysWelcome);
-
     }
 
     @Override

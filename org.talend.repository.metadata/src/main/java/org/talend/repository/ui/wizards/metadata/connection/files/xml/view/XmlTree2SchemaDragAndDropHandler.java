@@ -46,7 +46,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.dnd.XPathTransfer;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
@@ -186,7 +186,7 @@ public class XmlTree2SchemaDragAndDropHandler {
             }
 
             EList columns = ConnectionHelper.getTables(connection).toArray(new MetadataTable[0])[0].getColumns();
-            int maxColumnsNumber = CoreRuntimePlugin.getInstance().getPreferenceStore()
+            int maxColumnsNumber = CoreUIPlugin.getDefault().getPreferenceStore()
                     .getInt(ITalendCorePrefConstants.MAXIMUM_AMOUNT_OF_COLUMNS_FOR_XML);
             if (columns.size() >= maxColumnsNumber) {
                 MessageDialog

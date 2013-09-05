@@ -12,11 +12,10 @@
 // ============================================================================
 package org.talend.core;
 
-import java.io.IOException;
-
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -49,17 +48,15 @@ public class BrandingChecker {
 
                     @Override
                     public void run() {
-                        IPreferenceStore preferenceStore = CoreRuntimePlugin.getInstance().getPreferenceStore();
-                        String oldBrandingName = preferenceStore.getString(LAST_STARTED_PRODUCT);
+                        IEclipsePreferences node = new InstanceScope().getNode(CoreRuntimePlugin.PLUGIN_ID);
+                        String oldBrandingName = node.get(LAST_STARTED_PRODUCT, "");
                         if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
                             isBrandingChanged = true;
-                            preferenceStore.setValue(LAST_STARTED_PRODUCT, fullProductName);
-                            if (preferenceStore instanceof ScopedPreferenceStore) {
-                                try {
-                                    ((ScopedPreferenceStore) preferenceStore).save();
-                                } catch (IOException e) {
-                                    ExceptionHandler.process(e);
-                                }
+                            node.put(LAST_STARTED_PRODUCT, fullProductName);
+                            try {
+                                node.flush();
+                            } catch (BackingStoreException e) {
+                                ExceptionHandler.process(e);
                             }
                         }
                     }

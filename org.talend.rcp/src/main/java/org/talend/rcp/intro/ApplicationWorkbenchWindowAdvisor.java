@@ -75,9 +75,9 @@ import org.talend.core.prefs.hidden.HidePreferencePageProvider;
 import org.talend.core.prefs.hidden.HidePreferencePagesManager;
 import org.talend.core.prefs.hidden.IHidePreferencePageValidator;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ISQLBuilderService;
 import org.talend.core.token.TokenCollectorFactory;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
@@ -266,7 +266,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
 
         // tmp for token
-        final IPreferenceStore store = CoreRuntimePlugin.getInstance().getPreferenceStore();
+        final IPreferenceStore store = CoreUIPlugin.getDefault().getPreferenceStore();
         if (!store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {
             TokenCollectorFactory.getFactory().send(true);
             store.setValue(ITalendCorePrefConstants.DATA_COLLECTOR, true);
