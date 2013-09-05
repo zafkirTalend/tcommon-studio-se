@@ -98,6 +98,9 @@ public abstract class AbstractNode implements INode {
     // for the component which will generate multiple mapreduce jobs
     private Integer mrJobIDInGroup;
 
+    // indicate if this MR component will generate Reduce part
+    private boolean mrContainsReduce;
+
     public String getComponentName() {
         return componentName;
     }
@@ -1074,4 +1077,21 @@ public abstract class AbstractNode implements INode {
         this.mrJobIDInGroup = mrJobIDInGroup;
     }
 
+    /**
+     * Getter for mrContainsReduce.
+     * 
+     * @return the mrContainsReduce
+     */
+    public boolean isMrContainsReduce() {
+        return this.mrContainsReduce;
+    }
+
+    /**
+     * Sets the mrContainsReduce.
+     * 
+     * @param mrContainsReduce the mrContainsReduce to set
+     */
+    public void setMrContainsReduce(boolean mrContainsReduce) {
+        this.mrContainsReduce = mrContainsReduce;
+    }
 }
