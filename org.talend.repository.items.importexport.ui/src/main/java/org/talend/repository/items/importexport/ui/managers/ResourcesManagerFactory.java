@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.ui.managers;
 
+import java.io.File;
 import java.util.zip.ZipFile;
 
 /**
@@ -30,6 +31,10 @@ public class ResourcesManagerFactory {
 
     public FilesManager createResourcesManager() {
         return new FilesManager();
+    }
+
+    public FileResourcesUnityManager createFileUnityManager(File resFile) {
+        return new FileResourcesUnityManager(resFile);
     }
 
     public static ResourcesManagerFactory getInstance() {

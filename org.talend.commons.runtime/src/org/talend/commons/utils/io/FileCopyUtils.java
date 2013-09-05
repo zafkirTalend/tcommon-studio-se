@@ -89,19 +89,24 @@ public class FileCopyUtils {
         }
     }
 
-    public static void copyFolder(String oldPath, String newPath) {
+    public static void copyFolder(String resFolder, String destFolder) {
+        copyFolder(new File(resFolder), new File(destFolder));
+    }
 
+    public static void copyFolder(File resFolder, File destFolder) {
         try {
-            (new File(newPath)).mkdirs();
-            File a = new File(oldPath);
-            String[] file = a.list();
+            if (!resFolder.exists()) {
+                return;
+            }
+            destFolder.mkdirs();
+            String[] file = resFolder.list();
             File temp = null;
             for (String element : file) {
-                temp = new File(oldPath, element);
+                temp = new File(resFolder, element);
 
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(new File(newPath, temp.getName()));
+                    FileOutputStream output = new FileOutputStream(new File(destFolder, temp.getName()));
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
@@ -112,7 +117,7 @@ public class FileCopyUtils {
                     input.close();
                 }
                 if (temp.isDirectory()) {
-                    copyFolder(new File(oldPath, element).getAbsolutePath(), new File(newPath, element).getAbsolutePath());
+                    copyFolder(new File(resFolder, element), new File(destFolder, element));
                 }
             }
         } catch (Exception e) {

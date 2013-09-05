@@ -46,6 +46,7 @@ import org.talend.core.ui.IJobletProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+import org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
@@ -65,6 +66,8 @@ public final class ImportExportHandlersManager {
 
     private IImportHandler[] importHandlers;
 
+    private IImportResourcesHandler[] resImportHandlers;
+
     private ImportExportHandlersManager() {
         registryReader = new ImportExportHandlersRegistryReader();
         registryReader.init();
@@ -79,6 +82,13 @@ public final class ImportExportHandlersManager {
             importHandlers = registryReader.getImportHandlers();
         }
         return importHandlers;
+    }
+
+    public IImportResourcesHandler[] getResourceImportHandlers() {
+        if (resImportHandlers == null) {
+            resImportHandlers = registryReader.getImportResourcesHandlers();
+        }
+        return resImportHandlers;
     }
 
     private IImportHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
@@ -344,6 +354,21 @@ public final class ImportExportHandlersManager {
             TimeMeasure.displaySteps = false;
             TimeMeasure.measureActive = false;
         }
-        //
+    }
+
+    public void preImport(ResourcesManager resManager) {
+        IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
+        for (IImportResourcesHandler resHandler : importResourcesHandlers) {
+            resHandler.preImport(resManager);
+        }
+
+    }
+
+    public void postImport(ResourcesManager resManager) {
+        IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
+        for (IImportResourcesHandler resHandler : importResourcesHandlers) {
+            resHandler.postImport(resManager);
+        }
+
     }
 }

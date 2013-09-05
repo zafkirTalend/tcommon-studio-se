@@ -79,26 +79,28 @@ public class ImportNodesBuilder {
             }
             final Item item = itemRecord.getItem();
 
-            final ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+            final ERepositoryObjectType itemType = itemRecord.getRepositoryType();
 
             // set for type
-            TypeImportNode typeImportNode = findAndCreateParentTypeNode(projectImportNode, itemType);
-
+            ImportNode typeImportNode = findAndCreateParentTypeNode(projectImportNode, itemType);
+            ImportNode parentImportNode = typeImportNode; // by default, in under type node.
+            if (parentImportNode == null) {
+                parentImportNode = projectImportNode;
+            }
             //
             String path = item.getState().getPath();
-            FolderImportNode folderImportNode = typeImportNode; // by default, in under type node.
             if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                folderImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
+                parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
             }
             ItemImportNode itemNode = new ItemImportNode(itemRecord);
-            folderImportNode.addChild(itemNode);
+            parentImportNode.addChild(itemNode);
         }
     }
 
-    private FolderImportNode findAndCreateFolderNode(FolderImportNode parentNode, IPath path) {
-        if (path.segmentCount() > 0) {
+    private ImportNode findAndCreateFolderNode(ImportNode parentNode, IPath path) {
+        if (path.segmentCount() > 0 && parentNode instanceof FolderImportNode) {
             String first = path.segment(0);
-            FolderImportNode subFolderImportNode = parentNode.getSubFolders().get(first);
+            FolderImportNode subFolderImportNode = ((FolderImportNode) parentNode).getSubFolders().get(first);
             if (subFolderImportNode == null) {
                 subFolderImportNode = new FolderImportNode(first);
                 parentNode.addChild(subFolderImportNode);

@@ -10,14 +10,12 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.items.importexport.handlers.model;
-
-import org.talend.repository.items.importexport.handlers.imports.IImportHandler;
+package org.talend.repository.items.importexport.handlers.model.internal;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class ImportRegistry {
+public class BasicRegistry {
 
     private final String bundleId, id;
 
@@ -25,66 +23,10 @@ public class ImportRegistry {
 
     private EPriority priority = EPriority.NORMAL;
 
-    private IImportHandler importHandler;
-
-    public ImportRegistry(String bundleId, String id) {
+    public BasicRegistry(String bundleId, String id) {
         super();
         this.bundleId = bundleId;
         this.id = id;
-    }
-
-    /**
-     * Getter for description.
-     * 
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Sets the description.
-     * 
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Getter for priority.
-     * 
-     * @return the priority
-     */
-    public EPriority getPriority() {
-        return this.priority;
-    }
-
-    /**
-     * Sets the priority.
-     * 
-     * @param priority the priority to set
-     */
-    public void setPriority(EPriority priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * Getter for importHandler.
-     * 
-     * @return the importHandler
-     */
-    public IImportHandler getImportHandler() {
-        return this.importHandler;
-    }
-
-    /**
-     * Sets the importHandler.
-     * 
-     * @param importHandler the importHandler to set
-     */
-    public void setImportHandler(IImportHandler handler) {
-        this.importHandler = handler;
     }
 
     /**
@@ -123,6 +65,42 @@ public class ImportRegistry {
         return this.name;
     }
 
+    /**
+     * Getter for description.
+     * 
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Sets the description.
+     * 
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Getter for priority.
+     * 
+     * @return the priority
+     */
+    public EPriority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Sets the priority.
+     * 
+     * @param priority the priority to set
+     */
+    public void setPriority(EPriority priority) {
+        this.priority = priority;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -152,7 +130,7 @@ public class ImportRegistry {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ImportRegistry other = (ImportRegistry) obj;
+        BasicRegistry other = (BasicRegistry) obj;
         if (this.id == null) {
             if (other.id != null) {
                 return false;
@@ -162,5 +140,4 @@ public class ImportRegistry {
         }
         return true;
     }
-
 }

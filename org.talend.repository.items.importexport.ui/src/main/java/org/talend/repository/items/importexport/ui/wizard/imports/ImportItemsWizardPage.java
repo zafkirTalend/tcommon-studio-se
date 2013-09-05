@@ -13,6 +13,7 @@
 package org.talend.repository.items.importexport.ui.wizard.imports;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -61,11 +61,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.wizards.datatransfer.ArchiveFileManipulations;
 import org.eclipse.ui.internal.wizards.datatransfer.TarException;
-import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
-import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
-import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -82,7 +78,7 @@ import org.talend.repository.items.importexport.handlers.ImportExportHandlersMan
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
-import org.talend.repository.items.importexport.ui.managers.ProviderManager;
+import org.talend.repository.items.importexport.ui.managers.FileResourcesUnityManager;
 import org.talend.repository.items.importexport.ui.managers.ResourcesManagerFactory;
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerContentProvider;
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerFilter;
@@ -368,7 +364,7 @@ public class ImportItemsWizardPage extends WizardPage {
             @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 filteredCheckboxTree.calculateCheckedLeafNodes();
-                updateFinishStatus();
+                checkSelectedItemErrors();
             }
         });
         viewer.setInput(nodesBuilder.getProjectNodes());
@@ -411,10 +407,10 @@ public class ImportItemsWizardPage extends WizardPage {
                         TreeItem topItem = viewer.getTree().getItem(i)/* .getTopItem() */;
                         if (topItem != null) {
                             viewer.setSubtreeChecked(topItem.getData(), true);
-                            filteredCheckboxTree.calculateCheckedLeafNodes();
-                            updateFinishStatus();
                         }
                     }
+                    filteredCheckboxTree.calculateCheckedLeafNodes();
+                    checkSelectedItemErrors();
                 }
             }
         });
@@ -428,7 +424,7 @@ public class ImportItemsWizardPage extends WizardPage {
             public void widgetSelected(SelectionEvent e) {
                 filteredCheckboxTree.getViewer().setCheckedElements(new Object[0]);
                 filteredCheckboxTree.calculateCheckedLeafNodes();
-                updateFinishStatus();
+                checkSelectedItemErrors();
             }
         });
         setButtonLayoutData(deselectAll);
@@ -594,7 +590,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
     }
 
-    public void updateItemsList(final String path, final boolean fromDir, boolean isneedUpdate) {
+    public void updateItemsList(final String path, final boolean fromDir/* Unuseful */, boolean isneedUpdate) {
         // if not force to update, and same as before path, nothing to do.
         if (!isneedUpdate && path.equals(lastWorkedPath)) {
             return;
@@ -622,31 +618,27 @@ public class ImportItemsWizardPage extends WizardPage {
                         monitor.worked(10);
 
                         File srcFile = new File(path);
-                        Object path2Object = srcFile;
-
-                        if (!fromDir && ArchiveFileManipulations.isTarFile(path)) {
-                            TarFile sourceTarFile = getSpecifiedTarSourceFile(srcFile);
-                            if (sourceTarFile == null) {
-                                return;
-                            }
-                            TarLeveledStructureProvider provider = new TarLeveledStructureProvider(sourceTarFile);
-                            resManager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
-
-                            path2Object = provider.getRoot();
-                        } else if (!fromDir && ArchiveFileManipulations.isZipFile(path)) {
-                            ZipFile sourceFile = getSpecifiedZipSourceFile(srcFile);
-                            if (sourceFile == null) {
-                                return;
-                            }
-                            ZipLeveledStructureProvider provider = new ZipLeveledStructureProvider(sourceFile);
-                            resManager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
-
-                            path2Object = provider.getRoot();
-                        } else if (fromDir && srcFile.isDirectory()) {
-                            resManager = ResourcesManagerFactory.getInstance().createResourcesManager();
+                        try {
+                            FileResourcesUnityManager fileUnityManager = ResourcesManagerFactory.getInstance()
+                                    .createFileUnityManager(srcFile);
+                            resManager = fileUnityManager.doUnify();
+                        } catch (FileNotFoundException e) {
+                            return; // file is not existed
+                        } catch (ZipException e) {
+                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_ZipImport_badFormat")); //$NON-NLS-1$ 
+                            // if folder, won't have errors.
+                            archivePathField.setFocus();
+                        } catch (TarException e) {
+                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_TarImport_badFormat")); //$NON-NLS-1$ 
+                            // if folder, won't have errors.
+                            archivePathField.setFocus();
+                        } catch (IOException e) {
+                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
+                            // if folder, won't have errors.
+                            archivePathField.setFocus();
                         }
+                        //
                         monitor.worked(60);
-                        resManager.collectPath2Object(path2Object);
 
                         monitor.done();
                     }
@@ -657,8 +649,12 @@ public class ImportItemsWizardPage extends WizardPage {
             } catch (InterruptedException e) {
                 // Nothing to do if the user interrupts.
             }
-
-            populateItems(this.overwriteButton.getSelection());
+            if (resManager == null) {
+                setErrorMessage(Messages.getString("ImportItemsWizardPage_noValidItemsInPathMessage")); //$NON-NLS-1$
+                setPageComplete(false);
+            } else {
+                populateItems(this.overwriteButton.getSelection());
+            }
         }
 
     }
@@ -667,10 +663,12 @@ public class ImportItemsWizardPage extends WizardPage {
         ItemRecord[] validItems = getValidItemRecords();
         boolean hasValidItems = validItems.length > 0;
 
-        if (!hasValidItems) {
+        if (hasValidItems) {
+            this.setErrorMessage(null);
+        } else {
             this.setErrorMessage(Messages.getString("ImportItemsWizardPage_noValidItemsInPathMessage")); //$NON-NLS-1$
         }
-        // this.setPageComplete(hasValidItems);
+        setPageComplete(hasValidItems);
     }
 
     public ItemRecord[] getValidItemRecords() {
@@ -685,45 +683,12 @@ public class ImportItemsWizardPage extends WizardPage {
         return validItems.toArray(new ItemRecord[0]);
     }
 
-    private TarFile getSpecifiedTarSourceFile(File srcFile) {
-        if (!srcFile.exists()) {
-            return null;
-        }
-
-        try {
-            return new TarFile(srcFile);
-        } catch (TarException e) {
-            displayErrorDialog(Messages.getString("ImportItemsWizardPage_TarImport_badFormat")); //$NON-NLS-1$ 
-        } catch (IOException e) {
-            displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
-        }
-
-        archivePathField.setFocus();
-        return null;
-    }
-
-    private ZipFile getSpecifiedZipSourceFile(File srcFile) {
-        if (!srcFile.exists()) {
-            return null;
-        }
-
-        try {
-            return new ZipFile(srcFile);
-        } catch (ZipException e) {
-            displayErrorDialog(Messages.getString("ImportItemsWizardPage_ZipImport_badFormat")); //$NON-NLS-1$ 
-        } catch (IOException e) {
-            displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
-        }
-
-        archivePathField.setFocus();
-        return null;
-    }
-
     protected void displayErrorDialog(String message) {
         MessageDialog.openError(getContainer().getShell(), Messages.getString("ImportItemsWizardPage_errorTitle"), message); //$NON-NLS-1$ 
     }
 
     private void populateItems(final boolean overwrite) {
+        setPageComplete(true);
         this.selectedItemRecords.clear();
         // importItemUtil.clearAllData();
         nodesBuilder.clear();
@@ -734,7 +699,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                // List<ItemRecord> items = importItemUtil.populateItems(resManager, overwrite, monitor);
+                ImportExportHandlersManager.getInstance().preImport(resManager);
                 List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager, overwrite,
                         monitor);
                 nodesBuilder.addItems(items);
@@ -788,17 +753,25 @@ public class ImportItemsWizardPage extends WizardPage {
         viewer.refresh(true);
         viewer.expandAll();
         filteredCheckboxTree.resetCheckedElements();
+
         checkValidItemRecords();
-        updateFinishStatus();
+        if (this.isPageComplete()) {// if not valid already. no need check.
+            checkSelectedItemErrors();
+        }
     }
 
-    private void updateFinishStatus() {
+    private void checkSelectedItemErrors() {
         List<ItemRecord> checkedElements = getCheckedElements();
-        updateErrorMessage(checkedElements);
-        if (checkedElements.isEmpty() || getErrorMessage() != null) {
-            this.setPageComplete(false);
+        if (checkedElements.isEmpty()) {
+            setErrorMessage(Messages.getString("ImportItemsWizardPage_noSelectedItemsMessages")); //$NON-NLS-1$
+            setPageComplete(false);
         } else {
-            this.setPageComplete(true);
+            updateErrorMessage(checkedElements);
+            if (getErrorMessage() != null) {
+                setPageComplete(false);
+            } else {
+                setPageComplete(true);
+            }
         }
     }
 
@@ -884,10 +857,11 @@ public class ImportItemsWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        // final List<ItemRecord> itemRecords = new ArrayList<ItemRecord>();
         final List<ItemRecord> checkedItemRecords = getCheckedElements();
 
-        // ?????? why need unlock the items?
+        /*
+         * ?? prepare to do import, unlock the existed one, and make sure the overwrite to work well.
+         */
         for (ItemRecord itemRecord : checkedItemRecords) {
             Item item = itemRecord.getProperty().getItem();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -936,7 +910,7 @@ public class ImportItemsWizardPage extends WizardPage {
                     }
                     ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
                             overwrite, nodesBuilder.getAllImportItemRecords(), destinationPath);
-
+                    ImportExportHandlersManager.getInstance().postImport(resManager);
                 }
             };
 
@@ -944,13 +918,14 @@ public class ImportItemsWizardPage extends WizardPage {
 
         } catch (Exception e) {
             ExceptionHandler.process(e);
+        } finally {
+            // clean
+            if (resManager != null) {
+                resManager.closeResource();
+            }
+            checkedItemRecords.clear();
+            nodesBuilder.clear();
         }
-        // clean
-        if (resManager instanceof ProviderManager) {
-            ((ProviderManager) resManager).closeResource();
-        }
-        checkedItemRecords.clear();
-        nodesBuilder.clear();
         return true;
     }
 }
