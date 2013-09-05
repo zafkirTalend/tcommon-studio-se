@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.builder.database;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.sql.Connection;
@@ -33,6 +34,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
 
 import metadata.managment.i18n.Messages;
 
@@ -42,6 +45,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.AS400DatabaseMetaData;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -49,15 +54,18 @@ import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.IService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -873,6 +881,16 @@ public class ExtractMetaDataUtils {
                     List<String> jarsToRetreive = new ArrayList<String>();
                     for (String jar : jars) {
                         Path path = new Path(jar);
+                        if (!checkFileCRCCode(new File(getJavaLibPath() + path.lastSegment()), new File(jar))) {
+                            String librariesPath = getLibrariesPath(ECodeLanguage.JAVA);
+                            File existJar = new File(librariesPath + File.separator + path.lastSegment());
+                            if (existJar.exists()
+                                    && MessageDialog.openQuestion(new Shell(), "",
+                                            "This JAR has been modified,do you want to use this jar")) {
+                                existJar.delete();
+                                FilesUtils.copyFile(new File(jar), existJar);
+                            }
+                        }
                         // fix for 19020
                         if (jarsAvailable.contains(path.lastSegment())) {
                             if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
@@ -1038,6 +1056,36 @@ public class ExtractMetaDataUtils {
         }
 
         return conList;
+    }
+
+    public static String getLibrariesPath(ECodeLanguage language) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerUIService.class);
+            return libUiService.getLibrariesPath(language);
+
+        }
+        return Platform.getInstallLocation().getURL().getFile() + "lib" + File.separator + "java";
+    }
+
+    public static boolean checkFileCRCCode(File targetFile, File sourceFile) throws Exception {
+
+        FileInputStream tagetFilestream = new FileInputStream(targetFile);
+        CRC32 targertCrc32 = new CRC32();
+        for (CheckedInputStream checkedinputstream = new CheckedInputStream(tagetFilestream, targertCrc32); checkedinputstream
+                .read() != -1;) {
+            //
+        }
+        FileInputStream sourceFilestream = new FileInputStream(sourceFile);
+        CRC32 sourceCrc32 = new CRC32();
+        for (CheckedInputStream checkedinputstream = new CheckedInputStream(sourceFilestream, sourceCrc32); checkedinputstream
+                .read() != -1;) {
+            //
+        }
+        tagetFilestream.close();
+        sourceFilestream.close();
+        return Long.toHexString(targertCrc32.getValue()).equals(Long.toHexString(sourceCrc32.getValue()));
+
     }
 
     public static List getConnectionList(IMetadataConnection metadataConnection) {
