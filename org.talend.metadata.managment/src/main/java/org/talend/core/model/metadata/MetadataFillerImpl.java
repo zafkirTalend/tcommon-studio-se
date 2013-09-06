@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
+import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.MetadataConnection;
@@ -35,7 +36,6 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -212,9 +212,9 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
             return null;
         }
         IMetadataConnection metadataConnection = new MetadataConnection();
-        IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-        if (repositoryService != null) {
-            repositoryService.setMetadataConnectionParameter(conn, metadataConnection);
+        IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance().getRepositoryContextService();
+        if (repositoryContextService != null) {
+            repositoryContextService.setMetadataConnectionParameter(conn, metadataConnection);
         } else {
             // driverPath
             metadataConnection.setDriverJarPath(conn.getDriverJarPath());

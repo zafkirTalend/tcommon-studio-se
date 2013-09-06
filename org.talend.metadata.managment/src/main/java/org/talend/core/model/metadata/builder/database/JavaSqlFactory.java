@@ -20,6 +20,7 @@ import metadata.managment.i18n.Messages;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
+import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
@@ -37,7 +38,6 @@ import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -177,11 +177,12 @@ public final class JavaSqlFactory {
             } // else we are ok
               // ADD mzhao 2012-06-25 bug TDI-21552, driver class should be replaced when in context mode.
             if (conn.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     // get the original value and select the defalut context
                     String contextName = conn.getContextName();
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                    DatabaseConnection origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConn,
                             contextName == null ? true : false, contextName);
                     driverClassName = origValueConn.getDriverClass();
                 }
@@ -233,11 +234,12 @@ public final class JavaSqlFactory {
         if (dbConn != null) {
             dbUserName = dbConn.getUsername();
             if (conn.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     // get the original value and select the defalut context
                     String contextName = conn.getContextName();
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                    DatabaseConnection origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConn,
                             contextName == null ? true : false, contextName);
                     dbUserName = origValueConn.getUsername();
                 }
@@ -263,11 +265,12 @@ public final class JavaSqlFactory {
         if (dbConn != null) {
             psw = dbConn.getPassword();
             if (conn.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     // get the original value and select the defalut context
                     String contextName = conn.getContextName();
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                    DatabaseConnection origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConn,
                             contextName == null ? true : false, contextName);
                     psw = origValueConn.getPassword();
                 }
@@ -332,11 +335,12 @@ public final class JavaSqlFactory {
         if (dbConn != null) {
             url = dbConn.getURL();
             if (conn.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     // get the original value and select the defalut context
                     String contextName = conn.getContextName();
-                    DatabaseConnection origValueConn = repositoryService.cloneOriginalValueConnection(dbConn,
+                    DatabaseConnection origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConn,
                             contextName == null ? true : false, contextName);
                     url = DatabaseConnStrUtil.getURLString(origValueConn);
                     // url = origValueConn.getURL();
@@ -383,12 +387,13 @@ public final class JavaSqlFactory {
 
             // for dq if connection is not converted
             if (conn.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     // get the original value and select the defalut context
                     String contextName = conn.getContextName();
-                    conn = repositoryService
-                            .cloneOriginalValueConnection(dbConn, contextName == null ? true : false, contextName);
+                    conn = repositoryContextService.cloneOriginalValueConnection(dbConn, contextName == null ? true : false,
+                            contextName);
                 }
             }
 

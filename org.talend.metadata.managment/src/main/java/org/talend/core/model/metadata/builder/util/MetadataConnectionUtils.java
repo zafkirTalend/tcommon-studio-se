@@ -37,6 +37,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.DBConnectionFillerImpl;
@@ -65,7 +66,6 @@ import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.exceptions.MissingDriverException;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
@@ -247,14 +247,16 @@ public class MetadataConnectionUtils {
 
             // MOD qiongli 2011-9-6,TDQ 3317.handle context mode
             if (databaseConnection.isContextMode()) {
-                IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                if (repositoryService != null) {
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
                     String contextName = databaseConnection.getContextName();
                     DatabaseConnection origValueConn = null;
                     if (contextName == null) {
-                        origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, true);
+                        origValueConn = repositoryContextService.cloneOriginalValueConnection(databaseConnection, true);
                     } else {
-                        origValueConn = repositoryService.cloneOriginalValueConnection(databaseConnection, false, contextName);
+                        origValueConn = repositoryContextService.cloneOriginalValueConnection(databaseConnection, false,
+                                contextName);
                     }
 
                     if (origValueConn != null) {
@@ -810,15 +812,15 @@ public class MetadataConnectionUtils {
             } else {
                 DatabaseConnection dbConnection = (DatabaseConnection) connection;
                 // MOD qiongli 2011-9-23 handle context mod.
-                IRepositoryService repositoryService = null;
+                IRepositoryContextService repositoryContextService = null;
                 DatabaseConnection origValueConn = null;
                 if (dbConnection.isContextMode()) {
-                    repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
-                    if (repositoryService != null) {
+                    repositoryContextService = CoreRuntimePlugin.getInstance().getRepositoryContextService();
+                    if (repositoryContextService != null) {
                         // get the original value and select the defalut context
                         String contextName = dbConnection.getContextName();
-                        origValueConn = repositoryService.cloneOriginalValueConnection(dbConnection, contextName == null ? true
-                                : false, contextName);
+                        origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConnection,
+                                contextName == null ? true : false, contextName);
                     }
                 }
                 if (isCatalog) {

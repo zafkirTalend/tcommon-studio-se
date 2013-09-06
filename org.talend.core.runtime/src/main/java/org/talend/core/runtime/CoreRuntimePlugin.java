@@ -21,6 +21,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.IRepositoryContextService;
 import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
@@ -50,7 +51,7 @@ public class CoreRuntimePlugin extends Plugin {
 
     private static CoreRuntimePlugin plugin = null;
 
-    private static IRepositoryService repositoryService = null;
+    private static IRepositoryContextService repositoryContextService = null;
 
     public CoreRuntimePlugin() {
         context = new Context();
@@ -94,16 +95,24 @@ public class CoreRuntimePlugin extends Plugin {
     }
 
     public IRepositoryService getRepositoryService() {
-        if (Platform.isRunning()) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-                IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-                return (IRepositoryService) service;
-            }
-        } else {
-            if (repositoryService == null) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+            return (IRepositoryService) service;
+        }
+        return null;
+    }
+
+    public IRepositoryContextService getRepositoryContextService() {
+        if (repositoryContextService == null) {
+            if (Platform.isRunning()) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryContextService.class)) {
+                    IService service = GlobalServiceRegister.getDefault().getService(IRepositoryContextService.class);
+                    repositoryContextService = (IRepositoryContextService) service;
+                }
+            } else {
                 try {
-                    final String serviceClassName = "org.talend.repository.StandaloneRepositoryService"; //$NON-NLS-1$
-                    repositoryService = (IRepositoryService) Class.forName(serviceClassName).newInstance();
+                    final String serviceClassName = "org.talend.repository.StandaloneRepositoryContextService"; //$NON-NLS-1$
+                    repositoryContextService = (IRepositoryContextService) Class.forName(serviceClassName).newInstance();
                 } catch (InstantiationException e) {
                     ExceptionHandler.process(e);
                 } catch (IllegalAccessException e) {
@@ -112,9 +121,8 @@ public class CoreRuntimePlugin extends Plugin {
                     ExceptionHandler.process(e);
                 }
             }
-            return repositoryService;
         }
-        return repositoryService;
+        return repositoryContextService;
     }
 
     public IMetadataService getMetadataService() {
@@ -185,4 +193,5 @@ public class CoreRuntimePlugin extends Plugin {
                 .getPerspective();
         return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
     }
+
 }

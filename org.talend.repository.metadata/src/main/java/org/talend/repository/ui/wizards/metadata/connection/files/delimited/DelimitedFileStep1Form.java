@@ -33,6 +33,7 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
@@ -41,7 +42,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractDelimitedFileStepForm;
-import org.talend.repository.ui.utils.FileConnectionContextUtils;
 
 /**
  * @author ocarbone
@@ -274,7 +274,7 @@ public class DelimitedFileStep1Form extends AbstractDelimitedFileStepForm {
                 DelimitedFileConnection fileConnection = getConnection();
                 String str;
                 int numberLine = 0;
-                in = FileConnectionContextUtils.isFilePathAvailable(fileStr, fileConnection);
+                in = FilesUtils.isFilePathAvailable(fileStr, fileConnection);
                 // ~
                 while (((str = in.readLine()) != null) && (numberLine <= maximumRowsToPreview)) {
                     numberLine++;

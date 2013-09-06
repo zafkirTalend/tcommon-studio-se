@@ -20,6 +20,7 @@ import java.util.Set;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IRepositoryContextService;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -42,7 +43,6 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.IRepositoryService;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 
@@ -233,9 +233,9 @@ public class RepositoryObject implements IRepositoryObject {
                 final DatabaseConnection connection = (DatabaseConnection) item.getConnection();
 
                 DatabaseConnection conn = null;
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-                    IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                            IRepositoryService.class);
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryContextService.class)) {
+                    IRepositoryContextService service = (IRepositoryContextService) GlobalServiceRegister.getDefault()
+                            .getService(IRepositoryContextService.class);
                     conn = service.cloneOriginalValueConnection(connection);
                 }
 

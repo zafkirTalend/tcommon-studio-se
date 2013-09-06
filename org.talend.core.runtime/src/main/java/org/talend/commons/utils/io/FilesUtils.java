@@ -27,11 +27,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -57,6 +59,8 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.StringUtils;
+import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -1136,5 +1140,19 @@ public class FilesUtils {
         }
 
         return filePath;
+    }
+
+    public static BufferedReader isFilePathAvailable(String fileStr, FileConnection connection) throws IOException,
+            UnsupportedEncodingException, FileNotFoundException {
+        BufferedReader in;
+        File file = new File(fileStr);
+        Charset guessedCharset = CharsetToolkit.guessEncoding(file, 4096);
+        if (connection.getEncoding() == null || connection.getEncoding().equals("")) { //$NON-NLS-1$
+            connection.setEncoding(guessedCharset.displayName());
+        }
+        // read the file width the limit : MAXIMUM_ROWS_TO_PREVIEW
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(fileStr), guessedCharset.displayName()));
+
+        return in;
     }
 }
