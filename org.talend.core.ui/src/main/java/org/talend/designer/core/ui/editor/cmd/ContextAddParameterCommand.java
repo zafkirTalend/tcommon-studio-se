@@ -20,7 +20,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITDQRepositoryService;
+import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -70,11 +70,10 @@ public class ContextAddParameterCommand extends Command {
             ((AbstractContextView) view).updateContextView(true);
         }
         // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    ITDQRepositoryService.class);
-            if (tdqRepositoryService != null) {
-                tdqRepositoryService.updateContextView(true);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true);
             }
         }
     }
