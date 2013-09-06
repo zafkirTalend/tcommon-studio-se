@@ -60,6 +60,7 @@ public class HandlerUtilTest {
     @Test
     public void testGetItemPath() {
         Item item = mock(Item.class);
+        when(item.isNeedVersion()).thenReturn(true);
         Assert.assertEquals(itemPath, HandlerUtil.getItemPath(propPath, item));
 
         when(item.getFileExtension()).thenReturn(FileConstants.ITEM_EXTENSION);

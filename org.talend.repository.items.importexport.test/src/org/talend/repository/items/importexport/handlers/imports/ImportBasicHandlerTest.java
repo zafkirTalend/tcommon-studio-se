@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.emf.CwmResource;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
@@ -189,7 +190,9 @@ public class ImportBasicHandlerTest {
 
         ItemRecord itemRecord = mock(ItemRecord.class);
         Property property = mock(Property.class);
+        ProcessItem item = mock(ProcessItem.class);
         when(itemRecord.getProperty()).thenReturn(property);
+        when(itemRecord.getItem()).thenReturn(item);
         when(itemRecord.getPath()).thenReturn(processPropPath1);
 
         ResourcesManager resManager = mock(ResourcesManager.class);
@@ -284,8 +287,8 @@ public class ImportBasicHandlerTest {
         when(repViewObj.getId()).thenReturn("123456789");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
-        // only when diff label with same id.
-        Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
+        // only when same label with diff id. don't care the same id with diff label.
+        Assert.assertFalse(basicHandler.isSameName(itemRecord1, repViewObj));
     }
 
     @Test
@@ -302,7 +305,7 @@ public class ImportBasicHandlerTest {
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
         // diff id, don't care same label.
-        Assert.assertFalse(basicHandler.isSameName(itemRecord1, repViewObj));
+        Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
     }
 
     @Test
