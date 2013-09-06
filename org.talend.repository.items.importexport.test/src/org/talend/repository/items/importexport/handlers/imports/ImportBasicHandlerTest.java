@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.emf.CwmResource;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
@@ -188,12 +189,12 @@ public class ImportBasicHandlerTest {
     public void testCheckAndSetProject4NoProject() {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = mock(ItemRecord.class);
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
         Property property = mock(Property.class);
-        ProcessItem item = mock(ProcessItem.class);
-        when(itemRecord.getProperty()).thenReturn(property);
-        when(itemRecord.getItem()).thenReturn(item);
-        when(itemRecord.getPath()).thenReturn(processPropPath1);
+        itemRecord.setProperty(property);
+
+        ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
+        when(property.getItem()).thenReturn(item);
 
         ResourcesManager resManager = mock(ResourcesManager.class);
         basicHandler.checkAndSetProject(resManager, itemRecord);
@@ -310,7 +311,7 @@ public class ImportBasicHandlerTest {
 
     @Test
     public void testCreateItemResource() {
-        URI uri = mock(URI.class);
+        URI uri = URI.createURI(processPropPath1.toPortableString());
         ImportBasicHandler basicHandler = new ImportBasicHandler();
         Resource resource = basicHandler.createItemResource(uri);
 
