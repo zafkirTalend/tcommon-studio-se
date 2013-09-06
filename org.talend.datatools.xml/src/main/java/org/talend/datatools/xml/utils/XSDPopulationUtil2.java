@@ -46,6 +46,7 @@ import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTerm;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.impl.XSDNamedComponentImpl;
+import org.eclipse.xsd.util.XSDConstants;
 import org.eclipse.xsd.util.XSDResourceImpl;
 
 /**
@@ -324,8 +325,9 @@ public class XSDPopulationUtil2 {
             }
             if (!resolvedAsComplex) {
                 String dataType = xsdElementDeclarationParticle.getTypeDefinition().getQName();
-                if (xsdElementDeclarationParticle.getTypeDefinition().getBaseType() != null) {
-                    if (dataType==null&&!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
+                if (!XSDConstants.isSchemaForSchemaNamespace(xsdElementDeclarationParticle.getTypeDefinition()
+                        .getTargetNamespace()) && xsdElementDeclarationParticle.getTypeDefinition().getBaseType() != null) {
+                    if (!"xs:anySimpleType".equals(xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName())) {
                         dataType = xsdElementDeclarationParticle.getTypeDefinition().getBaseType().getQName();
                     }
                 }
