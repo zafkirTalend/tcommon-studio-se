@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
 import metadata.managment.i18n.Messages;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +34,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -60,7 +62,7 @@ import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author scorreia
- *
+ * 
  * Services for the DQ Repository view.
  */
 public final class DqRepositoryViewService {
@@ -71,9 +73,9 @@ public final class DqRepositoryViewService {
 
     /**
      * if true, the catalogs (and schemas) are stored in the same file as the data provider. Used for tests only.
-     *
+     * 
      * TODO scorreia (saving catalog outside data provider's file) set it to false for big databases.
-     *
+     * 
      * In case when optimization is needed: set this boolean to false and correct code so that everything works as
      * before (DQ Repository view must not show catalog's files and Catalogs must still be children of the Data
      * provider). Check also that old files (.prv) are still readable by the application.
@@ -86,17 +88,23 @@ public final class DqRepositoryViewService {
 
     private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
 
+    private static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
+            ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName() };
+
+    private static final String[] VIEW_TYPES = new String[] { ETableTypes.TABLETYPE_VIEW.getName(),
+            ETableTypes.VIRTUAL_VIEW.getName() };
+
     /**
      * Method "createTechnicalName" creates a technical name used for file system storage. MOD mzhao make this method as
      * public access.
-     *
+     * 
      * @param functionalName the user friendly name
      * @return the technical name created from the user given name.
      */
     public static String createTechnicalName(final String functionalName) {
         String techname = "no_name"; //$NON-NLS-1$
         if (functionalName == null) {
-            log.warn("A functional name should not be null");
+            log.warn(Messages.getString("DqRepositoryViewService.NONE_NULL_FUNCTION_NAME")); //$NON-NLS-1$
             return techname;
         }
         // encode in base 64 so that all characters such white spaces, accents,
@@ -112,7 +120,7 @@ public final class DqRepositoryViewService {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);
         if (log.isDebugEnabled()) {
-            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return techname;
     }
@@ -121,7 +129,7 @@ public final class DqRepositoryViewService {
      * Method "refreshDataProvider" reload database structure. Existing elements (catalogs, tables...) must not be
      * replaced by new elements. Only their content must be updated because these elements can be refered to by
      * analysis.
-     *
+     * 
      * @param dataProvider
      * @param catalogPattern the catalogs to load (can be null, meaning all are loaded)
      * @param schemaPattern the schema to load (can be null, meaning all are loaded)
@@ -134,7 +142,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshTables".
-     *
+     * 
      * @param schema
      * @param tablePattern
      * @return
@@ -146,7 +154,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshViews".
-     *
+     * 
      * @param schema
      * @param viewPattern
      * @return
@@ -158,7 +166,7 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC scorreia Comment method "refreshColumns".
-     *
+     * 
      * @param table
      * @param columnPattern
      * @return
@@ -170,7 +178,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "getTables" loads the tables from the database or get the tables from the catalog .
-     *
+     * 
      * @param dataProvider the data provider
      * @param catalog the catalog (must not be null)
      * @param tablePattern the pattern of the tables to be loaded (from the DB)
@@ -278,7 +286,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "getColumns". The link between the column set and its columns is set in this method when required.
-     *
+     * 
      * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
      * from the database)
      * @param columnSet a column set (Table or View)
@@ -301,7 +309,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "createFilename".
-     *
+     * 
      * @param folder the folder
      * @param basename the filename without extension
      * @param extension the extension of the file
@@ -313,7 +321,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "loadTables".
-     *
+     * 
      * @param dataProvider
      * @param catalog (must not be null)
      * @param tablePattern
@@ -327,7 +335,7 @@ public final class DqRepositoryViewService {
 
         String catalogName = catalog.getName();
         if (catalogName == null) {
-            log.error("No catalog given. Cannot retrieve tables!");
+            log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS"));  //$NON-NLS-1$
             return tables;
         }
         return loadTables(dataProvider, catalog, null, tablePattern);
@@ -428,7 +436,7 @@ public final class DqRepositoryViewService {
 
     /**
      * Method "readFromFile".
-     *
+     * 
      * @param file the file to read
      * @return the Data provider if found.
      * @deprecated use repository API or use resourceFileMap instead it
@@ -445,8 +453,7 @@ public final class DqRepositoryViewService {
             rc.setReturnCode(
                     Messages.getString("DqRepositoryViewService.NoDataProviderFound", file.getFullPath().toString()), false); //$NON-NLS-1$
         } else if (tdDataProviders.size() > 1) {
-            rc.setReturnCode(Messages.getString("DqRepositoryViewService.FoundTooManyDataProvider", tdDataProviders.size(), //$NON-NLS-1$
-                    file.getFullPath().toString()), false);
+            rc.setReturnCode(StringUtils.EMPTY, false);
         } else {
             Connection prov = tdDataProviders.iterator().next();
             rc.setObject(prov);
@@ -456,9 +463,9 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC bZhou Comment method "getAllRepositoryResourceObjects".
-     *
+     * 
      * Use this method to get all repository view objects used in TDQ Repository.
-     *
+     * 
      * @param withDeleted
      * @return
      * @throws PersistenceException
@@ -477,15 +484,15 @@ public final class DqRepositoryViewService {
 
     /**
      * DOC bZhou Comment method "buildElementName".
-     *
+     * 
      * @param element
      * @return
      */
     public static String buildElementName(Property property) {
 
-        String elementName = "Unknown Label";
+        String elementName = "Unknown Label"; //$NON-NLS-1$
         if (property != null) {
-            elementName = property.getDisplayName() + " " + property.getVersion();
+            elementName = property.getDisplayName() + " " + property.getVersion(); //$NON-NLS-1$
         }
 
         return elementName;
@@ -498,10 +505,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     *
+     * 
      * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
      * tables.
-     *
+     * 
      * @param dataProvider
      * @param catalog
      * @param tablePattern
@@ -515,7 +522,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
@@ -533,7 +539,7 @@ public final class DqRepositoryViewService {
                     taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, TABLE_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -550,10 +556,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     *
+     * 
      * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
      * tables.
-     *
+     * 
      * @param dataProvider
      * @param schema
      * @param tablePattern
@@ -567,7 +573,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
 
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
@@ -591,7 +596,7 @@ public final class DqRepositoryViewService {
         String schemaPattern = catalogOrSchema.getName();
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, TABLE_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -608,10 +613,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     *
+     * 
      * DOC gdbu Comment method "isContainsView". This method used to connect to database to check if this catalog has
      * views.
-     *
+     * 
      * @param dataProvider
      * @param catalog
      * @param viewPattern
@@ -625,7 +630,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
@@ -635,7 +639,7 @@ public final class DqRepositoryViewService {
                     taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, VIEW_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -652,10 +656,10 @@ public final class DqRepositoryViewService {
 
     /**
      * ADD gdbu 2011-7-25 bug : 23220
-     *
+     * 
      * DOC gdbu Comment method "isContainsView".This method used to connect to database to check if this schema has
      * views.
-     *
+     * 
      * @param dataProvider
      * @param schema
      * @param viewPattern
@@ -669,7 +673,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
@@ -695,7 +698,7 @@ public final class DqRepositoryViewService {
         String schemaPattern = catalogOrSchema.getName();
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, VIEW_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
