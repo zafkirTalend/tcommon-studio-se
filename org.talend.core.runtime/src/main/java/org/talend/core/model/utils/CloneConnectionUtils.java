@@ -63,10 +63,12 @@ public class CloneConnectionUtils {
         String contextName = fileConn.getContextName();
         ContextType contextType = null;
         ContextItem contextItem = ContextUtils.getContextItemById2(fileConn.getContextId());
-        if (contextName == null || defaultContext) {
-            contextName = contextItem.getDefaultContext();
+        if (contextItem != null) {
+            if (contextName == null || defaultContext) {
+                contextName = contextItem.getDefaultContext();
+            }
+            contextType = ContextUtils.getContextTypeByName(contextItem, contextName, true);
         }
-        contextType = ContextUtils.getContextTypeByName(contextItem, contextName, true);
         return cloneOriginalValueConnection(fileConn, contextType);
     }
 
