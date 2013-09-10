@@ -32,6 +32,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -159,9 +160,9 @@ public final class ProcessUtils {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
 
-        List<RelationshipItemBuilder.Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item
-                .getProperty().getVersion(), RelationshipItemBuilder.JOB_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
+        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
+                RelationshipItemBuilder.JOB_RELATION);
+        for (Relation relation : relations) {
             IRepositoryViewObject obj = null;
             try {
                 if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
@@ -185,9 +186,9 @@ public final class ProcessUtils {
     private static void checkAllVerSionLatest(List<IRepositoryViewObject> repositoryObjects, IRepositoryViewObject object) {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
-        List<RelationshipItemBuilder.Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
+        List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
                 RelationshipItemBuilder.JOB_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
+        for (Relation relation : relations) {
             try {
                 IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
                 if (obj != null) {

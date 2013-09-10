@@ -33,6 +33,7 @@ import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SAPConnectionItem;
+import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -591,12 +592,12 @@ public class RepositoryNodeUtilities {
         }
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
-        List<RelationshipItemBuilder.Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item
-                .getProperty().getVersion(), RelationshipItemBuilder.JOB_RELATION);
+        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
+                RelationshipItemBuilder.JOB_RELATION);
         relations.addAll(builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
                 RelationshipItemBuilder.JOBLET_RELATION));
         try {
-            for (RelationshipItemBuilder.Relation relation : relations) {
+            for (Relation relation : relations) {
                 IRepositoryViewObject obj = null;
                 String id = relation.getId();
                 if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
@@ -663,9 +664,9 @@ public class RepositoryNodeUtilities {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
         if (object.getRepositoryNode() != null) {
-            List<RelationshipItemBuilder.Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
+            List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
                     RelationshipItemBuilder.JOB_RELATION);
-            for (RelationshipItemBuilder.Relation relation : relations) {
+            for (Relation relation : relations) {
                 try {
                     IRepositoryViewObject obj = null;
                     if (includeReferenceProjectItems) {

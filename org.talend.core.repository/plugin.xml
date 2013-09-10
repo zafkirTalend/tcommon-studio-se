@@ -621,6 +621,45 @@
             priority="high">
       </loginTask>
    </extension>
+   <extension
+         point="org.talend.core.runtime.itemRelationship">
+      <itemHandler
+            class="org.talend.core.repository.handlers.JobContextItemRelationshipHandler"
+            id="org.talend.core.repository.itemHandler.jobContext"
+            name="Job Context">
+      </itemHandler>
+      <itemHandler
+            class="org.talend.core.repository.handlers.JobRoutinesItemRelationshipHandler"
+            id="org.talend.core.repository.itemHandler.jobRoutine"
+            name="Job Routine">
+      </itemHandler>
+      <itemHandler
+            class="org.talend.core.repository.handlers.JobAndNodesParametersRelationshipHandler"
+            description="Check all parameters for Job, contain the jobsetting, nodes"
+            id="org.talend.core.repository.itemHandler.parameters.jobAndNodes"
+            name="Parameters for Job and nodes">
+      </itemHandler>
+      <parameterHandler
+            class="org.talend.core.repository.handlers.PropertyTypeParameterRelationshipHandler"
+            id="org.talend.core.repository.parameterHandler.parameters.propertyType"
+            name="Property Type">
+      </parameterHandler>
+      <parameterHandler
+            class="org.talend.core.repository.handlers.SchemaTypeParameterRelationshipHandler"
+            id="org.talend.core.repository.parameterHandler.parameters.schemaType"
+            name="Schema Type">
+      </parameterHandler>
+      <parameterHandler
+            class="org.talend.core.repository.handlers.QueryTypeParameterRelationshipHandler"
+            id="org.talend.core.repository.parameterHandler.parameters.queryType"
+            name="Query Type">
+      </parameterHandler>
+      <parameterHandler
+            class="org.talend.core.repository.handlers.ProcessTypeParameterRelationshipHandler"
+            id="org.talend.core.repository.parameterHandler.processType"
+            name="Process Type">
+      </parameterHandler>
+   </extension>
 
 
 </plugin>

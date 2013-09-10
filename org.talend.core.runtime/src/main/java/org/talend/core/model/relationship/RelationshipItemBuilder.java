@@ -13,6 +13,8 @@
 package org.talend.core.model.relationship;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,35 +29,20 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
-import org.talend.core.hadoop.IHadoopClusterService;
-import org.talend.core.model.components.ComponentCategory;
-import org.talend.core.model.components.EComponentType;
-import org.talend.core.model.components.IComponent;
-import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemRelation;
 import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
-import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.service.IDesignerMapperService;
-import org.talend.core.ui.IJobletProviderService;
-import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -105,6 +92,20 @@ public class RelationshipItemBuilder {
 
     public static final String SURVIVOR_RELATION = "survivorshipRuleRelation"; //$NON-NLS-1$
 
+    public static final String REPORT_RELATION = "report"; //$NON-NLS-1$
+
+    /*
+     * 
+     */
+
+    public static final String OPTION_KEY_TYPE = "OPTION_TYPE"; //$NON-NLS-1$
+
+    public static final String OPTION_TYPE_JOB = "JOB"; //$NON-NLS-1$
+
+    public static final String OPTION_TYPE_NODE = "NODE"; //$NON-NLS-1$
+
+    public static final String OPTION_KEY_NODE = "OPTION_NODE"; //$NON-NLS-1$
+
     private Map<Relation, Set<Relation>> currentProjectItemsRelations;
 
     private Map<Relation, Set<Relation>> referencesItemsRelations;
@@ -117,7 +118,7 @@ public class RelationshipItemBuilder {
 
     private boolean modified = false;
 
-    private static final String COMMA = ";";
+    public static final String COMMA = ";"; //$NON-NLS-1$
 
     private static Map<String, RelationshipItemBuilder> projectToInstanceMap = new HashMap<String, RelationshipItemBuilder>();
 
@@ -314,7 +315,16 @@ public class RelationshipItemBuilder {
             baseItem.setId(relation.getId());
             baseItem.setType(relation.getType());
             baseItem.setVersion(relation.getVersion());
-            for (Relation relatedItem : currentProjectItemsRelations.get(relation)) {
+            // sort by type
+            List<Relation> relationItemsList = new ArrayList<Relation>(currentProjectItemsRelations.get(relation));
+            Collections.sort(relationItemsList, new Comparator<Relation>() {
+
+                @Override
+                public int compare(Relation o1, Relation o2) {
+                    return o1.getType().compareTo(o2.getType());
+                }
+            });
+            for (Relation relatedItem : relationItemsList) {
                 ItemRelation emfRelatedItem = PropertiesFactory.eINSTANCE.createItemRelation();
                 emfRelatedItem.setId(relatedItem.getId());
                 emfRelatedItem.setType(relatedItem.getType());
@@ -358,6 +368,17 @@ public class RelationshipItemBuilder {
         }
         if (referencesItemsRelations.containsKey(relation)) {
             referencesItemsRelations.get(relation).clear();
+        }
+    }
+
+    public void mergeRelationship(Map<Relation, Set<Relation>> itemRelations, Map<Relation, Set<Relation>> newRelations) {
+        if (itemRelations != null && newRelations != null) {
+            for (Relation relation : newRelations.keySet()) {
+                if (!itemRelations.containsKey(relation)) {
+                    itemRelations.put(relation, new HashSet<Relation>());
+                }
+                itemRelations.get(relation).addAll(newRelations.get(relation));
+            }
         }
     }
 
@@ -526,275 +547,54 @@ public class RelationshipItemBuilder {
         if (!loaded) {
             loadRelations();
         }
-
-        ProcessType processType = null;
-        if (item instanceof ProcessItem) {
-            processType = ((ProcessItem) item).getProcess();
-        }
-        if (item instanceof JobletProcessItem) {
-            processType = ((JobletProcessItem) item).getJobletProcess();
-        }
-        if (processType != null) {
-            boolean relationsModified = true;
-            Relation relation = new Relation();
-            relation.setId(item.getProperty().getId());
-            relation.setType(getTypeFromItem(item));
-            relation.setVersion(item.getProperty().getVersion());
-
-            Set<Relation> oldProjectRelations = null;
-            if (currentProjectItemsRelations.containsKey(relation)) {
-                oldProjectRelations = new HashSet<Relation>(currentProjectItemsRelations.get(relation));
-                currentProjectItemsRelations.get(relation).clear();
-            }
-
-            clearItemsRelations(item);
-
-            Boolean builtIn = null;
-            String currentValue = null;
-            String relationType = null;
-            // use a system of null value and relationType as the information repository / builtin can be stored
-            // either before or after the informations of the repository value.
-
-            for (Object o : processType.getContext()) {
-                ContextType context = (ContextType) o;
-                for (Object o2 : context.getContextParameter()) {
-                    ContextParameterType contextParam = (ContextParameterType) o2;
-                    if (!StringUtils.isEmpty(contextParam.getRepositoryContextId())) {
-                        addRelationShip(item, contextParam.getRepositoryContextId(), LATEST_VERSION, CONTEXT_RELATION);
-                    }
-                }
-            }
-
-            // jobsetting parameters
-            if (processType.getParameters() != null) {
-                if (processType.getParameters().getRoutinesParameter() != null) {
-                    for (Object o : processType.getParameters().getRoutinesParameter()) {
-                        RoutinesParameterType itemInfor = (RoutinesParameterType) o;
-                        addRelationShip(item, itemInfor.getName(), LATEST_VERSION, ROUTINE_RELATION);
-                    }
-                }
-                for (Object o : processType.getParameters().getElementParameter()) {
-                    if (o instanceof ElementParameterType) {
-                        ElementParameterType param = (ElementParameterType) o;
-                        if (param.getName().startsWith("SCHEMA:")) { //$NON-NLS-1$ 
-                            relationType = SCHEMA_RELATION;
-                        } else if (param.getName().startsWith("PROPERTY:") || param.getName().startsWith("MR_PROPERTY:")) { //$NON-NLS-1$ //$NON-NLS-2$ 
-                            relationType = PROPERTY_RELATION;
-                        } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) { //$NON-NLS-1$
-                            relationType = VALIDATION_RULE_RELATION;
-                        } else { // if no relation parameter, reset variables in case.
-                            builtIn = null;
-                            currentValue = null;
-                        }
-                        if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE") || param.getName().endsWith(":VALIDATION_RULE_TYPE")) {//$NON-NLS-1$  //$NON-NLS-2$
-                            builtIn = true;
-                            if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
-                                builtIn = false;
-                            }
-                        }
-                        if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
-                                param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE") || //$NON-NLS-1$
-                                param.getName().endsWith(":REPOSITORY_VALIDATION_RULE_TYPE")) { //$NON-NLS-1$ 
-                            currentValue = param.getValue();
-                        }
-
-                        if (builtIn != null && currentValue != null) {
-                            if (!builtIn) {
-                                addRelationShip(item, currentValue, LATEST_VERSION, relationType);
-                            }
-                            builtIn = null;
-                            currentValue = null;
-                        }
-                    }
-                }
-            }
-
-            List<String> jobletsComponentsList = new ArrayList<String>();
-            IComponentsService compService = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                    IComponentsService.class);
-            for (IComponent component : compService.getComponentsFactory().getComponents()) {
-                if (component.getComponentType() == EComponentType.JOBLET) {
-                    jobletsComponentsList.add(component.getName());
-                }
-            }
-            builtIn = null;
-            currentValue = null;
-            for (Object o : processType.getNode()) {
-                if (o instanceof NodeType) {
-                    NodeType currentNode = (NodeType) o;
-                    for (Object o2 : currentNode.getElementParameter()) {
-                        if (o2 instanceof ElementParameterType) {
-                            ElementParameterType param = (ElementParameterType) o2;
-
-                            if (param.getName().startsWith("QUERYSTORE:")) { //$NON-NLS-1$ 
-                                relationType = QUERY_RELATION;
-                            } else if (param.getName().startsWith("SCHEMA:") || param.getName().startsWith("SCHEMA_OTHER:")) { //$NON-NLS-1$ 
-                                relationType = SCHEMA_RELATION;
-                            } else if (param.getName().startsWith("PROPERTY:")) { //$NON-NLS-1$ 
-                                relationType = PROPERTY_RELATION;
-                            } else if (param.getName().startsWith("VALIDATION_RULE_TYPE:")) {
-                                relationType = VALIDATION_RULE_RELATION;
-                            } else { // if no relation parameter, reset variables in case.
-                                builtIn = null;
-                                currentValue = null;
-                            }
-                            if (param.getName().endsWith(":PROPERTY_TYPE") || param.getName().endsWith(":SCHEMA_TYPE") //$NON-NLS-1$  //$NON-NLS-2$
-                                    || param.getName().endsWith(":QUERYSTORE_TYPE") || param.getName().endsWith(":VALIDATION_RULE_TYPE")) { //$NON-NLS-1$
-                                builtIn = true;
-                                if (param.getValue().equals("REPOSITORY")) { //$NON-NLS-1$
-                                    builtIn = false;
-                                }
-                            }
-                            if (param.getName().endsWith(":REPOSITORY_PROPERTY_TYPE") || //$NON-NLS-1$
-                                    param.getName().endsWith(":REPOSITORY_SCHEMA_TYPE") || //$NON-NLS-1$
-                                    param.getName().endsWith(":REPOSITORY_QUERYSTORE_TYPE") ////$NON-NLS-1$
-                                    || param.getName().endsWith(":REPOSITORY_VALIDATION_RULE_TYPE")) { //$NON-NLS-1$
-                                currentValue = param.getValue();
-                            }
-
-                            if (builtIn != null && currentValue != null) {
-                                if (!builtIn) {
-                                    addRelationShip(item, currentValue, LATEST_VERSION, relationType);
-                                    if (PROPERTY_RELATION.equals(relationType)) {
-                                        addHadoopClusterRelationShips(item, currentValue, LATEST_VERSION);
-                                    }
-                                }
-                                builtIn = null;
-                                currentValue = null;
-                            }
-
-                            // only for SQL Patterns
-                            if (param.getName().equals("SQLPATTERN_VALUE")) { //$NON-NLS-1$
-                                for (Object o3 : param.getElementValue()) {
-                                    if (o3 instanceof ElementValueType
-                                            && "SQLPATTERNLIST".equals(((ElementValueType) o3).getElementRef())) { //$NON-NLS-1$
-                                        addRelationShip(item, ((ElementValueType) o3).getValue(), LATEST_VERSION,
-                                                SQLPATTERN_RELATION);
-                                    }
-                                }
-                            }
-
-                            // only for SurvivorshipFileItem
-                            if (param.getField() != null
-                                    && param.getField().equals(EParameterFieldType.SURVIVOR_RELATION.getName())) {
-                                String relatedID = param.getValue();
-                                addRelationShip(item, relatedID, LATEST_VERSION, SURVIVOR_RELATION);
-                            }
-
-                        }
-                    }
-                    // handle tMap schema relations...
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMapperService.class)) {
-                        IDesignerMapperService service = (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(
-                                IDesignerMapperService.class);
-                        AbstractExternalData nodeData = currentNode.getNodeData();
-                        List<String> schemaIds = service.getRepositorySchemaIds(nodeData);
-                        if (schemaIds.size() > 0) {
-                            for (String schemaId : schemaIds) {
-                                addRelationShip(item, schemaId, LATEST_VERSION, SCHEMA_RELATION);
-                            }
-                        }
-                    }
-
-                    if (jobletsComponentsList.contains(currentNode.getComponentName())) {
-                        // in case of joblet
-                        String version = LATEST_VERSION;
-                        for (Object o2 : currentNode.getElementParameter()) {
-                            if (o2 instanceof ElementParameterType) {
-                                ElementParameterType param = (ElementParameterType) o2;
-                                if (param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
-                                    version = param.getValue();
-                                }
-                            }
-                        }
-                        IComponent cc = compService.getComponentsFactory().get(currentNode.getComponentName(),
-                                ComponentCategory.CATEGORY_4_DI.getName());
-                        IJobletProviderService service = null;
-                        if (PluginChecker.isJobLetPluginLoaded()) {
-                            service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
-                                    IJobletProviderService.class);
-                        }
-
-                        Property property = service.getJobletComponentItem(cc);
-                        if (property != null) {
-                            addRelationShip(item, property.getId(), version, JOBLET_RELATION);
-                        }
-                    }
-                    if ("tRunJob".equals(currentNode.getComponentName())) { //$NON-NLS-1$
-                        // in case of tRunJob
-                        String jobVersion = LATEST_VERSION;
-                        Set<String> jobIdSet = new HashSet<String>();
-                        for (Object o2 : currentNode.getElementParameter()) {
-                            if (o2 instanceof ElementParameterType) {
-                                ElementParameterType param = (ElementParameterType) o2;
-                                if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
-                                        || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
-                                    // feature 19312
-                                    String jobIds = param.getValue();
-                                    String[] jobsArr = jobIds.split(RelationshipItemBuilder.COMMA);
-                                    for (String jobId : jobsArr) {
-                                        if (StringUtils.isNotEmpty(jobId)) {
-                                            jobIdSet.add(jobId);
-                                            // addRelationShip(item, jobId, jobVersion, JOB_RELATION);
-                                        }
-                                    }
-                                }
-                                if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
-                                        || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
-                                    jobVersion = param.getValue();
-                                }
-                            }
-                        }
-                        for (String jobId : jobIdSet) {
-                            addRelationShip(item, jobId, jobVersion, JOB_RELATION);
-                        }
-                    }
-                }
-            }
-            if (oldProjectRelations != null) {
-                // check if there is any changes on the relations.
-                Set<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
-                if (oldProjectRelations.size() == newProjectRelations.size()) {
-                    relationsModified = false;
-                    for (Relation newRelation : newProjectRelations) {
-                        if (!oldProjectRelations.contains(newRelation)) {
-                            relationsModified = true;
-                            break;
-                        }
-                    }
-                }
-                if (!relationsModified) {
-                    currentProjectItemsRelations.get(relation).addAll(oldProjectRelations);
-                }
-            }
-            if (relationsModified && !modified) {
-                modified = true;
-            }
-            if (!fromMigration && modified) {
-                saveRelations();
-            }
-        }
-    }
-
-    private void addHadoopClusterRelationShips(Item baseItem, String relatedHadoopSubitemId, String relatedVersion) {
-        IHadoopClusterService hadoopClusterService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
-                    IHadoopClusterService.class);
-        }
-        if (hadoopClusterService == null) {
+        if (item == null) {
             return;
         }
-        String hcId = hadoopItemReferences.get(relatedHadoopSubitemId);
-        if (hcId == null) {
-            Item hadoopClusterItem = hadoopClusterService.getHadoopClusterBySubitemId(relatedHadoopSubitemId);
-            if (hadoopClusterItem != null) {
-                hcId = hadoopClusterItem.getProperty().getId();
-                hadoopItemReferences.put(relatedHadoopSubitemId, hcId);
+
+        boolean relationsModified = true;
+        Relation relation = new Relation();
+        relation.setId(item.getProperty().getId());
+        relation.setType(getTypeFromItem(item));
+        relation.setVersion(item.getProperty().getVersion());
+
+        Set<Relation> oldProjectRelations = null;
+        if (currentProjectItemsRelations.containsKey(relation)) {
+            oldProjectRelations = new HashSet<Relation>(currentProjectItemsRelations.get(relation));
+            currentProjectItemsRelations.get(relation).clear();
+        }
+
+        clearItemsRelations(item);
+
+        final Map<Relation, Set<Relation>> itemRelations = getRelatedRelations(item);
+
+        IItemRelationshipHandler[] itemRelationshipHandlers = RelationshipRegistryReader.getInstance()
+                .getItemRelationshipHandlers();
+        for (IItemRelationshipHandler handler : itemRelationshipHandlers) {
+            Map<Relation, Set<Relation>> relations = handler.find(item);
+            mergeRelationship(itemRelations, relations);
+        }
+
+        if (oldProjectRelations != null) {
+            // check if there is any changes on the relations.
+            Set<Relation> newProjectRelations = currentProjectItemsRelations.get(relation);
+            if (oldProjectRelations.size() == newProjectRelations.size()) {
+                relationsModified = false;
+                for (Relation newRelation : newProjectRelations) {
+                    if (!oldProjectRelations.contains(newRelation)) {
+                        relationsModified = true;
+                        break;
+                    }
+                }
+            }
+            if (!relationsModified) {
+                currentProjectItemsRelations.get(relation).addAll(oldProjectRelations);
             }
         }
-        if (hcId != null) {
-            addRelationShip(baseItem, hcId, relatedVersion, PROPERTY_RELATION);
+        if (relationsModified && !modified) {
+            modified = true;
+        }
+        if (!fromMigration && modified) {
+            saveRelations();
         }
     }
 
@@ -825,100 +625,6 @@ public class RelationshipItemBuilder {
                 itemRelations.remove(relation);
                 saveRelations();
             }
-        }
-    }
-
-    /**
-     * 
-     * Relation class global comment. Detailled comment.
-     */
-    public class Relation implements Cloneable {
-
-        private String type;
-
-        private String id;
-
-        private String version;
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((id == null) ? 0 : id.hashCode());
-            result = prime * result + ((type == null) ? 0 : type.hashCode());
-            result = prime * result + ((version == null) ? 0 : version.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            Relation other = (Relation) obj;
-            if (id == null) {
-                if (other.id != null) {
-                    return false;
-                }
-            } else if (!id.equals(other.id)) {
-                return false;
-            }
-            if (type == null) {
-                if (other.type != null) {
-                    return false;
-                }
-            } else if (!type.equals(other.type)) {
-                return false;
-            }
-            if (version == null) {
-                if (other.version != null) {
-                    return false;
-                }
-            } else if (!version.equals(other.version)) {
-                return false;
-            }
-            // if (name == null) {
-            // if (other.name != null)
-            // return false;
-            // } else if (!name.equals(other.name)) {
-            // return false;
-            // }
-            return true;
-        }
-
-        public String getVersion() {
-            return version;
-        }
-
-        public void setVersion(String version) {
-            this.version = version;
-        }
-
-        @Override
-        protected Object clone() throws CloneNotSupportedException {
-            return super.clone();
         }
     }
 
