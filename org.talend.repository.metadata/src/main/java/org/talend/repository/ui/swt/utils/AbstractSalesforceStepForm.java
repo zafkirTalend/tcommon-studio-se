@@ -78,6 +78,10 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
 
     public static final String TSALESFORCE_INPUT_URL = "https://www.salesforce.com/services/Soap/u/19.0"; //$NON-NLS-1$
 
+    public static final String TSALESFORCE_INPUT_URL_OAUTH = "https://login.salesforce.com/services/oauth2"; //$NON-NLS-1$
+
+    public static final String TSALESFORCE_VERSION = "25.0";
+
     public static final String TSALESFORCE_PARTNER_INPUT_URL = "https://test.salesforce.com/services/Soap/u/10.0"; //$NON-NLS-1$
 
     // note that tSalesforceInput use a different url, if the web service is called by wizard we should use

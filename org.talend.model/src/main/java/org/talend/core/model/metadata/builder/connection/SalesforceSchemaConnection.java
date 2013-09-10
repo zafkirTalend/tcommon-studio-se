@@ -31,6 +31,14 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModules <em>Modules</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrlTextForOAuth <em>Web Service Url Text For OAuth</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeKey <em>Consume Key</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeSecret <em>Consume Secret</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackHost <em>Callback Host</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackPort <em>Callback Port</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getSalesforceVersion <em>Salesforce Version</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getToken <em>Token</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getLoginType <em>Login Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -448,5 +456,213 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     EList<SalesforceModuleUnit> getModules();
+
+    /**
+     * Returns the value of the '<em><b>Web Service Url Text For OAuth</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Web Service Url Text For OAuth</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Web Service Url Text For OAuth</em>' attribute.
+     * @see #setWebServiceUrlTextForOAuth(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_WebServiceUrlTextForOAuth()
+     * @model
+     * @generated
+     */
+    String getWebServiceUrlTextForOAuth();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrlTextForOAuth <em>Web Service Url Text For OAuth</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Web Service Url Text For OAuth</em>' attribute.
+     * @see #getWebServiceUrlTextForOAuth()
+     * @generated
+     */
+    void setWebServiceUrlTextForOAuth(String value);
+
+    /**
+     * Returns the value of the '<em><b>Consume Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Consume Key</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Consume Key</em>' attribute.
+     * @see #setConsumeKey(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ConsumeKey()
+     * @model
+     * @generated
+     */
+    String getConsumeKey();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeKey <em>Consume Key</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Consume Key</em>' attribute.
+     * @see #getConsumeKey()
+     * @generated
+     */
+    void setConsumeKey(String value);
+
+    /**
+     * Returns the value of the '<em><b>Consume Secret</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Consume Secret</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Consume Secret</em>' attribute.
+     * @see #setConsumeSecret(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ConsumeSecret()
+     * @model
+     * @generated
+     */
+    String getConsumeSecret();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeSecret <em>Consume Secret</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Consume Secret</em>' attribute.
+     * @see #getConsumeSecret()
+     * @generated
+     */
+    void setConsumeSecret(String value);
+
+    /**
+     * Returns the value of the '<em><b>Callback Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Callback Host</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Callback Host</em>' attribute.
+     * @see #setCallbackHost(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_CallbackHost()
+     * @model
+     * @generated
+     */
+    String getCallbackHost();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackHost <em>Callback Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Callback Host</em>' attribute.
+     * @see #getCallbackHost()
+     * @generated
+     */
+    void setCallbackHost(String value);
+
+    /**
+     * Returns the value of the '<em><b>Callback Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Callback Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Callback Port</em>' attribute.
+     * @see #setCallbackPort(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_CallbackPort()
+     * @model
+     * @generated
+     */
+    String getCallbackPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackPort <em>Callback Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Callback Port</em>' attribute.
+     * @see #getCallbackPort()
+     * @generated
+     */
+    void setCallbackPort(String value);
+
+    /**
+     * Returns the value of the '<em><b>Salesforce Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Salesforce Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Salesforce Version</em>' attribute.
+     * @see #setSalesforceVersion(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_SalesforceVersion()
+     * @model
+     * @generated
+     */
+    String getSalesforceVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getSalesforceVersion <em>Salesforce Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Salesforce Version</em>' attribute.
+     * @see #getSalesforceVersion()
+     * @generated
+     */
+    void setSalesforceVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Token</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Token</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Token</em>' attribute.
+     * @see #setToken(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_Token()
+     * @model
+     * @generated
+     */
+    String getToken();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getToken <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Token</em>' attribute.
+     * @see #getToken()
+     * @generated
+     */
+    void setToken(String value);
+
+    /**
+     * Returns the value of the '<em><b>Login Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Login Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Login Type</em>' attribute.
+     * @see #setLoginType(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_LoginType()
+     * @model
+     * @generated
+     */
+    String getLoginType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getLoginType <em>Login Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Login Type</em>' attribute.
+     * @see #getLoginType()
+     * @generated
+     */
+    void setLoginType(String value);
 
 } // SalesforceSchemaConnection

@@ -86,6 +86,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.salesforce.SforceManagementImpl;
+import org.talend.salesforce.oauth.OAuthClient;
+import org.talend.salesforce.oauth.Token;
+
 import orgomg.cwm.objectmodel.core.CoreFactory;
 
 import com.salesforce.soap.partner.DescribeGlobal;
@@ -124,6 +127,26 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
     private boolean useSocketProxy = false;
 
     private boolean httpsProxy = false;
+
+    private String endPointForAuth;
+
+    private String consumerKey;
+
+    private String consumeSecret;
+
+    private String callbackHost;
+
+    private String callbackPort;
+
+    private String salesforceVersion;
+
+    private String tokenProperties;
+
+    private String loginType;
+
+    private final static String BASIC = "basic";
+
+    // private String
 
     /**
      * FormTable Settings.
@@ -1341,26 +1364,49 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
             }
         }
         try {
-            salesforceAPI.resetAllProxy();
-            salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
-            salesforceAPI.login(endPoint, username, pwd, timeOut);
-            ISalesforceModuleParser currentAPI = salesforceAPI.getCurrentAPI();
-            if (currentAPI instanceof SalesforceModuleParseEnterprise) {
-                describeGlobalResult = describeGlobal();
-                if (describeGlobalResult != null) {
-                    types = describeGlobalResult.getTypes();
+            if (loginType.equals(BASIC)) {
+                salesforceAPI.resetAllProxy();
+                salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
+                salesforceAPI.login(endPoint, username, pwd, timeOut);
+                ISalesforceModuleParser currentAPI = salesforceAPI.getCurrentAPI();
+                if (currentAPI instanceof SalesforceModuleParseEnterprise) {
+                    describeGlobalResult = describeGlobal();
+                    if (describeGlobalResult != null) {
+                        types = describeGlobalResult.getTypes();
+                    }
+                } else {
+                    // for bug 17280 use new jar axis2 for salesforce component and wizard.
+                    if (currentAPI instanceof SalesforceModuleParserPartner) {
+                        SalesforceModuleParserPartner partner = (SalesforceModuleParserPartner) currentAPI;
+                        SforceManagementImpl sforceManagement = partner.getSforceManagement();
+                        SessionHeader sessionHeader = sforceManagement.getSessionHeader();
+                        DescribeGlobal dg = new DescribeGlobal();
+                        com.salesforce.soap.partner.DescribeGlobalResult dgr = sforceManagement.getStub()
+                                .describeGlobal(dg, sessionHeader, null, null).getResult();
+                        dgsrs = dgr.getSobjects();
+
+                    }
                 }
             } else {
-                // for bug 17280 use new jar axis2 for salesforce component and wizard.
-                if (currentAPI instanceof SalesforceModuleParserPartner) {
-                    SalesforceModuleParserPartner partner = (SalesforceModuleParserPartner) currentAPI;
-                    SforceManagementImpl sforceManagement = partner.getSforceManagement();
-                    SessionHeader sessionHeader = sforceManagement.getSessionHeader();
+                salesforceAPI.resetAllProxy();
+                salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
+                Token token = salesforceAPI.login(endPointForAuth, consumerKey, consumeSecret, callbackHost, callbackPort,
+                        salesforceVersion, tokenProperties, timeOut);
+                if (token != null) {
+                    org.talend.salesforce.SforceManagement sfMgr = new org.talend.salesforce.SforceManagementImpl();
+                    OAuthClient client = new OAuthClient();
+                    client.setBaseOAuthURL(endPointForAuth);
+                    client.setCallbackHost(callbackHost);
+                    client.setCallbackPort(Integer.parseInt(callbackPort));
+                    client.setClientID(consumerKey);
+                    client.setClientSecret(consumeSecret);
+                    String endpoint = client.getSOAPEndpoint(token, salesforceVersion);
+                    boolean result = sfMgr.login(token.getAccess_token(), endpoint, Integer.parseInt(timeOut), false);
+                    SessionHeader sessionHeader = sfMgr.getSessionHeader();
                     DescribeGlobal dg = new DescribeGlobal();
-                    com.salesforce.soap.partner.DescribeGlobalResult dgr = sforceManagement.getStub()
+                    com.salesforce.soap.partner.DescribeGlobalResult dgr = sfMgr.getStub()
                             .describeGlobal(dg, sessionHeader, null, null).getResult();
                     dgsrs = dgr.getSobjects();
-
                 }
             }
 
@@ -1422,5 +1468,14 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         proxyPort = connection.getProxyPort();
         proxyUsername = connection.getProxyUsername();
         proxyPassword = connection.getProxyPassword();
+
+        endPointForAuth = connection.getWebServiceUrlTextForOAuth();
+        consumerKey = connection.getConsumeKey();
+        consumeSecret = connection.getConsumeSecret();
+        callbackHost = connection.getCallbackHost();
+        callbackPort = connection.getCallbackPort();
+        salesforceVersion = connection.getSalesforceVersion();
+        tokenProperties = connection.getToken();
+        loginType = connection.getLoginType();
     }
 }

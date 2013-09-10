@@ -66,6 +66,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLParameter;
@@ -141,7 +142,7 @@ public class RepositoryToComponentProperty {
         }
 
         if (connection instanceof SalesforceSchemaConnection) {
-            return getSalesforceSchemaValue((SalesforceSchemaConnection) connection, value);
+            return getSalesforceSchemaValue((SalesforceSchemaConnection) connection, value, table);
         }
 
         if (connection instanceof EDIFACTConnection) {
@@ -457,12 +458,16 @@ public class RepositoryToComponentProperty {
      * @param value
      * @return
      */
-    private static Object getSalesforceSchemaValue(SalesforceSchemaConnection connection, String value) {
+    private static Object getSalesforceSchemaValue(SalesforceSchemaConnection connection, String value, IMetadataTable table) {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getWebServiceUrl())) {
                 return connection.getWebServiceUrl();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getWebServiceUrl());
+                if (connection.getLoginType().equals("basic")) {
+                    return TalendQuoteUtils.addQuotes(connection.getWebServiceUrl());
+                } else {
+                    return TalendQuoteUtils.addQuotes(connection.getWebServiceUrlTextForOAuth());
+                }
             }
         } else if ("USER_NAME".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUserName())) {
@@ -486,6 +491,12 @@ public class RepositoryToComponentProperty {
             if (connection.isUseCustomModuleName()) {
                 return "CustomModule"; //$NON-NLS-1$
             } else {
+                EList<SalesforceModuleUnit> moduleList = connection.getModules();
+                for (SalesforceModuleUnit unit : moduleList) {
+                    if (table.getLabel().equals(unit.getModuleName())) {
+                        return unit.getModuleName();
+                    }
+                }
                 return connection.getModuleName();
             }
         } else if ("QUERY_CONDITION".equals(value)) { //$NON-NLS-1$
@@ -530,6 +541,46 @@ public class RepositoryToComponentProperty {
                 return connection.getTimeOut();
             } else {
                 return connection.getTimeOut();// TalendQuoteUtils.addQuotes(connection.getTimeOut());
+            }
+        } else if ("API_VERSION".equals(value)) {
+            if (isContextMode(connection, connection.getSalesforceVersion())) {
+                return connection.getSalesforceVersion();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getSalesforceVersion());
+            }
+        } else if ("OAUTH_CLIENT_ID".equals(value)) {
+            if (isContextMode(connection, connection.getConsumeKey())) {
+                return connection.getConsumeKey();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getConsumeKey());
+            }
+        } else if ("OAUTH_CLIENT_SECRET".equals(value)) {
+            if (isContextMode(connection, connection.getConsumeSecret())) {
+                return connection.getConsumeSecret();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getConsumeSecret());
+            }
+        } else if ("OAUTH_CALLBACK_HOST".equals(value)) {
+            if (isContextMode(connection, connection.getCallbackHost())) {
+                return connection.getCallbackHost();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getCallbackHost());
+            }
+        } else if ("OAUTH_CALLBACK_PORT".equals(value)) {
+            if (isContextMode(connection, connection.getCallbackPort())) {
+                return connection.getCallbackPort();
+            } else {
+                return connection.getCallbackPort();
+            }
+        } else if ("LOGIN_TYPE".equals(value)) {
+            if (isContextMode(connection, connection.getLoginType())) {
+                return connection.getLoginType();
+            } else {
+                if (connection.getLoginType().equals("basic")) {
+                    return "BASIC";
+                } else {
+                    return "OAUTH";
+                }
             }
         }
         return null;

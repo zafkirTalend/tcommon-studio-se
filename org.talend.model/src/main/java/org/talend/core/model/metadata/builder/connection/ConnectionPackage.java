@@ -11695,13 +11695,85 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__MODULES = CONNECTION_FEATURE_COUNT + 15;
 
     /**
+     * The feature id for the '<em><b>Web Service Url Text For OAuth</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
+     * The feature id for the '<em><b>Consume Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY = CONNECTION_FEATURE_COUNT + 17;
+
+    /**
+     * The feature id for the '<em><b>Consume Secret</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET = CONNECTION_FEATURE_COUNT + 18;
+
+    /**
+     * The feature id for the '<em><b>Callback Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST = CONNECTION_FEATURE_COUNT + 19;
+
+    /**
+     * The feature id for the '<em><b>Callback Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT = CONNECTION_FEATURE_COUNT + 20;
+
+    /**
+     * The feature id for the '<em><b>Salesforce Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION = CONNECTION_FEATURE_COUNT + 21;
+
+    /**
+     * The feature id for the '<em><b>Token</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__TOKEN = CONNECTION_FEATURE_COUNT + 22;
+
+    /**
+     * The feature id for the '<em><b>Login Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE = CONNECTION_FEATURE_COUNT + 23;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -20631,6 +20703,94 @@ public interface ConnectionPackage extends EPackage {
     EReference getSalesforceSchemaConnection_Modules();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrlTextForOAuth <em>Web Service Url Text For OAuth</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Web Service Url Text For OAuth</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrlTextForOAuth()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_WebServiceUrlTextForOAuth();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeKey <em>Consume Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Consume Key</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeKey()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ConsumeKey();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeSecret <em>Consume Secret</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Consume Secret</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getConsumeSecret()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ConsumeSecret();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackHost <em>Callback Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Callback Host</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackHost()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_CallbackHost();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackPort <em>Callback Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Callback Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getCallbackPort()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_CallbackPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getSalesforceVersion <em>Salesforce Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Salesforce Version</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getSalesforceVersion()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_SalesforceVersion();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getToken <em>Token</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Token</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getToken()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_Token();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getLoginType <em>Login Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Login Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getLoginType()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_LoginType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CDC Connection</em>'.
@@ -24269,6 +24429,71 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SALESFORCE_SCHEMA_CONNECTION__MODULES = eINSTANCE.getSalesforceSchemaConnection_Modules();
+
+        /**
+         * The meta object literal for the '<em><b>Web Service Url Text For OAuth</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH = eINSTANCE
+                .getSalesforceSchemaConnection_WebServiceUrlTextForOAuth();
+
+        /**
+         * The meta object literal for the '<em><b>Consume Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY = eINSTANCE.getSalesforceSchemaConnection_ConsumeKey();
+
+        /**
+         * The meta object literal for the '<em><b>Consume Secret</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET = eINSTANCE.getSalesforceSchemaConnection_ConsumeSecret();
+
+        /**
+         * The meta object literal for the '<em><b>Callback Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST = eINSTANCE.getSalesforceSchemaConnection_CallbackHost();
+
+        /**
+         * The meta object literal for the '<em><b>Callback Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT = eINSTANCE.getSalesforceSchemaConnection_CallbackPort();
+
+        /**
+         * The meta object literal for the '<em><b>Salesforce Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION = eINSTANCE.getSalesforceSchemaConnection_SalesforceVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Token</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__TOKEN = eINSTANCE.getSalesforceSchemaConnection_Token();
+
+        /**
+         * The meta object literal for the '<em><b>Login Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE = eINSTANCE.getSalesforceSchemaConnection_LoginType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.

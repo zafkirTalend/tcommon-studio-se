@@ -2724,6 +2724,78 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_WebServiceUrlTextForOAuth() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_ConsumeKey() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(17);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_ConsumeSecret() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(18);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_CallbackHost() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(19);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_CallbackPort() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(20);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_SalesforceVersion() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_Token() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(22);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_LoginType() {
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4150,6 +4222,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET);
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__TIME_OUT);
         createEReference(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__MODULES);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__TOKEN);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE);
 
         cdcConnectionEClass = createEClass(CDC_CONNECTION);
         createEReference(cdcConnectionEClass, CDC_CONNECTION__CONNECTION);
@@ -5147,6 +5227,30 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSalesforceSchemaConnection_Modules(), this.getSalesforceModuleUnit(),
                 this.getSalesforceModuleUnit_Connection(), "modules", null, 0, -1, SalesforceSchemaConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_WebServiceUrlTextForOAuth(), ecorePackage.getEString(),
+                "webServiceUrlTextForOAuth", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ConsumeKey(), ecorePackage.getEString(), "consumeKey", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ConsumeSecret(), ecorePackage.getEString(), "consumeSecret", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_CallbackHost(), ecorePackage.getEString(), "callbackHost", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_CallbackPort(), ecorePackage.getEString(), "callbackPort", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_SalesforceVersion(), ecorePackage.getEString(), "salesforceVersion", null,
+                0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_Token(), ecorePackage.getEString(), "token", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_LoginType(), ecorePackage.getEString(), "loginType", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 
         initEClass(cdcConnectionEClass, CDCConnection.class, "CDCConnection", !IS_ABSTRACT, !IS_INTERFACE,

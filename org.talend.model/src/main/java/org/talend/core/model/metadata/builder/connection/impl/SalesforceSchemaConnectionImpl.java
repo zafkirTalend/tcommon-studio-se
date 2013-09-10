@@ -44,6 +44,14 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseAlphbet <em>Use Alphbet</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getModules <em>Modules</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getWebServiceUrlTextForOAuth <em>Web Service Url Text For OAuth</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getConsumeKey <em>Consume Key</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getConsumeSecret <em>Consume Secret</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getCallbackHost <em>Callback Host</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getCallbackPort <em>Callback Port</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getSalesforceVersion <em>Salesforce Version</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getToken <em>Token</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getLoginType <em>Login Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -360,6 +368,166 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected EList<SalesforceModuleUnit> modules;
+
+    /**
+     * The default value of the '{@link #getWebServiceUrlTextForOAuth() <em>Web Service Url Text For OAuth</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getWebServiceUrlTextForOAuth()
+     * @generated
+     * @ordered
+     */
+    protected static final String WEB_SERVICE_URL_TEXT_FOR_OAUTH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getWebServiceUrlTextForOAuth() <em>Web Service Url Text For OAuth</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getWebServiceUrlTextForOAuth()
+     * @generated
+     * @ordered
+     */
+    protected String webServiceUrlTextForOAuth = WEB_SERVICE_URL_TEXT_FOR_OAUTH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getConsumeKey() <em>Consume Key</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConsumeKey()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONSUME_KEY_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getConsumeKey() <em>Consume Key</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConsumeKey()
+     * @generated
+     * @ordered
+     */
+    protected String consumeKey = CONSUME_KEY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getConsumeSecret() <em>Consume Secret</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConsumeSecret()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONSUME_SECRET_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getConsumeSecret() <em>Consume Secret</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConsumeSecret()
+     * @generated
+     * @ordered
+     */
+    protected String consumeSecret = CONSUME_SECRET_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCallbackHost() <em>Callback Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCallbackHost()
+     * @generated
+     * @ordered
+     */
+    protected static final String CALLBACK_HOST_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCallbackHost() <em>Callback Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCallbackHost()
+     * @generated
+     * @ordered
+     */
+    protected String callbackHost = CALLBACK_HOST_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCallbackPort() <em>Callback Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCallbackPort()
+     * @generated
+     * @ordered
+     */
+    protected static final String CALLBACK_PORT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCallbackPort() <em>Callback Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCallbackPort()
+     * @generated
+     * @ordered
+     */
+    protected String callbackPort = CALLBACK_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSalesforceVersion() <em>Salesforce Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSalesforceVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String SALESFORCE_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSalesforceVersion() <em>Salesforce Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSalesforceVersion()
+     * @generated
+     * @ordered
+     */
+    protected String salesforceVersion = SALESFORCE_VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getToken() <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getToken()
+     * @generated
+     * @ordered
+     */
+    protected static final String TOKEN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getToken() <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getToken()
+     * @generated
+     * @ordered
+     */
+    protected String token = TOKEN_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLoginType() <em>Login Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLoginType()
+     * @generated
+     * @ordered
+     */
+    protected static final String LOGIN_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLoginType() <em>Login Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLoginType()
+     * @generated
+     * @ordered
+     */
+    protected String loginType = LOGIN_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -729,6 +897,183 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getWebServiceUrlTextForOAuth() {
+        return webServiceUrlTextForOAuth;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setWebServiceUrlTextForOAuth(String newWebServiceUrlTextForOAuth) {
+        String oldWebServiceUrlTextForOAuth = webServiceUrlTextForOAuth;
+        webServiceUrlTextForOAuth = newWebServiceUrlTextForOAuth;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH, oldWebServiceUrlTextForOAuth,
+                    webServiceUrlTextForOAuth));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getConsumeKey() {
+        return consumeKey;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConsumeKey(String newConsumeKey) {
+        String oldConsumeKey = consumeKey;
+        consumeKey = newConsumeKey;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY,
+                    oldConsumeKey, consumeKey));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getConsumeSecret() {
+        return consumeSecret;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConsumeSecret(String newConsumeSecret) {
+        String oldConsumeSecret = consumeSecret;
+        consumeSecret = newConsumeSecret;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET,
+                    oldConsumeSecret, consumeSecret));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCallbackHost() {
+        return callbackHost;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCallbackHost(String newCallbackHost) {
+        String oldCallbackHost = callbackHost;
+        callbackHost = newCallbackHost;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST,
+                    oldCallbackHost, callbackHost));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCallbackPort() {
+        return callbackPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCallbackPort(String newCallbackPort) {
+        String oldCallbackPort = callbackPort;
+        callbackPort = newCallbackPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT,
+                    oldCallbackPort, callbackPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSalesforceVersion() {
+        return salesforceVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSalesforceVersion(String newSalesforceVersion) {
+        String oldSalesforceVersion = salesforceVersion;
+        salesforceVersion = newSalesforceVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION, oldSalesforceVersion, salesforceVersion));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setToken(String newToken) {
+        String oldToken = token;
+        token = newToken;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TOKEN,
+                    oldToken, token));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLoginType() {
+        return loginType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLoginType(String newLoginType) {
+        String oldLoginType = loginType;
+        loginType = newLoginType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE,
+                    oldLoginType, loginType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -793,6 +1138,22 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             return getTimeOut();
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
             return getModules();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH:
+            return getWebServiceUrlTextForOAuth();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY:
+            return getConsumeKey();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET:
+            return getConsumeSecret();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST:
+            return getCallbackHost();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT:
+            return getCallbackPort();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION:
+            return getSalesforceVersion();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TOKEN:
+            return getToken();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE:
+            return getLoginType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -855,6 +1216,30 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             getModules().clear();
             getModules().addAll((Collection<? extends SalesforceModuleUnit>) newValue);
             return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH:
+            setWebServiceUrlTextForOAuth((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY:
+            setConsumeKey((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET:
+            setConsumeSecret((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST:
+            setCallbackHost((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT:
+            setCallbackPort((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION:
+            setSalesforceVersion((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TOKEN:
+            setToken((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE:
+            setLoginType((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -915,6 +1300,30 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
             getModules().clear();
             return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH:
+            setWebServiceUrlTextForOAuth(WEB_SERVICE_URL_TEXT_FOR_OAUTH_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY:
+            setConsumeKey(CONSUME_KEY_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET:
+            setConsumeSecret(CONSUME_SECRET_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST:
+            setCallbackHost(CALLBACK_HOST_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT:
+            setCallbackPort(CALLBACK_PORT_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION:
+            setSalesforceVersion(SALESFORCE_VERSION_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TOKEN:
+            setToken(TOKEN_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE:
+            setLoginType(LOGIN_TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -959,6 +1368,24 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             return TIME_OUT_EDEFAULT == null ? timeOut != null : !TIME_OUT_EDEFAULT.equals(timeOut);
         case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULES:
             return modules != null && !modules.isEmpty();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL_TEXT_FOR_OAUTH:
+            return WEB_SERVICE_URL_TEXT_FOR_OAUTH_EDEFAULT == null ? webServiceUrlTextForOAuth != null
+                    : !WEB_SERVICE_URL_TEXT_FOR_OAUTH_EDEFAULT.equals(webServiceUrlTextForOAuth);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_KEY:
+            return CONSUME_KEY_EDEFAULT == null ? consumeKey != null : !CONSUME_KEY_EDEFAULT.equals(consumeKey);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CONSUME_SECRET:
+            return CONSUME_SECRET_EDEFAULT == null ? consumeSecret != null : !CONSUME_SECRET_EDEFAULT.equals(consumeSecret);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_HOST:
+            return CALLBACK_HOST_EDEFAULT == null ? callbackHost != null : !CALLBACK_HOST_EDEFAULT.equals(callbackHost);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__CALLBACK_PORT:
+            return CALLBACK_PORT_EDEFAULT == null ? callbackPort != null : !CALLBACK_PORT_EDEFAULT.equals(callbackPort);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__SALESFORCE_VERSION:
+            return SALESFORCE_VERSION_EDEFAULT == null ? salesforceVersion != null : !SALESFORCE_VERSION_EDEFAULT
+                    .equals(salesforceVersion);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TOKEN:
+            return TOKEN_EDEFAULT == null ? token != null : !TOKEN_EDEFAULT.equals(token);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__LOGIN_TYPE:
+            return LOGIN_TYPE_EDEFAULT == null ? loginType != null : !LOGIN_TYPE_EDEFAULT.equals(loginType);
         }
         return super.eIsSet(featureID);
     }
@@ -1004,6 +1431,22 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(useAlphbet);
         result.append(", timeOut: ");
         result.append(timeOut);
+        result.append(", webServiceUrlTextForOAuth: ");
+        result.append(webServiceUrlTextForOAuth);
+        result.append(", consumeKey: ");
+        result.append(consumeKey);
+        result.append(", consumeSecret: ");
+        result.append(consumeSecret);
+        result.append(", callbackHost: ");
+        result.append(callbackHost);
+        result.append(", callbackPort: ");
+        result.append(callbackPort);
+        result.append(", salesforceVersion: ");
+        result.append(salesforceVersion);
+        result.append(", token: ");
+        result.append(token);
+        result.append(", loginType: ");
+        result.append(loginType);
         result.append(')');
         return result.toString();
     }

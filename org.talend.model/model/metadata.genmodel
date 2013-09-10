@@ -367,6 +367,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useAlphbet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/timeOut"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SalesforceSchemaConnection/modules"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/webServiceUrlTextForOAuth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/consumeKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/consumeSecret"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/callbackHost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/callbackPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/salesforceVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/token"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/loginType"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CDCConnection">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/connection"/>

@@ -12,7 +12,16 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
+import org.talend.salesforce.oauth.OAuthClient;
+import org.talend.salesforce.oauth.Token;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -86,6 +95,32 @@ public class SalesforceModuleParseAPI {
     private boolean login;
 
     private ISalesforceModuleParser currentAPI;
+
+    public Token login(String endPointForAuth, String consumerKey, String consumeSecret, String callbackHost,
+            String callbackPort, String salesforceVersion, String tokenProperties, String timeOut) throws Exception {
+        OAuthClient client = new OAuthClient();
+        client.setBaseOAuthURL(endPointForAuth);
+        client.setCallbackHost(callbackHost);
+        client.setCallbackPort(Integer.parseInt(callbackPort));
+        client.setClientID(consumerKey);
+        client.setClientSecret(consumeSecret);
+
+        File tokenFile = new File(tokenProperties);
+        if (tokenFile.exists()) {
+            InputStream inputStream = null;
+            InputStreamReader input = null;
+            BufferedReader reader = null;
+            String tokenMessage = null;
+            java.util.Properties properties = new java.util.Properties();
+            FileInputStream inStream = new FileInputStream(tokenProperties);
+            properties.load(inStream);
+            tokenMessage = properties.getProperty("refreshtoken");
+            inStream.close();
+            Token token = client.refreshToken(tokenMessage);
+            return token;
+        }
+        return null;
+    }
 
     /**
      * DOC YeXiaowei Comment method "login".
