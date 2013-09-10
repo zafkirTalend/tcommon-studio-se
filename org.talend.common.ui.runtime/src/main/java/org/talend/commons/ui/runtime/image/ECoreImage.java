@@ -155,6 +155,8 @@ public enum ECoreImage implements IImage {
     TOGGLE_SUBJOB("/icons1/toggleSubjobs.png"), //$NON-NLS-1$
     TOGGLE_SUBJOB_DISABLED("/icons1/toggleSubjobDisabled.png"), //$NON-NLS-1$
 
+    COMPONMENT_ASSIST("/icons1/assist.gif"), //$NON-NLS-1$
+
     TRACE_ON("/icons1/trace_on.png"), //$NON-NLS-1$
     TRACE_OFF("/icons1/trace_off.png"), //$NON-NLS-1$
 
