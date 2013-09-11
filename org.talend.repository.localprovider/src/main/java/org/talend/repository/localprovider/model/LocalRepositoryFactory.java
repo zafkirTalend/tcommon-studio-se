@@ -1301,17 +1301,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             dealTdqResourceMove(project, completeNewPath, object);
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             Map<Resource, IPath> resourceAndPathMap = new HashMap<Resource, IPath>();
+            List<Resource> crossReferences = new ArrayList<Resource>();
             for (Resource resource : affectedResources) {
                 IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                         .append(resource.getURI().lastSegment());
                 resourceAndPathMap.put(resource, path);
-                // Find cross reference and save them.
-                List<Resource> needSaves = findCrossReference(resource);
+                // Find cross references.
+                crossReferences.addAll(findCrossReference(resource));
                 moveResource(resource, path);
-                saveCrossReference(needSaves);
             }
             IPath parentPath = getPhysicalProject(project).getFullPath().append(completeNewPath);
             svnMoveResource(affectedResources, parentPath, resourceAndPathMap);
+            // Save the cross references.
+            saveCrossReference(crossReferences);
             affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
                 xmiResourceManager.saveResource(resource);
@@ -1415,6 +1417,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     List<Resource> allResource = new ArrayList<Resource>();
                     Map<Resource, IPath> resourceAndPathMap = new HashMap<Resource, IPath>();
                     IPath parentPath = getPhysicalProject(project).getFullPath().append(completeNewPath);
+                    List<Resource> crossReferences = new ArrayList<Resource>();
                     for (IRepositoryViewObject object : serializableFromFolder) {
                         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
                         for (Resource resource : affectedResources) {
@@ -1422,13 +1425,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                                     .append(resource.getURI().lastSegment());
                             resourceAndPathMap.put(resource, path);
-                            // Find cross reference and save them.
-                            List<Resource> needSaves = findCrossReference(resource);
+                            // Find cross references.
+                            crossReferences.addAll(findCrossReference(resource));
                             moveResource(resource, path);
-                            saveCrossReference(needSaves);
                         }
                     }
                     svnMoveResource(allResource, parentPath, resourceAndPathMap);
+                    // Save cross references.
+                    saveCrossReference(crossReferences);
 
                     for (IRepositoryViewObject object : serializableFromFolder) {
                         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
@@ -1489,17 +1493,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // MDO gdbu 2011-9-29 TDQ-3546
         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
         Map<Resource, IPath> resourceAndPathMap = new HashMap<Resource, IPath>();
+        List<Resource> crossReferences = new ArrayList<Resource>();
         for (Resource resource : affectedResources) {
             IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath)
                     .append(resource.getURI().lastSegment());
             resourceAndPathMap.put(resource, path);
-            // Find cross reference and save them.
-            List<Resource> needSaves = findCrossReference(resource);
+            // Find cross reference.
+            crossReferences.addAll(findCrossReference(resource));
             moveResource(resource, path);
-            saveCrossReference(needSaves);
         }
         IPath parentPath = getPhysicalProject(project).getFullPath().append(completeNewPath);
         svnMoveResource(affectedResources, parentPath, resourceAndPathMap);
+        // Save the cross reference.
+        saveCrossReference(crossReferences);
 
         affectedResources = xmiResourceManager.getAffectedResources(child.getProperty());
         for (Resource resource : affectedResources) {
@@ -1709,16 +1715,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         Map<Resource, IPath> resourceAndPathMap = new HashMap<Resource, IPath>();
+        List<Resource> crossReferences = new ArrayList<Resource>();
         for (Resource resource : allResource) {
             IFolder folder = resourceFolderMap.get(resource);
             IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
             resourceAndPathMap.put(resource, path);
-            // Find cross reference and save them.
-            List<Resource> needSaves = findCrossReference(resource);
+            // Find cross references.
+            crossReferences.addAll(findCrossReference(resource));
             moveResource(resource, path);
-            saveCrossReference(needSaves);
         }
         svnMoveResource(allResource, parentPath, resourceAndPathMap);
+        // Save cross references.
+        saveCrossReference(crossReferences);
 
         for (IRepositoryViewObject objToMove : objToMoves) {
             List<IRepositoryViewObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId(),
@@ -1784,15 +1792,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             IPath parentPath = folder.getFullPath();
             Map<Resource, IPath> resourceAndPathMap = new HashMap<Resource, IPath>();
+            List<Resource> crossReferences = new ArrayList<Resource>();
             for (Resource resource : affectedResources) {
                 IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
                 resourceAndPathMap.put(resource, path);
-                // Find cross reference and save them.
-                List<Resource> needSaves = findCrossReference(resource);
+                // Find cross referenes.
+                crossReferences.addAll(findCrossReference(resource));
                 moveResource(resource, path);
-                saveCrossReference(needSaves);
+
             }
             svnMoveResource(affectedResources, parentPath, resourceAndPathMap);
+            // Save cross references
+            saveCrossReference(crossReferences);
             // all resources attached must be saved again after move the resources, or author will link to wrong path
             // for project file
             affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
