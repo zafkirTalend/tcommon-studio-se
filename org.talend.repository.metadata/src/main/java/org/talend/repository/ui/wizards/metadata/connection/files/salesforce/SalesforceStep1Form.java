@@ -63,9 +63,11 @@ import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
+import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
 
@@ -131,6 +133,20 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
     private LabelledText tokenText = null;
 
+    private String endPointForOAuth = null;
+
+    private String apiVersion = null;
+
+    private String consumeKey = null;
+
+    private String consumeKeySrcret = null;
+
+    private String callbackHost = null;
+
+    private String callbackPort = null;
+
+    private String token = null;
+
     private StackLayout stackLayout;
 
     private Composite basicComposite;
@@ -183,7 +199,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         super(parent, connectionItem, existingNames, salesforceAPI);
         setConnectionItem(connectionItem);
         setContextModeManager(contextModeManager);
-        setupForm();
+        setupForm(true);
     }
 
     /*
@@ -302,8 +318,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         enableProxyParameters(false);
 
         new Label(this, SWT.NONE);
-        new Label(this, SWT.NONE);
-        new Label(this, SWT.NONE);
 
         checkButton = new Button(this, SWT.NONE);
         checkButton.setText(Messages.getString("SalesforceStep1Form.checkLogin")); //$NON-NLS-1$
@@ -320,8 +334,6 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             cancelButton = new UtilsButton(compositeBottomButton, Messages.getString("CommonWizard.cancel"), WIDTH_BUTTON_PIXEL, //$NON-NLS-1$
                     HEIGHT_BUTTON_PIXEL);
         }
-        new Label(this, SWT.NONE);
-        new Label(this, SWT.NONE);
         addUtilsButtonListeners();
         setSize(600, 700);
 
@@ -581,8 +593,8 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 if (!isContextMode()) {
                     checkFieldsValue();
                 }
+                testSalesforceLogin();
                 if (authBtn.getSelectionIndex() == 0) {
-                    testSalesforceLogin();
                     String proxy = null;
                     if (useProxyBtn.getSelection()) {
                         proxy = SalesforceModuleParseAPI.USE_SOCKS_PROXY;
@@ -603,11 +615,11 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 } else {
                     String errors = null;
                     final OAuthClient client = new OAuthClient();
-                    client.setBaseOAuthURL(webServiceUrlTextForOAuth.getText());
-                    client.setCallbackHost(callbackHostText.getText());
-                    client.setCallbackPort(Integer.parseInt(callbackPortText.getText()));
-                    client.setClientID(consumeKeyText.getText());
-                    client.setClientSecret(consumeKeySecretText.getText());
+                    client.setBaseOAuthURL(endPointForOAuth);
+                    client.setCallbackHost(callbackHost);
+                    client.setCallbackPort(Integer.parseInt(callbackPort));
+                    client.setClientID(consumeKey);
+                    client.setClientSecret(consumeKeySrcret);
                     boolean result = false;
                     try {
                         client.startServer();
@@ -637,7 +649,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                             token = client.getTokenForWizard(code);
                             org.talend.salesforce.SforceManagement sfMgr = new org.talend.salesforce.SforceManagementImpl();
                             String endpoint = null;
-                            endpoint = client.getSOAPEndpoint(token, apiVersionText.getText());
+                            endpoint = client.getSOAPEndpoint(token, apiVersion);
 
                             if (token != null) {
                                 java.util.Properties properties = new java.util.Properties();
@@ -683,11 +695,30 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         username = userNameText.getText();
         pwd = passwordText.getText();
         timeOut = timeOutText.getText();
+        endPointForOAuth = webServiceUrlTextForOAuth.getText();
+        apiVersion = apiVersionText.getText();
+        consumeKey = consumeKeyText.getText();
+        consumeKeySrcret = consumeKeySecretText.getText();
+        callbackHost = callbackHostText.getText();
+        callbackPort = callbackPortText.getText();
+        token = tokenText.getText();
         if (isContextMode() && getContextModeManager() != null) {
+            if (getContextModeManager().getSelectedContextType() == null) {
+                ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(connectionItem
+                        .getConnection());
+                getContextModeManager().setSelectedContextType(contextTypeForContextMode);
+            }
             endPoint = getContextModeManager().getOriginalValue(endPoint);
             username = getContextModeManager().getOriginalValue(username);
             pwd = getContextModeManager().getOriginalValue(pwd);
             timeOut = getContextModeManager().getOriginalValue(timeOut);
+            endPointForOAuth = getContextModeManager().getOriginalValue(endPointForOAuth);
+            apiVersion = getContextModeManager().getOriginalValue(apiVersion);
+            consumeKey = getContextModeManager().getOriginalValue(consumeKey);
+            consumeKeySrcret = getContextModeManager().getOriginalValue(consumeKeySrcret);
+            callbackHost = getContextModeManager().getOriginalValue(callbackHost);
+            callbackPort = getContextModeManager().getOriginalValue(callbackPort);
+            token = getContextModeManager().getOriginalValue(token);
         }
     }
 
@@ -903,6 +934,13 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         proxyPortText.setEditable(!isContextMode());
         proxyUsernameText.setEditable(!isContextMode());
         proxyPasswordText.setEditable(!isContextMode());
+        webServiceUrlTextForOAuth.setEditable(!isContextMode());
+        apiVersionText.setEditable(!isContextMode());
+        consumeKeyText.setEditable(!isContextMode());
+        consumeKeySecretText.setEditable(!isContextMode());
+        callbackHostText.setEditable(!isContextMode());
+        callbackPortText.setEditable(!isContextMode());
+        tokenText.setEditable(!isContextMode());
         if (isContextMode()) {
             passwordText.getTextControl().setEchoChar('\0');
             proxyPasswordText.getTextControl().setEchoChar('\0');

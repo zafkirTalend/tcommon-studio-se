@@ -30,6 +30,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
@@ -64,6 +65,14 @@ public final class OtherConnectionContextUtils {
         BatchSize,
         TimeOut,
         QueryCondition,
+        // Salesforce oauth
+        WebServiceUrlForOauth,
+        ConsumerKey,
+        ConsumerSecret,
+        CallbackHost,
+        CallbackPort,
+        SalesforceVersion,
+        token,
 
         // LDAP
         Host,
@@ -340,10 +349,31 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
 
         paramName = prefixName + EParamName.TimeOut;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut());
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
 
         paramName = prefixName + EParamName.QueryCondition;
         ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
+
+        paramName = prefixName + EParamName.WebServiceUrlForOauth;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrlTextForOAuth());
+
+        paramName = prefixName + EParamName.ConsumerKey;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeKey());
+
+        paramName = prefixName + EParamName.ConsumerSecret;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeSecret());
+
+        paramName = prefixName + EParamName.CallbackHost;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackHost());
+
+        paramName = prefixName + EParamName.CallbackPort;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackPort(), JavaTypesManager.INTEGER);
+
+        paramName = prefixName + EParamName.SalesforceVersion;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getSalesforceVersion());
+
+        paramName = prefixName + EParamName.token;
+        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getToken());
 
         return varList;
     }
@@ -443,6 +473,27 @@ public final class OtherConnectionContextUtils {
 
         paramName = prefixName + EParamName.QueryCondition;
         ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.WebServiceUrlForOauth;
+        ssConn.setWebServiceUrlTextForOAuth(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.ConsumerKey;
+        ssConn.setConsumeKey(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.ConsumerSecret;
+        ssConn.setConsumeSecret(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.CallbackHost;
+        ssConn.setCallbackHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.CallbackPort;
+        ssConn.setCallbackPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.SalesforceVersion;
+        ssConn.setSalesforceVersion(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.token;
+        ssConn.setToken(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
     }
 
     static void revertSalesforcePropertiesForContextMode(SalesforceSchemaConnection ssConn, ContextType contextType) {
@@ -454,12 +505,30 @@ public final class OtherConnectionContextUtils {
         String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getPassword());
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
+        String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
+        String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getWebServiceUrlTextForOAuth());
+        String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
+        String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
+        String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
+        String token = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getToken());
 
         ssConn.setWebServiceUrl(url);
         ssConn.setUserName(userName);
         ssConn.setPassword(password);
         ssConn.setBatchSize(batchSize);
         ssConn.setQueryCondition(queryCondition);
+        ssConn.setTimeOut(timeOut);
+        ssConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
+        ssConn.setConsumeKey(consumerKey);
+        ssConn.setConsumeSecret(consumerSecret);
+        ssConn.setCallbackHost(callbackHost);
+        ssConn.setCallbackPort(callbackPort);
+        ssConn.setSalesforceVersion(salesforceVersion);
+        ssConn.setToken(token);
+
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
@@ -477,6 +546,14 @@ public final class OtherConnectionContextUtils {
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
+        String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getWebServiceUrlTextForOAuth());
+        String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
+        String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
+        String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
+        String token = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getToken());
 
         cloneConn.setWebServiceUrl(url);
         cloneConn.setUserName(userName);
@@ -484,10 +561,18 @@ public final class OtherConnectionContextUtils {
         cloneConn.setBatchSize(batchSize);
         cloneConn.setTimeOut(timeOut);
         cloneConn.setQueryCondition(queryCondition);
+        cloneConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
+        cloneConn.setConsumeKey(consumerKey);
+        cloneConn.setConsumeSecret(consumerSecret);
+        cloneConn.setCallbackHost(callbackHost);
+        cloneConn.setCallbackPort(callbackPort);
+        cloneConn.setSalesforceVersion(salesforceVersion);
+        cloneConn.setToken(token);
 
         ConnectionContextHelper.cloneConnectionProperties(ssConn, cloneConn);
 
         cloneConn.setModuleName(ssConn.getModuleName());
+        cloneConn.setLoginType(ssConn.getLoginType());
 
         return cloneConn;
     }

@@ -461,7 +461,11 @@ public class RepositoryToComponentProperty {
     private static Object getSalesforceSchemaValue(SalesforceSchemaConnection connection, String value, IMetadataTable table) {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getWebServiceUrl())) {
-                return connection.getWebServiceUrl();
+                if (connection.getLoginType().equals("basic")) {
+                    return connection.getWebServiceUrl();
+                } else {
+                    return connection.getWebServiceUrlTextForOAuth();
+                }
             } else {
                 if (connection.getLoginType().equals("basic")) {
                     return TalendQuoteUtils.addQuotes(connection.getWebServiceUrl());
@@ -491,10 +495,12 @@ public class RepositoryToComponentProperty {
             if (connection.isUseCustomModuleName()) {
                 return "CustomModule"; //$NON-NLS-1$
             } else {
-                EList<SalesforceModuleUnit> moduleList = connection.getModules();
-                for (SalesforceModuleUnit unit : moduleList) {
-                    if (table.getLabel().equals(unit.getModuleName())) {
-                        return unit.getModuleName();
+                if (table != null) {
+                    EList<SalesforceModuleUnit> moduleList = connection.getModules();
+                    for (SalesforceModuleUnit unit : moduleList) {
+                        if (table.getLabel().equals(unit.getModuleName())) {
+                            return unit.getModuleName();
+                        }
                     }
                 }
                 return connection.getModuleName();

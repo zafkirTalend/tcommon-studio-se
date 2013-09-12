@@ -81,10 +81,13 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
+import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.repository.ui.utils.OtherConnectionContextUtils;
 import org.talend.salesforce.SforceManagementImpl;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
@@ -204,6 +207,8 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
     private Map<String, Integer> tableColumnNums = new HashMap<String, Integer>();
 
     private SalesforceSchemaConnection temConnection;
+
+    private SalesforceSchemaConnection oldTemConnection;
 
     SalesforceModuleParseAPI salesforceAPI;
 
@@ -585,6 +590,15 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         });
     }
 
+    private SalesforceSchemaConnection getOriginalValueConnection() {
+        if (isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, getConnection(), null, false);
+            return OtherConnectionContextUtils.cloneOriginalValueSalesforceConnection(getConnection(), contextType);
+        }
+        return getConnection();
+
+    }
+
     /**
      * checkConnection.
      * 
@@ -603,9 +617,10 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     managerConnection.check(getIMetadataConnection());
 
                     String proxy = null;
-                    if (temConnection.isUseProxy()) {
+                    oldTemConnection = getOriginalValueConnection();
+                    if (oldTemConnection.isUseProxy()) {
                         proxy = SalesforceModuleParseAPI.USE_SOCKS_PROXY;//$NON-NLS-1$
-                    } else if (temConnection.isUseHttpProxy()) {
+                    } else if (oldTemConnection.isUseHttpProxy()) {
                         proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;//$NON-NLS-1$
                     }
 
@@ -1270,8 +1285,8 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
     }
 
     protected SalesforceSchemaConnection getConnection() {
-        if (temConnection != null) {
-            return temConnection;
+        if (oldTemConnection != null) {
+            return oldTemConnection;
         } else {
             if (forTemplate) {
                 return (SalesforceSchemaConnection) templateConntion.getConnection();
@@ -1453,7 +1468,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         /*
          * prepare to ininCustomModule
          */
-        SalesforceSchemaConnection connection = temConnection;
+        SalesforceSchemaConnection connection = oldTemConnection;
         endPoint = connection.getWebServiceUrl();
         username = connection.getUserName();
         pwd = connection.getPassword();
