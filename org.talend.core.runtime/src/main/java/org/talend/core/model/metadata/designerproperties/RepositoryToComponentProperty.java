@@ -109,7 +109,7 @@ public class RepositoryToComponentProperty {
             return getXmlFileValue((XmlFileConnection) connection, value);
         }
         if (connection instanceof DatabaseConnection) {
-            return getDatabaseValue((DatabaseConnection) connection, value, targetComponent);
+            return getDatabaseValue((DatabaseConnection) connection, value, table, targetComponent);
         }
 
         if (connection instanceof FTPConnection) {
@@ -838,7 +838,8 @@ public class RepositoryToComponentProperty {
 
     }
 
-    private static Object getDatabaseValue(DatabaseConnection connection, String value, String targetComponent) {
+    private static Object getDatabaseValue(DatabaseConnection connection, String value, IMetadataTable table,
+            String targetComponent) {
 
         String databaseType = connection.getDatabaseType();
         if (value.equals("TYPE")) { //$NON-NLS-1$
@@ -1298,6 +1299,10 @@ public class RepositoryToComponentProperty {
             }
         }
 
+        if (value.equals("COLUMN_MAPPING")) { //$NON-NLS-1$
+            return getColumnMappingValue(connection, table);
+        }
+
         return null;
 
     }
@@ -1310,7 +1315,7 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getDatabaseValue(DatabaseConnection connection, String value) {
-        return getDatabaseValue(connection, value, null);
+        return getDatabaseValue(connection, value, null, null);
     }
 
     private static boolean isContextMode(Connection connection, String value) {
@@ -1979,6 +1984,29 @@ public class RepositoryToComponentProperty {
         }
     }
 
+    private static List<Map<String, Object>> getColumnMappingValue(Connection connection, IMetadataTable metaTable) {
+        if (connection == null || metaTable == null) {
+            return null;
+        }
+
+        List<Map<String, Object>> values = new ArrayList<Map<String, Object>>();
+        List<IMetadataColumn> columns = metaTable.getListColumns();
+        if (connection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) connection;
+            String databaseType = dbConn.getDatabaseType();
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                for (IMetadataColumn column : columns) {
+                    Map<String, Object> row = new HashMap<String, Object>();
+                    row.put("SCHEMA_COLUMN", column.getLabel()); //$NON-NLS-1$
+                    row.put("FAMILY_COLUMN", TalendQuoteUtils.addQuotes(column.getAdditionalField().get("COLUMN FAMILY"))); //$NON-NLS-1$ //$NON-NLS-2$
+                    values.add(row);
+                }
+            }
+        }
+
+        return values;
+    }
+
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getFilePath())) {
@@ -2115,8 +2143,8 @@ public class RepositoryToComponentProperty {
                                 if (temp != null) {
                                     char c[] = temp.toCharArray();
                                     boolean flag = true;
-                                    for (int i = 0; i < c.length; i++) {
-                                        if (c[i] < '0' || c[i] > '9') {
+                                    for (char element : c) {
+                                        if (element < '0' || element > '9') {
                                             flag = false;
                                             break;
                                         }

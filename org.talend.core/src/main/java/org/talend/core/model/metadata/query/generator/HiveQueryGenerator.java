@@ -31,10 +31,12 @@ public class HiveQueryGenerator extends AbstractQueryGenerator {
         super(dbType);
     }
 
+    @Override
     protected boolean forceAddQuote() {
         return false;
     }
 
+    @Override
     protected String addQuotesForSQL(String field) {
         if (forceAddQuote()) {
             return super.addQuotesForSQL(field);
@@ -45,7 +47,8 @@ public class HiveQueryGenerator extends AbstractQueryGenerator {
     /**
      * For Hive it does need dbName.
      */
+    @Override
     protected String getTableNameWithDBAndSchema(final String dbName, final String schema, String tableName) {
-        return super.getTableNameWithDBAndSchema(null, schema, tableName);
+        return super.getTableNameWithDBAndSchema(dbName, schema, tableName);
     }
 }
