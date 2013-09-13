@@ -52,7 +52,7 @@ public enum EDatabaseConnTemplate {
                      "jdbc:oracle:thin:@(description=(address=(protocol=tcp)(host=<host>)(port=<port>))(connect_data=(service_name=<service_name>)))", //$NON-NLS-1$
                      "1521")), //$NON-NLS-1$
 
-    ORACLE_RAC(new DbConnStr(EDatabaseTypeName.ORACLE_RAC, //
+    ORACLE_CUSTOM(new DbConnStr(EDatabaseTypeName.ORACLE_CUSTOM, //
             "<host>")), //$NON-NLS-1$  
 
     ORACLE_OCI(new DbConnStr(EDatabaseTypeName.ORACLE_OCI, //
@@ -304,7 +304,7 @@ public enum EDatabaseConnTemplate {
             case ORACLEFORSID:
             case ORACLESN:
             case ORACLE_OCI:
-            case ORACLE_RAC:
+            case ORACLE_CUSTOM:
             case PSQL:
             case PLUSPSQL:
             case GREENPLUM:

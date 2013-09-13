@@ -446,7 +446,7 @@ public class MetadataConnectionUtils {
             DatabaseConnection dbConn = (DatabaseConnection) connection;
             if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(dbConn.getDatabaseType())
                     || EDatabaseTypeName.ORACLESN.getDisplayName().equals(dbConn.getDatabaseType())
-                    || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(dbConn.getDatabaseType())
+                    || EDatabaseTypeName.ORACLE_CUSTOM.getDisplayName().equals(dbConn.getDatabaseType())
                     || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(dbConn.getDatabaseType())) {
                 return true;
             }

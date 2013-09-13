@@ -77,7 +77,7 @@ public final class ExtractManagerFactory {
             return new MySQLExtractManager();
         case ORACLEFORSID:
         case ORACLESN:
-        case ORACLE_RAC:
+        case ORACLE_CUSTOM:
         case ORACLE_OCI:
             return new OracleExtractManager(dbType);
         case TERADATA:

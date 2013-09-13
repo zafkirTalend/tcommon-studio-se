@@ -61,7 +61,7 @@ public class ExtractManagerFactoryTest {
         extractManagerMap.put(EDatabaseTypeName.MYSQL, MySQLExtractManager.class);
         extractManagerMap.put(EDatabaseTypeName.ORACLEFORSID, OracleExtractManager.class);
         extractManagerMap.put(EDatabaseTypeName.ORACLESN, OracleExtractManager.class);
-        extractManagerMap.put(EDatabaseTypeName.ORACLE_RAC, OracleExtractManager.class);
+        extractManagerMap.put(EDatabaseTypeName.ORACLE_CUSTOM, OracleExtractManager.class);
         extractManagerMap.put(EDatabaseTypeName.ORACLE_OCI, OracleExtractManager.class);
         extractManagerMap.put(EDatabaseTypeName.TERADATA, TeradataExtractManager.class);
     }

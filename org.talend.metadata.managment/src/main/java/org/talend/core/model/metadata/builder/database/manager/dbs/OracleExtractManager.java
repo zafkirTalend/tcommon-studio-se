@@ -75,7 +75,7 @@ public class OracleExtractManager extends ExtractManager {
             ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
             if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())
-                    || EDatabaseTypeName.ORACLE_RAC.getDisplayName().equals(metadataConnection.getDbType())
+                    || EDatabaseTypeName.ORACLE_CUSTOM.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(metadataConnection.getDbType())) {
                 ResultSet rsTables = stmt.executeQuery(ORACLE_10G_RECBIN_SQL);
                 tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);

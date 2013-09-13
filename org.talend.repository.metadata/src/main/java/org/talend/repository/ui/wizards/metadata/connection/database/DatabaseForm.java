@@ -2336,7 +2336,7 @@ public class DatabaseForm extends AbstractForm {
         if (dbType.equals(EDatabaseConnTemplate.ORACLEFORSID.getDBDisplayName())
                 || dbType.equals(EDatabaseConnTemplate.ORACLESN.getDBDisplayName())
                 || dbType.equals(EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName())
-                || dbType.equals(EDatabaseConnTemplate.ORACLE_RAC.getDBDisplayName())) {
+                || dbType.equals(EDatabaseConnTemplate.ORACLE_CUSTOM.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isOracle);
         } else if (dbType.equals(EDatabaseConnTemplate.AS400.getDBDisplayName())) {
@@ -3055,12 +3055,12 @@ public class DatabaseForm extends AbstractForm {
 
                 }
             }
-            if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+            if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_CUSTOM)) {
                 urlConnectionStringText.hide();
             } else {
                 urlConnectionStringText.show();
             }
-            if (isDBTypeSelected(EDatabaseConnTemplate.ORACLE_RAC)) {
+            if (isDBTypeSelected(EDatabaseConnTemplate.ORACLE_CUSTOM)) {
                 serverText.setLabelText(Messages.getString("DatabaseForm.stringConnection"));
             } else {
                 serverText.setLabelText(Messages.getString("DatabaseForm.server"));
@@ -3407,7 +3407,7 @@ public class DatabaseForm extends AbstractForm {
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null
                 && (template == EDatabaseConnTemplate.ORACLEFORSID || template == EDatabaseConnTemplate.ORACLESN
-                        || template == EDatabaseConnTemplate.ORACLE_OCI || template == EDatabaseConnTemplate.ORACLE_RAC);
+                        || template == EDatabaseConnTemplate.ORACLE_OCI || template == EDatabaseConnTemplate.ORACLE_CUSTOM);
     }
 
     /**

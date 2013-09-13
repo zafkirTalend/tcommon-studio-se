@@ -410,7 +410,7 @@
                 type="ORACLE_OCI">
           </DBType>
           <DBType
-                type="ORACLE_RAC">
+                type="ORACLE_CUSTOM">
           </DBType>
           <DBType
                 type="ORACLESN">
