@@ -32,6 +32,8 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
 
     private static final String BROWSER_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.OpenWebBrowserAction&type="; //$NON-NLS-1$
 
+    private static final String BROWSER_DEMO_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.ImportDemoProjectAction&type="; //$NON-NLS-1$
+
     @Override
     public void createContent(String id, Element parent) {
         String dBranding = "default";
@@ -205,16 +207,20 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             String hTutorial = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle");
             String hforum = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle");
             String hTrainning = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningTitle");
-            hyperlinkText = new String[] { hTutorial, hforum, hTrainning };
+            String demoProject = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoTitle");
+            hyperlinkText = new String[] { hTutorial, hforum, hTrainning, demoProject };
 
-            urls = new String[] { BROWSER_URL + "showTutorials", BROWSER_URL + "showForums", BROWSER_URL + "showTrainning" };
+            urls = new String[] { BROWSER_URL + "showTutorials", BROWSER_URL + "showForums", BROWSER_URL + "showTrainning",
+                    BROWSER_DEMO_URL + "ShowDemos" };
 
             String extTutorial = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsBrief");
             String extforum = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsBrief");
             String extTrainning = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningBrief");
-            extTexts = new String[] { extTutorial, extforum, extTrainning };
+            String extDemo = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoBrief");
+            extTexts = new String[] { extTutorial, extforum, extTrainning, extDemo };
 
             createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
+
             // start now button
             Element imgP = dom.createElement("p");
             imgP.setAttribute("align", "center");

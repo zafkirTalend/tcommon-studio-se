@@ -29,6 +29,8 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
 
     private static final String BROWSER_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.OpenWebBrowserAction&type="; //$NON-NLS-1$
 
+    private static final String BROWSER_DEMO_URL = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.rcp&class=org.talend.rcp.intro.ImportDemoProjectAction&type="; //$NON-NLS-1$
+
     /*
      * (non-Javadoc)
      * 
@@ -408,33 +410,45 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(pGS);
             Element blockquoteGS = dom.createElement("blockquote");
             Element blockquotePGS = dom.createElement("p");
+
             Element blockquoteA1GS = dom.createElement("a");
-            blockquoteA1GS.setAttribute("href", BROWSER_URL + "showTutorials");
+            blockquoteA1GS.setAttribute("href", BROWSER_DEMO_URL + "showDemos");
             blockquoteA1GS.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle")));
+                    .getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoTitle")));
 
             Element blockquoteA2GS = dom.createElement("a");
-            blockquoteA2GS.setAttribute("href", BROWSER_URL + "showForums");
+            blockquoteA2GS.setAttribute("href", BROWSER_URL + "showTutorials");
             blockquoteA2GS.appendChild(dom.createTextNode(Messages
-                    .getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle")));
+                    .getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle")));
 
             Element blockquoteA3GS = dom.createElement("a");
-            blockquoteA3GS.setAttribute("href", BROWSER_URL + "showTrainning");
+            blockquoteA3GS.setAttribute("href", BROWSER_URL + "showForums");
             blockquoteA3GS.appendChild(dom.createTextNode(Messages
+                    .getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle")));
+
+            Element blockquoteA4GS = dom.createElement("a");
+            blockquoteA4GS.setAttribute("href", BROWSER_URL + "showTrainning");
+            blockquoteA4GS.appendChild(dom.createTextNode(Messages
                     .getString("WelcomePageDynamicContentProvider.GettingStartedTrainningTitle")));
 
             blockquotePGS.appendChild(blockquoteA1GS);
             blockquotePGS.appendChild(dom.createTextNode(": "
-                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsBrief")));
+                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoBrief")));
             blockquotePGS.appendChild(dom.createElement("br"));
             blockquotePGS.appendChild(blockquoteA2GS);
             blockquotePGS.appendChild(dom.createTextNode(": "
-                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsBrief")));
+                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsBrief")));
             blockquotePGS.appendChild(dom.createElement("br"));
             blockquotePGS.appendChild(blockquoteA3GS);
             blockquotePGS.appendChild(dom.createTextNode(": "
+                    + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsBrief")));
+            blockquotePGS.appendChild(dom.createElement("br"));
+            blockquotePGS.appendChild(blockquoteA4GS);
+            blockquotePGS.appendChild(dom.createTextNode(": "
                     + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningBrief")));
+
             blockquoteGS.appendChild(blockquotePGS);
+
             parent.appendChild(blockquoteGS);
         }
     }

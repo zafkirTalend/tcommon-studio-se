@@ -105,6 +105,16 @@ the &quot;override&quot; atrribute depend on this id value.
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="icon" type="string">
+            <annotation>
+               <documentation>
+                  Will be displayed in the demo projects list, when import demo projects in dialog
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
