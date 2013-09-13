@@ -87,12 +87,25 @@ public class RepositoryObject implements IRepositoryObject {
         if (!(obj instanceof RepositoryObject)) {
             return false;
         }
-        if (property == null) {
+        if (getProperty() == null) {
             return super.equals(obj);
         }
         RepositoryObject another = (RepositoryObject) obj;
 
         return getProperty().equals(another.getProperty());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        if (this.getProperty() != null) {
+            return 13 * this.getProperty().hashCode();
+        }
+        return super.hashCode();
     }
 
     @Override

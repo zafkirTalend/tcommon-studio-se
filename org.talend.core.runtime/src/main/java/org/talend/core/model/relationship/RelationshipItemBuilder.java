@@ -94,6 +94,10 @@ public class RelationshipItemBuilder {
 
     public static final String REPORT_RELATION = "report"; //$NON-NLS-1$
 
+    public static final String RULE_RELATION = "rule"; //$NON-NLS-1$
+
+    public static final String PATTERN_RELATION = "pattern"; //$NON-NLS-1$
+
     /*
      * 
      */

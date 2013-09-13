@@ -619,4 +619,17 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         return sb.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        if (this.getId() != null) {
+            return 17 * this.getId().hashCode();
+        }
+        return super.hashCode();
+    }
+
 }
