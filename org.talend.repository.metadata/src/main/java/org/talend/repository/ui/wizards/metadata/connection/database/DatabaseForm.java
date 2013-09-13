@@ -226,6 +226,8 @@ public class DatabaseForm extends AbstractForm {
 
     private Button hiveCustomButton;
 
+    private Button useYarnButton;
+
     private LabelledText urlConnectionStringText;
 
     private LabelledFileField fileField;
@@ -280,6 +282,8 @@ public class DatabaseForm extends AbstractForm {
     private Composite compositeGroupDbSettings;
 
     private Group hiveComposite;
+
+    private Composite yarnComp;
 
     private LabelledText generalMappingFileText;
 
@@ -1033,8 +1037,22 @@ public class DatabaseForm extends AbstractForm {
 
         hiveCustomButton = new Button(hiveComposite, SWT.NULL);
         hiveCustomButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
-        hiveCustomButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
+        hiveCustomButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 3, 1));
 
+        createYarnPart(hiveComposite);
+    }
+
+    private void createYarnPart(Composite parent) {
+        yarnComp = new Composite(parent, SWT.NONE);
+        GridLayout yarnLayout = new GridLayout();
+        yarnLayout.marginWidth = 0;
+        yarnLayout.marginHeight = 0;
+        yarnComp.setLayout(yarnLayout);
+        yarnComp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 7, 1));
+
+        useYarnButton = new Button(yarnComp, SWT.CHECK);
+        useYarnButton.setText(Messages.getString("DatabaseForm.useYarn")); //$NON-NLS-1$
+        useYarnButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
     }
 
     /**
@@ -3686,6 +3704,14 @@ public class DatabaseForm extends AbstractForm {
             metastoreConnDriverJar.setText(metastoreConnDriverJarStr == null ? "" : metastoreConnDriverJarStr); //$NON-NLS-1$
             metastoreConnDriverName.setText(metastoreConnDriverNameStr == null ? "" : metastoreConnDriverNameStr); //$NON-NLS-1$
         }
+
+        updateYarnStatus();
+    }
+
+    private void updateYarnStatus() {
+        DatabaseConnection connection = getConnection();
+        String useYarn = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN);
+        useYarnButton.setSelection(Boolean.valueOf(useYarn));
     }
 
     /**
@@ -3706,6 +3732,7 @@ public class DatabaseForm extends AbstractForm {
         regHiveRelatedWidgetJobTrackerTxtListener();
         regHiveRelatedWidgetHiveServerComboListener();
         regHiveCustomBtnListener();
+        regUseYarnBtnListener();
         // regHiveRelatedWidgetMetastoreConnURLListener();
         // regHiveRelatedWidgetMetastoreConnUserNameListener();
         // regHiveRelatedWidgetMetastoreConnPasswordListener();
@@ -3750,6 +3777,16 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 doHiveVersionModify();
+            }
+        });
+    }
+
+    private void regUseYarnBtnListener() {
+        useYarnButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                doUseYarnModify();
             }
         });
     }
@@ -3964,9 +4001,8 @@ public class DatabaseForm extends AbstractForm {
             // for Hive mode. 3. To update connection parameters.
             updateHiveVersionAndMakeSelection(indexSelected, 0);
             updateHiveModeAndMakeSelection(currIndexofDistribution, 0, 0);
-
-            doHiveModeModify();
             setHideVersionInfoWidgets(false);
+            doHiveModeModify();
         }
     }
 
@@ -3983,6 +4019,16 @@ public class DatabaseForm extends AbstractForm {
             updateHiveModeAndMakeSelection(distributionIndex, currSelectedIndex, 0);
             updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
             doHiveModeModify();
+        }
+    }
+
+    protected void doUseYarnModify() {
+        if (!isContextMode()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN,
+                    String.valueOf(useYarnButton.getSelection()));
+            jobTrackerURLTxt
+                    .setLabelText(useYarnButton.getSelection() ? Messages.getString("DatabaseForm.resourceManager") : Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL")); //$NON-NLS-1$ //$NON-NLS-2$
+            hadoopPropGrp.layout();
         }
     }
 
@@ -4269,11 +4315,14 @@ public class DatabaseForm extends AbstractForm {
             hiveCustomButton.setVisible(!hide);
             hiveServerVersionCombo.setHideWidgets(true);
         } else {
+            GridData yarnCompGd = (GridData) yarnComp.getLayoutData();
             if (HiveConnUtils.isCustomDistro(currIndexofDistribution)) {
                 hiveVersionCombo.setHideWidgets(true);
                 hiveModeCombo.setHideWidgets(false);
                 hiveCustomButton.setVisible(true);
                 hiveServerVersionCombo.setHideWidgets(false);
+                yarnComp.setVisible(true);
+                yarnCompGd.exclude = false;
             } else {
                 if (HiveConnUtils.isSupportHiveServer2(currIndexofDistribution, currIndexofHiveVersion)) {
                     hiveServerVersionCombo.setHideWidgets(false);
@@ -4283,23 +4332,11 @@ public class DatabaseForm extends AbstractForm {
                 hiveVersionCombo.setHideWidgets(false);
                 hiveModeCombo.setHideWidgets(false);
                 hiveCustomButton.setVisible(false);
+                yarnComp.setVisible(false);
+                yarnCompGd.exclude = true;
+                useYarnButton.setSelection(false);
             }
-        }
-    }
-
-    private void setHideCustomWidget(boolean hide) {
-        GridData hiveCompGD = (GridData) hiveComposite.getLayoutData();
-        hiveComposite.setVisible(!hide);
-        hiveCompGD.exclude = hide;
-        hiveCustomButton.setVisible(!hide);
-        if (!hide) {
-            distributionCombo.setHideWidgets(false);
-            hiveVersionCombo.setHideWidgets(true);
-            hiveModeCombo.setHideWidgets(true);
-        } else {
-            distributionCombo.setHideWidgets(false);
-            hiveVersionCombo.setHideWidgets(false);
-            hiveModeCombo.setHideWidgets(false);
+            doUseYarnModify();
         }
     }
 

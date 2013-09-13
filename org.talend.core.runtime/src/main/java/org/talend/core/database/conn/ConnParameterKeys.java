@@ -46,6 +46,8 @@ public class ConnParameterKeys {
 
     public static final String CONN_PARA_KEY_JOB_TRACKER_URL = "CONN_PARA_KEY_JOB_TRACKER_URL"; //$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_USE_YARN = "CONN_PARA_KEY_USE_YARN"; //$NON-NLS-1$
+
     public static final String CONN_PARA_KEY_USE_KRB = "CONN_PARA_KEY_USE_KRB"; //$NON-NLS-1$
 
     public static final String CONN_PARA_KEY_NAME_NODE_PRINCIPAL = "CONN_PARA_KEY_NAME_NODE_PRINCIPAL"; //$NON-NLS-1$

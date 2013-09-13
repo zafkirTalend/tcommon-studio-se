@@ -30,6 +30,10 @@ public enum HiveConfKeysForTalend {
      */
     HIVE_CONF_KEY_MAPRED_JOB_TRACKER("mapred.job.tracker"), //$NON-NLS-1$
 
+    HIVE_CONF_KEY_MAPREDUCE_FRAMEWORK_NAME("mapreduce.framework.name"), //$NON-NLS-1$
+
+    HIVE_CONF_KEY_YARN_RESOURCEMANAGER_ADDRESS("yarn.resourcemanager.address"), //$NON-NLS-1$
+
     HIVE_CONF_KEY_JDO_CONNECTION_URL("javax.jdo.option.ConnectionURL"), //$NON-NLS-1$
 
     HIVE_CONF_KEY_JDO_CONNECTION_USERNAME("javax.jdo.option.ConnectionUserName"), //$NON-NLS-1$

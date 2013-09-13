@@ -1228,12 +1228,22 @@ public class RepositoryToComponentProperty {
             }
         }
 
-        if (value.equals(EParameterNameForComponent.PARA_NAME_MAPRED_JT.getName())) {
+        if (value.equals(EParameterNameForComponent.PARA_NAME_MAPRED_JT.getName())
+                || value.equals(EParameterNameForComponent.PARA_NAME_RESOURCE_MANAGER.getName())) {
             String jobTrackerURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             if (isContextMode(connection, jobTrackerURL)) {
                 return jobTrackerURL;
             } else {
                 return TalendQuoteUtils.addQuotes(jobTrackerURL);
+            }
+        }
+
+        if (value.equals(EParameterNameForComponent.PARA_NAME_USE_YARN.getName())) {
+            String useYarn = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN);
+            if (isContextMode(connection, useYarn)) {
+                return useYarn;
+            } else {
+                return Boolean.valueOf(useYarn);
             }
         }
 
