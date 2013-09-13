@@ -12,7 +12,8 @@
          point="org.talend.core.runtime.demoProjects_provider">
       <demoProvider
             descHtml="resources/demoprojects/di_demos.html"
-            description="Data Integration Demos Project"
+            description="Data Integration Demo"
+            icon="resources/demoprojects/product-icon-di-16px.gif"
             id="org.talend.demo.project.di"
             name="DI_DEMOS"
             order="10"
