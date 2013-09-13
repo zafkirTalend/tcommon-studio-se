@@ -26,6 +26,7 @@ import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
@@ -100,6 +101,8 @@ public interface IRepositoryService extends IService {
             String selectedContext);
 
     public void setMetadataConnectionParameter(DatabaseConnection dbConn, IMetadataConnection metaConn);
+
+    public FileConnection cloneOriginalValueConnection(FileConnection fileConn);
 
     public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
 
