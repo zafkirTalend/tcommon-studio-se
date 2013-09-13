@@ -1014,7 +1014,7 @@ public class RepositoryToComponentProperty {
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                     return "ORACLE_OCI";
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_CUSTOM.getDisplayName())) {
-                    return "ORACLE_CUSTOM";
+                    return "ORACLE_RAC";
                 }
             } else {
                 if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
@@ -1024,7 +1024,7 @@ public class RepositoryToComponentProperty {
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                     return "ORACLE_OCI";
                 } else if (databaseType.equals(EDatabaseTypeName.ORACLE_CUSTOM.getDisplayName())) {
-                    return "ORACLE_CUSTOM";
+                    return "ORACLE_RAC";
                 }
             }
         }
