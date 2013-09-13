@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+<!-- hide the import toolbar in 5.4 first. -->
+<!--
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
@@ -26,4 +28,5 @@
          </actionSet>
       </perspectiveExtension>
    </extension>
+   -->
 </plugin>
