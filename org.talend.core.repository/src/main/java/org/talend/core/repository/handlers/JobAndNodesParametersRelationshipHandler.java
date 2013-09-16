@@ -100,14 +100,17 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
             findRelations(baseItem, jobParametersMap, relationsMap, jobOptions);
         }
         //
-        for (Object o : processType.getNode()) {
-            if (o instanceof NodeType) {
-                NodeType node = (NodeType) o;
-                Map<String, ElementParameterType> nodeParametersMap = getParameterTypesMap(node.getElementParameter());
-                Map<String, Object> jobOptions = new HashMap<String, Object>();
-                jobOptions.put(RelationshipItemBuilder.OPTION_KEY_TYPE, RelationshipItemBuilder.OPTION_TYPE_NODE);
-                jobOptions.put(RelationshipItemBuilder.OPTION_KEY_NODE, node);
-                findRelations(baseItem, nodeParametersMap, relationsMap, jobOptions);
+        final EList nodesList = processType.getNode();
+        if (nodesList != null) {
+            for (Object o : nodesList) {
+                if (o instanceof NodeType) {
+                    NodeType node = (NodeType) o;
+                    Map<String, ElementParameterType> nodeParametersMap = getParameterTypesMap(node.getElementParameter());
+                    Map<String, Object> jobOptions = new HashMap<String, Object>();
+                    jobOptions.put(RelationshipItemBuilder.OPTION_KEY_TYPE, RelationshipItemBuilder.OPTION_TYPE_NODE);
+                    jobOptions.put(RelationshipItemBuilder.OPTION_KEY_NODE, node);
+                    findRelations(baseItem, nodeParametersMap, relationsMap, jobOptions);
+                }
             }
         }
         return relationsMap;
