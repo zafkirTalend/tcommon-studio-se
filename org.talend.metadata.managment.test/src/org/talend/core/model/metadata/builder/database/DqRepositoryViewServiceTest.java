@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,6 +25,8 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
+import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.Property;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -33,17 +36,20 @@ import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
+import org.talend.cwm.xml.XmlFactory;
 import org.talend.utils.sql.ConnectionUtils;
-import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author zshen
- *
+ * 
  */
 
 @PrepareForTest({ MetadataConnectionUtils.class, ConnectionUtils.class, MetadataFillFactory.class, ColumnSetHelper.class,
@@ -53,11 +59,130 @@ public class DqRepositoryViewServiceTest {
     @Rule
     public PowerMockRule powerMockRule = new PowerMockRule();
 
+    private static final String BASE_NAME = "base_name"; //$NON-NLS-1$
+
+    private static final String EXT_NAME = "ext"; //$NON-NLS-1$
+
+    private static final String CATALOG_PATTERN = "catalog_pattern"; //$NON-NLS-1$
+
+    private static final String SCHEMA_PATTERN = "schema_pattern"; //$NON-NLS-1$
+
+    private static final String TABLE_PATTERN = "table_pattern"; //$NON-NLS-1$
+
+    private static final String VIEW_PATTERN = "view_pattern"; //$NON-NLS-1$
+
+    private static final String COLUMN_PATTERN = "column_pattern"; //$NON-NLS-1$
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#createTechnicalName(java.lang.String)}
+     * .
+     */
+    @Test
+    public void testCreateTechnicalName() {
+        Assert.assertNotNull(DqRepositoryViewService.createTechnicalName(BASE_NAME));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#refreshDataProvider(org.talend.core.model.metadata.builder.connection.Connection, java.lang.String, java.lang.String)}
+     * .
+     */
+    @Test
+    public void testRefreshDataProvider() {
+        Connection dataProvider = null; // need to create a real Connection object if the method
+                                        // refreshDataProvider() implement
+        Assert.assertFalse(DqRepositoryViewService.refreshDataProvider(dataProvider, CATALOG_PATTERN, SCHEMA_PATTERN));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#refreshTables(orgomg.cwm.objectmodel.core.Package, java.lang.String)}
+     * .
+     */
+    @Test
+    public void testRefreshTables() {
+        Package schema = null; // need to create a real Package object if the method
+                               // refreshTables() implement
+        Assert.assertFalse(DqRepositoryViewService.refreshTables(schema, TABLE_PATTERN));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#refreshViews(orgomg.cwm.objectmodel.core.Package, java.lang.String)}
+     * .
+     */
+    @Test
+    public void testRefreshViews() {
+        Package schema = null; // need to create a real Package object if the method
+                               // refreshViews() implement
+        Assert.assertFalse(DqRepositoryViewService.refreshViews(schema, VIEW_PATTERN));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#refreshColumns(orgomg.cwm.resource.relational.ColumnSet, java.lang.String)}
+     * .
+     */
+    @Test
+    public void testRefreshColumns() {
+        ColumnSet table = null; // need to create a real Package object if the method
+                                // refreshColumns() implement
+        Assert.assertFalse(DqRepositoryViewService.refreshColumns(table, COLUMN_PATTERN));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#createFilename(java.lang.String, java.lang.String)}
+     * .
+     */
+    @Test
+    public void testCreateFilename() {
+        Assert.assertNotNull(DqRepositoryViewService.createFilename(BASE_NAME, EXT_NAME));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#buildElementName(org.talend.core.model.properties.Property)}
+     * .
+     */
+    @Test
+    public void testBuildElementName() {
+        String displayName = "displayName"; //$NON-NLS-1$
+        String version = "version"; //$NON-NLS-1$
+        String elementName = displayName + " " + version; //$NON-NLS-1$
+
+        Property createProperty = PropertiesFactory.eINSTANCE.createProperty();
+        createProperty.setDisplayName(displayName);
+        createProperty.setVersion(version);
+
+        Assert.assertTrue(elementName.equals(DqRepositoryViewService.buildElementName(createProperty)));
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#hasChildren(org.talend.cwm.xml.TdXmlElementType)}
+     * .
+     */
+    @Test
+    public void testHasChildren() {
+        String schemaName = "XmlSchemaName"; //$NON-NLS-1$
+        TdXmlSchema createTdXmlSchema = XmlFactory.eINSTANCE.createTdXmlSchema();
+        createTdXmlSchema.setName(schemaName);
+
+        String elementTypeName = "XmlElementTypeName"; //$NON-NLS-1$
+        TdXmlElementType createTdXmlElementType = XmlFactory.eINSTANCE.createTdXmlElementType();
+        createTdXmlElementType.setName(elementTypeName);
+        createTdXmlElementType.setOwnedDocument(createTdXmlSchema);
+
+        Assert.assertTrue(DqRepositoryViewService.hasChildren(createTdXmlElementType));
+    }
+
     /**
      * Test method for
      * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#getColumns(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.ColumnSet, java.lang.String, boolean)}
      * .
-     *
+     * 
      * @throws SQLException
      */
     @Test
@@ -106,7 +231,6 @@ public class DqRepositoryViewServiceTest {
 
     }
 
-
     private DatabaseConnection createDatabaseConn() {
         DatabaseConnection databaseConnection = ConnectionPackage.eINSTANCE.getConnectionFactory().createDatabaseConnection();
         databaseConnection.setLabel(getClass().getName() + "_CONN"); //$NON-NLS-1$
@@ -123,7 +247,7 @@ public class DqRepositoryViewServiceTest {
      * Test method for
      * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#isContainsTable(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Catalog, java.lang.String)}
      * .
-     *
+     * 
      */
     @Test
     public void testIsContainsTableConnectionCatalogString() {
@@ -134,7 +258,6 @@ public class DqRepositoryViewServiceTest {
         DatabaseMetaData metaData = null;
         java.sql.Connection sqlConn = null;
         Catalog catalog = null;
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         // mock ResultSet
         ResultSet tables = Mockito.mock(ResultSet.class);
         try {
@@ -145,7 +268,8 @@ public class DqRepositoryViewServiceTest {
             metaData = Mockito.mock(DatabaseMetaData.class);
             // catalogOrSchema.getName(), null, tablePattern, tableType
 
-            Mockito.when(metaData.getTables(catalogName, null, tablePattern, tableType)).thenReturn(tables);
+            Mockito.when(metaData.getTables(catalogName, null, tablePattern, DqRepositoryViewService.TABLE_TYPES)).thenReturn(
+                    tables);
 
             // ~mock
             // mock dataProvider
@@ -186,7 +310,7 @@ public class DqRepositoryViewServiceTest {
 
             containsTable = DqRepositoryViewService.isContainsTable(dataProvider, catalog, tablePattern);
 
-            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, tableType);
+            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
             Mockito.verify(sqlConn).isClosed();
@@ -219,7 +343,6 @@ public class DqRepositoryViewServiceTest {
         DatabaseMetaData metaData = null;
         java.sql.Connection sqlConn = null;
         Schema schema = null;
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         // mock ResultSet
         ResultSet tables = Mockito.mock(ResultSet.class);
         try {
@@ -230,7 +353,8 @@ public class DqRepositoryViewServiceTest {
             metaData = Mockito.mock(DatabaseMetaData.class);
             // catalogOrSchema.getName(), null, tablePattern, tableType
 
-            Mockito.when(metaData.getTables(null, schemaName, tablePattern, tableType)).thenReturn(tables);
+            Mockito.when(metaData.getTables(null, schemaName, tablePattern, DqRepositoryViewService.TABLE_TYPES)).thenReturn(
+                    tables);
 
             // ~mock
             // mock dataProvider
@@ -273,7 +397,7 @@ public class DqRepositoryViewServiceTest {
 
             containsTable = DqRepositoryViewService.isContainsTable(dataProvider, schema, tablePattern);
 
-            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, tableType);
+            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
             Mockito.verify(sqlConn).isClosed();
@@ -304,7 +428,6 @@ public class DqRepositoryViewServiceTest {
         DatabaseMetaData metaData = null;
         java.sql.Connection sqlConn = null;
         Catalog catalog = null;
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         // mock ResultSet
         ResultSet tables = Mockito.mock(ResultSet.class);
         try {
@@ -315,7 +438,8 @@ public class DqRepositoryViewServiceTest {
             metaData = Mockito.mock(DatabaseMetaData.class);
             // catalogOrSchema.getName(), null, tablePattern, tableType
 
-            Mockito.when(metaData.getTables(catalogName, null, tablePattern, tableType)).thenReturn(tables);
+            Mockito.when(metaData.getTables(catalogName, null, tablePattern, DqRepositoryViewService.VIEW_TYPES)).thenReturn(
+                    tables);
 
             // ~mock
             // mock dataProvider
@@ -356,7 +480,7 @@ public class DqRepositoryViewServiceTest {
 
             containsTable = DqRepositoryViewService.isContainsView(dataProvider, catalog, tablePattern);
 
-            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, tableType);
+            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
             Mockito.verify(sqlConn).isClosed();
@@ -387,7 +511,6 @@ public class DqRepositoryViewServiceTest {
         DatabaseMetaData metaData = null;
         java.sql.Connection sqlConn = null;
         Schema schema = null;
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         // mock ResultSet
         ResultSet tables = Mockito.mock(ResultSet.class);
         try {
@@ -398,7 +521,8 @@ public class DqRepositoryViewServiceTest {
             metaData = Mockito.mock(DatabaseMetaData.class);
             // catalogOrSchema.getName(), null, tablePattern, tableType
 
-            Mockito.when(metaData.getTables(null, schemaName, tablePattern, tableType)).thenReturn(tables);
+            Mockito.when(metaData.getTables(null, schemaName, tablePattern, DqRepositoryViewService.VIEW_TYPES)).thenReturn(
+                    tables);
 
             // ~mock
             // mock dataProvider
@@ -441,7 +565,7 @@ public class DqRepositoryViewServiceTest {
 
             containsTable = DqRepositoryViewService.isContainsView(dataProvider, schema, tablePattern);
 
-            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, tableType);
+            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
             Mockito.verify(sqlConn).isClosed();
@@ -741,8 +865,9 @@ public class DqRepositoryViewServiceTest {
             // ~FillFactory
             MetadataFillFactory metadataMock = Mockito.mock(MetadataFillFactory.class);
             Mockito.when(
-                    metadataMock.fillViews(Mockito.eq(catalog), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern)))
-                    .thenReturn(retableList).thenReturn(retableList);
+                    metadataMock.fillViews(Mockito.eq(catalog), Mockito.eq(metaData), Mockito.anyList(),
+                            Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES))).thenReturn(retableList)
+                    .thenReturn(retableList);
 
             // Mockito.when(
             // metadataMock.fillColumns(Mockito.eq(mockColumnSet), (DatabaseMetaData) Mockito.any(),
@@ -771,7 +896,7 @@ public class DqRepositoryViewServiceTest {
 
             // Mockito.verify(catalog, Mockito.times(2)).getName();
             Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(catalog), Mockito.eq(metaData),
-                    Mockito.anyList(), Mockito.eq(tablePattern));
+                    Mockito.anyList(), Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
             Mockito.verify(metadataMock).setLinked(true);
             Mockito.verify(metadataMock).setLinked(false);
             Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, catalog, sqlConn, metaData, metadataMock);
@@ -853,8 +978,8 @@ public class DqRepositoryViewServiceTest {
             // ~FillFactory
             MetadataFillFactory metadataMock = Mockito.mock(MetadataFillFactory.class);
             Mockito.when(
-                    metadataMock.fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern)))
-                    .thenReturn(retableList).thenReturn(retableList);
+                    metadataMock.fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern),
+                            Mockito.eq(DqRepositoryViewService.VIEW_TYPES))).thenReturn(retableList).thenReturn(retableList);
 
             // Mockito.when(
             // metadataMock.fillColumns(Mockito.eq(mockColumnSet), (DatabaseMetaData) Mockito.any(),
@@ -886,7 +1011,7 @@ public class DqRepositoryViewServiceTest {
 
             // Mockito.verify(schema, Mockito.times(2)).getName();
             Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(),
-                    Mockito.eq(tablePattern));
+                    Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
             Mockito.verify(metadataMock).setLinked(true);
             Mockito.verify(metadataMock).setLinked(false);
             Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, schema, sqlConn, metaData, metadataMock, catalog);
