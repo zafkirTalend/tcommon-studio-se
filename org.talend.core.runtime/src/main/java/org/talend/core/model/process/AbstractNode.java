@@ -967,8 +967,12 @@ public abstract class AbstractNode implements INode {
     }
 
     @Override
-    public IElementParameter getElementParameterFromField(EParameterFieldType dbtable) {
-        // TODO Auto-generated method stub
+    public IElementParameter getElementParameterFromField(EParameterFieldType fieldType) {
+        for (IElementParameter elementParam : getElementParameters()) {
+            if (elementParam.getFieldType().equals(fieldType)) {
+                return elementParam;
+            }
+        }
         return null;
     }
 
