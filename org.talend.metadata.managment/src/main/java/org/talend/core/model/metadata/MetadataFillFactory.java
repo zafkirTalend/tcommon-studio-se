@@ -219,8 +219,8 @@ public class MetadataFillFactory {
      * package will be return.
      * @return The list of views after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter) {
-        return metadataFiller.fillViews(pack, dbJDBCMetadata, viewFilter, null);
+    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String[] tableType) {
+        return metadataFiller.fillViews(pack, dbJDBCMetadata, viewFilter, null, tableType);
     }
 
     /**
@@ -236,8 +236,9 @@ public class MetadataFillFactory {
      * don't want to use it null is ok.
      * @return The list of views after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern) {
-        return metadataFiller.fillViews(pack, dbJDBCMetadata, viewFilter, viewPattern);
+    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern,
+            String[] tableType) {
+        return metadataFiller.fillViews(pack, dbJDBCMetadata, viewFilter, viewPattern, tableType);
     }
 
     /**

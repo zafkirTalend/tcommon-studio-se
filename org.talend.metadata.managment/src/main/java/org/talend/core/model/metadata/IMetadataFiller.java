@@ -153,7 +153,8 @@ public interface IMetadataFiller {
      * don't want to use it null is ok.
      * @return The list of views after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern);
+    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern,
+            String[] tableType);
 
     /**
      * 

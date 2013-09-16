@@ -51,7 +51,6 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.utils.sql.ConnectionUtils;
-import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
@@ -88,10 +87,10 @@ public final class DqRepositoryViewService {
 
     private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
 
-    private static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
+    public static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
             ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName() };
 
-    private static final String[] VIEW_TYPES = new String[] { ETableTypes.TABLETYPE_VIEW.getName(),
+    public static final String[] VIEW_TYPES = new String[] { ETableTypes.TABLETYPE_VIEW.getName(),
             ETableTypes.VIRTUAL_VIEW.getName() };
 
     /**
@@ -335,7 +334,7 @@ public final class DqRepositoryViewService {
 
         String catalogName = catalog.getName();
         if (catalogName == null) {
-            log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS"));  //$NON-NLS-1$
+            log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS")); //$NON-NLS-1$
             return tables;
         }
         return loadTables(dataProvider, catalog, null, tablePattern);
@@ -355,7 +354,6 @@ public final class DqRepositoryViewService {
         }
 
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         try {
             DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
                     (DatabaseConnection) dataPloadTablesrovider, false);
@@ -364,18 +362,18 @@ public final class DqRepositoryViewService {
             // element)
             if (schema != null) {
                 if (PackageHelper.getTables(schema).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             } else {
                 if (PackageHelper.getTables(catalog).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             }
@@ -409,18 +407,18 @@ public final class DqRepositoryViewService {
             // element)
             if (schema != null) {
                 if (PackageHelper.getViews(schema).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             } else {
                 if (PackageHelper.getViews(catalog).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             }

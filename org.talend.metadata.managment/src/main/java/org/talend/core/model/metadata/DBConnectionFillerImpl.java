@@ -1098,7 +1098,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     @Override
-    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern) {
+    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern,
+            String[] tableType) {
         List<TdView> viewList = new ArrayList<TdView>();
         if (dbJDBCMetadata == null) {
             return null;
@@ -1107,7 +1108,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         String catalogName = null;
         String schemaPattern = null;
 
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         if (catalogOrSchema != null) {
             // catalog
             if (catalogOrSchema instanceof Catalog) {
