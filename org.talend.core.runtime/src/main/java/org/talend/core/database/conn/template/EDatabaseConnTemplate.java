@@ -147,7 +147,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:sasiom://<host>:<port>", //$NON-NLS-1$
             "8591")), //$NON-NLS-1$
     // "jdbc:sap://talendhana.cld.sr:30015";
-    SAP(new DbConnStr(EDatabaseTypeName.SAP, //
+    SAPHana(new DbConnStr(EDatabaseTypeName.SAPHana, //
             "jdbc:sap://<host>:<port>", //$NON-NLS-1$
             "30015")), //$NON-NLS-1$
 
@@ -318,7 +318,7 @@ public enum EDatabaseConnTemplate {
             case IBMDB2_ZOS:
             case SYBASEASE:
             case SAS:
-            case SAP:
+            case SAPHana:
             case HBASE:
                 return true;
             default:

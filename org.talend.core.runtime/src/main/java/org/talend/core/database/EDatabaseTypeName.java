@@ -105,7 +105,8 @@ public enum EDatabaseTypeName {
 
     HIVE("Hive", "Hive", Boolean.FALSE, "HIVE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    SAP("SAP", "SAP", Boolean.TRUE, "SAP", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SAPHana(
+            "SAPHana", "SAPHana", Boolean.TRUE, "SAPHana", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     H2("H2", "H2", Boolean.FALSE, "H2", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 

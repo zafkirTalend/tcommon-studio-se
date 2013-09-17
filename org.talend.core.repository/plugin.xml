@@ -574,15 +574,15 @@
           </DBType>
        </RepositoryComponent>
        <RepositoryComponent
-             input="tSAPInput"
-             name="SAP"
-             output="tSAPOutput"
+             input="tSAPHanaInput"
+             name="SAPHana"
+             output="tSAPHanaOutput"
              withSchema="true">
           <Item
                 clazz="org.talend.core.model.properties.DatabaseConnectionItem">
           </Item>
           <DBType
-                type="SAP">
+                type="SAPHana">
           </DBType>
        </RepositoryComponent>
    </extension>

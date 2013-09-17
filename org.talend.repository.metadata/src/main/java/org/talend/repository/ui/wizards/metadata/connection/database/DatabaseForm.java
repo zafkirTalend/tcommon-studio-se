@@ -2348,6 +2348,7 @@ public class DatabaseForm extends AbstractForm {
         boolean isMySQL = asMySQLVersionEnable();
         boolean isVertica = asVerticaVersionEnable();
         boolean isSAS = asSASVersionEnable();
+        boolean isSAPHana = asSAPHanaVersionEnable();
 
         String selectedVersion = getConnection().getDbVersionString();
         dbVersionCombo.removeAll();
@@ -2376,6 +2377,9 @@ public class DatabaseForm extends AbstractForm {
         } else if (dbType.equals(EDatabaseConnTemplate.SAS.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isSAS);
+        } else if (dbType.equals(EDatabaseConnTemplate.SAPHana.getDBDisplayName())) {
+            dbVersionCombo.getCombo().setItems(versions);
+            dbVersionCombo.setHideWidgets(!isSAPHana);
         }
         if (selectedVersion != null && !"".equals(selectedVersion)) { //$NON-NLS-1$
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(selectedVersion);
@@ -3473,6 +3477,21 @@ public class DatabaseForm extends AbstractForm {
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && template == EDatabaseConnTemplate.SAS
+                && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
+    }
+
+    /**
+     * 
+     * DOC hwang Comment method "asSAPHanaVersionEnable".
+     * 
+     * @return
+     */
+    private boolean asSAPHanaVersionEnable() {
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && template == EDatabaseConnTemplate.SAPHana
                 && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA);
     }
 

@@ -66,7 +66,7 @@ public enum EDatabase4DriverClassName {
     GREENPLUM(EDatabaseTypeName.GREENPLUM, "org.postgresql.Driver"), //$NON-NLS-1$
 
     SAS(EDatabaseTypeName.SAS, "com.sas.rio.MVADriver"), //$NON-NLS-1$
-    SAP(EDatabaseTypeName.SAP, "com.sap.db.jdbc.Driver"), //$NON-NLS-1$
+    SAPHana(EDatabaseTypeName.SAPHana, "com.sap.db.jdbc.Driver"), //$NON-NLS-1$
     SQLITE(EDatabaseTypeName.SQLITE, "org.sqlite.JDBC"), //$NON-NLS-1$
 
     SYBASEASE(EDatabaseTypeName.SYBASEASE, new String[] {
