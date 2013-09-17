@@ -82,6 +82,18 @@ public final class ProjectManager {
         return singleton;
     }
 
+    public Project getProjectFromProjectLabel(String label) {
+        if (currentProject.getLabel().equals(label)) {
+            return currentProject;
+        }
+        for (Project project : getReferencedProjects()) {
+            if (project.getLabel().equals(label)) {
+                return project;
+            }
+        }
+        return null;
+    }
+
     private void initCurrentProject() {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null) {
