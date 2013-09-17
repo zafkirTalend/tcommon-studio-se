@@ -15,6 +15,9 @@
          <actionSet
                id="org.talend.repository.localprovider.actionSet">
          </actionSet>
+         <actionSet
+               id="org.talend.repository.demoprojcet.actionSet">
+         </actionSet>
       </perspectiveExtension>
       <perspectiveExtension
             targetID="*">
