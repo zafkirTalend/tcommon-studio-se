@@ -65,6 +65,7 @@ public final class GenerateQueryFactory {
         case ORACLEFORSID:
         case ORACLESN:
         case SAS:
+        case SAP:
             return new OracleQueryGenerator(dbType);
         case EXASOL:
         case FIREBIRD:

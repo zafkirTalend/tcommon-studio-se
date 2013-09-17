@@ -299,7 +299,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
                         Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
                         returnSchemas.add(schema);
-                        returnSchemas.add(schema);
                         break;
                     } else if (isCreateElement(schemaFilter, schemaName)) {
                         Schema schema = SchemaHelper.createSchema(schemaName);

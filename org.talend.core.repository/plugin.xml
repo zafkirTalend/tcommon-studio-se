@@ -573,6 +573,18 @@
                 type="REDSHIFT">
           </DBType>
        </RepositoryComponent>
+       <RepositoryComponent
+             input="tSAPInput"
+             name="SAP"
+             output="tSAPOutput"
+             withSchema="true">
+          <Item
+                clazz="org.talend.core.model.properties.DatabaseConnectionItem">
+          </Item>
+          <DBType
+                type="SAP">
+          </DBType>
+       </RepositoryComponent>
    </extension>
    <extension
          point="org.talend.core.runtime.repositoryComponent_provider">

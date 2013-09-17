@@ -62,6 +62,7 @@ public enum EDatabaseVersion4Drivers {
             "sas.intrnet.javatools.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
     SAS_9_2(new DbVersion4Drivers(EDatabaseTypeName.SAS,
             "SAS 9.2", "SAS_9.2", new String[] { "sas.core.jar", "sas.security.sspi.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
+    SAP(new DbVersion4Drivers(EDatabaseTypeName.SAP, "ngdbc.jar")), //$NON-NLS-1$
     // MYSQL, add for 9594
     MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.22-bin.jar")), //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
