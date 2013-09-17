@@ -33,6 +33,7 @@ import org.talend.core.ICoreService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -91,7 +92,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     private boolean deleted;
 
-    private String projectLabel;
+    private final String projectLabel;
 
     private String path;
 
@@ -106,7 +107,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
     private PersistenceException exception;
 
     private boolean modified = false;
-    
+
     private static final String DI = "DI";
 
     private static final String TIP = "same name item with other project";
@@ -279,7 +280,12 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             factory = ((IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class))
                     .getProxyRepositoryFactory();
 
-            IRepositoryViewObject object = factory.getLastVersion(id);
+            Project project = ProjectManager.getInstance().getProjectFromProjectLabel(this.projectLabel);
+            IRepositoryViewObject object = factory.getLastVersion(project, id, this.path, this.type);
+            if (object == null) {
+                // function less optimized, but at least it will find back the item no matter where it is.
+                object = factory.getLastVersion(id);
+            }
             if (object == null) {
                 throw new PersistenceException("item with name:" + label + " / id:" + id
                         + " not found !\n\nPlease Refresh the repository.");
@@ -317,15 +323,15 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                     IComponentsFactory factorySingleton = service.getComponentsFactory();
                     IComponent component = factorySingleton.get(property.getLabel(), DI);
                     if (component != null) {
-                    	 try {
-                             Property tProperty = jobletservice.getJobletComponentItem(component);
-                             if (!tProperty.getId().equals(this.id)) {
-                                 informationStatus = ERepositoryStatus.WARN;
-                                 property.setDescription(TIP);
-                             }
-                         } catch (Exception e) {
-                             // tProperty is null
-                         }
+                        try {
+                            Property tProperty = jobletservice.getJobletComponentItem(component);
+                            if (!tProperty.getId().equals(this.id)) {
+                                informationStatus = ERepositoryStatus.WARN;
+                                property.setDescription(TIP);
+                            }
+                        } catch (Exception e) {
+                            // tProperty is null
+                        }
                     }
                 }
             } else if (type == ERepositoryObjectType.DOCUMENTATION) {
