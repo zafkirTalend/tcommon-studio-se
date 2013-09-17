@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
 import metadata.managment.i18n.Messages;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +34,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -49,7 +51,6 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.utils.sql.ConnectionUtils;
-import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
@@ -86,6 +87,12 @@ public final class DqRepositoryViewService {
 
     private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
 
+    public static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
+            ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName() };
+
+    public static final String[] VIEW_TYPES = new String[] { ETableTypes.TABLETYPE_VIEW.getName(),
+            ETableTypes.VIRTUAL_VIEW.getName() };
+
     /**
      * Method "createTechnicalName" creates a technical name used for file system storage. MOD mzhao make this method as
      * public access.
@@ -96,7 +103,7 @@ public final class DqRepositoryViewService {
     public static String createTechnicalName(final String functionalName) {
         String techname = "no_name"; //$NON-NLS-1$
         if (functionalName == null) {
-            log.warn("A functional name should not be null");
+            log.warn(Messages.getString("DqRepositoryViewService.NONE_NULL_FUNCTION_NAME")); //$NON-NLS-1$
             return techname;
         }
         // encode in base 64 so that all characters such white spaces, accents,
@@ -112,7 +119,7 @@ public final class DqRepositoryViewService {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);
         if (log.isDebugEnabled()) {
-            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return techname;
     }
@@ -310,7 +317,7 @@ public final class DqRepositoryViewService {
 
         String catalogName = catalog.getName();
         if (catalogName == null) {
-            log.error("No catalog given. Cannot retrieve tables!");
+            log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS")); //$NON-NLS-1$
             return tables;
         }
         return loadTables(dataProvider, catalog, null, tablePattern);
@@ -330,7 +337,6 @@ public final class DqRepositoryViewService {
         }
 
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         try {
             DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
                     (DatabaseConnection) dataPloadTablesrovider, false);
@@ -339,18 +345,18 @@ public final class DqRepositoryViewService {
             // element)
             if (schema != null) {
                 if (PackageHelper.getTables(schema).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             } else {
                 if (PackageHelper.getTables(catalog).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, tableType);
+                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             }
@@ -384,18 +390,18 @@ public final class DqRepositoryViewService {
             // element)
             if (schema != null) {
                 if (PackageHelper.getViews(schema).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             } else {
                 if (PackageHelper.getViews(catalog).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
                 } else {
                     MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern);
+                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
                     MetadataFillFactory.getDBInstance().setLinked(true);
                 }
             }
@@ -428,8 +434,7 @@ public final class DqRepositoryViewService {
             rc.setReturnCode(
                     Messages.getString("DqRepositoryViewService.NoDataProviderFound", file.getFullPath().toString()), false); //$NON-NLS-1$
         } else if (tdDataProviders.size() > 1) {
-            rc.setReturnCode(Messages.getString("DqRepositoryViewService.FoundTooManyDataProvider", tdDataProviders.size(), //$NON-NLS-1$
-                    file.getFullPath().toString()), false);
+            rc.setReturnCode(StringUtils.EMPTY, false);
         } else {
             Connection prov = tdDataProviders.iterator().next();
             rc.setObject(prov);
@@ -466,9 +471,9 @@ public final class DqRepositoryViewService {
      */
     public static String buildElementName(Property property) {
 
-        String elementName = "Unknown Label";
+        String elementName = "Unknown Label"; //$NON-NLS-1$
         if (property != null) {
-            elementName = property.getDisplayName() + " " + property.getVersion();
+            elementName = property.getDisplayName() + " " + property.getVersion(); //$NON-NLS-1$
         }
 
         return elementName;
@@ -498,7 +503,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
@@ -516,7 +520,7 @@ public final class DqRepositoryViewService {
                     taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, TABLE_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -550,7 +554,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.TABLE.toString() };
 
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
@@ -574,7 +577,7 @@ public final class DqRepositoryViewService {
         String schemaPattern = catalogOrSchema.getName();
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, TABLE_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -608,7 +611,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
@@ -618,7 +620,7 @@ public final class DqRepositoryViewService {
                     taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, VIEW_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -652,7 +654,6 @@ public final class DqRepositoryViewService {
             throw new Exception(rcConn.getMessage());
         }
         java.sql.Connection connection = rcConn.getObject();
-        String[] tableType = new String[] { TableType.VIEW.toString() };
         DatabaseMetaData dbJDBCMetadata = null;
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
@@ -678,7 +679,7 @@ public final class DqRepositoryViewService {
         String schemaPattern = catalogOrSchema.getName();
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, tableType);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, VIEW_TYPES);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {

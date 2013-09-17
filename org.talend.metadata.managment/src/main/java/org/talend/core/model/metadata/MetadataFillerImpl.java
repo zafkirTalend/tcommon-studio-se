@@ -311,7 +311,8 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
      * @see org.talend.core.model.metadata.IMetadataFiller#fillViews(orgomg.cwm.objectmodel.core.Package,
      * java.sql.DatabaseMetaData, java.util.List, java.lang.String)
      */
-    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern) {
+    public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern,
+            String[] tableType) {
         return null;
     }
 
