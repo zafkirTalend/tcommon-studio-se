@@ -99,6 +99,7 @@ import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
@@ -4002,6 +4003,7 @@ public class DatabaseForm extends AbstractForm {
             updateHiveVersionAndMakeSelection(indexSelected, 0);
             updateHiveModeAndMakeSelection(currIndexofDistribution, 0, 0);
             setHideVersionInfoWidgets(false);
+            updateYarnInfo(indexSelected, 0);
             doHiveModeModify();
         }
     }
@@ -4018,18 +4020,34 @@ public class DatabaseForm extends AbstractForm {
             setHideVersionInfoWidgets(false);
             updateHiveModeAndMakeSelection(distributionIndex, currSelectedIndex, 0);
             updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
+            updateYarnInfo(distributionIndex, currSelectedIndex);
             doHiveModeModify();
         }
+    }
+
+    private void updateYarnInfo(int distributionIndex, int hiveVersionIndex) {
+        HiveConnVersionInfo hiveVersionObj = HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex);
+        if (hiveVersionObj.isSupportYARN() && !hiveVersionObj.isSupportMR1()) {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.TRUE));
+        } else {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.FALSE));
+        }
+        updateJobtrackerContent();
     }
 
     protected void doUseYarnModify() {
         if (!isContextMode()) {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN,
                     String.valueOf(useYarnButton.getSelection()));
-            jobTrackerURLTxt
-                    .setLabelText(useYarnButton.getSelection() ? Messages.getString("DatabaseForm.resourceManager") : Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL")); //$NON-NLS-1$ //$NON-NLS-2$
-            hadoopPropGrp.layout();
+            updateJobtrackerContent();
         }
+    }
+
+    private void updateJobtrackerContent() {
+        boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
+        jobTrackerURLTxt
+                .setLabelText(useYarn ? Messages.getString("DatabaseForm.resourceManager") : Messages.getString("DatabaseForm.hiveEmbedded.jobTrackerURL")); //$NON-NLS-1$ //$NON-NLS-2$
+        hadoopPropGrp.layout();
     }
 
     /**

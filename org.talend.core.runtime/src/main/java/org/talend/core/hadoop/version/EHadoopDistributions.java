@@ -30,6 +30,8 @@ public enum EHadoopDistributions {
 
     AMAZON_EMR("Amazon EMR"), //$NON-NLS-1$
 
+    PIVOTAL_HD("Pivotal HD"), //$NON-NLS-1$
+
     CUSTOM("Custom - Unsupported"); //$NON-NLS-1$
 
     private String displayName;

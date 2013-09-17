@@ -39,6 +39,8 @@ public enum HiveConnVersionInfo {
 
     AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR"), //$NON-NLS-1$//$NON-NLS-2$
 
+    PIVOTAL_HD(0, "PIVOTAL_HD", "Pivotal HD"), //$NON-NLS-1$ //$NON-NLS-2$
+
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported"), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
@@ -65,6 +67,8 @@ public enum HiveConnVersionInfo {
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
+    PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
+
     DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
 
     MODE_EMBEDDED(2, "EMBEDDED",//$NON-NLS-1$
@@ -77,6 +81,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.MAPR2,
                   HiveConnVersionInfo.MAPR2_1_2,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
+                  HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
                   HiveConnVersionInfo.DISTRO_VERSION_CUSTOM),
 
     MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
@@ -90,6 +95,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR2_1_2,
                     HiveConnVersionInfo.MapR_EMR,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
+                    HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
                     HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
 
     private int level;
@@ -100,20 +106,28 @@ public enum HiveConnVersionInfo {
 
     private HiveConnVersionInfo[] follows;// That stores all are followed by the current object.
 
-    private boolean isSupportHive2 = false; // Till now only MapR2, CDH4, and HDP1.2 support hive server2.
+    private boolean isSupportHive2; // Till now only MapR2, CDH4, and HDP1.2 support hive server2.
+
+    private boolean isSupportMR1;
+
+    private boolean isSupportYARN;
 
     private HiveConnVersionInfo(int level, String key, String displayName, HiveConnVersionInfo... follows) {
-        this.level = level;
-        this.key = key;
-        this.displayName = displayName;
-        this.follows = follows;
+        this(level, key, displayName, false, follows);
     }
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, HiveConnVersionInfo... follows) {
+        this(level, key, displayName, isSupportHive2, true, false, follows);
+    }
+
+    private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, boolean isSupportMR1,
+            boolean isSupportYARN, HiveConnVersionInfo... follows) {
         this.level = level;
         this.key = key;
         this.displayName = displayName;
         this.isSupportHive2 = isSupportHive2;
+        this.isSupportMR1 = isSupportMR1;
+        this.isSupportYARN = isSupportYARN;
         this.follows = follows;
     }
 
@@ -140,6 +154,14 @@ public enum HiveConnVersionInfo {
      */
     public boolean isSupportHive2() {
         return this.isSupportHive2;
+    }
+
+    public boolean isSupportMR1() {
+        return this.isSupportMR1;
+    }
+
+    public boolean isSupportYARN() {
+        return this.isSupportYARN;
     }
 
 }

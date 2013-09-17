@@ -410,9 +410,9 @@ public final class JavaSqlFactory {
 
             boolean useYarn = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
             if (useYarn) { // yarn
-                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPREDUCE_FRAMEWORK_NAME.getKey(), "yarn"); //$NON-NLS-1$
-                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_YARN_RESOURCEMANAGER_ADDRESS.getKey(), dbConn
-                        .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
+            //                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPREDUCE_FRAMEWORK_NAME.getKey(), "yarn"); //$NON-NLS-1$
+            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_YARN_RESOURCEMANAGER_ADDRESS.getKey(), dbConn
+            // .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
             } else { // job tracker
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey(),
                         dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
