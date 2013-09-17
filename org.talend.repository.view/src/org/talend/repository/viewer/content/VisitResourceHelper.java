@@ -105,8 +105,7 @@ public class VisitResourceHelper {
 
         // be sure we are the last path of the resources and then check for the right folder and then check for file of
         // type .properties or folder
-        if (path != null && noChild
-                && (FileConstants.PROPERTIES_EXTENSION.equals(path.getFileExtension()) || (res instanceof IContainer))) {
+        if (path != null && noChild && (isValidFileResource(res) || (res instanceof IContainer))) {
             if (isMatchedPath(topLevelNodeWorkspaceRelativePath, path)) {
                 return true;
             } else if (refMerged) { // if merged
@@ -132,6 +131,10 @@ public class VisitResourceHelper {
         }
 
         return false;
+    }
+
+    protected boolean isValidFileResource(IResource res) {
+        return FileConstants.PROPERTIES_EXTENSION.equals(res.getFileExtension());
     }
 
     private boolean isMatchedPath(IPath topLevelNodeWorkspaceRelativePath, IPath path) {

@@ -385,6 +385,6 @@ public interface IRepositoryFactory {
      */
     public void updateLockStatus() throws PersistenceException;
 
-    public boolean isModified(Property property);
+    public boolean isModified(Object property);
 
 }

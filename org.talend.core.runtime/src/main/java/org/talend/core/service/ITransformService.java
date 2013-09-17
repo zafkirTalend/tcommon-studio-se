@@ -13,6 +13,7 @@
 package org.talend.core.service;
 
 import org.talend.core.IService;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -23,6 +24,10 @@ import org.talend.repository.model.RepositoryNode;
 public interface ITransformService extends IService {
 
     public boolean isTransformNode(RepositoryNode node);
+
+    public boolean isTransformItem(Item item);
+
+    public String getDisplayName(Item item);
 
     public ERepositoryObjectType getTransformRootType();
 

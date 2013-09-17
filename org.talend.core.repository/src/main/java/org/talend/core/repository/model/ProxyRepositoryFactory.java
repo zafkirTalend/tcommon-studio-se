@@ -2141,7 +2141,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     @Override
-    public boolean isModified(Property property) {
+    public boolean isModified(Object property) {
         return repositoryFactoryFromProvider.isModified(property);
     }
 }

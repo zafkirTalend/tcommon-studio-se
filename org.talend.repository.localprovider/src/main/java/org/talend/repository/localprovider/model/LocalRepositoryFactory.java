@@ -3301,7 +3301,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.core.repository.model.IRepositoryFactory#isModified(org.talend.core.model.properties.Item)
      */
     @Override
-    public boolean isModified(Property property) {
+    public boolean isModified(Object property) {
         return false;
     }
 
