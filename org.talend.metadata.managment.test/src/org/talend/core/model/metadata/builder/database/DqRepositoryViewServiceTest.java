@@ -768,8 +768,9 @@ public class DqRepositoryViewServiceTest {
             // ~FillFactory
             MetadataFillFactory metadataMock = Mockito.mock(MetadataFillFactory.class);
             Mockito.when(
-                    metadataMock.fillViews(Mockito.eq(catalog), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern)))
-                    .thenReturn(retableList).thenReturn(retableList);
+                    metadataMock.fillViews(Mockito.eq(catalog), Mockito.eq(metaData), Mockito.anyList(),
+                            Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES))).thenReturn(retableList)
+                    .thenReturn(retableList);
 
             // Mockito.when(
             // metadataMock.fillColumns(Mockito.eq(mockColumnSet), (DatabaseMetaData) Mockito.any(),
@@ -798,7 +799,7 @@ public class DqRepositoryViewServiceTest {
 
             // Mockito.verify(catalog, Mockito.times(2)).getName();
             Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(catalog), Mockito.eq(metaData),
-                    Mockito.anyList(), Mockito.eq(tablePattern));
+                    Mockito.anyList(), Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
             Mockito.verify(metadataMock).setLinked(true);
             Mockito.verify(metadataMock).setLinked(false);
             Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, catalog, sqlConn, metaData, metadataMock);
@@ -880,8 +881,8 @@ public class DqRepositoryViewServiceTest {
             // ~FillFactory
             MetadataFillFactory metadataMock = Mockito.mock(MetadataFillFactory.class);
             Mockito.when(
-                    metadataMock.fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern)))
-                    .thenReturn(retableList).thenReturn(retableList);
+                    metadataMock.fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern),
+                            Mockito.eq(DqRepositoryViewService.VIEW_TYPES))).thenReturn(retableList).thenReturn(retableList);
 
             // Mockito.when(
             // metadataMock.fillColumns(Mockito.eq(mockColumnSet), (DatabaseMetaData) Mockito.any(),
@@ -913,7 +914,7 @@ public class DqRepositoryViewServiceTest {
 
             // Mockito.verify(schema, Mockito.times(2)).getName();
             Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(),
-                    Mockito.eq(tablePattern));
+                    Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
             Mockito.verify(metadataMock).setLinked(true);
             Mockito.verify(metadataMock).setLinked(false);
             Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, schema, sqlConn, metaData, metadataMock, catalog);
