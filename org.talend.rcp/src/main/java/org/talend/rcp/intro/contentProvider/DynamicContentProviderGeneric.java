@@ -204,20 +204,21 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
 
             // getting started
             title = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTitle");
+            String demoProject = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoTitle");
             String hTutorial = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsTitle");
             String hforum = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsTitle");
             String hTrainning = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningTitle");
-            String demoProject = Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoTitle");
-            hyperlinkText = new String[] { hTutorial, hforum, hTrainning, demoProject };
+            hyperlinkText = new String[] { demoProject, hTutorial, hforum, hTrainning };
 
-            urls = new String[] { BROWSER_URL + "showTutorials", BROWSER_URL + "showForums", BROWSER_URL + "showTrainning",
-                    BROWSER_DEMO_URL + "ShowDemos" };
+            urls = new String[] { BROWSER_DEMO_URL + "ShowDemos", BROWSER_URL + "showTutorials", BROWSER_URL + "showForums",
+                    BROWSER_URL + "showTrainning", };
 
+            String extDemo = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoBrief");
             String extTutorial = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTutorialsBrief");
             String extforum = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedForumsBrief");
             String extTrainning = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedTrainningBrief");
-            String extDemo = ": " + Messages.getString("WelcomePageDynamicContentProvider.GettingStartedImportDemoBrief");
-            extTexts = new String[] { extTutorial, extforum, extTrainning, extDemo };
+
+            extTexts = new String[] { extDemo, extTutorial, extforum, extTrainning };
 
             createFixedPart(dom, parent, title, hyperlinkText, urls, extTexts);
 
