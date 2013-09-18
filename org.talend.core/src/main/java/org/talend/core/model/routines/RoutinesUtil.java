@@ -101,6 +101,18 @@ public final class RoutinesUtil {
                     }
                 }
             }
+            for (Project project : ProjectManager.getInstance().getAllReferencedProjects()) {
+                all = factory.getAll(project, ERepositoryObjectType.ROUTINES);
+                for (IRepositoryViewObject obj : all) {
+                    if (obj != null && obj.getProperty() != null) {
+                        Item item = obj.getProperty().getItem();
+                        String label = obj.getProperty().getLabel();
+                        if (item != null && item instanceof RoutineItem && name.equals(label)) {
+                            return obj;
+                        }
+                    }
+                }
+            }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
