@@ -12,10 +12,16 @@
 // ============================================================================
 package org.talend.librariesmanager.prefs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.Platform;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -35,4 +41,22 @@ public class LibrariesManagerUtils {
         return Platform.getInstallLocation().getURL().getFile() + "lib/java";
     }
 
+    public static List<ModuleNeeded> getNotInstalledModules(List<ModuleNeeded> modules) {
+        List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
+        // get module from provider incase it is rested
+        List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
+        if (modules != null) {
+            for (ModuleNeeded module : modules) {
+                for (ModuleNeeded fromProvider : modulesNeeded) {
+                    if (fromProvider.getModuleName().equals(module.getModuleName())
+                            && fromProvider.getContext().equals(module.getContext())
+                            && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
+                        updatedModules.add(fromProvider);
+                        break;
+                    }
+                }
+            }
+        }
+        return updatedModules;
+    }
 }

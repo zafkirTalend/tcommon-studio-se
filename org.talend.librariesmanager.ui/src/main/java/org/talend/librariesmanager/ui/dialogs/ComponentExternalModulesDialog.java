@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.dialogs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -23,8 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -86,21 +84,7 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
      */
     @Override
     public void openDialog() {
-        List<ModuleNeeded> updatedModules = new ArrayList<ModuleNeeded>();
-        // get module from provider incase it is rested
-        List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
-        if (modules != null) {
-            for (ModuleNeeded module : modules) {
-                for (ModuleNeeded fromProvider : modulesNeeded) {
-                    if (fromProvider.getModuleName().equals(module.getModuleName())
-                            && fromProvider.getContext().equals(module.getContext())
-                            && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
-                        updatedModules.add(fromProvider);
-                        break;
-                    }
-                }
-            }
-        }
+        List<ModuleNeeded> updatedModules = LibrariesManagerUtils.getNotInstalledModules(modules);
         inputList.clear();
         RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules, inputList, this);
     }

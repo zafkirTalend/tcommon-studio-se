@@ -39,15 +39,9 @@ public class TalendTabbedPropertyComposite extends Composite {
 
     private TabbedPropertySheetWidgetFactory factory;
 
-    private Composite mainComposite;
-
-    private Composite titleComposite;
-
-    private Composite leftComposite;
+    private Composite mainComposite, toolBarComposite, leftComposite, tabComposite;
 
     private ScrolledComposite scrolledComposite;
-
-    private Composite tabComposite;
 
     private TabbedPropertyTitle title;
 
@@ -56,10 +50,6 @@ public class TalendTabbedPropertyComposite extends Composite {
     private Button compactButton;
 
     private Button tableButton;
-
-    // private static final int BUTTON_HINT = 100;
-
-    private Composite composite = null;
 
     private boolean isCompactView = true;
 
@@ -116,47 +106,49 @@ public class TalendTabbedPropertyComposite extends Composite {
             }
             data.top = new FormAttachment(0, 0);
             title.setLayoutData(data);
-            composite = new Composite(mainComposite, SWT.NONE);
-            compactButton = new Button(composite, SWT.PUSH);
-            compactButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-            compactButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.compactButton.toolTip")); //$NON-NLS-1$
 
-            tableButton = new Button(composite, SWT.PUSH);
-            tableButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-            tableButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.tableButton.toolTip")); //$NON-NLS-1$
+            if (displayCompactToolbar) {
+                toolBarComposite = new Composite(mainComposite, SWT.NONE);
+                compactButton = new Button(toolBarComposite, SWT.PUSH);
+                compactButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+                compactButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.compactButton.toolTip")); //$NON-NLS-1$
 
-            if (isCompactView()) {
-                compactButton.setImage(ImageProvider.getImage(EImage.COMPACT_VIEW));
-                tableButton.setImage(ImageProvider.getImage(EImage.NO_TABLE_VIEW));
-            } else {
-                compactButton.setImage(ImageProvider.getImage(EImage.NO_COMPACT_VIEW));
-                tableButton.setImage(ImageProvider.getImage(EImage.TABLE_VIEW));
+                tableButton = new Button(toolBarComposite, SWT.PUSH);
+                tableButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+                tableButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.tableButton.toolTip")); //$NON-NLS-1$
+
+                if (isCompactView()) {
+                    compactButton.setImage(ImageProvider.getImage(EImage.COMPACT_VIEW));
+                    tableButton.setImage(ImageProvider.getImage(EImage.NO_TABLE_VIEW));
+                } else {
+                    compactButton.setImage(ImageProvider.getImage(EImage.NO_COMPACT_VIEW));
+                    tableButton.setImage(ImageProvider.getImage(EImage.TABLE_VIEW));
+                }
+
+                Rectangle compactRectangle = compactButton.getBounds();
+                tableButton.setBounds(compactRectangle);
+
+                compactButton.setVisible(false);
+                tableButton.setVisible(false);
+
+                data = new FormData();
+                data.left = new FormAttachment(title, 0);
+                data.top = new FormAttachment(0, -5);
+                toolBarComposite.setLayoutData(data);
+                GridData gridData = new GridData();
+                gridData.horizontalAlignment = SWT.RIGHT;
+                gridData.verticalAlignment = SWT.TOP;
+                compactButton.setData(gridData);
+                tableButton.setData(gridData);
+
+                GridLayout layout = new GridLayout();
+                layout.numColumns = 2;
+                layout.horizontalSpacing = 0;
+                layout.verticalSpacing = 0;
+                layout.makeColumnsEqualWidth = true;
+                toolBarComposite.setLayout(layout);
+                toolBarComposite.setBackground(title.getBackground());
             }
-
-            Rectangle compactRectangle = compactButton.getBounds();
-            tableButton.setBounds(compactRectangle);
-
-            compactButton.setVisible(false);
-            tableButton.setVisible(false);
-
-            data = new FormData();
-            data.left = new FormAttachment(title, 0);
-            data.top = new FormAttachment(0, -5);
-            composite.setLayoutData(data);
-            GridData gridData = new GridData();
-            gridData.horizontalAlignment = SWT.RIGHT;
-            gridData.verticalAlignment = SWT.TOP;
-            compactButton.setData(gridData);
-            tableButton.setData(gridData);
-
-            GridLayout layout = new GridLayout();
-            layout.numColumns = 2;
-            layout.horizontalSpacing = 0;
-            layout.verticalSpacing = 0;
-            layout.makeColumnsEqualWidth = true;
-            composite.setLayout(layout);
-            composite.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-            composite.setVisible(displayCompactToolbar);
         }
 
         leftComposite = factory.createComposite(mainComposite, SWT.NO_FOCUS);
@@ -285,6 +277,21 @@ public class TalendTabbedPropertyComposite extends Composite {
      */
     public void setCompactView(boolean isCompactView) {
         this.isCompactView = isCompactView;
+        if (displayCompactToolbar) {
+            if (isCompactView) {
+                getCompactButton().setImage(ImageProvider.getImage(EImage.COMPACT_VIEW));
+                getTableButton().setImage(ImageProvider.getImage(EImage.NO_TABLE_VIEW));
+            } else {
+                getCompactButton().setImage(ImageProvider.getImage(EImage.NO_COMPACT_VIEW));
+                getTableButton().setImage(ImageProvider.getImage(EImage.TABLE_VIEW));
+            }
+        }
+    }
+
+    public void setCompactViewVisible(boolean visible) {
+        if (this.toolBarComposite != null && !toolBarComposite.isDisposed()) {
+            toolBarComposite.setVisible(visible);
+        }
     }
 
     /**
@@ -306,12 +313,12 @@ public class TalendTabbedPropertyComposite extends Composite {
     }
 
     /**
-     * Getter for composite.
+     * Getter for toolBarComposite.
      * 
-     * @return the composite
+     * @return the toolBarComposite
      */
-    public Composite getComposite() {
-        return this.composite;
+    public Composite getToolBarComposite() {
+        return this.toolBarComposite;
     }
 
 }
