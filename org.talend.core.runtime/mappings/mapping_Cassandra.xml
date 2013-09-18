@@ -17,6 +17,7 @@
             <dbType type="DoubleType" defaultLength="20" defaultPrecision="10" />
             <dbType type="DecimalType" defaultLength="20" defaultPrecision="10" />
             <dbType type="CounterColumnType" ignorePre="true" />
+            <dbType type="ObjectType" ignorePre="true" />
         </dbTypes>
 
         <language name="java">
@@ -50,7 +51,8 @@
                     <dbType type="CounterColumnType" />
                 </talendType>
                 <talendType type="id_Object">
-                    <dbType type="IntegerType" default="true" />
+                    <dbType type="ObjectType" default="true" />
+                    <dbType type="IntegerType" />
                 </talendType>
                 <talendType type="id_Short" />
                 <talendType type="id_String">
@@ -102,6 +104,9 @@
                 </dbType>
                 <dbType type="CounterColumnType">
                     <talendType type="id_Long" default="true" />
+                </dbType>
+                <dbType type="ObjectType">
+                    <talendType type="id_Object" default="true" />
                 </dbType>
             </dbToTalendTypes>
         </language>
