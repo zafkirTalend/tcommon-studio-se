@@ -204,15 +204,8 @@ public final class ProcessUtils {
     }
 
     public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items, boolean withSystem) {
-        clearFakeProcesses();
-        createFakeProcesses(items);
-
-        Collection<IRepositoryViewObject> dependencies = getContextDependenciesOfProcess(items);
-        dependencies.addAll(getMetadataDependenciesOfProcess(items));
-        dependencies.addAll(getChildPorcessDependenciesOfProcess(items, false));
-        dependencies.addAll(getJobletDependenciesOfProcess(items, false));
-        dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items, withSystem));
-        dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem, false));
+        Collection<IRepositoryViewObject> dependencies = new ArrayList<IRepositoryViewObject>();
+        dependencies = getAllProcessDependencies(items);
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQItemService.class)) {
             ITDQItemService tdqItemService = (ITDQItemService) GlobalServiceRegister.getDefault().getService(
@@ -221,8 +214,6 @@ public final class ProcessUtils {
                 dependencies.addAll(tdqItemService.getProcessItemDependencies(items));
             }
         }
-
-        clearFakeProcesses();
         return dependencies;
     }
 
