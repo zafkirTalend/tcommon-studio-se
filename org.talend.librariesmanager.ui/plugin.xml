@@ -2,6 +2,12 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.talend.librariesmanager.ui.InitializeMissingJarHandler">
+      </startup>
+   </extension>
+   <extension
          point="org.talend.core.runtime.service">
       <Service
             class="org.talend.librariesmanager.ui.LibraryManagerUIService"

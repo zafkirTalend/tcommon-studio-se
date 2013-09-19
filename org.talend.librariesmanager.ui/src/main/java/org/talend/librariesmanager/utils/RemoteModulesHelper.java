@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -24,13 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
@@ -45,6 +48,8 @@ import us.monoid.json.JSONObject;
  * 
  */
 public class RemoteModulesHelper {
+
+    private static Logger log = Logger.getLogger(RemoteModulesHelper.class);
 
     private static RemoteModulesHelper helper;
 
@@ -128,6 +133,7 @@ public class RemoteModulesHelper {
 
     public void getNotInstalledModules(String[] names, List<ModuleToInstall> toInstall, IModulesListener listener) {
         StringBuffer jars = new StringBuffer();
+        // check that modules are already in cache or not
         if (names != null && names.length > 0) {
             for (String module : names) {
                 String moduleName = module.trim();
@@ -158,13 +164,53 @@ public class RemoteModulesHelper {
     private synchronized void getModuleUrlsFromWebService(final String jarNames, final List<ModuleToInstall> toInstall,
             final Map<String, List<ModuleNeeded>> contextMap, final IModulesListener listener, boolean isUser) {
 
+        final IRunnableWithProgress runnableWithProgress = createRemoteModuleFetchRunnable(jarNames, toInstall, contextMap);
+
         Job job = new Job(Messages.getString("RemoteModulesHelper.job.title")) {//$NON-NLS-1$
 
             @Override
-            protected IStatus run(IProgressMonitor monitor) {
+            protected IStatus run(IProgressMonitor progressMonitor) {
+                try {
+                    runnableWithProgress.run(progressMonitor);
+                } catch (InvocationTargetException e) {
+                    log.warn("fetching remote Modules data failed", e); //$NON-NLS-1$
+                    return Status.CANCEL_STATUS;
+                } catch (InterruptedException e) {
+                    log.warn("fetching remote Modules data failed", e); //$NON-NLS-1$
+                    return Status.CANCEL_STATUS;
+                }
+                return Status.OK_STATUS;
+            }
+        };
+        job.addJobChangeListener(new JobChangeAdapter() {
 
+            @Override
+            public void done(IJobChangeEvent event) {
+                listener.listModulesDone();
+            }
+        });
+
+        job.setUser(isUser);
+        job.setPriority(Job.INTERACTIVE);
+        job.schedule();
+    }
+
+    /**
+     * DOC sgandon Comment method "createRemoteModuleFetchRunnable".
+     * 
+     * @param jarNames
+     * @param toInstall
+     * @param contextMap
+     * @return
+     */
+    public IRunnableWithProgress createRemoteModuleFetchRunnable(final String jarNames, final List<ModuleToInstall> toInstall,
+            final Map<String, List<ModuleNeeded>> contextMap) {
+        final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
+
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 int size = jarNames.split(SEPARATOR_SLIP).length;
-                monitor.beginTask(Messages.getString("RemoteModulesHelper.job.task"), size * 10);//$NON-NLS-1$
+                monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10);//$NON-NLS-1$
                 JSONObject message = new JSONObject();
                 try {
                     JSONObject child = new JSONObject();
@@ -173,6 +219,9 @@ public class RemoteModulesHelper {
                     message.put("module", child);//$NON-NLS-1$
                     String url = serviceUrl + "?data=" + message;
                     monitor.worked(10);
+                    if (monitor.isCanceled()) {
+                        return;
+                    }
                     JSONObject resultStr = readJsonFromUrl(url);
                     if (resultStr != null) {
                         JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
@@ -223,6 +272,9 @@ public class RemoteModulesHelper {
                                     toInstall.add(m);
                                     cache.put(m.getName(), m);
                                 }
+                                if (monitor.isCanceled()) {
+                                    return;
+                                }
                                 monitor.worked(10);
                             }
                         }
@@ -234,20 +286,9 @@ public class RemoteModulesHelper {
                 }
 
                 monitor.done();
-                return Status.OK_STATUS;
             }
         };
-        job.addJobChangeListener(new JobChangeAdapter() {
-
-            @Override
-            public void done(IJobChangeEvent event) {
-                listener.listModulesDone();
-            }
-        });
-
-        job.setUser(isUser);
-        job.setPriority(Job.INTERACTIVE);
-        job.schedule();
+        return runnableWithProgress;
     }
 
     private JSONObject readJsonFromUrl(String url) throws IOException {
@@ -351,4 +392,40 @@ public class RemoteModulesHelper {
         return toInstall;
     }
 
+    /**
+     * DOC sgandon Comment method "getNotInstalledModulesRunnable".
+     * 
+     * @param requiredJars, list of the jars that are required
+     * @param toInstall, list to be filled with modules definition
+     * @return Runnable that will resolve the modules from distant update site or null if all modules are laready in
+     * cache
+     */
+    public IRunnableWithProgress getNotInstalledModulesRunnable(String[] requiredJars, List<ModuleToInstall> toInstall) {
+        StringBuffer jars = new StringBuffer();
+        // check that modules are already in cache or not
+        if (requiredJars != null && requiredJars.length > 0) {
+            for (String module : requiredJars) {
+                String moduleName = module.trim();
+                ModuleToInstall moduleToInstall = cache.get(moduleName);
+                if (moduleToInstall != null) {
+                    moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
+                    toInstall.add(moduleToInstall);
+                } else {
+                    if (jars.length() != 0) {
+                        jars.append(SEPARATOR);
+                        jars.append(moduleName);
+                    } else {
+                        jars.append(moduleName);
+                    }
+                }
+            }
+        }
+        String jarNames = jars.toString();
+
+        if (jarNames.isEmpty()) {
+            return null;
+        } else {
+            return createRemoteModuleFetchRunnable(jarNames, toInstall, null);
+        }
+    }
 }
