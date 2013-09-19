@@ -41,7 +41,7 @@ public class DownloadHelper {
      * @param targetFolder Local folder to store downloaded file
      * @throws Exception
      */
-    public void download(String componentUrl, String targetFolder) throws Exception {
+    public void download(String componentUrl, String targetFolder) throws IOException {
         String fileName = componentUrl.substring(componentUrl.lastIndexOf('/'));
         File destination = new File(targetFolder + fileName);
         URL url = new URL(componentUrl);
@@ -54,9 +54,10 @@ public class DownloadHelper {
      * 
      * @param componentUrl The file url to download
      * @param destination The local file to be saved
+     * @throws IOException
      * @throws Exception
      */
-    public void download(URL componentUrl, File destination) throws Exception {
+    public void download(URL componentUrl, File destination) throws IOException {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
@@ -75,7 +76,7 @@ public class DownloadHelper {
                 bytesDownloaded += bytesRead;
 
                 fireDownloadProgress(bytesRead);
-                if (fCancel) {
+                if (isCancel()) {
                     // cacel download process
                     return;
                 }
@@ -85,7 +86,7 @@ public class DownloadHelper {
             // System.out.println(bytesDownloaded);
             fireDownloadComplete();
         } finally {
-            Exception e = null;
+            IOException e = null;
             if (bis != null) {
                 try {
                     bis.close();

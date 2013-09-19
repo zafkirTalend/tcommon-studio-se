@@ -75,12 +75,17 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
- * DOC smallet class global comment. Detailled comment <br/>
- *
+ * @TODO to be refactored to avoid those ugly static methods everywhere. (SG)
+ * 
  * $Id: ModulesNeededProvider.java 1893 2007-02-07 11:33:35Z mhirt $
- *
+ * 
  */
 public class ModulesNeededProvider {
+
+    /**
+     * 
+     */
+    private static final String PLUGINS_CONTEXT_KEYWORD = "plugin:";
 
     private static List<ModuleNeeded> componentImportNeedsList = new ArrayList<ModuleNeeded>();;
 
@@ -109,13 +114,13 @@ public class ModulesNeededProvider {
         /*
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForRoutines");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForRoutines");
-         *
+         * 
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForComponents");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForComponents");
-         *
+         * 
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForApplication");
-         *
+         * 
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForJobs");
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForJobs");
          */
@@ -148,11 +153,11 @@ public class ModulesNeededProvider {
 
         /*
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForRoutines");
-         *
+         * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForComponents");
-         *
+         * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForApplication");
-         *
+         * 
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
            // TimeMeasure.display = false;
@@ -174,7 +179,7 @@ public class ModulesNeededProvider {
 
     /**
      * ftang Comment method "resetCurrentJobNeededModuleList".
-     *
+     * 
      * @param process
      */
     public static void resetCurrentJobNeededModuleList(IProcess process) {
@@ -363,9 +368,9 @@ public class ModulesNeededProvider {
     }
 
     /**
-     *
+     * 
      * ggu Comment method "getModulesNeededForRoutines".
-     *
+     * 
      */
     @SuppressWarnings("unchecked")
     public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem[] processItems, ERepositoryObjectType type) {
@@ -551,27 +556,86 @@ public class ModulesNeededProvider {
     public static List<ModuleNeeded> getModulesNeededForApplication() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
-        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.runtime.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
-        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
+        List<IConfigurationElement> extension = getAllModulesNeededExtensions();
 
         ECodeLanguage projectLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
                 .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         for (IConfigurationElement current : extension) {
             ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
             if (lang == projectLanguage) {
-                String context = current.getAttribute("context"); //$NON-NLS-1$
-                String name = current.getAttribute("name"); //$NON-NLS-1$
-                String message = current.getAttribute("message"); //$NON-NLS-1$
-                boolean required = new Boolean(current.getAttribute("required")); //$NON-NLS-1$
-                String uripath = current.getAttribute("uripath");
-                ModuleNeeded module = new ModuleNeeded(context, name, message, required);
-                module.setModuleLocaion(uripath);
+                ModuleNeeded module = createModuleNeededInstance(current);
                 importNeedsList.add(module);
             }
         }
 
         return importNeedsList;
+    }
+
+    /**
+     * DOC sgandon Comment method "createModuleNeededInstance".
+     * 
+     * @param current
+     * @return
+     */
+    public static ModuleNeeded createModuleNeededInstance(IConfigurationElement current) {
+        String context = current.getAttribute("context"); //$NON-NLS-1$
+        String name = current.getAttribute("name"); //$NON-NLS-1$
+        String message = current.getAttribute("message"); //$NON-NLS-1$
+        boolean required = new Boolean(current.getAttribute("required")); //$NON-NLS-1$
+        String uripath = current.getAttribute("uripath");
+        ModuleNeeded module = new ModuleNeeded(context, name, message, required);
+        module.setModuleLocaion(uripath);
+        return module;
+    }
+
+    /**
+     * 
+     * @return the list of all extensions implementing org.talend.core.runtime.librariesNeeded/libraryNeeded
+     */
+    public static List<IConfigurationElement> getAllModulesNeededExtensions() {
+        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                "org.talend.core.runtime.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
+        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
+        return extension;
+    }
+
+    /**
+     * @return the list all extension implementing org.talend.core.runtime.librariesNeeded/libraryNeeded, that define a
+     * bundle(plugin) required jar. they are defined using the "context" attribute that starts with the keyword
+     * "plugin:"
+     * */
+    public static List<ModuleNeeded> getAllModulesNeededExtensionsForPlugin() {
+        List<ModuleNeeded> allPluginsRequiredModules = new ArrayList<ModuleNeeded>();
+
+        List<IConfigurationElement> extension = getAllModulesNeededExtensions();
+
+        for (IConfigurationElement current : extension) {
+            String context = current.getAttribute("context"); //$NON-NLS-1$
+            if (context != null && context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
+                ModuleNeeded module = createModuleNeededInstance(current);
+                allPluginsRequiredModules.add(module);
+            }
+        }
+        return allPluginsRequiredModules;
+    }
+
+    /**
+     * filer in the moduleList the modeules required for the bundleSymbolicName. It first checks that the module is
+     * indeed a bundle module and then check if the symbolic name matches.
+     * 
+     * @param bundleSymbolicName
+     * @param moduleList
+     * @return list of modules required for the bundle named "bundleSymbolicName" among the "moduleList"
+     */
+    public static List<ModuleNeeded> filterRequiredModulesForBundle(String bundleSymbolicName, List<ModuleNeeded> moduleList) {
+        List<ModuleNeeded> pluginRequiredModules = new ArrayList<ModuleNeeded>();
+        for (ModuleNeeded module : moduleList) {
+            String context = module.getContext();
+            if (context != null && context.startsWith(PLUGINS_CONTEXT_KEYWORD) && context.endsWith(":" + bundleSymbolicName)) {
+                pluginRequiredModules.add(module);
+            }
+        }
+        return pluginRequiredModules;
     }
 
     private static List<ModuleNeeded> getModulesNeededForDBConnWizard() {
@@ -620,7 +684,7 @@ public class ModulesNeededProvider {
 
     /**
      * qiang.zhang Comment method "getImportModules".
-     *
+     * 
      * @param name
      * @param context
      */
@@ -655,7 +719,7 @@ public class ModulesNeededProvider {
 
     /**
      * Getter for unUsedModules.
-     *
+     * 
      * @return the unUsedModules
      */
     public static List<ModuleNeeded> getUnUsedModules() {

@@ -61,7 +61,7 @@ public class CommonUIPlugin implements BundleActivator {
         if (!CommonsPlugin.isHeadless()) {
             try {
                 Display.getDefault();
-            } catch (Error e) {
+            } catch (Throwable e) {
                 fullyHeadless = true;
             }
         }
