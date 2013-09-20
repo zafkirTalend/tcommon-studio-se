@@ -1,5 +1,7 @@
 package org.talend.librariesmanager.ui;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,7 +35,6 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
 
     @Override
     public void earlyStartup() {
-
         setupMissingJarLoadingObserver();
     }
 
@@ -87,7 +88,7 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
      * look for all the required modules for a given bundle, and let the user decide to download it. this method is
      * blocked until the dialog box is closed.
      * 
-     * @param jarMissingEvent
+     * @param jarMissingEvent, must never be null
      */
     protected void showMissingModuleDialog(final JarMissingEvent jarMissingEvent) {
         if (allModulesNeededExtensionsForPlugin == null) {
@@ -95,19 +96,24 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
         }
         List<ModuleNeeded> requiredModulesForBundle = ModulesNeededProvider.filterRequiredModulesForBundle(
                 jarMissingEvent.getBundleSymbolicName(), allModulesNeededExtensionsForPlugin);
-        final String[] requiredJars = new String[requiredModulesForBundle.size()];
-        for (int i = 0; i < requiredJars.length; i++) {
-            requiredJars[i] = requiredModulesForBundle.get(i).getModuleName();
+        final List<String> requiredJars = new ArrayList<String>(requiredModulesForBundle.size());
+        // filter the jar that are already installed
+        for (ModuleNeeded module : requiredModulesForBundle) {
+            String moduleName = module.getModuleName();
+            if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
+                requiredJars.add(moduleName);
+            }// else jar already installed to filter it by ignoring it.
         }
-        if (requiredJars.length > 0) {
+        if (!requiredJars.isEmpty()) {
             Display.getDefault().syncExec(new Runnable() {
 
                 @Override
                 public void run() {
                     ExternalModulesInstallDialogWithProgress dialog = new ExternalModulesInstallDialogWithProgress(PlatformUI
                             .getWorkbench().getActiveWorkbenchWindow().getShell(), "Missing jars",
-                            "Some application bundle requires third parties jars", SWT.APPLICATION_MODAL);
-                    dialog.showDialog(true, requiredJars);
+                            "The Studio requires third parties jars to be installed.\nPlease install the following jar into : "
+                                    + jarMissingEvent.getExpectedLibFolder(), SWT.APPLICATION_MODAL);
+                    dialog.showDialog(true, requiredJars.toArray(new String[requiredJars.size()]));
                 }
             });
         }// else there is not extension point defining the required bundles so do not ask the user ignor.

@@ -16,9 +16,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -99,8 +101,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     protected Button installAllBtn;
 
     protected List<String> jarsInstalledSuccuss = new ArrayList<String>();
-
-    private List<Button> installButtons = new ArrayList<Button>();
 
     protected List<ModuleToInstall> inputList = new ArrayList<ModuleToInstall>();
 
@@ -522,7 +522,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     // TODO the implementation of this method is horrible and creating too many widgets
     // table/column renderer should be used instead
     protected void addInstallButtons() {
-        installButtons.clear();
+        final AtomicInteger enabledButtonCount = new AtomicInteger(0);
         tableViewerCreator.getTableViewer().getControl().setRedraw(false);
         final Table table = tableViewerCreator.getTable();
         for (final TableItem item : table.getItems()) {
@@ -531,61 +531,22 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
             Object obj = item.getData();
             if (obj instanceof ModuleToInstall) {
                 final ModuleToInstall data = (ModuleToInstall) obj;
-                if (data.getUrl_download() != null) {
+                if (data.getUrl_download() != null) {// add the button to download
                     final Button button = new Button(table, SWT.FLAT);
                     control = button;
-                    installButtons.add(button);
+                    enabledButtonCount.incrementAndGet();
                     button.setText(Messages.getString("ExternalModulesInstallDialog_Download")); //$NON-NLS-1$
                     button.setData(item);
                     button.addSelectionListener(new SelectionAdapter() {
 
                         @Override
                         public void widgetSelected(SelectionEvent e) {
-                            button.setEnabled(false);
                             table.select(table.indexOf(item));
-                            List<ModuleToInstall> datalist = new ArrayList<ModuleToInstall>();
-                            datalist.add(data);
-                            final DownloadModuleJob job = new DownloadModuleJob(datalist);
-                            job.addJobChangeListener(new JobChangeAdapter() {
-
-                                @Override
-                                public void done(IJobChangeEvent event) {
-                                    Display.getDefault().asyncExec(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            String message = ""; //$NON-NLS-1$
-                                            if (!job.getInstalledModule().isEmpty()) {
-                                                message = Messages.getString(
-                                                        "ExternalModulesInstallDialog_Download_Ok", data.getName()); //$NON-NLS-1$
-                                                emptyLibs();
-                                            } else {
-                                                message = Messages.getString(
-                                                        "ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
-                                            }
-                                            MessageDialog.openInformation(
-                                                    getShell(),
-                                                    Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
-                                        }
-                                    });
-                                }
-                            });
-                            job.setUser(true);
-                            job.setPriority(Job.INTERACTIVE);
-                            job.schedule();
-                            int n = 0;
-                            for (Button button : installButtons) {
-                                if (!button.isEnabled()) {
-                                    n++;
-                                }
-                            }
-                            if (n == installButtons.size()) {
-                                allIndividualDownloadLaunched();
-                            }
+                            launchIndividualDownload(enabledButtonCount, data, button);
                         }
 
                     });
-                } else {
+                } else {// add the link for manual download
                     Composite composite = new Composite(table, SWT.NONE);
                     composite.setBackground(color);
                     control = composite;
@@ -644,13 +605,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         tableViewerCreator.getTableViewer().getTable().layout();
         tableViewerCreator.getTableViewer().refresh(true);
         tableViewerCreator.getTableViewer().getControl().setRedraw(true);
-    }
-
-    /**
-     * called when the user has clicked manually on the last download button close the dialog by default
-     */
-    protected void allIndividualDownloadLaunched() {
-        close();
     }
 
     /*
@@ -870,6 +824,48 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
             toInstall.addAll(theInputList);
         }
         return toInstall;
+    }
+
+    /**
+     * called when the user clicked on a indivual download button.
+     * 
+     * @param button, to make it disabled or enabled
+     * 
+     * @param enabledButtonCount, if 0 means that the last button has been clicked. This needs to maintained when
+     * enabeling or disabeling the button
+     * @param data, the data to install
+     */
+    protected void launchIndividualDownload(final AtomicInteger enabledButtonCount, final ModuleToInstall data, Button button) {
+        button.setEnabled(false);
+        enabledButtonCount.decrementAndGet();
+        final DownloadModuleJob job = new DownloadModuleJob(Collections.singletonList(data));
+        job.addJobChangeListener(new JobChangeAdapter() {
+
+            @Override
+            public void done(IJobChangeEvent event) {
+                Display.getDefault().asyncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String message = ""; //$NON-NLS-1$
+                        if (!job.getInstalledModule().isEmpty()) {
+                            message = Messages.getString("ExternalModulesInstallDialog_Download_Ok", data.getName()); //$NON-NLS-1$
+                            emptyLibs();
+                        } else {
+                            message = Messages.getString("ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
+                        }
+                        MessageDialog.openInformation(getShell(),
+                                Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
+                    }
+                });
+            }
+        });
+        job.setUser(true);
+        job.setPriority(Job.INTERACTIVE);
+        job.schedule();
+        if (enabledButtonCount.get() == 0) {
+            close();
+        }
     }
 
 }

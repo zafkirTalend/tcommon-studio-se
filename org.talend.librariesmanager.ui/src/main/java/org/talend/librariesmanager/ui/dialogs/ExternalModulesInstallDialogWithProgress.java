@@ -13,9 +13,11 @@
 package org.talend.librariesmanager.ui.dialogs;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -49,13 +51,11 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
 
     private static Logger log = Logger.getLogger(ExternalModulesInstallDialogWithProgress.class);
 
-    private Button cancelButton;
+    private Button closeButton;
 
-    private SelectionAdapter cancelListener;
+    private SelectionAdapter closeListener;
 
     private ProgressMonitorPart progressMonitorPart;
-
-    private boolean lockedUI = false;
 
     private Cursor waitCursor;
 
@@ -102,11 +102,11 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
         setShellStyle(getShellStyle() | extraSheelStyle);
         // since VAJava can't initialize an instance var with an anonymous
         // class outside a constructor we do it here:
-        cancelListener = new SelectionAdapter() {
+        closeListener = new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                cancelPressed();
+                closePressed();
             }
         };
     }
@@ -150,7 +150,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @return ProgressMonitorPart
      */
     protected ProgressMonitorPart createProgressMonitorPart(Composite composite, GridLayout pmlayout) {
-        return new ProgressMonitorPart(composite, pmlayout, SWT.DEFAULT) {
+        return new ProgressMonitorPart(composite, pmlayout, true) {
 
             String currentTask = null;
 
@@ -162,9 +162,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             @Override
             public void setBlocked(IStatus reason) {
                 super.setBlocked(reason);
-                if (!lockedUI) {
-                    getBlockedHandler().showBlocked(getShell(), this, reason, currentTask);
-                }
+                getBlockedHandler().showBlocked(getShell(), this, reason, currentTask);
             }
 
             /*
@@ -175,9 +173,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             @Override
             public void clearBlocked() {
                 super.clearBlocked();
-                if (!lockedUI) {
-                    getBlockedHandler().clearBlocked();
-                }
+                getBlockedHandler().clearBlocked();
             }
 
             /*
@@ -220,10 +216,26 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
     }
 
     /*
-     * (non-Javadoc) Method declared on Dialog.
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.TrayDialog#close() can be called when the user click on close system button
      */
     @Override
-    protected void cancelPressed() {
+    public boolean close() {
+        getProgressMonitor().setCanceled(true);
+        if (activeRunningOperations <= 0) {
+            return super.close();
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * called when the close button is pressed
+     */
+
+    protected void closePressed() {
+        getProgressMonitor().setCanceled(true);
         if (activeRunningOperations <= 0) {
             // Close the dialog. The check whether the dialog can be
             // closed or not is done in <code>okToClose</code>.
@@ -232,14 +244,14 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             setReturnCode(CANCEL);
             close();
         } else {
-            cancelButton.setEnabled(false);
+            closeButton.setEnabled(false);
         }
     }
 
     @Override
     protected Button getButton(int id) {
-        if (id == IDialogConstants.CANCEL_ID) {
-            return cancelButton;
+        if (id == IDialogConstants.CLOSE_ID) {
+            return closeButton;
         }
         return super.getButton(id);
     }
@@ -251,8 +263,8 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      */
     @Override
     protected void buttonPressed(int buttonId) {
-        if (IDialogConstants.OK_ID == buttonId) {
-            okPressed();
+        if (IDialogConstants.CLOSE_ID == buttonId) {
+            closePressed();
         }// else cancel button has a listener already
     }
 
@@ -271,22 +283,18 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * nullified when original UI state is restored.
      * 
      */
-    public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException,
-            InterruptedException {
+    public void run(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
         // The operation can only be canceled if it is executed in a separate
         // thread.
         // Otherwise the UI is blocked anyway.
         Object state = null;
         if (activeRunningOperations == 0) {
-            state = aboutToStart(fork && cancelable);
+            state = aboutToStart();
         }
         activeRunningOperations++;
+        progressMonitorPart.attachToCancelComponent(null);// nasty hack to enable the cancel button
         try {
-            if (!fork) {
-                lockedUI = true;
-            }
-            ModalContext.run(runnable, fork, getProgressMonitor(), getShell().getDisplay());
-            lockedUI = false;
+            ModalContext.run(runnable, true/* fork */, getProgressMonitor(), getShell().getDisplay());
         } finally {
             // explicitly invoke done() on our progress monitor so that its
             // label does not spill over to the next invocation, see bug 271530
@@ -310,7 +318,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * should be disabled
      * @return the saved UI state
      */
-    private Object aboutToStart(boolean enableCancelButton) {
+    private Object aboutToStart() {
         Map savedState = null;
         if (getShell() != null) {
             // Save focus control
@@ -325,13 +333,9 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             setDisplayCursor(waitCursor);
 
             // Deactivate shell
-            savedState = saveUIState(enableCancelButton);
+            savedState = saveUIState();
             if (focusControl != null) {
                 savedState.put(FOCUS_CONTROL, focusControl);
-            }
-            // Activate cancel behavior.
-            if (enableCancelButton) {
-                progressMonitorPart.attachToCancelComponent(cancelButton);
             }
             progressMonitorPart.setVisible(true);
 
@@ -376,15 +380,15 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @param parent the parent button bar
      * @return the new Cancel button
      */
-    private Button createCancelButton(Composite parent) {
+    private Button createCloseButton(Composite parent) {
         // increment the number of columns in the button bar
         ((GridLayout) parent.getLayout()).numColumns++;
         Button button = new Button(parent, SWT.PUSH);
-        button.setText(IDialogConstants.CANCEL_LABEL);
+        button.setText(IDialogConstants.CLOSE_LABEL);
         setButtonLayoutData(button);
         button.setFont(parent.getFont());
-        button.setData(new Integer(IDialogConstants.CANCEL_ID));
-        button.addSelectionListener(cancelListener);
+        button.setData(new Integer(IDialogConstants.CLOSE_ID));
+        button.addSelectionListener(closeListener);
         return button;
     }
 
@@ -397,7 +401,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      */
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-        cancelButton = createCancelButton(parent);// make the cancel button the most left
+        closeButton = createCloseButton(parent);// make the cancel button the most left
         super.createButtonsForButtonBar(parent);
     }
 
@@ -423,10 +427,11 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @return a map containing the saved state suitable for restoring later with <code>restoreUIState</code>
      * @see #restoreUIState
      */
-    private Map saveUIState(boolean keepCancelEnabled) {
+    private Map saveUIState() {
         Map savedState = new HashMap(10);
-        saveEnableStateAndSet(cancelButton, savedState, "cancel", keepCancelEnabled); //$NON-NLS-1$
-        //        saveEnableStateAndSet(helpButton, savedState, "help", false); //$NON-NLS-1$
+        saveEnableStateAndSet(closeButton, savedState, "close", true); //$NON-NLS-1$
+        //        saveEnableStateAndSet(tableViewerCreator.getTable(), savedState, "table", false); //$NON-NLS-1$
+        saveEnableStateAndSet(installAllBtn, savedState, "install", false); //$NON-NLS-1$
         return savedState;
     }
 
@@ -454,8 +459,9 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @see #saveUIState
      */
     private void restoreUIState(Map state) {
-        restoreEnableState(cancelButton, state, "cancel"); //$NON-NLS-1$
-        //restoreEnableState(helpButton, state, "help"); //$NON-NLS-1$
+        restoreEnableState(closeButton, state, "close"); //$NON-NLS-1$
+        restoreEnableState(tableViewerCreator.getTable(), state, "table"); //$NON-NLS-1$
+        restoreEnableState(installAllBtn, state, "install"); //$NON-NLS-1$
     }
 
     /**
@@ -485,7 +491,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
     private void stopped(Object savedState) {
         if (getShell() != null && !getShell().isDisposed()) {
             progressMonitorPart.setVisible(false);
-            progressMonitorPart.removeFromCancelComponent(cancelButton);
+            progressMonitorPart.removeFromCancelComponent(closeButton);
             Map state = (Map) savedState;
             restoreUIState(state);
             setDisplayCursor(null);
@@ -539,10 +545,9 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
 
                 List<ModuleToInstall> toInstall = getModulesToBeInstalled();
 
-                DownloadModuleRunnable downloadModuleRunnable = new DownloadModuleRunnable(toInstall);
                 installAllBtn.setEnabled(false);
                 try {
-                    run(true, true, downloadModuleRunnable);
+                    run(new DownloadModuleRunnable(toInstall));
                     // close the dialog box when the download is done if it has not been canceled
                     if (!getProgressMonitor().isCanceled()) {
                         setReturnCode(CANCEL);
@@ -574,7 +579,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
                 @Override
                 public void run() {
                     try {
-                        ExternalModulesInstallDialogWithProgress.this.run(true, true, initialRunnable);
+                        ExternalModulesInstallDialogWithProgress.this.run(initialRunnable);
                         initialRunnableDone();
                     } catch (InvocationTargetException e) {
                         // an error occured when fetching the modules, so report it to the user.
@@ -588,6 +593,65 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
         } else {// modules data are already in cache so show the dialog as this
             initialRunnableDone();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog#launchIndividualDownload(java.util.concurrent
+     * .atomic.AtomicInteger, org.talend.core.model.general.ModuleToInstall)
+     */
+    @Override
+    protected void launchIndividualDownload(final AtomicInteger enabledButtonCount, ModuleToInstall data, final Button button) {
+        button.setEnabled(false);
+        enabledButtonCount.decrementAndGet();
+        DownloadModuleRunnable downloadModuleRunnable = new DownloadModuleRunnable(Collections.singletonList(data));
+        try {
+            run(downloadModuleRunnable);
+        } catch (InvocationTargetException e) {
+            individualDownloadFailed(enabledButtonCount, button);
+            // an error occured when fetching the modules, so report it to the user.
+            ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            individualDownloadFailed(enabledButtonCount, button);
+            // the thread was interupted
+            ExceptionHandler.process(e);
+        } finally {// if button canceled then enable button
+            if (getProgressMonitor().isCanceled()) {
+                individualDownloadFailed(enabledButtonCount, button);
+            } else {// keep button disabled and make download all button disabled if that was the last
+                Display.getDefault().syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (!installAllBtn.isDisposed() && enabledButtonCount.get() == 0) {
+                            installAllBtn.setEnabled(false);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * DOC sgandon Comment method "individualDownloadFailed".
+     * 
+     * @param enabledButtonCount
+     * @param button
+     */
+    protected void individualDownloadFailed(final AtomicInteger enabledButtonCount, final Button button) {
+        Display.getDefault().asyncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                if (!button.isDisposed()) {
+                    button.setEnabled(true);
+                    enabledButtonCount.incrementAndGet();
+                    installAllBtn.setEnabled(true);
+                }
+            }
+        });
     }
 
     /**
