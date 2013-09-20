@@ -13,7 +13,6 @@
 package org.talend.osgi.hook;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.ProtectionDomain;
@@ -29,7 +28,10 @@ import org.eclipse.osgi.baseadaptor.loader.ClasspathEntry;
 import org.eclipse.osgi.baseadaptor.loader.ClasspathManager;
 import org.eclipse.osgi.framework.adaptor.BundleProtectionDomain;
 import org.eclipse.osgi.framework.adaptor.ClassLoaderDelegate;
+import org.eclipse.osgi.framework.log.FrameworkLog;
+import org.eclipse.osgi.framework.log.FrameworkLogEntry;
 import org.eclipse.osgi.service.datalocation.Location;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkEvent;
@@ -109,15 +111,24 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
                         ClasspathEntry classPathEntry = createClassPathEntry(hostmanager, sourcedata, sourcedomain, jarFile);
                         cpEntries.add(classPathEntry);
                     } else {// definetly ignors it, this will crash but the there is not much we can do excep logging it
-                        sourcedata
-                                .getAdaptor()
-                                .getEventPublisher()
-                                .publishFrameworkEvent(
-                                        FrameworkEvent.ERROR,
-                                        sourcedata.getBundle(),
-                                        new FileNotFoundException("one third party library file [" + jarFile
-                                                + "] was not found, it is required for bundle [" + sourcedata.getSymbolicName()
-                                                + "], please download it and place in [" + libJavaFolderFile + "]"));
+                        FrameworkLog frameworkLog = sourcedata.getAdaptor().getFrameworkLog();
+                        if (frameworkLog != null) {
+                            Bundle bundle = sourcedata.getBundle();
+                            String entryMessage = bundle.getSymbolicName() == null ? bundle.getLocation() : bundle
+                                    .getSymbolicName();
+                            frameworkLog.log(new FrameworkLogEntry(entryMessage, "one third party library file [" + jarFile
+                                    + "] was not found, it is required for bundle [" + sourcedata.getSymbolicName()
+                                    + "], please download it and place in [" + libJavaFolderFile + "]", 0, null, null));
+                            // sourcedata
+                            // .getAdaptor()
+                            // .getEventPublisher()
+                            // .publishFrameworkEvent(
+                            // FrameworkEvent.WARNING,
+                            // sourcedata.getBundle(),
+                            // new FileNotFoundException("one third party library file [" + jarFile
+                            // + "] was not found, it is required for bundle [" + sourcedata.getSymbolicName()
+                            // + "], please download it and place in [" + libJavaFolderFile + "]"));
+                        }
 
                     }
                 }
