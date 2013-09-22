@@ -195,7 +195,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#deploy(java.util.Collection,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -211,7 +211,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.lang.String, java.lang.String)
      */
     @Override
@@ -344,6 +344,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
                 libUiService.installModules(jarNotFound.toArray(new String[jarNotFound.size()]));
+                jarsNeeded = new ArrayList<String>(jarNotFound);
+                jarNotFound.clear();
+                allIsOK = true;
+                for (String jar : jarsNeeded) {
+                    if (!retrieve(jar, pathToStore, false, monitorWrap)) {
+                        jarNotFound.add(jar);
+                        allIsOK = false;
+                    }
+                }
             }
         }
 
@@ -352,7 +361,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#retrieve(java.util.Collection, java.lang.String,
      * org.eclipse.core.runtime.IProgressMonitor[])
      */
@@ -363,7 +372,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.IRepositoryBundleService#list(org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
@@ -484,7 +493,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Jsdoc)
-     *
+     * 
      * @see org.talend.core.ILibraryManagerService#delete(java.lang.String)
      */
     @Override
@@ -511,7 +520,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.ILibraryManagerService#deploy(java.util.Set, org.eclipse.core.runtime.IProgressMonitor[])
      */
     @Override
