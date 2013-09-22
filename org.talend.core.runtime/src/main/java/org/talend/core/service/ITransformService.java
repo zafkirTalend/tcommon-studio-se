@@ -27,8 +27,12 @@ public interface ITransformService extends IService {
 
     public boolean isTransformItem(Item item);
 
+    public boolean isTransformType(ERepositoryObjectType type);
+
     public String getDisplayName(Item item);
 
     public ERepositoryObjectType getTransformRootType();
+
+    public String getSelectedNodeId(ERepositoryObjectType type);
 
 }
