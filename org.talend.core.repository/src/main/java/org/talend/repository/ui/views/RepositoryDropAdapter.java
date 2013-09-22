@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.views;
 
-import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -38,7 +37,6 @@ import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.Timer;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
 import org.talend.core.model.properties.Item;
@@ -220,6 +218,9 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         super.validateDrop(target, operation, transferType);
         boolean isValid = true;
         for (Object obj : ((StructuredSelection) getViewer().getSelection()).toArray()) {
+            if (!(obj instanceof RepositoryNode)) {
+                return false;
+            }
             RepositoryNode sourceNode = (RepositoryNode) obj;
 
             if (sourceNode != null) {

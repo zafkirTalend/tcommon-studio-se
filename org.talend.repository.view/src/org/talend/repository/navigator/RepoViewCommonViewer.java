@@ -135,10 +135,12 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
                 ISelection selection = RepoViewCommonViewer.this.getSelection();
 
                 for (Object obj : ((StructuredSelection) selection).toArray()) {
-                    RepositoryNode sourceNode = (RepositoryNode) obj;
+                    if (obj instanceof RepositoryNode) {
+                        RepositoryNode sourceNode = (RepositoryNode) obj;
 
-                    // As i don't know how to get event operation i test on MoveOperation
-                    event.doit = MoveObjectAction.getInstance().validateAction(sourceNode, null, true);
+                        // As i don't know how to get event operation i test on MoveOperation
+                        event.doit = MoveObjectAction.getInstance().validateAction(sourceNode, null, true);
+                    }
                 }
 
                 LocalSelectionTransfer.getTransfer().setSelection(selection);
