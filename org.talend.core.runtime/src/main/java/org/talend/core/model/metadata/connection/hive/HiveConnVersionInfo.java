@@ -63,6 +63,8 @@ public enum HiveConnVersionInfo {
 
     MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
+    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
     MapR_EMR(1, "MapR_EMR", "MapR 1.2.8", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
@@ -80,6 +82,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.MAPR2,
                   HiveConnVersionInfo.MAPR2_1_2,
+                  HiveConnVersionInfo.MAPR2_1_3,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
                   HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
                   HiveConnVersionInfo.DISTRO_VERSION_CUSTOM),
@@ -93,6 +96,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
                     HiveConnVersionInfo.MAPR2_1_2,
+                    HiveConnVersionInfo.MAPR2_1_3,
                     HiveConnVersionInfo.MapR_EMR,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,

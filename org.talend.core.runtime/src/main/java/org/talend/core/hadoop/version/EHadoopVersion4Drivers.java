@@ -15,46 +15,52 @@ package org.talend.core.hadoop.version;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHadoopVersion4Drivers {
 
-    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0"),
+    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0", true, false),
 
-    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
+    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false),
 
-    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3"),
+    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
 
-    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
+    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
-    APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204"),
+    APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false),
 
-    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203"),
+    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false),
 
-    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2"),
+    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
 
-    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3"),
+    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3", false, false),
 
-    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
+    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
 
-    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1"),
+    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
-    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
+    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true),
 
-    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212"),
+    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true),
 
-    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR"),
+    MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true),
 
-    APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR"),
+    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR", false, true),
+
+    APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
 
     PIVOTAL_HD_1_0_1(
                      EHadoopDistributions.PIVOTAL_HD,
                      "Pivotal HD 1.0.1",
                      "PIVOTAL_HD_1_0_1",
+                     false,
+                     false,
                      new EMRVersion[] { EMRVersion.YARN }),
 
-    CUSTOM(EHadoopDistributions.CUSTOM, "", "", new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN });
+    CUSTOM(EHadoopDistributions.CUSTOM, "", "", false, false, new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN });
 
     private EHadoopDistributions distribution;
 
@@ -62,14 +68,19 @@ public enum EHadoopVersion4Drivers {
 
     private String versionValue;
 
+    private boolean supportSecurity;
+
+    private boolean supportGroup;
+
     private EMRVersion[] mrVersions;
 
-    EHadoopVersion4Drivers(EHadoopDistributions distribution, String versionDisplayName, String versionValue) {
-        this(distribution, versionDisplayName, versionValue, new EMRVersion[] { EMRVersion.MR1 });
+    EHadoopVersion4Drivers(EHadoopDistributions distribution, String versionDisplayName, String versionValue,
+            boolean supportSecurity, boolean supportGroup) {
+        this(distribution, versionDisplayName, versionValue, supportSecurity, supportGroup, new EMRVersion[] { EMRVersion.MR1 });
     }
 
     EHadoopVersion4Drivers(EHadoopDistributions distribution, String versionDisplayName, String versionValue,
-            EMRVersion[] mrVersions) {
+            boolean supportSecurity, boolean supportGroup, EMRVersion[] mrVersions) {
         this.distribution = distribution;
         this.versionDisplayName = versionDisplayName;
         this.versionValue = versionValue;
@@ -127,6 +138,24 @@ public enum EHadoopVersion4Drivers {
             }
         }
         return distribution4Versions;
+    }
+
+    public boolean isSupportSecurity() {
+        return this.supportSecurity;
+    }
+
+    public boolean isSupportGroup() {
+        return this.supportGroup;
+    }
+
+    public boolean isSupportMR1() {
+        return ArrayUtils.contains(getMrVersions(), EMRVersion.MR1);
+
+    }
+
+    public boolean isSupportYARN() {
+        return ArrayUtils.contains(getMrVersions(), EMRVersion.YARN);
+
     }
 
 }
