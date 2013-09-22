@@ -2377,6 +2377,12 @@ public class DatabaseForm extends AbstractForm {
         } else if (dbType.equals(EDatabaseConnTemplate.SAS.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isSAS);
+        } else if (dbType.equals(EDatabaseConnTemplate.PSQL.getDBDisplayName())) {
+            dbVersionCombo.getCombo().setItems(versions);
+            dbVersionCombo.setHideWidgets(false);
+        } else if (dbType.equals(EDatabaseConnTemplate.PLUSPSQL.getDBDisplayName())) {
+            dbVersionCombo.getCombo().setItems(versions);
+            dbVersionCombo.setHideWidgets(false);
         } else if (dbType.equals(EDatabaseConnTemplate.SAPHana.getDBDisplayName())) {
             dbVersionCombo.getCombo().setItems(versions);
             dbVersionCombo.setHideWidgets(!isSAPHana);
@@ -3017,6 +3023,8 @@ public class DatabaseForm extends AbstractForm {
         dbVersionCombo
                 .setEnabled(!isReadOnly()
                         && (isOracle || isAS400 || isMySQL || isVertica || isSAS
+                                || EDatabaseConnTemplate.PSQL.getDBTypeName().equals(dbTypeCombo.getText())
+                                || EDatabaseConnTemplate.PLUSPSQL.getDBTypeName().equals(dbTypeCombo.getText())
                                 || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
                                 .getDBDisplayName().equals(dbTypeCombo.getText())));
         usernameText.setEditable(visible);
@@ -3633,13 +3641,18 @@ public class DatabaseForm extends AbstractForm {
         List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connection.getDatabaseType());
         if (version != null && dbTypeList.size() > 1) {
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(getConnection().getDatabaseType());
+            if (dbType == null || dbType.equals(EDatabaseTypeName.ACCESS) || dbType.equals(EDatabaseTypeName.PSQL)
+                    || dbType.equals(EDatabaseTypeName.PLUSPSQL)) {
+                // no version check for these dbs
+                return null;
+            }
             if (connection.getDriverClass() == null && dbType != EDatabaseTypeName.GENERAL_JDBC) {
                 String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
                 connection.setDriverClass(driverClass);
             }
             java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
             // if the dbtype is Access,it will throw a sqlException
-            if (sqlConn != null && dbType != null && !dbType.equals(EDatabaseTypeName.ACCESS)) {
+            if (sqlConn != null) {
                 try {
                     DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
                     int versionNum = dm.getDatabaseMajorVersion();

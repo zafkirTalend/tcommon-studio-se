@@ -986,7 +986,9 @@ public class RepositoryToComponentProperty {
                 if (EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLE_CUSTOM.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLEFORSID.getDBDisplayName().equals(databaseType)
-                        || EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(databaseType)) {
+                        || EDatabaseConnTemplate.ORACLESN.getDBDisplayName().equals(databaseType)
+                        || EDatabaseConnTemplate.PLUSPSQL.getDBDisplayName().equals(databaseType)
+                        || EDatabaseConnTemplate.PSQL.getDBDisplayName().equals(databaseType)) {
                     if (dbVersionString != null) {
                         driverValue = dbVersionString.toUpperCase();
                     }
