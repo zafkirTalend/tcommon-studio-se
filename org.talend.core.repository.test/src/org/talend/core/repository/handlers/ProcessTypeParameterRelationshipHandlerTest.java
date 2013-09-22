@@ -54,7 +54,7 @@ public class ProcessTypeParameterRelationshipHandlerTest extends AbstractParamet
         procTypeVersionParam.setValue("0.2");
         parametersMap.put(procTypeVersionParam.getName(), procTypeVersionParam);
 
-        Map<Relation, Set<Relation>> relations = getHandler().find(processItem, parametersMap, null);
+        Map<Relation, Set<Relation>> relations = getHandler().find(getProcessItem(), parametersMap, null);
         Assert.assertNotNull(relations);
         Assert.assertFalse(relations.isEmpty());
         Assert.assertTrue(relations.size() == 1);
@@ -84,7 +84,7 @@ public class ProcessTypeParameterRelationshipHandlerTest extends AbstractParamet
         procTypeParam.setValue("_yVUx8NF4EeG5wOtnVeZ123");
         parametersMap.put(procTypeParam.getName(), procTypeParam);
 
-        Map<Relation, Set<Relation>> relations = getHandler().find(processItem, parametersMap, null);
+        Map<Relation, Set<Relation>> relations = getHandler().find(getProcessItem(), parametersMap, null);
         Assert.assertNotNull(relations);
         Assert.assertFalse(relations.isEmpty());
         Assert.assertTrue(relations.size() == 1);
@@ -119,7 +119,7 @@ public class ProcessTypeParameterRelationshipHandlerTest extends AbstractParamet
         procTypeVersionParam.setValue("0.2");
         parametersMap.put(procTypeVersionParam.getName(), procTypeVersionParam);
 
-        Map<Relation, Set<Relation>> relations = getHandler().find(processItem, parametersMap, null);
+        Map<Relation, Set<Relation>> relations = getHandler().find(getProcessItem(), parametersMap, null);
         Assert.assertNotNull(relations);
         Assert.assertFalse(relations.isEmpty());
         Assert.assertTrue(relations.size() == 1);
@@ -154,7 +154,7 @@ public class ProcessTypeParameterRelationshipHandlerTest extends AbstractParamet
         procTypeVersionParam.setValue("0.2");
         parametersMap.put(procTypeVersionParam.getName(), procTypeVersionParam);
 
-        Map<Relation, Set<Relation>> relations = getHandler().find(processItem, parametersMap, null);
+        Map<Relation, Set<Relation>> relations = getHandler().find(getProcessItem(), parametersMap, null);
         Assert.assertNotNull(relations);
         Assert.assertFalse(relations.isEmpty());
         Assert.assertTrue(relations.size() == 1);
@@ -190,7 +190,7 @@ public class ProcessTypeParameterRelationshipHandlerTest extends AbstractParamet
         procTypeParam.setValue("_yVUx8NF4EeG5wOtnVeZ123;_yVUx8NF4EeG5wOtnVeZ456;_yVUx8NF4EeG5wOtnVeZ789;_yVUx8NF4EeG5wOtnVeZ123");
         parametersMap.put(procTypeParam.getName(), procTypeParam);
 
-        Map<Relation, Set<Relation>> relations = getHandler().find(processItem, parametersMap, null);
+        Map<Relation, Set<Relation>> relations = getHandler().find(getProcessItem(), parametersMap, null);
         Assert.assertNotNull(relations);
         Assert.assertFalse(relations.isEmpty());
         Assert.assertTrue(relations.size() == 1);

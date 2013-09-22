@@ -36,7 +36,7 @@ public abstract class AbstractParameterRelationshipHandlerTest {
 
     private AbstractParameterRelationshipHandler handler;
 
-    protected ProcessItem processItem;
+    private ProcessItem processItem;
 
     @Before
     public void setUp() {
