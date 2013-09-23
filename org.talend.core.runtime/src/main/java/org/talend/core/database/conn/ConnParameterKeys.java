@@ -96,4 +96,6 @@ public class ConnParameterKeys {
 
     public static final String CONN_PARA_KEY_HBASE_VERSION = "CONN_PARA_KEY_HBASE_VERSION"; //$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_HBASE_PROPERTIES = "CONN_PARA_KEY_HBASE_PROPERTIES"; //$NON-NLS-1$
+
 }

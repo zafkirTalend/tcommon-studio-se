@@ -18,16 +18,19 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -41,13 +44,16 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -58,19 +64,26 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.ui.swt.advanced.dataeditor.HadoopPropertiesTableView;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
+import org.talend.commons.ui.swt.extended.table.HadoopPropertiesFieldModel;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledDirectoryField;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
+import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
+import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.ui.utils.loader.MyURLClassLoader;
 import org.talend.commons.utils.PasswordEncryptUtil;
+import org.talend.commons.utils.data.list.IListenableListListener;
+import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -121,6 +134,9 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 import org.talend.utils.sql.ConnectionUtils;
 
 /**
@@ -328,6 +344,12 @@ public class DatabaseForm extends AbstractForm {
     private Text hcRepositoryText;
 
     private Button hcSelectBtn;
+
+    private List<HashMap<String, Object>> properties;
+
+    private Composite compositeTable;
+
+    private Composite compositeTableForHive;
 
     /**
      * Constructor to use by a Wizard to create a new database connection.
@@ -662,7 +684,12 @@ public class DatabaseForm extends AbstractForm {
             public void controlResized(ControlEvent e) {
                 Rectangle r = scrolledComposite.getClientArea();
                 // scrolledComposite.setMinSize(newParent.computeSize(r.width-100, 550));
-                scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
+                if (getConnection().getDatabaseType() != null
+                        && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
+                    scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 650));
+                } else {
+                    scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
+                }
             }
         });
     }
@@ -767,6 +794,150 @@ public class DatabaseForm extends AbstractForm {
 
         createHadoopUIContentsForHiveEmbedded(typeDbCompositeParent);
         createMetastoreUIContentsForHiveEmbedded(typeDbCompositeParent);
+        createHadoopProperties(typeDbCompositeParent);
+        createHadoopPropertiesForHive(typeDbCompositeParent);
+    }
+
+    private HadoopPropertiesTableView propertiesTableViewForHive;
+
+    private void createHadoopPropertiesForHive(Composite parent) {
+        compositeTableForHive = Form.startNewDimensionnedGridLayout(parent, 1, parent.getBorderWidth(), 150);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        gridData.horizontalSpan = 3;
+        gridData.widthHint = 200;
+        compositeTableForHive.setLayoutData(gridData);
+        CommandStackForComposite commandStack = new CommandStackForComposite(compositeTableForHive);
+        properties = new ArrayList<HashMap<String, Object>>();
+        initHadoopProperties();
+        HadoopPropertiesFieldModel model = new HadoopPropertiesFieldModel(properties, "Hadoop Properties");
+        propertiesTableViewForHive = new HadoopPropertiesTableView(model, compositeTableForHive);
+        propertiesTableViewForHive.getExtendedTableViewer().setCommandStack(commandStack);
+        final Composite fieldTableEditorComposite = propertiesTableViewForHive.getMainComposite();
+        fieldTableEditorComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        fieldTableEditorComposite.setBackground(null);
+        if (getConnection().getDatabaseType() != null
+                && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
+            setHidHadoopPropertiesForHive(false);
+        } else {
+            setHidHadoopPropertiesForHive(true);
+        }
+        addListenerForHive();
+    }
+
+    private void addListenerForHive() {
+        if (propertiesTableViewForHive != null) {
+            propertiesTableViewForHive.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
+
+                @Override
+                public void handleEvent(ListenableListEvent event) {
+                    // checkFieldsValue();
+                    updateModelForHive();
+                }
+            });
+            propertiesTableViewForHive.getExtendedTableModel().addModifiedBeanListener(
+                    new IModifiedBeanListener<HashMap<String, Object>>() {
+
+                        @Override
+                        public void handleEvent(ModifiedBeanEvent<HashMap<String, Object>> event) {
+                            // checkFieldsValue();
+                            updateModelForHive();
+                        }
+                    });
+        }
+    }
+
+    private void updateModelForHive() {
+        setProperties(propertiesTableViewForHive.getExtendedTableModel().getBeansList());
+    }
+
+    private void setHidHadoopPropertiesForHive(boolean hide) {
+        GridData hadoopData = (GridData) compositeTableForHive.getLayoutData();
+        hadoopData.exclude = hide;
+        compositeTableForHive.setVisible(!hide);
+        compositeTableForHive.setLayoutData(hadoopData);
+        compositeTableForHive.getParent().layout();
+    }
+
+    private HadoopPropertiesTableView propertiesTableView;
+
+    private void createHadoopProperties(Composite parent) {
+        compositeTable = Form.startNewDimensionnedGridLayout(parent, 1, parent.getBorderWidth(), 150);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        gridData.horizontalSpan = 3;
+        gridData.widthHint = 200;
+        compositeTable.setLayoutData(gridData);
+        CommandStackForComposite commandStack = new CommandStackForComposite(compositeTable);
+        properties = new ArrayList<HashMap<String, Object>>();
+        initHadoopProperties();
+        HadoopPropertiesFieldModel model = new HadoopPropertiesFieldModel(properties, "Hadoop Properties");
+        propertiesTableView = new HadoopPropertiesTableView(model, compositeTable);
+        propertiesTableView.getExtendedTableViewer().setCommandStack(commandStack);
+        final Composite fieldTableEditorComposite = propertiesTableView.getMainComposite();
+        fieldTableEditorComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        fieldTableEditorComposite.setBackground(null);
+        if (getConnection().getDatabaseType() != null
+                && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HBASE.getDBDisplayName())) {
+            setHidHadoopProperties(false);
+        } else {
+            setHidHadoopProperties(true);
+        }
+        addListener();
+    }
+
+    private void addListener() {
+        if (propertiesTableView != null) {
+            propertiesTableView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
+
+                @Override
+                public void handleEvent(ListenableListEvent event) {
+                    // checkFieldsValue();
+                    updateModel();
+                }
+            });
+            propertiesTableView.getExtendedTableModel().addModifiedBeanListener(
+                    new IModifiedBeanListener<HashMap<String, Object>>() {
+
+                        @Override
+                        public void handleEvent(ModifiedBeanEvent<HashMap<String, Object>> event) {
+                            // checkFieldsValue();
+                            updateModel();
+                        }
+                    });
+        }
+    }
+
+    private void updateModel() {
+        setProperties(propertiesTableView.getExtendedTableModel().getBeansList());
+    }
+
+    private void setHidHadoopProperties(boolean hide) {
+        GridData hadoopData = (GridData) compositeTable.getLayoutData();
+        hadoopData.exclude = hide;
+        compositeTable.setVisible(!hide);
+        compositeTable.setLayoutData(hadoopData);
+        compositeTable.getParent().layout();
+    }
+
+    private void initHadoopProperties() {
+        EMap<String, String> parametersMap = getConnection().getParameters();
+        String hadoopProperties = parametersMap.get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+        try {
+            if (StringUtils.isNotEmpty(hadoopProperties)) {
+                JSONArray jsonArr = new JSONArray(hadoopProperties);
+                for (int i = 0; i < jsonArr.length(); i++) {
+                    HashMap<String, Object> map = new HashMap();
+                    JSONObject object = jsonArr.getJSONObject(i);
+                    Iterator it = object.keys();
+                    while (it.hasNext()) {
+                        String key = (String) it.next();
+                        map.put(key, object.get(key));
+                    }
+                    properties.add(map);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createHBaseSettingContents(Composite parent) {
@@ -3097,8 +3268,10 @@ public class DatabaseForm extends AbstractForm {
                 serverText.setLabelText(Messages.getString("DatabaseForm.server"));
             }
             hideHBaseSettings(!isHbase);
+            setHidHadoopProperties(!isHbase);
 
             hideHCLinkSettings(!isHbase && !isHiveDBConnSelected());
+            setHidHadoopPropertiesForHive(!isHiveDBConnSelected());
 
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
@@ -4577,5 +4750,23 @@ public class DatabaseForm extends AbstractForm {
 
     public ContextType getSelectedContextType() {
         return this.selectedContextType;
+    }
+
+    /**
+     * Getter for properties.
+     * 
+     * @return the properties
+     */
+    public List<HashMap<String, Object>> getProperties() {
+        return this.properties;
+    }
+
+    /**
+     * Sets the properties.
+     * 
+     * @param properties the properties to set
+     */
+    public void setProperties(List<HashMap<String, Object>> properties) {
+        this.properties = properties;
     }
 }

@@ -16,6 +16,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,9 @@ import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.talend.repository.ui.wizards.PropertiesWizardPage;
 import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -135,7 +139,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
-     *
+     * 
      * @param selection
      * @param existingNames
      */
@@ -217,7 +221,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
-     *
+     * 
      * @param selection
      * @param existingNames
      */
@@ -290,11 +294,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC ycbai DatabaseWizard constructor comment.
-     *
+     * 
      * <p>
      * If you want to initialize connection before creation you can use this constructor.
      * </p>
-     *
+     * 
      * @param workbench
      * @param creation
      * @param node
@@ -322,7 +326,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * yzhang Comment method "setToolBar".
-     *
+     * 
      * @param isToolbar
      */
     public void setToolBar(boolean isToolbar) {
@@ -364,6 +368,20 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         addPage(databaseWizardPage);
     }
 
+    private String getHadoopPropertiesString(List<HashMap<String, Object>> hadoopPrperties) throws JSONException {
+        JSONArray jsonArr = new JSONArray();
+        for (HashMap<String, Object> map : hadoopPrperties) {
+            JSONObject object = new JSONObject();
+            Iterator it = map.keySet().iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                object.put(key, map.get(key));
+            }
+            jsonArr.put(object);
+        }
+        return jsonArr.toString();
+    }
+
     /**
      * This method is called when 'Finish' button is pressed in the wizard. Save metadata close Lock Strategy and close
      * wizard.
@@ -371,6 +389,18 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     @Override
     public boolean performFinish() {
         if (databaseWizardPage.isPageComplete()) {
+            DatabaseForm form = (DatabaseForm) databaseWizardPage.getControl();
+            List<HashMap<String, Object>> properties = form.getProperties();
+            try {
+                connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES,
+                        getHadoopPropertiesString(properties));
+            } catch (JSONException e1) {
+                String detailError = e1.toString();
+                new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
+                        detailError);
+                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
+                return false;
+            }
             /*
              * if create connection in TOS with context model,should use the original value when create catalog or //
              * schema,see bug 0016636,using metadataConnection can be sure that all the values has been parse to
@@ -463,7 +493,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC zhao Comment method "handleUpdate".
-     *
+     * 
      * @param metadataConnection
      * @param tdqRepService
      * @return True if handled successfully.
@@ -589,7 +619,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * DOC zhao Comment method "handleCreation".
-     *
+     * 
      * @param dbConn
      * @param metadataConnection
      * @param tdqRepService
@@ -704,7 +734,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * We will accept the selection in the workbench to see if we can initialize from it.
-     *
+     * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
     @Override
@@ -715,7 +745,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.repository.ui.wizards.RepositoryWizard#getConnectionItem()
      */
     @Override
@@ -724,9 +754,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     }
 
     /**
-     *
+     * 
      * DOC Comment method "updateConnectionInformation".
-     *
+     * 
      * @param dbConn
      * @throws SQLException
      * @throws IllegalAccessException
@@ -761,7 +791,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
+                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
             Driver driver = MetadataConnectionUtils.getDerbyDriver();
@@ -787,7 +817,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * judgement reload the connection or not
-     *
+     * 
      * @param reloadFlag
      * @return
      */
@@ -797,7 +827,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * open the confirm dialog
-     *
+     * 
      * @param shell
      * @return
      */
@@ -813,7 +843,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
     /**
      * replace the package(catalog and/or schema) name with the new name if needed.
-     *
+     * 
      * @param dbConnection
      */
     private void relpacePackageName(DatabaseConnection dbConnection) {

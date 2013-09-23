@@ -87,6 +87,9 @@ import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -1197,6 +1200,52 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("HIVE_SERVER")) {
             return connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
+        }
+
+        if (value.equals("HBASE_PARAMETERS")) {
+            List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
+            try {
+                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+                if (StringUtils.isNotEmpty(message)) {
+                    JSONArray jsonArr = new JSONArray(message);
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        HashMap<String, Object> map = new HashMap();
+                        JSONObject object = jsonArr.getJSONObject(i);
+                        Iterator it = object.keys();
+                        while (it.hasNext()) {
+                            String key = (String) it.next();
+                            map.put(key, object.get(key));
+                        }
+                        properties.add(map);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return properties;
+        }
+
+        if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
+            List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
+            try {
+                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+                if (StringUtils.isNotEmpty(message)) {
+                    JSONArray jsonArr = new JSONArray(message);
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        HashMap<String, Object> map = new HashMap();
+                        JSONObject object = jsonArr.getJSONObject(i);
+                        Iterator it = object.keys();
+                        while (it.hasNext()) {
+                            String key = (String) it.next();
+                            map.put(key, object.get(key));
+                        }
+                        properties.add(map);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return properties;
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
