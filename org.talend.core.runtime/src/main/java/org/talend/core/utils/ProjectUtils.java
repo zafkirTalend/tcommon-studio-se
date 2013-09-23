@@ -32,4 +32,14 @@ public class ProjectUtils {
         }
         return !Pattern.matches(RepositoryConstants.PROJECT_PATTERN, projectName);
     }
+
+    /**
+     * for the tac side DOC hcyi Comment method "isValidProjectName".
+     * 
+     * @param projectLabel
+     * @return
+     */
+    public static boolean isValidProjectName(String projectLabel) {
+        return !isNotValidProjectName(projectLabel);
+    }
 }
