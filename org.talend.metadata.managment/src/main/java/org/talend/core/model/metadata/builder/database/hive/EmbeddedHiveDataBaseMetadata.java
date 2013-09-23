@@ -100,7 +100,6 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
     @Override
     public String getDatabaseProductName() throws SQLException {
-        // TODO Auto-generated method stub
         return EDatabaseTypeName.HIVE.getDisplayName();
     }
 
@@ -299,6 +298,11 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
     @Override
     public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
             throws SQLException {
+        String hiveCat = catalog;
+        if (StringUtils.isBlank(hiveCat)) {
+            hiveCat = HIVE_SCHEMA_DEFAULT;
+        }
+
         EmbeddedHiveResultSet tableResultSet = new EmbeddedHiveResultSet();
         tableResultSet.setMetadata(COLUMN_META);
         List<String[]> list = new ArrayList<String[]>();
@@ -308,7 +312,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
             ClassLoader currCL = Thread.currentThread().getContextClassLoader();
             Thread.currentThread().setContextClassLoader(classLoader);
             try {
-                Object table = ReflectionUtils.invokeMethod(hiveObject, "getTable", new Object[] { catalog, tableNamePattern }); //$NON-NLS-1$
+                Object table = ReflectionUtils.invokeMethod(hiveObject, "getTable", new Object[] { hiveCat, tableNamePattern }); //$NON-NLS-1$
                 if (table != null) {
                     Class tableClass = table.getClass();
                     Method getAllColsMethod = tableClass.getDeclaredMethod("getAllCols");//$NON-NLS-1$ 
@@ -319,25 +323,25 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                             Class fieldSchemaClass = colObj.getClass();
 
                             // col name
-                            Method getNameMethod = fieldSchemaClass.getDeclaredMethod("getName");
+                            Method getNameMethod = fieldSchemaClass.getDeclaredMethod("getName"); //$NON-NLS-1$
                             Object nameObj = getNameMethod.invoke(colObj);
-                            final String colName = nameObj != null ? nameObj.toString() : "";
+                            final String colName = nameObj != null ? nameObj.toString() : ""; //$NON-NLS-1$
 
                             // col type
-                            Method getTypeMethod = fieldSchemaClass.getDeclaredMethod("getType");
+                            Method getTypeMethod = fieldSchemaClass.getDeclaredMethod("getType"); //$NON-NLS-1$
                             Object typeObj = getTypeMethod.invoke(colObj);
-                            final String coltype = typeObj != null ? typeObj.toString() : "";
+                            final String coltype = typeObj != null ? typeObj.toString() : ""; //$NON-NLS-1$
 
                             // col comment
-                            Method getCommentMethod = fieldSchemaClass.getDeclaredMethod("getComment");
+                            Method getCommentMethod = fieldSchemaClass.getDeclaredMethod("getComment"); //$NON-NLS-1$
                             Object commentObj = getCommentMethod.invoke(colObj);
-                            final String colComment = commentObj != null ? commentObj.toString() : "";
+                            final String colComment = commentObj != null ? commentObj.toString() : ""; //$NON-NLS-1$
 
                             final int colSize = -1; // FIXME, need check.
                             final int colPrecision = 0; // FIXME, need check.
                             final int colRedix = 0; // FIXME, need check.
                             String[] array = new String[] { tableNamePattern, colName, coltype, String.valueOf(colSize),
-                                    String.valueOf(colPrecision), String.valueOf(colRedix), "NO", colComment, "" };
+                                    String.valueOf(colPrecision), String.valueOf(colRedix), "NO", colComment, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                             list.add(array);
                         }
                     }
