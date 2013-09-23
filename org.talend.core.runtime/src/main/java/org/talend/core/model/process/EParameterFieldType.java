@@ -84,6 +84,7 @@ public enum EParameterFieldType {
     BOTH_HADOOP, // ycbai add for feature TDI-22111
     HADOOP_JARS_DIALOG,
 
+    MATCH_RULE_IMEX_CONTROLLER, // sizhaoliu TDQ-7910
     ;
 
     public String getName() {
