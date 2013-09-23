@@ -14,7 +14,6 @@ package org.talend.core.utils;
 
 import java.util.regex.Pattern;
 
-import org.talend.core.language.ECodeLanguage;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -25,13 +24,12 @@ public class ProjectUtils {
     public static final String[] JAVA_KEY_WORDS = {
             "abstract", "break", "case", "catch", "continue", "default", "do", "else", "extends", "final", "finally", "for", "if", "implements", "instanceof", "native", "new", "private", "protected", "public", "return", "static", "switch", "synchronized", "throw", "throws", "transient", "try", "volatile", "while", "assert", "enum", "strictfp", "package", "import", "boolean", "byte", "char", "class", "double", "float", "int", "interface", "long", "short", "void", "java", "org", "String", "etc", "com", "net", "fr", "sf", "routines", "javax", "false", "null", "super", "this", "true", "goto", "const" }; //$NON-NLS-1$ //$NON-NLS-2$ 
 
-    public static boolean isValidProjectName(String projectName) {
+    public static boolean isNotValidProjectName(String projectName) {
         for (String keyword : JAVA_KEY_WORDS) {
             if (keyword.equalsIgnoreCase(projectName)) {
                 return true;
             }
         }
-        return !Pattern.matches(RepositoryConstants.PROJECT_PATTERN, projectName)
-                || ECodeLanguage.JAVA.getName().equalsIgnoreCase(projectName);
+        return !Pattern.matches(RepositoryConstants.PROJECT_PATTERN, projectName);
     }
 }
