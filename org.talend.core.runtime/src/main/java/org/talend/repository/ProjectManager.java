@@ -86,7 +86,7 @@ public final class ProjectManager {
         if (currentProject.getLabel().equals(label)) {
             return currentProject;
         }
-        for (Project project : getReferencedProjects()) {
+        for (Project project : getAllReferencedProjects()) {
             if (project.getLabel().equals(label)) {
                 return project;
             }
