@@ -49,6 +49,7 @@ public class Java2SqlTypeTest {
         String empty = ""; //$NON-NLS-1$
         String blank = " "; //$NON-NLS-1$
         String str = "skjfkljsdlkf29038409iwejh"; //$NON-NLS-1$
+        String LONG = "LONG"; //$NON-NLS-1$
         String nullString = null;
 
         Assert.assertTrue(Types.DATE == Java2SqlType.getJavaTypeBySqlType(DATE));
@@ -69,6 +70,7 @@ public class Java2SqlTypeTest {
         Assert.assertTrue(Types.LONGVARCHAR == Java2SqlType.getJavaTypeBySqlType(LONGVAR));
         Assert.assertTrue(Types.LONGVARCHAR == Java2SqlType.getJavaTypeBySqlType(LONGVARCHAR));
         Assert.assertTrue(Types.REAL == Java2SqlType.getJavaTypeBySqlType(REAL));
+        Assert.assertTrue(Types.BIGINT == Java2SqlType.getJavaTypeBySqlType(LONG));
 
         Assert.assertTrue(0 == Java2SqlType.getJavaTypeBySqlType(empty));
         Assert.assertTrue(0 == Java2SqlType.getJavaTypeBySqlType(blank));
