@@ -131,7 +131,7 @@ public final class Java2SqlType {
         // MOD klliu bug TDQ-1164 2011-09-26
         if ("DATE".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.DATE;
-        } else if ("BIGINT".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
+        } else if ("BIGINT".equalsIgnoreCase(sqlType.trim()) || "LONG".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$ //$NON-NLS-2$
             return Types.BIGINT;
         } else if ("INTEGER".equalsIgnoreCase(sqlType.trim())) { //$NON-NLS-1$
             return Types.INTEGER;
