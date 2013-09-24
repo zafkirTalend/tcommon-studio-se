@@ -320,7 +320,9 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
     private void addGroupFileViewer(final Composite parent, final int width, int height) {
 
         tabFolder = new CTabFolder(parent, SWT.BORDER);
-        tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridData gd = new GridData(GridData.FILL_BOTH);
+        gd.heightHint = height;
+        tabFolder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
         previewTabItem.setText(Messages.getString("WSDLSchemaStep1Form.preview")); //$NON-NLS-1$
