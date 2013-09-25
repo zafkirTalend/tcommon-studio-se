@@ -29,52 +29,53 @@ package org.talend.core.model.metadata.connection.hive;
  */
 public enum HiveConnVersionInfo {
 
-    HORTONWORKS(0, "HORTONWORKS", "HortonWorks"), //$NON-NLS-1$//$NON-NLS-2$
+    HORTONWORKS(0, "HORTONWORKS", "HortonWorks", true), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE(0, "APACHE", "Apache"), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE(0, "APACHE", "Apache", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    CLOUDERA(0, "CLOUDERA", "Cloudera"), //$NON-NLS-1$//$NON-NLS-2$
+    CLOUDERA(0, "CLOUDERA", "Cloudera", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR(0, "MAPR", "MapR"), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR(0, "MAPR", "MapR", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR"), //$NON-NLS-1$//$NON-NLS-2$
+    AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    PIVOTAL_HD(0, "PIVOTAL_HD", "Pivotal HD"), //$NON-NLS-1$ //$NON-NLS-2$
+    PIVOTAL_HD(0, "PIVOTAL_HD", "Pivotal HD", false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported"), //$NON-NLS-1$//$NON-NLS-2$
+    DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0", HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3", HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR1(1, "MAPR1", "MapR 1.2.0", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2(1, "MAPR2", "MapR 2.0.0", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2(1, "MAPR2", "MapR 2.0.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
-    PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
+    PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, false, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
 
-    DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
+    DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
 
     MODE_EMBEDDED(2, "EMBEDDED",//$NON-NLS-1$
                   "Embedded",//$NON-NLS-1$
+                  false,
                   HiveConnVersionInfo.HDP_1_0,
                   HiveConnVersionInfo.HDP_1_2,
                   HiveConnVersionInfo.HDP_1_3,
@@ -89,6 +90,7 @@ public enum HiveConnVersionInfo {
 
     MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
                     "Standalone",//$NON-NLS-1$
+                    false,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH3,
@@ -116,16 +118,20 @@ public enum HiveConnVersionInfo {
 
     private boolean isSupportYARN;
 
-    private HiveConnVersionInfo(int level, String key, String displayName, HiveConnVersionInfo... follows) {
-        this(level, key, displayName, false, follows);
+    private boolean supportSecurity;
+
+    private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
+            HiveConnVersionInfo... follows) {
+        this(level, key, displayName, false, supportSecurity, follows);
     }
 
-    private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, HiveConnVersionInfo... follows) {
-        this(level, key, displayName, isSupportHive2, true, false, follows);
+    private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, boolean supportSecurity,
+            HiveConnVersionInfo... follows) {
+        this(level, key, displayName, isSupportHive2, true, false, supportSecurity, follows);
     }
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean isSupportHive2, boolean isSupportMR1,
-            boolean isSupportYARN, HiveConnVersionInfo... follows) {
+            boolean isSupportYARN, boolean supportSecurity, HiveConnVersionInfo... follows) {
         this.level = level;
         this.key = key;
         this.displayName = displayName;
@@ -133,6 +139,7 @@ public enum HiveConnVersionInfo {
         this.isSupportMR1 = isSupportMR1;
         this.isSupportYARN = isSupportYARN;
         this.follows = follows;
+        this.supportSecurity = supportSecurity;
     }
 
     public int getLevel() {
@@ -166,6 +173,10 @@ public enum HiveConnVersionInfo {
 
     public boolean isSupportYARN() {
         return this.isSupportYARN;
+    }
+
+    public boolean isSupportSecurity() {
+        return this.supportSecurity;
     }
 
 }

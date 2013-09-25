@@ -1370,6 +1370,53 @@ public class RepositoryToComponentProperty {
             return getColumnMappingValue(connection, table);
         }
 
+        if (value.equals("USE_KRB_VALUE")) {
+            String USE_KRB = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USE);
+            if (USE_KRB != null && USE_KRB.equals("true")) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        }
+
+        if (value.equals("HIVE_PRINCIPAL")) {
+            return TalendQuoteUtils
+                    .addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA));
+        }
+
+        if (value.equals("METASTORE_JDBC_URL")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL));
+        }
+
+        if (value.equals("METASTORE_CLASSNAME")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS));
+        }
+
+        if (value.equals("METASTORE_USERNAME")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME));
+        }
+
+        if (value.equals("METASTORE_PASSWORD")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD));
+        }
+
+        if (value.equals("USE_KEYTAB")) {
+            String USE_KEYTAB = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USEKEYTAB);
+            if (USE_KEYTAB != null && USE_KEYTAB.equals("true")) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        }
+
+        if (value.equals("PRINCIPAL")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA));
+        }
+
+        if (value.equals("KEYTAB_PATH")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB));
+        }
+
         return null;
 
     }
