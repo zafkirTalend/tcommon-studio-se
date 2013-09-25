@@ -84,6 +84,8 @@ public enum EHadoopVersion4Drivers {
         this.distribution = distribution;
         this.versionDisplayName = versionDisplayName;
         this.versionValue = versionValue;
+        this.supportSecurity = supportSecurity;
+        this.supportGroup = supportGroup;
         this.mrVersions = mrVersions;
     }
 
