@@ -3807,6 +3807,7 @@ public class DatabaseForm extends AbstractForm {
     private String checkDBVersion() {
         String msg = null;
         EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         DatabaseConnection connection = getConnection();
         List<EDatabaseVersion4Drivers> dbTypeList = EDatabaseVersion4Drivers.indexOfByDbType(connection.getDatabaseType());
         if (version != null && dbTypeList.size() > 1) {
@@ -3817,14 +3818,14 @@ public class DatabaseForm extends AbstractForm {
                 return null;
             }
             if (connection.getDriverClass() == null && dbType != EDatabaseTypeName.GENERAL_JDBC) {
-                String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+                String driverClass = extractMeta.getDriverClassByDbType(connection.getDatabaseType());
                 connection.setDriverClass(driverClass);
             }
             java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
             // if the dbtype is Access,it will throw a sqlException
             if (sqlConn != null) {
                 try {
-                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, connection);
+                    DatabaseMetaData dm = extractMeta.getDatabaseMetaData(sqlConn, connection);
                     int versionNum = dm.getDatabaseMajorVersion();
                     String[] strArray = version.getVersionValue().split("_"); //$NON-NLS-1$
                     if (strArray.length > 1 && strArray[1].startsWith(Integer.toString(versionNum))) {

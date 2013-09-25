@@ -94,6 +94,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         Driver driver = null;
 
         DatabaseMetaData dbMetaData = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConn.getDbType())) {
             try {
@@ -108,7 +109,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                 e.printStackTrace();
             }
         } else {
-            List list = ExtractMetaDataUtils.getConnectionList(metadataConn);
+            List list = extractMeta.getConnectionList(metadataConn);
             if (list != null && !list.isEmpty()) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) instanceof Connection) {
@@ -119,7 +120,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                     }
                 }
             }
-            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
+            dbMetaData = extractMeta.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
                     metadataConn.getDatabase());
         }
 
@@ -151,8 +152,8 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                 if (!paras.isUsedName()) {
                     tableNameFilter = new HashSet<String>();
                     if (paras.getSqlFiter() != null && !"".equals(paras.getSqlFiter())) { //$NON-NLS-1$
-                        Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-                        ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                        Statement stmt = extractMeta.getConn().createStatement();
+                        extractMeta.setQueryStatementTimeout(stmt);
                         ResultSet rsTables = stmt.executeQuery(paras.getSqlFiter());
                         while (rsTables.next()) {
                             String nameKey = rsTables.getString(1).trim();
@@ -209,7 +210,7 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
                                 .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                ExtractMetaDataUtils.closeConnection();
+                extractMeta.closeConnection();
             }
             // for specific db such as derby
             if (driver != null) {

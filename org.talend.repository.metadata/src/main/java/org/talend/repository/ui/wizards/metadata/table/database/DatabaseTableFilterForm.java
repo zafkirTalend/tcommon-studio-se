@@ -145,7 +145,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
 
         if (isOracle()) {
             publicSynonymCheck.setEnabled(getTableInfoParameters().isUsedName());
-            ExtractMetaDataUtils.setUseAllSynonyms(publicSynonymCheck.getSelection());
+            ExtractMetaDataUtils.getInstance().setUseAllSynonyms(publicSynonymCheck.getSelection());
         }
 
         removeButton.setEnabled(getTableInfoParameters().isUsedName());
@@ -442,7 +442,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     getTableInfoParameters().changeType(ETableTypes.TABLETYPE_ALL_SYNONYM, publicSynonymCheck.getSelection());
-                    ExtractMetaDataUtils.setUseAllSynonyms(publicSynonymCheck.getSelection());
+                    ExtractMetaDataUtils.getInstance().setUseAllSynonyms(publicSynonymCheck.getSelection());
                     if (publicSynonymCheck.getSelection()) {
                         tableCheck.setEnabled(false);
 
@@ -665,7 +665,7 @@ public class DatabaseTableFilterForm extends AbstractForm {
                     return true;
                 } else if (EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbtype)) {
                     String driver = dbConn.getDriverClass();
-                    dbtype = ExtractMetaDataUtils.getDbTypeByClassName(driver);
+                    dbtype = ExtractMetaDataUtils.getInstance().getDbTypeByClassName(driver);
                     if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(dbtype)
                             || EDatabaseTypeName.ORACLESN.getDisplayName().equals(dbtype)) {
                         return true;

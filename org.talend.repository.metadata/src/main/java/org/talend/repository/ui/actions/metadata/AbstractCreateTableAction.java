@@ -1012,7 +1012,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
 
                                 // ExtractMetaDataUtils.metadataCon = metadataConnection;
                                 // when open,set use synonyms false.
-                                ExtractMetaDataUtils.setUseAllSynonyms(false);
+                                ExtractMetaDataUtils.getInstance().setUseAllSynonyms(false);
                                 DatabaseTableWizard databaseTableWizard = new DatabaseTableWizard(PlatformUI.getWorkbench(),
                                         creation, node.getObject(), metadataTable, getExistingNames(), forceReadOnly,
                                         managerConnection, metadataConnection);

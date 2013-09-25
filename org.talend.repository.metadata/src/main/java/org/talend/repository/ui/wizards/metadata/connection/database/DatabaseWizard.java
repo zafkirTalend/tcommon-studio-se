@@ -410,7 +410,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             // MOD by gdbu 2011-3-24 bug 19528
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
             if (dbType != EDatabaseTypeName.GENERAL_JDBC) {
-                String driverClass = ExtractMetaDataUtils.getDriverClassByDbType(connection.getDatabaseType());
+                String driverClass = ExtractMetaDataUtils.getInstance().getDriverClassByDbType(connection.getDatabaseType());
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.equals(dbType)
                         && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString()) || EDatabaseVersion4Drivers.VERTICA_5_1
@@ -767,6 +767,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         java.sql.Connection sqlConn = null;
         String dbType = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
             sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
@@ -778,7 +779,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
                     dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
                 } else {
-                    dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false, metaConnection.getDatabase());
+                    dbMetaData = extractMeta.getDatabaseMetaData(sqlConn, dbType, false, metaConnection.getDatabase());
                 }
                 MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
@@ -792,7 +793,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                             || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                             || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
                             .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                ExtractMetaDataUtils.closeConnection();
+                extractMeta.closeConnection();
             }
             Driver driver = MetadataConnectionUtils.getDerbyDriver();
             if (driver != null) {

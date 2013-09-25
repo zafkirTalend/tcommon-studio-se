@@ -906,6 +906,7 @@ public class SelectorTableForm extends AbstractForm {
         }
         Driver derbyDriver = null;
         Connection sqlConn = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         // get dbType before get connection so that the dbtype won't be null.TDI-18366
         String dbType = metadataconnection.getDbType();
         DatabaseConnection dbConn = (DatabaseConnection) metadataconnection.getCurrentConnection();
@@ -942,7 +943,7 @@ public class SelectorTableForm extends AbstractForm {
             }
             try {
                 if (sqlConn != null) {
-                    DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false,
+                    DatabaseMetaData dm = extractMeta.getDatabaseMetaData(sqlConn, dbType, false,
                             metadataconnection.getDatabase());
                     MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
                             MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
@@ -959,7 +960,7 @@ public class SelectorTableForm extends AbstractForm {
                                 || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
                                     .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
                         || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
-                    ExtractMetaDataUtils.closeConnection();
+                    extractMeta.closeConnection();
                 }
                 if (derbyDriver != null) {
                     try {
@@ -1008,7 +1009,7 @@ public class SelectorTableForm extends AbstractForm {
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
                         /* use extractor for the databse didn't use JDBC,for example: HBase */
-
+                        boolean useAllSyn = ExtractMetaDataUtils.getInstance().isUseAllSynonyms();
                         if (useProvider()) {
                             provider.updatePackage(metadataconnection);
                         } else {
@@ -1021,12 +1022,13 @@ public class SelectorTableForm extends AbstractForm {
                         // ConnectionHelper.addPackages(newDataPackage, getConnection());
 
                         // need to enhance later
-                        if (ExtractMetaDataUtils.isUseAllSynonyms() // before had a check if oracle connection, but
-                                                                    // remove since useAllSynonyms is only on Oracle
+                        if (useAllSyn // before had a check if oracle
+                                      // connection, but
+                                // remove since useAllSynonyms is only on Oracle
                                 || EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType())) {
                             List<String> itemTableName = ExtractMetaDataFromDataBase.returnTablesFormConnection(
                                     metadataconnection, getTableInfoParameters());
-                            if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                            if (useAllSyn) {
                                 tableNodeList = getTableNodeForAllSynonyms(itemTableName, true);
                             } else {
                                 tableNodeList = getTableNodeForAllSynonyms(itemTableName, false);
@@ -1215,7 +1217,7 @@ public class SelectorTableForm extends AbstractForm {
             // For access's table's remove,must be accordance with its addTable
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
+            if ("".equals(schema) && ExtractMetaDataUtils.getInstance().isUseAllSynonyms()) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
@@ -1371,7 +1373,7 @@ public class SelectorTableForm extends AbstractForm {
                 }
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                 // only for oracle use all synonyms
-                boolean useAllSynonyms = ExtractMetaDataUtils.useAllSynonyms;
+                boolean useAllSynonyms = ExtractMetaDataUtils.getInstance().isUseAllSynonyms();
                 // Added a locker by Marvin Wang on May 15, 2012 for bug TDI-21058.
                 synchronized (locker) {
                     if (useAllSynonyms || isAccess) {
@@ -1744,7 +1746,7 @@ public class SelectorTableForm extends AbstractForm {
         if (isAccess) {
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
         } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.useAllSynonyms) {
+            if ("".equals(schema) && ExtractMetaDataUtils.getInstance().isUseAllSynonyms()) {
                 schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
             }
             ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
@@ -2319,7 +2321,7 @@ public class SelectorTableForm extends AbstractForm {
     protected void processWhenDispose() {
         if (threadExecutor != null) {
             threadExecutor.clearThreads();
-            ExtractMetaDataUtils.closeConnection();
+            ExtractMetaDataUtils.getInstance().closeConnection();
         }
     }
 

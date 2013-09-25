@@ -91,7 +91,6 @@ import org.talend.repository.ui.utils.OtherConnectionContextUtils;
 import org.talend.salesforce.SforceManagementImpl;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 
 import com.salesforce.soap.partner.DescribeGlobal;
@@ -1328,7 +1327,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
     protected void processWhenDispose() {
         if (threadExecutor != null) {
             threadExecutor.clearThreads();
-            ExtractMetaDataUtils.closeConnection();
+            ExtractMetaDataUtils.getInstance().closeConnection();
         }
     }
 
