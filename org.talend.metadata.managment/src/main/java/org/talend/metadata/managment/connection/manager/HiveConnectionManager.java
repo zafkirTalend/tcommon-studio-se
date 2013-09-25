@@ -134,6 +134,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         username = username != null ? username : ""; //$NON-NLS-1$
         password = password != null ? password : "";//$NON-NLS-1$
+        info.setProperty("user", username);//$NON-NLS-1$
+        info.setProperty("password", password);//$NON-NLS-1$
         return hiveDriver.connect(connURL, info);
     }
 
@@ -155,6 +157,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         username = username != null ? username : ""; //$NON-NLS-1$
         password = password != null ? password : "";//$NON-NLS-1$
+        info.setProperty("user", username);//$NON-NLS-1$
+        info.setProperty("password", password);//$NON-NLS-1$
         return hiveDriver.connect(connURL, info);
     }
 

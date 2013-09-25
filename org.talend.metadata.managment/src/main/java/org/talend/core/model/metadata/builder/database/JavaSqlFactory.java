@@ -380,7 +380,14 @@ public final class JavaSqlFactory {
             String fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").append(id).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
+
             DatabaseConnection dbConn = (DatabaseConnection) conn;
+
+            // for dq, need to set this as the user to run mapreduce job when run analysis.
+            String userName = dbConn.getUsername();
+            if (StringUtils.isNotBlank(userName)) {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HADOOP_USER_NAME.getKey(), dbConn.getUsername());
+            }
             // TODO with thrift way, we must enable the two parameters below whereas in JDBC way, we don't need it.
             // If metastore is local or not.
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_LOCAL.getKey(), "false"); //$NON-NLS-1$
@@ -410,9 +417,9 @@ public final class JavaSqlFactory {
 
             boolean useYarn = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
             if (useYarn) { // yarn
-            //                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPREDUCE_FRAMEWORK_NAME.getKey(), "yarn"); //$NON-NLS-1$
-            // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_YARN_RESOURCEMANAGER_ADDRESS.getKey(), dbConn
-            // .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
+                //                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPREDUCE_FRAMEWORK_NAME.getKey(), "yarn"); //$NON-NLS-1$
+                // System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_YARN_RESOURCEMANAGER_ADDRESS.getKey(), dbConn
+                // .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
             } else { // job tracker
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey(),
                         dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
@@ -451,6 +458,7 @@ public final class JavaSqlFactory {
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_FS_DEFAULT_NAME.getKey());
         System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_MAPRED_JOB_TRACKER.getKey());
+        System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HADOOP_USER_NAME.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey());
