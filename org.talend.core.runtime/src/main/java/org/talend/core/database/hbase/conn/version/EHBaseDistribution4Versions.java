@@ -26,6 +26,8 @@ public enum EHBaseDistribution4Versions {
 
     HDP_1_3(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3"),
 
+    HDP_2_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0"),
+
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 
     APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),
@@ -41,6 +43,8 @@ public enum EHBaseDistribution4Versions {
     MAPR_2_1_2(EHBaseDistributions.MAPR, "MapR 2.1.2", "MAPR212"),
 
     MAPR_2_1_3(EHBaseDistributions.MAPR, "MapR 2.1.3", "MAPR213"),
+
+    MAPR_3_0_1(EHBaseDistributions.MAPR, "MapR 3.0.1", "MAPR301"),
 
     PIVOTAL_HD_1_0_1(EHBaseDistributions.PIVOTAL_HD, "Pivotal HD 1.0.1", "PIVOTAL_HD_1_0_1"),
 

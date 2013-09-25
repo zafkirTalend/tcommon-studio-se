@@ -28,6 +28,8 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
 
+    HDP_2_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0", true, false),
+
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
     APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false),
@@ -47,6 +49,8 @@ public enum EHadoopVersion4Drivers {
     MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true),
 
     MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true),
+
+    MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true),
 
     MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR", false, true),
 
