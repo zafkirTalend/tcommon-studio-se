@@ -12,8 +12,17 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -36,7 +45,6 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -66,22 +74,30 @@ public class AbstractTest4ExtractManager {
 
     private ExtractManager extractManger;
 
+    private ExtractMetaDataUtils extractMeta;
+
     private EDatabaseTypeName type;
 
     protected void init(EDatabaseTypeName dbType) {
         this.type = dbType;
         Assert.assertNotNull(this.type);
         this.extractManger = spy(ExtractManagerFactory.create(this.type));
+        this.extractMeta = ExtractMetaDataUtils.getInstance();
         Assert.assertNotNull(this.extractManger);
     }
 
     @After
     public void tearDown() throws Exception {
         extractManger = null;
+        extractMeta = null;
     }
 
     protected ExtractManager getExtractManger() {
         return this.extractManger;
+    }
+
+    protected ExtractMetaDataUtils getExtractMeta() {
+        return this.extractMeta;
     }
 
     protected void PTODO() {
@@ -401,7 +417,7 @@ public class AbstractTest4ExtractManager {
         Assert.assertNotNull(getExtractManger());
 
         Connection conn = mockConnection4ReturnColumns();
-        ExtractMetaDataUtils.conn = conn;
+        extractMeta.setConn(conn);
 
         DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnColumns();
         when(conn.getMetaData()).thenReturn(dbMetadata);
@@ -428,7 +444,7 @@ public class AbstractTest4ExtractManager {
         verifyDbMetadata4ReturnColumns4DontCreateConnection(dbMetadata);
         verifyColumnsResultSet4ReturnColumns4DontCreateConnection(getColumnsResultSet);
 
-        ExtractMetaDataUtils.conn = null;
+        extractMeta.setConn(null);
     }
 
     protected IMetadataConnection mockMetadataConnection4ReturnColumns() {
@@ -453,7 +469,7 @@ public class AbstractTest4ExtractManager {
         //        when(tableNode.getValue()).thenReturn("/table1"); //$NON-NLS-1$
         tableNode.setValue("/table1"); //$NON-NLS-1$
 
-        // only test table type， if SYNONYM, will do it in following test method
+        // only test table type if SYNONYM, will do it in following test method
         // "testReturnColumns4DontCreateConnection2TableTypeSynonym"
         when(tableNode.getItemType()).thenReturn(ETableTypes.TABLETYPE_TABLE.getName());
         // PTODO
@@ -549,7 +565,7 @@ public class AbstractTest4ExtractManager {
         Assert.assertNotNull(getExtractManger());
 
         Connection conn = mockConnection4ReturnColumns();
-        ExtractMetaDataUtils.conn = conn;
+        extractMeta.setConn(conn);
 
         DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnColumns();
         when(conn.getMetaData()).thenReturn(dbMetadata);
@@ -576,7 +592,7 @@ public class AbstractTest4ExtractManager {
         // verifyDbMetadata4ReturnColumns4DontCreateConnection(dbMetadata);
         // verifyColumnsResultSet4ReturnColumns4DontCreateConnection(getColumnsResultSet);
 
-        ExtractMetaDataUtils.conn = null;
+        extractMeta.setConn(null);
     }
 
     protected TableNode mockTableNode4ReturnColumns2TableTypeSynonym() throws Exception {
@@ -589,7 +605,7 @@ public class AbstractTest4ExtractManager {
         //        when(tableNode.getValue()).thenReturn("/table1"); //$NON-NLS-1$
         tableNode.setValue("/table2"); //$NON-NLS-1$
 
-        // only test table type， if SYNONYM, will do it in following test method
+        // only test table type if SYNONYM, will do it in following test method
         // "testReturnColumns4DontCreateConnection2TableTypeSynonym"
         when(tableNode.getItemType()).thenReturn(ETableTypes.TABLETYPE_SYNONYM.getName());
         // PTODO
@@ -617,7 +633,7 @@ public class AbstractTest4ExtractManager {
         Assert.assertNotNull(getExtractManger());
 
         Connection conn = mockConnection4ReturnColumns4reCreateConnection();
-        ExtractMetaDataUtils.conn = conn;
+        extractMeta.setConn(conn);
 
         IMetadataConnection metadataConn = mockMetadataConnection4ReturnColumns4reCreateConnection();
         //
@@ -633,17 +649,17 @@ public class AbstractTest4ExtractManager {
         when(tableNode.getTable()).thenReturn(tdTable);
 
         // powermock the reConnection
-        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
         List conList = new ArrayList();
         conList.add(conn);
         DriverShim wapperDriver = mock(DriverShim.class);
         conList.add(wapperDriver);
         when(
-                ExtractMetaDataUtils.getConnection(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
+                extractMeta.getConnection(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
                         anyString(), anyString(), anyString(), anyString())).thenReturn(conList);
 
         when(
-                ExtractMetaDataUtils.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
+                extractMeta.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
                         metadataConn.getDatabase())).thenReturn(dbMetadata);
 
         //
@@ -653,7 +669,7 @@ public class AbstractTest4ExtractManager {
         // verify
         // PTODO
 
-        ExtractMetaDataUtils.conn = null;
+        extractMeta.setConn(null);
 
     }
 
@@ -706,7 +722,7 @@ public class AbstractTest4ExtractManager {
         //        when(tableNode.getValue()).thenReturn("/table2"); //$NON-NLS-1$
         tableNode.setValue("/table2"); //$NON-NLS-1$
 
-        // only test table type， if SYNONYM, will do it in following test method
+        // only test table type if SYNONYM, will do it in following test method
         // "testReturnColumns4DontCreateConnection2TableTypeSynonym"
         when(tableNode.getItemType()).thenReturn(ETableTypes.TABLETYPE_TABLE.getName());
         // PTODO
@@ -737,8 +753,8 @@ public class AbstractTest4ExtractManager {
 
         IMetadataConnection metadataConn = mockMetadataConnection4ReturnTablesFormConnection();
         Connection conn = mockConnection4ReturnTablesFormConnection();
-        ExtractMetaDataUtils.conn = conn;
-        ExtractMetaDataUtils.isReconnect = false;
+        extractMeta.setConn(conn);
+        extractMeta.setReconnect(false);
 
         DatabaseMetaData dbMetadata = mockDatabaseMetaData4ReturnTablesFormConnection();
         when(conn.getMetaData()).thenReturn(dbMetadata);
@@ -761,7 +777,7 @@ public class AbstractTest4ExtractManager {
         // verifyConnection4ReturnTablesFormConnection(conn);
         // verifyDbMetadata4ReturnTablesFormConnection(dbMetadata);
 
-        ExtractMetaDataUtils.conn = null;
+        extractMeta.setConn(null);
     }
 
     protected IMetadataConnection mockMetadataConnection4ReturnTablesFormConnection() {

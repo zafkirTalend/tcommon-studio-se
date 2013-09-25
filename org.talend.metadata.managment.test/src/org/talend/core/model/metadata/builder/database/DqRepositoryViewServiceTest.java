@@ -3,8 +3,11 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -215,8 +218,8 @@ public class DqRepositoryViewServiceTest {
             List<TdColumn> columnsExpected = new ArrayList<TdColumn>(3);
             java.sql.Connection sqlConn = null;
             DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn)).thenReturn(databaseMetaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbConn)).thenReturn(databaseMetaData);
             MetadataFillFactory metadataFactory = mock(MetadataFillFactory.class);
             when(metadataFactory.fillColumns(columnSet, databaseMetaData, null, null)).thenReturn(columnsExpected);
             PowerMockito.mockStatic(MetadataFillFactory.class);
@@ -298,9 +301,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -383,9 +387,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -468,9 +473,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -551,9 +557,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -631,9 +638,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -743,9 +751,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -854,9 +863,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);
@@ -967,9 +977,10 @@ public class DqRepositoryViewServiceTest {
             Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
-            PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-            Mockito.when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false)).thenReturn(
-                    metaData);
+            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            Mockito.when(
+                    ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, (DatabaseConnection) dataProvider, false))
+                    .thenReturn(metaData);
 
             // PackageHelper.getCatalogOrSchema()
             PowerMockito.mockStatic(PackageHelper.class);

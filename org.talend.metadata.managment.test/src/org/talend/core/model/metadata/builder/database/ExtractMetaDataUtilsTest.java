@@ -3,9 +3,13 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -17,6 +21,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
@@ -34,9 +40,21 @@ import orgomg.cwm.objectmodel.core.Expression;
  */
 public class ExtractMetaDataUtilsTest {
 
+    private ExtractMetaDataUtils extractMetaManger;
+
+    @Before
+    public void setUp() throws Exception {
+        extractMetaManger = ExtractMetaDataUtils.getInstance();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        extractMetaManger = null;
+    }
+
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils#getDatabaseMetaData(java.sql.Connection, org.talend.core.model.metadata.builder.connection.DatabaseConnection, boolean)}
+     * {@link org.talend.core.model.metadata.builder.database.extractMetaManger#getDatabaseMetaData(java.sql.Connection, org.talend.core.model.metadata.builder.connection.DatabaseConnection, boolean)}
      * .
      */
     @Test
@@ -54,8 +72,8 @@ public class ExtractMetaDataUtilsTest {
         when(mockDBConn.getDatabaseType()).thenReturn(EDatabaseTypeName.TERADATA.getXmlName());
         when(mockDBConn.getSID()).thenReturn("talendDB");//$NON-NLS-1$
 
-        java.sql.DatabaseMetaData databaseMetaData1 = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, mockDBConn, true);
-        java.sql.DatabaseMetaData databaseMetaData2 = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, mockDBConn, false);
+        java.sql.DatabaseMetaData databaseMetaData1 = extractMetaManger.getDatabaseMetaData(mockConn, mockDBConn, true);
+        java.sql.DatabaseMetaData databaseMetaData2 = extractMetaManger.getDatabaseMetaData(mockConn, mockDBConn, false);
 
         if (!(databaseMetaData1 instanceof TeradataDataBaseMetadata && databaseMetaData2 instanceof DatabaseMetaData)) {
             fail();
@@ -69,7 +87,7 @@ public class ExtractMetaDataUtilsTest {
      */
     @Test
     public void testGetDatabaseMetaData_FourArguments4NullConn() throws Exception {
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(null, null, false, null);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(null, null, false, null);
         Assert.assertNull(databaseMetaData);
     }
 
@@ -84,7 +102,7 @@ public class ExtractMetaDataUtilsTest {
         // DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         // when(mockConn.getMetaData()).thenReturn(metaData);
         //
-        // DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn,
+        // DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn,
         // EDatabaseTypeName.MSSQL.getXmlName(), false, null);
         //
         // verify(mockConn).getMetaData();
@@ -109,7 +127,7 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         when(mockConn.getMetaData()).thenReturn(metaData);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn,
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn,
                 EDatabaseTypeName.IBMDB2ZOS.getXmlName(), false, null);
 
         Assert.assertNotNull(databaseMetaData);
@@ -123,8 +141,8 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         when(mockConn.getMetaData()).thenReturn(metaData);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn,
-                EDatabaseTypeName.SAS.getXmlName(), false, null);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn, EDatabaseTypeName.SAS.getXmlName(),
+                false, null);
 
         Assert.assertNotNull(databaseMetaData);
         Assert.assertTrue(databaseMetaData instanceof SASDataBaseMetadata);
@@ -137,7 +155,7 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         when(mockConn.getMetaData()).thenReturn(metaData);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn,
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn,
                 EDatabaseTypeName.TERADATA.getXmlName(), false, "talendDB"); //$NON-NLS-1$
 
         verify(mockConn).getMetaData();
@@ -153,7 +171,7 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         when(mockConn.getMetaData()).thenReturn(metaData);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn,
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn,
                 EDatabaseTypeName.TERADATA.getXmlName(), true, "talendDB"); //$NON-NLS-1$
 
         Assert.assertNotNull(databaseMetaData);
@@ -184,7 +202,7 @@ public class ExtractMetaDataUtilsTest {
         for (EDatabaseTypeName value : values) {
             EDatabaseTypeName type = value;
             if (!neededList.contains(type)) {
-                DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, type.getXmlName(), false,
+                DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn, type.getXmlName(), false,
                         null);
 
                 verify(mockConn, times(times++)).getMetaData();
@@ -202,7 +220,7 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metaData = mock(DatabaseMetaData.class);
         when(mockConn.getMetaData()).thenReturn(metaData);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(mockConn, null, false, null);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn, null, false, null);
 
         verify(mockConn).getMetaData();
 
@@ -212,7 +230,7 @@ public class ExtractMetaDataUtilsTest {
 
     @Test
     public void testGetConnectionMetadata4NullConn() throws Exception {
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(null);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(null);
         Assert.assertNull(databaseMetaData);
     }
 
@@ -220,7 +238,7 @@ public class ExtractMetaDataUtilsTest {
     public void testGetConnectionMetadata4NullMetaData() throws Exception {
         Connection mockConn = mock(java.sql.Connection.class);
         when(mockConn.getMetaData()).thenReturn(null);
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
         verify(mockConn).getMetaData();
         Assert.assertNull(databaseMetaData);
     }
@@ -232,7 +250,7 @@ public class ExtractMetaDataUtilsTest {
         when(mockConn.getMetaData()).thenReturn(metaData);
         when(metaData.getDatabaseProductName()).thenReturn(null);
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
         verify(mockConn).getMetaData();
         verify(metaData).getDatabaseProductName();
@@ -264,7 +282,7 @@ public class ExtractMetaDataUtilsTest {
         when(mockConn.getMetaData()).thenReturn(metaData);
         when(metaData.getDatabaseProductName()).thenReturn(EDatabaseTypeName.IBMDB2ZOS.getXmlName());
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
         verify(mockConn).getMetaData();
         verify(metaData, times(2)).getDatabaseProductName();
@@ -280,7 +298,7 @@ public class ExtractMetaDataUtilsTest {
         when(mockConn.getMetaData()).thenReturn(metaData);
         when(metaData.getDatabaseProductName()).thenReturn(EDatabaseTypeName.TERADATA.getXmlName());
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
         verify(mockConn, times(2)).getMetaData();
         verify(metaData, times(2)).getDatabaseProductName();
@@ -302,7 +320,7 @@ public class ExtractMetaDataUtilsTest {
         when(mockConn.getMetaData()).thenReturn(metaData);
         when(metaData.getDatabaseProductName()).thenReturn(EDatabaseTypeName.SAS.getXmlName());
 
-        DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+        DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
         verify(mockConn).getMetaData();
         verify(metaData, times(2)).getDatabaseProductName();
@@ -327,7 +345,7 @@ public class ExtractMetaDataUtilsTest {
             if (!neededList.contains(type)) {
                 when(metaData.getDatabaseProductName()).thenReturn(type.getXmlName());
 
-                DatabaseMetaData databaseMetaData = ExtractMetaDataUtils.getConnectionMetadata(mockConn);
+                DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
                 // because twince
                 verify(mockConn, times(2 * times)).getMetaData();
@@ -343,19 +361,19 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testNeedFakeDatabaseMetaData() {
         // test null type
-        Assert.assertFalse(ExtractMetaDataUtils.needFakeDatabaseMetaData(null, false));
+        Assert.assertFalse(extractMetaManger.needFakeDatabaseMetaData(null, false));
 
         //
         List<EDatabaseTypeName> neededList = getNeedFakeTypes();
         for (EDatabaseTypeName type : neededList) {
-            Assert.assertTrue(ExtractMetaDataUtils.needFakeDatabaseMetaData(type.getXmlName(), true));
+            Assert.assertTrue(extractMetaManger.needFakeDatabaseMetaData(type.getXmlName(), true));
         }
         // special for TERADATA
-        Assert.assertFalse(ExtractMetaDataUtils.needFakeDatabaseMetaData(EDatabaseTypeName.TERADATA.getXmlName(), false));
+        Assert.assertFalse(extractMetaManger.needFakeDatabaseMetaData(EDatabaseTypeName.TERADATA.getXmlName(), false));
 
         for (EDatabaseTypeName type : EDatabaseTypeName.values()) {
             if (!neededList.contains(type)) {
-                Assert.assertFalse(ExtractMetaDataUtils.needFakeDatabaseMetaData(type.getXmlName(), false));
+                Assert.assertFalse(extractMetaManger.needFakeDatabaseMetaData(type.getXmlName(), false));
             }
         }
 
@@ -367,21 +385,21 @@ public class ExtractMetaDataUtilsTest {
         DatabaseMetaData metadata = mock(DatabaseMetaData.class);
 
         final String infoType = "test"; //$NON-NLS-1$
-        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, null, null));
-        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, null, metadata));
-        Assert.assertNull(ExtractMetaDataUtils.getStringMetaDataInfo(null, "test", metadata)); //$NON-NLS-1$
+        Assert.assertNull(extractMetaManger.getStringMetaDataInfo(null, null, null));
+        Assert.assertNull(extractMetaManger.getStringMetaDataInfo(null, null, metadata));
+        Assert.assertNull(extractMetaManger.getStringMetaDataInfo(null, "test", metadata)); //$NON-NLS-1$
 
         // test null DatabaseMetaData
         final String value = "abc"; //$NON-NLS-1$
         when(resultSet.getString(anyString())).thenReturn(value);
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType, null);
 
         // only one time
         verify(resultSet).getString(anyString());
         Assert.assertEquals(actualResult, value); // because the matadata is null.
 
         // second time, and have the metadata,but no functions
-        actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, metadata);
+        actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType, metadata);
         verify(resultSet, times(2)).getString(anyString());
         Assert.assertEquals(actualResult, value);
     }
@@ -396,7 +414,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test sql Exception
         doThrow(new SQLException()).when(resultSet).getString(anyString());
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType, null);
         // only one time
         verify(resultSet).getString(anyString());
         Assert.assertNull(actualResult);
@@ -412,7 +430,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test Exception
         doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType, null);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType, null);
         // only one time
         verify(resultSet).getString(anyString());
         Assert.assertNull(actualResult);
@@ -421,12 +439,12 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testIsOLAPConnection4Null() {
 
-        Assert.assertFalse(ExtractMetaDataUtils.isOLAPConnection(null));
+        Assert.assertFalse(extractMetaManger.isOLAPConnection(null));
 
         DatabaseConnection conn = mock(DatabaseConnection.class);
         when(conn.getProductId()).thenReturn(null);
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         Assert.assertFalse(is);
 
@@ -438,7 +456,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn(null);
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertFalse(is);
@@ -451,7 +469,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn(""); //$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertFalse(is);
@@ -464,7 +482,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn("jdbc:xxx://yyy:zzz");//$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertFalse(is);
@@ -477,7 +495,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn("JDBC:OLAP://yyy:zzz");//$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertTrue(is);
@@ -490,7 +508,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn("jdbc:olap://yyy:zzz");//$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertTrue(is);
@@ -503,7 +521,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn("jdbc:olapx://yyy:zzz");//$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertFalse(is);
@@ -516,7 +534,7 @@ public class ExtractMetaDataUtilsTest {
         when(conn.getProductId()).thenReturn(EDatabaseTypeName.GENERAL_JDBC.getProduct());
         when(conn.getURL()).thenReturn("jdbc:olap,abc");//$NON-NLS-1$
 
-        boolean is = ExtractMetaDataUtils.isOLAPConnection(conn);
+        boolean is = extractMetaManger.isOLAPConnection(conn);
         verify(conn).getProductId();
         verify(conn).getURL();
         Assert.assertFalse(is);
@@ -526,34 +544,34 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testGetDriverClassByDbType() {
         // null
-        Assert.assertNull(ExtractMetaDataUtils.getDriverClassByDbType(null));
+        Assert.assertNull(extractMetaManger.getDriverClassByDbType(null));
         // mysql
-        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.MYSQL.getXmlName()),
+        Assert.assertEquals(extractMetaManger.getDriverClassByDbType(EDatabaseTypeName.MYSQL.getXmlName()),
                 "org.gjt.mm.mysql.Driver");
         // oracle
-        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.ORACLEFORSID.getXmlName()),
+        Assert.assertEquals(extractMetaManger.getDriverClassByDbType(EDatabaseTypeName.ORACLEFORSID.getXmlName()),
                 "oracle.jdbc.OracleDriver");
         // ibm db2
-        Assert.assertEquals(ExtractMetaDataUtils.getDriverClassByDbType(EDatabaseTypeName.IBMDB2.getXmlName()),
+        Assert.assertEquals(extractMetaManger.getDriverClassByDbType(EDatabaseTypeName.IBMDB2.getXmlName()),
                 "com.ibm.db2.jcc.DB2Driver");
     }
 
     @Test
     public void testGetDbTypeByClassNameAndDriverJar() {
         // null
-        Assert.assertNull(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar(null, null));
+        Assert.assertNull(extractMetaManger.getDbTypeByClassNameAndDriverJar(null, null));
         // mysql and DriverJar null
-        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.gjt.mm.mysql.Driver", null),
+        Assert.assertEquals(extractMetaManger.getDbTypeByClassNameAndDriverJar("org.gjt.mm.mysql.Driver", null),
                 EDatabaseTypeName.MYSQL.getXmlName());
         // for some dbs use the same driverClassName. will got the first one
-        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", null),
+        Assert.assertEquals(extractMetaManger.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", null),
                 EDatabaseTypeName.GREENPLUM.getXmlName());
         // postgresql
         Assert.assertEquals(
-                ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", "postgresql-8.3-603.jdbc4.jar"),
+                extractMetaManger.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", "postgresql-8.3-603.jdbc4.jar"),
                 EDatabaseTypeName.PSQL.getXmlName());
         //
-        Assert.assertEquals(ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar("sun.jdbc.odbc.JdbcOdbcDriver",
+        Assert.assertEquals(extractMetaManger.getDbTypeByClassNameAndDriverJar("sun.jdbc.odbc.JdbcOdbcDriver",
                 "mysql-connector-java-5.1.3-bin.jar"), EDatabaseTypeName.ACCESS.getXmlName());
     }
 
@@ -563,7 +581,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataConnection.getSchema()).thenReturn("schemaTest");
         when(metadataConnection.getDbType()).thenReturn(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
         when(metadataConnection.getUrl()).thenReturn("");
-        Assert.assertEquals(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection), "schemaTest");
+        Assert.assertEquals(extractMetaManger.getMeataConnectionSchema(metadataConnection), "schemaTest");
         // verify
         verify(metadataConnection).getSchema();
         verify(metadataConnection).getDbType();
@@ -577,7 +595,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataConnection.getUsername()).thenReturn("userNameTest");
         when(metadataConnection.getDbType()).thenReturn(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
         when(metadataConnection.getUrl()).thenReturn(EDatabaseConnTemplate.ORACLEFORSID.getUrlTemplate(null));
-        Assert.assertEquals(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection), metadataConnection.getUsername()
+        Assert.assertEquals(extractMetaManger.getMeataConnectionSchema(metadataConnection), metadataConnection.getUsername()
                 .toUpperCase());
         // verify
         verify(metadataConnection).getSchema();
@@ -593,7 +611,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataConnection.getUsername()).thenReturn(null);
         when(metadataConnection.getDbType()).thenReturn(null);
         when(metadataConnection.getUrl()).thenReturn(null);
-        Assert.assertNull(ExtractMetaDataUtils.getMeataConnectionSchema(metadataConnection));
+        Assert.assertNull(extractMetaManger.getMeataConnectionSchema(metadataConnection));
         // verify
         verify(metadataConnection).getSchema();
         verify(metadataConnection).getDbType();
@@ -604,7 +622,7 @@ public class ExtractMetaDataUtilsTest {
     public void testGetDBConnectionSchema() {
         DatabaseConnection conn = mock(DatabaseConnection.class);
         when(conn.getUiSchema()).thenReturn("schemaTest"); //$NON-NLS-1$
-        Assert.assertEquals(ExtractMetaDataUtils.getDBConnectionSchema(conn), "schemaTest"); //$NON-NLS-1$
+        Assert.assertEquals(extractMetaManger.getDBConnectionSchema(conn), "schemaTest"); //$NON-NLS-1$
     }
 
     @Test
@@ -619,7 +637,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataColumn.getInitialValue()).thenReturn(initialValue);
         when(initialValue.getBody()).thenReturn("bodyTest");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         // verify
         verify(metadataColumn).getTalendType();
         verify(metadataColumn).getInitialValue();
@@ -642,7 +660,7 @@ public class ExtractMetaDataUtilsTest {
         // don't contain
         when(initialValue.getBody()).thenReturn("bodyTest");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         Assert.assertEquals(initialValue.getBody(), "bodyTest");
         // verify
         verify(metadataColumn, times(2)).getTalendType();
@@ -664,7 +682,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataColumn.getInitialValue()).thenReturn(initialValue);
         when(initialValue.getBody()).thenReturn("bodyTest");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         // verify
         verify(metadataColumn).getTalendType();
         verify(metadataColumn).getInitialValue();
@@ -687,7 +705,7 @@ public class ExtractMetaDataUtilsTest {
         // don't contain
         when(initialValue.getBody()).thenReturn("123");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         Assert.assertEquals(initialValue.getBody(), "123");
         // verify
         verify(metadataColumn, times(2)).getTalendType();
@@ -709,7 +727,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataColumn.getInitialValue()).thenReturn(initialValue);
         when(initialValue.getBody()).thenReturn("bodyTest");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         // verify
         verify(metadataColumn).getTalendType();
         verify(metadataColumn).getInitialValue();
@@ -732,7 +750,7 @@ public class ExtractMetaDataUtilsTest {
         // don't contain
         when(initialValue.getBody()).thenReturn("a");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         Assert.assertEquals(initialValue.getBody(), "a");
         // verify
         verify(metadataColumn, times(2)).getTalendType();
@@ -754,7 +772,7 @@ public class ExtractMetaDataUtilsTest {
         when(metadataColumn.getInitialValue()).thenReturn(initialValue);
         when(initialValue.getBody()).thenReturn("bodyTest");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         // verify
         verify(metadataColumn).getTalendType();
         verify(metadataColumn).getInitialValue();
@@ -777,7 +795,7 @@ public class ExtractMetaDataUtilsTest {
         // don't contain
         when(initialValue.getBody()).thenReturn("2012-7-27");
 
-        ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetadata);
+        extractMetaManger.handleDefaultValue(metadataColumn, dbMetadata);
         Assert.assertEquals(initialValue.getBody(), "2012-7-27");
         // verify
         verify(metadataColumn).getTalendType();
@@ -790,28 +808,28 @@ public class ExtractMetaDataUtilsTest {
     @Test
     public void testGetMultiSchems() {
         // null
-        Assert.assertNull(ExtractMetaDataUtils.getMultiSchems(null));
+        Assert.assertNull(extractMetaManger.getMultiSchems(null));
 
-        String[] split = ExtractMetaDataUtils.getMultiSchems("hello,word");
+        String[] split = extractMetaManger.getMultiSchems("hello,word");
         Assert.assertEquals(split[0], "hello");
         Assert.assertEquals(split[1], "word");
     }
 
     @Test
     public void testRetrieveSchemaPatternForAS4004Null() {
-        Assert.assertNull(ExtractMetaDataUtils.retrieveSchemaPatternForAS400(null));
+        Assert.assertNull(extractMetaManger.retrieveSchemaPatternForAS400(null));
     }
 
     @Test
     public void testRetrieveSchemaPatternForAS4004EmptyURL() {
-        Assert.assertNull(ExtractMetaDataUtils.retrieveSchemaPatternForAS400(""));
+        Assert.assertNull(extractMetaManger.retrieveSchemaPatternForAS400(""));
     }
 
     @Test
     public void testRetrieveSchemaPatternForAS4004URL1() {
         // have one library in the url
         String url = "jdbc:as400://127.0.0.1/test;libraries=test;prompt=false";
-        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        String schema = extractMetaManger.retrieveSchemaPatternForAS400(url);
         Assert.assertEquals(schema, "test");
         // verify
     }
@@ -820,7 +838,7 @@ public class ExtractMetaDataUtilsTest {
     public void testRetrieveSchemaPatternForAS4004URLMultiLibrary() {
         // multi-library in the url
         String url = "jdbc:as400://127.0.0.1/test;libraries=abc,xyz;prompt=false";
-        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        String schema = extractMetaManger.retrieveSchemaPatternForAS400(url);
         Assert.assertEquals(schema, "abc,xyz");
         // verify
     }
@@ -829,7 +847,7 @@ public class ExtractMetaDataUtilsTest {
     public void testRetrieveSchemaPatternForAS4004URL2() {
         // no library in the url
         String url = "jdbc:as400://localhost/test;prompt=false";
-        String schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+        String schema = extractMetaManger.retrieveSchemaPatternForAS400(url);
         Assert.assertNull(schema);
     }
 
@@ -840,7 +858,7 @@ public class ExtractMetaDataUtilsTest {
         final int infoType = 1;
         final String value = "abc";
         when(resultSet.getString(infoType)).thenReturn(value);
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult, value);
         // verify
         verify(resultSet).getString(infoType);
@@ -857,7 +875,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test sql Exception
         doThrow(new SQLException()).when(resultSet).getString(infoType);
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType);
         Assert.assertNull(actualResult);
         // verify
         verify(resultSet).getString(infoType);
@@ -873,7 +891,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test Exception
         doThrow(new IllegalArgumentException()).when(resultSet).getString(infoType);
-        String actualResult = ExtractMetaDataUtils.getStringMetaDataInfo(resultSet, infoType);
+        String actualResult = extractMetaManger.getStringMetaDataInfo(resultSet, infoType);
         Assert.assertNull(actualResult);
         // verify
         verify(resultSet).getString(infoType);
@@ -886,7 +904,7 @@ public class ExtractMetaDataUtilsTest {
         final String infoType = "test";
         final Integer value = 1;
         when(resultSet.getInt(anyString())).thenReturn(value);
-        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Integer actualResult = extractMetaManger.getIntMetaDataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult, value);
         // verify
         verify(resultSet).getInt(anyString());
@@ -902,7 +920,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test sql Exception
         doThrow(new SQLException()).when(resultSet).getInt(anyString());
-        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Integer actualResult = extractMetaManger.getIntMetaDataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult, new Integer(0));
         // verify
         verify(resultSet).getInt(anyString());
@@ -918,7 +936,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test Exception
         doThrow(new IllegalArgumentException()).when(resultSet).getInt(anyString());
-        Integer actualResult = ExtractMetaDataUtils.getIntMetaDataInfo(resultSet, infoType);
+        Integer actualResult = extractMetaManger.getIntMetaDataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult, new Integer(0));
         // verify
         verify(resultSet).getInt(anyString());
@@ -934,7 +952,7 @@ public class ExtractMetaDataUtilsTest {
         when(resultSet.getInt(anyString())).thenReturn(value);
         when(resultSet.getString(anyString())).thenReturn("C");
 
-        Integer actualResult = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Integer actualResult = extractMetaManger.getOracleIntMatadataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult, actualValue);
         // verify
         verify(resultSet).getInt(anyString());
@@ -952,12 +970,12 @@ public class ExtractMetaDataUtilsTest {
 
         // test sql Exception 1
         doThrow(new SQLException()).when(resultSet).getInt(anyString());
-        Integer actualResult1 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Integer actualResult1 = extractMetaManger.getOracleIntMatadataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult1, new Integer(0));
 
         // test sql Exception 2
         doThrow(new SQLException()).when(resultSet).getString(anyString());
-        Integer actualResult2 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Integer actualResult2 = extractMetaManger.getOracleIntMatadataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult2, new Integer(0));
         // verify
         verify(resultSet, times(2)).getInt(anyString());
@@ -974,12 +992,12 @@ public class ExtractMetaDataUtilsTest {
 
         // test Exception 1
         doThrow(new IllegalArgumentException()).when(resultSet).getInt(anyString());
-        Integer actualResult1 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Integer actualResult1 = extractMetaManger.getOracleIntMatadataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult1, new Integer(0));
 
         // test Exception 2
         doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
-        Integer actualResult2 = ExtractMetaDataUtils.getOracleIntMatadataInfo(resultSet, infoType);
+        Integer actualResult2 = extractMetaManger.getOracleIntMatadataInfo(resultSet, infoType);
         Assert.assertEquals(actualResult2, new Integer(0));
         // verify
         verify(resultSet, times(2)).getInt(anyString());
@@ -992,7 +1010,7 @@ public class ExtractMetaDataUtilsTest {
         final int columnIndex = 1;
         final Integer value = 2;
         when(rMetadata.getPrecision(columnIndex)).thenReturn(value);
-        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Integer actualResult = extractMetaManger.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
         Assert.assertEquals(actualResult, value);
         // verify
         verify(rMetadata).getPrecision(columnIndex);
@@ -1008,7 +1026,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test sql Exception
         doThrow(new SQLException()).when(rMetadata).getPrecision(columnIndex);
-        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Integer actualResult = extractMetaManger.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
         Assert.assertEquals(actualResult, new Integer(0));
         // verify
         verify(rMetadata).getPrecision(columnIndex);
@@ -1024,7 +1042,7 @@ public class ExtractMetaDataUtilsTest {
 
         // test Exception
         doThrow(new IllegalArgumentException()).when(rMetadata).getPrecision(columnIndex);
-        Integer actualResult = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
+        Integer actualResult = extractMetaManger.getMysqlIntMetaDataInfo(rMetadata, columnIndex);
         Assert.assertEquals(actualResult, new Integer(0));
         // verify
         verify(rMetadata).getPrecision(columnIndex);
@@ -1036,7 +1054,7 @@ public class ExtractMetaDataUtilsTest {
 
         final String infoType = "test";
         when(resultSet.getString(anyString())).thenReturn(null);
-        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        boolean actualResult = extractMetaManger.getBooleanMetaDataInfo(resultSet, infoType);
         Assert.assertFalse(actualResult);
         // verify
         verify(resultSet).getString(anyString());
@@ -1048,7 +1066,7 @@ public class ExtractMetaDataUtilsTest {
 
         final String infoType = "test";
         when(resultSet.getString(anyString())).thenReturn("YES");
-        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        boolean actualResult = extractMetaManger.getBooleanMetaDataInfo(resultSet, infoType);
         Assert.assertTrue(actualResult);
         // verify
         verify(resultSet).getString(anyString());
@@ -1061,7 +1079,7 @@ public class ExtractMetaDataUtilsTest {
         final String infoType = "test";
         // test sql Exception
         doThrow(new SQLException()).when(resultSet).getString(anyString());
-        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        boolean actualResult = extractMetaManger.getBooleanMetaDataInfo(resultSet, infoType);
         Assert.assertTrue(actualResult);
         // verify
         verify(resultSet).getString(anyString());
@@ -1074,7 +1092,7 @@ public class ExtractMetaDataUtilsTest {
         final String infoType = "test";
         // test Exception
         doThrow(new IllegalArgumentException()).when(resultSet).getString(anyString());
-        boolean actualResult = ExtractMetaDataUtils.getBooleanMetaDataInfo(resultSet, infoType);
+        boolean actualResult = extractMetaManger.getBooleanMetaDataInfo(resultSet, infoType);
         Assert.assertTrue(actualResult);
         // verify
         verify(resultSet).getString(anyString());

@@ -12,11 +12,17 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.powermock.api.support.membermodification.MemberMatcher.*;
-import static org.powermock.api.support.membermodification.MemberModifier.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.support.membermodification.MemberMatcher.method;
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
 
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -446,9 +452,9 @@ public class DBConnectionFillerImplTest {
         DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
         when(dbMetadata.getDatabaseProductName()).thenReturn(null);
         when(dbMetadata.getDatabaseProductName()).thenReturn(null);
-        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-        when(ExtractMetaDataUtils.getDatabaseMetaData(sqlConnection, connection, false)).thenReturn(dbMetadata);
-        when(ExtractMetaDataUtils.getDatabaseMetaData(null, connection, false)).thenReturn(dbMetadata);
+        // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection, connection, false)).thenReturn(dbMetadata);
+        when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(null, connection, false)).thenReturn(dbMetadata);
         PowerMockito.mockStatic(ConnectionUtils.class);
         ReturnCode ret = new ReturnCode();
         ret.setOk(true);

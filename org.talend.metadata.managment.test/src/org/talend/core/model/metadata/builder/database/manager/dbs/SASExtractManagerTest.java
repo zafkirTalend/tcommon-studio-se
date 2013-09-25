@@ -32,7 +32,6 @@ import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.SASResultSet;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
@@ -54,7 +53,7 @@ public class SASExtractManagerTest extends AbstractTest4ExtractManager {
         Assert.assertNotNull(getExtractManger());
 
         Connection conn = mockConnection4ReturnColumns();
-        ExtractMetaDataUtils.conn = conn;
+        getExtractMeta().setConn(conn);
 
         SASDataBaseMetadata dbMetadata = mockDatabaseMetaData4ReturnColumns();
         when(conn.getMetaData()).thenReturn(dbMetadata);
@@ -75,13 +74,13 @@ public class SASExtractManagerTest extends AbstractTest4ExtractManager {
         Assert.assertTrue(columns.isEmpty());
         // verify
         verifyTableNode4ReturnColumns4DontCreateConnection(tableNode);
-        //verifyTdTable4ReturnColumns4DontCreateConnection(tdTable);
+        // verifyTdTable4ReturnColumns4DontCreateConnection(tdTable);
         verifyMeatadataConnection4ReturnColumns4DontCreateConnection(metadataConn);
         verifyConnection4ReturnColumns4DontCreateConnection(conn);
         // verifyDbMetadata4ReturnColumns4DontCreateConnection(dbMetadata);
         // verifyColumnsResultSet4ReturnColumns4DontCreateConnection(getColumnsResultSet);
 
-        ExtractMetaDataUtils.conn = null;
+        getExtractMeta().setConn(null);
     }
 
     @Override
