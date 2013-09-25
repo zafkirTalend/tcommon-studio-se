@@ -1760,7 +1760,9 @@ public class DatabaseForm extends AbstractForm {
         return oracleVersionEnable() || as400VersionEnable()
                 || EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(dbTypeCombo.getText())
                 || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(dbTypeCombo.getText())
-                || EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(dbTypeCombo.getText());
+                || EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.PLUSPSQL.getDBDisplayName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.PSQL.getDBDisplayName().equals(dbTypeCombo.getText());
     }
 
     /**
