@@ -207,7 +207,7 @@ public class ExtractManager {
 
     protected List<String> getTablesToFilter(IMetadataConnection metadataConnection) {
         // for bug 11052
-        ExtractMetaDataUtils.setUseAllSynonyms(false);
+        ExtractMetaDataUtils.getInstance().setUseAllSynonyms(false);
 
         return new ArrayList<String>();
     }
@@ -243,6 +243,7 @@ public class ExtractManager {
         // hyWang add varribles limitNum and index for bug 7147
         int limitNum = -1;
         long index = 0;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (limit != null && limit.length > 0) {
             limitNum = limit[0];
         }
@@ -258,13 +259,13 @@ public class ExtractManager {
             // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
             // Must use column index to fetch values.
 
-            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_NAME, null);
+            String tableName = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_NAME, null);
             if (tableName == null) {
-                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
+                tableName = extractMeta.getStringMetaDataInfo(rsTables, 3);
             }
             if (tableName == null) {
                 // in case it's in fact a synonym
-                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
+                tableName = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
                 isSynonym = true;
             }
             if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
@@ -274,16 +275,16 @@ public class ExtractManager {
             medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
-            medataTable.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.REMARKS, null));
+            medataTable.setComment(extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.REMARKS, null));
 
-            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_SCHEMA, null);
+            String schema = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_SCHEMA, null);
             if (schema == null) {
-                schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 2);
+                schema = extractMeta.getStringMetaDataInfo(rsTables, 2);
             }
 
-            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_TYPE, null);
+            String tableType = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.TABLE_TYPE, null);
             if (tableType == null) {
-                tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
+                tableType = extractMeta.getStringMetaDataInfo(rsTables, 4);
             }
             // if (tableType.startsWith("A")) {
             // System.out.println("AA");
@@ -337,6 +338,7 @@ public class ExtractManager {
 
         DriverShim wapperDriver = null;
         String dbType = "";
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
             // WARNING Schema equals sid or database
             dbType = metadataConnection.getDbType();
@@ -345,8 +347,8 @@ public class ExtractManager {
             if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
                 dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
             } else {
-                if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
-                    List list = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+                if (needCreateAndClose || extractMeta.getConn() == null || extractMeta.getConn().isClosed()) {
+                    List list = extractMeta.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
                             metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
                             metadataConnection.getSchema(), metadataConnection.getDriverClass(),
                             metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
@@ -359,8 +361,8 @@ public class ExtractManager {
                         }
                     }
                 }
-                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                        metadataConnection.isSqlMode(), metadataConnection.getDatabase());
+                dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), dbType, metadataConnection.isSqlMode(),
+                        metadataConnection.getDatabase());
             }
 
             String tableLabel = tableNode.getValue();
@@ -369,7 +371,7 @@ public class ExtractManager {
 
             // StringUtils.trimToEmpty(name) is because bug 4547
             if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
-                String tableName = getTableNameBySynonyms(ExtractMetaDataUtils.conn, newNode.getValue());
+                String tableName = getTableNameBySynonyms(extractMeta.getConn(), newNode.getValue());
                 if (tableName != null && tableName.contains("/")) {
                     tableName = tableName.replace("/", "");
                 }
@@ -387,7 +389,7 @@ public class ExtractManager {
             ColumnSetHelper.addColumns(table, metadataColumns);
 
             if (needCreateAndClose) {
-                ExtractMetaDataUtils.closeConnection();
+                extractMeta.closeConnection();
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -474,13 +476,14 @@ public class ExtractManager {
         // bug 17980
         DriverShim wapperDriver = null;
         String dbType = "";
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
 
         try {
             dbType = metadataConnection.getDbType();
             // WARNING Schema equals sid or database
             boolean isHive = EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType);
-            if (!isHive && (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed())) {
-                List list = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+            if (!isHive && (needCreateAndClose || extractMeta.getConn() == null || extractMeta.getConn().isClosed())) {
+                List list = extractMeta.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
                         metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
                         metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
@@ -499,8 +502,8 @@ public class ExtractManager {
             if (isHive) {
                 dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
             } else {
-                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                        metadataConnection.isSqlMode(), metadataConnection.getDatabase());
+                dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), dbType, metadataConnection.isSqlMode(),
+                        metadataConnection.getDatabase());
             }
 
             tableLabel = checkTableLabel(tableLabel);
@@ -510,7 +513,7 @@ public class ExtractManager {
             metadataColumns = extractColumns(dbMetaData, metadataConnection, dbType, cataAndShema.get(0), cataAndShema.get(1),
                     tableLabel);
             if (needCreateAndClose) {
-                ExtractMetaDataUtils.closeConnection();
+                extractMeta.closeConnection();
             }
         } catch (Exception e) {
             log.error(e.toString());
@@ -526,7 +529,7 @@ public class ExtractManager {
     protected String checkTableLabel(String tableLabel) {
         String name = ExtractMetaDataFromDataBase.getTableTypeByTableName(tableLabel);
         if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
-            String tableName = getTableNameBySynonyms(ExtractMetaDataUtils.conn, tableLabel);
+            String tableName = getTableNameBySynonyms(ExtractMetaDataUtils.getInstance().getConn(), tableLabel);
             if (tableName.contains("/")) {
                 tableName = tableName.replace("/", "");
             }
@@ -620,6 +623,7 @@ public class ExtractManager {
         Map<String, String> primaryKeys = new HashMap<String, String>();
         ResultSet columns = null;
         Statement stmt = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
 
         try {
             boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
@@ -641,11 +645,11 @@ public class ExtractManager {
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
                 Boolean b = false;
-                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
+                String fetchTableName = extractMeta.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName); // for 8115
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     TdColumn metadataColumn = RelationalFactory.eINSTANCE.createTdColumn();
-                    String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
+                    String label = extractMeta.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
                     label = ManagementTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
@@ -681,10 +685,10 @@ public class ExtractManager {
                     }
 
                     String typeName = "TYPE_NAME"; //$NON-NLS-1$
-                    if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                    if (extractMeta.isUseAllSynonyms()) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
+                    String dbType = extractMeta.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
                     dbType = dbType.trim();
@@ -695,7 +699,7 @@ public class ExtractManager {
                     // if (isMYSQL) {
                     // columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
                     // } else {
-                    columnSize = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                    columnSize = extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE");
                     // }
                     metadataColumn.setLength(columnSize);
                     // Convert dbmsType to TalendType
@@ -706,7 +710,7 @@ public class ExtractManager {
                     if (metadataConnection.getMapping() != null) {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
-                    Integer intMetaDataInfo = ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
+                    Integer intMetaDataInfo = extractMeta.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
@@ -721,14 +725,14 @@ public class ExtractManager {
 
                     metadataColumn.setTalendType(talendType);
                     // move for bug TDI-24016
-                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
+                    String stringMetaDataInfo = extractMeta.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
                     // for bug 13078
 
-                    boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
+                    boolean isNullable = extractMeta.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
                     metadataColumn.setNullable(isNullable);
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
-                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, ExtractManager.REMARKS, null);
+                    String commentInfo = extractMeta.getStringMetaDataInfo(columns, ExtractManager.REMARKS, null);
                     if (commentInfo != null && commentInfo.length() > 0) {
                         commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
                     }
@@ -747,7 +751,7 @@ public class ExtractManager {
                     }
                     stringMetaDataInfo = ManagementTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
-                    ExtractMetaDataUtils.handleDefaultValue(metadataColumn, dbMetaData);
+                    extractMeta.handleDefaultValue(metadataColumn, dbMetaData);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
                     checkTypeForTimestamp(metadataConnection, metadataColumn, dbType);
@@ -871,18 +875,18 @@ public class ExtractManager {
         // add by wzhang
         // ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
-
-        List connList = ExtractMetaDataUtils.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        List connList = extractMeta.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
                 metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
                 metadataConnection.getSchema(), metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
                 metadataConnection.getDbVersionString(), metadataConnection.getAdditionalParams());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) { //$NON-NLS-1$
-                    Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-                    ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                    Statement stmt = extractMeta.getConn().createStatement();
+                    extractMeta.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
-                    itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
+                    itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, extractMeta.getConn());
                     rsTables.close();
                     stmt.close();
                 }
@@ -899,7 +903,7 @@ public class ExtractManager {
         // filter tables or viewer from the recyclebin in the Oracle 10g.
         filterTablesFromRecycleBin(metadataConnection, itemTablesName);
 
-        ExtractMetaDataUtils.closeConnection();
+        extractMeta.closeConnection();
         // for buy 15042
         DriverShim wapperDriver = null;
         if (connList != null && connList.size() > 0) {
@@ -954,8 +958,8 @@ public class ExtractManager {
     protected List<String> getTableNamesFromTablesForMultiSchema(TableInfoParameters tableInfo, String namePattern,
             IMetadataConnection iMetadataConnection) throws SQLException, ClassNotFoundException, InstantiationException,
             IllegalAccessException {
-
-        String[] multiSchemas = ExtractMetaDataUtils.getMultiSchems(ExtractMetaDataUtils.schema);
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        String[] multiSchemas = extractMeta.getMultiSchems(extractMeta.getSchema());
         List<String> tableNames = new ArrayList<String>();
         if (multiSchemas != null) {
             for (String s : multiSchemas) {
@@ -985,6 +989,7 @@ public class ExtractManager {
             IMetadataConnection iMetadataConnection, String schema) throws SQLException, ClassNotFoundException,
             InstantiationException, IllegalAccessException {
         ResultSet rsTables = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
@@ -1003,7 +1008,7 @@ public class ExtractManager {
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(iMetadataConnection.getDbType())) {
             dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
         } else {
-            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, iMetadataConnection.getDbType(),
+            dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), iMetadataConnection.getDbType(),
                     iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
         }
         // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
@@ -1065,7 +1070,8 @@ public class ExtractManager {
 
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
-        return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, true, ExtractMetaDataUtils.conn);
+        return ExtractMetaDataFromDataBase
+                .getTableComment(nameKey, resultSet, true, ExtractMetaDataUtils.getInstance().getConn());
     }
 
 }

@@ -39,7 +39,7 @@ public class AS400ExtractManager extends ExtractManager {
         if (schema == null || EMPTY.equals(schema.trim())) {
             String url = metadataConnection != null ? metadataConnection.getUrl() : null;
             if (url != null) {
-                schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(url);
+                schema = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(url);
             }
         }
         return schema;
@@ -50,14 +50,13 @@ public class AS400ExtractManager extends ExtractManager {
             Set<String> availableTableTypes, List<String> tablesToFilter, int... limit) throws SQLException {
         boolean supportsSchemasInTableDefinitions = dbMetaData.supportsSchemasInTableDefinitions();
         if (supportsSchemasInTableDefinitions && schema != null && !EMPTY.equals(schema)) {
-            String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(schema);
+            String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(schema);
             if (multiSchems != null) {
                 ResultSet rsTables = null;
                 for (String s : multiSchems) {
                     rsTables = dbMetaData.getTables(null, s.trim(), null, availableTableTypes.toArray(new String[] {}));
                     try {
-                        getMetadataTables(medataTables, rsTables, supportsSchemasInTableDefinitions, tablesToFilter,
-                                limit);
+                        getMetadataTables(medataTables, rsTables, supportsSchemasInTableDefinitions, tablesToFilter, limit);
                     } finally {
                         rsTables.close();
                     }

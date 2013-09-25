@@ -100,14 +100,26 @@ public class ExtractMetaDataUtils {
 
     private static final String SYBASE_DATABASE_PRODUCT_NAME = "Adaptive Server Enterprise"; //$NON-NLS-1$
 
+    private static ExtractMetaDataUtils singleton = null;
+
     // FIXME scorreia don't use public static fields
-    public static Connection conn;
+    private Connection conn;
 
-    public static String schema;
+    private String schema;
 
-    public static boolean isReconnect = true;
+    private boolean isReconnect = true;
 
-    private static final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
+    private final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
+
+    private ExtractMetaDataUtils() {
+    }
+
+    public static ExtractMetaDataUtils getInstance() {
+        if (singleton == null) {
+            singleton = new ExtractMetaDataUtils();
+        }
+        return singleton;
+    }
 
     /**
      * Gets an instance of <code>DatabaseMetadata</code> by the given argument. The reason why it provides this method
@@ -117,7 +129,7 @@ public class ExtractMetaDataUtils {
      * @param metadataConn
      * @return
      */
-    public static DatabaseMetaData getDatabaseMetaData(IMetadataConnection metadataConn) {
+    public DatabaseMetaData getDatabaseMetaData(IMetadataConnection metadataConn) {
         DatabaseMetaData databaseMetadata = null;
         String dbType = metadataConn.getDbType();
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
@@ -140,11 +152,11 @@ public class ExtractMetaDataUtils {
      * 
      * MOD by zshen this method don't care about sqlMode
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
+    public DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
         return getDatabaseMetaData(conn, dbType, false, null);
     }
 
-    public static Map<String, DriverShim> getDriverCache() {
+    public Map<String, DriverShim> getDriverCache() {
         return DRIVER_CACHE;
     }
 
@@ -157,7 +169,7 @@ public class ExtractMetaDataUtils {
      * 
      * MOD by zshen this method don't care about sqlMode
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection) {
+    public DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection) {
         return getDatabaseMetaData(connection, dbConnection, (dbConnection != null ? dbConnection.isSQLMode() : false));
     }
 
@@ -171,7 +183,7 @@ public class ExtractMetaDataUtils {
      * 
      * 
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection, boolean isSqlMode) {
+    public DatabaseMetaData getDatabaseMetaData(Connection connection, DatabaseConnection dbConnection, boolean isSqlMode) {
         IMetadataConnection metadataConnection = ConvertionHelper.convert(dbConnection);
         if (metadataConnection != null && EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConnection.getDbType())) {
             DatabaseMetaData hiveDatabaseMetaData = null;
@@ -203,7 +215,7 @@ public class ExtractMetaDataUtils {
      * should use getDatabaseMetaData() instead of this method
      * 
      */
-    public static DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
+    public DatabaseMetaData getConnectionMetadata(java.sql.Connection conn) throws SQLException {
         if (conn != null) {
             DatabaseMetaData dbMetaData = conn.getMetaData();
             // MOD xqliu 2009-11-17 bug 7888
@@ -227,7 +239,7 @@ public class ExtractMetaDataUtils {
      * 
      * 
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
+    public DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
         if (conn != null) {
             try {
@@ -264,7 +276,7 @@ public class ExtractMetaDataUtils {
         return dbMetaData;
     }
 
-    public static boolean isHiveConnection(Connection hiveConn) {
+    public boolean isHiveConnection(Connection hiveConn) {
         if (hiveConn != null) {
             Class<?> clazz = hiveConn.getClass();
             if ("HiveConnection".equals(clazz.getSimpleName())) { //$NON-NLS-1$
@@ -274,7 +286,7 @@ public class ExtractMetaDataUtils {
         return false;
     }
 
-    public static boolean isHiveEmbeddedConn(Connection hiveConn) {
+    public boolean isHiveEmbeddedConn(Connection hiveConn) {
         if (hiveConn != null) {
             Class<?> clazz = hiveConn.getClass();
             if ("HiveConnection".equals(clazz.getSimpleName())) { //$NON-NLS-1$
@@ -303,7 +315,7 @@ public class ExtractMetaDataUtils {
      * @param metadataConnection
      * @return
      */
-    public static boolean needFakeDatabaseMetaData(IMetadataConnection metadataConnection) {
+    public boolean needFakeDatabaseMetaData(IMetadataConnection metadataConnection) {
         String dbType = metadataConnection.getDbType();
         boolean isSqlMode = metadataConnection.isSqlMode();
         String dbVersion = metadataConnection.getDbVersionString();
@@ -330,7 +342,7 @@ public class ExtractMetaDataUtils {
      * @deprecated
      */
     @Deprecated
-    public static boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
+    public boolean needFakeDatabaseMetaData(String dbType, boolean isSqlMode) {
         // FIXME, maybe, it's not good way, need check later.
         final boolean isHiveEmbedded = Boolean.parseBoolean(System
                 .getProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_TALEND_HIVE_MODE.getKey()));
@@ -354,32 +366,32 @@ public class ExtractMetaDataUtils {
      * @param conn2
      * @return
      */
-    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
+    public DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
     }
 
-    private static DatabaseMetaData createAS400FakeDatabaseMetaData(Connection conn) throws SQLException {
+    private DatabaseMetaData createAS400FakeDatabaseMetaData(Connection conn) throws SQLException {
         AS400DatabaseMetaData dmd = new AS400DatabaseMetaData(conn);
         return dmd;
     }
 
-    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
+    private DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
         TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
         return tmd;
     }
 
-    private static DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
+    private DatabaseMetaData createSASFakeDatabaseMetaData(Connection conn) {
         SASDataBaseMetadata tmd = new SASDataBaseMetadata(conn);
         return tmd;
     }
 
-    private static DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
+    private DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
         SybaseDatabaseMetaData dmd = new SybaseDatabaseMetaData(conn);
         return dmd;
     }
 
-    private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
+    private DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
         IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
         if (service == null) {
             try {
@@ -399,7 +411,7 @@ public class ExtractMetaDataUtils {
      * @param String infoType
      * @return String : the result of column's information MetaData
      */
-    public static String getStringMetaDataInfo(ResultSet columns, String infoType, DatabaseMetaData dbMetaData) {
+    public String getStringMetaDataInfo(ResultSet columns, String infoType, DatabaseMetaData dbMetaData) {
         String metaDataInfo = null;
         if (columns != null && infoType != null) {
             try {
@@ -434,7 +446,7 @@ public class ExtractMetaDataUtils {
      * @param infoType
      * @return
      */
-    public static String getStringMetaDataInfo(ResultSet columns, int infoType) {
+    public String getStringMetaDataInfo(ResultSet columns, int infoType) {
         String metaDataInfo = null;
         try {
             metaDataInfo = columns.getString(infoType);
@@ -458,7 +470,7 @@ public class ExtractMetaDataUtils {
      * @param String infoType
      * @return int : the result of column's information MetaData
      */
-    public static Integer getIntMetaDataInfo(ResultSet columns, String infoType) {
+    public Integer getIntMetaDataInfo(ResultSet columns, String infoType) {
         Integer metaDataInfo = new Integer(0);
         try {
             metaDataInfo = new Integer(columns.getInt(infoType));
@@ -472,7 +484,7 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
-    public static Integer getOracleIntMatadataInfo(ResultSet columns, String infoType) {
+    public Integer getOracleIntMatadataInfo(ResultSet columns, String infoType) {
         Integer metaDataInfo = new Integer(0);
         try {
             metaDataInfo = new Integer(columns.getInt(infoType));
@@ -489,7 +501,7 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
-    public static Integer getMysqlIntMetaDataInfo(ResultSetMetaData rMetadata, int columnIndex) {
+    public Integer getMysqlIntMetaDataInfo(ResultSetMetaData rMetadata, int columnIndex) {
         Integer metaDataInfo = new Integer(0);
         try {
             metaDataInfo = rMetadata.getPrecision(columnIndex);
@@ -511,7 +523,7 @@ public class ExtractMetaDataUtils {
      * @param String infoType
      * @return boolean : the result of column's information MetaData
      */
-    public static boolean getBooleanMetaDataInfo(ResultSet columns, String infoType) {
+    public boolean getBooleanMetaDataInfo(ResultSet columns, String infoType) {
         boolean metaDataInfo = false;
         try {
             String result = columns.getString(infoType);
@@ -538,7 +550,7 @@ public class ExtractMetaDataUtils {
      * @param String infoType
      * @return String : the result of column's information MetaData
      */
-    public static String getDriverClassByDbType(String dbType) {
+    public String getDriverClassByDbType(String dbType) {
 
         EDatabase4DriverClassName t4d = EDatabase4DriverClassName.indexOfByDbType(dbType);
         if (t4d != null) {
@@ -548,11 +560,11 @@ public class ExtractMetaDataUtils {
     }
 
     // hywang add for bug 7575
-    public static String getDbTypeByClassName(String driverClassName) {
+    public String getDbTypeByClassName(String driverClassName) {
         return getDbTypeByClassNameAndDriverJar(driverClassName, null);
     }
 
-    public static String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
+    public String getDbTypeByClassNameAndDriverJar(String driverClassName, String driverJar) {
         return ConvertionHelper.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
     }
 
@@ -563,7 +575,7 @@ public class ExtractMetaDataUtils {
      * @param driverJarPath
      * @return
      */
-    private static boolean isValidJarFile(final String[] driverJarPath) {
+    private boolean isValidJarFile(final String[] driverJarPath) {
         boolean a = false;
         for (String element : driverJarPath) {
             if (element == null || element.equals("")) { //$NON-NLS-1$
@@ -582,7 +594,7 @@ public class ExtractMetaDataUtils {
      * 
      * bug 12179
      */
-    public static String retrieveSchemaPatternForAS400(String url) {
+    public String retrieveSchemaPatternForAS400(String url) {
         if (url == null || "".equals(url)) {
             return null;
         }
@@ -641,7 +653,7 @@ public class ExtractMetaDataUtils {
      * 
      * bug 12179
      */
-    public static String[] getMultiSchems(String schemas) {
+    public String[] getMultiSchems(String schemas) {
         if (schemas != null) {
             String[] split = schemas.split(String.valueOf(SPLIT_CHAR));
             return split;
@@ -652,11 +664,11 @@ public class ExtractMetaDataUtils {
     /**
      * DOC cantoine. Method to close connect to DataBase.
      */
-    public static void closeConnection() {
+    public void closeConnection() {
         closeConnection(false);
     }
 
-    public static void closeConnection(boolean force) {
+    public void closeConnection(boolean force) {
         try {
             if (conn != null && !conn.isClosed()) {
                 if (isReconnect || force) {
@@ -672,7 +684,7 @@ public class ExtractMetaDataUtils {
         }
     }
 
-    public static void checkAccessDbq(String connString) throws Exception {
+    public void checkAccessDbq(String connString) throws Exception {
         for (String s : connString.split(";")) { //$NON-NLS-1$
             s = s.toLowerCase();
             int pos = s.indexOf("dbq"); //$NON-NLS-1$
@@ -693,11 +705,11 @@ public class ExtractMetaDataUtils {
      * 
      * there is no effect for oracle.
      */
-    public static void checkDBConnectionTimeout() {
+    public void checkDBConnectionTimeout() {
         DriverManager.setLoginTimeout(getDBConnectionTimeout());
     }
 
-    private static int getDBConnectionTimeout() {
+    private int getDBConnectionTimeout() {
         if (Platform.isRunning()) {
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                 IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
@@ -714,7 +726,7 @@ public class ExtractMetaDataUtils {
      * 
      * @param statement
      */
-    public static void setQueryStatementTimeout(Statement statement) {
+    public void setQueryStatementTimeout(Statement statement) {
         if (statement != null) {
             try {
                 statement.setQueryTimeout(getDBConnectionTimeout());
@@ -734,7 +746,7 @@ public class ExtractMetaDataUtils {
      * @param String pwd
      * @param String schemaBase
      */
-    public static List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
+    public List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
             final String driverClassName, final String driverJarPath, String dbVersion, String additionalParams) {
         boolean isColsed = false;
         List conList = new ArrayList();
@@ -813,7 +825,7 @@ public class ExtractMetaDataUtils {
      * @param dbType
      * @param dbVersion
      */
-    public static void loadJarRequiredByDriver(String dbType, String dbVersion) {
+    public void loadJarRequiredByDriver(String dbType, String dbVersion) {
         JDBCDriverLoader loader = new JDBCDriverLoader();
         List<String> jarPathList = new ArrayList<String>();
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
@@ -844,7 +856,7 @@ public class ExtractMetaDataUtils {
      * @return
      * @throws Exception
      */
-    public static List connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
+    public List connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
             final String driverJarPathArg, String dbVersion, String additionalParams) throws Exception {
         Connection connection = null;
         DriverShim wapperDriver = null;
@@ -864,7 +876,7 @@ public class ExtractMetaDataUtils {
                 for (String jar : driverNames) {
                     jarPathList.add(getJavaLibPath() + jar);
                 }
-                driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                driverClassName = getDriverClassByDbType(dbType);
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
                         && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion) || EDatabaseVersion4Drivers.VERTICA_5_1
@@ -946,16 +958,16 @@ public class ExtractMetaDataUtils {
          * For general jdbc, driver class is specific by user.
          */
         if (driverClassName == null || driverClassName.equals("")) { //$NON-NLS-1$
-            driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            driverClassName = getDriverClassByDbType(dbType);
             // see bug 4404: Exit TOS when Edit Access Schema in repository
             if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
                 // throw exception to prevent getting connection, which may crash
-                ExtractMetaDataUtils.checkAccessDbq(url);
+                checkAccessDbq(url);
             }
         }
         // bug 9162
         List list = new ArrayList();
-        ExtractMetaDataUtils.checkDBConnectionTimeout();
+        checkDBConnectionTimeout();
         if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
             JDBCDriverLoader loader = new JDBCDriverLoader();
             list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion, additionalParams);
@@ -1058,7 +1070,7 @@ public class ExtractMetaDataUtils {
         return conList;
     }
 
-    public static String getLibrariesPath(ECodeLanguage language) {
+    public String getLibrariesPath(ECodeLanguage language) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
             ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerUIService.class);
@@ -1068,7 +1080,7 @@ public class ExtractMetaDataUtils {
         return Platform.getInstallLocation().getURL().getFile() + "lib" + File.separator + "java";
     }
 
-    public static boolean checkFileCRCCode(File targetFile, File sourceFile) throws Exception {
+    public boolean checkFileCRCCode(File targetFile, File sourceFile) throws Exception {
 
         FileInputStream tagetFilestream = new FileInputStream(targetFile);
         CRC32 targertCrc32 = new CRC32();
@@ -1088,7 +1100,7 @@ public class ExtractMetaDataUtils {
 
     }
 
-    public static List getConnectionList(IMetadataConnection metadataConnection) {
+    public List getConnectionList(IMetadataConnection metadataConnection) {
         List list = getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(), metadataConnection.getUsername(),
                 metadataConnection.getPassword(), metadataConnection.getDatabase(), metadataConnection.getSchema(),
                 metadataConnection.getDriverClass(), metadataConnection.getDriverJarPath(),
@@ -1102,7 +1114,7 @@ public class ExtractMetaDataUtils {
      * 
      * @return
      */
-    public static String getJavaLibPath() {
+    public String getJavaLibPath() {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject physProject;
         String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
@@ -1121,7 +1133,7 @@ public class ExtractMetaDataUtils {
     }
 
     // hywang added for bug 7038
-    private static List<String> getAllDBFuctions(DatabaseMetaData dbMetadata) {
+    private List<String> getAllDBFuctions(DatabaseMetaData dbMetadata) {
         List<String> functionlist = new ArrayList<String>();
         if (dbMetadata == null) {
             return functionlist;
@@ -1163,7 +1175,7 @@ public class ExtractMetaDataUtils {
     }
 
     // hywang added for bug 7038
-    private static List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
+    private List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
         if (functions != null) {
             for (String function : functions) {
                 functionlist.add(function);
@@ -1173,13 +1185,13 @@ public class ExtractMetaDataUtils {
         return functionlist;
     }
 
-    public static boolean useAllSynonyms;
+    private boolean useAllSynonyms;
 
-    public static boolean isUseAllSynonyms() {
+    public boolean isUseAllSynonyms() {
         return useAllSynonyms;
     }
 
-    public static void setUseAllSynonyms(boolean val) {
+    public void setUseAllSynonyms(boolean val) {
         useAllSynonyms = val;
     }
 
@@ -1189,7 +1201,7 @@ public class ExtractMetaDataUtils {
      * @param metadataConnection
      * @return
      */
-    public static String getMeataConnectionSchema(IMetadataConnection metadataConnection) {
+    public String getMeataConnectionSchema(IMetadataConnection metadataConnection) {
         return ConvertionHelper.getMeataConnectionSchema(metadataConnection);
     }
 
@@ -1199,12 +1211,12 @@ public class ExtractMetaDataUtils {
      * @param dbConnection
      * @return
      */
-    public static String getDBConnectionSchema(DatabaseConnection dbConnection) {
+    public String getDBConnectionSchema(DatabaseConnection dbConnection) {
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbConnection, true);
         return imetadataConnection.getSchema();
     }
 
-    public static boolean isOLAPConnection(DatabaseConnection connection) {
+    public boolean isOLAPConnection(DatabaseConnection connection) {
         if (connection != null && EDatabaseTypeName.GENERAL_JDBC.getProduct().equals(connection.getProductId())) {
             String url = connection.getURL();
             if (url != null) {
@@ -1224,7 +1236,7 @@ public class ExtractMetaDataUtils {
         return false;
     }
 
-    public static boolean haveLoadMetadataNode() {
+    public boolean haveLoadMetadataNode() {
         boolean loadMetadata = PluginChecker.isPluginLoaded("org.talend.repository.metadata");
         return loadMetadata;
         // IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
@@ -1243,7 +1255,7 @@ public class ExtractMetaDataUtils {
      * 
      * @param column
      */
-    public static void handleDefaultValue(MetadataColumn column, DatabaseMetaData dbMetaData) {
+    public void handleDefaultValue(MetadataColumn column, DatabaseMetaData dbMetaData) {
         if (column == null) {
             return;
         }
@@ -1280,5 +1292,29 @@ public class ExtractMetaDataUtils {
             }
         }
         initialValue.setBody(defautVal);
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
+
+    public boolean isReconnect() {
+        return isReconnect;
+    }
+
+    public void setReconnect(boolean isReconnect) {
+        this.isReconnect = isReconnect;
     }
 }

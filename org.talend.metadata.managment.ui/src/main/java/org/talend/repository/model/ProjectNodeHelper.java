@@ -39,7 +39,6 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -92,7 +91,7 @@ public class ProjectNodeHelper {
         }
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
         if (!isAccess) {
-            schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+            schema = ExtractMetaDataUtils.getInstance().getDBConnectionSchema(dbconn);
         }
         return getTablesFromCurrentCatalogOrSchema(catalog, schema, dbconn);
     }
@@ -196,7 +195,7 @@ public class ProjectNodeHelper {
         }
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
         if (!isAccess) {
-            schema = ExtractMetaDataUtils.getDBConnectionSchema(dbconn);
+            schema = ExtractMetaDataUtils.getInstance().getDBConnectionSchema(dbconn);
         }
         return getTablesFromCurrentCatalogOrSchemaWithOrders(catalog, schema, dbconn);
     }
@@ -268,6 +267,7 @@ public class ProjectNodeHelper {
     public static void addDefaultTableForSpecifiedDataPackage(DatabaseConnection dbconn, MetadataTable dbtable)
             throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         // if the database connection is contextmodel, need to get the original value of every parameter
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         IMetadataConnection imetadataConnection = ConvertionHelper.convert(dbconn);
         String schema = imetadataConnection.getSchema();
         String catalog = imetadataConnection.getDatabase();
@@ -309,10 +309,10 @@ public class ProjectNodeHelper {
         }
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(imetadataConnection.getDbType());
         if (!isAccess) {
-            schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
+            schema = extractMeta.getMeataConnectionSchema(imetadataConnection);
         }
         // for olap connection
-        boolean isOlap = ExtractMetaDataUtils.isOLAPConnection(dbconn);
+        boolean isOlap = extractMeta.isOLAPConnection(dbconn);
         if (isOlap) {
             List<Catalog> catalogs = ConnectionHelper.getCatalogs(dbconn);
             if (!catalogs.isEmpty()) {
@@ -354,7 +354,7 @@ public class ProjectNodeHelper {
         }
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(imetadataConnection.getDbType());
         if (!isAccess) {
-            schema = ExtractMetaDataUtils.getMeataConnectionSchema(imetadataConnection);
+            schema = ExtractMetaDataUtils.getInstance().getMeataConnectionSchema(imetadataConnection);
         }
         addTableForTemCatalogOrSchema(catalog, schema, dbconn, dbtable, imetadataConnection);
     }
@@ -432,7 +432,7 @@ public class ProjectNodeHelper {
         EDatabaseSchemaOrCatalogMapping schema = null;
         EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
         if (type.equals(EDatabaseTypeName.GENERAL_JDBC)) {
-            String realtype = ExtractMetaDataUtils.getDbTypeByClassName(metadataConnection.getDriverClass());
+            String realtype = ExtractMetaDataUtils.getInstance().getDbTypeByClassName(metadataConnection.getDriverClass());
             type = EDatabaseTypeName.getTypeFromDbType(realtype);
             catalog = type.getCatalogMappingField();
             schema = type.getSchemaMappingField();
@@ -526,7 +526,8 @@ public class ProjectNodeHelper {
             if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
                 dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
             } else {
-                dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbType, false, iMetadataConnection.getDatabase());
+                dbMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbType, false,
+                        iMetadataConnection.getDatabase());
             }
             MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));

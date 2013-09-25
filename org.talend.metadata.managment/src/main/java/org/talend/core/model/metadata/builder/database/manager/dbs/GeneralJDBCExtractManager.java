@@ -40,6 +40,7 @@ public class GeneralJDBCExtractManager extends ExtractManager {
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
         if (metadataConnection != null) {
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             IMetadataConnection newMetadataConn = new MetadataConnection();
 
             newMetadataConn.setDbVersionString(metadataConnection.getDbVersionString());
@@ -60,9 +61,9 @@ public class GeneralJDBCExtractManager extends ExtractManager {
                 if (dbversion4Driver != null) {
                     newMetadataConn.setDbVersionString(dbversion4Driver.getVersionValue());
                 }
-                dbType = ExtractMetaDataUtils.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
+                dbType = extractMeta.getDbTypeByClassNameAndDriverJar(driverClassName, driverJar);
             } else {
-                dbType = ExtractMetaDataUtils.getDbTypeByClassName(driverClassName);
+                dbType = extractMeta.getDbTypeByClassName(driverClassName);
             }
             if (dbType != null) {
                 newMetadataConn.setDbType(dbType);

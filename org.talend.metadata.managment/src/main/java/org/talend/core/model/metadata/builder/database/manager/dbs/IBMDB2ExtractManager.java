@@ -73,7 +73,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
             if (conn != null && conn.getMetaData().getDatabaseProductName().startsWith(DATABASE_PRODUCT_NAME)) {
                 String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + tableName + "'";
                 sta = conn.createStatement();
-                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ExtractMetaDataUtils.getInstance().setQueryStatementTimeout(sta);
                 resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     String baseName = resultSet.getString("base_name").trim();
@@ -105,9 +105,10 @@ public class IBMDB2ExtractManager extends ExtractManager {
         if (metadataConnection == null || dbMetaData == null) {
             return;
         }
+
         // bug TDI-19547
         if (dbMetaData.getDatabaseProductName().startsWith(DATABASE_PRODUCT_NAME)) {
-
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
             String synSQL = "SELECT a.*\n" + "FROM SYSCAT.COLUMNS a\n" + "LEFT OUTER JOIN SYSIBM.SYSTABLES b\n"
                     + "ON a.TABNAME = b.NAME\n" + "AND a.TABSCHEMA = b.CREATOR\n" + "where a.TABNAME =" + "\'" + tableName
@@ -116,8 +117,8 @@ public class IBMDB2ExtractManager extends ExtractManager {
                 synSQL += "AND b.CREATOR =\'" + metadataConnection.getSchema() + "\'";
             }
             synSQL += "ORDER BY a.COLNO";
-            Statement sta = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+            Statement sta = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(sta);
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
@@ -139,7 +140,7 @@ public class IBMDB2ExtractManager extends ExtractManager {
                     column.setLabel(label);
                     column.setOriginalField(label2);
 
-                    if (!ExtractMetaDataUtils.needFakeDatabaseMetaData(metadataConnection)) {
+                    if (!extractMeta.needFakeDatabaseMetaData(metadataConnection)) {
                         // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                         typeName = columns.getString("TYPENAME");
                     }
@@ -156,9 +157,9 @@ public class IBMDB2ExtractManager extends ExtractManager {
                     String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                     if (dbmsId != null) {
                         MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-                                .getIntMetaDataInfo(columns, "LENGTH"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                "SCALE")); //$NON-NLS-1$
+                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
+                                extractMeta.getIntMetaDataInfo(columns, "LENGTH"), extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                        "SCALE")); //$NON-NLS-1$
                         column.setTalendType(talendType);
                         String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                                 .getDefaultSelectedDbType(talendType);

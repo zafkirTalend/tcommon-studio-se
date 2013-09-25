@@ -173,7 +173,7 @@ public class ExtractMetaDataFromDataBase {
         }
         if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema)
                 && (limit == null && oldLimit == null || Arrays.equals(limit, oldLimit))
-                && (oldUseAllSynonyms == ExtractMetaDataUtils.isUseAllSynonyms())) {
+                && (oldUseAllSynonyms == ExtractMetaDataUtils.getInstance().isUseAllSynonyms())) {
             return oldMetadataRetrieved;
         }
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
@@ -185,7 +185,7 @@ public class ExtractMetaDataFromDataBase {
         oldMetadata = dbMetaData;
         oldSchema = schema;
         oldLimit = limit;
-        oldUseAllSynonyms = ExtractMetaDataUtils.isUseAllSynonyms();
+        oldUseAllSynonyms = ExtractMetaDataUtils.getInstance().isUseAllSynonyms();
         oldMetadataRetrieved = medataTables;
         return medataTables;
     }
@@ -296,8 +296,8 @@ public class ExtractMetaDataFromDataBase {
         try {
             List list = new ArrayList();
 
-            list = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString,
-                    additionalParam);
+            list = ExtractMetaDataUtils.getInstance().connect(dbType, url, username, pwd, driverClassName, driverJarPath,
+                    dbVersionString, additionalParam);
             if (list != null && list.size() > 0) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) instanceof Connection) {
@@ -356,19 +356,20 @@ public class ExtractMetaDataFromDataBase {
      */
     public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive, String dbType)
             throws SQLException {
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection, dbType);
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        DatabaseMetaData dbMetaData = extractMeta.getDatabaseMetaData(connection, dbType);
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
                 if (notCaseSensitive) {
                     if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
-                        ExtractMetaDataUtils.schema = rs.getString(1);
+                        extractMeta.setSchema(rs.getString(1));
                         rs.close();
                         return (true);
                     }
                 } else {
                     if (rs.getString(1).compareTo(schema) == 0) {
-                        ExtractMetaDataUtils.schema = schema;
+                        extractMeta.setSchema(schema);
                         rs.close();
                         return (true);
                     }
@@ -399,12 +400,14 @@ public class ExtractMetaDataFromDataBase {
         String dbType = iMetadataConnection.getDbType();
         String url = iMetadataConnection.getUrl();
 
+        ExtractMetaDataUtils metaData = ExtractMetaDataUtils.getInstance();
+
         String generalJDBCDisplayName = EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName();
         if (dbType.equals(generalJDBCDisplayName) && url.contains("oracle")) {//$NON-NLS-1$
             iMetadataConnection.setSchema(iMetadataConnection.getUsername().toUpperCase());
         }
 
-        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
+        List list = metaData.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
                 iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema(),
                 iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
                 iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
@@ -427,14 +430,14 @@ public class ExtractMetaDataFromDataBase {
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
             dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
         } else {
-            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+            dbMetaData = metaData.getDatabaseMetaData(metaData.getConn(), dbType, iMetadataConnection.isSqlMode(),
+                    iMetadataConnection.getDatabase());
         }
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);
 
-        ExtractMetaDataUtils.closeConnection();
+        metaData.closeConnection();
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
         if (extractManager != null) {
             extractManager.closeConnection(iMetadataConnection, wapperDriver);
@@ -487,8 +490,8 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection iMetadataConnection, int limit) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, SQLException {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
-
-        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        List list = extractMeta.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
                 iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
                 iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
                 iMetadataConnection.getDbVersionString(), iMetadataConnection.getAdditionalParams());
@@ -506,8 +509,8 @@ public class ExtractMetaDataFromDataBase {
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
             dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
         } else {
-            dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType,
-                    iMetadataConnection.isSqlMode(), iMetadataConnection.getDatabase());
+            dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), dbType, iMetadataConnection.isSqlMode(),
+                    iMetadataConnection.getDatabase());
         }
 
         List<IMetadataTable> metadataTables = null;
@@ -516,7 +519,7 @@ public class ExtractMetaDataFromDataBase {
         } else {
             metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
         }
-        ExtractMetaDataUtils.closeConnection();
+        extractMeta.closeConnection();
 
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
         if (extractManager != null) {

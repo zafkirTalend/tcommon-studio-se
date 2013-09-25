@@ -268,7 +268,8 @@ public final class DqRepositoryViewService {
             }
             java.sql.Connection connection = rcConn.getObject();
             try {
-                DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider);
+                DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
+                        (DatabaseConnection) dataProvider);
 
                 columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
             } finally {
@@ -355,7 +356,7 @@ public final class DqRepositoryViewService {
 
         java.sql.Connection connection = rcConn.getObject();
         try {
-            DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection,
+            DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
                     (DatabaseConnection) dataPloadTablesrovider, false);
             // MOD msjian 2011-10-9 TDQ-3566: do not fill tables after existing
             // MOD gdbu 2011-10-25 TDQ-3816 : If tables exists, will no longer be added.(compare with tables , not all
@@ -400,7 +401,7 @@ public final class DqRepositoryViewService {
 
         java.sql.Connection connection = rcConn.getObject();
         DatabaseConnection databaseConnection = (DatabaseConnection) dataProvider;
-        DatabaseMetaData dm = ExtractMetaDataUtils.getDatabaseMetaData(connection, databaseConnection, false);
+        DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection, databaseConnection, false);
         try {
             // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
             // MOD gdbu 2011-10-25 TDQ-3816 : If views exists, will no longer be added.(compare with views , not all
@@ -521,6 +522,7 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
             // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
@@ -530,11 +532,11 @@ public final class DqRepositoryViewService {
             // metadataConnection.setSqlMode(false);
             // ExtractMetaDataUtils.metadataCon = metadataConnection;
             // }
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
+            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
-                    taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
+            dbJDBCMetadata = extractMeta
+                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, TABLE_TYPES);
@@ -573,6 +575,7 @@ public final class DqRepositoryViewService {
         java.sql.Connection connection = rcConn.getObject();
 
         DatabaseMetaData dbJDBCMetadata = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
             // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
@@ -582,11 +585,11 @@ public final class DqRepositoryViewService {
             // metadataConnection.setSqlMode(false);
             // ExtractMetaDataUtils.metadataCon = metadataConnection;
             // }
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
+            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
-                    taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
+            dbJDBCMetadata = extractMeta
+                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
 
@@ -629,12 +632,13 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
+            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
-                    taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
+            dbJDBCMetadata = extractMeta
+                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
         ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, VIEW_TYPES);
@@ -672,6 +676,7 @@ public final class DqRepositoryViewService {
         }
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
             // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
             // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
@@ -681,11 +686,11 @@ public final class DqRepositoryViewService {
             // metadataConnection.setSqlMode(false);
             // ExtractMetaDataUtils.metadataCon = metadataConnection;
             // }
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
+            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
-                    taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
+            dbJDBCMetadata = extractMeta
+                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         // DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
         // ((DatabaseConnection) dataProvider).getDatabaseType(),((DatabaseConnection)

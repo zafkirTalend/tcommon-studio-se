@@ -295,7 +295,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcPostgresql(java.sql.Connection connection) throws SQLException {
-        return isOdbcPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isOdbcPostgresql(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isOdbcPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -316,7 +316,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isOdbcExcel(java.sql.Connection connection) throws SQLException {
-        return isOdbcExcel(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isOdbcExcel(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isOdbcExcel(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -338,7 +338,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isAccess(java.sql.Connection connection) throws SQLException {
-        return isAccess(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isAccess(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isAccess(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -357,7 +357,7 @@ public class MetadataConnectionUtils {
      * @throws SQLException
      */
     public static boolean isSybase(java.sql.Connection connection) throws SQLException {
-        return isSybase(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isSybase(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isSybase(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -404,7 +404,7 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isOdbcConnection(java.sql.Connection connection) throws SQLException {
-        return isOdbcConnection(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isOdbcConnection(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     /**
@@ -478,11 +478,11 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isMssql(java.sql.Connection connection) throws SQLException {
-        return isMssql(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isMssql(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isMysql(java.sql.Connection connection) throws SQLException {
-        return isMysql(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isMysql(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isMysql(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -994,7 +994,7 @@ public class MetadataConnectionUtils {
                     if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metaConnection.getDbType())) {
                         databaseMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
                     } else {
-                        databaseMetaData = ExtractMetaDataUtils.getDatabaseMetaData(sqlConn, dbConn, false);
+                        databaseMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbConn, false);
                     }
 
                     if (sqlConn != null) {
@@ -1020,7 +1020,7 @@ public class MetadataConnectionUtils {
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {
-        return isPostgresql(ExtractMetaDataUtils.getConnectionMetadata(connection));
+        return isPostgresql(ExtractMetaDataUtils.getInstance().getConnectionMetadata(connection));
     }
 
     public static boolean isPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
@@ -1107,9 +1107,10 @@ public class MetadataConnectionUtils {
     }
 
     public static List getConnection(IMetadataConnection metadataBean) {
-        return ExtractMetaDataUtils.getConnection(metadataBean.getDbType(), metadataBean.getUrl(), metadataBean.getUsername(),
-                metadataBean.getPassword(), metadataBean.getDatabase(), metadataBean.getSchema(), metadataBean.getDriverClass(),
-                metadataBean.getDriverJarPath(), metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+        return ExtractMetaDataUtils.getInstance().getConnection(metadataBean.getDbType(), metadataBean.getUrl(),
+                metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDatabase(), metadataBean.getSchema(),
+                metadataBean.getDriverClass(), metadataBean.getDriverJarPath(), metadataBean.getDbVersionString(),
+                metadataBean.getAdditionalParams());
     }
 
     /**

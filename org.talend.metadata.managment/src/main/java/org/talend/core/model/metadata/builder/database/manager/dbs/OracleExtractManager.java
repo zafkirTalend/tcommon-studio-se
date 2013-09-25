@@ -70,15 +70,16 @@ public class OracleExtractManager extends ExtractManager {
 
         List<String> tablesToFilter = new ArrayList<String>();
         Statement stmt;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
-            stmt = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+            stmt = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(stmt);
             if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLE_CUSTOM.getDisplayName().equals(metadataConnection.getDbType())
                     || EDatabaseTypeName.ORACLE_OCI.getDisplayName().equals(metadataConnection.getDbType())) {
                 ResultSet rsTables = stmt.executeQuery(ORACLE_10G_RECBIN_SQL);
-                tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
+                tablesToFilter = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, extractMeta.getConn());
                 rsTables.close();
             }
             stmt.close();
@@ -92,15 +93,16 @@ public class OracleExtractManager extends ExtractManager {
     public List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection metadataConnection,
             int... limit) {
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dbMetaData == null || metadataConnection == null) {
             return medataTables;
         }
-        if (ExtractMetaDataUtils.isUseAllSynonyms()) { // seems only for oracle and can be use all synonyms
+        if (extractMeta.isUseAllSynonyms()) { // seems only for oracle and can be use all synonyms
             List<String> tablesToFilter = getTablesToFilter(metadataConnection);
 
             try {
-                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                Statement stmt = extractMeta.getConn().createStatement();
+                extractMeta.setQueryStatementTimeout(stmt);
                 ResultSet rsTables = stmt.executeQuery(GET_ALL_SYNONYMS);
                 getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), tablesToFilter, limit);
                 rsTables.close();
@@ -132,7 +134,7 @@ public class OracleExtractManager extends ExtractManager {
                 // "' order by column_id";
                 // Statement sta;
                 sta = conn.createStatement();
-                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ExtractMetaDataUtils.getInstance().setQueryStatementTimeout(sta);
                 resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
@@ -164,6 +166,7 @@ public class OracleExtractManager extends ExtractManager {
             return;
         }
         if (dbMetaData.getDatabaseProductName().equals(OracleExtractManager.DATABASE_PRODUCT_NAME)) {
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             // need to retrieve columns of synonym by useing sql rather than get them from jdbc metadata
             String synSQL = "SELECT all_tab_columns.*\n" + "FROM all_tab_columns\n" + "LEFT OUTER JOIN all_synonyms\n"
                     + "ON all_tab_columns.TABLE_NAME = all_synonyms.TABLE_NAME\n"
@@ -176,8 +179,8 @@ public class OracleExtractManager extends ExtractManager {
                 Schema schema = (Schema) table.eContainer();
                 synSQL += "and all_synonyms.OWNER =\'" + schema.getName() + "\'";
             }
-            Statement sta = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+            Statement sta = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(sta);
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
@@ -218,9 +221,9 @@ public class OracleExtractManager extends ExtractManager {
                     String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                     if (dbmsId != null) {
                         MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, ExtractMetaDataUtils
-                                .getIntMetaDataInfo(columns, "DATA_LENGTH"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                "DATA_PRECISION")); //$NON-NLS-1$
+                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
+                                extractMeta.getIntMetaDataInfo(columns, "DATA_LENGTH"), extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                        "DATA_PRECISION")); //$NON-NLS-1$
                         column.setTalendType(talendType);
                         String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                                 .getDefaultSelectedDbType(talendType);
@@ -246,10 +249,11 @@ public class OracleExtractManager extends ExtractManager {
     @Override
     protected ResultSet getColumnsResultSet(DatabaseMetaData dbMetaData, String catalogName, String schemaName, String tableName)
             throws SQLException {
-        if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        if (extractMeta.isUseAllSynonyms()) {
             String sql = "select * from all_tab_columns where table_name='" + tableName + "' "; //$NON-NLS-1$ //$NON-NLS-2$
-            Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+            Statement stmt = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(stmt);
             return stmt.executeQuery(sql);
         } else {
             return super.getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
@@ -269,10 +273,11 @@ public class OracleExtractManager extends ExtractManager {
     protected void checkComments(IMetadataConnection metadataConnection, String tableName, List<TdColumn> metadataColumns) {
         ResultSet keys = null;
         PreparedStatement statement = null;
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
-            statement = ExtractMetaDataUtils.conn.prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
+            statement = extractMeta.getConn().prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
                     + tableName + "'"); //$NON-NLS-1$ 
-            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+            extractMeta.setQueryStatementTimeout(statement);
             if (statement.execute()) {
                 keys = statement.getResultSet();
                 int i = 0;
@@ -303,11 +308,12 @@ public class OracleExtractManager extends ExtractManager {
         // filter tables or viewer from the recyclebin in the Oracle 10g.
         if (metadataConnection.getDbVersionString() != null
                 && !metadataConnection.getDbVersionString().equals(EDatabaseVersion4Drivers.ORACLE_8.getVersionValue())) {
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             try {
-                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                Statement stmt = extractMeta.getConn().createStatement();
+                extractMeta.setQueryStatementTimeout(stmt);
                 ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
-                itemTablesName.removeAll(ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn));
+                itemTablesName.removeAll(ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, extractMeta.getConn()));
                 rsTables.close();
                 stmt.close();
             } catch (SQLException e) {
@@ -320,12 +326,14 @@ public class OracleExtractManager extends ExtractManager {
     protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
             List<String> itemTablesName) throws SQLException, ClassNotFoundException, InstantiationException,
             IllegalAccessException {
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        Connection con = extractMeta.getConn();
         // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
-        if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
-                && ExtractMetaDataUtils.isUseAllSynonyms()) {
+        if (con != null && con.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
+                && extractMeta.isUseAllSynonyms()) {
             Set<String> nameFiters = tableInfoParameters.getNameFilters();
-            Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+            Statement stmt = con.createStatement();
+            extractMeta.setQueryStatementTimeout(stmt);
 
             StringBuffer filters = new StringBuffer();
             if (!nameFiters.isEmpty()) {
@@ -345,7 +353,7 @@ public class OracleExtractManager extends ExtractManager {
                 filters.append(')');
             }
             ResultSet rsTables = stmt.executeQuery(GET_ALL_SYNONYMS + filters.toString());
-            itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, ExtractMetaDataUtils.conn);
+            itemTablesName = ExtractMetaDataFromDataBase.getTableNamesFromQuery(rsTables, extractMeta.getConn());
             rsTables.close();
             stmt.close();
 
@@ -364,7 +372,8 @@ public class OracleExtractManager extends ExtractManager {
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
         if (EDatabaseVersion4Drivers.ORACLE_8.getVersionValue().equals(metadataConnection.getDbVersionString())) {
-            return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, false, ExtractMetaDataUtils.conn);
+            return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, false, ExtractMetaDataUtils.getInstance()
+                    .getConn());
         }
         return super.getTableComment(metadataConnection, resultSet, nameKey);
     }

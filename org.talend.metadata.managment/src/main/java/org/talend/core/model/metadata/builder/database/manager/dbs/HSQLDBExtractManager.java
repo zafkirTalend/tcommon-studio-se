@@ -34,7 +34,7 @@ public class HSQLDBExtractManager extends ExtractManager {
     public boolean closeConnection(IMetadataConnection metadataConnection, DriverShim wapperDriver) {
         boolean closed = super.closeConnection(metadataConnection, wapperDriver);
         // bug 22619
-        ExtractMetaDataUtils.closeConnection();
+        ExtractMetaDataUtils.getInstance().closeConnection();
 
         if (wapperDriver != null && EDatabaseTypeName.HSQLDB_IN_PROGRESS.equals(this.getDbType())) {
             closed = closeConnectionForDerby(wapperDriver);

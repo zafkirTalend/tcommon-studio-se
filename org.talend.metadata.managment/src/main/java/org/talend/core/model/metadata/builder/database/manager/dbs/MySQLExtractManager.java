@@ -42,10 +42,11 @@ public class MySQLExtractManager extends ExtractManager {
             if (connection != null && connection.getMetaData().getDriverName().contains(DatabaseConstant.MYSQL_PRODUCT_NAME)) {// MySql
                 ResultSet keys = null;
                 PreparedStatement statement = null;
+                ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
                 try {
-                    statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
+                    statement = extractMeta.getConn().prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
                             + lable + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
-                    ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                    extractMeta.setQueryStatementTimeout(statement);
                     if (statement.execute()) {
                         keys = statement.getResultSet();
                         while (keys.next()) {

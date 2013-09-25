@@ -572,7 +572,7 @@ public abstract class AbstractForm extends Composite {
                     processWhenDispose();
                     ShadowProcessHelper.forceStopPreview();
                     //
-                    ExtractMetaDataUtils.closeConnection(true);
+                    ExtractMetaDataUtils.getInstance().closeConnection(true);
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }

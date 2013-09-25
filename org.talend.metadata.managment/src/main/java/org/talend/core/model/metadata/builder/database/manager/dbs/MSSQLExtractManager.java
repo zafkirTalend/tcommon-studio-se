@@ -59,7 +59,7 @@ public class MSSQLExtractManager extends ExtractManager {
                 String sql = "SELECT object_id ,parent_object_id as parentid, name AS object_name ,   base_object_name as base_name from sys.synonyms where  name ='"
                         + tableName + "'";
                 sta = conn.createStatement();
-                ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+                ExtractMetaDataUtils.getInstance().setQueryStatementTimeout(sta);
                 resultSet = sta.executeQuery(sql);
                 while (resultSet.next()) {
                     String baseName = resultSet.getString("base_name").trim();
@@ -96,6 +96,7 @@ public class MSSQLExtractManager extends ExtractManager {
         // TDI-19758
         if (dbMetaData.getDatabaseProductName().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
             // get TABLE_CATALOG ,TABLE_SCHEMA ,TABLE_NAME from base_object_name of sys.synonyms
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             String str = tableName;
             String TABLE_SCHEMA = null;
             String TABLE_NAME = null;
@@ -128,8 +129,8 @@ public class MSSQLExtractManager extends ExtractManager {
             if (!("").equals(metadataConnection.getDatabase())) {
                 synSQL += "\nand TABLE_CATALOG =\'" + metadataConnection.getDatabase() + "\'";
             }
-            Statement sta = ExtractMetaDataUtils.conn.createStatement();
-            ExtractMetaDataUtils.setQueryStatementTimeout(sta);
+            Statement sta = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(sta);
             ResultSet columns = sta.executeQuery(synSQL);
             String typeName = null;
             int index = 0;
@@ -178,8 +179,8 @@ public class MSSQLExtractManager extends ExtractManager {
                     if (dbmsId != null) {
                         MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                         String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
-                                ExtractMetaDataUtils.getIntMetaDataInfo(columns, lenString),
-                                ExtractMetaDataUtils.getIntMetaDataInfo(columns, "NUMERIC_SCALE")); //$NON-NLS-1$
+                                extractMeta.getIntMetaDataInfo(columns, lenString),
+                                extractMeta.getIntMetaDataInfo(columns, "NUMERIC_SCALE")); //$NON-NLS-1$
                         column.setTalendType(talendType);
                         String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                                 .getDefaultSelectedDbType(talendType);
@@ -207,14 +208,15 @@ public class MSSQLExtractManager extends ExtractManager {
 
             // for MSSQL bug16852
             // get inent_seed get_incr for schema's length, precision.
+            ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
             Integer ident1 = 0;
             Integer ident2 = 0;
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try {
-                statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_SEED ( '" + tableName + "'),"
-                        + "IDENT_INCR ( '" + tableName + "')"); //$NON-NLS-1$ 
-                ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                statement = extractMeta.getConn().prepareStatement(
+                        " select IDENT_SEED ( '" + tableName + "')," + "IDENT_INCR ( '" + tableName + "')"); //$NON-NLS-1$ 
+                extractMeta.setQueryStatementTimeout(statement);
                 if (statement.execute()) {
                     resultSet = statement.getResultSet();
                     while (resultSet.next()) {
