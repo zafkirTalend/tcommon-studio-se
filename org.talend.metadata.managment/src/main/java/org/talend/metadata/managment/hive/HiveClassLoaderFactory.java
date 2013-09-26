@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.metadata.managment.hive;
 
+import org.eclipse.core.runtime.Platform;
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -59,6 +60,9 @@ public class HiveClassLoaderFactory {
      * @return
      */
     public ClassLoader getClassLoader(IMetadataConnection metadataConn) {
+        if (!Platform.isRunning()) {
+            return Thread.currentThread().getContextClassLoader();
+        }
         ClassLoader classloader = null;
         String url = metadataConn.getUrl();
 

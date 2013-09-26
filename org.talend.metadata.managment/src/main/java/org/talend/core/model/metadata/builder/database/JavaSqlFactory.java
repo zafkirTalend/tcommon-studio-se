@@ -20,6 +20,8 @@ import metadata.managment.i18n.Messages;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
@@ -365,15 +367,20 @@ public final class JavaSqlFactory {
     public static void doHivePreSetup(Connection connection) {
         Connection conn = connection;
         if (conn instanceof DatabaseConnection) {
-            IProject project = ProjectManager.getInstance().getResourceProject(
-                    ProjectManager.getInstance().getCurrentProject().getEmfProject());
             // put to diffirent folder in case it will conflict when create connection with diffirent distribution
             String id = connection.getId();
             if (id == null) {
                 IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                 id = factory.getNextId();
             }
-            String fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").append(id).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
+            String fullPathTemp;
+            if (Platform.isRunning()) {
+                IProject project = ProjectManager.getInstance().getResourceProject(
+                        ProjectManager.getInstance().getCurrentProject().getEmfProject());
+                fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").append(id).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
+            } else {
+                fullPathTemp = new Path("metastore_db").append(id).toPortableString();//$NON-NLS-1$ //$NON-NLS-2$
+            }
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
             DatabaseConnection dbConn = (DatabaseConnection) conn;
