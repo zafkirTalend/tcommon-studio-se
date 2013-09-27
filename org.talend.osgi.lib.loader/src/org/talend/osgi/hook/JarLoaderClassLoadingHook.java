@@ -19,7 +19,6 @@ import java.security.ProtectionDomain;
 import java.util.ArrayList;
 
 import org.eclipse.osgi.baseadaptor.BaseData;
-import org.eclipse.osgi.baseadaptor.HookRegistry;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleEntry;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
 import org.eclipse.osgi.baseadaptor.hooks.ClassLoadingHook;
@@ -30,13 +29,8 @@ import org.eclipse.osgi.framework.adaptor.BundleProtectionDomain;
 import org.eclipse.osgi.framework.adaptor.ClassLoaderDelegate;
 import org.eclipse.osgi.framework.log.FrameworkLog;
 import org.eclipse.osgi.framework.log.FrameworkLogEntry;
-import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.util.tracker.ServiceTracker;
 import org.talend.osgi.hook.notification.JarMissingObservable;
 
 /**
@@ -48,11 +42,7 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
 
     private File javaLibFolder;
 
-    private final HookRegistry hookregistry;
-
     private final JarMissingObservable jarMissingObservable;
-
-    private String libSubFolderPath;
 
     /**
      * DOC sgandon JarLaoderClassLoadingHook constructor comment.
@@ -61,10 +51,8 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
      * 
      * @param hookRegistry
      */
-    public JarLoaderClassLoadingHook(HookRegistry hookregistry, JarMissingObservable jarMissingObservable) {
-        this.hookregistry = hookregistry;// do not use this in the constructor because it has not been initialised yet.
+    public JarLoaderClassLoadingHook(JarMissingObservable jarMissingObservable) {
         this.jarMissingObservable = jarMissingObservable;
-        libSubFolderPath = System.getProperty("org.talend.lib.subfolder", "lib/java"); //$NON-NLS-1$//$NON-NLS-2$
     }
 
     /*
@@ -97,32 +85,35 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
             // lib/java folder.
             try {
                 File libJavaFolderFile = getLibJavaFolderFile();
-                String jarName = new File(cp).getName();
-                File jarFile = new File(libJavaFolderFile, jarName);
-                if (jarFile.exists()) {
-                    ClasspathEntry classPathEntry = createClassPathEntry(hostmanager, sourcedata, sourcedomain, jarFile);
-                    cpEntries.add(classPathEntry);
-                } else {// jar file not found in the lib/java folder
-                    // notify any observable to get a chance for the lib to be installed
-                    jarMissingObservable.notifyObservers(new JarMissingObservable.JarMissingEvent(jarName, bundleSymbolicName,
-                            libJavaFolderFile.getAbsolutePath()));
-                    // let's do another check to see if the bundle was installed during the above notification
+                if (libJavaFolderFile != null) {
+                    String jarName = new File(cp).getName();
+                    File jarFile = new File(libJavaFolderFile, jarName);
                     if (jarFile.exists()) {
                         ClasspathEntry classPathEntry = createClassPathEntry(hostmanager, sourcedata, sourcedomain, jarFile);
                         cpEntries.add(classPathEntry);
-                    } else {// definetly ignors it, this will crash but the there is not much we can do excep logging it
-                        FrameworkLog frameworkLog = sourcedata.getAdaptor().getFrameworkLog();
-                        if (frameworkLog != null) {
-                            Bundle bundle = sourcedata.getBundle();
-                            String entryMessage = bundle.getSymbolicName() == null ? bundle.getLocation() : bundle
-                                    .getSymbolicName();
-                            frameworkLog.log(new FrameworkLogEntry(entryMessage, "one third party library file [" + jarFile
-                                    + "] was not found, it is required for bundle [" + sourcedata.getSymbolicName()
-                                    + "], please download it and place in [" + libJavaFolderFile + "]", 0, null, null));
-                        }
+                    } else {// jar file not found in the lib/java folder
+                        // notify any observable to get a chance for the lib to be installed
+                        jarMissingObservable.notifyObservers(new JarMissingObservable.JarMissingEvent(jarName,
+                                bundleSymbolicName, libJavaFolderFile.getAbsolutePath()));
+                        // let's do another check to see if the bundle was installed during the above notification
+                        if (jarFile.exists()) {
+                            ClasspathEntry classPathEntry = createClassPathEntry(hostmanager, sourcedata, sourcedomain, jarFile);
+                            cpEntries.add(classPathEntry);
+                        } else {// definetly ignors it, this will crash but the there is not much we can do excep
+                                // logging it
+                            FrameworkLog frameworkLog = sourcedata.getAdaptor().getFrameworkLog();
+                            if (frameworkLog != null) {
+                                Bundle bundle = sourcedata.getBundle();
+                                String entryMessage = bundle.getSymbolicName() == null ? bundle.getLocation() : bundle
+                                        .getSymbolicName();
+                                frameworkLog.log(new FrameworkLogEntry(entryMessage, "one third party library file [" + jarFile
+                                        + "] was not found, it is required for bundle [" + sourcedata.getSymbolicName()
+                                        + "], please download it and place in [" + libJavaFolderFile + "]", 0, null, null));
+                            }
 
+                        }
                     }
-                }
+                }// else //no lib folder found so ignor missing lib
             } catch (IOException e) {
                 sourcedata.getAdaptor().getEventPublisher()
                         .publishFrameworkEvent(FrameworkEvent.ERROR, sourcedata.getBundle(), e);
@@ -204,45 +195,22 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
      * .BaseClassLoader, org.eclipse.osgi.baseadaptor.BaseData)
      */
     @Override
-    public void initializedClassLoader(BaseClassLoader baseClassLoader, BaseData data) {
-        // do nothing
+    public void initializedClassLoader(BaseClassLoader baseClassLoader, BaseData sourcedata) {
+        // do nothing here
     }
 
     /**
-     * return the folder where to find the missing libraries
+     * return the folder where to find the missing libraries or null if none was defined
      * */
     protected File getLibJavaFolderFile() throws URISyntaxException {
         if (javaLibFolder == null) {
-            Location installLocation = getInstallLocation();
-            File installFolder = new File(installLocation.getURL().toURI());
-            javaLibFolder = new File(installFolder, libSubFolderPath);
+            String property = System.getProperty(TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP);
+            if (property != null) {
+                javaLibFolder = new File(property);
+            }// else keep javaLibFolder null
         }
         return javaLibFolder;
 
-    }
-
-    /**
-     * return the eclipse install location
-     */
-    private Location getInstallLocation() {
-        Filter filter = null;
-        BundleContext bundleContext = getBundelContext();
-        try {
-            filter = bundleContext.createFilter(Location.INSTALL_FILTER);
-        } catch (InvalidSyntaxException e) {
-            // ignore this. It should never happen as we have tested the above format.
-        }
-        ServiceTracker installLocation = new ServiceTracker(bundleContext, filter, null);
-        installLocation.open();
-        return (Location) installLocation.getService();
-    }
-
-    /**
-     * return a bindle context from the hookRegistry, this must be called only after the constructor, before it has not
-     * been initialised.
-     * */
-    BundleContext getBundelContext() {
-        return hookregistry.getAdaptor().getContext();
     }
 
 }

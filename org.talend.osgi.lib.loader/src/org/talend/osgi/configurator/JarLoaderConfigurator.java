@@ -34,7 +34,7 @@ public class JarLoaderConfigurator implements HookConfigurator {
     public void addHooks(HookRegistry hookRegistry) {
         JarMissingObservable jarMissingObservable = new JarMissingObservable();
         hookRegistry.addAdaptorHook(new TalendHookAdaptor(jarMissingObservable));
-        hookRegistry.addClassLoadingHook(new JarLoaderClassLoadingHook(hookRegistry, jarMissingObservable));
+        hookRegistry.addClassLoadingHook(new JarLoaderClassLoadingHook(jarMissingObservable));
 
     }
 

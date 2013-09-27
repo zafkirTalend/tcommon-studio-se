@@ -15,6 +15,7 @@ package org.talend.librariesmanager.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,8 +24,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
@@ -617,6 +620,38 @@ public class ModulesNeededProvider {
             }
         }
         return allPluginsRequiredModules;
+    }
+
+    /**
+     * this method checks if each required library is installed without any caching to be careful when using this. if
+     * monitor is canceled, then the return value will be empty
+     * 
+     * @return the list all extension implementing org.talend.core.runtime.librariesNeeded/libraryNeeded, that define a
+     * bundle(plugin) required jar. they are defined using the "context" attribute that starts with the keyword
+     * "plugin:" and that also are not present in the java.lib library
+     * */
+    public static List<ModuleNeeded> getAllNoInstalledModulesNeededExtensionsForPlugin(IProgressMonitor monitor) {
+        List<ModuleNeeded> allPluginsRequiredModules = getAllModulesNeededExtensionsForPlugin();
+        List<ModuleNeeded> allUninstalledModules = new ArrayList<ModuleNeeded>(allPluginsRequiredModules.size());
+        SubMonitor subMonitor = SubMonitor.convert(monitor, allPluginsRequiredModules.size());
+        String property = System.getProperty("org.talend.external.lib.folder");
+        if (property != null) {
+            File javaLibFolder = new File(property);
+            for (ModuleNeeded module : allPluginsRequiredModules) {
+                if (!new File(javaLibFolder, module.getModuleName()).exists()) {
+                    allUninstalledModules.add(module);
+                }// else module is existing to ignor it
+                if (subMonitor.isCanceled()) {
+                    return Collections.EMPTY_LIST;
+                }// else keep going
+                subMonitor.worked(1);
+            }
+        } else {// throw an exception to tell that install folder was not properly initialised
+            throw new IllegalStateException(
+                    "Could not find the Talend library folder because the property [org.talend.external.lib.folder] was not initlized");
+        }
+
+        return allUninstalledModules;
     }
 
     /**
