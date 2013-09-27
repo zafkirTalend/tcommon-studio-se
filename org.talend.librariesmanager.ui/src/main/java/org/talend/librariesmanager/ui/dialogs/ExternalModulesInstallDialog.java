@@ -13,11 +13,8 @@
 package org.talend.librariesmanager.ui.dialogs;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,16 +22,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.DisposeEvent;
@@ -59,7 +53,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -70,15 +63,12 @@ import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.download.DownloadHelperWithProgress;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
-import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
-import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
+import org.talend.librariesmanager.utils.DownloadModuleRunnableWithLicenseDialog;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
 /**
@@ -653,12 +643,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         private final List<ModuleToInstall> toDownload;
 
-        private DownloadModuleRunnable downloadModuleRunnable;
+        private DownloadModuleRunnableWithLicenseDialog downloadModuleRunnable;
 
         public DownloadModuleJob(List<ModuleToInstall> toDownload) {
             super(Messages.getString("ExternalModulesInstallDialog.downloading1")); //$NON-NLS-1$
             this.toDownload = toDownload;
-            downloadModuleRunnable = new DownloadModuleRunnable(toDownload);
+            downloadModuleRunnable = new DownloadModuleRunnableWithLicenseDialog(toDownload, getShell());
         }
 
         @Override
@@ -668,116 +658,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         }
 
         Set<String> getInstalledModule() {
-            return downloadModuleRunnable.installedModules;
+            return downloadModuleRunnable.getInstalledModules();
         }
 
         Set<String> getDownloadFailed() {
-            return downloadModuleRunnable.downloadFailed;
-        }
-
-    }
-
-    class DownloadModuleRunnable implements IRunnableWithProgress {
-
-        List<ModuleToInstall> toDownload;
-
-        private Set<String> downloadFailed;
-
-        private Set<String> installedModules;
-
-        private boolean accepted = false;
-
-        public DownloadModuleRunnable(List<ModuleToInstall> toDownload) {
-            //super(Messages.getString("ExternalModulesInstallDialog.downloading1")); //$NON-NLS-1$
-            this.toDownload = toDownload;
-            downloadFailed = new HashSet<String>();
-            installedModules = new HashSet<String>();
-        }
-
-        @Override
-        public void run(final IProgressMonitor monitor) {
-            SubMonitor subMonitor = SubMonitor.convert(monitor,
-                    Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() * 10 + 5); //$NON-NLS-1$
-            downLoad(subMonitor);
-            if (monitor != null) {
-                monitor.done();
-            }
-        }
-
-        private void downLoad(final SubMonitor monitor) {
-            final List<URL> downloadOk = new ArrayList<URL>();
-            for (final ModuleToInstall module : toDownload) {
-                if (!monitor.isCanceled()) {
-                    monitor.subTask(module.getName());
-                    monitor.worked(5);
-
-                    String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
-                    File target = new File(librariesPath);
-                    if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) { //$NON-NLS-1$
-                        try {
-                            // check license
-                            boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                                    .getBoolean(module.getLicenseType());
-                            if (!isLicenseAccepted) {
-                                Display.getDefault().syncExec(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        String license = RemoteModulesHelper.getInstance().getLicenseUrl(module.getLicenseType());
-                                        ModuleLicenseDialog licenseDialog = new ModuleLicenseDialog(getShell(), module
-                                                .getLicenseType(), license, module.getName());
-                                        if (licenseDialog.open() != Window.OK) {
-                                            downloadFailed.add(module.getName());
-                                            accepted = false;
-                                        } else {
-                                            accepted = true;
-                                        }
-                                    }
-                                });
-
-                            } else {
-                                accepted = true;
-                            }
-                            if (!accepted) {
-                                monitor.worked(5);
-                                continue;
-                            }
-                            if (monitor.isCanceled()) {
-                                return;
-                            }
-                            File destination = new File(target.toString() + File.separator + module.getName());
-                            DownloadHelperWithProgress downloader = new DownloadHelperWithProgress();
-                            downloader.download(new URL(module.getUrl_download()), destination, monitor.newChild(4));
-                            downloadOk.add(destination.toURL());
-                            installedModules.add(module.getName());
-                            monitor.worked(1);
-                        } catch (Exception e) {
-                            downloadFailed.add(module.getName());
-                            ExceptionHandler.process(e);
-                            continue;
-                        }
-                    }
-                    accepted = false;
-                } else {
-                    downloadFailed.add(module.getName());
-                }
-            }
-            if (!downloadOk.isEmpty()) {
-                Display.getDefault().syncExec(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            LibManagerUiPlugin.getDefault().getLibrariesService()
-                                    .deployLibrarys(downloadOk.toArray(new URL[downloadOk.size()]));
-                        } catch (IOException e) {
-                            ExceptionHandler.process(e);
-                        }
-                        monitor.worked(5);
-                    }
-                });
-            }
-
+            return downloadModuleRunnable.getDownloadFailed();
         }
 
     }

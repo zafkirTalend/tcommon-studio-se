@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -41,15 +40,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.librariesmanager.utils.DownloadModuleRunnableWithLicenseDialog;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
 /**
  * adds a progress bar to Modules dialog. Mostly inspired by org.eclipse.jface.wizard.WizardDialog.
  * 
  */
+@SuppressWarnings("rawtypes")
 public class ExternalModulesInstallDialogWithProgress extends ExternalModulesInstallDialog {
-
-    private static Logger log = Logger.getLogger(ExternalModulesInstallDialogWithProgress.class);
 
     private Button closeButton;
 
@@ -58,8 +57,6 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
     private ProgressMonitorPart progressMonitorPart;
 
     private Cursor waitCursor;
-
-    private Cursor arrowCursor;
 
     private static final String FOCUS_CONTROL = "focusControl"; //$NON-NLS-1$
 
@@ -318,6 +315,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * should be disabled
      * @return the saved UI state
      */
+    @SuppressWarnings("unchecked")
     private Object aboutToStart() {
         Map savedState = null;
         if (getShell() != null) {
@@ -444,6 +442,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @param enabled <code>true</code> to enable the control, and <code>false</code> to disable it
      * @see #restoreEnableState(Control, Map, String)
      */
+    @SuppressWarnings("unchecked")
     private void saveEnableStateAndSet(Control w, Map h, String key, boolean enabled) {
         if (w != null) {
             h.put(key, w.getEnabled() ? Boolean.TRUE : Boolean.FALSE);
@@ -547,7 +546,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
 
                 installAllBtn.setEnabled(false);
                 try {
-                    run(new DownloadModuleRunnable(toInstall));
+                    run(new DownloadModuleRunnableWithLicenseDialog(toInstall, getShell()));
                     // close the dialog box when the download is done if it has not been canceled
                     if (!getProgressMonitor().isCanceled()) {
                         setReturnCode(CANCEL);
@@ -606,7 +605,8 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
     protected void launchIndividualDownload(final AtomicInteger enabledButtonCount, ModuleToInstall data, final Button button) {
         button.setEnabled(false);
         enabledButtonCount.decrementAndGet();
-        DownloadModuleRunnable downloadModuleRunnable = new DownloadModuleRunnable(Collections.singletonList(data));
+        DownloadModuleRunnableWithLicenseDialog downloadModuleRunnable = new DownloadModuleRunnableWithLicenseDialog(
+                Collections.singletonList(data), getShell());
         try {
             run(downloadModuleRunnable);
         } catch (InvocationTargetException e) {

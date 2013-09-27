@@ -18,6 +18,7 @@ import org.osgi.framework.ServiceReference;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialogWithProgress;
+import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.osgi.hook.notification.JarMissingObservable;
 import org.talend.osgi.hook.notification.JarMissingObservable.JarMissingEvent;
 
@@ -110,9 +111,10 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
                 @Override
                 public void run() {
                     ExternalModulesInstallDialogWithProgress dialog = new ExternalModulesInstallDialogWithProgress(PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow().getShell(), "Missing jars",
-                            "The Studio requires third parties jars to be installed.\nPlease install the following jar into : "
-                                    + jarMissingEvent.getExpectedLibFolder(), SWT.APPLICATION_MODAL);
+                            .getWorkbench().getActiveWorkbenchWindow().getShell(), Messages
+                            .getString("ExternalModulesInstallDialog_Title_Missing_jars_for_plugin"), //$NON-NLS-1$
+                            Messages.getString("ExternalModulesInstallDialog_description_jars_to_be_installed_in", //$NON-NLS-1$
+                                    jarMissingEvent.getExpectedLibFolder()), SWT.APPLICATION_MODAL);
                     dialog.showDialog(true, requiredJars.toArray(new String[requiredJars.size()]));
                 }
             });
