@@ -31,7 +31,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -52,17 +51,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
@@ -371,9 +366,7 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText principalTxt;
 
-    private LabelledText keytabTxt;
-
-    private Button selectFile;
+    private LabelledFileField keytabTxt;
 
     private Button useKeyTab;
 
@@ -835,18 +828,18 @@ public class DatabaseForm extends AbstractForm {
     private HadoopPropertiesTableView propertiesTableViewForHive;
 
     private void createAuthenticationForHive(Composite parent) {
-        GridLayout layout2 = (GridLayout) parent.getLayout();
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
         authenticationGrp = new Group(parent, SWT.NONE);
         authenticationGrp.setText(Messages.getString("DatabaseForm.hiveEmbedded.authentication")); //$NON-NLS-1$
-        GridDataFactory.fillDefaults().span(layout2.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
                 .applyTo(authenticationGrp);
 
-        GridLayout layout = new GridLayout(4, false);
-        layout.marginHeight = 0;
-        authenticationGrp.setLayout(layout);
+        GridLayout authLayout = new GridLayout(4, false);
+        authLayout.marginHeight = 0;
+        authenticationGrp.setLayout(authLayout);
 
         useKerberos = new Button(authenticationGrp, SWT.CHECK);
-        useKerberos.setText(Messages.getString("DatabaseForm.hiveEmbedded.useKerberos"));
+        useKerberos.setText(Messages.getString("DatabaseForm.hiveEmbedded.useKerberos")); //$NON-NLS-1$
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
         data.horizontalSpan = 4;
         useKerberos.setLayoutData(data);
@@ -857,14 +850,15 @@ public class DatabaseForm extends AbstractForm {
         authenticationCom.setLayoutData(data);
         authenticationCom.setLayout(new GridLayout(4, false));
 
-        hivePrincipalTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.hivePrincipal"), 3);
-        metastoreUrlTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.metastoreUrlTxt"), 1);
-        driverClassTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.driverClass"), 1);
-        usernameTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.username"), 1);
-        passwordTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.password"), 1);
+        hivePrincipalTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.hivePrincipal"), 3); //$NON-NLS-1$
+        metastoreUrlTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.metastoreUrlTxt"), 1); //$NON-NLS-1$
+        driverClassTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.driverClass"), 1); //$NON-NLS-1$
+        usernameTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.username"), 1); //$NON-NLS-1$
+        passwordTxt = new LabelledText(authenticationCom,
+                Messages.getString("DatabaseForm.hiveEmbedded.password"), 1, SWT.PASSWORD); //$NON-NLS-1$
 
         useKeyTab = new Button(authenticationCom, SWT.CHECK);
-        useKeyTab.setText(Messages.getString("DatabaseForm.hiveEmbedded.useKeyTab"));
+        useKeyTab.setText(Messages.getString("DatabaseForm.hiveEmbedded.useKeyTab")); //$NON-NLS-1$
         data = new GridData(GridData.FILL_HORIZONTAL);
         data.horizontalSpan = 4;
         useKeyTab.setLayoutData(data);
@@ -877,40 +871,12 @@ public class DatabaseForm extends AbstractForm {
         keyTabComponent.setVisible(false);
         keyTabComponent.setLayout(new GridLayout(5, false));
 
-        principalTxt = new LabelledText(keyTabComponent, Messages.getString("DatabaseForm.hiveEmbedded.principal"), 1);
-        keytabTxt = new LabelledText(keyTabComponent, Messages.getString("DatabaseForm.hiveEmbedded.keytab"), 1);
+        principalTxt = new LabelledText(keyTabComponent, Messages.getString("DatabaseForm.hiveEmbedded.principal"), 1); //$NON-NLS-1$
+        String[] extensions = { "*.*" }; //$NON-NLS-1$
+        keytabTxt = new LabelledFileField(keyTabComponent, Messages.getString("DatabaseForm.hiveEmbedded.keytab"), extensions); //$NON-NLS-1$
 
-        selectFile = new Button(keyTabComponent, SWT.NONE);
-        selectFile.setText("...");
-
-        if (getConnection().getDatabaseType() != null
-                && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
-            setHidAuthenticationForHive(false);
-        } else {
-            setHidAuthenticationForHive(true);
-        }
         addListenerForAuthentication();
         initForAuthentication();
-        showIfAuthentication();
-
-    }
-
-    private void showIfAuthentication() {
-        if (getConnection().getDatabaseType() != null
-                && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
-
-        }
-        int distributionIndex = distributionCombo.getSelectionIndex();
-        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-        if (distributionIndex >= 0 && hiveVersionIndex >= 0) {
-            HiveConnVersionInfo info = HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex);
-            if (info.isSupportSecurity()) {
-                setHidAuthenticationForHive(false);
-            } else {
-                setHidAuthenticationForHive(true);
-            }
-        }
-
     }
 
     private void initForAuthentication() {
@@ -920,6 +886,30 @@ public class DatabaseForm extends AbstractForm {
         authenticationCom.setVisible(false);
         authenticationCom.setLayoutData(hadoopData);
         authenticationCom.getParent().layout();
+    }
+
+    private void showIfAuthentication() {
+        if (isHiveDBConnSelected()) {
+            int distributionIndex = distributionCombo.getSelectionIndex();
+            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+            if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
+                boolean isHive2 = false;
+                if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
+                    isHive2 = true;
+                }
+                boolean supportSecurity = HiveConnUtils.isSupportSecurity(distributionIndex, hiveVersionIndex, hiveModeIndex,
+                        isHive2);
+                if (supportSecurity) {
+                    updateAuthenticationForHive(isHiveEmbeddedMode());
+                    setHidAuthenticationForHive(false);
+                } else {
+                    setHidAuthenticationForHive(true);
+                }
+            }
+        } else {
+            setHidAuthenticationForHive(true);
+        }
     }
 
     private void addListenerForAuthentication() {
@@ -961,7 +951,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationCom.getParent().layout();
                     authenticationGrp.layout();
                     authenticationGrp.getParent().layout();
-                    getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USE, "true");
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "true");
                 } else {
                     GridData hadoopData = (GridData) authenticationCom.getLayoutData();
                     hadoopData.exclude = true;
@@ -970,8 +960,9 @@ public class DatabaseForm extends AbstractForm {
                     authenticationCom.getParent().layout();
                     authenticationGrp.layout();
                     authenticationGrp.getParent().layout();
-                    getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USE, "false");
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "false");
                 }
+                urlConnectionStringText.setText(getStringConnection());
             }
 
         });
@@ -982,6 +973,7 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA,
                             hivePrincipalTxt.getText());
+                    urlConnectionStringText.setText(getStringConnection());
                 }
             }
         });
@@ -1041,20 +1033,6 @@ public class DatabaseForm extends AbstractForm {
                 }
             }
         });
-        selectFile.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(), SWT.SAVE);
-                dialog.setFilterExtensions(new String[] { "*.*" });
-                dialog.setText("");
-                dialog.setFileName("");
-                String filename = dialog.open();
-                filename = filename.replace("\\", "/");
-                keytabTxt.setText(filename);
-            }
-
-        });
     }
 
     private void setHidAuthenticationForHive(boolean hide) {
@@ -1063,6 +1041,26 @@ public class DatabaseForm extends AbstractForm {
         authenticationGrp.setVisible(!hide);
         authenticationGrp.setLayoutData(hadoopData);
         authenticationGrp.getParent().layout();
+    }
+
+    private void updateAuthenticationForHive(boolean isEmbeded) {
+        if (isEmbeded) {
+            metastoreUrlTxt.show();
+            driverClassTxt.show();
+            usernameTxt.show();
+            passwordTxt.show();
+            hideControl(useKeyTab, false);
+            principalTxt.show();
+            keytabTxt.show();
+        } else {
+            metastoreUrlTxt.hide();
+            driverClassTxt.hide();
+            usernameTxt.hide();
+            passwordTxt.hide();
+            hideControl(useKeyTab, true);
+            principalTxt.hide();
+            keytabTxt.hide();
+        }
     }
 
     private void createHadoopPropertiesForHive(Composite parent) {
@@ -3540,7 +3538,6 @@ public class DatabaseForm extends AbstractForm {
 
             hideHCLinkSettings(!isHbase && !isHiveDBConnSelected());
             setHidHadoopPropertiesForHive(!isHiveDBConnSelected());
-            setHidAuthenticationForHive(!isHiveDBConnSelected());
             showIfAuthentication();
 
             urlConnectionStringText.setEditable(!visible);
@@ -4171,16 +4168,6 @@ public class DatabaseForm extends AbstractForm {
             String metastoreConnDriverNameStr = connection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
 
-            String authenticationUse = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USE);
-            String hivePrincipla = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
-            String metastoreUrl = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
-            String driverClass = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
-            String username = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
-            String password = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
-            String useKeytabString = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USEKEYTAB);
-            String Principla = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA);
-            String keytab = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB);
-
             nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr); //$NON-NLS-1$
             jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr); //$NON-NLS-1$
             usernameText.setText(hadoopUserName == null ? "" : hadoopUserName); //$NON-NLS-1$
@@ -4190,35 +4177,45 @@ public class DatabaseForm extends AbstractForm {
             metastoreConnPassword.setText(metastoreConnPasswordStr == null ? "" : metastoreConnPasswordStr); //$NON-NLS-1$
             metastoreConnDriverJar.setText(metastoreConnDriverJarStr == null ? "" : metastoreConnDriverJarStr); //$NON-NLS-1$
             metastoreConnDriverName.setText(metastoreConnDriverNameStr == null ? "" : metastoreConnDriverNameStr); //$NON-NLS-1$
-
-            if (authenticationUse != null && authenticationUse.equals("true")) {
-                useKerberos.setSelection(true);
-                GridData hadoopData = (GridData) authenticationCom.getLayoutData();
-                hadoopData.exclude = false;
-                authenticationCom.setVisible(true);
-                authenticationCom.setLayoutData(hadoopData);
-                authenticationCom.getParent().layout();
-                authenticationGrp.layout();
-                authenticationGrp.getParent().layout();
-            }
-            hivePrincipalTxt.setText(hivePrincipla == null ? "" : hivePrincipla);
-            metastoreUrlTxt.setText(metastoreUrl == null ? "" : metastoreUrl);
-            driverClassTxt.setText(driverClass == null ? "" : driverClass);
-            usernameTxt.setText(username == null ? "" : username);
-            passwordTxt.setText(password == null ? "" : password);
-            if (useKeytabString != null && useKeytabString.equals("true")) {
-                useKeyTab.setSelection(true);
-                GridData hadoopData = (GridData) keyTabComponent.getLayoutData();
-                hadoopData.exclude = false;
-                keyTabComponent.setVisible(true);
-                keyTabComponent.setLayoutData(hadoopData);
-                keyTabComponent.getParent().layout();
-                authenticationGrp.layout();
-                authenticationGrp.getParent().layout();
-            }
-            principalTxt.setText(Principla == null ? "" : Principla);
-            keytabTxt.setText(keytab == null ? "" : keytab);
         }
+
+        String useKrb = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+        String hivePrincipla = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+        String metastoreUrl = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+        String driverClass = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
+        String username = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
+        String password = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
+        String useKeytabString = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USEKEYTAB);
+        String Principla = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA);
+        String keytab = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB);
+
+        if (Boolean.valueOf(useKrb)) {
+            useKerberos.setSelection(true);
+            GridData hadoopData = (GridData) authenticationCom.getLayoutData();
+            hadoopData.exclude = false;
+            authenticationCom.setVisible(true);
+            authenticationCom.setLayoutData(hadoopData);
+            authenticationCom.getParent().layout();
+            authenticationGrp.layout();
+            authenticationGrp.getParent().layout();
+        }
+        hivePrincipalTxt.setText(hivePrincipla == null ? "" : hivePrincipla);
+        metastoreUrlTxt.setText(metastoreUrl == null ? "" : metastoreUrl);
+        driverClassTxt.setText(driverClass == null ? "" : driverClass);
+        usernameTxt.setText(username == null ? "" : username);
+        passwordTxt.setText(password == null ? "" : password);
+        if (Boolean.valueOf(useKeytabString)) {
+            useKeyTab.setSelection(true);
+            GridData hadoopData = (GridData) keyTabComponent.getLayoutData();
+            hadoopData.exclude = false;
+            keyTabComponent.setVisible(true);
+            keyTabComponent.setLayoutData(hadoopData);
+            keyTabComponent.getParent().layout();
+            authenticationGrp.layout();
+            authenticationGrp.getParent().layout();
+        }
+        principalTxt.setText(Principla == null ? "" : Principla);
+        keytabTxt.setText(keytab == null ? "" : keytab);
 
         updateYarnStatus();
     }
@@ -4318,6 +4315,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 doHiveModeModify();
+                showIfAuthentication();
             }
         });
     }
@@ -4356,6 +4354,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 doHiveServerSelected();
+                showIfAuthentication();
             }
         });
     }

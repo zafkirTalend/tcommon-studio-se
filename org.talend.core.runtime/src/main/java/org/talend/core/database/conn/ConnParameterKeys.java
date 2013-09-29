@@ -79,8 +79,6 @@ public class ConnParameterKeys {
 
     public static final String HIVE_SERVER_VERSION = "HIVE_SERVER_VERSION";//$NON-NLS-1$
 
-    public static final String HIVE_AUTHENTICATION_USE = "HIVE_AUTHENTICATION_USE";//$NON-NLS-1$
-
     public static final String HIVE_AUTHENTICATION_HIVEPRINCIPLA = "HIVE_AUTHENTICATION_HIVEPRINCIPLA";//$NON-NLS-1$
 
     public static final String HIVE_AUTHENTICATION_METASTOREURL = "HIVE_AUTHENTICATION_METASTOREURL";//$NON-NLS-1$
@@ -94,8 +92,9 @@ public class ConnParameterKeys {
     public static final String HIVE_AUTHENTICATION_USEKEYTAB = "HIVE_AUTHENTICATION_USEKEYTAB";//$NON-NLS-1$
 
     public static final String HIVE_AUTHENTICATION_PRINCIPLA = "HIVE_AUTHENTICATION_PRINCIPLA";//$NON-NLS-1$
-    
+
     public static final String HIVE_AUTHENTICATION_KEYTAB = "HIVE_AUTHENTICATION_KEYTAB";//$NON-NLS-1$
+
     /**
      * The key is for metastore server.
      */

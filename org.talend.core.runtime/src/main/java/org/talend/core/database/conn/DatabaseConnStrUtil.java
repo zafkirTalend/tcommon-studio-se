@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.database.conn;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
@@ -34,6 +35,8 @@ public class DatabaseConnStrUtil {
     private static final String CONN = TalendQuoteUtils.getStringConnect();
 
     private static final String QUOTE = TalendQuoteUtils.getQuoteChar();
+
+    private static final String SEMICOLON = ";"; //$NON-NLS-1$
 
     private static String getStringReplace(final String init, final String before, final String after,
             final boolean supportContext) {
@@ -161,6 +164,12 @@ public class DatabaseConnStrUtil {
     public static String getHiveURLString(DatabaseConnection dbConn, String server, String port, String sidOrDatabase,
             String template) {
         String hiveModel = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+        boolean useKrb = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
+        String hivePrincipal = null;
+        if (useKrb) {
+            hivePrincipal = StringUtils.trimToNull(dbConn.getParameters()
+                    .get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA));
+        }
         // DbConnStrForHive.URL_HIVE_2_TEMPLATE or DbConnStrForHive.URL_HIVE_1_TEMPLATE
         // set a default
         String url = null;
@@ -168,7 +177,7 @@ public class DatabaseConnStrUtil {
             if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
                 url = getHive2EmbeddedURLString();
             } else {
-                url = getHive2StandaloneURLString(false, server, port, sidOrDatabase);
+                url = getHive2StandaloneURLString(false, server, port, sidOrDatabase, hivePrincipal);
             }
         } else if (template.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
             if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
@@ -211,9 +220,27 @@ public class DatabaseConnStrUtil {
         return s;
     }
 
-    private static String getHive2StandaloneURLString(boolean supportContext, String server, String port, String sid) {
+    private static String getHive2StandaloneURLString(boolean supportContext, String server, String port, String sid,
+            String hivePrincipal) {
         String s = EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_STANDALONE);
-        return getHiveStandaloneURlString(s, supportContext, server, port, sid);
+        String standardURlString = getHiveStandaloneURlString(s, supportContext, server, port, sid);
+        String principalSuffix = "principal="; //$NON-NLS-1$
+        boolean hasPrinc = false;
+        String[] urlArray = standardURlString.split(SEMICOLON);
+        if (urlArray[urlArray.length - 1].startsWith(principalSuffix)) {
+            hasPrinc = true;
+        }
+        if (hasPrinc) {
+            if (hivePrincipal == null) {
+                standardURlString = standardURlString.substring(0, standardURlString.lastIndexOf(principalSuffix));
+            }
+        } else {
+            if (hivePrincipal != null) {
+                standardURlString = standardURlString.concat(SEMICOLON).concat(principalSuffix).concat(hivePrincipal);
+            }
+        }
+
+        return standardURlString;
     }
 
     public static String getURLString(DatabaseConnection conn) {

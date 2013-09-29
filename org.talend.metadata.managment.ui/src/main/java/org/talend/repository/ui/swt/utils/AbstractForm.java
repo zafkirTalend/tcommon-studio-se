@@ -567,6 +567,7 @@ public abstract class AbstractForm extends Composite {
     private void setDisposeListener() {
         this.addDisposeListener(new DisposeListener() {
 
+            @Override
             public void widgetDisposed(DisposeEvent event) {
                 try {
                     processWhenDispose();
@@ -596,5 +597,18 @@ public abstract class AbstractForm extends Composite {
 
     public void refreshLinks() {
 
+    }
+
+    protected void hideControl(Control control, boolean hide) {
+        Object layoutData = control.getLayoutData();
+        if (layoutData instanceof GridData) {
+            GridData data = (GridData) layoutData;
+            data.exclude = hide;
+            control.setLayoutData(data);
+            control.setVisible(!hide);
+            if (control.getParent() != null) {
+                control.getParent().layout();
+            }
+        }
     }
 }

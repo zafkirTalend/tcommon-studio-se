@@ -49,6 +49,13 @@ public enum HiveConfKeysForTalend {
     HIVE_CONF_KEY_HIVE_METASTORE_EXECUTE_SETUGI("hive.metastore.execute.setugi"), //$NON-NLS-1$
 
     HIVE_CONF_KEY_TALEND_HIVE_MODE("talend.hive.mode"), //$NON-NLS-1$
+
+    HIVE_CONF_KEY_HIVE_METASTORE_SASL_ENABLED("hive.metastore.sasl.enabled"), //$NON-NLS-1$
+
+    HIVE_CONF_KEY_HIVE_SECURITY_AUTHORIZATION_ENABLED("hive.security.authorization.enabled"), //$NON-NLS-1$
+
+    HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL("hive.metastore.kerberos.principal"), //$NON-NLS-1$
+
     ;
 
     private String key;

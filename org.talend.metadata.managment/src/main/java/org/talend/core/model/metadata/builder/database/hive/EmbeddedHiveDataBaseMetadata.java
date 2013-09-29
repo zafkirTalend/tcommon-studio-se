@@ -25,6 +25,7 @@ import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.utils.ReflectionUtils;
@@ -69,6 +70,18 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                 Method hiveGetMethod = calss.getDeclaredMethod("get"); //$NON-NLS-1$
 
                 hiveObject = hiveGetMethod.invoke(null);
+
+                boolean useKeytab = (Boolean) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+                String principal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA);
+                String keytabPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB);
+                if (useKeytab) {
+                    try {
+                        ReflectionUtils.invokeStaticMethod("org.apache.hadoop.security.UserGroupInformation", classLoader, //$NON-NLS-1$
+                                "loginUserFromKeytab", new String[] { principal, keytabPath }); //$NON-NLS-1$
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
             } catch (Exception e) {
                 ExceptionHandler.process(e);
             }

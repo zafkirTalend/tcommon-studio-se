@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.database.conn.HiveConfKeysForTalend;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
@@ -105,6 +106,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         Connection hiveStandaloneConn = null;
         String connURL = metadataConn.getUrl();
         if (connURL != null) {
+            boolean useKerberos = (Boolean) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+            String hivePrincipal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+            if (useKerberos) {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
+            }
             if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
                 hiveStandaloneConn = createHive2StandaloneConnection(metadataConn);
             } else if (connURL.startsWith(DatabaseConnConstants.HIVE_1_URL_FORMAT)) {

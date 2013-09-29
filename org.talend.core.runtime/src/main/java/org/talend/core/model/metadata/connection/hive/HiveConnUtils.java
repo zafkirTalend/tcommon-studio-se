@@ -408,4 +408,25 @@ public class HiveConnUtils {
         return isCustomDistro(distroIndex);
     }
 
+    /**
+     * This is a temporary method to estimate whether or not one hive version support security. We need to refactor
+     * {@link HiveConnVersionInfo}(A really bad class) to support this function later...
+     * <P>
+     * DOC ycbai Comment method "isSupportSecurity".
+     * 
+     * @param distributionIndex
+     * @param hiveVersionIndex
+     * @param hiveModeIndex
+     * @param isHive2
+     * @return
+     */
+    public static boolean isSupportSecurity(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, boolean isHive2) {
+        HiveConnVersionInfo hiveVersionObj = getHiveVersionObj(distributionIndex, hiveVersionIndex);
+        if (hiveVersionObj.isSupportSecurity() && (isHive2 || isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex))) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

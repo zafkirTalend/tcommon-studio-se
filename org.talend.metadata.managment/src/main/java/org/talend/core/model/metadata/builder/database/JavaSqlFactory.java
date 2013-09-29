@@ -425,6 +425,22 @@ public final class JavaSqlFactory {
                         dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL));
             }
 
+            boolean useKerberos = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
+            if (useKerberos) {
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_SASL_ENABLED.getKey(), "true"); //$NON-NLS-1$
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey(), dbConn.getParameters()
+                        .get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS));
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_SECURITY_AUTHORIZATION_ENABLED.getKey(), "true"); //$NON-NLS-1$
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(),
+                        dbConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL));
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_USERNAME.getKey(), dbConn.getParameters()
+                        .get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME));
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey(), dbConn.getParameters()
+                        .get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD));
+                System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), dbConn
+                        .getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA));
+            }
+
             // hive mode for talend
             // String hiveMode = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
             // if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
