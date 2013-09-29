@@ -13,6 +13,8 @@
 package org.talend.librariesmanager.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,11 +30,14 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
@@ -86,73 +91,91 @@ public class RemoteModulesHelper {
 
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-            int size = this.jarNames.split(SEPARATOR_SLIP).length;
+            String[] jars = jarNames.split(SEPARATOR_SLIP);
+            int size = jars.length;
             monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10);//$NON-NLS-1$
-            JSONObject message = new JSONObject();
             try {
-                JSONObject child = new JSONObject();
-                child.put("vaction", "getModules");//$NON-NLS-1$
-                child.put("name", this.jarNames);//$NON-NLS-1$
-                message.put("module", child);//$NON-NLS-1$
-                String url = serviceUrl + "?data=" + message;
-                monitor.worked(10);
-                if (monitor.isCanceled()) {
-                    return;
-                }
-                JSONObject resultStr = readJsonFromUrl(url);
-                if (resultStr != null) {
-                    JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
-                    if (jsonArray != null) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            if (obj != null) {
-                                String url_description = obj.getString("url_description");//$NON-NLS-1$
-                                String url_download = obj.getString("url_download");//$NON-NLS-1$
-                                String name = obj.getString("filename");//$NON-NLS-1$
-                                if ((url_description == null && url_download == null)
-                                        || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
-                                        .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
-                                    ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
-                                    // keep null in cache no need to check from server again
-                                    cache.put(name, null);
+                int index = 0;
+                int limit = 100;
+                while (index < jars.length) {
+                    // get block of 100 jars
+                    String jarsToCheck = "";
+                    while (index < limit && index < jars.length) {
+                        jarsToCheck += jars[index];
+                        index++;
+                        if (index < limit && index < jars.length) {
+                            jarsToCheck += "|";
+                        }
+                    }
+                    limit += 100;
+                    JSONObject message = new JSONObject();
+                    JSONObject child = new JSONObject();
+                    child.put("vaction", "getModules");//$NON-NLS-1$
+                    child.put("name", jarsToCheck);//$NON-NLS-1$
+                    message.put("module", child);//$NON-NLS-1$
+                    String url = serviceUrl + "?data=" + message;
+                    monitor.worked(10);
+                    if (monitor.isCanceled()) {
+                        return;
+                    }
+                    JSONObject resultStr = readJsonFromUrl(url);
+                    if (resultStr != null) {
+                        JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject obj = jsonArray.getJSONObject(i);
+                                if (obj != null) {
+                                    String url_description = obj.getString("url_description");//$NON-NLS-1$
+                                    String url_download = obj.getString("url_download");//$NON-NLS-1$
+                                    String name = obj.getString("filename");//$NON-NLS-1$
+                                    if ((url_description == null && url_download == null)
+                                            || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
+                                            .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
+                                        ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
+                                        if (CommonsPlugin.isDebugMode()) {
+                                            appendToLogFile(name + "\n");
+                                        }
+                                        // keep null in cache no need to check from server again
+                                        cache.put(name, null);
 
-                                    continue;
-                                }
+                                        continue;
+                                    }
 
-                                ModuleToInstall m = new ModuleToInstall();
+                                    ModuleToInstall m = new ModuleToInstall();
 
-                                m.setName(name);
-                                if (this.contextMap != null) {
-                                    List<ModuleNeeded> nm = this.contextMap.get(m.getName());
-                                    m.setContext(getContext(nm));
-                                    m.setRequired(isRequired(nm));
-                                } else {
-                                    m.setContext("Current Operation");//$NON-NLS-1$
-                                    m.setRequired(true);
+                                    m.setName(name);
+                                    if (this.contextMap != null) {
+                                        List<ModuleNeeded> nm = this.contextMap.get(m.getName());
+                                        m.setContext(getContext(nm));
+                                        m.setRequired(isRequired(nm));
+                                    } else {
+                                        m.setContext("Current Operation");//$NON-NLS-1$
+                                        m.setRequired(true);
+                                    }
+                                    String license = obj.getString("licence");//$NON-NLS-1$
+                                    m.setLicenseType(license);
+                                    if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
+                                        m.setLicenseType(null);
+                                    }
+                                    String description = obj.getString("description");//$NON-NLS-1$
+                                    if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
+                                        description = m.getName();
+                                    }
+                                    m.setDescription(description);
+                                    m.setUrl_description(url_description);
+                                    if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
+                                        m.setUrl_download(null);
+                                    } else {
+                                        m.setUrl_download(url_download);
+                                    }
+                                    this.toInstall.add(m);
+                                    cache.put(m.getName(), m);
                                 }
-                                String license = obj.getString("licence");//$NON-NLS-1$
-                                m.setLicenseType(license);
-                                if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
-                                    m.setLicenseType(null);
+                                if (monitor.isCanceled()) {
+                                    return;
                                 }
-                                String description = obj.getString("description");//$NON-NLS-1$
-                                if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
-                                    description = m.getName();
-                                }
-                                m.setDescription(description);
-                                m.setUrl_description(url_description);
-                                if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
-                                    m.setUrl_download(null);
-                                } else {
-                                    m.setUrl_download(url_download);
-                                }
-                                this.toInstall.add(m);
-                                cache.put(m.getName(), m);
+                                monitor.worked(10);
                             }
-                            if (monitor.isCanceled()) {
-                                return;
-                            }
-                            monitor.worked(10);
                         }
                     }
                 }
@@ -164,6 +187,28 @@ public class RemoteModulesHelper {
 
             monitor.done();
         }
+    }
+
+    private void appendToLogFile(String logTxt) {
+        Path absolutePath = new Path(Platform.getInstallLocation().getURL().getPath());
+        File fullLogFile = new File(absolutePath.append("NotAvailableJarsFromWebservice.txt").toPortableString());
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(fullLogFile, true);
+            writer.append(logTxt);
+        } catch (IOException e) {
+            // nothing
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
+        }
+
     }
 
     private static Logger log = Logger.getLogger(RemoteModulesHelper.class);
