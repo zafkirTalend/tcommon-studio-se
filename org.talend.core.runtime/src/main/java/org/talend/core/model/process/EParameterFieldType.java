@@ -76,14 +76,14 @@ public enum EParameterFieldType {
     ROUTE_RESOURCE_TYPE, // Xiaopeng Li TESB-6226
     ROUTE_COMPONENT_TYPE,
     ROUTE_INPUT_PROCESS_TYPE, // like PROCESS_TYPE, but contains a tRouteInput inside
-    
+
     REST_RESPONSE_SCHEMA_TYPE, // Used to specify the response body type
 
     FILE_HADOOP, // ycbai add for feature TDI-22111
     DIRECTORY_HADOOP, // ycbai add for feature TDI-22111
     BOTH_HADOOP, // ycbai add for feature TDI-22111
     HADOOP_JARS_DIALOG,
-
+    HMAP_PATH, // wchen added for TDM
     MATCH_RULE_IMEX_CONTROLLER, // sizhaoliu TDQ-7910
     ;
 
