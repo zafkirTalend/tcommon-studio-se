@@ -63,7 +63,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
 
             Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
 
-            boolean visitChildren = false;
+            boolean visitChildren = true;
             for (final RepositoryNode repoNode : topLevelNodes) {
                 IPath topLevelNodeWorkspaceRelativePath = topLevelNodeToPathMap.get(repoNode);
                 if (topLevelNodeWorkspaceRelativePath != null && visitHelper.valid(topLevelNodeWorkspaceRelativePath, merged)) {
