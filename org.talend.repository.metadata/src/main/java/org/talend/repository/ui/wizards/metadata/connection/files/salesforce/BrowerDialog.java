@@ -50,6 +50,8 @@ public class BrowerDialog extends Dialog {
         broswer = new Browser(composite, SWT.NONE);
         broswer.setUrl(url);
         broswer.refresh();
+        composite.redraw();
+        parent.redraw();
         return parent;
     }
 
