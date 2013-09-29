@@ -42,6 +42,8 @@ public class TalendHookAdaptor implements AdaptorHook {
      */
     public static final String ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "org.talend.external.lib.folder"; //$NON-NLS-1$
 
+    public static final String TALEND_LIBRARY_PATH = "talend.library.path"; //$NON-NLS-1$
+
     /**
      * default subfolder path to look for missing jars
      */
@@ -84,9 +86,12 @@ public class TalendHookAdaptor implements AdaptorHook {
      */
     private void storeTalendLibFolder(BundleContext context) {
         try {
-            if (System.getProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP) == null) {
+            String talendLibraryPath = System.getProperty(TALEND_LIBRARY_PATH);
+            if (talendLibraryPath == null) {
                 File talendLibFolder = getLibJavaFolderFile(context);
                 System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibFolder.getAbsolutePath());
+            } else {
+                System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibraryPath);
             }
         } catch (URISyntaxException e) {
             if (frameworkLog != null) {

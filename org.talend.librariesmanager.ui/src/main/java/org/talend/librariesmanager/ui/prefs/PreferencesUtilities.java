@@ -14,8 +14,8 @@ package org.talend.librariesmanager.ui.prefs;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
-import org.talend.librariesmanager.ui.i18n.Messages;
 
 /**
  * created by Administrator on 2013-3-7 Detailled comment
@@ -23,44 +23,18 @@ import org.talend.librariesmanager.ui.i18n.Messages;
  */
 public class PreferencesUtilities {
 
-    public static final String EXTERNAL_LIB_PATH_MODE_SINGLE = "externalLibPathModeSingle"; //$NON-NLS-1$
-
     public static final String EXTERNAL_LIB_PATH = "externalLibPath"; //$NON-NLS-1$
-
-    public static final String EXTERNAL_LIB_PATH_JAVA = "externalLibPathJava"; //$NON-NLS-1$
-
-    public static final String EXTERNAL_LIB_PATH_PERL = "externalLibPathPerl"; //$NON-NLS-1$
 
     public static IPreferenceStore getPreferenceStore() {
         return LibManagerUiPlugin.getDefault().getPreferenceStore();
     }
 
     public static String getLibrariesPath(ECodeLanguage language) {
-        String libPath = System.getProperty("org.talend.external.lib.folder"); //$NON-NLS-1$
+        String libPath = System.getProperty(LibrariesManagerUtils.TALEND_LIBRARY_PATH);
         if (libPath != null) {
             return libPath;
         }
 
-        // TDI-17414:commandline workspace no need to use .JavaLibs to store Talend libraries.
-        // if (CommonsPlugin.isStoreLibsInWorkspace()) {
-        // return getWorkSpaceLibPath(language);
-        // }
-        boolean singleMode = getPreferenceStore().getBoolean(EXTERNAL_LIB_PATH_MODE_SINGLE);
-        switch (language) {
-        case JAVA:
-            if (singleMode) {
-                return getPreferenceStore().getString(EXTERNAL_LIB_PATH) + "/java"; //$NON-NLS-1$
-            } else {
-                return getPreferenceStore().getString(EXTERNAL_LIB_PATH_JAVA);
-            }
-        case PERL:
-            if (singleMode) {
-                return getPreferenceStore().getString(EXTERNAL_LIB_PATH) + "/perl"; //$NON-NLS-1$
-            } else {
-                return getPreferenceStore().getString(EXTERNAL_LIB_PATH_PERL);
-            }
-        default:
-            throw new IllegalArgumentException(Messages.getString("PreferencesUtilities.unknowLanguage")); //$NON-NLS-1$
-        }
+        return getPreferenceStore().getString(EXTERNAL_LIB_PATH);
     }
 }

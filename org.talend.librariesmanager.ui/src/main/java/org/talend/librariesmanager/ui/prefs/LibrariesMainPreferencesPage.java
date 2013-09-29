@@ -22,17 +22,12 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
         externalLibrariesPath = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH,
                 Messages.getString("MainPreferencesPage.externalLibPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(externalLibrariesPath);
-        activateFields(getPreferenceStore().getBoolean(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE));
     }
 
     @Override
     protected void initialize() {
         super.initialize();
         externalLibrariesPath.setEnabled(true, getFieldEditorParent());
-    }
-
-    private void activateFields(boolean singleMode) {
-        externalLibrariesPath.setEnabled(singleMode, getFieldEditorParent());
     }
 
     @Override
