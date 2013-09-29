@@ -32,6 +32,10 @@ public class LibrariesManagerUtils {
     public static final String BUNDLE_DI = "org.talend.librariesmanager";
 
     public static String getLibrariesPath(ECodeLanguage language) {
+        String libPath = System.getProperty("org.talend.external.lib.folder"); //$NON-NLS-1$
+        if (libPath != null) {
+            return libPath;
+        }
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
             ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerUIService.class);

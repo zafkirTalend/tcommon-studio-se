@@ -84,8 +84,10 @@ public class TalendHookAdaptor implements AdaptorHook {
      */
     private void storeTalendLibFolder(BundleContext context) {
         try {
-            File talendLibFolder = getLibJavaFolderFile(context);
-            System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibFolder.getAbsolutePath());
+            if (System.getProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP) == null) {
+                File talendLibFolder = getLibJavaFolderFile(context);
+                System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibFolder.getAbsolutePath());
+            }
         } catch (URISyntaxException e) {
             if (frameworkLog != null) {
                 frameworkLog.log(new FrameworkLogEntry("org.talend.osgi.lib.loader", "failed to initialize [" //$NON-NLS-1$ //$NON-NLS-2$

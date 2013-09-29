@@ -36,6 +36,11 @@ public class PreferencesUtilities {
     }
 
     public static String getLibrariesPath(ECodeLanguage language) {
+        String libPath = System.getProperty("org.talend.external.lib.folder"); //$NON-NLS-1$
+        if (libPath != null) {
+            return libPath;
+        }
+
         // TDI-17414:commandline workspace no need to use .JavaLibs to store Talend libraries.
         // if (CommonsPlugin.isStoreLibsInWorkspace()) {
         // return getWorkSpaceLibPath(language);
