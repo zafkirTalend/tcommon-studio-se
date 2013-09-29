@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -713,7 +714,12 @@ public class DatabaseForm extends AbstractForm {
                 // scrolledComposite.setMinSize(newParent.computeSize(r.width-100, 550));
                 if (getConnection().getDatabaseType() != null
                         && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
-                    scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 820));
+                    if (Platform.getOS().equals(Platform.OS_LINUX)) {
+                        scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 900));
+                    } else {
+                        scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 820));
+                    }
+
                 } else {
                     scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
                 }
