@@ -466,46 +466,12 @@ public class XmiResourceManager {
 
     public List<Resource> getAffectedResources(Property property) {
         List<Resource> resources = new ArrayList<Resource>();
-        Iterator<EObject> i = property.getItem().eCrossReferences().iterator();
-        while (i.hasNext()) {
-            EObject object = i.next();
-            Resource currentResource = object.eResource();
-            if (currentResource == null) {
-                // only for invalid items !!
-                continue;
-            }
-            if (!resources.contains(currentResource)) {
-
-                // ignore the business model linking *.business_diagram file...(for update version of item...)
-                if (object instanceof org.eclipse.gmf.runtime.notation.impl.DiagramImpl) {
-                    continue;
-                }
-
-                if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
-                    resources.add(currentResource);
-                }
-                if (!getResourceSet().getResources().contains(currentResource)) {
-                    getResourceSet().getResources().add(currentResource);
-                }
-            }
-            if (object instanceof ReferenceFileItem) {
-                ReferenceFileItem fi = (ReferenceFileItem) object;
-                ByteArray ba = fi.getContent();
-                if (ba != null) {
-                    Resource fiResource = ba.eResource();
-                    if (fiResource != null) {
-                        resources.add(fiResource);
-                    }
-                }
-            }
-        }
-        i = property.getItem().eAllContents();
-        while (i.hasNext()) {
-            EObject object = i.next();
-            Iterator<EObject> j = object.eCrossReferences().iterator();
-            while (j.hasNext()) {
-                EObject childEObject = j.next();
-                Resource currentResource = childEObject.eResource();
+        List<Resource> allRes = resourceSet.getResources();
+        synchronized (allRes) {
+            Iterator<EObject> i = property.getItem().eCrossReferences().iterator();
+            while (i.hasNext()) {
+                EObject object = i.next();
+                Resource currentResource = object.eResource();
                 if (currentResource == null) {
                     // only for invalid items !!
                     continue;
@@ -520,21 +486,57 @@ public class XmiResourceManager {
                     if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
                         resources.add(currentResource);
                     }
+                    if (!getResourceSet().getResources().contains(currentResource)) {
+                        getResourceSet().getResources().add(currentResource);
+                    }
                 }
-                if (!getResourceSet().getResources().contains(currentResource)) {
-                    getResourceSet().getResources().add(currentResource);
+                if (object instanceof ReferenceFileItem) {
+                    ReferenceFileItem fi = (ReferenceFileItem) object;
+                    ByteArray ba = fi.getContent();
+                    if (ba != null) {
+                        Resource fiResource = ba.eResource();
+                        if (fiResource != null) {
+                            resources.add(fiResource);
+                        }
+                    }
                 }
             }
-        }
-        if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
-            if (property.eResource() != null) {
-                Resource screenshotResource = getScreenshotResource(property.getItem());
-                if (screenshotResource != null) {
-                    resources.add(screenshotResource);
-                }
-            }
-        }
+            i = property.getItem().eAllContents();
+            while (i.hasNext()) {
+                EObject object = i.next();
+                Iterator<EObject> j = object.eCrossReferences().iterator();
+                while (j.hasNext()) {
+                    EObject childEObject = j.next();
+                    Resource currentResource = childEObject.eResource();
+                    if (currentResource == null) {
+                        // only for invalid items !!
+                        continue;
+                    }
+                    if (!resources.contains(currentResource)) {
 
+                        // ignore the business model linking *.business_diagram file...(for update version of item...)
+                        if (object instanceof org.eclipse.gmf.runtime.notation.impl.DiagramImpl) {
+                            continue;
+                        }
+
+                        if (!currentResource.getURI().lastSegment().equals(getProjectFilename())) {
+                            resources.add(currentResource);
+                        }
+                    }
+                    if (!getResourceSet().getResources().contains(currentResource)) {
+                        getResourceSet().getResources().add(currentResource);
+                    }
+                }
+            }
+            if (property.getItem() instanceof ProcessItem || property.getItem() instanceof JobletProcessItem) {
+                if (property.eResource() != null) {
+                    Resource screenshotResource = getScreenshotResource(property.getItem());
+                    if (screenshotResource != null) {
+                        resources.add(screenshotResource);
+                    }
+                }
+            }
+        }
         return resources;
     }
 
