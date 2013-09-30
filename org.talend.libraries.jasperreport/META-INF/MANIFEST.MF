@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jasperreport Plug-in
-Bundle-SymbolicName: org.talend.libraries.jasperreport
+Bundle-SymbolicName: org.talend.libraries.jasperreport;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
