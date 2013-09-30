@@ -14,3 +14,4 @@ Export-Package: org.jdom,
  org.jdom.output,
  org.jdom.transform,
  org.jdom.xpath
+Bundle-ActivationPolicy: lazy

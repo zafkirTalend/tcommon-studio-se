@@ -36,4 +36,5 @@ Export-Package: org.apache.commons.cli2,
  org.apache.commons.digester.xmlrules
 Require-Bundle: org.apache.commons.beanutils,
  org.apache.commons.logging
+Bundle-ActivationPolicy: lazy
 

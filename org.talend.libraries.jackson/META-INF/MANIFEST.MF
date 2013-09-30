@@ -27,3 +27,4 @@ Require-Bundle: org.apache.commons.lang,
  org.apache.commons.logging,
  org.apache.commons.collections,
  org.apache.commons.beanutils
+Bundle-ActivationPolicy: lazy

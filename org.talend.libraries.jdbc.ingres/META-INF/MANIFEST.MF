@@ -12,3 +12,4 @@ Export-Package: ca.ingres.jdbc,
  com.ingres.gcf.util,
  com.ingres.jdbc
 Bundle-Vendor: .Talend SA.
+Bundle-ActivationPolicy: lazy

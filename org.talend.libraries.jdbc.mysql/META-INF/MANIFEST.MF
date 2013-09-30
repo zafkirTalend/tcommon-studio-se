@@ -17,3 +17,4 @@ Export-Package: com.mysql.jdbc,
  com.mysql.jdbc.profiler,
  com.mysql.jdbc.util,
  org.gjt.mm.mysql
+Bundle-ActivationPolicy: lazy

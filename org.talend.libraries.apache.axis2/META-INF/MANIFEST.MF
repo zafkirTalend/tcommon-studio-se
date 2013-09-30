@@ -175,3 +175,4 @@ Export-Package: com.ctc.wstx.api,
  org.codehaus.stax2.io,
  org.codehaus.stax2.ri,
  org.codehaus.stax2.validation
+Bundle-ActivationPolicy: lazy

@@ -22,3 +22,4 @@ Export-Package: org.apache.lucene,
  org.apache.lucene.store,
  org.apache.lucene.util,
  org.apache.lucene.util.cache
+Bundle-ActivationPolicy: lazy

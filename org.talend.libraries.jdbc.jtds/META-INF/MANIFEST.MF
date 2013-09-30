@@ -12,3 +12,4 @@ Export-Package: net.sourceforge.jtds.jdbc,
  net.sourceforge.jtds.jdbcx.proxy,
  net.sourceforge.jtds.ssl,
  net.sourceforge.jtds.util
+Bundle-ActivationPolicy: lazy

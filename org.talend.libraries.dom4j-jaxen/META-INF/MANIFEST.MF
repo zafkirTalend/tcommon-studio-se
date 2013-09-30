@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: talend Dom4j library
-Bundle-SymbolicName: org.talend.libraries.dom4j-jaxen
+Bundle-SymbolicName: org.talend.libraries.dom4j-jaxen;singleton:=true
 Bundle-Version: 1.6.1.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
@@ -37,4 +37,6 @@ Export-Package: org.dom4j,
  org.jaxen.saxpath.helpers,
  org.jaxen.util,
  org.jaxen.xom
-Require-Bundle: org.talend.libraries.jdom
+Require-Bundle: org.talend.libraries.jdom,
+ org.talend.core.runtime
+Bundle-ActivationPolicy: lazy

@@ -34,3 +34,4 @@ Export-Package: com.ncr.teradata,
  com.teradata.tdgss.jgssp2td2,
  com.teradata.tdgss.jgssspi,
  com.teradata.tdgss.jtdgss
+Bundle-ActivationPolicy: lazy
