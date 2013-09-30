@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.talend.osgi.lib.loader
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.eclipse.osgi;bundle-version="3.6.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.talend.osgi.hook.notification
+Export-Package: org.talend.osgi.hook,
+ org.talend.osgi.hook.notification

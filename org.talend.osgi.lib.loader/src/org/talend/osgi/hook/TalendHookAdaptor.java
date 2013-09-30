@@ -40,9 +40,7 @@ public class TalendHookAdaptor implements AdaptorHook {
     /**
      * the system property that contains the folder where external libas are stored
      */
-    public static final String ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "org.talend.external.lib.folder"; //$NON-NLS-1$
-
-    public static final String TALEND_LIBRARY_PATH = "talend.library.path"; //$NON-NLS-1$
+    public static final String ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "talend.library.path"; //$NON-NLS-1$
 
     /**
      * default subfolder path to look for missing jars
@@ -86,13 +84,8 @@ public class TalendHookAdaptor implements AdaptorHook {
      */
     private void storeTalendLibFolder(BundleContext context) {
         try {
-            String talendLibraryPath = System.getProperty(TALEND_LIBRARY_PATH);
-            if (talendLibraryPath == null) {
-                File talendLibFolder = getLibJavaFolderFile(context);
-                System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibFolder.getAbsolutePath());
-            } else {
-                System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibraryPath);
-            }
+            File talendLibFolder = getLibJavaFolderFile(context);
+            System.setProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP, talendLibFolder.getAbsolutePath());
         } catch (URISyntaxException e) {
             if (frameworkLog != null) {
                 frameworkLog.log(new FrameworkLogEntry("org.talend.osgi.lib.loader", "failed to initialize [" //$NON-NLS-1$ //$NON-NLS-2$
@@ -110,9 +103,14 @@ public class TalendHookAdaptor implements AdaptorHook {
      * @param context
      * */
     protected File getLibJavaFolderFile(BundleContext context) throws URISyntaxException {
-        Location installLocation = getInstallLocation(context);
-        File installFolder = new File(installLocation.getURL().toURI());
-        return new File(installFolder, System.getProperty("org.talend.lib.subfolder", LIB_JAVA_SUB_FOLDER)); //$NON-NLS-1$
+        String libFolderSysProp = System.getProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP);
+        if (libFolderSysProp != null) {
+            return new File(libFolderSysProp);
+        } else {
+            Location installLocation = getInstallLocation(context);
+            File installFolder = new File(installLocation.getURL().toURI());
+            return new File(installFolder, System.getProperty("org.talend.lib.subfolder", LIB_JAVA_SUB_FOLDER)); //$NON-NLS-1$
+        }
 
     }
 
