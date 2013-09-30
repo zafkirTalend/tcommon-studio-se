@@ -176,6 +176,7 @@
             classname="org.eclipse.core.launcher.Main" failonerror="false">
             <syspropertyset refid="unit.test.class.collector.properties"/>
             <sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
+            <sysproperty key="talend.library.path" value="${libfolder}"/>
             <classpath>
                 <fileset dir="${rcp-app-home}/plugins">
                     <include name="org.eclipse.equinox.launcher_*.jar"/>
@@ -187,7 +188,6 @@
             <arg line="-classname ${unit.test-class-name}"/>
             <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
             <arg line="-consoleLog -console 1234"/>
-            <arg line="-Dtalend.library.path=${libfolder}"/>
             <jvmarg line="-ea -Xms512m -Xmx1536m -XX:MaxPermSize=1024m -XX:+CMSPermGenSweepingEnabled -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
             <env key="${extra.env.key}" value="${extra.env.value}"/>
         </java>
