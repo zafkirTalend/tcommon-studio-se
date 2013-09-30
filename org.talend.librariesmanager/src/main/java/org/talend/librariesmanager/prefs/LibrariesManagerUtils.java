@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -34,12 +32,6 @@ public class LibrariesManagerUtils {
     public static final String TALEND_LIBRARY_PATH = "talend.library.path"; //$NON-NLS-1$
 
     public static String getLibrariesPath(ECodeLanguage language) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
-            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
-                    ILibraryManagerUIService.class);
-            return libUiService.getLibrariesPath(language);
-
-        }
         String libPath = System.getProperty(TALEND_LIBRARY_PATH);
         if (libPath != null) {
             return libPath;

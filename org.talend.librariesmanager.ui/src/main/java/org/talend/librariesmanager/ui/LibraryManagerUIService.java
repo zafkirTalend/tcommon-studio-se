@@ -27,7 +27,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
-import org.talend.librariesmanager.ui.prefs.PreferencesUtilities;
+import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.service.RoutineProviderManager;
 import org.talend.librariesmanager.utils.ModulesInstaller;
 
@@ -98,7 +98,7 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
      */
     @Override
     public String getLibrariesPath(ECodeLanguage language) {
-        return PreferencesUtilities.getLibrariesPath(language);
+        return LibrariesManagerUtils.getLibrariesPath(language);
     }
 
 }

@@ -19,18 +19,6 @@
       <GlobalAction class="org.talend.librariesmanager.ui.actions.ShowModulesViewAction"/>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
-            class="org.talend.librariesmanager.ui.prefs.LibrariesMainPreferencesPage"
-            id="org.talend.librariesmanager.mainpage"
-            name="%preferencespage.main"/>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.talend.librariesmanager.ui.prefs.PreferenceInitializer"/>
-   </extension>
-   <extension
          point="org.talend.core.routines_provider">
       <RoutinesProvider
             class="org.talend.librariesmanager.ui.service.TosRoutinesProviderCreator">
