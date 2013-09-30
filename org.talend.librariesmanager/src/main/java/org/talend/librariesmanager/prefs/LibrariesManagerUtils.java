@@ -31,16 +31,18 @@ public class LibrariesManagerUtils {
 
     public static final String BUNDLE_DI = "org.talend.librariesmanager";
 
+    public static final String TALEND_LIBRARY_PATH = "talend.library.path"; //$NON-NLS-1$
+
     public static String getLibrariesPath(ECodeLanguage language) {
-        String libPath = System.getProperty("org.talend.external.lib.folder"); //$NON-NLS-1$
-        if (libPath != null) {
-            return libPath;
-        }
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
             ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerUIService.class);
             return libUiService.getLibrariesPath(language);
 
+        }
+        String libPath = System.getProperty(TALEND_LIBRARY_PATH);
+        if (libPath != null) {
+            return libPath;
         }
         return Platform.getInstallLocation().getURL().getFile() + "lib/java";
     }
