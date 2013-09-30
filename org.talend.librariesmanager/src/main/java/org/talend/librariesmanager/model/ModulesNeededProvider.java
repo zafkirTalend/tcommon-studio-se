@@ -236,17 +236,23 @@ public class ModulesNeededProvider {
             EMap<String, EList<ComponentInfo>> map = cache.getComponentEntryMap();
             Set<String> set = map.keySet();
             Iterator it = set.iterator();
+            Map<String, Boolean> bundlesAvailable = new HashMap<String, Boolean>();
             while (it.hasNext()) {
                 String key = (String) it.next();
                 EList<ComponentInfo> value = map.get(key);
                 for (ComponentInfo info : value) {
+                    Boolean available = bundlesAvailable.get(info.getSourceBundleName());
+                    if (available == null) {
+                        available = Platform.getBundle(info.getSourceBundleName()) != null;
+                        bundlesAvailable.put(info.getSourceBundleName(), available);
+                    }
+                    if (!available) {
+                        continue;
+                    }
+
                     EList emfImportList = info.getImportType();
                     for (int i = 0; i < emfImportList.size(); i++) {
                         IMPORTType importType = (IMPORTType) emfImportList.get(i);
-                        //                    String msg = getTranslatedValue(importType.getNAME() + ".INFO"); //$NON-NLS-1$
-                        // if (msg.startsWith(Messages.KEY_NOT_FOUND_PREFIX)) {
-                        //                        msg = Messages.getString("modules.required"); //$NON-NLS-1$
-                        // }
                         String msg = importType.getMESSAGE();
                         if (msg == null) {
                             msg = Messages.getString("modules.required");
