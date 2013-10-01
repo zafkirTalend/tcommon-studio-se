@@ -19,6 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
@@ -54,8 +55,17 @@ public class ImportExternalJarAction extends Action {
     @Override
     public void run() {
 
-        FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.OPEN
-                | SWT.MULTI);
+        handleImportJarDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+    }
+
+    /**
+     * DOC sgandon Comment method "handleImportJarDialog".
+     * 
+     * @param shell, to display the dialog box
+     * @return, list of imported file names, may be empty
+     */
+    public String[] handleImportJarDialog(Shell shell) {
+        FileDialog fileDialog = new FileDialog(shell, SWT.OPEN | SWT.MULTI);
         fileDialog.setFilterExtensions(FilesUtils.getAcceptJARFilesSuffix());
         fileDialog.open();
         final String path = fileDialog.getFilterPath();
@@ -67,7 +77,7 @@ public class ImportExternalJarAction extends Action {
             public void run() {
                 for (String fileName : fileNames) {
 
-                    final File file = new File(path + File.separatorChar + fileName);
+                    File file = new File(path + File.separatorChar + fileName);
                     try {
                         LibManagerUiPlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
                         emptyLibs();
@@ -77,6 +87,7 @@ public class ImportExternalJarAction extends Action {
                 }
             }
         });
+        return fileNames;
     }
 
     private void emptyLibs() {

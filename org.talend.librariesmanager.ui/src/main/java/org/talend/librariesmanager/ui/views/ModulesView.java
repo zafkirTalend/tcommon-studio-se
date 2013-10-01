@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.commands.ActionHandler;
@@ -71,7 +72,13 @@ public class ModulesView extends ViewPart {
 
             @Override
             public void afterChangingLibraries() {
-                modulesViewComposite.refresh();
+                Display.getDefault().asyncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        modulesViewComposite.refresh();
+                    }
+                });
             }
         };
         LibManagerUiPlugin.getDefault().getLibrariesService().addChangeLibrariesListener(changedLibrariesListener);

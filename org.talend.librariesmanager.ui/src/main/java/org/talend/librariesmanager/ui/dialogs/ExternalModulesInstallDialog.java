@@ -15,7 +15,9 @@ package org.talend.librariesmanager.ui.dialogs;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,6 +30,7 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
@@ -35,6 +38,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
@@ -53,6 +57,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -67,6 +72,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.DownloadModuleRunnableWithLicenseDialog;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -82,7 +88,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
     private Color color = new Color(null, 255, 255, 255);
 
-    protected TableViewerCreator tableViewerCreator;
+    protected TableViewerCreator<ModuleToInstall> tableViewerCreator;
 
     protected String text;
 
@@ -99,6 +105,10 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     protected TableViewerCreatorColumn urlcolumn;
 
     protected TableViewerCreatorColumn installcolumn;
+
+    private ArrayList<TableEditor> installButtonsEditors = new ArrayList<TableEditor>();
+
+    private HashMap<ModuleToInstall, Button> manualInstallButtonMap;
 
     public ExternalModulesInstallDialog(Shell shell, String text, String title) {
         super(shell);
@@ -133,7 +143,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         GridLayout layout = new GridLayout();
         composite.setLayout(layout);
         composite.setLayoutData(layoutData);
-        tableViewerCreator = new TableViewerCreator(composite);
+        tableViewerCreator = new TableViewerCreator<ModuleToInstall>(composite);
         tableViewerCreator.setCheckboxInFirstColumn(false);
         tableViewerCreator.setColumnsResizableByDefault(true);
         tableViewerCreator.setLinesVisible(true);
@@ -186,10 +196,10 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "updateInstallModulesButtonState".
      */
     protected void updateInstallModulesButtonState() {
-        List<ModuleToInstall> inputList = tableViewerCreator.getInputList();
+        List<ModuleToInstall> theInputList = tableViewerCreator.getInputList();
         boolean isEnable = false;
-        if (!inputList.isEmpty()) {
-            for (ModuleToInstall module : inputList) {
+        if (!theInputList.isEmpty()) {
+            for (ModuleToInstall module : theInputList) {
                 if (module.getUrl_download() != null) {
                     isEnable = true;
                     break;
@@ -203,7 +213,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "createJarNameColumn".
      */
     public void createJarNameColumn() {
-        TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnJarName")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
@@ -215,6 +226,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void set(ModuleToInstall bean, String value) {
+                // read only
             }
         });
         column.setSortable(true);
@@ -227,8 +239,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "createModuleNameColumn".
      */
     public void createModuleNameColumn() {
-        TableViewerCreatorColumn column;
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnModuleName")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnModuleName")); //$NON-NLS-1$
         column.setSortable(true);
@@ -241,6 +253,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void set(ModuleToInstall bean, String value) {
+                // read only
             }
         });
         column.setWeight(4);
@@ -251,8 +264,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "createContextColumn".
      */
     public void createContextColumn() {
-        TableViewerCreatorColumn column;
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
         column.setSortable(true);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnRequiredBy")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnRequiredBy")); //$NON-NLS-1$
@@ -265,6 +278,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void set(ModuleToInstall bean, String value) {
+                // read only column
             }
         });
 
@@ -276,8 +290,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "createREquiredColumn".
      */
     public void createRequiredColumn() {
-        TableViewerCreatorColumn column;
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn<ModuleToInstall, Boolean> column = new TableViewerCreatorColumn<ModuleToInstall, Boolean>(
+                tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnRequired")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnRequired")); //$NON-NLS-1$
         column.setDisplayedValue(""); //$NON-NLS-1$
@@ -302,6 +316,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void set(ModuleToInstall bean, Boolean value) {
+                // read only
             }
         });
 
@@ -313,8 +328,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * DOC sgandon Comment method "createLicenseColumn".
      */
     public void createLicenseColumn() {
-        TableViewerCreatorColumn column;
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
         column.setSortable(true);
@@ -327,6 +342,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void set(ModuleToInstall bean, String value) {
+                // read only
             }
         });
 
@@ -337,16 +353,19 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     /**
      * DOC sgandon Comment method "createMoreInformationColumn".
      * 
+     * @param composite
+     * 
      * @return
      */
-    public TableViewerCreatorColumn createMoreInformationColumn() {
-        TableViewerCreatorColumn urlcolumn = new TableViewerCreatorColumn(tableViewerCreator);
-        urlcolumn.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
-        urlcolumn.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
-        urlcolumn.setModifiable(false);
-        urlcolumn.setSortable(true);
-        urlcolumn.setWeight(7);
-        return urlcolumn;
+    public TableViewerCreatorColumn<ModuleToInstall, String> createMoreInformationColumn() {
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
+        column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnUrl")); //$NON-NLS-1$
+        column.setModifiable(false);
+        column.setSortable(true);
+        column.setWeight(7);
+        return column;
     }
 
     /**
@@ -354,14 +373,15 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * 
      * @return
      */
-    public TableViewerCreatorColumn createActionColumn() {
-        TableViewerCreatorColumn installcolumn = new TableViewerCreatorColumn(tableViewerCreator);
-        installcolumn.setTitle(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
-        installcolumn.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
-        installcolumn.setModifiable(false);
-        installcolumn.setSortable(true);
-        installcolumn.setWeight(5);
-        return installcolumn;
+    public TableViewerCreatorColumn<ModuleToInstall, String> createActionColumn() {
+        TableViewerCreatorColumn<ModuleToInstall, String> column = new TableViewerCreatorColumn<ModuleToInstall, String>(
+                tableViewerCreator);
+        column.setTitle(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_AvailableOnTalendForge")); //$NON-NLS-1$
+        column.setModifiable(false);
+        column.setSortable(true);
+        column.setWeight(5);
+        return column;
     }
 
     @Override
@@ -447,9 +467,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             @Override
                             public void run() {
                                 if (event.getJob() instanceof DownloadModuleJob) {
-                                    DownloadModuleJob job = (DownloadModuleJob) event.getJob();
-                                    Set<String> downloadFialed = job.getDownloadFailed();
-                                    Set<String> installedModule = job.getInstalledModule();
+                                    DownloadModuleJob theJob = (DownloadModuleJob) event.getJob();
+                                    Set<String> downloadFialed = theJob.getDownloadFailed();
+                                    Set<String> installedModule = theJob.getInstalledModule();
                                     jarsInstalledSuccuss.addAll(installedModule);
                                     int installedModules = installedModule.size();
                                     String success = installedModules
@@ -501,20 +521,18 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         RemoteModulesHelper.getInstance().getNotInstalledModules(updatedModules, inputList, this, true);
     }
 
-    private void refreshUI() {
-        showMessage = false;
-        openDialog();
-    }
-
     protected void createFooter(Composite parent) {
+        // to be overriden
     }
 
     // TODO the implementation of this method is horrible and creating too many widgets
-    // table/column renderer should be used instead
+    // table/column renderer/editor should be used instead should be used instead
     protected void addInstallButtons() {
         final AtomicInteger enabledButtonCount = new AtomicInteger(0);
         tableViewerCreator.getTableViewer().getControl().setRedraw(false);
         final Table table = tableViewerCreator.getTable();
+        manualInstallButtonMap = new HashMap<ModuleToInstall, Button>();
+        disposePreviousEditors();
         for (final TableItem item : table.getItems()) {
             TableEditor editor = new TableEditor(table);
             Control control = null;
@@ -540,16 +558,17 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     Composite composite = new Composite(table, SWT.NONE);
                     composite.setBackground(color);
                     control = composite;
-                    GridLayout layout = new GridLayout();
+                    GridLayout layout = new GridLayout(2, false);
                     layout.marginHeight = 0;
                     layout.verticalSpacing = 1;
                     composite.setLayout(layout);
-                    GridData gData = new GridData(GridData.FILL_HORIZONTAL);
-                    gData.horizontalAlignment = SWT.CENTER;
-                    gData.verticalAlignment = SWT.CENTER;
-                    final Link openLink = new Link(composite, SWT.NONE);
+                    // GridData gData = new GridData(GridData.FILL_HORIZONTAL);
+                    // gData.horizontalAlignment = SWT.CENTER;
+                    // gData.verticalAlignment = SWT.CENTER;
+                    Link openLink = new Link(composite, SWT.NONE);
+                    GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(openLink);
                     openLink.setBackground(color);
-                    openLink.setLayoutData(gData);
+                    // openLink.setLayoutData(gData);
                     openLink.setText("<a href=\"\">" + Messages.getString("ExternalModulesInstallDialog.openInBrowser") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     openLink.addSelectionListener(new SelectionAdapter() {
 
@@ -558,12 +577,18 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             Program.launch(data.getUrl_description());
                         }
                     });
+                    Button importButton = new Button(composite, SWT.FLAT);
+                    importButton.setImage(ImageProvider.getImage(ECoreImage.IMPORT_JAR));
+                    importButton.setToolTipText(Messages.getString("ImportExternalJarAction.title")); //$NON-NLS-1$
+                    importButton.addSelectionListener(new ImportButtonSelectionListener(item));
+                    manualInstallButtonMap.put(data, importButton);
+                    GridDataFactory.fillDefaults().applyTo(importButton);
                 }
                 editor.grabHorizontal = true;
                 editor.minimumHeight = 20;
                 editor.setEditor(control, item, tableViewerCreator.getColumns().indexOf(installcolumn));
                 editor.layout();
-
+                installButtonsEditors.add(editor);
                 // url
                 editor = new TableEditor(table);
                 Composite composite = new Composite(table, SWT.NONE);
@@ -590,11 +615,22 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 editor.minimumHeight = 20;
                 editor.setEditor(composite, item, tableViewerCreator.getColumns().indexOf(urlcolumn));
                 editor.layout();
+                installButtonsEditors.add(editor);
             }
         }
         tableViewerCreator.getTableViewer().getTable().layout();
         tableViewerCreator.getTableViewer().refresh(true);
         tableViewerCreator.getTableViewer().getControl().setRedraw(true);
+    }
+
+    /**
+     * dispose of previously set editors and their associated controls before creating new ones
+     */
+    private void disposePreviousEditors() {
+        for (TableEditor te : installButtonsEditors) {
+            te.getEditor().dispose();
+            te.dispose();
+        }
     }
 
     /*
@@ -637,17 +673,42 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     }
 
     /**
+     * created by sgandon on 30 sept. 2013 Detailled comment
+     * 
+     */
+    private final class ImportButtonSelectionListener implements SelectionListener {
+
+        private final TableItem item;
+
+        /**
+         * DOC sgandon ImportButtonSelectionListener constructor comment.
+         * 
+         * @param item
+         */
+        public ImportButtonSelectionListener(TableItem item) {
+            this.item = item;
+        }
+
+        @Override
+        public void widgetSelected(SelectionEvent e) {
+            showImportJarDialog(item);
+        }
+
+        @Override
+        public void widgetDefaultSelected(SelectionEvent e) {
+            widgetSelected(e);
+        }
+    }
+
+    /**
      * I (SG) do not want to refadctor every thing so I delagate to a IRunnableWithProgress
      **/
     class DownloadModuleJob extends Job {
-
-        private final List<ModuleToInstall> toDownload;
 
         private DownloadModuleRunnableWithLicenseDialog downloadModuleRunnable;
 
         public DownloadModuleJob(List<ModuleToInstall> toDownload) {
             super(Messages.getString("ExternalModulesInstallDialog.downloading1")); //$NON-NLS-1$
-            this.toDownload = toDownload;
             downloadModuleRunnable = new DownloadModuleRunnableWithLicenseDialog(toDownload, getShell());
         }
 
@@ -687,6 +748,33 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 }
             }
         });
+
+    }
+
+    /**
+     * DOC sgandon Comment method "showImportJarDialog".
+     * 
+     * @param item
+     */
+    public void showImportJarDialog(TableItem item) {
+        String[] importedJars = new ImportExternalJarAction().handleImportJarDialog(getShell());
+        updateManualImportedJars(importedJars);
+    }
+
+    /**
+     * DOC sgandon Comment method "updateManualImportedJars".
+     * 
+     * @param importedJars
+     */
+    private void updateManualImportedJars(String[] importedJars) {
+        for (Entry<ModuleToInstall, Button> moduleAndButton : manualInstallButtonMap.entrySet()) {
+            String jarName = moduleAndButton.getKey().getName();
+            for (String importedJar : importedJars) {
+                if (importedJar.equals(jarName)) {// disable the button
+                    moduleAndButton.getValue().setEnabled(false);
+                }// else leave the button as it is
+            }
+        }
 
     }
 
