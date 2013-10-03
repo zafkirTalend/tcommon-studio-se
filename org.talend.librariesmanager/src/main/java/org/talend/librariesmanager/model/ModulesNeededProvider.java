@@ -654,8 +654,8 @@ public class ModulesNeededProvider {
                 subMonitor.worked(1);
             }
         } else {// throw an exception to tell that install folder was not properly initialised
-            throw new IllegalStateException(
-                    "Could not find the Talend library folder because the property [org.talend.external.lib.folder] was not initlized");
+            throw new IllegalStateException("Could not find the Talend library folder because the property ["
+                    + TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP + "] was not initlized");
         }
 
         return allUninstalledModules;
