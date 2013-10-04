@@ -17,6 +17,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialog;
+import org.talend.librariesmanager.ui.i18n.Messages;
 
 /**
  * created by Administrator on 2012-9-20 Detailled comment
@@ -26,15 +27,15 @@ public class DownloadExternalJarAction extends Action {
 
     public DownloadExternalJarAction() {
         super();
-        this.setText("Download external modules");
-        this.setDescription("Download external modules");
+        this.setText(Messages.getString("Module.view.download.external.modules.action.text"));
+        this.setDescription(Messages.getString("Module.view.download.external.modules.action.description"));
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.DOWNLOAD_MODULE));
     }
 
     @Override
     public void run() {
-        String title = "The following modules are not yet installed. Please download and install all required modules.";
-        String text = "List of modules not installed in the product";
+        String title = Messages.getString("download.external.dialog.title");
+        String text = Messages.getString("download.external.dialog.desciption");
         ExternalModulesInstallDialog dialog = new ExternalModulesInstallDialog(PlatformUI.getWorkbench()
                 .getActiveWorkbenchWindow().getShell(), text, title);
         dialog.openDialog();

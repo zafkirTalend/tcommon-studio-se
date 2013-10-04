@@ -21,6 +21,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -33,6 +34,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -57,21 +59,26 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.DownloadModuleRunnableWithLicenseDialog;
@@ -82,9 +89,9 @@ import org.talend.librariesmanager.utils.RemoteModulesHelper;
  */
 public class ExternalModulesInstallDialog extends TitleAreaDialog implements IModulesListener {
 
-    public static final String DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG = "do_not_show_ExternalModulesInstallDialog"; //$NON-NLS-1$
+    private static Logger log = Logger.getLogger(ExternalModulesInstallDialog.class);
 
-    private static final String HELP_CONTENT = "http://talendforge.org/wiki/doku.php?id=doc:installation_guide&s[]=jar#install_jar_dependencies"; //$NON-NLS-1$
+    public static final String DO_NOT_SHOW_EXTERNALMODULESINSTALLDIALOG = "do_not_show_ExternalModulesInstallDialog"; //$NON-NLS-1$
 
     private Color color = new Color(null, 255, 255, 255);
 
@@ -183,13 +190,37 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                Program.launch(HELP_CONTENT);
+                Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
             }
         });
-
+        setupColumnSortListener();
         createFooter(composite);
         setTitle(title);
         return composite;
+    }
+
+    /**
+     * DOC sgandon Comment method "setupColumnSortListener".
+     */
+    @SuppressWarnings("rawtypes")
+    private void setupColumnSortListener() {
+        List<TableViewerCreatorColumnNotModifiable> columns = tableViewerCreator.getColumns();
+        IColumnSortedListener columnSortedListener = new IColumnSortedListener() {
+
+            @Override
+            public void handle() {
+                BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
+
+                    @Override
+                    public void run() {
+                        addInstallButtons();
+                    }
+                });
+            }
+        };
+        for (TableViewerCreatorColumnNotModifiable column : columns) {
+            column.getTableColumnSelectionListener().addColumnSortedListener(columnSortedListener);
+        }
     }
 
     /**
@@ -333,6 +364,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         column.setTitle(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("ExternalModulesInstallDialog_ColumnLicense")); //$NON-NLS-1$
         column.setSortable(true);
+        // set bean property accessor to allow sort by license name
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
 
             @Override
@@ -365,6 +397,19 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         column.setModifiable(false);
         column.setSortable(true);
         column.setWeight(7);
+        // set bean property accessor to allow sort by url name
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
+
+            @Override
+            public String get(ModuleToInstall bean) {
+                return bean.getUrl_description();
+            }
+
+            @Override
+            public void set(ModuleToInstall bean, String value) {
+                // read only
+            }
+        });
         return column;
     }
 
@@ -381,6 +426,21 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         column.setModifiable(false);
         column.setSortable(true);
         column.setWeight(5);
+        // set bean property accessor to allow sort by download type (automatic or manual)
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleToInstall, String>() {
+
+            @Override
+            public String get(ModuleToInstall bean) {
+                // use 2 invisible different values to allow sorting and have no visual impact when the button is
+                // selected
+                return bean.getUrl_download() == null ? "" : " "; //$NON-NLS-1$//$NON-NLS-2$
+            }
+
+            @Override
+            public void set(ModuleToInstall bean, String value) {
+                // read only
+            }
+        });
         return column;
     }
 
@@ -410,7 +470,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     }
 
     private void helpPressed() {
-        Program.launch(HELP_CONTENT);
+        Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
     }
 
     private ToolBar createHelpImageButton(Composite parent, Image image) {
@@ -532,13 +592,22 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         tableViewerCreator.getTableViewer().getControl().setRedraw(false);
         final Table table = tableViewerCreator.getTable();
         manualInstallButtonMap = new HashMap<ModuleToInstall, Button>();
+        ILibrariesService librariesService = LibManagerUiPlugin.getDefault().getLibrariesService();
+
         disposePreviousEditors();
         for (final TableItem item : table.getItems()) {
             TableEditor editor = new TableEditor(table);
+            installButtonsEditors.add(editor);
             Control control = null;
             Object obj = item.getData();
             if (obj instanceof ModuleToInstall) {
                 final ModuleToInstall data = (ModuleToInstall) obj;
+                boolean isInstalled = false;
+                try {
+                    isInstalled = librariesService.getLibraryStatus(data.getName()) == ELibraryInstallStatus.INSTALLED;
+                } catch (BusinessException e1) {// log the error and consider as unsinstalled
+                    log.error(e1);
+                }
                 if (data.getUrl_download() != null) {// add the button to download
                     final Button button = new Button(table, SWT.FLAT);
                     control = button;
@@ -554,6 +623,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                         }
 
                     });
+                    button.setEnabled(!isInstalled);
                 } else {// add the link for manual download
                     Composite composite = new Composite(table, SWT.NONE);
                     composite.setBackground(color);
@@ -583,14 +653,15 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     importButton.addSelectionListener(new ImportButtonSelectionListener(item));
                     manualInstallButtonMap.put(data, importButton);
                     GridDataFactory.fillDefaults().applyTo(importButton);
+                    importButton.setEnabled(!isInstalled);
                 }
                 editor.grabHorizontal = true;
                 editor.minimumHeight = 20;
                 editor.setEditor(control, item, tableViewerCreator.getColumns().indexOf(installcolumn));
                 editor.layout();
-                installButtonsEditors.add(editor);
                 // url
                 editor = new TableEditor(table);
+                installButtonsEditors.add(editor);
                 Composite composite = new Composite(table, SWT.NONE);
                 composite.setBackground(color);
                 GridLayout layout = new GridLayout();
@@ -615,7 +686,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 editor.minimumHeight = 20;
                 editor.setEditor(composite, item, tableViewerCreator.getColumns().indexOf(urlcolumn));
                 editor.layout();
-                installButtonsEditors.add(editor);
             }
         }
         tableViewerCreator.getTableViewer().getTable().layout();
@@ -628,9 +698,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      */
     private void disposePreviousEditors() {
         for (TableEditor te : installButtonsEditors) {
-            te.getEditor().dispose();
+            if (te.getEditor() != null) {
+                te.getEditor().dispose();
+            }
             te.dispose();
         }
+        installButtonsEditors.clear();
     }
 
     /*
