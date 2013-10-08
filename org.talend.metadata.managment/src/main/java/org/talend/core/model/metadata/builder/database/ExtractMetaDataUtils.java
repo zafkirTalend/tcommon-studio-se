@@ -1081,7 +1081,9 @@ public class ExtractMetaDataUtils {
     }
 
     public boolean checkFileCRCCode(File targetFile, File sourceFile) throws Exception {
-
+        if (!targetFile.exists() || !sourceFile.exists()) {
+            return true;
+        }
         FileInputStream tagetFilestream = new FileInputStream(targetFile);
         CRC32 targertCrc32 = new CRC32();
         for (CheckedInputStream checkedinputstream = new CheckedInputStream(tagetFilestream, targertCrc32); checkedinputstream
