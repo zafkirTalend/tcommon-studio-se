@@ -280,45 +280,31 @@ public class TalendTextUtils {
 
     public static String addQuotesWithSpaceFieldForSQLStringForce(String fieldName, String dbType, boolean simple) {
 
-        boolean b = true;
-        for (int i = 0; i < fieldName.length(); i++) {
-            char c = fieldName.charAt(i);
-            b = b && c >= '0' && c <= '9';
-        }
-
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         final String quote = getQuoteByDBType(name);
         boolean isCheck = false;
         String preferenceValue = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.SQL_ADD_QUOTE);
-        isCheck = !Boolean.parseBoolean(preferenceValue);
+        isCheck = Boolean.parseBoolean(preferenceValue);
         // added by hyWang(bug 6637),to see if the column name need to be add queotes
-        if (!isCheck) {
-            // check the field name.
+        // check the field name.
 
-            String temp = removeQuotes(fieldName);
-            Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-1$
-            Matcher matcher = pattern.matcher(temp);
+        // for bug 11938
+        // to see if the table name or column name was start with number
+        String temp = removeQuotes(fieldName);
+        Pattern pattern = Pattern.compile("^[a-zA-Z_]*$"); //$NON-NLS-1$
+        Matcher matcher = pattern.matcher(temp);
 
-            // for bug 11938
-            // to see if the table name or column name was start with number
-            Pattern pattern2 = Pattern.compile("^[0-9]+[_0-9a-zA-Z]*$"); //$NON-NLS-1$  
-            Matcher matcher2 = pattern2.matcher(temp);
+        // for bug 12092
+        boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct());
 
-            // for bug 12092
-            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct());
+        boolean isH2 = EDatabaseTypeName.H2 == name;
 
-            boolean isH2 = EDatabaseTypeName.H2 == name;
-
-            if ((!matcher.matches() || matcher2.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name) {
-                isCheck = true; // contain other char
-            }
-
+        if ((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name) {
+            isCheck = true; // contain other char
         }
 
-        if (!b) {
-            if (!isCheck && isPSQLSimilar(name) && !EDatabaseTypeName.MYSQL.equals(name)) {
-                return fieldName;
-            }
+        if (!isCheck && isPSQLSimilar(name) && !EDatabaseTypeName.MYSQL.equals(name)) {
+            return fieldName;
         }
         String newFieldName = fieldName;
 
