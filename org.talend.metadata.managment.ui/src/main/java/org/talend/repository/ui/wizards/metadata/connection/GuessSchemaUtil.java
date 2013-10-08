@@ -21,7 +21,6 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
-import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -31,6 +30,7 @@ import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
+import org.talend.cwm.helper.ColumnHelper;
 import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
 
 /**
@@ -198,7 +198,9 @@ public class GuessSchemaUtil {
                 }
 
                 // define the metadataColumn to field i
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                // MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                MetadataColumn metadataColumn = ColumnHelper.createTdColumn(tableEditorView.getMetadataEditor()
+                        .getNextGeneratedColumnName(label[i]));
                 metadataColumn.setPattern("\"dd-MM-yyyy\""); //$NON-NLS-1$
                 // Convert javaType to TalendType
                 String talendType = null;
@@ -221,7 +223,7 @@ public class GuessSchemaUtil {
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setLength(lengthValue);
                 // Check the label and add it to the table
-                metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
+                // metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
                 columns.add(i, metadataColumn);
             }
         }
