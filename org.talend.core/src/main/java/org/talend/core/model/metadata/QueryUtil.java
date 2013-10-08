@@ -13,7 +13,6 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -195,7 +194,7 @@ public class QueryUtil {
     }
 
     public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType,
-            final String tableNameWithQuoteIfNeed, final String... realTableName) {
+            final String tableNameIfNeed, final String... realTableName) {
         if (repositoryMetadata == null) {
             return ""; //$NON-NLS-1$
         }
@@ -205,7 +204,7 @@ public class QueryUtil {
         if (index == 0) {
             return ""; //$NON-NLS-1$
         }
-
+        String tableNameWithQuoteIfNeed = TalendQuoteUtils.addQuotesIfNotExist(tableNameIfNeed);
         isContextQuery = false;
         if (isContext(tableNameWithQuoteIfNeed)) {
             isContextQuery = true;
@@ -218,14 +217,6 @@ public class QueryUtil {
             String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
 
             String columnStr = columnName;
-            // Remove special symbols for mssql column
-            if (dbType != null
-                    && Pattern.matches("^\\w+$", metaDataColumn.getOriginalDbColumnName())
-                    && (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName()) || dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED
-                            .getDisplayName()))) {
-
-                columnStr = TalendQuoteUtils.addQuotesIfNotExist(metaDataColumn.getOriginalDbColumnName());
-            }
             if (i != index - 1) {
                 columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE)); //$NON-NLS-1$
             }
@@ -260,14 +251,6 @@ public class QueryUtil {
                         TalendTextUtils.declareString(" FROM "), declareString + realTableName[0].substring(2, realTableName[0].length() - 2) //$NON-NLS-1$
                                 + declareString);
             }
-            query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
-        } else if (dbType != null && dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-            String declareString = TalendTextUtils.getStringDeclare();
-            String end = checkAndConcatString(
-                    TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] + declareString); //$NON-NLS-1$
-
-            end = replaceTheSchemaString(end);
-
             query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
         } else {
             String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
@@ -353,7 +336,7 @@ public class QueryUtil {
         if (schema != null && schema.length() > 0) {
             // Quote is added to schema and table when call getSchemaName() method
             currentTableName = getSchemaName(schema, dbType, currentTableName);
-            if (dbType != null && dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+            if (dbType != null && !EDatabaseTypeName.getTypeFromDbType(dbType).equals(EDatabaseTypeName.MSSQL)) {
                 currentTableName = quoteStringValue(currentTableName, dbType);
             }
         } else {
