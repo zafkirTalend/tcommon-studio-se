@@ -944,16 +944,16 @@ public abstract class RepositoryUpdateManager {
             return null;
         }
 
-        final List<IEditorReference> list = new ArrayList<IEditorReference>();
-        Display.getDefault().syncExec(new Runnable() {
-
-            @Override
-            public void run() {
-                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                        .getEditorReferences();
-                list.addAll(Arrays.asList(reference));
-            }
-        });
+//        final List<IEditorReference> list = new ArrayList<IEditorReference>();
+//        Display.getDefault().syncExec(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+//                        .getEditorReferences();
+//                list.addAll(Arrays.asList(reference));
+//            }
+//        });
 
         List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
                 .getOpenedProcess(getEditors());
