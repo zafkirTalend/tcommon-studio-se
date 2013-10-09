@@ -64,7 +64,7 @@ public final class TableHelper extends SubItemHelper {
             TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(elt);
             if (table != null) {
                 // TUP-1102 filter the synonym type, 20131009,yyin
-                if (StringUtils.endsWithIgnoreCase(TableType.SYNONYM.name(), table.getTableType())) {
+                if (StringUtils.equalsIgnoreCase(TableType.SYNONYM.name(), table.getTableType())) {
                     continue;
                 }// ~
                 tables.add(table);
