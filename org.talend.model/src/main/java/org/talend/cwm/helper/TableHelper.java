@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -28,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import org.talend.utils.sql.metadata.constants.TableType;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
@@ -61,6 +63,10 @@ public final class TableHelper extends SubItemHelper {
         for (EObject elt : elements) {
             TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(elt);
             if (table != null) {
+                // TUP-1102 filter the synonym type, 20131009,yyin
+                if (StringUtils.endsWithIgnoreCase(TableType.SYNONYM.name(), table.getTableType())) {
+                    continue;
+                }// ~
                 tables.add(table);
             }
         }
