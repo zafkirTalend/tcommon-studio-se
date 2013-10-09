@@ -292,6 +292,7 @@ public abstract class AbstractDataTableEditorView<B> {
         // newTableViewerCreator.setUseCustomItemColoring(true);
         // newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
         newTableViewerCreator.setShowLineSelection(SHOW_ROW_SELECTION.FULL);
+        newTableViewerCreator.setLazyLoad(true);
     }
 
     /**
