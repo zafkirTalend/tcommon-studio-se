@@ -336,7 +336,7 @@ public class QueryUtil {
         if (schema != null && schema.length() > 0) {
             // Quote is added to schema and table when call getSchemaName() method
             currentTableName = getSchemaName(schema, dbType, currentTableName);
-            if (dbType != null && !EDatabaseTypeName.getTypeFromDbType(dbType).equals(EDatabaseTypeName.MSSQL)) {
+            if (dbType != null && EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals("JAVADB")) {
                 currentTableName = quoteStringValue(currentTableName, dbType);
             }
         } else {
