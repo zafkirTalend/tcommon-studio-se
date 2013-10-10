@@ -1065,7 +1065,7 @@ public class DatabaseForm extends AbstractForm {
 
     private void createHadoopPropertiesForHive(Composite parent) {
         compositeTableForHive = Form.startNewDimensionnedGridLayout(parent, 1, parent.getBorderWidth(), 150);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 3;
         gridData.widthHint = 200;
         compositeTableForHive.setLayoutData(gridData);
@@ -1076,7 +1076,13 @@ public class DatabaseForm extends AbstractForm {
         propertiesTableViewForHive = new HadoopPropertiesTableView(model, compositeTableForHive);
         propertiesTableViewForHive.getExtendedTableViewer().setCommandStack(commandStack);
         final Composite fieldTableEditorComposite = propertiesTableViewForHive.getMainComposite();
-        fieldTableEditorComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        gridData = new GridData(GridData.FILL_HORIZONTAL);
+        if (Platform.getOS().equals(Platform.OS_LINUX)) {
+            gridData.heightHint = 200;
+        } else {
+            gridData.heightHint = 150;
+        }
+        fieldTableEditorComposite.setLayoutData(gridData);
         fieldTableEditorComposite.setBackground(null);
         if (getConnection().getDatabaseType() != null
                 && getConnection().getDatabaseType().equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())) {
