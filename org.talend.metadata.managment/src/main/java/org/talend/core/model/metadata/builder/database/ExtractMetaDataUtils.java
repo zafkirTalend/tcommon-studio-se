@@ -374,16 +374,18 @@ public class ExtractMetaDataUtils {
     }
 
     private static DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
-        IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
-        if (service == null) {
-            try {
-                return conn.getMetaData();
-            } catch (SQLException e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataService.class)) {
+            IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+            if (service != null) {
+                return ((IMetadataService) service).findCustomizedJTDSDBMetadata(conn);
             }
         }
-        return ((IMetadataService) service).findCustomizedJTDSDBMetadata(conn);
+        try {
+            return conn.getMetaData();
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
     }
 
     /**
