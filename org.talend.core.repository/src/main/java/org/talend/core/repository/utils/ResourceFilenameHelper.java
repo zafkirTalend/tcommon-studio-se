@@ -46,7 +46,13 @@ public class ResourceFilenameHelper {
             version = fileName.getProperty().getVersion();
         }
         String expectedFileName = getExpectedFileName(fileName.getProperty().getLabel(), version);
-        return parentPath.append(expectedFileName).addFileExtension(extension);
+        IPath append = parentPath.append(expectedFileName);
+        if (extension != null && extension.length() > 0) {
+            return append.addFileExtension(extension);
+        } else {
+            return append;
+        }
+
     }
 
     public static FileName create(Resource resource, Property property, Property lastVersionProperty) {
