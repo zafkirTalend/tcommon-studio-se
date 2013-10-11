@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mdm
+Bundle-SymbolicName: org.talend.libraries.mdm
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.apache.axis;visibility:=reexport,
+ javax.wsdl,
+ javax.xml.rpc
+Bundle-ClassPath: .,
+ lib/commons-discovery-0.2.jar,
+ lib/mdm_webservice.jar
+Export-Package: org.talend.mdm.webservice
