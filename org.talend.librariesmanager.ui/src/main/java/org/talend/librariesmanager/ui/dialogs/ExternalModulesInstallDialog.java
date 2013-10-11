@@ -917,10 +917,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.librariesmanager.ui.dialogs.IModulesListener#checkUnavailableModules(java.lang.String[])
+     * @see
+     * org.talend.librariesmanager.ui.dialogs.IModulesListener#checkUnavailableModules(java.lang.String[],java.lang.
+     * String)
      */
     @Override
-    public void checkUnavailableModules(String[] unavailableModules) {
+    public void checkUnavailableModules(final String[] unavailableModules, final String reason) {
         final StringBuffer sb = new StringBuffer();
         if (unavailableModules != null) {
             int length = unavailableModules.length;
@@ -939,7 +941,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 public void run() {
                     MessageDialog.openWarning(getShell(),
                             Messages.getString("ExternalModulesInstallDialog_NoAvailabeModulesTitle"), //$NON-NLS-1$
-                            Messages.getString("ExternalModulesInstallDialog_NoAvailabeModulesMessages", sb.toString())); //$NON-NLS-1$
+                            (reason != null && reason.length() > 0 ? reason + "\n\n" : "") //$NON-NLS-1$  //$NON-NLS-2$
+                                    + Messages.getString("ExternalModulesInstallDialog_NoAvailabeModulesMessages", sb.toString())); //$NON-NLS-1$
                 }
             });
         }

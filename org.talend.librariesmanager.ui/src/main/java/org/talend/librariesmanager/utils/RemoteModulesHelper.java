@@ -23,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,7 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
@@ -79,6 +81,8 @@ public class RemoteModulesHelper {
 
         private Set<String> unavailableModules = new HashSet<String>();
 
+        private String messages;
+
         /**
          * DOC sgandon IRunnableWithProgressImplementation constructor comment.
          * 
@@ -97,12 +101,24 @@ public class RemoteModulesHelper {
             return this.unavailableModules.toArray(new String[0]);
         }
 
+        public String getMessages() {
+            return this.messages;
+        }
+
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             String[] jars = jarNames.split(SEPARATOR_SLIP);
             int size = jars.length;
             monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10);//$NON-NLS-1$
             try {
+                // if the network is not valid, all jars are not available.
+                boolean networkValid = NetworkUtil.isNetworkValid();
+                if (!networkValid) {
+                    unavailableModules.addAll(Arrays.asList(jars));
+                    messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
+                    return;
+                }
+
                 int index = 0;
                 int limit = 100;
                 while (index < jars.length) {
@@ -262,7 +278,7 @@ public class RemoteModulesHelper {
                     unavailableModules.add(moduleName);
                 }
             }
-            listener.checkUnavailableModules(unavailableModules.toArray(new String[0]));
+            listener.checkUnavailableModules(unavailableModules.toArray(new String[0]), null);
             listener.listModulesDone();
             return;
         }
@@ -374,7 +390,7 @@ public class RemoteModulesHelper {
 
             @Override
             public void done(IJobChangeEvent event) {
-                listener.checkUnavailableModules(runnableWithProgress.getUnavailableModules());
+                listener.checkUnavailableModules(runnableWithProgress.getUnavailableModules(), runnableWithProgress.getMessages());
                 listener.listModulesDone();
             }
         });
