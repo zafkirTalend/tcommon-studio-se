@@ -180,7 +180,7 @@ Export-Package: antlr,
  org.xml.sax,
  org.xml.sax.ext,
  org.xml.sax.helpers
-Eclipse-BuddyPolicy: dependent
+Eclipse-BuddyPolicy: registered
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.apache.log4j
 Import-Package: javax.transaction,
