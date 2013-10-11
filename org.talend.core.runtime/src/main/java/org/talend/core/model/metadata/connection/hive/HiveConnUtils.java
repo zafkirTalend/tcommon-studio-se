@@ -206,25 +206,41 @@ public class HiveConnUtils {
         }
     }
 
-    /**
-     * Returns the list of <code>HiveConnVersionInfo</code> for hive modes by the index of distribution and version.
-     * Added by Marvin Wang on Aug 10, 2012.
-     * 
-     * @param distributionIndex
-     * @param versionIndex
-     * @return
-     */
-    protected static List<HiveConnVersionInfo> getHiveModes(int distributionIndex, int versionIndex) {
-        List<HiveConnVersionInfo> distriObjects = getHiveVersions(distributionIndex);
-        if (distriObjects != null && distriObjects.size() > 0) {
-            HiveConnVersionInfo hiveVersionObj = distriObjects.get(versionIndex);
-            return getFollowersOfObject(hiveVersionObj);
+    protected static List<HiveConnVersionInfo> getHiveModes(int distributionIndex, int versionIndex, int hiveServerIndex) {
+        List<HiveConnVersionInfo> supportedModes = new ArrayList<HiveConnVersionInfo>();
+        HiveConnVersionInfo hiveVersionObj = getHiveVersionObj(distributionIndex, versionIndex);
+        if (hiveVersionObj != null) {
+            boolean supportEmbedded = isSupportEmbedded(hiveVersionObj);
+            boolean supportStandalone = isSupportStandalone(hiveVersionObj, hiveServerIndex);
+            List<HiveConnVersionInfo> modes = getFollowersOfObject(hiveVersionObj);
+            if (modes != null && modes.size() > 0) {
+                for (HiveConnVersionInfo mode : modes) {
+                    if (HiveConnVersionInfo.MODE_EMBEDDED.equals(mode) && supportEmbedded
+                            || HiveConnVersionInfo.MODE_STANDALONE.equals(mode) && supportStandalone) {
+                        supportedModes.add(mode);
+                    }
+                }
+            }
         }
-        return null;
+
+        return supportedModes;
     }
 
-    protected static List<String> getHiveModeNameList(int distributionIndex, int versionIndex) {
-        List<HiveConnVersionInfo> hiveModeObjs = getHiveModes(distributionIndex, versionIndex);
+    private static boolean isSupportEmbedded(HiveConnVersionInfo hiveVersionObj) {
+        return !(HiveConnVersionInfo.APACHE_0_20_203.equals(hiveVersionObj) || HiveConnVersionInfo.MAPR1.equals(hiveVersionObj)
+                || HiveConnVersionInfo.MapR_EMR.equals(hiveVersionObj) || HiveConnVersionInfo.Cloudera_CDH3
+                    .equals(hiveVersionObj));
+    }
+
+    private static boolean isSupportStandalone(HiveConnVersionInfo hiveVersionObj, int hiveServerIndex) {
+        boolean isHiveServer1 = "HIVE".equals(HiveServerVersionUtils.extractKey(hiveServerIndex)); //$NON-NLS-1$
+        return !(HiveConnVersionInfo.HDP_1_0.equals(hiveVersionObj) || isHiveServer1
+                && (HiveConnVersionInfo.HDP_1_2.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_1_3.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_2_0
+                        .equals(hiveVersionObj)));
+    }
+
+    protected static List<String> getHiveModeNameList(int distributionIndex, int versionIndex, int hiveServerIndex) {
+        List<HiveConnVersionInfo> hiveModeObjs = getHiveModes(distributionIndex, versionIndex, hiveServerIndex);
         // ADD msjian TDQ-6407 2012-11-26: for top, not support hive embeded mode,hide this menu
         if (PluginChecker.isOnlyTopLoaded() && hiveModeObjs.size() > 1) {
             hiveModeObjs.remove(0);
@@ -240,8 +256,8 @@ public class HiveConnUtils {
         return null;
     }
 
-    public static String[] getHiveModeNames(int distributionIndex, int versionIndex) {
-        List<String> hiveModeNameList = getHiveModeNameList(distributionIndex, versionIndex);
+    public static String[] getHiveModeNames(int distributionIndex, int versionIndex, int hiveServerIndex) {
+        List<String> hiveModeNameList = getHiveModeNameList(distributionIndex, versionIndex, hiveServerIndex);
         if (hiveModeNameList != null && hiveModeNameList.size() > 0) {
             return hiveModeNameList.toArray(new String[hiveModeNameList.size()]);
         } else {
@@ -286,10 +302,11 @@ public class HiveConnUtils {
         return getIndexOfHiveVersion(distributionKey, hiveVersionKey);
     }
 
-    public static int getIndexOfHiveMode(String distributionKey, String hiveVersionKey, String hiveModeKey) {
+    public static int getIndexOfHiveMode(String distributionKey, String hiveVersionKey, String hiveModeKey, String hiveServerKey) {
         int distributionIndex = getIndexOfDistribution(distributionKey);
         int hiveVersionIndex = getIndexOfHiveVersion(distributionKey, hiveVersionKey);
-        List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex);
+        int hiveServerIndex = getIndexOfHiveServer(hiveServerKey);
+        List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex, hiveServerIndex);
         if (hiveModes != null && hiveModes.size() > 0) {
             for (int i = 0; i < hiveModes.size(); i++) {
                 if (hiveModes.get(i).getKey().equals(hiveModeKey)) {
@@ -301,15 +318,28 @@ public class HiveConnUtils {
     }
 
     protected static int getIndexOfHiveMode(HiveConnVersionInfo distribution, HiveConnVersionInfo hiveVersion,
-            HiveConnVersionInfo hiveMode) {
+            HiveConnVersionInfo hiveMode, String hiveServerKey) {
         String distributionKey = distribution.getKey();
         String hiveModeKey = hiveMode.getKey();
         String hiveVersionkey = hiveVersion.getKey();
-        return getIndexOfHiveMode(distributionKey, hiveVersionkey, hiveModeKey);
+        return getIndexOfHiveMode(distributionKey, hiveVersionkey, hiveModeKey, hiveServerKey);
     }
 
-    public static boolean isEmbeddedMode(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
-        List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex);
+    public static int getIndexOfHiveServer(String hiveServerKey) {
+        List<String> hiveServers = HiveServerVersionUtils.extractListKeys();
+        if (hiveServers != null && hiveServers.size() > 0) {
+            for (int i = 0; i < hiveServers.size(); i++) {
+                if (hiveServers.get(i).equals(hiveServerKey)) {
+                    return i;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    public static boolean isEmbeddedMode(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, int hiveServerIndex) {
+        List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex, hiveServerIndex);
         if (hiveModes != null && hiveModes.size() > 0) {
             HiveConnVersionInfo hiveMode = hiveModes.get(hiveModeIndex);
             if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode.getKey())) {
@@ -359,16 +389,17 @@ public class HiveConnUtils {
      * @param hiveModeIndex
      * @return
      */
-    public static HiveConnVersionInfo getHiveModeObj(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
-        List<HiveConnVersionInfo> objs = getHiveModes(distributionIndex, hiveVersionIndex);
+    public static HiveConnVersionInfo getHiveModeObj(int distributionIndex, int hiveVersionIndex, int hiveModeIndex,
+            int hiveServerIndex) {
+        List<HiveConnVersionInfo> objs = getHiveModes(distributionIndex, hiveVersionIndex, hiveServerIndex);
         if (objs != null && objs.size() > 0) {
             return objs.get(hiveModeIndex);
         }
         return null;
     }
 
-    public static String getHiveModeObjKey(int distributionIndex, int hiveVersionIndex, int hiveModeIndex) {
-        HiveConnVersionInfo hiveModeObj = getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex);
+    public static String getHiveModeObjKey(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, int hiveServerIndex) {
+        HiveConnVersionInfo hiveModeObj = getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
         if (hiveModeObj != null) {
             return hiveModeObj.getKey();
         }
@@ -420,9 +451,11 @@ public class HiveConnUtils {
      * @param isHive2
      * @return
      */
-    public static boolean isSupportSecurity(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, boolean isHive2) {
+    public static boolean isSupportSecurity(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, boolean isHive2,
+            int hiveServerIndex) {
         HiveConnVersionInfo hiveVersionObj = getHiveVersionObj(distributionIndex, hiveVersionIndex);
-        if (hiveVersionObj.isSupportSecurity() && (isHive2 || isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex))) {
+        if (hiveVersionObj.isSupportSecurity()
+                && (isHive2 || isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex))) {
             return true;
         }
 

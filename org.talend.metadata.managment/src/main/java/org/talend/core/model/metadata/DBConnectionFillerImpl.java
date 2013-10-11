@@ -269,11 +269,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         boolean hasSchema = false;
         try {
-            boolean iscdhhive2 = HiveConnectionManager.getInstance().isCDHHive2(metaConnection);
+            boolean isHive2 = HiveConnectionManager.getInstance().isHive2(metaConnection);
             if (schemas != null) {
                 String schemaName = null;
                 while (schemas.next()) {
-                    if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata) && !iscdhhive2) {
+                    if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata) && !isHive2) {
                         schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
                         if (schemaName == null) {
                             schemaName = schemas.getString(DatabaseConstant.ODBC_ORACLE_SCHEMA_NAME);
@@ -290,7 +290,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (dbConn != null) {
                         uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
                         // for hive2 db name is treat as schema
-                        if (iscdhhive2) {
+                        if (isHive2) {
                             uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                         }
                     }
@@ -835,8 +835,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
             }
 
-            boolean cdhHive2 = HiveConnectionManager.getInstance().isCDHHive2(metaConnection);
-            if (cdhHive2) {
+            boolean isHive2 = HiveConnectionManager.getInstance().isHive2(metaConnection);
+            if (isHive2) {
                 // for CDH4 HIVE2 , the table type are MANAGED_TABLE and EXTERNAL_TABLE ......
                 // tableType = null;
             }
@@ -847,7 +847,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             while (tables.next()) {
                 String tableSchema = null;
                 String coloumnName = GetTable.TABLE_SCHEM.name();
-                if (cdhHive2) {
+                if (isHive2) {
                     coloumnName = GetTable.TABLE_SCHEMA.name();
                 }
                 if (schemaPattern != null) {

@@ -97,6 +97,9 @@ public enum HiveConnVersionInfo {
     MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
                     "Standalone",//$NON-NLS-1$
                     false,
+                    HiveConnVersionInfo.HDP_1_2,
+                    HiveConnVersionInfo.HDP_1_3,
+                    HiveConnVersionInfo.HDP_2_0,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH3,

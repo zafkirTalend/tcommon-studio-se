@@ -71,7 +71,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
                 hiveObject = hiveGetMethod.invoke(null);
 
-                boolean useKeytab = (Boolean) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+                boolean useKeytab = Boolean.valueOf((String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA);
                 String keytabPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB);
                 if (useKeytab) {

@@ -106,7 +106,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         Connection hiveStandaloneConn = null;
         String connURL = metadataConn.getUrl();
         if (connURL != null) {
-            boolean useKerberos = (Boolean) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+            boolean useKerberos = Boolean.valueOf((String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
             String hivePrincipal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
             if (useKerberos) {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
@@ -287,6 +287,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
             }
         }
         return false;
+    }
+
+    public boolean isHive2(IMetadataConnection metadataConn) {
+        String hiveServerKey = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_SERVER_VERSION);
+        return "HIVE2".equals(hiveServerKey); //$NON-NLS-1$
     }
 
 }
