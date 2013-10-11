@@ -703,11 +703,9 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         callbackPort = callbackPortText.getText();
         token = tokenText.getText();
         if (isContextMode() && getContextModeManager() != null) {
-            if (getContextModeManager().getSelectedContextType() == null) {
-                ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(connectionItem
-                        .getConnection());
-                getContextModeManager().setSelectedContextType(contextTypeForContextMode);
-            }
+            ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(connectionItem
+                    .getConnection());
+            getContextModeManager().setSelectedContextType(contextTypeForContextMode);
             endPoint = getContextModeManager().getOriginalValue(endPoint);
             username = getContextModeManager().getOriginalValue(username);
             pwd = getContextModeManager().getOriginalValue(pwd);
@@ -917,7 +915,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
     }
 
     private void setTextValue(String value, LabelledText control) {
-        if (value != null && !value.equals("")) { //$NON-NLS-1$
+        if (value != null) { //$NON-NLS-1$
             control.setText(value);
         }
     }
@@ -934,6 +932,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         proxyPortText.setEditable(!isContextMode());
         proxyUsernameText.setEditable(!isContextMode());
         proxyPasswordText.setEditable(!isContextMode());
+        authBtn.setEnabled(!isContextMode());
         webServiceUrlTextForOAuth.setEditable(!isContextMode());
         apiVersionText.setEditable(!isContextMode());
         consumeKeyText.setEditable(!isContextMode());

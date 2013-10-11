@@ -463,7 +463,8 @@ public class RepositoryToComponentProperty {
      */
     private static Object getSalesforceSchemaValue(SalesforceSchemaConnection connection, String value, IMetadataTable table) {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getWebServiceUrl())) {
+            if (isContextMode(connection, connection.getWebServiceUrl())
+                    || isContextMode(connection, connection.getWebServiceUrlTextForOAuth())) {
                 if (connection.getLoginType().equals("basic")) {
                     return connection.getWebServiceUrl();
                 } else {

@@ -46,6 +46,8 @@ public final class OtherConnectionContextUtils {
 
     private static final ECodeLanguage LANGUAGE = LanguageManager.getCurrentLanguage();
 
+    private static final String BASIC = "basic";
+
     /**
      * 
      */
@@ -65,6 +67,10 @@ public final class OtherConnectionContextUtils {
         BatchSize,
         TimeOut,
         QueryCondition,
+        SFProxyHost,
+        SFProxyPort,
+        SFProxyUsername,
+        SFProxyPassword,
         // Salesforce oauth
         WebServiceUrlForOauth,
         ConsumerKey,
@@ -336,45 +342,67 @@ public final class OtherConnectionContextUtils {
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        paramName = prefixName + EParamName.WebServiceUrl;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrl());
+        if (ssConn.getLoginType().equals(BASIC)) {
+            paramName = prefixName + EParamName.WebServiceUrl;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrl());
 
-        paramName = prefixName + EParamName.UserName;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getUserName());
+            paramName = prefixName + EParamName.UserName;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getUserName());
 
-        paramName = prefixName + EParamName.Password;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getPassword(), JavaTypesManager.PASSWORD);
+            paramName = prefixName + EParamName.Password;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getPassword(), JavaTypesManager.PASSWORD);
 
-        paramName = prefixName + EParamName.BatchSize;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
+            paramName = prefixName + EParamName.BatchSize;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
 
-        paramName = prefixName + EParamName.TimeOut;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
+            paramName = prefixName + EParamName.TimeOut;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
 
-        paramName = prefixName + EParamName.QueryCondition;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
+            paramName = prefixName + EParamName.QueryCondition;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
 
-        paramName = prefixName + EParamName.WebServiceUrlForOauth;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrlTextForOAuth());
+            paramName = prefixName + EParamName.SFProxyHost;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyHost());
 
-        paramName = prefixName + EParamName.ConsumerKey;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeKey());
+            paramName = prefixName + EParamName.SFProxyPort;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyPort());
 
-        paramName = prefixName + EParamName.ConsumerSecret;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeSecret());
+            paramName = prefixName + EParamName.SFProxyUsername;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyUsername());
 
-        paramName = prefixName + EParamName.CallbackHost;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackHost());
+            paramName = prefixName + EParamName.SFProxyPassword;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyPassword());
+        } else {
+            paramName = prefixName + EParamName.WebServiceUrlForOauth;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrlTextForOAuth());
 
-        paramName = prefixName + EParamName.CallbackPort;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackPort(), JavaTypesManager.INTEGER);
+            paramName = prefixName + EParamName.ConsumerKey;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeKey());
 
-        paramName = prefixName + EParamName.SalesforceVersion;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getSalesforceVersion());
+            paramName = prefixName + EParamName.ConsumerSecret;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeSecret());
 
-        paramName = prefixName + EParamName.token;
-        ConnectionContextHelper.createParameters(varList, paramName, ssConn.getToken());
+            paramName = prefixName + EParamName.CallbackHost;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackHost());
 
+            paramName = prefixName + EParamName.CallbackPort;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackPort(), JavaTypesManager.INTEGER);
+
+            paramName = prefixName + EParamName.SalesforceVersion;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getSalesforceVersion());
+
+            paramName = prefixName + EParamName.token;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getToken());
+
+            paramName = prefixName + EParamName.BatchSize;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
+
+            paramName = prefixName + EParamName.TimeOut;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
+
+            paramName = prefixName + EParamName.QueryCondition;
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
+        }
         return varList;
     }
 
@@ -456,44 +484,67 @@ public final class OtherConnectionContextUtils {
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        paramName = prefixName + EParamName.WebServiceUrl;
-        ssConn.setWebServiceUrl(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+        if (ssConn.getLoginType().equals(BASIC)) {
+            paramName = prefixName + EParamName.WebServiceUrl;
+            ssConn.setWebServiceUrl(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.UserName;
-        ssConn.setUserName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.UserName;
+            ssConn.setUserName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.Password;
-        ssConn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.Password;
+            ssConn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.BatchSize;
-        ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.BatchSize;
+            ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.TimeOut;
-        ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.TimeOut;
+            ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.QueryCondition;
-        ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.QueryCondition;
+            ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.WebServiceUrlForOauth;
-        ssConn.setWebServiceUrlTextForOAuth(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.SFProxyHost;
+            ssConn.setProxyHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.ConsumerKey;
-        ssConn.setConsumeKey(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.SFProxyPort;
+            ssConn.setProxyPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.ConsumerSecret;
-        ssConn.setConsumeSecret(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.SFProxyUsername;
+            ssConn.setProxyUsername(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.CallbackHost;
-        ssConn.setCallbackHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.SFProxyPassword;
+            ssConn.setProxyPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+        } else {
+            paramName = prefixName + EParamName.WebServiceUrlForOauth;
+            ssConn.setWebServiceUrlTextForOAuth(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.CallbackPort;
-        ssConn.setCallbackPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.ConsumerKey;
+            ssConn.setConsumeKey(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.SalesforceVersion;
-        ssConn.setSalesforceVersion(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.ConsumerSecret;
+            ssConn.setConsumeSecret(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.token;
-        ssConn.setToken(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+            paramName = prefixName + EParamName.CallbackHost;
+            ssConn.setCallbackHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.CallbackPort;
+            ssConn.setCallbackPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.SalesforceVersion;
+            ssConn.setSalesforceVersion(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.token;
+            ssConn.setToken(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.BatchSize;
+            ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.TimeOut;
+            ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+            paramName = prefixName + EParamName.QueryCondition;
+            ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+        }
     }
 
     static void revertSalesforcePropertiesForContextMode(SalesforceSchemaConnection ssConn, ContextType contextType) {
@@ -514,6 +565,10 @@ public final class OtherConnectionContextUtils {
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
         String token = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getToken());
+        String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
+        String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
+        String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
 
         ssConn.setWebServiceUrl(url);
         ssConn.setUserName(userName);
@@ -528,6 +583,10 @@ public final class OtherConnectionContextUtils {
         ssConn.setCallbackPort(callbackPort);
         ssConn.setSalesforceVersion(salesforceVersion);
         ssConn.setToken(token);
+        ssConn.setProxyHost(proxyHost);
+        ssConn.setProxyPort(proxyPort);
+        ssConn.setProxyUsername(proxyUsername);
+        ssConn.setProxyPassword(proxyPassword);
 
     }
 
@@ -554,6 +613,10 @@ public final class OtherConnectionContextUtils {
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
         String token = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getToken());
+        String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
+        String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
+        String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
 
         cloneConn.setWebServiceUrl(url);
         cloneConn.setUserName(userName);
@@ -568,6 +631,10 @@ public final class OtherConnectionContextUtils {
         cloneConn.setCallbackPort(callbackPort);
         cloneConn.setSalesforceVersion(salesforceVersion);
         cloneConn.setToken(token);
+        cloneConn.setProxyHost(proxyHost);
+        cloneConn.setProxyPort(proxyPort);
+        cloneConn.setProxyUsername(proxyUsername);
+        cloneConn.setProxyPassword(proxyPassword);
 
         ConnectionContextHelper.cloneConnectionProperties(ssConn, cloneConn);
 
