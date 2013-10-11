@@ -37,5 +37,4 @@ Export-Package: org.dom4j,
  org.jaxen.saxpath.helpers,
  org.jaxen.util,
  org.jaxen.xom
-Require-Bundle: org.talend.libraries.jdom
 Bundle-ActivationPolicy: lazy
