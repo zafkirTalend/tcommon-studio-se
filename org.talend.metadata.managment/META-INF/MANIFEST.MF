@@ -7,6 +7,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.logging,
  org.apache.commons.collections,
  org.apache.commons.lang,
+ org.talend.libraries.mdm;resolution:=optional,
  org.talend.common.ui.runtime,
  org.talend.core.runtime,
  org.talend.model,
@@ -18,8 +19,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.talend.testutils
 Export-Package: metadata.managment.i18n,
- org.apache.axis,
- org.apache.axis.client,
  org.talend.core.database.utils,
  org.talend.core.model,
  org.talend.core.model.metadata,
@@ -28,14 +27,9 @@ Export-Package: metadata.managment.i18n,
  org.talend.core.model.metadata.builder.database.extractots,
  org.talend.core.model.metadata.builder.database.hive,
  org.talend.core.model.metadata.builder.util,
- org.talend.mdm.webservice,
  org.talend.metadata.managment.connection.manager,
  org.talend.metadata.managment.hive
-Bundle-ClassPath: .,
- lib/mdm_webservice.jar,
- lib/axis.jar,
- lib/commons-discovery-0.2.jar,
- lib/wsdl4j-1.5.1.jar
+Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
 
 

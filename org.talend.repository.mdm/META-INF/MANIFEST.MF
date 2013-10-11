@@ -11,6 +11,7 @@ Require-Bundle: javax.xml.rpc,
  org.eclipse.jface,
  org.apache.axis,
  org.apache.commons.lang,
+ org.talend.libraries.mdm,
  org.talend.model,
  org.talend.commons.ui,
  org.talend.core.repository,
@@ -28,6 +29,5 @@ Require-Bundle: javax.xml.rpc,
  org.talend.repository.items.importexport
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
-Bundle-ClassPath: .,
- lib/mdm.jar
+Bundle-ClassPath: .
 Import-Package: org.eclipse.gef.commands

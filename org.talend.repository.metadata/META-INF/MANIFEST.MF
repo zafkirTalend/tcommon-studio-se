@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.talend.repository.metadata.Activator
 Require-Bundle: org.apache.commons.lang,
  org.apache.log4j,
+ org.apache.axis,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.gef,
