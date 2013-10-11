@@ -789,12 +789,12 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             }
 
             if (!isValueValid(userNameText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give user name for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, "Username is mandatory"); //$NON-NLS-1$
                 return false;
             }
 
             if (!isValueValid(passwordText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give password for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, "Password is mandatory"); //$NON-NLS-1$
                 return false;
             }
 
