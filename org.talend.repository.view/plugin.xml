@@ -168,7 +168,10 @@
       <actionProvider
             class="org.talend.repository.viewer.action.RepoGlobalActionProvider"
             id="org.talend.repository.viewer.actionbar.global.globalAction">
-         <enablement></enablement>
+         <enablement>
+            <instanceof
+                  value="org.talend.repository.model.RepositoryNode">
+            </instanceof></enablement>
       </actionProvider>
       <actionProvider
             appearsBefore="org.talend.repository.viewer.actionbar.menu.repositoryFilterSetting"
