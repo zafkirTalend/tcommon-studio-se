@@ -48,6 +48,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
@@ -127,6 +128,15 @@ public class ModuleListCellEditor extends DialogCellEditor {
                 if (getTableViewer() != null) {
                     index = getTableViewer().getTable().getSelectionIndex();
                 }
+                // enable to refresh component setting after change modules.
+                IElement element = this.tableParam.getElement();
+                if (element != null) {
+                    IElementParameter updateComponentsParam = element.getElementParameter("UPDATE_COMPONENTS"); //$NON-NLS-1$
+                    if (updateComponentsParam != null) {
+                        updateComponentsParam.setValue(Boolean.TRUE);
+                    }
+                }
+                //
                 executeCommand(new ModelChangeCommand(tableParam, param.getName(), selecteModule, index));
                 if (getTableViewer() != null) {
                     getTableViewer().refresh(true);
