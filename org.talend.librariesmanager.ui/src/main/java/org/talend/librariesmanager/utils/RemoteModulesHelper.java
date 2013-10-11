@@ -24,8 +24,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -75,6 +77,8 @@ public class RemoteModulesHelper {
          */
         private final Map<String, List<ModuleNeeded>> contextMap;
 
+        private Set<String> unavailableModules = new HashSet<String>();
+
         /**
          * DOC sgandon IRunnableWithProgressImplementation constructor comment.
          * 
@@ -87,6 +91,10 @@ public class RemoteModulesHelper {
             this.jarNames = jarNames;
             this.toInstall = toInstall;
             this.contextMap = contextMap;
+        }
+
+        public String[] getUnavailableModules() {
+            return this.unavailableModules.toArray(new String[0]);
         }
 
         @Override
@@ -137,7 +145,7 @@ public class RemoteModulesHelper {
                                         }
                                         // keep null in cache no need to check from server again
                                         cache.put(name, null);
-
+                                        unavailableModules.add(name);
                                         continue;
                                     }
 
@@ -247,6 +255,14 @@ public class RemoteModulesHelper {
             IModulesListener listener, boolean isUser) {
         RemoteModulesFetchRunnable fecthUninstalledModulesRunnable = getNotInstalledModulesRunnable(neededModules, toInstall);
         if (fecthUninstalledModulesRunnable == null) {
+            Set<String> unavailableModules = new HashSet<String>();
+            for (ModuleNeeded module : neededModules) {
+                String moduleName = module.getModuleName().trim();
+                if (cache.get(moduleName) == null) { // not available on site.
+                    unavailableModules.add(moduleName);
+                }
+            }
+            listener.checkUnavailableModules(unavailableModules.toArray(new String[0]));
             listener.listModulesDone();
             return;
         }
@@ -271,12 +287,13 @@ public class RemoteModulesHelper {
                 List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
                 modules.add(module);
                 contextMap.put(moduleName, modules);
+                // only check that, but, it don't check available on site
                 if (!cache.keySet().contains(moduleName)) {
                     if (jars.length() != 0) {
                         jars.append(SEPARATOR);
                     }
                     jars.append(module.getModuleName());
-                }
+                }// have checked
             } else {
                 contextMap.get(moduleName).add(module);
             }
@@ -295,40 +312,42 @@ public class RemoteModulesHelper {
 
         String jarNames = jars.toString();
         if (jarNames.isEmpty()) {
-            return null;
+            return null; // if all have been in cache, no need fetching runnable again.
         }
-
+        // fetch the jars which are not in cache.
         return createRemoteModuleFetchRunnable(jarNames, toInstall, contextMap);
 
     }
 
     public void getNotInstalledModules(String[] names, List<ModuleToInstall> toInstall, IModulesListener listener) {
-        StringBuffer jars = new StringBuffer();
+        StringBuffer toInstalljars = new StringBuffer();
         // check that modules are already in cache or not
         if (names != null && names.length > 0) {
             for (String module : names) {
                 String moduleName = module.trim();
                 ModuleToInstall moduleToInstall = cache.get(moduleName);
-                if (moduleToInstall != null) {
+                if (moduleToInstall != null) { // if not existed, or not available on site.
                     moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
                     toInstall.add(moduleToInstall);
-                } else {
-                    if (jars.length() != 0) {
-                        jars.append(SEPARATOR);
-                        jars.append(moduleName);
-                    } else {
-                        jars.append(moduleName);
+                } else { // not existed
+                    if (toInstalljars.length() != 0) {
+                        toInstalljars.append(SEPARATOR);
                     }
+                    toInstalljars.append(moduleName);
                 }
             }
         }
-        String jarNames = jars.toString();
 
-        if (jarNames.isEmpty()) {
+        String toInstallJarNames = toInstalljars.toString();
+        if (toInstallJarNames.isEmpty()) {
+            /*
+             * no need do check, because it had contained the un-existed and unavailable modules
+             */
+            // listener.checkUnavailableModules(...);
             listener.listModulesDone();
             return;
         }
-        scheduleJob(createRemoteModuleFetchRunnable(jarNames, toInstall, null), listener, false);
+        scheduleJob(createRemoteModuleFetchRunnable(toInstallJarNames, toInstall, null), listener, false);
 
     }
 
@@ -355,6 +374,7 @@ public class RemoteModulesHelper {
 
             @Override
             public void done(IJobChangeEvent event) {
+                listener.checkUnavailableModules(runnableWithProgress.getUnavailableModules());
                 listener.listModulesDone();
             }
         });
@@ -487,7 +507,7 @@ public class RemoteModulesHelper {
      * cache
      */
     public IRunnableWithProgress getNotInstalledModulesRunnable(String[] requiredJars, List<ModuleToInstall> toInstall) {
-        StringBuffer jars = new StringBuffer();
+        StringBuffer toInstallJars = new StringBuffer();
         // check that modules are already in cache or not
         if (requiredJars != null && requiredJars.length > 0) {
             for (String module : requiredJars) {
@@ -496,22 +516,20 @@ public class RemoteModulesHelper {
                 if (moduleToInstall != null) {
                     moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
                     toInstall.add(moduleToInstall);
-                } else {
-                    if (jars.length() != 0) {
-                        jars.append(SEPARATOR);
-                        jars.append(moduleName);
-                    } else {
-                        jars.append(moduleName);
+                } else { // not existed, or not available on site.
+                    if (toInstallJars.length() != 0) {
+                        toInstallJars.append(SEPARATOR);
                     }
+                    toInstallJars.append(moduleName);
                 }
             }
         }
-        String jarNames = jars.toString();
+        String toInstallJarNames = toInstallJars.toString();
 
-        if (jarNames.isEmpty()) {
+        if (toInstallJarNames.isEmpty()) {
             return null;
         } else {
-            return createRemoteModuleFetchRunnable(jarNames, toInstall, null);
+            return createRemoteModuleFetchRunnable(toInstallJarNames, toInstall, null);
         }
     }
 }
