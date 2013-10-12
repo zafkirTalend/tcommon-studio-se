@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro;
+package org.talend.commons.ui.utils;
 
 import java.util.HashMap;
 
@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
@@ -40,22 +41,37 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
     protected String cheetSheetID;
 
-    protected HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
+    public HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
 
     private static Logger log = Logger.getLogger(CheatSheetPerspectiveAdapter.class);
 
     private static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
 
+    private boolean isFirstTime = true;
+
+    private static CheatSheetPerspectiveAdapter instance = null;
+
     /**
      * CheatSheetPerspectiveAdapter constructor.
      * 
-     * @param startId
      */
-    public CheatSheetPerspectiveAdapter(String startId) {
+    public CheatSheetPerspectiveAdapter() {
         CheatSheetView cheetSheet = findCheetSheet();
         if (cheetSheet != null) {
-            cheetSheet.setInput(startId);
+            cheetSheet.setInput(CheatSheetPerspectiveAdapter.DQ_CHEATSHEET_START_ID);
         }
+    }
+
+    /**
+     * get Instance.
+     * 
+     * @return
+     */
+    public static CheatSheetPerspectiveAdapter getInstance() {
+        if (instance == null) {
+            instance = new CheatSheetPerspectiveAdapter();
+        }
+        return instance;
     }
 
     /*
@@ -84,7 +100,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      */
     @Override
     public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-
         if (null != cheetSheetInPerspective.get(perspective.getId()) && cheetSheetInPerspective.get(perspective.getId())) {
             restoreCheetSheet();
         }
@@ -117,7 +132,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
     private void restoreCheetSheet() {
         Display.getDefault().asyncExec(new Runnable() {
 
-            @Override
             public void run() {
                 CheatSheetView view = ViewUtilities.showCheatSheetView();
 
@@ -126,18 +140,28 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                 // Then it is changed to DQ,cheetSheetID will be null,but CheatSheetView is not null,so that will show
                 // an empty view.
                 // Therefore DQ_CHEATSHEET_START_ID will be used to fill CheatSheetView.
+                IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
                 if (null != view) {
                     if (null != cheetSheetID) {
                         view.setInput(cheetSheetID);
                     } else {
                         view.setInput(DQ_CHEATSHEET_START_ID);
                     }
-                }
 
-                // ADD msjian TDQ-7407 2013-8-23: Only display the Cheat Sheet view on new startup of the studio
-                PartPane pane = ((PartSite) view.getSite()).getPane();
-                view.getSite().getPage().toggleZoom(pane.getPartReference());
-                // TDQ-7407~
+                    // ADD msjian TDQ-7407 2013-8-23: Only display the Cheat Sheet view on new startup of the studio
+                    if (isFirstTime && !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName())) {
+                        PartPane pane = ((PartSite) view.getSite()).getPane();
+                        view.getSite().getPage().toggleZoom(pane.getPartReference());
+                        view.setFocus();
+
+                        isFirstTime = false;
+                        PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
+                    }
+                    // TDQ-7407~
+                }
+                if (null != activePart) {
+                    activePart.setFocus();
+                }
             }
         });
     }

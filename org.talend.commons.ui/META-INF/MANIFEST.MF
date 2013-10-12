@@ -68,3 +68,7 @@ Export-Package: org.talend.commons.ui.command,
  org.talend.commons.ui.utils.loader,
  org.talend.commons.ui.utils.workbench.gef,
  org.talend.commons.ui.utils.workbench.preferences
+Import-Package: org.eclipse.ui.internal,
+ org.eclipse.ui.internal.cheatsheets,
+ org.eclipse.ui.internal.cheatsheets.views,
+ org.eclipse.ui.internal.util
