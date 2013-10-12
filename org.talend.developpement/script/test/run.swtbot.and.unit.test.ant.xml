@@ -188,7 +188,7 @@
             <arg line="-classname ${unit.test-class-name}"/>
             <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
             <arg line="-consoleLog -console 1234"/>
-            <jvmarg line="-ea -Xms512m -Xmx1536m -XX:MaxPermSize=1200m -XX:+CMSPermGenSweepingEnabled -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
+            <jvmarg line="-ea -Xms512m -Xmx1300m -XX:MaxPermSize=1200m -XX:+CMSPermGenSweepingEnabled -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
             <env key="${extra.env.key}" value="${extra.env.value}"/>
         </java>
     </target>  
