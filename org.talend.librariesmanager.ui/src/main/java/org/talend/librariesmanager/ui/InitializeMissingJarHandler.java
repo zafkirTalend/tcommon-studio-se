@@ -2,9 +2,11 @@ package org.talend.librariesmanager.ui;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
@@ -33,6 +35,9 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
     private static Logger log = Logger.getLogger(InitializeMissingJarHandler.class);
 
     private List<ModuleNeeded> allModulesNeededExtensionsForPlugin;
+
+    // list of bundle ID that where already handle by this handler.
+    private Set<Long> bundlesAlreadyHandled = new HashSet<Long>();
 
     @Override
     public void earlyStartup() {
@@ -76,7 +81,12 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
     public void update(Observable o, Object arg) {
         if (arg != null && arg instanceof JarMissingEvent) {
             final JarMissingEvent jarMissingEvent = (JarMissingEvent) arg;
-            showMissingModuleDialog(jarMissingEvent);
+            // only show message box once par plugin, meaning that if user ignored it once, the bundle will not load
+            // properly anyway.
+            if (!bundlesAlreadyHandled.contains(jarMissingEvent.getBundleId())) {
+                bundlesAlreadyHandled.add(jarMissingEvent.getBundleId());
+                showMissingModuleDialog(jarMissingEvent);
+            }// else already handled so ignors it.
         } else {// notification is not expected so log it
             IllegalArgumentException illegalArgumentException = new IllegalArgumentException(
                     "was expecting a type :" + JarMissingEvent.class.getCanonicalName()); //$NON-NLS-1$
