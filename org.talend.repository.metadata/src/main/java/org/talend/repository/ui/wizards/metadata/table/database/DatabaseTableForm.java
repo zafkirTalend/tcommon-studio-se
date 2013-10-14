@@ -1155,7 +1155,7 @@ public class DatabaseTableForm extends AbstractForm {
 
             List<MetadataColumn> columns = new ArrayList<MetadataColumn>();
 
-            columns = GuessSchemaUtil.guessSchemaFromArray(array, true, tableEditorView, 5);
+            columns = GuessSchemaUtil.guessDbSchemaFromArray(array, true, tableEditorView, 5);
 
             List<String[]> schemaContent = array.getRows();
             if (schemaContent.size() <= 0) {
