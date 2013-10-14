@@ -21,6 +21,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -40,8 +41,18 @@ public class GuessSchemaUtil {
 
     private static final String DEFAULT_LABEL = "Column"; //$NON-NLS-1$
 
+    public static List<MetadataColumn> guessDbSchemaFromArray(final CsvArray csvArray, boolean isFirstLineCaption,
+            MetadataEmfTableEditorView tableEditorView, int header) {
+        return guessSchemaFromArray(csvArray, isFirstLineCaption, tableEditorView, header, true);
+    }
+
     public static List<MetadataColumn> guessSchemaFromArray(final CsvArray csvArray, boolean isFirstLineCaption,
             MetadataEmfTableEditorView tableEditorView, int header) {
+        return guessSchemaFromArray(csvArray, isFirstLineCaption, tableEditorView, header, false);
+    }
+
+    private static List<MetadataColumn> guessSchemaFromArray(final CsvArray csvArray, boolean isFirstLineCaption,
+            MetadataEmfTableEditorView tableEditorView, int header, boolean useTdColumn) {
         List<MetadataColumn> columns = new ArrayList<MetadataColumn>();
 
         if (csvArray == null) {
@@ -197,10 +208,13 @@ public class GuessSchemaUtil {
                     lengthValue = 255;
                 }
 
+                MetadataColumn metadataColumn;
                 // define the metadataColumn to field i
-                // MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                MetadataColumn metadataColumn = ColumnHelper.createTdColumn(tableEditorView.getMetadataEditor()
-                        .getNextGeneratedColumnName(label[i]));
+                if (useTdColumn) {
+                    metadataColumn = ColumnHelper.createTdColumn(label[i]);
+                } else {
+                    metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                }
                 metadataColumn.setPattern("\"dd-MM-yyyy\""); //$NON-NLS-1$
                 // Convert javaType to TalendType
                 String talendType = null;
@@ -223,7 +237,7 @@ public class GuessSchemaUtil {
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setLength(lengthValue);
                 // Check the label and add it to the table
-                // metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
+                metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
                 columns.add(i, metadataColumn);
             }
         }
