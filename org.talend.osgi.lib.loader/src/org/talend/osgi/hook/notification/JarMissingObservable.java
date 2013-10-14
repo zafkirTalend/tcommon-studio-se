@@ -14,6 +14,8 @@ package org.talend.osgi.hook.notification;
 
 import java.util.Observable;
 
+import org.eclipse.osgi.baseadaptor.BaseData;
+
 /**
  * This observable is registered as an OSGI service and can be used to register Observers by clients that whishes to be
  * notified when a jar is missing in a "org.talend.*" bundle. the notification is done in a synchronous manner. The
@@ -26,16 +28,16 @@ public class JarMissingObservable extends Observable {
 
         private final String jarName;
 
-        private final String bundleName;
+        private final BaseData baseData;
 
         private final String expectedLibFolder;
 
         /**
          * DOC sgandon JarMissingObservable.JarMissingEvent constructor comment.
          */
-        public JarMissingEvent(String jarName, String bundleName, String expectedLibFolder) {
+        public JarMissingEvent(String jarName, BaseData sourcedata, String expectedLibFolder) {
             this.jarName = jarName;
-            this.bundleName = bundleName;
+            this.baseData = sourcedata;
             this.expectedLibFolder = expectedLibFolder;
 
         }
@@ -55,7 +57,7 @@ public class JarMissingObservable extends Observable {
          * @return the bundleName
          */
         public String getBundleSymbolicName() {
-            return this.bundleName;
+            return baseData.getSymbolicName();
         }
 
         /**
@@ -65,6 +67,13 @@ public class JarMissingObservable extends Observable {
          */
         public String getExpectedLibFolder() {
             return this.expectedLibFolder;
+        }
+
+        /**
+         * return the OSGI Bundle Id
+         * */
+        public long getBundleId() {
+            return baseData.getBundleID();
         }
     }
 

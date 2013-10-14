@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.baseadaptor.bundlefile.BundleEntry;
@@ -39,6 +41,9 @@ import org.talend.osgi.hook.notification.JarMissingObservable;
  * 
  */
 public class JarLoaderClassLoadingHook implements ClassLoadingHook {
+
+    // boolean TRACE = FrameworkProperties.getProperty("osgi.debug") != null
+    // && FrameworkDebugOptions.getDefault().getBooleanOption("org.talend.osgi.lib.loader/trace/missing.jars", false);
 
     private File javaLibFolder;
 
@@ -93,8 +98,8 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
                         cpEntries.add(classPathEntry);
                     } else {// jar file not found in the lib/java folder
                         // notify any observable to get a chance for the lib to be installed
-                        jarMissingObservable.notifyObservers(new JarMissingObservable.JarMissingEvent(jarName,
-                                bundleSymbolicName, libJavaFolderFile.getAbsolutePath()));
+                        jarMissingObservable.notifyObservers(new JarMissingObservable.JarMissingEvent(jarName, sourcedata,
+                                libJavaFolderFile.getAbsolutePath()));
                         // let's do another check to see if the bundle was installed during the above notification
                         if (jarFile.exists()) {
                             ClasspathEntry classPathEntry = createClassPathEntry(hostmanager, sourcedata, sourcedomain, jarFile);
