@@ -281,13 +281,22 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE__TYPE = 12;
 
     /**
+     * The feature id for the '<em><b>DBTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__DBTYPE = 13;
+
+    /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 13;
+    int COLUMN_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -2619,6 +2628,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCOLUMNType_TYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE <em>DBTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DBTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_DBTYPE();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}'.
@@ -5050,6 +5070,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__TYPE = eINSTANCE.getCOLUMNType_TYPE();
+
+        /**
+         * The meta object literal for the '<em><b>DBTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__DBTYPE = eINSTANCE.getCOLUMNType_DBTYPE();
 
         /**
          * The meta object literal for the '<em><b>RELATEDENTITY</b></em>' attribute feature.

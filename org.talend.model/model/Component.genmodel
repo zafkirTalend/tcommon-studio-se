@@ -33,6 +33,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/rELATEDENTITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/rELATIONSHIPTYPE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/tYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/dBTYPE"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//COMPONENTType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/hEADER"/>

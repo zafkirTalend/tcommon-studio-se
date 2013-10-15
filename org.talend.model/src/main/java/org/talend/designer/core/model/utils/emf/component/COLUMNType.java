@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE <em>DBTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -499,6 +500,33 @@ public interface COLUMNType extends EObject {
      * @generated
      */
     void setTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>DBTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DBTYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>DBTYPE</em>' attribute.
+     * @see #setDBTYPE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_DBTYPE()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='DBTYPE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getDBTYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE <em>DBTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>DBTYPE</em>' attribute.
+     * @see #getDBTYPE()
+     * @generated
+     */
+    void setDBTYPE(String value);
 
     /**
      * Returns the value of the '<em><b>RELATEDENTITY</b></em>' attribute.

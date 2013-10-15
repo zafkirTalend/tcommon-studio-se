@@ -35,19 +35,30 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType ecore:name="COLUMNType" name="COLUMN_._type">
-    <xsd:attribute ecore:name="cOMMENT" name="COMMENT" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="cUSTOM" name="CUSTOM" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="dEFAULT" name="DEFAULT" type="xsd:string"/>
-    <xsd:attribute default="false" ecore:name="kEY" name="KEY" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="lENGTH" name="LENGTH" type="xsd:int"/>
-    <xsd:attribute ecore:name="nAME" name="NAME" type="xsd:string"/>
-    <xsd:attribute default="true" ecore:name="nULLABLE" name="NULLABLE" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="pATTERN" name="PATTERN" type="xsd:string"/>
-    <xsd:attribute default="0" ecore:name="pRECISION" name="PRECISION" type="xsd:int"/>
-    <xsd:attribute ecore:name="rEADONLY" name="READONLY" type="xsd:boolean"/>
-    <xsd:attribute ecore:name="rELATEDENTITY" name="RELATEDENTITY" type="xsd:string"/>
-    <xsd:attribute ecore:name="rELATIONSHIPTYPE" name="RELATIONSHIPTYPE" type="xsd:string"/>
-    <xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string"/>
+  	<xsd:attribute ecore:name="cOMMENT" name="COMMENT"
+  		type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="cUSTOM" name="CUSTOM"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="dEFAULT" name="DEFAULT"
+  		type="xsd:string" />
+  	<xsd:attribute default="false" ecore:name="kEY" name="KEY"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="lENGTH" name="LENGTH" type="xsd:int" />
+  	<xsd:attribute ecore:name="nAME" name="NAME" type="xsd:string" />
+  	<xsd:attribute default="true" ecore:name="nULLABLE"
+  		name="NULLABLE" type="xsd:boolean" />
+  	<xsd:attribute ecore:name="pATTERN" name="PATTERN"
+  		type="xsd:string" />
+  	<xsd:attribute default="0" ecore:name="pRECISION" name="PRECISION"
+  		type="xsd:int" />
+  	<xsd:attribute ecore:name="rEADONLY" name="READONLY"
+  		type="xsd:boolean" />
+  	<xsd:attribute ecore:name="rELATEDENTITY" name="RELATEDENTITY"
+  		type="xsd:string" />
+  	<xsd:attribute ecore:name="rELATIONSHIPTYPE"
+  		name="RELATIONSHIPTYPE" type="xsd:string" />
+  	<xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string" />
+  	<xsd:attribute ecore:name="dBTYPE" name="DBTYPE" type="xsd:string"></xsd:attribute>
   </xsd:complexType>
   <xsd:complexType ecore:name="COMPONENTType" name="COMPONENT_._type">
     <xsd:sequence>

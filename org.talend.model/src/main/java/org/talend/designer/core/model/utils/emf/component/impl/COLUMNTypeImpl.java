@@ -36,6 +36,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATEDENTITY <em>RELATEDENTITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getRELATIONSHIPTYPE <em>RELATIONSHIPTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getDBTYPE <em>DBTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -355,6 +356,26 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @ordered
      */
     protected String tYPE = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDBTYPE() <em>DBTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDBTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String DBTYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDBTYPE() <em>DBTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDBTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String dBTYPE = DBTYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -761,6 +782,27 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDBTYPE() {
+        return dBTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDBTYPE(String newDBTYPE) {
+        String oldDBTYPE = dBTYPE;
+        dBTYPE = newDBTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DBTYPE, oldDBTYPE, dBTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getRELATEDENTITY() {
         return rELATEDENTITY;
     }
@@ -832,6 +874,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return getRELATIONSHIPTYPE();
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return getTYPE();
+            case ComponentPackage.COLUMN_TYPE__DBTYPE:
+                return getDBTYPE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -882,6 +926,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__DBTYPE:
+                setDBTYPE((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -934,6 +981,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE(TYPE_EDEFAULT);
                 return;
+            case ComponentPackage.COLUMN_TYPE__DBTYPE:
+                setDBTYPE(DBTYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -972,6 +1022,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return RELATIONSHIPTYPE_EDEFAULT == null ? rELATIONSHIPTYPE != null : !RELATIONSHIPTYPE_EDEFAULT.equals(rELATIONSHIPTYPE);
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+            case ComponentPackage.COLUMN_TYPE__DBTYPE:
+                return DBTYPE_EDEFAULT == null ? dBTYPE != null : !DBTYPE_EDEFAULT.equals(dBTYPE);
         }
         return super.eIsSet(featureID);
     }
@@ -1012,6 +1064,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         result.append(rELATIONSHIPTYPE);
         result.append(", tYPE: ");
         result.append(tYPE);
+        result.append(", dBTYPE: ");
+        result.append(dBTYPE);
         result.append(')');
         return result.toString();
     }
