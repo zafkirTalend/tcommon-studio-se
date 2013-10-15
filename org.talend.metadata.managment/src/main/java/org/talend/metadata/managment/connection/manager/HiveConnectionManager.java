@@ -290,8 +290,12 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     }
 
     public boolean isHive2(IMetadataConnection metadataConn) {
-        String hiveServerKey = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_SERVER_VERSION);
-        return "HIVE2".equals(hiveServerKey); //$NON-NLS-1$
+        if (metadataConn != null) {
+            String hiveServerKey = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_SERVER_VERSION);
+            return "HIVE2".equals(hiveServerKey); //$NON-NLS-1$
+        }
+
+        return false;
     }
 
 }
