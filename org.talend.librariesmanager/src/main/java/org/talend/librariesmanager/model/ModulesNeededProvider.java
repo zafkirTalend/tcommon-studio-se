@@ -169,6 +169,22 @@ public class ModulesNeededProvider {
         return componentImportNeedsList;
     }
 
+    /**
+     * DOC sgandon Comment method "getModulesNeeded".
+     * 
+     * @param moduleName, must not be null
+     * @return all modules needed matching the module name
+     */
+    public static List<ModuleNeeded> getModulesNeededForName(String moduleName) {
+        ArrayList<ModuleNeeded> modulesMatching = new ArrayList<ModuleNeeded>();
+        for (ModuleNeeded modNeed : componentImportNeedsList) {
+            if (moduleName.equals(modNeed.getModuleName())) {
+                modulesMatching.add(modNeed);
+            }
+        }
+        return modulesMatching;
+    }
+
     public static List<String> getModulesNeededNames() {
         List<String> componentImportNeedsListNames = new ArrayList<String>();
         for (ModuleNeeded m : componentImportNeedsList) {
@@ -683,10 +699,10 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> getModulesNeededForDBConnWizard() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         EDatabaseVersion4Drivers[] dbVersions = EDatabaseVersion4Drivers.values();
+        String message = Messages.getString("ModulesNeededProvider.ModulesForDBConnWizard"); //$NON-NLS-1$;
         for (EDatabaseVersion4Drivers temp : dbVersions) {
             Set<String> drivers = temp.getProviderDrivers();
             for (String driver : drivers) {
-                String message = Messages.getString("ModulesNeededProvider.ModulesForDBConnWizard"); //$NON-NLS-1$;
                 importNeedsList.add(new ModuleNeeded(temp.name(), driver, message, true));
             }
         }
@@ -713,6 +729,7 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
+    // TODO change the name of this method to getModulesNeededForComponent()
     public static List<ModuleNeeded> getModulesNeeded(String componentName) {
         List<ModuleNeeded> toReturn = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded current : getModulesNeeded()) {
