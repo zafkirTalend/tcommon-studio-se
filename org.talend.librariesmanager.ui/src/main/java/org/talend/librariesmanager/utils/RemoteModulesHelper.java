@@ -232,7 +232,7 @@ public class RemoteModulesHelper {
      * DOC sgandon Comment method "createUnavailableModuleToInstall".
      * 
      * @param unavailableModuleName
-     * @param contextMap
+     * @param contextMap, may be null
      * @return
      */
     private ModuleToInstall createUnavailableModuleToInstall(String unavailableModuleName,
@@ -240,7 +240,9 @@ public class RemoteModulesHelper {
         ModuleToInstall m = new ModuleToInstall();
         m.setName(unavailableModuleName);
         setContext(m, contextMap);
-        m.setDescription(getFirstDescription(contextMap.get(unavailableModuleName)));
+        if (contextMap != null) {
+            m.setDescription(getFirstDescription(contextMap.get(unavailableModuleName)));
+        }// there will be no description
 
         return m;
     }

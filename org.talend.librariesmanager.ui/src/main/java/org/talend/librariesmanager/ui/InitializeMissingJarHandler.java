@@ -1,6 +1,10 @@
 package org.talend.librariesmanager.ui;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +13,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
@@ -17,7 +22,12 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
+import org.talend.commons.exception.BusinessException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.dialogs.ExternalModulesInstallDialogWithProgress;
 import org.talend.librariesmanager.ui.i18n.Messages;
@@ -39,9 +49,16 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
     // list of bundle ID that where already handle by this handler.
     private Set<Long> bundlesAlreadyHandled = new HashSet<Long>();
 
+    private ILibrariesService librariesService;
+
+    private ILibraryManagerService libraryManagerService;
+
     @Override
     public void earlyStartup() {
         setupMissingJarLoadingObserver();
+        librariesService = LibManagerUiPlugin.getDefault().getLibrariesService();
+        libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
     }
 
     /**
@@ -111,6 +128,35 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
         // filter the jar that are already installed
         for (ModuleNeeded module : requiredModulesForBundle) {
             String moduleName = module.getModuleName();
+            // if jar does not exist at expected folder then check if it is registered in the Studio
+            if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
+                // check that library is already available and registered but not deployed to lib/java.
+                try {
+                    if (librariesService != null
+                            && (librariesService.getLibraryStatus(moduleName) == ELibraryInstallStatus.INSTALLED)) {
+                        // lib exist so deploy it
+                        List<ModuleNeeded> allModuleNeeded = ModulesNeededProvider.getModulesNeededForName(moduleName);
+                        for (ModuleNeeded sameModule : allModuleNeeded) {
+                            String moduleLocation = sameModule.getModuleLocaion();
+                            if (sameModule.getStatus() == ELibraryInstallStatus.INSTALLED && moduleLocation != null
+                                    && !moduleLocation.isEmpty()) {
+                                URI uri = new URI(moduleLocation);
+                                URL url = FileLocator.toFileURL(uri.toURL());
+                                if ("file".equals(url.getProtocol())) { //$NON-NLS-1$
+                                    libraryManagerService.deploy(url.toURI(), null);
+                                }// else not a file so keep going
+                                break;
+                            }// else not an installed module or no url so keep so keep looking
+                        }
+                    }// else no installed so keep going and ask the user
+                } catch (BusinessException e) {
+                    log.warn("Could not get installade status for library:" + moduleName, e);
+                } catch (URISyntaxException e) {
+                    log.warn("Could not get installade status for library:" + moduleName, e);
+                } catch (IOException e) {
+                    log.warn("Could not get installade status for library:" + moduleName, e);
+                }
+            }
             if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
                 requiredJars.add(moduleName);
             }// else jar already installed to filter it by ignoring it.
