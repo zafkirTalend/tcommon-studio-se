@@ -12,6 +12,7 @@
    <extension-point id="librariesNeeded" name="librariesNeeded" schema="schema/librariesNeeded.exsd"/>
    <extension-point id="demoProjects_provider" name="Demo Projects Provider" schema="schema/demoProjects_provider.exsd"/>
    <extension-point id="itemRelationship" name="ItemRelationship" schema="schema/itemRelationship.exsd"/>
+   <extension-point id="buildExport_provider" name="Build Export Provider" schema="schema/buildExport_provider.exsd"/>
    <extension
          point="org.eclipse.ui.views">
                <category
