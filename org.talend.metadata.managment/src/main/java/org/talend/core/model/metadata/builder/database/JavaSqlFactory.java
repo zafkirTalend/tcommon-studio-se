@@ -379,7 +379,7 @@ public final class JavaSqlFactory {
                         ProjectManager.getInstance().getCurrentProject().getEmfProject());
                 fullPathTemp = project.getFolder("temp").getLocation().append("metastore_db").append(id).toPortableString(); //$NON-NLS-1$ //$NON-NLS-2$
             } else {
-                fullPathTemp = new Path("metastore_db").append(id).toPortableString();//$NON-NLS-1$ //$NON-NLS-2$
+                fullPathTemp = new Path(System.getProperty("java.io.tmpdir")).append("metastore_db").append(id).toPortableString();//$NON-NLS-1$ //$NON-NLS-2$
             }
             System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_URL.getKey(), "jdbc:derby:;databaseName=" //$NON-NLS-1$
                     + fullPathTemp + ";create=true"); //$NON-NLS-1$
