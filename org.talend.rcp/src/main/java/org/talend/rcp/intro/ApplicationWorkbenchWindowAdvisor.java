@@ -12,7 +12,11 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
@@ -30,6 +35,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
@@ -37,6 +43,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.activities.IWorkbenchActivitySupport;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -44,6 +51,8 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.internal.IWorkbenchConstants;
+import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
@@ -237,6 +246,47 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // feature 19053
         PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
 
+        if (PluginChecker.isBPMloaded()) {
+            IPath path = WorkbenchPlugin.getDefault().getDataLocation();
+            if (path == null) {
+                return;
+            }
+            final File stateFile = path.append("workbench.xml").toFile(); //$NON-NLS-1$
+            if (stateFile.exists()) {
+                IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                IWorkbenchPage activePage = workBenchWindow.getActivePage();
+                FileInputStream input;
+                try {
+                    input = new FileInputStream(stateFile);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input, "utf-8")); //$NON-NLS-1$
+                    IMemento memento = XMLMemento.createReadRoot(reader);
+                    IMemento[] hideMenuArray = memento.getChild(IWorkbenchConstants.TAG_WINDOW)
+                            .getChild(IWorkbenchConstants.TAG_PAGE).getChild(IWorkbenchConstants.TAG_PERSPECTIVES)
+                            .getChild(IWorkbenchConstants.TAG_PERSPECTIVE).getChildren(IWorkbenchConstants.TAG_HIDE_MENU);
+                    if (hideMenuArray.length == 0) {
+                        activePage.resetPerspective();
+                    } else {
+                        // if no bonita menue is filtered ,need to recaculate
+                        String bonitaMenues = "org.bonitasoft.studio";
+                        boolean isBPMFilterWork = false;
+                        for (int i = 0; hideMenuArray != null && i < hideMenuArray.length; i++) {
+                            IMemento hideMenu = hideMenuArray[i];
+                            String string = hideMenu.getString(IWorkbenchConstants.TAG_ID);
+                            if (string != null && string.startsWith(bonitaMenues)) {
+                                isBPMFilterWork = true;
+                                break;
+                            }
+                        }
+                        if (!isBPMFilterWork) {
+                            activePage.resetPerspective();
+                        }
+
+                    }
+                } catch (Exception e) {
+                    // do nothing
+                }
+            }
+        }
         // tmp for token
         final IPreferenceStore store = CoreUIPlugin.getDefault().getPreferenceStore();
         if (!store.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR)) {

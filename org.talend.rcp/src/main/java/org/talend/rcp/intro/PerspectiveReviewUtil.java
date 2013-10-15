@@ -59,7 +59,6 @@ import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.util.PrefUtil;
-import org.talend.core.PluginChecker;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.w3c.dom.Document;
@@ -476,61 +475,34 @@ public final class PerspectiveReviewUtil {
                 }
                 // check if bpm is installed to fix for TUP-647
                 if (!reset) {
-                    if (PluginChecker.isBPMloaded()) {
-                        IMemento[] hideMenuArray = memento.getChildren(IWorkbenchConstants.TAG_HIDE_MENU);
-                        if (hideMenuArray.length == 0) {
-                            stateFile.delete(); // if delete, it will recaculate the hide menus
-                            reset = true;
-                        } else {
-                            // if no bonita menue is filtered ,need to recaculate
-                            String bonitaMenues = "org.bonitasoft.studio";
-                            boolean isBPMFilterWork = false;
-                            for (int i = 0; hideMenuArray != null && i < hideMenuArray.length; i++) {
-                                IMemento hideMenu = hideMenuArray[i];
-                                String string = hideMenu.getString(IWorkbenchConstants.TAG_ID);
-                                if (string != null && string.startsWith(bonitaMenues)) {
-                                    isBPMFilterWork = true;
-                                    break;
-                                }
-                            }
-                            if (!isBPMFilterWork) {
-                                stateFile.delete(); // if delete, it will recaculate the hide menus
-                                reset = true;
-                            }
+                    IMemento window = memento.getChild(IWorkbenchConstants.TAG_WINDOW);
+                    if (window != null) {
+                        IMemento child = window.getChild(IWorkbenchConstants.TAG_INTRO);
+                        if (child != null) {
+                            // child.putBoolean(IWorkbenchConstants.TAG_INTRO, true);
+                            Class<? extends IMemento> mementoClass = window.getClass();
+                            Field factoryField = mementoClass.getDeclaredField("factory");
+                            Field elementFied = mementoClass.getDeclaredField("element");
+                            if (factoryField != null && elementFied != null) {
+                                elementFied.setAccessible(true);
+                                factoryField.setAccessible(true);
+                                Element element = (Element) elementFied.get(child);
+                                Element winElement = (Element) elementFied.get(window);
+                                Document document = (Document) factoryField.get(window);
+                                winElement.removeChild(element.getNextSibling());
+                                winElement.removeChild(element);
 
-                        }
-                    }
+                                document.normalize();
+                                FileOutputStream stream = new FileOutputStream(stateFile);
+                                OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8"); //$NON-NLS-1$
+                                Transformer tf = TransformerFactory.newInstance().newTransformer();
 
-                    if (!reset) {
-                        IMemento window = memento.getChild(IWorkbenchConstants.TAG_WINDOW);
-                        if (window != null) {
-                            IMemento child = window.getChild(IWorkbenchConstants.TAG_INTRO);
-                            if (child != null) {
-                                // child.putBoolean(IWorkbenchConstants.TAG_INTRO, true);
-                                Class<? extends IMemento> mementoClass = window.getClass();
-                                Field factoryField = mementoClass.getDeclaredField("factory");
-                                Field elementFied = mementoClass.getDeclaredField("element");
-                                if (factoryField != null && elementFied != null) {
-                                    elementFied.setAccessible(true);
-                                    factoryField.setAccessible(true);
-                                    Element element = (Element) elementFied.get(child);
-                                    Element winElement = (Element) elementFied.get(window);
-                                    Document document = (Document) factoryField.get(window);
-                                    winElement.removeChild(element.getNextSibling());
-                                    winElement.removeChild(element);
+                                tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                                tf.setOutputProperty(OutputKeys.INDENT, "yes");
+                                tf.transform(new DOMSource(document), new StreamResult(writer));
 
-                                    document.normalize();
-                                    FileOutputStream stream = new FileOutputStream(stateFile);
-                                    OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8"); //$NON-NLS-1$
-                                    Transformer tf = TransformerFactory.newInstance().newTransformer();
+                                writer.close();
 
-                                    tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-                                    tf.setOutputProperty(OutputKeys.INDENT, "yes");
-                                    tf.transform(new DOMSource(document), new StreamResult(writer));
-
-                                    writer.close();
-
-                                }
                             }
                         }
                     }
