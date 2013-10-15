@@ -402,7 +402,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public String get(ModuleToInstall bean) {
-                return bean.getUrl_description();
+                return bean.getUrl_description() != null ? bean.getUrl_description() : ""; //$NON-NLS-1$
             }
 
             @Override
@@ -608,6 +608,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 } catch (BusinessException e1) {// log the error and consider as unsinstalled
                     log.error(e1);
                 }
+                boolean hasDownloadUrl = data.getUrl_description() != null;
                 if (data.getUrl_download() != null) {// add the button to download
                     final Button button = new Button(table, SWT.FLAT);
                     control = button;
@@ -628,31 +629,30 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     Composite composite = new Composite(table, SWT.NONE);
                     composite.setBackground(color);
                     control = composite;
-                    GridLayout layout = new GridLayout(2, false);
+                    GridLayout layout = new GridLayout(hasDownloadUrl ? 2 : 1, false);
                     layout.marginHeight = 0;
                     layout.verticalSpacing = 1;
                     composite.setLayout(layout);
-                    // GridData gData = new GridData(GridData.FILL_HORIZONTAL);
-                    // gData.horizontalAlignment = SWT.CENTER;
-                    // gData.verticalAlignment = SWT.CENTER;
-                    Link openLink = new Link(composite, SWT.NONE);
-                    GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(openLink);
-                    openLink.setBackground(color);
-                    // openLink.setLayoutData(gData);
-                    openLink.setText("<a href=\"\">" + Messages.getString("ExternalModulesInstallDialog.openInBrowser") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                    openLink.addSelectionListener(new SelectionAdapter() {
+                    if (hasDownloadUrl) {
+                        Link openLink = new Link(composite, SWT.NONE);
+                        GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(openLink);
+                        openLink.setBackground(color);
+                        // openLink.setLayoutData(gData);
+                        openLink.setText("<a href=\"\">" + Messages.getString("ExternalModulesInstallDialog.openInBrowser") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        openLink.addSelectionListener(new SelectionAdapter() {
 
-                        @Override
-                        public void widgetSelected(final SelectionEvent e) {
-                            Program.launch(data.getUrl_description());
-                        }
-                    });
+                            @Override
+                            public void widgetSelected(final SelectionEvent e) {
+                                Program.launch(data.getUrl_description());
+                            }
+                        });
+                    }// else no download URL so just add the install buttonb
                     Button importButton = new Button(composite, SWT.FLAT);
                     importButton.setImage(ImageProvider.getImage(ECoreImage.IMPORT_JAR));
                     importButton.setToolTipText(Messages.getString("ImportExternalJarAction.title")); //$NON-NLS-1$
                     importButton.addSelectionListener(new ImportButtonSelectionListener(item));
                     manualInstallButtonMap.put(data, importButton);
-                    GridDataFactory.fillDefaults().applyTo(importButton);
+                    GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).grab(true, false).applyTo(importButton);
                     importButton.setEnabled(!isInstalled);
                 }
                 editor.grabHorizontal = true;
@@ -674,7 +674,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 final Link openLink = new Link(composite, SWT.NONE);
                 openLink.setLayoutData(gData);
                 openLink.setBackground(color);
-                openLink.setText("<a href=\"\">" + data.getUrl_description() + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
+                openLink.setText("<a href=\"\">" + (hasDownloadUrl ? data.getUrl_description() : "") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
                 openLink.addSelectionListener(new SelectionAdapter() {
 
                     @Override
@@ -914,39 +914,5 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.talend.librariesmanager.ui.dialogs.IModulesListener#checkUnavailableModules(java.lang.String[],java.lang.
-     * String)
-     */
-    @Override
-    public void checkUnavailableModules(final String[] unavailableModules, final String reason) {
-        final StringBuffer sb = new StringBuffer();
-        if (unavailableModules != null) {
-            int length = unavailableModules.length;
-            for (int i = 0; i < length; i++) {
-                sb.append(unavailableModules[i]);
-                if (i < length - 1) {
-                    sb.append(',');
-                    sb.append(' ');
-                }
-            }
-        }
-        if (sb.length() > 0) {
-            Display.getDefault().syncExec(new Runnable() {
-
-                @Override
-                public void run() {
-                    MessageDialog.openWarning(getShell(),
-                            Messages.getString("ExternalModulesInstallDialog_NoAvailabeModulesTitle"), //$NON-NLS-1$
-                            (reason != null && reason.length() > 0 ? reason + "\n\n" : "") //$NON-NLS-1$  //$NON-NLS-2$
-                                    + Messages.getString("ExternalModulesInstallDialog_NoAvailabeModulesMessages", sb.toString())); //$NON-NLS-1$
-                }
-            });
-        }
-
-    }
 
 }

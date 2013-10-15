@@ -79,7 +79,8 @@ public class RemoteModulesHelper {
          */
         private final Map<String, List<ModuleNeeded>> contextMap;
 
-        private Set<String> unavailableModules = new HashSet<String>();
+        // TODO to be removed
+        private Set<String> globalUnavailableModulesToBeRemoved = new HashSet<String>();
 
         private String messages;
 
@@ -98,7 +99,7 @@ public class RemoteModulesHelper {
         }
 
         public String[] getUnavailableModules() {
-            return this.unavailableModules.toArray(new String[0]);
+            return this.globalUnavailableModulesToBeRemoved.toArray(new String[globalUnavailableModulesToBeRemoved.size()]);
         }
 
         public String getMessages() {
@@ -109,108 +110,175 @@ public class RemoteModulesHelper {
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             String[] jars = jarNames.split(SEPARATOR_SLIP);
             int size = jars.length;
+            Set<String> unavailableModules = new HashSet<String>();
             monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10);//$NON-NLS-1$
-            try {
-                // if the network is not valid, all jars are not available.
-                boolean networkValid = NetworkUtil.isNetworkValid();
-                if (!networkValid) {
-                    unavailableModules.addAll(Arrays.asList(jars));
-                    messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
-                    return;
-                }
+            // if the network is not valid, all jars are not available.
+            boolean networkValid = NetworkUtil.isNetworkValid();
+            if (!networkValid) {
+                globalUnavailableModulesToBeRemoved.addAll(Arrays.asList(jars));
+                unavailableModules.addAll(Arrays.asList(jars));
+                messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
+            } else {
 
-                int index = 0;
-                int limit = 100;
-                while (index < jars.length) {
-                    // get block of 100 jars
-                    String jarsToCheck = "";
-                    while (index < limit && index < jars.length) {
-                        jarsToCheck += jars[index];
-                        index++;
-                        if (index < limit && index < jars.length) {
-                            jarsToCheck += "|";
+                try {
+                    int index = 0;
+                    int limit = 100;
+                    while (index < jars.length) {
+                        // get block of 100 jars
+                        String jarsToCheck = "";
+                        while (index < limit && index < jars.length) {
+                            jarsToCheck += jars[index];
+                            index++;
+                            if (index < limit && index < jars.length) {
+                                jarsToCheck += "|";
+                            }
                         }
-                    }
-                    limit += 100;
-                    JSONObject message = new JSONObject();
-                    JSONObject child = new JSONObject();
-                    child.put("vaction", "getModules");//$NON-NLS-1$
-                    child.put("name", jarsToCheck);//$NON-NLS-1$
-                    message.put("module", child);//$NON-NLS-1$
-                    String url = serviceUrl + "?data=" + message;
-                    monitor.worked(10);
-                    if (monitor.isCanceled()) {
-                        return;
-                    }
-                    JSONObject resultStr = readJsonFromUrl(url);
-                    if (resultStr != null) {
-                        JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
-                        if (jsonArray != null) {
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                if (obj != null) {
-                                    String url_description = obj.getString("url_description");//$NON-NLS-1$
-                                    String url_download = obj.getString("url_download");//$NON-NLS-1$
-                                    String name = obj.getString("filename");//$NON-NLS-1$
-                                    if ((url_description == null && url_download == null)
-                                            || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
-                                            .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
-                                        ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
-                                        if (CommonsPlugin.isDebugMode()) {
-                                            appendToLogFile(name + "\n");
+                        limit += 100;
+                        JSONObject message = new JSONObject();
+                        JSONObject child = new JSONObject();
+                        child.put("vaction", "getModules");//$NON-NLS-1$
+                        child.put("name", jarsToCheck);//$NON-NLS-1$
+                        message.put("module", child);//$NON-NLS-1$
+                        String url = serviceUrl + "?data=" + message;
+                        monitor.worked(10);
+                        if (monitor.isCanceled()) {
+                            return;
+                        }
+                        JSONObject resultStr = readJsonFromUrl(url);
+                        if (resultStr != null) {
+                            JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
+                            if (jsonArray != null) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+                                    if (obj != null) {
+                                        String url_description = obj.getString("url_description");//$NON-NLS-1$
+                                        String url_download = obj.getString("url_download");//$NON-NLS-1$
+                                        String name = obj.getString("filename");//$NON-NLS-1$
+                                        if ((url_description == null && url_download == null)
+                                                || (("".equals(url_description) || "null".equals(url_description)) && (""//$NON-NLS-1$
+                                                .equals(url_download) || "null".equals(url_download)))) {//$NON-NLS-1$
+                                            ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$
+                                            if (CommonsPlugin.isDebugMode()) {
+                                                appendToLogFile(name + "\n");
+                                            }
+                                            // keep null in cache no need to check from server again
+                                            cache.put(name, null);
+                                            globalUnavailableModulesToBeRemoved.add(name);
+                                            unavailableModules.add(name);
+                                            continue;
                                         }
-                                        // keep null in cache no need to check from server again
-                                        cache.put(name, null);
-                                        unavailableModules.add(name);
-                                        continue;
-                                    }
 
-                                    ModuleToInstall m = new ModuleToInstall();
+                                        ModuleToInstall m = new ModuleToInstall();
 
-                                    m.setName(name);
-                                    if (this.contextMap != null) {
-                                        List<ModuleNeeded> nm = this.contextMap.get(m.getName());
-                                        m.setContext(getContext(nm));
-                                        m.setRequired(isRequired(nm));
-                                    } else {
-                                        m.setContext("Current Operation");//$NON-NLS-1$
-                                        m.setRequired(true);
+                                        m.setName(name);
+                                        setContext(m, contextMap);
+                                        String license = obj.getString("licence");//$NON-NLS-1$
+                                        m.setLicenseType(license);
+                                        if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
+                                            m.setLicenseType(null);
+                                        }
+                                        String description = obj.getString("description");//$NON-NLS-1$
+                                        if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
+                                            description = m.getName();
+                                        }
+                                        m.setDescription(description);
+                                        m.setUrl_description(url_description);
+                                        if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
+                                            m.setUrl_download(null);
+                                        } else {
+                                            m.setUrl_download(url_download);
+                                        }
+                                        this.toInstall.add(m);
+                                        cache.put(m.getName(), m);
                                     }
-                                    String license = obj.getString("licence");//$NON-NLS-1$
-                                    m.setLicenseType(license);
-                                    if ("".equals(license) || "null".equals(license)) {//$NON-NLS-1$
-                                        m.setLicenseType(null);
+                                    if (monitor.isCanceled()) {
+                                        return;
                                     }
-                                    String description = obj.getString("description");//$NON-NLS-1$
-                                    if (description == null || "".equals(description) || "null".equals(description)) {//$NON-NLS-1$
-                                        description = m.getName();
-                                    }
-                                    m.setDescription(description);
-                                    m.setUrl_description(url_description);
-                                    if (url_download == null || "".equals(url_download) || "null".equals(url_download)) {//$NON-NLS-1$
-                                        m.setUrl_download(null);
-                                    } else {
-                                        m.setUrl_download(url_download);
-                                    }
-                                    this.toInstall.add(m);
-                                    cache.put(m.getName(), m);
+                                    monitor.worked(10);
                                 }
-                                if (monitor.isCanceled()) {
-                                    return;
-                                }
-                                monitor.worked(10);
                             }
                         }
                     }
+                } catch (JSONException e) {
+                    ExceptionHandler.process(e);
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
                 }
-            } catch (JSONException e) {
-                ExceptionHandler.process(e);
-            } catch (IOException e) {
-                ExceptionHandler.process(e);
             }
-
+            addUnavailableModulesToToBeInstalledModules(unavailableModules, toInstall, contextMap);
             monitor.done();
         }
+
+    }
+
+    /**
+     * DOC sgandon Comment method "addUnavailableModulesToToBeInstalledModules".
+     * 
+     * @param unavailableModules
+     * @param toInstall2
+     * @param contextMap
+     */
+    protected void addUnavailableModulesToToBeInstalledModules(Set<String> unavailableModules, List<ModuleToInstall> toInstall2,
+            Map<String, List<ModuleNeeded>> contextMap) {
+        // add all unavailable modules, cause they need to be installed even if the are not available from remote
+        // site.
+        for (String unavailableModuleName : unavailableModules) {
+            ModuleToInstall m = createUnavailableModuleToInstall(unavailableModuleName, contextMap);
+            toInstall2.add(m);
+        }
+    }
+
+    /**
+     * DOC sgandon Comment method "createUnavailableModuleToInstall".
+     * 
+     * @param unavailableModuleName
+     * @param contextMap
+     * @return
+     */
+    private ModuleToInstall createUnavailableModuleToInstall(String unavailableModuleName,
+            Map<String, List<ModuleNeeded>> contextMap) {
+        ModuleToInstall m = new ModuleToInstall();
+        m.setName(unavailableModuleName);
+        setContext(m, contextMap);
+        m.setDescription(getFirstDescription(contextMap.get(unavailableModuleName)));
+
+        return m;
+    }
+
+    /**
+     * DOC sgandon Comment method "setContext".
+     * 
+     * @param m
+     * @param contextMap
+     */
+    protected void setContext(ModuleToInstall m, Map<String, List<ModuleNeeded>> contextMap) {
+        if (contextMap != null) {
+            List<ModuleNeeded> nm = contextMap.get(m.getName());
+            m.setContext(getContext(nm));
+            m.setRequired(isRequired(nm));
+        } else {
+            m.setContext("Current Operation");//$NON-NLS-1$
+            m.setRequired(true);
+        }
+    }
+
+    /**
+     * DOC sgandon Comment method "getDescription".
+     * 
+     * @param nm
+     * @return
+     */
+    private String getFirstDescription(List<ModuleNeeded> neededModules) {
+        if (neededModules == null) {
+            return ""; //$NON-NLS-1$
+        }
+        for (ModuleNeeded module : neededModules) {
+            if (module.getInformationMsg() != null && !"".equals(module.getInformationMsg())) { //$NON-NLS-1$
+                return module.getInformationMsg();
+            }
+        }
+        return ""; //$NON-NLS-1$
+
     }
 
     private void appendToLogFile(String logTxt) {
@@ -271,14 +339,6 @@ public class RemoteModulesHelper {
             IModulesListener listener, boolean isUser) {
         RemoteModulesFetchRunnable fecthUninstalledModulesRunnable = getNotInstalledModulesRunnable(neededModules, toInstall);
         if (fecthUninstalledModulesRunnable == null) {
-            Set<String> unavailableModules = new HashSet<String>();
-            for (ModuleNeeded module : neededModules) {
-                String moduleName = module.getModuleName().trim();
-                if (cache.get(moduleName) == null) { // not available on site.
-                    unavailableModules.add(moduleName);
-                }
-            }
-            listener.checkUnavailableModules(unavailableModules.toArray(new String[0]), null);
             listener.listModulesDone();
             return;
         }
@@ -314,6 +374,8 @@ public class RemoteModulesHelper {
                 contextMap.get(moduleName).add(module);
             }
         }
+        String jarNames = jars.toString();
+        Set<String> notCachedModulesName = new HashSet<String>();
         // get from cache first
         if (!cache.isEmpty()) {
             for (String moduleName : contextMap.keySet()) {
@@ -322,12 +384,14 @@ public class RemoteModulesHelper {
                     List<ModuleNeeded> moduleContext = contextMap.get(moduleName);
                     moduleToInstall.setContext(getContext(moduleContext));
                     toInstall.add(moduleToInstall);
-                }// else no found in cache
+                } else {// else not found in cache
+                    notCachedModulesName.add(moduleName);
+                }
             }
         }
 
-        String jarNames = jars.toString();
         if (jarNames.isEmpty()) {
+            addUnavailableModulesToToBeInstalledModules(notCachedModulesName, toInstall, contextMap);
             return null; // if all have been in cache, no need fetching runnable again.
         }
         // fetch the jars which are not in cache.
@@ -356,10 +420,6 @@ public class RemoteModulesHelper {
 
         String toInstallJarNames = toInstalljars.toString();
         if (toInstallJarNames.isEmpty()) {
-            /*
-             * no need do check, because it had contained the un-existed and unavailable modules
-             */
-            // listener.checkUnavailableModules(...);
             listener.listModulesDone();
             return;
         }
@@ -390,7 +450,6 @@ public class RemoteModulesHelper {
 
             @Override
             public void done(IJobChangeEvent event) {
-                listener.checkUnavailableModules(runnableWithProgress.getUnavailableModules(), runnableWithProgress.getMessages());
                 listener.listModulesDone();
             }
         });

@@ -18,7 +18,6 @@ package org.talend.librariesmanager.ui.dialogs;
  */
 public interface IModulesListener {
 
-    public void checkUnavailableModules(final String[] unavailableModules, final String reason);
 
     public void listModulesDone();
 
