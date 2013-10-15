@@ -14,12 +14,12 @@ Require-Bundle: org.eclipse.ui,
  org.talend.utils,
  org.apache.log4j,
  javax.xml.rpc,
- org.eclipse.xsd
+ org.eclipse.xsd,
+ javax.wsdl,
+ org.apache.axis
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.talend.testutils
 Export-Package: metadata.managment.i18n,
- org.apache.axis,
- org.apache.axis.client,
  org.talend.core.database.utils,
  org.talend.core.model,
  org.talend.core.model.metadata,
@@ -34,9 +34,7 @@ Export-Package: metadata.managment.i18n,
  org.talend.metadata.managment.hive
 Bundle-ClassPath: .,
  lib/mdm_webservice.jar,
- lib/axis.jar,
- lib/commons-discovery-0.2.jar,
- lib/wsdl4j-1.5.1.jar
+ lib/commons-discovery-0.2.jar
 
 
 
