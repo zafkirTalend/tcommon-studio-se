@@ -108,7 +108,7 @@ public class TalendHookAdaptor implements AdaptorHook {
             return new File(libFolderSysProp);
         } else {
             Location installLocation = getInstallLocation(context);
-            File installFolder = new File(installLocation.getURL().toURI());
+            File installFolder = URIUtil.toFile(URIUtil.toURI(installLocation.getURL()));
             return new File(installFolder, System.getProperty("org.talend.lib.subfolder", LIB_JAVA_SUB_FOLDER)); //$NON-NLS-1$
         }
 
