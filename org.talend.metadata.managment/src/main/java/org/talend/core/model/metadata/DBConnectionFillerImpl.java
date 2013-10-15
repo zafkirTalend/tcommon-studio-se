@@ -212,6 +212,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return rc;
     }
 
+    /**
+     * From r94372 , we should never give a null parameter "IMetadataConnection metaConnection" , because we used this
+     * parameter for some kind of databases...
+     */
+    @Deprecated
     public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter) {
         return fillSchemas(dbConn, dbJDBCMetadata, null, Filter);
     }
