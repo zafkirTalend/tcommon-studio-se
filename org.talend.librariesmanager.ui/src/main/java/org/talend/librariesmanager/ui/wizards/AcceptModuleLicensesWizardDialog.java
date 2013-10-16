@@ -57,7 +57,7 @@ public class AcceptModuleLicensesWizardDialog extends WizardDialog {
             for (ModuleToInstall module : modulesToInstall) {
                 String licenseType = module.getLicenseType();
                 if (licenseType != null) {
-                    LibManagerUiPlugin.getDefault().getPreferenceStore().setValue(module.getLicenseType(), true);
+                    LibManagerUiPlugin.getDefault().getPreferenceStore().setValue(licenseType, true);
                 }
             }
         }
