@@ -19,10 +19,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.download.DownloadHelperWithProgress;
 import org.talend.core.language.ECodeLanguage;
@@ -30,6 +34,8 @@ import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
+import org.talend.librariesmanager.ui.wizards.AcceptModuleLicensesWizard;
+import org.talend.librariesmanager.ui.wizards.AcceptModuleLicensesWizardDialog;
 
 abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
@@ -55,7 +61,9 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
     public void run(final IProgressMonitor monitor) {
         SubMonitor subMonitor = SubMonitor.convert(monitor,
                 Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() * 10 + 5); //$NON-NLS-1$
-        downLoad(subMonitor);
+        if (checkAndAcceptLicenses()) {
+            downLoad(subMonitor);
+        }
         if (monitor != null) {
             monitor.done();
         }
@@ -76,11 +84,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                         // check license
                         boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
                                 .getBoolean(module.getLicenseType());
-                        if (!isLicenseAccepted) {
-                            accepted = acceptLicence(module);
-                        } else {
-                            accepted = true;
-                        }
+                        accepted = isLicenseAccepted;
                         if (!accepted) {
                             monitor.worked(5);
                             continue;
@@ -115,6 +119,46 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
             monitor.worked(5);
         }
 
+    }
+
+    protected boolean hasLicensesToAccept() {
+        if (toDownload != null && toDownload.size() > 0) {
+            for (ModuleToInstall module : toDownload) {
+                String licenseType = module.getLicenseType();
+                if (licenseType != null) {
+                    boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
+                            .getBoolean(module.getLicenseType());
+                    if (!isLicenseAccepted) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean checkAndAcceptLicenses() {
+        final AtomicBoolean accepted = new AtomicBoolean(true);
+        if (hasLicensesToAccept()) {
+            Display.getDefault().syncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard(toDownload);
+                    AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog(PlatformUI
+                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload);
+                    wizardDialog.setPageSize(700, 380);
+                    wizardDialog.create();
+                    if (wizardDialog.open() != Window.OK) {
+                        accepted.set(false);
+                    }
+                }
+            });
+
+        }
+
+        return accepted.get();
     }
 
     /**
