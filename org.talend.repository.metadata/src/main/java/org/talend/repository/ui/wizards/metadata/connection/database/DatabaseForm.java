@@ -2036,6 +2036,7 @@ public class DatabaseForm extends AbstractForm {
                 || EDatabaseConnTemplate.MYSQL.getDBDisplayName().equals(dbTypeCombo.getText())
                 || EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(dbTypeCombo.getText())
                 || EDatabaseConnTemplate.PLUSPSQL.getDBDisplayName().equals(dbTypeCombo.getText())
+                || EDatabaseConnTemplate.VERTICA.getDBDisplayName().equals(dbTypeCombo.getText())
                 || EDatabaseConnTemplate.PSQL.getDBDisplayName().equals(dbTypeCombo.getText());
     }
 
