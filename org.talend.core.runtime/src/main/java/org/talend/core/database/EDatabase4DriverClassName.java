@@ -58,7 +58,7 @@ public enum EDatabase4DriverClassName {
     ORACLE_RAC(EDatabaseTypeName.ORACLE_RAC, "oracle.jdbc.OracleDriver", "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$ //$NON-NLS-2$
 
     PARACCEL(EDatabaseTypeName.PARACCEL, "com.paraccel.Driver"), //$NON-NLS-1$
-    REDSHIFT(EDatabaseTypeName.REDSHIFT, "com.paraccel.Driver"), //$NON-NLS-1$
+    REDSHIFT(EDatabaseTypeName.REDSHIFT, "org.postgresql.Driver"), //$NON-NLS-1$
 
     PLUSPSQL(EDatabaseTypeName.PLUSPSQL, "org.postgresql.Driver"), //$NON-NLS-1$
     PSQL(EDatabaseTypeName.PSQL, "org.postgresql.Driver"), //$NON-NLS-1$
