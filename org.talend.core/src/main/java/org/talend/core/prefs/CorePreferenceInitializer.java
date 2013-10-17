@@ -98,6 +98,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         }
         String languageType = Locale.getDefault().getLanguage();
+        if (Locale.getDefault().equals(Locale.CHINA)) {
+            languageType = Locale.SIMPLIFIED_CHINESE.toString();
+        }
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.AS400_SQL_SEG, true);
