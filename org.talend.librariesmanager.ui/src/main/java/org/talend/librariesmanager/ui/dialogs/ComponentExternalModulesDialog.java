@@ -37,6 +37,16 @@ public class ComponentExternalModulesDialog extends ExternalModulesInstallDialog
 
     private Button doNotShowBtn;
 
+    private String coponentName;
+
+    public String getCoponentName() {
+        return this.coponentName;
+    }
+
+    public void setCoponentName(String coponentName) {
+        this.coponentName = coponentName;
+    }
+
     /**
      * DOC Administrator ComponentExternalModulesDialog constructor comment.
      * 
