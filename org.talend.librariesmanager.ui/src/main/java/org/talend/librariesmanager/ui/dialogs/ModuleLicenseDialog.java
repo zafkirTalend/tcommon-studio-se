@@ -23,8 +23,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
+import org.talend.librariesmanager.utils.RemoteModulesHelper;
 
 /**
  * created by WCHEN on 2012-9-18 Detailled comment
@@ -32,7 +35,9 @@ import org.talend.librariesmanager.ui.i18n.Messages;
  */
 public class ModuleLicenseDialog extends Dialog {
 
-    private Browser clufText;
+    private Browser clufTextBrowser;
+
+    private Text clufText;
 
     private String licenseUrl;
 
@@ -87,16 +92,35 @@ public class ModuleLicenseDialog extends Dialog {
         subTitleLabel.setText(desc);
         subTitleLabel.setLayoutData(data);
 
-        clufText = new Browser(container, SWT.MULTI | SWT.WRAP | SWT.LEFT | SWT.BORDER);
-        clufText.setBackground(new Color(null, 255, 255, 255));
-        if (licenseUrl != null) {
-            clufText.setUrl(licenseUrl);
-        } else {
-            clufText.setText(desc);
-        }
-        data = new GridData(GridData.FILL_BOTH);
-        clufText.setLayoutData(data);
+        Control culfTextControl = null;
+        if (TalendPropertiesUtil.isEnabledUseBrowser()) {
+            clufTextBrowser = new Browser(container, SWT.MULTI | SWT.WRAP | SWT.LEFT | SWT.BORDER);
+            culfTextControl = clufTextBrowser;
 
+            if (licenseUrl != null) {
+                clufTextBrowser.setUrl(licenseUrl);
+            } else {
+                clufTextBrowser.setText(desc);
+            }
+        } else {
+            clufText = new Text(container, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY | SWT.V_SCROLL | SWT.H_SCROLL);
+            culfTextControl = clufText;
+
+            String licenseContent = RemoteModulesHelper.getInstance().getLicenseContentByUrl(licenseUrl);
+            if (licenseUrl != null) {
+                if (licenseContent != null) {
+                    clufText.setText(licenseContent);
+                } else {
+                    clufText.setText(Messages.getString("AcceptModuleLicensesWizardPage.licenseContent.defaultDesc")); //$NON-NLS-1$
+                }
+            } else {
+                clufText.setText(desc);
+            }
+        }
+        if (culfTextControl != null) {
+            culfTextControl.setBackground(new Color(null, 255, 255, 255));
+            culfTextControl.setLayoutData(new GridData(GridData.FILL_BOTH));
+        }
         return parent;
     }
 

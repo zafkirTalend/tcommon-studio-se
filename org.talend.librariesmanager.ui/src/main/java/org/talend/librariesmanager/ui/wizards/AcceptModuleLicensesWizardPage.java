@@ -33,9 +33,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -58,6 +60,8 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
     private TreeViewer licenseTypeViewer;
 
     private Browser licenseTextBox;
+
+    private Text licenseText;
 
     private Button acceptButton;
 
@@ -171,14 +175,18 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
 
         Label label = new Label(composite, SWT.NONE);
         label.setText(Messages.getString("AcceptModuleLicensesWizardPage.licenseContent.label")); //$NON-NLS-1$
+        if (TalendPropertiesUtil.isEnabledUseBrowser()) {
+            licenseTextBox = new Browser(composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.READ_ONLY);
+            licenseTextBox.setBackground(licenseTextBox.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 
-        licenseTextBox = new Browser(composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.READ_ONLY);
-        licenseTextBox.setBackground(licenseTextBox.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
-
-        initializeDialogUnits(licenseTextBox);
-        gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-        licenseTextBox.setLayoutData(gd);
-
+            initializeDialogUnits(licenseTextBox);
+            gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+            licenseTextBox.setLayoutData(gd);
+        } else {
+            licenseText = new Text(composite, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY | SWT.V_SCROLL | SWT.H_SCROLL);
+            initializeDialogUnits(licenseText);
+            licenseText.setLayoutData(new GridData(GridData.FILL_BOTH));
+        }
         createLicenseAcceptSection(composite);
 
         setControl(composite);
@@ -234,10 +242,20 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
                 acceptButton.setSelection(isLicenseAccepted);
                 declineButton.setSelection(!isLicenseAccepted);
                 String url = license.getUrl();
-                if (url != null) {
-                    licenseTextBox.setUrl(url);
-                } else {
-                    licenseTextBox.setText(Messages.getString("AcceptModuleLicensesWizardPage.licenseContent.defaultDesc")); //$NON-NLS-1$
+
+                if (TalendPropertiesUtil.isEnabledUseBrowser() && licenseTextBox != null) {
+                    if (url != null) {
+                        licenseTextBox.setUrl(url);
+                    } else {
+                        licenseTextBox.setText(Messages.getString("AcceptModuleLicensesWizardPage.licenseContent.defaultDesc")); //$NON-NLS-1$
+                    }
+                } else if (licenseText != null) {
+                    String licenseContent = RemoteModulesHelper.getInstance().getLicenseContentByUrl(url);
+                    if (licenseContent != null) {
+                        licenseText.setText(licenseContent);
+                    } else {
+                        licenseText.setText(Messages.getString("AcceptModuleLicensesWizardPage.licenseContent.defaultDesc")); //$NON-NLS-1$
+                    }
                 }
             }
         }

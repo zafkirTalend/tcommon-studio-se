@@ -13,6 +13,7 @@
 package org.talend.librariesmanager.utils;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +21,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -608,5 +611,41 @@ public class RemoteModulesHelper {
         } else {
             return createRemoteModuleFetchRunnable(toInstallJarNames, toInstall, null);
         }
+    }
+
+    public String getLicenseContentByUrl(String licenseUrl) {
+        if (licenseUrl != null && licenseUrl.length() > 0) {
+            try {
+                URL url = new URL(licenseUrl);
+                URLConnection urlConnection = url.openConnection();
+                Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
+                if (headerFields != null) {
+                    List<String> contentType = headerFields.get("Content-Type"); //$NON-NLS-1$
+                    if (contentType != null) {
+                        if (contentType.contains("text/plain")) { //$NON-NLS-1$
+                            // Get the plain text from connection.
+                            InputStream inputStream = urlConnection.getInputStream();
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream(500);
+                            byte[] b = new byte[1024];
+                            int len;
+                            while ((len = inputStream.read(b)) != -1) {
+                                baos.write(b, 0, len);
+                            }
+                            inputStream.close();
+                            return baos.toString();
+
+                            // } else if (contentType.contains("text/html")) {
+                            // return url too.
+                        }
+                    }
+                }
+                return licenseUrl; // else, just return the URL.
+            } catch (MalformedURLException e) {
+                //
+            } catch (IOException e) {
+                //
+            }
+        }
+        return null;
     }
 }
