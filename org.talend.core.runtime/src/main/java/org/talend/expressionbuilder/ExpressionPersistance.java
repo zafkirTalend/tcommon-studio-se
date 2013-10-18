@@ -20,11 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
@@ -313,25 +311,15 @@ public class ExpressionPersistance {
                         .getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 Project project = repositoryContext.getProject();
                 IProject p = root.getProject(project.getTechnicalLabel());
+                String projectPath = p.getLocation().toPortableString();
+                String configurationPath = projectPath + File.separator + ExpressionPersistance.CONFIGURATION_FOLDER_NAME;
+                configurationPath = getValidFolderPath(configurationPath, 1);
 
-                IFolder configurationFolder = p.getFolder(CONFIGURATION_FOLDER_NAME);
-                if (!configurationFolder.exists()) {
-                    try {
-                        configurationFolder.create(true, true, null);
-                    } catch (CoreException e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
+                String expressionPath = configurationPath + File.separator + ExpressionPersistance.EXPRESSION_FOLDER_NAME;
+                expressionPath = getValidFolderPath(expressionPath, 1);
+                File expressionFolder = new File(expressionPath);
 
-                IFolder expressionFolder = configurationFolder.getFolder(EXPRESSION_FOLDER_NAME);
-                if (!expressionFolder.exists()) {
-                    try {
-                        expressionFolder.create(true, true, null);
-                    } catch (CoreException e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
-                path = expressionFolder.getLocation().toOSString();
+                path = expressionFolder.getAbsolutePath();
             }
 
             int index = path.indexOf(EXPRESSION_FOLDER_NAME) + EXPRESSION_FOLDER_NAME.length();
@@ -340,6 +328,16 @@ public class ExpressionPersistance {
         }
 
         return rootFolderPath;
+
+    }
+
+    public String getValidFolderPath(String path, int suffix) {
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            path = path + suffix;
+            return getValidFolderPath(path, suffix);
+        }
+        return path;
 
     }
 
