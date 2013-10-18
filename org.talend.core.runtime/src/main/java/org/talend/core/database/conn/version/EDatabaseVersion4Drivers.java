@@ -129,7 +129,7 @@ public enum EDatabaseVersion4Drivers {
     // Changed by Marvin Wang on Oct.9, 2012, just because the libs checking can not pass, Remy updated some jars from
     HBASE(new DbVersion4Drivers(EDatabaseTypeName.HBASE, new String[] {})),
 
-    REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "postgresql-8.4-703.jdbc4.jar")); //$NON-NLS-1$
+    REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$
 
     private DbVersion4Drivers dbVersionBean;
 
