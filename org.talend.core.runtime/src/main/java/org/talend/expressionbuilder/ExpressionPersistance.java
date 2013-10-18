@@ -45,6 +45,7 @@ import org.talend.core.model.expression.ExpressionFactory;
 import org.talend.core.model.expression.ExpressionPackage;
 import org.talend.core.model.general.Project;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -311,7 +312,7 @@ public class ExpressionPersistance {
                         .getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 Project project = repositoryContext.getProject();
                 IProject p = root.getProject(project.getTechnicalLabel());
-                String projectPath = p.getLocation().toPortableString();
+                String projectPath = p.getLocation().toPortableString() + File.separator + RepositoryConstants.TEMP_DIRECTORY;
                 String configurationPath = projectPath + File.separator + ExpressionPersistance.CONFIGURATION_FOLDER_NAME;
                 configurationPath = getValidFolderPath(configurationPath, 1);
 
