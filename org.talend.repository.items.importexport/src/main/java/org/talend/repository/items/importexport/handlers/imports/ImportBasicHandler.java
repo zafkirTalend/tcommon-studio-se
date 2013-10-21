@@ -190,8 +190,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#populateItemRecord(org.eclipse.core.
-     * runtime.IProgressMonitor, org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#populateItemRecord(org.eclipse.
+     * core. runtime.IProgressMonitor,
+     * org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
      * org.eclipse.core.runtime.IPath, boolean, java.util.List)
      */
     @Override
@@ -380,14 +381,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     // same name and same id
                     itemRecord.setState(State.NAME_AND_ID_EXISTED);
                     if (overwrite) {
-                        if (itemWithSameNameObj != null
-                                && itemWithSameIdObj != null
-                                && !itemWithSameNameObj.getProperty().getLabel()
-                                        .equals(itemWithSameIdObj.getProperty().getLabel())) { // ??
-                            // if anything system, don't replace the source item if same name.
-                            // if not from system, can overwrite.
-                            itemRecord.setExistingItemWithSameId(itemWithSameNameObj);
-                        }
+                        itemRecord.setExistingItemWithSameId(itemWithSameNameObj);
                     }
                 }
                 if (!overwrite) {
@@ -411,12 +405,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     /**
      * 
-     * different id with same name.
+     * item with same name.
      */
     protected boolean isSameName(ItemRecord itemRecord, IRepositoryViewObject repObject) {
         final Property property = itemRecord.getProperty();
         if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(repObject.getLabel())) // same label
-                && (property.getId() != null && !property.getId().equals(repObject.getId())) // different id
         ) {
             return true;
         }
@@ -608,8 +601,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#importItemRecord(org.eclipse.core.runtime
-     * .IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#importItemRecord(org.eclipse.core
+     * .runtime .IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
      * org.talend.repository.items.importexport.handlers.model.ItemRecord, boolean, org.eclipse.core.runtime.IPath,
      * java.util.Set, java.util.Set)
      */
