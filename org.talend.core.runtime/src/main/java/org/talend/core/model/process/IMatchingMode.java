@@ -17,5 +17,5 @@ package org.talend.core.model.process;
  * 
  */
 public interface IMatchingMode {
-
+    // Empty body due to historical reason.
 }
