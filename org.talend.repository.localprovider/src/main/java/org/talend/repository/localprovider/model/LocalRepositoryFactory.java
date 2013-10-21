@@ -368,16 +368,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 property = xmiResourceManager.loadProperty(current);
                             } catch (Exception e) {
                                 // property will be null
-                                // ExceptionHandler.process(e);
+                                ExceptionHandler.process(e);
 
                                 // no log anymore here since we add the log.error, it should be enough
                             }
                             if (property != null) {
                                 if (property.getItem() == null || property.getItem().getState() == null) {
                                     if (type != null) {
-                                        log.error("try to load wrong item:" + property.getLabel() + " / " + type);
+                                        log.error("try to load wrong item:" + property.getLabel() + " / " + type); //$NON-NLS-1$ //$NON-NLS-2$
                                     } else {
-                                        log.error("try to load wrong item:" + property.getLabel());
+                                        log.error("try to load wrong item:" + property.getLabel()); //$NON-NLS-1$
                                     }
                                     continue;
                                 }
