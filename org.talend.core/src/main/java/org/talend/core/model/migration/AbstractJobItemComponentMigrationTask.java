@@ -132,14 +132,16 @@ public abstract class AbstractJobItemComponentMigrationTask extends AbstractJobM
 	 * Find element by name.
 	 * 
 	 * @param <T>
-	 *            the generic type
+	 *            the generic type, same as <b>elementType</b>.
 	 * @param elements
-	 *            the elements
+	 *            the elements in List.
 	 * @param name
-	 *            the name
+	 *            the name use for searching.
 	 * @param elementType
-	 *            the element type
-	 * @return the t
+	 *            the return element type. Should be
+	 *            {@code ElementParameterType.class} or
+	 *            {@code ElementValueType.class}
+	 * @return contented element, or {@code null} if not found.
 	 */
 	@SuppressWarnings("unchecked")
 	protected <T> T findElementByName(List<?> elements, String name, Class<?> elementType) {
@@ -166,7 +168,19 @@ public abstract class AbstractJobItemComponentMigrationTask extends AbstractJobM
 		return null;
 	}
 
+	/**
+	 * Execute migration task on node level.
+	 * 
+	 * @param node
+	 *            the node need to do migration task.
+	 * @return true - if need save, or false - no changes on this node.
+	 */
 	protected abstract boolean execute(NodeType node);
 
+	/**
+	 * the regex patten to filter component name.
+	 * 
+	 * @return the component name regex
+	 */
 	protected abstract String getComponentNameRegex();
 }
