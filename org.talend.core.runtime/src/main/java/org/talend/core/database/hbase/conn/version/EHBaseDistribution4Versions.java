@@ -38,6 +38,8 @@ public enum EHBaseDistribution4Versions {
 
     CLOUDERA_CDH4(EHBaseDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
 
+    CLOUDERA_CDH4_YARN(EHBaseDistributions.CLOUDERA, "Cloudera CDH4 YARN", "Cloudera_CDH4_YARN"),
+
     MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
 
     MAPR_2_1_2(EHBaseDistributions.MAPR, "MapR 2.1.2", "MAPR212"),

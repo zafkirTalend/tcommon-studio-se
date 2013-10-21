@@ -28,7 +28,7 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
 
-    HDP_2_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0", true, false),
+    HDP_2_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0(BigWheel)", "HDP_2_0", true, false),
 
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
@@ -41,6 +41,14 @@ public enum EHadoopVersion4Drivers {
     CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3", false, false),
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
+
+    CLOUDERA_CDH4_YARN(
+                       EHadoopDistributions.CLOUDERA,
+                       "Cloudera CDH4 YARN",
+                       "Cloudera_CDH4_YARN",
+                       true,
+                       false,
+                       new EMRVersion[] { EMRVersion.YARN }),
 
     MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
