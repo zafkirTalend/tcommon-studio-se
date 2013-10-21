@@ -156,4 +156,6 @@ public interface IRunProcessService extends IService {
 
     public String getLogTemplate(String path);
 
+    public boolean isJobRunning();
+
 }
