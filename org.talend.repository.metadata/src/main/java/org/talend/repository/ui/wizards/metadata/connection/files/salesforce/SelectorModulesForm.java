@@ -574,6 +574,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                         countPending++;
                         parentWizardPage.setPageComplete(false);
                         refreshTable(tableItem, -1);
+                        clearTableItem(tableItem);
                     } else {
                         clearTableItem(tableItem);
                         if (tableItem.getText() != null
@@ -797,6 +798,15 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     && metadata.eContainer() instanceof SalesforceModuleUnit) {
                 SalesforceModuleUnit moduleUnit = (SalesforceModuleUnit) metadata.eContainer();
                 connection.getModules().remove(moduleUnit);
+            }
+        }
+        iterate = ConnectionHelper.getTables(temConnection).iterator();
+        while (iterate.hasNext()) {
+            MetadataTable metadata = iterate.next();
+            if (metadata != null && metadata.getLabel().equals(tableItem.getText(0))
+                    && metadata.eContainer() instanceof SalesforceModuleUnit) {
+                SalesforceModuleUnit moduleUnit = (SalesforceModuleUnit) metadata.eContainer();
+                temConnection.getModules().remove(moduleUnit);
             }
         }
     }
