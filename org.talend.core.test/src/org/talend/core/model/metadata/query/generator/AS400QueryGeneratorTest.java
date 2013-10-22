@@ -1,9 +1,13 @@
 package org.talend.core.model.metadata.query.generator;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -16,16 +20,11 @@ import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.service.ICoreUIService;
 
-import static org.junit.Assert.*;
-
-import static org.mockito.Mockito.*;
-
 public class AS400QueryGeneratorTest {
 
     private void set4AS400(boolean flag) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
-            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
-            service.getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, flag);
+            CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, flag);
         }
     }
 
