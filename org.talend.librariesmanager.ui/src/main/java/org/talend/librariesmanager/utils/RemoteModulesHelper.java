@@ -61,6 +61,9 @@ import us.monoid.json.JSONObject;
  */
 public class RemoteModulesHelper {
 
+    // true if user was warned the network connection is not possible
+    static private boolean alreadyWarnedAboutConnectionIssue = false;
+
     /**
      * created by sgandon on 24 sept. 2013 Detailled comment
      * 
@@ -121,6 +124,10 @@ public class RemoteModulesHelper {
                 globalUnavailableModulesToBeRemoved.addAll(Arrays.asList(jars));
                 unavailableModules.addAll(Arrays.asList(jars));
                 messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
+                if (!alreadyWarnedAboutConnectionIssue) {
+                    log.warn("failed to connect to internet");
+                    alreadyWarnedAboutConnectionIssue = true;
+                }// else already warned so do nothing
             } else {
 
                 try {
