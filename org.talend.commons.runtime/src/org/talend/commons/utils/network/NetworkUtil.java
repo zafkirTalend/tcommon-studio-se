@@ -104,8 +104,8 @@ public class NetworkUtil {
         try {
             URL url = new URL("http://www.talend.com"); //$NON-NLS-1$
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(1000);
-            conn.setReadTimeout(1000);
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
 
             conn.setRequestMethod("HEAD"); //$NON-NLS-1$
             String strMessage = conn.getResponseMessage();
