@@ -375,6 +375,10 @@ public class DBConnectionFillerImplTest {
         DatabaseMetaData dbmd = mock(DatabaseMetaData.class);
         Schema packge = mock(Schema.class);
         this.initializeForFillTables(packge, dbmd, tableType, true);
+        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        ExtractMetaDataUtils extract = Mockito.mock(ExtractMetaDataUtils.class);
+        Mockito.when(ExtractMetaDataUtils.getInstance()).thenReturn(extract);
+
         List<TdTable> result = this.dBConnectionFillerImpl.fillTables(packge, dbmd, new ArrayList<String>(), "", tableType);//$NON-NLS-1$
         assertNotNull(result);
         assertTrue(result.size() == 1);
@@ -453,8 +457,11 @@ public class DBConnectionFillerImplTest {
         when(dbMetadata.getDatabaseProductName()).thenReturn(null);
         when(dbMetadata.getDatabaseProductName()).thenReturn(null);
         // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-        when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection, connection, false)).thenReturn(dbMetadata);
-        when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(null, connection, false)).thenReturn(dbMetadata);
+        PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        ExtractMetaDataUtils extract = Mockito.mock(ExtractMetaDataUtils.class);
+        Mockito.when(ExtractMetaDataUtils.getInstance()).thenReturn(extract);
+        when(extract.getDatabaseMetaData(sqlConnection, connection, false)).thenReturn(dbMetadata);
+        when(extract.getDatabaseMetaData(null, connection, false)).thenReturn(dbMetadata);
         PowerMockito.mockStatic(ConnectionUtils.class);
         ReturnCode ret = new ReturnCode();
         ret.setOk(true);
