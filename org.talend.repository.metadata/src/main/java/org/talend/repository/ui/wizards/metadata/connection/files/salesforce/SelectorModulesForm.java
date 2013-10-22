@@ -569,12 +569,12 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     TableItem tableItem = (TableItem) e.item;
                     boolean promptNeeded = tableItem.getChecked();
                     if (promptNeeded) {
+                        clearTableItem(tableItem);
                         tableItem.setText(2, ""); //$NON-NLS-1$
                         tableItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
                         countPending++;
                         parentWizardPage.setPageComplete(false);
                         refreshTable(tableItem, -1);
-                        clearTableItem(tableItem);
                     } else {
                         clearTableItem(tableItem);
                         if (tableItem.getText() != null
@@ -1199,25 +1199,50 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
      */
     protected void restoreCheckItems() {
         Set<String> checkedItems = new HashSet<String>();
-        for (Object obj : ConnectionHelper.getTables(getConnection())) {
-            if (obj == null) {
-                continue;
+        if (isContextMode()) {
+            for (Object obj : ConnectionHelper.getTables(temConnection)) {
+                if (obj == null) {
+                    continue;
+                }
+                MetadataTable table = (MetadataTable) obj;
+                checkedItems.add(table.getLabel());
             }
-            MetadataTable table = (MetadataTable) obj;
-            checkedItems.add(table.getLabel());
-        }
-        for (TableItem tableItem : table.getItems()) {
-            tableItem.setChecked(false);
-            if (checkedItems.contains(tableItem.getText(0))) {
-                tableItem.setChecked(true);
-                Integer num = tableColumnNums.get(tableItem.getText(0));
-                if (num != null) {
-                    // get column num from previous result
-                    tableItem.setText(2, num.toString());
-                    tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
-                } else {
-                    // retrieve column num again
-                    refreshTable(tableItem, -1);
+            for (TableItem tableItem : table.getItems()) {
+                tableItem.setChecked(false);
+                if (checkedItems.contains(tableItem.getText(0))) {
+                    tableItem.setChecked(true);
+                    Integer num = tableColumnNums.get(tableItem.getText(0));
+                    if (num != null) {
+                        // get column num from previous result
+                        tableItem.setText(2, num.toString());
+                        tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
+                    } else {
+                        // retrieve column num again
+                        refreshTable(tableItem, -1);
+                    }
+                }
+            }
+        } else {
+            for (Object obj : ConnectionHelper.getTables(getConnection())) {
+                if (obj == null) {
+                    continue;
+                }
+                MetadataTable table = (MetadataTable) obj;
+                checkedItems.add(table.getLabel());
+            }
+            for (TableItem tableItem : table.getItems()) {
+                tableItem.setChecked(false);
+                if (checkedItems.contains(tableItem.getText(0))) {
+                    tableItem.setChecked(true);
+                    Integer num = tableColumnNums.get(tableItem.getText(0));
+                    if (num != null) {
+                        // get column num from previous result
+                        tableItem.setText(2, num.toString());
+                        tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$   
+                    } else {
+                        // retrieve column num again
+                        refreshTable(tableItem, -1);
+                    }
                 }
             }
         }

@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.repository.ui.swt.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -44,9 +49,15 @@ import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.ISalesforceModuleParser;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModuleParseAPI;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModuleParserPartner;
+import org.talend.salesforce.oauth.OAuthClient;
+import org.talend.salesforce.oauth.Token;
 
+import com.salesforce.soap.partner.DescribeSObject;
+import com.salesforce.soap.partner.DescribeSObjectResult;
 import com.salesforce.soap.partner.DescribeSObjectsResponse;
+import com.salesforce.soap.partner.Field;
 import com.salesforce.soap.partner.InvalidSObjectFault;
+import com.salesforce.soap.partner.SessionHeader;
 import com.salesforce.soap.partner.SforceServiceStub;
 import com.sforce.soap.enterprise.DescribeGlobalResult;
 import com.sforce.soap.enterprise.SoapBindingStub;
@@ -65,6 +76,8 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
     protected AbstractNode fakeSalesforceNode = null;
 
     private final String tSalesforceUniqueName = "tSalesforceInput"; //$NON-NLS-1$
+
+    private final String BASIC = "basic";
 
     private SalesforceModuleParseAPI salesforceAPI = null;
 
@@ -169,6 +182,110 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
                 return metadataTable;
             }
         }
+    }
+
+    private Field[] fetchSFDescriptionField(String module, org.talend.salesforce.SforceManagement sforceManagement) {
+
+        DescribeSObject d = new DescribeSObject();
+        d.setSObjectType(module);
+        SessionHeader sh = sforceManagement.getSessionHeader();
+        DescribeSObjectResult r;
+        try {
+            r = sforceManagement.getStub().describeSObject(d, sh, null, null, null).getResult();
+            Field[] fields = r.getFields();
+            return fields;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (InvalidSObjectFault e) {
+            e.printStackTrace();
+        } catch (com.salesforce.soap.partner.UnexpectedErrorFault e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private IMetadataColumn parseFieldToMetadataColumn(Field field) {
+
+        if (field == null) {
+            return null;
+        }
+
+        IMetadataColumn mdColumn = new org.talend.core.model.metadata.MetadataColumn();
+
+        mdColumn.setLabel(field.getName());
+        mdColumn.setKey(false);
+
+        String type = field.getType().toString();
+        String talendType = "String"; //$NON-NLS-1$
+        if (type.equals("boolean")) { //$NON-NLS-1$
+            talendType = "Boolean"; //$NON-NLS-1$
+        } else if (type.equals("int")) { //$NON-NLS-1$
+            talendType = "Integer"; //$NON-NLS-1$
+        } else if (type.equals("date") || type.equals("datetime")) { //$NON-NLS-1$ //$NON-NLS-2$
+            talendType = "Date"; //$NON-NLS-1$
+        } else if (type.equals("double") || type.equals("currency")) { //$NON-NLS-1$ //$NON-NLS-2$
+            talendType = "Double"; //$NON-NLS-1$
+        } else {
+            talendType = "String"; //$NON-NLS-1$
+        }
+        // mdColumn.setType(talendType);
+        mdColumn.setTalendType("id_" + talendType); // How to transfer type? TODO //$NON-NLS-1$
+        // mdColumn.setNullable(field.isNillable());
+        mdColumn.setNullable(field.getNillable());
+
+        if (type.equals("date")) { //$NON-NLS-1$
+            mdColumn.setPattern("\"yyyy-MM-dd\""); //$NON-NLS-1$
+        } else if (type.equals("datetime")) { //$NON-NLS-1$
+            mdColumn.setPattern("\"yyyy-MM-dd\'T\'HH:mm:ss\'.000Z\'\""); //$NON-NLS-1$
+        } else {
+            mdColumn.setPattern(null);
+        }
+        if ("String".equals(talendType)) { //$NON-NLS-1$
+            mdColumn.setLength(field.getLength());
+            mdColumn.setPrecision(field.getPrecision());
+        } else {
+            mdColumn.setLength(field.getPrecision());
+            mdColumn.setPrecision(field.getScale());
+        }
+        mdColumn.setDefault(field.getDefaultValueFormula());
+
+        return mdColumn;
+
+    }
+
+    private IMetadataTable getMetadataTableBySalesforceServerAPIForOauth(final String endPoint, final String consumeKey,
+            final String consumeSecret, final String callbackHost, final String callbackPort, final String salesforceVersion,
+            final String token, final String timeOut, final String moduleName) {
+        IMetadataTable metadataTable = new org.talend.core.model.metadata.MetadataTable();
+        if (consumeKey == null || consumeSecret == null
+                || consumeKey.equals("") || consumeSecret.equals("") || moduleName == null || moduleName.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return null;
+        }
+        org.talend.salesforce.SforceManagement sforceManagement = new org.talend.salesforce.SforceManagementImpl();
+        try {
+            OAuthClient client = new OAuthClient();
+            client.setBaseOAuthURL(endPoint);
+            client.setCallbackHost(callbackHost);
+            client.setCallbackPort(Integer.parseInt(callbackPort));
+            client.setClientID(consumeKey);
+            client.setClientSecret(consumeSecret);
+            Token tokenFile = salesforceAPI.login(endPoint, consumeKey, consumeSecret, callbackHost, callbackPort,
+                    salesforceVersion, token, timeOut);
+            String url = client.getSOAPEndpoint(tokenFile, salesforceVersion);
+            boolean result = sforceManagement.login(tokenFile.getAccess_token(), url, Integer.parseInt(timeOut), false);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        Field[] fields = fetchSFDescriptionField(moduleName, sforceManagement);
+        List<IMetadataColumn> res = new ArrayList<IMetadataColumn>();
+        for (Field field : fields) {
+            res.add(parseFieldToMetadataColumn(field));
+        }
+        if (res.size() == 0) {
+            return null;
+        }
+        metadataTable.setListColumns(res);
+        return metadataTable;
     }
 
     private IMetadataTable getMetadataTableBySalesforceServerAPI(final String endPoint, final String user, final String pass,
@@ -398,6 +515,15 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
         String proxyUsername = getConnection().getProxyUsername();
         String proxyPassword = getConnection().getProxyPassword();
 
+        String webServiceUrlForOauth = getConnection().getWebServiceUrlTextForOAuth();
+        String comsumeKey = getConnection().getConsumeKey();
+        String consumeSecret = getConnection().getConsumeSecret();
+        String callbackHost = getConnection().getCallbackHost();
+        String callbackPort = getConnection().getCallbackPort();
+        String salesforceVersion = getConnection().getSalesforceVersion();
+        String token = getConnection().getToken();
+        String loginType = getConnection().getLoginType();
+
         if (isContextMode() && getContextModeManager() != null) {
             webServiceUrl = getContextModeManager().getOriginalValue(webServiceUrl);
             userName = getContextModeManager().getOriginalValue(userName);
@@ -410,11 +536,27 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
             proxyPort = getContextModeManager().getOriginalValue(proxyPort);
             proxyUsername = getContextModeManager().getOriginalValue(proxyUsername);
             proxyPassword = getContextModeManager().getOriginalValue(proxyPassword);
+
+            webServiceUrlForOauth = getContextModeManager().getOriginalValue(webServiceUrlForOauth);
+            comsumeKey = getContextModeManager().getOriginalValue(comsumeKey);
+            consumeSecret = getContextModeManager().getOriginalValue(consumeSecret);
+            callbackHost = getContextModeManager().getOriginalValue(callbackHost);
+            callbackPort = getContextModeManager().getOriginalValue(callbackPort);
+            salesforceVersion = getContextModeManager().getOriginalValue(salesforceVersion);
+            token = getContextModeManager().getOriginalValue(token);
+            loginType = getContextModeManager().getOriginalValue(loginType);
         }
 
-        metadataTableOrder = getMetadatasForSalesforce(webServiceUrl, userName, password, timeOut, moduleName, betchSize,
-                useProxy, useHttp, proxyHost, proxyPort, proxyUsername, proxyPassword, true);
-
+        if (loginType.equals(BASIC)) {
+            metadataTableOrder = getMetadatasForSalesforce(webServiceUrl, userName, password, timeOut, moduleName, betchSize,
+                    useProxy, useHttp, proxyHost, proxyPort, proxyUsername, proxyPassword, true);
+        } else {
+            metadataTableOrder = getMetadataTableBySalesforceServerAPIForOauth(webServiceUrlForOauth, comsumeKey, consumeSecret,
+                    callbackHost, callbackPort, salesforceVersion, token, timeOut, moduleName);
+            if (metadataTableOrder == null) {
+                metadataTableOrder = getMetadataTableFromConfigFile(moduleName);
+            }
+        }
         return metadataTableOrder;
     }
 
