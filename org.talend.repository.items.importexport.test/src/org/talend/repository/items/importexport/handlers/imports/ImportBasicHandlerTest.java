@@ -264,15 +264,15 @@ public class ImportBasicHandlerTest {
         Property property1 = mock(Property.class);
         when(itemRecord1.getProperty()).thenReturn(property1);
         when(property1.getLabel()).thenReturn("test");
-        when(property1.getId()).thenReturn("123456789");
+        // when(property1.getId()).thenReturn("123456789");
 
         IRepositoryViewObject repViewObj = mock(IRepositoryViewObject.class);
         when(repViewObj.getLabel()).thenReturn("test");
-        when(repViewObj.getId()).thenReturn("123456789");
+        // when(repViewObj.getId()).thenReturn("123456789");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
-        // same id with same lable, so it's same item, should be false
-        Assert.assertFalse(basicHandler.isSameName(itemRecord1, repViewObj));
+        // now only check the label
+        Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
     }
 
     @Test
@@ -281,33 +281,33 @@ public class ImportBasicHandlerTest {
         Property property1 = mock(Property.class);
         when(itemRecord1.getProperty()).thenReturn(property1);
         when(property1.getLabel()).thenReturn("test1");
-        when(property1.getId()).thenReturn("123456789");
+        // when(property1.getId()).thenReturn("123456789");
 
         IRepositoryViewObject repViewObj = mock(IRepositoryViewObject.class);
         when(repViewObj.getLabel()).thenReturn("test2");
-        when(repViewObj.getId()).thenReturn("123456789");
+        // when(repViewObj.getId()).thenReturn("123456789");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
         // only when same label with diff id. don't care the same id with diff label.
         Assert.assertFalse(basicHandler.isSameName(itemRecord1, repViewObj));
     }
 
-    @Test
-    public void testIsSameName4DiffId() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
-        Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
-        when(property1.getLabel()).thenReturn("test");
-        when(property1.getId()).thenReturn("987654321");
-
-        IRepositoryViewObject repViewObj = mock(IRepositoryViewObject.class);
-        when(repViewObj.getLabel()).thenReturn("test");
-        when(repViewObj.getId()).thenReturn("123456789");
-
-        ImportBasicHandler basicHandler = new ImportBasicHandler();
-        // diff id, don't care same label.
-        Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
-    }
+    // @Test
+    // public void testIsSameName4DiffId() {
+    // ItemRecord itemRecord1 = mock(ItemRecord.class);
+    // Property property1 = mock(Property.class);
+    // when(itemRecord1.getProperty()).thenReturn(property1);
+    // when(property1.getLabel()).thenReturn("test");
+    // when(property1.getId()).thenReturn("987654321");
+    //
+    // IRepositoryViewObject repViewObj = mock(IRepositoryViewObject.class);
+    // when(repViewObj.getLabel()).thenReturn("test");
+    // when(repViewObj.getId()).thenReturn("123456789");
+    //
+    // ImportBasicHandler basicHandler = new ImportBasicHandler();
+    // // diff id, don't care same label.
+    // Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
+    // }
 
     @Test
     public void testCreateItemResource() {
