@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
@@ -34,6 +35,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.general.ModuleToInstall;
@@ -322,6 +324,13 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
             ExceptionHandler.process(e);
         }
         licenseTypeViewer.setInput(licenseRoot);
+        // select first item
+        if (licenseTypeViewer.getTree().getItems().length > 0) {
+            TreeItem item = licenseTypeViewer.getTree().getItem(0);
+            if (item != null) {
+                licenseTypeViewer.setSelection(new StructuredSelection(item.getData()), true);
+            }// else nothing to select
+        }// else no item
     }
 
     /**
