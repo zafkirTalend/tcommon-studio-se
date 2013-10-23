@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import org.junit.Test;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -32,7 +33,7 @@ public class MetadataColumnTest {
         assertEquals("a", column.getLabel());
         column.setName("b");
         column.setLabel("a");
-        assertEquals(column.getLabel(), column.getName());
+        assertNotSame(column.getLabel(), column.getName());
     }
 
 }

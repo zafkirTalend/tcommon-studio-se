@@ -3,9 +3,13 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -561,7 +565,7 @@ public class ExtractMetaDataUtilsTest {
                 EDatabaseTypeName.MYSQL.getXmlName());
         // for some dbs use the same driverClassName. will got the first one
         Assert.assertEquals(extractMetaManger.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", null),
-                EDatabaseTypeName.PSQL.getXmlName());
+                EDatabaseTypeName.REDSHIFT.getXmlName());
         // postgresql
         Assert.assertEquals(
                 extractMetaManger.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", "postgresql-8.3-603.jdbc4.jar"),

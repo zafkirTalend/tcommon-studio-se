@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.isNull;
@@ -29,7 +30,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -634,6 +634,7 @@ public class AbstractTest4ExtractManager {
 
         Connection conn = mockConnection4ReturnColumns4reCreateConnection();
         extractMeta.setConn(conn);
+        extractMeta.setReconnect(false);
 
         IMetadataConnection metadataConn = mockMetadataConnection4ReturnColumns4reCreateConnection();
         //
@@ -648,20 +649,24 @@ public class AbstractTest4ExtractManager {
         TdTable tdTable = mockTable4ReturnColumns4reCreateConnection();
         when(tableNode.getTable()).thenReturn(tdTable);
 
-        // powermock the reConnection
-        // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
-        List conList = new ArrayList();
-        conList.add(conn);
+        List list = extractMeta.getConnection(metadataConn.getDbType(), metadataConn.getUrl(), metadataConn.getUsername(),
+                metadataConn.getPassword(), metadataConn.getDatabase(), metadataConn.getSchema(), metadataConn.getDriverClass(),
+                metadataConn.getDriverJarPath(), metadataConn.getDbVersionString(), metadataConn.getAdditionalParams());
+        assertTrue(list.size() == 0);
+        list.add(conn);
+        assertTrue(list.size() != 0);
+
+        List conMockList = mock(List.class);
+        conMockList.add(conn);
         DriverShim wapperDriver = mock(DriverShim.class);
-        conList.add(wapperDriver);
-        when(
-                extractMeta.getConnection(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
-                        anyString(), anyString(), anyString(), anyString())).thenReturn(conList);
+        conMockList.add(wapperDriver);
 
-        when(
-                extractMeta.getDatabaseMetaData(conn, metadataConn.getDbType(), metadataConn.isSqlMode(),
-                        metadataConn.getDatabase())).thenReturn(dbMetadata);
+        when(conMockList.get(0)).thenReturn(conn);
+        when(conMockList.get(1)).thenReturn(wapperDriver);
+        when(conMockList.get(2)).thenThrow(new RuntimeException());
 
+        verify(conMockList, times(1)).add(conn);
+        verify(conMockList, times(1)).add(wapperDriver);
         //
         List<TdColumn> columns = getExtractManger().returnColumns(metadataConn, tableNode, false);
         Assert.assertNotNull(columns);
