@@ -1008,15 +1008,22 @@ public class MetadataConnectionUtils {
         } catch (Exception e) {
             log.error(e, e);
         } finally {
-            if (derbyDriver != null) {
-                try {
-                    derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                } catch (SQLException e) {
-                    // exception of shutdown success. no need to catch.
-                }
-            }
+            closeDerbyDriver();
         }
         return dbConn;
+    }
+
+    /**
+     * DOC PLV Comment method "closeDerbyDriver". shutdown derby
+     */
+    public static void closeDerbyDriver() {
+        if (derbyDriver != null) {
+            try {
+                derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+            } catch (SQLException e) {
+                // exception of shutdown success. no need to catch.
+            }
+        }
     }
 
     public static boolean isPostgresql(java.sql.Connection connection) throws SQLException {

@@ -534,6 +534,10 @@ public class ProjectNodeHelper {
 
             MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
+            if (!sqlConn.isClosed()) {
+                sqlConn.close();
+                MetadataConnectionUtils.closeDerbyDriver();
+            }
         }
     }
 
