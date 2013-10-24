@@ -1344,9 +1344,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             }
         }
         Item targetItem = this.repositoryFactoryFromProvider.copy(sourceItem, targetPath, changeLabelWithCopyPrefix);
-        // if ((sourceItem instanceof ProcessItem || sourceItem instanceof JobletProcessItem)) {
-        // fireRepositoryPropertyChange(ERepositoryActionName.JOB_COPY.getName(), sourceItem, targetItem);
-        // }
+        fireRepositoryPropertyChange(ERepositoryActionName.COPY.getName(), sourceItem, targetItem);
         return targetItem;
 
     }
@@ -1365,6 +1363,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             }
         }
         Item targetItem = this.repositoryFactoryFromProvider.copy(sourceItem, targetPath, newItemLabel);
+        fireRepositoryPropertyChange(ERepositoryActionName.COPY.getName(), sourceItem, targetItem);
         return targetItem;
 
     }
