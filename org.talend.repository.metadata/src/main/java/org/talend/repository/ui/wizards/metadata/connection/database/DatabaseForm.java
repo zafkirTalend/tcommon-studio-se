@@ -92,6 +92,7 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.custom.ECustomVersionType;
 import org.talend.core.hadoop.version.custom.HadoopCustomVersionDefineDialog;
@@ -1072,7 +1073,7 @@ public class DatabaseForm extends AbstractForm {
         compositeTableForHive.setLayoutData(gridData);
         CommandStackForComposite commandStack = new CommandStackForComposite(compositeTableForHive);
         properties = new ArrayList<HashMap<String, Object>>();
-        initHadoopProperties();
+        // initHadoopProperties();
         HadoopPropertiesFieldModel model = new HadoopPropertiesFieldModel(properties, "Hadoop Properties");
         propertiesTableViewForHive = new HadoopPropertiesTableView(model, compositeTableForHive);
         propertiesTableViewForHive.getExtendedTableViewer().setCommandStack(commandStack);
@@ -1091,17 +1092,16 @@ public class DatabaseForm extends AbstractForm {
         } else {
             setHidHadoopPropertiesForHive(true);
         }
-        addListenerForHive();
+        addHadoopPropertiesListenerForHive();
     }
 
-    private void addListenerForHive() {
+    private void addHadoopPropertiesListenerForHive() {
         if (propertiesTableViewForHive != null) {
             propertiesTableViewForHive.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
                 @Override
                 public void handleEvent(ListenableListEvent event) {
-                    // checkFieldsValue();
-                    updateModelForHive();
+                    updateHadoopPropertiesModelForHive();
                 }
             });
             propertiesTableViewForHive.getExtendedTableModel().addModifiedBeanListener(
@@ -1109,15 +1109,20 @@ public class DatabaseForm extends AbstractForm {
 
                         @Override
                         public void handleEvent(ModifiedBeanEvent<HashMap<String, Object>> event) {
-                            // checkFieldsValue();
-                            updateModelForHive();
+                            updateHadoopPropertiesModelForHive();
                         }
                     });
         }
     }
 
-    private void updateModelForHive() {
-        setProperties(propertiesTableViewForHive.getExtendedTableModel().getBeansList());
+    private void updateHadoopPropertiesModelForHive() {
+        List<HashMap<String, Object>> propertiesList = propertiesTableViewForHive.getExtendedTableModel().getBeansList();
+        try {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES,
+                    HadoopRepositoryUtil.getHadoopPropertiesJsonStr(propertiesList));
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     private void setHidHadoopPropertiesForHive(boolean hide) {
@@ -1138,7 +1143,7 @@ public class DatabaseForm extends AbstractForm {
         compositeTable.setLayoutData(gridData);
         CommandStackForComposite commandStack = new CommandStackForComposite(compositeTable);
         properties = new ArrayList<HashMap<String, Object>>();
-        initHadoopProperties();
+        // initHadoopProperties();
         HadoopPropertiesFieldModel model = new HadoopPropertiesFieldModel(properties, "Hadoop Properties");
         propertiesTableView = new HadoopPropertiesTableView(model, compositeTable);
         propertiesTableView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -1151,17 +1156,16 @@ public class DatabaseForm extends AbstractForm {
         } else {
             setHidHadoopProperties(true);
         }
-        addListener();
+        addHadoopPropertiesListenerForHBase();
     }
 
-    private void addListener() {
+    private void addHadoopPropertiesListenerForHBase() {
         if (propertiesTableView != null) {
             propertiesTableView.getExtendedTableModel().addAfterOperationListListener(new IListenableListListener() {
 
                 @Override
                 public void handleEvent(ListenableListEvent event) {
-                    // checkFieldsValue();
-                    updateModel();
+                    updateHadoopPropertiesModelForHBase();
                 }
             });
             propertiesTableView.getExtendedTableModel().addModifiedBeanListener(
@@ -1169,15 +1173,20 @@ public class DatabaseForm extends AbstractForm {
 
                         @Override
                         public void handleEvent(ModifiedBeanEvent<HashMap<String, Object>> event) {
-                            // checkFieldsValue();
-                            updateModel();
+                            updateHadoopPropertiesModelForHBase();
                         }
                     });
         }
     }
 
-    private void updateModel() {
-        setProperties(propertiesTableView.getExtendedTableModel().getBeansList());
+    private void updateHadoopPropertiesModelForHBase() {
+        List<HashMap<String, Object>> propertiesList = propertiesTableView.getExtendedTableModel().getBeansList();
+        try {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES,
+                    HadoopRepositoryUtil.getHadoopPropertiesJsonStr(propertiesList));
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     private void setHidHadoopProperties(boolean hide) {
@@ -1402,6 +1411,13 @@ public class DatabaseForm extends AbstractForm {
             hbaseVersionCombo.setText(version4Drivers.getVersionDisplayName());
         } else {
             hbaseVersionCombo.select(0);
+        }
+        String hadoopProperties = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+        try {
+            propertiesTableView.getExtendedTableModel().registerDataList(
+                    HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties));
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
         }
     }
 
@@ -4228,6 +4244,14 @@ public class DatabaseForm extends AbstractForm {
         }
         principalTxt.setText(Principla == null ? "" : Principla);
         keytabTxt.setText(keytab == null ? "" : keytab);
+
+        String hadoopProperties = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+        try {
+            propertiesTableViewForHive.getExtendedTableModel().registerDataList(
+                    HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties));
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
 
         updateYarnStatus();
     }

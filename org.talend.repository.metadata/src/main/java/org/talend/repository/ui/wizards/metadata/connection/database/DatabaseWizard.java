@@ -389,18 +389,18 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     @Override
     public boolean performFinish() {
         if (databaseWizardPage.isPageComplete()) {
-            DatabaseForm form = (DatabaseForm) databaseWizardPage.getControl();
-            List<HashMap<String, Object>> properties = form.getProperties();
-            try {
-                connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES,
-                        getHadoopPropertiesString(properties));
-            } catch (JSONException e1) {
-                String detailError = e1.toString();
-                new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
-                        detailError);
-                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
-                return false;
-            }
+            // DatabaseForm form = (DatabaseForm) databaseWizardPage.getControl();
+            // List<HashMap<String, Object>> properties = form.getProperties();
+            // try {
+            // connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES,
+            // getHadoopPropertiesString(properties));
+            // } catch (JSONException e1) {
+            // String detailError = e1.toString();
+            //                new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
+            // detailError);
+            //                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
+            // return false;
+            // }
             /*
              * if create connection in TOS with context model,should use the original value when create catalog or //
              * schema,see bug 0016636,using metadataConnection can be sure that all the values has been parse to

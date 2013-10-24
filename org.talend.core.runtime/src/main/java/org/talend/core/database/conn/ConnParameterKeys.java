@@ -79,6 +79,8 @@ public class ConnParameterKeys {
 
     public static final String HIVE_SERVER_VERSION = "HIVE_SERVER_VERSION";//$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_HIVE_PROPERTIES = "CONN_PARA_KEY_HIVE_PROPERTIES"; //$NON-NLS-1$
+
     public static final String HIVE_AUTHENTICATION_HIVEPRINCIPLA = "HIVE_AUTHENTICATION_HIVEPRINCIPLA";//$NON-NLS-1$
 
     public static final String HIVE_AUTHENTICATION_METASTOREURL = "HIVE_AUTHENTICATION_METASTOREURL";//$NON-NLS-1$
