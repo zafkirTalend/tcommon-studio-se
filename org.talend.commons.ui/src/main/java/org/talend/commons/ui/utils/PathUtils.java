@@ -37,6 +37,9 @@ public class PathUtils {
      */
     public static String cutStr(String str, int len) {
         String s = "";
+        if (str == null || "".equals(str)) {
+            return null;
+        }
         if (str.length() < len) {
             s += str;
         }
