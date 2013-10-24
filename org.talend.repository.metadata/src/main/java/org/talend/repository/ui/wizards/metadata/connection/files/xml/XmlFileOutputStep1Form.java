@@ -357,6 +357,10 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                     } else {
                         valid = treePopulator.populateTree(text, treeNode);
                     }
+                    checkFieldsValue();
+                    if (!valid) {
+                        return;
+                    }
                     if (treeNodes.size() > 0) {
                         treeNode = treeNodes.get(0);
                     }

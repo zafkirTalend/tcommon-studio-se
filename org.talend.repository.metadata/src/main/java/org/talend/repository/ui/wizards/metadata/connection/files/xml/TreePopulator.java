@@ -12,14 +12,21 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.commons.collections.BidiMap;
 import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.xerces.xs.XSModel;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.xsd.XSDSchema;
@@ -30,6 +37,7 @@ import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
+import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 
 /**
@@ -82,7 +90,34 @@ public class TreePopulator {
         return populateTree(filePath, treeNode, null);
     }
 
+    private boolean isValidFile(String filePath) {
+        File file = new File(filePath);
+        SAXReader saxReader = new SAXReader();
+        URL url;
+        try {
+            url = file.toURI().toURL();
+            Document doc = saxReader.read(url.getFile());
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        } catch (DocumentException e) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean populateTree(String filePath, ATreeNode treeNode, String selectedEntity) {
+        if (!isValidFile(filePath)) {
+            Display.getDefault().syncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    MessageDialog.openError(Display.getDefault().getActiveShell(), "",
+                            Messages.getString("dataset.error.populateXMLTree"));
+                }
+
+            });
+            return false;
+        }
         xPathToTreeItem.clear();
         if (filePath != null && !filePath.equals("")) { //$NON-NLS-1$
             String newFilePath;
