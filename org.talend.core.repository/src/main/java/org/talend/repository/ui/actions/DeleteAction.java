@@ -90,6 +90,7 @@ import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -1292,6 +1293,15 @@ public class DeleteAction extends AContextualAction {
 
                         if (nodeType == ERepositoryObjectType.ROUTINES || nodeType == ERepositoryObjectType.PIG_UDF) {
                             forceBuild = true;
+                        }
+                        if (!forceBuild) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                                ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister
+                                        .getDefault().getService(ICamelDesignerCoreService.class);
+                                if (nodeType == camelService.getBeansType()) {
+                                    forceBuild = true;
+                                }
+                            }
                         }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());

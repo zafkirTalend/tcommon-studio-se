@@ -56,6 +56,7 @@ import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -313,6 +314,15 @@ public class EmptyRecycleBinAction extends AContextualAction {
                                         .getProperties(EProperties.CONTENT_TYPE);
                                 if (nodeType == ERepositoryObjectType.ROUTINES || nodeType == ERepositoryObjectType.PIG_UDF) {
                                     forceBuild = true;
+                                }
+                                if (!forceBuild) {
+                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                                        ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister
+                                                .getDefault().getService(ICamelDesignerCoreService.class);
+                                        if (nodeType == camelService.getBeansType()) {
+                                            forceBuild = true;
+                                        }
+                                    }
                                 }
                                 factory.deleteObjectPhysical(ProjectManager.getInstance().getCurrentProject(), objToDelete, null,
                                         true);
