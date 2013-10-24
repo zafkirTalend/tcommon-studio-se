@@ -158,4 +158,6 @@ public interface IRunProcessService extends IService {
 
     public boolean isJobRunning();
 
+    public void buildJavaProject();
+
 }
