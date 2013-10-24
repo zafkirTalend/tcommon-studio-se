@@ -92,6 +92,7 @@ import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.expressionbuilder.ExpressionPersistance;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ContextReferenceBean;
@@ -125,6 +126,8 @@ public class DeleteAction extends AContextualAction {
     private static final String DELETE_LOGICAL_TOOLTIP = Messages.getString("DeleteAction.action.logicalToolTipText"); //$NON-NLS-1$
 
     private static final String DELETE_FOREVER_TOOLTIP = Messages.getString("DeleteAction.action.logicalToolTipText"); //$NON-NLS-1$
+
+    private boolean forceBuild = false;
 
     public DeleteAction() {
         super();
@@ -367,6 +370,12 @@ public class DeleteAction extends AContextualAction {
 
         try {
             PlatformUI.getWorkbench().getProgressService().run(false, false, iRunnableWithProgress);
+            // fix for TDI-22986 , force build the .java if routine is deleted physical
+            if (forceBuild) {
+                IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                        IRunProcessService.class);
+                service.buildJavaProject();
+            }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
@@ -1281,6 +1290,9 @@ public class DeleteAction extends AContextualAction {
                             handler.deleteNode(objToDelete);
                         }
 
+                        if (nodeType == ERepositoryObjectType.ROUTINES || nodeType == ERepositoryObjectType.PIG_UDF) {
+                            forceBuild = true;
+                        }
                         factory.deleteObjectPhysical(objToDelete);
                         ExpressionPersistance.getInstance().jobDeleted(objToDelete.getLabel());
                     }

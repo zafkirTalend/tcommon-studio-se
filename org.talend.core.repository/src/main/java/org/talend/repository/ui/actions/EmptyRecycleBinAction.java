@@ -56,11 +56,13 @@ import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -74,6 +76,8 @@ import org.talend.repository.ui.views.IRepositoryView;
  * 
  */
 public class EmptyRecycleBinAction extends AContextualAction {
+
+    private boolean forceBuild = false;
 
     public EmptyRecycleBinAction() {
         super();
@@ -181,6 +185,12 @@ public class EmptyRecycleBinAction extends AContextualAction {
         };
         try {
             PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
+            // fix for TDI-22986 , force build the .java if routine is deleted physical
+            if (forceBuild) {
+                IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                        IRunProcessService.class);
+                service.buildJavaProject();
+            }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
@@ -299,7 +309,11 @@ public class EmptyRecycleBinAction extends AContextualAction {
                                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
                                     handler.deleteNode(objToDelete);
                                 }
-
+                                ERepositoryObjectType nodeType = (ERepositoryObjectType) currentNode
+                                        .getProperties(EProperties.CONTENT_TYPE);
+                                if (nodeType == ERepositoryObjectType.ROUTINES || nodeType == ERepositoryObjectType.PIG_UDF) {
+                                    forceBuild = true;
+                                }
                                 factory.deleteObjectPhysical(ProjectManager.getInstance().getCurrentProject(), objToDelete, null,
                                         true);
                             }

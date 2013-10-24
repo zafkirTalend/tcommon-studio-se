@@ -154,4 +154,5 @@ public interface IRunProcessService extends IService {
      */
     public void updateLogFiles(IProject project);
 
+    public void buildJavaProject();
 }
