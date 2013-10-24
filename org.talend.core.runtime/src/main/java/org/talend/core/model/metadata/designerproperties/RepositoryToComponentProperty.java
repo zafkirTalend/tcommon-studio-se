@@ -1216,7 +1216,7 @@ public class RepositoryToComponentProperty {
                         Iterator it = object.keys();
                         while (it.hasNext()) {
                             String key = (String) it.next();
-                            map.put(key, object.get(key));
+                            map.put(key, TalendQuoteUtils.addQuotes((String) object.get(key)));
                         }
                         properties.add(map);
                     }
@@ -1239,7 +1239,7 @@ public class RepositoryToComponentProperty {
                         Iterator it = object.keys();
                         while (it.hasNext()) {
                             String key = (String) it.next();
-                            map.put(key, object.get(key));
+                            map.put(key, TalendQuoteUtils.addQuotes((String) object.get(key)));
                         }
                         properties.add(map);
                     }

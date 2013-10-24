@@ -852,11 +852,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             while (tables.next()) {
                 String tableSchema = null;
                 String coloumnName = GetTable.TABLE_SCHEM.name();
-                if (isHive2) {
-                    coloumnName = GetTable.TABLE_SCHEMA.name();
-                }
                 if (schemaPattern != null) {
-                    tableSchema = tables.getString(coloumnName);
+                    try {
+                        tableSchema = tables.getString(coloumnName);
+                    } catch (Exception e) {
+                        coloumnName = GetTable.TABLE_SCHEMA.name();
+                        tableSchema = tables.getString(coloumnName);
+                    }
                 } else {
                     tableSchema = " "; //$NON-NLS-1$
                 }

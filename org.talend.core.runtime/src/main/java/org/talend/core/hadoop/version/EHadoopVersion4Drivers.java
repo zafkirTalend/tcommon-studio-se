@@ -28,7 +28,13 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
 
-    HDP_2_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0(BigWheel)", "HDP_2_0", true, false),
+    HDP_2_0(
+            EHadoopDistributions.HORTONWORKS,
+            "Hortonworks Data Platform V2.0.0(BigWheel)",
+            "HDP_2_0",
+            true,
+            false,
+            new EMRVersion[] { EMRVersion.YARN }),
 
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
