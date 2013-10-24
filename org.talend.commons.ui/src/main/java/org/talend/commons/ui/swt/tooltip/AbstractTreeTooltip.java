@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.ui.utils.PathUtils;
 
 /**
  * Abstract tooltip for TreeItem
@@ -83,6 +84,8 @@ public abstract class AbstractTreeTooltip {
                             tip.dispose();
                         }
                         String content = getTooltipContent(item);
+                        // add a line
+                        content = PathUtils.cutStr(content, 30);
                         if (content == null) {
                             return;
                         }
