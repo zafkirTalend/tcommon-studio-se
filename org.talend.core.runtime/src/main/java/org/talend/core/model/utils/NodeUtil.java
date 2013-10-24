@@ -739,7 +739,7 @@ public class NodeUtil {
             for(INode graphicnode:nodeList){
                 if(graphicnode.isGeneratedAsVirtualComponent()){
                     String nodeUniqueName = graphicnode.getUniqueName();
-                    if(uniqueName.indexOf(nodeUniqueName)==0){
+                    if(uniqueName.indexOf(nodeUniqueName+"_")==0){
                         uniqueName = nodeUniqueName;
                         break;
                     }
