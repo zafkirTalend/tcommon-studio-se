@@ -710,5 +710,43 @@ public class NodeUtil {
         }
 
     }
+    /**
+     * @author jyhu
+     * @aim Get Whether the nodelist contain virtual component.
+     * @param nodeList: Node list
+     * @return nodelist contain virtual component or not. true:contain;false:not contain
+     */
+    public static boolean hasVirtualComponent(List<? extends INode> nodeList){
+        boolean hasVirtualComponent = false;
+        for(INode node:nodeList){
+            if(node.isVirtualGenerateNode()){
+                hasVirtualComponent = true;
+                break;
+            }
+        }
+        return hasVirtualComponent;
+    }
+    /**
+     * @author jyhu
+     * @aim Get unique name of the graphica node from generating node.
+     * @param node: Generated node
+     * @return unique name of the graphica node.
+     */
+    public static String getVirtualUniqueName(INode node){
+        String uniqueName = node.getUniqueName();
+        if(node.isVirtualGenerateNode()){
+            List<? extends INode> nodeList = node.getProcess().getGraphicalNodes();
+            for(INode graphicnode:nodeList){
+                if(graphicnode.isGeneratedAsVirtualComponent()){
+                    String nodeUniqueName = graphicnode.getUniqueName();
+                    if(uniqueName.indexOf(nodeUniqueName+"_")==0){
+                        uniqueName = nodeUniqueName;
+                        break;
+                    }
+                }
+            }
+        }
+        return uniqueName;
+    }
 
 }
