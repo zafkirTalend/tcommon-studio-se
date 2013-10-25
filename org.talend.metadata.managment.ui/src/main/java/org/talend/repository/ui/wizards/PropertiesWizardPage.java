@@ -25,8 +25,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jdt.core.JavaConventions;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -647,27 +645,43 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private Folder formdFolderTree(List<String> paths) {
 
         Folder root = new Folder(Folder.ROOT_FOLDER);
-        for (String path : paths) {
-            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
-            Folder lastFolder = null;
-            for (int i = 0; i < splitedPaths.length; i++) {
-                String folderLabel = splitedPaths[i];
-                Folder existFolder = findFolder(root, folderLabel);
-                if (existFolder == null) {
-                    if (i == 0) {
-                        lastFolder = new Folder(folderLabel);
-                        root.addChildFolder(lastFolder);
-                    } else {
-                        Folder newFolder = new Folder(folderLabel);
-                        lastFolder.addChildFolder(newFolder);
-                        lastFolder = newFolder;
-                    }
-                } else {
-                    lastFolder = existFolder;
-                }
-
+        String path = paths.get(paths.size() - 1);
+        String[] splitedPaths = path.split("/"); //$NON-NLS-1$
+        Folder lastFolder = null;
+        for (int i = 0; i < splitedPaths.length; i++) {
+            String folderLabel = splitedPaths[i];
+            if (i == 0) {
+                lastFolder = new Folder(folderLabel);
+                root.addChildFolder(lastFolder);
+            } else {
+                Folder newFolder = new Folder(folderLabel);
+                lastFolder.addChildFolder(newFolder);
+                lastFolder = newFolder;
             }
         }
+
+        // for (String path : paths) {
+        //            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
+        // Folder lastFolder = null;
+        // for (int i = 0; i < splitedPaths.length; i++) {
+        // String folderLabel = splitedPaths[i];
+        //
+        // Folder existFolder = findFolder(root, folderLabel);
+        //
+        // if (existFolder == null) {
+        // if (i == 0) {
+        // lastFolder = new Folder(folderLabel);
+        // root.addChildFolder(lastFolder);
+        // } else {
+        // Folder newFolder = new Folder(folderLabel);
+        // lastFolder.addChildFolder(newFolder);
+        // lastFolder = newFolder;
+        // }
+        // } else {
+        // lastFolder = existFolder;
+        // }
+        // }
+        // }
 
         return root;
     }
