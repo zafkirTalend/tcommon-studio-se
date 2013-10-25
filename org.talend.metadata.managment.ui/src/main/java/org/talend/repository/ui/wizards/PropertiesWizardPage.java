@@ -686,25 +686,25 @@ public abstract class PropertiesWizardPage extends WizardPage {
         return root;
     }
 
-    /**
-     * yzhang Comment method "findFolder".
-     * 
-     * @param folder
-     * @param name
-     * @return
-     */
-    private Folder findFolder(Folder folder, String name) {
-
-        Folder toRreturn = null;
-
-        if (folder.getName().equals(name)) {
-            return folder;
-        }
-        for (Folder f : folder.getChildren()) {
-            toRreturn = findFolder(f, name);
-        }
-        return toRreturn;
-    }
+    // /**
+    // * yzhang Comment method "findFolder".
+    // *
+    // * @param folder
+    // * @param name
+    // * @return
+    // */
+    // private Folder findFolder(Folder folder, String name) {
+    //
+    // Folder toRreturn = null;
+    //
+    // if (folder.getName().equals(name)) {
+    // return folder;
+    // }
+    // for (Folder f : folder.getChildren()) {
+    // toRreturn = findFolder(f, name);
+    // }
+    // return toRreturn;
+    // }
 
     /**
      * Provides all user folders for a given type.<br/>
