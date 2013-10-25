@@ -13,7 +13,6 @@
 package org.talend.repository.ui.wizards.metadata.connection.database;
 
 import java.sql.DatabaseMetaData;
-import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -710,14 +709,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
                 ExtractMetaDataUtils.closeConnection();
             }
-            Driver driver = MetadataConnectionUtils.getDerbyDriver();
-            if (driver != null) {
-                try {
-                    driver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
-                } catch (SQLException e) {
-                    // exception of shutdown success. no need to catch.
-                }
-            }
+            MetadataConnectionUtils.closeDerbyDriver();
         }
     }
 

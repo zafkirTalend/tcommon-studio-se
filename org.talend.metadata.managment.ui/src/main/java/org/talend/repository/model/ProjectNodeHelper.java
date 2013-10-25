@@ -39,7 +39,6 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -533,6 +532,10 @@ public class ProjectNodeHelper {
 
             MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData, iMetadataConnection,
                     MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
+            if (!sqlConn.isClosed()) {
+                sqlConn.close();
+                MetadataConnectionUtils.closeDerbyDriver();
+            }
         }
     }
 
