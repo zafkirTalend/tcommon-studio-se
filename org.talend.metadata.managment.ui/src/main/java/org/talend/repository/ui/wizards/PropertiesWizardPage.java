@@ -647,50 +647,66 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private Folder formdFolderTree(List<String> paths) {
 
         Folder root = new Folder(Folder.ROOT_FOLDER);
-        for (String path : paths) {
-            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
-            Folder lastFolder = null;
-            for (int i = 0; i < splitedPaths.length; i++) {
-                String folderLabel = splitedPaths[i];
-                Folder existFolder = findFolder(root, folderLabel);
-                if (existFolder == null) {
-                    if (i == 0) {
-                        lastFolder = new Folder(folderLabel);
-                        root.addChildFolder(lastFolder);
-                    } else {
-                        Folder newFolder = new Folder(folderLabel);
-                        lastFolder.addChildFolder(newFolder);
-                        lastFolder = newFolder;
-                    }
-                } else {
-                    lastFolder = existFolder;
-                }
-
+        String path = paths.get(paths.size() - 1);
+        String[] splitedPaths = path.split("/"); //$NON-NLS-1$
+        Folder lastFolder = null;
+        for (int i = 0; i < splitedPaths.length; i++) {
+            String folderLabel = splitedPaths[i];
+            if (i == 0) {
+                lastFolder = new Folder(folderLabel);
+                root.addChildFolder(lastFolder);
+            } else {
+                Folder newFolder = new Folder(folderLabel);
+                lastFolder.addChildFolder(newFolder);
+                lastFolder = newFolder;
             }
         }
+
+        // for (String path : paths) {
+        //            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
+        // Folder lastFolder = null;
+        // for (int i = 0; i < splitedPaths.length; i++) {
+        // String folderLabel = splitedPaths[i];
+        //
+        // Folder existFolder = findFolder(root, folderLabel);
+        //
+        // if (existFolder == null) {
+        // if (i == 0) {
+        // lastFolder = new Folder(folderLabel);
+        // root.addChildFolder(lastFolder);
+        // } else {
+        // Folder newFolder = new Folder(folderLabel);
+        // lastFolder.addChildFolder(newFolder);
+        // lastFolder = newFolder;
+        // }
+        // } else {
+        // lastFolder = existFolder;
+        // }
+        // }
+        // }
 
         return root;
     }
 
-    /**
-     * yzhang Comment method "findFolder".
-     * 
-     * @param folder
-     * @param name
-     * @return
-     */
-    private Folder findFolder(Folder folder, String name) {
-
-        Folder toRreturn = null;
-
-        if (folder.getName().equals(name)) {
-            return folder;
-        }
-        for (Folder f : folder.getChildren()) {
-            toRreturn = findFolder(f, name);
-        }
-        return toRreturn;
-    }
+    // /**
+    // * yzhang Comment method "findFolder".
+    // *
+    // * @param folder
+    // * @param name
+    // * @return
+    // */
+    // private Folder findFolder(Folder folder, String name) {
+    //
+    // Folder toRreturn = null;
+    //
+    // if (folder.getName().equals(name)) {
+    // return folder;
+    // }
+    // for (Folder f : folder.getChildren()) {
+    // toRreturn = findFolder(f, name);
+    // }
+    // return toRreturn;
+    // }
 
     /**
      * Provides all user folders for a given type.<br/>
