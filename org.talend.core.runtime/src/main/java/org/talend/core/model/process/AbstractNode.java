@@ -628,7 +628,7 @@ public abstract class AbstractNode implements INode {
      * java.util.Map)
      */
     @Override
-    public void reloadComponent(IComponent component, Map<String, Object> parameters) {
+    public void reloadComponent(IComponent component, Map<String, Object> parameters, boolean isUpdate) {
         // TODO Auto-generated method stub
 
     }
