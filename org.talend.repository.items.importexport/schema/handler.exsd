@@ -121,10 +121,10 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  must implement the interface IImportHandler
+                  must implement the interface IImportItemsHandler
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.talend.repository.items.importexport.handlers.imports.IImportHandler"/>
+                  <meta.attribute kind="java" basedOn=":org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler"/>
                </appinfo>
             </annotation>
          </attribute>
