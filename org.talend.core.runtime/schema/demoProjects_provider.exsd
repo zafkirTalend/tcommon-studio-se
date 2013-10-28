@@ -49,6 +49,9 @@
 
    <element name="demoProvider">
       <complexType>
+         <choice minOccurs="0" maxOccurs="1">
+            <element ref="validator"/>
+         </choice>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
@@ -112,6 +115,21 @@ the &quot;override&quot; atrribute depend on this id value.
                </documentation>
                <appinfo>
                   <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="validator">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.talend.core.runtime.repository.demo.IDemoProjectValidator"/>
                </appinfo>
             </annotation>
          </attribute>
