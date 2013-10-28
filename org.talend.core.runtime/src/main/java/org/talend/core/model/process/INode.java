@@ -193,7 +193,7 @@ public interface INode extends IElement {
      */
     public INodeConnector getConnectorFromName(final String connector);
 
-    public void reloadComponent(IComponent component, Map<String, Object> parameters);
+    public void reloadComponent(IComponent component, Map<String, Object> parameters, boolean isUpdate);
 
     public INode getDesignSubjobStartNode();
 
