@@ -20,6 +20,8 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITdqContextService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.update.EUpdateItemType;
@@ -60,6 +62,15 @@ public class ConfigureContextAction extends Action {
                         IUpdateManager updateManager = manager.getProcess().getUpdateManager();
                         if (updateManager != null) {
                             updateManager.update(EUpdateItemType.CONTEXT);
+                        }
+                    } else {
+                        // set the report editor dirty according to the manager(TdqContextViewComposite)
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqContextService.class)) {
+                            ITdqContextService tdqContextService = (ITdqContextService) GlobalServiceRegister.getDefault()
+                                    .getService(ITdqContextService.class);
+                            if (tdqContextService != null) {
+                                tdqContextService.setReportEditorDirty(manager);
+                            }
                         }
                     }
                     // refresh both
