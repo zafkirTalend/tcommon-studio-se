@@ -73,4 +73,18 @@ public class NestXMLTool {
             }
         }
     }
+    
+    //do some work after document has been generated
+    public static void generateOk(routines.system.Document doc,boolean removeEmptyElement) {
+        if(doc == null || doc.getDocument() == null) {
+            return;
+        }
+        
+        replaceDefaultNameSpace(doc.getDocument().getRootElement(),null);
+        
+        if(removeEmptyElement) {
+            removeEmptyElement(doc.getDocument().getRootElement());
+        }
+    }
+    
 }
