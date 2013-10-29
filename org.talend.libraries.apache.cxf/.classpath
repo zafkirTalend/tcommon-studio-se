@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/javax.ws.rs-api-2.0-m10.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-2.7.5-modified.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-api-2.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-bindings-xml-2.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-core-2.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-frontend-jaxrs-2.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-transports-http-2.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-xjc-boolean-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-xjc-bug671-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-xjc-dv-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-xjc-runtime-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-xjc-ts-2.6.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
