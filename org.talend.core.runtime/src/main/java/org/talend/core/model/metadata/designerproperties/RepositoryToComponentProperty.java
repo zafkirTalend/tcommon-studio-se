@@ -1230,7 +1230,7 @@ public class RepositoryToComponentProperty {
         if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
             List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
             try {
-                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
                 if (StringUtils.isNotEmpty(message)) {
                     JSONArray jsonArr = new JSONArray(message);
                     for (int i = 0; i < jsonArr.length(); i++) {
