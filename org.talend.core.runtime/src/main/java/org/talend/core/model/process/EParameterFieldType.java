@@ -67,6 +67,7 @@ public enum EParameterFieldType {
     RULE_TYPE, // hywang add for feature 6484
     TNS_EDITOR,
     BROWSE_REPORTS, // bzhou add for feature 9745
+    REFRESH_REPORTS, // xqliu add for TDQ-8198
     JAVA_COMMAND,
     VALIDATION_RULE_TYPE,
     DCSCHEMA, // Datacert custom EparameterFieldType for DCSchemaController
