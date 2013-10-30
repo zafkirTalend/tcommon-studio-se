@@ -32,7 +32,8 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.utils,
  org.talend.datatools.xml,
  org.talend.repository.view;resolution:=optional;visibility:=reexport,
- org.talend.libraries.jdbc.jtds
+ org.talend.libraries.jdbc.jtds,
+ org.talend.libraries.dom4j-jaxen
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
