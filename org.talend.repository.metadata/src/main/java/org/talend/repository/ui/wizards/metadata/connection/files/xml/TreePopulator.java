@@ -24,7 +24,6 @@ import org.apache.xerces.xs.XSModel;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
@@ -37,7 +36,6 @@ import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
-import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 
 /**
@@ -111,8 +109,8 @@ public class TreePopulator {
 
                 @Override
                 public void run() {
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), "",
-                            Messages.getString("dataset.error.populateXMLTree"));
+                    // MessageDialog.openError(Display.getDefault().getActiveShell(), "",
+                    // Messages.getString("dataset.error.populateXMLTree"));
                 }
 
             });

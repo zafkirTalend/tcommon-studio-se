@@ -162,7 +162,7 @@ public class XmlFileSelectWizardPage extends XmlFileWizardPage {
                     existingNames);
             xmlFileOutputStep1.setTitle(Messages.getString("FileWizardPage.titleCreate") + " 3 "
                     + Messages.getString("FileWizardPage.of") + " 5");
-            xmlFileOutputStep1.setDescription("Select create manually or from a file\nDefine the output file");
+            xmlFileOutputStep1.setDescription("Select Create manually or Create from a file\nDefine the output file");
             wizardPages.add(xmlFileOutputStep1);
             xmlFileOutputStep1.setPageComplete(!creation);
             xmlFileOutputStep1.setWizard(getWizard());

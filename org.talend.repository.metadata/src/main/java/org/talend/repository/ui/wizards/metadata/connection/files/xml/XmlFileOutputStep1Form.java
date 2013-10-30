@@ -501,6 +501,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 // } else {
                 // valid = treePopulator.populateTree(text, treeNode);
                 // }
+                valid = treePopulator.populateTree(text, treeNode);
                 checkFieldsValue();
                 isModifing = true;
             }
@@ -605,7 +606,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             msgError.append("Should select one model\n");
         }
         if (creation && editable && xmlXsdFilePath.getText() == "") {
-            msgError.append("Xml or Xsd filepath must be specified\n");
+            msgError.append("XML or XSD File must be specified\n");
         }
         if (!valid && creation) {
             String xmlXsdText = xmlXsdFilePath.getText();
