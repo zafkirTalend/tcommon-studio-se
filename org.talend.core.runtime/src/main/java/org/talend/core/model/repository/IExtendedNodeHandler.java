@@ -27,4 +27,6 @@ public interface IExtendedNodeHandler {
 
     public boolean exportFilter(Viewer viewer, Object parentElement, Object element);
 
+    public boolean exportFilter(Viewer viewer, Object parentElement, Object element, String[] filterTypeNames);
+
 }
