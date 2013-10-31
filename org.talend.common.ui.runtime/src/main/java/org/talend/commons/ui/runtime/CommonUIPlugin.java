@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.runtime;
 
-import java.util.Properties;
+import java.util.Hashtable;
 
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.BundleActivator;
@@ -32,7 +32,7 @@ public class CommonUIPlugin implements BundleActivator {
      */
     @Override
     public void start(BundleContext context) throws Exception {
-        Properties props = new Properties();
+        Hashtable props = new Hashtable();
         context.registerService(ExceptionService.class.getName(), new ExceptionServiceImpl(), props);
     }
 
