@@ -412,13 +412,17 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                 schemaName = schema;
             }
             final String tableNameWithDBAndSchema = getTableNameWithDBAndSchema(dbName, schemaName, tableName);
+            String columnField = generateColumnFields(tableNameWithDBAndSchema);
+            if (dbType == EDatabaseTypeName.HIVE) {
+                columnField = generateColumnFields(tableName);
+            }
 
             StringBuffer sql = new StringBuffer(100);
             sql.append(TalendTextUtils.getQuoteChar());
             sql.append(SQL_SELECT);
             sql.append(SPACE);
             // columns
-            sql.append(generateColumnFields(tableNameWithDBAndSchema));
+            sql.append(columnField);
             //
             sql.append(ENTER);
             sql.append(SQL_FROM);
