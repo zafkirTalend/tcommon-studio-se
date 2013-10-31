@@ -61,10 +61,11 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
     public void run(final IProgressMonitor monitor) {
         SubMonitor subMonitor = SubMonitor.convert(monitor,
                 Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() * 10 + 5); //$NON-NLS-1$
-        if (checkAndAcceptLicenses()) {
+        if (checkAndAcceptLicenses(subMonitor)) {
             downLoad(subMonitor);
         }
         if (monitor != null) {
+            monitor.setCanceled(subMonitor.isCanceled());
             monitor.done();
         }
     }
@@ -138,7 +139,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         return false;
     }
 
-    protected boolean checkAndAcceptLicenses() {
+    protected boolean checkAndAcceptLicenses(final IProgressMonitor monitor) {
         final AtomicBoolean accepted = new AtomicBoolean(true);
         if (hasLicensesToAccept()) {
             Display.getDefault().syncExec(new Runnable() {
@@ -147,7 +148,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 public void run() {
                     AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard(toDownload);
                     AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog(PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload);
+                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload, monitor);
                     wizardDialog.setPageSize(700, 380);
                     wizardDialog.create();
                     if (wizardDialog.open() != Window.OK) {

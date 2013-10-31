@@ -2,6 +2,7 @@ package org.talend.librariesmanager.ui.wizards;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
@@ -28,8 +29,12 @@ public class AcceptModuleLicensesWizardDialog extends WizardDialog {
 
     private List<ModuleToInstall> modulesToInstall;
 
-    public AcceptModuleLicensesWizardDialog(Shell parentShell, IWizard newWizard, List<ModuleToInstall> modulesToInstall) {
+    private IProgressMonitor monitor;
+
+    public AcceptModuleLicensesWizardDialog(Shell parentShell, IWizard newWizard, List<ModuleToInstall> modulesToInstall,
+            final IProgressMonitor monitor) {
         super(parentShell, newWizard);
+        this.monitor = monitor;
         this.modulesToInstall = modulesToInstall;
     }
 
@@ -77,6 +82,7 @@ public class AcceptModuleLicensesWizardDialog extends WizardDialog {
                 Messages.getString("AcceptModuleLicensesWizardDialog.cancelConfirmation.msg")); //$NON-NLS-1$
         if (canceled) {
             setReturnCode(Window.CANCEL);
+            monitor.setCanceled(true);
             close();
         } else {
             setReturnCode(Window.OK);
