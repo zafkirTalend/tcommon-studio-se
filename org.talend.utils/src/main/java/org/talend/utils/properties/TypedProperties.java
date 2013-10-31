@@ -240,7 +240,24 @@ public class TypedProperties extends Properties {
         } // else
         return StringUtilities.tokenize(value, delimiters);
     }
-
+    
+    /**
+     * https://jira.talendforge.org/browse/TDI-25753
+     * DOC talend Comment method "getValuesWithoutWarning".
+     * @param clazz
+     * @param shortKey
+     * @param defaultValues
+     * @return
+     */
+    public <T> List<String> getValuesWithoutWarning(Class<T> clazz, String shortKey, List<String> defaultValues) {
+        String key = buildKey(clazz, shortKey);
+        String value = this.getProperty(key);
+        if (value == null) {
+            return defaultValues;
+        } // else
+        return StringUtilities.tokenize(value, DEFAULT_DELIMITERS);
+    }
+    
     /**
      * DOC scorreia Comment method "getValues".
      * 
