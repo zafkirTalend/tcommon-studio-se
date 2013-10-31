@@ -15,11 +15,10 @@ package org.talend.repository.ui.utils;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -30,8 +29,6 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.hadoop.IHadoopService;
-import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -165,37 +162,38 @@ public class ManagerConnection {
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
         } catch (ClassNotFoundException e) {
             isValide = false;
-            if (metadataConn.getCurrentConnection() instanceof DatabaseConnection) {
-                DatabaseConnection connection = (DatabaseConnection) metadataConn.getCurrentConnection();
-                String hiveDistribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-                String hiveDVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-                if (hiveDistribution.equals(EHadoopDistributions.MAPR.getName())) {
-                    Set<String> jars = new HashSet<String>();
-                    String missJarMsg = "";
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopService.class)) {
-                        IHadoopService hadoopService = (IHadoopService) GlobalServiceRegister.getDefault().getService(
-                                IHadoopService.class);
-                        jars = hadoopService.getMissingLibraries(hiveDistribution, hiveDVersion);
-                        if (jars.size() > 0) {
-                            missJarMsg = "Missing jars:" + jars.toString() + "; " + "Need to check them in modules view.";
-                            messageException = messageException + "\n" + missJarMsg;
-                        }
-                    }
-                }
-            }
-            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            // if (metadataConn.getCurrentConnection() instanceof DatabaseConnection) {
+            // DatabaseConnection connection = (DatabaseConnection) metadataConn.getCurrentConnection();
+            // String hiveDistribution =
+            // connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+            // String hiveDVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+            // if (hiveDistribution.equals(EHadoopDistributions.MAPR.getName())) {
+            // Set<String> jars = new HashSet<String>();
+            // String missJarMsg = "";
+            // if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopService.class)) {
+            // IHadoopService hadoopService = (IHadoopService) GlobalServiceRegister.getDefault().getService(
+            // IHadoopService.class);
+            // jars = hadoopService.getMissingLibraries(hiveDistribution, hiveDVersion);
+            // if (jars.size() > 0) {
+            // missJarMsg = "Missing jars:" + jars.toString() + "; " + "Need to check them in modules view.";
+            // messageException = messageException + "\n" + missJarMsg;
+            // }
+            // }
+            // }
+            // }
+            messageException = ExceptionUtils.getFullStackTrace(e);
             CommonExceptionHandler.process(e);
         } catch (InstantiationException e) {
             isValide = false;
-            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            messageException = ExceptionUtils.getFullStackTrace(e);
             CommonExceptionHandler.process(e);
         } catch (IllegalAccessException e) {
             isValide = false;
-            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            messageException = ExceptionUtils.getFullStackTrace(e);
             CommonExceptionHandler.process(e);
         } catch (SQLException e) {
             isValide = false;
-            messageException = Messages.getString("ManagerConnection.connectionFailed"); //$NON-NLS-1$
+            messageException = ExceptionUtils.getFullStackTrace(e);
             CommonExceptionHandler.process(e);
         }
         return isValide;
