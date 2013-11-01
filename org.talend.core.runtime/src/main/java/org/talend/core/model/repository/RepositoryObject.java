@@ -372,7 +372,7 @@ public class RepositoryObject implements IRepositoryObject {
      */
     @Override
     public boolean isDeleted() {
-        return property.getItem().getState().isDeleted();
+        return getProperty().getItem().getState().isDeleted();
     }
 
     /*
@@ -393,7 +393,7 @@ public class RepositoryObject implements IRepositoryObject {
      */
     @Override
     public String getPath() {
-        return property.getItem().getState().getPath();
+        return getProperty().getItem().getState().getPath();
     }
 
     /*

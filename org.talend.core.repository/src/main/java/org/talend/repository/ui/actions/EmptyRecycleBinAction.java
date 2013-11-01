@@ -122,6 +122,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
 
         final Shell shell = getShell();
         if (!(MessageDialog.openQuestion(shell, title, message))) {
+            DeleteActionCache.getInstance().revertParameters();
             return;
         }
 
@@ -207,16 +208,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
             });
         }
 
-        // TDI-21238, have done listener to refresh in new CNF repository view
-        // MOD qiongli 2011-1-24,avoid to refresh repositoryView for top
-        // if (!PluginChecker.isOnlyTopLoaded()) {
-        // RepositoryManager.refresh(ERepositoryObjectType.JOB_SCRIPT);
-        // IRepositoryView view = getViewPart();
-        // if (view != null) {
-        // view.refresh();
-        // }
-        // }
-
+        DeleteActionCache.getInstance().revertParameters();
     }
 
     protected Shell getShell() {

@@ -87,6 +87,7 @@ public class CreateFolderAction extends AContextualAction {
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
+    @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = !selection.isEmpty() && selection.size() == 1;
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -115,7 +116,7 @@ public class CreateFolderAction extends AContextualAction {
                         || (ERepositoryObjectType.SQLPATTERNS.equals(property) && !isUnderUserDefined(node))) {
                     canWork = false;
                 }
-                if (node.getObject().getProperty().getItem().getState().isDeleted()) {
+                if (node.getObject().isDeleted()) {
                     canWork = false;
                 }
                 break;

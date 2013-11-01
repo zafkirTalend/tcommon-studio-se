@@ -244,8 +244,7 @@ public class DeleteAction extends AContextualAction {
                             types.add(node.getObjectType());
 
                         } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
-                            FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
-                            if (node.getChildren().size() > 0 && !folderItem.getState().isDeleted()) {
+                            if (node.getChildren().size() > 0 && !node.getObject().isDeleted()) {
                                 if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
                                     IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(
                                             IESBService.class);
@@ -436,8 +435,7 @@ public class DeleteAction extends AContextualAction {
      */
     private void deleteFolder(final RepositoryNode node, final IProxyRepositoryFactory factory,
             final DeleteActionCache deleteActionCache) {
-        FolderItem folderItem = (FolderItem) node.getObject().getProperty().getItem();
-        if (folderItem.getState().isDeleted()) {
+        if (node.getObject().isDeleted()) {
             // if folder has been deleted already
             try {
                 deleteElements(factory, deleteActionCache, node);
@@ -469,7 +467,7 @@ public class DeleteAction extends AContextualAction {
             return;
         }
 
-        folderItem = factory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), objectType, path);
+        FolderItem folderItem = factory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), objectType, path);
         folderItem.getState().setDeleted(true);
 
         String fullPath = ""; //$NON-NLS-1$

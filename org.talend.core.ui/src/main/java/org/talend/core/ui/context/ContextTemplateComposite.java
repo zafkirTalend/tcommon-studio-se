@@ -487,6 +487,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
      */
     public void clear() {
         viewer.setInput(Collections.EMPTY_LIST);
+        helper.initHelper(null);
     }
 
     /**

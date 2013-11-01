@@ -14,6 +14,8 @@ package org.talend.commons.ui.command;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -66,6 +68,13 @@ public class CommandStackForComposite extends CommandStack {
 
         };
         this.refComposite.getDisplay().addFilter(SWT.KeyDown, keyListener);
+        this.refComposite.addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                CommandStackForComposite.this.refComposite.getDisplay().removeFilter(SWT.KeyDown, keyListener);
+                keyListener = null;
+            }
+        });
     }
 
     /**
