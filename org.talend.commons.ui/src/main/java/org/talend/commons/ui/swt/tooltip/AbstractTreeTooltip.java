@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.ui.utils.PathUtils;
 
 /**
  * Abstract tooltip for TreeItem
@@ -85,7 +84,7 @@ public abstract class AbstractTreeTooltip {
                         }
                         String content = getTooltipContent(item);
                         // add a line
-                        content = PathUtils.cutStr(content, 30);
+                        content = cutStr(content, 30);
                         if (content == null) {
                             return;
                         }
@@ -107,6 +106,38 @@ public abstract class AbstractTreeTooltip {
 
         };
 
+    }
+
+    /*
+     * author by hfchang
+     * 
+     * make a string line wrap autom
+     */
+    private String cutStr(String str, int len) {
+        String s = "";
+        if (str == null || "".equals(str)) {
+            return null;
+        }
+        if (str.length() < len) {
+            s += str;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            int r = i % len;
+            if (i != 0 && i <= len) {
+                if (r == 0) {
+                    s += str.substring(i - len, len) + "\n";
+                }
+            } else if (i > len) {
+                String laststr = str.substring(i - 1);
+                if (laststr.length() > len) {
+                    s += cutStr(laststr, len);
+                } else {
+                    s += laststr;
+                }
+                break;
+            }
+        }
+        return s;
     }
 
     protected void checkShellBounds(Shell tip, Event event) {
