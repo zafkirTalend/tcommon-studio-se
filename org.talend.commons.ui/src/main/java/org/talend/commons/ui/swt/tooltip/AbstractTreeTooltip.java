@@ -114,6 +114,9 @@ public abstract class AbstractTreeTooltip {
      */
     private String cutStr(String str, int len) {
         String s = "";
+        if (str == null || "".equals(str)) {
+            return null;
+        }
         if (str.length() < len) {
             s += str;
         }
