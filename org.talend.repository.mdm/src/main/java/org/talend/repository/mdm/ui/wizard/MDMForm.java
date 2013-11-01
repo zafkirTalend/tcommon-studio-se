@@ -13,6 +13,7 @@
 package org.talend.repository.mdm.ui.wizard;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -241,11 +242,9 @@ public class MDMForm extends AbstractForm {
             box.setMessage(Messages.getString("MDMForm_connect_successful")); //$NON-NLS-1$
             box.open();
         } else {
-            page.setPageComplete(false);
-            MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
-            box.setText(Messages.getString("MDMForm_unsuccessful")); //$NON-NLS-1$
-            box.setMessage(Messages.getString("MDMForm_connected_unsuccessful")); //$NON-NLS-1$
-            box.open();
+            String titleMsg = Messages.getString("MDMForm_error_message");
+            String mainMsg = Messages.getString("MDMForm_connection_failure");
+            MessageDialog.openError(getShell(), titleMsg, mainMsg);
         }
     }
 
