@@ -13,4 +13,3 @@ Export-Package: ca.ingres.jdbc,
  com.ingres.jdbc
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.talend.core.runtime

@@ -18,4 +18,3 @@ Export-Package: com.mysql.jdbc,
  com.mysql.jdbc.util,
  org.gjt.mm.mysql
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.talend.core.runtime;resolution:=optional
