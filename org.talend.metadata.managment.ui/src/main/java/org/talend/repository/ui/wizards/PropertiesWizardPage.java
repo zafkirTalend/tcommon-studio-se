@@ -14,7 +14,7 @@ package org.talend.repository.ui.wizards;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -573,6 +573,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
             return parent.getName() + "/" + name; //$NON-NLS-1$
         }
 
+        public String getFullPath() {
+            if (getParent() == null) {
+                return name;
+            } else {
+                return getParent().getFullPath() + "/" + name;
+            }
+        }
+
         /**
          * Sets the name.
          * 
@@ -644,69 +652,59 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     private Folder formdFolderTree(List<String> paths) {
-
         Folder root = new Folder(Folder.ROOT_FOLDER);
         for (String path : paths) {
             String[] splitedPaths = path.split("/"); //$NON-NLS-1$
-            Folder lastFolder = null;
+            Folder parentFolder = root;
             for (int i = 0; i < splitedPaths.length; i++) {
+                String parentLabel = root.getName();
                 String folderLabel = splitedPaths[i];
-                if (i == 0) {
-                    lastFolder = new Folder(folderLabel);
-                    root.addChildFolder(lastFolder);
-                } else {
-                    Folder newFolder = new Folder(folderLabel);
-                    lastFolder.addChildFolder(newFolder);
-                    lastFolder = newFolder;
+                if (i > 0) {
+                    parentLabel = splitedPaths[i - 1];
+                    // find parent folder
+                    Folder findParent = findParentFolder(root, parentLabel, i);
+                    if (findParent != null) {
+                        parentFolder = findParent;
+                    }
                 }
+                boolean exist = false;
+                for (Folder children : parentFolder.getChildren()) {
+                    if (children.getName().equals(folderLabel)) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    // create one if not exist
+                    parentFolder.addChildFolder(new Folder(folderLabel));
+                }
+
             }
         }
-
-        // for (String path : paths) {
-        //            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
-        // Folder lastFolder = null;
-        // for (int i = 0; i < splitedPaths.length; i++) {
-        // String folderLabel = splitedPaths[i];
-        //
-        // Folder existFolder = findFolder(root, folderLabel);
-        //
-        // if (existFolder == null) {
-        // if (i == 0) {
-        // lastFolder = new Folder(folderLabel);
-        // root.addChildFolder(lastFolder);
-        // } else {
-        // Folder newFolder = new Folder(folderLabel);
-        // lastFolder.addChildFolder(newFolder);
-        // lastFolder = newFolder;
-        // }
-        // } else {
-        // lastFolder = existFolder;
-        // }
-        // }
-        // }
 
         return root;
     }
 
-    // /**
-    // * yzhang Comment method "findFolder".
-    // *
-    // * @param folder
-    // * @param name
-    // * @return
-    // */
-    // private Folder findFolder(Folder folder, String name) {
-    //
-    // Folder toRreturn = null;
-    // if (folder.getName().equals(name)) {
-    // return folder;
-    // }
-    //
-    // for (Folder f : folder.getChildren()) {
-    // toRreturn = findFolder(f, name);
-    // }
-    // return toRreturn;
-    // }
+    /**
+     * yzhang Comment method "findFolder".
+     * 
+     * @param folder
+     * @param name
+     * @return
+     */
+    private Folder findParentFolder(Folder folder, String parentName, int parentDepth) {
+        Folder toRreturn = null;
+        String fullPath = folder.getFullPath();
+        int depth = fullPath.split("/").length - 1;
+        if (depth == parentDepth && folder.getName().equals(parentName)) {
+            return folder;
+        }
+        if (depth <= parentDepth) {
+            for (Folder f : folder.getChildren()) {
+                toRreturn = findParentFolder(f, parentName, parentDepth);
+            }
+        }
+        return toRreturn;
+    }
 
     /**
      * Provides all user folders for a given type.<br/>
@@ -728,74 +726,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             try {
                 List<String> folders = factory.getFolders(type);
-                List<String> fullPathList = new ArrayList<String>();
-                List<String> finalFolders = new ArrayList<String>();
-                for (int k = folders.size(); k > 0; k--) {
-                    fullPathList = getFullDirectoryPath(folders);
-                    finalFolders.add(fullPathList.get(0).trim());
-                    folders = getNewDirectoryPath(folders);
-                }
-                for (int i = 0; i < finalFolders.size(); i++) {
-                    if (finalFolders.get(i).equals("")) {
-                        finalFolders.remove(i);
-                        i--;
-                    }
-                }
-                Folder root = formdFolderTree(finalFolders);
+                Collections.sort(folders);
+                Folder root = formdFolderTree(folders);
 
                 return new Folder[] { root };
             } catch (PersistenceException e) {
                 ExceptionHandler.process(e);
                 return new String[0];
             }
-        }
-
-        /**
-         * 
-         * DOC hfchang. To get one of the full folder directories under Job Desighs.
-         * 
-         * @param folders
-         * @return
-         */
-        private List<String> getFullDirectoryPath(List<String> folders) {
-            String firstStr = folders.get(0);
-            List<String> list = new ArrayList<String>();
-            List<String> fullPathList = new ArrayList<String>();
-            for (String s : folders) {
-                if (s.trim().startsWith(firstStr.trim())) {
-                    list.add(s);
-                }
-            }
-            fullPathList.add(list.get(list.size() - 1).toString());
-            return fullPathList;
-        }
-
-        /**
-         * 
-         * DOC hfchang. get the remain folder list without the directoris cut off already.
-         * 
-         * @param folders
-         * @return
-         */
-        private List<String> getNewDirectoryPath(List<String> folders) {
-            String firstStr = folders.get(0);
-            List<String> list = new ArrayList<String>();
-
-            for (String s : folders) {
-                if (s.trim().startsWith(firstStr.trim())) {
-                    list.add(s);
-                }
-            }
-            int j = list.toString().length();
-            int k = folders.toString().length() - 1;
-            if (j < k) {
-                String remainFolders = folders.toString().substring(j, k);
-                String[] string = remainFolders.split(",");
-                folders = Arrays.asList(string);
-            } else {
-                folders = Arrays.asList("");
-            }
-            return folders;
         }
 
         /*
