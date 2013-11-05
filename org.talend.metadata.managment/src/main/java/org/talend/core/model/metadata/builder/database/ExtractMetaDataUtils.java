@@ -45,8 +45,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.AS400DatabaseMetaData;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
@@ -898,9 +896,8 @@ public class ExtractMetaDataUtils {
                         if (!checkFileCRCCode(new File(getJavaLibPath() + path.lastSegment()), new File(jar))) {
                             String librariesPath = getLibrariesPath(ECodeLanguage.JAVA);
                             File existJar = new File(librariesPath + File.separator + path.lastSegment());
-                            if (existJar.exists()
-                                    && MessageDialog.openQuestion(new Shell(), "",
-                                            "This JAR has been modified,do you want to use this jar")) {
+                            // here will overwrite the original jar if exist(TDI-27784)
+                            if (existJar.exists()) {
                                 existJar.delete();
                                 FilesUtils.copyFile(new File(jar), existJar);
                             }
@@ -1083,6 +1080,7 @@ public class ExtractMetaDataUtils {
     }
 
     public boolean checkFileCRCCode(File targetFile, File sourceFile) throws Exception {
+        // Cyclic Redundancy Check(CRC)
         if (!targetFile.exists() || !sourceFile.exists()) {
             return true;
         }
