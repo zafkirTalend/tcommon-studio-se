@@ -732,7 +732,7 @@ public class MetadataDialog extends Dialog {
         @Override
         protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
             super.setTableViewerCreatorOptions(newTableViewerCreator);
-            // newTableViewerCreator.setLazyLoad(true);
+            newTableViewerCreator.setLazyLoad(true);
         }
     }
 
