@@ -5,18 +5,13 @@ Bundle-SymbolicName: org.talend.libraries.apache.cxf;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/cxf-2.7.5-modified.jar,
  lib/cxf-api-2.7.5.jar,
  lib/cxf-rt-bindings-xml-2.7.5.jar,
  lib/cxf-rt-core-2.7.5.jar,
  lib/cxf-rt-frontend-jaxrs-2.7.5.jar,
  lib/cxf-rt-transports-http-2.7.5.jar,
- lib/cxf-xjc-boolean-2.6.1.jar,
- lib/cxf-xjc-bug671-2.6.1.jar,
- lib/cxf-xjc-dv-2.6.1.jar,
- lib/cxf-xjc-runtime-2.6.1.jar,
- lib/cxf-xjc-ts-2.6.1.jar,
- lib/javax.ws.rs-api-2.0-m10.jar
+ lib/javax.ws.rs-api-2.0-m10.jar,
+ lib/neethi-3.0.1.jar
 Export-Package: javax.ws.rs,
  javax.ws.rs.client,
  javax.ws.rs.container,
@@ -707,4 +702,5 @@ Export-Package: javax.ws.rs,
    javax.wsdl.xml,
    javax.wsdl.extensions,
    org.apache.cxf.common.i18n"
-Require-Bundle: org.talend.core.runtime
+Require-Bundle: org.talend.core.runtime,
+ javax.wsdl;bundle-version="1.6.2"
