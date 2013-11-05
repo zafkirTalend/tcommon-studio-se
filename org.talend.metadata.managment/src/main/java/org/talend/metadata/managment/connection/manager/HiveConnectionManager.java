@@ -234,6 +234,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      */
     public void checkConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, SQLException {
+        // TODO: Inject hadoop properties...
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
             createHiveStandloneConnection(metadataConn);

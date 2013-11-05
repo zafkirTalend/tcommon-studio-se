@@ -12,8 +12,12 @@
 // ============================================================================
 package org.talend.metadata.managment.hive;
 
+import java.io.File;
+import java.util.Set;
+
 import org.eclipse.core.runtime.Platform;
 import org.talend.core.classloader.ClassLoaderFactory;
+import org.talend.core.classloader.DynamicClassLoader;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
@@ -76,7 +80,36 @@ public class HiveClassLoaderFactory {
                 // do nothing
             }
         }
+
+        appendExtraJars(metadataConn, classloader);
+
         return classloader;
+    }
+
+    /**
+     * DOC ycbai Comment method "appendExtraJars".
+     * 
+     * <p>
+     * Add the extra jars which hive connection needed like when create a hive embedded connection with kerberos.
+     * </p>
+     * 
+     * @param metadataConn
+     * @param classLoader
+     */
+    private void appendExtraJars(IMetadataConnection metadataConn, ClassLoader classLoader) {
+        if (classLoader instanceof DynamicClassLoader) {
+            String driverJarPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
+            if (driverJarPath != null) {
+                final File driverJar = new File(driverJarPath);
+                if (driverJar.exists()) {
+                    DynamicClassLoader loader = (DynamicClassLoader) classLoader;
+                    Set<String> libraries = loader.getLibraries();
+                    if (!libraries.contains(driverJar)) {
+                        loader.addLibraries(driverJar.getAbsolutePath());
+                    }
+                }
+            }
+        }
     }
 
     /**

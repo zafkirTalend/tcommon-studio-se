@@ -357,7 +357,13 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText metastoreUrlTxt;
 
-    private LabelledText driverClassTxt;
+    private LabelledText driverJarTxt;
+
+    private Button browseDriverJarBtn;
+
+    private LabelledCombo driverClassTxt;
+
+    private Button browseDriverClassButton;
 
     private LabelledText usernameTxt;
 
@@ -849,14 +855,23 @@ public class DatabaseForm extends AbstractForm {
         data = new GridData(GridData.FILL_BOTH);
         data.horizontalSpan = 4;
         authenticationCom.setLayoutData(data);
-        authenticationCom.setLayout(new GridLayout(4, false));
+        authenticationCom.setLayout(new GridLayout(3, false));
 
-        hivePrincipalTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.hivePrincipal"), 3); //$NON-NLS-1$
-        metastoreUrlTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.metastoreUrlTxt"), 1); //$NON-NLS-1$
-        driverClassTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.driverClass"), 1); //$NON-NLS-1$
-        usernameTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.username"), 1); //$NON-NLS-1$
+        hivePrincipalTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.hivePrincipal"), 2); //$NON-NLS-1$
+        metastoreUrlTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.metastoreUrlTxt"), 2); //$NON-NLS-1$
+        driverJarTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.general.jarfile"), //$NON-NLS-1$
+                1);
+        browseDriverJarBtn = new Button(authenticationCom, SWT.NONE);
+        browseDriverJarBtn.setText("..."); //$NON-NLS-1$
+        browseDriverJarBtn.setToolTipText(Messages.getString("DatabaseForm.selectJar")); //$NON-NLS-1$
+        driverClassTxt = new LabelledCombo(authenticationCom,
+                Messages.getString("DatabaseForm.hiveEmbedded.driverClass"), "", null, 1, true, SWT.NONE); //$NON-NLS-1$ //$NON-NLS-2$
+        browseDriverClassButton = new Button(authenticationCom, SWT.NONE);
+        browseDriverClassButton.setText("..."); //$NON-NLS-1$
+        browseDriverClassButton.setToolTipText(Messages.getString("DatabaseForm.selectDriverClass")); //$NON-NLS-1$
+        usernameTxt = new LabelledText(authenticationCom, Messages.getString("DatabaseForm.hiveEmbedded.username"), 2); //$NON-NLS-1$
         passwordTxt = new LabelledText(authenticationCom,
-                Messages.getString("DatabaseForm.hiveEmbedded.password"), 1, SWT.PASSWORD); //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hiveEmbedded.password"), 2, SWT.PASSWORD); //$NON-NLS-1$
 
         useKeyTab = new Button(authenticationCom, SWT.CHECK);
         useKeyTab.setText(Messages.getString("DatabaseForm.hiveEmbedded.useKeyTab")); //$NON-NLS-1$
@@ -989,13 +1004,61 @@ public class DatabaseForm extends AbstractForm {
                 }
             }
         });
-        driverClassTxt.getTextControl().addModifyListener(new ModifyListener() {
+        driverJarTxt.addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(final ModifyEvent e) {
+                if (!isContextMode()) {
+                    if (validText(driverJarTxt.getText())) {
+                        getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH,
+                                driverJarTxt.getText());
+                    }
+                }
+            }
+        });
+        browseDriverJarBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                SelectDatabaseJarDialog dialog = new SelectDatabaseJarDialog(getShell(), driverJarTxt.getText());
+                if (dialog.open() == Window.OK) {
+                    driverJarTxt.setText(dialog.getJarsString());
+                }
+            }
+
+        });
+        driverClassTxt.addModifyListener(new ModifyListener() {
 
             @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS,
                             driverClassTxt.getText());
+                }
+            }
+        });
+        browseDriverClassButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                driverClassTxt.removeAll();
+                for (String stringToFile : driverJarTxt.getText().trim().split(";")) { //$NON-NLS-1$
+                    File file = new File(stringToFile);
+                    if (file != null) {
+                        try {
+                            MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
+                            Class[] classes = cl.getAssignableClasses(Driver.class);
+                            for (int i = 0; i < classes.length; ++i) {
+                                driverClassTxt.add(classes[i].getName());
+                            }
+                        } catch (Exception ex) {
+                            ExceptionHandler.process(ex);
+                        }
+                    }
+                }
+                if (driverClassTxt.getItemCount() > 0) {
+                    String driverClassName = driverClassTxt.getItem(0);
+                    driverClassTxt.setText(driverClassName);
                 }
             }
         });
@@ -1048,7 +1111,10 @@ public class DatabaseForm extends AbstractForm {
     private void updateAuthenticationForHive(boolean isEmbeded) {
         if (isEmbeded) {
             metastoreUrlTxt.show();
-            driverClassTxt.show();
+            driverJarTxt.show();
+            hideControl(browseDriverJarBtn, false);
+            driverClassTxt.setHideWidgets(false);
+            hideControl(browseDriverClassButton, false);
             usernameTxt.show();
             passwordTxt.show();
             hideControl(useKeyTab, false);
@@ -1056,7 +1122,10 @@ public class DatabaseForm extends AbstractForm {
             keytabTxt.show();
         } else {
             metastoreUrlTxt.hide();
-            driverClassTxt.hide();
+            driverJarTxt.hide();
+            hideControl(browseDriverJarBtn, true);
+            driverClassTxt.setHideWidgets(true);
+            hideControl(browseDriverClassButton, true);
             usernameTxt.hide();
             passwordTxt.hide();
             hideControl(useKeyTab, true);
@@ -4210,6 +4279,7 @@ public class DatabaseForm extends AbstractForm {
         String useKrb = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
         String hivePrincipla = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
         String metastoreUrl = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+        String driverJarPath = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
         String driverClass = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
         String username = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
         String password = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
@@ -4229,6 +4299,7 @@ public class DatabaseForm extends AbstractForm {
         }
         hivePrincipalTxt.setText(hivePrincipla == null ? "" : hivePrincipla);
         metastoreUrlTxt.setText(metastoreUrl == null ? "" : metastoreUrl);
+        driverJarTxt.setText(driverJarPath == null ? "" : driverJarPath);
         driverClassTxt.setText(driverClass == null ? "" : driverClass);
         usernameTxt.setText(username == null ? "" : username);
         passwordTxt.setText(password == null ? "" : password);

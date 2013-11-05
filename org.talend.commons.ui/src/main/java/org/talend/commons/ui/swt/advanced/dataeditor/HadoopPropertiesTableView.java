@@ -22,8 +22,6 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
-import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButtonForExtendedTable;
@@ -136,7 +134,7 @@ public class HadoopPropertiesTableView extends AbstractDataTableEditorView<HashM
                     @Override
                     protected Object getObjectToAdd() {
                         HashMap<String, Object> hpt = getModel().createHadoopPropertiesType();
-                        hpt.put(PROPERTY, "\"new line\"");
+                        hpt.put(PROPERTY, "new line");
                         hpt.put(VALUE, "");
                         return hpt;
                     }
