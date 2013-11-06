@@ -19,7 +19,7 @@ import org.talend.core.model.properties.Property;
  * created by wchen on 2013-8-22 Detailled comment
  * 
  */
-public interface IExtendedNodeHandler {
+public interface IExtendedRepositoryNodeHandler {
 
     public Property getProperty(Object nodeObject);
 
