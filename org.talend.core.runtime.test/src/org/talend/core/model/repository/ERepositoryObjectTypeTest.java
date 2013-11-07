@@ -146,6 +146,14 @@ public class ERepositoryObjectTypeTest {
             return null;
         }
 
+        public static ItemType getByKey(String key) {
+            for (ItemType type : values()) {
+                if (type.getI18nKey().equals(key)) {
+                    return type;
+                }
+            }
+            return null;
+        }
         // /**
         // * return the message value according to Messages.properties
         // *
@@ -185,17 +193,20 @@ public class ERepositoryObjectTypeTest {
                     continue;
                 }
                 if (valid(type)) {
-                    String typeName = type.getType();
-                    ItemType itemType = ItemType.get(typeName);
-                    if (itemType == null) {
-                        typeName = type.getType().replaceAll("_", "");
-                        itemType = ItemType.get(typeName);
-                    }
+                    // FIXME, TUP-1190 don't check the name, only match the key.
+
+                    String key = type.getKey();
+                    ItemType itemType = ItemType.getByKey(key);
+                    // if (itemType == null) {
+                    // typeName = type.getType().replaceAll("_", "");
+                    // itemType = ItemType.get(typeName);
+                    // }
                     if (itemType == null) { // not found
                         missTypes.append(type.getType() + "(\"" + type.getKey() + "\"),");
                         missTypes.append('\n');
-                    } else if (!itemType.name().equals(typeName) || !itemType.getI18nKey().equals(type.getKey())) {
-                        notMatchedTypes.put(type, itemType);
+                    } else if (!itemType.name().equals(type.getType())) {
+                        // FIXME, TUP-1190 don't check the name, only match the key.
+                        // notMatchedTypes.put(type, itemType);
                     }
                     // System.out.println(type.getType() + "(\"" + type.getKey() + "\"),");
                 }
@@ -348,7 +359,7 @@ public class ERepositoryObjectTypeTest {
                     break;
                 }
             }
-            if (objType == null) {
+            if (objType == null) { // don't find the same key
                 unknownKeyTypes.append(itemType.name() + "(\"" + itemType.getI18nKey() + "\"),");
                 unknownKeyTypes.append('\n');
             }
