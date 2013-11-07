@@ -23,7 +23,11 @@ public interface IExtendedRepositoryNodeHandler {
 
     public Property getProperty(Object nodeObject);
 
-    public boolean isExportEnable(Object nodeObject);
+    public Object getParent(Object repositoryNode);
+
+    public ERepositoryObjectType getObjectType(Object repositoryNode);
+
+    public Object getRepositoryNode(IRepositoryViewObject repositoryObject);
 
     public boolean exportFilter(Viewer viewer, Object parentElement, Object element);
 
