@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -1203,6 +1203,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
+            if (existingFolder.getLocation().toFile().exists()) {
+                return false;
+            }
             return !existingFolder.exists();
         }
     }
