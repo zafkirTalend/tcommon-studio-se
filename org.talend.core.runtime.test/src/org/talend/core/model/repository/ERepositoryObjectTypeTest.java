@@ -112,9 +112,15 @@ public class ERepositoryObjectTypeTest {
         MDM_TRANSFORMERV2("MDM.TransformerV2"), // process
         MDM_UNIVERSE("MDM.Universe"), // Version
         MDM_VIEW("MDM.View"), // View
-        MDM_WORKFLOW("MDM.Workflow")// Workflow
+        MDM_WORKFLOW("MDM.Workflow"), // Workflow
 
-        ;
+        DATABASES("DATABASES"),
+        JOBLET_DOC("repository.jobletdoc"),
+        MAPS("MAPS"),
+        NAMESPACES("NAMESPACES"),
+        REPORTS("REPORTS"),
+        SAMPLE_DATA("SAMPLE_DATA"),
+        STRUCTURES("STRUCTURES"), ;
 
         private String i18nKey;
 
