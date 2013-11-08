@@ -121,6 +121,8 @@ public final class ConnectionContextHelper {
         }
         String contextId = connection.getContextId();
         if (contextId == null || EMPTY.equals(contextId.trim()) || RepositoryNode.NO_ID.equals(contextId.trim())) {
+            connection.setContextMode(false);
+            connection.setContextId(null);
             return null;
         }
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
