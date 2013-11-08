@@ -997,7 +997,8 @@ public class SelectorTableForm extends AbstractForm {
                             HiveConnectionManager.getInstance().checkConnection(metadataconnection);
                             managerConnection.setValide(true);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            managerConnection.setMessageException(e.getMessage());
+                            ExceptionHandler.process(e);
                         }
                         // }
                         // else if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equals(key)) {
