@@ -23,6 +23,7 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -349,6 +350,7 @@ public class ERepositoryObjectTypeTest {
     }
 
     @Test
+    @Ignore
     public void testTacUnknownTypes() {
         StringBuffer unknownKeyTypes = new StringBuffer(200);
         for (ItemType itemType : ItemType.values()) {
