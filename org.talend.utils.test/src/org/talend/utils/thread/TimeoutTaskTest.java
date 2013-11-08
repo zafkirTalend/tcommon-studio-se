@@ -40,13 +40,15 @@ public class TimeoutTaskTest {
     public void testResultOK() throws TimeoutException, InterruptedException, ExecutionException {
         TimeoutTask<String> timoutTask = new TimeoutTask<String>(TEST_TASK);
         Callable<String> callable = new Callable<String>() {
+
             @Override
             public String call() throws Exception {
                 Thread.sleep(10);
                 return OK;
             }
         };
-        Object result = timoutTask.run(callable, 20, false);
+        FutureTask<String> futureTask = timoutTask.run(callable, 20, false);
+        Object result = futureTask.get();
         Assert.assertEquals(OK, result);
     }
 
