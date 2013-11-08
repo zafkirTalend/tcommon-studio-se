@@ -29,6 +29,7 @@ import java.util.Map;
 import metadata.managment.i18n.Messages;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -323,9 +324,9 @@ public class ExtractMetaDataFromDataBase {
             connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
             ExceptionHandler.process(e);
-            connectionStatus.setMessageException(e.getMessage());
+            connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } catch (Exception e) {
-            connectionStatus.setMessageException(e.getMessage());
+            connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
             try {
                 if (connection != null && !connection.isClosed()) {
