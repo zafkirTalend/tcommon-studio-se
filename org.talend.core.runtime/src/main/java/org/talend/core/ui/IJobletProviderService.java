@@ -45,6 +45,8 @@ public interface IJobletProviderService extends IService {
 
     public boolean isJobletInOutComponent(INode node);
 
+    public boolean isJobletInputComponent(INode node);
+
     public Property getJobletComponentItem(INode node);
 
     public Property getJobletComponentItem(IComponent component);
@@ -113,4 +115,15 @@ public interface IJobletProviderService extends IService {
     public boolean checkModify(IElement jobletContainer);
 
     public boolean jobletIsDirty(INode node);
+
+    /**
+     * The shadow data connections are only display in editor, but won't be used to generate in final job codes.
+     */
+    public IConnection[] getShadowDataConnections(IConnection conn);
+
+    /**
+     * Get the inner joblet data connections, those connections will be used to generate in final job codes. like
+     * <Joblet Unique Name>_<Connection Unique Name>, for example, JobletTest_1_row1.
+     */
+    public IConnection[] getNonShadowDataConnections(INode node);
 }

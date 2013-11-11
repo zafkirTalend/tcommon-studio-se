@@ -20,7 +20,7 @@ package org.talend.core.model.utils;
  */
 public final class TalendPropertiesUtil {
 
-    private static boolean isEnabled(String key) {
+    public static boolean isEnabled(String key) {
         String value = System.getProperty(key);
         return Boolean.parseBoolean(value);
     }
