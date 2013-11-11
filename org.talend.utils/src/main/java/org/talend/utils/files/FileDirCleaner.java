@@ -233,8 +233,6 @@ public class FileDirCleaner {
         File dir = new File(pathDir);
         if (dir.isDirectory()) {
             cleanFilesDirRecursively(dir, true);
-        } else {
-            throw new IllegalArgumentException("pathDir is not a directory: " + pathDir);
         }
         return cleanResult.deletedEntries;
     }
