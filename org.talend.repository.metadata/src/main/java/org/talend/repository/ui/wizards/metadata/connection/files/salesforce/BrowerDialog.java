@@ -46,12 +46,12 @@ public class BrowerDialog extends Dialog {
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
-        composite.setLayout(new FillLayout());
+        composite.setLayout(new GridLayout());
         broswer = new Browser(composite, SWT.NONE);
         broswer.setUrl(url);
-        broswer.refresh();
+        broswer.setLayoutData(new GridData(GridData.FILL_BOTH));
+        broswer.redraw();
         composite.redraw();
-        parent.redraw();
         return parent;
     }
 

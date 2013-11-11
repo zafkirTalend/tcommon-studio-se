@@ -62,6 +62,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
@@ -505,6 +506,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setLoginType(authBtn.getItem(authBtn.getSelectionIndex()));
                     setCheckEnable();
@@ -515,6 +517,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setWebServiceUrlTextForOAuth(webServiceUrlTextForOAuth.getText());
                     setCheckEnable();
@@ -525,6 +528,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setConsumeKey(consumeKeyText.getText());
                     setCheckEnable();
@@ -535,6 +539,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setConsumeSecret(consumeKeySecretText.getText());
                     setCheckEnable();
@@ -545,6 +550,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setCallbackHost(callbackHostText.getText());
                     setCheckEnable();
@@ -555,6 +561,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setCallbackPort(callbackPortText.getText());
                     setCheckEnable();
@@ -565,6 +572,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setSalesforceVersion(apiVersionText.getText());
                     setCheckEnable();
@@ -575,6 +583,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
+                    loginOk = false;
                     checkFieldsValue();
                     getConnection().setToken(tokenText.getText());
                     setCheckEnable();
@@ -624,26 +633,32 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                     try {
                         client.startServer();
                         Token token = null;
-                        Display.getDefault().syncExec(new Runnable() {
+                        if (TalendPropertiesUtil.isEnabledUseBrowser()) {
+                            Display.getDefault().syncExec(new Runnable() {
 
-                            @Override
-                            public void run() {
-                                BrowerDialog brower;
-                                try {
-                                    // Display display = new Display();
-                                    Shell shell = new Shell(Display.getDefault(), SWT.ON_TOP);
-                                    brower = new BrowerDialog(shell, client.getUrl());
-                                    if (Window.OK == brower.open()) {
-                                        code = client.getServer().getCode();
-                                    } else {
-                                        return;
+                                @Override
+                                public void run() {
+                                    BrowerDialog brower;
+                                    try {
+                                        // Display display = new Display();
+                                        Shell shell = new Shell(Display.getDefault(), SWT.ON_TOP);
+                                        brower = new BrowerDialog(shell, client.getUrl());
+                                        if (Window.OK == brower.open()) {
+                                            code = client.getServer().getCode();
+                                        } else {
+                                            return;
+                                        }
+                                    } catch (Exception e2) {
+                                        e2.printStackTrace();
                                     }
-                                } catch (Exception e2) {
-                                    e2.printStackTrace();
                                 }
-                            }
+                            });
+                        } else {
+                            MessageDialog.openError(getShell(), Messages.getString("SalesforceForm.checkConnectionTitle"),
+                                    Messages.getString("SalesforceForm.noAvailableBroswer"));
+                            return;
+                        }
 
-                        });
                         client.stopServer();
                         if (code != null && !code.equals("")) {
                             token = client.getTokenForWizard(code);
@@ -666,6 +681,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                                         + Messages.getString("SalesforceForm.checkFailureTip"); //$NON-NLS-1$
                                 new ErrorDialogWidthDetailArea(getShell(), PID, mainMsg, errors);
                             } else {
+                                loginOk = true;
                                 MessageDialog.openInformation(getShell(),
                                         Messages.getString("SalesforceForm.checkConnectionTitle"), //$NON-NLS-1$ 
                                         Messages.getString("SalesforceForm.checkIsDone")); //$NON-NLS-1$  
@@ -677,6 +693,9 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                         }
                     } catch (Exception e1) {
                         errors = e1.getMessage();
+                    }
+                    if (loginOk) {
+                        checkFieldsValue();
                     }
                 }
             }
@@ -829,6 +848,10 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             }
             if (!isValueValid(tokenText.getText())) {
                 updateStatus(IStatus.ERROR, "Your must give Token for using Salesforce service"); //$NON-NLS-1$
+                return false;
+            }
+            if (!loginOk) {
+                updateStatus(IStatus.ERROR, "Click Check Login to make sure the parameters are correct."); //$NON-NLS-1$
                 return false;
             }
         }
