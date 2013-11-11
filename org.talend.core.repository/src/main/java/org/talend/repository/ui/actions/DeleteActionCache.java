@@ -23,8 +23,8 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
@@ -99,13 +99,13 @@ public final class DeleteActionCache {
      * revert the original values.
      */
     public void clearRecords() {
-        List list = getOpenedProcessList();
+        List<IProcess2> list = getOpenedProcessList();
         if (list != null) {
             list.clear();
         }
-        list = getProcessList();
-        if (list != null) {
-            list.clear();
+        List<IRepositoryViewObject> listobj = getProcessList();
+        if (listobj != null) {
+            listobj.clear();
         }
         MultiKeyMap map = getOpenProcessMap();
         if (map != null) {
