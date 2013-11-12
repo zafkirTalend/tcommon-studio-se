@@ -517,6 +517,9 @@ public class DatabaseForm extends AbstractForm {
         if (connection.getPort() == null) {
             connection.setPort(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_PORT));
         }
+        if (connection.getUsername() == null) {
+            connection.setUsername(parameters.get(ConnParameterKeys.CONN_PARA_KEY_USERNAME));
+        }
     }
 
     @Override
@@ -4268,7 +4271,6 @@ public class DatabaseForm extends AbstractForm {
             nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr); //$NON-NLS-1$
             jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr); //$NON-NLS-1$
             usernameText.setText(hadoopUserName == null ? "" : hadoopUserName); //$NON-NLS-1$
-
             metastoreConnURLTxt.setText(metastoreConnURLStr == null ? "" : metastoreConnURLStr); //$NON-NLS-1$
             metastoreConnUserName.setText(metastoreConnUserNameStr == null ? "" : metastoreConnUserNameStr); //$NON-NLS-1$
             metastoreConnPassword.setText(metastoreConnPasswordStr == null ? "" : metastoreConnPasswordStr); //$NON-NLS-1$
