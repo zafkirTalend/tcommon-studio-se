@@ -649,7 +649,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                                             return;
                                         }
                                     } catch (Exception e2) {
-                                        e2.printStackTrace();
+                                        ExceptionHandler.process(e2);
                                     }
                                 }
                             });
@@ -803,55 +803,55 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         int index = authBtn.getSelectionIndex();
         if (index == 0) {
             if (!isValueValid(webServiceUrlText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Webserver url for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needUrl")); //$NON-NLS-1$
                 return false;
             }
 
             if (!isValueValid(userNameText.getText())) {
-                updateStatus(IStatus.ERROR, "Username is mandatory"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needUsername")); //$NON-NLS-1$
                 return false;
             }
 
             if (!isValueValid(passwordText.getText())) {
-                updateStatus(IStatus.ERROR, "Password is mandatory"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needPassword")); //$NON-NLS-1$
                 return false;
             }
 
             if (!loginOk) {
-                updateStatus(IStatus.ERROR, "Click Check Login to make sure that URL, username, password are correct."); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.basicClick")); //$NON-NLS-1$
                 return false;
             }
         } else {
             if (!isValueValid(webServiceUrlTextForOAuth.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Webserver url for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needOauthUrl")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(consumeKeyText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Consumer Key for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needConsumerKey")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(consumeKeySecretText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Consumer Secret for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needConsumerSecret")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(callbackHostText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Callback Host for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needCallbackHost")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(callbackPortText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Callback Port for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needCallbackPort")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(apiVersionText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Salesforce Version for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needVersion")); //$NON-NLS-1$
                 return false;
             }
             if (!isValueValid(tokenText.getText())) {
-                updateStatus(IStatus.ERROR, "Your must give Token for using Salesforce service"); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needToken")); //$NON-NLS-1$
                 return false;
             }
             if (!loginOk) {
-                updateStatus(IStatus.ERROR, "Click Check Login to make sure the parameters are correct."); //$NON-NLS-1$
+                updateStatus(IStatus.ERROR, Messages.getString("SalesforceForm.needOauthClick")); //$NON-NLS-1$
                 return false;
             }
         }
