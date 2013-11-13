@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
+import org.talend.commons.utils.database.SybaseIQDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -253,6 +254,20 @@ public class ExtractMetaDataUtilsTest {
 
         Assert.assertNotNull(databaseMetaData);
         Assert.assertEquals(databaseMetaData, metaData);
+    }
+
+    @Test
+    public void testGetDatabaseMetaData_FourArguments4SybaseIQ() throws Exception {
+        Connection mockConn = mock(java.sql.Connection.class);
+        DatabaseMetaData metaData = mock(DatabaseMetaData.class);
+        when(mockConn.getMetaData()).thenReturn(metaData);
+        when(metaData.getDatabaseProductName()).thenReturn(EDatabaseTypeName.SYBASEIQ.getDisplayName());
+
+        DatabaseMetaData databaseMetaData = extractMetaManger.getDatabaseMetaData(mockConn, "Sybase (ASE and IQ)", false, null); //$NON-NLS-1$
+
+        Assert.assertNotNull(databaseMetaData);
+        Assert.assertTrue(databaseMetaData instanceof SybaseIQDatabaseMetaData);
+
     }
 
     /**
