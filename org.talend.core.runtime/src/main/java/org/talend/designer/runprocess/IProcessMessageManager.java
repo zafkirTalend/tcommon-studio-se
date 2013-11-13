@@ -31,6 +31,8 @@ public interface IProcessMessageManager {
 
     public void clearMessages();
 
+    public void updateConsole();
+
     public Collection<IProcessMessage> getMessages();
 
     public boolean isLastMessageEndWithCR();
