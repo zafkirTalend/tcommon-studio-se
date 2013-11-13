@@ -60,6 +60,8 @@ public final class UpdatesConstants {
 
     public static final String JOB = Messages.getString("UpdatesConstants.Job"); //$NON-NLS-1$
 
+    public static final String MAPREDUCE = Messages.getString("UpdatesConstants.MR"); //$NON-NLS-1$
+
     /*
      * parameter name.
      */

@@ -80,6 +80,7 @@ import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IMRProcessService;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
@@ -944,16 +945,16 @@ public abstract class RepositoryUpdateManager {
             return null;
         }
 
-//        final List<IEditorReference> list = new ArrayList<IEditorReference>();
-//        Display.getDefault().syncExec(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-//                        .getEditorReferences();
-//                list.addAll(Arrays.asList(reference));
-//            }
-//        });
+        // final List<IEditorReference> list = new ArrayList<IEditorReference>();
+        // Display.getDefault().syncExec(new Runnable() {
+        //
+        // @Override
+        // public void run() {
+        // IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+        // .getEditorReferences();
+        // list.addAll(Arrays.asList(reference));
+        // }
+        // });
 
         List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
                 .getOpenedProcess(getEditors());
@@ -1351,6 +1352,12 @@ public abstract class RepositoryUpdateManager {
         String version = null;
         if (property.getItem() instanceof JobletProcessItem) { // for joblet
             prefix = UpdatesConstants.JOBLET;
+        } else if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
+            IMRProcessService mrProcessService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
+                    IMRProcessService.class);
+            if (mrProcessService.isMapReduceItem(property.getItem())) {
+                prefix = UpdatesConstants.MAPREDUCE;
+            }
         }
         label = property.getLabel();
         version = property.getVersion();

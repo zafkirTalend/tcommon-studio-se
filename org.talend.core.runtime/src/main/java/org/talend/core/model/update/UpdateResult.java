@@ -43,6 +43,8 @@ public abstract class UpdateResult {
 
     protected boolean isJoblet;
 
+    protected boolean isMR;
+
     /**
      * closed process only save ID and VERSION in UpdateResult
      */
@@ -295,6 +297,10 @@ public abstract class UpdateResult {
 
     public boolean isJoblet() {
         return isJoblet;
+    }
+
+    public boolean isMR() {
+        return isMR;
     }
 
     public void setUpdateObject(Object object) {
