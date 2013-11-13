@@ -27,6 +27,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.JavaConventions;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
@@ -210,7 +212,10 @@ public final class MetadataToolHelper {
     }
 
     public static boolean isValidColumnName(String name) {
-        if (name == null || KeywordsValidator.isKeyword(name)) {
+        if (name == null) {
+            return false;
+        }
+        if (!JavaConventions.validateFieldName(name, JavaCore.VERSION_1_6, JavaCore.VERSION_1_6).isOK()) {
             return false;
         }
 
