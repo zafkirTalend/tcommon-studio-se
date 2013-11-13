@@ -50,6 +50,7 @@ import org.talend.commons.utils.database.AS400DatabaseMetaData;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
+import org.talend.commons.utils.database.SybaseIQDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.io.FilesUtils;
@@ -255,7 +256,15 @@ public class ExtractMetaDataUtils {
                     dbMetaData = createSASFakeDatabaseMetaData(conn);
                 } else if (EDatabaseTypeName.SYBASEASE.getDisplayName().equals(dbType)
                         || SYBASE_DATABASE_PRODUCT_NAME.equals(dbType)) {
-                    dbMetaData = createSybaseFakeDatabaseMetaData(conn);
+                    // TDQ-8300 make sybaseIQ work well,currently,the dbType of sybaseIQ is still
+                    // "Sybase (ASE and IQ)",so use dbMetaData.getDatabaseProductName() to judge if it is sybaseIQ .
+                    dbMetaData = conn.getMetaData();
+                    if (dbMetaData != null
+                            && EDatabaseTypeName.SYBASEIQ.getDisplayName().equals(dbMetaData.getDatabaseProductName())) {
+                        dbMetaData = createSybaseIQFakeDatabaseMetaData(conn);
+                    } else {
+                        dbMetaData = createSybaseFakeDatabaseMetaData(conn);
+                    }
                 } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbType) && isHiveEmbeddedConn(conn)) {
                     // dbMetaData = new EmbeddedHiveDataBaseMetadata(conn);
                 } else if (EDatabaseTypeName.AS400.getXmlName().equals(dbType)) {
@@ -386,6 +395,11 @@ public class ExtractMetaDataUtils {
 
     private DatabaseMetaData createSybaseFakeDatabaseMetaData(Connection conn) throws SQLException {
         SybaseDatabaseMetaData dmd = new SybaseDatabaseMetaData(conn);
+        return dmd;
+    }
+
+    private DatabaseMetaData createSybaseIQFakeDatabaseMetaData(Connection conn) throws SQLException {
+        SybaseIQDatabaseMetaData dmd = new SybaseIQDatabaseMetaData(conn);
         return dmd;
     }
 
