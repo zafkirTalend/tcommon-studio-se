@@ -73,10 +73,12 @@ import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
@@ -902,6 +904,16 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                         }
                         MessageDialog.openInformation(getShell(),
                                 Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
+                        // need to force a refresh after install jars of component
+                        if (enabledButtonCount.get() == 0) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                        .getService(IDesignerCoreService.class);
+                                if (service != null) {
+                                    service.refreshComponentView();
+                                }
+                            }
+                        }
                     }
                 });
             }
@@ -913,6 +925,5 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
             close();
         }
     }
-
 
 }

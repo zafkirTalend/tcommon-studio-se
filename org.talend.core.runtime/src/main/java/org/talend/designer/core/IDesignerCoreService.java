@@ -163,6 +163,8 @@ public interface IDesignerCoreService extends IService {
      */
     public void refreshComponentView(Item item);
 
+    public void refreshComponentView();
+
     public boolean evaluate(final String string, List<? extends IElementParameter> listParam);
 
     public int getDBConnectionTimeout();
