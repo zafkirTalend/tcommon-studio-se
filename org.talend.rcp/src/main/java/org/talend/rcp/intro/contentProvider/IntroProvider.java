@@ -41,6 +41,8 @@ public abstract class IntroProvider implements IIntroXHTMLContentProvider {
             } else {
                 return false;
             }
+        } else if ("MDM.DataModel".equals(type)) {
+            return ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type) != null;
         }
         return false;
     }

@@ -125,6 +125,18 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
+        } else if ("DATA_MODEL".equals(id) && isItemShow("MDM.DataModel")) {
+            String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsDataModel.Title");
+            createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_datamodel.png", title);
+            ERepositoryObjectType repositoryRoutesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
+                    "MDM.DataModel");
+            latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
+            url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.mdm.repository&"
+                    + "class=org.talend.mdm.repository.ui.actions.OpenObjectAction&"
+                    + "id=org.talend.mdm.repository.ui.actions.OpenObjectAction&nodeId=";
+            if (latestItems.size() == 0) {
+                parent.appendChild(dom.createElement("br"));
+            }
         } else if ("ALWAYS_WELCOME".equals(id)) {
             // content for always welcome check box
             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -169,6 +181,14 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
                 url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.dataprofiler.core&class=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&id=org.talend.dataprofiler.core.ui.action.actions.CreateNewAnalysisAction&type=ANALYSIS";
                 title = "Create an analysis";
                 createANewItem(dom, parent, imgCommonPath + "imgs/chart_bar.png", text, title, url);
+            }
+
+            // create DataModels
+            if (isItemShow("MDM.DataModel")) {
+                text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewDataModelTitle");
+                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.mdm.repository&class=org.talend.mdm.repository.ui.actions.datamodel.NewDataModelAction&id=org.talend.mdm.repository.ui.actions.datamodel.NewDataModelAction&type=MDM.DataModel";
+                title = "Create a data model";
+                createANewItem(dom, parent, imgCommonPath + "imgs/img_datamodel.png", text, title, url);
             }
 
             // create service
