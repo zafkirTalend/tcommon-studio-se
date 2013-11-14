@@ -42,10 +42,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
         }
 
         for (String catalogName : catList) {
-            String sql = "select count(*) from " + catalogName //$NON-NLS-1$
-                    + ".dbo.sysusers where suid in (select suid from master.dbo.syslogins where name = '" + login //$NON-NLS-1$
-                    + "') or suid in (select altsuid from " + catalogName //$NON-NLS-1$
-                    + ".dbo.sysalternates a, master.dbo.syslogins b where b.name = '" + login + "' and a.suid = b.suid)"; //$NON-NLS-1$ //$NON-NLS-2$
+            String sql = createSqlByLoginAndCatalog(login, catalogName);
             ResultSet rs = null;
             Statement stmt = null;
             try {
@@ -117,6 +114,21 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
         tableResultSet.setMetadata(new String[] { "TABLE_SCHEM" }); //$NON-NLS-1$
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    /**
+     * 
+     * get a sql query by login name and catalog name.
+     * 
+     * @param loginName
+     * @param catalogName
+     * @return
+     */
+    protected String createSqlByLoginAndCatalog(String loginName, String catalogName) {
+        return "select count(*) from " + catalogName //$NON-NLS-1$
+                + ".dbo.sysusers where suid in (select suid from master.dbo.syslogins where name = '" + loginName //$NON-NLS-1$
+                + "') or suid in (select altsuid from " + catalogName //$NON-NLS-1$
+                + ".dbo.sysalternates a, master.dbo.syslogins b where b.name = '" + loginName + "' and a.suid = b.suid)"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
 }
