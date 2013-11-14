@@ -32,6 +32,8 @@ public class RepositoryContentManager {
 
     static List<IExtendedRepositoryNodeHandler> extendedNodeHandler = null;
 
+    static List<IRepositoryReviewFilter> repositoryReviewFilter = null;
+
     public static List<IRepositoryContentHandler> getHandlers() {
         if (handlers == null) {
             handlers = new ArrayList<IRepositoryContentHandler>();
@@ -64,27 +66,64 @@ public class RepositoryContentManager {
      */
     public static List<IExtendedRepositoryNodeHandler> getExtendedNodeHandler() {
         if (extendedNodeHandler == null) {
-            extendedNodeHandler = new ArrayList<IExtendedRepositoryNodeHandler>();
-            IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-            IExtensionPoint extensionPoint = extensionRegistry
-                    .getExtensionPoint("org.talend.core.repository.extended_repositorynode_handler"); //$NON-NLS-1$
-            if (extensionPoint != null) {
-                IExtension[] extensions = extensionPoint.getExtensions();
-                for (IExtension extension : extensions) {
-                    IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-                    for (IConfigurationElement configurationElement : configurationElements) {
-                        try {
-                            Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
-                            if (service instanceof IExtendedRepositoryNodeHandler) {
-                                extendedNodeHandler.add((IExtendedRepositoryNodeHandler) service);
+            synchronized (RepositoryContentManager.class) {
+                extendedNodeHandler = new ArrayList<IExtendedRepositoryNodeHandler>();
+                IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+                IExtensionPoint extensionPoint = extensionRegistry
+                        .getExtensionPoint("org.talend.core.repository.extended_repositorynode_handler"); //$NON-NLS-1$
+                if (extensionPoint != null) {
+                    IExtension[] extensions = extensionPoint.getExtensions();
+                    for (IExtension extension : extensions) {
+                        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+                        for (IConfigurationElement configurationElement : configurationElements) {
+                            try {
+                                Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
+                                if (service instanceof IExtendedRepositoryNodeHandler) {
+                                    extendedNodeHandler.add((IExtendedRepositoryNodeHandler) service);
+                                }
+                            } catch (CoreException e) {
+                                ExceptionHandler.process(e);
                             }
-                        } catch (CoreException e) {
-                            ExceptionHandler.process(e);
                         }
                     }
                 }
             }
         }
+
         return extendedNodeHandler;
+    }
+
+    /**
+     * Getter for extendedNodeHandler.
+     * 
+     * @return the extendedNodeHandler
+     */
+    public static List<IRepositoryReviewFilter> getRepositoryReviewFilters() {
+        if (repositoryReviewFilter == null) {
+            synchronized (RepositoryContentManager.class) {
+                repositoryReviewFilter = new ArrayList<IRepositoryReviewFilter>();
+                IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+                IExtensionPoint extensionPoint = extensionRegistry
+                        .getExtensionPoint("org.talend.core.repository.repository_review_filter"); //$NON-NLS-1$
+                if (extensionPoint != null) {
+                    IExtension[] extensions = extensionPoint.getExtensions();
+                    for (IExtension extension : extensions) {
+                        IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+                        for (IConfigurationElement configurationElement : configurationElements) {
+                            try {
+                                Object service = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
+                                if (service instanceof IRepositoryReviewFilter) {
+                                    repositoryReviewFilter.add((IRepositoryReviewFilter) service);
+                                }
+                            } catch (CoreException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return repositoryReviewFilter;
     }
 }

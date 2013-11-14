@@ -12,20 +12,15 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
-import org.talend.core.model.properties.Property;
+import org.eclipse.core.runtime.IExecutableExtension;
+import org.eclipse.jface.viewers.Viewer;
 
 /**
- * created by wchen on 2013-8-22 Detailled comment
+ * created by wchen on 2013-11-12 Detailled comment
  * 
  */
-public interface IExtendedRepositoryNodeHandler {
+public interface IRepositoryReviewFilter extends IExecutableExtension {
 
-    public Property getProperty(Object nodeObject);
-
-    public Object getParent(Object repositoryNode);
-
-    public ERepositoryObjectType getObjectType(Object repositoryNode);
-
-    public Object getRepositoryNode(IRepositoryViewObject repositoryObject);
+    public boolean filter(Viewer viewer, Object parentElement, Object element, String filterType);
 
 }
