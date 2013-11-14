@@ -985,6 +985,10 @@ public class RepositoryToComponentProperty {
                 if (dbVersionString != null) {
                     return dbVersionString.toUpperCase();
                 }
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+            } else if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
             } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName().equals(databaseType)
@@ -1222,15 +1226,20 @@ public class RepositoryToComponentProperty {
                     }
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                ExceptionHandler.process(e);
             }
             return properties;
         }
 
         if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
             List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
+            String message = null;
+            if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+            } else if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+            }
             try {
-                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
                 if (StringUtils.isNotEmpty(message)) {
                     JSONArray jsonArr = new JSONArray(message);
                     for (int i = 0; i < jsonArr.length(); i++) {
@@ -1245,7 +1254,7 @@ public class RepositoryToComponentProperty {
                     }
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                ExceptionHandler.process(e);
             }
             return properties;
         }
@@ -1325,7 +1334,7 @@ public class RepositoryToComponentProperty {
             }
         }
 
-        if (value.equals("MAPRED_JOB_TRACKER")) {
+        if (value.equals("MAPRED_JOB_TRACKER") || value.equals("MAPRED_RESOURCE_MANAGER")) {
             String mapredJobTracker = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             if (mapredJobTracker == null) {
                 return mapredJobTracker;
