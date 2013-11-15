@@ -696,6 +696,17 @@ public class ModulesNeededProvider {
         return pluginRequiredModules;
     }
 
+    public static List<ModuleNeeded> filterOutRequiredModulesForBundle(List<ModuleNeeded> moduleList) {
+        List<ModuleNeeded> pluginRequiredModules = new ArrayList<ModuleNeeded>();
+        for (ModuleNeeded module : moduleList) {
+            String context = module.getContext();
+            if (context == null || !context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
+                pluginRequiredModules.add(module);
+            }// else ignor
+        }
+        return pluginRequiredModules;
+    }
+
     private static List<ModuleNeeded> getModulesNeededForDBConnWizard() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         EDatabaseVersion4Drivers[] dbVersions = EDatabaseVersion4Drivers.values();
@@ -739,6 +750,22 @@ public class ModulesNeededProvider {
         }
 
         return toReturn;
+    }
+
+    /**
+     * return the list of uninstalled modules needed by the Studio.
+     * 
+     * @return the list uninstalled modules
+     */
+    public static List<ModuleNeeded> getUnistalledModulesNeeded() {
+        List<ModuleNeeded> modulesNeeded = getModulesNeeded();
+        List<ModuleNeeded> uninstalledModules = new ArrayList<ModuleNeeded>(modulesNeeded.size());
+        for (ModuleNeeded module : modulesNeeded) {
+            if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
+                uninstalledModules.add(module);
+            }// else installed or unknow state so ignor.
+        }
+        return uninstalledModules;
     }
 
     /**
