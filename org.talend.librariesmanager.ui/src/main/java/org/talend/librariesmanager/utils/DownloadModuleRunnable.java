@@ -70,13 +70,14 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         }
     }
 
-    private void downLoad(final SubMonitor monitor) {
+    private void downLoad(final IProgressMonitor monitor) {
+        SubMonitor subMonitor = SubMonitor.convert(monitor,
+                Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() + 1); //$NON-NLS-1$
+
         final List<URL> downloadOk = new ArrayList<URL>();
         for (final ModuleToInstall module : toDownload) {
             if (!monitor.isCanceled()) {
                 monitor.subTask(module.getName());
-                monitor.worked(5);
-
                 String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
                 File target = new File(librariesPath);
                 boolean accepted;
@@ -87,7 +88,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                                 .getBoolean(module.getLicenseType());
                         accepted = isLicenseAccepted;
                         if (!accepted) {
-                            monitor.worked(5);
+                            subMonitor.worked(1);
                             continue;
                         }
                         if (monitor.isCanceled()) {
@@ -95,10 +96,9 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                         }
                         File destination = new File(target.toString() + File.separator + module.getName());
                         DownloadHelperWithProgress downloader = new DownloadHelperWithProgress();
-                        downloader.download(new URL(module.getUrl_download()), destination, monitor.newChild(4));
-                        downloadOk.add(destination.toURL());
+                        downloader.download(new URL(module.getUrl_download()), destination, subMonitor.newChild(1));
+                        downloadOk.add(destination.toURI().toURL());
                         installedModules.add(module.getName());
-                        monitor.worked(1);
                     } catch (Exception e) {
                         downloadFailed.add(module.getName());
                         ExceptionHandler.process(e);
@@ -117,9 +117,8 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
             } catch (IOException e) {
                 ExceptionHandler.process(e);
             }
-            monitor.worked(5);
         }
-
+        subMonitor.worked(1);
     }
 
     protected boolean hasLicensesToAccept() {
