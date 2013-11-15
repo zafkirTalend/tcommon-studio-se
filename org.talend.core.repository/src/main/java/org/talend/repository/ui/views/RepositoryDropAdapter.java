@@ -101,10 +101,10 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                                 ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
                         if (ERepositoryObjectType.PROCESS == (sourceNode.getObjectType())) {
                             IRepositoryViewObject repViewObj = sourceNode.getObject();
-                            convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj);
+                            convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj, targetNode);
                         } else if (ERepositoryObjectType.PROCESS_MR == (sourceNode.getObjectType())) {
                             IRepositoryViewObject repViewObj = sourceNode.getObject();
-                            convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj);
+                            convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj, targetNode);
                         }
                     }
                 }
