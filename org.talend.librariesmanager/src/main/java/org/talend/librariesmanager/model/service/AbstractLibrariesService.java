@@ -36,7 +36,10 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.ISVNProviderServiceInCoreRuntime;
 import org.talend.core.PluginChecker;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
@@ -48,11 +51,13 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -126,6 +131,11 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         resetAndRefreshLocal(namse);
     }
 
+    private RepositoryContext getRepositoryContext() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        return (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+    }
+
     private void resetAndRefreshLocal(final String names[]) {
         resetModulesNeeded();
 
@@ -135,6 +145,24 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
+
+        // if svn libs setup from tac then ...
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister.getDefault()
+                    .getService(ISVNProviderServiceInCoreRuntime.class);
+            if (service != null) {
+                File libFile = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA));
+                if (service.isSvnLibSetupOnTAC() && service.isInSvn(libFile.getAbsolutePath())
+                        && !getRepositoryContext().isOffline()) {
+                    List jars = new ArrayList();
+                    for (String name : names) {
+                        jars.add(libFile.getAbsolutePath() + File.separatorChar + name);
+                    }
+                    service.depolyNewJar(jars);
+                    return;
+                }
+            }
+        }
 
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
