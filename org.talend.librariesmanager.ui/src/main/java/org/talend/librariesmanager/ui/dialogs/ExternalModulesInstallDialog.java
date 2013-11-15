@@ -555,6 +555,14 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                     if (installedModules > 0) {
                                         emptyLibs();
                                     }
+                                    // need to force a refresh after install jars of component
+                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                                .getService(IDesignerCoreService.class);
+                                        if (service != null) {
+                                            service.refreshComponentView();
+                                        }
+                                    }
                                 }
                             }
                         });
