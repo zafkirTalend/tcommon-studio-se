@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,12 @@ import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 public class LocalLibraryManager implements ILibraryManagerService {
 
     private Set<String> jarList = new HashSet<String>();
+
+    // map uri to absolute path
+    // key = null, means uri not tested yet....
+    // value is null = jar not existing
+    // value set = absolute path of the jar
+    private Map<String, String> uriJarInstalled = new HashMap<String, String>();
 
     boolean listToUpdate = false;
 
@@ -254,15 +261,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 boolean jarFound = false;
                 if (relativePath != null) {
                     if (relativePath.startsWith("platform:/")) {
-                        try {
-                            URI uri = new URI(relativePath);
-                            URL url = FileLocator.toFileURL(uri.toURL());
-                            File file = new File(url.getFile());
-                            if (file.exists()) {
-                                jarLocation = file.getAbsolutePath();
-                                jarFound = true;
-                            }
-                        } catch (IOException e) {
+                        jarFound = checkJarInstalledFromPlatform(relativePath);
+                        if (jarFound) {
+                            jarLocation = uriJarInstalled.get(relativePath);
+                        }
+                        if (!jarFound) {
                             // some libraries maybe not exist in some product ,but there is configuration in index.xml
                             // build from component
                             if (!popUp) {
@@ -317,8 +320,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
             CommonExceptionHandler.process(e);
         } catch (IOException e) {
             CommonExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
-        } catch (URISyntaxException e) {
-            CommonExceptionHandler.process(e);
         }
         return false;
 
@@ -409,17 +410,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             boolean jarFound = false;
             if (relativePath != null) {
                 if (relativePath.startsWith("platform:/")) {
-                    URI uri;
-                    try {
-                        uri = new URI(relativePath);
-                        URL url = FileLocator.toFileURL(uri.toURL());
-                        File file = new File(url.getFile());
-                        if (file.exists()) {
-                            jarFound = true;
-                        }
-                    } catch (Exception e) {
-                        continue;
-                    }
+                    jarFound = checkJarInstalledFromPlatform(relativePath);
                 } else {
                     if (componentsFolders != null && contributeIdSet != null) {
                         for (String contributor : contributeIdSet) {
@@ -552,16 +543,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     boolean jarFound = false;
                     String existePath = jarsToRelativePath.get(module.getModuleName());
                     if (existePath != null && existePath.startsWith("platform:/")) {
-                        try {
-                            URI uri = new URI(existePath);
-                            URL url = FileLocator.toFileURL(uri.toURL());
-                            File file = new File(url.getFile());
-                            if (file.exists()) {
-                                jarFound = true;
-                            }
-                        } catch (Exception e) {
-                            // do nothing
-                        }
+                        jarFound = checkJarInstalledFromPlatform(existePath);
                     }
                     // in case the index.xml already stored some locations not exist in product , replace it with a new
                     // location
@@ -611,6 +593,27 @@ public class LocalLibraryManager implements ILibraryManagerService {
             CommonExceptionHandler.process(e);
         }
         return libPath;
+    }
+
+    private boolean checkJarInstalledFromPlatform(String uriPath) {
+        if (uriJarInstalled.containsKey(uriPath)) {
+            return uriJarInstalled.get(uriPath) != null;
+        }
+        boolean jarFound = false;
+        String absolutePath = null;
+        try {
+            URI uri = new URI(uriPath);
+            URL url = FileLocator.toFileURL(uri.toURL());
+            File file = new File(url.getFile());
+            if (file.exists()) {
+                jarFound = true;
+                absolutePath = file.getAbsolutePath();
+            }
+        } catch (Exception e) {
+            // do nothing
+        }
+        uriJarInstalled.put(uriPath, absolutePath);
+        return jarFound;
     }
 
 }
