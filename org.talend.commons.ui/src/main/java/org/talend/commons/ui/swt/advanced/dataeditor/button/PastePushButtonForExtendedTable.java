@@ -82,8 +82,17 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
 
     public boolean getEnabledState() {
         Object data = SimpleClipboard.getInstance().getData();
-        return super.getEnabledState() && data != null && data instanceof List
-                && !getExtendedControlViewer().isReadOnly();
+        boolean flag = true;
+        int a = CopyPushButtonForExtendedTable.colNum;
+        int colNum = getExtendedTableViewer().getTableViewerCreator().getTable().getColumnCount();
+        if (data != null) {
+            if (colNum == a) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        return super.getEnabledState() && data != null && data instanceof List && !getExtendedControlViewer().isReadOnly()
+                && flag;
     }
-
 }

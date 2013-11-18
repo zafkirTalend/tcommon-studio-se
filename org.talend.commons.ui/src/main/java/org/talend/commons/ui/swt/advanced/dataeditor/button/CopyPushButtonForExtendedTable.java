@@ -32,6 +32,8 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
 
     private EnableStateListenerForTableButton enableStateHandler;
 
+    public static int colNum;
+
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
      * 
@@ -49,6 +51,7 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
         ISelection selection = tableViewer.getSelection();
         StructuredSelection structuredSelection = (StructuredSelection) selection;
         Object[] objects = structuredSelection.toArray();
+        colNum = getExtendedTableViewer().getTableViewerCreator().getTable().getColumnCount();
         return new ExtendedTableCopyCommand(Arrays.asList(objects));
     }
 
