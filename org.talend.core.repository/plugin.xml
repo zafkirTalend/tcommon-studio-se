@@ -673,13 +673,6 @@
             name="Process Type">
       </parameterHandler>
    </extension>
-   <extension
-         point="org.talend.core.repository.login.task">
-      <loginTask
-            class="org.talend.core.repository.DepolySvnLibLoginTask"
-            priority="high">
-      </loginTask>
-   </extension>
 
 
 </plugin>
