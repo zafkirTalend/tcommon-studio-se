@@ -23,6 +23,7 @@ public enum ECodePart {
     MAIN("main"), //$NON-NLS-1$
     BEGIN("begin"), //$NON-NLS-1$
     END("end"), //$NON-NLS-1$
+    FINALLY("finally"), //$NON-NLS-1$
     MRCODE("mrcode"), //$NON-NLS-1$
     MRCONFIG("mrconfig"), //$NON-NLS-1$
     MRJOBFOOTER("mrjobfooter"); //$NON-NLS-1$
