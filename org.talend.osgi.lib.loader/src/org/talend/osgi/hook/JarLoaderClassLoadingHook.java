@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +45,10 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
 
     // boolean TRACE = FrameworkProperties.getProperty("osgi.debug") != null
     // && FrameworkDebugOptions.getDefault().getBooleanOption("org.talend.osgi.lib.loader/trace/missing.jars", false);
+    final String listOfBundlePrefixes = System.getProperty("org.talend.bundle.prefixes.for.jar.loader", //$NON-NLS-1$
+            "org.talend,com.oaklandsw"); //$NON-NLS-1$
+
+    Set<String> listOfBundlePrefixesSet = null;
 
     private File javaLibFolder;
 
@@ -86,7 +91,7 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
         // check if jar exists
         BundleEntry entry = sourcedata.getBundleFile().getEntry(cp);
         String bundleSymbolicName = sourcedata.getSymbolicName();
-        if (entry == null && bundleSymbolicName.startsWith("org.talend") && cp.endsWith(".jar")) {// the jar is not part of the bundle, let's try to look for it in the //$NON-NLS-1$ //$NON-NLS-2$
+        if (entry == null && canHandleBundle(bundleSymbolicName) && cp.endsWith(".jar")) {// the jar is not part of the bundle, let's try to look for it in the //$NON-NLS-1$ 
             // lib/java folder.
             try {
                 File libJavaFolderFile = getLibJavaFolderFile();
@@ -127,6 +132,26 @@ public class JarLoaderClassLoadingHook implements ClassLoadingHook {
                         .publishFrameworkEvent(FrameworkEvent.ERROR, sourcedata.getBundle(), e);
             }
         }// else jar exist so let the usual entries to be used
+        return false;
+    }
+
+    /**
+     * DOC sgandon Comment method "canHandleBundle".
+     * 
+     * @param bundleSymbolicName
+     * @return
+     */
+    private boolean canHandleBundle(String bundleSymbolicName) {
+        if (listOfBundlePrefixesSet == null) {
+            String[] prefixesArray = listOfBundlePrefixes.split(","); //$NON-NLS-1$
+            listOfBundlePrefixesSet = new HashSet<String>(prefixesArray.length);
+            Collections.addAll(listOfBundlePrefixesSet, prefixesArray);
+        }
+        for (String prefix : listOfBundlePrefixesSet) {
+            if (bundleSymbolicName.startsWith(prefix)) {
+                return true;
+            }// else keep looking
+        }
         return false;
     }
 
