@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -160,16 +159,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                     boolean jarFound = false;
                                     String existedPath = jarsToRelativePath.get(name);
                                     if (existedPath != null && existedPath.startsWith("platform:/")) {
-                                        try {
-                                            URI uri = new URI(existedPath);
-                                            URL url = FileLocator.toFileURL(uri.toURL());
-                                            File testFile = new File(url.getFile());
-                                            if (testFile.exists()) {
-                                                jarFound = true;
-                                            }
-                                        } catch (Exception e) {
-                                            // do nothing
-                                        }
+                                        jarFound = checkJarInstalledFromPlatform(existedPath);
                                     }
                                     if (!jarFound) {
                                         jarsToRelativePath.put(name, relativePath);
@@ -572,24 +562,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
                 String relativePath = jarsToRelative.get(jarName);
                 if (relativePath != null && relativePath.startsWith("platform:/")) { //$NON-NLS-1$
-                    URI uri = new URI(relativePath);
-                    URL url;
-                    try {
-                        url = FileLocator.toFileURL(uri.toURL());
-                    } catch (IOException e) {
-                        CommonExceptionHandler.log("\"" + jarName + "\"" + " doesn't exsit: " + relativePath); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                        return libPath;
-                    }
-                    File file = new File(url.getFile());
-                    if (file.exists()) {
-                        libPath = file.getAbsolutePath();
+                    boolean jarFound = checkJarInstalledFromPlatform(relativePath);
+                    if (jarFound) {
+                        libPath = uriJarInstalled.get(relativePath);
                     }
                 }
             }
 
         } catch (MalformedURLException e) {
-            CommonExceptionHandler.process(e);
-        } catch (URISyntaxException e) {
             CommonExceptionHandler.process(e);
         }
         return libPath;
