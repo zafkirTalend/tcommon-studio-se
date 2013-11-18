@@ -61,7 +61,9 @@ public interface IConnectionCategory {
     public static final int CUSTOM_NAME = 1 << 7;
 
     /**
-     * For FLOW_MAIN, FLOW_REF, FLOW_MERGE, LOOKUP. Links that can have a specific name.
+     * For FLOW_MAIN, FLOW_REF, FLOW_MERGE. Links that can have a specific name. note that now: RUN_IF / ON_SUBJOB_OK /
+     * ON_SUBJOB_ERROR / ON_COMPONENT_OK / ON_COMPONENT_ERROR / ITERATE also have uniqunename property, even if those
+     * are only for internal use (not visible even in the default name)
      */
     public static final int UNIQUE_NAME = 1 << 8;
 
