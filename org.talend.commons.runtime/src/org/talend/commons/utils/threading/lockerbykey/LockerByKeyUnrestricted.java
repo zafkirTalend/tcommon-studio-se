@@ -117,6 +117,7 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
 
             ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
 
+            @Override
             public Thread newThread(Runnable r) {
                 Thread newThread = defaultThreadFactory.newThread(r);
                 newThread.setName(poolName + "_" + newThread.getName());
@@ -625,6 +626,14 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
     }
 
     @Override
+    public synchronized void shutdownNow() {
+        shuttingDown = true;
+        locker.shutdownNow();
+        threadPool.shutdownNow();
+        stopped = true;
+    }
+
+    @Override
     public synchronized void shutdown() {
         shuttingDown = true;
         locker.shutdown();
@@ -642,14 +651,17 @@ public class LockerByKeyUnrestricted<KP> implements ILockerByKey<KP> {
         return locker.isLocked(key);
     }
 
+    @Override
     public List<LockerValue<KP>> getSuspectLocks(long timeDetectionLimitMs) {
         return locker.getSuspectLocks(timeDetectionLimitMs);
     }
 
+    @Override
     public void setDetectSuspectLocks(boolean detectSuspectLocks) {
         locker.setDetectSuspectLocks(detectSuspectLocks);
     }
 
+    @Override
     public boolean isDetectSuspectLocks() {
         return locker.isDetectSuspectLocks();
     }

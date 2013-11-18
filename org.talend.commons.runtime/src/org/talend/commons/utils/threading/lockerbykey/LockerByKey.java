@@ -68,6 +68,8 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
 
     private boolean detectSuspectLocks = false;
 
+    private boolean forceShutdown;
+
     static {
         String optionKey = "detectSuspectLocks";
         String detectSuspectLocksStr = System.getProperty(optionKey);
@@ -358,9 +360,13 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
      * The default clean will do an automatic clean all 1000 unlock operation, you can disable or change this value from
      * the constructor.
      */
+    @Override
     public void clean() {
         synchronized (lockAllOperations) {
-            waitForRunningOperationsEnded();
+            blockAllOperations();
+            if (!forceShutdown && shuttingDown) {
+                waitForRunningOperationsEnded();
+            }
             Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
             if (log.isTraceEnabled()) {
                 log.trace("Cleaning " + this.toString() + " : " + values.size() + " keys/values ...");
@@ -396,7 +402,6 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     }
 
     private void waitForRunningOperationsEnded() {
-        blockAllOperations();
         while (runningOperations.get() > 0) {
             try {
                 Thread.sleep(1);
@@ -451,9 +456,18 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     }
 
     @Override
+    public synchronized void shutdownNow() {
+        forceShutdown = true;
+        shutdown();
+    }
+
+    @Override
     public synchronized void shutdown() {
         shuttingDown = true;
-        waitForRunningOperationsEnded();
+        blockAllOperations();
+        if (!forceShutdown) {
+            waitForRunningOperationsEnded();
+        }
         Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
         for (LockerValue<KP> lockerValue : values) {
             Collection<Thread> queuedThreads = lockerValue.getLock().getQueuedThreads();
@@ -465,6 +479,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
         stopped = true;
     }
 
+    @Override
     public String toString() {
         return "LockerByKey:" + super.toString();
     }
@@ -584,6 +599,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
             this.key = key;
         }
 
+        @Override
         public String toString() {
             return StringUtils.replacePrms(InternalKeyLock.class.getSimpleName() + ": key={0}", key); //$NON-NLS-1$
         }
