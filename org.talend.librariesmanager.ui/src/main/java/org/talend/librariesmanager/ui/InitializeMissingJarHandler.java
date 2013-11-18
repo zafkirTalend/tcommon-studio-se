@@ -53,6 +53,8 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
 
     private ILibraryManagerService libraryManagerService;
 
+    private ExternalModulesInstallDialogWithProgress dialog;
+
     @Override
     public void earlyStartup() {
         setupMissingJarLoadingObserver();
@@ -102,7 +104,14 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
             // properly anyway.
             if (!bundlesAlreadyHandled.contains(jarMissingEvent.getBundleId())) {
                 bundlesAlreadyHandled.add(jarMissingEvent.getBundleId());
-                showMissingModuleDialog(jarMissingEvent);
+                Display.getDefault().asyncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        showMissingModuleDialog(jarMissingEvent);
+                    }
+                });
+
             }// else already handled so ignors it.
         } else {// notification is not expected so log it
             IllegalArgumentException illegalArgumentException = new IllegalArgumentException(
@@ -166,10 +175,12 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
 
                 @Override
                 public void run() {
-                    ExternalModulesInstallDialogWithProgress dialog = new ExternalModulesInstallDialogWithProgress(
-                            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-                            Messages.getString("ExternalModulesInstallDialog_Title_Missing_jars_for_plugin"), //$NON-NLS-1$
-                            Messages.getString("ExternalModulesInstallDialog_description_jars_to_be_installed_in"), SWT.APPLICATION_MODAL); //$NON-NLS-1$
+                    if (dialog == null) {
+                        dialog = new ExternalModulesInstallDialogWithProgress(
+                                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                                Messages.getString("ExternalModulesInstallDialog_Title_Missing_jars_for_plugin"), //$NON-NLS-1$
+                                Messages.getString("ExternalModulesInstallDialog_description_jars_to_be_installed_in"), SWT.APPLICATION_MODAL); //$NON-NLS-1$
+                    }
                     dialog.showDialog(true, requiredJars.toArray(new String[requiredJars.size()]));
                 }
             });
