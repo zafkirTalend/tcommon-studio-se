@@ -425,6 +425,12 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             if (originalValueConnection == null) {
                 originalValueConnection = getConnection();
             }
+            TableItem[] items = tableEditorView.getTableViewerCreator().getTable().getItems();
+            for (TableItem item : items) {
+                if (item.getChecked() && !getConnection().getValue().contains(item.getText())) {
+                    getConnection().getValue().add(item.getText());
+                }
+            }
             processDescription = getProcessDescription(originalValueConnection);
             return true;
         }
