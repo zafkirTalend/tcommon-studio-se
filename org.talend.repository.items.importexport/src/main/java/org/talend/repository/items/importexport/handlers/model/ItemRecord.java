@@ -219,6 +219,10 @@ public class ItemRecord {
         return resourceSet;
     }
 
+    public void setResourceSet(ResourceSet resourceSet) {
+        this.resourceSet = resourceSet;
+    }
+
     public void clear() {
         for (Resource resource : resourceSet.getResources()) {
             resource.unload();

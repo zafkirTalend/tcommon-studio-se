@@ -19,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -44,7 +44,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.talend.commons.emf.CwmResource;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -84,7 +83,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.MigrationUtil;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.core.repository.model.PropertiesProjectResourceImpl;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -239,10 +237,28 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     }
 
     protected void computeProperty(ResourcesManager manager, ItemRecord itemRecord) {
+        Resource resource = loadResource(manager, itemRecord);
+        if (resource != null) {
+            itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
+                    PropertiesPackage.eINSTANCE.getProperty()));
+        } else {
+            log.error(Messages.getString("ImportBasicHandler.ERROR_CREATE_EMF_RESOURCE") + itemRecord.getPath()); //$NON-NLS-1$
+        }
+    }
+
+    /**
+     * mzhao load resource with item record.
+     * 
+     * @param manager
+     * @param itemRecord
+     * @param resource
+     * @return
+     */
+    protected Resource loadResource(ResourcesManager manager, ItemRecord itemRecord) {
         InputStream stream = null;
         try {
-            stream = manager.getStream(itemRecord.getPath());
             final Resource resource = createResource(itemRecord, itemRecord.getPath(), false);
+            stream = manager.getStream(itemRecord.getPath());
             URIConverter uriConverter = resource.getResourceSet().getURIConverter();
             resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
 
@@ -266,8 +282,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             });
             resource.load(stream, null);
             resource.getResourceSet().setURIConverter(uriConverter);
-            itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
-                    PropertiesPackage.eINSTANCE.getProperty()));
+            return resource;
         } catch (Exception e) {
             // ignore, must be one invalid or unknown item
         } finally {
@@ -279,6 +294,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 }
             }
         }
+        return null;
     }
 
     protected Resource createResource(ItemRecord itemRecord, IPath path, boolean byteArrayResource) throws FileNotFoundException {
@@ -289,7 +305,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             resource = new ByteArrayResource(pathUri);
             resourceSet.getResources().add(resource);
         } else {
-            if (FileConstants.ITEM_EXTENSION.equals(path.getFileExtension())) {
+            String[] exts = getResourceNeededExtensions();
+            if (ArrayUtils.contains(exts, path.getFileExtension())) {
                 resource = createItemResource(pathUri);
                 resourceSet.getResources().add(resource);
             } else {
@@ -297,6 +314,16 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
         }
         return resource;
+    }
+
+    /**
+     * 
+     * mzhao get extensions needed to create a resource.
+     * 
+     * @return
+     */
+    protected String[] getResourceNeededExtensions() {
+        return new String[] { FileConstants.ITEM_EXTENSION };
     }
 
     protected Resource createItemResource(URI pathUri) {
@@ -398,7 +425,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
         } catch (PersistenceException e) {
-            log.error("Error when checking item :" + itemRecord.getPath(), e);
+            log.error("Error when checking item :" + itemRecord.getPath(), e); //$NON-NLS-1$
         }
         return true;
     }
@@ -573,7 +600,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             } else {
                 String message = Messages.getString("AbstractImportHandler_cannotImportMessage", importedProjectLabel); //$NON-NLS-1$
                 itemRecord.addError(message);
-                log.info("'" + itemRecord.getItemName() + "' " + message);
+                log.info("'" + itemRecord.getItemName() + "' " + message); //$NON-NLS-1$ //$NON-NLS-2$
                 migrationTasksStatusPerProject.put(importedProjectLabel, false);
             }
             migrationTasksToApplyPerProject.put(importedProjectLabel, migrationTasks);
@@ -611,27 +638,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
         resolveItem(resManager, selectedItemRecord);
-
-        // ????? why need check like this?
-        int num = 0;
-        for (Object obj : selectedItemRecord.getResourceSet().getResources()) {
-            if (!(obj instanceof PropertiesProjectResourceImpl)) {
-                if (obj instanceof XMIResourceImpl) {
-                    num++;
-                    if (num > 2) {// The is no explanation for this value and what is this loop for to I increased
-                        // it to
-                        // 2 so that metadata migration for 4.1 works
-                        try {
-                            throw new InvocationTargetException(new PersistenceException("The source file of "
-                                    + selectedItemRecord.getLabel() + " has error,Please check it!"));
-                        } catch (InvocationTargetException e) {
-                            ExceptionHandler.process(e);
-                        }
-                        return;
-                    }
-                }
-            }
-        }
 
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
