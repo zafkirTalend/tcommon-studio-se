@@ -364,7 +364,7 @@ public class LockerByKey<KP> implements ILockerByKey<KP> {
     public void clean() {
         synchronized (lockAllOperations) {
             blockAllOperations();
-            if (!forceShutdown && shuttingDown) {
+            if (!(forceShutdown && shuttingDown)) {
                 waitForRunningOperationsEnded();
             }
             Collection<LockerValue<KP>> values = mapKeyLockToValueLock.values();
