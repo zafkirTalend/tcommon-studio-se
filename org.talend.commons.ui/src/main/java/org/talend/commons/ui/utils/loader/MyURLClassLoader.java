@@ -48,6 +48,10 @@ public class MyURLClassLoader extends URLClassLoader {
         super(urls, Class.class.getClassLoader());
     }
 
+    public MyURLClassLoader(URL[] urls, ClassLoader parentLoader) {
+        super(urls, parentLoader);
+    }
+
     @SuppressWarnings("unchecked")//$NON-NLS-1$
     public Class[] getAssignableClasses(Class type) throws IOException {
         List classes = new ArrayList();
@@ -102,8 +106,9 @@ public class MyURLClassLoader extends URLClassLoader {
     }
 
     public static String changeFileNameToClassName(String name) {
-        if (name == null)
+        if (name == null) {
             throw new IllegalArgumentException("File Name == null");
+        }
         String className = null;
         if (name.toLowerCase().endsWith(".class")) {
             className = name.replace('/', '.');
