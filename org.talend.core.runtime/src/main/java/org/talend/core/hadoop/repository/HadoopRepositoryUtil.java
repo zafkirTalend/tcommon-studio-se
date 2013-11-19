@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -56,6 +57,10 @@ public class HadoopRepositoryUtil {
         return jsonArr.toString();
     }
 
+    public static List<HashMap<String, Object>> getHadoopPropertiesList(String propertiesJsonStr) throws JSONException {
+        return getHadoopPropertiesList(propertiesJsonStr, false);
+    }
+
     /**
      * DOC ycbai Comment method "getHadoopPropertiesList".
      * 
@@ -64,10 +69,12 @@ public class HadoopRepositoryUtil {
      * </p>
      * 
      * @param propertiesJsonStr
+     * @param includeQuotes
      * @return
      * @throws JSONException
      */
-    public static List<HashMap<String, Object>> getHadoopPropertiesList(String propertiesJsonStr) throws JSONException {
+    public static List<HashMap<String, Object>> getHadoopPropertiesList(String propertiesJsonStr, boolean includeQuotes)
+            throws JSONException {
         List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
         if (StringUtils.isNotEmpty(propertiesJsonStr)) {
             JSONArray jsonArr = new JSONArray(propertiesJsonStr);
@@ -77,7 +84,13 @@ public class HadoopRepositoryUtil {
                 Iterator<String> it = object.keys();
                 while (it.hasNext()) {
                     String key = it.next();
-                    map.put(key, object.get(key));
+                    String value = String.valueOf(object.get(key));
+                    if (includeQuotes) {
+                        value = TalendQuoteUtils.addQuotesIfNotExist(value);
+                    } else {
+                        value = TalendQuoteUtils.removeQuotesIfExist(value);
+                    }
+                    map.put(key, value);
                 }
                 properties.add(map);
             }

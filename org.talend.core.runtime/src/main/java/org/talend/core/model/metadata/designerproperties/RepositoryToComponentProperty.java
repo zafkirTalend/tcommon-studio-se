@@ -32,6 +32,7 @@ import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.hadoop.version.custom.ECustomVersionGroup;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -87,9 +88,7 @@ import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
-import org.talend.utils.json.JSONObject;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -1209,30 +1208,15 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("HBASE_PARAMETERS")) {
-            List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
             try {
                 String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
-                if (StringUtils.isNotEmpty(message)) {
-                    JSONArray jsonArr = new JSONArray(message);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        HashMap<String, Object> map = new HashMap();
-                        JSONObject object = jsonArr.getJSONObject(i);
-                        Iterator it = object.keys();
-                        while (it.hasNext()) {
-                            String key = (String) it.next();
-                            map.put(key, TalendQuoteUtils.addQuotes((String) object.get(key)));
-                        }
-                        properties.add(map);
-                    }
-                }
+                return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
             } catch (JSONException e) {
                 ExceptionHandler.process(e);
             }
-            return properties;
         }
 
         if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
-            List<HashMap<String, Object>> properties = new ArrayList<HashMap<String, Object>>();
             String message = null;
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
                 message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
@@ -1240,23 +1224,10 @@ public class RepositoryToComponentProperty {
                 message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
             }
             try {
-                if (StringUtils.isNotEmpty(message)) {
-                    JSONArray jsonArr = new JSONArray(message);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        HashMap<String, Object> map = new HashMap();
-                        JSONObject object = jsonArr.getJSONObject(i);
-                        Iterator it = object.keys();
-                        while (it.hasNext()) {
-                            String key = (String) it.next();
-                            map.put(key, TalendQuoteUtils.addQuotes((String) object.get(key)));
-                        }
-                        properties.add(map);
-                    }
-                }
+                return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
             } catch (JSONException e) {
                 ExceptionHandler.process(e);
             }
-            return properties;
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
