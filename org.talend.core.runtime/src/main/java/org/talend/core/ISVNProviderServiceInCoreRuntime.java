@@ -33,4 +33,6 @@ public interface ISVNProviderServiceInCoreRuntime extends IService {
 
     public void synProjectLib(String filePath);
 
+    public void update();
+
 }
