@@ -26,6 +26,8 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class StringUtils {
 
+    public static String EMPTY = ""; //$NON-NLS-1$
+
     public static String repeat(String str, int repeat) {
         return org.apache.commons.lang.StringUtils.repeat(str, repeat);
     }
@@ -226,15 +228,15 @@ public class StringUtils {
                     }
                     out[outLen++] = (char) value;
                 } else {
-                    if (aChar == 't')
+                    if (aChar == 't') {
                         aChar = '\t';
-                    else if (aChar == 'r')
+                    } else if (aChar == 'r') {
                         aChar = '\r';
-                    else if (aChar == 'n')
+                    } else if (aChar == 'n') {
                         aChar = '\n';
-                    else if (aChar == 'f')
+                    } else if (aChar == 'f') {
                         aChar = '\f';
-                    else if (Character.isDigit(aChar)) {
+                    } else if (Character.isDigit(aChar)) {
 
                         int value = 0;
                         for (int i = 0; i < 3; i++) {
@@ -268,7 +270,7 @@ public class StringUtils {
                     out[outLen++] = aChar;
                 }
             } else {
-                out[outLen++] = (char) aChar;
+                out[outLen++] = aChar;
             }
         }
         return new String(out, 0, outLen);
@@ -326,12 +328,13 @@ public class StringUtils {
         if (len < 0) {
             return str;
         }
-        if ("".equals(str) || str == null)
+        if ("".equals(str) || str == null) {
             return null;
-        else if (str.length() <= len) {
+        } else if (str.length() <= len) {
             return str;
-        } else
+        } else {
             return str.substring(0, len);
+        }
     }
 
     private static final String OPEN_BRACE = "{";
