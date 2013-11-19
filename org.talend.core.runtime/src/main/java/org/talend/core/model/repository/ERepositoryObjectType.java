@@ -362,6 +362,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      */
     private boolean isAllowMultiName = false;
 
+    /*
+     * This attribute is used to indicate folder name using ResourcesPlugin.getWorkspace().validateName(label,
+     * IResource.FOLDER) to validate but not talend default folder pattern when the value is true.
+     */
+    private boolean isAllowPlainFolder = false;
+
     private List<ERepositoryObjectType> parentTypes = new ArrayList<ERepositoryObjectType>();
 
     private List<ERepositoryObjectType> childrenTypes = new ArrayList<ERepositoryObjectType>();
@@ -574,7 +580,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.model.repository.DynaEnum#toString()
      */
     @Override
@@ -772,7 +778,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             *
+             * 
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobDocumentationItem
              * (org.talend.core.model.properties.JobDocumentationItem)
              */
@@ -783,7 +789,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             *
+             * 
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobletDocumentationItem
              * (org.talend.core.model.properties.JobletDocumentationItem)
              */
@@ -794,7 +800,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             *
+             * 
              * @see
              * org.talend.core.model.properties.util.PropertiesSwitch#casePigudfItem(org.talend.core.model.properties
              * .PigudfItem)
@@ -820,7 +826,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             *
+             * 
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseSQLPatternItem
              * (org.talend.core.model.properties.SQLPatternItem)
              */
@@ -837,7 +843,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
             /*
              * (non-Javadoc)
-             *
+             * 
              * @seeorg.talend.core.model.properties.util.PropertiesSwitch# caseJobletProcessItem
              * (org.talend.core.model.properties.JobletProcessItem)
              */
@@ -1020,9 +1026,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isDQItemType".
-     *
+     * 
      * This method is to estimat a type is a TDQ item or not.
-     *
+     * 
      * @return
      */
     public boolean isDQItemType() {
@@ -1031,9 +1037,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isDIType".
-     *
+     * 
      * This method is to estimat a type belongs to Data Intergration.
-     *
+     * 
      * @param type
      * @return
      */
@@ -1043,9 +1049,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /**
      * DOC bZhou Comment method "isSharedType".
-     *
+     * 
      * This method is to estimat a type belongs to both DQ and DI product.
-     *
+     * 
      * @param type
      * @return
      */
@@ -1055,7 +1061,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.talend.core.model.repository.DynaEnum#name()
      */
     @Override
@@ -1100,6 +1106,14 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public boolean isAllowMultiName() {
         return isAllowMultiName;
+    }
+
+    public boolean isAllowPlainFolder() {
+        return isAllowPlainFolder;
+    }
+
+    public void setAllowPlainFolder(boolean isAllowPlainFolder) {
+        this.isAllowPlainFolder = isAllowPlainFolder;
     }
 
     public boolean addExtraProducts(String[] productsArray) {
@@ -1163,11 +1177,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     }
 
     /**
-     *
+     * 
      * DOC ggu Comment method "valueOf".
-     *
+     * 
      * in order to adapte old codes. and enable to init this class at same times.
-     *
+     * 
      * @param clazz
      * @param name
      * @return

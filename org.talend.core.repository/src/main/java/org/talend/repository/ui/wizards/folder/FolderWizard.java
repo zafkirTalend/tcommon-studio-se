@@ -85,9 +85,9 @@ public class FolderWizard extends Wizard {
      */
     @Override
     public void addPages() {
-    	//only route resources is considered as plain folder currently
-    	boolean isPlainFolder = (type ==  ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES"));  
-    	
+        // route/tdm resources are considered as plain folder currently
+        boolean isPlainFolder = type == null ? false : type.isAllowPlainFolder();
+
         mainPage = new FolderWizardPage(defaultLabel, isPlainFolder);
         addPage(mainPage);
         if (defaultLabel != null) {

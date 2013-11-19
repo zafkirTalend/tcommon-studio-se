@@ -176,6 +176,14 @@ This attribute is used to indicate the multiple same name is allowed when creati
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="isAllowPlainFolder" type="boolean">
+            <annotation>
+               <documentation>
+                  Default is false.
+This attribute is used to indicate  folder name using ResourcesPlugin.getWorkspace().validateName(label, IResource.FOLDER) to validate but not talend default folder pattern when the value is true.
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

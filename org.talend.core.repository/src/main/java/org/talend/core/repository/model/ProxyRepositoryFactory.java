@@ -499,7 +499,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             checkFileNameAndPath(project, label, RepositoryConstants.TDQ_ALL_ITEM_PATTERN, type, path, true);
         } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
             checkFileNameAndPath(project, label, RepositoryConstants.SIMPLE_FOLDER_PATTERN, type, path, true);
-        } else if (type == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_RESOURCES")) { //$NON-NLS-1$
+        } else if (type.isAllowPlainFolder()) {
             if (org.eclipse.core.runtime.Status.OK_STATUS != ResourcesPlugin.getWorkspace().validateName(label, IResource.FOLDER)) {
                 throw new IllegalArgumentException(Messages.getString(
                         "ProxyRepositoryFactory.illegalArgumentException.labelNotMatchPattern", label)); //$NON-NLS-1$

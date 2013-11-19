@@ -275,8 +275,8 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                     // PTODO
                     String namePatternAttribute = element.getAttribute("name_pattern");
                     String isAllowMultiName = element.getAttribute("isAllowMultiName");
-                    if(isAllowMultiName == null || isAllowMultiName.trim().equals("")){
-                    	isAllowMultiName = "false";
+                    if (isAllowMultiName == null || isAllowMultiName.trim().equals("")) {
+                        isAllowMultiName = "false";
                     }
 
                     String[] products = getProducts(element);
@@ -309,7 +309,7 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                                 String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
                                 boolean.class, String[].class, boolean[].class });
                         instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
-                        		Boolean.parseBoolean(isAllowMultiName), user_right, resource);
+                                Boolean.parseBoolean(isAllowMultiName), user_right, resource);
 
                     } else {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
@@ -321,6 +321,13 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
 
                     if (instance != null && instance instanceof ERepositoryObjectType) {
                         ERepositoryObjectType currentType = (ERepositoryObjectType) instance;
+
+                        String isAllowPlainFolder = element.getAttribute("isAllowPlainFolder");
+                        if (isAllowPlainFolder == null || isAllowPlainFolder.trim().equals("")) {
+                            isAllowPlainFolder = "false";
+                        }
+                        currentType.setAllowPlainFolder(Boolean.parseBoolean(isAllowPlainFolder));
+
                         String parentTypesAttr = element.getAttribute("parentNodeType");
                         if (parentTypesAttr != null) {
                             String[] parentTypes = parentTypesAttr.split(SPLIT_CHARS);
