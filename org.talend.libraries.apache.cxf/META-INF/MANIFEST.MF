@@ -702,5 +702,4 @@ Export-Package: javax.ws.rs,
    javax.wsdl.xml,
    javax.wsdl.extensions,
    org.apache.cxf.common.i18n"
-Require-Bundle: org.talend.core.runtime,
- javax.wsdl;bundle-version="1.6.2"
+Require-Bundle: javax.wsdl;bundle-version="1.6.2"
