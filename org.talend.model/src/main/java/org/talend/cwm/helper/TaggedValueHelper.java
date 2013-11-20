@@ -26,7 +26,7 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * @author scorreia
- *
+ * 
  * This class is a helper for handling TaggedValues.
  */
 public final class TaggedValueHelper {
@@ -137,8 +137,6 @@ public final class TaggedValueHelper {
 
     public static final String REP_PASSWORD_CONTEXT = "REP_PASSWORD_CONTEXT"; //$NON-NLS-1$
 
-    public static final String MATCH_ANALYZE_DATA = "Match_Analyze_Data"; //$NON-NLS-1$
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
     /**
      * The tag used for setting a technical name.
@@ -173,7 +171,7 @@ public final class TaggedValueHelper {
 
     /**
      * Method "createTaggedValue".
-     *
+     * 
      * @param tag the tag of the tagged value to create
      * @param value the value of the tagged value to create
      * @return the created tagged value
@@ -187,7 +185,7 @@ public final class TaggedValueHelper {
 
     /**
      * Method "getTaggedValue" retrieves the tagged value corresponding to the first matching tag.
-     *
+     * 
      * @param tag the tag to match
      * @param taggedValues the tagged values in which to search for the given tag
      * @return the tagged value (if found) or null
@@ -210,7 +208,7 @@ public final class TaggedValueHelper {
 
     /**
      * Method "setTaggedValue".
-     *
+     * 
      * @param element the CWM model element to which a tagged value will be attached (if not already set)
      * @param tag the tag
      * @param value the value to set
@@ -231,7 +229,7 @@ public final class TaggedValueHelper {
 
     /**
      * Method "setValidStatus" sets the status on the given element.
-     *
+     * 
      * @param status the status to set
      * @param pattern the element
      * @return true if the value was not set before.
@@ -243,7 +241,7 @@ public final class TaggedValueHelper {
 
     /**
      * Method "getValidStatus".
-     *
+     * 
      * @param element
      * @return the validation status of the element
      */
@@ -253,7 +251,7 @@ public final class TaggedValueHelper {
 
     /**
      * get the Boolean value according to the tag name, if the TaggedValue is null, return false.
-     *
+     * 
      * @param tag
      * @param element
      * @return
@@ -265,7 +263,7 @@ public final class TaggedValueHelper {
 
     /**
      * get the CLASS_NAME_TEXT value.
-     *
+     * 
      * @param element
      * @return
      */
@@ -275,7 +273,7 @@ public final class TaggedValueHelper {
 
     /**
      * set the CLASS_NAME_TEXT value.
-     *
+     * 
      * @param classNameText
      * @param element
      * @return
@@ -286,7 +284,7 @@ public final class TaggedValueHelper {
 
     /**
      * get the JAR_FILE_PATH value.
-     *
+     * 
      * @param element
      * @return
      */
@@ -296,7 +294,7 @@ public final class TaggedValueHelper {
 
     /**
      * set the JAR_FILE_PATH value.
-     *
+     * 
      * @param jarFilePath
      * @param element
      * @return
@@ -307,7 +305,7 @@ public final class TaggedValueHelper {
 
     /**
      * get the String value according to the tag name, if the TaggedValue is null, return empty string.
-     *
+     * 
      * @param tag
      * @param element
      * @return
@@ -320,7 +318,7 @@ public final class TaggedValueHelper {
     /**
      * return the String size limit for the given ecore attribute. This looks for an annotation url :
      * htttp://talend.org/UiConstraints and search for the key string.max.size
-     *
+     * 
      * @param tag the tag value to get the size limit from.
      * @param defaultValue the default value returned if limit not found in feature
      * @return the string limit found or the default value ADDED sgandon 16/03/2010 bug 11760
