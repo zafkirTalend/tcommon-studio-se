@@ -2,6 +2,7 @@ package org.talend.librariesmanager.ui.wizards;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
@@ -58,6 +60,8 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
     private static final String LIST_WEIGHT = "ListSashWeight"; //$NON-NLS-1$
 
     private static final String LICENSE_WEIGHT = "LicenseSashWeight"; //$NON-NLS-1$
+
+    private static final String LICENSE_SEP = ","; //$NON-NLS-1$
 
     private TreeViewer licenseTypeViewer;
 
@@ -299,13 +303,14 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
                         License license = typeToLicense.get(licenseType);
                         if (license == null) {
                             license = new License();
-                            String licenseUrl = RemoteModulesHelper.getInstance().getLicenseUrl(moduleToInstall.getLicenseType());
+                            String licenseUrl = RemoteModulesHelper.getInstance().getLicenseUrl(licenseType);
                             license.setName(licenseType);
                             license.setType(licenseType);
                             license.setUrl(licenseUrl);
                             license.setParent(licenseRoot);
                             licenseRoot.addChild(license);
                             typeToLicense.put(licenseType, license);
+                            licenseTypeToStatus.put(licenseType, false);
                         }
                         Module module = new Module();
                         module.setName(moduleToInstall.getName());
@@ -339,8 +344,47 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
      * @return <code>true</code> if the finish can proceed, <code>false</code> if it should not.
      */
     public boolean performFinish() {
+        if (!confirmRejectLicenses()) {
+            return false;
+        }
+
         rememberAcceptedLicenses();
         saveBoundsRelatedSettings();
+        return true;
+    }
+
+    private boolean confirmRejectLicenses() {
+        List<String> rejectLicensesList = new ArrayList<String>();
+        Iterator<Entry<String, Boolean>> iter = licenseTypeToStatus.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, Boolean> entry = iter.next();
+            String licenseType = entry.getKey();
+            if (!entry.getValue()) {
+                rejectLicensesList.add(licenseType);
+            }
+        }
+        StringBuffer rejectLicenses = new StringBuffer();
+        Collections.sort(rejectLicensesList);
+        for (String lt : rejectLicensesList) {
+            rejectLicenses.append(lt).append(LICENSE_SEP);
+        }
+        boolean hasRejectLicenses = false;
+        if (rejectLicenses.length() > 0) {
+            rejectLicenses.deleteCharAt(rejectLicenses.length() - 1);
+            hasRejectLicenses = true;
+        }
+        if (hasRejectLicenses) {
+            MessageBox messagebox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+            messagebox.setText(Messages.getString("AcceptModuleLicensesWizardPage.rejectLicensesConfirmation.title")); //$NON-NLS-1$
+            messagebox.setMessage(Messages.getString(
+                    "AcceptModuleLicensesWizardPage.rejectLicensesConfirmation.msg", rejectLicenses.toString())); //$NON-NLS-1$
+            if (messagebox.open() == SWT.YES) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         return true;
     }
 
