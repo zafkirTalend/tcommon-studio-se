@@ -57,6 +57,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.PigudfItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -480,7 +481,7 @@ public class DuplicateAction extends AContextualAction {
                                             }
                                         }
 
-                                        if (copy instanceof ProcessItem) {
+                                        if (copy instanceof ProcessItem || copy instanceof JobletProcessItem) {
                                             RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
                                         }
                                         // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new
@@ -563,7 +564,7 @@ public class DuplicateAction extends AContextualAction {
                         // for camel
                         synDuplicatedBean(newItem);
                     }
-                    if (newItem instanceof ProcessItem) {
+                    if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                     }
 
