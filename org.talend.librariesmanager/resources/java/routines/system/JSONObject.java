@@ -1337,7 +1337,7 @@ public class JSONObject {
      */
     static Object wrap(Object object) {
         try {
-            if (object == null) {
+            if (object == null || object instanceof org.dom4j.Document) {
                 return NULL;
             }
             if (object instanceof JSONObject || object instanceof JSONArray || object instanceof Byte
