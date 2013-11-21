@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.properties.Item;
 
 /**
  * DOC xhuang class global comment. Detailled comment <br/>
@@ -63,6 +64,29 @@ public class TalendProblem extends Problem {
         setNodeName(uniName);
     }
 
+    public TalendProblem(ProblemStatus status, Item item, IMarker marker, String markerErrorMessage, Integer lineNumber,
+            String uniName, Integer charStart, Integer charEnd, ProblemType type) {
+        super();
+        setDescription(markerErrorMessage);
+        setStatus(status);
+
+        if (item.getProperty().getId() != null) {
+            BasicJobInfo jobInfo = new BasicJobInfo(item.getProperty().getId(), null, item.getProperty().getVersion());
+            jobInfo.setJobName(item.getProperty().getLabel());
+            setJobInfo(jobInfo);
+        }
+
+        this.javaUnitName = item.getProperty().getLabel();
+        this.marker = marker;
+        this.lineNumber = lineNumber;
+        this.unitName = uniName;
+        this.charStart = charStart;
+        this.charEnd = charEnd;
+        this.version = item.getProperty().getVersion();
+        setType(type);
+        setNodeName(uniName);
+    }
+
     public String getVersion() {
         return this.version;
     }
@@ -99,6 +123,7 @@ public class TalendProblem extends Problem {
         return this.javaUnitName;
     }
 
+    @Override
     public String getProblemResource() {
         return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
