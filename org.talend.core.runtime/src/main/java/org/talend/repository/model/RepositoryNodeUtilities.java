@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
@@ -24,6 +25,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
@@ -232,6 +234,70 @@ public class RepositoryNodeUtilities {
             return null;
         }
         return getRepositoryNode((IRepositoryNode) view.getRoot(), curNode, view, expanded);
+    }
+
+    private static IRepositoryNode viewRootNode;
+
+    public static RepositoryNode getRepositoryNode(IRepositoryViewObject curNode, IProgressMonitor monitor) {
+        if (curNode == null) {
+            return null;
+        }
+        viewRootNode = null;
+        DisplayUtils.getDisplay().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                IRepositoryView view = getRepositoryView();
+                if (view != null) {
+                    viewRootNode = (IRepositoryNode) view.getRoot();
+                }
+            }
+        });
+        if (viewRootNode == null) {
+            return null;
+        }
+        RepositoryNode toReturn = getRepositoryNode(viewRootNode, curNode, monitor);
+        viewRootNode = null;
+        return toReturn;
+    }
+
+    private static RepositoryNode getRepositoryNode(IRepositoryNode rootNode, IRepositoryViewObject curNode,
+            IProgressMonitor monitor) {
+        if (rootNode == null || curNode == null) {
+            return null;
+        }
+        if (monitor != null && monitor.isCanceled()) {
+            return null;
+        }
+
+        List<IRepositoryNode> children = rootNode.getChildren();
+
+        if (children != null) {
+            if (children.isEmpty()) {
+                rootNode.getRoot().initNode(rootNode);
+                children = rootNode.getChildren();
+            }
+            // in the first, search the current folder
+            List<IRepositoryNode> folderChild = new ArrayList<IRepositoryNode>();
+
+            for (IRepositoryNode childNode : children) {
+                RepositoryNode node = (RepositoryNode) childNode;
+                if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT) {
+                    folderChild.add(node);
+                } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
+                    return node;
+                }
+
+            }
+            for (IRepositoryNode folderNode : folderChild) {
+                final RepositoryNode repositoryNode = getRepositoryNode(folderNode, curNode, monitor);
+                if (repositoryNode != null) {
+                    return repositoryNode;
+                }
+            }
+        }
+
+        return null;
     }
 
     private static RepositoryNode getRepositoryNode(IRepositoryNode rootNode, IRepositoryViewObject curNode,
