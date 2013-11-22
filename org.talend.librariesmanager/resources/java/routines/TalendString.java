@@ -68,7 +68,7 @@ public class TalendString {
      * {example} getAsciiRandomString(6) # Art34Z
      */
     public static String getAsciiRandomString(int length) {
-        Random random = new Random();
+        Random random = new Random(System.currentTimeMillis() + Thread.currentThread().getId()*1000);
         int cnt = 0;
         StringBuffer buffer = new StringBuffer();
         char ch;
