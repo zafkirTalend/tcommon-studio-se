@@ -26,8 +26,6 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class StringUtils {
 
-    public static String EMPTY = ""; //$NON-NLS-1$
-
     public static String repeat(String str, int repeat) {
         return org.apache.commons.lang.StringUtils.repeat(str, repeat);
     }
