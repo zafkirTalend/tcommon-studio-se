@@ -34,6 +34,7 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -193,6 +194,19 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
      */
     @Override
     public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames) {
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#newSchemaWizard(org.eclipse.ui.IWorkbench,
+     * boolean, org.talend.core.model.repository.IRepositoryViewObject,
+     * org.talend.core.model.metadata.builder.connection.MetadataTable, java.lang.String[], boolean)
+     */
+    @Override
+    public IWizard newSchemaWizard(IWorkbench workbench, boolean creation, IRepositoryViewObject object,
+            MetadataTable metadataTable, String[] existingNames, boolean forceReadOnly) {
         return null;
     }
 

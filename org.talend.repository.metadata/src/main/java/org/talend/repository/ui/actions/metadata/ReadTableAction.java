@@ -57,6 +57,7 @@ public class ReadTableAction extends AbstractCreateTableAction {
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.READ_ICON));
     }
 
+    @Override
     protected void init(RepositoryNode node) {
         setEnabled(false);
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -118,6 +119,7 @@ public class ReadTableAction extends AbstractCreateTableAction {
         }
     }
 
+    @Override
     protected void doRun() {
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         RepositoryNode metadataNode = getMetadataNode(getCurrentRepositoryNode());
@@ -161,6 +163,8 @@ public class ReadTableAction extends AbstractCreateTableAction {
             createLDAPSchemaWizard(node, true);
         } else if (ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA.equals(nodeType)) {
             createSalesforceSchemaWizard(node, true);
+        } else { // handle the schemas of extensive nodes.
+            createExtenseNodeSchemaWizard(nodeType, node, true);
         }
     }
 }

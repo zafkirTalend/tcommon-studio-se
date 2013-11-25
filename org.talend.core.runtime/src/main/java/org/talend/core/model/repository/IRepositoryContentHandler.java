@@ -25,6 +25,7 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.repository.model.IRepositoryNode;
@@ -138,9 +139,24 @@ public interface IRepositoryContentHandler {
      * @param creation
      * @param node
      * @param existingNames
-     * @return a new wizard related to the node.
+     * @return a new connection wizard associated with the node.
      */
     public IWizard newWizard(IWorkbench workbench, boolean creation, RepositoryNode node, String[] existingNames);
+
+    /**
+     * 
+     * DOC ycbai Comment method "newSchemaWizard".
+     * 
+     * @param workbench
+     * @param creation
+     * @param object
+     * @param metadataTable
+     * @param existingNames
+     * @param forceReadOnly
+     * @return a new schema wizard associated with the object.
+     */
+    public IWizard newSchemaWizard(IWorkbench workbench, boolean creation, IRepositoryViewObject object,
+            MetadataTable metadataTable, String[] existingNames, boolean forceReadOnly);
 
     /**
      * 

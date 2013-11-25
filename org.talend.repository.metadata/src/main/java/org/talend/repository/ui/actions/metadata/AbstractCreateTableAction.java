@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -37,6 +38,7 @@ import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -70,7 +72,9 @@ import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -124,7 +128,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
      * @param node
      * @param wizardDialog
      */
-    private void handleWizard(RepositoryNode node, WizardDialog wizardDialog) {
+    protected void handleWizard(RepositoryNode node, WizardDialog wizardDialog) {
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
@@ -1071,6 +1075,57 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
         });
         job.schedule();
 
+    }
+
+    /**
+     * 
+     * DOC ycbai Comment method "createExtenseNodeSchemaWizard".
+     * 
+     * <p>
+     * Create and open a wizard associated with the node.
+     * </p>
+     * 
+     * @param nodeItemType the type of item which the schema node belongs to.
+     * @param node the schema node.
+     * @param forceReadOnly whether or not set the wizard as readonly.
+     */
+    protected void createExtenseNodeSchemaWizard(final ERepositoryObjectType nodeItemType, final RepositoryNode node,
+            final boolean forceReadOnly) {
+        MetadataTable metadataTable = null;
+        boolean creation = false;
+        if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
+            ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+            ConnectionItem item = null;
+            if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
+                if (node.getParent().isBin() && node.getParent().getObject() == null) {
+                    item = (ConnectionItem) node.getObject().getProperty().getItem();
+                } else {
+                    item = (ConnectionItem) node.getParent().getObject().getProperty().getItem();
+                }
+                if (item != null) {
+                    Connection connection = item.getConnection();
+                    String tableLabel = (String) node.getProperties(EProperties.LABEL);
+                    metadataTable = TableHelper.findByLabel(connection, tableLabel);
+                }
+                creation = false;
+            } else if (nodeType == nodeItemType) {
+                item = (ConnectionItem) node.getObject().getProperty().getItem();
+                creation = true;
+            } else {
+                return;
+            }
+            initContextMode(item);
+            for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+                if (handler.isRepObjType(nodeItemType)) {
+                    IWizard schemaWizard = handler.newSchemaWizard(PlatformUI.getWorkbench(), creation, node.getObject(),
+                            metadataTable, getExistingNames(), forceReadOnly);
+                    WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                            schemaWizard);
+                    handleWizard(node, wizardDialog);
+                    return;
+                }
+            }
+        }
     }
 
     public boolean checkConnectStatus(ManagerConnection managerConnection, IMetadataConnection metadataConnection) {
