@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.util.List;
+
 import org.talend.core.model.properties.Property;
 
 /**
@@ -27,5 +29,7 @@ public interface IExtendedRepositoryNodeHandler {
     public ERepositoryObjectType getObjectType(Object repositoryNode);
 
     public Object getRepositoryNode(IRepositoryViewObject repositoryObject);
+
+    public List getRepositoryNodeAndDependencies(IRepositoryViewObject repositoryObject);
 
 }
