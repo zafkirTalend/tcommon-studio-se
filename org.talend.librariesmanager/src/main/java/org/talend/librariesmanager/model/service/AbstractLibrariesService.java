@@ -57,7 +57,6 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -146,6 +145,20 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
 
+        // synchronize .Java project for all new jars.
+        try {
+            for (String name : names) {
+                String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                path = path + File.separatorChar + projectLabel + File.separatorChar
+                        + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
+                File libsTargetFile = new File(path);
+                File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar + name);
+                synJavaLibs(source);
+            }
+        } catch (IOException e) {
+            CommonExceptionHandler.process(e);
+        }
+
         // if svn libs setup from tac then ...
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister.getDefault()
@@ -164,8 +177,9 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
             }
         }
 
+        // if libs are stored in the project
         if (PluginChecker.isSVNProviderPluginLoaded()) {
-            RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
+            final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
                 @Override
                 public void run() throws PersistenceException {
@@ -178,7 +192,6 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                             File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA)
                                     + File.separatorChar + name);
                             FilesUtils.copyFile(source, libsTargetFile);
-                            synJavaLibs(source);
                         }
                         eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
                     } catch (IOException e) {
@@ -190,9 +203,15 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
             };
             repositoryWorkUnit.setAvoidUnloadResources(true);
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-                IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                        IRepositoryService.class);
-                service.getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+                new Thread() {
+
+                    @Override
+                    public void run() {
+                        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                                IRepositoryService.class);
+                        service.getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+                    }
+                }.start();
             }
         }
 
