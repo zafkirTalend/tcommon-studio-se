@@ -154,6 +154,9 @@ public class JDBCDriverLoader {
                         && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }
+                if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
+                    ExtractMetaDataUtils.getInstance().setDriverCache(wapperDriver);
+                }
                 // MOD klliu TDQ-4659 sso could not check passed.2012-02-10
                 // if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 // connection = ConnectionUtils.createConnection(url, (Driver) (driver.newInstance()), info);
@@ -177,5 +180,4 @@ public class JDBCDriverLoader {
         }
 
     }
-
 }

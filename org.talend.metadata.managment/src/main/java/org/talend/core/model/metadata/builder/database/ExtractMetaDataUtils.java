@@ -1019,7 +1019,7 @@ public class ExtractMetaDataUtils {
                             wapperDriver = (DriverShim) list.get(i);
                         }
                     }
-                    DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
+                    // setDriverCache(wapperDriver);
                 }
             }
         } else if (dbType != null
@@ -1081,6 +1081,15 @@ public class ExtractMetaDataUtils {
         }
 
         return conList;
+    }
+
+    /**
+     * DOC PLV Comment method "setDriverCache".
+     * 
+     * @param wapperDriver
+     */
+    public void setDriverCache(DriverShim wapperDriver) {
+        DRIVER_CACHE.put(EDatabase4DriverClassName.MSSQL.getDriverClass(), wapperDriver);
     }
 
     public String getLibrariesPath(ECodeLanguage language) {
