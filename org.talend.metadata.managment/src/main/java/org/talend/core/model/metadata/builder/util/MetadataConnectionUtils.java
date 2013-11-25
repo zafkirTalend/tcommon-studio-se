@@ -167,26 +167,45 @@ public class MetadataConnectionUtils {
             if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
                 java.sql.Connection sqlConn = null;
                 Driver driver = null;
-                List list = getConnection(metadataBean);
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i) instanceof Driver) {
-                        driver = (Driver) list.get(i);
+                try {
+                    if (isHsqlInprocess(metadataBean)) {
+                        List list = getConnection(metadataBean);
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i) instanceof Driver) {
+                                driver = (Driver) list.get(i);
+                            }
+                            if (list.get(i) instanceof java.sql.Connection) {
+                                sqlConn = (java.sql.Connection) list.get(i);
+                            }
+                        }
+                    } else {
+                        driver = getClassDriver(metadataBean);
+                        sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
                     }
-                    if (list.get(i) instanceof java.sql.Connection) {
-                        sqlConn = (java.sql.Connection) list.get(i);
-                    }
-                }
 
-                ReturnCode varc = ConnectionUtils.isValid(sqlConn);
-                if (varc.isOk()) {
-                    derbyDriver = null;
-                    if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
-                        DBConnectionFillerImpl.setDriver(driver);
-                        derbyDriver = driver;
+                    ReturnCode varc = ConnectionUtils.isValid(sqlConn);
+                    if (varc.isOk()) {
+                        derbyDriver = null;
+                        if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
+                            DBConnectionFillerImpl.setDriver(driver);
+                            derbyDriver = driver;
+                        }
+                        rc.setObject(sqlConn);
+                        rc.setMessage(varc.getMessage());
+                        rc.setOk(true);
                     }
-                    rc.setObject(sqlConn);
-                    rc.setMessage(varc.getMessage());
-                    rc.setOk(true);
+                } catch (SQLException e) {
+                    log.error(e.getMessage());
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (InstantiationException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (IllegalAccessException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (ClassNotFoundException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
                 }
             } else {
                 if (StringUtils.isNotBlank(dbUrl)) {
