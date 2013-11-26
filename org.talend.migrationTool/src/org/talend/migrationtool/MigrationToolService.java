@@ -419,11 +419,11 @@ public class MigrationToolService implements IMigrationToolService {
 
     @Override
     public void updateMigrationSystem(org.talend.core.model.properties.Project project, boolean persistence) {
-        MigrationUtil.removeMigrationTaskById(project.getMigrationTask(), MigrationUtil.ADAPT_NEW_MIGRATION_TASK_SYSTEM_ID);
-        IProjectMigrationTask task = GetTasksHelper.getInstance()
-                .getProjectTask(MigrationUtil.ADAPT_NEW_MIGRATION_TASK_SYSTEM_ID);
-        task.execute(new org.talend.core.model.general.Project(project), persistence);
-        project.getMigrationTask().add(MigrationUtil.convertMigrationTask(task));
+        if (!MigrationUtil.containsTask(project.getMigrationTask(), MigrationUtil.ADAPT_NEW_MIGRATION_TASK_SYSTEM_ID)) {
+            IProjectMigrationTask task = GetTasksHelper.getInstance().getProjectTask(
+                    MigrationUtil.ADAPT_NEW_MIGRATION_TASK_SYSTEM_ID);
+            task.execute(new org.talend.core.model.general.Project(project), persistence);
+        }
     }
 
     private void sortMigrationTasks(List<? extends IMigrationTask> tasks) {
