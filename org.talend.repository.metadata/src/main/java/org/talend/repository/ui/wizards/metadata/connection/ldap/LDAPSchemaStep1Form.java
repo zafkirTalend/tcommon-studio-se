@@ -24,8 +24,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -139,6 +137,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
         hostCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -148,24 +147,9 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
             }
         });
 
-        portCombo.addVerifyListener(new VerifyListener() {
-
-            public void verifyText(VerifyEvent event) {
-                if (!isContextMode()) {
-                    if (!event.text.matches("[0-9]*")) { //$NON-NLS-1$
-                        event.doit = false;
-                    }
-                    if (portCombo.getText().length() > 6 && event.text.length() > 0) {
-                        event.doit = false;
-                    } else {
-                        checkFieldsValue();
-                        connection.setPort(portCombo.getText().trim());
-                    }
-                }
-            }
-        });
         portCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -176,6 +160,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
         encryptionMethodCombo.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 checkFieldsValue();
 
@@ -188,6 +173,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
             boolean isOK = false;
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 if (isContextMode() && getContextModeManager() != null) {
                     ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(getShell(),
@@ -197,6 +183,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
                 try {
                     IRunnableWithProgress op = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) {
                             isOK = LDAPConnectionUtils.checkParam(getOriginalValueConnection(), true);
                         }
@@ -251,6 +238,10 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
         } else if (portCombo.getText() == null || portCombo.getText().equals("")) { //$NON-NLS-1$
             this.checkConnectionButton.setEnabled(false);
             updateStatus(IStatus.ERROR, "Port must be specified."); //$NON-NLS-1$
+            return false;
+        } else if (!portCombo.getText().matches("[0-9]*") || portCombo.getText().length() > 6) { //$NON-NLS-1$
+            this.checkConnectionButton.setEnabled(false);
+            updateStatus(IStatus.ERROR, "Port must be number and max length is 6."); //$NON-NLS-1$
             return false;
         } else {
             this.checkConnectionButton.setEnabled(true);
