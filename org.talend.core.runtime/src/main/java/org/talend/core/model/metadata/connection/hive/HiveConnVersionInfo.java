@@ -49,7 +49,7 @@ public enum HiveConnVersionInfo {
 
     HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0", true, false, true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -59,7 +59,7 @@ public enum HiveConnVersionInfo {
 
     Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
     MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
