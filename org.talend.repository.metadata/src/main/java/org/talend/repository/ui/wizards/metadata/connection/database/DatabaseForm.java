@@ -4327,6 +4327,7 @@ public class DatabaseForm extends AbstractForm {
         }
 
         updateYarnStatus();
+        updateYarnInfo(currIndexofDistribution, currIndexofHiveVersion);
     }
 
     private void updateYarnStatus() {
@@ -4653,6 +4654,9 @@ public class DatabaseForm extends AbstractForm {
 
     private void updateYarnInfo(int distributionIndex, int hiveVersionIndex) {
         HiveConnVersionInfo hiveVersionObj = HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex);
+        if (hiveVersionObj == null) {
+            return;
+        }
         if (hiveVersionObj.isSupportYARN() && !hiveVersionObj.isSupportMR1()) {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.TRUE));
         } else {
