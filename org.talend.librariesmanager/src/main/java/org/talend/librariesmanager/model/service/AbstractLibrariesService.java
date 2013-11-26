@@ -57,6 +57,7 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -165,7 +166,17 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                     .getService(ISVNProviderServiceInCoreRuntime.class);
             if (service != null) {
                 File libFile = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA));
-                if (service.isSvnLibSetupOnTAC() && service.isInSvn(libFile.getAbsolutePath())
+                // check local or remote
+                boolean localConnectionProvider = true;
+                IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+                if (proxyRepositoryFactory != null) {
+                    try {
+                        localConnectionProvider = proxyRepositoryFactory.isLocalConnectionProvider();
+                    } catch (PersistenceException e) {
+                        //
+                    }
+                }
+                if (!localConnectionProvider && service.isSvnLibSetupOnTAC() && service.isInSvn(libFile.getAbsolutePath())
                         && !getRepositoryContext().isOffline()) {
                     List jars = new ArrayList();
                     for (String name : names) {
@@ -175,10 +186,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                     return;
                 }
             }
-        }
 
-        // if libs are stored in the project
-        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            // if libs are stored in the project
             final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
 
                 @Override
