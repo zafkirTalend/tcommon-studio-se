@@ -27,11 +27,34 @@ import org.eclipse.ui.internal.util.PrefUtil;
  * this class is used for cheatsheet view display.
  * 
  */
+@SuppressWarnings("restriction")
 public class CheatSheetUtils {
 
     private static CheatSheetUtils instance;
 
+    /**
+     * this flag means the first time when studio start. only when this value is true, when close the welcome page, we
+     * will display and maximum display cheatsheet view, else do nothing.
+     */
     private boolean isFirstTime = true;
+
+    /**
+     * Sets the isFirstTime.
+     * 
+     * @param isFirstTime the isFirstTime to set
+     */
+    public void setFirstTime(boolean isFirstTime) {
+        this.isFirstTime = isFirstTime;
+    }
+
+    /**
+     * Getter for isFirstTime.
+     * 
+     * @return the isFirstTime
+     */
+    public boolean isFirstTime() {
+        return this.isFirstTime;
+    }
 
     public static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
 
@@ -51,12 +74,12 @@ public class CheatSheetUtils {
      */
     public void maxDisplayCheatSheetView(CheatSheetView view) {
         // ADD msjian TDQ-7407 2013-8-23: Only display the Cheat Sheet view on new startup of the studio
-        if (isFirstTime && !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName())) {
+        if (isFirstTime() && !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName())) {
             PartPane pane = ((PartSite) view.getSite()).getPane();
             view.getSite().getPage().toggleZoom(pane.getPartReference());
             view.setFocus();
 
-            isFirstTime = false;
+            setFirstTime(false);
             PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
         }
         // TDQ-7407~
