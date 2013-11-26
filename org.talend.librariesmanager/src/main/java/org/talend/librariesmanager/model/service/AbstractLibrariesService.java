@@ -171,7 +171,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                     for (String name : names) {
                         jars.add(libFile.getAbsolutePath() + File.separatorChar + name);
                     }
-                    service.depolyNewJar(jars);
+                    service.deployNewJar(jars);
                     return;
                 }
             }

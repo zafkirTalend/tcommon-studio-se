@@ -21,7 +21,7 @@ public interface ISVNProviderServiceInCoreRuntime extends IService {
 
     public boolean isSvnLibSetupOnTAC();
 
-    public boolean depolyNewJar(List jars);
+    public boolean deployNewJar(List jars);
 
     public boolean isInSvn(String filePath);
 
