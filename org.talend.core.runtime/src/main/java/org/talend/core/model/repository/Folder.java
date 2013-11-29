@@ -102,6 +102,10 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
      */
     @Override
     public Property getProperty() {
+        if (this.projectLabel == null) {
+            // for SQL builder
+            return super.getProperty();
+        }
         IProxyRepositoryFactory factory = null;
         factory = ((IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class))
                 .getProxyRepositoryFactory();
