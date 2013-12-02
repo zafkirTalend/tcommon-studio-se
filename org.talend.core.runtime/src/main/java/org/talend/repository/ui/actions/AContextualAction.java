@@ -271,6 +271,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             return selection;
         }
         if (activePart instanceof IRepositoryView) {
+            workbenchPart = activePart;
             return ((IRepositoryView) activePart).getViewer().getSelection();
         }
 
