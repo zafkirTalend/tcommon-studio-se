@@ -15,10 +15,11 @@ package org.talend.rcp.intro;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URISyntaxException;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -33,6 +34,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
@@ -60,10 +62,12 @@ public class Application implements IApplication {
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
             // If we cannot get the workspace lock, pop up an error dialog and then exit the application.
-            boolean inuse = !acquireWorkspaceLock(shell);
-            // if (!acquireWorkspaceLock(shell)) {
-            // return IApplication.EXIT_OK;
-            // }
+            boolean inuse = false;
+            if (!Boolean.getBoolean("org.talend.workspace.locked")) {// TDI-28205, the lock may be acquired by the
+                                                                     // configurator but leave a possibility to do it
+                                                                     // here for TOS
+                inuse = !acquireWorkspaceLock(shell);
+            }// else already locked by the configurator so not in use.
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
@@ -197,30 +201,41 @@ public class Application implements IApplication {
     private boolean acquireWorkspaceLock(Shell shell) {
         Location instanceLoc = Platform.getInstanceLocation();
         ConnectionUserPerReader perReader = ConnectionUserPerReader.getInstance();
-        if (perReader.isHaveUserPer()) {
-            String lastWorkSpacePath = perReader.readLastWorkSpace();
-            if (!"".equals(lastWorkSpacePath) && lastWorkSpacePath != null) {//$NON-NLS-1$
-
-                File file = new File(lastWorkSpacePath);
-                if (!file.exists()) {
-                    // for bug 10307
-                    boolean mkdirs = file.mkdirs();
-                    if (!mkdirs) {
-                        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
-                                Messages.getString("Application.workspaceNotExiste")); //$NON-NLS-1$
-                        perReader.saveConnections(null);
-                        return true;
+        if (perReader.isHaveUserPer() && instanceLoc != null && !instanceLoc.isSet()) {
+            try {
+                String lastWorkSpacePath = perReader.readLastWorkSpace();
+                if (!"".equals(lastWorkSpacePath) && lastWorkSpacePath != null) {//$NON-NLS-1$
+                    File file = new File(lastWorkSpacePath);
+                    boolean needSet = true;
+                    if (instanceLoc.isSet()) {
+                        File curWorkspace = URIUtil.toFile(URIUtil.toURI(instanceLoc.getURL()));
+                        if (file.equals(curWorkspace)) {
+                            needSet = false;
+                        }
+                    }
+                    // make sure set really.
+                    if (needSet) {
+                        if (!file.exists()) {
+                            // for bug 10307
+                            boolean mkdirs = file.mkdirs();
+                            if (!mkdirs) {
+                                MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
+                                        Messages.getString("Application.workspaceNotExiste")); //$NON-NLS-1$
+                                perReader.saveConnections(null);
+                                return true;
+                            }
+                        }
+                        instanceLoc.set(file.toURI().toURL(), false);
                     }
                 }
-                URL url = null;
-                try {
-                    url = file.toURL();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                if (url != null) {
-                    instanceLoc.setURL(url, false);
-                }
+            } catch (MalformedURLException e) {
+                ExceptionHandler.process(e);
+            } catch (URISyntaxException e) {
+                ExceptionHandler.process(e);
+            } catch (IllegalStateException e) {
+                ExceptionHandler.process(e);
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
             }
 
         }
@@ -229,14 +244,15 @@ public class Application implements IApplication {
         if (instanceLoc == null || instanceLoc.getURL() == null) {
             return true;
         }
-
-        try {
-            // try to lock the workspace
-            if (instanceLoc.lock()) {
-                return true;
+        if (instanceLoc.isSet()) {
+            try {
+                // try to lock the workspace
+                if (instanceLoc.lock()) {
+                    return true;
+                }
+            } catch (Throwable t) {
+                // do nothing
             }
-        } catch (Throwable t) {
-            // do nothing
         }
         return false;
     }
