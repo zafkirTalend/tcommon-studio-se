@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -1221,12 +1221,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (type == null) {
             return;
         }
-        // If the "System", "Generated", "Jobs" folder is created in the root,
-        // it can't be deleted .
-        if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
-                || RepositoryConstants.isJobsFolder(path.toString()) || RepositoryConstants.isJobletsFolder(path.toString())) {
-            return;
-        }
+
         IProject fsProject = ResourceModelUtils.getProject(project);
 
         String completePath = new Path(ERepositoryObjectType.getFolderName(type)).append(path).toString();
