@@ -196,6 +196,11 @@ public class RepoNodeActionProvider extends CommonActionProvider {
      */
     @Override
     public void fillActionBars(IActionBars actionBars) {
+        if (doubleClickAction != null && !doubleClickAction.getStructuredViewer().equals(getActionSite().getStructuredViewer())) {
+            doubleClickAction = null;
+            contextualsActions = null;
+            makeActions();
+        }
         super.fillActionBars(actionBars);
         actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, doubleClickAction);
 
