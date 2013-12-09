@@ -183,6 +183,8 @@ public class DatabaseTableForm extends AbstractForm {
 
     boolean readOnly;
 
+    private boolean creation;
+
     private TableViewerCreator tableViewerCreator;
 
     private Table tableNavigator;
@@ -235,6 +237,13 @@ public class DatabaseTableForm extends AbstractForm {
         }
         labelChanged = new HashMap<String, Map<String, String>>();
         setupForm();
+    }
+
+    public DatabaseTableForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable,
+            ManagerConnection managerConnection, IWizardPage page, DatabaseConnection temConnection,
+            IMetadataConnection metadataconnection, boolean creation) {
+        this(parent, connectionItem, metadataTable, managerConnection, page, temConnection, metadataconnection);
+        this.creation = creation;
     }
 
     /**
@@ -301,7 +310,9 @@ public class DatabaseTableForm extends AbstractForm {
             boolean isAllDeleted = true;
             for (int i = 0; i < initTables.size(); i++) {
                 if (!TableHelper.isDeleted((MetadataTable) initTables.toArray()[i])) {
-                    metadataTable = (MetadataTable) initTables.toArray()[i];
+                    if ((metadataTable == null) || creation) {
+                        metadataTable = (MetadataTable) initTables.toArray()[i];
+                    }
                     isAllDeleted = false;
                 }
             }
