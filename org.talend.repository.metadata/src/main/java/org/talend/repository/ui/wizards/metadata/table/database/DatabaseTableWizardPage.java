@@ -85,9 +85,13 @@ public class DatabaseTableWizardPage extends WizardPage {
      */
     @Override
     public void createControl(final Composite parent) {
+        boolean creation = true;
+        if (this.getWizard() != null && this.getWizard() instanceof DatabaseTableWizard) {
+            creation = ((DatabaseTableWizard) this.getWizard()).isCreation();
+        }
 
         tableForm = new DatabaseTableForm(parent, connectionItem, metadataTable, managerConnection, this, temConnection,
-                metadataConnection);
+                metadataConnection, creation);
         tableForm.setIMetadataConnection(metadataConnection);
         tableForm.setReadOnly(!isRepositoryObjectEditable);
 
