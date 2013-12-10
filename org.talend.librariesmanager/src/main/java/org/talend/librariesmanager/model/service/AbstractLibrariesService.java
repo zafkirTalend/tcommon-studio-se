@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -239,12 +240,14 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     private void synJavaLibs(File lib) throws IOException {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         IProject javaProject = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        File libFolder = javaProject.getFolder(JavaUtils.JAVA_LIB_DIRECTORY).getLocation().toFile();
-        if (libFolder.exists()) {
-            for (File externalLib : libFolder.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
-                if (externalLib.getName().equals(lib.getName())) {
-                    FilesUtils.copyFile(lib, externalLib);
-                }
+        IFolder javaLibFolder = javaProject.getFolder(JavaUtils.JAVA_LIB_DIRECTORY);
+        if (!javaLibFolder.exists()) {
+            return;
+        }
+        File libFolder = javaLibFolder.getLocation().toFile();
+        for (File externalLib : libFolder.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
+            if (externalLib.getName().equals(lib.getName())) {
+                FilesUtils.copyFile(lib, externalLib);
             }
         }
     }
