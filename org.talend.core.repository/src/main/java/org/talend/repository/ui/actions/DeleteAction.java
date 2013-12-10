@@ -1165,6 +1165,8 @@ public class DeleteAction extends AContextualAction {
 
     protected boolean confirmFromDialog = false;
 
+    protected boolean confirmForDQ = false;
+
     private boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             final RepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
         boolean needReturn = false;
@@ -1214,7 +1216,7 @@ public class DeleteAction extends AContextualAction {
             needReturn = true;
         } else {
             if (factory.getStatus(objToDelete) == ERepositoryStatus.DELETED) {
-                if (!confirmFromDialog && resChangeService != null) {
+                if (!confirmForDQ && resChangeService != null) {
                     List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(currentJobNode);
                     if (dependentNodes != null && !dependentNodes.isEmpty()) {
                         resChangeService.openDependcesDialog(dependentNodes);
@@ -1224,8 +1226,8 @@ public class DeleteAction extends AContextualAction {
                 if (confirm == null) {
                     // Added 20130227 TDQ-6901 yyin, when physical deleting object with dependencies, do not popup
                     // confirm anymore.
-                    if (confirmFromDialog) {
-                        confirm = confirmFromDialog;
+                    if (confirmForDQ) {
+                        confirm = confirmForDQ;
                     } else {// ~
                         Display.getDefault().syncExec(new Runnable() {
 
