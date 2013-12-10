@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -370,8 +371,15 @@ public class SelectorTableForm extends AbstractForm {
                     if (item.getData() != null) {
                         TableNode node = (TableNode) item.getData();
                         if (useProvider()) {
-                            if (node.getType() == provider.getRunnableAccessNodeType()
-                                    || node.getType() == TableNode.COLUMN_FAMILY) {
+                            if (node.getType() == TableNode.COLUMN_FAMILY) {
+                                if (firstExpand && needUpdate && item.getData() != null) {
+                                    updateLeafItem(item, true, TableNode.COLUMN);
+                                } else if (isExistTable(node)) {
+                                    item.setChecked(true);
+                                } else {
+                                    item.setChecked(false);
+                                }
+                            } else if (node.getType() == provider.getRunnableAccessNodeType()) {
                                 if (isExistTable(node)) {
                                     item.setChecked(true);
                                 } else {
@@ -664,8 +672,9 @@ public class SelectorTableForm extends AbstractForm {
                 if (e.detail == SWT.CHECK) {
                     TreeItem treeItem = (TreeItem) e.item;
                     Object data = treeItem.getData();
+                    TableNode tableNode = (TableNode) data;
+                    int type = tableNode.getType();
                     boolean promptNeeded = treeItem.getChecked();
-                    int type = ((TableNode) data).getType();
                     /*
                      * if use extractor to get metadata,should access the runnable by using extractor
                      */
@@ -673,25 +682,29 @@ public class SelectorTableForm extends AbstractForm {
                         if (type != TableNode.COLUMN) {
                             treeItem.setGrayed(true);
                         }
-                        if (type == TableNode.COLUMN) {
-                            if (promptNeeded) {
-                                MetadataTable existTable = getExistTable(treeItem.getText(0));
-                                if (existTable != null) {
-                                    refreshExistItem(existTable, treeItem);
-                                } else {
-                                    treeItem.setText(2, ""); //$NON-NLS-1$
-                                    treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                                    countPending++;
-                                    parentWizardPage.setPageComplete(false);
-                                    refreshTable(treeItem, -1);
-                                }
-                            } else {
-                                clearTableItem(treeItem);
-                                if (treeItem.getText() != null
-                                        && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
-                                    countPending--;
+                        if (type == TableNode.TABLE) {
+                            viewer.expandToLevel(tableNode, AbstractTreeViewer.ALL_LEVELS);
+                            for (TreeItem childItem : treeItem.getItems()) {
+                                if (childItem.getData() != null) {
+                                    TableNode childNode = (TableNode) childItem.getData();
+                                    int childNodeType = childNode.getType();
+                                    if (childNodeType == TableNode.COLUMN_FAMILY) {
+                                        childItem.setChecked(promptNeeded);
+                                        for (TreeItem colItem : childItem.getItems()) {
+                                            updateLeafItem(colItem, promptNeeded, TableNode.COLUMN);
+                                        }
+                                    } else if (childNodeType == TableNode.COLUMN) {
+                                        updateLeafItem(childItem, promptNeeded, TableNode.COLUMN);
+                                    }
                                 }
                             }
+                        } else if (type == TableNode.COLUMN_FAMILY) {
+                            viewer.expandToLevel(tableNode, AbstractTreeViewer.ALL_LEVELS);
+                            for (TreeItem colItem : treeItem.getItems()) {
+                                updateLeafItem(colItem, promptNeeded, TableNode.COLUMN);
+                            }
+                        } else if (type == TableNode.COLUMN) {
+                            updateLeafItem(treeItem, promptNeeded, TableNode.COLUMN);
                         }
                         /* use old logical if no extractor used */
                     } else {
@@ -744,6 +757,43 @@ public class SelectorTableForm extends AbstractForm {
                 }
             }
         });
+    }
+
+    private void updateLeafItem(final TreeItem treeItem, boolean promptNeeded, int nodeType) {
+        if (treeItem == null) {
+            return;
+        }
+        Object data = treeItem.getData();
+        if (data != null && data instanceof TableNode) {
+            treeItem.setChecked(promptNeeded);
+            TableNode tableNode = (TableNode) data;
+            if (tableNode.getType() == nodeType) {
+                if (promptNeeded) {
+                    MetadataTable existTable = getExistTable(treeItem.getText(0));
+                    if (existTable != null) {
+                        refreshExistItem(existTable, treeItem);
+                    } else {
+                        treeItem.setText(2, ""); //$NON-NLS-1$
+                        treeItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
+                        countPending++;
+                        parentWizardPage.setPageComplete(false);
+                        refreshTable(treeItem, -1);
+                    }
+                } else {
+                    clearTableItem(treeItem);
+                    if (treeItem.getText() != null && treeItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
+                        countPending--;
+                    }
+                }
+            } else {
+                if (!treeItem.getExpanded()) {
+                    viewer.expandToLevel(tableNode, 1);
+                }
+                for (TreeItem colItem : treeItem.getItems()) {
+                    updateLeafItem(colItem, promptNeeded, nodeType);
+                }
+            }
+        }
     }
 
     private boolean pageComplete() {
