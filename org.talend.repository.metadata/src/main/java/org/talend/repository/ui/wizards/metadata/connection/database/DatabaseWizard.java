@@ -471,8 +471,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     tdqRepService.notifySQLExplorer(connectionItem);
                     tdqRepService.openConnectionEditor(connectionItem);
                 } else {
-                    tdqRepService.removeAliasInSQLExplorer(node);
-                    tdqRepService.notifySQLExplorer(connectionItem);
+                    tdqRepService.updateAliasInSQLExplorer(connectionItem, originaleObjectLabel);
                     // refresh the opened connection editor whatever is in DI or DQ perspective.
                     tdqRepService.refreshConnectionEditor(connectionItem);
 
