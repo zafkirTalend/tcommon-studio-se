@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -39,13 +38,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Text;
@@ -53,7 +49,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
-import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledCheckboxCombo;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
@@ -62,7 +57,6 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.commons.xml.XmlUtil;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -74,7 +68,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.xml.XmlArray;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -91,28 +84,20 @@ import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorVi
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.preview.AsynchronousPreviewHandler;
-import org.talend.repository.preview.IPreviewHandlerListener;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
-import org.talend.repository.ui.swt.utils.IRefreshable;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefreshable {
+public class MDMXSDFileForm extends AbstractMDMFileStepForm {
 
     private static Logger log = Logger.getLogger(MDMXSDFileForm.class);
 
     /**
      * Main Fields.
      */
-
     private transient Tree availableXmlTree;
-
-    private ATreeNode treeNode;
 
     private MDMXSDExtractorFieldModel fieldsModel;
 
@@ -120,19 +105,11 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private ExtractionFieldsWithMDMEditorView fieldsTableEditorView;
 
-    private Button previewButton;
-
-    private Label previewInformationLabel;
-
-    private ShadowProcessPreview xmlFilePreview;
-
     private Text fileXmlText;
 
     protected boolean filePathIsDone;
 
     private UtilsButton cancelButton;
-
-    private boolean readOnly;
 
     private SashForm xmlToSchemaSash;
 
@@ -144,22 +121,9 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private Concept concept;
 
-    private IPreviewHandlerListener previewHandlerListener;
-
     private static Boolean firstTimeWizardOpened = null;
 
     private Group schemaTargetGroup;
-
-    /**
-     * Output tab.
-     */
-    private CTabFolder tabFolder;
-
-    private CTabItem previewTabItem;
-
-    private CTabItem outputTabItem;
-
-    private Composite outputComposite;
 
     private boolean isTemplateExist;
 
@@ -184,7 +148,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         this.concept = concept;
         this.creation = creation;
         setupForm();
-
     }
 
     /**
@@ -231,14 +194,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     }
 
-    /**
-     * DOC ocarbone Comment method "adaptFormToReadOnly".
-     */
-    @Override
-    protected void adaptFormToReadOnly() {
-        // readOnly = isReadOnly();
-    }
-
     @Override
     protected void adaptFormToEditable() {
         super.adaptFormToEditable();
@@ -272,7 +227,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         SashForm sash2 = new SashForm(mainComposite, SWT.HORIZONTAL | SWT.SMOOTH);
         sash2.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        addGroupFileViewer(sash2, 400, 210);
         addGroupXmlViewer(sash2, 300, 110);
 
         if (!isInWizard()) {
@@ -391,58 +345,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      * @param width
      * @param height
      */
-    private void addGroupFileViewer(final Composite parent, final int width, int height) {
-        // composite Xml File Preview
-        // Group previewGroup = Form.createGroup(parent, 1, Messages.getString("FileStep2.groupPreview"), height);
-        // //$NON-NLS-1$
-        // Composite compositeXmlFilePreviewButton = Form.startNewDimensionnedGridLayout(previewGroup, 4, width,
-        // HEIGHT_BUTTON_PIXEL);
-        // height = height - HEIGHT_BUTTON_PIXEL - 15;
-
-        tabFolder = new CTabFolder(parent, SWT.BORDER);
-        tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        previewTabItem.setText("Preview"); //$NON-NLS-1$
-        outputTabItem = new CTabItem(tabFolder, SWT.BORDER);
-        outputTabItem.setText("Output"); //$NON-NLS-1$
-
-        Composite previewComposite = Form.startNewGridLayout(tabFolder, 1);
-        outputComposite = Form.startNewGridLayout(tabFolder, 1);
-
-        // previewGroup.setLayout(new GridLayout());
-
-        Composite preivewButtonPart = new Composite(previewComposite, SWT.NONE);
-        preivewButtonPart.setLayout(new GridLayout(3, false));
-        preivewButtonPart.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        // Preview Button
-        previewButton = new Button(preivewButtonPart, SWT.NONE);
-        previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
-        previewButton.setSize(WIDTH_BUTTON_PIXEL, HEIGHT_BUTTON_PIXEL);
-
-        XmlArray.setLimitToDefault();
-        previewInformationLabel = new Label(previewComposite, SWT.NONE);
-        previewInformationLabel.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLUE));
-
-        // Xml File Preview
-        xmlFilePreview = new ShadowProcessPreview(previewComposite, null, width, height - 10);
-        xmlFilePreview.newTablePreview();
-
-        previewTabItem.setControl(previewComposite);
-        outputTabItem.setControl(outputComposite);
-        tabFolder.setSelection(previewTabItem);
-        tabFolder.pack();
-    }
-
-    /**
-     * add Field to Group File Viewer.
-     * 
-     * @param parent
-     * @param form
-     * @param width
-     * @param height
-     */
     private void addGroupXmlViewer(final Composite parent, final int width, int height) {
         // Group File Viewer
         Group group = Form.createGroup(parent, 1, Messages.getString("MdmReceiveForm.groupFileViewer"), height); //$NON-NLS-1$
@@ -456,108 +358,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         fileXmlText.setToolTipText(Messages.getString("MdmReceiveForm.fileViewerTip", TreePopulator.getMaximumRowsToPreview())); //$NON-NLS-1$
         fileXmlText.setEditable(false);
         fileXmlText.setText(Messages.getString("MdmReceiveForm.fileViewerAlert")); //$NON-NLS-1$
-    }
-
-    /**
-     * create ProcessDescription and set it.
-     * 
-     * WARNING ::field FieldSeparator, RowSeparator, EscapeChar and TextEnclosure are surround by double quote.
-     * 
-     * @param getConnection()
-     * 
-     * @return processDescription
-     */
-    // private ProcessDescription getProcessDescription(boolean defaultContext) {
-    // XmlFileConnection connection2 = OtherConnectionContextUtils.getOriginalValueConnection(getConnection(),
-    // this.connectionItem, isContextMode(), defaultContext);
-    // ProcessDescription processDescription = ShadowProcessHelper.getProcessDescription(connection2);
-    // return processDescription;
-    // }
-    /**
-     * clear the table preview.
-     */
-    void clearPreview() {
-        xmlFilePreview.clearTablePreview();
-    }
-
-    /**
-     * refreshPreview use ShadowProcess to refresh the preview.
-     */
-    void refreshPreview() {
-        clearPreview();
-
-        // if no file, the process don't be executed
-        if (xsdFilePath == null || xsdFilePath.equals("")) { //$NON-NLS-1$
-            previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.filePathIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
-            return;
-        }
-
-        // if incomplete settings, , the process don't be executed
-        if (!checkFieldsValue()) {
-            previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
-            return;
-        }
-
-        // set row limit
-        if (concept.getLoopLimit() > 0 && concept.getLoopLimit() < XmlArray.getRowLimit()) {
-            XmlArray.setRowLimit(concept.getLoopLimit());
-        }
-
-        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.previewProgress")); //$NON-NLS-1$ //$NON-NLS-2$
-
-        AsynchronousPreviewHandler<CsvArray> previewHandler = null;
-        try {
-            previewHandler = ShadowProcessHelper.createPreviewHandler();
-        } catch (CoreException e) {
-            previewInError(e);
-            return;
-        }
-
-        // StoppablePreviewLoader previewLoader = new StoppablePreviewLoader<CsvArray>(previewHandler,
-        // previewInformationLabel) {
-        //
-        // /*
-        // * (non-Javadoc)
-        // *
-        // * @see
-        // * org.talend.repository.ui.wizards.metadata.connection.files.xml.StoppablePreviewLoader#previewEnded(java
-        // * .lang.Object)
-        // */
-        // @Override
-        // protected void previewEnded(CsvArray result) {
-        // xmlFilePreview.refreshTablePreview(result, false, ((Concept) getConnection().getSchemas().get(0))
-        // .getConceptTargets());
-        // }
-        //
-        // @Override
-        // public void previewInError(CoreException e) {
-        // MDMXSDFileForm.this.previewInError(e);
-        // }
-        //
-        // };
-
-        // previewLoader.load(getProcessDescription(false));
-
-    }
-
-    /**
-     * DOC amaumont Comment method "previewInFileError".
-     * 
-     * @param e
-     */
-    protected void previewInError(CoreException e) {
-
-        String errorMessage = null;
-        if (e != null) {
-            errorMessage = e.getMessage();
-        }
-
-        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
-        new ErrorDialogWidthDetailArea(previewInformationLabel.getShell(), PID,
-                Messages.getString("MdmReceiveForm.previewFailure"), //$NON-NLS-1$
-                errorMessage);
-        log.error(Messages.getString("MdmReceiveForm.previewFailure") + " " + errorMessage); //$NON-NLS-1$ //$NON-NLS-2$
-
     }
 
     /**
@@ -621,9 +421,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected boolean checkFieldsValue() {
-        previewInformationLabel.setText("   " + Messages.getString("MdmReceiveForm.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
         updateStatus(IStatus.OK, null);
-        previewButton.setEnabled(false);
 
         String msg = fieldsTableEditorView.checkColumnNames();
         if (!StringUtils.isEmpty(msg)) {
@@ -649,18 +447,10 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             }
         }
 
-        previewInformationLabel.setText(""); //$NON-NLS-1$
-
         // String pathStr = getConnection().getXmlFilePath();
         if (isContextMode()) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(), true);
             // pathStr = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, pathStr));
-        }
-        if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
-
-            previewButton.setEnabled(false);
-        } else {
-            previewButton.setEnabled(true);
         }
         if (concept == null || concept.getConceptTargets().isEmpty()) {
             updateStatus(IStatus.ERROR, null);
@@ -678,50 +468,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected void addUtilsButtonListeners() {
-
-        // Event PreviewButton
-        previewButton.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(final SelectionEvent e) {
-                if (!previewButton.getText().equals(Messages.getString("MdmReceiveForm.wait"))) { //$NON-NLS-1$
-                    previewButton.setText(Messages.getString("MdmReceiveForm.wait")); //$NON-NLS-1$
-                    if (// getConnection().getXmlFilePath() != null
-                    //&& !getConnection().getXmlFilePath().equals("") //$NON-NLS-1$
-                    getConnection().getSchemas() != null
-                            && !getConnection().getSchemas().isEmpty()
-                            && getConnection().getSchemas().get(0).getLoopExpression() != null
-                            && !("").equals(getConnection().getSchemas().get(0).getLoopExpression()) //$NON-NLS-1$
-                            && getConnection().getSchemas().get(0).getConceptTargets() != null
-                            && !getConnection().getSchemas().get(0).getConceptTargets().isEmpty()) {
-                        refreshPreview();
-                    } else {
-                        previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
-                        if (!previewButton.getEnabled()) {
-                            // new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("FileStep2.noresult"),
-                            // Messages //$NON-NLS-1$
-                            // .getString("FileStep2.noresultDetailMessage")); //$NON-NLS-1$
-
-                            Display.getDefault().asyncExec(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    handleErrorOutput(outputComposite, tabFolder, outputTabItem);
-
-                                }
-                            });
-                            log.error(Messages.getString("MdmReceiveForm.noresult")); //$NON-NLS-1$
-                            previewButton.setEnabled(true);
-                        } else {
-                            previewButton.setEnabled(false);
-                        }
-                    }
-                } else {
-                    previewButton.setText(Messages.getString("MdmReceiveForm.refreshPreview")); //$NON-NLS-1$
-                }
-            }
-        });
-
         if (cancelButton != null) {
             // Event CancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
@@ -853,9 +599,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
             CreateConceptWizard wizard = ((CreateConceptWizard) getPage().getWizard());
             this.treePopulator.populateTree(wizard.getXSDSchema(), selectedTreeNode, treeNodes);
-            if (!treeNodes.isEmpty()) {
-                treeNode = treeNodes.get(0);
-            }
 
             ScrollBar verticalBar = availableXmlTree.getVerticalBar();
             if (verticalBar != null) {
@@ -875,12 +618,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             }
             checkFilePathAndManageIt();
 
-            if (xsdFilePath != null && XmlUtil.isXSDFile(xsdFilePath)) {
-                previewButton.setEnabled(false);
-                previewButton.setText(Messages.getString("MdmReceiveForm.previewNotAvailable")); //$NON-NLS-1$
-                previewButton.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-                previewButton.getParent().layout();
-            }
             if (isContextMode()) {
                 adaptFormToEditable();
             }
@@ -917,20 +654,9 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             if (linker != null) {
                 linker.init(treePopulator);
             }
-            xmlFilePreview.removePreviewContent();
             oldSelectedEntity = selectedEntity;
         }
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
-     */
-    @Override
-    public void refresh() {
-        refreshPreview();
     }
 
     @Override
