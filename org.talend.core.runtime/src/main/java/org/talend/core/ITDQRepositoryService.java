@@ -47,6 +47,12 @@ public interface ITDQRepositoryService extends IService {
 
     public void openConnectionEditor(Item item);
 
+    /**
+     * 
+     * add some new Alias to sql explorer system.
+     * 
+     * @param items
+     */
     public void notifySQLExplorer(Item... items);
 
     public void fillMetadata(ConnectionItem connItem);
@@ -161,5 +167,14 @@ public interface ITDQRepositoryService extends IService {
      * @param result
      */
     public void refreshTableWithResult(ModelElement analysis, List<Object[]> result);
+
+    /**
+     * 
+     * update sql exploerer by the old connection name and new connectionItem.
+     * 
+     * @param connectionItem The connection item with new name that is used to update the Alias.
+     * @param oldConnName The original connection name used to find Alias from SQL Explorer system.
+     */
+    public void updateAliasInSQLExplorer(ConnectionItem connectionItem, String oldConnName);
 
 }
