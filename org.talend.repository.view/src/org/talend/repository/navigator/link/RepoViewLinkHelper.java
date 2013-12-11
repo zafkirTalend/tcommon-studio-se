@@ -40,7 +40,7 @@ public class RepoViewLinkHelper implements ILinkHelper {
     private final RepoViewLinkerRegistryReader repoViewLinkerReader;
 
     public RepoViewLinkHelper() {
-        this.repoViewLinkerReader = new RepoViewLinkerRegistryReader();
+        this.repoViewLinkerReader = RepoViewLinkerRegistryReader.getInstance();
     }
 
     protected RepoViewLinkerRegistryReader getRepoViewLinkerReader() {
