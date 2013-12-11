@@ -122,6 +122,9 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
      */
     public boolean isLastVersion(Item item) {
         if (item.getProperty() != null) {
+            if (item.getProperty().getId() == null) {
+                return true;
+            }
             try {
                 List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
                         item.getProperty().getId());
