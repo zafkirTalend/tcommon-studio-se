@@ -28,6 +28,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.download.DownloadHelperWithProgress;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleToInstall;
@@ -95,10 +96,18 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                             return;
                         }
                         File destination = new File(target.toString() + File.separator + module.getName());
+                        File destinationTemp = target.createTempFile(destination.getName(), ".jar");
                         DownloadHelperWithProgress downloader = new DownloadHelperWithProgress();
-                        downloader.download(new URL(module.getUrl_download()), destination, subMonitor.newChild(1));
-                        downloadOk.add(destination.toURI().toURL());
-                        installedModules.add(module.getName());
+                        downloader.download(new URL(module.getUrl_download()), destinationTemp, subMonitor.newChild(1));
+                        // if the jar had download complete , will copy it from system temp path to "lib/java"
+                        if (!monitor.isCanceled()) {
+                            FilesUtils.copyFile(destinationTemp, destination);
+                            downloadOk.add(destination.toURI().toURL());
+                            installedModules.add(module.getName());
+                        }
+                        if (destinationTemp.exists()) {
+                            destinationTemp.delete();
+                        }
                     } catch (Exception e) {
                         downloadFailed.add(module.getName());
                         ExceptionHandler.process(e);
