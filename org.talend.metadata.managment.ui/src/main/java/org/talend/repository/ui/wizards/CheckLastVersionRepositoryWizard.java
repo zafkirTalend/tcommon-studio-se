@@ -120,8 +120,12 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
      * 
      * @see org.talend.core.ui.ILastVersionChecker#isLastVersion(org.talend.core.model.properties.Item)
      */
+    @Override
     public boolean isLastVersion(Item item) {
         if (item.getProperty() != null) {
+            if (item.getProperty().getId() == null) {
+                return true;
+            }
             try {
                 List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
                         item.getProperty().getId());
@@ -148,6 +152,7 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
      * 
      * @see org.talend.core.ui.ILastVersionChecker#setLastVersion(java.lang.Boolean)
      */
+    @Override
     public void setLastVersion(Boolean lastVersion) {
         // TODO Auto-generated method stub
     }
@@ -157,6 +162,7 @@ public abstract class CheckLastVersionRepositoryWizard extends RepositoryWizard 
         final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
+            @Override
             public void run(IProgressMonitor monitor) throws CoreException {
                 try {
                     factory.save(connectionItem);
