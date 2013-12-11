@@ -282,7 +282,7 @@ public final class ConnectionContextHelper {
         Connection conn = connectionItem.getConnection();
 
         if (conn instanceof DatabaseConnection) {
-            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, paramSet, map);
+            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, contextItem, paramSet, map);
             // DBConnectionContextUtils.updateConnectionParam((DatabaseConnection) conn, map);
         } else if (conn instanceof FileConnection) {
             FileConnectionContextUtils.setPropertiesForContextMode(label, (FileConnection) conn, paramSet);
