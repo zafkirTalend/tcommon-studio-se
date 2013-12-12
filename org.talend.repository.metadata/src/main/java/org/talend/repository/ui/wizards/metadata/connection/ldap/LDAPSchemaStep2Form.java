@@ -315,8 +315,9 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
                     MessageBoxExceptionHandler.process(e);
                 }
 
-                fetchBaseDnsButton.setEnabled(isOK);
-
+                if (!isContextMode()) {
+                    fetchBaseDnsButton.setEnabled(isOK);
+                }
                 connection.setUseAuthen(true);
                 if (isOK) {
                     if (!isContextMode()) {
@@ -339,10 +340,12 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         autoFetchBaseDnsButton.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                // set enabled/disabled state of fields and buttons
-                boolean isSelection = autoFetchBaseDnsButton.getSelection();
-                baseDNCombo.setEnabled(!isSelection);
-                connection.setGetBaseDNsFromRoot(isSelection);
+                if (!isContextMode()) {
+                    // set enabled/disabled state of fields and buttons
+                    boolean isSelection = autoFetchBaseDnsButton.getSelection();
+                    baseDNCombo.setEnabled(!isSelection);
+                    connection.setGetBaseDNsFromRoot(isSelection);
+                }
             }
         });
 
@@ -803,6 +806,8 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         if (isContextMode()) {
             bindPrincipalCombo.setEnabled(!isContextMode());
+            fetchBaseDnsButton.setEnabled(!isContextMode());
+            baseDNCombo.setEnabled(!isContextMode());
             // clear the echo
             bindPasswordText.setEchoChar('\0');
         } else {

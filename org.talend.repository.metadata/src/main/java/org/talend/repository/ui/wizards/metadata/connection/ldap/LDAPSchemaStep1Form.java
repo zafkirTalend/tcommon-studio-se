@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -35,6 +36,7 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.EEncryptionMethod;
@@ -226,22 +228,47 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
      */
     @Override
     protected boolean checkFieldsValue() {
-        if (hostCombo.getText() == null || hostCombo.getText().equals("")) { //$NON-NLS-1$
+        String host = null;
+        String port = null;
+        if (isContextMode()) {
+            ContextType contextType = getContextModeManager().getSelectedContextType();
+            EList contextParameters = contextType.getContextParameter();
+            for (Object obj : contextParameters) {
+                if (obj instanceof ContextParameterType) {
+                    ContextParameterType contextParameterType = (ContextParameterType) obj;
+                    if (connection.getHost().endsWith(contextParameterType.getName())) {
+                        host = contextParameterType.getValue();
+                        continue;
+                    }
+                    if (connection.getPort().endsWith(contextParameterType.getName())) {
+                        port = contextParameterType.getValue();
+                        continue;
+                    }
+                }
+            }
+        } else {
+            host = hostCombo.getText();
+            port = portCombo.getText();
+        }
+
+        if (host == null || host.equals("")) { //$NON-NLS-1$
             this.checkConnectionButton.setEnabled(false);
             updateStatus(IStatus.ERROR, "Host name must be specified."); //$NON-NLS-1$
             return false;
-        } else if (portCombo.getText() == null || portCombo.getText().equals("")) { //$NON-NLS-1$
-            this.checkConnectionButton.setEnabled(false);
-            updateStatus(IStatus.ERROR, "Port must be specified."); //$NON-NLS-1$
-            return false;
-        } else if (!portCombo.getText().matches("[0-9]*") || portCombo.getText().length() > 6) { //$NON-NLS-1$
-            this.checkConnectionButton.setEnabled(false);
-            updateStatus(IStatus.ERROR, "Port must be number and max length is 6."); //$NON-NLS-1$
-            return false;
         } else {
-            this.checkConnectionButton.setEnabled(true);
-            updateStatus(IStatus.ERROR, null);
-            return true;
+            if (port == null || port.equals("")) { //$NON-NLS-1$
+                this.checkConnectionButton.setEnabled(false);
+                updateStatus(IStatus.ERROR, "Port must be specified."); //$NON-NLS-1$
+                return false;
+            } else if (!port.matches("[0-9]*") || port.length() > 6) { //$NON-NLS-1$
+                this.checkConnectionButton.setEnabled(false);
+                updateStatus(IStatus.ERROR, "Port must be number and max length is 6."); //$NON-NLS-1$
+                return false;
+            } else {
+                this.checkConnectionButton.setEnabled(true);
+                updateStatus(IStatus.ERROR, null);
+                return true;
+            }
         }
     }
 
@@ -268,7 +295,6 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
             updateStatus(IStatus.OK, null);
         }
 
-        boolean flag = (host == null || port.equals("") || encryptionMethodName == null); //$NON-NLS-1$
         this.checkConnectionButton.setEnabled(false);
         checkFieldsValue();
     }

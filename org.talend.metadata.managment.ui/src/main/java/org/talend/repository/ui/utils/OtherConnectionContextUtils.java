@@ -30,7 +30,6 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
-import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
@@ -88,6 +87,7 @@ public final class OtherConnectionContextUtils {
         Filter,
         CountLimit,
         TimeOutLimit,
+        BaseDN,
 
         // WSDL
         WSDL,
@@ -675,6 +675,9 @@ public final class OtherConnectionContextUtils {
 
         paramName = prefixName + EParamName.CountLimit;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getCountLimit(), JavaTypesManager.INTEGER);
+
+        paramName = prefixName + EParamName.BaseDN;
+        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getSelectedDN());
         return varList;
     }
 
@@ -705,6 +708,9 @@ public final class OtherConnectionContextUtils {
 
         paramName = prefixName + EParamName.Filter;
         ldapConn.setFilter(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.BaseDN;
+        ldapConn.setSelectedDN(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
     }
 
     static void revertLDAPSchemaPropertiesForContextMode(LDAPSchemaConnection ldapConn, ContextType contextType) {
@@ -718,6 +724,7 @@ public final class OtherConnectionContextUtils {
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
+        String baseDN = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getSelectedDN());
 
         ldapConn.setHost(host);
         ldapConn.setPort(port);
@@ -726,6 +733,7 @@ public final class OtherConnectionContextUtils {
         ldapConn.setFilter(filter);
         ldapConn.setCountLimit(countLimit);
         ldapConn.setTimeOutLimit(timeOutLimit);
+        ldapConn.setSelectedDN(baseDN);
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
