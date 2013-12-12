@@ -73,6 +73,7 @@ public final class OtherConnectionContextUtils {
         Filter,
         CountLimit,
         TimeOutLimit,
+        BaseDN,
 
         // WSDL
         WSDL,
@@ -290,7 +291,7 @@ public final class OtherConnectionContextUtils {
 
         cloneConn.getSchema().clear();
 
-        List<XmlXPathLoopDescriptor> descs = (List<XmlXPathLoopDescriptor>) fileConn.getSchema();
+        List<XmlXPathLoopDescriptor> descs = fileConn.getSchema();
         for (XmlXPathLoopDescriptor desc : descs) {
             XmlXPathLoopDescriptor cloneDesc = ConnectionFactory.eINSTANCE.createXmlXPathLoopDescriptor();
             cloneDesc.setLimitBoucle(desc.getLimitBoucle().intValue());
@@ -299,7 +300,7 @@ public final class OtherConnectionContextUtils {
             cloneDesc.setAbsoluteXPathQuery(xPathQuery);
 
             cloneDesc.getSchemaTargets().clear();
-            List<SchemaTarget> schemaTargets = (List<SchemaTarget>) desc.getSchemaTargets();
+            List<SchemaTarget> schemaTargets = desc.getSchemaTargets();
             for (SchemaTarget schemaTarget : schemaTargets) {
                 SchemaTarget cloneSchemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
                 cloneSchemaTarget.setRelativeXPathQuery(schemaTarget.getRelativeXPathQuery());
@@ -523,6 +524,9 @@ public final class OtherConnectionContextUtils {
 
         paramName = prefixName + EParamName.CountLimit;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getCountLimit(), JavaTypesManager.INTEGER);
+
+        paramName = prefixName + EParamName.BaseDN;
+        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getSelectedDN());
         return varList;
     }
 
@@ -553,6 +557,9 @@ public final class OtherConnectionContextUtils {
 
         paramName = prefixName + EParamName.Filter;
         ldapConn.setFilter(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = prefixName + EParamName.BaseDN;
+        ldapConn.setSelectedDN(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
     }
 
     static void revertLDAPSchemaPropertiesForContextMode(LDAPSchemaConnection ldapConn, ContextType contextType) {
@@ -566,6 +573,7 @@ public final class OtherConnectionContextUtils {
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
+        String baseDN = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getSelectedDN());
 
         ldapConn.setHost(host);
         ldapConn.setPort(port);
@@ -574,6 +582,7 @@ public final class OtherConnectionContextUtils {
         ldapConn.setFilter(filter);
         ldapConn.setCountLimit(countLimit);
         ldapConn.setTimeOutLimit(timeOutLimit);
+        ldapConn.setSelectedDN(baseDN);
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
@@ -831,7 +840,7 @@ public final class OtherConnectionContextUtils {
         if (isContextMode) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                     connectionItem.getConnection().getContextName(), defaultContext);
-            return (XmlFileConnection) OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
+            return OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
         }
         return connection;
 
