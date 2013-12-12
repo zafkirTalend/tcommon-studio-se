@@ -102,6 +102,7 @@ public class ColorManager {
         colorMap = new HashMap<String, Color>();
         this.store = store;
         initTypeToColorMap();
+        initDefaultColors(store);
     }
 
     public Color getColor(String colorName) {
