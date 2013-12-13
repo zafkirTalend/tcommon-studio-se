@@ -18,10 +18,12 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -56,15 +58,35 @@ public class MetadataExportXmlCommand extends Command {
      */
     @Override
     public void execute() {
+        // export file if it not exists and if it exists, show up a confirm dialog.
+        if (file != null) {
+            if (file.exists()) {
+                boolean flag = MessageDialog.openConfirm(null, Messages.getString("MetadataExportXmlCommand.title"), //$NON-NLS-1$
+                        Messages.getString("MetadataExportXmlCommand.message")); //$NON-NLS-1$
+                if (flag) {
+                    excuteExportFile();
+                } else {
+                    return;
+                }
+            } else {
+                excuteExportFile();
+            }
+        }
+    }
+
+    /**
+     * show up a confirm dialog
+     * 
+     * DOC hfchang Comment method "excuteExportFile".
+     */
+    public void excuteExportFile() {
         try {
-            if (file != null) {
-                file.createNewFile();
-                if (extendedTableModel != null) {
-                    IMetadataTable currentTable = extendedTableModel.getMetadataTable();
-                    // get all the columns from the table
-                    if (currentTable != null) {
-                        MetadataSchema.saveMetadataColumnToFile(file, currentTable);
-                    }
+            file.createNewFile();
+            if (extendedTableModel != null) {
+                IMetadataTable currentTable = extendedTableModel.getMetadataTable();
+                // get all the columns from the table
+                if (currentTable != null) {
+                    MetadataSchema.saveMetadataColumnToFile(file, currentTable);
                 }
             }
         } catch (IOException e) {
@@ -72,7 +94,5 @@ public class MetadataExportXmlCommand extends Command {
         } catch (ParserConfigurationException e) {
             ExceptionHandler.process(e);
         }
-
     }
-
 }
