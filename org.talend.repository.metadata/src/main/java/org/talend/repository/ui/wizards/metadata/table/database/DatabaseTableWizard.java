@@ -25,6 +25,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -47,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -98,6 +100,8 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
     private static Map<String, String> originalColumnsMap = new HashMap<String, String>();
 
     private static Map<String, String> originalTablesMap = new HashMap<String, String>();
+
+    private static final String ISUSEDINDI = "AllSynonymsIsUsedInDI";
 
     /**
      * DOC ocarbone DatabaseTableWizard constructor comment.
@@ -204,6 +208,13 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                 public void run(IProgressMonitor monitor) throws CoreException {
                     // temConnection will be set to model when finish
                     DatabaseConnection connection = (DatabaseConnection) connectionItem.getConnection();
+                    if (ExtractMetaDataUtils.getInstance().isUseAllSynonyms()) {
+                        EMap<String, String> map = connection.getParameters();
+                        if (map.containsKey(ISUSEDINDI)) {
+                            map.removeKey(ISUSEDINDI);
+                        }
+                        map.put(ISUSEDINDI, "true");
+                    }
 
                     /* compare the original datapackages and new datapackages */
                     EList<Package> dataPackageTemConnection = temConnection.getDataPackage();
