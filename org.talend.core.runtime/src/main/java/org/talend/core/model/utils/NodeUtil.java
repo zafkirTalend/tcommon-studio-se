@@ -770,4 +770,19 @@ public class NodeUtil {
         return uniqueName;
     }
 
+    public static void fillConnectionsForStat(List<String> connsName, INode currentNode) {
+        for (IConnection conn : currentNode.getOutgoingConnections()) {
+            if (conn.getLineStyle() == EConnectionType.FLOW_MAIN) {
+                connsName.add(conn.getUniqueName());
+                fillConnectionsForStat(connsName, conn.getTarget());
+            } else if (conn.getLineStyle() == EConnectionType.FLOW_MERGE) {
+                connsName.add(conn.getUniqueName());
+                continue;
+            } else if (conn.getLineStyle() == EConnectionType.ON_ROWS_END) {
+                connsName.add(conn.getUniqueName());
+                fillConnectionsForStat(connsName, conn.getTarget());
+            }
+        }
+
+    }
 }
