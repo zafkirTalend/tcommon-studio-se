@@ -185,6 +185,25 @@ public class NodeUtil {
         return conns;
     }
 
+    /**
+     * DOC get the EConnectionType.FLOW_MAIN in coming Connections<br/>
+     * 
+     * @param node
+     * @return INode
+     */
+    public static INode getMainIncomingConnections(INode node) {
+        List<? extends IConnection> incomingConnections = node.getIncomingConnections();
+        if (incomingConnections != null) {
+            for (int i = 0; i < incomingConnections.size(); i++) {
+                IConnection connection = incomingConnections.get(i);
+                if (connection.getLineStyle() == EConnectionType.FLOW_MAIN) {
+                    return connection.getSource();
+                }
+            }
+        }
+        return null;
+    }
+
     public static List<? extends IConnection> getIncomingConnections(INode node, EConnectionType connectionType) {
         List<IConnection> conns = null;
 
@@ -710,36 +729,38 @@ public class NodeUtil {
         }
 
     }
+
     /**
      * @author jyhu
      * @aim Get Whether the nodelist contain virtual component.
      * @param nodeList: Node list
      * @return nodelist contain virtual component or not. true:contain;false:not contain
      */
-    public static boolean hasVirtualComponent(List<? extends INode> nodeList){
+    public static boolean hasVirtualComponent(List<? extends INode> nodeList) {
         boolean hasVirtualComponent = false;
-        for(INode node:nodeList){
-            if(node.isVirtualGenerateNode()){
+        for (INode node : nodeList) {
+            if (node.isVirtualGenerateNode()) {
                 hasVirtualComponent = true;
                 break;
             }
         }
         return hasVirtualComponent;
     }
+
     /**
      * @author jyhu
      * @aim Get unique name of the graphica node from generating node.
      * @param node: Generated node
      * @return unique name of the graphica node.
      */
-    public static String getVirtualUniqueName(INode node){
+    public static String getVirtualUniqueName(INode node) {
         String uniqueName = node.getUniqueName();
-        if(node.isVirtualGenerateNode()){
+        if (node.isVirtualGenerateNode()) {
             List<? extends INode> nodeList = node.getProcess().getGraphicalNodes();
-            for(INode graphicnode:nodeList){
-                if(graphicnode.isGeneratedAsVirtualComponent()){
+            for (INode graphicnode : nodeList) {
+                if (graphicnode.isGeneratedAsVirtualComponent()) {
                     String nodeUniqueName = graphicnode.getUniqueName();
-                    if(uniqueName.indexOf(nodeUniqueName+"_")==0){
+                    if (uniqueName.indexOf(nodeUniqueName + "_") == 0) {
                         uniqueName = nodeUniqueName;
                         break;
                     }
