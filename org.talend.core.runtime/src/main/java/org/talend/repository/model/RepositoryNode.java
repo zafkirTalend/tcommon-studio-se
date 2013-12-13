@@ -367,8 +367,6 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
         result = PRIME * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = PRIME * result + ((this.properties == null) ? 0 : this.properties.hashCode());
         result = PRIME * result + ((this.type == null) ? 0 : this.type.hashCode());
-        result = PRIME * result + ((this.parent == null) ? 0 : this.parent.hashCode());
-        result = PRIME * result + ((this.object == null) ? 0 : this.object.hashCode());
         return result;
     }
 
