@@ -32,6 +32,7 @@ import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -40,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
@@ -186,9 +188,9 @@ public final class DBConnectionContextUtils {
         return varList;
     }
 
-    static void setPropertiesForContextMode(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet,
-            Map<String, String> map) {
-        if (conn == null || prefixName == null || paramSet == null || paramSet.isEmpty()) {
+    static void setPropertiesForContextMode(String prefixName, DatabaseConnection conn, ContextItem contextItem,
+            Set<IConnParamName> paramSet, Map<String, String> map) {
+        if (conn == null || contextItem == null || prefixName == null || paramSet == null || paramSet.isEmpty()) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
@@ -205,6 +207,7 @@ public final class DBConnectionContextUtils {
                         }
                     }
                 }
+                originalVariableName = getCorrectVariableName(contextItem, originalVariableName, dbParam);
                 switch (dbParam) {
                 case AdditionalParams:
                     conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
@@ -265,7 +268,19 @@ public final class DBConnectionContextUtils {
                 }
             }
         }
+    }
 
+    private static String getCorrectVariableName(ContextItem contextItem, String originalVariableName, EDBParamName dbParam) {
+        Set<String> contextVarNames = ContextUtils.getContextVarNames(contextItem);
+        // if not contains it ,will get originalVariableName from the context
+        if (contextVarNames != null && !contextVarNames.contains(originalVariableName)) {
+            for (String varName : contextVarNames) {
+                if (varName.endsWith(dbParam.name())) {
+                    return varName;
+                }
+            }
+        }
+        return originalVariableName;
     }
 
     /**

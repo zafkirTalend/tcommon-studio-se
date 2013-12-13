@@ -127,8 +127,8 @@ public final class ConnectionContextHelper {
         }
         String contextId = connection.getContextId();
         if (contextId == null || EMPTY.equals(contextId.trim()) || RepositoryNode.NO_ID.equals(contextId.trim())) {
-        	 connection.setContextMode(false);
-             connection.setContextId(null);
+            connection.setContextMode(false);
+            connection.setContextId(null);
             return null;
         }
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
@@ -288,7 +288,7 @@ public final class ConnectionContextHelper {
         Connection conn = connectionItem.getConnection();
 
         if (conn instanceof DatabaseConnection) {
-            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, paramSet, map);
+            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, contextItem, paramSet, map);
             // DBConnectionContextUtils.updateConnectionParam((DatabaseConnection) conn, map);
         } else if (conn instanceof FileConnection) {
             FileConnectionContextUtils.setPropertiesForContextMode(label, (FileConnection) conn, paramSet);
@@ -1146,6 +1146,7 @@ public final class ConnectionContextHelper {
 
                                 // method may be called from other threads.
 
+                                @Override
                                 public void run() {
                                     setsDialog.open();
                                 }
