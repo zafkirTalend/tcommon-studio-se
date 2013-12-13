@@ -546,7 +546,7 @@ public class ExtractManager {
         if (catalogs.isEmpty()) {
             List<Schema> schemas = ConnectionHelper.getSchema(dbConnection);
             if (schemas.isEmpty()) {
-
+                schemaName = dbConnection.getUiSchema();
             } else {
                 for (Schema s : schemas) {
                     EList<ModelElement> ownedElement = null;
