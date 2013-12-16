@@ -32,4 +32,5 @@ public interface IProjectRepositoryNode {
 
     public void dispose();
 
+    public void initNode(final IRepositoryNode rootTypeNode);
 }
