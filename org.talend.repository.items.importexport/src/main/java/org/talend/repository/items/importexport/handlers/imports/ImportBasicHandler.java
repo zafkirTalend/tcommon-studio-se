@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -757,14 +758,19 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
         }
-        String label = selectedItemRecord.getLabel();
-        for (Resource resource : selectedItemRecord.getResourceSet().getResources()) {
+        // unload the imported resources
+        EList<Resource> resources = selectedItemRecord.getResourceSet().getResources();
+        Iterator<Resource> iterator = resources.iterator();
+        while (iterator.hasNext()) {
+            Resource res = iterator.next();
             // Due to the system of lazy loading for db repository of ByteArray,
             // it can't be unloaded just after create the item.
-            if (!(resource instanceof ByteArrayResource)) {
-                resource.unload();
+            if (res != null && !(res instanceof ByteArrayResource)) {
+                res.unload();
+                iterator.remove();
             }
         }
+        String label = selectedItemRecord.getLabel();
         TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
 
         applyMigrationTasks(selectedItemRecord, monitor);
