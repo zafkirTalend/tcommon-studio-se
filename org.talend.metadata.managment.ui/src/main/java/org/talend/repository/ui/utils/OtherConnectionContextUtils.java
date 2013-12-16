@@ -752,6 +752,7 @@ public final class OtherConnectionContextUtils {
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
+        String baseDN = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getSelectedDN());
 
         cloneConn.setHost(host);
         cloneConn.setPort(port);
@@ -763,7 +764,7 @@ public final class OtherConnectionContextUtils {
 
         cloneConn.setSeparator(ldapConn.getSeparator());
         cloneConn.setProtocol(ldapConn.getProtocol());
-        cloneConn.setSelectedDN(ldapConn.getSelectedDN());
+        cloneConn.setSelectedDN(baseDN);
         cloneConn.setStorePath(ldapConn.getStorePath());
 
         cloneConn.setAliases(ldapConn.getAliases());
