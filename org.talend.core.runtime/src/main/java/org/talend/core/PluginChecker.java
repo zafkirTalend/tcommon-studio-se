@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.core;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.Bundle;
@@ -21,6 +26,8 @@ import org.osgi.framework.Bundle;
  * 
  */
 public class PluginChecker {
+
+    private static Logger log = Logger.getLogger(PluginChecker.class);
 
     private static final String DOCUMENTATION_PLUGIN_ID = "org.talend.repository.documentation"; //$NON-NLS-1$
 
@@ -286,16 +293,17 @@ public class PluginChecker {
     }
 
     public static String getBundlePath(String bundleName) {
+        String bundlePath = ""; //$NON-NLS-1$
         Bundle refBundle = Platform.getBundle(bundleName);
         if (refBundle != null) {
-            String bundlePath = refBundle.getLocation();
-            String prefix = "reference:file:"; //$NON-NLS-1$
-            int prefixPos = bundlePath.lastIndexOf(prefix);
-            if (prefixPos >= 0) {
-                bundlePath = bundlePath.substring(prefixPos + prefix.length(), bundlePath.length() - 1);
-                return bundlePath;
+            try {
+                URL resource = refBundle.getEntry("/"); //$NON-NLS-1$
+                bundlePath = FileLocator.toFileURL(resource).getPath();
+                bundlePath = bundlePath.substring(0, bundlePath.length() - 1);
+            } catch (IOException e) {
+                log.error(e);
             }
         }
-        return ""; //$NON-NLS-1$
+        return bundlePath;
     }
 }
