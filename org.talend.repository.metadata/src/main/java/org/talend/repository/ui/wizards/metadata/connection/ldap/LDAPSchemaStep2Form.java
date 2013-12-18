@@ -109,7 +109,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
     /** The time limit text. */
     private Text timeLimitText;
 
-    private String alertForFetchBaseDNs = Messages.getString("LDAPSchemaStep2Form.alertMessage"); //$NON-NLS-1$
+    private final String alertForFetchBaseDNs = Messages.getString("LDAPSchemaStep2Form.alertMessage"); //$NON-NLS-1$
 
     public LDAPSchemaStep2Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable, String[] tableNames,
             IMetadataContextModeManager contextModeManager) {
@@ -251,6 +251,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         bindPrincipalCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -261,6 +262,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         bindPasswordText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -274,6 +276,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         });
         authenticationMethodCombo.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 if (authenticationMethodCombo.getText().equals(EAuthenticationMethod.ANONYMOUS.getName())) {
                     refreshAuthParamGroup(connection, false);
@@ -293,12 +296,14 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
             boolean isOK = false;
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
 
                 // System.out.println(connection);
                 try {
                     IRunnableWithProgress op = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) {
 
                             connection.setUseAuthen(true);
@@ -315,8 +320,9 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
                     MessageBoxExceptionHandler.process(e);
                 }
 
-                fetchBaseDnsButton.setEnabled(isOK);
-
+                if (!isContextMode()) {
+                    fetchBaseDnsButton.setEnabled(isOK);
+                }
                 connection.setUseAuthen(true);
                 if (isOK) {
                     if (!isContextMode()) {
@@ -338,11 +344,14 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         autoFetchBaseDnsButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
-                // set enabled/disabled state of fields and buttons
-                boolean isSelection = autoFetchBaseDnsButton.getSelection();
-                baseDNCombo.setEnabled(!isSelection);
-                connection.setGetBaseDNsFromRoot(isSelection);
+                if (!isContextMode()) {
+                    // set enabled/disabled state of fields and buttons
+                    boolean isSelection = autoFetchBaseDnsButton.getSelection();
+                    baseDNCombo.setEnabled(!isSelection);
+                    connection.setGetBaseDNsFromRoot(isSelection);
+                }
             }
         });
 
@@ -352,11 +361,13 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
             List<String> dnList = null;
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
 
                 try {
                     IRunnableWithProgress op = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) {
 
                             dnList = fetchBaseDNsList();
@@ -409,6 +420,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         baseDNCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (baseDNCombo.getText() != null) {
                     connection.setSelectedDN(baseDNCombo.getText());
@@ -419,6 +431,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         findingButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (findingButton.getSelection()) {
                     connection.setAliases(EAliasesDereference.FINDING.getRepositoryName());
@@ -428,6 +441,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         searchButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (searchButton.getSelection()) {
                     connection.setAliases(EAliasesDereference.SEARCHING.getRepositoryName());
@@ -437,6 +451,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         alwaysButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (alwaysButton.getSelection()) {
                     connection.setAliases(EAliasesDereference.ALWAYS.getRepositoryName());
@@ -446,6 +461,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         neverButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (neverButton.getSelection()) {
                     connection.setAliases(EAliasesDereference.NEVER.getRepositoryName());
@@ -455,6 +471,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         ignoreButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (ignoreButton.getSelection()) {
                     connection.setReferrals(EReferrals.IGNORE.getRepositoryName());
@@ -465,6 +482,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         followButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (followButton.getSelection()) {
                     connection.setReferrals(EReferrals.FOLLOW.getRepositoryName());
@@ -474,6 +492,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         countLimitText.addVerifyListener(new VerifyListener() {
 
+            @Override
             public void verifyText(VerifyEvent e) {
                 if (!isContextMode()) {
                     if (!e.text.matches("[0-9]*")) { //$NON-NLS-1$
@@ -484,6 +503,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         });
         countLimitText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     String countLimit = countLimitText.getText();
@@ -496,6 +516,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         timeLimitText.addVerifyListener(new VerifyListener() {
 
+            @Override
             public void verifyText(VerifyEvent e) {
                 if (!isContextMode()) {
                     if (!e.text.matches("[0-9]*")) { //$NON-NLS-1$
@@ -506,6 +527,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         });
         timeLimitText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     String timeLimit = timeLimitText.getText();
@@ -803,6 +825,8 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
 
         if (isContextMode()) {
             bindPrincipalCombo.setEnabled(!isContextMode());
+            fetchBaseDnsButton.setEnabled(!isContextMode());
+            baseDNCombo.setEnabled(!isContextMode());
             // clear the echo
             bindPasswordText.setEchoChar('\0');
         } else {
