@@ -73,7 +73,7 @@ public final class RepositorySeekerManager {
      * This work for the repository view of Integration and Mediation
      */
     @SuppressWarnings("deprecation")
-	public IRepositoryNode searchRepoViewNode(String itemId, boolean expand, int expandLevel) {
+    public IRepositoryNode searchRepoViewNode(String itemId, boolean expand, int expandLevel) {
         final TreeViewer repoTreeViewer = getRepoTreeViewer();
 
         IRepositorySeeker<IRepositoryNode>[] allSeeker = getSeekerReader().getAllSeeker();
@@ -95,7 +95,7 @@ public final class RepositorySeekerManager {
     }
 
     public void expandNode(TreeViewer viewer, IRepositoryNode repoNode, int expandLevel) {
-        if (repoNode != null) {
+        if (repoNode != null && viewer != null) {
             RepositoryNode parent = repoNode.getParent();
             if (parent != null) { // when repoNode is ProjectRepositoryNode in main project, the parent will be null.
                 if (parent instanceof ProjectRepositoryNode && parent.getParent() == null) {
