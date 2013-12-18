@@ -12,13 +12,16 @@
 // ============================================================================
 package org.talend.repository.viewer;
 
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.repository.navigator.RepoViewCommonNavigator;
+import org.talend.repository.ui.views.IJobSettingsView;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -56,9 +59,24 @@ public class RepoViewPartListener implements IPartListener2 {
      */
     @Override
     public void partClosed(IWorkbenchPartReference partRef) {
-        if (IRepositoryView.VIEW_ID.equals(partRef.getId())) {
-            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().removePartListener(this);
-        }
+    	 if (partRef != null && IRepositoryView.VIEW_ID.equals(partRef.getId())) {
+             PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().removePartListener(this);
+             if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null) {
+                 IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                         .findView(IJobSettingsView.ID);
+                 if (viewPart != null && viewPart instanceof ISelectionChangedListener) {
+                     ISelectionChangedListener listener = (ISelectionChangedListener) viewPart;
+                     IWorkbenchPart part = partRef.getPart(false);
+                     if (part instanceof CommonNavigator) {
+                         CommonViewer repViewer = ((CommonNavigator) part).getCommonViewer();
+                         if (((RepoViewCommonNavigator) repViewer.getCommonNavigator()).getViewer() != null) {
+                             ((RepoViewCommonNavigator) repViewer.getCommonNavigator()).getViewer()
+                                     .removeSelectionChangedListener(listener);
+                         }
+                     }
+                 }
+             }
+         }
     }
 
     /*
@@ -98,7 +116,22 @@ public class RepoViewPartListener implements IPartListener2 {
      */
     @Override
     public void partVisible(IWorkbenchPartReference partRef) {
-        refreshRepViewDescription(partRef);
+    	 refreshRepViewDescription(partRef);
+         if (partRef != null && IRepositoryView.VIEW_ID.equals(partRef.getId())) {
+             IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                     .findView(IJobSettingsView.ID);
+             if (viewPart != null && viewPart instanceof ISelectionChangedListener) {
+                 ISelectionChangedListener listener = (ISelectionChangedListener) viewPart;
+                 IWorkbenchPart part = partRef.getPart(false);
+                 if (part instanceof CommonNavigator) {
+                     CommonViewer repViewer = ((CommonNavigator) part).getCommonViewer();
+                     if (((RepoViewCommonNavigator) repViewer.getCommonNavigator()).getViewer() != null) {
+                         ((RepoViewCommonNavigator) repViewer.getCommonNavigator()).getViewer().addSelectionChangedListener(
+                                 listener);
+                     }
+                 }
+             }
+         }
     }
 
     /*
