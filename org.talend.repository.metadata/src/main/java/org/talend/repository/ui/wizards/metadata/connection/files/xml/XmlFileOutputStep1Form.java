@@ -376,10 +376,10 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
             }
         });
 
-        xmlXsdFilePath.addModifyListener(new ModifyListener() {
+        xmlXsdFilePath.addFocusListener(new FocusListener() {
 
             @Override
-            public void modifyText(ModifyEvent event) {
+            public void focusLost(FocusEvent e) {
                 String text = xmlXsdFilePath.getText();
                 if (isContextMode()) {
                     ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
@@ -417,8 +417,8 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                             outStream.close();
                         } catch (FileNotFoundException e1) {
                             ExceptionHandler.process(e1);
-                        } catch (IOException e) {
-                            ExceptionHandler.process(e);
+                        } catch (IOException e2) {
+                            ExceptionHandler.process(e2);
                         }
                     }
 
@@ -461,14 +461,14 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
 
                     fileContentText.setText(new String(fileContent));
 
-                } catch (Exception e) {
+                } catch (Exception e1) {
                     String msgError = Messages.getString("FileStep1.filepath") + " \""
                             + xmlXsdFilePath.getText().replace("\\\\", "\\") + "\"\n";
-                    if (e instanceof FileNotFoundException) {
+                    if (e1 instanceof FileNotFoundException) {
                         msgError = msgError + Messages.getString("FileStep1.fileNotFoundException");
-                    } else if (e instanceof EOFException) {
+                    } else if (e1 instanceof EOFException) {
                         msgError = msgError + Messages.getString("FileStep1.eofException"); //$NON-NLS-1$
-                    } else if (e instanceof IOException) {
+                    } else if (e1 instanceof IOException) {
                         msgError = msgError + Messages.getString("FileStep1.fileLocked"); //$NON-NLS-1$
                     } else {
                         msgError = msgError + Messages.getString("FileStep1.noExist"); //$NON-NLS-1$
@@ -501,9 +501,48 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                 // } else {
                 // valid = treePopulator.populateTree(text, treeNode);
                 // }
+                if (file.exists()) {
+                    List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                    if (XmlUtil.isXSDFile(text)) {
+                        try {
+                            XSDSchema xsdSchema = updateXSDSchema(text);
+                            List<ATreeNode> list = updateRootNodes(xsdSchema, true);
+                            if (list.size() > 1) {
+                                RootNodeSelectDialog dialog = new RootNodeSelectDialog(null, list);
+                                if (dialog.open() == IDialogConstants.OK_ID) {
+                                    ATreeNode selectedNode = dialog.getSelectedNode();
+                                    valid = treePopulator.populateTree(xsdSchema, selectedNode, treeNodes);
+                                } else {
+                                    return;
+                                }
+                            } else {
+                                valid = treePopulator.populateTree(xsdSchema, list.get(0), treeNodes);
+                            }
+                        } catch (Exception e1) {
+                            ExceptionHandler.process(e1);
+                        }
+                    } else {
+                        valid = treePopulator.populateTree(text, treeNode);
+                    }
+                    checkFieldsValue();
+                    if (!valid) {
+                        return;
+                    }
+                    if (treeNodes.size() > 0) {
+                        treeNode = treeNodes.get(0);
+                    }
+                    updateConnection(text);
+                }
+
                 valid = treePopulator.populateTree(text, treeNode);
                 checkFieldsValue();
                 isModifing = true;
+            }
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                // TODO Auto-generated method stub
+
             }
         });
 
