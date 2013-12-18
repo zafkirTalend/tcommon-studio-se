@@ -62,8 +62,17 @@ public class RepoViewLinkerRegistryReader extends RegistryReader {
 
     private List<LinkerRecorder> allLinkerRecorder;
 
-    public RepoViewLinkerRegistryReader() {
+    private static RepoViewLinkerRegistryReader linkRegReader;
+
+    private RepoViewLinkerRegistryReader() {
         super(FrameworkUtil.getBundle(RepoViewLinkerRegistryReader.class).getSymbolicName(), VIEW_LINKER_EXTENSION_POINT);
+    }
+
+    public static RepoViewLinkerRegistryReader getInstance() {
+        if (linkRegReader == null) {
+            linkRegReader = new RepoViewLinkerRegistryReader();
+        }
+        return linkRegReader;
     }
 
     public IRepoViewLinker[] getAllRepoViewLinkers() {

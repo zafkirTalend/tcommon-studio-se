@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -49,6 +50,8 @@ import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.i18n.Messages;
+import org.talend.core.repository.link.IRepoViewLinker;
+import org.talend.core.repository.link.RepoViewLinkerRegistryReader;
 import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
@@ -258,8 +261,8 @@ public class EmptyRecycleBinAction extends AContextualAction {
                     try {
                         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
                         for (IEditorReference editors : page.getEditorReferences()) {
-                            String nameInEditor = editors.getName();
-                            if (objToDelete.getLabel().equals(nameInEditor.substring(nameInEditor.indexOf(" ") + 1))) { //$NON-NLS-1$
+                            IEditorInput nameInEditor = editors.getEditorInput();
+                            if (isRelation(nameInEditor, objToDelete.getId())) {
                                 page.closeEditor(editors.getEditor(false), false);
                             }
                         }
@@ -305,6 +308,16 @@ public class EmptyRecycleBinAction extends AContextualAction {
             });
 
         }
+    }
+
+    protected boolean isRelation(IEditorInput editorInput, String repoNodeId) {
+        IRepoViewLinker[] allRepoViewLinkers = RepoViewLinkerRegistryReader.getInstance().getAllRepoViewLinkers();
+        for (IRepoViewLinker linker : allRepoViewLinkers) {
+            if (linker.isRelation(editorInput, repoNodeId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
