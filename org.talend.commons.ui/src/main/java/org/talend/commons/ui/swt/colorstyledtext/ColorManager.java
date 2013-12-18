@@ -94,7 +94,7 @@ public class ColorManager {
 
     private Map<String, Color> colorMap;
 
-    private IPreferenceStore store;
+    private final IPreferenceStore store;
 
     private Map<String, String> typeToColorMap;
 
@@ -102,13 +102,14 @@ public class ColorManager {
         colorMap = new HashMap<String, Color>();
         this.store = store;
         initTypeToColorMap();
+        initDefaultColors(store);
     }
 
     public Color getColor(String colorName) {
         RGB prefColor = PreferenceConverter.getColor(store, colorName);
         Color color = null;
         if (colorMap.containsKey(colorName) && (colorMap.get(colorName)).getRGB().equals(prefColor)) {
-            color = (Color) colorMap.get(colorName);
+            color = colorMap.get(colorName);
         } else {
             color = new Color(Display.getDefault(), prefColor);
             colorMap.put(colorName, color);
@@ -133,7 +134,7 @@ public class ColorManager {
      * @return String
      */
     public String colorForType(String type) {
-        return (String) typeToColorMap.get(type);
+        return typeToColorMap.get(type);
     }
 
     protected void initTypeToColorMap() {
