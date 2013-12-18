@@ -23,6 +23,8 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
@@ -91,10 +93,18 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
 
         if (!CommonsPlugin.isHeadless()) {
-            IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
-            store.setValue(editorLineNumberRuler, true);
-            store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
-            store.setValue(editorLineNumberRuler, true);
+            Display display = getDisplay();
+            if (display != null) {
+                display.syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        initPreference(perlEditorBundleName, editorsBundleName, editorLineNumberRuler);
+                    }
+                });
+            } else {
+                initPreference(perlEditorBundleName, editorsBundleName, editorLineNumberRuler);
+            }
 
         }
         String languageType = Locale.getDefault().getLanguage();
@@ -123,6 +133,21 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);
 
+    }
+
+    private Display getDisplay() {
+        Display display = Display.getCurrent();
+        if (display == null && PlatformUI.isWorkbenchRunning()) {
+            display = PlatformUI.getWorkbench().getDisplay();
+        }
+        return display != null ? display : Display.getDefault();
+    }
+
+    private void initPreference(String perlEditorBundleName, String editorsBundleName, String editorLineNumberRuler) {
+        IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+        store.setValue(editorLineNumberRuler, true);
+        store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
+        store.setValue(editorLineNumberRuler, true);
     }
 
     // unused method : call remove for 2.3
