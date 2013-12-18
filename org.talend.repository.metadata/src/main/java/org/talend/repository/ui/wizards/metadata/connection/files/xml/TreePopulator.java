@@ -35,6 +35,7 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
+import org.talend.datatools.xml.utils.UtilConstants;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
 
@@ -250,16 +251,32 @@ public class TreePopulator {
     public TreeItem getTreeItem(String absoluteXPath) {
         TreeItem[] items = availableXmlTree.getTree().getItems();
         String path = absoluteXPath;
+        String targetName = absoluteXPath;
+        if (targetName.contains(UtilConstants.XPATH_SLASH)) {
+            String[] names = targetName.split(UtilConstants.XPATH_SLASH);
+            targetName = names[names.length - 1];
+        }
         TreeItem item = null;
         while (!path.isEmpty()) {
             boolean flag = false;
             for (TreeItem curItem : items) {
-                if (path.startsWith("/" + curItem.getText())) { //$NON-NLS-1$
-                    flag = true;
-                    item = curItem;
-                    path = path.replaceFirst("/" + curItem.getText(), ""); //$NON-NLS-1$//$NON-NLS-2$
-                    break;
+                if (targetName != null && curItem.getText().equals(targetName)) {
+                    if (path.startsWith("/" + curItem.getText())) { //$NON-NLS-1$
+                        flag = true;
+                        item = curItem;
+                        path = path.replaceFirst("/" + curItem.getText(), ""); //$NON-NLS-1$//$NON-NLS-2$
+                        break;
+                    }
+                } else {
+                    String tempRootPath = curItem.getText() + UtilConstants.XPATH_SLASH;
+                    if (path.startsWith("/" + tempRootPath)) { //$NON-NLS-1$
+                        flag = true;
+                        item = curItem;
+                        path = path.replaceFirst("/" + curItem.getText(), ""); //$NON-NLS-1$//$NON-NLS-2$
+                        break;
+                    }
                 }
+
             }
             if (!path.isEmpty()) {
                 items = item.getItems();
