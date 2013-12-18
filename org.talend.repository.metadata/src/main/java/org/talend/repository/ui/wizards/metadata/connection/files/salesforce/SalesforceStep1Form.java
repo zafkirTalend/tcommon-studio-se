@@ -658,7 +658,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                                     Messages.getString("SalesforceForm.noAvailableBroswer"));
                             return;
                         }
-
+                        Thread.sleep(100);
                         client.stopServer();
                         if (code != null && !code.equals("")) {
                             token = client.getTokenForWizard(code);
