@@ -23,10 +23,12 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
@@ -94,13 +96,19 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
 
         if (!CommonsPlugin.isHeadless()) {
-            IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
-            store.setValue(editorLineNumberRuler, true);
-            store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
-            store.setValue(editorLineNumberRuler, true);
+            Display display = DisplayUtils.getDisplay();
+            if (display != null) {
+                display.syncExec(new Runnable() {
 
-            // default colors for the ColorStyledText.
-            ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
+                    @Override
+                    public void run() {
+                        initPreference(perlEditorBundleName, editorsBundleName, editorLineNumberRuler);
+                    }
+                });
+            } else {
+                initPreference(perlEditorBundleName, editorsBundleName, editorLineNumberRuler);
+            }
+
         }
         String languageType = Locale.getDefault().getLanguage();
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
@@ -131,6 +139,16 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore()
                 .setDefault(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false);
 
+    }
+
+    private void initPreference(String perlEditorBundleName, String editorsBundleName, String editorLineNumberRuler) {
+        IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+        store.setValue(editorLineNumberRuler, true);
+        store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
+        store.setValue(editorLineNumberRuler, true);
+
+        // default colors for the ColorStyledText.
+        ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
     }
 
     // unused method : call remove for 2.3
