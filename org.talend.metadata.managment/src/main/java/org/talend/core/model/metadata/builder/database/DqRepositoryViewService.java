@@ -188,8 +188,23 @@ public final class DqRepositoryViewService {
      */
     public static List<TdTable> getTables(Connection dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB)
             throws Exception {
+        List<TdTable> tables = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            tables = getTables(trc.getObject(), dataProvider, catalog, tablePattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return tables;
+    }
+
+    public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
+            String tablePattern, boolean loadFromDB) throws Exception {
         if (loadFromDB) {
-            return loadTables(dataProvider, catalog, tablePattern);
+            return loadTables(sqlConnection, dataProvider, catalog, tablePattern);
         } else {
             return CatalogHelper.getTables(catalog);
         }
@@ -197,9 +212,35 @@ public final class DqRepositoryViewService {
 
     public static List<TdTable> getTables(Connection dataProvider, Schema schema, String tablePattern, boolean loadFromDB)
             throws Exception {
+        List<TdTable> tables = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            tables = getTables(trc.getObject(), dataProvider, schema, tablePattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return tables;
+    }
+
+    /**
+     * get the tables belong to the schema.
+     * 
+     * @param sqlConnection the java.sql.Connection
+     * @param dataProvider the talend Connection
+     * @param schema the schema
+     * @param tablePattern table pattern
+     * @param loadFromDB load form db or not
+     * @return
+     * @throws Exception
+     */
+    public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
+            String tablePattern, boolean loadFromDB) throws Exception {
         if (loadFromDB) {
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
-            return loadTables(dataProvider, parentCatalog, schema, tablePattern);
+            return loadTables(sqlConnection, dataProvider, parentCatalog, schema, tablePattern);
         } else {
             return SchemaHelper.getTables(schema);
         }
@@ -207,19 +248,57 @@ public final class DqRepositoryViewService {
 
     public static List<TdTable> getTables(Connection dataProvider, Package pack, String tablePattern, boolean loadFromDB)
             throws Exception {
+        List<TdTable> tables = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            tables = getTables(trc.getObject(), dataProvider, pack, tablePattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return tables;
+    }
+
+    public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
+            String tablePattern, boolean loadFromDB) throws Exception {
         if (pack instanceof Schema) {
-            return getTables(dataProvider, (Schema) pack, tablePattern, loadFromDB);
+            return getTables(sqlConnection, dataProvider, (Schema) pack, tablePattern, loadFromDB);
         } else if (pack instanceof Catalog) {
-            return getTables(dataProvider, (Catalog) pack, tablePattern, loadFromDB);
+            return getTables(sqlConnection, dataProvider, (Catalog) pack, tablePattern, loadFromDB);
         }
         return new ArrayList<TdTable>();
+    }
 
+    private static TypedReturnCode<java.sql.Connection> checkConnection(Connection dataProvider) throws Exception {
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
+        if (!trc.isOk()) {
+            log.error(trc.getMessage());
+            throw new Exception(trc.getMessage());
+        }
+        return trc;
     }
 
     public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
             throws Exception {
+        List<TdView> views = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            views = getViews(trc.getObject(), dataProvider, catalog, viewPattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return views;
+    }
+
+    public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
+            String viewPattern, boolean loadFromDB) throws Exception {
         if (loadFromDB) {
-            return loadViews(dataProvider, catalog, null, viewPattern);
+            return loadViews(sqlConnection, dataProvider, catalog, null, viewPattern);
         } else {
             return CatalogHelper.getViews(catalog);
         }
@@ -227,10 +306,25 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(Connection dataProvider, Schema schema, String viewPattern, boolean loadFromDB)
             throws Exception {
+        List<TdView> views = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            views = getViews(trc.getObject(), dataProvider, schema, viewPattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return views;
+    }
+
+    public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
+            String viewPattern, boolean loadFromDB) throws Exception {
         if (loadFromDB) {
             // get catalog is exists
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
-            return loadViews(dataProvider, parentCatalog, schema, viewPattern);
+            return loadViews(sqlConnection, dataProvider, parentCatalog, schema, viewPattern);
         } else {
             return SchemaHelper.getViews(schema);
         }
@@ -238,10 +332,25 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(Connection dataProvider, Package pack, String viewPattern, boolean loadFromDB)
             throws Exception {
+        List<TdView> views = null;
+        TypedReturnCode<java.sql.Connection> trc = null;
+        try {
+            trc = checkConnection(dataProvider);
+            views = getViews(trc.getObject(), dataProvider, pack, viewPattern, loadFromDB);
+        } finally {
+            if (trc != null && trc.getObject() != null) {
+                ConnectionUtils.closeConnection(trc.getObject());
+            }
+        }
+        return views;
+    }
+
+    public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
+            String viewPattern, boolean loadFromDB) throws Exception {
         if (pack instanceof Schema) {
-            return getViews(dataProvider, (Schema) pack, viewPattern, loadFromDB);
+            return getViews(sqlConnection, dataProvider, (Schema) pack, viewPattern, loadFromDB);
         } else if (pack instanceof Catalog) {
-            return getViews(dataProvider, (Catalog) pack, viewPattern, loadFromDB);
+            return getViews(sqlConnection, dataProvider, (Catalog) pack, viewPattern, loadFromDB);
         }
         return new ArrayList<TdView>();
     }
@@ -255,17 +364,10 @@ public final class DqRepositoryViewService {
      * @throws Exception the exception the connection checking is not ok.
      */
     public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, boolean loadFromDB) throws Exception {
-
         if (loadFromDB) {
             // MOD by zshen use new API to fill Columns
             List<TdColumn> columnList = new ArrayList<TdColumn>();
-            TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
-                    .checkConnection((DatabaseConnection) dataProvider);
-            if (!rcConn.isOk()) {
-                log.error(rcConn.getMessage()); // scorreia show error to the
-                                                // user
-                throw new Exception(rcConn.getMessage());
-            }
+            TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
             java.sql.Connection connection = rcConn.getObject();
             try {
                 DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
@@ -281,7 +383,6 @@ public final class DqRepositoryViewService {
         } else {
             return ColumnSetHelper.getColumns(columnSet);
         }
-
     }
 
     /**
@@ -300,12 +401,7 @@ public final class DqRepositoryViewService {
     public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, String columnPattern, boolean loadFromDB)
             throws Exception {
         return getColumns(dataProvider, columnSet, loadFromDB);
-
     }
-
-    // private static String getName(ModelElement element) {
-    // return element != null ? element.getName() : null;
-    // }
 
     /**
      * Method "createFilename".
@@ -322,13 +418,15 @@ public final class DqRepositoryViewService {
     /**
      * Method "loadTables".
      * 
+     * @param sqlConnection
      * @param dataProvider
      * @param catalog (must not be null)
      * @param tablePattern
      * @return the list of tables matching the given pattern
      * @throws Exception
      */
-    private static List<TdTable> loadTables(Connection dataProvider, Catalog catalog, String tablePattern) throws Exception {
+    private static List<TdTable> loadTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
+            String tablePattern) throws Exception {
         List<TdTable> tables = new ArrayList<TdTable>();
         assert dataProvider != null;
         assert catalog != null;
@@ -338,98 +436,38 @@ public final class DqRepositoryViewService {
             log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS")); //$NON-NLS-1$
             return tables;
         }
-        return loadTables(dataProvider, catalog, null, tablePattern);
+        return loadTables(sqlConnection, dataProvider, catalog, null, tablePattern);
     }
 
-    private static List<TdTable> loadTables(Connection dataPloadTablesrovider, Catalog catalog, Schema schema, String tablePattern)
-            throws Exception {
+    private static List<TdTable> loadTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
+            Schema schema, String tablePattern) throws Exception {
         List<TdTable> tables = new ArrayList<TdTable>();
-        // PTODO scorreia check return code
-        // MOD by zshen use new API to fill tables
-
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
-                .checkConnection((DatabaseConnection) dataPloadTablesrovider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
+        DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
+                (DatabaseConnection) dataProvider, false);
+        Package pack = schema == null ? catalog : schema;
+        if (PackageHelper.getTables(pack).size() == 0) {
+            tables = MetadataFillFactory.getDBInstance().fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
+        } else {
+            MetadataFillFactory.getDBInstance().setLinked(false);
+            tables = MetadataFillFactory.getDBInstance().fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
+            MetadataFillFactory.getDBInstance().setLinked(true);
         }
-
-        java.sql.Connection connection = rcConn.getObject();
-        try {
-            DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
-                    (DatabaseConnection) dataPloadTablesrovider, false);
-            // MOD msjian 2011-10-9 TDQ-3566: do not fill tables after existing
-            // MOD gdbu 2011-10-25 TDQ-3816 : If tables exists, will no longer be added.(compare with tables , not all
-            // element)
-            if (schema != null) {
-                if (PackageHelper.getTables(schema).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(schema, dm, null, tablePattern, TABLE_TYPES);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
-            } else {
-                if (PackageHelper.getTables(catalog).size() == 0) {
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    tables = MetadataFillFactory.getDBInstance().fillTables(catalog, dm, null, tablePattern, TABLE_TYPES);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
-            }
-            // TDQ-3816
-            // TDQ-3566 ~
-        } finally {
-            ConnectionUtils.closeConnection(connection);
-        }
-        // ~
-        // loadColumnSets(dataProvider, catalog, schema, tablePattern,
-        // RelationalPackage.TD_TABLE, tables);
         return tables;
     }
 
-    private static List<TdView> loadViews(Connection dataProvider, Catalog catalog, Schema schema, String viewPattern)
-            throws Exception {
+    private static List<TdView> loadViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
+            Schema schema, String viewPattern) throws Exception {
         List<TdView> views = new ArrayList<TdView>();
-        // PTODO scorreia check return code
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
+        DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
+                (DatabaseConnection) dataProvider, false);
+        Package pack = schema == null ? catalog : schema;
+        if (PackageHelper.getViews(pack).size() == 0) {
+            views = MetadataFillFactory.getDBInstance().fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
+        } else {
+            MetadataFillFactory.getDBInstance().setLinked(false);
+            views = MetadataFillFactory.getDBInstance().fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
+            MetadataFillFactory.getDBInstance().setLinked(true);
         }
-
-        java.sql.Connection connection = rcConn.getObject();
-        DatabaseConnection databaseConnection = (DatabaseConnection) dataProvider;
-        DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection, databaseConnection, false);
-        try {
-            // MOD msjian 2011-10-9 TDQ-3566: do not fill views after existing
-            // MOD gdbu 2011-10-25 TDQ-3816 : If views exists, will no longer be added.(compare with views , not all
-            // element)
-            if (schema != null) {
-                if (PackageHelper.getViews(schema).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(schema, dm, null, viewPattern, VIEW_TYPES);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
-            } else {
-                if (PackageHelper.getViews(catalog).size() == 0) {
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
-                } else {
-                    MetadataFillFactory.getDBInstance().setLinked(false);
-                    views = MetadataFillFactory.getDBInstance().fillViews(catalog, dm, null, viewPattern, VIEW_TYPES);
-                    MetadataFillFactory.getDBInstance().setLinked(true);
-                }
-            }
-            // TDQ-3816
-            // TDQ-3566 ~
-        } finally {
-            ConnectionUtils.closeConnection(connection);
-        }
-        // loadColumnSets(dataProvider, catalog, schema, viewPattern,
-        // RelationalPackage.TD_VIEW, views);
         return views;
     }
 
@@ -515,23 +553,11 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     public static boolean isContainsTable(Connection dataProvider, Catalog catalog, String tablePattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
-        }
+        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
-            // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
-            // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-            // if (dbType == EDatabaseTypeName.TERADATA) {
-            // IMetadataConnection metadataConnection = ConvertionHelper.convert(dataProvider);
-            // //MOD by zshen use sql mode to get table is slow so avoid it.
-            // metadataConnection.setSqlMode(false);
-            // ExtractMetaDataUtils.metadataCon = metadataConnection;
-            // }
             dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
@@ -567,24 +593,12 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     public static boolean isContainsTable(Connection dataProvider, Schema schema, String tablePattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
-        }
+        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
         java.sql.Connection connection = rcConn.getObject();
 
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
-            // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
-            // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-            // if (dbType == EDatabaseTypeName.TERADATA) {
-            // IMetadataConnection metadataConnection = ConvertionHelper.convert(dataProvider);
-            // //MOD by zshen use sql mode to get table is slow so avoid it.
-            // metadataConnection.setSqlMode(false);
-            // ExtractMetaDataUtils.metadataCon = metadataConnection;
-            // }
             dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
@@ -625,11 +639,7 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     public static boolean isContainsView(Connection dataProvider, Catalog catalog, String viewPattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
-        }
+        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
@@ -669,32 +679,17 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     public static boolean isContainsView(Connection dataProvider, Schema schema, String viewPattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
-            throw new Exception(rcConn.getMessage());
-        }
+        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         if (dataProvider instanceof DatabaseConnection) {
-            // String databaseType = ((DatabaseConnection) dataProvider).getDatabaseType();
-            // EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
-            // if (dbType == EDatabaseTypeName.TERADATA) {
-            // IMetadataConnection metadataConnection = ConvertionHelper.convert(dataProvider);
-            // //MOD by zshen use sql mode to get table is slow so avoid it.
-            // metadataConnection.setSqlMode(false);
-            // ExtractMetaDataUtils.metadataCon = metadataConnection;
-            // }
             dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
         } else {
             TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
             dbJDBCMetadata = extractMeta
                     .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
-        // DatabaseMetaData dbJDBCMetadata = ExtractMetaDataUtils.getDatabaseMetaData(connection,
-        // ((DatabaseConnection) dataProvider).getDatabaseType(),((DatabaseConnection)
-        // dataProvider).isSQLMode(),((DatabaseConnection) dataProvider).getSID());
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
 
         Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
