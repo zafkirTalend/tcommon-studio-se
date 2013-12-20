@@ -302,7 +302,7 @@ public class CoreService implements ICoreService {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().syncAllRoutines();
+            codeGenService.createRoutineSynchronizer().syncAllRoutinesForLogOn();
             codeGenService.createRoutineSynchronizer().syncAllPigudf();
         }
 

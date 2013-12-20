@@ -315,4 +315,8 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         // TODO Auto-generated method stub
 
     }
+    
+    @Override
+    public void syncAllRoutinesForLogOn() throws SystemException {
+    }
 }
