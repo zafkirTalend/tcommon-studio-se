@@ -38,6 +38,8 @@ public interface ITalendSynchronizer {
 
     public void syncAllRoutines() throws SystemException;
 
+    public void syncAllRoutinesForLogOn() throws SystemException;
+
     public void syncAllPigudf() throws SystemException;
 
     public void syncAllBeans() throws SystemException;
