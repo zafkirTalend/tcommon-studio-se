@@ -168,6 +168,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     }
 
+    @Override
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException {
         if (!isRoutineUptodate(routineItem) || !getFile(routineItem).exists()) {
             doSyncRoutine(routineItem, copyToTemp);
@@ -182,6 +183,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         }
     }
 
+    @Override
     public void syncBean(Item beanItem, boolean copyToTemp) throws SystemException {
         if (!isBeanUptodate(beanItem) || !getFile(beanItem).exists()) {
             doSyncBean(beanItem, copyToTemp);
@@ -214,6 +216,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     protected abstract void doSyncBean(Item beanItem, boolean copyToTemp) throws SystemException;
 
+    @Override
     public abstract void deleteRoutinefile(IRepositoryViewObject objToDelete);
 
     protected boolean isRoutineUptodate(RoutineItem routineItem) {
@@ -245,6 +248,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     }
 
+    @Override
     public void forceSyncRoutine(RoutineItem routineItem) {
         id2date.remove(routineItem.getProperty().getId());
         try {
@@ -255,11 +259,13 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     }
 
     // qli modified to fix the bug 5400 and 6185.
+    @Override
     public abstract void renameRoutineClass(RoutineItem routineItem);
 
     /**
      * bug 12582 by ggu.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Map<String, List<URI>> getUserRoutineModules() {
         Map<String, List<URI>> modules = new HashMap<String, List<URI>>();
@@ -301,5 +307,10 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
      * 
      * @param beanItem
      */
+    @Override
     public abstract void renameBeanClass(Item beanItem);
+
+    @Override
+    public void syncAllRoutinesForLogOn() throws SystemException {
+    }
 }

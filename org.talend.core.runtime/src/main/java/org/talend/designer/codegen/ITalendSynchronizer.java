@@ -37,6 +37,8 @@ public interface ITalendSynchronizer {
 
     public void syncAllRoutines() throws SystemException;
 
+    public void syncAllRoutinesForLogOn() throws SystemException;
+
     public void syncAllBeans() throws SystemException;
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
