@@ -383,6 +383,8 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
                     connection.getBaseDNs().addAll(Arrays.asList(baseDNarray));
                     connection.setSelectedDN(baseDNarray[0]);
                     // System.out.println(connection);
+                } else {
+                    isOK = false;
                 }
 
                 if (isOK) {

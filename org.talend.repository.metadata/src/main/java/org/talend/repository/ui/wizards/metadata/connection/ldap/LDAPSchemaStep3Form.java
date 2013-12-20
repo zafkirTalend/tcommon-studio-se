@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -633,8 +634,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             ctx = dirOps.getContext();
             schemaOps = new SchemaOps(ctx);
         } catch (NamingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return schemaOps;
 
