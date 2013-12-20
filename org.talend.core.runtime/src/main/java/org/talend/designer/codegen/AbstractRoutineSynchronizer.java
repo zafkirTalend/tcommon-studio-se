@@ -302,4 +302,8 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
      * @param beanItem
      */
     public abstract void renameBeanClass(Item beanItem);
+    
+    @Override
+    public void syncAllRoutinesForLogOn() throws SystemException {
+    }
 }
