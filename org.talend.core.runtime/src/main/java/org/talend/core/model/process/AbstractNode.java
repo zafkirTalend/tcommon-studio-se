@@ -86,6 +86,10 @@ public abstract class AbstractNode implements INode {
 
     private boolean subProcessContainBreakpoint;
 
+    private boolean isThereLinkWithRef = Boolean.FALSE;
+
+    private List<INode> refNodes;
+
     private List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
 
     // as the talend job contains multiple mapreduce jobs, use this to indicate which mapreduce job contains this
@@ -1097,5 +1101,41 @@ public abstract class AbstractNode implements INode {
      */
     public void setMrContainsReduce(boolean mrContainsReduce) {
         this.mrContainsReduce = mrContainsReduce;
+    }
+
+    /**
+     * Getter for isThereLinkWithRef.
+     * 
+     * @return the isThereLinkWithRef
+     */
+    public boolean isThereLinkWithRef() {
+        return this.isThereLinkWithRef;
+    }
+
+    /**
+     * Sets the isThereLinkWithRef.
+     * 
+     * @param isThereLinkWithRef the isThereLinkWithRef to set
+     */
+    public void setThereLinkWithRef(boolean isThereLinkWithRef) {
+        this.isThereLinkWithRef = isThereLinkWithRef;
+    }
+
+    /**
+     * Getter for refNodes.
+     * 
+     * @return the refNodes
+     */
+    public List<INode> getRefNodes() {
+        return this.refNodes;
+    }
+
+    /**
+     * Sets the refNodes.
+     * 
+     * @param refNodes the refNodes to set
+     */
+    public void setRefNodes(List<INode> refNodes) {
+        this.refNodes = refNodes;
     }
 }

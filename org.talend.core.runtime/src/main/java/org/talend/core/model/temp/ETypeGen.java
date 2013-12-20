@@ -1,4 +1,4 @@
-//============================================================================
+// ============================================================================
 //
 // Talend Community Edition
 //
@@ -11,28 +11,27 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
-//============================================================================
+// ============================================================================
 package org.talend.core.model.temp;
 
-
 /**
- * DOC rdubois  class global comment. Detailled comment
- * <br/>
- *
+ * DOC rdubois class global comment. Detailled comment <br/>
+ * 
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
- *
+ * 
  */
 public enum ETypeGen {
     ETL("etl"), //$NON-NLS-1$
-    CAMEL("camel"); //$NON-NLS-1$
-    
+    CAMEL("camel"), //$NON-NLS-1$
+    MR("mr"); //$NON-NLS-1$
+
     private ETypeGen(String name) {
         this.name = name;
     }
