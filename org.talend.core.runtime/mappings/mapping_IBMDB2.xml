@@ -41,9 +41,9 @@
 					
 				</talendType>				
 				<talendType type="id_Date">
-					<dbType type="DATE" default="true"/>
+					<dbType type="DATE"/>
 					<dbType type="TIME"/>
-					<dbType type="TIMESTAMP"/>
+					<dbType type="TIMESTAMP" default="true"/>
 				</talendType>				
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL" default="true"/>
