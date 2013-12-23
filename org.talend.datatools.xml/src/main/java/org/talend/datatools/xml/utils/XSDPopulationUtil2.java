@@ -253,11 +253,27 @@ public class XSDPopulationUtil2 {
                     if (prefix != null && !prefix.isEmpty()) {
                         namespaceToPrefix.put(namespace, prefix);
                     } else {
-                        ATreeNode namespaceNode = new ATreeNode();
-                        namespaceNode.setDataType("");
-                        namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
-                        namespaceNode.setValue(namespace);
-                        partNode.addChild(namespaceNode);
+                        boolean namespaceFoundInParent = false;
+                        ATreeNode node = parentNode;
+                        do {
+                            for (Object child : node.getChildren()) {
+                                if (child instanceof ATreeNode) {
+                                    ATreeNode childNode = (ATreeNode) child;
+                                    if (childNode.getType() == ATreeNode.NAMESPACE_TYPE && namespace.equals(childNode.getValue())) {
+                                        namespaceFoundInParent = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            node = node.getParent();
+                        } while (node != null && !namespaceFoundInParent);
+                        if (!namespaceFoundInParent) {
+                            ATreeNode namespaceNode = new ATreeNode();
+                            namespaceNode.setDataType(""); //$NON-NLS-1$
+                            namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                            namespaceNode.setValue(namespace);
+                            partNode.addChild(namespaceNode);
+                        }
                     }
                 }
             }
