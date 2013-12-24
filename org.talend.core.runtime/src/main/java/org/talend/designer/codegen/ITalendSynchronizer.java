@@ -42,7 +42,11 @@ public interface ITalendSynchronizer {
 
     public void syncAllPigudf() throws SystemException;
 
+    public void syncAllPigudfForLogOn() throws SystemException;
+
     public void syncAllBeans() throws SystemException;
+
+    public void syncAllBeansForLogOn() throws SystemException;
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
