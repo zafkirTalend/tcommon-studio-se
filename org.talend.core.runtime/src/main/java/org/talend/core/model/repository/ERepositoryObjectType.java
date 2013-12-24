@@ -1126,7 +1126,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * @param name
      * @return
      */
-    public static ERepositoryObjectType valueOf(Class clazz, String name) {
+    public static ERepositoryObjectType valueOf(Class<ERepositoryObjectType> clazz, String name) {
         return DynaEnum.valueOf(clazz, name);
     }
 
