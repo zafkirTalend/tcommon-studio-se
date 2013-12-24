@@ -18,6 +18,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
+import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.codegen.ITalendSynchronizer;
@@ -54,5 +56,7 @@ public interface ICamelDesignerCoreService extends IService {
 	 * @param item
 	 */
 	public List<IPath> synchronizeRouteResource(Item item);
+	
+	public EConnectionType getTargetConnectionType(INode node);
 
 }
