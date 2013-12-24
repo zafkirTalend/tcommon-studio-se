@@ -57,6 +57,7 @@ public interface ICamelDesignerCoreService extends IService {
 	 */
 	public List<IPath> synchronizeRouteResource(Item item);
 	
-	public EConnectionType getTargetConnectionType(INode node);
+	public String getDeleteFolderName(ERepositoryObjectType type);
 
+	public EConnectionType getTargetConnectionType(INode node);
 }
