@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.talend.testutils.threading.AbstractThreadSafetyTester;
-import org.talend.utils.network.operators.ServerSocketFreePortOpenerOperator;
 
 /**
  * DOC amaumont class global comment. Detailled comment
@@ -164,71 +162,73 @@ public class ServerSocketFreePortOpenerTest {
 
     }
 
-    @Test(timeout = 5000)
-    // @Test
-    public void testThreadSafetySameReference() throws Exception {
-        final int nOperatorsByClassOperator = 30;
-        final int nOperationsByOperator = 50;
-        ServerSocketFreePortOpener serverSocketFreePortOpener = new ServerSocketFreePortOpener();
-        // case where the same instance is used for each operator
-        launchThreadSafetyTest(serverSocketFreePortOpener, nOperatorsByClassOperator, nOperationsByOperator,
-                ServerSocketFreePortOpenerOperator.class);
-    }
+    // @Test(timeout = 5000)
+    // // @Test
+    // public void testThreadSafetySameReference() throws Exception {
+    // final int nOperatorsByClassOperator = 30;
+    // final int nOperationsByOperator = 50;
+    // ServerSocketFreePortOpener serverSocketFreePortOpener = new ServerSocketFreePortOpener();
+    // // case where the same instance is used for each operator
+    // launchThreadSafetyTest(serverSocketFreePortOpener, nOperatorsByClassOperator, nOperationsByOperator,
+    // ServerSocketFreePortOpenerOperator.class);
+    // }
 
-    @Test(timeout = 5000)
-    // @Test
-    public void testThreadSafetyNewReference() throws Exception {
-        final int nOperatorsByClassOperator = 30;
-        final int nOperationsByOperator = 50;
-        // case where an instance is created for each operator
-        launchThreadSafetyTest(null, nOperatorsByClassOperator, nOperationsByOperator, ServerSocketFreePortOpenerOperator.class);
-    }
+    // @Test(timeout = 5000)
+    // // @Test
+    // public void testThreadSafetyNewReference() throws Exception {
+    // final int nOperatorsByClassOperator = 30;
+    // final int nOperationsByOperator = 50;
+    // // case where an instance is created for each operator
+    // launchThreadSafetyTest(null, nOperatorsByClassOperator, nOperationsByOperator,
+    // ServerSocketFreePortOpenerOperator.class);
+    // }
 
-    private void launchThreadSafetyTest(final ServerSocketFreePortOpener serverSocketFreePortOpener,
-            final int nOperatorsByClassOperator, final int nOperationsByOperator,
-            Class<? extends ServerSocketFreePortOpenerOperator>... classOperators) throws Exception {
-
-        class ThreadSafetyTester extends AbstractThreadSafetyTester<ServerSocketFreePortOpenerOperator> {
-
-            public ThreadSafetyTester(int nOperatorsByClassOperator,
-                    Class<? extends ServerSocketFreePortOpenerOperator>... classOperators) {
-                super(nOperatorsByClassOperator, classOperators);
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see
-             * org.talend.commons.utils.threading.AbstractThreadSafetyTester#initInstance(org.talend.commons.utils.threading
-             * .IThreadSafetyOperator)
-             */
-            @Override
-            protected void initInstance(ServerSocketFreePortOpenerOperator operatorInstance) {
-                operatorInstance.setDebug(DEBUG);
-                operatorInstance.setServerSocketFreePortOpener(serverSocketFreePortOpener);
-                operatorInstance.setnOperationsByOperator(nOperationsByOperator);
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.talend.commons.utils.threading.AbstractThreadSafetyTester#assertFinal()
-             */
-            @Override
-            protected void assertFinal() throws IOException {
-
-                for (int port = ServerSocketFreePortOpenerOperator.portRangeBound1; port <= ServerSocketFreePortOpenerOperator.portRangeBound2; port++) {
-                    assertThat("Port " + port + " should be free!", isPortFree(port), is(true));
-                }
-
-            }
-
-        }
-
-        @SuppressWarnings("unchecked")
-        ThreadSafetyTester lockerThreadSafetyTester = new ThreadSafetyTester(nOperatorsByClassOperator, classOperators);
-        lockerThreadSafetyTester.start();
-    }
+    // private void launchThreadSafetyTest(final ServerSocketFreePortOpener serverSocketFreePortOpener,
+    // final int nOperatorsByClassOperator, final int nOperationsByOperator,
+    // Class<? extends ServerSocketFreePortOpenerOperator>... classOperators) throws Exception {
+    //
+    // class ThreadSafetyTester extends AbstractThreadSafetyTester<ServerSocketFreePortOpenerOperator> {
+    //
+    // public ThreadSafetyTester(int nOperatorsByClassOperator,
+    // Class<? extends ServerSocketFreePortOpenerOperator>... classOperators) {
+    // super(nOperatorsByClassOperator, classOperators);
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see
+    // * org.talend.commons.utils.threading.AbstractThreadSafetyTester#initInstance(org.talend.commons.utils.threading
+    // * .IThreadSafetyOperator)
+    // */
+    // @Override
+    // protected void initInstance(ServerSocketFreePortOpenerOperator operatorInstance) {
+    // operatorInstance.setDebug(DEBUG);
+    // operatorInstance.setServerSocketFreePortOpener(serverSocketFreePortOpener);
+    // operatorInstance.setnOperationsByOperator(nOperationsByOperator);
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.commons.utils.threading.AbstractThreadSafetyTester#assertFinal()
+    // */
+    // @Override
+    // protected void assertFinal() throws IOException {
+    //
+    // for (int port = ServerSocketFreePortOpenerOperator.portRangeBound1; port <=
+    // ServerSocketFreePortOpenerOperator.portRangeBound2; port++) {
+    // assertThat("Port " + port + " should be free!", isPortFree(port), is(true));
+    // }
+    //
+    // }
+    //
+    // }
+    //
+    // @SuppressWarnings("unchecked")
+    // ThreadSafetyTester lockerThreadSafetyTester = new ThreadSafetyTester(nOperatorsByClassOperator, classOperators);
+    // lockerThreadSafetyTester.start();
+    // }
 
     /**
      * 
