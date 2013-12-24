@@ -146,6 +146,8 @@ public interface IDesignerCoreService extends IService {
 
     public void addProblems(Problem problem);
 
+    public void resetJobProblemList(IRepositoryViewObject obj, String originalName);
+
     public void reloadParamFromProjectSettings(ParametersType processType, String paramName);
 
     public Set<ModuleNeeded> getNeededLibrariesForProcess(IProcess process, boolean withChildrens);
