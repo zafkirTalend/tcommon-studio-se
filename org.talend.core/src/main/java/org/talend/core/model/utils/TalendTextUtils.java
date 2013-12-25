@@ -308,7 +308,9 @@ public class TalendTextUtils {
 
         boolean isH2 = EDatabaseTypeName.H2 == name;
 
-        if ((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name) {
+        // if the database type is IBMDB2 and the field name contain lowercase character, should add quotes
+        if (((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name)
+                || isIBMDB2ContainLowerCase(dbType, fieldName)) {
             isCheck = true; // contain other char
         }
 
@@ -319,6 +321,25 @@ public class TalendTextUtils {
 
         newFieldName = TalendQuoteUtils.addQuotesForSQLString(newFieldName, quote, simple);
         return newFieldName;
+    }
+
+    /**
+     * if the database type is IBM DB2 and the field name contains lowercase character return true otherwise return
+     * false.
+     * 
+     * @param dbType
+     * @param fieldName
+     * @return
+     */
+    private static boolean isIBMDB2ContainLowerCase(String dbType, String fieldName) {
+        if (dbType.equals(EDatabaseTypeName.IBMDB2.getDisplayName())
+                || dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getDisplayName())) {
+            String temp = removeQuotes(fieldName);
+            Pattern pattern = Pattern.compile("^.*[a-z]+.*$"); //$NON-NLS-1$
+            Matcher matcher = pattern.matcher(temp);
+            return matcher.matches();
+        }
+        return false;
     }
 
     public static String getQuoteByDBType(EDatabaseTypeName name) {
