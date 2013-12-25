@@ -754,22 +754,32 @@ public class NodeUtil {
      * @return unique name of the graphica node.
      */
     public static String getVirtualUniqueName(INode node) {
-        String uniqueName = node.getUniqueName();
+        return getVirtualNode(node).getUniqueName();
+    }
+
+    /**
+     * @author jyhu
+     * @aim Get graphica node from generating node.
+     * @param node: Generated node
+     * @return graphica node.
+     */
+    public static INode getVirtualNode(INode node){
+        INode virtualNode=node;
         if (node.isVirtualGenerateNode()) {
+            String uniqueName = node.getUniqueName();
             List<? extends INode> nodeList = node.getProcess().getGraphicalNodes();
             for (INode graphicnode : nodeList) {
                 if (graphicnode.isGeneratedAsVirtualComponent()) {
                     String nodeUniqueName = graphicnode.getUniqueName();
                     if (uniqueName.indexOf(nodeUniqueName + "_") == 0) {
-                        uniqueName = nodeUniqueName;
+                        virtualNode=graphicnode;
                         break;
                     }
                 }
             }
         }
-        return uniqueName;
+        return virtualNode;
     }
-
     public static void fillConnectionsForStat(List<String> connsName, INode currentNode) {
         for (IConnection conn : currentNode.getOutgoingConnections()) {
             if (conn.getLineStyle() == EConnectionType.FLOW_MAIN) {
