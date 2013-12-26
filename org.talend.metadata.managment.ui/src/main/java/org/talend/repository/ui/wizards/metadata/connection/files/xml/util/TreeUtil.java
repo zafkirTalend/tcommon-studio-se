@@ -914,10 +914,19 @@ public class TreeUtil {
                 File unzipFile = new File(unzipPath);
                 if (unzipFile.exists() && unzipFile.isDirectory()) {
                     File[] tempXSDFiles = unzipFile.listFiles();
+                    File schemaFile = tempXSDFiles[0];
+                    String schemaFileNameHint = null;
+                    String[] zipNameArray = zip.getName().split("_"); //$NON-NLS-1$
+                    if (zipNameArray.length >= 2) {
+                        schemaFileNameHint = zipNameArray[0];
+                    }
                     for (File tempXSDFile : tempXSDFiles) {
                         popUtil.addSchema(tempXSDFile.getAbsolutePath());
+                        if (schemaFileNameHint != null && tempXSDFile.getName().startsWith(schemaFileNameHint)) {
+                            schemaFile = tempXSDFile;
+                        }
                     }
-                    schema = popUtil.getXSDSchema(tempXSDFiles[0].getAbsolutePath());
+                    schema = popUtil.getXSDSchema(schemaFile.getAbsolutePath());
                 }
             } else {
                 String newFilePath;
