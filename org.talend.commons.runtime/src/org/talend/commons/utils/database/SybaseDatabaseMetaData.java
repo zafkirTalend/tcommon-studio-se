@@ -131,4 +131,17 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
                 + ".dbo.sysalternates a, master.dbo.syslogins b where b.name = '" + loginName + "' and a.suid = b.suid)"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    @Override
+    public ResultSet getExportedKeys(String catalog, String schema, String table) throws SQLException {
+        // TDI-24905:rewrite this function for sybase in case any NPE for result set
+        ResultSet sybaseRS = super.getExportedKeys(catalog, schema, table);
+        if (sybaseRS == null) {
+            if (this.metaData != null) {
+                sybaseRS = this.metaData.getExportedKeys(catalog, schema, table);
+            } else {
+                sybaseRS = new SybaseResultSet();
+            }
+        }
+        return sybaseRS;
+    }
 }
