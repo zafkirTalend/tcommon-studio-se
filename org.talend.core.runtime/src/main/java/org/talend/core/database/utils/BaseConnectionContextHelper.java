@@ -16,7 +16,7 @@ public class BaseConnectionContextHelper {
     public static final String EMPTY = ""; //$NON-NLS-1$
 
     /**
-     * get context original value by context code
+     * get context original value by context code from the default context group of the contextManager
      * 
      * @param contextManager
      * @param contextCode
@@ -26,6 +26,23 @@ public class BaseConnectionContextHelper {
         if (ContextParameterUtils.containContextVariables(contextCode)) {
             String variable = ContextParameterUtils.getVariableFromCode(contextCode);
             IContext context = contextManager.getDefaultContext();
+            if (context != null) {
+                return context.getContextParameter(variable).getValue();
+            }
+        }
+        return contextCode;
+    }
+
+    /**
+     * get context original value by context code
+     * 
+     * @param context
+     * @param contextCode
+     * @return
+     */
+    public static String getOriginalValue(IContext context, String contextCode) {
+        if (ContextParameterUtils.containContextVariables(contextCode)) {
+            String variable = ContextParameterUtils.getVariableFromCode(contextCode);
             if (context != null) {
                 return context.getContextParameter(variable).getValue();
             }
