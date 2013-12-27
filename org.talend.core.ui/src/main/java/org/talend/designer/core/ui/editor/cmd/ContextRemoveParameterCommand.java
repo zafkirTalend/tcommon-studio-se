@@ -99,19 +99,21 @@ public class ContextRemoveParameterCommand extends Command {
      * qzhang Comment method "refreshContextView".
      */
     private void refreshContextView() {
+
         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         // refresh context view of DI
         IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
         if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true, false, false);
+            ((AbstractContextView) view).updateContextView(true);
         }
         // refresh context view of DQ
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
             ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
             if (tdqUiService != null) {
-                tdqUiService.updateContextView(true, false, false);
+                tdqUiService.updateContextView(true);
             }
         }
+
     }
 
     /**
@@ -137,7 +139,12 @@ public class ContextRemoveParameterCommand extends Command {
                         if (tempSourceId.equals(sourceId) && tempParaName.equals(name)) {
                             movedList.add(contextPara);
                             contextParameters.remove(j);
-                            mapParams.put(context.getName(), movedList);
+                            if (mapParams.get(context.getName()) != null) {
+                                mapParams.get(context.getName()).addAll(movedList);
+                                mapParams.put(context.getName(), mapParams.get(context.getName()));
+                            } else {
+                                mapParams.put(context.getName(), movedList);
+                            }
                             break;
                         }
                     }
