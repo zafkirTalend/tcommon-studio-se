@@ -102,7 +102,11 @@ public class RepoNodeActionProvider extends CommonActionProvider {
 
     protected void addContextualActions(IMenuManager manager, IStructuredSelection sel, MenuManager[] menuManagerGroups,
             Set<String> processedGroupIds) {
+        ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
         for (ITreeContextualAction action : contextualsActions) {
+            if (navWorkSite != null && navWorkSite.getSite() != null) {
+                action.setWorkbenchPart(navWorkSite.getSite().getPart());
+            }
             checkAndAddActionInMenu(action, sel, manager, menuManagerGroups, processedGroupIds);
         }
     }
@@ -197,9 +201,13 @@ public class RepoNodeActionProvider extends CommonActionProvider {
     @Override
     public void fillActionBars(IActionBars actionBars) {
         if (doubleClickAction != null && !doubleClickAction.getStructuredViewer().equals(getActionSite().getStructuredViewer())) {
-            doubleClickAction = null;
-            contextualsActions = null;
-            makeActions();
+            doubleClickAction.setStructuredViewer(getActionSite().getStructuredViewer());
+            ICommonViewerWorkbenchSite navWorkSite = ((ICommonViewerWorkbenchSite) getActionSite().getViewSite());
+            if (navWorkSite != null && navWorkSite.getSite() != null) {
+                for (ITreeContextualAction action : contextualsActions) {
+                    action.setWorkbenchPart(navWorkSite.getSite().getPart());
+                }
+            }
         }
         super.fillActionBars(actionBars);
         actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, doubleClickAction);
