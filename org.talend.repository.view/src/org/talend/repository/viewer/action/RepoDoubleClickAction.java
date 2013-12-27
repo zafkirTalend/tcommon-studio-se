@@ -53,7 +53,7 @@ public class RepoDoubleClickAction extends Action {
 
     private List<ITreeContextualAction> contextualsActions = new ArrayList<ITreeContextualAction>();
 
-    private final StructuredViewer structuredViewer;
+    private StructuredViewer structuredViewer;
 
     public RepoDoubleClickAction(StructuredViewer structuredViewer, List<ITreeContextualAction> contextualsActionsList) {
         super();
@@ -67,6 +67,10 @@ public class RepoDoubleClickAction extends Action {
 
     public StructuredViewer getStructuredViewer() {
         return structuredViewer;
+    }
+
+    public void setStructuredViewer(StructuredViewer structuredViewer) {
+        this.structuredViewer = structuredViewer;
     }
 
     /*
