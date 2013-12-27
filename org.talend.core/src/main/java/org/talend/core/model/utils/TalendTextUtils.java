@@ -291,7 +291,7 @@ public class TalendTextUtils {
         // for bug 11938
         // to see if the table name or column name was start with number
         String temp = removeQuotes(fieldName);
-        Pattern pattern = Pattern.compile("^[a-zA-Z_$]*$"); //$NON-NLS-1$
+        Pattern pattern = Pattern.compile("^[a-zA-Z_]*$"); //$NON-NLS-1$
         Matcher matcher = pattern.matcher(temp);
 
         // for bug 12092
