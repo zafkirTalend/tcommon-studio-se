@@ -13,7 +13,6 @@
 package org.talend.core.ui.context.cmd;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -21,13 +20,21 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITdqUiService;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 
 /**
@@ -43,10 +50,17 @@ public class AddRepositoryContextGroupCommand extends Command {
 
     private final Set<String> nameSet;
 
+    private final List<ContextParameterType> parameterList;
+
     private List<ContextItem> selectedItems;
 
+    private ContextManagerHelper helper;
+
+    private List<ContextParameterType> newAddParameter = new ArrayList<ContextParameterType>();
+
     public AddRepositoryContextGroupCommand(IProgressMonitor monitor, IContextModelManager modelManager,
-            final List<ContextItem> selectedItems, final Set<String> nameSet) {
+            final List<ContextItem> selectedItems, final Set<String> nameSet, ContextManagerHelper helper,
+            final List<ContextParameterType> parameterList) {
         super();
         this.monitor = monitor;
         this.modelManager = modelManager;
@@ -55,10 +69,13 @@ public class AddRepositoryContextGroupCommand extends Command {
         }
         this.selectedItems = selectedItems;
         this.nameSet = nameSet;
+        this.parameterList = parameterList;
+        this.helper = helper;
     }
 
     @Override
     public void execute() {
+        // for Group
         if (modelManager == null || manager == null || selectedItems == null || selectedItems.isEmpty() || nameSet == null) {
             return;
         }
@@ -129,6 +146,34 @@ public class AddRepositoryContextGroupCommand extends Command {
             }
             monitor.worked(1);
         }
+
+        // for Parameter
+        if (modelManager == null || helper == null || parameterList == null || parameterList.isEmpty() || manager == null) {
+            return;
+        }
+        newAddParameter.clear();
+        for (ContextParameterType defaultContextParamType : parameterList) {
+            ContextItem contextItem = (ContextItem) helper.getParentContextItem(defaultContextParamType);
+            if (contextItem == null) {
+                continue;
+            }
+
+            IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
+            if (paramExisted != null) {
+                // existed.
+                if (!paramExisted.isBuiltIn() && contextItem.getProperty().getId().equals(paramExisted.getSource())) {
+                    // update the parameter.
+                    modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(), paramExisted.getSource());
+                    helper.addContextParameterType(defaultContextParamType);
+
+                }
+            } else {
+                // add the context
+                helper.addContextParameterType(defaultContextParamType);
+                newAddParameter.add(defaultContextParamType);
+            }
+            monitor.worked(1);
+        }
     }
 
     /**
@@ -144,6 +189,52 @@ public class AddRepositoryContextGroupCommand extends Command {
             }
         }
         return false;
+    }
+
+    @Override
+    public void redo() {
+        execute();
+    }
+
+    @Override
+    public void undo() {
+        List<IContext> removeList = new ArrayList<IContext>();
+        for (IContext con : manager.getListContext()) {
+            if (nameSet.contains(con.getName())) {
+                removeList.add(con);
+            }
+        }
+        manager.getListContext().removeAll(removeList);
+
+        for (ContextParameterType defaultContextParamType : newAddParameter) {
+            ContextItem contextItem = (ContextItem) helper.getParentContextItem(defaultContextParamType);
+            if (contextItem == null) {
+                continue;
+            }
+
+            IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
+            if (paramExisted != null) {
+                modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(), paramExisted.getSource());
+            }
+        }
+
+        refreshContextView();
+    }
+
+    private void refreshContextView() {
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        // refresh context view of DI
+        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+        if (view instanceof AbstractContextView) {
+            ((AbstractContextView) view).updateContextView(true);
+        }
+        // refresh context view of DQ
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true);
+            }
+        }
     }
 
 }

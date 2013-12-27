@@ -61,7 +61,6 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.cmd.AddRepositoryContextGroupCommand;
-import org.talend.core.ui.context.cmd.AddRepositoryContextVariablesCommand;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
@@ -449,19 +448,20 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                 monitor.beginTask("", contextGoupNameSet.size() + paramTypeList.size() + 2); //$NON-NLS-1$
                 setResult(objList);
                 AddRepositoryContextGroupCommand addGroupCmd = new AddRepositoryContextGroupCommand(monitor, modelManager,
-                        selectedItems, contextGoupNameSet);
-                AddRepositoryContextVariablesCommand addVarCmd = new AddRepositoryContextVariablesCommand(monitor, modelManager,
-                        helper, paramTypeList);
+                        selectedItems, contextGoupNameSet, helper, paramTypeList);
+                // AddRepositoryContextVariablesCommand addVarCmd = new AddRepositoryContextVariablesCommand(monitor,
+                // modelManager,
+                // helper, paramTypeList);
 
                 if (modelManager.getCommandStack() != null) {
 
                     modelManager.getCommandStack().execute(addGroupCmd);
 
-                    modelManager.getCommandStack().execute(addVarCmd);
+                    // modelManager.getCommandStack().execute(addVarCmd);
 
                 } else {
                     addGroupCmd.execute();
-                    addVarCmd.execute();
+                    // addVarCmd.execute();
                 }
 
                 monitor.done();
