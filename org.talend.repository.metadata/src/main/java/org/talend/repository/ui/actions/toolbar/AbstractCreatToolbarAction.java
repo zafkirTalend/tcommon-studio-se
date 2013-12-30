@@ -193,6 +193,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
             for (IRepositoryNode node : children) {
                 if (node.getLabel().equals(businessNode.getLabel())) {
                     flag = true;
+                    break;
                 }
             }
             if (flag) {
@@ -260,6 +261,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
                 for (IRepositoryNode node : metadataChild) {
                     if (node.getLabel().equals(ldifNode.getLabel())) {
                         flag2 = true;
+                        break;
                     }
                 }
                 if (flag2) {
@@ -272,7 +274,7 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_LDAP_SCHEMA)) {
             IRepositoryNode metadataNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA);
-            IRepositoryNode ldifNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+            IRepositoryNode ldapNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
 
             List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
             boolean flag1 = false;
@@ -289,8 +291,9 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
                 List<IRepositoryNode> metadataChild = metadata.getChildren();
                 boolean flag2 = false;
                 for (IRepositoryNode node : metadataChild) {
-                    if (node.getLabel().equals(ldifNode.getLabel())) {
+                    if (node.getLabel().equals(ldapNode.getLabel())) {
                         flag2 = true;
+                        break;
                     }
                 }
                 if (flag2) {
