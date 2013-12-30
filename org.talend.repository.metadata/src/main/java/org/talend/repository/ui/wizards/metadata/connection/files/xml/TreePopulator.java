@@ -89,7 +89,7 @@ public class TreePopulator {
         return populateTree(filePath, treeNode, null);
     }
 
-    private boolean isValidFile(String filePath) {
+    public boolean isValidFile(String filePath) {
         File file = new File(filePath);
         SAXReader saxReader = new SAXReader();
         URL url;
