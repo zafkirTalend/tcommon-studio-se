@@ -15,7 +15,6 @@ package org.talend.commons.ui.swt.formtools;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -401,15 +400,5 @@ public class LabelledFileField {
 
     public String getResult() {
         return this.result;
-    }
-
-    /**
-     * DOC wf Comment method "addFocusListener".
-     * 
-     * @param focusListener
-     */
-    public void addFocusListener(FocusListener listener) {
-        // TODO Auto-generated method stub
-        text.addFocusListener(listener);
     }
 }
