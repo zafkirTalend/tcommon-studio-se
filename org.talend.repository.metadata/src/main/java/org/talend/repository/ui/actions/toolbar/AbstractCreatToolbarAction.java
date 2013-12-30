@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.actions.toolbar;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -20,6 +22,7 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuAdapter;
 import org.eclipse.swt.events.MenuEvent;
@@ -38,6 +41,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.ui.actions.AContextualAction;
 import org.talend.repository.ui.actions.metadata.CreateConnectionAction;
@@ -183,10 +187,20 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         addSeparator(menu);
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.BUSINESS_PROCESS)) {
-            IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
-                    IDiagramModelService.class);
-            addToMenu(menu, service.getCreateDiagramAction(true), -1);
-            addSeparator(menu);
+            IRepositoryNode businessNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.BUSINESS_PROCESS);
+            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
+            boolean flag = false;
+            for (IRepositoryNode node : children) {
+                if (node.getLabel().equals(businessNode.getLabel())) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
+                        IDiagramModelService.class);
+                addToMenu(menu, service.getCreateDiagramAction(true), -1);
+                addSeparator(menu);
+            }
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_CONNECTIONS)) {
@@ -226,15 +240,65 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_FILE_LDIF)) {
-            final CreateFileLdifAction createFileLdifAction = new CreateFileLdifAction(true);
-            createFileLdifAction.setWorkbenchPart(repositoryView);
-            addToMenu(menu, createFileLdifAction, -1);
+            IRepositoryNode metadataNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA);
+            IRepositoryNode ldifNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_FILE_LDIF);
+
+            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
+            boolean flag1 = false;
+            IRepositoryNode metadata = null;
+            for (IRepositoryNode node : children) {
+                if (node.getLabel().equals(metadataNode.getLabel())) {
+                    flag1 = true;
+                    metadata = node;
+                    break;
+                }
+            }
+
+            if (flag1) {
+                List<IRepositoryNode> metadataChild = metadata.getChildren();
+                boolean flag2 = false;
+                for (IRepositoryNode node : metadataChild) {
+                    if (node.getLabel().equals(ldifNode.getLabel())) {
+                        flag2 = true;
+                    }
+                }
+                if (flag2) {
+                    final CreateFileLdifAction createFileLdifAction = new CreateFileLdifAction(true);
+                    createFileLdifAction.setWorkbenchPart(repositoryView);
+                    addToMenu(menu, createFileLdifAction, -1);
+                }
+            }
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_LDAP_SCHEMA)) {
-            final CreateLDAPSchemaAction createLDAPSchemaAction = new CreateLDAPSchemaAction(true);
-            createLDAPSchemaAction.setWorkbenchPart(repositoryView);
-            addToMenu(menu, createLDAPSchemaAction, -1);
+            IRepositoryNode metadataNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA);
+            IRepositoryNode ldifNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+
+            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
+            boolean flag1 = false;
+            IRepositoryNode metadata = null;
+            for (IRepositoryNode node : children) {
+                if (node.getLabel().equals(metadataNode.getLabel())) {
+                    flag1 = true;
+                    metadata = node;
+                    break;
+                }
+            }
+
+            if (flag1) {
+                List<IRepositoryNode> metadataChild = metadata.getChildren();
+                boolean flag2 = false;
+                for (IRepositoryNode node : metadataChild) {
+                    if (node.getLabel().equals(ldifNode.getLabel())) {
+                        flag2 = true;
+                    }
+                }
+                if (flag2) {
+                    final CreateLDAPSchemaAction createLDAPSchemaAction = new CreateLDAPSchemaAction(true);
+                    createLDAPSchemaAction.setWorkbenchPart(repositoryView);
+                    addToMenu(menu, createLDAPSchemaAction, -1);
+                }
+            }
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA)) {
