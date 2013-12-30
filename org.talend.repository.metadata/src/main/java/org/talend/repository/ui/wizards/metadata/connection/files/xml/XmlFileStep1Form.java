@@ -141,6 +141,8 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
     private boolean isModifing = true;
 
+    private boolean validXsd = false;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -443,8 +445,8 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                 // getConnection().setXmlFilePath(PathUtils.getPortablePath(xmlXsdFilePath.getText()));
                 File file = new File(text);
                 if (file.exists()) {
-                    if (file.exists()) {
-                        if (XmlUtil.isXSDFile(text)) {
+                    if (XmlUtil.isXSDFile(text)) {
+                        if (!validXsd) {
                             List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
                             try {
                                 XSDSchema xsdSchema = updateXSDSchema(text);
@@ -498,14 +500,13 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                                 root.clear();
                                 root.add(xmlFileNode);
                             }
-                        } else {
-                            valid = treePopulator.populateTree(text, treeNode);
                         }
+                    } else {
+                        valid = treePopulator.populateTree(text, treeNode);
                     }
-                    // add for bug TDI-20432
-                    checkFieldsValue();
                 }
-
+                // add for bug TDI-20432
+                checkFieldsValue();
             }
 
             @Override
@@ -565,12 +566,9 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                     file = new File(text);
                 }
 
-                // if (getConnection().getFileContent() == null || getConnection().getFileContent().length <= 0 &&
-                // !isModifing) {
-                if (!XmlUtil.isXMLFile(file.getPath())) {
+                if (treePopulator.isValidFile(file.getPath())) {
                     setFileContent(file);
                 }
-                // }
 
                 try {
 
@@ -637,6 +635,66 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                 // } else {
                 // valid = treePopulator.populateTree(text, treeNode);
                 // }
+                if (file.exists() && (xsdPathChanged || creation)) {
+                    if (XmlUtil.isXSDFile(text)) {
+                        List<ATreeNode> treeNodes = new ArrayList<ATreeNode>();
+                        try {
+                            XSDSchema xsdSchema = updateXSDSchema(text);
+                            List<ATreeNode> list = updateRootNodes(xsdSchema, true);
+                            if (list.size() > 1) {
+                                RootNodeSelectDialog dialog = new RootNodeSelectDialog(null, list);
+                                if (dialog.open() == IDialogConstants.OK_ID) {
+                                    ATreeNode selectedNode = dialog.getSelectedNode();
+                                    valid = treePopulator.populateTree(xsdSchema, selectedNode, treeNodes);
+                                    if (treeNodes.size() > 0) {
+                                        treeNode = treeNodes.get(0);
+                                    }
+                                    validXsd = true;
+                                } else {
+                                    return;
+                                }
+                            } else {
+                                valid = treePopulator.populateTree(xsdSchema, list.get(0), treeNodes);
+                                if (treeNodes.size() > 0) {
+                                    treeNode = treeNodes.get(0);
+                                }
+                            }
+                        } catch (Exception ex) {
+                            ExceptionHandler.process(ex);
+                        }
+                        XmlFileWizard wizard1 = ((XmlFileWizard) getPage().getWizard());
+                        wizard1.setRootNodes(treeNodes);
+                        wizard1.setTreeRootNode(treeNode);
+                        List<FOXTreeNode> nodeList = getCorrespondingFoxTreeNodes(treeNode, true);
+                        if (nodeList.size() > 0) {
+                            FOXTreeNode foxTreeNode = nodeList.get(0);
+                            EList root = getConnection().getRoot();
+                            if (root == null) {
+                                return;
+                            }
+                            XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
+                            String currentPath = "/" + foxTreeNode.getLabel();
+                            xmlFileNode.setXMLPath(currentPath);
+                            xmlFileNode.setRelatedColumn(foxTreeNode.getColumnLabel());
+                            xmlFileNode.setAttribute(foxTreeNode.isMain() ? "main" : "branch");
+                            xmlFileNode.setDefaultValue(foxTreeNode.getDefaultValue());
+                            xmlFileNode.setType(foxTreeNode.getDataType());
+                            XMLFileNode originalXmlNode = null;
+                            if (root.size() > 0) {
+                                originalXmlNode = (XMLFileNode) root.get(0);
+                            }
+                            if (originalXmlNode != null && !currentPath.equals(originalXmlNode.getXMLPath())) {
+                                wizard1.setXsdRootChange(true);
+                            } else {
+                                wizard1.setXsdRootChange(false);
+                            }
+                            root.clear();
+                            root.add(xmlFileNode);
+                        }
+                    } else {
+                        valid = treePopulator.populateTree(text, treeNode);
+                    }
+                }
                 checkFieldsValue();
                 isModifing = true;
             }
@@ -661,21 +719,33 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
      */
     @Override
     protected boolean checkFieldsValue() {
+        String xmlXsdFilePathText = fileFieldXml.getText();
         // The fields
-        if (fileFieldXml.getText() == "") { //$NON-NLS-1$
+        if (xmlXsdFilePathText == "") { //$NON-NLS-1$
             updateStatus(IStatus.ERROR, Messages.getString("FileStep1.filepathAlert")); //$NON-NLS-1$
             return false;
         }
         if (!valid) {
-            String xmlFilePath = fileFieldXml.getText();
             if (isContextMode()) {
                 ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
-                xmlFilePath = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
-                        fileFieldXml.getText()));
+                xmlXsdFilePathText = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
+                        xmlXsdFilePathText));
             }
-            updateStatus(IStatus.ERROR, Messages.getString("XmlFileStep1Form.notFound", xmlFilePath)); //$NON-NLS-1$
-
+            updateStatus(IStatus.ERROR, Messages.getString("XmlFileStep1Form.notFound", xmlXsdFilePathText)); //$NON-NLS-1$
             return false;
+        }
+
+        // Valid File
+        if (xmlXsdFilePathText != null && !xmlXsdFilePathText.equals("")) {
+            if (treePopulator.isValidFile(xmlXsdFilePathText)) {
+                if (!XmlUtil.isXMLFile(xmlXsdFilePathText) && !XmlUtil.isXSDFile(xmlXsdFilePathText)) {
+                    updateStatus(IStatus.ERROR, "XML or XSD File Path is incorrect or incomplete, it must be changed.\n"); //$NON-NLS-1$
+                    return false;
+                }
+            } else {
+                updateStatus(IStatus.ERROR, "XML or XSD File Path is incorrect or incomplete, it must be changed.\n"); //$NON-NLS-1$
+                return false;
+            }
         }
         updateStatus(IStatus.OK, null);
         return true;
