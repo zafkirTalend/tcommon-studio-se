@@ -22,6 +22,7 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuAdapter;
@@ -31,10 +32,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
 import org.eclipse.ui.internal.WWinPluginPulldown;
+import org.eclipse.ui.internal.navigator.NavigatorContentServiceContentProvider;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -157,6 +160,24 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
     }
 
+    private boolean containsType(Object[] objects, ERepositoryObjectType type) {
+        boolean flag = false;
+        for (Object object : objects) {
+            IRepositoryNode node = (IRepositoryNode) object;
+            if (node.getContentType() != null && node.getContentType().equals(type)) {
+                flag = true;
+                break;
+            }
+            if (node.getContentType() != null && node.hasChildren()) {
+                flag = containsType(node.getChildren().toArray(), type);
+                if (flag) {
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
     protected void fillMenu(Menu menu) {
 
         IRepositoryView repositoryView = RepositoryManagerHelper.findRepositoryView();
@@ -187,15 +208,11 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         addSeparator(menu);
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.BUSINESS_PROCESS)) {
-            IRepositoryNode businessNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.BUSINESS_PROCESS);
-            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
-            boolean flag = false;
-            for (IRepositoryNode node : children) {
-                if (node.getLabel().equals(businessNode.getLabel())) {
-                    flag = true;
-                    break;
-                }
-            }
+            TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
+            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
+                    .getViewer()).getContentProvider();
+            Object[] objects = provider.getElements(repositoryView.getRoot());
+            boolean flag = containsType(objects, ERepositoryObjectType.BUSINESS_PROCESS);
             if (flag) {
                 IDiagramModelService service = (IDiagramModelService) GlobalServiceRegister.getDefault().getService(
                         IDiagramModelService.class);
@@ -241,66 +258,30 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_FILE_LDIF)) {
-            IRepositoryNode metadataNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA);
-            IRepositoryNode ldifNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_FILE_LDIF);
-
-            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
-            boolean flag1 = false;
-            IRepositoryNode metadata = null;
-            for (IRepositoryNode node : children) {
-                if (node.getLabel().equals(metadataNode.getLabel())) {
-                    flag1 = true;
-                    metadata = node;
-                    break;
-                }
-            }
-
-            if (flag1) {
-                List<IRepositoryNode> metadataChild = metadata.getChildren();
-                boolean flag2 = false;
-                for (IRepositoryNode node : metadataChild) {
-                    if (node.getLabel().equals(ldifNode.getLabel())) {
-                        flag2 = true;
-                        break;
-                    }
-                }
-                if (flag2) {
-                    final CreateFileLdifAction createFileLdifAction = new CreateFileLdifAction(true);
-                    createFileLdifAction.setWorkbenchPart(repositoryView);
-                    addToMenu(menu, createFileLdifAction, -1);
-                }
+            TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
+            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
+                    .getViewer()).getContentProvider();
+            Object[] objects = provider.getElements(repositoryView.getRoot()
+                    .getRootRepositoryNode(ERepositoryObjectType.METADATA));
+            boolean flag = containsType(objects, ERepositoryObjectType.METADATA_FILE_LDIF);
+            if (flag) {
+                final CreateFileLdifAction createFileLdifAction = new CreateFileLdifAction(true);
+                createFileLdifAction.setWorkbenchPart(repositoryView);
+                addToMenu(menu, createFileLdifAction, -1);
             }
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_LDAP_SCHEMA)) {
-            IRepositoryNode metadataNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA);
-            IRepositoryNode ldapNode = repositoryView.getRoot().getRootRepositoryNode(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
-
-            List<IRepositoryNode> children = repositoryView.getRoot().getChildren();
-            boolean flag1 = false;
-            IRepositoryNode metadata = null;
-            for (IRepositoryNode node : children) {
-                if (node.getLabel().equals(metadataNode.getLabel())) {
-                    flag1 = true;
-                    metadata = node;
-                    break;
-                }
-            }
-
-            if (flag1) {
-                List<IRepositoryNode> metadataChild = metadata.getChildren();
-                boolean flag2 = false;
-                for (IRepositoryNode node : metadataChild) {
-                    if (node.getLabel().equals(ldapNode.getLabel())) {
-                        flag2 = true;
-                        break;
-                    }
-                }
-                if (flag2) {
-                    final CreateLDAPSchemaAction createLDAPSchemaAction = new CreateLDAPSchemaAction(true);
-                    createLDAPSchemaAction.setWorkbenchPart(repositoryView);
-                    addToMenu(menu, createLDAPSchemaAction, -1);
-                }
+            TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
+            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
+                    .getViewer()).getContentProvider();
+            Object[] objects = provider.getElements(repositoryView.getRoot()
+                    .getRootRepositoryNode(ERepositoryObjectType.METADATA));
+            boolean flag = containsType(objects, ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+            if (flag) {
+                final CreateLDAPSchemaAction createLDAPSchemaAction = new CreateLDAPSchemaAction(true);
+                createLDAPSchemaAction.setWorkbenchPart(repositoryView);
+                addToMenu(menu, createLDAPSchemaAction, -1);
             }
         }
 
