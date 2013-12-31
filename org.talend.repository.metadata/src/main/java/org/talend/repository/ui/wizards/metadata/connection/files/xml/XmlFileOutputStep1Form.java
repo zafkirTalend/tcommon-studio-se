@@ -661,7 +661,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
                     outputFilePathText));
         }
         // Valid File
-        if (xmlXsdFilePathText != null && !xmlXsdFilePathText.equals("")) {
+        if (xmlXsdFilePathText != null && !xmlXsdFilePathText.equals("") && (xsdPathChanged || creation)) {
             if (treePopulator.isValidFile(xmlXsdFilePathText)) {
                 if (!XmlUtil.isXMLFile(xmlXsdFilePathText) && !XmlUtil.isXSDFile(xmlXsdFilePathText)) {
                     msgError.append("XML or XSD File Path is incorrect or incomplete, it must be changed.\n");
