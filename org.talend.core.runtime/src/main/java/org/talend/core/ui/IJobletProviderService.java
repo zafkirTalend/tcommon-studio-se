@@ -126,5 +126,7 @@ public interface IJobletProviderService extends IService {
      * <Joblet Unique Name>_<Connection Unique Name>, for example, JobletTest_1_row1.
      */
     public IConnection[] getNonShadowDataConnections(INode node);
+    
+    public void clearJobletComponent();
 
 }
