@@ -1332,7 +1332,7 @@ public class DeleteAction extends AContextualAction {
                 if (designerCoreService != null) {
                     designerCoreService.switchToCurContextsView();
                     // for tRunJob component
-                    designerCoreService.switchToCurComponentSettingsView();
+                    // designerCoreService.switchToCurComponentSettingsView();
                     // for 2608
                     designerCoreService.switchToCurJobSettingsView();
                 }
