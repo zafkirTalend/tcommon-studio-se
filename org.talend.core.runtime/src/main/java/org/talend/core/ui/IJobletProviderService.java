@@ -127,4 +127,6 @@ public interface IJobletProviderService extends IService {
      */
     public IConnection[] getNonShadowDataConnections(INode node);
 
+    public void clearJobletComponent();
+
 }
