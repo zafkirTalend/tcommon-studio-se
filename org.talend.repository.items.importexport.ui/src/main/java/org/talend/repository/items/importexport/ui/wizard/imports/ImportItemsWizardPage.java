@@ -731,7 +731,7 @@ public class ImportItemsWizardPage extends WizardPage {
                             }
                         } else {
                             errors.add(Messages.getString(
-                                    "ImportItemWizardPage.ErrorsMessage", itemRecord.getItemName(), reObject.getVersion())); //$NON-NLS-1$ 
+                                    "ImportItemsWizardPage_ErrorsMessage", itemRecord.getItemName(), reObject.getVersion())); //$NON-NLS-1$ 
                         }
                     } else {
                         // TDI-21399,TDI-21401
