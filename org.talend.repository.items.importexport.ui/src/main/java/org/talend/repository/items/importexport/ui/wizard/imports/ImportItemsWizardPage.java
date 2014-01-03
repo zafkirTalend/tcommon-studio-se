@@ -725,8 +725,13 @@ public class ImportItemsWizardPage extends WizardPage {
                 if (itemRecord.getProperty() != null && reObject != null) {
                     if (itemRecord.getProperty().getId().equals(reObject.getId())
                             && itemRecord.getProperty().getLabel().equals(reObject.getLabel())) {
-                        for (String error : itemRecord.getErrors()) {
-                            errors.add("'" + itemRecord.getItemName() + "' " + error); //$NON-NLS-1$ //$NON-NLS-2$
+                        if (itemRecord.getProperty().getVersion().equals(reObject.getVersion())) {
+                            for (String error : itemRecord.getErrors()) {
+                                errors.add("'" + itemRecord.getItemName() + "' " + error); //$NON-NLS-1$ //$NON-NLS-2$
+                            }
+                        } else {
+                            errors.add(Messages.getString(
+                                    "ImportItemWizardPage.ErrorsMessage", itemRecord.getItemName(), reObject.getVersion())); //$NON-NLS-1$ 
                         }
                     } else {
                         // TDI-21399,TDI-21401
