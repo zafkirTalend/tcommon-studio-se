@@ -22,24 +22,26 @@ public class TalendCWMService {
      * display name, in this case, this name will be simply returned.
      * 
      * @param dataManager
-     * @param contextualName eigher the contextual name or the actual display name.
+     * @param value eigher the contextual name or the actual display name.
      * @return the readable actual item display name.
      */
-    public static String getReadableName(DataManager dataManager, String contextualName) {
-        if (contextualName == null) {
-            log.error("Null context name in connection " + dataManager); //$NON-NLS-1$
-            return contextualName;
-        }
-        if (dataManager instanceof Connection && ((Connection) dataManager).isContextMode()) {
+    public static String getReadableName(DataManager dataManager, String value) {
+        if (!(dataManager instanceof Connection) || !((Connection) dataManager).isContextMode()) {
+            return value;
+        } else {
+            if (value == null) {
+                log.error("Null context name in connection " + dataManager); //$NON-NLS-1$
+                return value;
+            }
             Connection conn = (Connection) dataManager;
             String contextId = conn.getContextId();
 
             ContextItem contextItem = ContextUtils.getContextItemById2(contextId);
             ContextType contextType = ContextUtils.getContextTypeByName(contextItem, conn.getContextName(), false);
-            if (contextType != null && ContextParameterUtils.isContainContextParam(contextualName)) {
+            if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
                 ContextParameterType param = null;
                 for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
-                    if (paramType.getName().equals(ContextParameterUtils.getVariableFromCode(contextualName))) {
+                    if (paramType.getName().equals(ContextParameterUtils.getVariableFromCode(value))) {
                         param = paramType;
                         break;
                     }
@@ -51,8 +53,8 @@ public class TalendCWMService {
                     }
                 }
             }
+            return value;
         }
-        return contextualName;
     }
 
 }
