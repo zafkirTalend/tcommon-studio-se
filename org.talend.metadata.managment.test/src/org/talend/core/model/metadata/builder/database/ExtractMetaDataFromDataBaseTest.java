@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.talend.utils.sql.metadata.constants.GetTable;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -36,21 +37,22 @@ public class ExtractMetaDataFromDataBaseTest {
      * 
      * @throws SQLException
      */
-    @Test
-    public void testGetTableNamesFromQuery() throws SQLException {
-        assertTrue(ExtractMetaDataFromDataBase.tableCommentsMap instanceof HashMap<?, ?>);
-        assertTrue(ExtractMetaDataFromDataBase.tableCommentsMap.isEmpty());
-        ResultSet mockResultSet = mock(ResultSet.class);
-        when(mockResultSet.getString(1)).thenReturn("test");
-        String nameKey = mockResultSet.getString(1).trim();
-        String tableComment = ExtractMetaDataFromDataBase.getTableComment(nameKey, mockResultSet, false,
-                ExtractMetaDataUtils.conn);
-        assertNotNull(tableComment);
-        ExtractMetaDataFromDataBase.tableCommentsMap.put(nameKey, tableComment);
-        assertNotNull(ExtractMetaDataFromDataBase.tableCommentsMap);
-        assertNotNull(ExtractMetaDataFromDataBase.getTableNamesFromQuery(mockResultSet, ExtractMetaDataUtils.conn));
+	 @Test
+	    public void testGetTableNamesFromQuery() throws SQLException {
+	        assertTrue(ExtractMetaDataFromDataBase.tableCommentsMap instanceof HashMap<?, ?>);
+	        assertTrue(ExtractMetaDataFromDataBase.tableCommentsMap.isEmpty());
+	        ResultSet mockResultSet = mock(ResultSet.class);
+	        when(mockResultSet.getString(1)).thenReturn("test");
+	        when(mockResultSet.getString(GetTable.REMARKS.name())).thenReturn("test comment");
+	        String nameKey = mockResultSet.getString(1).trim();
+	        String tableComment = ExtractMetaDataFromDataBase.getTableComment(nameKey, mockResultSet, true, ExtractMetaDataUtils
+	                .conn);
+	        assertNotNull(tableComment);
+	        ExtractMetaDataFromDataBase.tableCommentsMap.put(nameKey, tableComment);
+	        assertNotNull(ExtractMetaDataFromDataBase.tableCommentsMap);
+	        assertNotNull(ExtractMetaDataFromDataBase.getTableNamesFromQuery(mockResultSet, ExtractMetaDataUtils.conn));
 
-    }
+	    }
 
     @Before
     public void clearTableCommentsMap() {
