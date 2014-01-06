@@ -344,7 +344,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
      * @throws BusinessException
      */
     private void setPropNewName(Property copiedProperty) throws PersistenceException, BusinessException {
-        String originalLabel = copiedProperty.getLabel();
+        String originalLabel = copiedProperty.getDisplayName();
         String copy = "_Copy"; //$NON-NLS-1$
         String initialTry = originalLabel + copy;
         copiedProperty.setLabel(initialTry);

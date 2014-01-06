@@ -180,7 +180,7 @@ public class DuplicateAction extends AContextualAction {
         // update the property of the node repository object
         // sourceNode.getObject().setProperty(updatedProperty);
 
-        String initNameValue = "Copy_of_" + sourceNode.getObject().getProperty().getItem().getProperty().getLabel(); //$NON-NLS-1$
+        String initNameValue = "Copy_of_" + sourceNode.getObject().getProperty().getItem().getProperty().getDisplayName(); //$NON-NLS-1$
 
         CopyObjectAction copyObjectAction = CopyObjectAction.getInstance();
 
@@ -236,8 +236,9 @@ public class DuplicateAction extends AContextualAction {
     }
 
     private boolean isValid(RepositoryNode node, String str) {
-        String namePattern = "^\\w+$";
+        // ERepositoryObjectType type = node.getContentType();
         Object contentType = node.getContentType();
+        String namePattern = RepositoryConstants.getPattern((ERepositoryObjectType) contentType);
         if (contentType == null) {
             contentType = node.getProperties(EProperties.CONTENT_TYPE);
         }
