@@ -147,4 +147,6 @@ public final class StringUtilities {
         }
         return strs.toArray(new String[strs.size()]);
     }
+
+    public static final String ESCAPE_CHARACTER = "\\"; //$NON-NLS-1$
 }
