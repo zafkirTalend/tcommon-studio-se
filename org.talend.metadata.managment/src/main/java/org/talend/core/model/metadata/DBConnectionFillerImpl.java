@@ -625,7 +625,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      * @param dbConn
      * @return
      */
-    private boolean isNullUiSchema(Connection dbConn) {
+    protected boolean isNullUiSchema(Connection dbConn) {
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
@@ -735,40 +735,18 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } else {
             try {
                 while (schemaRs.next()) {
-                    String schemaName = null;
-                    String catalogName = null;
-                    try {
-                        schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
-                        // MOD klliu bug 19004 2011-03-31
-                        if (!MetadataConnectionUtils.isPostgresql(dbJDBCMetadata)
-                                && !MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
-                            catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
-                        }
-
-                        // the case for mssql
-                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
-                                && dbJDBCMetadata.getDriverMajorVersion() > 1) {
-                            if (catalogName != null && catalogName != schemaName) {
-                                schemaName = catalogName;
-                            }
-                        }
-                        if (schemaName == null || !MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection())
-                                && catalogName != null && !catalogName.equals(catalog.getName())) {
-                            continue;
-                        }
-                    } catch (Exception e) {
-                        // not some things need to do
+                    String schemaName = getSchemaName(schemaRs, dbJDBCMetadata, catalog);
+                    if (schemaName == null) {
+                        continue;
                     }
 
                     // MOD mzhao bug 9606 filter duplicated schemas.
 
                     if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                         if (!isNullUiSchema(dbConn) && dbConn != null) {
-                            String uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
-                            // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
-                            Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn,
-                                    uiSchemaOnConnWizard));
-                            schemaList.add(schema);
+                            // this case we only create one schema which name is same as UiSchema
+                            Schema createByUiSchema = createSchemaByUiSchema((DatabaseConnection) dbConn);
+                            schemaList.add(createByUiSchema);
                             break;
                         } else if (isCreateElement(schemaFilter, schemaName)) {
                             Schema schema = SchemaHelper.createSchema(schemaName);
@@ -787,6 +765,39 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return schemaList;
+    }
+
+    protected Schema createSchemaByUiSchema(DatabaseConnection dbConn) {
+        String uiSchemaOnConnWizard = dbConn.getUiSchema();
+        // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
+        return SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
+    }
+
+    protected String getSchemaName(ResultSet schemaRs, DatabaseMetaData dbJDBCMetadata, Catalog catalog) {
+        String schemaName = null;
+        String catalogName = null;
+        try {
+            schemaName = schemaRs.getString(MetaDataConstants.TABLE_SCHEM.name());
+            // MOD klliu bug 19004 2011-03-31
+            if (!(MetadataConnectionUtils.isPostgresql(dbJDBCMetadata) || MetadataConnectionUtils.isSybase(dbJDBCMetadata))) {
+                catalogName = schemaRs.getString(MetaDataConstants.TABLE_CATALOG.name());
+            }
+
+            // the case for mssql
+            if (MetadataConnectionUtils.isMssql(dbJDBCMetadata) && dbJDBCMetadata.getDatabaseMajorVersion() > 8
+                    && dbJDBCMetadata.getDriverMajorVersion() > 1) {
+                if (catalogName != null && catalogName != schemaName) {
+                    schemaName = catalogName;
+                }
+            }
+            if (!MetadataConnectionUtils.isMssql(dbJDBCMetadata.getConnection()) && catalogName != null
+                    && !catalogName.equals(catalog.getName())) {
+                return null;
+            }
+        } catch (Exception e) {
+            // not some things need to do
+        }
+        return schemaName;
     }
 
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
