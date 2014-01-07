@@ -29,8 +29,7 @@ Export-Package: metadata.managment.i18n,
  org.talend.core.model.metadata.builder.util,
  org.talend.metadata.managment.connection.manager,
  org.talend.metadata.managment.hive
-Bundle-ClassPath: .,
- dist/org.talend.metadata.managment.jar
+Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
 
 
