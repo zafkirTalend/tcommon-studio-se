@@ -106,6 +106,10 @@ public final class CatalogHelper {
         return addPackages(schemas, catalog);
     }
 
+    public static boolean addSchemas(Schema schema, Catalog catalog) {
+        return addPackage(schema, catalog);
+    }
+
     public static boolean addTables(Collection<TdTable> tables, Catalog catalog) {
         return addPackages(tables, catalog);
     }
@@ -143,5 +147,15 @@ public final class CatalogHelper {
             added = elementList.addAll(elements);
         }
         return added;
+    }
+
+    private static boolean addPackage(ModelElement element, Catalog catalog) {
+        if (element == null) {
+            return false;
+        }
+        List<ModelElement> elements = new ArrayList<ModelElement>();
+        elements.add(element);
+        return addPackages(elements, catalog);
+
     }
 }
