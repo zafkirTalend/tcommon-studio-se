@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.TableType;
 import orgomg.cwm.resource.relational.NamedColumnSet;
@@ -132,14 +131,10 @@ public abstract class AbstractTableBuilder<T extends NamedColumnSet> extends Cwm
      */
     protected T createTable(String catalogName, String schemaPattern, ResultSet tablesSet) throws SQLException {
         String tableName = null;
-        String tableOwner = null;
         try {
             // MOD zshen for bug 11934 add the name of table's owner into tableName to differentiate the tables which
             // have same name.
             tableName = tablesSet.getString(GetTable.TABLE_NAME.name());
-            if (ConnectionUtils.isSybase(connection)) {
-                tableOwner = tablesSet.getString(GetTable.TABLE_SCHEM.name());
-            }
 
         } catch (Exception e) {
             log.error("Table name not found. " + e, e);
@@ -157,9 +152,6 @@ public abstract class AbstractTableBuilder<T extends NamedColumnSet> extends Cwm
         // --- create a table and add columns
         T table = createTable();
         table.setName(tableName);
-        if (tableOwner != null) {
-            ColumnSetHelper.setTableOwner(tableOwner, table);
-        }
         if (tableComment != null) {
             ColumnSetHelper.setComment(tableComment, table);
         }

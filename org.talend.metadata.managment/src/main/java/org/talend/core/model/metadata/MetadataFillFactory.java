@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -62,11 +63,40 @@ public class MetadataFillFactory {
         return instance;
     }
 
+    /**
+     * 
+     * Get DatabaseConnection Instance
+     * 
+     * @deprecated use {@link #getDBInstance(SupportDBUrlType)} instead it
+     * @return
+     */
+    @Deprecated
     public static MetadataFillFactory getDBInstance() {
         if (instance == null) {
             instance = new MetadataFillFactory();
         }
         metadataFiller = DBmetadataFiller;
+        return instance;
+    }
+
+    /**
+     * Get DatabaseConnection Instance
+     * 
+     * @param dbUrlType the type of you want to fill database
+     * @return
+     */
+    public static MetadataFillFactory getDBInstance(SupportDBUrlType dbUrlType) {
+        if (instance == null) {
+            instance = new MetadataFillFactory();
+        }
+        switch (dbUrlType) {
+        case SYBASEDEFAULTURL:
+            metadataFiller = new SybaseConnectionFillerImpl();
+            break;
+        default:
+            metadataFiller = DBmetadataFiller;
+        }
+
         return instance;
     }
 
