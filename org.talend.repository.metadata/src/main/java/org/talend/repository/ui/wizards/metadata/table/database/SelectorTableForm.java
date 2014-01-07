@@ -1469,13 +1469,6 @@ public class SelectorTableForm extends AbstractForm {
                             type = ((TdTable) table).getTableType();
                             dbtable = RelationalFactory.eINSTANCE.createTdTable();
                         }
-                        // MOD gdbu 2011-5-9 bug : 20828
-                        // for sybase
-                        if (metadataconnection.getDbType().equals(EDatabaseTypeName.SYBASEASE.getDisplayName())
-                                || metadataconnection.getDbType().equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
-                            TableHelper.setTableOwner(TableHelper.getTableOwner(table), dbtable);
-                        }
-                        // ~20828
                         dbtable.setComment(comment);
                         TableHelper.setComment(comment, dbtable);
                         dbtable.setTableType(type);
