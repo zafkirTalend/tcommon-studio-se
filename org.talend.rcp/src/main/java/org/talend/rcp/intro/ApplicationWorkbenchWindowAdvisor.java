@@ -88,6 +88,7 @@ import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.ui.editor.palette.TalendPaletteHelper;
+import org.talend.designer.core.ui.views.properties.IComponentSettingsView;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.starting.StartingEditorInput;
@@ -364,6 +365,19 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     }
                 }
                 // ~ 15756
+            }
+
+            @Override
+            public void perspectiveDeactivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
+                String pId = perspective.getId();
+                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
+                    IComponentSettingsView viewer = (IComponentSettingsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                            .getActivePage().findView(IComponentSettingsView.ID);
+
+                    if (viewer != null) {
+                        viewer.cleanDisplay();
+                    }
+                }
             }
         });
 
