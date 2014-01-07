@@ -68,8 +68,6 @@ public final class TaggedValueHelper {
 
     public static final String COMMENT = "Comment"; //$NON-NLS-1$
 
-    public static final String TABLE_OWNER = "Table Owner"; //$NON-NLS-1$
-
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // data connection tagged values

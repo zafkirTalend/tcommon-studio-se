@@ -114,6 +114,7 @@ public final class TableHelper extends SubItemHelper {
      * @return the table containing this column or null
      * @deprecated use ColumnHelper.getTdTableOwner();
      */
+    @Deprecated
     public static TdTable getParentTable(TdColumn column) {
         return ColumnHelper.getColumnOwnerAsTdTable(column);
     }
@@ -132,8 +133,9 @@ public final class TableHelper extends SubItemHelper {
         // MOD zshen for bug 12842
         String newPrimaryKeyName = pk.getName();
         if (primaryKey != null) {
-            if (primaryKey.getName().equals(newPrimaryKeyName))
+            if (primaryKey.getName().equals(newPrimaryKeyName)) {
                 primaryKey.getFeature().addAll(pk.getFeature());
+            }
             StructuralFeature[] structuralFeaturethe = primaryKey.getFeature().toArray(
                     new StructuralFeature[primaryKey.getFeature().size()]);
             for (StructuralFeature primaryKeyColumn : structuralFeaturethe) {
@@ -231,6 +233,7 @@ public final class TableHelper extends SubItemHelper {
      * @param primaryKeys the primary keys of the table.
      * @deprecated because there can only be one PrimaryKey on same one table, so use addPrimaryKey instead
      */
+    @Deprecated
     public static void addPrimaryKeys(ColumnSet table, List<PrimaryKey> primaryKeys) {
         assert table != null;
         assert primaryKeys != null;
@@ -275,6 +278,7 @@ public final class TableHelper extends SubItemHelper {
      * @param foreignKeys the foreign keys of this table
      * @deprecated cause only working on TdTable and not on ColumnSet use addForeignKeys(Table, List<ForeignKey>)
      */
+    @Deprecated
     public static void addForeignKeys(ColumnSet table, List<ForeignKey> foreignKeys) {
         assert table != null;
         assert foreignKeys != null;
@@ -331,6 +335,7 @@ public final class TableHelper extends SubItemHelper {
      * @return a list of all primary keys of the given table
      * @deprecated use getPrimaryKey() instead
      */
+    @Deprecated
     public static List<PrimaryKey> getPrimaryKeys(Table table) {
         List<PrimaryKey> primarykeys = new ArrayList<PrimaryKey>();
         EList<ModelElement> ownedElements = table.getOwnedElement();
@@ -368,6 +373,7 @@ public final class TableHelper extends SubItemHelper {
      * @return the Catalog or of Schema or null
      * @deprecated use PackageHelper.getParentPackage()
      */
+    @Deprecated
     public static Package getParentCatalogOrSchema(ModelElement element) {
         if (element == null) {
             return null;
@@ -514,20 +520,6 @@ public final class TableHelper extends SubItemHelper {
     }
 
     /**
-     * DOC zshen Comment method "getTableOwner".
-     * 
-     * @param element
-     * @return
-     */
-    public static String getTableOwner(ModelElement element) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TABLE_OWNER, element.getTaggedValue());
-        if (taggedValue == null) {
-            return null;
-        }
-        return taggedValue.getValue();
-    }
-
-    /**
      * DOC bZhou Comment method "setTableFilter".
      * 
      * @param filter
@@ -559,16 +551,6 @@ public final class TableHelper extends SubItemHelper {
      */
     public static void setViewFilter(String filter, ModelElement element) {
         TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.VIEW_FILTER, filter);
-    }
-
-    /**
-     * DOC zshen Comment method "setTableOwner".
-     * 
-     * @param filter
-     * @param element
-     */
-    public static void setTableOwner(String filter, ModelElement element) {
-        TaggedValueHelper.setTaggedValue(element, TaggedValueHelper.TABLE_OWNER, filter);
     }
 
     /**
@@ -679,29 +661,36 @@ public final class TableHelper extends SubItemHelper {
      * @param label
      * @return
      */
+    @Deprecated
     public static MetadataTable findByLabel(Connection connection, String label) {
-        if (connection == null)
+        if (connection == null) {
             throw new IllegalArgumentException("null connection"); //$NON-NLS-1$
-        if (label == null || "".equals(label)) //$NON-NLS-1$
+        }
+        if (label == null || "".equals(label)) {
             throw new IllegalArgumentException("null/empty label"); //$NON-NLS-1$
+        }
         Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
         for (MetadataTable table : tables) {
-            if (label.equals(table.getLabel()))
+            if (label.equals(table.getLabel())) {
                 return table;
+            }
         }
         return null;
     }
 
     public static MetadataTable findByLabel(SAPFunctionUnit functionUnit, String label) {
-        if (functionUnit == null)
+        if (functionUnit == null) {
             throw new IllegalArgumentException("null connection"); //$NON-NLS-1$
-        if (label == null || "".equals(label)) //$NON-NLS-1$
+        }
+        if (label == null || "".equals(label)) {
             throw new IllegalArgumentException("null/empty label"); //$NON-NLS-1$
+        }
         EList tables = functionUnit.getTables();
         for (int i = 0; i < tables.size(); i++) {
             MetadataTable table = (MetadataTable) tables.get(i);
-            if (label.equals(table.getLabel()))
+            if (label.equals(table.getLabel())) {
                 return table;
+            }
         }
         return null;
     }
