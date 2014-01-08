@@ -232,6 +232,9 @@ public final class ModelElementHelper {
         if (element instanceof TdXmlElementType) {
             return ConnectionHelper.getConnection((TdXmlElementType) element);
         }
+        if (element instanceof MetadataTable) {
+            return TableHelper.getFirstConnection((MetadataTable) element);
+        }
         return null;
     }
 
@@ -241,11 +244,14 @@ public final class ModelElementHelper {
      * @param modelElement
      * @return
      */
+    @SuppressWarnings("deprecation")
     public static ModelElement getContainer(ModelElement modelElement) {
         if (modelElement instanceof TdColumn) {
             return ColumnHelper.getColumnSetOwner(modelElement);
         } else if (modelElement instanceof TdXmlElementType) {
             return XmlElementHelper.getParentElement((TdXmlElementType) modelElement);
+        } else if (modelElement instanceof MetadataColumn) {
+            return ColumnHelper.getColumnOwnerAsMetadataTable((MetadataColumn) modelElement);
         }
         return null;
     }

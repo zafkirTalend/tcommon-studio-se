@@ -36,6 +36,7 @@ import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.objectmodel.core.TaggedValue;
+import orgomg.cwm.resource.record.RecordFile;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
 import orgomg.cwm.resource.relational.PrimaryKey;
@@ -587,6 +588,12 @@ public final class TableHelper extends SubItemHelper {
     public static Connection getFirstConnection(MetadataTable metadataTable) {
         assert metadataTable != null;
         Connection result = null;
+        Namespace namespace = metadataTable.getNamespace();
+        // consider the file connection
+        if (namespace != null && namespace instanceof RecordFile) {
+            return ConnectionHelper.getConnection((RecordFile) namespace);
+        }
+
         if (metadataTable.getNamespace() != null) {
             Package thePackage = SwitchHelpers.PACKAGE_SWITCH.doSwitch(metadataTable.getNamespace());
             if (thePackage != null) {
