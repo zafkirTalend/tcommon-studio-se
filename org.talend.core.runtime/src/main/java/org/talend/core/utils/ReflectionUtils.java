@@ -168,6 +168,26 @@ public class ReflectionUtils {
         return returnValue;
     }
 
+    public static Object invokeDeclaredMethod(Object owner, String methodName, Object[] args, Class... argTypes)
+            throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException,
+            InvocationTargetException {
+        Object returnValue = null;
+        Class ownerClass = owner.getClass();
+        Class[] argsClass = new Class[args.length];
+        if (argTypes.length > 0 && argTypes.length == args.length) {
+            argsClass = argTypes;
+        } else {
+            for (int i = 0, j = args.length; i < j; i++) {
+                argsClass[i] = args[i].getClass();
+            }
+        }
+        Method method = ownerClass.getDeclaredMethod(methodName, argsClass);
+        method.setAccessible(true);
+        returnValue = method.invoke(owner, args);
+
+        return returnValue;
+    }
+
     /**
      * DOC ycbai Comment method "invokeStaticMethod".
      * 
