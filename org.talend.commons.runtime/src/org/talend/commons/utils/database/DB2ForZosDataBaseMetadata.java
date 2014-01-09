@@ -395,4 +395,14 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         return tableResultSet;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.fakejdbc.FakeDatabaseMetaData#getDatabaseProductName()
+     */
+    @Override
+    public String getDatabaseProductName() throws SQLException {
+        return connection.getMetaData().getDatabaseProductName();
+    }
+
 }
