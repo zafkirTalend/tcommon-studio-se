@@ -55,13 +55,11 @@ import org.eclipse.ui.internal.IPreferenceConstants;
 import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.PerspectiveBarContributionItem;
 import org.eclipse.ui.internal.PerspectiveBarManager;
-import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.util.PrefUtil;
 import org.talend.core.ui.branding.IBrandingConfiguration;
-import org.talend.core.utils.ReflectionUtils;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -159,63 +157,93 @@ public final class PerspectiveReviewUtil {
     public static void setPerspectiveTabs() {
         // feature 19053 add
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
-
         PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
 
-        try {
-            createPerspective(activePage, IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
-        } catch (Exception e) {
-            createPerspective(activePage, barManager, IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
-        }
-        try {
-            createPerspective(activePage, IBrandingConfiguration.PERSPECTIVE_MDM_ID);
-        } catch (Exception e) {
-            createPerspective(activePage, barManager, IBrandingConfiguration.PERSPECTIVE_MDM_ID);
-        }
-        try {
+        // fix TDI-23057
+        ((WorkbenchWindow) activeWorkbenchWindow).addPerspectiveReorderListener(null);
 
-            createPerspective(activePage, IBrandingConfiguration.PERSPECTIVE_DQ_ID);
-        } catch (Exception e) {
-            createPerspective(activePage, barManager, IBrandingConfiguration.PERSPECTIVE_DQ_ID);
-        }
-
-        try {
-            createPerspective(activePage, IBrandingConfiguration.PERSPECTIVE_DI_ID);
-        } catch (Exception e) {
-            createPerspective(activePage, barManager, IBrandingConfiguration.PERSPECTIVE_DI_ID);
-        }
-
-        barManager.update(false);
-    }
-
-    private static void createPerspective(final IWorkbenchPage activePage, String perspectiveID) throws Exception {
-        IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                .findPerspectiveWithId(perspectiveID);
-        if (diMailPerspective instanceof PerspectiveDescriptor) {
-            final PerspectiveDescriptor perspectiveDescriptor = (PerspectiveDescriptor) diMailPerspective;
-            Object findPerspective = ReflectionUtils.invokeMethod(activePage, "findPerspective",
-                    new Object[] { diMailPerspective }, new Class[] { IPerspectiveDescriptor.class });
-            if (findPerspective == null && activePage instanceof WorkbenchPage) {
-                ReflectionUtils.invokeDeclaredMethod(activePage, "createPerspective",
-                        new Object[] { perspectiveDescriptor, true }, new Class[] { perspectiveDescriptor.getClass(),
-                                boolean.class });
-            }
-        }
-
-    }
-
-    private static void createPerspective(IWorkbenchPage activePage, PerspectiveBarManager barManager, String perspectiveID) {
-        IContributionItem diCItem = barManager.find(perspectiveID);
-        if (null == diCItem) {
-            IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                    .findPerspectiveWithId(perspectiveID);
-            if (null != diMailPerspective) {
-                PerspectiveBarContributionItem diItem = new PerspectiveBarContributionItem(diMailPerspective, activePage);
-                if (null != diItem) {
-                    barManager.addItem(diItem);
+        if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
+            cleanPerspectiveBar();
+            // DI
+            IContributionItem lastPerspective = null;
+            IContributionItem diCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DI_ID);
+            if (null == diCItem) {
+                IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DI_ID);
+                if (null != diMailPerspective && (diMailPerspective instanceof IPerspectiveDescriptor)) {
+                    PerspectiveBarContributionItem diItem = new PerspectiveBarContributionItem(diMailPerspective,
+                            activeWorkbenchWindow.getActivePage());
+                    if (null != diItem && (diItem instanceof PerspectiveBarContributionItem)) {
+                        barManager.addItem(diItem);
+                        diCItem = diItem;
+                    }
                 }
             }
+            lastPerspective = diCItem;
+
+            // DQ
+            IContributionItem dqCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
+            if (null == dqCItem) {
+                IPerspectiveDescriptor dqMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
+                if (null != dqMailPerspective && (dqMailPerspective instanceof IPerspectiveDescriptor)) {
+                    PerspectiveBarContributionItem dqItem = new PerspectiveBarContributionItem(dqMailPerspective,
+                            activeWorkbenchWindow.getActivePage());
+                    if (null != dqItem && (dqItem instanceof PerspectiveBarContributionItem)) {
+                        if (diCItem != null) {
+                            barManager.insertAfter(diCItem.getId(), dqItem);
+                        } else {
+                            barManager.addItem(dqItem);
+                        }
+                        dqCItem = dqItem;
+                    }
+                }
+            }
+            if (dqCItem != null) {
+                lastPerspective = dqCItem;
+            }
+            // MDM
+            IContributionItem mdmCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
+            if (null == mdmCItem) {
+                IPerspectiveDescriptor mdmMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
+                if (null != mdmMailPerspective && (mdmMailPerspective instanceof IPerspectiveDescriptor)) {
+                    PerspectiveBarContributionItem mdmItem = new PerspectiveBarContributionItem(mdmMailPerspective,
+                            activeWorkbenchWindow.getActivePage());
+                    if (null != mdmItem && (mdmItem instanceof PerspectiveBarContributionItem)) {
+                        if (lastPerspective != null) {
+                            barManager.insertAfter(lastPerspective.getId(), mdmItem);
+                        } else {
+                            barManager.addItem(mdmItem);
+                        }
+                        mdmCItem = mdmItem;
+                    }
+                }
+            }
+            if (mdmCItem != null) {
+                lastPerspective = mdmCItem;
+            }
+
+            // CAMEL
+            IContributionItem esbCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
+            if (null == esbCItem) {
+                IPerspectiveDescriptor esbPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
+                        .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
+                if (null != esbPerspective && (esbPerspective instanceof IPerspectiveDescriptor)) {
+                    PerspectiveBarContributionItem esbItem = new PerspectiveBarContributionItem(esbPerspective,
+                            activeWorkbenchWindow.getActivePage());
+                    if (null != esbItem && (esbItem instanceof PerspectiveBarContributionItem)) {
+                        if (lastPerspective != null) {
+                            barManager.insertAfter(lastPerspective.getId(), esbItem);
+                        } else {
+                            barManager.addItem(esbItem);
+                        }
+                        mdmCItem = esbItem;
+                    }
+                }
+            }
+
+            barManager.update(false);
         }
     }
 
