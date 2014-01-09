@@ -451,7 +451,7 @@ public class ExtractMetaDataFromDataBase {
                     tableName = tableName.replace("/", "");
                 }
                 // bug TDI-19547
-                if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().startsWith("DB2/NT")) { //$NON-NLS-1$
+                if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().startsWith("DB2/")) { //$NON-NLS-1$
                     fillSynonmsForDB2(iMetadataConnection, metadataColumns, table, tableName);
                 } else if (ExtractMetaDataUtils.conn.getMetaData().getDatabaseProductName().equals("Microsoft SQL Server")) {
                     // TDI-19758
@@ -882,7 +882,7 @@ public class ExtractMetaDataFromDataBase {
         ResultSet resultSet = null;
 
         try {
-            if (conn.getMetaData().getDatabaseProductName().startsWith("DB2/NT")) { //$NON-NLS-1$
+            if (conn.getMetaData().getDatabaseProductName().startsWith("DB2/")) { //$NON-NLS-1$
                 String sql = "SELECT NAME,BASE_NAME FROM SYSIBM.SYSTABLES where TYPE='A' and  name ='" + name + "'";
                 sta = conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(sta);
