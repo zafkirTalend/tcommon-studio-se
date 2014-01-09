@@ -29,6 +29,7 @@ import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -270,7 +271,20 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             factory = ((IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(IProxyRepositoryService.class))
                     .getProxyRepositoryFactory();
 
-            IRepositoryViewObject object = factory.getLastVersion(id);
+            Project project = ProjectManager.getInstance().getCurrentProject();
+            if (!project.getLabel().equals(projectLabel)) {
+                for (Project refProj : ProjectManager.getInstance().getAllReferencedProjects()) {
+                    if (refProj.getLabel().equals(projectLabel)) {
+                        project = refProj;
+                        break;
+                    }
+                }
+            }
+            IRepositoryViewObject object = factory.getLastVersion(project, id, this.path, this.type);
+            if (object == null) {
+                // function less optimized, but at least it will find back the item no matter where it is.
+                object = factory.getLastVersion(id);
+            }
             if (object == null) {
                 throw new PersistenceException("item with name:" + label + " / id:" + id
                         + " not found !\n\nPlease Refresh the repository.");
