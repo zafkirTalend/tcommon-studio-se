@@ -22,6 +22,7 @@ import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 
@@ -150,7 +151,7 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
-                if (dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
+                if (driverClassName != null && driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass())
                         && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }

@@ -40,6 +40,7 @@ import org.talend.core.repository.AbstractMetadataExtractorViewProvider;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * wzhang class global comment. Detailled comment
@@ -205,16 +206,11 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         } finally {
             String dbType = metadataConn.getDbType();
             // bug 22619
-            if (dbType != null
-                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                extractMeta.closeConnection();
-            }
+            String driverClass = metadataConn.getDriverClass();
+            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            ConnectionUtils.closeConnection(conn, isHSQL);
             // for specific db such as derby
             if (driver != null) {
-                String driverClass = metadataConn.getDriverClass();
                 if ((driverClass != null && driverClass.equals(EDatabase4DriverClassName.JAVADB_EMBEDED.getDriverClass()))
                         || (dbType != null && (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                                 || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())

@@ -81,6 +81,7 @@ import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IMetadataService;
 import org.talend.utils.exceptions.MissingDriverException;
+import org.talend.utils.sql.ConnectionUtils;
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
@@ -240,8 +241,8 @@ public class ExtractMetaDataUtils {
      */
     public DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
-        if (conn != null) {
-            try {
+        try {
+            if (conn != null && !conn.isClosed()) {
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
                 if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
                     dbMetaData = createJtdsDatabaseMetaData(conn);
@@ -272,13 +273,13 @@ public class ExtractMetaDataUtils {
                 } else {
                     dbMetaData = conn.getMetaData();
                 }
-            } catch (SQLException e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
             }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
         }
         return dbMetaData;
     }
@@ -776,7 +777,9 @@ public class ExtractMetaDataUtils {
         DriverShim wapperDriver = null;
         if (isReconnect || conn == null || isColsed) {
             try {
-                closeConnection(true); // colse before connection.
+                boolean isHSQL = driverClassName != null
+                        && driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+                ConnectionUtils.closeConnection(conn, isHSQL); // colse before connection.
                 checkDBConnectionTimeout();
 
                 list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion, additionalParams);

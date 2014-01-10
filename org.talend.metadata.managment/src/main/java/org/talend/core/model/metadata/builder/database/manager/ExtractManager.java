@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -66,6 +67,7 @@ import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -396,7 +398,9 @@ public class ExtractManager {
             log.error(e);
         } finally {
             // bug 22619
-            closeConnection(metadataConnection, wapperDriver);
+            String driverClass = metadataConnection.getDriverClass();
+            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
         }
 
         return metadataColumns;
@@ -512,15 +516,15 @@ public class ExtractManager {
                     tableLabel);
             metadataColumns = extractColumns(dbMetaData, metadataConnection, dbType, cataAndShema.get(0), cataAndShema.get(1),
                     tableLabel);
-            if (needCreateAndClose) {
-                extractMeta.closeConnection();
-            }
         } catch (Exception e) {
             log.error(e.toString());
             throw new RuntimeException(e);
         } finally {
-            closeConnection(metadataConnection, wapperDriver);
-
+            if (needCreateAndClose) {
+            String driverClass = metadataConnection.getDriverClass();
+            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
+            }
         }
 
         return metadataColumns;

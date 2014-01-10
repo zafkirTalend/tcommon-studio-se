@@ -75,6 +75,7 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -111,6 +112,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProjectNodeHelper;
 import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.utils.sql.ConnectionUtils;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -1004,14 +1006,10 @@ public class SelectorTableForm extends AbstractForm {
                 ExceptionHandler.process(e);
             } finally {
                 // bug 22619
-                if (dbType != null
-                        && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
-                                || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                    .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))
-                        || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
-                    extractMeta.closeConnection();
-                }
+                String driverClass = metadataconnection.getDriverClass();
+                boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+                ConnectionUtils.closeConnection(sqlConn,
+                        isHSQL || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType));
                 if (derbyDriver != null) {
                     try {
                         derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
