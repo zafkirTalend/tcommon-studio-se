@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.utils.sql.metadata.constants.TableType;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -587,20 +588,26 @@ public final class TableHelper extends SubItemHelper {
      */
     public static Connection getFirstConnection(MetadataTable metadataTable) {
         assert metadataTable != null;
-        Connection result = null;
+        Connection connection = null;
         Namespace namespace = metadataTable.getNamespace();
-        // consider the file connection
+        // for the file connection
         if (namespace != null && namespace instanceof RecordFile) {
             return ConnectionHelper.getConnection((RecordFile) namespace);
         }
 
-        if (metadataTable.getNamespace() != null) {
-            Package thePackage = SwitchHelpers.PACKAGE_SWITCH.doSwitch(metadataTable.getNamespace());
+        // for the mdm connection
+        if (namespace != null && namespace instanceof TdXmlSchema) {
+            return ConnectionHelper.getConnection((Package) namespace);
+        }
+
+        if (namespace != null) {
+            Package thePackage = SwitchHelpers.PACKAGE_SWITCH.doSwitch(namespace);
             if (thePackage != null) {
-                result = getFirstPackageConnection(thePackage);
+                connection = getFirstPackageConnection(thePackage);
             }
+
         }// else class is not linked to any package
-        return result;
+        return connection;
     }
 
     /**
