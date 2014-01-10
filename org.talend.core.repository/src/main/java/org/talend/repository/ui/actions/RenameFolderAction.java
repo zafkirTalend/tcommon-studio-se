@@ -73,8 +73,9 @@ public class RenameFolderAction extends AContextualAction {
         ISelection selection = getSelection();
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj == null) {
-            MessageDialog.openWarning(new Shell(), Messages.getString("RenameFolderAction.warning.cannotFind.title"), Messages //$NON-NLS-1$
-                    .getString("RenameFolderAction.warning.cannotFind.message")); //$NON-NLS-1$
+            MessageDialog.openWarning(Display.getCurrent().getActiveShell(),
+                    Messages.getString("RenameFolderAction.warning.cannotFind.title"), Messages //$NON-NLS-1$
+                            .getString("RenameFolderAction.warning.cannotFind.message")); //$NON-NLS-1$
             return;
         }
 
@@ -83,9 +84,10 @@ public class RenameFolderAction extends AContextualAction {
         // Check if some jobs in the folder are currently opened:
         String firstChildOpen = getFirstOpenedChild(node);
         if (firstChildOpen != null) {
-            MessageDialog.openWarning(new Shell(), Messages.getString("RenameFolderAction.warning.editorOpen.title"), Messages //$NON-NLS-1$
-                    .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, //$NON-NLS-1$
-                            getLabelOfNode(node)));
+            MessageDialog.openWarning(Display.getCurrent().getActiveShell(),
+                    Messages.getString("RenameFolderAction.warning.editorOpen.title"), Messages //$NON-NLS-1$
+                            .getString("RenameFolderAction.warning.editorOpen.message", firstChildOpen, //$NON-NLS-1$
+                                    getLabelOfNode(node)));
             return;
         }
 
