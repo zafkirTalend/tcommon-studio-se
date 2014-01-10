@@ -158,13 +158,15 @@ public class DeleteTableAction extends AContextualAction {
                         return;
                     }
                     boolean isSave = true;
-                    AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance().getResourceChangeService(
-                            AbstractResourceChangesService.class);
-                    if (resChangeService != null) {
-                        List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(node);
-                        if (dependentNodes != null && !dependentNodes.isEmpty()) {
-                            resChangeService.openDependcesDialog(dependentNodes);
-                            isSave = false;
+                    if (SubItemHelper.isDeleted(abstractMetadataObject)) {
+                        AbstractResourceChangesService resChangeService = TDQServiceRegister.getInstance()
+                                .getResourceChangeService(AbstractResourceChangesService.class);
+                        if (resChangeService != null) {
+                            List<IRepositoryNode> dependentNodes = resChangeService.getDependentNodes(node);
+                            if (dependentNodes != null && !dependentNodes.isEmpty()) {
+                                resChangeService.openDependcesDialog(dependentNodes);
+                                isSave = false;
+                            }
                         }
                     }
                     if (isSave) {
