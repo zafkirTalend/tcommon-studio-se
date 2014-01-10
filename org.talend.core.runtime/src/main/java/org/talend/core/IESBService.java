@@ -51,4 +51,6 @@ public interface IESBService extends IService {
 
     public boolean isServiceItem(int classifierID);
 
+    public void copyDataServiceRelateJob(Item newItem);
+
 }

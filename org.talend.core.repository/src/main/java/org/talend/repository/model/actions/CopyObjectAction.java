@@ -13,6 +13,9 @@
 package org.talend.repository.model.actions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +37,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IESBService;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.ConnectionItem;
@@ -199,6 +203,7 @@ public class CopyObjectAction {
                                 String label = null;
                                 boolean isfirst = true;
                                 boolean needSys = true;
+                                List newItems = new ArrayList();
                                 for (IRepositoryViewObject object : selectedVersionItems) {
                                     Item selectedItem = object.getProperty().getItem();
 
@@ -222,8 +227,22 @@ public class CopyObjectAction {
                                     if (copy instanceof ProcessItem) {
                                         RelationshipItemBuilder.getInstance().addOrUpdateItem(copy);
                                     }
-
+                                    newItems.add(copy);
                                     factory.save(copy);
+                                }
+                                if (newItems.size() > 0) {
+                                    Collections.sort(newItems, new Comparator() {
+
+                                        @Override
+                                        public int compare(Object o1, Object o2) {
+                                            Item i1 = (Item) o1;
+                                            Item i2 = (Item) o2;
+                                            return i1.getProperty().getVersion().compareTo(i2.getProperty().getVersion());
+                                        }
+
+                                    });
+                                    Item item = (Item) newItems.get(newItems.size() - 1);
+                                    copyDataServiceRelateJob(item);
                                 }
                             } catch (PersistenceException e) {
                                 ExceptionHandler.process(e);
@@ -254,7 +273,7 @@ public class CopyObjectAction {
                     };
 
                     try {
-                        new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                        new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
                     } catch (InvocationTargetException e) {
                         ExceptionHandler.process(e);
                     } catch (InterruptedException e) {
@@ -267,6 +286,15 @@ public class CopyObjectAction {
             }
         }
 
+    }
+
+    private void copyDataServiceRelateJob(Item newItem) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+            IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+            if (service.isServiceItem(newItem.eClass().getClassifierID())) {
+                service.copyDataServiceRelateJob(newItem);
+            }
+        }
     }
 
     private void copySingleVersionItem(final Item item, final IPath path) {
@@ -305,6 +333,7 @@ public class CopyObjectAction {
                                 connectionItem.getConnection().getSupplierDependency().clear();
                             }
                             factory.save(newItem);
+                            copyDataServiceRelateJob(newItem);
                         } catch (Exception e) {
                             ExceptionHandler.process(e);
                         }
@@ -327,7 +356,7 @@ public class CopyObjectAction {
                     }
                 };
                 try {
-                    new ProgressMonitorDialog(null).run(true, true, iRunnableWithProgress);
+                    new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
                 } catch (InvocationTargetException e) {
                     ExceptionHandler.process(e);
                 } catch (InterruptedException e) {
