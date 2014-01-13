@@ -88,6 +88,7 @@ import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
+import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -786,13 +787,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         } finally {
             // bug 22619
-            if (dbType != null
-                    && (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
-                            || dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName()) || dbType
-                                .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()))) {
-                extractMeta.closeConnection();
-            }
+            String driverClass = metaConnection.getDriverClass();
+            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            ConnectionUtils.closeConnection(sqlConn, isHSQL);
             MetadataConnectionUtils.closeDerbyDriver();
         }
     }

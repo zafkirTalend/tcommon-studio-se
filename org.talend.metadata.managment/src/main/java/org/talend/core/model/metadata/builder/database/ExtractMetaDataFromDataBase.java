@@ -54,6 +54,7 @@ import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetTable;
 
 /**
@@ -328,13 +329,9 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
-            try {
-                if (connection != null && !connection.isClosed()) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                //
-            }
+            boolean isHSQL = driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            ConnectionUtils.closeConnection(connection, isHSQL);
+
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
             if (extractManager != null) {
                 extractManager.closeConnection(null, wapperDriver);
