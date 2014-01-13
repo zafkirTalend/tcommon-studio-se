@@ -1838,6 +1838,7 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
                         getConnection().setUsername(usernameText.getText());
+                        getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME, usernameText.getText());
                     }
                 }
             }
