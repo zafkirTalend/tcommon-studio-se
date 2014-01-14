@@ -13,6 +13,7 @@
 package org.talend.core.model.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,9 +25,11 @@ import java.util.Set;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IConnectionCategory;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 
@@ -763,8 +766,8 @@ public class NodeUtil {
      * @param node: Generated node
      * @return graphica node.
      */
-    public static INode getVirtualNode(INode node){
-        INode virtualNode=node;
+    public static INode getVirtualNode(INode node) {
+        INode virtualNode = node;
         if (node.isVirtualGenerateNode()) {
             String uniqueName = node.getUniqueName();
             List<? extends INode> nodeList = node.getProcess().getGraphicalNodes();
@@ -772,7 +775,7 @@ public class NodeUtil {
                 if (graphicnode.isGeneratedAsVirtualComponent()) {
                     String nodeUniqueName = graphicnode.getUniqueName();
                     if (uniqueName.indexOf(nodeUniqueName + "_") == 0) {
-                        virtualNode=graphicnode;
+                        virtualNode = graphicnode;
                         break;
                     }
                 }
@@ -780,6 +783,7 @@ public class NodeUtil {
         }
         return virtualNode;
     }
+
     public static void fillConnectionsForStat(List<String> connsName, INode currentNode) {
         for (IConnection conn : currentNode.getOutgoingConnections()) {
             if (conn.getLineStyle() == EConnectionType.FLOW_MAIN) {
@@ -793,6 +797,34 @@ public class NodeUtil {
                 fillConnectionsForStat(connsName, conn.getTarget());
             }
         }
+    }
 
+    /*
+     * return all displayed parameters
+     */
+    public static List<IElementParameter> getDisplayedParameters(INode currentNode) {
+        List<? extends IElementParameter> eps = currentNode.getElementParameters();
+        List<IElementParameter> reps = new ArrayList<IElementParameter>();
+        // should ignore Parallelize?
+        List<String> ignorePs = Arrays.asList("CONNECTION_FORMAT", "INFORMATION", "COMMENT", "VALIDATION_RULES", "LABEL", "HINT",
+                "ACTIVATE", "TSTATCATCHER_STATS", "PARALLELIZE", "PROPERTY");
+        for (IElementParameter ep : eps) {
+            if (ep.isShow(eps)) {
+                if (!ignorePs.contains(ep.getName())) {
+                    reps.add(ep);
+                }
+            }
+        }
+        return reps;
+    }
+
+    public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
+        List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
+                EParameterFieldType.COMPONENT_LIST);
+        if (needQuoteList.contains(ep.getFieldType())) {
+            return "\"" + ElementParameterParser.getValue(node, "__" + ep.getName() + "__") + "\"";
+        } else {
+            return ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
+        }
     }
 }
