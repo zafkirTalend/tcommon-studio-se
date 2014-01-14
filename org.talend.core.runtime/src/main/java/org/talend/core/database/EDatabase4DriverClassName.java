@@ -24,10 +24,16 @@ public enum EDatabase4DriverClassName {
     FIREBIRD(EDatabaseTypeName.FIREBIRD, "org.firebirdsql.jdbc.FBDriver"), //$NON-NLS-1$
     GODBC(EDatabaseTypeName.GODBC, "sun.jdbc.odbc.JdbcOdbcDriver"), //$NON-NLS-1$
 
-    HSQLDB(EDatabaseTypeName.HSQLDB, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
-    HSQLDB_IN_PROGRESS(EDatabaseTypeName.HSQLDB_IN_PROGRESS, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
-    HSQLDB_SERVER(EDatabaseTypeName.HSQLDB_SERVER, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
-    HSQLDB_WEBSERVER(EDatabaseTypeName.HSQLDB_WEBSERVER, "org.hsqldb.jdbcDriver"), //$NON-NLS-1$
+    HSQLDB(EDatabaseTypeName.HSQLDB, new String[] { "org.hsqldb.jdbcDriver", "org.hsqldb.jdbc.JDBCDriver" }, new String[] {}), //$NON-NLS-1$
+    HSQLDB_IN_PROGRESS(
+                       EDatabaseTypeName.HSQLDB_IN_PROGRESS,
+                       new String[] { "org.hsqldb.jdbcDriver", "org.hsqldb.jdbc.JDBCDriver" }, new String[] {}), //$NON-NLS-1$
+    HSQLDB_SERVER(
+                  EDatabaseTypeName.HSQLDB_SERVER,
+                  new String[] { "org.hsqldb.jdbcDriver", "org.hsqldb.jdbc.JDBCDriver" }, new String[] {}), //$NON-NLS-1$
+    HSQLDB_WEBSERVER(
+                     EDatabaseTypeName.HSQLDB_WEBSERVER,
+                     new String[] { "org.hsqldb.jdbcDriver", "org.hsqldb.jdbc.JDBCDriver" }, new String[] {}), //$NON-NLS-1$
 
     IBMDB2(EDatabaseTypeName.IBMDB2, "com.ibm.db2.jcc.DB2Driver"), //$NON-NLS-1$
     IBMDB2ZOS(EDatabaseTypeName.IBMDB2ZOS, "COM.ibm.db2os390.sqlj.jdbc.DB2SQLJDriver"), //$NON-NLS-1$

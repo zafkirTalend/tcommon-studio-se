@@ -1007,7 +1007,13 @@ public class SelectorTableForm extends AbstractForm {
             } finally {
                 // bug 22619
                 String driverClass = metadataconnection.getDriverClass();
-                boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+                boolean isHSQL = false;
+                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                    if (driverClass != null && driverClass.equals(driverName)) {
+                        isHSQL = true;
+                        break;
+                    }
+                }
                 ConnectionUtils.closeConnection(sqlConn,
                         isHSQL || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType));
                 if (derbyDriver != null) {

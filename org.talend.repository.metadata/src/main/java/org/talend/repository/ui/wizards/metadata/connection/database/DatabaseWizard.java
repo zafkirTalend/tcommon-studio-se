@@ -788,7 +788,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         } finally {
             // bug 22619
             String driverClass = metaConnection.getDriverClass();
-            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            boolean isHSQL = false;
+            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                if (driverClass != null && driverClass.equals(driverName)) {
+                    isHSQL = true;
+                    break;
+                }
+            }
             ConnectionUtils.closeConnection(sqlConn, isHSQL);
             MetadataConnectionUtils.closeDerbyDriver();
         }

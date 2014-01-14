@@ -207,7 +207,13 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
             String dbType = metadataConn.getDbType();
             // bug 22619
             String driverClass = metadataConn.getDriverClass();
-            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            boolean isHSQL = false;
+            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                if (driverClass != null && driverClass.equals(driverName)) {
+                    isHSQL = true;
+                    break;
+                }
+            }
             ConnectionUtils.closeConnection(conn, isHSQL);
             // for specific db such as derby
             if (driver != null) {

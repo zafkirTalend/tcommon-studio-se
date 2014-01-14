@@ -151,8 +151,14 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
-                if (driverClassName != null && driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass())
-                        && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
+                boolean isHSQL = false;
+                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                    if (driverClassName != null && driverClassName.equals(driverName)) {
+                        isHSQL = true;
+                        break;
+                    }
+                }
+                if (isHSQL && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }
                 if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {

@@ -399,7 +399,13 @@ public class ExtractManager {
         } finally {
             // bug 22619
             String driverClass = metadataConnection.getDriverClass();
-            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
+            boolean isHSQL = false;
+            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                if (driverClass != null && driverClass.equals(driverName)) {
+                    isHSQL = true;
+                    break;
+                }
+            }
             ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
         }
 
@@ -521,9 +527,15 @@ public class ExtractManager {
             throw new RuntimeException(e);
         } finally {
             if (needCreateAndClose) {
-            String driverClass = metadataConnection.getDriverClass();
-            boolean isHSQL = driverClass != null && driverClass.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
-            ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
+                String driverClass = metadataConnection.getDriverClass();
+                boolean isHSQL = false;
+                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
+                    if (driverClass != null && driverClass.equals(driverName)) {
+                        isHSQL = true;
+                        break;
+                    }
+                }
+                ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
             }
         }
 
