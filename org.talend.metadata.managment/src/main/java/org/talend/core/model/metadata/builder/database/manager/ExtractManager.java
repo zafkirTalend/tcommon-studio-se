@@ -36,7 +36,6 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -398,14 +397,7 @@ public class ExtractManager {
             log.error(e);
         } finally {
             // bug 22619
-            String driverClass = metadataConnection.getDriverClass();
-            boolean isHSQL = false;
-            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                if (driverClass != null && driverClass.equals(driverName)) {
-                    isHSQL = true;
-                    break;
-                }
-            }
+            boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
             ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
         }
 

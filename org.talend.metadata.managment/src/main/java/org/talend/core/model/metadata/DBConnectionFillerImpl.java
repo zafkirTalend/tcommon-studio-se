@@ -185,14 +185,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } catch (IllegalAccessException e) {
             CommonExceptionHandler.process(e);
         } finally {
-            String driverClass = metadataBean.getDriverClass();
-            boolean isHSQL = false;
-            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                if (driverClass != null && driverClass.equals(driverName)) {
-                    isHSQL = true;
-                    break;
-                }
-            }
+            boolean isHSQL = ConnectionUtils.isHsql(metadataBean.getUrl());
             ConnectionUtils.closeConnection(sqlConnection, isHSQL);
             if (driver != null
                     && MetadataConnectionUtils.isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {

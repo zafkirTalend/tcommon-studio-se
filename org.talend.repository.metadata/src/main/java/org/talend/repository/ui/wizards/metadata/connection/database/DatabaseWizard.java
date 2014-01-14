@@ -787,7 +787,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         } finally {
             // bug 22619
-            boolean isHSQL = ConnectionUtils.isHiveServer(metaConnection.getUrl());
+            boolean isHSQL = ConnectionUtils.isHsql(metaConnection.getUrl());
             ConnectionUtils.closeConnection(sqlConn, isHSQL);
             MetadataConnectionUtils.closeDerbyDriver();
         }
