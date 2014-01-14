@@ -349,7 +349,7 @@ public class FileStep1Form extends AbstractPositionalFileStepForm {
 
             public void modifyText(final ModifyEvent e) {
                 getConnection().setEncoding(encodingCombo.getText());
-                checkFilePathAndManageIt(true);
+                checkFilePathAndManageIt(false);
             }
         });
 
