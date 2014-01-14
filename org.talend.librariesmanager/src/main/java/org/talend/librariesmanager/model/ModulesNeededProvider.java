@@ -72,7 +72,6 @@ import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.librariesmanager.i18n.Messages;
-import org.talend.osgi.hook.TalendHookAdaptor;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -85,6 +84,11 @@ import org.talend.repository.model.IRepositoryService;
  * 
  */
 public class ModulesNeededProvider {
+
+    /**
+     * TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP
+     */
+    public static final String ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "talend.library.path"; //$NON-NLS-1$
 
     /**
      * 
@@ -657,7 +661,7 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> allPluginsRequiredModules = getAllModulesNeededExtensionsForPlugin();
         List<ModuleNeeded> allUninstalledModules = new ArrayList<ModuleNeeded>(allPluginsRequiredModules.size());
         SubMonitor subMonitor = SubMonitor.convert(monitor, allPluginsRequiredModules.size());
-        String property = System.getProperty(TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP);
+        String property = System.getProperty(ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP);
         if (property != null) {
             File javaLibFolder = new File(property);
             for (ModuleNeeded module : allPluginsRequiredModules) {
@@ -671,7 +675,7 @@ public class ModulesNeededProvider {
             }
         } else {// throw an exception to tell that install folder was not properly initialised
             throw new IllegalStateException("Could not find the Talend library folder because the property ["
-                    + TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP + "] was not initlized");
+                    + ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP + "] was not initlized");
         }
 
         return allUninstalledModules;
