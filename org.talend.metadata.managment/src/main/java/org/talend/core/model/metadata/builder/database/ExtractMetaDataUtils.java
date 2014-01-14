@@ -777,13 +777,7 @@ public class ExtractMetaDataUtils {
         DriverShim wapperDriver = null;
         if (isReconnect || conn == null || isColsed) {
             try {
-                boolean isHSQL = false;
-                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                    if (driverClassName != null && driverClassName.equals(driverName)) {
-                        isHSQL = true;
-                        break;
-                    }
-                }
+                boolean isHSQL = ConnectionUtils.isHsql(url);
                 ConnectionUtils.closeConnection(conn, isHSQL); // colse before connection.
                 checkDBConnectionTimeout();
 

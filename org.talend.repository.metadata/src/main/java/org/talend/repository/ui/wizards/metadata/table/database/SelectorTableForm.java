@@ -75,7 +75,6 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.text.IndiceHelper;
 import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -1006,14 +1005,7 @@ public class SelectorTableForm extends AbstractForm {
                 ExceptionHandler.process(e);
             } finally {
                 // bug 22619
-                String driverClass = metadataconnection.getDriverClass();
-                boolean isHSQL = false;
-                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                    if (driverClass != null && driverClass.equals(driverName)) {
-                        isHSQL = true;
-                        break;
-                    }
-                }
+                boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
                 ConnectionUtils.closeConnection(sqlConn,
                         isHSQL || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType));
                 if (derbyDriver != null) {

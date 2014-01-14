@@ -163,6 +163,10 @@ public final class ConnectionUtils {
         return false;
     }
 
+    public static boolean isHsql(String url) {
+        return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
+    }
+
     /**
      * Method "isValid".
      * 

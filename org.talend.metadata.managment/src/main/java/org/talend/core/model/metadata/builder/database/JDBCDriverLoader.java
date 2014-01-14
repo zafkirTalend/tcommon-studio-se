@@ -22,9 +22,9 @@ import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.utils.sql.ConnectionUtils;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
@@ -151,13 +151,7 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
-                boolean isHSQL = false;
-                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                    if (driverClassName != null && driverClassName.equals(driverName)) {
-                        isHSQL = true;
-                        break;
-                    }
-                }
+                boolean isHSQL = ConnectionUtils.isHsql(url);
                 if (isHSQL && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
                     url = url + SHUTDOWN_PARAM;
                 }

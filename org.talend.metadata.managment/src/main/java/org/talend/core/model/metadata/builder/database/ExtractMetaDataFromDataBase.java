@@ -329,13 +329,7 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
-            boolean isHSQL = false;
-            for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                if (driverClassName != null && driverClassName.equals(driverName)) {
-                    isHSQL = true;
-                    break;
-                }
-            }
+            boolean isHSQL = ConnectionUtils.isHsql(url);
             ConnectionUtils.closeConnection(connection, isHSQL);
 
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);

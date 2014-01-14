@@ -527,14 +527,7 @@ public class ExtractManager {
             throw new RuntimeException(e);
         } finally {
             if (needCreateAndClose) {
-                String driverClass = metadataConnection.getDriverClass();
-                boolean isHSQL = false;
-                for (String driverName : EDatabase4DriverClassName.HSQLDB.getDriverClasses()) {
-                    if (driverClass != null && driverClass.equals(driverName)) {
-                        isHSQL = true;
-                        break;
-                    }
-                }
+                boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
                 ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
             }
         }
