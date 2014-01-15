@@ -418,6 +418,10 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
             if (other.object != null) {
                 return false;
             }
+        } else if (other.object == null) {
+            if (this.object != null) {
+                return false;
+            }
         } else {
             if (object.getVersion() == null) {
                 if (other.object.getVersion() != null) {
