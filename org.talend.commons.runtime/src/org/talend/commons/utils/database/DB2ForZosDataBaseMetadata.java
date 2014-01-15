@@ -19,19 +19,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.fakejdbc.FakeDatabaseMetaData;
-
 /**
  * DOC bqian class global comment. Detailled comment
  */
-public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
+public class DB2ForZosDataBaseMetadata extends PackageFakeDatabaseMetadata {
 
     private static final String[] TABLE_META = { "ID", "TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE", "REMARKS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
     private static final String[] COLUMN_META = { "TABLE_NAME", "COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE", "DECIMAL_DIGITS", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
             "IS_NULLABLE", "REMARKS", "COLUMN_DEF" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-    private Connection connection;
 
     private String T = "T";//$NON-NLS-1$
 
@@ -93,19 +89,10 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      * DOC bqian DB2ForZosDataBaseMetadata constructor comment.
      * 
      * @param metaData
+     * @throws SQLException
      */
-    public DB2ForZosDataBaseMetadata(Connection connection) {
-        this.connection = connection;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.utils.database.FakeDatabaseMetaData#getConnection()
-     */
-    @Override
-    public Connection getConnection() throws SQLException {
-        return connection;
+    public DB2ForZosDataBaseMetadata(Connection connection) throws SQLException {
+        super(connection);
     }
 
     /*
