@@ -12,12 +12,12 @@
 // ============================================================================
 package org.talend.commons.utils.database;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import junit.framework.Assert;
 
@@ -51,44 +51,18 @@ public class DB2ForZosDataBaseMetadataTest {
     public void testGetTablescase1() {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = "dbo"; //$NON-NLS-1$
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  type in('T')"; //$NON-NLS-1$ //$NON-NLS-2$
         String tableNamePattern = null;
         String[] types = new String[] { TableType.TABLE.name() };
-        // java.sql.ResultSet mock
-        ResultSet resultSet = Mockito.mock(ResultSet.class);
-        try {
-            Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
-            Mockito.when(resultSet.getString("NAME")).thenReturn("tableName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("CREATOR")).thenReturn("schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("TYPE")).thenReturn("string"); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (SQLException e3) {
-            fail(e3.getMessage());
-        }
-        // ~java.sql.ResultSet
+        ResultSet resultSet = mockResultSet();
 
         // java.sql.Statment mock
-        Statement sqlStatement = Mockito.mock(Statement.class);
-        try {
-            Mockito.when(sqlStatement.executeQuery(exceptSql)).thenReturn(resultSet);
-        } catch (SQLException e2) {
-            fail(e2.getMessage());
-        }
+        PreparedStatement sqlStatement = mockPreparedStatement(resultSet);
         // ~java.sql.Statment
         // java.sql.Connection mock
-        Connection sqlConnection = Mockito.mock(Connection.class);
-        try {
-            Mockito.when(sqlConnection.createStatement()).thenReturn(sqlStatement);
-        } catch (SQLException e1) {
-            fail(e1.getMessage());
-        }
+        Connection sqlConnection = mockConnection(sqlStatement);
         // ~java.sql.Connection
-        DB2ForZosDataBaseMetadata db2ZosMetadata = new DB2ForZosDataBaseMetadata(sqlConnection);
-        ResultSet tablesResult = null;
-        try {
-            tablesResult = db2ZosMetadata.getTables(catalog, schema, tableNamePattern, types);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
+
+        ResultSet tablesResult = mockMetadata(catalog, schema, tableNamePattern, types, sqlConnection);
         Assert.assertTrue(tablesResult != null);
         Assert.assertTrue(tablesResult instanceof DB2ForZosResultSet);
         if (tablesResult instanceof DB2ForZosResultSet) {
@@ -113,44 +87,18 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = "dbo"; //$NON-NLS-1$
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "' and  type in('T' , 'V' , 'S' , 'A')"; //$NON-NLS-1$ //$NON-NLS-2$
         String[] types = new String[] { TableType.TABLE.name(), TableType.VIEW.name(), TableType.SYNONYM.name(),
                 TableType.ALIAS.name() };
-        // java.sql.ResultSet mock
-        ResultSet resultSet = Mockito.mock(ResultSet.class);
-        try {
-            Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
-            Mockito.when(resultSet.getString("NAME")).thenReturn("tableName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("CREATOR")).thenReturn("schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("TYPE")).thenReturn("string"); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (SQLException e3) {
-            fail(e3.getMessage());
-        }
-        // ~java.sql.ResultSet
+        ResultSet resultSet = mockResultSet();
 
         // java.sql.Statment mock
-        Statement sqlStatement = Mockito.mock(Statement.class);
-        try {
-            Mockito.when(sqlStatement.executeQuery(exceptSql)).thenReturn(resultSet);
-        } catch (SQLException e2) {
-            fail(e2.getMessage());
-        }
+        PreparedStatement sqlStatement = mockPreparedStatement(resultSet);
         // ~java.sql.Statment
         // java.sql.Connection mock
-        Connection sqlConnection = Mockito.mock(Connection.class);
-        try {
-            Mockito.when(sqlConnection.createStatement()).thenReturn(sqlStatement);
-        } catch (SQLException e1) {
-            fail(e1.getMessage());
-        }
+        Connection sqlConnection = mockConnection(sqlStatement);
         // ~java.sql.Connection
-        DB2ForZosDataBaseMetadata db2ZosMetadata = new DB2ForZosDataBaseMetadata(sqlConnection);
-        ResultSet tablesResult = null;
-        try {
-            tablesResult = db2ZosMetadata.getTables(catalog, schema, tableNamePattern, types);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
+
+        ResultSet tablesResult = mockMetadata(catalog, schema, tableNamePattern, types, sqlConnection);
         Assert.assertTrue(tablesResult != null);
         Assert.assertTrue(tablesResult instanceof DB2ForZosResultSet);
         if (tablesResult instanceof DB2ForZosResultSet) {
@@ -175,44 +123,17 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = null;
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  type in('T' , 'V' , 'S' , 'A')"; //$NON-NLS-1$ 
         String[] types = new String[] { TableType.TABLE.name(), TableType.VIEW.name(), TableType.SYNONYM.name(),
                 TableType.ALIAS.name() };
-        // java.sql.ResultSet mock
-        ResultSet resultSet = Mockito.mock(ResultSet.class);
-        try {
-            Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
-            Mockito.when(resultSet.getString("NAME")).thenReturn("tableName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("CREATOR")).thenReturn("schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("TYPE")).thenReturn("string"); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (SQLException e3) {
-            fail(e3.getMessage());
-        }
-        // ~java.sql.ResultSet
+        ResultSet resultSet = mockResultSet();
 
         // java.sql.Statment mock
-        Statement sqlStatement = Mockito.mock(Statement.class);
-        try {
-            Mockito.when(sqlStatement.executeQuery(exceptSql)).thenReturn(resultSet);
-        } catch (SQLException e2) {
-            fail(e2.getMessage());
-        }
+        PreparedStatement sqlStatement = mockPreparedStatement(resultSet);
         // ~java.sql.Statment
         // java.sql.Connection mock
-        Connection sqlConnection = Mockito.mock(Connection.class);
-        try {
-            Mockito.when(sqlConnection.createStatement()).thenReturn(sqlStatement);
-        } catch (SQLException e1) {
-            fail(e1.getMessage());
-        }
+        Connection sqlConnection = mockConnection(sqlStatement);
         // ~java.sql.Connection
-        DB2ForZosDataBaseMetadata db2ZosMetadata = new DB2ForZosDataBaseMetadata(sqlConnection);
-        ResultSet tablesResult = null;
-        try {
-            tablesResult = db2ZosMetadata.getTables(catalog, schema, tableNamePattern, types);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
+        ResultSet tablesResult = mockMetadata(catalog, schema, tableNamePattern, types, sqlConnection);
         Assert.assertTrue(tablesResult != null);
         Assert.assertTrue(tablesResult instanceof DB2ForZosResultSet);
         if (tablesResult instanceof DB2ForZosResultSet) {
@@ -237,43 +158,18 @@ public class DB2ForZosDataBaseMetadataTest {
         String catalog = "tbi"; //$NON-NLS-1$
         String schema = null;
         String tableNamePattern = null;
-        String exceptSql = "SELECT * FROM SYSIBM.SYSTABLES where  type in('T')"; //$NON-NLS-1$
         String[] types = new String[] { TableType.TABLE.name() };
         // java.sql.ResultSet mock
-        ResultSet resultSet = Mockito.mock(ResultSet.class);
-        try {
-            Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
-            Mockito.when(resultSet.getString("NAME")).thenReturn("tableName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("CREATOR")).thenReturn("schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
-            Mockito.when(resultSet.getString("TYPE")).thenReturn("string"); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (SQLException e3) {
-            fail(e3.getMessage());
-        }
+        ResultSet resultSet = mockResultSet();
         // ~java.sql.ResultSet
 
         // java.sql.Statment mock
-        Statement sqlStatement = Mockito.mock(Statement.class);
-        try {
-            Mockito.when(sqlStatement.executeQuery(exceptSql)).thenReturn(resultSet);
-        } catch (SQLException e2) {
-            fail(e2.getMessage());
-        }
+        PreparedStatement sqlStatement = mockPreparedStatement(resultSet);
         // ~java.sql.Statment
         // java.sql.Connection mock
-        Connection sqlConnection = Mockito.mock(Connection.class);
-        try {
-            Mockito.when(sqlConnection.createStatement()).thenReturn(sqlStatement);
-        } catch (SQLException e1) {
-            fail(e1.getMessage());
-        }
+        Connection sqlConnection = mockConnection(sqlStatement);
         // ~java.sql.Connection
-        DB2ForZosDataBaseMetadata db2ZosMetadata = new DB2ForZosDataBaseMetadata(sqlConnection);
-        ResultSet tablesResult = null;
-        try {
-            tablesResult = db2ZosMetadata.getTables(catalog, schema, tableNamePattern, types);
-        } catch (SQLException e) {
-            fail(e.getMessage());
-        }
+        ResultSet tablesResult = mockMetadata(catalog, schema, tableNamePattern, types, sqlConnection);
         Assert.assertTrue(tablesResult != null);
         Assert.assertTrue(tablesResult instanceof DB2ForZosResultSet);
         if (tablesResult instanceof DB2ForZosResultSet) {
@@ -285,5 +181,79 @@ public class DB2ForZosDataBaseMetadataTest {
             }
 
         }
+    }
+
+    /**
+     * DOC yyin Comment method "mockMetadata".
+     * 
+     * @param catalog
+     * @param schema
+     * @param tableNamePattern
+     * @param types
+     * @param sqlConnection
+     * @return
+     */
+    private ResultSet mockMetadata(String catalog, String schema, String tableNamePattern, String[] types,
+            Connection sqlConnection) {
+        DB2ForZosDataBaseMetadata db2ZosMetadata = null;
+        ResultSet tablesResult = null;
+        try {
+            db2ZosMetadata = new DB2ForZosDataBaseMetadata(sqlConnection);
+            tablesResult = db2ZosMetadata.getTables(catalog, schema, tableNamePattern, types);
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+        return tablesResult;
+    }
+
+    /**
+     * DOC yyin Comment method "mockResultSet".
+     * 
+     * @return
+     */
+    private ResultSet mockResultSet() {
+        ResultSet resultSet = Mockito.mock(ResultSet.class);
+        try {
+            Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
+            Mockito.when(resultSet.getString("NAME")).thenReturn("tableName"); //$NON-NLS-1$ //$NON-NLS-2$
+            Mockito.when(resultSet.getString("CREATOR")).thenReturn("schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
+            Mockito.when(resultSet.getString("TYPE")).thenReturn("string"); //$NON-NLS-1$ //$NON-NLS-2$
+        } catch (SQLException e3) {
+            fail(e3.getMessage());
+        }
+        return resultSet;
+    }
+
+    /**
+     * DOC yyin Comment method "mockPreparedStatement".
+     * 
+     * @param resultSet
+     * @return
+     */
+    private PreparedStatement mockPreparedStatement(ResultSet resultSet) {
+        PreparedStatement sqlStatement = Mockito.mock(PreparedStatement.class);
+        try {
+            Mockito.when(sqlStatement.executeQuery()).thenReturn(resultSet);
+        } catch (SQLException e2) {
+            fail(e2.getMessage());
+        }
+        return sqlStatement;
+    }
+
+    /**
+     * DOC yyin Comment method "mockConnection".
+     * 
+     * @param exceptSql
+     * @param sqlStatement
+     * @return
+     */
+    private Connection mockConnection(PreparedStatement sqlStatement) {
+        Connection sqlConnection = Mockito.mock(Connection.class);
+        try {
+            Mockito.when(sqlConnection.prepareStatement(Mockito.anyString())).thenReturn(sqlStatement);
+        } catch (SQLException e1) {
+            fail(e1.getMessage());
+        }
+        return sqlConnection;
     }
 }
