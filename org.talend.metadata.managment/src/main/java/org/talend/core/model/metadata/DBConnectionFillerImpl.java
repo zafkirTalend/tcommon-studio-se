@@ -940,6 +940,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (tableName == null || tablesToFilter.contains(tableName)) {
                     continue;
                 }
+                String tableOwner = null;
+                if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
+                    tableOwner = tableSchema;
+                }
                 if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
                     continue;
                 }
@@ -976,6 +980,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     metadatatable.setTableType(temptableType);
                 }
                 metadatatable.setLabel(metadatatable.getName());
+                if (tableOwner != null) {
+                    ColumnSetHelper.setTableOwner(tableOwner, metadatatable);
+                }
                 if (tableComment != null) {
                     metadatatable.setComment(tableComment);
                     ColumnSetHelper.setComment(tableComment, metadatatable);
@@ -1003,6 +1010,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 metadatatable.setName(nameKey);
                                 metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
                                 metadatatable.setLabel(metadatatable.getName());
+                                if (schemaPattern != null) {
+                                    ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                }
                                 list.add(metadatatable);
                             }
                         }
@@ -1025,6 +1035,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             metadatatable.setName(nameKey);
                             metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
                             metadatatable.setLabel(metadatatable.getName());
+                            if (schemaPattern != null) {
+                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                            }
                             list.add(metadatatable);
                         }
                     }
