@@ -820,7 +820,7 @@ public class NodeUtil {
 
     public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
         List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
-                EParameterFieldType.COMPONENT_LIST);
+                EParameterFieldType.COMPONENT_LIST ,EParameterFieldType.COLUMN_LIST);
         if (needQuoteList.contains(ep.getFieldType())) {
             return "\"" + ElementParameterParser.getValue(node, "__" + ep.getName() + "__") + "\"";
         } else {
