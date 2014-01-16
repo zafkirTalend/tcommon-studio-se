@@ -150,6 +150,10 @@ public final class ConnectionUtils {
         return url.indexOf("hive") > -1; //$NON-NLS-1$
     }
 
+    public static boolean isHiveConnection(String url) {
+        return url != null && url.startsWith("jdbc:hive"); //$NON-NLS-1$ 
+    }
+
     /**
      * Method "isAccess".
      * 
