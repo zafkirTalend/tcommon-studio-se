@@ -408,7 +408,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             } else {
                 catalogNames = dbJDBCMetadata.getCatalogs();
             }
-            List<String> filterList = new ArrayList<String>();
+            // this filter is for filter schema later
+            List<String> schemaFilterList = new ArrayList<String>();
             if (catalogNames != null) {
                 boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
                 boolean isSybase = MetadataConnectionUtils.isSybase(dbJDBCMetadata);
@@ -450,11 +451,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                         EDatabaseTypeName.AS400.getDisplayName())) {
                             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
-                            postFillCatalog(metaConnection, catalogList, filterList,
+                            postFillCatalog(catalogList, catalogFilter, schemaFilterList,
                                     TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
                             break;
                         } else if (isCreateElement(catalogFilter, catalogName)) {
-                            postFillCatalog(metaConnection, catalogList, filterList, catalogName, dbConn);
+                            postFillCatalog(catalogList, catalogFilter, schemaFilterList, catalogName, dbConn);
                         }
                     }
                     // ~11412
@@ -466,7 +467,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     for (Catalog catalog : catalogList) {
                         List<Schema> schemaList = new ArrayList<Schema>();
                         try {
-                            schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, filterList);
+                            schemaList = fillSchemaToCatalog(dbConn, dbJDBCMetadata, catalog, schemaFilterList);
                             if (!schemaList.isEmpty() && schemaList.size() > 0) {
                                 CatalogHelper.addSchemas(schemaList, catalog);
                             }
@@ -507,8 +508,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                     List<String> schemaName = new ArrayList<String>();
                                     List<Schema> schemas = CatalogHelper.getSchemas(c);
                                     for (Schema schema : schemas) {
-                                        if (filterList != null) {
-                                            if (filterList.contains(schema.getName())) {
+                                        if (schemaFilterList != null) {
+                                            if (schemaFilterList.contains(schema.getName())) {
                                                 filterSchemas.add(schema);
                                                 schemaName.add(schema.getName());
                                             } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
@@ -647,6 +648,47 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return str == null || str.length() == 0;
     }
 
+    private List<String> postFillCatalog(List<Catalog> catalogList, List<String> catalogFilterList,
+            List<String> scheamFilterList, String catalogName, Connection dbConn) {
+        Catalog catalog = CatalogHelper.createCatalog(catalogName);
+        catalogList.add(catalog);
+        DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
+
+        if (dbConnection.getDatabaseType() != null
+                && dbConnection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {// AS400
+            // TDI-17986
+            IMetadataConnection iMetadataCon = ConvertionHelper.convert(dbConnection);
+            if (iMetadataCon != null) {
+                if (!StringUtils.isEmpty(iMetadataCon.getDatabase()) && !catalogFilterList.contains(iMetadataCon.getDatabase())) {
+                    // TDI-23485:filter database for AS400,should not use schema filter
+                    catalogFilterList.add(iMetadataCon.getDatabase());
+                }
+                String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
+                        iMetadataCon.getAdditionalParams());
+                if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
+                    String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
+                    if (multiSchems != null) {
+                        for (String s : multiSchems) {
+                            if (!StringUtils.isEmpty(s) && !scheamFilterList.contains(s)) {
+                                scheamFilterList.add(s);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            String uiSchema = dbConnection.getUiSchema();
+            if (uiSchema != null) {
+                uiSchema = TalendCWMService.getReadableName(dbConn, uiSchema);
+            }
+            if (!StringUtils.isBlank(uiSchema) && !scheamFilterList.contains(uiSchema)) {
+                scheamFilterList.add(uiSchema);
+            }
+        }
+        return scheamFilterList;
+    }
+
+    @Deprecated
     private List<String> postFillCatalog(IMetadataConnection metaConnection, List<Catalog> catalogList, List<String> filterList,
             String catalogName, Connection dbConn) {
         Catalog catalog = CatalogHelper.createCatalog(catalogName);
