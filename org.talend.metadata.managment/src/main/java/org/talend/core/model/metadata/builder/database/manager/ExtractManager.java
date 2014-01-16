@@ -248,6 +248,7 @@ public class ExtractManager {
         if (limit != null && limit.length > 0) {
             limitNum = limit[0];
         }
+        boolean isOracle = MetadataConnectionUtils.isOracle(extractMeta.getConn().getMetaData());
         while (rsTables.next()) {
             index++;
             // must be here, else will return limitNum+1 tables
@@ -269,10 +270,12 @@ public class ExtractManager {
                 tableName = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
                 isSynonym = true;
             }
-            if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+            if (tableName == null || tablesToFilter.contains(tableName)) {
                 continue;
             }
-
+            if (!isOracle && tableName.startsWith("/")) {
+                continue;
+            }
             medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
@@ -836,6 +839,10 @@ public class ExtractManager {
             throws SQLException {
         ResultSet columns = null;
         if (dbMetaData != null) {
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbMetaData);
+            if (isOracle && tableName.contains("/")) {//$NON-NLS-1$
+                tableName = tableName.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
+            }
             columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
         }
         return columns;
