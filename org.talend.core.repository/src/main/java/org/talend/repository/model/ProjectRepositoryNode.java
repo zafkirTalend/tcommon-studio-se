@@ -101,6 +101,7 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.utils.sql.ConnectionUtils;
 
 import us.monoid.json.JSONException;
 import us.monoid.json.JSONObject;
@@ -1378,13 +1379,15 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             // createTables(recBinNode, node, repObj, metadataConnection.getTables());
 
             // 4.Queries:
-            RepositoryNode queriesNode = new StableRepositoryNode(node,
-                    Messages.getString("ProjectRepositoryNode.queries"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
-            node.getChildren().add(queriesNode);
-            QueriesConnection queriesConnection = (metadataConnection).getQueries();
-            if (queriesConnection != null) {
-                createTables(recBinNode, queriesNode, repObj, queriesConnection.getQuery(),
-                        ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+            if (!ConnectionUtils.isHiveConnection(dbconn.getURL())) {
+                RepositoryNode queriesNode = new StableRepositoryNode(node,
+                        Messages.getString("ProjectRepositoryNode.queries"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+                node.getChildren().add(queriesNode);
+                QueriesConnection queriesConnection = (metadataConnection).getQueries();
+                if (queriesConnection != null) {
+                    createTables(recBinNode, queriesNode, repObj, queriesConnection.getQuery(),
+                            ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+                }
             }
 
             // 5. Change Data Capture
