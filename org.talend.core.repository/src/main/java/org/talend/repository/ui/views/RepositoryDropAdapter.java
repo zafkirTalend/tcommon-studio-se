@@ -333,7 +333,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             }
         };
 
-        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>("Move or Copy", this) {
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>("Move or Copy", this) { //$NON-NLS-1$
 
             @Override
             protected void run() throws LoginException, PersistenceException {
@@ -421,6 +421,11 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                     if (isLock) {
                         String errorMsg = null;
                         IRepositoryViewObject objectToCopy = repositoryNode.getObject();
+                        // TDI-14680 add a warning message when move a directory that it has locked jobs.
+                        IRepositoryNode node = objectToCopy.getRepositoryNode();
+                        if (node.getObjectType().getType().equalsIgnoreCase(Messages.getString("RepositoryDropAdapter_folder"))) { //$NON-NLS-1$
+                            errorMsg = Messages.getString("RepositoryDropAdapter_errorMsg"); //$NON-NLS-1$
+                        }
                         if (ProxyRepositoryFactory.getInstance().getStatus(objectToCopy) == ERepositoryStatus.LOCK_BY_USER) {
                             errorMsg = Messages.getString("RepositoryDropAdapter_lockedByYou"); //$NON-NLS-1$
                         }
@@ -476,7 +481,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                                 MoveObjectAction.getInstance().executeMulti(nodeArray, targetNode, null, true);
                             } catch (Exception e) {
                                 throw new CoreException(new org.eclipse.core.runtime.Status(IStatus.ERROR, FrameworkUtil
-                                        .getBundle(this.getClass()).getSymbolicName(), "Error", e));
+                                        .getBundle(this.getClass()).getSymbolicName(), "Error", e)); //$NON-NLS-1$
                             }
                         };
 

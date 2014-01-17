@@ -218,7 +218,15 @@ public class MoveObjectAction {
 
     public boolean isLock(RepositoryNode sourceNode) {
         boolean isLock = false;
-
+        if (sourceNode.getObjectType().getType().equals("FOLDER") && sourceNode.getChildren() != null) {
+            List<IRepositoryNode> nodes = sourceNode.getChildren();
+            for (IRepositoryNode node : nodes) {
+                isLock = isLock((RepositoryNode) node);
+                if (isLock) {
+                    return isLock;
+                }
+            }
+        }
         if (ProxyRepositoryFactory.getInstance().getRepositoryContext().isEditableAsReadOnly()) {
             return false;
         }
