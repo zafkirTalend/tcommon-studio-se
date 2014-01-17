@@ -13,11 +13,14 @@
 package org.talend.commons.utils.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * DOC bqian class global comment. Detailled comment
@@ -203,12 +206,20 @@ public class DB2ForZosDataBaseMetadata extends PackageFakeDatabaseMetadata {
         // ADD xqliu 2012-04-17 TDQ-5118
         sql = addTypesToSql(sql, types, and);
         // ~ TDQ-5118
+        // Added TDQ-8523 20140114 yyin, add the filter for table/views
+        if (!StringUtils.isEmpty(tableNamePattern)) {
+            sql = sql + " and NAME like ?";//$NON-NLS-1$
+        }
         ResultSet rs = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
         try {
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(sql);
+            stmt = connection.prepareStatement(sql);
+            // Added TDQ-8523 20140114 yyin, add the filter for table/views
+            if (!StringUtils.isEmpty(tableNamePattern)) {
+                stmt.setString(1, tableNamePattern);
+            }// ~
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String name = rs.getString("NAME"); //$NON-NLS-1$
