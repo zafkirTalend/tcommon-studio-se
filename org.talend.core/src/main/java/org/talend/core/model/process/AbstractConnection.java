@@ -40,12 +40,12 @@ public abstract class AbstractConnection implements IConnection {
     private boolean activate;
 
     private String condition;
-    
+
     private String routeConnectionType;
-    
-    //TESB-8043
+
+    // TESB-8043
     private String endChoice;
-    
+
     private String exceptionList;
 
     private boolean readOnly;
@@ -116,29 +116,29 @@ public abstract class AbstractConnection implements IConnection {
     public String getCondition() {
         return this.condition;
     }
-    
+
     public String getRouteConnectionType() {
         return this.routeConnectionType;
     }
-    
-    //TESB-8043
+
+    // TESB-8043
     public String getEndChoice() {
-		return endChoice;
-	}
-    
+        return endChoice;
+    }
+
     public String getExceptionList() {
         return this.exceptionList;
     }
-    
-    //TESB-8043
+
+    // TESB-8043
     public void setEndChoice(String endChoice) {
-		this.endChoice = endChoice;
-	}
-    
+        this.endChoice = endChoice;
+    }
+
     public void setRouteConnectionType(String routeConnectionType) {
         this.routeConnectionType = routeConnectionType;
     }
-    
+
     public void setExceptionList(String exceptionList) {
         this.exceptionList = exceptionList;
     }
@@ -164,7 +164,7 @@ public abstract class AbstractConnection implements IConnection {
         this.elementParameters = elementParameters;
     }
 
-    public void setTraceData(Map<String, String> traceData) {
+    public void setTraceData(Map<String, TraceData> traceData) {
     }
 
     public boolean isReadOnly() {
@@ -286,7 +286,7 @@ public abstract class AbstractConnection implements IConnection {
         return null;
     }
 
-    public Map<String, String> getTraceData() {
+    public Map<String, TraceData> getTraceData() {
         return null;
     }
 

@@ -80,9 +80,9 @@ public interface IConnection extends IElement {
 
     public void setActivate(boolean activate);
 
-    public void setTraceData(Map<String, String> traceData);
+    public void setTraceData(Map<String, TraceData> traceData);
 
-    public Map<String, String> getTraceData();
+    public Map<String, TraceData> getTraceData();
 
     public String getConnectorName();
 
