@@ -82,7 +82,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    public boolean isNextRow() {
+    public synchronized boolean isNextRow() {
         if (!openSocket) {
             return false;
         }
@@ -100,7 +100,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    public boolean isNextBreakpoint() {
+    public synchronized boolean isNextBreakpoint() {
         if (!openSocket) {
             return false;
         }
@@ -118,7 +118,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    public void waitForUserAction() throws InterruptedException {
+    public synchronized void waitForUserAction() throws InterruptedException {
         if (!openSocket) {
             return;
         }
@@ -142,7 +142,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    public boolean isPause() {
+    public synchronized boolean isPause() {
         if (!openSocket) {
             return false;
         }
@@ -160,13 +160,13 @@ public class RunTrace implements Runnable {
         }
     }
 
-    private void askForStatus() throws IOException {
+    private synchronized void askForStatus() throws IOException {
         oos.writeObject(TraceStatusBean.ID_STATUS);
     }
 
     private String connectionId = "";
 
-    public void sendTrace(String connectionId, String startNodeCid, LinkedHashMap datas) throws IOException {
+    public synchronized void sendTrace(String connectionId, String startNodeCid, LinkedHashMap datas) throws IOException {
         if (!openSocket) {
             return;
         }
