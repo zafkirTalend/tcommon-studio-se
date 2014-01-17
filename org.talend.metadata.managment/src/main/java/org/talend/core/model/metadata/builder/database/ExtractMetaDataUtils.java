@@ -356,8 +356,9 @@ public class ExtractMetaDataUtils {
      * 
      * @param conn2
      * @return
+     * @throws SQLException
      */
-    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
+    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) throws SQLException {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
     }
