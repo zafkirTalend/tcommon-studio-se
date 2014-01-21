@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -315,13 +315,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (property != null) {
                     if (curItem instanceof FolderItem) {
                         FolderItem subFolder = (FolderItem) curItem;
-                        Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
-                        subFolder.setParent(currentFolderItem);
+                        IFolder existFolder = physicalFolder.getFolder(subFolder.getProperty().getLabel());
+                        if (existFolder != null && existFolder.exists()) {
+                            Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
+                            subFolder.setParent(currentFolderItem);
 
-                        cont.setProperty(property);
-                        cont.setId(property.getId());
-                        addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
-                        folderNamesFounds.add(curItem.getProperty().getLabel());
+                            cont.setProperty(property);
+                            cont.setId(property.getId());
+                            addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
+                            folderNamesFounds.add(curItem.getProperty().getLabel());
+                        }
                     } else {
                         if (property.eResource() != null) {
                             property.getItem().setParent(currentFolderItem);
