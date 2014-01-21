@@ -222,24 +222,18 @@ public final class ConnectionUtils {
         ReturnCode rc = new ReturnCode(true);
         try {
             if (connection != null && !connection.isClosed()) {
+                String url = connection.getMetaData().getURL();
+                boolean isHsql = isHsql(url);
+                if (isHsql) {
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
+                }
                 connection.close();
             }
         } catch (SQLException e) {
             rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false); //$NON-NLS-1$
         }
         return rc;
-    }
-
-    public static ReturnCode closeConnection(final Connection connection, boolean isHSQLConnection) {
-        if (connection != null && isHSQLConnection) {
-            try {
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
-            } catch (SQLException e) {
-                // exception of shutdown success. no need to catch.
-            }
-        }
-        return closeConnection(connection);
     }
 
     /**

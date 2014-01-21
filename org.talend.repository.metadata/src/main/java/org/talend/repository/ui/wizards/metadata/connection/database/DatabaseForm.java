@@ -4203,8 +4203,7 @@ public class DatabaseForm extends AbstractForm {
                 } catch (SQLException exp) {
                     ExceptionHandler.process(exp);
                 } finally {
-                    boolean isHsql = ConnectionUtils.isHsql(connection.getURL());
-                    ConnectionUtils.closeConnection(sqlConn, isHsql);
+                    ConnectionUtils.closeConnection(sqlConn);
                 }
             }
         }

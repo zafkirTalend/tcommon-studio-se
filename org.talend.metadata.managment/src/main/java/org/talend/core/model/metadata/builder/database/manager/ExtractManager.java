@@ -400,8 +400,7 @@ public class ExtractManager {
             log.error(e);
         } finally {
             // bug 22619
-            boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
-            ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
+            ConnectionUtils.closeConnection(extractMeta.getConn());
         }
 
         return metadataColumns;
@@ -522,8 +521,7 @@ public class ExtractManager {
             throw new RuntimeException(e);
         } finally {
             if (needCreateAndClose) {
-                boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
-                ConnectionUtils.closeConnection(extractMeta.getConn(), isHSQL);
+                ConnectionUtils.closeConnection(extractMeta.getConn());
             }
         }
 

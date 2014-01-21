@@ -1005,9 +1005,7 @@ public class SelectorTableForm extends AbstractForm {
                 ExceptionHandler.process(e);
             } finally {
                 // bug 22619
-                boolean isHSQL = ConnectionUtils.isHsql(metadataConnection.getUrl());
-                ConnectionUtils.closeConnection(sqlConn,
-                        isHSQL || EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType));
+                ConnectionUtils.closeConnection(sqlConn);
                 if (derbyDriver != null) {
                     try {
                         derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$

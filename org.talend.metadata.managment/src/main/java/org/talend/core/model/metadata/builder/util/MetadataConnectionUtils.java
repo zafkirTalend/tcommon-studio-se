@@ -597,12 +597,11 @@ public class MetadataConnectionUtils {
             throw new RuntimeException(e);
         } finally {
             // ADD msjian TDQ-5952: we should close the unused connection at once.
-            boolean isHsql = ConnectionUtils.isHsql(metadataBean.getUrl());
             if (connList != null && !connList.isEmpty()) {
                 for (int i = 0; i < connList.size(); i++) {
                     if (connList.get(i) instanceof java.sql.Connection) {
                         java.sql.Connection con = (java.sql.Connection) connList.get(i);
-                        ConnectionUtils.closeConnection(con, isHsql);
+                        ConnectionUtils.closeConnection(con);
                     }
                 }
             }
@@ -1005,7 +1004,7 @@ public class MetadataConnectionUtils {
         } finally {
             boolean hsql = ConnectionUtils.isHsql(metadataConnection.getUrl());
             if (hsql) {
-                ConnectionUtils.closeConnection(sqlConn, true);
+                ConnectionUtils.closeConnection(sqlConn);
             }
             closeDerbyDriver();
         }

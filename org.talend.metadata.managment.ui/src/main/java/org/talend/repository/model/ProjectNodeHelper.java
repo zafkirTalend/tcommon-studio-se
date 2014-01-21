@@ -540,8 +540,7 @@ public class ProjectNodeHelper {
         } catch (SQLException e) {
             throw e;
         } finally {
-            boolean isHsql = ConnectionUtils.isHsql(null);
-            ConnectionUtils.closeConnection(sqlConn, isHsql);
+            ConnectionUtils.closeConnection(sqlConn);
             MetadataConnectionUtils.closeDerbyDriver();
         }
     }

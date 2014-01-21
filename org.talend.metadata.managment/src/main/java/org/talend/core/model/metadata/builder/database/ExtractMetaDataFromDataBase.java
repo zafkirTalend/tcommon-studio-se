@@ -329,8 +329,7 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
-            boolean isHSQL = ConnectionUtils.isHsql(url);
-            ConnectionUtils.closeConnection(connection, isHSQL);
+            ConnectionUtils.closeConnection(connection);
 
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
             if (extractManager != null) {
