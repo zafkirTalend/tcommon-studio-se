@@ -819,12 +819,18 @@ public class NodeUtil {
     }
 
     public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
+        String value = "";
         List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
-                EParameterFieldType.COMPONENT_LIST ,EParameterFieldType.COLUMN_LIST);
+                EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST);
+        value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
         if (needQuoteList.contains(ep.getFieldType())) {
-            return "\"" + ElementParameterParser.getValue(node, "__" + ep.getName() + "__") + "\"";
-        } else {
-            return ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
+            value = "\"" + value + "\"";
         }
+        List<EParameterFieldType> needRemoveCRLFList = Arrays.asList(EParameterFieldType.MEMO, EParameterFieldType.MEMO_JAVA,
+                EParameterFieldType.MEMO_SQL);
+        if (needRemoveCRLFList.contains(ep.getFieldType())) {
+            value = value.replaceAll("[\r\n]", " ");
+        }
+        return value;
     }
 }
