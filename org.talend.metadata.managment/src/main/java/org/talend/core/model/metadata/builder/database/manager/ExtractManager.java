@@ -248,7 +248,11 @@ public class ExtractManager {
         if (limit != null && limit.length > 0) {
             limitNum = limit[0];
         }
-        boolean isOracle = MetadataConnectionUtils.isOracle(extractMeta.getConn().getMetaData());
+        boolean isOracle = false;
+        if (extractMeta != null && extractMeta.getConn() != null) {
+            isOracle = MetadataConnectionUtils.isOracle(extractMeta.getConn().getMetaData());
+        }
+
         while (rsTables.next()) {
             index++;
             // must be here, else will return limitNum+1 tables
