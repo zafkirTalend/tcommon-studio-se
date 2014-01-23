@@ -944,9 +944,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tableSchema;
                 }
-                if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
-                    continue;
-                }
+                //                if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
+                // continue;
+                // }
                 if (!isOracle8i) {
                     try {
                         tableComment = tables.getString(GetTable.REMARKS.name());
@@ -1270,14 +1270,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             // TDI-28578 Metadata wizard doesn't display tables starting with '/'
-            if (iMetadataConnection.getCurrentConnection() instanceof Connection) {
-                boolean isOracle = MetadataConnectionUtils.isOracle((Connection) iMetadataConnection.getCurrentConnection());
-                boolean isOracle8i = MetadataConnectionUtils.isOracle8i((Connection) iMetadataConnection.getCurrentConnection());
-                boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC((Connection) iMetadataConnection
-                        .getCurrentConnection());
-                if ((isOracle || isOracleJdbc || isOracle8i) && tablePattern.contains("/")) {//$NON-NLS-1$
-                    tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
-                }
+            if (tablePattern.contains("/")) {//$NON-NLS-1$
+                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
@@ -1435,8 +1429,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
-            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
-            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
+            if (tablePattern.contains("/")) {//$NON-NLS-1$
                 tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
