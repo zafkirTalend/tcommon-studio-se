@@ -820,16 +820,21 @@ public class NodeUtil {
 
     public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
         String value = "";
-        List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
-                EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST);
         value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
-        if (needQuoteList.contains(ep.getFieldType())) {
-            value = "\"" + value + "\"";
+        List<EParameterFieldType> escapeQuotation = Arrays.asList(EParameterFieldType.MEMO_JAVA);
+        if (escapeQuotation.contains(ep.getFieldType())) {
+            value = value.replaceAll("\\\"", "\\\\\\\"");
         }
         List<EParameterFieldType> needRemoveCRLFList = Arrays.asList(EParameterFieldType.MEMO, EParameterFieldType.MEMO_JAVA,
                 EParameterFieldType.MEMO_SQL);
         if (needRemoveCRLFList.contains(ep.getFieldType())) {
             value = value.replaceAll("[\r\n]", " ");
+        }
+        List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
+                EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
+                EParameterFieldType.MEMO_JAVA);
+        if (needQuoteList.contains(ep.getFieldType())) {
+            value = "\"" + value + "\"";
         }
         return value;
     }
