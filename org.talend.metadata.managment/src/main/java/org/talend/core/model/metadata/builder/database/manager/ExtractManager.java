@@ -248,10 +248,6 @@ public class ExtractManager {
         if (limit != null && limit.length > 0) {
             limitNum = limit[0];
         }
-        boolean isOracle = false;
-        if (extractMeta != null && extractMeta.getConn() != null) {
-            isOracle = MetadataConnectionUtils.isOracle(extractMeta.getConn().getMetaData());
-        }
 
         while (rsTables.next()) {
             index++;
@@ -277,9 +273,9 @@ public class ExtractManager {
             if (tableName == null || tablesToFilter.contains(tableName)) {
                 continue;
             }
-            if (!isOracle && tableName.startsWith("/")) {
-                continue;
-            }
+            // if (!isOracle && tableName.startsWith("/")) {
+            // continue;
+            // }
             medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
@@ -843,8 +839,7 @@ public class ExtractManager {
             throws SQLException {
         ResultSet columns = null;
         if (dbMetaData != null) {
-            boolean isOracle = MetadataConnectionUtils.isOracle(dbMetaData);
-            if (isOracle && tableName.contains("/")) {//$NON-NLS-1$
+            if (tableName.contains("/")) {//$NON-NLS-1$
                 tableName = tableName.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
             }
             columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
