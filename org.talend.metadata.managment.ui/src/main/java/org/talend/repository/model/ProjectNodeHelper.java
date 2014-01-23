@@ -540,7 +540,9 @@ public class ProjectNodeHelper {
         } catch (SQLException e) {
             throw e;
         } finally {
-            ConnectionUtils.closeConnection(sqlConn);
+            if (sqlConn != null) {
+                ConnectionUtils.closeConnection(sqlConn);
+            }
             MetadataConnectionUtils.closeDerbyDriver();
         }
     }

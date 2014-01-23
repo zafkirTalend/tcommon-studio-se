@@ -185,7 +185,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } catch (IllegalAccessException e) {
             CommonExceptionHandler.process(e);
         } finally {
-            ConnectionUtils.closeConnection(sqlConnection);
+            if (sqlConnection != null) {
+                ConnectionUtils.closeConnection(sqlConnection);
+            }
             if (driver != null
                     && MetadataConnectionUtils.isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {
                 try {

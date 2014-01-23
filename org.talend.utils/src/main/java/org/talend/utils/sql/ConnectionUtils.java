@@ -222,11 +222,13 @@ public final class ConnectionUtils {
         ReturnCode rc = new ReturnCode(true);
         try {
             if (connection != null && !connection.isClosed()) {
-                String url = connection.getMetaData().getURL();
-                boolean isHsql = isHsql(url);
-                if (isHsql) {
-                    Statement statement = connection.createStatement();
-                    statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
+                if (connection.getMetaData() != null) {
+                    String url = connection.getMetaData().getURL();
+                    boolean isHsql = isHsql(url);
+                    if (isHsql) {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
+                    }
                 }
                 connection.close();
             }

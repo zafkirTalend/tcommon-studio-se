@@ -329,8 +329,9 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
-            ConnectionUtils.closeConnection(connection);
-
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
+            }
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
             if (extractManager != null) {
                 extractManager.closeConnection(null, wapperDriver);

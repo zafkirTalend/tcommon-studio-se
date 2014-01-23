@@ -1005,7 +1005,9 @@ public class SelectorTableForm extends AbstractForm {
                 ExceptionHandler.process(e);
             } finally {
                 // bug 22619
-                ConnectionUtils.closeConnection(sqlConn);
+                if (sqlConn != null) {
+                    ConnectionUtils.closeConnection(sqlConn);
+                }
                 if (derbyDriver != null) {
                     try {
                         derbyDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$

@@ -400,7 +400,9 @@ public class ExtractManager {
             log.error(e);
         } finally {
             // bug 22619
-            ConnectionUtils.closeConnection(extractMeta.getConn());
+            if (extractMeta.getConn() != null) {
+                ConnectionUtils.closeConnection(extractMeta.getConn());
+            }
         }
 
         return metadataColumns;
@@ -520,7 +522,7 @@ public class ExtractManager {
             log.error(e.toString());
             throw new RuntimeException(e);
         } finally {
-            if (needCreateAndClose) {
+            if (needCreateAndClose && extractMeta.getConn() != null) {
                 ConnectionUtils.closeConnection(extractMeta.getConn());
             }
         }

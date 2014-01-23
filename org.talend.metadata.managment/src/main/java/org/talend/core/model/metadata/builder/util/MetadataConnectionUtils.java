@@ -1003,7 +1003,7 @@ public class MetadataConnectionUtils {
             log.error(e, e);
         } finally {
             boolean hsql = ConnectionUtils.isHsql(metadataConnection.getUrl());
-            if (hsql) {
+            if (hsql && sqlConn != null) {
                 ConnectionUtils.closeConnection(sqlConn);
             }
             closeDerbyDriver();

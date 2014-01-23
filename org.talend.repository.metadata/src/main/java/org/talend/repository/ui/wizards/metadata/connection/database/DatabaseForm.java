@@ -4203,7 +4203,9 @@ public class DatabaseForm extends AbstractForm {
                 } catch (SQLException exp) {
                     ExceptionHandler.process(exp);
                 } finally {
-                    ConnectionUtils.closeConnection(sqlConn);
+                    if (sqlConn != null) {
+                        ConnectionUtils.closeConnection(sqlConn);
+                    }
                 }
             }
         }

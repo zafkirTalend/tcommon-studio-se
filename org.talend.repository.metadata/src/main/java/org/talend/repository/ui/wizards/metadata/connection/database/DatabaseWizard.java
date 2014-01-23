@@ -787,7 +787,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
         } finally {
             // bug 22619
-            ConnectionUtils.closeConnection(sqlConn);
+            if (sqlConn != null) {
+                ConnectionUtils.closeConnection(sqlConn);
+            }
             MetadataConnectionUtils.closeDerbyDriver();
         }
     }
