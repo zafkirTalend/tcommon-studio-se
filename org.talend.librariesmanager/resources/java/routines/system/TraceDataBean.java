@@ -64,7 +64,6 @@ public class TraceDataBean implements TraceBean, Serializable {
      * 
      * @see routines.system.RunTrace.TraceBean#equals(routines.system.RunTrace.TraceBean)
      */
-    @Override
     public boolean equals(TraceBean traceBean) {
         // TODO Auto-generated method stub
         return false;
