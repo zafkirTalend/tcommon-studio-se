@@ -1413,7 +1413,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
             }
         }
         try {
-            if (loginType.equals(BASIC)) {
+            if (loginType.equalsIgnoreCase(BASIC)) {
                 salesforceAPI.resetAllProxy();
                 salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
                 salesforceAPI.login(endPoint, username, pwd, timeOut);

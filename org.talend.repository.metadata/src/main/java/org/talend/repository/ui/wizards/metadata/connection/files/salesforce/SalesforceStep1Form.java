@@ -906,7 +906,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
 
         if (getConnection().getLoginType() != null && !getConnection().getLoginType().equals("")) {
             authBtn.setText(getConnection().getLoginType());
-            if (getConnection().getLoginType().equals(BASIC)) {
+            if (getConnection().getLoginType().equalsIgnoreCase(BASIC)) {
                 authBtn.select(0);
                 stackLayout.topControl = basicComposite;
                 stackComposite.layout();
