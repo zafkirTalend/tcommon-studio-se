@@ -547,7 +547,7 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
             loginType = getContextModeManager().getOriginalValue(loginType);
         }
 
-        if (loginType.equals(BASIC)) {
+        if (loginType.equalsIgnoreCase(BASIC)) {
             metadataTableOrder = getMetadatasForSalesforce(webServiceUrl, userName, password, timeOut, moduleName, betchSize,
                     useProxy, useHttp, proxyHost, proxyPort, proxyUsername, proxyPassword, true);
         } else {

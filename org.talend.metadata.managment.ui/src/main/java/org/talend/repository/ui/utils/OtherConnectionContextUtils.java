@@ -342,7 +342,7 @@ public final class OtherConnectionContextUtils {
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        if (ssConn.getLoginType().equals(BASIC)) {
+        if (ssConn.getLoginType().equalsIgnoreCase(BASIC)) {
             paramName = prefixName + EParamName.WebServiceUrl;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrl());
 
@@ -484,7 +484,7 @@ public final class OtherConnectionContextUtils {
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        if (ssConn.getLoginType().equals(BASIC)) {
+        if (ssConn.getLoginType().equalsIgnoreCase(BASIC)) {
             paramName = prefixName + EParamName.WebServiceUrl;
             ssConn.setWebServiceUrl(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 

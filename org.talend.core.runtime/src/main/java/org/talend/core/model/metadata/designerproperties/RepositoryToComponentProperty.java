@@ -464,13 +464,13 @@ public class RepositoryToComponentProperty {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getWebServiceUrl())
                     || isContextMode(connection, connection.getWebServiceUrlTextForOAuth())) {
-                if (connection.getLoginType().equals("basic")) {
+                if (connection.getLoginType().equalsIgnoreCase("basic")) {
                     return connection.getWebServiceUrl();
                 } else {
                     return connection.getWebServiceUrlTextForOAuth();
                 }
             } else {
-                if (connection.getLoginType().equals("basic")) {
+                if (connection.getLoginType().equalsIgnoreCase("basic")) {
                     return TalendQuoteUtils.addQuotes(connection.getWebServiceUrl());
                 } else {
                     return TalendQuoteUtils.addQuotes(connection.getWebServiceUrlTextForOAuth());
@@ -585,7 +585,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getLoginType())) {
                 return connection.getLoginType();
             } else {
-                if (connection.getLoginType().equals("basic")) {
+                if (connection.getLoginType().equalsIgnoreCase("basic")) {
                     return "BASIC";
                 } else {
                     return "OAUTH";
