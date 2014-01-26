@@ -175,4 +175,12 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
      */
     void setContextName(String value);
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation" dataType="orgomg.cwm.objectmodel.core.String"
+     * @generated
+     */
+    String getConnectionTypeName();
+
 } // Connection

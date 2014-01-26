@@ -79,6 +79,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/contextName"/>
+      <genOperations ecoreOperation="metadata.ecore#//Connection/getConnectionTypeName"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MetadataColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/sourceType"/>
