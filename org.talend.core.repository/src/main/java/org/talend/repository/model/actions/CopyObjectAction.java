@@ -81,6 +81,10 @@ public class CopyObjectAction {
             return false;
         }
 
+        if (targetNode != null && targetNode.getType() == ENodeType.REPOSITORY_ELEMENT
+                && targetNode.getContentType() != ERepositoryObjectType.METADATA_VALIDATION_RULES) {
+            targetNode = targetNode.getParent();
+        }
         // Cannot copy folder or system folder :
         if (sourceNode.getType() != ENodeType.REPOSITORY_ELEMENT) {
             return false;
