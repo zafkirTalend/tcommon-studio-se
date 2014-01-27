@@ -31,7 +31,6 @@ public enum TraceStatusBean implements TraceBean, Serializable {
     STATUS_OK,
     STATUS_WAITING;
 
-    @Override
     public boolean equals(TraceBean traceBean) {
         if (traceBean != null && traceBean instanceof TraceStatusBean) {
             if (this == ((TraceStatusBean) traceBean)) {
