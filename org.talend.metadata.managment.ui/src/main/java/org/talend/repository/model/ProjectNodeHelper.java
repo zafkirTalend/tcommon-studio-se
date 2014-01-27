@@ -39,6 +39,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.utils.sql.ConnectionUtils;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -506,38 +507,43 @@ public class ProjectNodeHelper {
     public static void fillCatalogAndSchemas(IMetadataConnection iMetadataConnection, DatabaseConnection temConnection)
             throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         java.sql.Connection sqlConn = null;
-        temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
-                temConnection);
-        sqlConn = MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
-        // because there is no any structure after import into 423 from 402,just sychronized the two connection's
-        // UISchema for fill catalogs and scheams
-        if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
-            temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
-        }
-
-        if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID() != null) {
-            temConnection.setSID(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID());
-        }
-
-        String dbType = iMetadataConnection.getDbType();
-        if (sqlConn != null) {
-            DatabaseMetaData dbMetaData = null;
-            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
-            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
-                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
-            } else {
-                dbMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbType, false,
-                        iMetadataConnection.getDatabase());
+        try {
+            temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
+                    temConnection);
+            sqlConn = MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
+            // because there is no any structure after import into 423 from 402,just sychronized the two connection's
+            // UISchema for fill catalogs and scheams
+            if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
+                temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
             }
-            MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData, iMetadataConnection,
-                    MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));
 
-            MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData, iMetadataConnection,
-                    MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
-            if (!sqlConn.isClosed()) {
-                sqlConn.close();
-                MetadataConnectionUtils.closeDerbyDriver();
+            if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID() != null) {
+                temConnection.setSID(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID());
             }
+
+            String dbType = iMetadataConnection.getDbType();
+            if (sqlConn != null) {
+                DatabaseMetaData dbMetaData = null;
+                // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+                if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+                    dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(iMetadataConnection);
+                } else {
+                    dbMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbType, false,
+                            iMetadataConnection.getDatabase());
+                }
+                MetadataFillFactory.getDBInstance().fillCatalogs(temConnection, dbMetaData, iMetadataConnection,
+                        MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, true));
+
+                MetadataFillFactory.getDBInstance().fillSchemas(temConnection, dbMetaData, iMetadataConnection,
+                        MetadataConnectionUtils.getPackageFilter(temConnection, dbMetaData, false));
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (sqlConn != null) {
+                ConnectionUtils.closeConnection(sqlConn);
+            }
+            MetadataConnectionUtils.closeDerbyDriver();
         }
     }
 

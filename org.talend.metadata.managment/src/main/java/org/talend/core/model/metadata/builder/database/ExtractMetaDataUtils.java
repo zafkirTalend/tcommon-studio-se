@@ -688,6 +688,14 @@ public class ExtractMetaDataUtils {
         try {
             if (conn != null && !conn.isClosed()) {
                 if (isReconnect || force) {
+                    if (conn.getMetaData() != null) {
+                        String url = conn.getMetaData().getURL();
+                        boolean isHsql = ConnectionUtils.isHsql(url);
+                        if (isHsql) {
+                            Statement statement = conn.createStatement();
+                            statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$ 
+                        }
+                    }
                     conn.close();
                 }
             }
@@ -778,9 +786,7 @@ public class ExtractMetaDataUtils {
         DriverShim wapperDriver = null;
         if (isReconnect || conn == null || isColsed) {
             try {
-                boolean isHSQL = driverClassName != null
-                        && driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
-                ConnectionUtils.closeConnection(conn, isHSQL); // colse before connection.
+                closeConnection(true); // colse before connection.
                 checkDBConnectionTimeout();
 
                 list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion, additionalParams);

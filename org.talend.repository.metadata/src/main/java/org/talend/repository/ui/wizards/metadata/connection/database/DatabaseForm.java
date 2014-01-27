@@ -311,7 +311,7 @@ public class DatabaseForm extends AbstractForm {
     private Button mappingSelectButton;
 
     // 19754 end
-    private boolean isCreation;
+    private final boolean isCreation;
 
     private boolean first = true;
 
@@ -329,11 +329,11 @@ public class DatabaseForm extends AbstractForm {
 
     private ContextType selectedContextType;
 
-    private String originalUischema;
+    private final String originalUischema;
 
-    private String originalURL;
+    private final String originalURL;
 
-    private Boolean originalIsNeedReload;
+    private final Boolean originalIsNeedReload;
 
     private Composite hadoopLinkComp;
 
@@ -4203,7 +4203,9 @@ public class DatabaseForm extends AbstractForm {
                 } catch (SQLException exp) {
                     ExceptionHandler.process(exp);
                 } finally {
-                    ConnectionUtils.closeConnection(sqlConn);
+                    if (sqlConn != null) {
+                        ConnectionUtils.closeConnection(sqlConn);
+                    }
                 }
             }
         }

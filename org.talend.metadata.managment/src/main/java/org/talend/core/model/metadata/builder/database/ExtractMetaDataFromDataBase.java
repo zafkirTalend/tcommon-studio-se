@@ -329,9 +329,9 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             connectionStatus.setMessageException(ExceptionUtils.getFullStackTrace(e));
         } finally {
-            boolean isHSQL = driverClassName.equals(EDatabase4DriverClassName.HSQLDB.getDriverClass());
-            ConnectionUtils.closeConnection(connection, isHSQL);
-
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
+            }
             ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(dbType);
             if (extractManager != null) {
                 extractManager.closeConnection(null, wapperDriver);
