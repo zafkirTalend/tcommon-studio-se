@@ -167,6 +167,10 @@ public final class ConnectionUtils {
         return false;
     }
 
+    public static boolean isHsql(String url) {
+        return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
+    }
+
     /**
      * Method "isValid".
      * 
@@ -218,6 +222,14 @@ public final class ConnectionUtils {
         ReturnCode rc = new ReturnCode(true);
         try {
             if (connection != null && !connection.isClosed()) {
+                if (connection.getMetaData() != null) {
+                    String url = connection.getMetaData().getURL();
+                    boolean isHsql = isHsql(url);
+                    if (isHsql) {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$ 
+                    }
+                }
                 connection.close();
             }
         } catch (SQLException e) {
