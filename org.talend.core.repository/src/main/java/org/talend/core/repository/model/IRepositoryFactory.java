@@ -47,6 +47,14 @@ import org.talend.repository.model.ERepositoryStatus;
  */
 public interface IRepositoryFactory {
 
+    public static int OPTION_NOT_INCLUDE_CHILDRENS = 1;
+
+    public static int OPTION_ONLY_LAST_VERSION = 1 << 1;
+
+    public static int OPTION_DYNAMIC_OBJECTS = 1 << 2;
+
+    public static int OPTION_SKIP_DELETED = 1 << 3;
+
     public String getId();
 
     public void setId(String id);
@@ -352,6 +360,20 @@ public interface IRepositoryFactory {
      */
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean[] options) throws PersistenceException;
+
+    /**
+     * DOC nrousseau Comment method "getObjectFromFolder".
+     * 
+     * @param project
+     * @param type
+     * @param folderName
+     * @param options (options possible: OPTION_ONLY_LAST_VERSION / OPTION_DYNAMIC_OBJECTS / OPTION_RECURSIVE_CALL /
+     * OPTION_SKIP_DELETED)
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, int options) throws PersistenceException;
 
     public boolean canLock(Item item) throws PersistenceException;
 

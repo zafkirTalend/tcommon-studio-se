@@ -285,14 +285,61 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
             boolean avoidSaveProject, boolean... recursiveCall) throws PersistenceException;
 
+    /**
+     * Use instead the function with the parameter (int options)
+     * 
+     * @deprecated
+     */
+    @Deprecated
     protected abstract <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException;
 
-    protected abstract <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
-            String folderName, boolean onlyLastVersion, boolean... options) throws PersistenceException;
+    protected boolean hasOption(int value, int tested_option) {
+        return (value & tested_option) != 0;
+    }
+
+    /**
+     * Use instead the function with the parameter (int options)
+     * 
+     * @deprecated
+     */
+    @Deprecated
+    protected RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, boolean onlyLastVersion, boolean... options) throws PersistenceException {
+        int options_as_int = 0;
+        if (onlyLastVersion) {
+            options_as_int = options_as_int | OPTION_ONLY_LAST_VERSION;
+        }
+        if (options.length > 0 && options[0] == true) {
+            options_as_int = options_as_int | OPTION_DYNAMIC_OBJECTS;
+        }
+        return getObjectFromFolder(project, type, folderName, options_as_int);
+    }
+
+    @Override
+    public abstract RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, int options) throws PersistenceException;
+
+    /**
+     * Use instead the function with the parameter (int options)
+     * 
+     * @deprecated
+     */
+    @Deprecated
+    protected <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
+            Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException {
+        int options_as_int = 0;
+        if (onlyLastVersion) {
+            options_as_int = options_as_int | OPTION_ONLY_LAST_VERSION;
+        }
+        if (options.length > 0 && options[0] == true) {
+            options_as_int = options_as_int | OPTION_DYNAMIC_OBJECTS;
+        }
+        addFolderMembers(project, type, toReturn, objectFolder, options_as_int);
+    }
 
     protected abstract <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
-            Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException;
+            Object objectFolder, int options) throws PersistenceException;
 
     protected abstract FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject);
 
@@ -811,7 +858,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         property.setMaxInformationLevel(maxLevel);
     }
 
-    private Object getFullFolder(Project project, ERepositoryObjectType itemType, String path) throws PersistenceException {
+    protected Object getFullFolder(Project project, ERepositoryObjectType itemType, String path) throws PersistenceException {
         Object folder = getFolder(project, itemType);
         if (folder == null) {
             return null;

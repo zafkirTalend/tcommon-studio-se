@@ -14,8 +14,6 @@ package org.talend.core.repository.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
@@ -39,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -72,13 +69,11 @@ import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
-import org.talend.core.ISVNProviderServiceInCoreRuntime;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.exception.TalendInternalPersistenceException;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -2147,5 +2142,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public boolean isModified(Object property) {
         return repositoryFactoryFromProvider.isModified(property);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.model.IProxyRepositoryFactory#getObjectFromFolder(org.talend.core.model.general.Project,
+     * org.talend.core.model.repository.ERepositoryObjectType, java.lang.String, int)
+     */
+    @Override
+    public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, int options) throws PersistenceException {
+        return repositoryFactoryFromProvider.getObjectFromFolder(project, type, folderName, options);
     }
 }

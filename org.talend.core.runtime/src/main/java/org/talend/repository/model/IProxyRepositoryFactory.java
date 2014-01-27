@@ -491,4 +491,18 @@ public interface IProxyRepositoryFactory {
 
     public boolean isModified(Object property);
 
+    /**
+     * DOC nrousseau Comment method "getObjectFromFolder".
+     * 
+     * @param project
+     * @param type
+     * @param folderName
+     * @param options (options possible: OPTION_ONLY_LAST_VERSION / OPTION_DYNAMIC_OBJECTS / OPTION_RECURSIVE_CALL /
+     * OPTION_SKIP_DELETED)
+     * @return
+     * @throws PersistenceException
+     */
+    public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String folderName, int options) throws PersistenceException;
+
 }

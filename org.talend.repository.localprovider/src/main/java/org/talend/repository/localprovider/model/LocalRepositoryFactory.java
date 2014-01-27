@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -205,6 +205,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @throws PersistenceException if project, folder or resource cannot be found
      */
     @Override
+    @Deprecated
     protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
             boolean onlyLastVersion, boolean... options) throws PersistenceException {
         long currentTime = System.currentTimeMillis();
@@ -220,15 +221,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
         } catch (ResourceNotFoundException rex) {
-            // log.info(rex.getMessage());
             return toReturn; // return empty
         }
-        // projectModified = false;
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
-
-        // if (projectModified) {
-        // saveProject(project);
-        // }
 
         String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
         String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
@@ -238,33 +233,24 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return toReturn;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.repository.model.AbstractEMFRepositoryFactory#getObjectFromFolder(org.talend.core.model.general
+     * .Project, org.talend.core.model.repository.ERepositoryObjectType, java.lang.String, int)
+     */
     @Override
-    protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type, String folderName,
-            boolean onlyLastVersion, boolean... options) throws PersistenceException {
+    public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            String relativeFolder, int options) throws PersistenceException {
         long currentTime = System.currentTimeMillis();
-        // if (type.equals(ERepositoryObjectType.METADATA_CONNECTIONS)) {
-        // System.out.println("dfdfdfdfdfdf");
-        // }
-        RootContainer<K, T> toReturn = new RootContainer<K, T>();
+        RootContainer<String, IRepositoryViewObject> toReturn = new RootContainer<String, IRepositoryViewObject>();
         if (type != null) {
-            IProject fsProject = ResourceModelUtils.getProject(project);
-            IFolder objectFolder = null;
-            try {
-                String tempFolderName = ERepositoryObjectType.getFolderName(type);
-                if (folderName != null && !"".equals(folderName)) {
-                    tempFolderName = folderName;
-                }
-                objectFolder = ResourceUtils.getFolder(fsProject, tempFolderName, true);
-            } catch (ResourceNotFoundException rex) {
-                // log.info(rex.getMessage());
-                return new RootContainer<K, T>(); // return empty
+            Object fullFolder = getFullFolder(project, type, relativeFolder);
+            if (fullFolder == null) {
+                return toReturn;
             }
-            // projectModified = false;
-            addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
-
-            // if (projectModified) {
-            // saveProject(project);
-            // }
+            addFolderMembers(project, type, toReturn, fullFolder, options);
 
             String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
             String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
@@ -274,21 +260,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return toReturn;
     }
 
-    /**
-     * 
-     * DOC smallet Comment method "addFolderMembers".
-     * 
-     * @param <T> - DOC smallet
-     * @param type - DOC smallet
-     * @param toReturn - DOC smallet
-     * @param objectFolder - DOC smallet
-     * @param onlyLastVersion specify <i>true</i> if only the last version of an object must be returned, false for all
-     * version
-     * @throws PersistenceException - DOC smallet
-     */
     @Override
-    protected <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
-            Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException {
+    public <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
+            Object objectFolder, int options) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem currentFolderItem = null;
         IFolder physicalFolder;
@@ -313,6 +287,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             for (Item curItem : new ArrayList<Item>(currentFolderItem.getChildren())) {
                 Property property = curItem.getProperty();
                 if (property != null) {
+                    if (hasOption(options, OPTION_SKIP_DELETED) && curItem.getState() != null && curItem.getState().isDeleted()) {
+                        continue;
+                    }
                     if (curItem instanceof FolderItem) {
                         FolderItem subFolder = (FolderItem) curItem;
                         IFolder existFolder = physicalFolder.getFolder(subFolder.getProperty().getLabel());
@@ -322,21 +299,23 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                             cont.setProperty(property);
                             cont.setId(property.getId());
-                            addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
+                            if (!hasOption(options, OPTION_NOT_INCLUDE_CHILDRENS)) {
+                                addFolderMembers(project, type, cont, curItem, options);
+                            }
                             folderNamesFounds.add(curItem.getProperty().getLabel());
                         }
                     } else {
                         if (property.eResource() != null) {
                             property.getItem().setParent(currentFolderItem);
                             IRepositoryViewObject currentObject;
-                            if (options.length > 0 && options[0] == true) {
+                            if (hasOption(options, OPTION_DYNAMIC_OBJECTS)) {
                                 // called from repository view
                                 currentObject = new RepositoryViewObject(property);
                             } else {
                                 currentObject = new RepositoryObject(property);
                             }
                             propertyFounds.add(property.eResource().getURI().lastSegment());
-                            addItemToContainer(toReturn, currentObject, onlyLastVersion);
+                            addItemToContainer(toReturn, currentObject, hasOption(options, OPTION_ONLY_LAST_VERSION));
 
                             addToHistory(property.getId(), type, property.getItem().getState().getPath());
                         } else {
@@ -384,11 +363,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     }
                                     continue;
                                 }
+                                if (hasOption(options, OPTION_SKIP_DELETED) && property.getItem().getState().isDeleted()) {
+                                    continue;
+                                }
                                 if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())) {
                                     currentFolderItem.getChildren().add(property.getItem());
                                     property.getItem().setParent(currentFolderItem);
                                 }
-                                if (options.length > 0 && options[0] == true) {
+                                if (hasOption(options, OPTION_DYNAMIC_OBJECTS)) {
                                     // called from repository view
                                     currentObject = new RepositoryViewObject(property);
                                 } else {
@@ -401,7 +383,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                 }
                             }
-                            addItemToContainer(toReturn, currentObject, onlyLastVersion);
+                            addItemToContainer(toReturn, currentObject, hasOption(options, OPTION_ONLY_LAST_VERSION));
                         }
                     } catch (IncorrectFileException e) {
                         ExceptionHandler.process(e);
@@ -409,22 +391,33 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         ExceptionHandler.process(e);
                     }
                 } else if (current instanceof IFolder) {
-                    if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)) {
+                    if (!((IFolder) current).getName().startsWith(".") && !FilesUtils.isSVNFolder(current)) { //$NON-NLS-1$
                         physicalDirectoryFounds.add(((IFolder) current).getName());
                         if (!folderNamesFounds.contains(((IFolder) current).getName())) {
-                            Container<K, T> cont = toReturn.addSubContainer(current.getName());
                             FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
-
                             Property property = null;
                             if (folder == null) {
                                 folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                                if (folder == null) {
+                                    log.error("Can't create folder item " + ((IFolder) current).getName() + //$NON-NLS-1$ 
+                                            " with path: " + current.getProjectRelativePath()); //$NON-NLS-1$
+                                    continue;
+                                }
                             }
                             property = folder.getProperty();
                             folder.setParent(currentFolderItem);
+                            if (hasOption(options, OPTION_SKIP_DELETED) && folder.getState() != null
+                                    && folder.getState().isDeleted()) {
+                                continue;
+                            }
+
+                            Container<K, T> cont = toReturn.addSubContainer(current.getName());
 
                             cont.setProperty(property);
                             cont.setId(property.getId());
-                            addFolderMembers(project, type, cont, current, onlyLastVersion, options);
+                            if (!hasOption(options, OPTION_NOT_INCLUDE_CHILDRENS)) {
+                                addFolderMembers(project, type, cont, current, options);
+                            }
                         }
                         if (current.getName().equals(BIN)) {
                             // if empty directory, just delete it
@@ -451,7 +444,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         if (curItem.eResource() != null) {
                             name = curItem.eResource().getURI().lastSegment();
                         } else {
-                            name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "."
+                            name = curItem.getProperty().getLabel() + "_" + curItem.getProperty().getVersion() + "." //$NON-NLS-1$//$NON-NLS-2$
                                     + FileConstants.PROPERTIES_EXTENSION;
                         }
                         if (!physicalPropertyFounds.contains(name)) {
