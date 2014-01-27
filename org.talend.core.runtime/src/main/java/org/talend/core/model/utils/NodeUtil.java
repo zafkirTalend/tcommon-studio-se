@@ -836,6 +836,13 @@ public class NodeUtil {
         if (needQuoteList.contains(ep.getFieldType())) {
             value = "\"" + value + "\"";
         }
+        if(EParameterFieldType.TABLE.equals(ep.getFieldType())){
+        	value = ElementParameterParser.getObjectValue(node, "__" + ep.getName() + "__").toString();
+        	value = value.replace("=\"", "=\\\"");
+        	value = value.replace("\",", "\\\",");
+        	value = value.replace("\"}", "\\\"}");
+        	value = "\"" + value + "\"";
+        }
         return value;
     }
 }
