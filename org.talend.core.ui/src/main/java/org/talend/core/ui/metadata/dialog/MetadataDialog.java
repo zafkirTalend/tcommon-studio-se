@@ -536,8 +536,18 @@ public class MetadataDialog extends Dialog {
             });
 
             if (outputReadOnly || outputMetaTable.isReadOnly()) {
-                copyToOutput.setEnabled(false);
+                boolean enabledForAll = false;
                 copySelectionToOutput.setEnabled(false);
+                if (outputNode.getComponent().isSchemaAutoPropagated()
+                        && !outputMetaTable.sameMetadataAs(inputMetaTable, IMetadataColumn.OPTIONS_IGNORE_KEY
+                                | IMetadataColumn.OPTIONS_IGNORE_NULLABLE | IMetadataColumn.OPTIONS_IGNORE_COMMENT
+                                | IMetadataColumn.OPTIONS_IGNORE_PATTERN | IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME
+                                | IMetadataColumn.OPTIONS_IGNORE_DBTYPE | IMetadataColumn.OPTIONS_IGNORE_DEFAULT
+                                | IMetadataColumn.OPTIONS_IGNORE_BIGGER_SIZE)) {
+                    enabledForAll = true;
+                }
+
+                copyToOutput.setEnabled(enabledForAll);
             }
             compositesSachForm.setGridDatas();
             CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
