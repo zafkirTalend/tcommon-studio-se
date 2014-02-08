@@ -170,7 +170,10 @@ public class DeleteAction extends AContextualAction {
                 List<RepositoryNode> selectNodes = new ArrayList<RepositoryNode>();
                 for (Object obj : selections) {
                     if (obj instanceof RepositoryNode) {
-                        selectNodes.add((RepositoryNode) obj);
+                        // TDI-28549:if selectNodes contains the obj's parent,no need to add obj again
+                        if (!isContainParentNode(selectNodes, (RepositoryNode) obj)) {
+                            selectNodes.add((RepositoryNode) obj);
+                        }
                     }
                 }
                 final List<ItemReferenceBean> unDeleteItems = RepositoryNodeDeleteManager.getInstance().getUnDeleteItems(
@@ -1589,4 +1592,25 @@ public class DeleteAction extends AContextualAction {
         return shell;
     }
 
+    private boolean isContainParentNode(List<RepositoryNode> selectNodes, RepositoryNode node) {
+        // check if the node is child of the select nodes,if yes,no need add it to select nodes again
+        boolean isExist = false;
+        RepositoryNode cloneNode = node;
+        for (RepositoryNode selectNode : selectNodes) {
+            while (!node.equals(selectNode)) {
+                node = node.getParent();
+                if (node == null || node.getType().equals(ENodeType.STABLE_SYSTEM_FOLDER)
+                        || node.getType().equals(ENodeType.SYSTEM_FOLDER)) {
+                    break;
+                }
+
+                if (node.equals(selectNode)) {
+                    isExist = true;
+                    break;
+                }
+            }
+            node = cloneNode;
+        }
+        return isExist;
+    }
 }
