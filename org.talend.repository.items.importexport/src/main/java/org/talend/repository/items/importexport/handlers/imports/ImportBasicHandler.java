@@ -203,20 +203,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             return null;
         }
         if (itemRecord != null && itemRecord.getProperty() != null) {
-            boolean alreadyInList = false;
-            for (ItemRecord currentItemRecord : existeditems) {
-                if (isSame(itemRecord, currentItemRecord)) {
-                    // if have any duplicate item from same project & same folder, just don't do
-                    // anything,
-                    // no need to display.
-                    alreadyInList = true;
-                    break;
-                }
-            }
-            if (alreadyInList) {
-                return null; // if existed, it not valid.
-            }
-
             if (checkItem(resManager, itemRecord, overwrite)) {
                 if (progressMonitor.isCanceled()) {
                     return null;
