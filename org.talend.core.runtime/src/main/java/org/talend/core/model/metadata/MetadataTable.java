@@ -13,6 +13,8 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -342,32 +344,26 @@ public class MetadataTable implements IMetadataTable, Cloneable {
     @Override
     public void sortCustomColumns() {
         List<IMetadataColumn> customColumns = new ArrayList<IMetadataColumn>();
-        List<IMetadataColumn> tempCustomColumns = new ArrayList<IMetadataColumn>();
         List<IMetadataColumn> noCustomColumns = new ArrayList<IMetadataColumn>();
 
         for (int i = 0; i < listColumns.size(); i++) {
             IMetadataColumn column = listColumns.get(i);
             if (column.isCustom()) {
-                tempCustomColumns.add(column);
+                customColumns.add(column);
             }
         }
 
-        listColumns.removeAll(tempCustomColumns);
-
+        listColumns.removeAll(customColumns);
         noCustomColumns.addAll(listColumns);
 
-        int nbDone = 0;
-        while (nbDone < tempCustomColumns.size()) {
-            boolean found = false;
-            for (int i = 0; i < tempCustomColumns.size() && !found; i++) {
-                IMetadataColumn column = tempCustomColumns.get(i);
-                if (column.getCustomId() == nbDone) {
-                    customColumns.add(column);
-                    found = true;
-                }
+        Collections.sort(customColumns, new Comparator<IMetadataColumn>() {
+
+            @Override
+            public int compare(IMetadataColumn col1, IMetadataColumn col2) {
+                return col1.getCustomId() - col2.getCustomId();
             }
-            nbDone++;
-        }
+
+        });
 
         listColumns.clear();
         if (this.readOnlyColumnPosition != null && this.readOnlyColumnPosition.equals(EReadOnlyComlumnPosition.TOP.getName())) {
