@@ -1091,6 +1091,20 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isOracle(DatabaseMetaData metadata) {
+        if (metadata != null) {
+            try {
+                String name = metadata.getDatabaseProductName().toUpperCase();
+                if (name != null && name.equals(EDatabaseTypeName.ORACLEFORSID.getProduct().toUpperCase())) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return false;
+    }
+
     public static Driver getDerbyDriver() {
         return derbyDriver;
     }

@@ -267,10 +267,12 @@ public class ExtractManager {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
                 isSynonym = true;
             }
-            if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+            if (tableName == null || tablesToFilter.contains(tableName)) {
                 continue;
             }
-
+            // if (!isOracle && tableName.startsWith("/")) {
+            // continue;
+            // }
             medataTable.setLabel(tableName);
             medataTable.setTableName(medataTable.getLabel());
 
@@ -831,6 +833,9 @@ public class ExtractManager {
             throws SQLException {
         ResultSet columns = null;
         if (dbMetaData != null) {
+            if (tableName.contains("/")) {//$NON-NLS-1$ 
+                tableName = tableName.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
+            }
             columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
         }
         return columns;
