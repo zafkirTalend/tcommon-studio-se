@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -309,8 +310,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         int options_as_int = 0;
         if (onlyLastVersion) {
             options_as_int = options_as_int | OPTION_ONLY_LAST_VERSION;
-        }
-        if (options.length > 0 && options[0] == true) {
+        } else if (options.length > 0 && options[0] == true) {
             options_as_int = options_as_int | OPTION_DYNAMIC_OBJECTS;
         }
         return getObjectFromFolder(project, type, folderName, options_as_int);
@@ -971,7 +971,13 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     @Override
     public RootContainer<String, IRepositoryViewObject> getTdqRepositoryViewObjects(Project project, ERepositoryObjectType type,
             String folderName, boolean[] options) throws PersistenceException {
-        return getObjectFromFolder(project, type, folderName, true, options);
+        String relativeFolder = folderName;
+        if (type != null && type.hasFolder()) {
+            // Compatible to the existing behavior which keep the full path relative to the project in DQ.
+            String baseFolder = ERepositoryObjectType.getFolderName(type);
+            relativeFolder = StringUtils.removeStart(relativeFolder, baseFolder);
+        }
+        return getObjectFromFolder(project, type, relativeFolder, true, options);
     }
 
     @Override
