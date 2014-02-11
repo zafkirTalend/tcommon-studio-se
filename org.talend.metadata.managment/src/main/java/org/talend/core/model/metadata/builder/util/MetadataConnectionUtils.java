@@ -818,8 +818,9 @@ public class MetadataConnectionUtils {
                     }
                 }
                 if (isCatalog) {
-                    if (dbMetaData.supportsCatalogsInIndexDefinitions()
-                            || dbConnection.getDatabaseType().equalsIgnoreCase(EDatabaseTypeName.INFORMIX.name())) {
+                    boolean isHsql = dbConnection.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName());
+                    boolean isInformix = dbConnection.getDatabaseType().equalsIgnoreCase(EDatabaseTypeName.INFORMIX.name());
+                    if (dbMetaData.supportsCatalogsInIndexDefinitions() && !isHsql || isInformix) {
                         String sid = dbConnection.getSID();
                         if (origValueConn != null) {
                             sid = origValueConn.getSID();
