@@ -114,7 +114,8 @@ public class CopyAction extends AContextualAction {
                         || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC
                         || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_SALESFORCE_MODULE
                         || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESOPERATION
-                        || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESPORT) {
+                        || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESPORT
+                        || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
                     canWork = false;
                 }
             } else {
