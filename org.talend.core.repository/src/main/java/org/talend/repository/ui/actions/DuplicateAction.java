@@ -15,6 +15,8 @@ package org.talend.repository.ui.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +52,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.general.Project;
@@ -465,10 +468,12 @@ public class DuplicateAction extends AContextualAction {
                                     String id = null;
                                     boolean isfirst = true;
                                     boolean needSys = true;
+                                    List newItems = new ArrayList();
                                     for (IRepositoryViewObject object : selectedVersionItems) {
                                         Item selectedItem = object.getProperty().getItem();
                                         Item copy;
                                         copy = factory.copy(selectedItem, path, newJobName);
+                                        newItems.add(copy);
                                         if (isfirst) {
                                             id = copy.getProperty().getId();
                                             isfirst = false;
@@ -497,6 +502,20 @@ public class DuplicateAction extends AContextualAction {
                                         }
                                         factory.save(copy);
                                         notifySQLExplorer(copy);
+                                    }
+                                    if (newItems.size() > 0) {
+                                        Collections.sort(newItems, new Comparator() {
+
+                                            @Override
+                                            public int compare(Object o1, Object o2) {
+                                                Item i1 = (Item) o1;
+                                                Item i2 = (Item) o2;
+                                                return i1.getProperty().getVersion().compareTo(i2.getProperty().getVersion());
+                                            }
+
+                                        });
+                                        Item item = (Item) newItems.get(newItems.size() - 1);
+                                        copyDataServiceRelateJob(item);
                                     }
                                 } catch (PersistenceException e) {
                                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
@@ -580,6 +599,7 @@ public class DuplicateAction extends AContextualAction {
                     factory.save(newItem);
                     // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new connection
                     notifySQLExplorer(newItem);
+                    copyDataServiceRelateJob(newItem);
                 } catch (PersistenceException e) {
                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                 } catch (BusinessException e) {
@@ -613,6 +633,15 @@ public class DuplicateAction extends AContextualAction {
             //
         }
 
+    }
+    
+    private void copyDataServiceRelateJob(Item newItem) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
+            IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
+            if (service.isServiceItem(newItem.eClass().getClassifierID())) {
+                service.copyDataServiceRelateJob(newItem);
+            }
+        }
     }
 
     private String getLastestVersion(Set<IRepositoryViewObject> set) {
