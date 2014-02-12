@@ -15,7 +15,6 @@ Export-Package:
  org.hsqldb.resources,
  org.hsqldb.rowio,
  org.hsqldb.scriptio,
- org.hsqldb.store,
  org.hsqldb.types,
  org.hsqldb.util
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
