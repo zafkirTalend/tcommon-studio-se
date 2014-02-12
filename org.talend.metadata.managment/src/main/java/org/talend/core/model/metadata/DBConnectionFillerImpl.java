@@ -1272,7 +1272,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             // TDI-28578 Metadata wizard doesn't display tables starting with '/'
-            if (tablePattern.contains("/")) {//$NON-NLS-1$
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
+            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
                 tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
@@ -1431,7 +1432,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
-            if (tablePattern.contains("/")) {//$NON-NLS-1$
+            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
                 tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
