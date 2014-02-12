@@ -151,11 +151,14 @@ public class PasteAction extends AContextualAction {
         IProxyRepositoryFactory proxyFactory = ProxyRepositoryFactory.getInstance();
         IRepositoryViewObject object = target.getObject();
 
-        if (target.getContentType() == ERepositoryObjectType.JOBS || target.getContentType() == ERepositoryObjectType.JOBLETS
+        if (target.getContentType() == ERepositoryObjectType.JOBS
+                || target.getContentType() == ERepositoryObjectType.JOBLETS
                 || target.getContentType() == ERepositoryObjectType.GENERATED
                 || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
                 || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC
-                || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.REFERENCED_PROJECTS) {
+                || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.REFERENCED_PROJECTS
+                || (target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATION_RULES && target
+                        .getParent().getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATIONS_RULES_FOLDER)) {
             visible = false;
             enabled = false;
         } else if (object != null) {
