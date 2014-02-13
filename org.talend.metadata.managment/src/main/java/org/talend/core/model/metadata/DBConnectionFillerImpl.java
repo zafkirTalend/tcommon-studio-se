@@ -1432,6 +1432,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
             if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
                 tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
