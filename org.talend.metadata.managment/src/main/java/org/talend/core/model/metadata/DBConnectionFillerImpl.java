@@ -887,8 +887,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (tableName == null || tablesToFilter.contains(tableName)) {
                     continue;
                 }
-                if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
-                    continue;
+                String tableOwner = null;
+                if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
+                    tableOwner = tableSchema;
                 }
                 if (!isOracle8i) {
                     try {
@@ -922,9 +923,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     metadatatable.setTableType(temptableType);
                 }
                 metadatatable.setLabel(metadatatable.getName());
-                // if (tableOwner != null) {
-                // ColumnSetHelper.setTableOwner(tableOwner, metadatatable);
-                // }
+                if (tableOwner != null) {
+                    ColumnSetHelper.setTableOwner(tableOwner, metadatatable);
+                }
                 if (tableComment != null) {
                     metadatatable.setComment(tableComment);
                     ColumnSetHelper.setComment(tableComment, metadatatable);
@@ -952,9 +953,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 metadatatable.setName(nameKey);
                                 metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
                                 metadatatable.setLabel(metadatatable.getName());
-                                // if (schemaPattern != null) {
-                                // ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
-                                // }
+                                if (schemaPattern != null) {
+                                    ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                                }
                                 list.add(metadatatable);
                             }
                         }
@@ -977,9 +978,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             metadatatable.setName(nameKey);
                             metadatatable.setTableType(ETableTypes.TABLETYPE_SYNONYM.getName());
                             metadatatable.setLabel(metadatatable.getName());
-                            // if (schemaPattern != null) {
-                            // ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
-                            // }
+                            if (schemaPattern != null) {
+                                ColumnSetHelper.setTableOwner(schemaPattern, metadatatable);
+                            }
                             list.add(metadatatable);
                         }
                     }
@@ -1211,14 +1212,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             // --- add columns to table
             // TDI-28578 Metadata wizard doesn't display tables starting with '/'
-            if (iMetadataConnection.getCurrentConnection() instanceof Connection) {
-                boolean isOracle = MetadataConnectionUtils.isOracle((Connection) iMetadataConnection.getCurrentConnection());
-                boolean isOracle8i = MetadataConnectionUtils.isOracle8i((Connection) iMetadataConnection.getCurrentConnection());
-                boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC((Connection) iMetadataConnection
-                        .getCurrentConnection());
-                if ((isOracle || isOracleJdbc || isOracle8i) && tablePattern.contains("/")) {//$NON-NLS-1$
-                    tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
-                }
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
+            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
+                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
