@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.PerlDataTypeHelper;
@@ -360,7 +361,8 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         metadataNameText.setReadOnly(isReadOnly());
         metadataCommentText.setReadOnly(isReadOnly());
         tableEditorView.setReadOnly(isReadOnly());
-
+        boolean inputModel = ((WSDLSchemaConnection) connectionItem.getConnection()).isIsInputModel();
+        metadataNameText.setReadOnly(!inputModel);
     }
 
     /**
