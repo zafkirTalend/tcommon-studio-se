@@ -66,6 +66,7 @@ import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -360,7 +361,8 @@ public class WebServiceStep2Form extends AbstractWSDLSchemaStepForm {
         metadataNameText.setReadOnly(isReadOnly());
         metadataCommentText.setReadOnly(isReadOnly());
         tableEditorView.setReadOnly(isReadOnly());
-
+        boolean inputModel = ((WSDLSchemaConnection) connectionItem.getConnection()).isIsInputModel();
+        metadataNameText.setReadOnly(!inputModel);
     }
 
     /**

@@ -63,6 +63,7 @@ import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 
 /**
  * The class is used for wsdL schema on Repository View. <br/>
@@ -355,7 +356,8 @@ public class WSDLSchemaStep2Form extends AbstractWSDLSchemaStepForm {
         metadataNameText.setReadOnly(isReadOnly());
         metadataCommentText.setReadOnly(isReadOnly());
         tableEditorView.setReadOnly(isReadOnly());
-
+        boolean inputModel = ((WSDLSchemaConnection) connectionItem.getConnection()).isIsInputModel();
+        metadataNameText.setReadOnly(!inputModel);
     }
 
     /**
