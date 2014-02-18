@@ -98,10 +98,8 @@ public class DatabaseConnectionParameterUtil {
                                         if (type.getName().equals(paramValue)) {
                                             if (type.getValue() == null) {
                                                 paramValue = "";
-                                            } else if ("".equals(type.getValue())) {
-                                                paramValue = type.getValue();
                                             } else {
-                                                paramValue = tempVlaue;
+                                                paramValue = type.getValue();
                                             }
                                             break;
                                         }
