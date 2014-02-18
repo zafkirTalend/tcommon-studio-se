@@ -171,6 +171,10 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
     }
 
+    public static boolean isTeradata(String url) {
+        return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
+    }
+
     /**
      * Method "isValid".
      * 
