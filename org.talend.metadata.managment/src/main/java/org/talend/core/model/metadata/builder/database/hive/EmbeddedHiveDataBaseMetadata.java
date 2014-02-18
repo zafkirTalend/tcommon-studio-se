@@ -217,6 +217,10 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
+        if (hiveObject == null) {
+            throw new SQLException("Unable to instantiate org.apache.hadoop.hive.ql.metadata.Hive."); //$NON-NLS-1$
+        }
+
         String hiveCat = catalog;
         if (StringUtils.isBlank(hiveCat)) {
             hiveCat = HIVE_SCHEMA_DEFAULT;
@@ -235,58 +239,56 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
         List<String[]> list = new ArrayList<String[]>();
         tableResultSet.setData(list);
 
-        if (hiveObject != null) { // got the hive object
-            try {
-                Class hiveClass = hiveObject.getClass();
-                Method method = hiveClass.getDeclaredMethod("getConf");//$NON-NLS-1$ 
-                Object hiveConf = method.invoke(hiveObject);
-                Class hiveConfClass = hiveConf.getClass();
-                // find ConfVar enum in the HiveConf class.
-                Class confVarClass = null;
-                for (Class curClass : hiveConfClass.getClasses()) {
-                    if (curClass.getSimpleName().equals("ConfVars")) { //$NON-NLS-1$
-                        confVarClass = curClass;
+        try {
+            Class hiveClass = hiveObject.getClass();
+            Method method = hiveClass.getDeclaredMethod("getConf");//$NON-NLS-1$ 
+            Object hiveConf = method.invoke(hiveObject);
+            Class hiveConfClass = hiveConf.getClass();
+            // find ConfVar enum in the HiveConf class.
+            Class confVarClass = null;
+            for (Class curClass : hiveConfClass.getClasses()) {
+                if (curClass.getSimpleName().equals("ConfVars")) { //$NON-NLS-1$
+                    confVarClass = curClass;
+                    break;
+                }
+            }
+            if (confVarClass != null) {
+                Object confVar = null;
+                // try to find enumeration: ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT
+                for (Object curConfVar : confVarClass.getEnumConstants()) {
+                    if (curConfVar.toString().equals("hive.metastore.client.socket.timeout")) { //$NON-NLS-1$
+                        confVar = curConfVar;
                         break;
                     }
                 }
-                if (confVarClass != null) {
-                    Object confVar = null;
-                    // try to find enumeration: ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT
-                    for (Object curConfVar : confVarClass.getEnumConstants()) {
-                        if (curConfVar.toString().equals("hive.metastore.client.socket.timeout")) { //$NON-NLS-1$
-                            confVar = curConfVar;
-                            break;
-                        }
+                if (confVar != null) {
+                    Method setIntVarMethod = hiveConfClass.getDeclaredMethod("setIntVar", confVarClass, int.class); //$NON-NLS-1$
+                    int timeout = 15;
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                        IDesignerCoreService designerService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                .getService(IDesignerCoreService.class);
+                        timeout = designerService.getDBConnectionTimeout();
                     }
-                    if (confVar != null) {
-                        Method setIntVarMethod = hiveConfClass.getDeclaredMethod("setIntVar", confVarClass, int.class); //$NON-NLS-1$
-                        int timeout = 15;
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                            IDesignerCoreService designerService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
-                                    .getService(IDesignerCoreService.class);
-                            timeout = designerService.getDBConnectionTimeout();
-                        }
-                        setIntVarMethod.invoke(hiveConf, confVar, timeout);
-                    }
+                    setIntVarMethod.invoke(hiveConf, confVar, timeout);
                 }
-                Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { hiveCat }); //$NON-NLS-1$
-                if (tables instanceof List) {
-                    List<String> tableList = (List<String>) tables;
-                    for (String tableName : tableList) {
-                        String tableType = getTableType(hiveCat, tableName);
-                        if (tableType != null && ArrayUtils.contains(hiveTypes, tableType)) {
-                            String[] array = new String[] { "", hiveCat, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
-                            list.add(array);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                throw new SQLException(e);
-            } finally {
-                Thread.currentThread().setContextClassLoader(currCL);
             }
-
+            Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { hiveCat }); //$NON-NLS-1$
+            if (tables instanceof List) {
+                List<String> tableList = (List<String>) tables;
+                for (String tableName : tableList) {
+                    String tableType = getTableType(hiveCat, tableName);
+                    if (tableType != null && ArrayUtils.contains(hiveTypes, tableType)) {
+                        String[] array = new String[] { "", hiveCat, tableName, tableType, "" }; //$NON-NLS-1$//$NON-NLS-2$
+                        list.add(array);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new SQLException(e);
+        } finally {
+            Thread.currentThread().setContextClassLoader(currCL);
         }
+
         return tableResultSet;
     }
 

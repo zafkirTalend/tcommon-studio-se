@@ -90,7 +90,7 @@ public class ClassLoaderFactory {
 
     protected static DynamicClassLoader getCustomClassLoader(String index, String jars, String jarSeparator) {
         Set<String> jarSet = new HashSet<String>();
-        if (jars != null) {
+        if (StringUtils.isNotBlank(jars)) {
             String[] jarsArray = jars.split(jarSeparator);
             for (String jar : jarsArray) {
                 jarSet.add(jar);
@@ -108,26 +108,28 @@ public class ClassLoaderFactory {
      * @return the classLoader by specific libraries
      */
     public static DynamicClassLoader getCustomClassLoader(String index, Set<String> libraries) {
+        if (libraries == null || libraries.size() == 0) {
+            return null;
+        }
+
         DynamicClassLoader classLoader = getClassLoader(index);
-        if (libraries != null) {
-            if (classLoader == null) {
+        if (classLoader == null) {
+            classLoader = createCustomClassLoader(index, libraries);
+        } else {
+            boolean changed;
+            Set<String> oldLibraries = classLoader.getLibraries();
+            Set<String> oldLibrariesClone = new HashSet<String>(oldLibraries);
+            changed = oldLibrariesClone.retainAll(libraries);
+            if (!changed) {
+                Set<String> newLibrariesClone = new HashSet<String>(libraries);
+                changed = newLibrariesClone.retainAll(oldLibraries);
+            }
+            if (changed) {
+                File libFolder = new File(classLoader.getLibStorePath());
+                if (libFolder.exists()) {
+                    FilesUtils.removeFolder(libFolder, true);
+                }
                 classLoader = createCustomClassLoader(index, libraries);
-            } else {
-                boolean changed;
-                Set<String> oldLibraries = classLoader.getLibraries();
-                Set<String> oldLibrariesClone = new HashSet<String>(oldLibraries);
-                changed = oldLibrariesClone.retainAll(libraries);
-                if (!changed) {
-                    Set<String> newLibrariesClone = new HashSet<String>(libraries);
-                    changed = newLibrariesClone.retainAll(oldLibraries);
-                }
-                if (changed) {
-                    File libFolder = new File(classLoader.getLibStorePath());
-                    if (libFolder.exists()) {
-                        FilesUtils.removeFolder(libFolder, true);
-                    }
-                    classLoader = createCustomClassLoader(index, libraries);
-                }
             }
         }
 
