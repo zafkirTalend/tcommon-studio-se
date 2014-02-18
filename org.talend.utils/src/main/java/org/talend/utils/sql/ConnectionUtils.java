@@ -149,6 +149,10 @@ public final class ConnectionUtils {
         return url.indexOf("hive") > -1; //$NON-NLS-1$
     }
 
+    public static boolean isTeradata(String url) {
+        return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
+    }
+
     /**
      * Method "isAccess".
      * 
