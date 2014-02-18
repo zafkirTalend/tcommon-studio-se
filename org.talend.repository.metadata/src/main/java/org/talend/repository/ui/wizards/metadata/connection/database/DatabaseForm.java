@@ -1380,11 +1380,13 @@ public class DatabaseForm extends AbstractForm {
 
         hbaseDistributionCombo.setReadOnly(fromRepository || isContextMode());
         hbaseVersionCombo.setReadOnly(fromRepository || isContextMode());
+        hbaseCustomButton.setEnabled(!fromRepository && !isContextMode());
 
         distributionCombo.setReadOnly(fromRepository || isContextMode());
         hiveVersionCombo.setReadOnly(fromRepository || isContextMode());
         nameNodeURLTxt.setReadOnly(fromRepository || isContextMode());
         jobTrackerURLTxt.setReadOnly(fromRepository || isContextMode());
+        hiveCustomButton.setEnabled(!fromRepository && !isContextMode());
 
         hcPropertyTypeCombo.setReadOnly(isContextMode());
         hiveModeCombo.setReadOnly(isContextMode());
@@ -2991,7 +2993,7 @@ public class DatabaseForm extends AbstractForm {
 
     private void handleHadoopCustomVersion(final ECustomVersionType type) {
         HadoopCustomVersionDefineDialog customVersionDialog = new HadoopCustomVersionDefineDialog(getShell(),
-                HadoopVersionControlUtils.getCustomVersionMap(getConnection())) {
+                HadoopVersionControlUtils.getCustomVersionMap(getConnection(), type.getGroup())) {
 
             @Override
             protected ECustomVersionType[] getDisplayTypes() {
@@ -2999,7 +3001,7 @@ public class DatabaseForm extends AbstractForm {
             }
         };
         if (customVersionDialog.open() == Window.OK) {
-            HadoopVersionControlUtils.injectCustomVersionMap(getConnection(), customVersionDialog.getLibMap());
+            HadoopVersionControlUtils.injectCustomVersionMap(getConnection(), customVersionDialog.getLibMap(), type.getGroup());
         }
     }
 
