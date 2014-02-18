@@ -277,7 +277,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         boolean hasSchema = false;
         try {
             boolean isHive2 = HiveConnectionManager.getInstance().isHive2(metaConnection);
-            if (schemas != null) {
+            if (schemas != null && !ConnectionUtils.isOdbcHyperFileSQL(dbJDBCMetadata)) {
                 String schemaName = null;
                 while (schemas.next()) {
                     if (!ConnectionUtils.isOdbcTeradata(dbJDBCMetadata) && !isHive2) {

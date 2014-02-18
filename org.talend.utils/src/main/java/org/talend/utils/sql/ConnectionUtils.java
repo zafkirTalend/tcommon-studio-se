@@ -354,4 +354,18 @@ public final class ConnectionUtils {
         }
         return false;
     }
+
+    public static boolean isOdbcHyperFileSQL(DatabaseMetaData metadata) {
+        try {
+            if (metadata.getDriverName() != null
+                    && metadata.getDriverName().toLowerCase().startsWith("jdbc-odbc bridge") //$NON-NLS-1$
+                    && metadata.getDatabaseProductName() != null
+                    && metadata.getDatabaseProductName().toLowerCase().indexOf("hyperfilesql") > -1) { //$NON-NLS-1$
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
 }
