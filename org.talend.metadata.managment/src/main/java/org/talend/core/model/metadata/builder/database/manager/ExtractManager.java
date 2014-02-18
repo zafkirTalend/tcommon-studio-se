@@ -381,10 +381,6 @@ public class ExtractManager {
                 }
                 fillSynonyms(metadataConnection, metadataColumns, table, tableName, dbMetaData);
             } else {
-                if (tableLabel.contains("/")) {
-                    tableLabel = tableLabel.replace("/", "");
-                }
-                newNode.setValue(tableLabel);
                 metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, metadataConnection, dbMetaData, null);
             }
 
