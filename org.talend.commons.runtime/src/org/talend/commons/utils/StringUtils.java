@@ -13,7 +13,10 @@
 package org.talend.commons.utils;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.talend.commons.i18n.internal.Messages;
 
@@ -355,6 +358,69 @@ public class StringUtils {
             text = replace(text, OPEN_BRACE + i + CLOSE_BRACE, String.valueOf(arguments[i]));
         }
         return text;
+    }
+
+    private static final StringDigitComparator STR_DIGIT_COMPARATOR = new StringDigitComparator();
+
+    static class StringDigitComparator implements Comparator<String> {
+
+        final Pattern DIGIT_PATTERN = Pattern.compile("^(\\d+)"); //$NON-NLS-1$
+
+        @Override
+        public int compare(String s1, String s2) {
+            return compare(s1, s2, true);
+        }
+
+        public int compare(String s1, String s2, boolean ignoreCase) {
+            int n1 = s1.length(), n2 = s2.length();
+            for (int i1 = 0, i2 = 0; i1 < n1 && i2 < n2; i1++, i2++) {
+                char c1 = s1.charAt(i1);
+                char c2 = s2.charAt(i2);
+                // check the digit, all start by digit
+                if (Character.isDigit(c1) && Character.isDigit(c2)) {
+                    // get the digit
+                    String tmp1 = s1.substring(i1);
+                    String tmp2 = s2.substring(i2);
+                    Matcher matcher1 = DIGIT_PATTERN.matcher(tmp1);
+                    Matcher matcher2 = DIGIT_PATTERN.matcher(tmp2);
+                    if (matcher1.find() && matcher2.find()) {
+                        String digit1 = matcher1.group(1);
+                        String digit2 = matcher2.group(1);
+                        int d1 = Integer.parseInt(digit1);
+                        int d2 = Integer.parseInt(digit2);
+                        if (d1 == d2) { // same digit, check the left strings
+                            String left1 = tmp1.substring(digit1.length());
+                            String left2 = tmp2.substring(digit2.length());
+                            return compare(left1, left2);
+                        } else {
+                            return d1 - d2;
+                        }
+
+                    }
+
+                }
+                if (c1 != c2) {
+                    c1 = Character.toUpperCase(c1);
+                    c2 = Character.toUpperCase(c2);
+                    if (c1 != c2) {
+                        c1 = Character.toLowerCase(c1);
+                        c2 = Character.toLowerCase(c2);
+                        if (c1 != c2) {
+                            return c1 - c2;
+                        }
+                    }
+                }
+            }
+            return n1 - n2;
+        }
+    };
+
+    public static int compareStringDigit(String s1, String s2, boolean ignoreCase) {
+        return STR_DIGIT_COMPARATOR.compare(s1, s2, ignoreCase);
+    }
+
+    public static int compareStringDigit(String s1, String s2) {
+        return STR_DIGIT_COMPARATOR.compare(s1, s2);
     }
 
 }
