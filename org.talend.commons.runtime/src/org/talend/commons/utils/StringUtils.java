@@ -391,7 +391,7 @@ public class StringUtils {
                         if (d1 == d2) { // same digit, check the left strings
                             String left1 = tmp1.substring(digit1.length());
                             String left2 = tmp2.substring(digit2.length());
-                            return compare(left1, left2);
+                            return compare(left1, left2, ignoreCase);
                         } else {
                             return d1 - d2;
                         }
@@ -400,15 +400,20 @@ public class StringUtils {
 
                 }
                 if (c1 != c2) {
-                    c1 = Character.toUpperCase(c1);
-                    c2 = Character.toUpperCase(c2);
-                    if (c1 != c2) {
-                        c1 = Character.toLowerCase(c1);
-                        c2 = Character.toLowerCase(c2);
+                    if (ignoreCase) {
+                        c1 = Character.toUpperCase(c1);
+                        c2 = Character.toUpperCase(c2);
                         if (c1 != c2) {
-                            return c1 - c2;
+                            c1 = Character.toLowerCase(c1);
+                            c2 = Character.toLowerCase(c2);
+                            if (c1 != c2) {
+                                return c1 - c2;
+                            }
                         }
+                    } else {
+                        return c1 - c2;
                     }
+
                 }
             }
             return n1 - n2;

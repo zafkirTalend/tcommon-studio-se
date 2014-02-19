@@ -111,5 +111,14 @@ public class StringUtilsTest {
         s1 = "tDB2Output_2_input_11A2";
         s2 = "tDB2Output_1_input_11A12";
         Assert.assertTrue(StringUtils.compareStringDigit(s1, s2) > 0);
+
+        //
+        s1 = "tdb2Output_1";
+        s2 = "tDB2Output_1";
+        Assert.assertTrue(StringUtils.compareStringDigit(s1, s2, false) > 0);
+
+        s1 = "tDB2Output_1_input_11a2";
+        s2 = "tDB2Output_1_input_11A12";
+        Assert.assertTrue(StringUtils.compareStringDigit(s1, s2, false) > 0);
     }
 }
