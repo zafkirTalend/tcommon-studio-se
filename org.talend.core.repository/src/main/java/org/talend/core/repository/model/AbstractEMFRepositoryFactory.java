@@ -486,12 +486,12 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             if (systemFolder == null) {
                 Folder folder = createFolder(getRepositoryContext().getProject(), sqlpatternsType, categoryPath,
                         systemPath.lastSegment());
-                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
+                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.FOLDER_LITERAL);
             }
             if (folderHelper.getFolder(parentPath.append(userPath)) == null) {
                 Folder folder = createFolder(getRepositoryContext().getProject(), sqlpatternsType, categoryPath,
                         userPath.lastSegment());
-                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.SYSTEM_FOLDER_LITERAL);
+                ((FolderItem) folder.getProperty().getItem()).setType(FolderType.FOLDER_LITERAL);
             }
             //
             if (existingItem == null) {

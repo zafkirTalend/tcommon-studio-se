@@ -329,7 +329,7 @@ public abstract class FolderHelper {
             final EObject parent = folder.getParent();
             if (parent instanceof FolderItem) {
                 FolderItem parentFolder = (FolderItem) parent;
-                if (parentFolder.getParent() instanceof Project) {
+                if (FolderType.SYSTEM_FOLDER_LITERAL.equals(parentFolder.getType())) {
                     if (path == null) {
                         path = "";
                     }
