@@ -326,10 +326,13 @@ public abstract class FolderHelper {
 
     private String getFolderPath(FolderItem folder, String path) {
         if (FolderType.FOLDER_LITERAL.equals(folder.getType())) {
+            if (folder.getProperty().getLabel().equals("aa")) {
+                System.out.println("");
+            }
             final EObject parent = folder.getParent();
             if (parent instanceof FolderItem) {
                 FolderItem parentFolder = (FolderItem) parent;
-                if (parentFolder.getParent() instanceof Project) {
+                if (FolderType.SYSTEM_FOLDER_LITERAL.equals(parentFolder.getType())) {
                     if (path == null) {
                         path = "";
                     }
