@@ -13,6 +13,7 @@
 package org.talend.core.model.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,9 +25,11 @@ import java.util.Set;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IConnectionCategory;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 
@@ -794,7 +797,53 @@ public class NodeUtil {
                 fillConnectionsForStat(connsName, conn.getTarget());
             }
         }
+        
+    }
+    /*
+     * return all displayed parameters
+     */
+    public static List<IElementParameter> getDisplayedParameters(INode currentNode) {
+        List<? extends IElementParameter> eps = currentNode.getElementParameters();
+        List<IElementParameter> reps = new ArrayList<IElementParameter>();
+        // should ignore Parallelize?
+        List<String> ignorePs = Arrays.asList("CONNECTION_FORMAT", "INFORMATION", "COMMENT", "VALIDATION_RULES", "LABEL", "HINT",
+                "ACTIVATE", "TSTATCATCHER_STATS", "PARALLELIZE", "PROPERTY");
+        for (IElementParameter ep : eps) {
+            if (ep.isShow(eps)) {
+                if (!ignorePs.contains(ep.getName())) {
+                    reps.add(ep);
+                }
+            }
+        }
+        return reps;
+    }
 
+    public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
+        String value = "";
+        value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
+        List<EParameterFieldType> escapeQuotation = Arrays.asList(EParameterFieldType.MEMO_JAVA);
+        if (escapeQuotation.contains(ep.getFieldType())) {
+            value = value.replaceAll("\\\"", "\\\\\\\"");
+        }
+        List<EParameterFieldType> needRemoveCRLFList = Arrays.asList(EParameterFieldType.MEMO, EParameterFieldType.MEMO_JAVA,
+                EParameterFieldType.MEMO_SQL);
+        if (needRemoveCRLFList.contains(ep.getFieldType())) {
+            value = value.replaceAll("[\r\n]", " ");
+        }
+        List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
+                EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
+                EParameterFieldType.MEMO_JAVA);
+        if (needQuoteList.contains(ep.getFieldType())) {
+            value = "\"" + value + "\"";
+        }
+        if (EParameterFieldType.TABLE.equals(ep.getFieldType())) {
+            value = ElementParameterParser.getObjectValue(node, "__" + ep.getName() + "__").toString();
+            value = value.replace("=\"", "=\\\"");
+            value = value.replace("\",", "\\\",");
+            value = value.replace("\"}", "\\\"}");
+            value = "\"" + value + "\"";
+        }
+        return value;
     }
 
     /**
