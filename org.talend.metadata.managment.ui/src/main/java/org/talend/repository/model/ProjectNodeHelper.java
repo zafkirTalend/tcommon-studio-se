@@ -510,7 +510,7 @@ public class ProjectNodeHelper {
         try {
             temConnection = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(iMetadataConnection,
                     temConnection);
-            sqlConn = MetadataConnectionUtils.checkConnection(iMetadataConnection).getObject();
+            sqlConn = MetadataConnectionUtils.createConnection(iMetadataConnection).getObject();
             // because there is no any structure after import into 423 from 402,just sychronized the two connection's
             // UISchema for fill catalogs and scheams
             if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
