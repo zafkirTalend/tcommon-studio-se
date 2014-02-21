@@ -107,15 +107,33 @@ public class MetadataConnectionUtils {
     public static final String FAKE_SCHEMA_SYNONYMS = "AllSynonyms"; //$NON-NLS-1$
 
     /**
+     * check a Connection and at last will close the connection.
      * 
-     * method "checkConnection".
-     * 
-     * @param metadataBean pass the parameter for java.sql.Connection.
-     * @return one object which adjust whether the Connection can be connected and take one object for
-     * java.sql.connection. Note if use this method, you need to care for the value of return and close the Connect
-     * after use it.
+     * @param metadataBean
+     * @return
      */
     public static TypedReturnCode<java.sql.Connection> checkConnection(IMetadataConnection metadataBean) {
+        return createConnection(metadataBean, true);
+    }
+
+    /**
+     * create a Connection and without close it.
+     * 
+     * @param metadataBean
+     * @return
+     */
+    public static TypedReturnCode<java.sql.Connection> createConnection(IMetadataConnection metadataBean) {
+        return createConnection(metadataBean, false);
+    }
+
+    /**
+     * create a Connection with the parameter whether close it.
+     * 
+     * @param metadataBean
+     * @param boolean close Connection or not
+     * @return
+     */
+    public static TypedReturnCode<java.sql.Connection> createConnection(IMetadataConnection metadataBean, boolean closeConnection) {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         rc.setOk(false);
         if (metadataBean == null) {
@@ -154,6 +172,8 @@ public class MetadataConnectionUtils {
             String userName = metadataBean.getUsername();
             String dbType = metadataBean.getDbType();
 
+            dbUrl = ConnectionUtils.addShutDownForHSQLUrl(dbUrl, metadataBean.getAdditionalParams());
+
             Properties props = new Properties();
             props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
             props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName); //$NON-NLS-1$
@@ -168,7 +188,7 @@ public class MetadataConnectionUtils {
                 java.sql.Connection sqlConn = null;
                 Driver driver = null;
                 try {
-                    if (isHsqlInprocess(metadataBean)) {
+                    if (isHsqlInprocess(metadataBean) || ConnectionUtils.isServerModeHsql(dbUrl)) {
                         List list = getConnection(metadataBean);
                         for (int i = 0; i < list.size(); i++) {
                             if (list.get(i) instanceof Driver) {
@@ -206,6 +226,9 @@ public class MetadataConnectionUtils {
                 } catch (ClassNotFoundException e) {
                     log.error(e.getMessage(), e);
                     rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
+                } catch (RuntimeException e) {
+                    log.error(e.getMessage(), e);
+                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
                 }
             } else {
                 if (StringUtils.isNotBlank(dbUrl)) {
@@ -216,19 +239,44 @@ public class MetadataConnectionUtils {
             }
         }
 
+        if (closeConnection) {
+            if (rc.getObject() != null) {
+                ConnectionUtils.closeConnection(rc.getObject());
+            }
+        }
+
         return rc;
     }
 
     /**
+     * check a Connection and will at last close connection.
      * 
-     * method "checkConnection".
-     * 
-     * @param metadataBean pass the parameter for java.sql.Connection.
-     * @return one object which adjust whether the Connection can be connected and take one object for
-     * java.sql.connection. Note if use this method, you need to care for the value of return and close the Connect
-     * after use it.
+     * @param databaseConnection
+     * @return
      */
     public static TypedReturnCode<java.sql.Connection> checkConnection(DatabaseConnection databaseConnection) {
+        return createConnection(databaseConnection, true);
+    }
+
+    /**
+     * create a Connection and will at last not close connection.
+     * 
+     * @param databaseConnection
+     * @return
+     */
+    public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection databaseConnection) {
+        return createConnection(databaseConnection, false);
+    }
+
+    /**
+     * create a Connection whether close it depends on closeConnection.
+     * 
+     * @param databaseConnection
+     * @param closeConnection
+     * @return
+     */
+    public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection databaseConnection,
+            boolean closeConnection) {
         IMetadataConnection metadataConnection;
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(databaseConnection.getDatabaseType())) {
             metadataConnection = ConvertionHelper.convert(databaseConnection);
@@ -284,7 +332,7 @@ public class MetadataConnectionUtils {
             metadataConnection.setPassword(password);
             metadataConnection.setUrl(dbUrl);
         }
-        return checkConnection(metadataConnection);
+        return createConnection(metadataConnection, closeConnection);
     }
 
     /**
@@ -525,7 +573,7 @@ public class MetadataConnectionUtils {
      * @throws ClassNotFoundException
      */
     public static Driver getClassDriver(IMetadataConnection metadataBean) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
+            ClassNotFoundException, RuntimeException {
         String driverClassName = metadataBean.getDriverClass();
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
@@ -982,7 +1030,7 @@ public class MetadataConnectionUtils {
                     metaConnection = ConvertionHelper.convert(dbConn);
                 }
                 dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-                sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+                sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
                 if (sqlConn != null) {
                     DatabaseMetaData databaseMetaData = null;
                     // Added by Marvin Wang on Mar. 21, 2013 for loading hive jars dynamically, refer to TDI-25072.
@@ -1003,8 +1051,7 @@ public class MetadataConnectionUtils {
         } catch (Exception e) {
             log.error(e, e);
         } finally {
-            boolean hsql = ConnectionUtils.isHsql(metadataConnection.getUrl());
-            if (hsql && sqlConn != null) {
+            if (sqlConn != null) {
                 ConnectionUtils.closeConnection(sqlConn);
             }
             closeDerbyDriver();

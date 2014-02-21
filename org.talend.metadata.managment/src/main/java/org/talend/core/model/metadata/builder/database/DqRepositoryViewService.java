@@ -188,17 +188,15 @@ public final class DqRepositoryViewService {
      */
     public static List<TdTable> getTables(Connection dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB)
             throws Exception {
-        List<TdTable> tables = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            tables = getTables(trc.getObject(), dataProvider, catalog, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, catalog, tablePattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return tables;
     }
 
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
@@ -212,17 +210,15 @@ public final class DqRepositoryViewService {
 
     public static List<TdTable> getTables(Connection dataProvider, Schema schema, String tablePattern, boolean loadFromDB)
             throws Exception {
-        List<TdTable> tables = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            tables = getTables(trc.getObject(), dataProvider, schema, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, schema, tablePattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return tables;
     }
 
     /**
@@ -248,17 +244,15 @@ public final class DqRepositoryViewService {
 
     public static List<TdTable> getTables(Connection dataProvider, Package pack, String tablePattern, boolean loadFromDB)
             throws Exception {
-        List<TdTable> tables = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            tables = getTables(trc.getObject(), dataProvider, pack, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, pack, tablePattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return tables;
     }
 
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
@@ -271,28 +265,17 @@ public final class DqRepositoryViewService {
         return new ArrayList<TdTable>();
     }
 
-    private static TypedReturnCode<java.sql.Connection> checkConnection(Connection dataProvider) throws Exception {
-        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider);
-        if (!trc.isOk()) {
-            log.error(trc.getMessage());
-            throw new Exception(trc.getMessage());
-        }
-        return trc;
-    }
-
     public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
             throws Exception {
-        List<TdView> views = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            views = getViews(trc.getObject(), dataProvider, catalog, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, catalog, viewPattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return views;
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
@@ -306,17 +289,15 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(Connection dataProvider, Schema schema, String viewPattern, boolean loadFromDB)
             throws Exception {
-        List<TdView> views = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            views = getViews(trc.getObject(), dataProvider, schema, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, schema, viewPattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return views;
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
@@ -332,17 +313,15 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(Connection dataProvider, Package pack, String viewPattern, boolean loadFromDB)
             throws Exception {
-        List<TdView> views = null;
-        TypedReturnCode<java.sql.Connection> trc = null;
+        TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
+        java.sql.Connection connection = trc.getObject();
         try {
-            trc = checkConnection(dataProvider);
-            views = getViews(trc.getObject(), dataProvider, pack, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, pack, viewPattern, loadFromDB);
         } finally {
-            if (trc != null && trc.getObject() != null) {
-                ConnectionUtils.closeConnection(trc.getObject());
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
-        return views;
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
@@ -366,18 +345,19 @@ public final class DqRepositoryViewService {
     public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, boolean loadFromDB) throws Exception {
         if (loadFromDB) {
             // MOD by zshen use new API to fill Columns
-            List<TdColumn> columnList = new ArrayList<TdColumn>();
-            TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
+            TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
+                    .createConnection((DatabaseConnection) dataProvider);
             java.sql.Connection connection = rcConn.getObject();
             try {
                 DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
                         (DatabaseConnection) dataProvider);
 
-                columnList = MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
+                return MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
             } finally {
-                ConnectionUtils.closeConnection(connection);
+                if (connection != null) {
+                    ConnectionUtils.closeConnection(connection);
+                }
             }
-            return columnList;
             // ~
             // return loadColumns(dataProvider, columnSet, columnPattern);
         } else {
@@ -543,17 +523,18 @@ public final class DqRepositoryViewService {
     /**
      * ADD gdbu 2011-7-25 bug : 23220
      * 
-     * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
-     * tables.
+     * This method is used to connect to database to check if this catalog has Children.
      * 
      * @param dataProvider
      * @param catalog
-     * @param tablePattern
-     * @return
+     * @param childrenPattern
+     * @param String[] childrenTypes
+     * @return boolean
      * @throws Exception
      */
-    public static boolean isContainsTable(Connection dataProvider, Catalog catalog, String tablePattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
+    public static boolean isCatalogHasChildren(Connection dataProvider, Catalog catalog, String childrenPattern,
+            String[] childrenTypes) throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
@@ -565,7 +546,7 @@ public final class DqRepositoryViewService {
                     .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
         }
         Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, tablePattern, TABLE_TYPES);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, childrenPattern, childrenTypes);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -574,112 +555,25 @@ public final class DqRepositoryViewService {
                 return false;
             }
         } finally {
-            if (!connection.isClosed()) {
-                connection.close();
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
     }
 
     /**
-     * ADD gdbu 2011-7-25 bug : 23220
-     * 
-     * DOC gdbu Comment method "isContainsTable".This method used to connect to database to check if this schema has
-     * tables.
+     * This method is used to connect to database to check if this schema has children.
      * 
      * @param dataProvider
      * @param schema
-     * @param tablePattern
-     * @return
+     * @param childrenPattern
+     * @param String[] childrenTypes
+     * @return boolean
      * @throws Exception
      */
-    public static boolean isContainsTable(Connection dataProvider, Schema schema, String tablePattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
-        java.sql.Connection connection = rcConn.getObject();
-
-        DatabaseMetaData dbJDBCMetadata = null;
-        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
-        if (dataProvider instanceof DatabaseConnection) {
-            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
-        } else {
-            TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = extractMeta
-                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
-        }
-        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(schema);
-
-        Package parentCatalog = PackageHelper.getParentPackage(catalogOrSchema);
-        String schemaPattern = catalogOrSchema.getName();
-        String catalogName = parentCatalog == null ? null : parentCatalog.getName();
-
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, TABLE_TYPES);
-        // MOD msjian TDQ-1806: fixed "Too many connections"
-        try {
-            if (tables.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            if (!connection.isClosed()) {
-                connection.close();
-            }
-        }
-    }
-
-    /**
-     * ADD gdbu 2011-7-25 bug : 23220
-     * 
-     * DOC gdbu Comment method "isContainsView". This method used to connect to database to check if this catalog has
-     * views.
-     * 
-     * @param dataProvider
-     * @param catalog
-     * @param viewPattern
-     * @return
-     * @throws Exception
-     */
-    public static boolean isContainsView(Connection dataProvider, Catalog catalog, String viewPattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
-        java.sql.Connection connection = rcConn.getObject();
-        DatabaseMetaData dbJDBCMetadata = null;
-        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
-        if (dataProvider instanceof DatabaseConnection) {
-            dbJDBCMetadata = extractMeta.getDatabaseMetaData(connection, (DatabaseConnection) dataProvider, false);
-        } else {
-            TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DBTYPE, dataProvider.getTaggedValue());
-            dbJDBCMetadata = extractMeta
-                    .getDatabaseMetaData(connection, taggedValue == null ? "default" : taggedValue.getValue());//$NON-NLS-1$
-        }
-        Package catalogOrSchema = PackageHelper.getCatalogOrSchema(catalog);
-        ResultSet tables = dbJDBCMetadata.getTables(catalogOrSchema.getName(), null, viewPattern, VIEW_TYPES);
-        // MOD msjian TDQ-1806: fixed "Too many connections"
-        try {
-            if (tables.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            if (!connection.isClosed()) {
-                connection.close();
-            }
-        }
-    }
-
-    /**
-     * ADD gdbu 2011-7-25 bug : 23220
-     * 
-     * DOC gdbu Comment method "isContainsView".This method used to connect to database to check if this schema has
-     * views.
-     * 
-     * @param dataProvider
-     * @param schema
-     * @param viewPattern
-     * @return
-     * @throws Exception
-     */
-    public static boolean isContainsView(Connection dataProvider, Schema schema, String viewPattern) throws Exception {
-        TypedReturnCode<java.sql.Connection> rcConn = checkConnection(dataProvider);
+    public static boolean isSchemaHasChildren(Connection dataProvider, Schema schema, String childrenPattern,
+            String[] childrenTypes) throws Exception {
+        TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = rcConn.getObject();
         DatabaseMetaData dbJDBCMetadata = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
@@ -696,7 +590,7 @@ public final class DqRepositoryViewService {
         String schemaPattern = catalogOrSchema.getName();
         String catalogName = parentCatalog == null ? null : parentCatalog.getName();
 
-        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, viewPattern, VIEW_TYPES);
+        ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, childrenPattern, childrenTypes);
         // MOD msjian TDQ-1806: fixed "Too many connections"
         try {
             if (tables.next()) {
@@ -705,8 +599,8 @@ public final class DqRepositoryViewService {
                 return false;
             }
         } finally {
-            if (!connection.isClosed()) {
-                connection.close();
+            if (connection != null) {
+                ConnectionUtils.closeConnection(connection);
             }
         }
     }

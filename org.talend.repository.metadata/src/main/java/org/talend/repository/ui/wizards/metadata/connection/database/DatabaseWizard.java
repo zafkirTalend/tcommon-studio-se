@@ -765,14 +765,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     private void updateConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metaConnection)
             throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         java.sql.Connection sqlConn = null;
-        String dbType = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
             dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
-            sqlConn = MetadataConnectionUtils.checkConnection(metaConnection).getObject();
+            sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
 
-            dbType = metaConnection.getDbType();
             if (sqlConn != null) {
+                String dbType = metaConnection.getDbType();
                 DatabaseMetaData dbMetaData = null;
                 // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
                 if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {

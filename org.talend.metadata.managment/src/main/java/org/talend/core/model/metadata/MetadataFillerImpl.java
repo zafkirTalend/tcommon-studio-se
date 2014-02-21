@@ -37,6 +37,7 @@ import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -353,30 +354,51 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
         this.isLinked = isLinked;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
      * 
-     * zshen Comment method "checkConnection".
-     * 
-     * @param metadataBean connection information.can not be null.
-     * @return the object of TypedReturnCode if connected have be build the object will take a java.sql.connection else
-     * it will take a error message.
+     * @see
+     * org.talend.core.model.metadata.IMetadataFiller#checkConnection(org.talend.core.model.metadata.IMetadataConnection
+     * )
      */
     public ReturnCode checkConnection(IMetadataConnection metadataBean) {
-        ReturnCode rc = new ReturnCode();
+        return createConnection(metadataBean, true);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.metadata.IMetadataFiller#createConnection(org.talend.core.model.metadata.IMetadataConnection
+     * )
+     */
+    public TypedReturnCode<?> createConnection(IMetadataConnection metadataBean) {
+        return createConnection(metadataBean, false);
+    }
+
+    /**
+     * create a Connection and whether close it depend on closeConnection.
+     * 
+     * @param metadataBean
+     * @param closeConnection
+     * @return
+     */
+    public TypedReturnCode<?> createConnection(IMetadataConnection metadataBean, boolean closeConnection) {
+        TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         if (EDataBaseType.MDM.getProductName().equalsIgnoreCase(metadataBean.getDbType())) {
             try {
                 XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
                 // ping Web Service server
                 stub.ping(new WSPing());
                 rc.setOk(true);
-                rc.setMessage("OK");
+                rc.setMessage("OK"); //$NON-NLS-1$
             } catch (Exception e) {
                 log.warn(e, e);
                 rc.setOk(false);
                 rc.setMessage(e.getMessage());
             }
         } else {
-            rc = MetadataConnectionUtils.checkConnection(metadataBean);
+            rc = MetadataConnectionUtils.createConnection(metadataBean, closeConnection);
         }
         return rc;
     }

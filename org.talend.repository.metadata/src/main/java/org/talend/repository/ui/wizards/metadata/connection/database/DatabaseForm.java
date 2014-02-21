@@ -4190,7 +4190,7 @@ public class DatabaseForm extends AbstractForm {
                 String driverClass = extractMeta.getDriverClassByDbType(connection.getDatabaseType());
                 connection.setDriverClass(driverClass);
             }
-            java.sql.Connection sqlConn = MetadataConnectionUtils.checkConnection(connection).getObject();
+            java.sql.Connection sqlConn = MetadataConnectionUtils.createConnection(connection).getObject();
             // if the dbtype is Access,it will throw a sqlException
             if (sqlConn != null) {
                 try {

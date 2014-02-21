@@ -32,8 +32,6 @@ import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
  */
 public class JDBCDriverLoader {
 
-    public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
-
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
 
     /**
