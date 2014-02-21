@@ -23,6 +23,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -192,14 +193,20 @@ public interface IMetadataFiller {
     public void setLinked(boolean isLinked);
 
     /**
+     * this is used to check a Connection and at last the connection will be closed at once.
      * 
-     * zshen Comment method "checkConnection".
-     * 
-     * @param metadataBean connection information.can not be null.
-     * @return the object of TypedReturnCode if connected have be build the object will take a java.sql.connection else
-     * it will take a error message.
+     * @param metadataBean
+     * @return
      */
     public ReturnCode checkConnection(IMetadataConnection metadataBean);
+
+    /**
+     * this is used to create a Connection and the connection will be not closed.
+     * 
+     * @param metadataBean
+     * @return
+     */
+    public TypedReturnCode<?> createConnection(IMetadataConnection metadataBean);
 
     /**
      * 

@@ -150,7 +150,7 @@ public final class JavaSqlFactory {
         }
 
         if (sqlConnection == null && connection instanceof DatabaseConnection) {
-            sqlConnection = MetadataConnectionUtils.checkConnection((DatabaseConnection) connection).getObject();
+            sqlConnection = MetadataConnectionUtils.createConnection((DatabaseConnection) connection).getObject();
         }
         rc.setObject(sqlConnection);
         rc.setOk(sqlConnection != null);

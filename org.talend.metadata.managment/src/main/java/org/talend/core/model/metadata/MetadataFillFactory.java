@@ -330,27 +330,23 @@ public class MetadataFillFactory {
     }
 
     /**
+     * check a Connection and at last will close connection.
      * 
-     * zshen Comment method "checkConnection".
-     * 
-     * @param metadataBean connection information.can not be null.
-     * @return the object of TypedReturnCode if connected have be build the object will take a java.sql.connection else
-     * it will take a error message.
-     * @deprecated use {@link #createConnection(IMetadataConnection)} instead.
+     * @param metadataBean
+     * @return
      */
-    @Deprecated
     public ReturnCode checkConnection(IMetadataConnection metadataBean) {
         return metadataFiller.checkConnection(metadataBean);
     }
 
     /**
+     * create a Connection and at last will not close connection.
      * 
-     * @param metadataBean connection information.can not be null.
-     * @return the object of TypedReturnCode if the connection is established. The object will be a instance of
-     * java.sql.Connection if success, otherwise an error message will be returned.
+     * @param metadataBean
+     * @return
      */
     public ReturnCode createConnection(IMetadataConnection metadataBean) {
-        return metadataFiller.checkConnection(metadataBean);
+        return metadataFiller.createConnection(metadataBean);
     }
 
     /**

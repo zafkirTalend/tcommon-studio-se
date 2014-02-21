@@ -32,8 +32,6 @@ import org.talend.utils.sql.ConnectionUtils;
  */
 public class JDBCDriverLoader {
 
-    public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
-
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
 
     /**
@@ -151,10 +149,8 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
-                boolean isHSQL = ConnectionUtils.isHsql(url);
-                if (isHSQL && additionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
-                    url = url + SHUTDOWN_PARAM;
-                }
+                url = ConnectionUtils.addShutDownForHSQLUrl(url, additionalParams);
+
                 if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
                     ExtractMetaDataUtils.getInstance().setDriverCache(wapperDriver);
                 }

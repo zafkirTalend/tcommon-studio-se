@@ -44,11 +44,10 @@ import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.mdm.webservice.WSDataModelPK;
 import org.talend.mdm.webservice.WSGetDataModel;
-import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.WSRegexDataModelPKs;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort;
-import org.talend.utils.sugars.TypedReturnCode;
+import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -71,7 +70,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         if (super.fillUIConnParams(metadataBean, connection) == null) {
             return null;
         }
-        TypedReturnCode<Object> rc = this.checkConnection(metadataBean);
+        ReturnCode rc = checkConnection(metadataBean);
         if (rc.isOk()) {
 
             // create softwareSystem
@@ -93,23 +92,6 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
 
         }
         return connection;
-    }
-
-    @Override
-    public TypedReturnCode<Object> checkConnection(IMetadataConnection metadataBean) {
-        TypedReturnCode<Object> rc = new TypedReturnCode<Object>();
-        try {
-            XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
-            // ping Web Service server
-            stub.ping(new WSPing());
-            rc.setOk(true);
-            rc.setMessage("OK");
-        } catch (Exception e) {
-            log.warn(e, e);
-            rc.setOk(false);
-            rc.setMessage(e.getMessage());
-        }
-        return rc;
     }
 
     public List<orgomg.cwm.objectmodel.core.Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata,

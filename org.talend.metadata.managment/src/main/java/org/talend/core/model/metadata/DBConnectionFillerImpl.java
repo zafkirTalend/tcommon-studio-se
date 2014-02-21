@@ -83,8 +83,6 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
-import org.talend.utils.sugars.ReturnCode;
-import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -99,8 +97,6 @@ import orgomg.cwm.resource.relational.enumerations.NullableType;
 public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
     private static Logger log = Logger.getLogger(DBConnectionFillerImpl.class);
-
-    private java.sql.Connection sqlConnection = null;
 
     private static Driver driver = null;
 
@@ -141,10 +137,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, distroVersion);
             dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveModel);
         }
+        java.sql.Connection sqlConnection = null;
         try {
-            if (sqlConnection == null || sqlConnection.isClosed()) {
-                this.checkConnection(metadataBean);
-            }
+            sqlConnection = MetadataConnectionUtils.createConnection(metadataBean).getObject();
             // MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             if (newConnection != null) {
@@ -202,16 +197,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         } else {
             return connection;
         }
-    }
-
-    @Override
-    public ReturnCode checkConnection(IMetadataConnection metadataBean) {
-        ReturnCode rc = null;
-        rc = MetadataConnectionUtils.checkConnection(metadataBean);
-        if (rc instanceof TypedReturnCode) {
-            this.sqlConnection = (java.sql.Connection) ((TypedReturnCode<?>) rc).getObject();
-        }
-        return rc;
     }
 
     /**

@@ -47,6 +47,8 @@ public final class ConnectionUtils {
 
     private static final String ACCESS_DRIVER = "Microsoft Access Driver"; //$NON-NLS-1$
 
+    public static final String SHUTDOWN_PARAM = ";shutdown=true"; //$NON-NLS-1$
+
     /**
      * private constructor.
      */
@@ -171,6 +173,25 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
     }
 
+    public static String addShutDownForHSQLUrl(String url, String AdditionalParams) {
+        String dbUrl = url;
+        boolean isHSQL = ConnectionUtils.isHsql(dbUrl);
+        if (isHSQL && AdditionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
+            dbUrl = dbUrl + SHUTDOWN_PARAM;
+        }
+        return dbUrl;
+    }
+
+    public static void executeShutDownForHSQL(java.sql.Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
+        statement.close();
+    }
+
+    public static boolean isServerModeHsql(String url) {
+        return url != null && url.startsWith("jdbc:hsqldb:hsql"); //$NON-NLS-1$
+    }
+
     public static boolean isTeradata(String url) {
         return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
     }
@@ -228,10 +249,9 @@ public final class ConnectionUtils {
             if (connection != null && !connection.isClosed()) {
                 if (connection.getMetaData() != null) {
                     String url = connection.getMetaData().getURL();
-                    boolean isHsql = isHsql(url);
-                    if (isHsql) {
-                        Statement statement = connection.createStatement();
-                        statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
+                    // when it is In ProcessHsql, we hold on its status
+                    if (isHsql(url) && !isServerModeHsql(url)) {
+                        executeShutDownForHSQL(connection);
                     }
                 }
                 connection.close();
