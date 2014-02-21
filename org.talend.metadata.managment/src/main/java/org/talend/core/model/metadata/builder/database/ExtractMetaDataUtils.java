@@ -691,9 +691,9 @@ public class ExtractMetaDataUtils {
                     if (conn.getMetaData() != null) {
                         String url = conn.getMetaData().getURL();
                         boolean isHsql = ConnectionUtils.isHsql(url);
-                        if (isHsql) {
-                            Statement statement = conn.createStatement();
-                            statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$ 
+                        // we hold on hsql server's status when it is server mode and not In-Process mode.
+                        if (isHsql && !ConnectionUtils.isServerModeHsql(url)) {
+                            ConnectionUtils.executeShutDownForHSQL(conn);
                         }
                     }
                     conn.close();
