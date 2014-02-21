@@ -17,7 +17,7 @@ import org.talend.core.runtime.i18n.Messages;
 /**
  * wzhang class global comment. Detailled comment
  */
-public abstract class AbstractBrandingService implements IBrandingService {
+public abstract class AbstractBrandingService extends AbstractCommonBrandingService {
 
     public String getJobLicenseHeader(String version) {
 
@@ -40,12 +40,6 @@ public abstract class AbstractBrandingService implements IBrandingService {
     @Override
     public boolean isPoweredOnlyCamel() {
         return false;
-    }
-
-    @Override
-    public String getStartingBrowserId() {
-        // default is StartingBrowser implement in org.talend.rcp
-        return "org.talend.rcp.intro.starting.StartingBrowser";
     }
 
     @Override

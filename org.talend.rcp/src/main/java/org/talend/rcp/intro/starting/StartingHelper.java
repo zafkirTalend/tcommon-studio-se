@@ -24,6 +24,10 @@ import org.eclipse.ui.internal.intro.impl.model.loader.IntroContentParser;
 import org.eclipse.ui.internal.intro.impl.model.util.ModelUtil;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.branding.AbstractBrandingService;
+import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.ui.branding.StartingConstants;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.w3c.dom.Document;
@@ -52,11 +56,18 @@ public class StartingHelper {
     }
 
     public String getHtmlContent() throws IOException {
-        if (content == null || "".equals(content)) {
-            URL entry = Activator.getDefault().getBundle().getEntry("content/TOS-welcomepage.html");
-            if (entry != null) {
-                entry = FileLocator.toFileURL(entry);
-                String result = entry.toExternalForm();
+        if (content == null || "".equals(content)) { //$NON-NLS-1$
+            IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            URL startingHtmlURL = null;
+            if (service != null) {
+                startingHtmlURL = ((AbstractBrandingService) service).getStartingHtmlURL();
+            }
+            if (startingHtmlURL == null) { // if not set, use default
+                startingHtmlURL = Activator.getDefault().getBundle().getEntry("content/TOS-welcomepage.html"); //$NON-NLS-1$
+            }
+            if (startingHtmlURL != null) {
+                startingHtmlURL = FileLocator.toFileURL(startingHtmlURL);
+                String result = startingHtmlURL.toExternalForm();
                 if (result.startsWith("file:/")) { //$NON-NLS-1$
                     if (result.startsWith("file:///") == false) { //$NON-NLS-1$
                         result = "file:///" + result.substring(6); //$NON-NLS-1$
@@ -74,8 +85,8 @@ public class StartingHelper {
 
         }
 
-        if (content == null || "".equals(content)) {
-            throw new IOException("Can't find starting helper content");
+        if (content == null || "".equals(content)) { //$NON-NLS-1$
+            throw new IOException("Can't find starting helper content"); //$NON-NLS-1$
         }
 
         return content;
@@ -86,8 +97,8 @@ public class StartingHelper {
                 StartingConstants.KEY_INTERNATIONAL);
 
         Node[] nodes = ModelUtil.getArray(internationals);
-        for (int i = 0; i < nodes.length; i++) {
-            Element internationalElement = (Element) nodes[i];
+        for (Node node : nodes) {
+            Element internationalElement = (Element) node;
             internationalElement.getParentNode().replaceChild(
                     dom.createTextNode(Messages.getString(internationalElement.getAttribute(StartingConstants.ATT_ID))),
                     internationalElement);
@@ -102,17 +113,18 @@ public class StartingHelper {
 
         // get the array version of the nodelist to work around DOM api design.
         Node[] nodes = ModelUtil.getArray(contentProviders);
-        for (int i = 0; i < nodes.length; i++) {
-            Element contentProviderElement = (Element) nodes[i];
+        for (Node node : nodes) {
+            Element contentProviderElement = (Element) node;
             IntroContentProvider provider = new IntroContentProvider(contentProviderElement, Activator.getDefault().getBundle());
             // If we've already loaded the content provider for this element,
             // retrieve it, otherwise load the class.
             IIntroXHTMLContentProvider providerClass = (IIntroXHTMLContentProvider) ContentProviderManager.getInst()
                     .getContentProvider(provider);
-            if (providerClass == null)
+            if (providerClass == null) {
                 // content provider never created before, create it.
                 providerClass = (IIntroXHTMLContentProvider) ContentProviderManager.getInst().createContentProvider(provider,
                         site);
+            }
 
             if (providerClass != null) {
                 // create a div with the same id as the contentProvider, pass it

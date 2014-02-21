@@ -17,6 +17,7 @@ import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.IService;
+import org.w3c.dom.Element;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -49,6 +50,10 @@ public interface IBrandingService extends IService {
     public boolean isPoweredOnlyCamel();
 
     public String getStartingBrowserId();
+
+    public URL getStartingHtmlURL();
+
+    public void createStartingContent(String id, Element parent);
 
     public String getUserManuals();
 }

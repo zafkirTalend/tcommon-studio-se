@@ -20,8 +20,6 @@ import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.rcp.intro.starting.StartingConstants;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -30,36 +28,35 @@ import org.w3c.dom.Element;
  */
 public class StartingContentProvider implements IIntroXHTMLContentProvider {
 
+    @Override
     public void init(IIntroContentProviderSite site) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void createContent(String id, PrintWriter out) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void createContent(String id, Composite parent, FormToolkit toolkit) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void dispose() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void createContent(String id, Element parent) {
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         if (service != null) {
-            Document dom = parent.getOwnerDocument();
-            if (StartingConstants.PRODUCT_NAME.equals(id)) {
-                parent.appendChild(dom.createTextNode(service.getProductName()));
-            } else if (StartingConstants.OPTION_NAME.equals(id)) {
-                parent.appendChild(dom.createTextNode(service.getOptionName()));
-            }
+            service.createStartingContent(id, parent);
         }
     }
-
 }
