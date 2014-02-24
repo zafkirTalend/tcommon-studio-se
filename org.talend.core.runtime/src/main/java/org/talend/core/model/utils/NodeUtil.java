@@ -657,13 +657,13 @@ public class NodeUtil {
         if (conn.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
             INode node = conn.getSource();
             if (node.isSubProcessStart() || !(NodeUtil.isDataAutoPropagated(node))) {
-                return conn.getUniqueName();
+                return conn.getName();
             }
             List<? extends IConnection> listInConns = node.getIncomingConnections();
             if (listInConns != null && listInConns.size() > 0) {
                 String retResult = getPrivateConnClassName(listInConns.get(0));
                 if (retResult == null) {
-                    return conn.getUniqueName();
+                    return conn.getName();
                 } else {
                     return retResult;
                 }
