@@ -12,17 +12,11 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.atMost;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.support.membermodification.MemberMatcher.method;
-import static org.powermock.api.support.membermodification.MemberModifier.stub;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.powermock.api.support.membermodification.MemberMatcher.*;
+import static org.powermock.api.support.membermodification.MemberModifier.*;
 
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -450,13 +444,16 @@ public class DBConnectionFillerImplTest {
 
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         rc.setOk(true);
+        rc.setObject(sqlConnection);
         PowerMockito.mockStatic(MetadataConnectionUtils.class);
         when(MetadataConnectionUtils.checkConnection(metadataBean)).thenReturn(rc);
+        when(MetadataConnectionUtils.createConnection(metadataBean)).thenReturn(rc);
+        when(MetadataConnectionUtils.createConnection(metadataBean, true)).thenReturn(rc);
+        when(MetadataConnectionUtils.createConnection(metadataBean, false)).thenReturn(rc);
         when(MetadataConnectionUtils.isDerbyRelatedDb(anyString(), anyString())).thenReturn(false);
         DatabaseMetaData dbMetadata = mock(DatabaseMetaData.class);
         when(dbMetadata.getDatabaseProductName()).thenReturn(null);
-        when(dbMetadata.getDatabaseProductName()).thenReturn(null);
-        // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+        when(dbMetadata.getDatabaseProductVersion()).thenReturn(null);
         PowerMockito.mockStatic(ExtractMetaDataUtils.class);
         ExtractMetaDataUtils extract = Mockito.mock(ExtractMetaDataUtils.class);
         Mockito.when(ExtractMetaDataUtils.getInstance()).thenReturn(extract);
