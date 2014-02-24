@@ -36,6 +36,7 @@ import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.view.AbstractContextView;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -163,7 +164,10 @@ public class AddRepositoryContextGroupCommand extends Command {
                 // existed.
                 if (!paramExisted.isBuiltIn() && contextItem.getProperty().getId().equals(paramExisted.getSource())) {
                     // update the parameter.
-                    modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(), paramExisted.getSource());
+                    // modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(),
+                    // paramExisted.getSource());
+                    new ContextRemoveParameterCommand(manager, defaultContextParamType.getName(), paramExisted.getSource())
+                            .execute();
                     helper.addContextParameterType(defaultContextParamType);
 
                 }
@@ -194,6 +198,7 @@ public class AddRepositoryContextGroupCommand extends Command {
     @Override
     public void redo() {
         execute();
+        refreshContextView();
     }
 
     @Override
@@ -214,7 +219,9 @@ public class AddRepositoryContextGroupCommand extends Command {
 
             IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
             if (paramExisted != null) {
-                modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(), paramExisted.getSource());
+                // modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(),
+                // paramExisted.getSource());
+                new ContextRemoveParameterCommand(manager, defaultContextParamType.getName(), paramExisted.getSource()).execute();
             }
         }
 
