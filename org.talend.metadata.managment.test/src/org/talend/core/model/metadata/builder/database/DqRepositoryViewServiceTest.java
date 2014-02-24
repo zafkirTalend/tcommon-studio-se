@@ -205,17 +205,21 @@ public class DqRepositoryViewServiceTest {
             // Mock the MetadataConnectionUtils.checkConnection()
             TypedReturnCode<java.sql.Connection> retCode = new TypedReturnCode<java.sql.Connection>();
             retCode.setOk(Boolean.FALSE);
+            retCode.setMessage(connFailedMessage);
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
             when(MetadataConnectionUtils.createConnection(dbConn)).thenReturn(retCode);
-            retCode.setMessage(connFailedMessage);
             DqRepositoryViewService.getColumns(dbConn, columnSet, null, true);
 
             // Assert the case that loading from DB and connection can be established, it will need a real database
             // (mocked) connection.
             List<TdColumn> columnsExpected = new ArrayList<TdColumn>(3);
-            java.sql.Connection sqlConn = null;
+            java.sql.Connection sqlConn = Mockito.mock(java.sql.Connection.class);
             DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-            // PowerMockito.mockStatic(ExtractMetaDataUtils.class);
+            TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
+            rc.setOk(Boolean.TRUE);
+            rc.setObject(sqlConn);
+            PowerMockito.mockStatic(MetadataConnectionUtils.class);
+            when(MetadataConnectionUtils.createConnection(dbConn)).thenReturn(rc);
             when(ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbConn)).thenReturn(databaseMetaData);
             MetadataFillFactory metadataFactory = mock(MetadataFillFactory.class);
             when(metadataFactory.fillColumns(columnSet, databaseMetaData, null, null)).thenReturn(columnsExpected);

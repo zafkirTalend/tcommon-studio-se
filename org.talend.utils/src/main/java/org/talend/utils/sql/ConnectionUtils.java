@@ -169,10 +169,23 @@ public final class ConnectionUtils {
         return false;
     }
 
+    /**
+     * from the url to check whether it is hsql.
+     * 
+     * @param url
+     * @return
+     */
     public static boolean isHsql(String url) {
         return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
     }
 
+    /**
+     * add ";shutdown=true" to the end of the hsql url when the url don't contain it.
+     * 
+     * @param url
+     * @param AdditionalParams
+     * @return String the url after added
+     */
     public static String addShutDownForHSQLUrl(String url, String AdditionalParams) {
         String dbUrl = url;
         boolean isHSQL = ConnectionUtils.isHsql(dbUrl);
@@ -182,12 +195,24 @@ public final class ConnectionUtils {
         return dbUrl;
     }
 
+    /**
+     * execute ShutDown For HSQL connection.
+     * 
+     * @param connection
+     * @throws SQLException
+     */
     public static void executeShutDownForHSQL(java.sql.Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate("SHUTDOWN;");//$NON-NLS-1$
         statement.close();
     }
 
+    /**
+     * from the url to check whether the hsql is Server Mode.
+     * 
+     * @param url
+     * @return
+     */
     public static boolean isServerModeHsql(String url) {
         return url != null && url.startsWith("jdbc:hsqldb:hsql"); //$NON-NLS-1$
     }
@@ -249,7 +274,7 @@ public final class ConnectionUtils {
             if (connection != null && !connection.isClosed()) {
                 if (connection.getMetaData() != null) {
                     String url = connection.getMetaData().getURL();
-                    // when it is In ProcessHsql, we hold on its status
+                    // when it is In HSQL server mode, we don't execute ShutDown.
                     if (isHsql(url) && !isServerModeHsql(url)) {
                         executeShutDownForHSQL(connection);
                     }
