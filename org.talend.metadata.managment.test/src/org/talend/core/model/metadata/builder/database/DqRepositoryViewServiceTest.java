@@ -3,11 +3,8 @@
  */
 package org.talend.core.model.metadata.builder.database;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -209,7 +206,7 @@ public class DqRepositoryViewServiceTest {
             TypedReturnCode<java.sql.Connection> retCode = new TypedReturnCode<java.sql.Connection>();
             retCode.setOk(Boolean.FALSE);
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            when(MetadataConnectionUtils.checkConnection(dbConn)).thenReturn(retCode);
+            when(MetadataConnectionUtils.createConnection(dbConn)).thenReturn(retCode);
             retCode.setMessage(connFailedMessage);
             DqRepositoryViewService.getColumns(dbConn, columnSet, null, true);
 
@@ -298,7 +295,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -312,7 +309,8 @@ public class DqRepositoryViewServiceTest {
 
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class);
 
-            containsTable = DqRepositoryViewService.isContainsTable(dataProvider, catalog, tablePattern);
+            containsTable = DqRepositoryViewService.isCatalogHasChildren(dataProvider, catalog, tablePattern,
+                    DqRepositoryViewService.TABLE_TYPES);
 
             Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
@@ -384,7 +382,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -400,7 +398,8 @@ public class DqRepositoryViewServiceTest {
 
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class);
 
-            containsTable = DqRepositoryViewService.isContainsTable(dataProvider, schema, tablePattern);
+            containsTable = DqRepositoryViewService.isSchemaHasChildren(dataProvider, schema, tablePattern,
+                    DqRepositoryViewService.TABLE_TYPES);
 
             Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
@@ -421,7 +420,7 @@ public class DqRepositoryViewServiceTest {
     //
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#isContainsView(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Catalog, java.lang.String)}
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#hasChildren(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Catalog, java.lang.String)}
      * .
      */
     @Test
@@ -470,7 +469,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -484,7 +483,8 @@ public class DqRepositoryViewServiceTest {
 
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class);
 
-            containsTable = DqRepositoryViewService.isContainsView(dataProvider, catalog, tablePattern);
+            containsTable = DqRepositoryViewService.isCatalogHasChildren(dataProvider, catalog, tablePattern,
+                    DqRepositoryViewService.VIEW_TYPES);
 
             Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
@@ -505,7 +505,7 @@ public class DqRepositoryViewServiceTest {
     //
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#isContainsView(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Schema, java.lang.String)}
+     * {@link org.talend.core.model.metadata.builder.database.DqRepositoryViewService#hasChildren(org.talend.core.model.metadata.builder.connection.Connection, orgomg.cwm.resource.relational.Schema, java.lang.String)}
      * .
      */
     @Test
@@ -554,7 +554,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -570,7 +570,8 @@ public class DqRepositoryViewServiceTest {
 
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class);
 
-            containsTable = DqRepositoryViewService.isContainsView(dataProvider, schema, tablePattern);
+            containsTable = DqRepositoryViewService.isSchemaHasChildren(dataProvider, schema, tablePattern,
+                    DqRepositoryViewService.VIEW_TYPES);
 
             Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
@@ -635,7 +636,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -748,7 +749,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -861,7 +862,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
@@ -975,7 +976,7 @@ public class DqRepositoryViewServiceTest {
 
             // MetadataConnectionUtils.checkConnection(mockDbConn)
             PowerMockito.mockStatic(MetadataConnectionUtils.class);
-            Mockito.when(MetadataConnectionUtils.checkConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
+            Mockito.when(MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider)).thenReturn(reConn);
 
             // ExtractMetaDataUtils.getDatabaseMetaData()
             PowerMockito.mockStatic(ExtractMetaDataUtils.class);
