@@ -132,6 +132,7 @@ public class DBConnectionFillerImplTest {
         when(SchemaHelper.getParentSchema(columnSet)).thenReturn(schema);
         stub(method(MetadataConnectionUtils.class, "isSybase", DatabaseMetaData.class)).toReturn(false);//$NON-NLS-1$
         stub(method(MetadataConnectionUtils.class, "isMssql", DatabaseMetaData.class)).toReturn(false);//$NON-NLS-1$
+        stub(method(MetadataConnectionUtils.class, "isOracle", DatabaseMetaData.class)).toReturn(true);//$NON-NLS-1$
         PowerMockito.mockStatic(ConnectionUtils.class);
         when(ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)).thenReturn(true);
         ResultSet rs = mock(ResultSet.class);
@@ -188,6 +189,7 @@ public class DBConnectionFillerImplTest {
         when(SchemaHelper.getParentSchema(columnSet)).thenReturn(schema);
         stub(method(MetadataConnectionUtils.class, "isSybase", DatabaseMetaData.class)).toReturn(false);//$NON-NLS-1$
         stub(method(MetadataConnectionUtils.class, "isMssql", DatabaseMetaData.class)).toReturn(false);//$NON-NLS-1$
+        stub(method(MetadataConnectionUtils.class, "isOracle", DatabaseMetaData.class)).toReturn(true);//$NON-NLS-1$
         ResultSet rs = mock(ResultSet.class);
 
         when(rs.next()).thenReturn(true).thenReturn(true).thenReturn(false);
