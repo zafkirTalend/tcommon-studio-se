@@ -977,7 +977,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             String baseFolder = ERepositoryObjectType.getFolderName(type);
             relativeFolder = StringUtils.removeStart(relativeFolder, baseFolder);
         }
-        return getObjectFromFolder(project, type, relativeFolder, true, options);
+        return getObjectFromFolder(project, type, relativeFolder, OPTION_ONLY_LAST_VERSION | OPTION_DYNAMIC_OBJECTS);
     }
 
     @Override
