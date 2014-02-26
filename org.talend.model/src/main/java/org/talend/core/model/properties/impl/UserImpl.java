@@ -81,6 +81,15 @@ public class UserImpl extends EObjectImpl implements User {
     protected int id = ID_EDEFAULT;
 
     /**
+     * This is true if the Id attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean idESet;
+
+    /**
      * The default value of the '{@link #getLogin() <em>Login</em>}' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -219,6 +228,15 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected boolean deleted = DELETED_EDEFAULT;
+
+    /**
+     * This is true if the Deleted attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean deletedESet;
 
     /**
      * The default value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
@@ -380,6 +398,15 @@ public class UserImpl extends EObjectImpl implements User {
     protected int adminConnexionNumber = ADMIN_CONNEXION_NUMBER_EDEFAULT;
 
     /**
+     * This is true if the Admin Connexion Number attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean adminConnexionNumberESet;
+
+    /**
      * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -398,6 +425,15 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected int studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
+
+    /**
+     * This is true if the Studio Connexion Number attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean studioConnexionNumberESet;
 
     /**
      * The default value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute. <!--
@@ -540,6 +576,15 @@ public class UserImpl extends EObjectImpl implements User {
     protected boolean technical = TECHNICAL_EDEFAULT;
 
     /**
+     * This is true if the Technical attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean technicalESet;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -571,8 +616,33 @@ public class UserImpl extends EObjectImpl implements User {
     public void setId(int newId) {
         int oldId = id;
         id = newId;
+        boolean oldIdESet = idESet;
+        idESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ID, oldId, id));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ID, oldId, id, !oldIdESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetId() {
+        int oldId = id;
+        boolean oldIdESet = idESet;
+        id = ID_EDEFAULT;
+        idESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, PropertiesPackage.USER__ID, oldId, ID_EDEFAULT, oldIdESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetId() {
+        return idESet;
     }
 
     /**
@@ -704,8 +774,33 @@ public class UserImpl extends EObjectImpl implements User {
     public void setDeleted(boolean newDeleted) {
         boolean oldDeleted = deleted;
         deleted = newDeleted;
+        boolean oldDeletedESet = deletedESet;
+        deletedESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETED, oldDeleted, deleted));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETED, oldDeleted, deleted, !oldDeletedESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetDeleted() {
+        boolean oldDeleted = deleted;
+        boolean oldDeletedESet = deletedESet;
+        deleted = DELETED_EDEFAULT;
+        deletedESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, PropertiesPackage.USER__DELETED, oldDeleted, DELETED_EDEFAULT, oldDeletedESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetDeleted() {
+        return deletedESet;
     }
 
     /**
@@ -894,8 +989,33 @@ public class UserImpl extends EObjectImpl implements User {
     public void setAdminConnexionNumber(int newAdminConnexionNumber) {
         int oldAdminConnexionNumber = adminConnexionNumber;
         adminConnexionNumber = newAdminConnexionNumber;
+        boolean oldAdminConnexionNumberESet = adminConnexionNumberESet;
+        adminConnexionNumberESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, adminConnexionNumber));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, adminConnexionNumber, !oldAdminConnexionNumberESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetAdminConnexionNumber() {
+        int oldAdminConnexionNumber = adminConnexionNumber;
+        boolean oldAdminConnexionNumberESet = adminConnexionNumberESet;
+        adminConnexionNumber = ADMIN_CONNEXION_NUMBER_EDEFAULT;
+        adminConnexionNumberESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, ADMIN_CONNEXION_NUMBER_EDEFAULT, oldAdminConnexionNumberESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetAdminConnexionNumber() {
+        return adminConnexionNumberESet;
     }
 
     /**
@@ -913,8 +1033,33 @@ public class UserImpl extends EObjectImpl implements User {
     public void setStudioConnexionNumber(int newStudioConnexionNumber) {
         int oldStudioConnexionNumber = studioConnexionNumber;
         studioConnexionNumber = newStudioConnexionNumber;
+        boolean oldStudioConnexionNumberESet = studioConnexionNumberESet;
+        studioConnexionNumberESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, studioConnexionNumber));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, studioConnexionNumber, !oldStudioConnexionNumberESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetStudioConnexionNumber() {
+        int oldStudioConnexionNumber = studioConnexionNumber;
+        boolean oldStudioConnexionNumberESet = studioConnexionNumberESet;
+        studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
+        studioConnexionNumberESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, STUDIO_CONNEXION_NUMBER_EDEFAULT, oldStudioConnexionNumberESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetStudioConnexionNumber() {
+        return studioConnexionNumberESet;
     }
 
     /**
@@ -1054,8 +1199,33 @@ public class UserImpl extends EObjectImpl implements User {
     public void setTechnical(boolean newTechnical) {
         boolean oldTechnical = technical;
         technical = newTechnical;
+        boolean oldTechnicalESet = technicalESet;
+        technicalESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__TECHNICAL, oldTechnical, technical));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__TECHNICAL, oldTechnical, technical, !oldTechnicalESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetTechnical() {
+        boolean oldTechnical = technical;
+        boolean oldTechnicalESet = technicalESet;
+        technical = TECHNICAL_EDEFAULT;
+        technicalESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, PropertiesPackage.USER__TECHNICAL, oldTechnical, TECHNICAL_EDEFAULT, oldTechnicalESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetTechnical() {
+        return technicalESet;
     }
 
     /**
@@ -1253,7 +1423,7 @@ public class UserImpl extends EObjectImpl implements User {
     public void eUnset(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:
-                setId(ID_EDEFAULT);
+                unsetId();
                 return;
             case PropertiesPackage.USER__LOGIN:
                 setLogin(LOGIN_EDEFAULT);
@@ -1274,7 +1444,7 @@ public class UserImpl extends EObjectImpl implements User {
                 setDeleteDate(DELETE_DATE_EDEFAULT);
                 return;
             case PropertiesPackage.USER__DELETED:
-                setDeleted(DELETED_EDEFAULT);
+                unsetDeleted();
                 return;
             case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
                 setAllowedToModifyComponents(ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT);
@@ -1304,10 +1474,10 @@ public class UserImpl extends EObjectImpl implements User {
                 setFirstStudioConnectionDate(FIRST_STUDIO_CONNECTION_DATE_EDEFAULT);
                 return;
             case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                setAdminConnexionNumber(ADMIN_CONNEXION_NUMBER_EDEFAULT);
+                unsetAdminConnexionNumber();
                 return;
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                setStudioConnexionNumber(STUDIO_CONNEXION_NUMBER_EDEFAULT);
+                unsetStudioConnexionNumber();
                 return;
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 setAuthenticationInfo(AUTHENTICATION_INFO_EDEFAULT);
@@ -1328,7 +1498,7 @@ public class UserImpl extends EObjectImpl implements User {
                 setAdditionnalData(ADDITIONNAL_DATA_EDEFAULT);
                 return;
             case PropertiesPackage.USER__TECHNICAL:
-                setTechnical(TECHNICAL_EDEFAULT);
+                unsetTechnical();
                 return;
         }
         super.eUnset(featureID);
@@ -1342,7 +1512,7 @@ public class UserImpl extends EObjectImpl implements User {
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case PropertiesPackage.USER__ID:
-                return id != ID_EDEFAULT;
+                return isSetId();
             case PropertiesPackage.USER__LOGIN:
                 return LOGIN_EDEFAULT == null ? login != null : !LOGIN_EDEFAULT.equals(login);
             case PropertiesPackage.USER__PASSWORD:
@@ -1356,7 +1526,7 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__DELETE_DATE:
                 return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
             case PropertiesPackage.USER__DELETED:
-                return deleted != DELETED_EDEFAULT;
+                return isSetDeleted();
             case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
                 return allowedToModifyComponents != ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT;
             case PropertiesPackage.USER__COMMENT:
@@ -1376,9 +1546,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
                 return FIRST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? firstStudioConnectionDate != null : !FIRST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(firstStudioConnectionDate);
             case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                return adminConnexionNumber != ADMIN_CONNEXION_NUMBER_EDEFAULT;
+                return isSetAdminConnexionNumber();
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
+                return isSetStudioConnexionNumber();
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 return AUTHENTICATION_INFO_EDEFAULT == null ? authenticationInfo != null : !AUTHENTICATION_INFO_EDEFAULT.equals(authenticationInfo);
             case PropertiesPackage.USER__LDAP_LOGIN:
@@ -1392,7 +1562,7 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ADDITIONNAL_DATA:
                 return ADDITIONNAL_DATA_EDEFAULT == null ? additionnalData != null : !ADDITIONNAL_DATA_EDEFAULT.equals(additionnalData);
             case PropertiesPackage.USER__TECHNICAL:
-                return technical != TECHNICAL_EDEFAULT;
+                return isSetTechnical();
         }
         return super.eIsSet(featureID);
     }

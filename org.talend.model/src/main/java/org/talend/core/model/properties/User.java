@@ -62,9 +62,11 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Id</em>' attribute.
+     * @see #isSetId()
+     * @see #unsetId()
      * @see #setId(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_Id()
-     * @model id="true" required="true"
+     * @model unsettable="true" id="true" required="true"
      * @generated
      */
     int getId();
@@ -74,10 +76,35 @@ public interface User extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Id</em>' attribute.
+     * @see #isSetId()
+     * @see #unsetId()
      * @see #getId()
      * @generated
      */
     void setId(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.properties.User#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetId()
+     * @see #getId()
+     * @see #setId(int)
+     * @generated
+     */
+    void unsetId();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.properties.User#getId <em>Id</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Id</em>' attribute is set.
+     * @see #unsetId()
+     * @see #getId()
+     * @see #setId(int)
+     * @generated
+     */
+    boolean isSetId();
 
     /**
      * Returns the value of the '<em><b>Login</b></em>' attribute.
@@ -244,9 +271,11 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Deleted</em>' attribute.
+     * @see #isSetDeleted()
+     * @see #unsetDeleted()
      * @see #setDeleted(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_Deleted()
-     * @model unique="false"
+     * @model unique="false" unsettable="true"
      * @generated
      */
     boolean isDeleted();
@@ -256,10 +285,35 @@ public interface User extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Deleted</em>' attribute.
+     * @see #isSetDeleted()
+     * @see #unsetDeleted()
      * @see #isDeleted()
      * @generated
      */
     void setDeleted(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.properties.User#isDeleted <em>Deleted</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetDeleted()
+     * @see #isDeleted()
+     * @see #setDeleted(boolean)
+     * @generated
+     */
+    void unsetDeleted();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.properties.User#isDeleted <em>Deleted</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Deleted</em>' attribute is set.
+     * @see #unsetDeleted()
+     * @see #isDeleted()
+     * @see #setDeleted(boolean)
+     * @generated
+     */
+    boolean isSetDeleted();
 
     /**
      * Returns the value of the '<em><b>Allowed To Modify Components</b></em>' attribute.
@@ -488,9 +542,11 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Admin Connexion Number</em>' attribute.
+     * @see #isSetAdminConnexionNumber()
+     * @see #unsetAdminConnexionNumber()
      * @see #setAdminConnexionNumber(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_AdminConnexionNumber()
-     * @model
+     * @model unsettable="true"
      * @generated
      */
     int getAdminConnexionNumber();
@@ -500,10 +556,35 @@ public interface User extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Admin Connexion Number</em>' attribute.
+     * @see #isSetAdminConnexionNumber()
+     * @see #unsetAdminConnexionNumber()
      * @see #getAdminConnexionNumber()
      * @generated
      */
     void setAdminConnexionNumber(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetAdminConnexionNumber()
+     * @see #getAdminConnexionNumber()
+     * @see #setAdminConnexionNumber(int)
+     * @generated
+     */
+    void unsetAdminConnexionNumber();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Admin Connexion Number</em>' attribute is set.
+     * @see #unsetAdminConnexionNumber()
+     * @see #getAdminConnexionNumber()
+     * @see #setAdminConnexionNumber(int)
+     * @generated
+     */
+    boolean isSetAdminConnexionNumber();
 
     /**
      * Returns the value of the '<em><b>Studio Connexion Number</b></em>' attribute.
@@ -514,9 +595,11 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Studio Connexion Number</em>' attribute.
+     * @see #isSetStudioConnexionNumber()
+     * @see #unsetStudioConnexionNumber()
      * @see #setStudioConnexionNumber(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_StudioConnexionNumber()
-     * @model
+     * @model unsettable="true"
      * @generated
      */
     int getStudioConnexionNumber();
@@ -526,10 +609,35 @@ public interface User extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Studio Connexion Number</em>' attribute.
+     * @see #isSetStudioConnexionNumber()
+     * @see #unsetStudioConnexionNumber()
      * @see #getStudioConnexionNumber()
      * @generated
      */
     void setStudioConnexionNumber(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetStudioConnexionNumber()
+     * @see #getStudioConnexionNumber()
+     * @see #setStudioConnexionNumber(int)
+     * @generated
+     */
+    void unsetStudioConnexionNumber();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Studio Connexion Number</em>' attribute is set.
+     * @see #unsetStudioConnexionNumber()
+     * @see #getStudioConnexionNumber()
+     * @see #setStudioConnexionNumber(int)
+     * @generated
+     */
+    boolean isSetStudioConnexionNumber();
 
     /**
      * Returns the value of the '<em><b>Authentication Info</b></em>' attribute.
@@ -696,9 +804,11 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Technical</em>' attribute.
+     * @see #isSetTechnical()
+     * @see #unsetTechnical()
      * @see #setTechnical(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_Technical()
-     * @model transient="true"
+     * @model unsettable="true" transient="true"
      * @generated
      */
     boolean isTechnical();
@@ -708,9 +818,34 @@ public interface User extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Technical</em>' attribute.
+     * @see #isSetTechnical()
+     * @see #unsetTechnical()
      * @see #isTechnical()
      * @generated
      */
     void setTechnical(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.properties.User#isTechnical <em>Technical</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetTechnical()
+     * @see #isTechnical()
+     * @see #setTechnical(boolean)
+     * @generated
+     */
+    void unsetTechnical();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.properties.User#isTechnical <em>Technical</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Technical</em>' attribute is set.
+     * @see #unsetTechnical()
+     * @see #isTechnical()
+     * @see #setTechnical(boolean)
+     * @generated
+     */
+    boolean isSetTechnical();
 
 } // User
