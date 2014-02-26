@@ -56,6 +56,14 @@ public enum EHadoopVersion4Drivers {
                        false,
                        new EMRVersion[] { EMRVersion.YARN }),
 
+    CLOUDERA_CDH5(
+                  EHadoopDistributions.CLOUDERA,
+                  "Cloudera CDH5",
+                  "Cloudera_CDH5",
+                  true,
+                  false,
+                  new EMRVersion[] { EMRVersion.YARN }),
+
     MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
     MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true),
