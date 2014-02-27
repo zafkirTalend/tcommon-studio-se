@@ -69,6 +69,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.SearchPattern;
+import org.eclipse.ui.internal.dialogs.TreeManager.CheckStateProvider;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
@@ -351,6 +352,7 @@ public class SelectorTableForm extends AbstractForm {
         viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
         viewer.setUseHashlookup(true);
         viewer.addFilter(new selectorViewerFilter());
+        viewer.setCheckStateProvider(new checkStateProvider());
         tree = viewer.getTree();
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
@@ -362,6 +364,12 @@ public class SelectorTableForm extends AbstractForm {
                 TreeItem treeItem = (TreeItem) event.item;
                 String itemText = treeItem.getText();
                 boolean needUpdate = treeItem.getChecked();
+                TableNode parentNode = (TableNode) treeItem.getData();
+                // TDI-28768 after add checkStateProvider, the catalog and schema checked status become true , then
+                // force them to false
+                if (parentNode.getType() == TableNode.CATALOG || parentNode.getType() == TableNode.SCHEMA) {
+                    needUpdate = false;
+                }
                 boolean firstExpand = false;
                 if (mapCheckState.containsKey(itemText)) {
                     firstExpand = mapCheckState.get(itemText);
@@ -2415,6 +2423,29 @@ public class SelectorTableForm extends AbstractForm {
         return this.nameFilter.getText().trim();
     }
 
+    
+    class checkStateProvider extends CheckStateProvider {
+
+        public boolean isChecked(Object element) {
+            if (element instanceof TableNode) {
+                TableNode node = (TableNode) element;
+                if (node.getType() == TableNode.TABLE) {
+                    if (isExistTable(node)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return false;
+
+        }
+
+        public boolean isGrayed(Object element) {
+            return false;
+        }
+    }
+    
     /**
      * 
      * wzhang SelectorTableForm class global comment. Detailled comment
