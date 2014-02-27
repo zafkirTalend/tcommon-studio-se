@@ -369,7 +369,6 @@ public class SelectorTableForm extends AbstractForm {
                 // force them to false
                 if (parentNode.getType() == TableNode.CATALOG || parentNode.getType() == TableNode.SCHEMA) {
                     needUpdate = false;
-                    treeItem.setChecked(false);
                 }
                 boolean firstExpand = false;
                 if (mapCheckState.containsKey(itemText)) {
