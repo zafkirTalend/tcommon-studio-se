@@ -159,8 +159,8 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -802,6 +802,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         resourceSet));
                 projectResource = project.getEmfProject().eResource();
             }
+        }
+        if (projectResource == null) {
+            return;
+        }
+        if (projectResource.isTrackingModification() && !projectResource.isModified()) {
+            return;
         }
         // folder
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getFolderItem());
