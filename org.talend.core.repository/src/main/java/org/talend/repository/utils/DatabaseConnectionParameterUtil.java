@@ -72,13 +72,14 @@ public class DatabaseConnectionParameterUtil {
     }
 
     public static String getContextTrueValue(DatabaseConnection conn, String paramValue) {
-        String trueSchemaName = null;
-        String tempVlaue = paramValue;
         if (conn.isContextMode()) { // if connection is contextmode
             if (conn.getContextId() != null && !"".equals(conn.getContextId())) { // hywang modified for //$NON-NLS-1$
                 // 8846
                 String contextID = conn.getContextId();
-                paramValue = ContextParameterUtils.getVariableFromCode(paramValue);
+                String tempVlaue = ContextParameterUtils.getVariableFromCode(paramValue);
+                if (tempVlaue == null) {
+                    return "";
+                }
                 IRepositoryViewObject repObj;
                 try {
                     repObj = ProxyRepositoryFactory.getInstance().getLastVersion(contextID);
@@ -95,7 +96,7 @@ public class DatabaseConnectionParameterUtil {
                                     Object obj = contextList.get(i);
                                     if (obj instanceof ContextParameterType) {
                                         ContextParameterType type = (ContextParameterType) obj;
-                                        if (type.getName().equals(paramValue)) {
+                                        if (type.getName().equals(tempVlaue)) {
                                             if (type.getValue() == null) {
                                                 paramValue = "";
                                             } else {
@@ -113,7 +114,6 @@ public class DatabaseConnectionParameterUtil {
                 }
             }
         }
-        trueSchemaName = paramValue;
-        return trueSchemaName;
+        return paramValue;
     }
 }
