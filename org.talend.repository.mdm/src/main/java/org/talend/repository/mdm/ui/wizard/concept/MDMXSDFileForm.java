@@ -21,12 +21,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -670,6 +674,13 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm {
             metadataTable.setId(factory.getNextId());
         }
         metadataTable.setLabel(concept.getLabel());
+
+        Map<String, MetadataColumn> colsMap = new HashMap<String, MetadataColumn>();
+        EList<MetadataColumn> columns = metadataTable.getColumns();
+        for (MetadataColumn column : columns) {
+            colsMap.put(column.getLabel(), column);
+        }
+
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
@@ -711,9 +722,17 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm {
             if (treeItem != null) {
                 ATreeNode curNode = (ATreeNode) treeItem.getData();
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                metadataColumn.setLabel(target.getTargetName());
+                String targetName = target.getTargetName();
+                MetadataColumn originalColumn = colsMap.get(targetName);
+                if (originalColumn != null) {
+                    try {
+                        BeanUtils.copyProperties(metadataColumn, originalColumn);
+                    } catch (Exception e) {
+                        // do nothing.
+                    }
+                }
+                metadataColumn.setLabel(targetName);
                 // metadataColumn.setTalendType(target.getTargetName());
-
                 if (curNode == null || retriever == null) {
                     metadataColumn.setTalendType(MetadataTalendType.getDefaultTalendType());
                 } else {
@@ -725,7 +744,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm {
                 }
                 // Changed by Marvin Wang on May 21, 2012. Refer to the line above which is commentted
                 // "metadataTable.getColumns().clear();".
-                int index = removeOriginalColumn(target.getTargetName());
+                int index = removeOriginalColumn(targetName);
                 if (index < 0) {
                     metadataTable.getColumns().add(metadataColumn);
                 } else {
