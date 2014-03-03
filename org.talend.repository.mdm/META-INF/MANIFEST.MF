@@ -24,7 +24,8 @@ Require-Bundle: javax.xml.rpc,
  org.talend.datatools.xml,
  org.talend.repository.view.di;resolution:=optional,
  javax.mail,
- javax.wsdl
+ javax.wsdl,
+ org.apache.commons.beanutils
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .
