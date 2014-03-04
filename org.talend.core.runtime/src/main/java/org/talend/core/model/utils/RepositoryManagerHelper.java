@@ -67,6 +67,11 @@ public final class RepositoryManagerHelper {
                 part = page.findView(IRepositoryView.VIEW_ID);
                 if (part != null) {
                     return (IRepositoryView) part;
+                } else {
+                    part = page.findView(IRepositoryView.MAPPER_VIEW_ID);
+                    if (part != null) {
+                        return (IRepositoryView) part;
+                    }
                 }
             }
         }
