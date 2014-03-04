@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.URI;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.User;
@@ -37,7 +38,7 @@ public interface ICoreTisService extends IService {
     public List<IUpdateSiteBean> getPatchesInstalled() throws BackingStoreException;
 
     public List<IUpdateSiteBean> getUpdateSitesToBeInstall(String username, String password, String archivaServicesURL,
-            List<String> repositories) throws BackingStoreException;
+            List<String> repositories) throws BackingStoreException, SystemException;
 
     public void downLoadAndInstallUpdateSites(String archivaServerURL, String username, String password,
             List<IUpdateSiteBean> toBeInstalled, List<String> repositories) throws Exception;
