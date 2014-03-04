@@ -225,7 +225,9 @@ public class Application implements IApplication {
                                 return true;
                             }
                         }
-                        instanceLoc.set(file.toURI().toURL(), false);
+                        // For TUP-1749, we have to use File.toURL() although it is a deprecated method in order
+                        // to support the workspace path which contains space.
+                        instanceLoc.set(file.toURL(), false);
                     }
                 }
             } catch (MalformedURLException e) {
