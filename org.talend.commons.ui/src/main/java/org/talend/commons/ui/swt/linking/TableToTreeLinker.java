@@ -239,7 +239,12 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             pointEndStraight.y = yStraight;
 
             TreeItem treeItem = getFirstVisibleTreeItemOfPath(extremity2.getDataItem());
-            Rectangle treeItemBounds = treeItem.getBounds();
+            Rectangle treeItemBounds;
+            if (treeItem != null) {
+                treeItemBounds = treeItem.getBounds();
+            } else {
+                treeItemBounds = new Rectangle(0, 0, 0, 0);
+            }
             Rectangle treeBounds = tree.getBounds();
 
             int pointY = treeItemBounds.y + tree.getItemHeight() / 2 + tree.getBorderWidth();
@@ -282,7 +287,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
 
                 boolean lineStyleDot = isStartOutOfView || isEndOutOfView;
 
-                if ((treeItem.getData() == extremity2.getDataItem()) && !lineStyleDot) {
+                if ((treeItem != null && treeItem.getData() == extremity2.getDataItem()) && !lineStyleDot) {
                     gc.setLineStyle(SWT.LINE_SOLID);
                 } else {
                     gc.setLineStyle(SWT.LINE_DOT);
