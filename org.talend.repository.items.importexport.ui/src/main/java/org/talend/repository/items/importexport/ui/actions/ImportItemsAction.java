@@ -24,6 +24,8 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.repository.items.importexport.ui.handlers.IImportExportItemsActionHelper;
+import org.talend.repository.items.importexport.ui.handlers.manager.ImportExportUiHandlersManager;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
 import org.talend.repository.items.importexport.ui.wizard.imports.ImportItemsWizard;
 import org.talend.repository.model.IProxyRepositoryService;
@@ -76,7 +78,10 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
 
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         if (dialog.open() == Window.OK) {
-            // refresh();
+            // if import for joblet, need update the palette
+            // if (wizard.isNeedToRefreshPalette()) {
+            // ComponentPaletteUtilities.updatePalette();
+            // }
         }
     }
 
@@ -87,21 +92,44 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
 
     @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
-        setSelection(this, selection);
+        setSelection(selection);
+
+        boolean enabled = false;
+        IImportExportItemsActionHelper[] actionsHelpers = ImportExportUiHandlersManager.getInstance().getActionsHelpers();
+        for (IImportExportItemsActionHelper helper : actionsHelpers) {
+            // if one of helper return true, will enable the action.
+            if (helper.isImportEnabled(viewer, selection)) {
+                enabled = true;
+                break;
+            }
+        }
+        setEnabled(enabled);
     }
 
     @Override
     public void selectionChanged(IAction action, ISelection selection) {
-        if (selection instanceof IStructuredSelection) {
-            setSelection(action, (IStructuredSelection) selection);
-        } else {
-            setSelection(action, null);
+        setSelection(selection);
+
+        boolean enabled = false;
+        IImportExportItemsActionHelper[] actionsHelpers = ImportExportUiHandlersManager.getInstance().getActionsHelpers();
+        for (IImportExportItemsActionHelper helper : actionsHelpers) {
+            // if one of helper return true, will enable the action.
+            if (helper.isImportEnabled(action, selection)) {
+                enabled = true;
+                break;
+            }
         }
+        setEnabled(enabled);
+
     }
 
-    private void setSelection(IAction action, IStructuredSelection selection) {
-        this.structureSelection = selection;
-        // action.setEnabled(this.structureSelection != null && !this.structureSelection.isEmpty());
+    private void setSelection(ISelection selection) {
+        if (selection instanceof IStructuredSelection) {
+            this.structureSelection = ((IStructuredSelection) selection);
+        } else {
+            this.structureSelection = null;
+        }
+
     }
 
     @Override
