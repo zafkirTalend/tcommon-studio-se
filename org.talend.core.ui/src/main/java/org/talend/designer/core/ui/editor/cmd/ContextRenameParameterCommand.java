@@ -15,15 +15,10 @@ package org.talend.designer.core.ui.editor.cmd;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.core.ui.context.ContextManagerHelper;
 
 /**
  * Command that will rename the parameter in all contexts. <br/>
@@ -39,36 +34,40 @@ public class ContextRenameParameterCommand extends Command {
 
     private String sourceId;
 
+    private ContextManagerHelper helper;
+
     public ContextRenameParameterCommand(IContextManager contextManager, String sourceId, String oldName, String newName) {
         this(contextManager, oldName, newName);
         this.sourceId = sourceId;
+
     }
 
     public ContextRenameParameterCommand(IContextManager contextManager, String oldName, String newName) {
         this.contextManager = contextManager;
         this.oldName = oldName;
         this.newName = newName;
+        this.helper = new ContextManagerHelper(contextManager);
         setLabel(Messages.getString("ContextRenameParameterCommand.renameParameter")); //$NON-NLS-1$
     }
 
     /**
      * qzhang Comment method "refreshContextView".
      */
-    private void refreshContextView() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        // refresh context view of DI
-        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
-        if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true, false, false);
-        }
-        // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
-            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
-            if (tdqUiService != null) {
-                tdqUiService.updateContextView(true, false, false);
-            }
-        }
-    }
+    // private void refreshContextView() {
+    // IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    // // refresh context view of DI
+    // IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+    // if (view instanceof AbstractContextView) {
+    // ((AbstractContextView) view).updateContextView(true, false, false);
+    // }
+    // // refresh context view of DQ
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+    // ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+    // if (tdqUiService != null) {
+    // tdqUiService.updateContextView(true, false, false);
+    // }
+    // }
+    // }
 
     @Override
     public void execute() {
@@ -97,7 +96,7 @@ public class ContextRenameParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 
     @Override
@@ -130,6 +129,6 @@ public class ContextRenameParameterCommand extends Command {
                 }
             }
         }
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 }

@@ -13,17 +13,12 @@
 package org.talend.designer.core.ui.editor.cmd;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.core.ui.context.ContextManagerHelper;
 
 /**
  * Command that will modify a context.
@@ -41,9 +36,12 @@ public class ContextTemplateModifyCommand extends Command {
 
     private IProcess process;
 
+    private ContextManagerHelper helper;
+
     public ContextTemplateModifyCommand(IProcess process, IContextManager contextManager, IContextParameter parameter) {
         this.process = process;
         this.contextManager = contextManager;
+        this.helper = new ContextManagerHelper(contextManager);
         template = parameter;
         setLabel(Messages.getString("ContextModifyCommand.label")); //$NON-NLS-1$
     }
@@ -51,28 +49,28 @@ public class ContextTemplateModifyCommand extends Command {
     /**
      * qzhang Comment method "refreshContextView".
      */
-    private void refreshContextView() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        // refresh context view of DI
-        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
-        if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true, false);
-        }
-        // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
-            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
-            if (tdqUiService != null) {
-                tdqUiService.updateContextView(true, false);
-            }
-        }
-    }
+    // private void refreshContextView() {
+    // IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    // // refresh context view of DI
+    // IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+    // if (view instanceof AbstractContextView) {
+    // ((AbstractContextView) view).updateContextView(true, false);
+    // }
+    // // refresh context view of DQ
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+    // ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+    // if (tdqUiService != null) {
+    // tdqUiService.updateContextView(true, false);
+    // }
+    // }
+    // }
 
     @Override
     public void execute() {
         // check modified type
         propagateType(contextManager, template);
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
         // TODO Removes the attached context files
         // try {
         // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().removeContextFiles(process,

@@ -25,7 +25,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITdqUiService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -38,6 +43,7 @@ import org.talend.core.ui.context.cmd.OrderContextParameterCommand;
 import org.talend.core.ui.context.model.template.ContextConstant;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
 import org.talend.core.ui.context.model.template.ContextVariableTabParentModel;
+import org.talend.core.ui.context.view.AbstractContextView;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.ERepositoryStatus;
@@ -616,5 +622,21 @@ public final class ContextManagerHelper {
             }
         }
         return;
+    }
+
+    public void refreshContextView() {
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        // refresh context view of DI
+        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+        if (view instanceof AbstractContextView) {
+            ((AbstractContextView) view).updateContextView(true);
+        }
+        // refresh context view of DQ
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true);
+            }
+        }
     }
 }

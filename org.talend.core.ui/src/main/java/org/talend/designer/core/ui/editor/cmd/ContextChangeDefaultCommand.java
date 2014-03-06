@@ -13,15 +13,10 @@
 package org.talend.designer.core.ui.editor.cmd;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.core.ui.context.ContextManagerHelper;
 
 /**
  * Command that will change the default context.
@@ -37,37 +32,40 @@ public class ContextChangeDefaultCommand extends Command {
 
     IContextManager contextManager;
 
+    ContextManagerHelper helper;
+
     public ContextChangeDefaultCommand(IContextManager contextManager, IContext newDefault) {
         this.newDefault = newDefault;
         this.contextManager = contextManager;
         this.oldDefault = contextManager.getDefaultContext();
+        this.helper = new ContextManagerHelper(contextManager);
         this.setLabel(Messages.getString("ContextChangeDefaultCommand.label")); //$NON-NLS-1$
     }
 
     /**
      * qzhang Comment method "refreshContextView".
      */
-    private void refreshContextView() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        // refresh context view of DI
-        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
-        if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true, false);
-        }
-        // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
-            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
-            if (tdqUiService != null) {
-                tdqUiService.updateContextView(true, false);
-            }
-        }
-    }
+    // private void refreshContextView() {
+    // IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    // // refresh context view of DI
+    // IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+    // if (view instanceof AbstractContextView) {
+    // ((AbstractContextView) view).updateContextView(true, false);
+    // }
+    // // refresh context view of DQ
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+    // ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+    // if (tdqUiService != null) {
+    // tdqUiService.updateContextView(true, false);
+    // }
+    // }
+    // }
 
     @Override
     public void execute() {
         contextManager.setDefaultContext(newDefault);
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 
     @Override

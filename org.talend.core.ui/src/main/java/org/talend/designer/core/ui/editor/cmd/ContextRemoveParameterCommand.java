@@ -21,16 +21,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.core.ui.context.ContextManagerHelper;
 
 /**
  * Command that will remove a parameter in all contexts. <br/>
@@ -43,6 +38,8 @@ public class ContextRemoveParameterCommand extends Command {
     private IContextManager contextManager;
 
     private String paraSourceId;
+
+    private ContextManagerHelper helper;
 
     private Set<String> contextParamNames = new HashSet<String>();
 
@@ -92,29 +89,29 @@ public class ContextRemoveParameterCommand extends Command {
             this.contextParamNames.addAll(contextParamNames);
         }
         this.setLabel(Messages.getString("ContextRemoveParameterCommand.label")); //$NON-NLS-1$
-
+        this.helper = new ContextManagerHelper(contextManager);
     }
 
     /**
      * qzhang Comment method "refreshContextView".
      */
-    private void refreshContextView() {
-
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        // refresh context view of DI
-        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
-        if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true);
-        }
-        // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
-            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
-            if (tdqUiService != null) {
-                tdqUiService.updateContextView(true);
-            }
-        }
-
-    }
+    // private void refreshContextView() {
+    //
+    // IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    // // refresh context view of DI
+    // IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+    // if (view instanceof AbstractContextView) {
+    // ((AbstractContextView) view).updateContextView(true);
+    // }
+    // // refresh context view of DQ
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+    // ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+    // if (tdqUiService != null) {
+    // tdqUiService.updateContextView(true);
+    // }
+    // }
+    //
+    // }
 
     /**
      * This method is used to remove the <code>JobContextParameter</code> in <code>JobContext</code>, using the
@@ -169,7 +166,7 @@ public class ContextRemoveParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 
     @Override
@@ -188,6 +185,6 @@ public class ContextRemoveParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 }
