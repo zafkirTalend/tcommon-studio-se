@@ -79,6 +79,9 @@ import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.SelectRepositoryContextGroupDialog;
+import org.talend.core.ui.context.cmd.CheckAndAddContextDNDCommand;
+import org.talend.core.ui.context.cmd.CheckAndAddContextVariablesCommand;
+import org.talend.core.ui.context.cmd.MergeContextVariablesCommand;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -792,13 +795,17 @@ public final class ConnectionContextHelper {
             return;
         }
 
-        Command cmd = new Command() {
+        // Command cmd = new Command() {
+        //
+        // @Override
+        // public void execute() {
+        // checkAndAddContextsVarDND(contexts, defaultContextName, contextItemId, ctxManager);
+        // }
+        // };
 
-            @Override
-            public void execute() {
-                checkAndAddContextsVarDND(contexts, defaultContextName, contextItemId, ctxManager);
-            }
-        };
+        CheckAndAddContextDNDCommand cmd = new CheckAndAddContextDNDCommand(contexts, defaultContextName, contextItemId,
+                ctxManager);
+
         boolean executed = false;
         if (process instanceof IGEFProcess) {
             IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
@@ -835,13 +842,16 @@ public final class ConnectionContextHelper {
         final IContextManager ctxManger = process.getContextManager();
         if (ctxManger != null) {
 
-            Command cmd = new Command() {
+            // Command cmd = new Command() {
+            //
+            // @Override
+            // public void execute() {
+            // checkAndAddContextVariables(contexts, defaultContextName, contextItemId, addedVars, ctxManger, true);
+            // }
+            // };
 
-                @Override
-                public void execute() {
-                    checkAndAddContextVariables(contexts, defaultContextName, contextItemId, addedVars, ctxManger, true);
-                }
-            };
+            CheckAndAddContextVariablesCommand cmd = new CheckAndAddContextVariablesCommand(contexts, defaultContextName,
+                    contextItemId, addedVars, ctxManger, true);
 
             boolean executed = false;
             if (process instanceof IGEFProcess) {
@@ -1157,13 +1167,18 @@ public final class ConnectionContextHelper {
             return;
         }
 
-        Command cmd = new Command() {
+        // Command cmd = new Command() {
+        //
+        // @Override
+        // public void execute() {
+        // checkAndAddContextVariables(contextItem, ctxManager, addedVars, contextGoupNameSet);
+        // }
+        // };
 
-            @Override
-            public void execute() {
-                checkAndAddContextVariables(contextItem, ctxManager, addedVars, contextGoupNameSet);
-            }
-        };
+        MergeContextVariablesCommand cmd = new MergeContextVariablesCommand(contextItem.getContext(),
+                contextItem.getDefaultContext(), contextItem.getProperty().getId(), ctxManager, addedVars, contextGoupNameSet,
+                false);
+
         boolean executed = false;
         if (process instanceof IGEFProcess) {
             IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();

@@ -16,16 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqUiService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.ui.context.view.AbstractContextView;
+import org.talend.core.ui.context.ContextManagerHelper;
 
 /**
  * Command that will add a new parameter in all contexts. <br/>
@@ -39,11 +34,14 @@ public class ContextAddParameterCommand extends Command {
 
     IContextParameter contextParam;
 
+    ContextManagerHelper helper;
+
     Map<IContext, IContextParameter> addedParameters;
 
     public ContextAddParameterCommand(IContextManager contextManager, IContextParameter contextParam) {
         this.contextManager = contextManager;
         this.contextParam = contextParam;
+        this.helper = new ContextManagerHelper(contextManager);
         this.setLabel(Messages.getString("ContextAddParameterCommand.label")); //$NON-NLS-1$
         addedParameters = new HashMap<IContext, IContextParameter>();
     }
@@ -62,21 +60,21 @@ public class ContextAddParameterCommand extends Command {
     /**
      * qzhang Comment method "refreshContextView".
      */
-    private void refreshContextView() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        // refresh context view of DI
-        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
-        if (view instanceof AbstractContextView) {
-            ((AbstractContextView) view).updateContextView(true);
-        }
-        // refresh context view of DQ
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
-            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
-            if (tdqUiService != null) {
-                tdqUiService.updateContextView(true);
-            }
-        }
-    }
+    // private void refreshContextView() {
+    // IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    // // refresh context view of DI
+    // IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+    // if (view instanceof AbstractContextView) {
+    // ((AbstractContextView) view).updateContextView(true);
+    // }
+    // // refresh context view of DQ
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+    // ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+    // if (tdqUiService != null) {
+    // tdqUiService.updateContextView(true);
+    // }
+    // }
+    // }
 
     @Override
     public void execute() {
@@ -88,7 +86,7 @@ public class ContextAddParameterCommand extends Command {
             context.getContextParameterList().add(toAdd);
         }
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 
     @Override
@@ -103,6 +101,6 @@ public class ContextAddParameterCommand extends Command {
             context.getContextParameterList().remove(addedParameters.get(context));
         }
         contextManager.fireContextsChangedEvent();
-        refreshContextView();
+        this.helper.refreshContextView();
     }
 }
