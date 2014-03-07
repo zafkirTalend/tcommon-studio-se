@@ -683,14 +683,14 @@ public class XmiResourceManager {
 
         List<Resource> affectedResources = getAffectedResources(resourceProperty);
         List<Resource> resourcesToSave = new ArrayList<Resource>();
-
+        boolean needVersion = lastVersionProperty.getItem().isNeedVersion() || resourceProperty.getItem().isNeedVersion();
         for (Resource resource : affectedResources) {
             ResourceFilenameHelper.FileName fileName = ResourceFilenameHelper.create(resource, resourceProperty,
                     lastVersionProperty);
 
             // only test for version OR change label.
             // to simplify now, in case of both changes needed, we simply call the function 2 times
-            if (ResourceFilenameHelper.mustChangeVersion(fileName)) {
+            if (ResourceFilenameHelper.mustChangeVersion(fileName) && needVersion) {
                 IPath path = ResourceFilenameHelper.getExpectedFilePath(fileName, false);
                 resourcesMap.remove(resource.getURI());
                 resource.setURI(URIHelper.convert(path));

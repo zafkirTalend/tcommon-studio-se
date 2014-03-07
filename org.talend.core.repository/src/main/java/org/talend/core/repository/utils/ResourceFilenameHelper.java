@@ -15,6 +15,7 @@ package org.talend.core.repository.utils;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -58,12 +59,20 @@ public class ResourceFilenameHelper {
     public static FileName create(Resource resource, Property property, Property lastVersionProperty) {
         FileName fileName = new FileName(resource, property, lastVersionProperty);
 
+        boolean needVersion = property.getItem().isNeedVersion() || lastVersionProperty.getItem().isNeedVersion();
+
         URI uri = resource.getURI();
         String fileNameString = uri.trimFileExtension().lastSegment();
         int index = fileNameString.lastIndexOf(ResourceFilenameHelper.SEPARATOR);
 
-        fileName.setResourceLabel(fileNameString.substring(0, index));
-        fileName.setResourceVersion(fileNameString.substring(index + 1));
+        if (!needVersion && !uri.fileExtension().equalsIgnoreCase(FileExtensions.PROPERTIES_EXTENSION)) {
+            index = fileNameString.length();
+            fileName.setResourceLabel(fileNameString.substring(0, index));
+            fileName.setResourceVersion(fileNameString.substring(index));
+        } else {
+            fileName.setResourceLabel(fileNameString.substring(0, index));
+            fileName.setResourceVersion(fileNameString.substring(index + 1));
+        }
 
         return fileName;
     }
@@ -78,6 +87,9 @@ public class ResourceFilenameHelper {
             version = fileName.getResourceVersion();
         } else {
             version = fileName.getProperty().getVersion();
+        }
+        if (!fileName.getProperty().getItem().isNeedVersion() && !extension.equalsIgnoreCase(FileExtensions.PROPERTIES_EXTENSION)) {//
+            version = null;
         }
         String expectedFileName = getExpectedFileName(fileName.getLastVersionProperty().getLabel(), version);
         return parentPath.append(expectedFileName).addFileExtension(extension);
