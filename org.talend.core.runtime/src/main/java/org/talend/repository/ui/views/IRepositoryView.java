@@ -29,6 +29,8 @@ public interface IRepositoryView extends IViewPart {
 
     public static final String VIEW_ID = "org.talend.repository.cnf.view"; //$NON-NLS-1$
 
+    public static final String MAPPER_VIEW_ID = "org.talend.transform.views.DataMapperView"; //$NON-NLS-1$ 
+
     public StructuredViewer getViewer();
 
     public void refresh();

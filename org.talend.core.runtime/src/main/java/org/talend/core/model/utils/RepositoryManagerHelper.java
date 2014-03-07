@@ -67,6 +67,11 @@ public final class RepositoryManagerHelper {
                 part = page.findView(IRepositoryView.VIEW_ID);
                 if (part != null) {
                     return (IRepositoryView) part;
+                } else {
+                    part = page.findView(IRepositoryView.MAPPER_VIEW_ID);
+                    if (part != null) {
+                        return (IRepositoryView) part;
+                    }
                 }
             }
         }
@@ -139,6 +144,7 @@ public final class RepositoryManagerHelper {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                 if (activeWorkbenchWindow != null && activeWorkbenchWindow.getActivePage() != null) {
