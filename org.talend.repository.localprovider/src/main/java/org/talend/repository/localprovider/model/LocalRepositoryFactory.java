@@ -804,6 +804,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 projectResource = project.getEmfProject().eResource();
             }
         }
+        if (projectResource == null) {
+            return;
+        }
+        if (projectResource.isTrackingModification() && !projectResource.isModified()) {
+            return;
+        }
         // folder
         removeContentsFromProject(projectResource, PropertiesPackage.eINSTANCE.getFolderItem());
         // item state

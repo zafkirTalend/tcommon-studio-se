@@ -117,6 +117,8 @@ public class XmiResourceManager {
         Resource resource = getResourceSet().getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
+        emfProject.eResource().setTrackingModification(true);
+        
         return emfProject;
     }
 
