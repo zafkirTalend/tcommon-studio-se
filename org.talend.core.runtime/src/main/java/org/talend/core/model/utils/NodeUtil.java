@@ -787,13 +787,16 @@ public class NodeUtil {
     public static void fillConnectionsForStat(List<String> connsName, INode currentNode) {
         for (IConnection conn : currentNode.getOutgoingConnections()) {
             if (conn.getLineStyle() == EConnectionType.FLOW_MAIN) {
-                connsName.add(conn.getUniqueName());
+                if (!(currentNode.isVirtualGenerateNode() && currentNode.getVirtualLinkTo() != null)) {
+                    // if the conn between two virtual compnents, don't consider
+                    connsName.add(conn.getUniqueName());
+                }
                 fillConnectionsForStat(connsName, conn.getTarget());
             } else if (conn.getLineStyle() == EConnectionType.FLOW_MERGE) {
                 connsName.add(conn.getUniqueName());
                 continue;
             } else if (conn.getLineStyle() == EConnectionType.ON_ROWS_END) {
-                connsName.add(conn.getUniqueName());
+                // on_rows_end only used for virtual component, so don't need to consider
                 fillConnectionsForStat(connsName, conn.getTarget());
             }
         }
