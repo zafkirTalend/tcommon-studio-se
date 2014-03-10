@@ -46,6 +46,8 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -64,10 +66,8 @@ import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ISVNProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.ReplaceNodesInProcessProvider;
-import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.job.deletion.JobResource;
@@ -374,8 +374,9 @@ public class ProcessorUtilities {
                     neededRoutines);
         }
 
-        if (selectedProcessItem != null) {
-            checkMetadataDynamic(selectedProcessItem, jobInfo);
+        if (currentProcess != null) {
+            // TDI-26513:For the Dynamic schema,need to check the currentProcess(job or joblet)
+            checkMetadataDynamic(currentProcess, jobInfo);
             jobInfo.setProcessItem(null);
         }
         Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
@@ -448,34 +449,30 @@ public class ProcessorUtilities {
 
     /**
      * 
-     * This method is used when export job , check if one of the database component node use dynamic metadata
+     * This method is used when export job or joblet , check if one of the database component node use dynamic metadata
      */
-    private static void checkMetadataDynamic(ProcessItem selectedProcessItem, JobInfo jobInfo) {
+    private static void checkMetadataDynamic(IProcess currentProcess, JobInfo jobInfo) {
         if (exportConfig && !LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
             boolean hasDynamicMetadata = false;
-            final ProcessType process = selectedProcessItem.getProcess();
-            if (process != null) {
-                out: for (NodeType node : (List<NodeType>) process.getNode()) {
-                    // to check if node is db component , maybe need modification
-                    boolean isDbNode = false;
-                    for (ElementParameterType param : (List<ElementParameterType>) node.getElementParameter()) {
-                        if ("TYPE".equals(param.getName()) && "TEXT".equals(param.getField()) && param.getValue() != null
-                                && !"".equals(param.getValue())) {
-                            isDbNode = true;
-                            break;
-                        }
+            out: for (INode node : (List<? extends INode>) currentProcess.getGeneratingNodes()) {
+                // to check if node is db component , maybe need modification
+                boolean isDbNode = false;
+                for (IElementParameter param : (List<? extends IElementParameter>) node.getElementParameters()) {
+                    if ("TYPE".equals(param.getName()) && "TEXT".equals(param.getFieldType().getName())
+                            && param.getValue() != null && !"".equals(param.getValue())) {
+                        isDbNode = true;
+                        break;
                     }
-                    if (isDbNode) {
-                        for (MetadataType metadataType : (List<MetadataType>) node.getMetadata()) {
-                            for (ColumnType column : (List<ColumnType>) metadataType.getColumn()) {
-                                if ("id_Dynamic".equals(column.getType())) {
-                                    hasDynamicMetadata = true;
-                                    break out;
-                                }
+                }
+                if (isDbNode) {
+                    for (IMetadataTable metadataTable : node.getMetadataList()) {
+                        for (IMetadataColumn column : metadataTable.getListColumns()) {
+                            if ("id_Dynamic".equals(column.getTalendType())) {
+                                hasDynamicMetadata = true;
+                                break out;
                             }
                         }
                     }
-
                 }
             }
             LastGenerationInfo.getInstance().setUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion(), hasDynamicMetadata);
@@ -682,8 +679,8 @@ public class ProcessorUtilities {
                 LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                         neededRoutines);
             }
-            if (selectedProcessItem != null) {
-                checkMetadataDynamic(selectedProcessItem, jobInfo);
+            if (currentProcess != null) {
+                checkMetadataDynamic(currentProcess, jobInfo);
                 jobInfo.setProcessItem(null);
             }
 
