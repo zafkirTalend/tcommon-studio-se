@@ -90,6 +90,8 @@ public class RelationshipItemBuilder {
 
     public static final String ROUTINE_RELATION = "routine"; //$NON-NLS-1$
 
+    public static final String MAPPER_RELATION = "mapper"; //$NON-NLS-1$
+
     public static final String SURVIVOR_RELATION = "survivorshipRuleRelation"; //$NON-NLS-1$
 
     public static final String REPORT_RELATION = "report"; //$NON-NLS-1$
@@ -98,7 +100,8 @@ public class RelationshipItemBuilder {
 
     public static final String PATTERN_RELATION = "pattern"; //$NON-NLS-1$
 
-	public static final String RESOURCE_RELATION = "resource";
+    public static final String RESOURCE_RELATION = "resource";
+
     /*
      * 
      */

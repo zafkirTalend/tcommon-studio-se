@@ -38,42 +38,43 @@ public class ActionsHelper {
 
     private static final Comparator COMP = new ActionsLevelComparator();
 
+    private static List<ITreeContextualAction> actionsToReturn = new ArrayList<ITreeContextualAction>();
+
     @SuppressWarnings("unchecked")
-    public static List<ITreeContextualAction> getRepositoryContextualsActions() {
-        List<ITreeContextualAction> toReturn = new ArrayList<ITreeContextualAction>();
-        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.repositoryContextualsActions", //$NON-NLS-1$
-                "Action"); //$NON-NLS-1$
-        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
+    public static synchronized List<ITreeContextualAction> getRepositoryContextualsActions() {
+        if (actionsToReturn.isEmpty()) {
+            IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                    "org.talend.core.repositoryContextualsActions", //$NON-NLS-1$
+                    "Action"); //$NON-NLS-1$
+            List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
-        for (IConfigurationElement current : extension) {
-            try {
-                ITreeContextualAction currentAction = (ITreeContextualAction) current.createExecutableExtension("class"); //$NON-NLS-1$
+            for (IConfigurationElement current : extension) {
                 try {
-                    int level = Integer.parseInt(current.getAttribute("level")); //$NON-NLS-1$
-                    currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
-                    currentAction.setLevel(level);
-                } catch (NumberFormatException e) {
-                    currentAction.setLevel(1000);
-                } finally {
-                    currentAction.setReadAction("true".equals(current.getAttribute("isReadAction"))); //$NON-NLS-1$ //$NON-NLS-2$
-                    currentAction.setEditAction("true".equals(current.getAttribute("isEditAction"))); //$NON-NLS-1$ //$NON-NLS-2$
-                    currentAction.setPropertiesAction("true".equals(current.getAttribute("isPropertiesAction"))); //$NON-NLS-1$ //$NON-NLS-2$
-                    if (!"".equals(current.getAttribute("groupId")) && current.getAttribute("groupId") != null) {//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                        currentAction.setGroupId(current.getAttribute("groupId"));
+                    ITreeContextualAction currentAction = (ITreeContextualAction) current.createExecutableExtension("class"); //$NON-NLS-1$
+                    try {
+                        int level = Integer.parseInt(current.getAttribute("level")); //$NON-NLS-1$
+                        currentAction.setLevel(level);
+                    } catch (NumberFormatException e) {
+                        currentAction.setLevel(1000);
+                    } finally {
+                        currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
+                        currentAction.setReadAction("true".equals(current.getAttribute("isReadAction"))); //$NON-NLS-1$ //$NON-NLS-2$
+                        currentAction.setEditAction("true".equals(current.getAttribute("isEditAction"))); //$NON-NLS-1$ //$NON-NLS-2$
+                        currentAction.setPropertiesAction("true".equals(current.getAttribute("isPropertiesAction"))); //$NON-NLS-1$ //$NON-NLS-2$
+                        if (!"".equals(current.getAttribute("groupId")) && current.getAttribute("groupId") != null) {//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                            currentAction.setGroupId(current.getAttribute("groupId"));
+                        }
+
+                        actionsToReturn.add(currentAction);
                     }
-
-                    toReturn.add(currentAction);
+                } catch (CoreException e) {
+                    // e.printStackTrace();
+                    ExceptionHandler.process(e);
                 }
-            } catch (CoreException e) {
-                // e.printStackTrace();
-                ExceptionHandler.process(e);
             }
+            Collections.sort(actionsToReturn, COMP);
         }
-
-        Collections.sort(toReturn, COMP);
-
-        return toReturn;
+        return actionsToReturn;
     }
 
     public static MenuManager[] getRepositoryContextualsActionGroups() {
@@ -197,10 +198,13 @@ public class ActionsHelper {
      * @return
      */
     public static ITreeContextualAction getActionById(String id) {
+        if (id == null || "".equals(id)) {
+            return null;
+        }
         List<ITreeContextualAction> actions = getRepositoryContextualsActions();
         if (actions != null && !actions.isEmpty()) {
             for (ITreeContextualAction action : actions) {
-                if (action.getId().equals(id)) {
+                if (id.equals(action.getId())) {
                     return action;
                 }
             }

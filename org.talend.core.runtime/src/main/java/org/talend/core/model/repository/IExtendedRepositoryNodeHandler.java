@@ -14,6 +14,7 @@ package org.talend.core.model.repository;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -30,6 +31,23 @@ public interface IExtendedRepositoryNodeHandler {
 
     public Object getRepositoryNode(IRepositoryViewObject repositoryObject);
 
-    public List getRepositoryNodeAndDependencies(IRepositoryViewObject repositoryObject);
+    /**
+     * 
+     * DOC collect all Hierarchical Mapper related resources,includes mapper repositoryObject resouece and other related
+     * structures,namespace... resoueces
+     * 
+     * @param mapper repositoryObject
+     * @return
+     */
+    public List<IResource> getRepositoryNodeAndDependencies(IRepositoryViewObject repositoryObject);
+
+    /**
+     * 
+     * DOC collect mapper referenced RepositoryObject
+     * 
+     * @param mapper repositoryObject
+     * @return
+     */
+    public List<IRepositoryViewObject> getRepositoryObjectDependencies(IRepositoryViewObject repositoryObject);
 
 }

@@ -33,6 +33,8 @@ public interface ICoreUIService extends IService {
 
     List<ITreeContextualAction> getRepositoryContextualsActions();
 
+    ITreeContextualAction getActionById(String id);
+
     void componentsReset();
 
     void initializeComponents(IProgressMonitor monitor);
