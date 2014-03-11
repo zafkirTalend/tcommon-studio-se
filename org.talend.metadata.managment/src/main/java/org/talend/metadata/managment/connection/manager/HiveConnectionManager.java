@@ -22,12 +22,19 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
+import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
+import org.talend.metadata.managment.hive.handler.CDH4YarnHandler;
+import org.talend.metadata.managment.hive.handler.CDH5YarnHandler;
+import org.talend.metadata.managment.hive.handler.HDP130Handler;
+import org.talend.metadata.managment.hive.handler.HDP200YarnHandler;
+import org.talend.metadata.managment.hive.handler.HiveConnectionHandler;
+import org.talend.metadata.managment.hive.handler.Mapr212Handler;
 
 /**
  * Created by Marvin Wang on Mar 13, 2013.
@@ -297,6 +304,33 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         }
 
         return false;
+    }
+
+    /**
+     * 
+     * create a related hive hanlder to excute some hadoop parametes.
+     * 
+     * @param metadataConnection
+     * @return
+     */
+    public HiveConnectionHandler createHandler(IMetadataConnection metadataConnection) {
+        HiveConnectionHandler handler = null;
+        String version = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        if (EHBaseDistribution4Versions.HDP_1_3.getVersionValue().equals(version)) {
+            handler = new HDP130Handler(metadataConnection);
+        } else if (EHBaseDistribution4Versions.CLOUDERA_CDH4_YARN.getVersionValue().equals(version)) {
+            handler = new CDH4YarnHandler(metadataConnection);
+        } else if (EHBaseDistribution4Versions.HDP_2_0.getVersionValue().equals(version)) {
+            handler = new HDP200YarnHandler(metadataConnection);
+        } else if (EHBaseDistribution4Versions.MAPR_2_1_2.getVersionValue().equals(version)
+                || EHBaseDistribution4Versions.MAPR_3_0_1.getVersionValue().equals(version)) {
+            handler = new Mapr212Handler(metadataConnection);
+        } else if (EHBaseDistribution4Versions.CLOUDERA_CDH5.getVersionValue().equals(version)) {
+            handler = new CDH5YarnHandler(metadataConnection);
+        } else {
+            handler = new HiveConnectionHandler(metadataConnection);
+        }
+        return handler;
     }
 
 }
