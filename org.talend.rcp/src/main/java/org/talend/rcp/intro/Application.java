@@ -59,26 +59,29 @@ public class Application implements IApplication {
     @Override
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
+        boolean inuse = false;
+
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
-            // If we cannot get the workspace lock, pop up an error dialog and then exit the application.
-            boolean inuse = false;
-            if (!Boolean.getBoolean("org.talend.workspace.locked")) {// TDI-28205, the lock may be acquired by the
-                                                                     // configurator but leave a possibility to do it
-                                                                     // here for TOS
+
+            // check workspace inuse, if true, means have do lock in configurator. if false, will try to lock
+            if (!Boolean.getBoolean("org.talend.workspace.locked")) { //$NON-NLS-1$
+                // TDI-28205, the lock may be acquired by the configurator but leave a possibility to do it here for TOS
                 inuse = !acquireWorkspaceLock(shell);
             }// else already locked by the configurator so not in use.
+            if (inuse) {// if inuse, will forbid launching.
+                MessageDialog.openError(shell, Messages.getString("Application.WorkspaceInuseTitle"), //$NON-NLS-1$
+                        Messages.getString("Application.WorkspaceInuseMessage")); //$NON-NLS-1$
+                shell.dispose();
+                return EXIT_OK;
+            }
+
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
             CoreRepositoryPlugin.getDefault().setRCPMode();
-            try {
-                Browser browser = new Browser(new Shell(), SWT.BORDER);
-                System.setProperty("USE_BROWSER", Boolean.TRUE.toString()); //$NON-NLS-1$ 
-                browser.dispose();
-            } catch (Throwable t) {
-                System.setProperty("USE_BROWSER", Boolean.FALSE.toString()); //$NON-NLS-1$ 
-            }
+
+            checkBrowserSupport();
 
             if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)
                     && !Boolean.parseBoolean(System.getProperty("talend.project.reload"))) {//$NON-NLS-1$ 
@@ -100,9 +103,7 @@ public class Application implements IApplication {
                     return EXIT_OK;
                 }
             } finally {
-                if (shell != null) {
-                    shell.dispose();
-                }
+                shell.dispose();
             }
 
             // if some commands are set to relaunch (not restart) the eclipse then relaunch it
@@ -140,7 +141,7 @@ public class Application implements IApplication {
             if (brandingService.isPoweredbyTalend()) {
                 // setup the presentation factory, which is defined in the plugin.xml of the org.talend.rcp
                 IPreferenceStore store = PlatformUI.getPreferenceStore();
-                store.putValue(IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID, "org.talend.rcp.presentationfactory");
+                store.putValue(IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID, "org.talend.rcp.presentationfactory"); //$NON-NLS-1$
             }
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
@@ -165,23 +166,42 @@ public class Application implements IApplication {
             }
         } finally {
             display.dispose();
-            // release workspace lock
-            releaseWorkspaceLock();
+            if (!inuse) { // release workspace lock for current app only, not for anothers.
+                releaseWorkspaceLock();
+            }
         }
 
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "checkForBrowser".
+     */
+    private void checkBrowserSupport() {
+        Shell shell = new Shell();
+        try {
+            Browser browser = new Browser(shell, SWT.BORDER);
+            System.setProperty("USE_BROWSER", Boolean.TRUE.toString()); //$NON-NLS-1$ 
+            browser.dispose();
+        } catch (Throwable t) {
+            System.setProperty("USE_BROWSER", Boolean.FALSE.toString()); //$NON-NLS-1$ 
+        } finally {
+            shell.dispose();
+
+        }
     }
 
     private void openLicenseAndRegister(Shell shell) {
         if (!LicenseManagement.isLicenseValidated()) {
             LicenseWizard licenseWizard = new LicenseWizard();
             LicenseWizardDialog dialog = new LicenseWizardDialog(shell, licenseWizard);
-            dialog.setTitle(Messages.getString("LicenseWizard.windowTitle")); //$NON-NLS-1$
+            dialog.setTitle(""); //$NON-NLS-1$
             if (dialog.open() == WizardDialog.OK) {
                 try {
                     LicenseManagement.acceptLicense();
                 } catch (BusinessException e) {
                     ErrorDialogWidthDetailArea errorDialog = new ErrorDialogWidthDetailArea(shell, RegistrationPlugin.PLUGIN_ID,
-                            Messages.getString("RegisterWizardPage.serverCommunicationProblem"), e.getMessage()); //$NON-NLS-1$
+                            "", e.getMessage()); //$NON-NLS-1$
                     System.exit(0);
                 }
 
