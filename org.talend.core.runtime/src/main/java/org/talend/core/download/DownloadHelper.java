@@ -61,7 +61,13 @@ public class DownloadHelper {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
-
+            if (destination.exists()) { // if existed, delete first
+                destination.delete();
+            }
+            File destParentFile = destination.getParentFile();
+            if (!destParentFile.exists()) { // if the parent folder is not existed, create it.
+                destParentFile.mkdirs();
+            }
             URLConnection connection = componentUrl.openConnection();
 
             bis = new BufferedInputStream(connection.getInputStream());

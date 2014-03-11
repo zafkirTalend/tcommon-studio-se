@@ -305,8 +305,8 @@ public class ImportItemsWizardPage extends WizardPage {
 
                         String selectedArchive = service.openExchangeDialog();
                         if (selectedArchive != null) {
-                            archivePathField.setText(previouslyBrowsedArchivePath);
                             previouslyBrowsedArchivePath = selectedArchive;
+                            archivePathField.setText(selectedArchive);
                             updateItemsList(selectedArchive, false, false);
                         }
                     } else {
@@ -699,21 +699,23 @@ public class ImportItemsWizardPage extends WizardPage {
         errors.clear();
         updateErrorListViewer();
 
-        IRunnableWithProgress op = new IRunnableWithProgress() {
+        if (resManager != null) { // if resource is not init successfully.
+            IRunnableWithProgress op = new IRunnableWithProgress() {
 
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                ImportExportHandlersManager.getInstance().preImport(resManager);
-                List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager, overwrite,
-                        monitor);
-                nodesBuilder.addItems(items);
+                @Override
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    ImportExportHandlersManager.getInstance().preImport(resManager);
+                    List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager,
+                            overwrite, monitor);
+                    nodesBuilder.addItems(items);
+                }
+
+            };
+            try {
+                new ProgressMonitorDialog(getShell()).run(true, true, op);
+            } catch (Exception e) {
+                // ignore me
             }
-
-        };
-        try {
-            new ProgressMonitorDialog(getShell()).run(true, true, op);
-        } catch (Exception e) {
-            // ignore me
         }
 
         ItemRecord[] allImportItemRecords = nodesBuilder.getAllImportItemRecords();
