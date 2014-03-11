@@ -35,7 +35,9 @@ import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IExtendedRepositoryNodeHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.ui.IJobletProviderService;
@@ -165,7 +167,23 @@ public final class ProcessUtils {
         for (Relation relation : relations) {
             IRepositoryViewObject obj = null;
             try {
-                if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
+                if (RelationshipItemBuilder.MAPPER_RELATION.equals(relation.getType())) {
+                    IRepositoryViewObject mapperObj = factory.getLastVersion(relation.getId());
+                    if (mapperObj != null) {
+                        if (!repositoryObjects.contains(mapperObj)) {
+                            repositoryObjects.add(mapperObj);
+                        }
+                        for (IExtendedRepositoryNodeHandler nodeHandler : RepositoryContentManager.getExtendedNodeHandler()) {
+                            List<IRepositoryViewObject> nodesAndDependencies = nodeHandler
+                                    .getRepositoryObjectDependencies(mapperObj);
+                            for (IRepositoryViewObject refObject : nodesAndDependencies) {
+                                if (!repositoryObjects.contains(refObject)) {
+                                    repositoryObjects.add(refObject);
+                                }
+                            }
+                        }
+                    }
+                } else if (RelationshipItemBuilder.ROUTINE_RELATION.equals(relation.getType())) {
                     obj = RoutinesUtil.getRoutineFromName(relation.getId());
                 } else {
                     obj = factory.getLastVersion(relation.getId());

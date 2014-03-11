@@ -46,7 +46,7 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
 
     @Override
     public void run(IAction action) {
-        doRun();
+        run();
     }
 
     /*

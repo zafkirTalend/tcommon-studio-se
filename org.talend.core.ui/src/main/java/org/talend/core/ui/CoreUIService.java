@@ -57,6 +57,11 @@ public class CoreUIService implements ICoreUIService {
     }
 
     @Override
+    public ITreeContextualAction getActionById(String id) {
+        return ActionsHelper.getActionById(id);
+    }
+
+    @Override
     public void componentsReset() {
         ComponentsFactoryProvider.getInstance().reset();
     }

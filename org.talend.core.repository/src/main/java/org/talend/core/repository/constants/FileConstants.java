@@ -22,6 +22,10 @@ public interface FileConstants {
 
     String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
 
+    String TDM_PROPS_FOLDER = ".settings"; //$NON-NLS-1$
+
+    String TDM_PROPS_PATH = TDM_PROPS_FOLDER + "/com.oaklandsw.base.projectProps"; //$NON-NLS-1$
+
     String PROPERTIES_EXTENSION = FileExtensions.PROPERTIES_EXTENSION;
 
     String ITEM_EXTENSION = FileExtensions.ITEM_EXTENSION;
