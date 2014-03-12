@@ -19,7 +19,7 @@ public class BasicRegistry {
 
     private final String bundleId, id;
 
-    private String name, description;
+    private String name, description, overrideId;
 
     private EPriority priority = EPriority.NORMAL;
 
@@ -99,6 +99,14 @@ public class BasicRegistry {
      */
     public void setPriority(EPriority priority) {
         this.priority = priority;
+    }
+
+    public String getOverrideId() {
+        return this.overrideId;
+    }
+
+    public void setOverrideId(String overrideId) {
+        this.overrideId = overrideId;
     }
 
     /*

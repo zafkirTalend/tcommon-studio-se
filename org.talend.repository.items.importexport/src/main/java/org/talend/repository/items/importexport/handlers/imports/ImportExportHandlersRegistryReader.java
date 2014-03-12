@@ -15,12 +15,15 @@ package org.talend.repository.items.importexport.handlers.imports;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
 import org.talend.core.utils.RegistryReader;
+import org.talend.repository.items.importexport.handlers.model.internal.BasicRegistry;
 import org.talend.repository.items.importexport.handlers.model.internal.EPriority;
 import org.talend.repository.items.importexport.handlers.model.internal.ImportItemsProviderRegistry;
 import org.talend.repository.items.importexport.handlers.model.internal.ImportResourcesProviderRegistry;
@@ -32,9 +35,13 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
 
     private static Logger log = Logger.getLogger(ImportExportHandlersRegistryReader.class);
 
-    private List<ImportItemsProviderRegistry> imortRegistries = new ArrayList<ImportItemsProviderRegistry>();
+    private Map<String, ImportItemsProviderRegistry> imortRegistries = new HashMap<String, ImportItemsProviderRegistry>();
 
-    private List<ImportResourcesProviderRegistry> resImportResistries = new ArrayList<ImportResourcesProviderRegistry>();
+    private Map<String, ImportResourcesProviderRegistry> resImportResistries = new HashMap<String, ImportResourcesProviderRegistry>();
+
+    private IImportItemsHandler[] importItemsHandlers = null;
+
+    private IImportResourcesHandler[] importResourcesHandlers = null;
 
     public ImportExportHandlersRegistryReader() {
         super("org.talend.repository.items.importexport", "handler"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -43,38 +50,72 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
     public void init() {
         readRegistry();
 
-        // according to the priority
-        Collections.sort(this.imortRegistries, new Comparator<ImportItemsProviderRegistry>() {
+        // check for override
+        List<BasicRegistry> availableImportItemsProviderRegistries = getAvailableImportProviderRegistries(new HashMap<String, BasicRegistry>(
+                this.imortRegistries));
+        List<BasicRegistry> availableImportResourcesProviderRegistries = getAvailableImportProviderRegistries(new HashMap<String, BasicRegistry>(
+                this.resImportResistries));
+
+        // according to the priority to sort
+        final Comparator<BasicRegistry> comparator = new Comparator<BasicRegistry>() {
 
             @Override
-            public int compare(ImportItemsProviderRegistry arg0, ImportItemsProviderRegistry arg1) {
+            public int compare(BasicRegistry arg0, BasicRegistry arg1) {
                 return arg1.getPriority().compareTo(arg0.getPriority());
             }
-        });
-        // according to the priority
-        Collections.sort(this.resImportResistries, new Comparator<ImportResourcesProviderRegistry>() {
+        };
+        Collections.sort(availableImportItemsProviderRegistries, comparator);
+        Collections.sort(availableImportResourcesProviderRegistries, comparator);
 
-            @Override
-            public int compare(ImportResourcesProviderRegistry arg0, ImportResourcesProviderRegistry arg1) {
-                return arg1.getPriority().compareTo(arg0.getPriority());
+        // init arrays
+        List<IImportItemsHandler> itemsHanders = new ArrayList<IImportItemsHandler>();
+        for (BasicRegistry reg : availableImportItemsProviderRegistries) {
+            if (reg instanceof ImportItemsProviderRegistry) {
+                itemsHanders.add(((ImportItemsProviderRegistry) reg).getImportItemsHandler());
             }
-        });
+        }
+        importItemsHandlers = itemsHanders.toArray(new IImportItemsHandler[0]);
+
+        List<IImportResourcesHandler> resourcesHanders = new ArrayList<IImportResourcesHandler>();
+        for (BasicRegistry reg : availableImportResourcesProviderRegistries) {
+            if (reg instanceof ImportResourcesProviderRegistry) {
+                resourcesHanders.add(((ImportResourcesProviderRegistry) reg).getImportResourcesHandler());
+            }
+        }
+        importResourcesHandlers = resourcesHanders.toArray(new IImportResourcesHandler[0]);
+
+    }
+
+    private List<BasicRegistry> getAvailableImportProviderRegistries(Map<String, BasicRegistry> registries) {
+        Map<String, BasicRegistry> availableItemProviders = new HashMap<String, BasicRegistry>(registries);
+        // find the override ids
+        List<String> overrideItemsProviderIds = new ArrayList<String>();
+        for (String id : availableItemProviders.keySet()) {
+            BasicRegistry registry = availableItemProviders.get(id);
+            String overrideId = registry.getOverrideId();
+            if (overrideId != null && overrideId.length() > 0) {
+                overrideItemsProviderIds.add(overrideId);
+            }
+        }
+        // remove the override registry
+        for (String id : overrideItemsProviderIds) {
+            availableItemProviders.remove(id);
+        }
+        return new ArrayList<BasicRegistry>(availableItemProviders.values());
     }
 
     public IImportItemsHandler[] getImportHandlers() {
-        List<IImportItemsHandler> handers = new ArrayList<IImportItemsHandler>();
-        for (ImportItemsProviderRegistry ir : this.imortRegistries) {
-            handers.add(ir.getImportItemsHandler());
+        if (importItemsHandlers == null) {
+            return new IImportItemsHandler[0];
         }
-        return handers.toArray(new IImportItemsHandler[0]);
+        return importItemsHandlers;
     }
 
     public IImportResourcesHandler[] getImportResourcesHandlers() {
-        List<IImportResourcesHandler> handers = new ArrayList<IImportResourcesHandler>();
-        for (ImportResourcesProviderRegistry ir : this.resImportResistries) {
-            handers.add(ir.getImportResourcesHandler());
+        if (importResourcesHandlers == null) {
+            return new IImportResourcesHandler[0];
         }
-        return handers.toArray(new IImportResourcesHandler[0]);
+        return importResourcesHandlers;
     }
 
     /*
@@ -84,19 +125,21 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
      */
     @Override
     protected boolean readElement(final IConfigurationElement element) {
+        final String id = element.getAttribute("id"); //$NON-NLS-1$
+        final String name = element.getAttribute("name"); //$NON-NLS-1$
+        final String description = element.getAttribute("description"); //$NON-NLS-1$
+        final String overrideId = element.getAttribute("override"); //$NON-NLS-1$
+
+        String priorityString = element.getAttribute("priority"); //$NON-NLS-1$
+        final EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority.valueOf(priorityString
+                .toUpperCase()) : EPriority.NORMAL;
+
         if ("importItemsProvider".equals(element.getName())) { //$NON-NLS-1$
             SafeRunner.run(new RegistryReader.RegistrySafeRunnable() {
 
                 @Override
                 public void run() throws Exception {
                     try {
-                        String id = element.getAttribute("id"); //$NON-NLS-1$
-                        String name = element.getAttribute("name"); //$NON-NLS-1$
-                        String description = element.getAttribute("description"); //$NON-NLS-1$
-
-                        String priorityString = element.getAttribute("priority"); //$NON-NLS-1$
-                        EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority
-                                .valueOf(priorityString.toUpperCase()) : EPriority.NORMAL;
 
                         IImportItemsHandler importItemsHandler = (IImportItemsHandler) element
                                 .createExecutableExtension("importItemsHandler"); //$NON-NLS-1$
@@ -105,14 +148,20 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                             return;
                         }
 
-                        ImportItemsProviderRegistry importRegistry = new ImportItemsProviderRegistry(element.getContributor()
-                                .getName(), id);
-                        importRegistry.setName(name);
-                        importRegistry.setDescription(description);
-                        importRegistry.setImportItemsHandler(importItemsHandler);
-                        importRegistry.setPriority(priority);
+                        ImportItemsProviderRegistry registry = new ImportItemsProviderRegistry(
+                                element.getContributor().getName(), id);
+                        registry.setName(name);
+                        registry.setDescription(description);
+                        registry.setImportItemsHandler(importItemsHandler);
+                        registry.setPriority(priority);
+                        registry.setOverrideId(overrideId);
 
-                        imortRegistries.add(importRegistry);
+                        String id2 = registry.getId();
+                        if (imortRegistries.containsKey(id2)) {
+
+                        } else {
+                            imortRegistries.put(id2, registry);
+                        }
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);
                     }
@@ -127,13 +176,6 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                 @Override
                 public void run() throws Exception {
                     try {
-                        String id = element.getAttribute("id"); //$NON-NLS-1$
-                        String description = element.getAttribute("description"); //$NON-NLS-1$
-
-                        String priorityString = element.getAttribute("priority"); //$NON-NLS-1$
-                        EPriority priority = (priorityString != null && priorityString.length() > 0) ? EPriority
-                                .valueOf(priorityString.toUpperCase()) : EPriority.NORMAL;
-
                         IImportResourcesHandler resImportHandler = (IImportResourcesHandler) element
                                 .createExecutableExtension("importResoucesHandler");//$NON-NLS-1$
 
@@ -142,8 +184,14 @@ public class ImportExportHandlersRegistryReader extends RegistryReader {
                         registry.setDescription(description);
                         registry.setPriority(priority);
                         registry.setImportResourcesHandler(resImportHandler);
+                        registry.setOverrideId(overrideId);
 
-                        resImportResistries.add(registry);
+                        String id2 = registry.getId();
+                        if (resImportResistries.containsKey(id2)) {
+
+                        } else {
+                            resImportResistries.put(id2, registry);
+                        }
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);
                     }

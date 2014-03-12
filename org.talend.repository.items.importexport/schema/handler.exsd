@@ -69,22 +69,21 @@ For example, XxxxImportHandler:TEST
          <attribute name="name" type="string">
             <annotation>
                <documentation>
-                  
+                  Name of provider
                </documentation>
             </annotation>
          </attribute>
          <attribute name="description" type="string">
             <annotation>
                <documentation>
-                  
+                  Description for provider.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="priority">
             <annotation>
                <documentation>
-                  Use to override the handler.
-Could be used in case both handlers return true in the &quot;valid&quot; method.
+                  the higher level  provider will be executed before others.
                </documentation>
                <appinfo>
                   <meta.attribute kind="identifier"/>
@@ -104,6 +103,13 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
                   </enumeration>
                </restriction>
             </simpleType>
+         </attribute>
+         <attribute name="override" type="string">
+            <annotation>
+               <documentation>
+                  The value is the id of ImportItemsProvider to be overrided.
+               </documentation>
+            </annotation>
          </attribute>
       </complexType>
    </element>
@@ -139,21 +145,28 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  Unique import provider id.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Name of provider
                </documentation>
             </annotation>
          </attribute>
          <attribute name="description" type="string">
             <annotation>
                <documentation>
-                  
+                  Description for provider.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="priority">
             <annotation>
                <documentation>
-                  If the handler is higher than others, will execute this one first.
+                  the higher level  provider will be executed before others.
                </documentation>
                <appinfo>
                   <meta.attribute kind="identifier"/>
@@ -173,6 +186,13 @@ Could be used in case both handlers return true in the &quot;valid&quot; method.
                   </enumeration>
                </restriction>
             </simpleType>
+         </attribute>
+         <attribute name="override" type="string">
+            <annotation>
+               <documentation>
+                  The value is the id of ImportResourcesProvider to be overrided.
+               </documentation>
+            </annotation>
          </attribute>
       </complexType>
    </element>
