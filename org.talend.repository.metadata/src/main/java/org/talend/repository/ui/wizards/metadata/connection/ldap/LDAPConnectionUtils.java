@@ -260,7 +260,7 @@ public class LDAPConnectionUtils {
         String protocol = connection.getProtocol();
 
         if (isStep1Check) {
-            protocol = EAuthenticationMethod.SIMPLE.getName();
+            protocol = EAuthenticationMethod.ANONYMOUS.getName();
         }
 
         String encryptionMethod = connection.getEncryptionMethodName();
