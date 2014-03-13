@@ -12,8 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.wizard.models;
 
-import org.apache.commons.lang.StringUtils;
-import org.talend.core.model.properties.Project;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 
 /**
@@ -32,19 +31,19 @@ public class ItemImportNode extends ImportNode {
     @Override
     public String getName() {
         StringBuffer sb = new StringBuffer();
-
-        final ProjectImportNode projectNode = this.getProjectNode();
-        if (projectNode != null) {
-            Project project = projectNode.getProject();
-            sb.append(project.getTechnicalLabel());
-            sb.append('/');
+        ImportNode parentNode = this.getParentNode();
+        if (parentNode != null) {
+            sb.append(parentNode.getName());
         }
-        String importPath = getItemRecord().getImportPath();
-        if (StringUtils.isNotEmpty(importPath)) {
-            sb.append(importPath);
-            sb.append('/');
-        }
+        sb.append('/');
         sb.append(getItemRecord().getLabel());
+
+        ERepositoryObjectType repositoryType = getItemRecord().getRepositoryType();
+        if (repositoryType != null) {
+            sb.append('(');
+            sb.append(repositoryType.getType());
+            sb.append(')');
+        }
         return sb.toString();
     }
 
