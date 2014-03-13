@@ -14,8 +14,6 @@ package org.talend.core.service;
 
 import org.talend.core.IService;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * created by wchen on 2013-8-16 Detailled comment
@@ -23,16 +21,6 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface ITransformService extends IService {
 
-    public boolean isTransformNode(RepositoryNode node);
-
     public boolean isTransformItem(Item item);
-
-    public boolean isTransformType(ERepositoryObjectType type);
-
-    public String getDisplayName(Item item);
-
-    public ERepositoryObjectType getTransformRootType();
-
-    public String getSelectedNodeId(ERepositoryObjectType type);
 
 }

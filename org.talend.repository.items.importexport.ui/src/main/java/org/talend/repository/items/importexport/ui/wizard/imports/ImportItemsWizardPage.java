@@ -394,6 +394,8 @@ public class ImportItemsWizardPage extends WizardPage {
             }
         });
         setButtonLayoutData(refresh);
+        // hide for current version ,enable it later if needed.
+        refresh.setVisible(false);
 
         new Label(buttonsComposite, SWT.NONE);
 
