@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.core.model.properties.Project;
-
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -42,10 +40,14 @@ public class FolderImportNode extends ImportNode {
      */
     @Override
     public String getName() {
-        final ProjectImportNode projectNode = this.getProjectNode();
-        if (projectNode != null) {
-            Project project = projectNode.getProject();
-            return project.getTechnicalLabel() + '/' + getPath();
+        ImportNode parentNode = this.getParentNode();
+        if (parentNode instanceof FolderImportNode) {
+            return parentNode.getName() + '/' + getPath();
+        } else {
+            final ProjectImportNode projectNode = this.getProjectNode();
+            if (projectNode != null) {
+                return projectNode.getName() + '/' + getPath();
+            }
         }
         return getPath();
     }

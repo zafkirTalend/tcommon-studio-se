@@ -35,6 +35,19 @@ public class TypeImportNode extends FolderImportNode {
         return this.type;
     }
 
+    @Override
+    public String getName() {
+        ImportNode parentNode = this.getParentNode();
+        // avoid the duplicate path with parent type, like metadata and connections
+        if (parentNode instanceof TypeImportNode) {
+            ProjectImportNode projectNode = this.getProjectNode();
+            if (projectNode != null) {
+                return projectNode.getName() + '/' + getPath();
+            }
+        }
+        return super.getName();
+    }
+
     /*
      * (non-Javadoc)
      * 
