@@ -606,7 +606,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return toReturn;
     }
 
-    private void logError(Exception e) {
+    protected void logError(Exception e) {
         ImportCacheHelper.getInstance().setImportingError(true);
         ExceptionHandler.process(e);
     }

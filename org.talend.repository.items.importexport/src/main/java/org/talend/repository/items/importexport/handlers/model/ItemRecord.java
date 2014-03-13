@@ -205,7 +205,7 @@ public class ItemRecord {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
             boolean allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
-            if (allowVerchange) {
+            if (allowVerchange && property.getItem().isNeedVersion()) {
                 label = property.getLabel() + " " + property.getVersion(); //$NON-NLS-1$
             } else {
                 label = property.getLabel();

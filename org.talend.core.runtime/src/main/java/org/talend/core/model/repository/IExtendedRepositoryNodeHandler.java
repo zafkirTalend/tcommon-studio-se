@@ -23,13 +23,34 @@ import org.talend.core.model.properties.Property;
  */
 public interface IExtendedRepositoryNodeHandler {
 
+    /**
+     * 
+     * DOC wchen Comment method "getProperty".
+     * 
+     * @param repository nodeObject
+     * @return property of this repository object
+     */
     public Property getProperty(Object nodeObject);
 
     public Object getParent(Object repositoryNode);
 
+    /**
+     * 
+     * DOC get ERepositoryObjectType for repository selection
+     * 
+     * @param repository selected object
+     * @return
+     */
     public ERepositoryObjectType getObjectType(Object repositoryNode);
 
-    public Object getRepositoryNode(IRepositoryViewObject repositoryObject);
+    /**
+     * 
+     * DOC get root ERepositoryObjectType for repository selection
+     * 
+     * @param repository selected object
+     * @return
+     */
+    public ERepositoryObjectType getRootType(Object repositoryNode);
 
     /**
      * 
