@@ -454,7 +454,10 @@ public class DeleteAction extends AContextualAction {
         Exception bex = null;
         for (IRepositoryNode repositoryNode : repositoryList) {
             try {
-                deleteRepositoryNode(repositoryNode, factory);
+                boolean ret = deleteRepositoryNode(repositoryNode, factory);
+                if (!ret) {
+                    return;
+                }
             } catch (Exception e) {
                 bex = e;
                 ExceptionHandler.process(e);
@@ -573,7 +576,7 @@ public class DeleteAction extends AContextualAction {
         }
     }
 
-    private void deleteRepositoryNode(IRepositoryNode repositoryNode, IProxyRepositoryFactory factory)
+    private boolean deleteRepositoryNode(IRepositoryNode repositoryNode, IProxyRepositoryFactory factory)
             throws PersistenceException, BusinessException {
         if (repositoryNode.getType() == ENodeType.SIMPLE_FOLDER) {
             IPath path = RepositoryNodeUtilities.getPath((RepositoryNode) repositoryNode);
@@ -583,7 +586,10 @@ public class DeleteAction extends AContextualAction {
             BusinessException bex = null;
             for (IRepositoryNode repositoryNode2 : repositoryList) {
                 try {
-                    deleteRepositoryNode(repositoryNode2, factory);
+                	 boolean ret = deleteRepositoryNode(repositoryNode2, factory);
+                     if (!ret) {
+                         return false;
+                     }
                 } catch (PersistenceException e) {
                     pex = e;
                 } catch (BusinessException e) {
@@ -612,9 +618,42 @@ public class DeleteAction extends AContextualAction {
                 curItem = parentFolder;
             }
             folderItem.getState().setPath(fullPath);
-
+            return true;
         } else {
-            IRepositoryViewObject objToDelete = repositoryNode.getObject();
+        	final DeleteActionCache deleteActionCache = DeleteActionCache.getInstance();
+            deleteActionCache.setGetAlways(false);
+            deleteActionCache.setDocRefresh(false);
+            deleteActionCache.createRecords();
+            final IRepositoryViewObject objToDelete = repositoryNode.getObject();
+            
+            final boolean[] enableDeleting = new boolean[1];
+            enableDeleting[0] = true;
+
+            final List<ContextReferenceBean> checkContext = checkContextFromProcess(factory, deleteActionCache,
+                    (RepositoryNode) repositoryNode);
+            if (checkContext.size() > 0) {
+                Display.getDefault().syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        ContextReferenceDialog dialog = new ContextReferenceDialog(PlatformUI.getWorkbench()
+                                .getActiveWorkbenchWindow().getShell(), objToDelete, checkContext);
+                        int returnCode = dialog.open();
+                        switch (returnCode) {
+                        case Window.OK:
+                            enableDeleting[0] = true;
+                            break;
+                        case Window.CANCEL:
+                            enableDeleting[0] = false;
+                            break;
+                        }
+                    }
+                });
+            }
+
+            if (!enableDeleting[0]) {
+                return false;
+            }
             // TDI-22550
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                 IDesignerCoreService coreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
@@ -630,6 +669,7 @@ public class DeleteAction extends AContextualAction {
             }
             factory.deleteObjectLogical(objToDelete);
             removeConnFromSQLExplorer(repositoryNode);
+            return true;
         }
     }
 
