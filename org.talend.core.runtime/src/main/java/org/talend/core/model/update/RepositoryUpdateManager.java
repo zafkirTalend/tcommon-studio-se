@@ -1093,46 +1093,32 @@ public abstract class RepositoryUpdateManager {
             if (jobletType != null) {
                 processRep.addAll(factory.getAll(jobletType, true));
             }
-            for (IRepositoryViewObject obj : processRep) {
-                Item item = obj.getProperty().getItem();
-                IProcess process = null;
-                if (item instanceof ProcessItem) {
-                    process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-                } else if (item instanceof JobletProcessItem) {
-                    process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-                }
-                processList.add(process);
-            }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
 
         // all the jobs
-        for (IProcess process : processList) {
-            if (process instanceof IProcess2) {
-                IProcess2 ip2 = (IProcess2) process;
-                boolean found = false;
-                for (IProcess2 open : openedProcessList) {
-                    if (open.getId().equals(ip2.getId())) {
-                        found = true;
-                    }
+        for (IRepositoryViewObject process : processRep) {
+            Item item = process.getProperty().getItem();
+            boolean found = false;
+            for (IProcess2 open : openedProcessList) {
+                if (open.getId().equals(item.getProperty().getId())) {
+                    found = true;
                 }
-                if (found) {
-                    continue;
-                }
-                checkMonitorCanceled(parentMonitor);
-                parentMonitor.subTask(getUpdateJobInfor(ip2.getProperty()));
-
-                // List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
-
-                List<UpdateResult> resultFromProcess = getUpdatesNeededFromItems(parentMonitor, ((IProcess2) process)
-                        .getProperty().getItem(), types, onlySimpleShow);
-                if (resultFromProcess != null) {
-                    resultList.addAll(resultFromProcess);
-                }
-                parentMonitor.worked(1);
             }
+            if (found) {
+                continue;
+            }
+            checkMonitorCanceled(parentMonitor);
+            parentMonitor.subTask(getUpdateJobInfor(item.getProperty()));
 
+            // List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
+
+            List<UpdateResult> resultFromProcess = getUpdatesNeededFromItems(parentMonitor, item, types, onlySimpleShow);
+            if (resultFromProcess != null) {
+                resultList.addAll(resultFromProcess);
+            }
+            parentMonitor.worked(1);
         }
         return resultList;
     }
