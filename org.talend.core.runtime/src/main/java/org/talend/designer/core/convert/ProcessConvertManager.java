@@ -45,6 +45,8 @@ public class ProcessConvertManager {
 
     private static ProcessConvertManager convertManager = null;
 
+    private List<IProcessConvertService> processConvertServices = new ArrayList<IProcessConvertService>();
+
     private ProcessConvertManager() {
     }
 
@@ -63,7 +65,9 @@ public class ProcessConvertManager {
      * @return
      */
     public List<IProcessConvertService> extractAllConvertServices() {
-        List<IProcessConvertService> processConvertServices = new ArrayList<IProcessConvertService>();
+        if (processConvertServices.size() > 0) {
+            return processConvertServices;
+        }
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
         IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EXTENSION_POINT_FOR_CONVERT);
         if (extensionPoint != null) {
