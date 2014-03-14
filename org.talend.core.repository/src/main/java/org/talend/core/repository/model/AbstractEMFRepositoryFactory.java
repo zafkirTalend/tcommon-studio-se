@@ -890,8 +890,12 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     @Override
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
-        return getFolderHelper(project.getEmfProject()).getFolder(
-                ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+        FolderItem folderItem = folderHelper.getFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        if (folderItem == null && itemType != null) {
+            folderItem = folderHelper.createFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        }
+        return folderItem;
     }
 
     /*
