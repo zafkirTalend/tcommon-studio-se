@@ -120,6 +120,7 @@ import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.impl.CatalogImpl;
 import orgomg.cwm.resource.relational.impl.SchemaImpl;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 
 /**
  * @author cantoine
@@ -2416,9 +2417,8 @@ public class SelectorTableForm extends AbstractForm {
         return this.nameFilter.getText().trim();
     }
 
-    class checkStateProvider extends CheckStateProvider {
+    class checkStateProvider implements ICheckStateProvider {
 
-        @Override
         public boolean isChecked(Object element) {
             if (element instanceof TableNode) {
                 TableNode node = (TableNode) element;
@@ -2434,7 +2434,6 @@ public class SelectorTableForm extends AbstractForm {
 
         }
 
-        @Override
         public boolean isGrayed(Object element) {
             return false;
         }
