@@ -22,8 +22,8 @@ import java.io.InputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.ui.internal.wizards.datatransfer.TarEntry;
-import org.eclipse.ui.internal.wizards.datatransfer.TarOutputStream;
+import org.apache.tools.tar.TarOutputStream;
+import org.apache.tools.tar.TarEntry;
 
 
 /**
