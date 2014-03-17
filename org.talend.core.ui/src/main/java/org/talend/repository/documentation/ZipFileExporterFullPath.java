@@ -17,8 +17,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.CRC32;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipFile;
+import org.apache.tools.zip.ZipOutputStream;
 
 import org.eclipse.core.runtime.CoreException;
 
@@ -40,6 +41,7 @@ public class ZipFileExporterFullPath implements IFileExporterFullPath {
      */
     public ZipFileExporterFullPath(String filename, boolean compress) throws IOException {
         outputStream = new ZipOutputStream(new FileOutputStream(filename));
+        outputStream.setEncoding("GBK");
         useCompression = compress;
     }
 
