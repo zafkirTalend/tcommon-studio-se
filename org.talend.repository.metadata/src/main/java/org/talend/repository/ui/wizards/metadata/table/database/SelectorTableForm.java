@@ -39,6 +39,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -2424,7 +2425,7 @@ public class SelectorTableForm extends AbstractForm {
     }
 
     
-    class checkStateProvider extends CheckStateProvider {
+    class checkStateProvider implements ICheckStateProvider {
 
         public boolean isChecked(Object element) {
             if (element instanceof TableNode) {
