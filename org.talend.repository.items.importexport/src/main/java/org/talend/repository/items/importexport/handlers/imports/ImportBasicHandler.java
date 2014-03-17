@@ -89,6 +89,7 @@ import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.HandlerUtil;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
@@ -627,7 +628,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
-            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+            final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
 
             IPath path = checkAndCreatePath(selectedItemRecord, destinationPath);
@@ -658,18 +659,28 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     /* only delete when name exsit rather than id exist */
                     if (selectedItemRecord.getState().equals(ItemRecord.State.NAME_EXISTED)
                             || selectedItemRecord.getState().equals(ItemRecord.State.NAME_AND_ID_EXISTED)) {
+                        final IRepositoryViewObject lastVersionBackup = lastVersion;
                         if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
                             // TDI-19535 (check if exists, delete all items with same id)
-                            List<IRepositoryViewObject> allVersionToDelete = repFactory.getAllVersion(ProjectManager
-                                    .getInstance().getCurrentProject(), lastVersion.getId(), false);
-                            for (IRepositoryViewObject currentVersion : allVersionToDelete) {
-                                repFactory.forceDeleteObjectPhysical(lastVersion, currentVersion.getVersion());
-                            }
+                            final List<IRepositoryViewObject> allVersionToDelete = repFactory.getAllVersion(ProjectManager
+                                    .getInstance().getCurrentProject(), lastVersionBackup.getId(), false);
+                            RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(
+                                    Messages.getString("ImportExportHandlersManager_deletingItemsMessage")) {
+
+                                @Override
+                                public void run() throws PersistenceException {
+                                    for (IRepositoryViewObject currentVersion : allVersionToDelete) {
+                                        repFactory.forceDeleteObjectPhysical(lastVersionBackup, currentVersion.getVersion());
+                                    }
+                                }
+                            };
+                            repositoryWorkUnit.setForceTransaction(true);
+                            repositoryWorkUnit.setRefreshRepository(false);
+                            ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
                             idDeletedBeforeImport.add(id);
                         }
                     }
                     lastVersion = null;
-
                 }
 
                 User author = selectedItemRecord.getProperty().getAuthor();
