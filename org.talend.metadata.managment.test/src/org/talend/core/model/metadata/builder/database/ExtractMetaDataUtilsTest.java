@@ -295,9 +295,6 @@ public class ExtractMetaDataUtilsTest {
 
         DatabaseMetaData databaseMetaData = extractMetaManger.getConnectionMetadata(mockConn);
 
-        verify(mockConn).getMetaData();
-        verify(metaData, times(2)).getDatabaseProductName();
-
         Assert.assertNotNull(databaseMetaData);
         Assert.assertTrue(databaseMetaData instanceof DB2ForZosDataBaseMetadata);
     }
