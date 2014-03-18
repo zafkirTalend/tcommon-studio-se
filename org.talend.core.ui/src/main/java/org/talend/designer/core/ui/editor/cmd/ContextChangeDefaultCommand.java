@@ -38,6 +38,7 @@ public class ContextChangeDefaultCommand extends Command {
         this.newDefault = newDefault;
         this.contextManager = contextManager;
         this.oldDefault = contextManager.getDefaultContext();
+        this.helper = new ContextManagerHelper(contextManager);
         this.setLabel(Messages.getString("ContextChangeDefaultCommand.label")); //$NON-NLS-1$
     }
 
