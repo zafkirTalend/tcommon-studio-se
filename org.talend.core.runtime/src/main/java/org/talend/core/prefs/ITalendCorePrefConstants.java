@@ -131,11 +131,25 @@ public interface ITalendCorePrefConstants {
 
     public static final String OOZIE_SCHEDULER_USER_NAME = "oozie_scheduler_user_name"; //$NON-NLS-1$
 
+    public static final String OOZIE_SCHEDULER_AUTH_MODE = "oozie_scheduler_auth_mode"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_GROUP = "oozie_scheduler_group"; //$NON-NLS-1$
+
     public static final String OOZIE_SCHEDULER_HADOOP_CUSTOM_JARS = "oozie_scheduler_hadoop_custom_jars"; //$NON-NLS-1$
 
     public static final String OOZIE_SCHEDULER_HADOOP_PRINCIPAL = "oozie_scheduler_hadoop_principal"; //$NON-NLS-1$
 
     public static final String OOZIE_SCHEDULER_HADOOP_KERBEROS = "oozie_scheduler_hadoop_kerberos"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_OOZIE_KERBEROS = "oozie_scheduler_oozie_kerberos"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_HADOOP_USE_KEYTAB = "oozie_scheduler_hadoop_use_keytab"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_HADOOP_USE_YARN = "oozie_scheduler_hadoop_use_yarn"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_HADOOP_KEYTAB_PRINCIPAL = "oozie_scheduler_hadoop_keytab_principal"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_HADOOP_KEYTAB_PATH = "oozie_scheduler_hadoop_keytab_path"; //$NON-NLS-1$
 
     public static final String OOZIE_SCHEDULER_HADOOP_PROPERTIES = "oozie_scheduler_hadoop_properties"; //$NON-NLS-1$
 
