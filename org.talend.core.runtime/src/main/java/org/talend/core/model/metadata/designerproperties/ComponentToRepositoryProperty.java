@@ -499,7 +499,8 @@ public class ComponentToRepositoryProperty {
             if (value != null) {
                 // see bug in feature 5998,encrypt the password.
                 try {
-                    connection.setPassword(PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(value)));
+                    String pwd = TalendQuoteUtils.checkAndRemoveBackslashes(value);
+                    connection.setPassword(PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(pwd)));
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }

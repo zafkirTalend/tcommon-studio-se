@@ -943,7 +943,8 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(pwd);
             }
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
