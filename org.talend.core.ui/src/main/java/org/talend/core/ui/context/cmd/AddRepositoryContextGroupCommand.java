@@ -41,17 +41,19 @@ public class AddRepositoryContextGroupCommand extends Command {
 
     private IContextManager manager;
 
-    private IContextModelManager modelManager;
+    private final IContextModelManager modelManager;
 
     private final Set<String> nameSet;
 
-    private List<ContextItem> selectedItems;
+    private final List<ContextItem> selectedItems;
 
     private final List<ContextParameterType> parameterList;
 
-    private ContextManagerHelper helper;
+    private final ContextManagerHelper helper;
 
-    private List<ContextParameterType> newAddParameter = new ArrayList<ContextParameterType>();
+    private final List<ContextParameterType> newAddParameter = new ArrayList<ContextParameterType>();
+
+    private final List<ContextRemoveParameterCommand> cmds = new ArrayList<ContextRemoveParameterCommand>();
 
     public AddRepositoryContextGroupCommand(IProgressMonitor monitor, IContextModelManager modelManager,
             final List<ContextItem> selectedItems, final Set<String> nameSet, ContextManagerHelper helper,
@@ -194,7 +196,19 @@ public class AddRepositoryContextGroupCommand extends Command {
 
     @Override
     public void redo() {
-        execute();
+        // execute();
+        for (ContextRemoveParameterCommand cmd : cmds) {
+            if (cmd.canUndo()) {
+                cmd.undo();
+            }
+        }
+        List<IContext> removeList = new ArrayList<IContext>();
+        for (IContext con : manager.getListContext()) {
+            if (nameSet.contains(con.getName())) {
+                removeList.add(con);
+            }
+        }
+        manager.getListContext().addAll(removeList);
         this.helper.refreshContextView();
     }
 
@@ -207,7 +221,7 @@ public class AddRepositoryContextGroupCommand extends Command {
             }
         }
         manager.getListContext().removeAll(removeList);
-
+        cmds.clear();
         for (ContextParameterType defaultContextParamType : newAddParameter) {
             ContextItem contextItem = (ContextItem) helper.getParentContextItem(defaultContextParamType);
             if (contextItem == null) {
@@ -218,7 +232,10 @@ public class AddRepositoryContextGroupCommand extends Command {
             if (paramExisted != null) {
                 // modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName(),
                 // paramExisted.getSource());
-                new ContextRemoveParameterCommand(manager, defaultContextParamType.getName(), paramExisted.getSource()).execute();
+                ContextRemoveParameterCommand contextRemoveParameterCommand = new ContextRemoveParameterCommand(manager,
+                        defaultContextParamType.getName(), paramExisted.getSource());
+                contextRemoveParameterCommand.execute();
+                cmds.add(contextRemoveParameterCommand);
             }
         }
 
