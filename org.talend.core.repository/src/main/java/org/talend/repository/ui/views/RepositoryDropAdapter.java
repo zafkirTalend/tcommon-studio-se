@@ -13,8 +13,12 @@
 package org.talend.repository.ui.views;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,11 +36,13 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TransferData;
+import org.eclipse.ui.navigator.CommonDropAdapter;
+import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.part.PluginDropAdapter;
 import org.osgi.framework.FrameworkUtil;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
 import org.talend.core.model.properties.Item;
@@ -50,12 +56,14 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.ITransformService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -71,8 +79,15 @@ import org.talend.repository.model.actions.MoveObjectAction;
  */
 public class RepositoryDropAdapter extends PluginDropAdapter {
 
+    private INavigatorContentService contentService;
+
     public RepositoryDropAdapter(StructuredViewer viewer) {
         super(viewer);
+    }
+
+    public RepositoryDropAdapter(StructuredViewer viewer, INavigatorContentService contentService) {
+        super(viewer);
+        this.contentService = contentService;
     }
 
     private DropTargetEvent event;
@@ -120,7 +135,31 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
     @Override
     public boolean performDrop(final Object data) {
         int operation = getCurrentOperation();
-        final RepositoryNode targetNode = (RepositoryNode) getCurrentTarget();
+        Object object = getCurrentTarget();
+        boolean toReturn = true;
+        if (object instanceof RepositoryNode) {
+            RepositoryNode targetNode = (RepositoryNode) object;
+            toReturn = performDropRepositoryNode(targetNode, operation, data);
+        } else if (object instanceof IResource) {
+            boolean isSample = false;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+                ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                        ITransformService.class);
+                if (transformService.isSampleFileResource((IResource) object)) {
+                    isSample = true;
+                }
+            }
+            IResource targetNode = (IResource) object;
+            if (!isSample) {
+                toReturn = performDropTDMResource(targetNode, operation, data);
+            } else {
+                performDropSampleResource(targetNode, operation, data);
+            }
+        }
+        return toReturn;
+    }
+
+    private boolean performDropRepositoryNode(RepositoryNode targetNode, int operation, final Object data) {
         boolean toReturn = true;
 
         try {
@@ -175,6 +214,49 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         return toReturn;
     }
 
+    private boolean performDropTDMResource(IResource targetNode, int operation, final Object data) {
+        boolean toReturn = true;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+            ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                    ITransformService.class);
+            toReturn = transformService.performDrop(event, targetNode, operation, data);
+        }
+        return toReturn;
+    }
+
+    private boolean performDropSampleResource(IResource targetNode, int operation, final Object data) {
+        boolean toReturn = true;
+        CommonDropAdapter adapter = new CommonDropAdapter(contentService, (StructuredViewer) this.getViewer());
+        adapter.dragEnter(getCurrentEvent());
+        adapter.drop(getCurrentEvent());
+        try {
+            IStructuredSelection selection = (IStructuredSelection) data;
+            List<?> selectedRepNodes = selection.toList();
+            IResource parent = null;
+            for (Object source : selectedRepNodes) {
+                if (source instanceof IResource) {
+                    parent = ((IResource) source).getParent();
+                    break;
+                }
+            }
+            if (parent != null) {
+                parent.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+            }
+            targetNode.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>("Save BaseMainNode", this) {
+
+            protected void run() throws LoginException, PersistenceException {
+                // empty work unit to do svn update before any action from TDM
+            }
+        };
+        factory.executeRepositoryWorkUnit(repositoryWorkUnit);
+        return toReturn;
+    }
+
     /**
      * ADD gdbu 2011-9-29 TDQ-3546
      * 
@@ -217,10 +299,24 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         }
         super.validateDrop(target, operation, transferType);
         boolean isValid = true;
+        Set<IResource> parents = new HashSet<IResource>();
         for (Object obj : ((StructuredSelection) getViewer().getSelection()).toArray()) {
+            if (obj instanceof IResource) {
+                parents.add(((IResource) obj).getParent());
+            }
+        }
+        for (Object obj : ((StructuredSelection) getViewer().getSelection()).toArray()) {
+            if (obj instanceof IResource) {
+                if (parents.size() > 1) {
+                    return false;
+                }
+                return validateTDMDrop(operation, obj);
+            }
+
             if (!(obj instanceof RepositoryNode)) {
                 return false;
             }
+
             RepositoryNode sourceNode = (RepositoryNode) obj;
 
             if (sourceNode != null) {
@@ -294,6 +390,33 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         }
 
         return isValid;
+    }
+
+    private boolean validateTDMDrop(int operation, Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        boolean result = true;
+        switch (operation) {
+        case DND.DROP_COPY:
+            if (obj instanceof IFolder) {
+                return false;
+            }
+            break;
+        case DND.DROP_MOVE:
+            break;
+        case DND.DROP_DEFAULT:
+        case DND.Drop:
+            break;
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
+            ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
+                    ITransformService.class);
+            if (transformService.isTransformResource((IResource) obj)) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     private void runCopy(final Object data, final RepositoryNode targetNode) {
@@ -508,34 +631,75 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         }
     }
 
-    /**
-     * hqzhang.
-     */
-    abstract class RunnableWithReturnValue implements IWorkspaceRunnable {
+    // public IStatus handleDrop(DropTargetEvent aDropTargetEvent, Object aTarget) {
+    //
+    // if (Policy.DEBUG_DND) {
+    //            System.out.println("ResourceDropAdapterAssistant.handleDrop (begin)"); //$NON-NLS-1$
+    // }
+    //
+    // // alwaysOverwrite = false;
+    // if (aTarget == null || aDropTargetEvent.data == null) {
+    // return Status.CANCEL_STATUS;
+    // }
+    // IStatus status = null;
+    // IResource[] resources = null;
+    // TransferData currentTransfer = this.getCurrentTransfer();
+    // if (LocalSelectionTransfer.getTransfer().isSupportedType(currentTransfer)) {
+    // resources = getSelectedResources();
+    // aDropTargetEvent.detail = DND.DROP_NONE;
+    // } else if (ResourceTransfer.getInstance().isSupportedType(currentTransfer)) {
+    // resources = (IResource[]) aDropTargetEvent.data;
+    // }
+    //
+    // // if (FileTransfer.getInstance().isSupportedType(currentTransfer)) {
+    // // status = performFileDrop(aDropAdapter, aDropTargetEvent.data);
+    // // } else
+    // if (resources != null && resources.length > 0) {
+    // if ((this.getCurrentOperation() == DND.DROP_COPY) || (this.getCurrentOperation() == DND.DROP_LINK)) {
+    // if (Policy.DEBUG_DND) {
+    //                    System.out.println("ResourceDropAdapterAssistant.handleDrop executing COPY."); //$NON-NLS-1$
+    // }
+    // status = performResourceCopy(this, getShell(), resources);
+    // } else {
+    // if (Policy.DEBUG_DND) {
+    //                    System.out.println("ResourceDropAdapterAssistant.handleDrop executing MOVE."); //$NON-NLS-1$
+    // }
+    //
+    // status = performResourceMove(this, resources);
+    // }
+    // }
+    // openError(status);
+    // IContainer target = getActualTarget((IResource) aTarget);
+    // if (target != null && target.isAccessible()) {
+    // try {
+    // target.refreshLocal(IResource.DEPTH_ONE, null);
+    // } catch (CoreException e) {
+    // }
+    // }
+    // return status;
+    // }
 
-        public RunnableWithReturnValue(String taskName) {
-            this.taskName = taskName;
-        }
+    // private IStatus performFileDrop(final RepositoryDropAdapter anAdapter, Object data) {
+    // final int currentOperation = anAdapter.getCurrentOperation();
+    // MultiStatus problems = new MultiStatus(PlatformUI.PLUGIN_ID, 0,
+    // WorkbenchNavigatorMessages.DropAdapter_problemImporting, null);
+    // mergeStatus(problems,
+    // validateTarget(anAdapter.getCurrentTarget(), anAdapter
+    // .getCurrentTransfer(), currentOperation));
+    //
+    // final IContainer target = getActualTarget((IResource) anAdapter
+    // .getCurrentTarget());
+    // final String[] names = (String[]) data;
+    // // Run the import operation asynchronously.
+    // // Otherwise the drag source (e.g., Windows Explorer) will be blocked
+    // // while the operation executes. Fixes bug 16478.
+    // Display.getCurrent().asyncExec(new Runnable() {
+    // public void run() {
+    // getShell().forceActive();
+    // new CopyFilesAndFoldersOperation(getShell()).copyOrLinkFiles(names, target, currentOperation);
+    // }
+    // });
+    // return problems;
+    // }
 
-        private String taskName;
-
-        private Object returnValue;
-
-        protected Object getReturnValue() {
-            return this.returnValue;
-        }
-
-        protected void setReturnValue(Object returnValue) {
-            this.returnValue = returnValue;
-        }
-
-        protected String getTaskName() {
-            return this.taskName;
-        }
-
-        protected void setTaskName(String taskName) {
-            this.taskName = taskName;
-        }
-
-    }
 }

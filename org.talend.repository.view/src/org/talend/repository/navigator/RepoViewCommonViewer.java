@@ -157,10 +157,9 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
                 repViewCommonNavigator.dragFinished();
             }
         });
-        RepositoryDropAdapter adapter = new RepositoryDropAdapter(this);
+        RepositoryDropAdapter adapter = new RepositoryDropAdapter(this, getNavigatorContentService());
         adapter.setFeedbackEnabled(false);
         this.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
-
     }
 
     @Override
