@@ -15,6 +15,7 @@ package org.talend.core.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -396,5 +397,33 @@ public final class TalendQuoteUtils {
 
     public static void setLeft(boolean left) {
         isLeft = left;
+    }
+
+    /**
+     * 
+     * plv Comment method "checkAndAddBackslashes".
+     * 
+     * if str contains "\" ,will change "\" to "\\"
+     */
+    public static String checkAndAddBackslashes(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return ""; //$NON-NLS-1$
+        }
+        str = str.replace("\\", "\\\\");//$NON-NLS-1$ //$NON-NLS-2$
+        return str;
+    }
+
+    /**
+     * 
+     * plv Comment method "checkAndRemoveBackslashes".
+     * 
+     * if str contains "\\" ,will change "\\" to "\"
+     */
+    public static String checkAndRemoveBackslashes(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return ""; //$NON-NLS-1$
+        }
+        str = str.replace("\\\\", "\\");//$NON-NLS-1$ //$NON-NLS-2$
+        return str;
     }
 }
