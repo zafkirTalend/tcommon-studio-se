@@ -387,7 +387,8 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(pwd);
             }
         } else if ("LANGUAGE".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getLanguage())) {
