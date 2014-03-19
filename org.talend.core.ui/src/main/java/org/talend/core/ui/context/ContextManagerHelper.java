@@ -629,6 +629,22 @@ public final class ContextManagerHelper {
         // refresh context view of DI
         IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
         if (view instanceof AbstractContextView) {
+            ((AbstractContextView) view).updateContextView(true);
+        }
+        // refresh context view of DQ
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true);
+            }
+        }
+    }
+
+    public void refreshContextViewForRename() {
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        // refresh context view of DI
+        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
+        if (view instanceof AbstractContextView) {
             ((AbstractContextView) view).updateContextView(true, false, false);
         }
         // refresh context view of DQ

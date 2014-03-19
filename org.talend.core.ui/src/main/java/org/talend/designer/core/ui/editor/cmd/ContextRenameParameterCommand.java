@@ -96,7 +96,7 @@ public class ContextRenameParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        this.helper.refreshContextView();
+        this.helper.refreshContextViewForRename();
     }
 
     @Override
@@ -129,6 +129,6 @@ public class ContextRenameParameterCommand extends Command {
                 }
             }
         }
-        this.helper.refreshContextView();
+        this.helper.refreshContextViewForRename();
     }
 }
