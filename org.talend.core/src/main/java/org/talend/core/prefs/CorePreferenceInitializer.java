@@ -114,7 +114,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.AS400_SQL_SEG, true);
 
         // As default, sets the choice which automatic generate corresponding documentation files if job is saved to
         // true:
