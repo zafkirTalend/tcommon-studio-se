@@ -41,6 +41,7 @@ public class ZipFileExporterFullPath implements IFileExporterFullPath {
      */
     public ZipFileExporterFullPath(String filename, boolean compress) throws IOException {
         outputStream = new ZipOutputStream(new FileOutputStream(filename));
+        outputStream.setEncoding("GBK");
         useCompression = compress;
     }
 
