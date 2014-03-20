@@ -473,6 +473,13 @@ public class XmiResourceManager {
                 path = path.append(itemStr);
                 return URIHelper.convert(path);
             }
+        } else if (!item.isNeedVersion()) {
+            Property property = item.getProperty();
+            URI uri = property.eResource().getURI();
+            IPath fullPath = URIHelper.convert(uri);
+            fullPath = fullPath.removeLastSegments(1);
+            fullPath = fullPath.append(property.getLabel()).addFileExtension(FileConstants.PROPERTIES_EXTENSION);
+            return URIHelper.convert(fullPath);
         }
         return item.getProperty().eResource().getURI();
     }
