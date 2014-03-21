@@ -27,12 +27,12 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getExtension <em>Extension</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getContent <em>Content</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getExtension <em>Extension</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.FileItemImpl#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class FileItemImpl extends ItemImpl implements FileItem {
@@ -58,9 +58,9 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getExtension()
      * @generated
      * @ordered
@@ -68,9 +68,9 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     protected static final String EXTENSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getExtension()
      * @generated
      * @ordered
@@ -78,9 +78,9 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     protected String extension = EXTENSION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getContent() <em>Content</em>}' reference.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContent() <em>Content</em>}' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getContent()
      * @generated
      * @ordered
@@ -89,6 +89,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected FileItemImpl() {
@@ -97,6 +98,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -106,6 +108,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getName() {
@@ -114,6 +117,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setName(String newName) {
@@ -125,6 +129,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getExtension() {
@@ -133,6 +138,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setExtension(String newExtension) {
@@ -144,15 +150,17 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ByteArray getContent() {
         if (content != null && content.eIsProxy()) {
-            InternalEObject oldContent = (InternalEObject)content;
-            content = (ByteArray)eResolveProxy(oldContent);
+            InternalEObject oldContent = (InternalEObject) content;
+            content = (ByteArray) eResolveProxy(oldContent);
             if (content != oldContent) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_ITEM__CONTENT, oldContent, content));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_ITEM__CONTENT, oldContent,
+                            content));
             }
         }
         return content;
@@ -160,6 +168,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ByteArray basicGetContent() {
@@ -168,6 +177,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setContent(ByteArray newContent) {
@@ -179,86 +189,93 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case PropertiesPackage.FILE_ITEM__NAME:
-                return getName();
-            case PropertiesPackage.FILE_ITEM__EXTENSION:
-                return getExtension();
-            case PropertiesPackage.FILE_ITEM__CONTENT:
-                if (resolve) return getContent();
-                return basicGetContent();
+        case PropertiesPackage.FILE_ITEM__NAME:
+            return getName();
+        case PropertiesPackage.FILE_ITEM__EXTENSION:
+            return getExtension();
+        case PropertiesPackage.FILE_ITEM__CONTENT:
+            if (resolve)
+                return getContent();
+            return basicGetContent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case PropertiesPackage.FILE_ITEM__NAME:
-                setName((String)newValue);
-                return;
-            case PropertiesPackage.FILE_ITEM__EXTENSION:
-                setExtension((String)newValue);
-                return;
-            case PropertiesPackage.FILE_ITEM__CONTENT:
-                setContent((ByteArray)newValue);
-                return;
+        case PropertiesPackage.FILE_ITEM__NAME:
+            setName((String) newValue);
+            return;
+        case PropertiesPackage.FILE_ITEM__EXTENSION:
+            setExtension((String) newValue);
+            return;
+        case PropertiesPackage.FILE_ITEM__CONTENT:
+            setContent((ByteArray) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.FILE_ITEM__NAME:
-                setName(NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_ITEM__EXTENSION:
-                setExtension(EXTENSION_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_ITEM__CONTENT:
-                setContent((ByteArray)null);
-                return;
+        case PropertiesPackage.FILE_ITEM__NAME:
+            setName(NAME_EDEFAULT);
+            return;
+        case PropertiesPackage.FILE_ITEM__EXTENSION:
+            setExtension(EXTENSION_EDEFAULT);
+            return;
+        case PropertiesPackage.FILE_ITEM__CONTENT:
+            setContent((ByteArray) null);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.FILE_ITEM__NAME:
-                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case PropertiesPackage.FILE_ITEM__EXTENSION:
-                return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
-            case PropertiesPackage.FILE_ITEM__CONTENT:
-                return content != null;
+        case PropertiesPackage.FILE_ITEM__NAME:
+            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        case PropertiesPackage.FILE_ITEM__EXTENSION:
+            return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
+        case PropertiesPackage.FILE_ITEM__CONTENT:
+            return content != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (name: ");
@@ -286,8 +303,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
         URIConverter theURIConverter = resourceSet.getURIConverter();
         URI normalizedURI = theURIConverter.normalize(resourceUri);
-
-        if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) { //$NON-NLS-1$ //$NON-NLS-2$
+        // TUP-1814:because the routine proxyUri is File type,need handle with it.
+        if ((proxyUri.isPlatform() && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) || proxyUri.isFile()) {
             List<Resource> resources = resourceSet.getResources();
             synchronized (resources) {
                 for (Resource resource : resources) {
