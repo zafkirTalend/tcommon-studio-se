@@ -61,9 +61,9 @@ public enum ECoreImage implements IImage {
     CONTEXT_WIZ("/icons1/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons1/code.png"), //$NON-NLS-1$
     ROUTINE_ICON("/icons1/routine.gif"), //$NON-NLS-1$
-    JOB_SCRIPTS_ICON("/icons1/job_scripts.png"),
-    JOB_SCRIPTS_TOOLBAR_ICON("/icons1/job_script_toolbar.png"),
-    FTP_ICON("/icons1/ftp.png"),
+    JOB_SCRIPTS_ICON("/icons1/job_scripts.png"), //$NON-NLS-1$
+    JOB_SCRIPTS_TOOLBAR_ICON("/icons1/job_script_toolbar.png"), //$NON-NLS-1$
+    FTP_ICON("/icons1/ftp.png"), //$NON-NLS-1$
     ROUTINE_WIZ("/icons1/routine_wiz.png"), //$NON-NLS-1$
     SNIPPETS_ICON("/icons1/snippet.png"), //$NON-NLS-1$
     // SUBROUTINE_ICON("/icons1/subroutine.gif"),
@@ -94,13 +94,13 @@ public enum ECoreImage implements IImage {
     METADATA_SAPCONNECTION_ICON("/icons1/sapconnection.png"), //$NON-NLS-1$
     METADATA_SAPCONNECTION_WIZ("/icons1/connection_wiz.gif"), //$NON-NLS-1$
 
-    METADATA_HEADERFOOTER_ICON("/icons1/headerfooter_icon32.png"),
+    METADATA_HEADERFOOTER_ICON("/icons1/headerfooter_icon32.png"), //$NON-NLS-1$
 
     METADATA_SQLPATTERN_ICON("/icons1/SQLPattern.png"), //$NON-NLS-1$
     METADATA_SQLPATTERN_WIZ("/icons1/defaultWizard.png"), //$NON-NLS-1$
 
     METADATA_TABLE_ICON("/icons1/table.gif"), //$NON-NLS-1$
-    METADATA_COLUMN_ICON("/icons1/columns.gif"),
+    METADATA_COLUMN_ICON("/icons1/columns.gif"), //$NON-NLS-1$
     METADATA_TABLE_WIZ("/icons1/table_wiz.png"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons1/view.gif"), //$NON-NLS-1$
     METADATA_SYNONYM_ICON("/icons1/synonym.gif"), //$NON-NLS-1$
@@ -123,7 +123,7 @@ public enum ECoreImage implements IImage {
     METADATA_SALESFORCE_SCHEMA_ICON("/icons1/salesforce_icon.png"), //$NON-NLS-1$
     METADATA_VALIDATION_RULES_ICON("/icons1/metadata.png"), //$NON-NLS-1$
     METADATA_VALIDATION_RULES_WIZ("/icons1/delimited_wiz.png"), //$NON-NLS-1$
-    METADATA_EDIFACT_ICON("/icons1/EDIField.png"),
+    METADATA_EDIFACT_ICON("/icons1/EDIField.png"), //$NON-NLS-1$
     MODULE_INSTALLED_ICON("/icons1/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons1/error.gif"), //$NON-NLS-1$
     MODULE_WARNING_ICON("/icons1/warning.gif"), //$NON-NLS-1$
@@ -173,6 +173,18 @@ public enum ECoreImage implements IImage {
     EXCHNAGETAB("/icons/exchangeTab.jpg"), // $NON-NLS-1$
     EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"), // $NON-NLS-1$
     STATUS_OK("/icons/ok.png"); // $NON-NLS-1$
+
+    TDQ_ANALYSIS_ICON("/icons1/tdq/chart_bar.png"), //$NON-NLS-1$
+    TDQ_RULE_ICON("/icons1/tdq/dqrule_red.png"), //$NON-NLS-1$
+    TDQ_MATCH_RULE_ICON("/icons1/tdq/match_rule.png"), //$NON-NLS-1$
+    TDQ_INDICATOR_ICON("/icons1/tdq/IndicatorDefinition.gif"), //$NON-NLS-1$
+    TDQ_PATTERN_ICON("/icons1/tdq/pattern.png"), //$NON-NLS-1$
+    TDQ_JRAXML_ICON("/icons1/tdq/xmldoc.gif"), //$NON-NLS-1$
+    TDQ_SOURCE_FILE_ICON("/icons1/tdq/editor.gif"), //$NON-NLS-1$
+    TDQ_REPORT_ICON("/icons1/tdq/report.png"), //$NON-NLS-1$
+    TDQ_EXCHANGE_ICON("/icons1/tdq/ecosystem_view.gif"), //$NON-NLS-1$
+    TDQ_LIBRARIES_ICON("/icons1/tdq/libraries.png"), //$NON-NLS-1$
+    TDQ_DATA_PROFILING_ICON("/icons1/tdq/server_chart.png"); //$NON-NLS-1$
 
     private String path;
 
