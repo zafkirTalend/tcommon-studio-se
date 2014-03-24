@@ -117,6 +117,37 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_EDIFACT_ICON;
         } else if (type == ERepositoryObjectType.METADATA_CON_CDC) {
             return ECoreImage.CDC_SUBSCRIBER;
+
+            // for the DQ types
+        } else if (type == ERepositoryObjectType.TDQ_ANALYSIS_ELEMENT) {
+            return ECoreImage.TDQ_ANALYSIS_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_REPORT_ELEMENT) {
+            return ECoreImage.TDQ_REPORT_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT) {
+            return ECoreImage.TDQ_JRAXML_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_RULES_MATCHER) {
+            return ECoreImage.TDQ_MATCH_RULE_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_RULES_PARSER) {
+            return ECoreImage.TDQ_RULE_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_PATTERN_REGEX || type == ERepositoryObjectType.TDQ_PATTERN_SQL) {
+            return ECoreImage.TDQ_PATTERN_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_SYSTEM_INDICATORS || type == ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS
+                || type == ERepositoryObjectType.TDQ_USERDEFINE_INDICATORS_LIB
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_ADVANCED_STATISTICS
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_BUSINESS_RULES
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_CORRELATION
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_OVERVIEW
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_PATTERN_FINDER
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_PATTERN_MATCHING
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_ROW_COMPARISON
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_SIMPLE_STATISTICS
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_SOUNDEX
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_SUMMARY_STATISTICS
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_TEXT_STATISTICS
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_PHONENUMBER_STATISTICS
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_FRAUDDETECTION) {
+            return ECoreImage.TDQ_INDICATOR_ICON;
         } else {
             IImage image = null;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
