@@ -125,8 +125,6 @@ public class RepositoryImageProvider {
             return ECoreImage.TDQ_REPORT_ICON;
         } else if (type == ERepositoryObjectType.TDQ_JRAXML_ELEMENT) {
             return ECoreImage.TDQ_JRAXML_ICON;
-        } else if (type == ERepositoryObjectType.TDQ_RULES_MATCHER) {
-            return ECoreImage.TDQ_MATCH_RULE_ICON;
         } else if (type == ERepositoryObjectType.TDQ_RULES_SQL || type == ERepositoryObjectType.TDQ_RULES_PARSER) {
             return ECoreImage.TDQ_RULE_ICON;
         } else if (type == ERepositoryObjectType.TDQ_PATTERN_REGEX || type == ERepositoryObjectType.TDQ_PATTERN_SQL) {

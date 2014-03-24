@@ -172,11 +172,10 @@ public enum ECoreImage implements IImage {
     COMPARE("/icons1/compare.gif"),
     EXCHNAGETAB("/icons/exchangeTab.jpg"), // $NON-NLS-1$
     EXCHNAGEIMAGEMISSING("/icons/component_missing.gif"), // $NON-NLS-1$
-    STATUS_OK("/icons/ok.png"); // $NON-NLS-1$
+    STATUS_OK("/icons/ok.png"), // $NON-NLS-1$
 
     TDQ_ANALYSIS_ICON("/icons1/tdq/chart_bar.png"), //$NON-NLS-1$
     TDQ_RULE_ICON("/icons1/tdq/dqrule_red.png"), //$NON-NLS-1$
-    TDQ_MATCH_RULE_ICON("/icons1/tdq/match_rule.png"), //$NON-NLS-1$
     TDQ_INDICATOR_ICON("/icons1/tdq/IndicatorDefinition.gif"), //$NON-NLS-1$
     TDQ_PATTERN_ICON("/icons1/tdq/pattern.png"), //$NON-NLS-1$
     TDQ_JRAXML_ICON("/icons1/tdq/xmldoc.gif"), //$NON-NLS-1$
