@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -87,6 +88,16 @@ public final class ElementParameterParser {
 
     public static String getStringElementParameterValue(IElementParameter parameter) {
         return getDisplayValue(parameter);
+    }
+
+    public static String getEncryptedValue(final IElement node, final String parameterName) {
+        String value = getValue(node, parameterName);
+        try {
+            value = PasswordEncryptUtil.encryptPassword(value);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return value;
     }
 
     public static List<Map<String, String>> getTableElementParameterValue(IElementParameter parameter) {

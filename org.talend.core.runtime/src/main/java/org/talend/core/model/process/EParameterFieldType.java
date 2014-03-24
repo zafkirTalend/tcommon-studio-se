@@ -20,6 +20,7 @@ package org.talend.core.model.process;
  */
 public enum EParameterFieldType {
     TEXT,
+    PASSWORD,
     MEMO_SQL,
     MEMO_PERL,
     MEMO_JAVA,
