@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.ui.actions.RestoreFolderUtil;
 
 /**
@@ -65,6 +67,8 @@ public final class ImportCacheHelper {
 
     private boolean hasImportingError = false;
 
+    private List<ItemRecord> importedItemRecords = new ArrayList<ItemRecord>();
+
     public RepositoryObjectCache getRepObjectcache() {
         return this.repObjectcache;
     }
@@ -89,31 +93,31 @@ public final class ImportCacheHelper {
         return this.hasImportingError;
     }
 
-    public void setImportingError(boolean hasImportingError) {
+    public synchronized void setImportingError(boolean hasImportingError) {
         this.hasImportingError = hasImportingError;
     }
 
-    public XmiResourceManager getXmiResourceManager() {
+    public synchronized XmiResourceManager getXmiResourceManager() {
         return this.xmiResourceManager;
     }
 
-    public Map<ERepositoryObjectType, Set<String>> getFoldersCreated() {
+    public synchronized Map<ERepositoryObjectType, Set<String>> getFoldersCreated() {
         return this.foldersCreated;
     }
 
-    public RestoreFolderUtil getRestoreFolder() {
+    public synchronized RestoreFolderUtil getRestoreFolder() {
         return this.restoreFolder;
     }
 
-    public Set<String> getDeletedItems() {
+    public synchronized Set<String> getDeletedItems() {
         return this.deletedItems;
     }
 
-    public void beforePopulateItems() {
+    public synchronized void beforePopulateItems() {
         clearAll();
     }
 
-    public void afterPopulateItems() {
+    public synchronized void afterPopulateItems() {
         //
     }
 
@@ -135,18 +139,21 @@ public final class ImportCacheHelper {
         xmiResourceManager.resetResourceSet();
 
         restoreFolder.clear();
+        importedItemRecords.clear();
     }
 
-    public void beforeImportItems() {
+    public synchronized void beforeImportItems() {
         setImportingError(false);
+        // clean the import record
+        importedItemRecords.clear();
     }
 
-    public void afterImportItems() {
+    public synchronized void afterImportItems() {
         setImportingError(false);
         clearAll();
     }
 
-    public void checkDeletedFolders() {
+    public synchronized void checkDeletedFolders() {
         ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         if (!foldersCreated.isEmpty()) {
             for (ERepositoryObjectType itemType : foldersCreated.keySet()) {
@@ -161,4 +168,9 @@ public final class ImportCacheHelper {
             foldersCreated.clear();
         }
     }
+
+    public synchronized List<ItemRecord> getImportedItemRecords() {
+        return this.importedItemRecords;
+    }
+
 }
