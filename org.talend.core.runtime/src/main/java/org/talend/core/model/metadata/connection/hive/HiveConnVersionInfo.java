@@ -43,7 +43,7 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0(deprecated)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -55,7 +55,7 @@ public enum HiveConnVersionInfo {
 
     APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3(deprecated)", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
     Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -73,7 +73,7 @@ public enum HiveConnVersionInfo {
 
     MAPR3_0_1(1, "MAPR301", "MapR 3.0.1", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8(deprecated)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 

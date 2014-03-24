@@ -20,7 +20,7 @@ import java.util.List;
  */
 public enum EHBaseDistribution4Versions {
 
-    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0"),
+    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0"),
 
     HDP_1_2(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
 
@@ -34,7 +34,7 @@ public enum EHBaseDistribution4Versions {
 
     APACHE_0_20_203(EHBaseDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203"),
 
-    CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3"),
+    CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3"),
 
     CLOUDERA_CDH4(EHBaseDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
 

@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.connection.hive;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.talend.commons.utils.platform.PluginChecker;
@@ -200,6 +201,7 @@ public class HiveConnUtils {
     public static String[] getHiveVersionNames(int distributionIndex) {
         List<String> hiveVersionNameList = getHiveVersionNameList(distributionIndex);
         if (hiveVersionNameList != null && hiveVersionNameList.size() > 0) {
+            Collections.reverse(hiveVersionNameList);
             return hiveVersionNameList.toArray(new String[hiveVersionNameList.size()]);
         } else {
             return new String[0];
