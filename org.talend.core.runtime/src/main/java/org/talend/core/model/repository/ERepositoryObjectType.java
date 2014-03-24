@@ -299,7 +299,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.systemIndicators.functionalDependency", "TDQ_Libraries/Indicators/System Indicators/Functional Dependency", "SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY", 89, true, "repository.systemIndicators.functionalDependency.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_OVERVIEW = new ERepositoryObjectType(
-            "repository.systemIndicators.overview, repository.systemIndicators.overview.alias", "TDQ_Libraries/Indicators/System Indicators/Overview", "SYSTEM_INDICATORS_OVERVIEW", true, 90, new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
+            "repository.systemIndicators.overview", "TDQ_Libraries/Indicators/System Indicators/Overview", "SYSTEM_INDICATORS_OVERVIEW", 90, true, "repository.systemIndicators.overview.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_PATTERN_FINDER = new ERepositoryObjectType(
             "repository.systemIndicators.patternFinder", "TDQ_Libraries/Indicators/System Indicators/Pattern Finder", "SYSTEM_INDICATORS_PATTERN_FINDER", 91, true, "repository.systemIndicators.patternFinder.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
