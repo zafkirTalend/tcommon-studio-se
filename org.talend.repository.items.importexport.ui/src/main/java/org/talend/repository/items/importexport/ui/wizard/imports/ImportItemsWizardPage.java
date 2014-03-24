@@ -706,7 +706,6 @@ public class ImportItemsWizardPage extends WizardPage {
 
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    ImportExportHandlersManager.getInstance().preImport(resManager);
                     List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager,
                             overwrite, monitor);
                     nodesBuilder.addItems(items);
@@ -916,9 +915,9 @@ public class ImportItemsWizardPage extends WizardPage {
                             }
                         }
                     }
+
                     ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
                             overwrite, nodesBuilder.getAllImportItemRecords(), destinationPath);
-                    ImportExportHandlersManager.getInstance().postImport(resManager);
                 }
             };
 

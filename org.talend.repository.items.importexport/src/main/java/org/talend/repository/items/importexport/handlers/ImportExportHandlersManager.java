@@ -113,6 +113,8 @@ public final class ImportExportHandlersManager {
         TimeMeasure.begin("populateItems"); //$NON-NLS-1$
 
         try {
+            // pre populate
+            ImportExportHandlersManager.getInstance().prePopulate(monitor, resManager);
 
             ImportCacheHelper.getInstance().beforePopulateItems();
 
@@ -139,6 +141,10 @@ public final class ImportExportHandlersManager {
                 }
                 monitor.worked(1);
             }
+
+            // post populate
+            ImportExportHandlersManager.getInstance().postPopulate(monitor, resManager, items.toArray(new ItemRecord[0]));
+
             return items;
         } finally {
 
@@ -160,8 +166,10 @@ public final class ImportExportHandlersManager {
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
         TimeMeasure.begin("ImportingItems"); //$NON-NLS-1$
 
+        ImportCacheHelper importCacheHelper = ImportCacheHelper.getInstance();
         try {
-            ImportCacheHelper.getInstance().beforeImportItems();
+            // cache
+            importCacheHelper.beforeImportItems();
 
             if (resManager == null || checkedItemRecords.isEmpty()) {
                 return;
@@ -203,6 +211,8 @@ public final class ImportExportHandlersManager {
 
                         @Override
                         public void run(final IProgressMonitor monitor) throws CoreException {
+                            // pre import
+                            preImport(monitor, resManager, checkedItemRecords.toArray(new ItemRecord[0]), allImportItemRecords);
 
                             // bug 10520
                             final Set<String> overwriteDeletedItems = new HashSet<String>();
@@ -269,6 +279,10 @@ public final class ImportExportHandlersManager {
                                 }
                                 TimeMeasure.step("importItemRecords", "save project"); //$NON-NLS-1$//$NON-NLS-2$
                             }
+
+                            // post import
+                            List<ItemRecord> importedItemRecords = ImportCacheHelper.getInstance().getImportedItemRecords();
+                            postImport(monitor, resManager, importedItemRecords.toArray(new ItemRecord[0]));
                         }
 
                         private void importItemRecordsWithRelations(final IProgressMonitor monitor,
@@ -316,6 +330,9 @@ public final class ImportExportHandlersManager {
 
                                     importHandler.afterImportingItemRecords(monitor, manager, itemRecord);
 
+                                    // record the imported items with related items too.
+                                    ImportCacheHelper.getInstance().getImportedItemRecords().add(itemRecord);
+
                                     monitor.worked(1);
                                 }
                             }
@@ -346,8 +363,8 @@ public final class ImportExportHandlersManager {
                                 Messages.getString("ImportExportHandlersManager_importingItemsError")))); //$NON-NLS-1$
             }
         } finally {
-
-            ImportCacheHelper.getInstance().afterImportItems();
+            // cache
+            importCacheHelper.afterImportItems();
             //
             TimeMeasure.end("ImportingItems"); //$NON-NLS-1$
             TimeMeasure.display = false;
@@ -356,19 +373,59 @@ public final class ImportExportHandlersManager {
         }
     }
 
-    public void preImport(ResourcesManager resManager) {
+    /**
+     * 
+     * DOC ggu Comment method "prePopulate".
+     * 
+     * Bofore populate the items.
+     */
+    public void prePopulate(IProgressMonitor monitor, ResourcesManager resManager) {
         IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
-            resHandler.preImport(resManager);
+            resHandler.prePopulate(monitor, resManager);
         }
 
     }
 
-    public void postImport(ResourcesManager resManager) {
+    /**
+     * 
+     * DOC ggu Comment method "postPopulate".
+     * 
+     * after populate the items from resources
+     */
+    public void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] populatedItemRecords) {
         IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
-            resHandler.postImport(resManager);
+            resHandler.postPopulate(monitor, resManager, populatedItemRecords);
         }
 
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "preImport".
+     * 
+     * Before import items.
+     */
+    public void preImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] checkedItemRecords,
+            ItemRecord[] allImportItemRecords) {
+        IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
+        for (IImportResourcesHandler resHandler : importResourcesHandlers) {
+            resHandler.preImport(monitor, resManager, checkedItemRecords, allImportItemRecords);
+        }
+
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "postImport".
+     * 
+     * After import items
+     */
+    public void postImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] importedItemRecords) {
+        IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
+        for (IImportResourcesHandler resHandler : importResourcesHandlers) {
+            resHandler.postImport(monitor, resManager, importedItemRecords);
+        }
     }
 }
