@@ -22,7 +22,7 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public enum EHadoopVersion4Drivers {
 
-    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0", true, false),
+    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false),
 
     HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false),
 
@@ -44,7 +44,7 @@ public enum EHadoopVersion4Drivers {
 
     APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
 
-    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3", false, false),
+    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false),
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
 
@@ -74,7 +74,7 @@ public enum EHadoopVersion4Drivers {
 
     MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true),
 
-    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR", false, true),
+    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
 
     APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
 
