@@ -30,9 +30,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -287,9 +291,38 @@ public class DatabaseTableForm extends AbstractForm {
         // init the nodes of the left tree navigator
         initTreeNavigatorNodes();
         initMetadataForm();
+        checkDefaultValue();
         if (useProvider()) {
             guessSchemaButton.setVisible(provider.isSupportGuessSchema());
             retreiveSchemaButton.setVisible(provider.isSupportRetrieveSchema());
+        }
+    }
+
+    /**
+     * DOC PLV Comment method "checkDefaultValue".
+     */
+    private void checkDefaultValue() {
+        if (metadataTable != null) {
+            EList<MetadataColumn> columns = metadataTable.getColumns();
+            for (MetadataColumn column : columns) {
+                String defaultValue = column.getDefaultValue();
+                if (!StringUtils.isEmpty(defaultValue)) {
+                    IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
+                    String preKey = "DatabaseTableForm.defaultValueShowAgain"; //$NON-NLS-1$
+                    if (!preferenceStore.getBoolean(preKey)) {
+                        MessageDialogWithToggle dialog = new MessageDialogWithToggle(this.getShell(), "", getBackgroundImage(), //$NON-NLS-1$
+                                Messages.getString("DatabaseTableForm.checkDefaultValue"), //$NON-NLS-1$
+                                MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0,
+                                Messages.getString("DatabaseTableForm.doNotShowMessage"), //$NON-NLS-1$
+                                false);
+                        dialog.setPrefKey(preKey); //$NON-NLS-1$
+                        dialog.setPrefStore(preferenceStore);
+                        dialog.open();
+                        preferenceStore.setValue(preKey, dialog.getToggleState());
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -707,13 +740,13 @@ public class DatabaseTableForm extends AbstractForm {
         scrolledCompositeFileViewer.setSize(width + 12, height);
         // changed by hqzhang for TDI 19113 start
         GC gc = new GC(group);
-        String displayStr = Messages.getString("DatabaseTableForm.AddTable");
+        String displayStr = Messages.getString("DatabaseTableForm.AddTable"); //$NON-NLS-1$
         Point buttonSize = gc.stringExtent(displayStr);
         GridData girdData = new GridData(buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
         girdData.horizontalAlignment = SWT.CENTER;
         // Button Add metadata Table
         addTableButton = new UtilsButton(group, displayStr, girdData);
-        displayStr = Messages.getString("DatabaseTableForm.RemoveTable");
+        displayStr = Messages.getString("DatabaseTableForm.RemoveTable"); //$NON-NLS-1$
         buttonSize = gc.stringExtent(displayStr);
         if (buttonSize.x + 12 > girdData.widthHint) {
             girdData.widthHint = buttonSize.x + 12;
