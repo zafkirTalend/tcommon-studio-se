@@ -384,8 +384,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
-                return TalendQuoteUtils.addQuotes(pwd);
+                return TalendQuoteUtils.addQuotes(connection.getPassword());
             }
         } else if ("LANGUAGE".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getLanguage())) {
@@ -883,7 +882,8 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(pwd);
             }
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
