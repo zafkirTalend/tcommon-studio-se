@@ -35,13 +35,13 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false),
 
-    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
-
-    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false),
+    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
     APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false),
 
-    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
+    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false),
+
+    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
 
     CLOUDERA_CDH5(
                   EHadoopDistributions.CLOUDERA,
