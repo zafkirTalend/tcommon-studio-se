@@ -12,6 +12,13 @@
 // ============================================================================
 package org.talend.core.model.components;
 
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.service.IMRProcessService;
+import org.talend.designer.core.ICamelDesignerCoreService;
+
 /**
  * This enum is used to distinguish the category of components, maybe some components belong common process like "DI",
  * another belongs to "M/R". Later if you need to category any components, just add here. Created by Marvin Wang on Jan
@@ -68,4 +75,24 @@ public enum ComponentCategory {
         this.desc = desc;
     }
 
+    public static ComponentCategory getComponentCategoryFromItem(Item item) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
+            if (camelService.isInstanceofCamelRoutes(item)) {
+                return ComponentCategory.CATEGORY_4_CAMEL;
+            }
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            IMRProcessService mrService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
+                    IMRProcessService.class);
+            if (mrService.isMapReduceItem(item)) {
+                return ComponentCategory.CATEGORY_4_MAPREDUCE;
+            }
+        }
+        if (item instanceof ProcessItem || item instanceof JobletProcessItem) {
+            return ComponentCategory.CATEGORY_4_DI;
+        }
+        return null;
+    }
 }
