@@ -18,7 +18,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -1505,7 +1504,6 @@ public class DatabaseForm extends AbstractForm {
             hbaseVersionCombo.setHideWidgets(false);
             hbaseCustomButton.setVisible(false);
             List<String> items = EHBaseDistribution4Versions.getHadoopDistributionVersions(distribution);
-            Collections.reverse(items);
             String[] versions = new String[items.size()];
             items.toArray(versions);
             hbaseVersionCombo.getCombo().setItems(versions);

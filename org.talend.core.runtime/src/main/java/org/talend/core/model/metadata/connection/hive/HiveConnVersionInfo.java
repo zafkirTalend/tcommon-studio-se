@@ -43,39 +43,39 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0(deprecated)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
-
-    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0(deprecated)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3(deprecated)", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
-
-    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
-
-    Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
     Cloudera_CDH5(1, "Cloudera_CDH5", "Cloudera CDH5", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2(1, "MAPR2", "MapR 2.0.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
-    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
-
-    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3(deprecated)", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
     MAPR3_0_1(1, "MAPR301", "MapR 3.0.1", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8(deprecated)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MAPR2(1, "MAPR2", "MapR 2.0.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+
+    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8(deprecated)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
     PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, false, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
 

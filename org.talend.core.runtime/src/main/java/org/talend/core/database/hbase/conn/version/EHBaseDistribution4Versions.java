@@ -20,35 +20,35 @@ import java.util.List;
  */
 public enum EHBaseDistribution4Versions {
 
-    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0"),
-
-    HDP_1_2(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
+    HDP_2_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0"),
 
     HDP_1_3(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3"),
 
-    HDP_2_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0"),
+    HDP_1_2(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2"),
 
-    APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
-
-    APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),
+    HDP_1_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0"),
 
     APACHE_0_20_203(EHBaseDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203"),
 
-    CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3"),
+    APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),
 
-    CLOUDERA_CDH4(EHBaseDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
-
-    CLOUDERA_CDH4_YARN(EHBaseDistributions.CLOUDERA, "Cloudera CDH4 YARN", "Cloudera_CDH4_YARN"),
+    APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 
     CLOUDERA_CDH5(EHBaseDistributions.CLOUDERA, "Cloudera CDH5", "Cloudera_CDH5"),
 
-    MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
+    CLOUDERA_CDH4_YARN(EHBaseDistributions.CLOUDERA, "Cloudera CDH4 YARN", "Cloudera_CDH4_YARN"),
 
-    MAPR_2_1_2(EHBaseDistributions.MAPR, "MapR 2.1.2", "MAPR212"),
+    CLOUDERA_CDH4(EHBaseDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4"),
+
+    CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3"),
+
+    MAPR_3_0_1(EHBaseDistributions.MAPR, "MapR 3.0.1", "MAPR301"),
 
     MAPR_2_1_3(EHBaseDistributions.MAPR, "MapR 2.1.3", "MAPR213"),
 
-    MAPR_3_0_1(EHBaseDistributions.MAPR, "MapR 3.0.1", "MAPR301"),
+    MAPR_2_1_2(EHBaseDistributions.MAPR, "MapR 2.1.2", "MAPR212"),
+
+    MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
 
     PIVOTAL_HD_1_0_1(EHBaseDistributions.PIVOTAL_HD, "Pivotal HD 1.0.1", "PIVOTAL_HD_1_0_1"),
 
