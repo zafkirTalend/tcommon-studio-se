@@ -32,6 +32,8 @@ public enum EUpdateItemType {
     CONTEXT_GROUP(Messages.getString("EUpdateItemType.ContextGroup")), //$NON-NLS-1$
     JOB_VERSION(Messages.getString("EUpdateItemType.JobVersion")), //$NON-NLS-1$
     RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
+    // for mapper
+    MAP_PATH(Messages.getString("EUpdateItemType.MapPath")), //$NON-NLS-1$
     // for joblet
     JOBLET_RENAMED(Messages.getString("EUpdateItemType.Name")), //$NON-NLS-1$
     JOBLET_SCHEMA(Messages.getString("EUpdateItemType.Schema")), //$NON-NLS-1$

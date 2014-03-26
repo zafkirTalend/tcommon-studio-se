@@ -24,6 +24,8 @@ public enum EUpdateResult {
     RELOAD(Messages.getString("EUpdateResult.Reload")), //$NON-NLS-1$
     ADD(Messages.getString("EUpdateResult.Add")), //$NON-NLS-1$
     DELETE(Messages.getString("EUpdateResult.Delete")), //$NON-NLS-1$
+    // for mapper
+    PATH_UPDATE(Messages.getString("EUpdateResult.PathUpdate")), //$NON-NLS-1$
     // for joblet
     JOBLET_UPDATE(Messages.getString("EUpdateResult.JobletUpdate")); //$NON-NLS-1$
 
