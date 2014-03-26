@@ -27,7 +27,9 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class PasswordEncryptUtil {
 
-    private static String rawKey = "Talend-Key";
+    public static String ENCRYPT_KEY = "Encrypt"; //$NON-NLS-1$
+
+    private static String rawKey = "Talend-Key"; //$NON-NLS-1$
 
     private static SecretKey key = null;
 
@@ -38,7 +40,7 @@ public class PasswordEncryptUtil {
 
             byte rawKeyData[] = rawKey.getBytes();
             DESKeySpec dks = new DESKeySpec(rawKeyData);
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES"); //$NON-NLS-1$
             key = keyFactory.generateSecret(dks);
         }
         return key;
@@ -50,7 +52,7 @@ public class PasswordEncryptUtil {
         }
 
         SecretKey key = getSecretKey();
-        Cipher c = Cipher.getInstance("DES");
+        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
         c.init(Cipher.ENCRYPT_MODE, key, secureRandom);
         byte[] cipherByte = c.doFinal(input.getBytes());
         String dec = new String(Base64.encodeBase64(cipherByte));
@@ -63,7 +65,7 @@ public class PasswordEncryptUtil {
         }
         byte[] dec = Base64.decodeBase64(input.getBytes());
         SecretKey key = getSecretKey();
-        Cipher c = Cipher.getInstance("DES");
+        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
         c.init(Cipher.DECRYPT_MODE, key, secureRandom);
         byte[] clearByte = c.doFinal(dec);
         return new String(clearByte);
@@ -75,20 +77,6 @@ public class PasswordEncryptUtil {
         if (type == null) {
             return false;
         }
-        return type.equals("Password") || type.equals("id_Password");
+        return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
     }
-
-    // public static void main(String[] args) {
-    //
-    // try {
-    // String input = PasswordEncryptUtil.encryptPassword("test");
-    // System.out.println(input);
-    // System.out.println(PasswordEncryptUtil.decryptPassword(input));
-    // } catch (BadPaddingException e) {
-    // e.printStackTrace();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-
 }
