@@ -252,19 +252,6 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
                     return;
                 }
                 if (tableEditorView.getMetadataEditor().getBeanCount() > 0) {
-                    // MOD qiongli 2012-4-18 TDQ-5130.give a message with DQ update information if has DQ
-                    // dependences.The column uuid is changed after guessing,should update related analyses.
-                    if (hasDQDependences()) {
-                        if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
-                                .getString("FileStep3.guessConfirmationMessageWithDQ"))) {//$NON-NLS-1$
-                            runShadowProcess();
-                            // in this case,tdqRepositoryService is not null.
-                            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
-                                    .getDefault().getService(ITDQRepositoryService.class);
-                            tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
-                        }
-                        return;
-                    }
                     if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
                             .getString("FileStep3.guessConfirmationMessage"))) { //$NON-NLS-1$
                         runShadowProcess();
@@ -376,12 +363,35 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
     public void refreshMetaDataTable(final CsvArray csvArray) {
         informationLabel.setText("   " + Messages.getString("FileStep3.guessIsDone")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // clear all items
-        tableEditorView.getMetadataEditor().removeAll();
+        // MOD TDQ-8360, yyin , use the EMF compare to keep the existing elements. only when updating a metadata needed
+        // compare, for creating a new metadata, no need to compare
+        if (hasDQDependences() && tableEditorView.getMetadataEditor().getBeanCount() > 0) {
+            if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
+                    .getString("FileStep3.guessConfirmationMessageWithDQ"))) {//$NON-NLS-1$
+                // in this case,tdqRepositoryService is not null.
+                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
+                        .getDefault().getService(ITDQRepositoryService.class);
+                List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection()
+                        .isFirstLineCaption(), null, 1);
+                List<MetadataColumn> comparedColumns = tdqRepositoryService.updateDependAnalysisOfDelimitedFile(
+                        this.metadataTable, columns);
 
-        List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection().isFirstLineCaption(),
-                tableEditorView, 1);
-        tableEditorView.getMetadataEditor().addAll(columns);
+                tableEditorView.getMetadataEditor().removeAll();
+                if (comparedColumns == null || comparedColumns.size() == 0) {
+                    tableEditorView.getMetadataEditor().addAll(columns);
+                } else {
+                    tableEditorView.getMetadataEditor().addAll(comparedColumns);
+                }
+            }
+        } else {// ~
+                // clear all items
+            tableEditorView.getMetadataEditor().removeAll();
+
+            List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection().isFirstLineCaption(),
+                    tableEditorView, 1);
+            tableEditorView.getMetadataEditor().addAll(columns);
+        }
+
         checkFieldsValue();
         tableEditorView.getTableViewerCreator().layout();
         tableEditorView.getTableViewerCreator().getTable().deselectAll();

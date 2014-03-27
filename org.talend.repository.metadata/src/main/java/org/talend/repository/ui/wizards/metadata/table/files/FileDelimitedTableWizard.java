@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.table.files;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -28,6 +30,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -54,12 +57,14 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
 
     private IMetadataTable oldMetadataTable;
 
+    // Added TDQ-8360 20140327 yyin: if cancel, should restore the old columns
+    private List<MetadataColumn> oldColumns = new ArrayList<MetadataColumn>();
+
     /**
      * Constructor for TableWizard.
      * 
      * @param ISelection
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public FileDelimitedTableWizard(IWorkbench workbench, boolean creation, ConnectionItem connectionItem,
             MetadataTable metadataTable, boolean forceReadOnly) {
         super(workbench, creation, forceReadOnly);
@@ -68,6 +73,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
         if (connectionItem != null) {
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = ConvertionHelper.convert(metadataTable);
+            oldColumns.addAll(metadataTable.getColumns());
             // initConnectionCopy(connectionItem.getConnection());
         }
         setNeedsProgressMonitor(true);
@@ -115,11 +121,6 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
                 needUpdateAnalysis = isNeedUpdateDQ(repositoryObject.getProperty().getItem(), tdqRepositoryService);
             }
 
-            if (tdqRepositoryService != null && needUpdateAnalysis) {
-                if (!tdqRepositoryService.confirmUpdateAnalysis(connectionItem)) {
-                    return true;
-                }
-            }
             // update
             RepositoryUpdateManager.updateSingleSchema(connectionItem, metadataTable, oldMetadataTable, oldTableMap);
 
@@ -147,9 +148,20 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
     }
 
     public boolean performCancel() {
-        if (metadataTable != null && oldMetadataTable != null && metadataTable.getLabel() != null
-                && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
-            this.metadataTable.setLabel(oldMetadataTable.getLabel());
+        // Added TDQ-8360 20140327 yyin: if cancel, should restore the old columns
+        if (metadataTable != null && oldMetadataTable != null) {
+            ITDQRepositoryService tdqRepositoryService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister.getDefault().getService(
+                        ITDQRepositoryService.class);
+                if (isNeedUpdateDQ(repositoryObject.getProperty().getItem(), tdqRepositoryService)) {
+                    metadataTable.getColumns().clear();
+                    metadataTable.getColumns().addAll(oldColumns);
+                }
+            }// ~
+            if (metadataTable.getLabel() != null && !metadataTable.getLabel().equals(oldMetadataTable.getLabel())) {
+                this.metadataTable.setLabel(oldMetadataTable.getLabel());
+            }
         }
         return super.performCancel();
     }
