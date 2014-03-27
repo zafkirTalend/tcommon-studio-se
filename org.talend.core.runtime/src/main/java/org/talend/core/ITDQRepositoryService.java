@@ -22,6 +22,8 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -127,7 +129,7 @@ public interface ITDQRepositoryService extends IService {
      * create a hive connection(embedded or standalone) according to the IMetadataConnection, if it is not a hive
      * connection type, return null.
      * 
-     * @param metadataConnection the db type should be hive
+     * @param metadataConnection the db((MetadataTable) selectedObj).getColumns() type should be hive
      * @return a hive connection or null
      */
     public Connection createHiveConnection(IMetadataConnection metadataConnection);
@@ -176,5 +178,16 @@ public interface ITDQRepositoryService extends IService {
      * @param oldConnName The original connection name used to find Alias from SQL Explorer system.
      */
     public void updateAliasInSQLExplorer(ConnectionItem connectionItem, String oldConnName);
+
+    /**
+     * update the depended analysis of the current file connection, when the file connection changed schema: if the
+     * analysis 's analyzed columns are in the changed schema: compare columns, and remain the column with same name.
+     * 
+     * @param connectionItem file --connection
+     * @param metadataTable -- the new metadata
+     * @param metadataTable2
+     */
+    public List<MetadataColumn> updateDependAnalysisOfDelimitedFile(MetadataTable oldMetadataTable,
+            List<MetadataColumn> newColumns);
 
 }
