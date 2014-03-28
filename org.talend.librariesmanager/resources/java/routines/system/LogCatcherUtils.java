@@ -99,9 +99,6 @@ public class LogCatcherUtils {
             		messages.remove(index);
             	}
             }
-            if(messages.size() == 0){
-            	messages.clear();
-            }
         }
 
         return messagesToSend;
