@@ -25,6 +25,8 @@ public class LogCatcherUtils {
         private String message;
 
         private int code;
+        
+        private long threadId;
 
         public LogCatcherMessage(String type, String origin, int priority, String message, int code) {
             this.type = type;
@@ -32,6 +34,7 @@ public class LogCatcherUtils {
             this.priority = priority;
             this.message = message;
             this.code = code;
+            this.threadId=Thread.currentThread().getId();
         }
 
         public String getMessage() {
@@ -73,6 +76,9 @@ public class LogCatcherUtils {
         public void setType(String type) {
             this.type = type;
         }
+        public long getThreadId(){
+        	return this.threadId;
+        }
     }
 
     java.util.List<LogCatcherMessage> messages = java.util.Collections
@@ -86,10 +92,16 @@ public class LogCatcherUtils {
     public java.util.List<LogCatcherMessage> getMessages() {
         java.util.List<LogCatcherMessage> messagesToSend = new java.util.ArrayList<LogCatcherMessage>();
         synchronized (messages) {
-            for (LogCatcherMessage lcm : messages) {
-                messagesToSend.add(lcm);
+            for (int index=0;index < messages.size();index++) {
+            	LogCatcherMessage lcm = messages.get(index);
+            	if(Thread.currentThread().getId() == lcm.getThreadId()){
+            		messagesToSend.add(lcm);
+            		messages.remove(index);
+            	}
             }
-            messages.clear();
+            if(messages.size() == 0){
+            	messages.clear();
+            }
         }
 
         return messagesToSend;
