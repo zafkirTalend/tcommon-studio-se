@@ -19,8 +19,8 @@ import java.util.Set;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.emf.common.util.EList;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -47,10 +47,12 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
 
     private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
 
+    private static final String USE_DYNAMIC_JOB = "USE_DYNAMIC_JOB"; //$NON-NLS-1$
+
     // almost move from the method checkRepositoryNodeFromProcess of DeleteAction class.
     @Override
-	public Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
-			IRepositoryViewObject object) {
+    public Set<ItemReferenceBean> checkItemReferenceBeans(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
+            IRepositoryViewObject object) {
         Item nodeItem = object.getProperty().getItem();
         boolean needCheckJobIfUsedInProcess = false;
         if (nodeItem instanceof ProcessItem) {
@@ -96,11 +98,23 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                                         boolean equals = false;
                                         // only detect the tRunJob component releationship between father job and child job //$NON-NLS-1$
                                         if ("tRunJob".equals(nodeType.getComponentName())) {
+                                            boolean isUseDynamicJob = false;
                                             for (Object obj : nodeType.getElementParameter()) {
                                                 if (obj != null && obj instanceof ElementParameterType) {
                                                     ElementParameterType param = (ElementParameterType) obj;
+                                                    if (USE_DYNAMIC_JOB.equals(param.getName())) { //$NON-NLS-1$
+                                                        isUseDynamicJob = Boolean.parseBoolean(param.getValue());
+                                                    }
                                                     if ("PROCESS:PROCESS_TYPE_PROCESS".equals(param.getName())) { //$NON-NLS-1$
-                                                        if (property.getId().equals(param.getValue())) {
+                                                        if (isUseDynamicJob) {
+                                                            String[] jobIDs = param.getValue().split(";"); //$NON-NLS-1$
+                                                            for (String jobID : jobIDs) {
+                                                                if (property.getId().equals(jobID)) {
+                                                                    equals = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                        } else if (property.getId().equals(param.getValue())) {
                                                             equals = true;
                                                         }
                                                     }
@@ -140,8 +154,19 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                             for (INode node : openedProcess.getGraphicalNodes()) {
                                 boolean equals = false;
                                 IElementParameter processTypeParam = node.getElementParameter(PROCESS_TYPE_PROCESS);
-                                if (processTypeParam != null && property.getId().equals(processTypeParam.getValue())) {
-                                    equals = true;
+                                if (processTypeParam != null) {
+                                    IElementParameter isUseDynamicJob = node.getElementParameter(USE_DYNAMIC_JOB); //$NON-NLS-1$
+                                    if (isUseDynamicJob != null && (Boolean) isUseDynamicJob.getValue()) {
+                                        String[] jobsID = ((String) processTypeParam.getValue()).split(";"); //$NON-NLS-1$
+                                        for (String jobID : jobsID) {
+                                            if (property.getId().equals(jobID)) {
+                                                equals = true;
+                                                break;
+                                            }
+                                        }
+                                    } else if (property.getId().equals(processTypeParam.getValue())) {
+                                        equals = true;
+                                    }
                                 }
                                 boolean isDelete = factory.getStatus(openedProcess) == ERepositoryStatus.DELETED;
                                 Property property2 = openedProcess.getProperty();
