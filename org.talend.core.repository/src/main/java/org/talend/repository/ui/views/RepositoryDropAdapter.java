@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -249,6 +250,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>("Save BaseMainNode", this) {
 
+            @Override
             protected void run() throws LoginException, PersistenceException {
                 // empty work unit to do svn update before any action from TDM
             }
@@ -310,7 +312,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 if (parents.size() > 1) {
                     return false;
                 }
-                return validateTDMDrop(operation, obj);
+                return validateTDMDrop(operation, (IResource) obj, target);
             }
 
             if (!(obj instanceof RepositoryNode)) {
@@ -392,7 +394,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         return isValid;
     }
 
-    private boolean validateTDMDrop(int operation, Object obj) {
+    private boolean validateTDMDrop(int operation, IResource obj, Object target) {
         if (obj == null) {
             return false;
         }
@@ -404,6 +406,15 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             }
             break;
         case DND.DROP_MOVE:
+            if (target instanceof IFolder) {
+                if (obj.getParent().getFullPath().equals(((IFolder) target).getFullPath())) {
+                    return false;
+                }
+            } else if (target instanceof IFile) {
+                if (((IFile) target).getParent().getFullPath().equals(obj.getParent().getFullPath())) {
+                    return false;
+                }
+            }
             break;
         case DND.DROP_DEFAULT:
         case DND.Drop:
@@ -412,7 +423,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITransformService.class)) {
             ITransformService transformService = (ITransformService) GlobalServiceRegister.getDefault().getService(
                     ITransformService.class);
-            if (transformService.isTransformResource((IResource) obj)) {
+            if (transformService.isTransformResource(obj)) {
                 result = true;
             }
         }
