@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2013 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -45,7 +45,7 @@ public interface IUpdateManager {
     /**
      * before call this method, must call the "checkAllModification" method.
      */
-    public boolean isUpdatedNeeded(EUpdateItemType type);
+    public boolean isUpdatedNeeded(IUpdateItemType type);
 
     /*
      * for each type
@@ -53,11 +53,11 @@ public interface IUpdateManager {
     /**
      * this method same as "executeUpdates(getUpdatesNeeded(type))".
      */
-    public boolean update(EUpdateItemType type);
+    public boolean update(IUpdateItemType type);
 
-    public List<UpdateResult> getUpdatesNeeded(EUpdateItemType type);
+    public List<UpdateResult> getUpdatesNeeded(IUpdateItemType type);
 
-    public List<UpdateResult> getUpdatesNeeded(EUpdateItemType type, boolean onlySimpleShow);
+    public List<UpdateResult> getUpdatesNeeded(IUpdateItemType type, boolean onlySimpleShow);
 
     public boolean executeUpdates(List<UpdateResult> results);
 
