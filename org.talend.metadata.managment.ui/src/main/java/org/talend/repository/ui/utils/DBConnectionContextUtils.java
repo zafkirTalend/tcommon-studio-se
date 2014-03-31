@@ -387,8 +387,8 @@ public final class DBConnectionContextUtils {
         }
 
         String newUrl = DatabaseConnStrUtil.getURLString(dbConn.getDatabaseType(), dbConn.getDbVersionString(), server, username,
-                password, port, sidOrDatabase, filePath.toLowerCase(), datasource, dbRootPath, additionParam, jdbcUrl, driverJar,
-                className, mappingFile);
+                password, port, sidOrDatabase, filePath, datasource, dbRootPath, additionParam, jdbcUrl, driverJar, className,
+                mappingFile);
         return newUrl;
 
     }
