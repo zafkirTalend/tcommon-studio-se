@@ -23,9 +23,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -69,13 +67,12 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.model.update.extension.UpdateManagerProviderDetector;
 import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -85,7 +82,6 @@ import org.talend.core.service.IMetadataManagmentService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ItemCacheManager;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
@@ -145,20 +141,15 @@ public abstract class RepositoryUpdateManager {
     }
 
     public RepositoryUpdateManager(Object parameter) {
-        super();
-        this.parameter = parameter;
+        this(parameter, false);
     }
 
     public RepositoryUpdateManager(Object parameter, boolean isDetectAndUpdate) {
-        super();
-        this.parameter = parameter;
-        this.isDetectAndUpdate = isDetectAndUpdate;
+        this(parameter, null, isDetectAndUpdate);
     }
 
     public RepositoryUpdateManager(Object parameter, List<Relation> relations) {
-        super();
-        this.parameter = parameter;
-        this.relations = relations;
+        this(parameter, relations, false);
     }
 
     // fwang fixed bug TDI-17155
@@ -228,9 +219,9 @@ public abstract class RepositoryUpdateManager {
         this.schemaRenamedMap = schemaRenamedMap;
     }
 
-    public abstract Set<EUpdateItemType> getTypes();
+    public abstract Set<? extends IUpdateItemType> getTypes();
 
-    private boolean openPropagationDialog() {
+    public static boolean openPropagationDialog() {
         return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(),
                 Messages.getString("RepositoryUpdateManager.Title"), //$NON-NLS-1$
                 Messages.getString("RepositoryUpdateManager.Messages")); //$NON-NLS-1$
@@ -243,13 +234,9 @@ public abstract class RepositoryUpdateManager {
      * @param onlyImpactAnalysis for 9543
      * @return
      */
-    private void openNoModificationDialog(boolean onlyImpactAnalysis) {
+    public static void openNoModificationDialog() {
         String title = Messages.getString("RepositoryUpdateManager.NoModificationTitle"); //$NON-NLS-1$
         String messages = Messages.getString("RepositoryUpdateManager.NoModificationMessages"); ////$NON-NLS-1$
-        if (onlyImpactAnalysis) {
-            title = Messages.getString("RepositoryUpdateManager.NotFoundTitle"); //$NON-NLS-1$
-            messages = Messages.getString("RepositoryUpdateManager.NotFoundMessages"); //$NON-NLS-1$
-        }
         MessageDialog.openInformation(Display.getCurrent().getActiveShell(), title, messages);
     }
 
@@ -274,6 +261,11 @@ public abstract class RepositoryUpdateManager {
 
     @SuppressWarnings("restriction")
     public boolean doWork(boolean show, final boolean onlyImpactAnalysis) {
+        /*
+         * NOTE: Most of functions are similar with AbstractRepositoryUpdateManagerProvider.updateForRepository, so if
+         * update this, maybe need check the updateForRepository too.
+         */
+
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
@@ -301,9 +293,11 @@ public abstract class RepositoryUpdateManager {
             boolean cancelable = !needForcePropagation();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
+                @SuppressWarnings("unchecked")
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes(), onlyImpactAnalysis);
+                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, (Set<IUpdateItemType>) getTypes(),
+                            onlyImpactAnalysis);
                     if (returnResult != null) {
                         results.addAll(returnResult);
                     }
@@ -337,7 +331,7 @@ public abstract class RepositoryUpdateManager {
                 }
                 return false;
             }
-            openNoModificationDialog(onlyImpactAnalysis);
+            openNoModificationDialog();
         }
         return false;
     }
@@ -939,194 +933,125 @@ public abstract class RepositoryUpdateManager {
      * @param sourceItem - modified repository item.
      * @return
      */
-    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types,
+    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<IUpdateItemType> types,
             final boolean onlySimpleShow) throws InterruptedException {
         if (types == null || types.isEmpty()) {
             return null;
         }
+        RepositoryUpdateManagerHelper helper = new RepositoryUpdateManagerHelper() {
 
-        // final List<IEditorReference> list = new ArrayList<IEditorReference>();
-        // Display.getDefault().syncExec(new Runnable() {
-        //
-        // @Override
-        // public void run() {
-        // IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-        // .getEditorReferences();
-        // list.addAll(Arrays.asList(reference));
-        // }
-        // });
+            @Override
+            protected boolean enableCheckItem() {
+                return parameter != null && relations != null && !onlyOpeningJob;
+            }
 
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getOpenedProcess(getEditors());
+            @Override
+            protected List<Relation> getRelations() {
+                return relations;
+            }
 
-        try {
+            @Override
+            protected List<UpdateResult> getOtherUpdateResults(IProgressMonitor parentMonitor, List<IProcess2> openedProcessList,
+                    Set<IUpdateItemType> types) {
+                List<UpdateResult> resultList = new ArrayList<UpdateResult>();
+                if (isDetectAndUpdate) {
+                    resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, false);
+                }
 
-            List<UpdateResult> resultList = new ArrayList<UpdateResult>();
-            int size = openedProcessList.size();
-            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-
-            MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
-            if (isItemIndexChecked() && parameter != null && relations != null) {
-                size = size + relations.size();
-                parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
-                parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
-
-                for (int i = 0; i < relations.size(); i++) {
-                    Relation relation = relations.get(i);
-                    IRepositoryViewObject relatedObj = factory.getLastVersion(relation.getId());
-
-                    if (relatedObj == null) {
-                        continue;
+                if (!onlyOpeningJob) {
+                    // Ok, you also need to update the job setting in "create job with template"
+                    List<UpdateResult> templateSetUpdate = checkSettingInJobTemplateWizard();
+                    if (templateSetUpdate != null) {
+                        resultList.addAll(templateSetUpdate);
                     }
-                    List<IRepositoryViewObject> allVersionList = new ArrayList<IRepositoryViewObject>();
-                    //
-                    if (!onlyOpeningJob) {
+                }
+                return resultList;
+            }
 
-                        // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
-                        boolean checkOnlyLastVersion = Boolean.parseBoolean(CoreRuntimePlugin.getInstance()
-                                .getDesignerCoreService().getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
-                        // get all version
-                        allVersionList = new ArrayList<IRepositoryViewObject>();
-                        if (!checkOnlyLastVersion) {
-                            List<IRepositoryViewObject> allVersion = factory.getAllVersion(relatedObj.getId());
-                            for (IRepositoryViewObject object : allVersion) {
-                                if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER) {
-                                    allVersionList.add(object);
+            @Override
+            protected void checkAndSetParameters(IProcess2 process2) {
+                // context rename and context group
+                IContextManager contextManager = process2.getContextManager();
+                if (contextManager instanceof JobContextManager) {
+                    JobContextManager jobContextManager = (JobContextManager) contextManager;
+                    jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
+                    jobContextManager.setNewParametersMap(getNewParametersMap());
+                    Map<ContextItem, List<IContext>> repositoryAddGroupContext = getRepositoryAddGroupContext();
+
+                    List<IContext> listIContext = new ArrayList<IContext>();
+                    for (ContextItem item : repositoryAddGroupContext.keySet()) {
+                        List<IContext> list = repositoryAddGroupContext.get(item);
+                        ListIterator<IContext> listIterator = list.listIterator();
+                        while (listIterator.hasNext()) {
+                            IContext context = listIterator.next();
+                            JobContext newJobContext = new JobContext(context.getName());
+                            List<IContextParameter> existedParameters = new ArrayList<IContextParameter>();
+
+                            for (int j = 0; j < context.getContextParameterList().size(); j++) {
+                                IContextParameter param = context.getContextParameterList().get(j);
+                                IContextParameter contextParameter = jobContextManager.getDefaultContext().getContextParameter(
+                                        param.getName());
+                                if (contextParameter != null && param.getName().equals(contextParameter.getName())
+                                        && item.getProperty().getId().equals(contextParameter.getSource())) { // found
+                                    IContextParameter clone = param.clone();
+                                    clone.setContext(newJobContext);
+                                    existedParameters.add(clone);
                                 }
                             }
-                        } else {
-                            // assume that repositoryObj is the last version, otherwise we should call
-                            // factory.getLastVersion(repositoryObj.getId());
-                            IRepositoryViewObject lastVersion = relatedObj; // factory.getLastVersion(repositoryObj.getId());
-                            ERepositoryStatus status = factory.getStatus(lastVersion);
-                            if (status != ERepositoryStatus.LOCK_BY_OTHER) {
-                                allVersionList.add(lastVersion);
+                            if (!existedParameters.isEmpty()) {
+                                newJobContext.setContextParameterList(existedParameters);
+                                listIContext.add(newJobContext);
                             }
                         }
 
-                        //
+                    }
+                    jobContextManager.setAddGroupContext(listIContext);
+                    jobContextManager.setAddContextGroupMap(repositoryAddGroupContext);
 
-                        checkMonitorCanceled(parentMonitor);
+                    Map<ContextItem, List<IContext>> repositoryRemoveGroupContext = getRepositoryRemoveGroupContext();
 
-                        int index = 0;
-                        for (IRepositoryViewObject repositoryObj : allVersionList) {
-                            checkMonitorCanceled(parentMonitor);
-                            Item item = repositoryObj.getProperty().getItem();
-                            // avoid the opened job
-                            if (isOpenedItem(item, openProcessMap)) {
-                                continue;
-                            }
-                            parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
-                            List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types,
-                                    onlySimpleShow);
-                            if (updatesNeededFromItems != null && !updatesNeededFromItems.isEmpty()) {
-                                resultList.addAll(updatesNeededFromItems);
-                            }
-                            index++;
+                    List<IContext> removeListIContext = new ArrayList<IContext>();
+                    for (ContextItem item : repositoryRemoveGroupContext.keySet()) {
+                        List<IContext> list = repositoryRemoveGroupContext.get(item);
+                        ListIterator<IContext> listIterator = list.listIterator();
+                        while (listIterator.hasNext()) {
+                            IContext context = listIterator.next();
 
-                            if (!ERepositoryStatus.LOCK_BY_USER.equals(factory.getStatus(item))) {
-                                if (repositoryObj instanceof RepositoryObject) {
-                                    ((RepositoryObject) repositoryObj).unload();
-                                }
+                            if (!removeListIContext.contains(context)) {
+                                removeListIContext.add(context);
                             }
 
                         }
-                        parentMonitor.worked(1);
+
                     }
+                    jobContextManager.setRemoveGroupContext(removeListIContext);
+                    jobContextManager.setRemoveContextGroupMap(repositoryRemoveGroupContext);
 
+                    Map<ContextItem, List<IContext>> repositoryRenameGroupContext = getRepositoryRenameGroupContext();
+
+                    jobContextManager.setRenameGroupContext(getRenameContextGroup());
+                    jobContextManager.setRenameContextGroupMap(repositoryRenameGroupContext);
                 }
-            } else {
-                parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
-                parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
-
-            }
-            // opened job
-            for (IProcess2 process : openedProcessList) {
-                checkMonitorCanceled(parentMonitor);
-                parentMonitor.subTask(getUpdateJobInfor(process.getProperty()));
-
-                List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
-                if (resultFromProcess != null) {
-                    resultList.addAll(resultFromProcess);
-                }
-                parentMonitor.worked(1);
-            }
-
-            if (isDetectAndUpdate) {
-                resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, onlySimpleShow);
-            }
-
-            if (!onlyOpeningJob) {
-                // Ok, you also need to update the job setting in "create job with template"
-                List<UpdateResult> templateSetUpdate = checkSettingInJobTemplateWizard();
-                if (templateSetUpdate != null) {
-                    resultList.addAll(templateSetUpdate);
+                // schema
+                IUpdateManager updateManager = process2.getUpdateManager();
+                if (updateManager instanceof AbstractUpdateManager) {
+                    AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
+                    if (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty()) {
+                        manager.setSchemaRenamedMap(getSchemaRenamedMap());
+                    }
+                    if (getDeletedOrReselectTablesMap() != null && !getDeletedOrReselectTablesMap().isEmpty()) {
+                        manager.setDeletedOrReselectTablesMap(getDeletedOrReselectTablesMap());
+                    }
+                    manager.setFromRepository(true);
+                    if (isAddColumn) {
+                        manager.setAddColumn(true);
+                        isAddColumn = false;
+                    }
                 }
             }
-            parentMonitor.done();
-            return resultList;
-        } catch (PersistenceException e) {
-            //
-        }
 
-        return null;
-    }
-
-    private List<UpdateResult> updateAllProcess(IProgressMonitor parentMonitor, List<UpdateResult> resultList,
-            List<IProcess2> openedProcessList, final Set<EUpdateItemType> types, final boolean onlySimpleShow) {
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        if (factory == null) {
-            return resultList;
-        }
-        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-        if (designerCoreService == null) {
-            return resultList;
-        }
-        List<IRepositoryViewObject> processRep = new ArrayList<IRepositoryViewObject>();
-        List<IProcess> processList = new ArrayList<IProcess>();
-        try {
-            ERepositoryObjectType jobType = ERepositoryObjectType.PROCESS;
-            if (jobType != null) {
-                processRep.addAll(factory.getAll(jobType, true));
-            }
-            ERepositoryObjectType jobletType = ERepositoryObjectType.JOBLET;
-            if (jobletType != null) {
-                processRep.addAll(factory.getAll(jobletType, true));
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-
-        // all the jobs
-        for (IRepositoryViewObject process : processRep) {
-            Item item = process.getProperty().getItem();
-            boolean found = false;
-            for (IProcess2 open : openedProcessList) {
-                if (open.getId().equals(item.getProperty().getId())) {
-                    found = true;
-                }
-            }
-            if (found) {
-                continue;
-            }
-            checkMonitorCanceled(parentMonitor);
-            parentMonitor.subTask(getUpdateJobInfor(item.getProperty()));
-
-            // List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
-
-            List<UpdateResult> resultFromProcess = getUpdatesNeededFromItems(parentMonitor, item, types, onlySimpleShow);
-            if (resultFromProcess != null) {
-                resultList.addAll(resultFromProcess);
-            }
-            parentMonitor.worked(1);
-        }
-        return resultList;
-    }
-
-    private void checkMonitorCanceled(IProgressMonitor monitor) {
-        if (monitor.isCanceled()) {
-            throw new OperationCanceledException(UpdatesConstants.MONITOR_IS_CANCELED);
-        }
+        };
+        return helper.checkJobItemsForUpdate(parentMonitor, types);
     }
 
     /**
@@ -1153,169 +1078,6 @@ public abstract class RepositoryUpdateManager {
         }
 
         return result;
-    }
-
-    /**
-     * Create a hashmap for fash lookup of the specified IProcess.
-     * 
-     * @param openedProcessList
-     * @return
-     */
-    private MultiKeyMap createOpenProcessMap(List<IProcess2> openedProcessList) {
-        MultiKeyMap map = new MultiKeyMap();
-        if (openedProcessList != null) {
-            for (IProcess2 process : openedProcessList) {
-                map.put(process.getId(), process.getName(), process.getVersion(), process);
-            }
-        }
-        return map;
-    }
-
-    private boolean isOpenedItem(Item openedItem, MultiKeyMap openProcessMap) {
-        if (openedItem == null) {
-            return false;
-        }
-        Property property = openedItem.getProperty();
-        return (openProcessMap.get(property.getId(), property.getLabel(), property.getVersion()) != null);
-    }
-
-    protected List<UpdateResult> getResultFromProcess(IProcess process, final Set<EUpdateItemType> types,
-            final boolean onlySimpleShow) {
-        if (process == null || types == null) {
-            return null;
-        }
-
-        List<UpdateResult> resultList = new ArrayList<UpdateResult>();
-        if (process instanceof IProcess2) {
-            IProcess2 process2 = (IProcess2) process;
-            // context rename and context group
-            IContextManager contextManager = process2.getContextManager();
-            if (contextManager instanceof JobContextManager) {
-                JobContextManager jobContextManager = (JobContextManager) contextManager;
-                jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
-                jobContextManager.setNewParametersMap(getNewParametersMap());
-                Map<ContextItem, List<IContext>> repositoryAddGroupContext = getRepositoryAddGroupContext();
-
-                List<IContext> listIContext = new ArrayList<IContext>();
-                for (ContextItem item : repositoryAddGroupContext.keySet()) {
-                    List<IContext> list = repositoryAddGroupContext.get(item);
-                    ListIterator<IContext> listIterator = list.listIterator();
-                    while (listIterator.hasNext()) {
-                        IContext context = listIterator.next();
-                        JobContext newJobContext = new JobContext(context.getName());
-                        List<IContextParameter> existedParameters = new ArrayList<IContextParameter>();
-
-                        for (int j = 0; j < context.getContextParameterList().size(); j++) {
-                            IContextParameter param = context.getContextParameterList().get(j);
-                            IContextParameter contextParameter = jobContextManager.getDefaultContext().getContextParameter(
-                                    param.getName());
-                            if (contextParameter != null && param.getName().equals(contextParameter.getName())
-                                    && item.getProperty().getId().equals(contextParameter.getSource())) { // found
-                                IContextParameter clone = param.clone();
-                                clone.setContext(newJobContext);
-                                existedParameters.add(clone);
-                            }
-                        }
-                        if (!existedParameters.isEmpty()) {
-                            newJobContext.setContextParameterList(existedParameters);
-                            listIContext.add(newJobContext);
-                        }
-                    }
-
-                }
-                jobContextManager.setAddGroupContext(listIContext);
-                jobContextManager.setAddContextGroupMap(repositoryAddGroupContext);
-
-                Map<ContextItem, List<IContext>> repositoryRemoveGroupContext = getRepositoryRemoveGroupContext();
-
-                List<IContext> removeListIContext = new ArrayList<IContext>();
-                for (ContextItem item : repositoryRemoveGroupContext.keySet()) {
-                    List<IContext> list = repositoryRemoveGroupContext.get(item);
-                    ListIterator<IContext> listIterator = list.listIterator();
-                    while (listIterator.hasNext()) {
-                        IContext context = listIterator.next();
-
-                        if (!removeListIContext.contains(context)) {
-                            removeListIContext.add(context);
-                        }
-
-                    }
-
-                }
-                jobContextManager.setRemoveGroupContext(removeListIContext);
-                jobContextManager.setRemoveContextGroupMap(repositoryRemoveGroupContext);
-
-                Map<ContextItem, List<IContext>> repositoryRenameGroupContext = getRepositoryRenameGroupContext();
-
-                jobContextManager.setRenameGroupContext(getRenameContextGroup());
-                jobContextManager.setRenameContextGroupMap(repositoryRenameGroupContext);
-            }
-            // schema
-            IUpdateManager updateManager = process2.getUpdateManager();
-            if (updateManager instanceof AbstractUpdateManager) {
-                AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
-                if (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty()) {
-                    manager.setSchemaRenamedMap(getSchemaRenamedMap());
-                }
-                if (getDeletedOrReselectTablesMap() != null && !getDeletedOrReselectTablesMap().isEmpty()) {
-                    manager.setDeletedOrReselectTablesMap(getDeletedOrReselectTablesMap());
-                }
-                manager.setFromRepository(true);
-                if (isAddColumn) {
-                    manager.setAddColumn(true);
-                    isAddColumn = false;
-                }
-            }
-            //
-            for (EUpdateItemType type : types) {
-                List<UpdateResult> updatesNeeded = updateManager.getUpdatesNeeded(type, onlySimpleShow);
-                if (updatesNeeded != null) {
-                    resultList.addAll(updatesNeeded);
-                }
-            }
-            if (updateManager instanceof AbstractUpdateManager) {
-                AbstractUpdateManager manager = (AbstractUpdateManager) updateManager;
-                manager.setFromRepository(false);
-            }
-        }
-        return resultList;
-    }
-
-    protected List<UpdateResult> getUpdatesNeededFromItems(IProgressMonitor parentMonitor, Item item,
-            final Set<EUpdateItemType> types, final boolean onlySimpleShow) {
-        if (item == null || types == null) {
-            return null;
-        }
-        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-        if (designerCoreService == null) {
-            return null;
-        }
-        //
-        IProcess process = null;
-        if (item instanceof ProcessItem) {
-            process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-        } else if (item instanceof JobletProcessItem) {
-            process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-        }
-        //
-        if (process != null && process instanceof IProcess2) {
-            IProcess2 process2 = (IProcess2) process;
-            // for save item
-            List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
-
-            for (UpdateResult result : resultFromProcess) {
-                result.setFromItem(true);
-                if (result.getJob() != null) {
-                    result.setJob(null);
-                }
-                result.setObjectId(item.getProperty().getId());
-            }
-
-            process2.dispose();
-            return resultFromProcess;
-
-        }
-        return null;
     }
 
     public static ERepositoryObjectType getTypeFromSource(String source) {
@@ -2146,8 +1908,6 @@ public abstract class RepositoryUpdateManager {
 
     private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show,
             boolean onlySimpleShow) {
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.CONTEXT_RELATION);
 
@@ -2222,30 +1982,16 @@ public abstract class RepositoryUpdateManager {
     }
 
     public static boolean updateAllJob() {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(null) {
-
-            @Override
-            public Set<EUpdateItemType> getTypes() {
-                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
-                for (EUpdateItemType type : EUpdateItemType.values()) {
-                    types.add(type);
-                }
-                return types;
-            }
-
-        };
-        return repositoryUpdateManager.doWork();
+        return updateAllJob(false);
     }
 
     public static boolean updateAllJob(boolean isDetectAndUpdate) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(null, isDetectAndUpdate) {
 
             @Override
-            public Set<EUpdateItemType> getTypes() {
-                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
-                for (EUpdateItemType type : EUpdateItemType.values()) {
-                    types.add(type);
-                }
+            public Set<IUpdateItemType> getTypes() {
+                IUpdateItemType[] allUpdateItemTypes = UpdateManagerProviderDetector.INSTANCE.getAllUpdateItemTypes();
+                Set<IUpdateItemType> types = new HashSet<IUpdateItemType>(Arrays.asList(allUpdateItemTypes));
                 return types;
             }
 
@@ -2298,8 +2044,6 @@ public abstract class RepositoryUpdateManager {
     }
 
     public static boolean updateJoblet(JobletProcessItem item, boolean show, boolean onlySimpleShow) {
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.JOBLET_RELATION);
 
@@ -2316,13 +2060,6 @@ public abstract class RepositoryUpdateManager {
         repositoryUpdateManager.setOnlyOpeningJob(true);
 
         return repositoryUpdateManager.doWork(show, onlySimpleShow);
-    }
-
-    public boolean isItemIndexChecked() {
-        // IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-        // IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
-        // return preferenceStore.getBoolean(ITalendCorePrefConstants.ITEM_INDEX);
-        return true;
     }
 
     public Map<String, EUpdateResult> getDeletedOrReselectTablesMap() {

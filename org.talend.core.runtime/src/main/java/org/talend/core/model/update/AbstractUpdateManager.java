@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2013 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.talend.core.model.update.extension.UpdateManagerProviderDetector;
 
 /**
  * ggu class global comment. Detailled comment
@@ -98,7 +100,7 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     }
 
     @Override
-    public boolean isUpdatedNeeded(EUpdateItemType type) {
+    public boolean isUpdatedNeeded(IUpdateItemType type) {
         if (type == null) {
             return false;
         }
@@ -122,15 +124,18 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     }
 
     @Override
-    public boolean update(EUpdateItemType type) {
-        return executeUpdates(getUpdatesNeeded(type));
+    public boolean update(IUpdateItemType type) {
+        if (type != null) {
+            return executeUpdates(getUpdatesNeeded(type));
+        }
+        return false;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void checkAllModification() {
         clearResult();
-        for (EUpdateItemType type : EUpdateItemType.values()) {
+        IUpdateItemType[] allUpdateItemTypes = UpdateManagerProviderDetector.INSTANCE.getAllUpdateItemTypes();
+        for (IUpdateItemType type : allUpdateItemTypes) {
             List<UpdateResult> result = getUpdatesNeeded(type);
             if (result != null) {
                 getUpdatesNeeded().addAll(result);

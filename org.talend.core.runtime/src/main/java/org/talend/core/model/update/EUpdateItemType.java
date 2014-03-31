@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2013 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -17,7 +17,7 @@ import org.talend.core.runtime.i18n.Messages;
 /**
  * ggu class global comment. Detailled comment
  */
-public enum EUpdateItemType {
+public enum EUpdateItemType implements IUpdateItemType {
     NODE_PROPERTY(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     NODE_SCHEMA(Messages.getString("EUpdateItemType.Schema")), //$NON-NLS-1$
     NODE_SAP_FUNCTION(Messages.getString("EUpdateItemType.SAPFunction")), //$NON-NLS-1$
@@ -37,7 +37,9 @@ public enum EUpdateItemType {
     // for joblet
     JOBLET_RENAMED(Messages.getString("EUpdateItemType.Name")), //$NON-NLS-1$
     JOBLET_SCHEMA(Messages.getString("EUpdateItemType.Schema")), //$NON-NLS-1$
-    JOBLET_CONTEXT(Messages.getString("EUpdateItemType.Variable")); //$NON-NLS-1$
+    // JOBLET_CONTEXT(Messages.getString("EUpdateItemType.Variable")),
+    //
+    ;
 
     private String displayName;
 
@@ -45,11 +47,14 @@ public enum EUpdateItemType {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
+    @Override
+    public String getDisplayLabel() {
         return this.displayName;
     }
 
+    @Override
     public String getName() {
-        return this.toString();
+        return name();
     }
+
 }

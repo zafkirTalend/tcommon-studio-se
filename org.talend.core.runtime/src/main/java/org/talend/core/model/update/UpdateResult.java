@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2013 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -27,7 +27,7 @@ public abstract class UpdateResult {
 
     private EUpdateResult resultType = null;
 
-    private EUpdateItemType updateType = null;
+    private IUpdateItemType updateType = null;
 
     private Object parameter = null;
 
@@ -101,7 +101,7 @@ public abstract class UpdateResult {
      * @param parameter
      * @param remark
      */
-    public void setResult(EUpdateItemType updateType, EUpdateResult resultType, Object parameter, String remark) {
+    public void setResult(IUpdateItemType updateType, EUpdateResult resultType, Object parameter, String remark) {
         this.updateType = updateType;
         this.resultType = resultType;
         this.parameter = parameter;
@@ -217,7 +217,7 @@ public abstract class UpdateResult {
         return this.resultType;
     }
 
-    public EUpdateItemType getUpdateType() {
+    public IUpdateItemType getUpdateType() {
         return this.updateType;
     }
 
