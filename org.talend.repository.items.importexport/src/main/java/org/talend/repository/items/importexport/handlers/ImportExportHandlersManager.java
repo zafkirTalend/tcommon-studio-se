@@ -68,6 +68,8 @@ public final class ImportExportHandlersManager {
 
     private IImportResourcesHandler[] resImportHandlers;
 
+    private final List<String> importErrors = new ArrayList<String>();
+
     private ImportExportHandlersManager() {
         registryReader = new ImportExportHandlersRegistryReader();
         registryReader.init();
@@ -427,5 +429,9 @@ public final class ImportExportHandlersManager {
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
             resHandler.postImport(monitor, resManager, importedItemRecords);
         }
+    }
+
+    public List<String> getImportErrors() {
+        return this.importErrors;
     }
 }

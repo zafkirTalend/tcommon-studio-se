@@ -40,6 +40,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -88,10 +89,14 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
+import org.talend.designer.joblet.model.JobletPackage;
+import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.HandlerUtil;
+import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
@@ -230,7 +235,12 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
                     PropertiesPackage.eINSTANCE.getProperty()));
         } else {
-            log.error(Messages.getString("ImportBasicHandler.ERROR_CREATE_EMF_RESOURCE") + itemRecord.getPath()); //$NON-NLS-1$
+            ImportExportHandlersManager
+                    .getInstance()
+                    .getImportErrors()
+                    .add(Messages.getString("ImportBasicHandler_LoadEMFResourceError", itemRecord.getPath().lastSegment(),
+                            HandlerUtil.getValidItemRelativePath(manager, itemRecord.getPath())));
+            log.error(Messages.getString("ImportBasicHandler_ErrorCreateEmfResource") + " - " + HandlerUtil.getValidItemRelativePath(manager, itemRecord.getPath())); //$NON-NLS-1$
         }
     }
 
@@ -626,6 +636,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
         resolveItem(resManager, selectedItemRecord);
+        if (!selectedItemRecord.isValid()) {
+            return;
+        }
 
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
@@ -902,6 +915,16 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             final Item item = itemRecord.getItem();
             boolean byteArray = (item instanceof FileItem);
             IPath itemPath = HandlerUtil.getItemPath(itemRecord.getPath(), item);
+            IPath itemRelativePath = HandlerUtil.getValidItemRelativePath(manager, itemPath);
+            Set<IPath> paths = manager.getPaths();
+            // check the item file
+            if (!paths.contains(itemPath)) {
+                itemRecord.addError(Messages.getString("ImportBasicHandler_MissingItemError", itemRecord.getItemName(),
+                        itemPath.lastSegment(), itemRelativePath));
+                log.error(itemRecord.getItemName()
+                        + " " + Messages.getString("ImportBasicHandler_MissingItemFile") + " - " + itemRelativePath); //$NON-NLS-1$
+                return;
+            }
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord, itemPath, byteArray);
 
@@ -927,8 +950,27 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 Resource rfResource = createResource(itemRecord, itemPath, true);
                 rfResource.load(stream, null);
             }
-            resetItemReference(itemRecord, resource);
-            // EcoreUtil.resolveAll(itemRecord.getResourceSet());
+
+            Iterator<EObject> itRef = item.eCrossReferences().iterator();
+            IPath parentPath = itemRecord.getPath().removeLastSegments(1);
+            while (itRef.hasNext()) {
+                EObject object = itRef.next();
+                String linkedFile = EcoreUtil.getURI(object).toFileString();
+                IPath linkedPath = parentPath.append(linkedFile);
+                if (!paths.contains(linkedPath)) {
+                    if (linkedFile != null && !linkedFile.equals(itemPath.lastSegment())
+                            && linkedFile.endsWith(itemPath.getFileExtension())) {
+                        if (object.eIsProxy()) {
+                            // if original href of the item point to some missing item file
+                            // and if we can get the original item file from the name, recover it, but add a warning
+                            ((EObjectImpl) object).eSetProxyURI(URI.createFileURI(itemPath.lastSegment()));
+                            log.warn(itemRecord.getItemName()
+                                    + " " + Messages.getString("ImportBasicHandler_NotHrefCurrentItemFile") + " - " + itemRelativePath); //$NON-NLS-1$
+                        }
+                    }
+                }
+                EcoreUtil.resolve(object, resource);
+            }
         } catch (IOException e) {
             // ignore
         } finally {
@@ -960,19 +1002,17 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
          * ignore job. no need, because it can't be allowed input special char for name.
          */
         if (item instanceof ProcessItem) {
-            // ((ProcessItem) item).setProcess((ProcessType) EcoreUtil.getObjectByType(contents,
-            // TalendFilePackage.eINSTANCE
-            // .getProcessType()));
+            ((ProcessItem) item).setProcess((ProcessType) EcoreUtil.getObjectByType(contents,
+                    TalendFilePackage.eINSTANCE.getProcessType()));
         } else
         /*
          * ignore joblet. no need, because it can't be allowed input special char for name.
          */
         if (item instanceof JobletProcessItem) {
-            // JobletProcessItem jobletProcessItem = (JobletProcessItem) item;
-            //
-            // jobletProcessItem.setJobletProcess((JobletProcess) EcoreUtil.getObjectByType(contents,
-            // JobletPackage.eINSTANCE
-            // .getJobletProcess()));
+            JobletProcessItem jobletProcessItem = (JobletProcessItem) item;
+
+            jobletProcessItem.setJobletProcess((JobletProcess) EcoreUtil.getObjectByType(contents,
+                    JobletPackage.eINSTANCE.getJobletProcess()));
             // jobletProcessItem
             // .setIcon((ByteArray) EcoreUtil.getObjectByType(contents, PropertiesPackage.eINSTANCE.getByteArray()));
         } else

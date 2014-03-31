@@ -114,4 +114,18 @@ public final class HandlerUtil {
             }
         }
     }
+
+    /**
+     * get relative Path of the Item
+     */
+    public static IPath getValidItemRelativePath(ResourcesManager resManager, IPath path) {
+        IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, path);
+        if (projectFilePath != null) {
+            // remove the last segments "talend.project"
+            IPath projectRootPath = projectFilePath.removeLastSegments(1);
+            // relative to import project
+            return path.makeRelativeTo(projectRootPath);
+        }
+        return null;
+    }
 }
