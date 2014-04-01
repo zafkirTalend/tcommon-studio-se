@@ -32,7 +32,10 @@ import metadata.managment.i18n.Messages;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -764,15 +767,12 @@ public class ExtractManager {
             // there will do one query to retrieve all comments on the table.
             checkComments(metadataConnection, tableName, metadataColumns);
 
-        } catch (SQLException e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-            log.error(e.toString());
-            throw new RuntimeException(e);
         } catch (Exception e) {
-            // e.printStackTrace();
             ExceptionHandler.process(e);
-            log.error(e.toString());
+            Status status = new Status(IStatus.ERROR, "org.talend.metadata.managment", 0,
+                    "Error encountered when retrieving schema.", e);
+            ErrorDialog errorDialog = new ErrorDialog(null, "Error", null, status, IStatus.ERROR);
+            errorDialog.open();
             throw new RuntimeException(e);
         } finally {
             try {
@@ -818,7 +818,7 @@ public class ExtractManager {
                 }
             }
         } catch (Exception e) {
-            log.error(e.toString());
+            throw new SQLException(e);
         }
 
         checkUniqueKeyConstraint(tableName, primaryKeys, dbMetaData.getConnection());
