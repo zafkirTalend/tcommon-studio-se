@@ -188,7 +188,7 @@ public class MetadataConnectionUtils {
                 java.sql.Connection sqlConn = null;
                 Driver driver = null;
                 try {
-                    if (isHsqlInprocess(metadataBean) || ConnectionUtils.isServerModeHsql(dbUrl)) {
+                    if (isHsqlInprocess(metadataBean)) {
                         List list = getConnection(metadataBean);
                         for (int i = 0; i < list.size(); i++) {
                             if (list.get(i) instanceof Driver) {
