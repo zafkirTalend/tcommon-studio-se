@@ -317,13 +317,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         FolderItem subFolder = (FolderItem) curItem;
                         IFolder existFolder = physicalFolder.getFolder(subFolder.getProperty().getLabel());
                         if (existFolder != null && existFolder.exists()) {
-                        	  Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
-                              subFolder.setParent(currentFolderItem);
+                            Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
+                            subFolder.setParent(currentFolderItem);
 
-                              cont.setProperty(property);
-                              cont.setId(property.getId());
-                              addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
-                              folderNamesFounds.add(curItem.getProperty().getLabel());
+                            cont.setProperty(property);
+                            cont.setId(property.getId());
+                            addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
+                            folderNamesFounds.add(curItem.getProperty().getLabel());
                         }
                     } else {
                         if (property.eResource() != null) {
@@ -2932,7 +2932,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 ((Property) object).getItem().setParent(null);
                             }
                         }
-                        possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
+                        possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI(),
+                                (((Property) object).getItem()).isNeedVersion(),
+                                (((Property) object).getItem()).getFileExtension()));
+
+                        // possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
                     }
                 }
             }
