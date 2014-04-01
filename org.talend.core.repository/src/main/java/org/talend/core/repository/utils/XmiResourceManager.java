@@ -474,11 +474,31 @@ public class XmiResourceManager {
                 return URIHelper.convert(path);
             }
         } else if (!item.isNeedVersion()) {
-            Property property = item.getProperty();
-            URI uri = property.eResource().getURI();
-            IPath fullPath = URIHelper.convert(uri);
-            fullPath = fullPath.removeLastSegments(1);
-            fullPath = fullPath.append(property.getLabel()).addFileExtension(FileConstants.PROPERTIES_EXTENSION);
+            IPath fullPath = null;
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+            if (itemType != null && project != null && project.equals(pManager.getCurrentProject())) {
+                fullPath = new Path(project.getTechnicalLabel());
+                fullPath = fullPath.append(itemType.getFolder());
+                fullPath = fullPath.append(item.getState().getPath());
+                Property property = item.getProperty();
+                String version = "";
+                if (item.isNeedVersion()) {
+                    version = "_" + property.getVersion();
+                }
+                String itemStr = property.getLabel() + version + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ 
+                fullPath = fullPath.append(itemStr);
+            } else {
+                // mormally this should not happen
+                Property property = item.getProperty();
+                URI uri = property.eResource().getURI();
+                fullPath = URIHelper.convert(uri);
+                if (fullPath == null) {
+                    // some uri might be start with file:
+                    fullPath = new Path(uri.devicePath());
+                }
+                fullPath = fullPath.removeLastSegments(1);
+                fullPath = fullPath.append(property.getLabel()).addFileExtension(FileConstants.PROPERTIES_EXTENSION);
+            }
             return URIHelper.convert(fullPath);
         }
         return item.getProperty().eResource().getURI();
@@ -582,13 +602,10 @@ public class XmiResourceManager {
         EmfHelper.saveResource(resource);
     }
 
-    // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc)
+    // MOD mzhao 2010-11-22, suppport TDQ item file extensions.(.ana, .rep, etc), this function do not work items that
+    // do not need version
     public URI getItemResourceURI(URI propertyResourceURI, String... fileExtension) {
-        if (fileExtension == null || fileExtension.length == 0) {
-            return propertyResourceURI.trimFileExtension().appendFileExtension(FileConstants.ITEM_EXTENSION);
-        } else {
-            return propertyResourceURI.trimFileExtension().appendFileExtension(fileExtension[0]);
-        }
+        return getItemResourceURI(propertyResourceURI, true, fileExtension);
     }
 
     public URI getItemResourceURI(URI propertyResourceURI, boolean needVersion, String... fileExtension) {
@@ -600,7 +617,7 @@ public class XmiResourceManager {
             String filePathWithoutVersion = portableString.substring(0, lastIndexOf);
             trimFileExtension = URIHelper.convert(new Path(filePathWithoutVersion));
         }
-        if (fileExtension == null || fileExtension.length == 0) {
+        if (fileExtension == null || fileExtension.length == 0 || fileExtension[0] == null) {
             return trimFileExtension.appendFileExtension(FileConstants.ITEM_EXTENSION);
         } else {
             return trimFileExtension.appendFileExtension(fileExtension[0]);
