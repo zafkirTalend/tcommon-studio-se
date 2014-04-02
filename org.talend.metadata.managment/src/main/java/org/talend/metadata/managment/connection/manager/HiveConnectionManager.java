@@ -308,7 +308,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
     /**
      * 
-     * create a related hive hanlder to excute some hadoop parametes.
+     * create a related hive hanlder when run an analysis.embeded model need to execute some hadoop parametes for
+     * embeded model. if it is standalone model,return HiveConnectionHandler.
      * 
      * @param metadataConnection
      * @return
@@ -316,19 +317,24 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     public HiveConnectionHandler createHandler(IMetadataConnection metadataConnection) {
         HiveConnectionHandler handler = null;
         String version = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-        if (EHBaseDistribution4Versions.HDP_1_3.getVersionValue().equals(version)) {
-            handler = new HDP130Handler(metadataConnection);
-        } else if (EHBaseDistribution4Versions.CLOUDERA_CDH4_YARN.getVersionValue().equals(version)) {
-            handler = new CDH4YarnHandler(metadataConnection);
-        } else if (EHBaseDistribution4Versions.HDP_2_0.getVersionValue().equals(version)) {
-            handler = new HDP200YarnHandler(metadataConnection);
-        } else if (EHBaseDistribution4Versions.MAPR_2_1_2.getVersionValue().equals(version)
-                || EHBaseDistribution4Versions.MAPR_3_0_1.getVersionValue().equals(version)) {
-            handler = new Mapr212Handler(metadataConnection);
-        } else if (EHBaseDistribution4Versions.CLOUDERA_CDH5.getVersionValue().equals(version)) {
-            handler = new CDH5YarnHandler(metadataConnection);
-        } else {
+        String hiveModel = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
             handler = new HiveConnectionHandler(metadataConnection);
+        } else {
+            if (EHBaseDistribution4Versions.HDP_1_3.getVersionValue().equals(version)) {
+                handler = new HDP130Handler(metadataConnection);
+            } else if (EHBaseDistribution4Versions.CLOUDERA_CDH4_YARN.getVersionValue().equals(version)) {
+                handler = new CDH4YarnHandler(metadataConnection);
+            } else if (EHBaseDistribution4Versions.HDP_2_0.getVersionValue().equals(version)) {
+                handler = new HDP200YarnHandler(metadataConnection);
+            } else if (EHBaseDistribution4Versions.MAPR_2_1_2.getVersionValue().equals(version)
+                    || EHBaseDistribution4Versions.MAPR_3_0_1.getVersionValue().equals(version)) {
+                handler = new Mapr212Handler(metadataConnection);
+            } else if (EHBaseDistribution4Versions.CLOUDERA_CDH5.getVersionValue().equals(version)) {
+                handler = new CDH5YarnHandler(metadataConnection);
+            } else {
+                handler = new HiveConnectionHandler(metadataConnection);
+            }
         }
         return handler;
     }

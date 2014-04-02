@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.database.PluginConstant;
 
 /**
  * handle some hadoop parameters for hive connection with cdh4 yarn.
@@ -45,7 +46,7 @@ public class CDH4YarnHandler extends ClouderaHandler implements IHiveYarnHandler
         }
         if (hadoopPropertiesMap.get(YARN_RM_ADDRESS) == null) {
             Object jobTrackerURL = getMetadataConnection().getParameter(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
-            if (jobTrackerURL != null) {
+            if (jobTrackerURL != null && !PluginConstant.EMPTY_STRING.equals(jobTrackerURL.toString().trim())) {
                 map.put(YARN_RM_ADDRESS, jobTrackerURL.toString());
             }
         }
