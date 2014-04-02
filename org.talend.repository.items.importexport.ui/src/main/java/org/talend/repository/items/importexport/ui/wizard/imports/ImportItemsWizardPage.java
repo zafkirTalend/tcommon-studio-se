@@ -54,6 +54,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -77,6 +78,7 @@ import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
+import org.talend.repository.items.importexport.ui.dialog.ShowErrorsDuringImportItemsDialog;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
 import org.talend.repository.items.importexport.ui.managers.FileResourcesUnityManager;
 import org.talend.repository.items.importexport.ui.managers.ResourcesManagerFactory;
@@ -858,6 +860,20 @@ public class ImportItemsWizardPage extends WizardPage {
     }
 
     public boolean performCancel() {
+        // Check Error Items
+        final List<String> errors = new ArrayList<String>();
+        errors.addAll(ImportExportHandlersManager.getInstance().getImportErrors());
+        Display.getDefault().asyncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                if (!errors.isEmpty()) {
+                    ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent().getActiveShell(), errors);
+                    dialog.open();
+                    ImportExportHandlersManager.getInstance().getImportErrors().clear();
+                }
+            }
+        });
         selectedItemRecords.clear();
         nodesBuilder.clear();
         return true;
@@ -930,9 +946,27 @@ public class ImportItemsWizardPage extends WizardPage {
             if (resManager != null) {
                 resManager.closeResource();
             }
+            // Check Error Items
+            final List<String> errors = new ArrayList<String>();
+            for (ItemRecord itemRecord : checkedItemRecords) {
+                errors.addAll(itemRecord.getErrors());
+            }
+            errors.addAll(ImportExportHandlersManager.getInstance().getImportErrors());
+            Display.getDefault().asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (!errors.isEmpty()) {
+                        ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent().getActiveShell(), errors);
+                        dialog.open();
+                        ImportExportHandlersManager.getInstance().getImportErrors().clear();
+                    }
+                }
+            });
             checkedItemRecords.clear();
             nodesBuilder.clear();
         }
+
         return true;
     }
 }
