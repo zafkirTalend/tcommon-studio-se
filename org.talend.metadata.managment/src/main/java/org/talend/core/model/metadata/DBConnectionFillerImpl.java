@@ -436,7 +436,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                 && !((DatabaseConnection) dbConn).getDatabaseType().equals(
                                         EDatabaseTypeName.AS400.getDisplayName())
                                 && !((DatabaseConnection) dbConn).getDatabaseType().equals(
-                                        EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
+                                        EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
+                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
+                                        EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                                & !((DatabaseConnection) dbConn).getDatabaseType().equals(
+                                        EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
                             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList,
