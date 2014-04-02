@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.model.metadata.builder.MetadataConnection;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.metadata.managment.hive.handler.CDH4YarnHandler;
 import org.talend.metadata.managment.hive.handler.CDH5YarnHandler;
 import org.talend.metadata.managment.hive.handler.HDP130Handler;
@@ -57,9 +58,10 @@ public class HiveConnectionManagerTest {
      * .
      */
     @Test
-    public void testCreateHandler() {
+    public void testCreateHandler_embeded() {
         MetadataConnection mc = new MetadataConnection();
         mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.HDP_1_3.getVersionValue());
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveConnVersionInfo.MODE_EMBEDDED.getKey());
         HiveConnectionHandler createHandler = HiveConnectionManager.getInstance().createHandler(mc);
         assertTrue(createHandler instanceof HDP130Handler);
 
@@ -85,4 +87,37 @@ public class HiveConnectionManagerTest {
         assertTrue(createHandler instanceof CDH5YarnHandler);
     }
 
+    /**
+     * 
+     * DOC qiongli Comment method "testCreateHandler_standalone".
+     */
+    @Test
+    public void testCreateHandler_standalone() {
+        MetadataConnection mc = new MetadataConnection();
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.HDP_1_3.getVersionValue());
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveConnVersionInfo.MODE_STANDALONE.getKey());
+        HiveConnectionHandler createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof HDP130Handler);
+
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION,
+                EHBaseDistribution4Versions.CLOUDERA_CDH4_YARN.getVersionValue());
+        createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof CDH4YarnHandler);
+
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.HDP_2_0.getVersionValue());
+        createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof HDP200YarnHandler);
+
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.MAPR_2_1_2.getVersionValue());
+        createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof Mapr212Handler);
+
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.MAPR_3_0_1.getVersionValue());
+        createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof Mapr212Handler);
+
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHBaseDistribution4Versions.CLOUDERA_CDH5.getVersionValue());
+        createHandler = HiveConnectionManager.getInstance().createHandler(mc);
+        assertFalse(createHandler instanceof CDH5YarnHandler);
+    }
 }

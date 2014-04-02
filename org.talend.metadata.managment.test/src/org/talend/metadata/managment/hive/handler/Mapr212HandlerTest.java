@@ -52,7 +52,6 @@ public class Mapr212HandlerTest {
     @Test
     public void testGetDefaultHadoopParameters() {
         IMetadataConnection metadataConnection = new MetadataConnection();
-        metadataConnection.setParameter("CONN_PARA_KEY_JOB_TRACKER_URL", "hdfs://ubuntu:8020"); //$NON-NLS-1$//$NON-NLS-2$
         Mapr212Handler mapr212Handler = new Mapr212Handler(metadataConnection);
         Map<String, String> defaultHadoopParameters = mapr212Handler.getDefaultHadoopParameters();
         assertEquals(defaultHadoopParameters.get("mapred.map.child.java.opts"), "-Xmx512m"); //$NON-NLS-1$ //$NON-NLS-2$
