@@ -179,6 +179,10 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:hsqldb"); //$NON-NLS-1$
     }
 
+    public static boolean isInProcessModeHsql(String url) {
+        return url != null && url.startsWith("jdbc:hsqldb:file"); //$NON-NLS-1$
+    }
+
     /**
      * add ";shutdown=true" to the end of the hsql url when the url don't contain it.
      * 
@@ -275,7 +279,8 @@ public final class ConnectionUtils {
                 if (connection.getMetaData() != null) {
                     String url = connection.getMetaData().getURL();
                     // when it is In HSQL server mode, we don't execute ShutDown.
-                    if (isHsql(url) && !isServerModeHsql(url)) {
+                    // only shutdown in-process mode
+                    if (isInProcessModeHsql(url)) {
                         executeShutDownForHSQL(connection);
                     }
                 }
