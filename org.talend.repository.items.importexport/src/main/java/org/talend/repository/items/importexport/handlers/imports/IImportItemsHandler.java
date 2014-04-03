@@ -27,6 +27,22 @@ import org.talend.repository.items.importexport.manager.ResourcesManager;
 public interface IImportItemsHandler extends IExecutableExtension {
 
     /**
+     * 
+     * DOC ggu Comment method "isEnableProductChecking".
+     * 
+     * @return if need recheck the items is under current product or not.
+     */
+    boolean isEnableProductChecking();
+
+    /**
+     * 
+     * DOC ggu Comment method "setEnableProductChecking".
+     * 
+     * @param enableProductChecking
+     */
+    void setEnableProductChecking(boolean enableProductChecking);
+
+    /**
      * Check the path is valid to import or ignore.
      */
     boolean valid(ResourcesManager resManager, IPath path);

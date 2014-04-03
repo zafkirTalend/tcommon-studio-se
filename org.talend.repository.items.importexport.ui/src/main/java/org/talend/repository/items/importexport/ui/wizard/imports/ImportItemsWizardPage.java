@@ -709,7 +709,7 @@ public class ImportItemsWizardPage extends WizardPage {
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager,
-                            overwrite, monitor);
+                            overwrite, monitor, true);
                     nodesBuilder.addItems(items);
                 }
 
@@ -717,7 +717,7 @@ public class ImportItemsWizardPage extends WizardPage {
             try {
                 new ProgressMonitorDialog(getShell()).run(true, true, op);
             } catch (Exception e) {
-                // ignore me
+                displayErrorDialog(e.getMessage());
             }
         }
 
@@ -873,7 +873,8 @@ public class ImportItemsWizardPage extends WizardPage {
             @Override
             public void run() {
                 if (!errors.isEmpty()) {
-                    ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent().getActiveShell(), errors);
+                    ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent()
+                            .getActiveShell(), errors);
                     dialog.open();
                     ImportExportHandlersManager.getInstance().getImportErrors().clear();
                 }
@@ -962,7 +963,8 @@ public class ImportItemsWizardPage extends WizardPage {
                 @Override
                 public void run() {
                     if (!errors.isEmpty()) {
-                        ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent().getActiveShell(), errors);
+                        ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent()
+                                .getActiveShell(), errors);
                         dialog.open();
                         ImportExportHandlersManager.getInstance().getImportErrors().clear();
                     }
