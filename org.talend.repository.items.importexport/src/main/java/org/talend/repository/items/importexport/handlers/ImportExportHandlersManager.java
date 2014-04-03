@@ -93,8 +93,9 @@ public final class ImportExportHandlersManager {
         return resImportHandlers;
     }
 
-    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path) {
+    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
         for (IImportItemsHandler handler : getImportHandlers()) {
+            handler.setEnableProductChecking(enableProductChecking);
             if (handler.valid(resManager, path)) {
                 return handler;
             }
@@ -105,6 +106,12 @@ public final class ImportExportHandlersManager {
 
     public List<ItemRecord> populateImportingItems(ResourcesManager resManager, boolean overwrite,
             IProgressMonitor progressMonitor) {
+        // by default don't check the product.
+        return populateImportingItems(resManager, overwrite, progressMonitor, false);
+    }
+
+    public List<ItemRecord> populateImportingItems(ResourcesManager resManager, boolean overwrite,
+            IProgressMonitor progressMonitor, boolean enableProductChecking) {
         IProgressMonitor monitor = progressMonitor;
         if (monitor == null) {
             monitor = new NullProgressMonitor();
@@ -134,7 +141,7 @@ public final class ImportExportHandlersManager {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                IImportItemsHandler importHandler = findValidImportHandler(resManager, path);
+                IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
                 if (importHandler != null) {
                     ItemRecord itemRecord = importHandler.calcItemRecord(progressMonitor, resManager, path, overwrite, items);
                     if (itemRecord != null) {

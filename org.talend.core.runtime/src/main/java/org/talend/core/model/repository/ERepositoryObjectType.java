@@ -71,6 +71,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.utils.ProductUtils;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.ProjectManager;
 
@@ -79,13 +80,13 @@ import org.talend.repository.ProjectManager;
  */
 public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
-    public static final String PROD_DI = "DI"; //$NON-NLS-1$
+    public static final String PROD_DI = ProductUtils.PROD_DI;
 
-    public static final String PROD_DQ = "DQ"; //$NON-NLS-1$
+    public static final String PROD_DQ = ProductUtils.PROD_DQ;
 
-    public static final String PROD_CAMEL = "CAMEL"; //$NON-NLS-1$
+    public static final String PROD_CAMEL = ProductUtils.PROD_CAMEL;
 
-    public static final String PROD_MDM = "MDM"; //$NON-NLS-1$
+    public static final String PROD_MDM = ProductUtils.PROD_MDM;
 
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
             new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);

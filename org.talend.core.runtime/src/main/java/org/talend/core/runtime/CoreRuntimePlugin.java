@@ -14,9 +14,13 @@ package org.talend.core.runtime;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleContext;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
@@ -192,6 +196,31 @@ public class CoreRuntimePlugin extends Plugin {
         IPerspectiveDescriptor curPerspective = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                 .getPerspective();
         return curPerspective.getId().equals(DATA_PROFILING_PERSPECTIVE_ID);
+    }
+
+    public String getActivedPerspectiveId() {
+        if (CommonsPlugin.isHeadless()) {
+            return null; // for headless, no perspective, should be for all.
+        }
+        final String[] perspectiveId = new String[1];
+        Display.getDefault().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                if (activeWorkbenchWindow != null) {
+                    IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+                    if (activePage != null) {
+                        IPerspectiveDescriptor curPerspective = activePage.getPerspective();
+                        if (curPerspective != null) {
+                            perspectiveId[0] = curPerspective.getId();
+                        }
+                    }
+                }
+
+            }
+        });
+        return perspectiveId[0];
     }
 
 }
