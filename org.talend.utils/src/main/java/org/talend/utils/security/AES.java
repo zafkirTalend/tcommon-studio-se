@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.security.Provider;
 import java.security.SecureRandom;
+import java.security.Security;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -68,10 +69,12 @@ public class AES {
             }
 
             Provider providerSunJCE = null;
-            Provider providerSun = null;
+            // TDI-28380: Database password in tac db configuration page becomes empty once restart tomcat on Solaris.
+            // To solve this problem, there are two ways:
+            // Security.removeProvider("SunPKCS11-Solaris");
+            // or: providerSunJCE = Security.getProvider("SunJCE");
             if (isSunOS) {
-                providerSunJCE = new com.sun.crypto.provider.SunJCE();
-                providerSun = new sun.security.provider.Sun();
+                providerSunJCE = Security.getProvider("SunJCE");
             }
 
             KeyGenerator keyGen = null;
@@ -79,12 +82,11 @@ public class AES {
 
             if (isSunOS) {
                 keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-                random = SecureRandom.getInstance(RANDOM_SHA1PRNG, providerSun);
             } else {
                 keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM);
-                random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
             }
 
+            random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
             random.setSeed(KeyValues);
             keyGen.init(128, random);
 
