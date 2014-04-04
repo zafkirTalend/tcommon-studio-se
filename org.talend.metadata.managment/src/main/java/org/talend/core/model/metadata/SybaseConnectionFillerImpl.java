@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
@@ -42,7 +41,7 @@ public class SybaseConnectionFillerImpl extends DBConnectionFillerImpl {
      * .connection.Connection, java.sql.DatabaseMetaData, orgomg.cwm.resource.relational.Catalog, java.util.List)
      */
     @Override
-    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+    public List<Schema> fillSchemaToCatalog(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
         ResultSet schemaRs = null;
         if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
@@ -60,9 +59,9 @@ public class SybaseConnectionFillerImpl extends DBConnectionFillerImpl {
 
                     // MOD mzhao bug 9606 filter duplicated schemas.
                     if (!schemaNameCacheTmp.contains(schemaName)) {
-                        if (dbConn != null&&!isNullUiSchema(dbConn)) {
+                        if (dbConn != null && !isNullUiSchema(dbConn)) {
                             // this case we only create one schema which name is same as UiSchema
-                            Schema createByUiSchema = createSchemaByUiSchema((DatabaseConnection) dbConn);
+                            Schema createByUiSchema = createSchemaByUiSchema(dbConn);
                             schemaList.add(createByUiSchema);
                             break;
                         } else if (isCreateElement(schemaFilter, schemaName)) {
@@ -76,7 +75,7 @@ public class SybaseConnectionFillerImpl extends DBConnectionFillerImpl {
                 if (log.isDebugEnabled()) {
                     log.debug(e, e);
                 }
-            }finally{
+            } finally {
                 schemaRs.close();
             }
         }

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -57,17 +58,17 @@ import orgomg.cwm.resource.relational.Schema;
  * @author zshen
  * 
  */
-public class MDMConnectionFillerImpl extends MetadataFillerImpl {
+public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
 
     private static Logger log = Logger.getLogger(MDMConnectionFillerImpl.class);
 
     @Override
-    public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
-
-        if (connection == null) {
-            connection = ConnectionHelper.createMDMConnection(metadataBean.getDataSourceName());
+    public MDMConnection fillUIConnParams(IMetadataConnection metadataBean, MDMConnection connection) {
+        MDMConnection mdmConn = connection;
+        if (mdmConn == null) {
+            mdmConn = ConnectionHelper.createMDMConnection(metadataBean.getDataSourceName());
         }
-        if (super.fillUIConnParams(metadataBean, connection) == null) {
+        if (super.fillUIConnParams(metadataBean, mdmConn) == null) {
             return null;
         }
         ReturnCode rc = checkConnection(metadataBean);
@@ -84,7 +85,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
             ConnectionHelper.setSoftwareSystem(connection, softwareSystem);
 
             // set dataprovider
-            ConnectionHelper.setDataFilter(metadataBean.getDatafilter(), (MDMConnection) connection);
+            ConnectionHelper.setDataFilter(metadataBean.getDatafilter(), mdmConn);
             ConnectionHelper.setUniverse(metadataBean.getUniverse(), connection);
             // fill some base parameter
             fillMetadataParams(metadataBean, connection);
@@ -94,17 +95,17 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         return connection;
     }
 
-    public List<orgomg.cwm.objectmodel.core.Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata,
+    public List<orgomg.cwm.objectmodel.core.Package> fillSchemas(MDMConnection mdmConn, DatabaseMetaData dbJDBCMetadata,
             List<String> schemaFilter) {
         List<TdXmlSchema> xmlDocs = new ArrayList<TdXmlSchema>();
         try {
-            XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub((MDMConnection) dbConn);
-            WSDataModelPK[] pks = stub.getDataModelPKs(new WSRegexDataModelPKs(""));
+            XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
+            WSDataModelPK[] pks = stub.getDataModelPKs(new WSRegexDataModelPKs(StringUtils.EMPTY));
             String techXSDFolderName = getTechXSDFolderName();
 
             for (WSDataModelPK pk : pks) {
                 if (isCreateElement(schemaFilter, pk.getPk())) {
-                    adaptToCWMDocument(xmlDocs, stub, pk.getPk(), techXSDFolderName, dbConn);
+                    adaptToCWMDocument(xmlDocs, stub, pk.getPk(), techXSDFolderName, mdmConn);
                 }
             }
         } catch (Exception e) {
@@ -116,8 +117,8 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
 
     private String getTechXSDFolderName() {
         String techXSDFolderName = MetadataConnectionUtils.createTechnicalName(DatabaseConstant.XSD_SUFIX
-                + DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
-        IFolder xsdFolder = ReponsitoryContextBridge.getRootProject().getFolder(new Path("metadata/MDMconnections"));
+                + DateFormatUtils.format(new Date(), "yyyyMMddHHmmss")); //$NON-NLS-1$
+        IFolder xsdFolder = ReponsitoryContextBridge.getRootProject().getFolder(new Path("metadata/MDMconnections")); //$NON-NLS-1$
         // ResourceManager.getMDMConnectionFolder().getFolder(DatabaseConstant.XSD_SUFIX);
         if (xsdFolder.getFolder(techXSDFolderName).exists()) {
             try {
@@ -149,15 +150,15 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
             resXSD = stub.getDataModel(new WSGetDataModel(new WSDataModelPK(resName))).getXsdSchema();
         } catch (Exception e1) {
             log.warn(e1, e1);
-        }
-        if (resXSD == null || "".equals(resXSD.trim())) {
-            log.warn("XSD not exist for \"" + resName + "\"");
+        }  
+        if (resXSD == null || StringUtils.EMPTY.equals(resXSD.trim())) {
+            log.warn("XSD not exist for \"" + resName + "\""); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         }
         // ~ 16161
         // Save xsd file to local disk.
         // TODO Specify unique xsd file name.
-        IFolder xsdFolder = ReponsitoryContextBridge.getRootProject().getFolder(new Path("metadata/MDMconnections"))
+        IFolder xsdFolder = ReponsitoryContextBridge.getRootProject().getFolder(new Path("metadata/MDMconnections")) //$NON-NLS-1$
                 .getFolder(DatabaseConstant.XSD_SUFIX);
         if (!xsdFolder.exists()) {
             xsdFolder.create(true, true, new NullProgressMonitor());
@@ -169,7 +170,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         IFile file = xsdFolder.getFile(resName + DatabaseConstant.XSD_SUFIX);
         // zshen bug 14089: unfolder MDM node get exception.because of the encoding of stream
         try {
-            file.create(new ByteArrayInputStream(resXSD.getBytes("UTF-8")), true, new NullProgressMonitor());
+            file.create(new ByteArrayInputStream(resXSD.getBytes("UTF-8")), true, new NullProgressMonitor()); //$NON-NLS-1$
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -185,12 +186,12 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         xmlDocCollection.add(tdXmlDoc);
     }
 
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
+    public List<Catalog> fillCatalogs(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+    public List<Catalog> fillCatalogs(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> catalogFilter) {
         // TODO Auto-generated method stub
         return null;
@@ -202,7 +203,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
         return null;
     }
 
-    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+    public List<Schema> fillSchemaToCatalog(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
         // TODO Auto-generated method stub
         return null;
@@ -234,7 +235,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl {
      * org.talend.core.model.metadata.IMetadataFiller#fillSchemas(org.talend.core.model.metadata.builder.connection.
      * Connection, java.sql.DatabaseMetaData, org.talend.core.model.metadata.IMetadataConnection, java.util.List)
      */
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+    public List<Package> fillSchemas(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> Filter) {
         // TODO Auto-generated method stub
         return null;

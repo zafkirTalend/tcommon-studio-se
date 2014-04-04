@@ -42,7 +42,6 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -94,15 +93,15 @@ import orgomg.cwm.resource.relational.enumerations.NullableType;
 /**
  * @author zshen
  */
-public class DBConnectionFillerImpl extends MetadataFillerImpl {
+public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnection> {
 
     private static Logger log = Logger.getLogger(DBConnectionFillerImpl.class);
 
     private static Driver driver = null;
 
     @Override
-    public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
-        Connection newConnection = null;
+    public DatabaseConnection fillUIConnParams(IMetadataConnection metadataBean, DatabaseConnection connection) {
+        DatabaseConnection newConnection = null;
         if (connection == null) {
             newConnection = ConnectionFactory.eINSTANCE.createDatabaseConnection();
         }
@@ -111,11 +110,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         DatabaseConnection dbconn = null;
         if (newConnection != null) {
-            dbconn = (DatabaseConnection) newConnection;
+            dbconn = newConnection;
         } else {
-            dbconn = (DatabaseConnection) connection;
+            dbconn = connection;
         }
-        if (newConnection != null) {
+        if (newConnection != null && dbconn != null) {
             dbconn.setDriverJarPath(metadataBean.getDriverJarPath());
             dbconn.setProductId(metadataBean.getProduct());
             dbconn.setDbmsId(metadataBean.getMapping());
@@ -129,13 +128,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             dbconn.setUiSchema(metadataBean.getUiSchema());
             dbconn.setSQLMode(metadataBean.isSqlMode());
             dbconn.setSID(metadataBean.getDatabase());
-            // ADD xqliu 2013-03-22 TDQ-6484 the DynamicClassLoader need these parameters to build the index string
-            String distro = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-            String distroVersion = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-            String hiveModel = (String) metadataBean.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION, distro);
-            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, distroVersion);
-            dbconn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveModel);
+            // MOD copy parameter from metadata to dbconn
+            for (Map.Entry<String, Object> parameter : metadataBean.getOtherParameters().entrySet()) {
+                dbconn.getParameters().put(parameter.getKey(),
+                        parameter.getValue() == null ? StringUtils.EMPTY : parameter.getValue().toString());
+            }
         }
         java.sql.Connection sqlConnection = null;
         try {
@@ -204,12 +201,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      * parameter for some kind of databases...
      */
     @Deprecated
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter) {
+    public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter) {
         return fillSchemas(dbConn, dbJDBCMetadata, null, Filter);
     }
 
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
-            List<String> schemaFilter) {
+    public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
+            IMetadataConnection metaConnection, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
         if (dbJDBCMetadata == null || (dbConn != null && ConnectionHelper.getCatalogs(dbConn).size() > 0)
                 || ConnectionUtils.isSybase(dbJDBCMetadata)) {
@@ -217,9 +214,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
             if (!dbConn.isContextMode()) {
-                String sid = ((DatabaseConnection) dbConn).getSID();
+                String sid = dbConn.getSID();
                 if (sid != null && sid.length() > 0) {
                     schemaFilter.add(sid);
                 }
@@ -236,8 +233,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         // TDI-17172 : if the schema is not fill, as the db context model, should clear "schemaFilter" .
         if (dbConn != null && dbConn.isContextMode()) {
-            if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
-                    || EDatabaseTypeName.IBMDB2.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+            if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(dbConn.getProductId())
+                    || EDatabaseTypeName.IBMDB2.getProduct().equals(dbConn.getProductId())) {
                 IMetadataConnection iMetadataCon = metaConnection;
                 if (iMetadataCon == null) {
                     iMetadataCon = ConvertionHelper.convert(dbConn);
@@ -252,7 +249,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         try {
-            if (dbConn != null && EDatabaseTypeName.ACCESS.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+            if (dbConn != null && EDatabaseTypeName.ACCESS.getProduct().equals(dbConn.getProductId())) {
                 return null;
             }
             schemas = dbJDBCMetadata.getSchemas();
@@ -280,10 +277,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     hasSchema = true;
                     String uiSchemaOnConnWizard = null;
                     if (dbConn != null) {
-                        uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
+                        uiSchemaOnConnWizard = dbConn.getUiSchema();
                         // for hive2 db name is treat as schema
                         if (isHive2) {
-                            uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                            uiSchemaOnConnWizard = dbConn.getSID();
                         }
                     }
 
@@ -346,12 +343,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return ListUtils.castList(Package.class, returnSchemas);
     }
 
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
+    public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         return fillCatalogs(dbConn, dbJDBCMetadata, null, catalogFilter);
     }
 
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
-            List<String> catalogFilter) {
+    public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
+            IMetadataConnection metaConnection, List<String> catalogFilter) {
         List<Catalog> catalogList = new ArrayList<Catalog>();
         if (dbJDBCMetadata == null) {
             return null;
@@ -363,9 +360,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
 
         // TDI-17172 : if the catalog is not fill, as the db context model, should clear "catalogFilter" .
         if (dbConn != null && dbConn.isContextMode()) {
-            if (EDatabaseTypeName.MYSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
-                    || EDatabaseTypeName.MSSQL.getProduct().equals(((DatabaseConnection) dbConn).getProductId())
-                    || EDatabaseTypeName.MSSQL05_08.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+            if (EDatabaseTypeName.MYSQL.getProduct().equals(dbConn.getProductId())
+                    || EDatabaseTypeName.MSSQL.getProduct().equals(dbConn.getProductId())
+                    || EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbConn.getProductId())) {
                 IMetadataConnection iMetadataCon = metaConnection;
                 if (iMetadataCon == null) {
                     iMetadataCon = ConvertionHelper.convert(dbConn);
@@ -390,7 +387,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             }
             ResultSet catalogNames = null;
             if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
-                catalogNames = ((SybaseDatabaseMetaData) dbJDBCMetadata).getCatalogs(((DatabaseConnection) dbConn).getUsername());
+                catalogNames = ((SybaseDatabaseMetaData) dbJDBCMetadata).getCatalogs(dbConn.getUsername());
             } else {
                 catalogNames = dbJDBCMetadata.getCatalogs();
             }
@@ -431,17 +428,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     // "null" for DB2.
                     if (catalogName != null) {
                         // MOD xqliu 2010-03-03 feature 11412
-                        if (!isNullSID(dbConn)
-                                && dbConn != null
-                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
-                                        EDatabaseTypeName.AS400.getDisplayName())
-                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
-                                        EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
-                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
-                                        EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
-                                && !((DatabaseConnection) dbConn).getDatabaseType().equals(
-                                        EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
-                            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+
+                        if (!isNullSID(dbConn) && dbConn != null
+                                && !dbConn.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())
+                                && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
+                                && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
+                                && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
+                            String databaseOnConnWizard = dbConn.getSID();
+
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList,
                                     TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
@@ -567,13 +561,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      * @param catalogList
      * @return
      */
-    private List<Catalog> fillPostgresqlCatalogs(IMetadataConnection metaConnection, Connection dbConn,
+    private List<Catalog> fillPostgresqlCatalogs(IMetadataConnection metaConnection, DatabaseConnection dbConn,
             DatabaseMetaData dbJDBCMetadata, List<Catalog> catalogList) {
-        DatabaseConnection databaseConnection = (DatabaseConnection) dbConn;
-        String catalogName = databaseConnection.getSID();
+        String catalogName = dbConn.getSID();
 
         if (StringUtils.isEmpty(catalogName)) {
-            catalogName = databaseConnection.getUsername();
+            catalogName = dbConn.getUsername();
         }
 
         if (StringUtils.isNotEmpty(catalogName)) {
@@ -720,7 +713,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         return filterList;
     }
 
-    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
+    public List<Schema> fillSchemaToCatalog(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
         ResultSet schemaRs = null;
         try {
@@ -779,7 +772,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                         if (dbConn != null && !isNullUiSchema(dbConn)) {
                             // this case we only create one schema which name is same as UiSchema
-                            Schema createByUiSchema = createSchemaByUiSchema((DatabaseConnection) dbConn);
+                            Schema createByUiSchema = createSchemaByUiSchema(dbConn);
                             schemaList.add(createByUiSchema);
                             break;
                         } else if (isCreateElement(schemaFilter, schemaName)) {

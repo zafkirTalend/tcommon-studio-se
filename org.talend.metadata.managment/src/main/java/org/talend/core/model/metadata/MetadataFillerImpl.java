@@ -45,7 +45,7 @@ import orgomg.cwm.resource.relational.ColumnSet;
 /**
  * DOC zshen class global comment. Detailled comment
  */
-public abstract class MetadataFillerImpl implements IMetadataFiller {
+public abstract class MetadataFillerImpl<T extends Connection> implements IMetadataFiller<T> {
 
     private static Logger log = Logger.getLogger(MetadataFillFactory.class);
 
@@ -58,7 +58,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
      * org.talend.core.model.metadata.IMetadataFiller#fillMetadataParams(org.talend.core.model.metadata.IMetadataConnection
      * , org.talend.core.model.metadata.builder.connection.Connection)
      */
-    protected void fillMetadataParams(IMetadataConnection metadataBean, Connection connection) {
+    protected void fillMetadataParams(IMetadataConnection metadataBean, T connection) {
         if (metadataBean == null || connection == null) {
             return;
         }
@@ -108,7 +108,7 @@ public abstract class MetadataFillerImpl implements IMetadataFiller {
      * org.talend.core.model.metadata.IMetadataFiller#fillUIConnParams(org.talend.core.model.metadata.IMetadataConnection
      * , org.talend.core.model.metadata.builder.connection.Connection)
      */
-    public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection) {
+    public T fillUIConnParams(IMetadataConnection metadataBean, T connection) {
         if (connection == null || metadataBean == null) {
             return null;
         }

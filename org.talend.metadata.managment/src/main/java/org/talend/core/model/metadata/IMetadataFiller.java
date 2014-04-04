@@ -32,7 +32,7 @@ import orgomg.cwm.resource.relational.Schema;
 /**
  * zshen class global comment. The class help for fill all kinds of metadata elements
  */
-public interface IMetadataFiller {
+public interface IMetadataFiller<T extends Connection> {
 
     /**
      * 
@@ -64,7 +64,7 @@ public interface IMetadataFiller {
      * @return connection which have be fill by the information store on the metadataBean.null when the information is
      * not right or the parameter of connection is null;
      */
-    public Connection fillUIConnParams(IMetadataConnection metadataBean, Connection connection);
+    public T fillUIConnParams(IMetadataConnection metadataBean, T connection);
 
     /**
      * 
@@ -77,9 +77,9 @@ public interface IMetadataFiller {
      * to the connection will be return.
      * @return The list of catalogs after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter);
+    public List<Catalog> fillCatalogs(T dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter);
 
-    public List<Catalog> fillCatalogs(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+    public List<Catalog> fillCatalogs(T dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> catalogFilter);
 
     /**
@@ -93,9 +93,9 @@ public interface IMetadataFiller {
      * connection will be return.
      * @return The list of schemas after filter.Will return null only if dbJDBCMetadata isn't normal.
      */
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter);
+    public List<Package> fillSchemas(T dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter);
 
-    public List<Package> fillSchemas(Connection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
+    public List<Package> fillSchemas(T dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> Filter);
 
     /**
@@ -220,6 +220,6 @@ public interface IMetadataFiller {
      * @throws Throwable
      * 
      */
-    public List<Schema> fillSchemaToCatalog(Connection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
-            List<String> schemaFilter) throws Throwable;
+    public List<Schema> fillSchemaToCatalog(T dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog, List<String> schemaFilter)
+            throws Throwable;
 }

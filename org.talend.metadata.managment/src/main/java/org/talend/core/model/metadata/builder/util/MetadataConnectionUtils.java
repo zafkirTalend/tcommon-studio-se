@@ -52,6 +52,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
+import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -1003,21 +1004,10 @@ public class MetadataConnectionUtils {
      * @return
      */
     public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metadataConnection) {
-        // fill database structure
-        // if (DatabaseConstant.XML_EXIST_DRIVER_NAME.equals(dbConn.getDriverClass())) { // xmldb(e.g eXist)
-        // IXMLDBConnection xmlDBConnection = new EXistXMLDBConnection(dbConn.getDriverClass(), dbConn.getURL());
-        // ConnectionHelper.addXMLDocuments(xmlDBConnection.createConnection(dbConn));
-        // } else {
+
         boolean noStructureExists = ConnectionHelper.getAllCatalogs(dbConn).isEmpty()
                 && ConnectionHelper.getAllSchemas(dbConn).isEmpty();
-        // MOD xqliu 2010-10-19 bug 16441: case insensitive
-        // if (ConnectionHelper.getAllSchemas(dbConn).isEmpty()
-        // && (ConnectionUtils.isMssql(dbConn) ||
-        // ConnectionUtils.isPostgresql(dbConn) || ConnectionUtils
-        // .isAs400(dbConn))) {
-        // noStructureExists = true;
-        // }
-        // ~ 16441
+
         java.sql.Connection sqlConn = null;
         // only for derby related driver
         try {
@@ -1029,7 +1019,8 @@ public class MetadataConnectionUtils {
                 if (metadataConnection == null) {
                     metaConnection = ConvertionHelper.convert(dbConn);
                 }
-                dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+                SupportDBUrlType currentDBUrlType = SupportDBUrlType.getDBTypeByKey(metaConnection.getDbType());
+                MetadataFillFactory.getDBInstance(currentDBUrlType).fillUIConnParams(metaConnection, dbConn);
                 sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
                 if (sqlConn != null) {
                     DatabaseMetaData databaseMetaData = null;
@@ -1041,9 +1032,9 @@ public class MetadataConnectionUtils {
                     }
 
                     if (sqlConn != null) {
-                        MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, databaseMetaData, metaConnection,
-                                MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                        MetadataFillFactory.getDBInstance().fillSchemas(dbConn, databaseMetaData, metaConnection,
+                        MetadataFillFactory.getDBInstance(currentDBUrlType).fillCatalogs(dbConn, databaseMetaData,
+                                metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
+                        MetadataFillFactory.getDBInstance(currentDBUrlType).fillSchemas(dbConn, databaseMetaData, metaConnection,
                                 MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                     }
                 }

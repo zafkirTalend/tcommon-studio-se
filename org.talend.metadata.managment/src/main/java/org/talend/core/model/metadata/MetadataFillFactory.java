@@ -20,6 +20,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.cwm.relational.TdColumn;
@@ -38,9 +39,9 @@ public class MetadataFillFactory {
 
     static Logger log = Logger.getLogger(MetadataFillFactory.class);
 
-    private static IMetadataFiller MDMmetadataFiller = null;
+    private static IMetadataFiller<MDMConnection> MDMmetadataFiller = null;
 
-    private static IMetadataFiller DBmetadataFiller = null;
+    private static IMetadataFiller<DatabaseConnection> DBmetadataFiller = null;
 
     private static IMetadataFiller metadataFiller = null;
 
