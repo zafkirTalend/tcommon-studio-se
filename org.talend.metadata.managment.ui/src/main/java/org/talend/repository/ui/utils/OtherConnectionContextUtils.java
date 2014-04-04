@@ -15,11 +15,14 @@ package org.talend.repository.ui.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -33,6 +36,7 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -477,73 +481,82 @@ public final class OtherConnectionContextUtils {
         return varList;
     }
 
-    static void setSalesforcePropertiesForContextMode(String prefixName, SalesforceSchemaConnection ssConn) {
+    static void setSalesforcePropertiesForContextMode(String prefixName, SalesforceSchemaConnection ssConn,
+            ContextItem contextItem, Set<IConnParamName> paramSet, Map<String, String> map) {
         if (ssConn == null || prefixName == null) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
-        String paramName = null;
 
-        if (ssConn.getLoginType().equalsIgnoreCase(BASIC)) {
-            paramName = prefixName + EParamName.WebServiceUrl;
-            ssConn.setWebServiceUrl(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.UserName;
-            ssConn.setUserName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.Password;
-            ssConn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.BatchSize;
-            ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.TimeOut;
-            ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.QueryCondition;
-            ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.SFProxyHost;
-            ssConn.setProxyHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.SFProxyPort;
-            ssConn.setProxyPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.SFProxyUsername;
-            ssConn.setProxyUsername(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.SFProxyPassword;
-            ssConn.setProxyPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-        } else {
-            paramName = prefixName + EParamName.WebServiceUrlForOauth;
-            ssConn.setWebServiceUrlTextForOAuth(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.ConsumerKey;
-            ssConn.setConsumeKey(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.ConsumerSecret;
-            ssConn.setConsumeSecret(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.CallbackHost;
-            ssConn.setCallbackHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.CallbackPort;
-            ssConn.setCallbackPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.SalesforceVersion;
-            ssConn.setSalesforceVersion(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.token;
-            ssConn.setToken(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.BatchSize;
-            ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.TimeOut;
-            ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-
-            paramName = prefixName + EParamName.QueryCondition;
-            ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+        String originalVariableName = null;
+        for (IConnParamName param : paramSet) {
+            if (param instanceof EParamName) {
+                EParamName saleforceParam = (EParamName) param;
+                originalVariableName = prefixName + saleforceParam;
+                if (map != null && map.size() > 0) {
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        if (originalVariableName.equals(entry.getValue())) {
+                            originalVariableName = entry.getKey();
+                            break;
+                        }
+                    }
+                }
+                originalVariableName = getCorrectVariableName(contextItem, originalVariableName, saleforceParam);
+                switch (saleforceParam) {
+                case WebServiceUrl:
+                    ssConn.setWebServiceUrl(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case UserName:
+                    ssConn.setUserName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case Password:
+                    ssConn.setPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case WebServiceUrlForOauth:
+                    ssConn.setWebServiceUrlTextForOAuth(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case ConsumerKey:
+                    ssConn.setConsumeKey(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case ConsumerSecret:
+                    ssConn.setConsumeSecret(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case CallbackHost:
+                    ssConn.setCallbackHost(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case CallbackPort:
+                    ssConn.setCallbackPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case SalesforceVersion:
+                    ssConn.setSalesforceVersion(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case token:
+                    ssConn.setToken(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case BatchSize:
+                    ssConn.setBatchSize(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case TimeOut:
+                    ssConn.setTimeOut(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case QueryCondition:
+                    ssConn.setQueryCondition(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case SFProxyHost:
+                    ssConn.setProxyHost(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case SFProxyPort:
+                    ssConn.setProxyPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case SFProxyUsername:
+                    ssConn.setProxyUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                case SFProxyPassword:
+                    ssConn.setProxyPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    break;
+                default:
+                }
+            }
         }
     }
 
@@ -996,5 +1009,18 @@ public final class OtherConnectionContextUtils {
         }
         return connection;
 
+    }
+
+    private static String getCorrectVariableName(ContextItem contextItem, String originalVariableName, EParamName dbParam) {
+        Set<String> contextVarNames = ContextUtils.getContextVarNames(contextItem);
+        // if not contains it ,will get originalVariableName from the context
+        if (contextVarNames != null && !contextVarNames.contains(originalVariableName)) {
+            for (String varName : contextVarNames) {
+                if (varName.endsWith(dbParam.name())) {
+                    return varName;
+                }
+            }
+        }
+        return originalVariableName;
     }
 }
