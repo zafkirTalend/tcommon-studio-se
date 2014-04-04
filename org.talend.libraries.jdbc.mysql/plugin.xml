@@ -6,7 +6,7 @@
               context="plugin:org.talend.libraries.jdbc.mysql"
               language="java"
               message="Needed for Mysql jdbc plugin"
-              name="mysql-connector-java-5.1.22-bin.jar"
+              name="mysql-connector-java-5.1.30-bin.jar"
               required="true">
         </libraryNeeded>
     </extension>
