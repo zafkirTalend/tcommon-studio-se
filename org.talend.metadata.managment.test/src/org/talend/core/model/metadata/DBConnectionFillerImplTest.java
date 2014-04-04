@@ -333,9 +333,9 @@ public class DBConnectionFillerImplTest {
         when(dbJDBCMetadata.getDatabaseProductName()).thenReturn("teradata"); //$NON-NLS-1$
         stub(method(ConnectionUtils.class, "isOdbcTeradata", DatabaseMetaData.class)).toReturn(true); //$NON-NLS-1$
         List<String> catalogFilter = new ArrayList<String>();
-        Connection connection = mock(Connection.class);
-        when(connection.isContextMode()).thenReturn(false);
-        List<Catalog> fillCatalogs = this.dBConnectionFillerImpl.fillCatalogs(connection, dbJDBCMetadata, catalogFilter);
+        DatabaseConnection dbConnection = mock(DatabaseConnection.class);
+        when(dbConnection.isContextMode()).thenReturn(false);
+        List<Catalog> fillCatalogs = this.dBConnectionFillerImpl.fillCatalogs(dbConnection, dbJDBCMetadata, catalogFilter);
         assertTrue(fillCatalogs.isEmpty());
 
     }
