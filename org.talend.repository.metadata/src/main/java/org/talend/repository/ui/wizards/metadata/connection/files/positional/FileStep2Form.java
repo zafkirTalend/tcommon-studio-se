@@ -29,7 +29,9 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -202,7 +204,19 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
      */
     private void addGroupFileSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
+        // change the layout from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
+
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
+        // for the layout of compositeFileDelimitor has been changed to FillLayout, layout data should be set to null
+        // from grid data
+        compositeFileDelimitor.setLayoutData(null);
 
         fieldSeparatorText = new LabelledText(compositeFileDelimitor, Messages.getString("FileStep2.fieldSeparator"), 3, true, //$NON-NLS-1$
                 SWT.RIGHT);
@@ -214,12 +228,25 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         rowSeparatorCombo = new LabelledCombo(compositeFileDelimitor, Messages.getString("FileStep2.rowSeparator"), Messages //$NON-NLS-1$
                 .getString("FileStep2.rowSeparatorTip"), rowSeparatorData, 1, true, SWT.READ_ONLY); //$NON-NLS-1$
         rowSeparatorText = new LabelledText(compositeFileDelimitor, "", 1, true, SWT.RIGHT); //$NON-NLS-1$
+        group.pack();
     }
 
     private void addGroupRowsToSkip(final Composite mainComposite, final int width, final int height) {
         // compositerowsToSkip Main Fields
         Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
+
         Composite compositeRowsToSkip = Form.startNewDimensionnedGridLayout(group, 3, width - 20, height);
+        // Since the layout of group has been changed to FillLayout, the layout data of compositeRowsToSkip should be
+        // changed
+        compositeRowsToSkip.setLayoutData(null);
 
         // Information rowsToSkip
         Label info = new Label(compositeRowsToSkip, SWT.NONE);
@@ -244,6 +271,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         gridData.horizontalSpan = 3;
         emptyRowsToSkipCheckbox.setLayoutData(gridData);
 
+        group.pack();
     }
 
     /**
@@ -257,7 +285,19 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     private void addGroupLimit(final Composite mainComposite, final int width, final int height) {
         // Composite Limited rows
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), height); //$NON-NLS-1$
+        // change the layout of group to FillLayout from GridLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
+
         Composite compositeLimit = Form.startNewDimensionnedGridLayout(group, 3, width, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data of compositeLimit
+        // must be changed too.
+        compositeLimit.setLayoutData(null);
 
         // Information Limit
         Label info = new Label(compositeLimit, SWT.NONE);
@@ -269,6 +309,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         // Limit
         rowsToSkipLimitCheckboxCombo = new LabelledCheckboxCombo(compositeLimit, Messages.getString("FileStep2.limit"), Messages //$NON-NLS-1$
                 .getString("FileStep2.limitTip"), STRING_NUMBERS_DATA, 1, true, SWT.NONE); //$NON-NLS-1$
+        group.pack();
     }
 
     /**
@@ -338,6 +379,9 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         addGroupRowsToSkip(mainComposite, 300, 110);
         addGroupLimit(mainComposite, 300, 85);
         addGroupFileViewer(this, 700, 200);
+
+        GridLayout mainCompositeLayout = (GridLayout) mainComposite.getLayout();
+        mainCompositeLayout.marginBottom = 5;
 
         // Bottom Button
 

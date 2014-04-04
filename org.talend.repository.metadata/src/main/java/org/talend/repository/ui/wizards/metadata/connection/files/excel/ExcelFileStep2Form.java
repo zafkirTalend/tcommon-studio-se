@@ -32,7 +32,9 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -242,7 +244,17 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
      */
     private void addGroupDelimitedFileSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data must be changed too
+        compositeFileDelimitor.setLayoutData(null);
 
         EMetadataEncoding[] values = EMetadataEncoding.values();
         String[] encodingData = new String[values.length];
@@ -270,22 +282,44 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         advanceSeparatorCheckbox.setVisible(!isPerlProject());
         thousandSeparaotrText.setVisible(!isPerlProject());
         decimalSeparatorText.setVisible(!isPerlProject());
+        group.pack();
     }
 
     private void addGroupDieOnErrorSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("ExcelFileStep2Form.metadataSetting")); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeExt = Form.startNewDimensionnedGridLayout(group, 4, width, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data must be changed too.
+        compositeExt.setLayoutData(null);
 
         firstColumnText = new LabelledText(compositeExt, Messages.getString("ExcelFileStep2Form.firstColumn"), 3); //$NON-NLS-1$
         firstColumnText.setText("1"); // Default 1 //$NON-NLS-1$
 
         lastColumnText = new LabelledText(compositeExt, Messages.getString("ExcelFileStep2Form.lastColumn"), 3); // Default no value //$NON-NLS-1$
+        group.pack();
     }
 
     private void addGroupRowsToSkip(final Composite mainComposite, final int width, final int height) {
         // compositerowsToSkip Main Fields
         Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeRowsToSkip = Form.startNewDimensionnedGridLayout(group, 3, width - 100, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data must be changed too.
+        compositeRowsToSkip.setLayoutData(null);
 
         // Information rowsToSkip
         Label info = new Label(compositeRowsToSkip, SWT.NONE);
@@ -302,6 +336,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         rowsToSkipFooterCheckboxCombo = new LabelledCheckboxCombo(compositeRowsToSkip, Messages.getString("FileStep2.footer"), //$NON-NLS-1$
                 Messages.getString("FileStep2.footerTip"), STRING_NUMBERS_DATA, 1, true, SWT.NONE); //$NON-NLS-1$      
 
+        group.pack();
     }
 
     /**
@@ -315,7 +350,17 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
     private void addGroupLimit(final Composite mainComposite, final int width, final int height) {
         // Composite Limited rows
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeLimit = Form.startNewDimensionnedGridLayout(group, 3, width, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data must be changed too.
+        compositeLimit.setLayoutData(null);
 
         // Information Limit
         Label info = new Label(compositeLimit, SWT.NONE);
@@ -327,6 +372,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         // Limit
         rowsToSkipLimitCheckboxCombo = new LabelledCheckboxCombo(compositeLimit, Messages.getString("FileStep2.limit"), Messages //$NON-NLS-1$
                 .getString("FileStep2.limitTip"), STRING_NUMBERS_DATA, 1, true, SWT.NONE); //$NON-NLS-1$
+        group.pack();
     }
 
     /**
@@ -341,6 +387,8 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         tabFolder = new CTabFolder(parent, SWT.BORDER);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridData tabFolderLayoutData = (GridData) tabFolder.getLayoutData();
+        tabFolderLayoutData.heightHint = height;
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
         previewTabItem.setText(Messages.getString("ExcelFileStep2Form.preview")); //$NON-NLS-1$
@@ -395,6 +443,8 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         addGroupRowsToSkip(mainComposite, 300, 120);
         addGroupDieOnErrorSettings(mainComposite, 280, 67);
         addGroupLimit(mainComposite, 300, 67);
+        GridLayout mainCompositeLayout = (GridLayout) mainComposite.getLayout();
+        mainCompositeLayout.marginBottom = 5;
 
         Composite mainComposite2 = Form.startNewGridLayout(this, 1);
 

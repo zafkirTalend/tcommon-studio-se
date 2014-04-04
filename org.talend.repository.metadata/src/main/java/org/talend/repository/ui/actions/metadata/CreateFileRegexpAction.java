@@ -105,7 +105,7 @@ public class CreateFileRegexpAction extends AbstractCreateAction {
                     PlatformUI.getWorkbench(), creation, repositoryNode, getExistingNames()));
         }
 
-        wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
+        wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT + 40);
         wizardDialog.create();
         wizardDialog.open();
 
