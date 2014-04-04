@@ -86,7 +86,7 @@ public class SSLUtils {
         return buffer.toString();
     }
 
-    private static SSLContext getSSLContext(String userDir) throws Exception {
+    public static SSLContext getSSLContext(String userDir) throws Exception {
         if (sslcontext == null) {
             String keystorePath = System.getProperty(TAC_SSL_CLIENT_KEY);
             String trustStorePath = System.getProperty(TAC_SSL_CLIENT_TRUST_KEY);
