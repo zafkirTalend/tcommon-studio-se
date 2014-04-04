@@ -21,6 +21,7 @@ Export-Package:
  org.talend.utils.security,
  org.talend.utils.sql,
  org.talend.utils.sql.metadata.constants,
+ org.talend.utils.ssl,
  org.talend.utils.string,
  org.talend.utils.sugars,
  org.talend.utils.thread,
