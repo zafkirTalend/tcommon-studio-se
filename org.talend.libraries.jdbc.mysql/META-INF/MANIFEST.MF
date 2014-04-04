@@ -4,7 +4,8 @@ Bundle-Name: Mysql Plug-in
 Bundle-SymbolicName: org.talend.libraries.jdbc.mysql
 Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: .Talend SA.
-Bundle-ClassPath: lib/mysql-connector-java-5.1.22-bin.jar,
+Bundle-ClassPath: lib/mysql-connector-java-5.1.30-bin.jar,
+ lib/mysql-connector-java-5.1.30-bin.jar,
  .
 Export-Package: com.mysql.jdbc,
  com.mysql.jdbc.configs,
