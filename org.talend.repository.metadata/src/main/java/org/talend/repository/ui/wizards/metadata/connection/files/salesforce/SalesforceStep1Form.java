@@ -12,42 +12,22 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.salesforce;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -69,6 +49,7 @@ import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
+import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
 
@@ -510,6 +491,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                     checkFieldsValue();
                     getConnection().setLoginType(authBtn.getItem(authBtn.getSelectionIndex()));
                     setCheckEnable();
+                    collectContextParams(true);
                 }
             }
         });
@@ -749,12 +731,45 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         if (visible) {
             initialize();
             adaptFormToEditable();
+            collectContextParams(visible);
         }
         if (!isContextMode()) {
             checkFieldsValue();
             setCheckEnable();
         }
 
+    }
+
+    private void collectContextParams(boolean visible) {
+        clearContextParams();
+        if (authBtn != null) {
+            if (authBtn.getText().equals("Basic")) {
+                addContextParams(EParamName.WebServiceUrl, visible);
+                addContextParams(EParamName.UserName, visible);
+                addContextParams(EParamName.Password, visible);
+                addContextParams(EParamName.QueryCondition, visible);
+                addContextParams(EParamName.SFProxyHost, visible);
+                addContextParams(EParamName.SFProxyPort, visible);
+                addContextParams(EParamName.SFProxyUsername, visible);
+                addContextParams(EParamName.SFProxyPassword, visible);
+            } else {
+                addContextParams(EParamName.WebServiceUrlForOauth, visible);
+                addContextParams(EParamName.ConsumerKey, visible);
+                addContextParams(EParamName.ConsumerSecret, visible);
+                addContextParams(EParamName.CallbackHost, visible);
+                addContextParams(EParamName.CallbackPort, visible);
+                addContextParams(EParamName.SalesforceVersion, visible);
+                addContextParams(EParamName.token, visible);
+
+                addContextParams(EParamName.QueryCondition, false);
+                addContextParams(EParamName.SFProxyHost, false);
+                addContextParams(EParamName.SFProxyPort, false);
+                addContextParams(EParamName.SFProxyUsername, false);
+                addContextParams(EParamName.SFProxyPassword, false);
+            }
+            addContextParams(EParamName.BatchSize, visible);
+            addContextParams(EParamName.TimeOut, visible);
+        }
     }
 
     /*
