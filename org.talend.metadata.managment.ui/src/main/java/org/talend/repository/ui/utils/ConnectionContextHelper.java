@@ -298,7 +298,8 @@ public final class ConnectionContextHelper {
         } else if (conn instanceof WSDLSchemaConnection) {
             OtherConnectionContextUtils.setWSDLSchemaPropertiesForContextMode(label, (WSDLSchemaConnection) conn);
         } else if (conn instanceof SalesforceSchemaConnection) {
-            OtherConnectionContextUtils.setSalesforcePropertiesForContextMode(label, (SalesforceSchemaConnection) conn);
+            OtherConnectionContextUtils.setSalesforcePropertiesForContextMode(label, (SalesforceSchemaConnection) conn,
+                    contextItem, paramSet, map);
         } else if (conn instanceof GenericSchemaConnection) {
             //
         }
