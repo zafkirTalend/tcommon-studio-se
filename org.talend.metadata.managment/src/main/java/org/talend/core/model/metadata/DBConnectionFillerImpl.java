@@ -978,6 +978,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     metadatatable.setComment(tableComment);
                     ColumnSetHelper.setComment(tableComment, metadatatable);
                 }
+                if (tables.getString("SYSTEM_TABLE_NAME") != null && tables.getString("SYSTEM_TABLE_SCHEMA") != null
+                        && tables.getString("TABLE_SCHEMA") != null) {
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLENAME,
+                            tables.getString("SYSTEM_TABLE_NAME").trim());
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLESCHEMA,
+                            tables.getString("SYSTEM_TABLE_SCHEMA").trim());
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.TABLESCHEMA,
+                            tables.getString("TABLE_SCHEMA").trim());
+                }
                 list.add(metadatatable);
             }
             if (dbJDBCMetadata.getDatabaseProductName() != null
