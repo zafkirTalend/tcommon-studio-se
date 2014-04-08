@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -83,17 +84,27 @@ public final class ElementParameterParser {
                 return ElementParameterParser.getValue(processNode, key);
             }
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 
     public static String getStringElementParameterValue(IElementParameter parameter) {
         return getDisplayValue(parameter);
     }
 
+    public static boolean canEncrypt(final IElement node, final String parameterName) {
+        String value = getValue(node, parameterName);
+        if (StringUtils.countMatches(value, "\"") == 2 && value.startsWith("\"") && value.endsWith("\"")) { //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static String getEncryptedValue(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
         try {
-            value = PasswordEncryptUtil.encryptPassword(value);
+            value = PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(value));
+            value = TalendQuoteUtils.addQuotes(value, TalendQuoteUtils.QUOTATION_MARK);
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
