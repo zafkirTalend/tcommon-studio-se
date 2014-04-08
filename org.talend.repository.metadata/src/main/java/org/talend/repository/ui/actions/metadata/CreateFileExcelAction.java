@@ -97,7 +97,7 @@ public class CreateFileExcelAction extends AbstractCreateAction {
                     creation, repositoryNode, getExistingNames()));
         }
 
-        wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
+        wizardDialog.setPageSize(WIZARD_WIDTH + 140, WIZARD_HEIGHT);
         wizardDialog.create();
         wizardDialog.open();
 

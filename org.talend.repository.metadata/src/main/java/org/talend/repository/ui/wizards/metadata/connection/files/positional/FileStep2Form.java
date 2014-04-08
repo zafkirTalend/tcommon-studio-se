@@ -29,7 +29,9 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -202,7 +204,18 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
      */
     private void addGroupFileSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
+        // change the layout from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
+        // for the layout of compositeFileDelimitor has been changed to FillLayout, layout data should be set to null
+        // from grid data
+        compositeFileDelimitor.setLayoutData(null);
 
         fieldSeparatorText = new LabelledText(compositeFileDelimitor, Messages.getString("FileStep2.fieldSeparator"), 3, true, //$NON-NLS-1$
                 SWT.RIGHT);
@@ -214,12 +227,24 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         rowSeparatorCombo = new LabelledCombo(compositeFileDelimitor, Messages.getString("FileStep2.rowSeparator"), Messages //$NON-NLS-1$
                 .getString("FileStep2.rowSeparatorTip"), rowSeparatorData, 1, true, SWT.READ_ONLY); //$NON-NLS-1$
         rowSeparatorText = new LabelledText(compositeFileDelimitor, "", 1, true, SWT.RIGHT); //$NON-NLS-1$
+        group.pack();
     }
 
     private void addGroupRowsToSkip(final Composite mainComposite, final int width, final int height) {
         // compositerowsToSkip Main Fields
         Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeRowsToSkip = Form.startNewDimensionnedGridLayout(group, 3, width - 20, height);
+        // Since the layout of group has been changed to FillLayout, the layout data of compositeRowsToSkip should be
+        // changed
+        compositeRowsToSkip.setLayoutData(null);
 
         // Information rowsToSkip
         Label info = new Label(compositeRowsToSkip, SWT.NONE);
@@ -244,6 +269,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         gridData.horizontalSpan = 3;
         emptyRowsToSkipCheckbox.setLayoutData(gridData);
 
+        group.pack();
     }
 
     /**
@@ -257,7 +283,18 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     private void addGroupLimit(final Composite mainComposite, final int width, final int height) {
         // Composite Limited rows
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), height); //$NON-NLS-1$
+        // change the layout of group to FillLayout from GridLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeLimit = Form.startNewDimensionnedGridLayout(group, 3, width, height);
+        // for the layout of group has been changed to FillLayout from GridLayout, the layout data of compositeLimit
+        // must be changed too.
+        compositeLimit.setLayoutData(null);
 
         // Information Limit
         Label info = new Label(compositeLimit, SWT.NONE);
@@ -269,6 +306,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         // Limit
         rowsToSkipLimitCheckboxCombo = new LabelledCheckboxCombo(compositeLimit, Messages.getString("FileStep2.limit"), Messages //$NON-NLS-1$
                 .getString("FileStep2.limitTip"), STRING_NUMBERS_DATA, 1, true, SWT.NONE); //$NON-NLS-1$
+        group.pack();
     }
 
     /**
@@ -338,6 +376,9 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         addGroupRowsToSkip(mainComposite, 300, 110);
         addGroupLimit(mainComposite, 300, 85);
         addGroupFileViewer(this, 700, 200);
+
+        GridLayout mainCompositeLayout = (GridLayout) mainComposite.getLayout();
+        mainCompositeLayout.marginBottom = 5;
 
         // Bottom Button
 
@@ -409,6 +450,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
 
         ProcessDescription processDescription = null;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -453,6 +495,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the XmlArray width an adapt ProcessDescription
             try {
@@ -463,12 +506,14 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -477,6 +522,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -495,6 +541,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
@@ -502,6 +549,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
             }
         }
 
+        @Override
         public void postProcessCancle() {
             previewButton.setEnabled(false);
         }
@@ -633,6 +681,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         // Event : Modify (to control the use of Ctrl V)
         rowsToSkipHeaderCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipHeaderCheckboxCombo.isEmpty()) {
@@ -664,6 +713,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
 
         rowsToSkipFooterCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipFooterCheckboxCombo.isEmpty()) {
@@ -689,6 +739,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
@@ -762,6 +813,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
 
         rowSeparatorCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     // Label Custom of rowSeparatorText
@@ -773,6 +825,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         // Separator Text (field and row)
         fieldSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     // get and clean the FieldSeparatorValue
@@ -823,6 +876,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         });
         rowSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setRowSeparatorValue(rowSeparatorText.getText());
@@ -1011,6 +1065,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
@@ -1036,6 +1091,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
         rowsToSkipFooterCheckboxCombo.getCheckbox().setEnabled(!isContextMode());
     }
 
+    @Override
     protected void collectConnParams() {
         super.collectConnParams();
         addContextParams(EFileParamName.RowSeparator, true);

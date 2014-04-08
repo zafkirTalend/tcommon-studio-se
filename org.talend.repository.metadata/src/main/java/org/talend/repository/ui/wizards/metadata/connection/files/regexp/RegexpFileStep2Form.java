@@ -26,7 +26,9 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -222,7 +224,17 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
      */
     private void addGroupRegexFileSettings(final Composite mainComposite, final int width, final int height) {
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
+        // for the change of the layout of group, the layout data must be changed too.
+        compositeFileDelimitor.setLayoutData(null);
 
         EMetadataEncoding[] values = EMetadataEncoding.values();
         String[] encodingData = new String[values.length];
@@ -239,12 +251,23 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         rowSeparatorCombo = new LabelledCombo(compositeFileDelimitor, Messages.getString("FileStep2.rowSeparator"), Messages //$NON-NLS-1$
                 .getString("FileStep2.rowSeparatorTip"), rowSeparatorData, 1, true, SWT.READ_ONLY); //$NON-NLS-1$
         rowSeparatorText = new LabelledText(compositeFileDelimitor, "", 1, true, SWT.RIGHT); //$NON-NLS-1$
+        group.pack();
     }
 
     private void addGroupRowsToSkip(final Composite mainComposite, final int width, final int height) {
         // compositerowsToSkip Main Fields
         Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeRowsToSkip = Form.startNewDimensionnedGridLayout(group, 3, width - 100, height);
+        // for the change of the layout of group, the layout data must changed too
+        compositeRowsToSkip.setLayoutData(null);
 
         // Information rowsToSkip
         Label info = new Label(compositeRowsToSkip, SWT.NONE);
@@ -269,6 +292,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         gridData.horizontalSpan = 3;
         emptyRowsToSkipCheckbox.setLayoutData(gridData);
 
+        group.pack();
     }
 
     /**
@@ -283,7 +307,17 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         // Composite Regex
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("RegexpStep2.groupRegexSettings"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeRegex = Form.startNewDimensionnedGridLayout(group, 1, width, height);
+        // for the change of the layout of group , the layout data must be changed too.
+        compositeRegex.setLayoutData(null);
 
         fieldSeparatorText = new Text(compositeRegex, SWT.MULTI | SWT.LEFT | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL); // |
         // SWT.WRAP
@@ -302,6 +336,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         FieldSeparator seperator = FieldSeparator.getByName(fieldSeparatorType.getText());
         getConnection().setFieldSeparatorType(seperator);
 
+        group.pack();
     }
 
     /**
@@ -315,18 +350,29 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
     private void addGroupLimit(final Composite mainComposite, final int width, final int height) {
         // Composite Limited rows
         Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), height); //$NON-NLS-1$
+        // change the layout of group from GridLayout to FillLayout
+        group.setLayout(new FillLayout());
+        GridData groupLayoutData = (GridData) group.getLayoutData();
+        groupLayoutData.heightHint = -1;
+        groupLayoutData.minimumHeight = -1;
+        groupLayoutData.minimumWidth = -1;
+        groupLayoutData.widthHint = -1;
+        groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeLimit = Form.startNewDimensionnedGridLayout(group, 3, width, height);
+        // for the change of the layout of group, the layout data must be changed too.
+        compositeLimit.setLayoutData(null);
 
         // Information Limit
         Label info = new Label(compositeLimit, SWT.NONE);
         GridData gridData = new GridData();
-        gridData.horizontalSpan = 2;
+        gridData.horizontalSpan = 3;
         info.setLayoutData(gridData);
         info.setText(Messages.getString("FileStep2.groupLimitOfRowsTip")); //$NON-NLS-1$
 
         // Limit
         rowsToSkipLimitCheckboxCombo = new LabelledCheckboxCombo(compositeLimit, Messages.getString("FileStep2.limit"), Messages //$NON-NLS-1$
                 .getString("FileStep2.limitTip"), STRING_NUMBERS_DATA, 1, true, SWT.NONE); //$NON-NLS-1$
+        group.pack();
     }
 
     /**
@@ -341,6 +387,8 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         tabFolder = new CTabFolder(parent, SWT.BORDER);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridData tabFolderLayoutData = (GridData) tabFolder.getLayoutData();
+        tabFolderLayoutData.heightHint = height;
 
         previewTabItem = new CTabItem(tabFolder, SWT.BORDER);
         previewTabItem.setText(Messages.getString("RegexpFileStep2Form.preview")); //$NON-NLS-1$
@@ -396,7 +444,9 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         addGroupRowsToSkip(mainComposite, 300, 110);
         addGroupRegex(mainComposite, 400, 85);
         addGroupLimit(mainComposite, 300, 85);
-        addGroupFileViewer(this, 700, 210);
+        addGroupFileViewer(this, 700, 160);
+        GridLayout mainCompositeLayout = (GridLayout) mainComposite.getLayout();
+        mainCompositeLayout.marginBottom = 5;
 
         if (!isInWizard()) {
             // Bottom Button
@@ -467,6 +517,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         ProcessDescription processDescription = null;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -512,6 +563,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the XmlArray width an adapt ProcessDescription
             try {
@@ -522,12 +574,14 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -536,6 +590,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -555,6 +610,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
@@ -562,6 +618,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             }
         }
 
+        @Override
         public void postProcessCancle() {
             previewButton.setEnabled(false);
         }
@@ -698,6 +755,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Event : Modify (to control the use of Ctrl V)
         rowsToSkipHeaderCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipHeaderCheckboxCombo.isEmpty()) {
@@ -728,6 +786,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowsToSkipFooterCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipFooterCheckboxCombo.isEmpty()) {
@@ -752,6 +811,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
@@ -824,6 +884,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Event encodingCombo
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setEncoding(encodingCombo.getText());
@@ -834,6 +895,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowSeparatorCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     // Label Custom of rowSeparatorText
@@ -845,6 +907,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Separator Text (field and row)
         fieldSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setFieldSeparatorValue(fieldSeparatorText.getText());
@@ -875,6 +938,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setRowSeparatorValue(rowSeparatorText.getText());
@@ -1069,6 +1133,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
@@ -1096,6 +1161,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         rowsToSkipFooterCheckboxCombo.getCheckbox().setEnabled(!isContextMode());
     }
 
+    @Override
     protected void collectConnParams() {
         super.collectConnParams();
         addContextParams(EFileParamName.RowSeparator, true);
