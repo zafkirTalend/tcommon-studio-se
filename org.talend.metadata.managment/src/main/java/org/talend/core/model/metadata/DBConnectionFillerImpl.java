@@ -82,7 +82,10 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
+
+import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
@@ -963,6 +966,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 if (tableComment != null) {
                     metadatatable.setComment(tableComment);
                     ColumnSetHelper.setComment(tableComment, metadatatable);
+                }
+                if (tables.getString("SYSTEM_TABLE_NAME") != null && tables.getString("SYSTEM_TABLE_SCHEMA") != null
+                        && tables.getString("TABLE_SCHEMA") != null) {
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLENAME,
+                            tables.getString("SYSTEM_TABLE_NAME").trim());
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLESCHEMA,
+                            tables.getString("SYSTEM_TABLE_SCHEMA").trim());
+                    TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.TABLESCHEMA,
+                            tables.getString("TABLE_SCHEMA").trim());
                 }
                 list.add(metadatatable);
             }

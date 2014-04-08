@@ -403,6 +403,10 @@ public final class ConvertionHelper {
         for (Entry<String, String> entry : oldProperties) {
             newProperties.put(entry.getKey(), entry.getValue());
         }
+        for (TaggedValue tv : old.getTaggedValue()) {
+            String additionalTag = tv.getTag();
+            result.getAdditionalProperties().put(additionalTag, tv.getValue());
+        }
 
         return result;
     }

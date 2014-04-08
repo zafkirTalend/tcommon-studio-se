@@ -112,7 +112,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:exa:<host>:<port>;schema=<sid>", "8563")), //$NON-NLS-1$ //$NON-NLS-2$
 
     AS400(new DbConnStr(EDatabaseTypeName.AS400, //
-            "jdbc:as400://<host>/<sid>;libraries=<sid>;<property>", //$NON-NLS-1$
+            "jdbc:as400://<host>/<sid>;<property>", //$NON-NLS-1$
             null, //
             "prompt=false")), //$NON-NLS-1$
 

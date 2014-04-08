@@ -1476,6 +1476,7 @@ public class SelectorTableForm extends AbstractForm {
                         }
                         dbtable.setComment(comment);
                         TableHelper.setComment(comment, dbtable);
+                        dbtable.getTaggedValue().addAll(table.getTaggedValue());
                         dbtable.setTableType(type);
                         String lableName = MetadataToolHelper.validateTableName(table.getName());
                         dbtable.setLabel(lableName);
