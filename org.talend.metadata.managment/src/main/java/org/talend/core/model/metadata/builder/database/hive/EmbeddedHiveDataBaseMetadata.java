@@ -272,7 +272,8 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                     setIntVarMethod.invoke(hiveConf, confVar, timeout);
                 }
             }
-            Object tables = ReflectionUtils.invokeMethod(hiveObject, "getAllTables", new Object[] { hiveCat }); //$NON-NLS-1$
+            Object tables = ReflectionUtils.invokeMethod(hiveObject,
+                    "getTablesByPattern", new Object[] { hiveCat, tableNamePattern }); //$NON-NLS-1$
             if (tables instanceof List) {
                 List<String> tableList = (List<String>) tables;
                 for (String tableName : tableList) {
