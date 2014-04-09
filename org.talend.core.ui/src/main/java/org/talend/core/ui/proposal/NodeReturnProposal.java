@@ -76,8 +76,10 @@ public class NodeReturnProposal implements IContentProposal {
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
+        // Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getName(), node.getLabel(),
+        // nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getContent() };
         Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getName(), node.getLabel(),
-                nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getContent() };
+                nodeReturn.getDisplayType(), nodeReturn.getAvailability(), nodeReturn.getName() };
         return format.format(args);
     }
 
