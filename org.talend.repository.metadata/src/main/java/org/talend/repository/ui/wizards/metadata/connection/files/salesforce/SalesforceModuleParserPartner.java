@@ -337,7 +337,7 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
             talendType = "Integer"; //$NON-NLS-1$
         } else if (type.equals("date") || type.equals("datetime")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Date"; //$NON-NLS-1$
-        } else if (type.equals("double") || type.equals("currency")) { //$NON-NLS-1$ //$NON-NLS-2$
+        } else if (type.equals("double") || type.equals("currency") || type.equals("percent")) { //$NON-NLS-1$ //$NON-NLS-2$
             talendType = "Double"; //$NON-NLS-1$
         } else {
             talendType = "String"; //$NON-NLS-1$
