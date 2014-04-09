@@ -794,8 +794,8 @@ public class ProcessorUtilities {
                             processItem = ItemCacheManager.getProcessItem(jobId, version);
 
                             if (processItem == null) {
-                                throw new ProcessorException("tRunJob not setup or child job not found in the job:"
-                                        + currentProcess.getName());
+                                throw new ProcessorException(node.getUniqueName()
+                                        + " not setup or child job not found in the job:" + currentProcess.getName());
                             }
 
                             subJobInfo.setJobVersion(processItem.getProperty().getVersion());
