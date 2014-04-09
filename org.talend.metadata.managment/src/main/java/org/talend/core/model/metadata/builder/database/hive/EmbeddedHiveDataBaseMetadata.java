@@ -220,7 +220,6 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
         if (hiveObject == null) {
             throw new SQLException("Unable to instantiate org.apache.hadoop.hive.ql.metadata.Hive."); //$NON-NLS-1$
         }
-
         String hiveCat = catalog;
         if (StringUtils.isBlank(hiveCat)) {
             hiveCat = HIVE_SCHEMA_DEFAULT;
@@ -272,8 +271,12 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                     setIntVarMethod.invoke(hiveConf, confVar, timeout);
                 }
             }
+            String tempTableNamepattern = tableNamePattern;
+            if (StringUtils.isEmpty(tempTableNamepattern)) {
+                tempTableNamepattern = "*"; //$NON-NLS-1$
+            }
             Object tables = ReflectionUtils.invokeMethod(hiveObject,
-                    "getTablesByPattern", new Object[] { hiveCat, tableNamePattern }); //$NON-NLS-1$
+                    "getTablesByPattern", new Object[] { hiveCat, tempTableNamepattern }); //$NON-NLS-1$
             if (tables instanceof List) {
                 List<String> tableList = (List<String>) tables;
                 for (String tableName : tableList) {
