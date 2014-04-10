@@ -84,6 +84,8 @@ public class FilesUtils {
 
     private static final String MIGRATION_FILE_EXT = ".mig"; //$NON-NLS-1$
 
+    private static final String ANY_FILE_EXT = ".*"; //$NON-NLS-1$
+
     public static boolean isSVNFolder(String name) {
         if (name != null) {
             name = name.toLowerCase();
@@ -452,7 +454,7 @@ public class FilesUtils {
                 consideredExt = true;
             } else {
                 for (String ext : extensions) {
-                    if (file.getName().endsWith(ext)) {
+                    if (file.getName().endsWith(ext) || ext.endsWith("*")) {
                         consideredExt = true;
                         break;
                     }
@@ -482,7 +484,7 @@ public class FilesUtils {
     }
 
     public static List<File> getJarFilesFromFolder(File file, String fileName) throws MalformedURLException {
-        return getFilesFromFolderByName(file, fileName, new String[] { ".jar", ".zip", ".bar" }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
@@ -506,7 +508,7 @@ public class FilesUtils {
 
             @Override
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                return pathname.isFile();
             }
 
         };
@@ -518,7 +520,7 @@ public class FilesUtils {
 
             @Override
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".bar") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                return pathname.isFile();
             }
 
         };
@@ -526,7 +528,7 @@ public class FilesUtils {
     }
 
     public static String[] getAcceptJARFilesSuffix() {
-        return new String[] { "*.jar;*.properties;*.zip;*.dll;*.so;*.bar" };//$NON-NLS-1$
+        return new String[] { "*.*" };
     }
 
     public static FileFilter getAcceptPMFilesFilter() {
