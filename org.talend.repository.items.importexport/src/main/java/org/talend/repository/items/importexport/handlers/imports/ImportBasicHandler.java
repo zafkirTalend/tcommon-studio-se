@@ -639,7 +639,31 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         if (!selectedItemRecord.isValid()) {
             return;
         }
+        doImportItem(monitor, resManager, selectedItemRecord, overwrite, destinationPath, overwriteDeletedItems,
+                idDeletedBeforeImport);
 
+        // unload the imported resources
+        EList<Resource> resources = selectedItemRecord.getResourceSet().getResources();
+        Iterator<Resource> iterator = resources.iterator();
+        while (iterator.hasNext()) {
+            Resource res = iterator.next();
+            // Due to the system of lazy loading for db repository of ByteArray,
+            // it can't be unloaded just after create the item.
+            if (res != null && !(res instanceof ByteArrayResource)) {
+                res.unload();
+                iterator.remove();
+            }
+        }
+        String label = selectedItemRecord.getLabel();
+        TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
+
+        applyMigrationTasks(selectedItemRecord, monitor);
+        TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
+
+    }
+
+    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
+            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
             final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
@@ -768,24 +792,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
         }
-        // unload the imported resources
-        EList<Resource> resources = selectedItemRecord.getResourceSet().getResources();
-        Iterator<Resource> iterator = resources.iterator();
-        while (iterator.hasNext()) {
-            Resource res = iterator.next();
-            // Due to the system of lazy loading for db repository of ByteArray,
-            // it can't be unloaded just after create the item.
-            if (res != null && !(res instanceof ByteArrayResource)) {
-                res.unload();
-                iterator.remove();
-            }
-        }
-        String label = selectedItemRecord.getLabel();
-        TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
-
-        applyMigrationTasks(selectedItemRecord, monitor);
-        TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
-
     }
 
     /**
@@ -1068,7 +1074,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param itemRecord
      * @param monitor
      */
-    private void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
+    protected void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);

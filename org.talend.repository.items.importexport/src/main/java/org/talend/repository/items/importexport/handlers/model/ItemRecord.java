@@ -72,6 +72,11 @@ public class ItemRecord {
     private boolean removeProjectStatslog;
 
     /**
+     * add for tdm
+     */
+    private String itemPath;
+
+    /**
      * Work for some items which are denpended by others, but won't display in the import dialog, will be imported
      * implictly.
      */
@@ -313,6 +318,14 @@ public class ItemRecord {
 
     public void setImportHandler(IImportItemsHandler handler) {
         this.importHandler = handler;
+    }
+
+    public void setItemPath(String itemPath) {
+        this.itemPath = itemPath;
+    }
+
+    public String getItemPath() {
+        return this.itemPath;
     }
 
 }
