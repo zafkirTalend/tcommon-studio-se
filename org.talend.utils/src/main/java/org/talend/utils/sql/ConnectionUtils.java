@@ -284,10 +284,17 @@ public final class ConnectionUtils {
                         executeShutDownForHSQL(connection);
                     }
                 }
-                connection.close();
             }
         } catch (SQLException e) {
             rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false); //$NON-NLS-1$
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                log.warn(e, e);
+            }
         }
         return rc;
     }
