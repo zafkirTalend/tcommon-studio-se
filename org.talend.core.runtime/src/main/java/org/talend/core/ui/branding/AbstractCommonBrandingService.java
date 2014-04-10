@@ -14,6 +14,7 @@ package org.talend.core.ui.branding;
 
 import java.net.URL;
 
+import org.talend.core.runtime.i18n.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -43,5 +44,12 @@ public abstract class AbstractCommonBrandingService implements IBrandingService 
         } else if (StartingConstants.OPTION_NAME.equals(id)) {
             parent.appendChild(dom.createTextNode(getOptionName()));
         }
+    }
+
+    @Override
+    public String getRoutineLicenseHeader(String version) {
+        String contents = Messages.getString("AbstractBrandingService.routines_license_header_content1", //$NON-NLS-1$
+                this.getFullProductName(), version);
+        return contents;
     }
 }

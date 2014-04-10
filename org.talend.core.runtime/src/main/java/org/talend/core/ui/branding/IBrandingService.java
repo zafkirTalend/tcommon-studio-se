@@ -56,4 +56,6 @@ public interface IBrandingService extends IService {
     public void createStartingContent(String id, Element parent);
 
     public String getUserManuals();
+
+    public String getRoutineLicenseHeader(String version);
 }

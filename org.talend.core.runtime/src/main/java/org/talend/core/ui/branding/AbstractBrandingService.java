@@ -26,11 +26,11 @@ public abstract class AbstractBrandingService extends AbstractCommonBrandingServ
         return contents;
     }
 
-    public String getRoutineLicenseHeader(String version) {
-        String contents = Messages.getString("AbstractBrandingService.routines_license_header_content1", //$NON-NLS-1$
-                this.getFullProductName(), version);
-        return contents;
-    }
+    // public String getRoutineLicenseHeader(String version) {
+    //        String contents = Messages.getString("AbstractBrandingService.routines_license_header_content1", //$NON-NLS-1$
+    // this.getFullProductName(), version);
+    // return contents;
+    // }
 
     @Override
     public boolean isPoweredbyTalend() {
