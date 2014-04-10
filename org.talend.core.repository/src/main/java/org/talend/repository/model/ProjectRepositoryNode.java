@@ -36,6 +36,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
+import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -1344,20 +1345,20 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 String typeTable = null;
                 if (metadataTable != null && metadataTable.getTableType() != null) {
                     typeTable = metadataTable.getTableType();
-                    if (typeTable.equals("TABLE")) { //$NON-NLS-1$
+                    if (typeTable.equals(MetadataManager.TYPE_TABLE)) {
                         createTable(recBinNode, tablesNode, repObj, metadataTable, ERepositoryObjectType.METADATA_CON_TABLE,
                                 validationRules);
 
-                    } else if (typeTable.equals("VIEW")) { //$NON-NLS-1$
+                    } else if (typeTable.equals(MetadataManager.TYPE_VIEW)) {
                         createTable(recBinNode, viewsNode, repObj, metadataTable, ERepositoryObjectType.METADATA_CON_TABLE,
                                 validationRules);
 
-                    } else if (typeTable.equals("SYNONYM")) { //$NON-NLS-1$
+                    } else if (typeTable.equals(MetadataManager.TYPE_SYNONYM)) {
                         createTable(recBinNode, synonymsNode, repObj, metadataTable, ERepositoryObjectType.METADATA_CON_TABLE,
                                 validationRules);
                     }
                     // bug 0017782 ,db2's SYNONYM need to convert to ALIAS;
-                    else if (typeTable.equals("ALIAS")) { //$NON-NLS-1$
+                    else if (typeTable.equals(MetadataManager.TYPE_ALIAS)) {
                         createTable(recBinNode, synonymsNode, repObj, metadataTable, ERepositoryObjectType.METADATA_CON_TABLE,
                                 validationRules);
                     }

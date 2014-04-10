@@ -35,6 +35,14 @@ import orgomg.cwm.resource.record.RecordFile;
  */
 public class MetadataManager {
 
+    public static final String TYPE_TABLE = "TABLE"; //$NON-NLS-1$
+
+    public static final String TYPE_VIEW = "VIEW"; //$NON-NLS-1$
+
+    public static final String TYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
+
+    public static final String TYPE_ALIAS = "ALIAS"; //$NON-NLS-1$
+
     public static void addContents(ConnectionItem item, Resource itemResource) {
         List recordfiles = new ArrayList();
         List generics = new ArrayList();
@@ -126,7 +134,7 @@ public class MetadataManager {
                     // add for TDI-22857
                     item.getConnection().setName(item.getProperty().getDisplayName());
                     if (rf != null) {
-                        rf.setName("default");
+                        rf.setName("default"); //$NON-NLS-1$
                     }
                     returnlist.add(rf);
                 }
