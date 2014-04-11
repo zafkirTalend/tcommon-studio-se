@@ -640,6 +640,26 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             return;
         }
 
+        doImportItem(monitor, resManager, selectedItemRecord, overwrite, destinationPath, overwriteDeletedItems,
+                idDeletedBeforeImport);
+
+        String label = selectedItemRecord.getLabel();
+        for (Resource resource : selectedItemRecord.getResourceSet().getResources()) {
+            // Due to the system of lazy loading for db repository of ByteArray,
+            // it can't be unloaded just after create the item.
+            if (!(resource instanceof ByteArrayResource)) {
+                resource.unload();
+            }
+        }
+        TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
+
+        applyMigrationTasks(selectedItemRecord, monitor);
+        TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
+
+    }
+
+    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
+            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
             final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
@@ -768,19 +788,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
         }
-        String label = selectedItemRecord.getLabel();
-        for (Resource resource : selectedItemRecord.getResourceSet().getResources()) {
-            // Due to the system of lazy loading for db repository of ByteArray,
-            // it can't be unloaded just after create the item.
-            if (!(resource instanceof ByteArrayResource)) {
-                resource.unload();
-            }
-        }
-        TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
-
-        applyMigrationTasks(selectedItemRecord, monitor);
-        TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
-
     }
 
     /**
@@ -1063,7 +1070,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param itemRecord
      * @param monitor
      */
-    private void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
+    protected void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
