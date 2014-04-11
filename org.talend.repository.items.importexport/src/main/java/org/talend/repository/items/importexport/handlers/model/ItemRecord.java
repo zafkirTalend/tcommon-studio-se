@@ -118,6 +118,10 @@ public class ItemRecord {
         return itemName;
     }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     public IPath getPath() {
         return path;
     }

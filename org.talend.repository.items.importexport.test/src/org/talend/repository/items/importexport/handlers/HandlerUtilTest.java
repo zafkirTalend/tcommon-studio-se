@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,8 +29,6 @@ import org.junit.Test;
 import org.talend.core.model.properties.Item;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
-
-import static org.mockito.Mockito.*;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -92,5 +93,16 @@ public class HandlerUtilTest {
 
         Assert.assertEquals(projPath, HandlerUtil.getValidProjectFilePath(resManager, itemPath));
         Assert.assertEquals(projPath, HandlerUtil.getValidProjectFilePath(resManager, propPath));
+    }
+
+    @Test
+    public void testGetValidItemRelativePath() {
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        IPath itemRelativePath = new Path("process/test_0.1.item");
+        pathes.add(projPath);
+        when(resManager.getPaths()).thenReturn(pathes);
+        Assert.assertEquals(itemRelativePath, HandlerUtil.getValidItemRelativePath(resManager, itemPath));
     }
 }

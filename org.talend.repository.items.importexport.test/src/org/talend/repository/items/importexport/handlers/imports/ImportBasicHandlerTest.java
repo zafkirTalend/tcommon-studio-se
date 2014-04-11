@@ -12,28 +12,55 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.emf.CwmResource;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.general.Project;
+import org.talend.core.model.general.TalendNature;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
+import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
-
-import static org.mockito.Mockito.*;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -46,6 +73,82 @@ public class ImportBasicHandlerTest {
     private IPath processPropPath1, processItemPath1, processItemPath2, processItemPath3, connPropPath, connItemPath;
 
     private Set<IPath> initPathes;
+
+    Project originalProject;
+
+    Project sampleProject;
+
+    @Before
+    public void beforeTest() throws PersistenceException, CoreException {
+        createTempProject();
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        originalProject = repositoryContext.getProject();
+        repositoryContext.setProject(sampleProject);
+    }
+
+    @After
+    public void afterTest() throws Exception {
+        removeTempProject();
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        repositoryContext.setProject(originalProject);
+        originalProject = null;
+        sampleProject = null;
+    }
+
+    private void createTempProject() throws CoreException, PersistenceException {
+        Project projectInfor = new Project();
+        projectInfor.setLabel("testauto");
+        projectInfor.setDescription("no desc");
+        projectInfor.setLanguage(ECodeLanguage.JAVA);
+        User user = PropertiesFactory.eINSTANCE.createUser();
+        user.setLogin("testauto@talend.com");
+        projectInfor.setAuthor(user);
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+
+        String technicalLabel = Project.createTechnicalName(projectInfor.getLabel());
+        IProject prj = root.getProject(technicalLabel);
+
+        final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
+        try {
+            IProjectDescription desc = null;
+            if (prj.exists()) {
+                prj.delete(true, null); // always delete to avoid conflicts between 2 tests
+            }
+            desc = workspace.newProjectDescription(technicalLabel);
+            desc.setNatureIds(new String[] { TalendNature.ID });
+            desc.setComment(projectInfor.getDescription());
+
+            prj.create(desc, null);
+            prj.open(IResource.DEPTH_INFINITE, null);
+            prj.setDefaultCharset("UTF-8", null);
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
+        }
+
+        sampleProject = new Project();
+        // Fill project object
+        sampleProject.setLabel(projectInfor.getLabel());
+        sampleProject.setDescription(projectInfor.getDescription());
+        sampleProject.setLanguage(projectInfor.getLanguage());
+        sampleProject.setAuthor(projectInfor.getAuthor());
+        sampleProject.setLocal(true);
+        sampleProject.setTechnicalLabel(technicalLabel);
+        XmiResourceManager xmiResourceManager = new XmiResourceManager();
+        Resource projectResource = xmiResourceManager.createProjectResource(prj);
+        projectResource.getContents().add(sampleProject.getEmfProject());
+        projectResource.getContents().add(sampleProject.getAuthor());
+        xmiResourceManager.saveResource(projectResource);
+    }
+
+    private void removeTempProject() throws PersistenceException, CoreException {
+        // clear the folder, same as it should be in a real logoffProject.
+        ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
+        final IProject project = ResourceModelUtils.getProject(sampleProject);
+        project.delete(true, null);
+    }
 
     @Before
     public void initialize() {
@@ -310,6 +413,23 @@ public class ImportBasicHandlerTest {
     // }
 
     @Test
+    public void testCreateResource() throws Exception {
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        // create process item resource
+        ItemRecord processItemRecord = new ItemRecord(processItemPath1);
+        Resource processItemResource = basicHandler.createResource(processItemRecord, processItemPath1, false);
+        Assert.assertTrue(processItemResource != null);
+        Assert.assertTrue(processItemResource.getURI().fileExtension().equals("item"));
+
+        // create property resource
+        ItemRecord propertyRecord = new ItemRecord(processPropPath1);
+        Resource propertyResource = basicHandler.createResource(propertyRecord, processPropPath1, false);
+        Assert.assertTrue(propertyResource != null);
+        Assert.assertTrue(propertyResource.getURI().fileExtension().equals("properties"));
+    }
+
+    @Test
     public void testCreateItemResource() {
         URI uri = URI.createURI(processPropPath1.toPortableString());
         ImportBasicHandler basicHandler = new ImportBasicHandler();
@@ -317,6 +437,177 @@ public class ImportBasicHandlerTest {
 
         Assert.assertNotNull(resource);
         Assert.assertEquals(CwmResource.class, resource.getClass());
+    }
 
+    @Test
+    public void testLoadItemResource() throws Exception {
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        itemRecord.setItemName(processPropPath1.lastSegment());
+        // Property
+        Property property = mock(Property.class);
+        itemRecord.setProperty(property);
+        // Resources
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        pathes.add(projPath);
+        pathes.add(processPropPath1);
+        pathes.add(processItemPath1);
+        when(resManager.getPaths()).thenReturn(pathes);
+        // call
+        Resource resource = basicHandler.loadResource(resManager, itemRecord);
+        //
+        Assert.assertNull(resource);
+        //
+    }
+
+    @Test
+    public void testCheckItem() throws Exception {
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        itemRecord.setItemName(processPropPath1.lastSegment());
+        // Property
+        Property property = mock(Property.class);
+        itemRecord.setProperty(property);
+        // Process Item
+        ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
+        when(property.getItem()).thenReturn(item);
+        // Resources
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        pathes.add(projPath);
+        pathes.add(processPropPath1);
+        pathes.add(processItemPath1);
+        // Case 1 : item no state
+        Assert.assertFalse(basicHandler.checkItem(resManager, itemRecord, false));
+        Assert.assertFalse(itemRecord.getErrors().isEmpty());
+        // Case 2 : init item state
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        item.setState(itemState);
+        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, false));
+        // Case 3 : item not been locked , then overwrite
+        itemRecord.setState(State.NAME_AND_ID_EXISTED);
+        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, true));
+        // Case 4 : item been locked , can not overwrite
+        // when(ImportCacheHelper.getInstance().getRepObjectcache().getItemLockState(itemRecord)).thenReturn(true);
+        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, true));
+        Assert.assertTrue(itemRecord.getErrors().size() == 1);
+        // ...
+    }
+
+    @Test
+    public void testComputeItemRecord() throws Exception {
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        itemRecord.setItemName(processPropPath1.lastSegment());
+        // Property
+        Property property = mock(Property.class);
+        itemRecord.setProperty(property);
+        // Resources
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        pathes.add(projPath);
+        pathes.add(processPropPath1);
+        pathes.add(processItemPath1);
+        when(resManager.getPaths()).thenReturn(pathes);
+        // call
+        basicHandler.computeItemRecord(resManager, processPropPath1);
+        // Load Resource failed
+        Assert.assertNull(basicHandler.loadResource(resManager, itemRecord));
+        Assert.assertTrue(ImportExportHandlersManager.getInstance().getImportErrors().size() == 1);
+        // ...
+    }
+
+    @Test
+    public void testResolveItem4ValidItem() throws Exception {
+        // 1) a.properties / a.item / href all normal
+        // => normal item, can be import
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        itemRecord.setItemName(processPropPath1.lastSegment());
+        // Property
+        Property property = mock(Property.class);
+        itemRecord.setProperty(property);
+
+        // Process Item
+        ProcessItem processItem = createTempProcessItem();
+        when(property.getItem()).thenReturn(processItem);
+        // Resources
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        pathes.add(projPath);
+        pathes.add(processPropPath1);
+        pathes.add(processItemPath1);
+        when(resManager.getPaths()).thenReturn(pathes);
+        // call
+        when(resManager.getStream(processItemPath1)).thenReturn(new InputStream() {
+
+            @Override
+            public int read() throws IOException {
+                return 1;
+            }
+        });
+        basicHandler.resolveItem(resManager, itemRecord);
+
+        // only check this
+        Assert.assertTrue(itemRecord.getErrors().isEmpty());
+        Assert.assertTrue(itemRecord.isValid());
+        Assert.assertTrue(itemRecord.getErrors().size() == 0);
+    }
+
+    @Test
+    public void testResolveItem4MissItemFile() throws Exception {
+        ImportBasicHandler basicHandler = new ImportBasicHandler();
+
+        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        itemRecord.setItemName(processPropPath1.lastSegment());
+        // Property
+        Property property = mock(Property.class);
+        itemRecord.setProperty(property);
+
+        // Process Item
+        ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
+        when(property.getItem()).thenReturn(item);
+        // Resources
+        ResourcesManager resManager = mock(ResourcesManager.class);
+        Set<IPath> pathes = new HashSet<IPath>();
+        IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
+        pathes.add(projPath);
+        pathes.add(processPropPath1);
+        when(resManager.getPaths()).thenReturn(pathes);
+        // call
+        basicHandler.resolveItem(resManager, itemRecord);
+
+        //
+        Assert.assertFalse(itemRecord.getErrors().isEmpty());
+        Assert.assertFalse(itemRecord.isValid());
+        Assert.assertTrue(itemRecord.getErrors().size() == 1);
+    }
+
+    private ProcessItem createTempProcessItem() {
+        ProcessItem processItem = PropertiesFactory.eINSTANCE.createProcessItem();
+        Property myProperty = PropertiesFactory.eINSTANCE.createProperty();
+        ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
+        itemState.setDeleted(false);
+        itemState.setPath("TEST/process/test1_0.1.item");
+        processItem.setState(itemState);
+        processItem.setProperty(myProperty);
+        myProperty.setLabel("test1");
+        myProperty.setVersion("0.1");
+
+        processItem.setProcess(TalendFileFactory.eINSTANCE.createProcessType());
+        processItem.getProcess().getNode().add(TalendFileFactory.eINSTANCE.createNodeType());
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentName("test");
+        ((NodeType) processItem.getProcess().getNode().get(0)).setComponentVersion("0.1");
+
+        return processItem;
     }
 }
