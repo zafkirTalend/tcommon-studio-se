@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards.metadata.connection.files.delimited;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Observable;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -37,7 +38,6 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
-import org.talend.core.ITDQRepositoryService;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -134,11 +134,6 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         metadataNameText.setReadOnly(isReadOnly());
         metadataCommentText.setReadOnly(isReadOnly());
         tableEditorView.setReadOnly(isReadOnly());
-
-        // if (getParent().getChildren().length == 1) { // open the table
-        // guessButton.setEnabled(false);
-        // informationLabel.setVisible(false);
-        // }
     }
 
     @Override
@@ -363,39 +358,15 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
     public void refreshMetaDataTable(final CsvArray csvArray) {
         informationLabel.setText("   " + Messages.getString("FileStep3.guessIsDone")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // MOD TDQ-8360, yyin , use the EMF compare to keep the existing elements. only when updating a metadata needed
-        // compare, for creating a new metadata, no need to compare
-        if (hasDQDependences() && tableEditorView.getMetadataEditor().getBeanCount() > 0) {
-            if (MessageDialog.openConfirm(getShell(), Messages.getString("FileStep3.guessConfirmation"), Messages //$NON-NLS-1$
-                    .getString("FileStep3.guessConfirmationMessageWithDQ"))) {//$NON-NLS-1$
-                // in this case,tdqRepositoryService is not null.
-                ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) org.talend.core.GlobalServiceRegister
-                        .getDefault().getService(ITDQRepositoryService.class);
-                List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection()
-                        .isFirstLineCaption(), null, 1);
-                List<MetadataColumn> comparedColumns = tdqRepositoryService.updateDependAnalysisOfDelimitedFile(
-                        this.metadataTable, columns);
+        tableEditorView.getMetadataEditor().removeAll();
 
-                tableEditorView.getMetadataEditor().removeAll();
-                if (comparedColumns == null || comparedColumns.size() == 0) {
-                    tableEditorView.getMetadataEditor().addAll(columns);
-                } else {
-                    tableEditorView.getMetadataEditor().addAll(comparedColumns);
-                }
-            }
-        } else {// ~
-                // clear all items
-            tableEditorView.getMetadataEditor().removeAll();
-
-            List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection().isFirstLineCaption(),
-                    tableEditorView, 1);
-            tableEditorView.getMetadataEditor().addAll(columns);
-        }
+        List<MetadataColumn> columns = GuessSchemaUtil.guessSchemaFromArray(csvArray, getConnection().isFirstLineCaption(),
+                tableEditorView, 1);
+        tableEditorView.getMetadataEditor().addAll(columns);
 
         checkFieldsValue();
         tableEditorView.getTableViewerCreator().layout();
         tableEditorView.getTableViewerCreator().getTable().deselectAll();
-        // tableEditorView.getTableViewerCreator().getTableViewer().refresh();
         informationLabel.setText(Messages.getString("FileStep3.guessTip")); //$NON-NLS-1$
     }
 
@@ -459,4 +430,14 @@ public class DelimitedFileStep3Form extends AbstractDelimitedFileStepForm {
         return getConnection();
 
     }
+
+    /**
+     * DOC yyin Comment method "setSchemaObservable".
+     * 
+     * @param schemaObservable
+     */
+    public void setSchemaObservable(Observable schemaObservable) {
+        this.metadataEditor.addSchemaObservable(schemaObservable);
+    }
+
 }

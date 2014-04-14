@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
+import org.talend.commons.exception.BusinessException;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -120,9 +120,10 @@ public interface ITDQRepositoryService extends IService {
     public void refreshConnectionEditor(Item item);
 
     // Add xqliu 2012-12-11 TDQ-5750
-    public void refreshCurrentAnalysisEditor();
+    public void refreshCurrentAnalysisEditor(ConnectionItem connectionItem);
 
     // Add zshen 2013-01-05
+    @Deprecated
     public void refreshCurrentAnalysisAndConnectionEditor();
 
     /**
@@ -163,8 +164,7 @@ public interface ITDQRepositoryService extends IService {
     public void setIsOpenConnectionEditorAfterCreate(boolean noNeedToOpenConnectionEditor);
 
     /**
-     * Refresh the table in data sample section of match analysis after running DOC yyin Comment method
-     * "refreshTableWithResult".
+     * Refresh the table in data sample section of match analysis after running
      * 
      * @param result
      */
@@ -183,11 +183,8 @@ public interface ITDQRepositoryService extends IService {
      * update the depended analysis of the current file connection, when the file connection changed schema: if the
      * analysis 's analyzed columns are in the changed schema: compare columns, and remain the column with same name.
      * 
-     * @param connectionItem file --connection
-     * @param metadataTable -- the new metadata
-     * @param metadataTable2
+     * @param newMetadataTable
      */
-    public List<MetadataColumn> updateDependAnalysisOfDelimitedFile(MetadataTable oldMetadataTable,
-            List<MetadataColumn> newColumns);
+    public void reloadMetadataOfDelimitedFile(MetadataTable newMetadataTable) throws BusinessException;
 
 }
