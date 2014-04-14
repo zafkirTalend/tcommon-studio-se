@@ -657,10 +657,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             }
                         });
                     }// else no download URL so just add the install buttonb
+                    enabledButtonCount.incrementAndGet();
                     Button importButton = new Button(composite, SWT.FLAT);
                     importButton.setImage(ImageProvider.getImage(ECoreImage.IMPORT_JAR));
                     importButton.setToolTipText(Messages.getString("ImportExternalJarAction.title")); //$NON-NLS-1$
-                    importButton.addSelectionListener(new ImportButtonSelectionListener(item));
+                    importButton.addSelectionListener(new ImportButtonSelectionListener(enabledButtonCount, item));
                     manualInstallButtonMap.put(data, importButton);
                     GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).grab(true, false).applyTo(importButton);
                     importButton.setEnabled(!isInstalled);
@@ -763,18 +764,21 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
         private final TableItem item;
 
+        private AtomicInteger enabledButtonCount;
+
         /**
          * DOC sgandon ImportButtonSelectionListener constructor comment.
          * 
          * @param item
          */
-        public ImportButtonSelectionListener(TableItem item) {
+        public ImportButtonSelectionListener(AtomicInteger enabledButtonCount, TableItem item) {
             this.item = item;
+            this.enabledButtonCount = enabledButtonCount;
         }
 
         @Override
         public void widgetSelected(SelectionEvent e) {
-            showImportJarDialog(item);
+            showImportJarDialog(enabledButtonCount, item);
         }
 
         @Override
@@ -839,9 +843,9 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * 
      * @param item
      */
-    public void showImportJarDialog(TableItem item) {
+    public void showImportJarDialog(AtomicInteger enabledButtonCount, TableItem item) {
         String[] importedJars = new ImportExternalJarAction().handleImportJarDialog(getShell());
-        updateManualImportedJars(importedJars);
+        updateManualImportedJars(enabledButtonCount, importedJars);
     }
 
     /**
@@ -849,16 +853,28 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * 
      * @param importedJars
      */
-    private void updateManualImportedJars(String[] importedJars) {
+    private void updateManualImportedJars(AtomicInteger enabledButtonCount, String[] importedJars) {
         for (Entry<ModuleToInstall, Button> moduleAndButton : manualInstallButtonMap.entrySet()) {
             String jarName = moduleAndButton.getKey().getName();
             for (String importedJar : importedJars) {
                 if (importedJar.equals(jarName)) {// disable the button
                     moduleAndButton.getValue().setEnabled(false);
+                    enabledButtonCount.decrementAndGet();
                 }// else leave the button as it is
             }
         }
+        if (enabledButtonCount.get() == 0) {
+            close();
+            // refresh
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                if (service != null) {
+                    service.refreshComponentView();
+                }
+            }
 
+        }
     }
 
     /**
