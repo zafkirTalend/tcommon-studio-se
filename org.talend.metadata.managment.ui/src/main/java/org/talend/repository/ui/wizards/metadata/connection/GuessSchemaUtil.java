@@ -223,11 +223,7 @@ public class GuessSchemaUtil {
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setLength(lengthValue);
                 // Check the label and add it to the table
-                if (tableEditorView != null) {
-                    metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
-                } else {// changed TDQ-8360 yyin 20140325, use the original label when there are no table view
-                    metadataColumn.setLabel(label[i]);
-                }
+                metadataColumn.setLabel(tableEditorView.getMetadataEditor().getNextGeneratedColumnName(label[i]));
                 columns.add(i, metadataColumn);
             }
         }

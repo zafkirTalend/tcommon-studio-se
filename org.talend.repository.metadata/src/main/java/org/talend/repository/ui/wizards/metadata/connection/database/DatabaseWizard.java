@@ -564,7 +564,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         // MOD 20130628 TDQ-7438, If the analysis editor is opened, popup the dialog which ask user refresh
         // the editor or not once should enough(use hasReloaded to control,because the reload will refresh)
         if (tdqRepService != null && !isNeedRefreshEditor && (isNameModified || IsVersionChange())) {
-            tdqRepService.refreshCurrentAnalysisEditor();
+            tdqRepService.refreshCurrentAnalysisEditor(connectionItem);
         }
         // ~
 

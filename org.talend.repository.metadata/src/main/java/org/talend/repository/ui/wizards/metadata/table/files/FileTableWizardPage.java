@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.table.files;
 
+import java.util.Observable;
+
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
@@ -56,6 +58,8 @@ public class FileTableWizardPage extends WizardPage {
     private ConnectionItem connectionItem;
 
     private boolean isRepositoryObjectEditable;
+
+    private Observable schemaObservable;
 
     /**
      * DatabaseWizardPage constructor (to instance IMetadataConnection OR MetaDataTableType). If MetaDataTableType
@@ -114,6 +118,7 @@ public class FileTableWizardPage extends WizardPage {
                         TableHelper.getTableNames(object, metadataTable.getLabel()));
                 delimitedFileStep3Form.setReadOnly(!isRepositoryObjectEditable);
                 delimitedFileStep3Form.setListener(listener);
+                delimitedFileStep3Form.setSchemaObservable(schemaObservable);
                 return delimitedFileStep3Form;
             }
 
@@ -214,5 +219,9 @@ public class FileTableWizardPage extends WizardPage {
 
         }.doSwitch(connection);
         setControl(theForm);
+    }
+
+    public void addSchemaObservable(Observable observable) {
+        this.schemaObservable = observable;
     }
 }

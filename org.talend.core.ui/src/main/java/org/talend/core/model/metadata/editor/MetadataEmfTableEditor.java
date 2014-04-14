@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata.editor;
 
 import java.util.List;
+import java.util.Observable;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -46,6 +47,9 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
     private MetadataTable metadataTable;
 
     private MetadataEmfTableEditorView editorView;
+
+    // Added TDQ-8360 20140408 yyin
+    private Observable updateNodifier;
 
     public MetadataEmfTableEditor(String titleName) {
         super(titleName);
@@ -92,6 +96,10 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      * @return
      */
     public String validateColumnName(String columnName, int beanPosition) {
+        // Added TDQ-8360 20140408 yyin
+        if (updateNodifier != null) {
+            updateNodifier.notifyObservers();
+        }
         return validateColumnName(columnName, beanPosition, getBeansList());
     }
 
@@ -136,6 +144,10 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      * @return string
      */
     public String getNextGeneratedColumnName(String columnLabel) {
+        // Added TDQ-8360 20140408 yyin
+        if (updateNodifier != null) {
+            updateNodifier.notifyObservers();
+        }
         return getNextGeneratedColumnName(columnLabel, getBeansList());
     }
 
@@ -254,6 +266,19 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      */
     public void setEditorView(MetadataEmfTableEditorView editorView) {
         this.editorView = editorView;
+    }
+
+    @Override
+    public List<MetadataColumn> remove(int[] indexArray) {
+        // Added TDQ-8360 20140408 yyin
+        if (updateNodifier != null) {
+            updateNodifier.notifyObservers();
+        }
+        return super.remove(indexArray);
+    }
+
+    public void addSchemaObservable(Observable observable) {
+        this.updateNodifier = observable;
     }
 
 }

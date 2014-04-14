@@ -356,7 +356,7 @@ public class DelimitedFileWizard extends CheckLastVersionRepositoryWizard implem
                     if (nameModifiedByUser && tdqRepService != null) {
                         tdqRepService.saveConnectionWithDependency(connectionItem);
                         closeLockStrategy();
-                        tdqRepService.refreshCurrentAnalysisEditor();
+                        tdqRepService.refreshCurrentAnalysisEditor(connectionItem);
                     } else {
                         updateConnectionItem();
                     }
