@@ -1013,6 +1013,9 @@ public class RepositoryToComponentProperty {
                 } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
                         && EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue().equals(dbVersionString)) {
                     return EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue();
+                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
+                        && EDatabaseVersion4Drivers.VERTICA_7.getVersionValue().equals(dbVersionString)) {
+                    return EDatabaseVersion4Drivers.VERTICA_7.getVersionValue();
                 } else {
                     return driverValue;
                 }

@@ -413,8 +413,11 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 String driverClass = ExtractMetaDataUtils.getInstance().getDriverClassByDbType(connection.getDatabaseType());
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.equals(dbType)
-                        && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString()) || EDatabaseVersion4Drivers.VERTICA_5_1
-                                .getVersionValue().equals(connection.getDbVersionString()))) {
+                        && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString())
+                                || EDatabaseVersion4Drivers.VERTICA_5_1.getVersionValue().equals(connection.getDbVersionString())
+                                || EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue().equals(
+                                        connection.getDbVersionString()) || EDatabaseVersion4Drivers.VERTICA_7.getVersionValue()
+                                .equals(connection.getDbVersionString()))) {
                     driverClass = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                 }
                 ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
