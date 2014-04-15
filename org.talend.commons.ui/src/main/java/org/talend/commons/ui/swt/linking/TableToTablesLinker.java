@@ -406,7 +406,7 @@ public class TableToTablesLinker<D1, D2> extends BgDrawableComposite implements 
      * 
      * @return the linksManager
      */
-    protected LinksManager<TableItem, D1, Table, D2> getLinksManager() {
+    public LinksManager<TableItem, D1, Table, D2> getLinksManager() {
         return this.linksManager;
     }
 
