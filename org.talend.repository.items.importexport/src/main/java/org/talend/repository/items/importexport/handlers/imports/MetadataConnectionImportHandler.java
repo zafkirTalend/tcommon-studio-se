@@ -25,7 +25,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -45,15 +45,15 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
      * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
     @Override
-    protected void afterCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
-        final Item tmpItem = selectedItemRecord.getItem();
+    protected void afterCreatedItem(ResourcesManager resManager, ImportItem importItem) throws Exception {
+        final Item tmpItem = importItem.getItem();
         // import has not been developed to cope with migration in mind
         // so some model may not be able to load like the ConnectionItems
         // in that case items needs to be copied before migration
         // here we check that the loading of the item failed before calling the create method
         boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
                 && ((ConnectionItem) tmpItem).getConnection().eResource() == null
-                && !selectedItemRecord.getMigrationTasksToApply().isEmpty();
+                && !importItem.getMigrationTasksToApply().isEmpty();
         if (isConnectionEmptyBeforeMigration) {
             // copy the file before migration, this is bad because it
             // should not refer to Filesytem
@@ -61,7 +61,7 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
             // IPath itemPath = itemRecord.getPath().removeFileExtension().addFileExtension(
             // FileConstants.ITEM_EXTENSION);
 
-            InputStream is = resManager.getStream(selectedItemRecord.getPath().removeFileExtension()
+            InputStream is = resManager.getStream(importItem.getPath().removeFileExtension()
                     .addFileExtension(FileConstants.ITEM_EXTENSION));
 
             try {
@@ -82,7 +82,7 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
             repFactory.unloadResources(tmpItem.getProperty());
         } else {
-            super.afterCreatedItem(resManager, selectedItemRecord);
+            super.afterCreatedItem(resManager, importItem);
         }
     }
 

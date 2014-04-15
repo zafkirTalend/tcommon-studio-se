@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.Path;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -36,7 +36,7 @@ public class ImportNodesBuilder {
      */
     private Map<String, ProjectImportNode> projectNodesMap = new HashMap<String, ProjectImportNode>();
 
-    private List<ItemRecord> allImportItemRecords = new ArrayList<ItemRecord>();
+    private List<ImportItem> allImportItemRecords = new ArrayList<ImportItem>();
 
     public List<ProjectImportNode> getProjectNodes() {
         List<ProjectImportNode> list = new ArrayList(this.projectNodesMap.values());
@@ -45,8 +45,8 @@ public class ImportNodesBuilder {
         return list;
     }
 
-    public ItemRecord[] getAllImportItemRecords() {
-        return this.allImportItemRecords.toArray(new ItemRecord[0]);
+    public ImportItem[] getAllImportItemRecords() {
+        return this.allImportItemRecords.toArray(new ImportItem[0]);
     }
 
     public void clear() {
@@ -54,15 +54,15 @@ public class ImportNodesBuilder {
         this.projectNodesMap.clear();
     }
 
-    public void addItems(List<ItemRecord> items) {
+    public void addItems(List<ImportItem> items) {
         if (items != null) {
-            for (ItemRecord ir : items) {
+            for (ImportItem ir : items) {
                 addItem(ir);
             }
         }
     }
 
-    public void addItem(ItemRecord itemRecord) {
+    public void addItem(ImportItem itemRecord) {
         if (itemRecord != null) {
             this.allImportItemRecords.add(itemRecord);
 

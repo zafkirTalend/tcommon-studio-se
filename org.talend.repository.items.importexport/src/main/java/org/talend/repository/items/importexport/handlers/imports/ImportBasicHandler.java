@@ -96,10 +96,9 @@ import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.HandlerUtil;
-import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -194,53 +193,52 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#populateItemRecord(org.eclipse.
+     * @see org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#createImportItem(org.eclipse.
      * core. runtime.IProgressMonitor,
      * org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
      * org.eclipse.core.runtime.IPath, boolean, java.util.List)
      */
     @Override
-    public ItemRecord calcItemRecord(IProgressMonitor progressMonitor, ResourcesManager resManager, IPath resourcePath,
-            boolean overwrite, List<ItemRecord> existeditems) {
+    public ImportItem createImportItem(IProgressMonitor progressMonitor, ResourcesManager resManager, IPath resourcePath,
+            boolean overwrite, List<ImportItem> existeditems) throws Exception {
 
-        ItemRecord itemRecord = computeItemRecord(resManager, resourcePath);
+        ImportItem importItem = computeImportItem(resManager, resourcePath);
         if (progressMonitor.isCanceled()) {
             return null;
         }
-        if (itemRecord != null && itemRecord.getProperty() != null) {
-            if (checkItem(resManager, itemRecord, overwrite)) {
+        if (importItem != null && importItem.getProperty() != null) {
+            if (checkItem(resManager, importItem, overwrite)) {
                 if (progressMonitor.isCanceled()) {
                     return null;
                 }
-                checkAndSetProject(resManager, itemRecord);
+                checkAndSetProject(resManager, importItem);
             }
             // set the import handler
-            itemRecord.setImportHandler(this);
-            return itemRecord;
+            importItem.setImportHandler(this);
+            return importItem;
         }
         return null;
 
     }
 
-    public ItemRecord computeItemRecord(ResourcesManager resManager, IPath path) {
-        ItemRecord itemRecord = new ItemRecord(path);
-        computeProperty(resManager, itemRecord);
-        return itemRecord;
+    public ImportItem computeImportItem(ResourcesManager resManager, IPath path) {
+        ImportItem importItem = new ImportItem(path);
+        computeProperty(resManager, importItem);
+        return importItem;
     }
 
-    protected void computeProperty(ResourcesManager manager, ItemRecord itemRecord) {
-        Resource resource = loadResource(manager, itemRecord);
+    protected void computeProperty(ResourcesManager manager, ImportItem importItem) {
+        Resource resource = loadResource(manager, importItem);
         if (resource != null) {
-            itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
+            importItem.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
                     PropertiesPackage.eINSTANCE.getProperty()));
         } else {
-            ImportExportHandlersManager
+            ImportCacheHelper
                     .getInstance()
                     .getImportErrors()
-                    .add(Messages.getString("ImportBasicHandler_LoadEMFResourceError", itemRecord.getPath().lastSegment(),
-                            HandlerUtil.getValidItemRelativePath(manager, itemRecord.getPath())));
-            log.error(Messages.getString("ImportBasicHandler_ErrorCreateEmfResource") + " - " + HandlerUtil.getValidItemRelativePath(manager, itemRecord.getPath())); //$NON-NLS-1$
+                    .add(Messages.getString("ImportBasicHandler_LoadEMFResourceError", importItem.getPath().lastSegment(),
+                            HandlerUtil.getValidItemRelativePath(manager, importItem.getPath())));
+            log.error(Messages.getString("ImportBasicHandler_ErrorCreateEmfResource") + " - " + HandlerUtil.getValidItemRelativePath(manager, importItem.getPath())); //$NON-NLS-1$
         }
     }
 
@@ -248,15 +246,15 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * mzhao load resource with item record.
      * 
      * @param manager
-     * @param itemRecord
+     * @param importItem
      * @param resource
      * @return
      */
-    protected Resource loadResource(ResourcesManager manager, ItemRecord itemRecord) {
+    protected Resource loadResource(ResourcesManager manager, ImportItem importItem) {
         InputStream stream = null;
         try {
-            final Resource resource = createResource(itemRecord, itemRecord.getPath(), false);
-            stream = manager.getStream(itemRecord.getPath());
+            final Resource resource = createResource(importItem, importItem.getPath(), false);
+            stream = manager.getStream(importItem.getPath());
             URIConverter uriConverter = resource.getResourceSet().getURIConverter();
             resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
 
@@ -295,9 +293,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return null;
     }
 
-    protected Resource createResource(ItemRecord itemRecord, IPath path, boolean byteArrayResource) throws FileNotFoundException {
+    protected Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) throws FileNotFoundException {
         Resource resource;
-        ResourceSet resourceSet = itemRecord.getResourceSet();
+        ResourceSet resourceSet = importItem.getResourceSet();
         final URI pathUri = HandlerUtil.getURI(path);
         if (byteArrayResource) {
             resource = new ByteArrayResource(pathUri);
@@ -332,25 +330,25 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /**
      * it's same item or not.
      */
-    public boolean isSame(ItemRecord itemRecord1, ItemRecord itemRecord2) {
-        return StringUtils.equals(itemRecord1.getProperty().getId(), itemRecord2.getProperty().getId())
-                && StringUtils.equals(itemRecord1.getProperty().getVersion(), itemRecord2.getProperty().getVersion());
+    public boolean isSame(ImportItem importItem1, ImportItem importItem2) {
+        return StringUtils.equals(importItem1.getProperty().getId(), importItem2.getProperty().getId())
+                && StringUtils.equals(importItem1.getProperty().getVersion(), importItem2.getProperty().getVersion());
     }
 
     /**
      * 
      * check the item is valid or not。
      */
-    public boolean checkItem(ResourcesManager resManager, ItemRecord itemRecord, boolean overwrite) {
+    public boolean checkItem(ResourcesManager resManager, ImportItem importItem, boolean overwrite) {
         try {
-            Item item = itemRecord.getItem();
+            Item item = importItem.getItem();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
             if (itemType == null) {
-                itemRecord.addError(Messages.getString("AbstractImportHandler_unsupportItem")); //$NON-NLS-1$
+                importItem.addError(Messages.getString("AbstractImportHandler_unsupportItem")); //$NON-NLS-1$
                 return false; // can't import this item.
             }
             if (item.getState() == null) {
-                itemRecord.addError(Messages.getString("AbstractImportHandler_unsupportItem"));//$NON-NLS-1$
+                importItem.addError(Messages.getString("AbstractImportHandler_unsupportItem"));//$NON-NLS-1$
                 return false;
             }
 
@@ -361,9 +359,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             IRepositoryViewObject itemWithSameNameObj = null;
 
             for (IRepositoryViewObject current : repObjectcache.getItemsFromRepository().get(itemType)) {
-                final Property property = itemRecord.getProperty();
+                final Property property = importItem.getProperty();
                 if (property != null) {
-                    if (isSameName(itemRecord, current)) {
+                    if (isSameName(importItem, current)) {
                         itemWithSameNameObj = current;
                     }
                     if (property.getId() != null && property.getId().equals(current.getId())) {
@@ -378,52 +376,52 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 if (!idAvailable) {
                     // same id but different name,no need to care overwrite cause the item will be considered as a
                     // different one,see bug 20445
-                    itemRecord.setState(State.ID_EXISTED);
-                    itemRecord.setExistingItemWithSameId(itemWithSameIdObj);
+                    importItem.setState(State.ID_EXISTED);
+                    importItem.setExistingItemWithSameId(itemWithSameIdObj);
                     if (!overwrite) {
-                        itemRecord.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
+                        importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
                     }
                 }
             } else {
                 if (idAvailable) {
                     // same name but different id
-                    itemRecord.setState(State.NAME_EXISTED);
+                    importItem.setState(State.NAME_EXISTED);
 
                     if (overwrite) {
                         // if anything system, don't replace the source item if same name.
                         // if not from system, can overwrite.
-                        itemRecord.setExistingItemWithSameId(itemWithSameNameObj);
+                        importItem.setExistingItemWithSameId(itemWithSameNameObj);
                         // TDI-21399,TDI-21401
                         // if item is locked, cannot overwrite
                         if (itemWithSameNameObj != null) {
                             ERepositoryStatus status = itemWithSameNameObj.getRepositoryStatus();
                             if (status == ERepositoryStatus.LOCK_BY_OTHER || status == ERepositoryStatus.LOCK_BY_USER) {
-                                itemRecord.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
+                                importItem.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
                             }
                         }
                     }
                 } else {
                     // same name and same id
-                    itemRecord.setState(State.NAME_AND_ID_EXISTED);
+                    importItem.setState(State.NAME_AND_ID_EXISTED);
                     if (overwrite) {
-                        itemRecord.setExistingItemWithSameId(itemWithSameNameObj);
+                        importItem.setExistingItemWithSameId(itemWithSameNameObj);
                     }
                 }
                 if (!overwrite) {
-                    itemRecord.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
+                    importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
                 }
             }
 
-            if (overwrite && itemRecord.getState() == State.NAME_AND_ID_EXISTED) {
+            if (overwrite && importItem.getState() == State.NAME_AND_ID_EXISTED) {
                 // if item is locked, cannot overwrite
-                if (checkIfLocked(itemRecord)) {
-                    itemRecord.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
+                if (checkIfLocked(importItem)) {
+                    importItem.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
                 }
 
             }
 
         } catch (PersistenceException e) {
-            log.error("Error when checking item :" + itemRecord.getPath(), e); //$NON-NLS-1$
+            log.error("Error when checking item :" + importItem.getPath(), e); //$NON-NLS-1$
         }
         return true;
     }
@@ -432,8 +430,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * 
      * item with same name.
      */
-    protected boolean isSameName(ItemRecord itemRecord, IRepositoryViewObject repObject) {
-        final Property property = itemRecord.getProperty();
+    protected boolean isSameName(ImportItem importItem, IRepositoryViewObject repObject) {
+        final Property property = importItem.getProperty();
         if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(repObject.getLabel())) // same label
         ) {
             return true;
@@ -444,68 +442,68 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /**
      * DOC hcw Comment method "checkIfLocked".
      * 
-     * @param itemRecord
+     * @param importItem
      * @return
      * @throws PersistenceException
      */
-    protected boolean checkIfLocked(ItemRecord itemRecord) throws PersistenceException {
+    protected boolean checkIfLocked(ImportItem importItem) throws PersistenceException {
         final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
-        Boolean lockState = repObjectcache.getItemLockState(itemRecord);
+        Boolean lockState = repObjectcache.getItemLockState(importItem);
         if (lockState != null) {
             return lockState.booleanValue();
         }
 
-        List<IRepositoryViewObject> list = repObjectcache.findObjectsByItem(itemRecord);
+        List<IRepositoryViewObject> list = repObjectcache.findObjectsByItem(importItem);
 
         for (IRepositoryViewObject obj : list) {
             ERepositoryStatus status = obj.getRepositoryStatus();
             if (status == ERepositoryStatus.LOCK_BY_OTHER || status == ERepositoryStatus.LOCK_BY_USER) {
-                itemRecord.setLocked(true);
-                repObjectcache.setItemLockState(itemRecord, true);
+                importItem.setLocked(true);
+                repObjectcache.setItemLockState(importItem, true);
                 return true;
             }
         }
 
-        repObjectcache.setItemLockState(itemRecord, false);
+        repObjectcache.setItemLockState(importItem, false);
         return false;
     }
 
-    public void checkAndSetProject(ResourcesManager resManager, ItemRecord itemRecord) {
-        InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
+    public void checkAndSetProject(ResourcesManager resManager, ImportItem importItem) {
+        InternalEObject author = (InternalEObject) importItem.getProperty().getAuthor();
         URI uri = null;
         if (author != null) {
             uri = author.eProxyURI();
         }
 
-        IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, itemRecord.getPath());
+        IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, importItem.getPath());
         if (projectFilePath != null) {
-            Project project = computeProject(resManager, itemRecord, projectFilePath);
-            if (checkProject(project, itemRecord)) {
+            Project project = computeProject(resManager, importItem, projectFilePath);
+            if (checkProject(project, importItem)) {
                 // set item project into record.
-                itemRecord.setItemProject(project);
+                importItem.setItemProject(project);
                 // we can try to import item
                 // and we will try to resolve user
                 if (uri != null) {
                     User user = (User) project.eResource().getEObject(uri.fragment());
-                    itemRecord.getProperty().setAuthor(user);
+                    importItem.getProperty().setAuthor(user);
                 }
             }
         } else {
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(importItem.getItem());
             if (itemType.isDIItemType()) {
-                itemRecord.addError(Messages.getString("AbstractImportHandler_projectNotFound")); //$NON-NLS-1$
+                importItem.addError(Messages.getString("AbstractImportHandler_projectNotFound")); //$NON-NLS-1$
             }
         }
 
     }
 
-    protected Project computeProject(ResourcesManager manager, ItemRecord itemRecord, IPath path) {
+    protected Project computeProject(ResourcesManager manager, ImportItem importItem, IPath path) {
         InputStream stream = null;
         Map<IPath, Project> pathWithProjects = ImportCacheHelper.getInstance().getPathWithProjects();
         try {
             if (!pathWithProjects.containsKey(path)) {
                 stream = manager.getStream(path);
-                Resource resource = createResource(itemRecord, path, false);
+                Resource resource = createResource(importItem, path, false);
                 resource.load(stream, null);
                 // EmfHelper.loadResource(resource, stream, null);
                 pathWithProjects.put(path,
@@ -526,7 +524,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return null;
     }
 
-    protected boolean checkProject(Project project, ItemRecord itemRecord) {
+    protected boolean checkProject(Project project, ImportItem importItem) {
         boolean checkProject = false;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
@@ -541,11 +539,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             Project currentProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
 
             if (project != null) {
-                if (checkMigrationTasks(currentProject, project, itemRecord)) {
+                if (checkMigrationTasks(currentProject, project, importItem)) {
                     checkProject = true;
                 }
             } else {
-                itemRecord.addError(Messages.getString("AbstractImportHandler_projectNotFound")); //$NON-NLS-1$
+                importItem.addError(Messages.getString("AbstractImportHandler_projectNotFound")); //$NON-NLS-1$
             }
         }
 
@@ -557,10 +555,10 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * 
      * @param currentProject
      * @param importedProject
-     * @param itemRecord
+     * @param importItem
      * @return
      */
-    protected boolean checkMigrationTasks(Project currentProject, Project importedProject, ItemRecord itemRecord) {
+    protected boolean checkMigrationTasks(Project currentProject, Project importedProject, ImportItem importItem) {
 
         Map<String, Boolean> migrationTasksStatusPerProject = ImportCacheHelper.getInstance().getMigrationTasksStatusPerProject();
         Map<String, List<MigrationTask>> migrationTasksToApplyPerProject = ImportCacheHelper.getInstance()
@@ -569,11 +567,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         String importedProjectLabel = importedProject.getTechnicalLabel();
         if (migrationTasksStatusPerProject.containsKey(importedProjectLabel)) {
             if (migrationTasksStatusPerProject.get(importedProjectLabel)) {
-                itemRecord.setMigrationTasksToApply(migrationTasksToApplyPerProject.get(importedProjectLabel));
+                importItem.setMigrationTasksToApply(migrationTasksToApplyPerProject.get(importedProjectLabel));
                 return true;
             } else {
                 String message = Messages.getString("AbstractImportHandler_cannotImportMessage", importedProjectLabel); //$NON-NLS-1$
-                itemRecord.addError(message);
+                importItem.addError(message);
                 return false;
             }
         }
@@ -591,14 +589,14 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 MigrationUtil.removeMigrationTaskById(importedProjectMigrationTasks,
                         "org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask"); //$NON-NLS-1$
                 MigrationUtil.removeMigrationTaskByMigrationTasks(currentProjectMigrationTasks, importedProjectMigrationTasks);
-                itemRecord.setMigrationTasksToApply(currentProjectMigrationTasks);
+                importItem.setMigrationTasksToApply(currentProjectMigrationTasks);
                 migrationTasks = currentProjectMigrationTasks;
                 canApplyMigration = true;
                 migrationTasksStatusPerProject.put(importedProjectLabel, true);
             } else {
                 String message = Messages.getString("AbstractImportHandler_cannotImportMessage", importedProjectLabel); //$NON-NLS-1$
-                itemRecord.addError(message);
-                log.info("'" + itemRecord.getItemName() + "' " + message); //$NON-NLS-1$ //$NON-NLS-2$
+                importItem.addError(message);
+                log.info("'" + importItem.getItemName() + "' " + message); //$NON-NLS-1$ //$NON-NLS-2$
                 migrationTasksStatusPerProject.put(importedProjectLabel, false);
             }
             migrationTasksToApplyPerProject.put(importedProjectLabel, migrationTasks);
@@ -628,22 +626,22 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @see
      * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#importItemRecord(org.eclipse.core
      * .runtime .IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
-     * org.talend.repository.items.importexport.handlers.model.ItemRecord, boolean, org.eclipse.core.runtime.IPath,
+     * org.talend.repository.items.importexport.handlers.model.ImportItem, boolean, org.eclipse.core.runtime.IPath,
      * java.util.Set, java.util.Set)
      */
     @Override
-    public void importItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
-        monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
-        resolveItem(resManager, selectedItemRecord);
-        if (!selectedItemRecord.isValid()) {
+    public void doImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedImportItem, boolean overwrite,
+            IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) throws Exception {
+        monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedImportItem.getItemName())); //$NON-NLS-1$
+        resolveItem(resManager, selectedImportItem);
+        if (!selectedImportItem.isValid()) {
             return;
         }
-        doImportItem(monitor, resManager, selectedItemRecord, overwrite, destinationPath, overwriteDeletedItems,
+        doImportItem(monitor, resManager, selectedImportItem, overwrite, destinationPath, overwriteDeletedItems,
                 idDeletedBeforeImport);
 
         // unload the imported resources
-        EList<Resource> resources = selectedItemRecord.getResourceSet().getResources();
+        EList<Resource> resources = selectedImportItem.getResourceSet().getResources();
         Iterator<Resource> iterator = resources.iterator();
         while (iterator.hasNext()) {
             Resource res = iterator.next();
@@ -654,36 +652,36 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 iterator.remove();
             }
         }
-        String label = selectedItemRecord.getLabel();
+        String label = selectedImportItem.getLabel();
         TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
 
-        applyMigrationTasks(selectedItemRecord, monitor);
+        applyMigrationTasks(selectedImportItem, monitor);
         TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
 
     }
 
-    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
+    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedImportItem,
             boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
-        final Item item = selectedItemRecord.getItem();
+        final Item item = selectedImportItem.getItem();
         if (item != null) {
             final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
 
-            IPath path = checkAndCreatePath(selectedItemRecord, destinationPath);
+            IPath path = checkAndCreatePath(selectedImportItem, destinationPath);
 
             try {
                 Item tmpItem = item;
 
                 // delete existing items before importing, this should be done
                 // once for a different id
-                String id = selectedItemRecord.getProperty().getId();
+                String id = selectedImportItem.getProperty().getId();
 
-                IRepositoryViewObject lastVersion = selectedItemRecord.getExistingItemWithSameId();
+                IRepositoryViewObject lastVersion = selectedImportItem.getExistingItemWithSameId();
                 if (lastVersion != null
                         && overwrite
-                        && !selectedItemRecord.isLocked()
-                        && (selectedItemRecord.getState() == State.ID_EXISTED
-                                || selectedItemRecord.getState() == State.NAME_EXISTED || selectedItemRecord.getState() == State.NAME_AND_ID_EXISTED)
+                        && !selectedImportItem.isLocked()
+                        && (selectedImportItem.getState() == State.ID_EXISTED
+                                || selectedImportItem.getState() == State.NAME_EXISTED || selectedImportItem.getState() == State.NAME_AND_ID_EXISTED)
                         && !ImportCacheHelper.getInstance().getDeletedItems().contains(id)) {
 
                     if (overwriteDeletedItems != null && !overwriteDeletedItems.contains(id)) { // bug 10520.
@@ -695,8 +693,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     }
 
                     /* only delete when name exsit rather than id exist */
-                    if (selectedItemRecord.getState().equals(ItemRecord.State.NAME_EXISTED)
-                            || selectedItemRecord.getState().equals(ItemRecord.State.NAME_AND_ID_EXISTED)) {
+                    if (selectedImportItem.getState().equals(ImportItem.State.NAME_EXISTED)
+                            || selectedImportItem.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED)) {
                         final IRepositoryViewObject lastVersionBackup = lastVersion;
                         if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
                             // TDI-19535 (check if exists, delete all items with same id)
@@ -721,7 +719,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     lastVersion = null;
                 }
 
-                User author = selectedItemRecord.getProperty().getAuthor();
+                User author = selectedImportItem.getProperty().getAuthor();
                 if (author != null) {
                     if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
                         // author will be the logged user in create method
@@ -729,33 +727,33 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     }
                 }
 
-                beforeCreatingItem(selectedItemRecord);
+                beforeCreatingItem(selectedImportItem);
 
                 final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
-                if (lastVersion == null || selectedItemRecord.getState().equals(ItemRecord.State.ID_EXISTED)) {
+                if (lastVersion == null || selectedImportItem.getState().equals(ImportItem.State.ID_EXISTED)) {
                     repFactory.create(tmpItem, path, true);
 
-                    afterCreatedItem(resManager, selectedItemRecord);
+                    afterCreatedItem(resManager, selectedImportItem);
 
-                    selectedItemRecord.setImported(true);
+                    selectedImportItem.setImported(true);
 
                 } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
 
-                    afterForceCreatedItem(resManager, selectedItemRecord);
+                    afterForceCreatedItem(resManager, selectedImportItem);
 
-                    selectedItemRecord.setImported(true);
+                    selectedImportItem.setImported(true);
                 } else {
                     PersistenceException e = new PersistenceException(Messages.getString(
                             "AbstractImportHandler_persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
-                    selectedItemRecord.addError(e.getMessage());
+                    selectedImportItem.addError(e.getMessage());
                     logError(e);
                 }
-                if (selectedItemRecord.isImported()) {
-                    selectedItemRecord.setImportPath(path.toPortableString());
-                    selectedItemRecord.setRepositoryType(itemType);
-                    selectedItemRecord.setItemId(selectedItemRecord.getProperty().getId());
-                    selectedItemRecord.setItemVersion(selectedItemRecord.getProperty().getVersion());
+                if (selectedImportItem.isImported()) {
+                    selectedImportItem.setImportPath(path.toPortableString());
+                    selectedImportItem.setRepositoryType(itemType);
+                    selectedImportItem.setItemId(selectedImportItem.getProperty().getId());
+                    selectedImportItem.setItemVersion(selectedImportItem.getProperty().getVersion());
 
                     repObjectcache.addToCache(tmpItem);
                 }
@@ -787,7 +785,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 }
 
             } catch (Exception e) {
-                selectedItemRecord.addError(e.getMessage());
+                selectedImportItem.addError(e.getMessage());
                 logError(e);
             }
 
@@ -798,14 +796,14 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * 
      * DOC ggu Comment method "checkAndCreatePath". if the path is not existed, will create.
      * 
-     * @param selectedItemRecord
+     * @param selectedImportItem
      * @param destinationPath
      * @param contentType
      * @return
      */
-    protected IPath checkAndCreatePath(ItemRecord selectedItemRecord, IPath destinationPath) {
+    protected IPath checkAndCreatePath(ImportItem selectedImportItem, IPath destinationPath) {
         final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-        final Item item = selectedItemRecord.getItem();
+        final Item item = selectedImportItem.getItem();
         final ERepositoryObjectType curItemType = ERepositoryObjectType.getItemType(item);
 
         IPath path = new Path(item.getState().getPath());
@@ -828,7 +826,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 // Without this code, deleted folders of items imported will not be in the recycle bin after import.
                 // delete status is set finally in the function checkDeletedFolders
                 IPath curPath = path;
-                EList deletedFoldersFromOriginalProject = selectedItemRecord.getItemProject().getDeletedFolders();
+                EList deletedFoldersFromOriginalProject = selectedImportItem.getItemProject().getDeletedFolders();
                 while (folderItem == null && !curPath.isEmpty() && !curPath.isRoot()) {
                     if (deletedFoldersFromOriginalProject.contains(new Path(curItemType.getFolder()).append(
                             curPath.toPortableString()).toPortableString())) {
@@ -855,11 +853,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return path;
     }
 
-    protected void beforeCreatingItem(ItemRecord selectedItemRecord) {
+    protected void beforeCreatingItem(ImportItem selectedImportItem) {
         // noting to do specially.
     }
 
-    protected void afterCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
+    protected void afterCreatedItem(ResourcesManager resManager, ImportItem selectedImportItem) throws Exception {
 
         // connections from migrations (from 4.0.x or previous version) doesn't support reference or
         // screenshots
@@ -868,24 +866,24 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         // It's needed to avoid to call the save method mainly just before or after the copy of the old
         // connection since it will
 
-        boolean haveRef = copyReferenceFiles(resManager, selectedItemRecord);
+        boolean haveRef = copyReferenceFiles(resManager, selectedImportItem);
         if (haveRef) {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-            repFactory.save(selectedItemRecord.getItem(), true);
+            repFactory.save(selectedImportItem.getItem(), true);
         }
 
     }
 
-    protected void afterForceCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
+    protected void afterForceCreatedItem(ResourcesManager resManager, ImportItem selectedImportItem) throws Exception {
         // nothing to do
     }
 
-    protected boolean copyReferenceFiles(ResourcesManager manager, ItemRecord selectedItemRecord) throws IOException {
+    protected boolean copyReferenceFiles(ResourcesManager manager, ImportItem selectedImportItem) throws IOException {
         OutputStream os = null;
         InputStream is = null;
 
         boolean haveRef = false;
-        Item tmpItem = selectedItemRecord.getItem();
+        Item tmpItem = selectedImportItem.getItem();
         List<ReferenceFileItem> refItems = tmpItem.getReferenceResources();
         URI propertyResourceURI = EcoreUtil.getURI(tmpItem.getProperty());
         for (ReferenceFileItem refItem : refItems) {
@@ -895,7 +893,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 URL fileURL = FileLocator.toFileURL(new java.net.URL(
                         "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
                 os = new FileOutputStream(fileURL.getFile());
-                is = manager.getStream(selectedItemRecord.getPath().removeFileExtension()
+                is = manager.getStream(selectedImportItem.getPath().removeFileExtension()
                         .addFileExtension(refItem.getExtension()));
                 FileCopyUtils.copyStreams(is, os);
             } finally {
@@ -910,29 +908,29 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return haveRef;
     }
 
-    public void resolveItem(ResourcesManager manager, ItemRecord itemRecord) {
-        if (itemRecord.isResolved()) {
+    public void resolveItem(ResourcesManager manager, ImportItem importItem) {
+        if (importItem.isResolved()) {
             return;
         }
 
         InputStream stream = null;
 
         try {
-            final Item item = itemRecord.getItem();
+            final Item item = importItem.getItem();
             boolean byteArray = (item instanceof FileItem);
-            IPath itemPath = HandlerUtil.getItemPath(itemRecord.getPath(), item);
+            IPath itemPath = HandlerUtil.getItemPath(importItem.getPath(), item);
             IPath itemRelativePath = HandlerUtil.getValidItemRelativePath(manager, itemPath);
             Set<IPath> paths = manager.getPaths();
             // check the item file
             if (!paths.contains(itemPath)) {
-                itemRecord.addError(Messages.getString("ImportBasicHandler_MissingItemError", itemRecord.getItemName(),
+                importItem.addError(Messages.getString("ImportBasicHandler_MissingItemError", importItem.getItemName(),
                         itemPath.lastSegment(), itemRelativePath));
-                log.error(itemRecord.getItemName()
+                log.error(importItem.getItemName()
                         + " " + Messages.getString("ImportBasicHandler_MissingItemFile") + " - " + itemRelativePath); //$NON-NLS-1$
                 return;
             }
             stream = manager.getStream(itemPath);
-            Resource resource = createResource(itemRecord, itemPath, byteArray);
+            Resource resource = createResource(importItem, itemPath, byteArray);
 
             if (byteArray) {
                 // TDI-24612
@@ -951,14 +949,14 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
             for (ReferenceFileItem rfItem : (List<ReferenceFileItem>) item.getReferenceResources()) {
-                itemPath = HandlerUtil.getReferenceItemPath(itemRecord.getPath(), rfItem.getExtension());
+                itemPath = HandlerUtil.getReferenceItemPath(importItem.getPath(), rfItem.getExtension());
                 stream = manager.getStream(itemPath);
-                Resource rfResource = createResource(itemRecord, itemPath, true);
+                Resource rfResource = createResource(importItem, itemPath, true);
                 rfResource.load(stream, null);
             }
 
             Iterator<EObject> itRef = item.eCrossReferences().iterator();
-            IPath parentPath = itemRecord.getPath().removeLastSegments(1);
+            IPath parentPath = importItem.getPath().removeLastSegments(1);
             while (itRef.hasNext()) {
                 EObject object = itRef.next();
                 String linkedFile = EcoreUtil.getURI(object).toFileString();
@@ -970,7 +968,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                             // if original href of the item point to some missing item file
                             // and if we can get the original item file from the name, recover it, but add a warning
                             ((EObjectImpl) object).eSetProxyURI(URI.createFileURI(itemPath.lastSegment()));
-                            log.warn(itemRecord.getItemName()
+                            log.warn(importItem.getItemName()
                                     + " " + Messages.getString("ImportBasicHandler_NotHrefCurrentItemFile") + " - " + itemRelativePath); //$NON-NLS-1$
                         }
                     }
@@ -989,7 +987,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
         }
 
-        itemRecord.setResolved(true);
+        importItem.setResolved(true);
     }
 
     /**
@@ -1001,8 +999,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * such as, "[" is "%5B", "]" is "%5D", etc.
      */
     @SuppressWarnings("unchecked")
-    private void resetItemReference(ItemRecord itemRecord, Resource resource) {
-        Item item = itemRecord.getItem();
+    private void resetItemReference(ImportItem importItem, Resource resource) {
+        Item item = importItem.getItem();
         EList<EObject> contents = resource.getContents();
         /*
          * ignore job. no need, because it can't be allowed input special char for name.
@@ -1071,34 +1069,34 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /**
      * DOC ycbai Comment method "applyMigrationTasks".
      * 
-     * @param itemRecord
+     * @param importItem
      * @param monitor
      */
-    protected void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
+    protected void applyMigrationTasks(ImportItem importItem, IProgressMonitor monitor) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
             Context ctx = CoreRuntimePlugin.getInstance().getContext();
             RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
             org.talend.core.model.general.Project project = repositoryContext.getProject();
-            ERepositoryObjectType repositoryType = itemRecord.getRepositoryType();
+            ERepositoryObjectType repositoryType = importItem.getRepositoryType();
             Item item = null;
             try {
                 List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
-                        ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
+                        ProjectManager.getInstance().getCurrentProject(), importItem.getItemId(), importItem.getImportPath(),
                         repositoryType);
                 for (IRepositoryViewObject repositoryObject : allVersion) {
-                    if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
+                    if (repositoryObject.getProperty().getVersion().equals(importItem.getItemVersion())) {
                         item = repositoryObject.getProperty().getItem();
                     }
                 }
                 if (item == null) {
                     return;
                 }
-                migrationService.executeMigrationTasksForImport(project, item, itemRecord.getMigrationTasksToApply(), monitor);
-                itemRecord.setExistingItemWithSameId(null);
-                itemRecord.clear();
-                itemRecord.setProperty(item.getProperty());
+                migrationService.executeMigrationTasksForImport(project, item, importItem.getMigrationTasksToApply(), monitor);
+                importItem.setExistingItemWithSameId(null);
+                importItem.clear();
+                importItem.setProperty(item.getProperty());
             } catch (Exception e) {
                 logError(e);
             }
@@ -1113,20 +1111,20 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * .repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
     @Override
-    public void afterImportingItemRecords(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord) {
-        if (selectedItemRecord == null) {
+    public void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem) {
+        if (importItem == null) {
             return;
         }
         final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         IRepositoryViewObject object;
         try {
-            Property property = selectedItemRecord.getProperty();
+            Property property = importItem.getProperty();
             if (property == null) {
-                object = factory.getSpecificVersion(selectedItemRecord.getItemId(), selectedItemRecord.getItemVersion(), true);
+                object = factory.getSpecificVersion(importItem.getItemId(), importItem.getItemVersion(), true);
                 property = object.getProperty();
             }
             RelationshipItemBuilder.getInstance().addOrUpdateItem(property.getItem(), true);
-            selectedItemRecord.setProperty(null);
+            importItem.setProperty(null);
             factory.unloadResources(property);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);

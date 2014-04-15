@@ -30,7 +30,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.ui.actions.RestoreFolderUtil;
 
 /**
@@ -67,7 +67,9 @@ public final class ImportCacheHelper {
 
     private boolean hasImportingError = false;
 
-    private List<ItemRecord> importedItemRecords = new ArrayList<ItemRecord>();
+    private final List<String> importErrors = new ArrayList<String>();
+
+    private List<ImportItem> importedItemRecords = new ArrayList<ImportItem>();
 
     public RepositoryObjectCache getRepObjectcache() {
         return this.repObjectcache;
@@ -95,6 +97,10 @@ public final class ImportCacheHelper {
 
     public synchronized void setImportingError(boolean hasImportingError) {
         this.hasImportingError = hasImportingError;
+    }
+
+    public List<String> getImportErrors() {
+        return this.importErrors;
     }
 
     public synchronized XmiResourceManager getXmiResourceManager() {
@@ -169,7 +175,7 @@ public final class ImportCacheHelper {
         }
     }
 
-    public synchronized List<ItemRecord> getImportedItemRecords() {
+    public synchronized List<ImportItem> getImportedItemRecords() {
         return this.importedItemRecords;
     }
 

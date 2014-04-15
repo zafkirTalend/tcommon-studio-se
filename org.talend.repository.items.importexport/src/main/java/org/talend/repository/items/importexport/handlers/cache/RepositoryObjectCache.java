@@ -26,7 +26,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -45,7 +45,7 @@ public class RepositoryObjectCache {
 
     private final Map<ERepositoryObjectType, List<IRepositoryViewObject>> itemsFromRepository = new HashMap<ERepositoryObjectType, List<IRepositoryViewObject>>();
 
-    public List<IRepositoryViewObject> findObjectsByItem(ItemRecord itemRecord) throws PersistenceException {
+    public List<IRepositoryViewObject> findObjectsByItem(ImportItem itemRecord) throws PersistenceException {
         Item item = itemRecord.getItem();
         ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
         initialize(type);
@@ -98,11 +98,11 @@ public class RepositoryObjectCache {
         }
     }
 
-    public void setItemLockState(ItemRecord itemRecord, boolean state) {
+    public void setItemLockState(ImportItem itemRecord, boolean state) {
         lockState.put(itemRecord.getProperty().getId(), state);
     }
 
-    public Boolean getItemLockState(ItemRecord itemRecord) {
+    public Boolean getItemLockState(ImportItem itemRecord) {
         return lockState.get(itemRecord.getProperty().getId());
     }
 

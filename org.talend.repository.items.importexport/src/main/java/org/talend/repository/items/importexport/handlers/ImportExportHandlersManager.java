@@ -49,8 +49,8 @@ import org.talend.repository.items.importexport.handlers.imports.IImportItemsHan
 import org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -60,23 +60,15 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public final class ImportExportHandlersManager {
 
-    private static final ImportExportHandlersManager instance = new ImportExportHandlersManager();
-
     private final ImportExportHandlersRegistryReader registryReader;
 
     private IImportItemsHandler[] importHandlers;
 
     private IImportResourcesHandler[] resImportHandlers;
 
-    private final List<String> importErrors = new ArrayList<String>();
-
-    private ImportExportHandlersManager() {
+    public ImportExportHandlersManager() {
         registryReader = new ImportExportHandlersRegistryReader();
         registryReader.init();
-    }
-
-    public static ImportExportHandlersManager getInstance() {
-        return instance;
     }
 
     public IImportItemsHandler[] getImportHandlers() {
@@ -104,14 +96,14 @@ public final class ImportExportHandlersManager {
         return null;
     }
 
-    public List<ItemRecord> populateImportingItems(ResourcesManager resManager, boolean overwrite,
-            IProgressMonitor progressMonitor) {
+    public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
+            IProgressMonitor progressMonitor) throws Exception {
         // by default don't check the product.
         return populateImportingItems(resManager, overwrite, progressMonitor, false);
     }
 
-    public List<ItemRecord> populateImportingItems(ResourcesManager resManager, boolean overwrite,
-            IProgressMonitor progressMonitor, boolean enableProductChecking) {
+    public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
+            IProgressMonitor progressMonitor, boolean enableProductChecking) throws Exception {
         IProgressMonitor monitor = progressMonitor;
         if (monitor == null) {
             monitor = new NullProgressMonitor();
@@ -123,7 +115,7 @@ public final class ImportExportHandlersManager {
 
         try {
             // pre populate
-            ImportExportHandlersManager.getInstance().prePopulate(monitor, resManager);
+            prePopulate(monitor, resManager);
 
             ImportCacheHelper.getInstance().beforePopulateItems();
 
@@ -135,7 +127,7 @@ public final class ImportExportHandlersManager {
 
             monitor.beginTask(Messages.getString("ImportExportHandlersManager_populatingItemsMessage"), resPaths.size()); //$NON-NLS-1$
 
-            List<ItemRecord> items = new ArrayList<ItemRecord>();
+            List<ImportItem> items = new ArrayList<ImportItem>();
 
             for (IPath path : resPaths) {
                 if (monitor.isCanceled()) {
@@ -143,7 +135,7 @@ public final class ImportExportHandlersManager {
                 }
                 IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
                 if (importHandler != null) {
-                    ItemRecord itemRecord = importHandler.calcItemRecord(progressMonitor, resManager, path, overwrite, items);
+                    ImportItem itemRecord = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
                     if (itemRecord != null) {
                         items.add(itemRecord);
                     }
@@ -152,7 +144,7 @@ public final class ImportExportHandlersManager {
             }
 
             // post populate
-            ImportExportHandlersManager.getInstance().postPopulate(monitor, resManager, items.toArray(new ItemRecord[0]));
+            postPopulate(monitor, resManager, items.toArray(new ImportItem[0]));
 
             return items;
         } finally {
@@ -168,7 +160,7 @@ public final class ImportExportHandlersManager {
     }
 
     public void importItemRecords(final IProgressMonitor progressMonitor, final ResourcesManager resManager,
-            final List<ItemRecord> checkedItemRecords, final boolean overwrite, final ItemRecord[] allImportItemRecords,
+            final List<ImportItem> checkedItemRecords, final boolean overwrite, final ImportItem[] allImportItemRecords,
             final IPath destinationPath) throws InvocationTargetException {
         TimeMeasure.display = CommonsPlugin.isDebugMode();
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
@@ -191,10 +183,10 @@ public final class ImportExportHandlersManager {
              * 
              * Maybe, Have done by priority for import handler, so no need.
              */
-            // Collections.sort(itemRecords, new Comparator<ItemRecord>() {
+            // Collections.sort(itemRecords, new Comparator<ImportItem>() {
             //
             // @Override
-            // public int compare(ItemRecord o1, ItemRecord o2) {
+            // public int compare(ImportItem o1, ImportItem o2) {
             // if (o1.getProperty().getItem() instanceof RoutineItem && o2.getProperty().getItem() instanceof
             // RoutineItem) {
             // return 0;
@@ -221,7 +213,7 @@ public final class ImportExportHandlersManager {
                         @Override
                         public void run(final IProgressMonitor monitor) throws CoreException {
                             // pre import
-                            preImport(monitor, resManager, checkedItemRecords.toArray(new ItemRecord[0]), allImportItemRecords);
+                            preImport(monitor, resManager, checkedItemRecords.toArray(new ImportItem[0]), allImportItemRecords);
 
                             // bug 10520
                             final Set<String> overwriteDeletedItems = new HashSet<String>();
@@ -229,7 +221,7 @@ public final class ImportExportHandlersManager {
 
                             Map<String, String> nameToIdMap = new HashMap<String, String>();
 
-                            for (ItemRecord itemRecord : checkedItemRecords) {
+                            for (ImportItem itemRecord : checkedItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
                                 }
@@ -253,8 +245,14 @@ public final class ImportExportHandlersManager {
                                 }
                             }
 
-                            importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
-                                    allImportItemRecords, destinationPath, overwriteDeletedItems, idDeletedBeforeImport);
+                            try {
+                                importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
+                                        allImportItemRecords, destinationPath, overwriteDeletedItems, idDeletedBeforeImport);
+                            } catch (Exception e) {
+                                throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass())
+                                        .getSymbolicName(),
+                                        Messages.getString("ImportExportHandlersManager_importingItemsError"), e)); //$NON-NLS-1$
+                            }
 
                             if (PluginChecker.isJobLetPluginLoaded()) {
                                 IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault()
@@ -290,15 +288,16 @@ public final class ImportExportHandlersManager {
                             }
 
                             // post import
-                            List<ItemRecord> importedItemRecords = ImportCacheHelper.getInstance().getImportedItemRecords();
-                            postImport(monitor, resManager, importedItemRecords.toArray(new ItemRecord[0]));
+                            List<ImportItem> importedItemRecords = ImportCacheHelper.getInstance().getImportedItemRecords();
+                            postImport(monitor, resManager, importedItemRecords.toArray(new ImportItem[0]));
                         }
 
                         private void importItemRecordsWithRelations(final IProgressMonitor monitor,
-                                final ResourcesManager manager, final List<ItemRecord> processingItemRecords,
-                                final boolean overwriting, ItemRecord[] allPopulatedImportItemRecords, IPath destinationPath,
-                                final Set<String> overwriteDeletedItems, final Set<String> idDeletedBeforeImport) {
-                            for (ItemRecord itemRecord : processingItemRecords) {
+                                final ResourcesManager manager, final List<ImportItem> processingItemRecords,
+                                final boolean overwriting, ImportItem[] allPopulatedImportItemRecords, IPath destinationPath,
+                                final Set<String> overwriteDeletedItems, final Set<String> idDeletedBeforeImport)
+                                throws Exception {
+                            for (ImportItem itemRecord : processingItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
                                 }
@@ -307,10 +306,10 @@ public final class ImportExportHandlersManager {
                                 }
                                 final IImportItemsHandler importHandler = itemRecord.getImportHandler();
                                 if (importHandler != null && itemRecord.isValid()) {
-                                    List<ItemRecord> relatedItemRecord = importHandler.findRelatedItemRecord(monitor, manager,
+                                    List<ImportItem> relatedItemRecord = importHandler.findRelatedImportItems(monitor, manager,
                                             itemRecord, allPopulatedImportItemRecords);
                                     // import related items first
-                                    if (importHandler.isImportRelatedItemRecordPrior()) {
+                                    if (importHandler.isPriorImportRelatedItem()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
                                                     allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
@@ -322,14 +321,14 @@ public final class ImportExportHandlersManager {
                                     }
 
                                     // will import
-                                    importHandler.importItemRecord(monitor, manager, itemRecord, overwriting, destinationPath,
+                                    importHandler.doImport(monitor, manager, itemRecord, overwriting, destinationPath,
                                             overwriteDeletedItems, idDeletedBeforeImport);
 
                                     if (monitor.isCanceled()) {
                                         return;
                                     }
                                     // if import related items behind current item
-                                    if (!importHandler.isImportRelatedItemRecordPrior()) {
+                                    if (!importHandler.isPriorImportRelatedItem()) {
                                         if (!relatedItemRecord.isEmpty()) {
                                             importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
                                                     allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
@@ -337,7 +336,7 @@ public final class ImportExportHandlersManager {
                                         }
                                     }
 
-                                    importHandler.afterImportingItemRecords(monitor, manager, itemRecord);
+                                    importHandler.afterImportingItems(monitor, manager, itemRecord);
 
                                     // record the imported items with related items too.
                                     ImportCacheHelper.getInstance().getImportedItemRecords().add(itemRecord);
@@ -402,7 +401,7 @@ public final class ImportExportHandlersManager {
      * 
      * after populate the items from resources
      */
-    public void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] populatedItemRecords) {
+    public void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] populatedItemRecords) {
         IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
             resHandler.postPopulate(monitor, resManager, populatedItemRecords);
@@ -416,8 +415,8 @@ public final class ImportExportHandlersManager {
      * 
      * Before import items.
      */
-    public void preImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] checkedItemRecords,
-            ItemRecord[] allImportItemRecords) {
+    public void preImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] checkedItemRecords,
+            ImportItem[] allImportItemRecords) {
         IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
             resHandler.preImport(monitor, resManager, checkedItemRecords, allImportItemRecords);
@@ -431,14 +430,11 @@ public final class ImportExportHandlersManager {
      * 
      * After import items
      */
-    public void postImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] importedItemRecords) {
+    public void postImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] importedItemRecords) {
         IImportResourcesHandler[] importResourcesHandlers = getResourceImportHandlers();
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
             resHandler.postImport(monitor, resManager, importedItemRecords);
         }
     }
 
-    public List<String> getImportErrors() {
-        return this.importErrors;
-    }
 }

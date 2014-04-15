@@ -18,7 +18,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -55,36 +55,36 @@ public interface IImportItemsHandler extends IExecutableExtension {
      * @param resManager
      * @param resourcePath according to the this path to calculate the item record.
      * @param overwrite
-     * @param existeditems this items list has been calculated. will check the duplicated name or not.
+     * @param existedImportItems this items list has been calculated. will check the duplicated name or not.
      * @return if not valid, will return null.
      */
-    ItemRecord calcItemRecord(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath, boolean overwrite,
-            List<ItemRecord> existeditems);
+    ImportItem createImportItem(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath, boolean overwrite,
+            List<ImportItem> existedImportItems) throws Exception;
 
     /**
      * Find out current item's related items. in order to implictly import the related items.
      * 
      * @param monitor
      * @param resManager
-     * @param selectedItemRecord the item will be imported.
-     * @param allPopulatedItemRecords the list of items are all populated items.
+     * @param importItem the item will be imported.
+     * @param allImportItems the list of items are all populated items.
      * @return the related item for selected items.
      */
-    List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            ItemRecord[] allImportItemRecords);
+    List<ImportItem> findRelatedImportItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem,
+            ImportItem[] allImportItems) throws Exception;
 
     /**
      * Will import the valid selected items to current project.
      * 
      * 
-     * @param selectedItemRecord the importing item
+     * @param importItem the importing item
      * @param overwrite If true will overwrite the original item. else will ignore to import the selected item.
      * @param destinationPath, only used for contextual import otherwise it is null. If not null it is to the handler
      * responsibility to use it if the items it handles should be placed in this contextual folder. Handlers that do not
      * recognize this destination path may import their items by ignoring this value.
      */
-    void importItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
-            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport);
+    void doImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem, boolean overwrite,
+            IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) throws Exception;
 
     /**
      * When there are some related items to be import, will use this flag.
@@ -94,11 +94,11 @@ public interface IImportItemsHandler extends IExecutableExtension {
      * if false, will after import current item.
      * 
      */
-    boolean isImportRelatedItemRecordPrior();
+    boolean isPriorImportRelatedItem();
 
     /**
      * Maybe, need some disposed actions(like EMF Resources), sync functions, etc.
      * 
      */
-    void afterImportingItemRecords(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord);
+    void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem) throws Exception;
 }

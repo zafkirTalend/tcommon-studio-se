@@ -76,7 +76,8 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.service.IExchangeService;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.items.importexport.ui.dialog.ShowErrorsDuringImportItemsDialog;
 import org.talend.repository.items.importexport.ui.i18n.Messages;
@@ -121,13 +122,15 @@ public class ImportItemsWizardPage extends WizardPage {
 
     private String previouslyBrowsedDirectoryPath, previouslyBrowsedArchivePath, lastWorkedPath;
 
-    private List<ItemRecord> selectedItemRecords = new ArrayList<ItemRecord>();
+    private List<ImportItem> selectedItemRecords = new ArrayList<ImportItem>();
 
     private final ImportNodesBuilder nodesBuilder = new ImportNodesBuilder();
 
     private ResourcesManager resManager;
 
     private IStructuredSelection selection;
+
+    private final ImportExportHandlersManager importManager = new ImportExportHandlersManager();
 
     /**
      * 
@@ -668,7 +671,7 @@ public class ImportItemsWizardPage extends WizardPage {
     }
 
     private void checkValidItemRecords() {
-        ItemRecord[] validItems = getValidItemRecords();
+        ImportItem[] validItems = getValidItemRecords();
         boolean hasValidItems = validItems.length > 0;
 
         if (hasValidItems) {
@@ -679,16 +682,16 @@ public class ImportItemsWizardPage extends WizardPage {
         setPageComplete(hasValidItems);
     }
 
-    public ItemRecord[] getValidItemRecords() {
+    public ImportItem[] getValidItemRecords() {
 
-        List<ItemRecord> validItems = new ArrayList<ItemRecord>();
-        for (ItemRecord item : this.selectedItemRecords) {
+        List<ImportItem> validItems = new ArrayList<ImportItem>();
+        for (ImportItem item : this.selectedItemRecords) {
             if (item.isValid()) {
                 validItems.add(item);
 
             }
         }
-        return validItems.toArray(new ItemRecord[0]);
+        return validItems.toArray(new ImportItem[0]);
     }
 
     protected void displayErrorDialog(String message) {
@@ -708,9 +711,12 @@ public class ImportItemsWizardPage extends WizardPage {
 
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    List<ItemRecord> items = ImportExportHandlersManager.getInstance().populateImportingItems(resManager,
-                            overwrite, monitor, true);
-                    nodesBuilder.addItems(items);
+                    try {
+                        List<ImportItem> items = importManager.populateImportingItems(resManager, overwrite, monitor, true);
+                        nodesBuilder.addItems(items);
+                    } catch (Exception e) {
+                        throw new InvocationTargetException(e);
+                    }
                 }
 
             };
@@ -721,8 +727,8 @@ public class ImportItemsWizardPage extends WizardPage {
             }
         }
 
-        ItemRecord[] allImportItemRecords = nodesBuilder.getAllImportItemRecords();
-        for (ItemRecord itemRecord : allImportItemRecords) {
+        ImportItem[] allImportItemRecords = nodesBuilder.getAllImportItemRecords();
+        for (ImportItem itemRecord : allImportItemRecords) {
             // bug 21738
             if (itemRecord.getExistingItemWithSameId() != null
                     && itemRecord.getExistingItemWithSameId() instanceof RepositoryViewObject) {
@@ -775,7 +781,7 @@ public class ImportItemsWizardPage extends WizardPage {
     }
 
     private void checkSelectedItemErrors() {
-        List<ItemRecord> checkedElements = getCheckedElements();
+        List<ImportItem> checkedElements = getCheckedElements();
         if (checkedElements.isEmpty()) {
             setErrorMessage(Messages.getString("ImportItemsWizardPage_noSelectedItemsMessages")); //$NON-NLS-1$
             setPageComplete(false);
@@ -794,7 +800,7 @@ public class ImportItemsWizardPage extends WizardPage {
         errorsListViewer.refresh();
     }
 
-    private List<ItemRecord> getCheckedElements() {
+    private List<ImportItem> getCheckedElements() {
         // add this if user use filter
         Set<ItemImportNode> checkedElements = new HashSet<ItemImportNode>();
         for (Object obj : filteredCheckboxTree.getCheckedLeafNodes()) {
@@ -812,7 +818,7 @@ public class ImportItemsWizardPage extends WizardPage {
         List<ItemImportNode> list = new ArrayList<ItemImportNode>(checkedElements);
         Collections.sort(list);
 
-        List<ItemRecord> items = new ArrayList<ItemRecord>(list.size());
+        List<ImportItem> items = new ArrayList<ImportItem>(list.size());
         for (ItemImportNode node : list) {
             items.add(node.getItemRecord());
         }
@@ -825,7 +831,7 @@ public class ImportItemsWizardPage extends WizardPage {
      * 
      * @param checkedElements element to be checked
      */
-    private void updateErrorMessage(List<ItemRecord> checkedElements) {
+    private void updateErrorMessage(List<ImportItem> checkedElements) {
         String errorMessage = checkErrorFor2ItemsWithSameIdAndVersion(checkedElements);
         setErrorMessage(errorMessage);
     }
@@ -837,11 +843,11 @@ public class ImportItemsWizardPage extends WizardPage {
      * @param checkedElementsn the element to be checked
      * @return an error message or null if no error.
      */
-    private String checkErrorFor2ItemsWithSameIdAndVersion(List<ItemRecord> checkedElements) {
+    private String checkErrorFor2ItemsWithSameIdAndVersion(List<ImportItem> checkedElements) {
         String errorMessage = null;
-        HashMap<String, ItemRecord> duplicateCheckMap = new HashMap<String, ItemRecord>();
-        for (ItemRecord itRecord : checkedElements) {
-            ItemRecord otherRecord = duplicateCheckMap.put(itRecord.getProperty().getId() + itRecord.getProperty().getVersion(),
+        HashMap<String, ImportItem> duplicateCheckMap = new HashMap<String, ImportItem>();
+        for (ImportItem itRecord : checkedElements) {
+            ImportItem otherRecord = duplicateCheckMap.put(itRecord.getProperty().getId() + itRecord.getProperty().getVersion(),
                     itRecord);
             if (otherRecord != null) {
                 errorMessage = Messages.getString(
@@ -867,7 +873,7 @@ public class ImportItemsWizardPage extends WizardPage {
     public boolean performCancel() {
         // Check Error Items
         final List<String> errors = new ArrayList<String>();
-        errors.addAll(ImportExportHandlersManager.getInstance().getImportErrors());
+        errors.addAll(ImportCacheHelper.getInstance().getImportErrors());
         Display.getDefault().asyncExec(new Runnable() {
 
             @Override
@@ -876,7 +882,7 @@ public class ImportItemsWizardPage extends WizardPage {
                     ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent()
                             .getActiveShell(), errors);
                     dialog.open();
-                    ImportExportHandlersManager.getInstance().getImportErrors().clear();
+                    ImportCacheHelper.getInstance().getImportErrors().clear();
                 }
             }
         });
@@ -886,12 +892,12 @@ public class ImportItemsWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        final List<ItemRecord> checkedItemRecords = getCheckedElements();
+        final List<ImportItem> checkedItemRecords = getCheckedElements();
 
         /*
          * ?? prepare to do import, unlock the existed one, and make sure the overwrite to work well.
          */
-        for (ItemRecord itemRecord : checkedItemRecords) {
+        for (ImportItem itemRecord : checkedItemRecords) {
             Item item = itemRecord.getProperty().getItem();
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             if (item.getState().isLocked()) {
@@ -938,8 +944,8 @@ public class ImportItemsWizardPage extends WizardPage {
                         }
                     }
 
-                    ImportExportHandlersManager.getInstance().importItemRecords(monitor, resManager, checkedItemRecords,
-                            overwrite, nodesBuilder.getAllImportItemRecords(), destinationPath);
+                    importManager.importItemRecords(monitor, resManager, checkedItemRecords, overwrite,
+                            nodesBuilder.getAllImportItemRecords(), destinationPath);
                 }
             };
 
@@ -954,10 +960,10 @@ public class ImportItemsWizardPage extends WizardPage {
             }
             // Check Error Items
             final List<String> errors = new ArrayList<String>();
-            for (ItemRecord itemRecord : checkedItemRecords) {
+            for (ImportItem itemRecord : checkedItemRecords) {
                 errors.addAll(itemRecord.getErrors());
             }
-            errors.addAll(ImportExportHandlersManager.getInstance().getImportErrors());
+            errors.addAll(ImportCacheHelper.getInstance().getImportErrors());
             Display.getDefault().asyncExec(new Runnable() {
 
                 @Override
@@ -966,7 +972,7 @@ public class ImportItemsWizardPage extends WizardPage {
                         ShowErrorsDuringImportItemsDialog dialog = new ShowErrorsDuringImportItemsDialog(Display.getCurrent()
                                 .getActiveShell(), errors);
                         dialog.open();
-                        ImportExportHandlersManager.getInstance().getImportErrors().clear();
+                        ImportCacheHelper.getInstance().getImportErrors().clear();
                     }
                 }
             });

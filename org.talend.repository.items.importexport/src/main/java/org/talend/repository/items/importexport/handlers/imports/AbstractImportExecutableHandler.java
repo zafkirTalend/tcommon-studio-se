@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -43,25 +43,24 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#findRelatedItemRecord(org.eclipse
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#findRelatedImportItems(org.eclipse
      * .core .runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
-     * org.talend.repository.items.importexport.handlers.model.ItemRecord,
-     * org.talend.repository.items.importexport.handlers.model.ItemRecord[])
+     * org.talend.repository.items.importexport.handlers.model.ImportItem,
+     * org.talend.repository.items.importexport.handlers.model.ImportItem[])
      */
     @Override
-    public List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager,
-            ItemRecord selectedItemRecord, ItemRecord[] allImportItemRecords) {
+    public List<ImportItem> findRelatedImportItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem,
+            ImportItem[] allImportImportItems) throws Exception {
         return Collections.emptyList(); // default, no related items
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#isImportRelatedItemRecordPrior()
+     * @see org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#isPriorImportRelatedItem()
      */
     @Override
-    public boolean isImportRelatedItemRecordPrior() {
+    public boolean isPriorImportRelatedItem() {
         return true; // default, import related item prior.
     }
 
@@ -69,12 +68,13 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#afterImportingItemRecords(org.eclipse
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#afterImportingItems(org.eclipse
      * .core.runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
-     * org.talend.repository.items.importexport.handlers.model.ItemRecord)
+     * org.talend.repository.items.importexport.handlers.model.ImportItem)
      */
     @Override
-    public void afterImportingItemRecords(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord) {
+    public void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem)
+            throws Exception {
         // default, nothing to do
     }
 
