@@ -12,26 +12,26 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import junit.framework.Assert;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 
-
 /**
- * DOC zshen  class global comment. Detailled comment
+ * DOC zshen class global comment. Detailled comment
  */
 @PrepareForTest({ ReponsitoryContextBridge.class, MetadataTalendType.class })
 public class MetadataFillFactoryTest {
@@ -47,36 +47,27 @@ public class MetadataFillFactoryTest {
                 .toString());
         returnMap.put("driverClassName", connectionParams.get("driver") == null ? null : connectionParams.get("driver")
                 .toString());
-        returnMap.put("jdbcUrl", connectionParams.get("url") == null ? null : connectionParams.get("url")
-                .toString());
-        returnMap.put("user", connectionParams.get("user") == null ? null : connectionParams.get("user")
-                .toString());
-        returnMap.put("password", connectionParams.get("password") == null ? null : connectionParams.get("password")
-                .toString());
+        returnMap.put("jdbcUrl", connectionParams.get("url") == null ? null : connectionParams.get("url").toString());
+        returnMap.put("user", connectionParams.get("user") == null ? null : connectionParams.get("user").toString());
+        returnMap.put("password", connectionParams.get("password") == null ? null : connectionParams.get("password").toString());
         returnMap.put("aDDParameter", connectionParams.get("aDDParameter") == null ? null : connectionParams.get("aDDParameter")
                 .toString());
-        returnMap.put("author", connectionParams.get("author") == null ? null : connectionParams.get("author")
-                .toString());
-        returnMap.put("host", connectionParams.get("host") == null ? null : connectionParams.get("host")
-                .toString());
-        returnMap.put("name", connectionParams.get("name") == null ? null : connectionParams.get("name")
-                .toString());
-        returnMap.put("status", connectionParams.get("status") == null ? null : connectionParams.get("status")
-                .toString());
-        returnMap.put("port", connectionParams.get("port") == null ? null : connectionParams.get("port")
-                .toString());
+        returnMap.put("author", connectionParams.get("author") == null ? null : connectionParams.get("author").toString());
+        returnMap.put("host", connectionParams.get("host") == null ? null : connectionParams.get("host").toString());
+        returnMap.put("name", connectionParams.get("name") == null ? null : connectionParams.get("name").toString());
+        returnMap.put("status", connectionParams.get("status") == null ? null : connectionParams.get("status").toString());
+        returnMap.put("port", connectionParams.get("port") == null ? null : connectionParams.get("port").toString());
         returnMap.put("version",
                 connectionParams.get("version") == null || connectionParams.get("version").toString().isEmpty() ? null
-                        : connectionParams.get("version")
-                .toString());
-        returnMap.put("retrieveAllMetadata", connectionParams.get("retrieveAllMetadata") == null ? null : connectionParams.get(
-                "retrieveAllMetadata")
-                .toString());
-        returnMap.put("purpose", connectionParams.get("purpose") == null ? null : connectionParams.get("purpose")
-                .toString());
+                        : connectionParams.get("version").toString());
+        returnMap.put("retrieveAllMetadata",
+                connectionParams.get("retrieveAllMetadata") == null ? null : connectionParams.get("retrieveAllMetadata")
+                        .toString());
+        returnMap.put("purpose", connectionParams.get("purpose") == null ? null : connectionParams.get("purpose").toString());
 
         return returnMap;
     }
+
     /**
      * Test method for {@link org.talend.core.model.metadata.MetadataFillFactory#fillUIParams(java.util.Map)}.
      */
@@ -107,6 +98,28 @@ public class MetadataFillFactoryTest {
         assertNotNull("Product is not null", metadataConnection.getProduct());
         assertNull("Mapping is null", metadataConnection.getMapping());
 
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.MetadataFillFactory#getDBInstance(org.talend.core.database.EDatabaseTypeName)}
+     * .
+     */
+    @Test
+    public void testGetDBInstance() {
+        MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(EDatabaseTypeName.SYBASEASE);
+        Assert.assertTrue("MetadataFiller should be instanceof SybaseConnectionFillerImpl", //$NON-NLS-1$
+                dbInstance.getMetadataFiller() instanceof SybaseConnectionFillerImpl);
+        dbInstance = MetadataFillFactory.getDBInstance(EDatabaseTypeName.SYBASEIQ);
+        Assert.assertTrue("MetadataFiller should be instanceof SybaseConnectionFillerImpl", //$NON-NLS-1$
+                dbInstance.getMetadataFiller() instanceof SybaseConnectionFillerImpl);
+        for (EDatabaseConnTemplate databaseType : EDatabaseConnTemplate.values()) {
+            dbInstance = MetadataFillFactory.getDBInstance(EDatabaseTypeName.getTypeFromDbType(databaseType.getDBTypeName()));
+            Assert.assertNotNull(dbInstance);
+        }
+
+        dbInstance = MetadataFillFactory.getDBInstance(null);
+        Assert.assertNull(dbInstance);
 
     }
 
