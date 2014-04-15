@@ -117,10 +117,6 @@ public class MetadataFillFactoryTest {
             dbInstance = MetadataFillFactory.getDBInstance(EDatabaseTypeName.getTypeFromDbType(databaseType.getDBTypeName()));
             Assert.assertNotNull(dbInstance);
         }
-
-        dbInstance = MetadataFillFactory.getDBInstance(null);
-        Assert.assertNull(dbInstance);
-
     }
 
 }
