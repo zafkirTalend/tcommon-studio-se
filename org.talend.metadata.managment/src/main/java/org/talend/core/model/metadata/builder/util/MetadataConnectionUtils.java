@@ -52,7 +52,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
-import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -1019,23 +1018,26 @@ public class MetadataConnectionUtils {
                 if (metadataConnection == null) {
                     metaConnection = ConvertionHelper.convert(dbConn);
                 }
-                SupportDBUrlType currentDBUrlType = SupportDBUrlType.getDBTypeByKey(metaConnection.getDbType());
-                MetadataFillFactory.getDBInstance(currentDBUrlType).fillUIConnParams(metaConnection, dbConn);
-                sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
-                if (sqlConn != null) {
-                    DatabaseMetaData databaseMetaData = null;
-                    // Added by Marvin Wang on Mar. 21, 2013 for loading hive jars dynamically, refer to TDI-25072.
-                    if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metaConnection.getDbType())) {
-                        databaseMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
-                    } else {
-                        databaseMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbConn, false);
-                    }
-
+                EDatabaseTypeName currentEDatabaseType = EDatabaseTypeName.getTypeFromDbType(metaConnection.getDbType());
+                if (currentEDatabaseType != null) {
+                    MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(currentEDatabaseType);
+                    dbInstance.fillUIConnParams(metaConnection, dbConn);
+                    sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
                     if (sqlConn != null) {
-                        MetadataFillFactory.getDBInstance(currentDBUrlType).fillCatalogs(dbConn, databaseMetaData,
-                                metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                        MetadataFillFactory.getDBInstance(currentDBUrlType).fillSchemas(dbConn, databaseMetaData, metaConnection,
-                                MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
+                        DatabaseMetaData databaseMetaData = null;
+                        // Added by Marvin Wang on Mar. 21, 2013 for loading hive jars dynamically, refer to TDI-25072.
+                        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metaConnection.getDbType())) {
+                            databaseMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metaConnection);
+                        } else {
+                            databaseMetaData = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConn, dbConn, false);
+                        }
+
+                        if (sqlConn != null) {
+                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillCatalogs(dbConn, databaseMetaData,
+                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
+                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillSchemas(dbConn, databaseMetaData,
+                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
+                        }
                     }
                 }
             }

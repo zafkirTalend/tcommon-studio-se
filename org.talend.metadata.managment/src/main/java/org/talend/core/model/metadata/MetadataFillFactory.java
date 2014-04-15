@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -68,7 +68,7 @@ public class MetadataFillFactory {
      * 
      * Get DatabaseConnection Instance
      * 
-     * @deprecated use {@link #getDBInstance(SupportDBUrlType)} instead it
+     * @deprecated use {@link #getDBInstance(EDatabaseTypeName)} instead it
      * @return
      */
     @Deprecated
@@ -83,15 +83,16 @@ public class MetadataFillFactory {
     /**
      * Get DatabaseConnection Instance
      * 
-     * @param dbUrlType the type of you want to fill database
+     * @param eDatabaseType the type of you want to fill database
      * @return
      */
-    public static MetadataFillFactory getDBInstance(SupportDBUrlType dbUrlType) {
+    public static MetadataFillFactory getDBInstance(EDatabaseTypeName eDatabaseType) {
         if (instance == null) {
             instance = new MetadataFillFactory();
         }
-        switch (dbUrlType) {
-        case SYBASEDEFAULTURL:
+        switch (eDatabaseType) {
+        case SYBASEASE:
+        case SYBASEIQ:
             metadataFiller = new SybaseConnectionFillerImpl();
             break;
         default:
@@ -372,4 +373,14 @@ public class MetadataFillFactory {
 
         return new ArrayList<Schema>();
     }
+
+    /**
+     * Getter for metadataFiller.
+     * 
+     * @return the metadataFiller
+     */
+    public IMetadataFiller getMetadataFiller() {
+        return metadataFiller;
+    }
+
 }
