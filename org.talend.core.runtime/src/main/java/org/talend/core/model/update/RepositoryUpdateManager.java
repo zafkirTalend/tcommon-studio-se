@@ -145,19 +145,13 @@ public abstract class RepositoryUpdateManager {
     }
 
     public RepositoryUpdateManager(Object parameter, boolean isDetectAndUpdate) {
-        this(parameter, null, isDetectAndUpdate);
+        this.parameter = parameter;
+        this.isDetectAndUpdate = isDetectAndUpdate;
     }
 
     public RepositoryUpdateManager(Object parameter, List<Relation> relations) {
-        this(parameter, relations, false);
-    }
-
-    // fwang fixed bug TDI-17155
-    public RepositoryUpdateManager(Object parameter, List<Relation> relations, boolean isDetectAndUpdate) {
-        super();
         this.parameter = parameter;
         this.relations = relations;
-        this.isDetectAndUpdate = isDetectAndUpdate;
     }
 
     public void setOnlyOpeningJob(boolean onlyOpeningJob) {
@@ -954,6 +948,7 @@ public abstract class RepositoryUpdateManager {
             protected List<UpdateResult> getOtherUpdateResults(IProgressMonitor parentMonitor, List<IProcess2> openedProcessList,
                     Set<IUpdateItemType> types) {
                 List<UpdateResult> resultList = new ArrayList<UpdateResult>();
+                // from dectect toolbar to check all process
                 if (isDetectAndUpdate) {
                     resultList = updateAllProcess(parentMonitor, resultList, openedProcessList, types, false);
                 }
@@ -1859,16 +1854,14 @@ public abstract class RepositoryUpdateManager {
 
     private static boolean updateQueryObject(Object parameter, boolean show, boolean onlySimpleShow, RepositoryNode node) {
         Item item = node.getObject().getProperty().getItem();
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         List<Relation> relations = null;
         if (parameter instanceof Query) {
-            String id = item.getProperty().getId() + " - " + ((Query) parameter).getLabel(); //$NON-NLS-1$
+            String id = item.getProperty().getId() ; //$NON-NLS-1$
             relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, RelationshipItemBuilder.LATEST_VERSION,
                     RelationshipItemBuilder.QUERY_RELATION);
         }
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations, true) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
