@@ -88,6 +88,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      * Adding the page to the wizard.
      */
 
+    @Override
     public void addPages() {
         setWindowTitle(Messages.getString("SchemaWizard.windowTitle")); //$NON-NLS-1$
 
@@ -103,8 +104,8 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
             tableWizardpage.setDescription(Messages.getString("FileTableWizardPage.descriptionUpdate")); //$NON-NLS-1$
             tableWizardpage.setPageComplete(isRepositoryObjectEditable());
 
-            //Added TDQ-8360 20140410 yyin: to observe if the schema is changed or not
-            updateSchemaObservable = new Observable();
+            // Added TDQ-8360 20140410 yyin: to observe if the schema is changed or not
+            updateSchemaObservable = new SchemaObservable();
             schemaObserver = new SchemaObserver();
             updateSchemaObservable.addObserver(schemaObserver);
             tableWizardpage.addSchemaObservable(updateSchemaObservable);
@@ -129,6 +130,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
         /*
          * from the Observable's nodify, will call this update.
          */
+        @Override
         public void update(Observable source, Object arg1) {
             isUpdated = true;
         }
@@ -142,6 +144,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      * This method determine if the 'Finish' button is enable This method is called when 'Finish' button is pressed in
      * the wizard. We will create an operation and run it using wizard as execution context.
      */
+    @Override
     public boolean performFinish() {
         if (tableWizardpage.isPageComplete()) {
             // MOD qiongli 2011-11-23 TDQ-3930,TDQ-3797.pop a question dialog when there are anlaysises in TDQ need to
@@ -196,6 +199,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
         log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    @Override
     public boolean performCancel() {
         if (metadataTable != null && oldMetadataTable != null) {
             // Added TDQ-8360 20140327 yyin: if cancel, should restore the old columns(otherwise the used column in
@@ -216,6 +220,7 @@ public class FileDelimitedTableWizard extends AbstractRepositoryFileTableWizard 
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection) {
         this.selection = selection;
     }
