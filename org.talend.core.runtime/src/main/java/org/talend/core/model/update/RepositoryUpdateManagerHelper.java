@@ -72,10 +72,10 @@ public class RepositoryUpdateManagerHelper {
                 .getOpenedProcess(RepositoryUpdateManager.getEditors());
 
         try {
-
             List<UpdateResult> resultList = new ArrayList<UpdateResult>();
             if (enableCheckItem()) {
-                checkJobItems(parentMonitor, types, openedProcessList);
+                // closed job
+                resultList.addAll(checkJobItems(parentMonitor, types, openedProcessList));
             }
             // opened job
             for (IProcess2 process : openedProcessList) {
