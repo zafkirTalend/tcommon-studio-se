@@ -910,7 +910,7 @@ public class RepositoryToComponentProperty {
                 return TalendQuoteUtils.addQuotes(connection.getPort());
             }
         }
-        if (value.equals("SID")) { //$NON-NLS-1$
+        if (value.equals("SID") || value.equals("DATABASE_ALIAS")) { //$NON-NLS-1$ //$NON-NLS-2$
             if (("").equals(connection.getSID()) || connection.getSID() == null) { //$NON-NLS-1$
                 if (isContextMode(connection, connection.getDatasourceName())) {
                     return connection.getDatasourceName();
