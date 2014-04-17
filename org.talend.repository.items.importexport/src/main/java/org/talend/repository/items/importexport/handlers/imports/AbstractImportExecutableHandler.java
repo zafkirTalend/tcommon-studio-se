@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -49,8 +49,8 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
      * org.talend.repository.items.importexport.handlers.model.ItemRecord[])
      */
     @Override
-    public List<ItemRecord> findRelatedItemRecord(IProgressMonitor monitor, ResourcesManager resManager,
-            ItemRecord selectedItemRecord, ItemRecord[] allImportItemRecords) {
+    public List<ImportItem> findRelatedImportItems(IProgressMonitor monitor, ResourcesManager resManager,
+            ImportItem selectedItemRecord, ImportItem[] allImportItemRecords) throws Exception {
         return Collections.emptyList(); // default, no related items
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
      * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#isImportRelatedItemRecordPrior()
      */
     @Override
-    public boolean isImportRelatedItemRecordPrior() {
+    public boolean isPriorImportRelatedItem() {
         return true; // default, import related item prior.
     }
 
@@ -74,7 +74,8 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
      * org.talend.repository.items.importexport.handlers.model.ItemRecord)
      */
     @Override
-    public void afterImportingItemRecords(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord) {
+    public void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord)
+            throws Exception {
         // default, nothing to do
     }
 

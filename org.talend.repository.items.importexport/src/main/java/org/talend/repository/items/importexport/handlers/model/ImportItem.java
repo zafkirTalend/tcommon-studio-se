@@ -31,7 +31,7 @@ import org.talend.repository.items.importexport.handlers.imports.IImportItemsHan
 
 /**
  */
-public class ItemRecord {
+public class ImportItem {
 
     private String itemName;
 
@@ -84,7 +84,7 @@ public class ItemRecord {
 
     private IImportItemsHandler importHandler;
 
-    public ItemRecord(IPath path) {
+    public ImportItem(IPath path) {
         this.path = path;
     }
 

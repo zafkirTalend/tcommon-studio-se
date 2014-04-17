@@ -96,10 +96,9 @@ import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.HandlerUtil;
-import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -201,41 +200,41 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * org.eclipse.core.runtime.IPath, boolean, java.util.List)
      */
     @Override
-    public ItemRecord calcItemRecord(IProgressMonitor progressMonitor, ResourcesManager resManager, IPath resourcePath,
-            boolean overwrite, List<ItemRecord> existeditems) {
+    public ImportItem createImportItem(IProgressMonitor progressMonitor, ResourcesManager resManager, IPath resourcePath,
+            boolean overwrite, List<ImportItem> existeditems) throws Exception {
 
-        ItemRecord itemRecord = computeItemRecord(resManager, resourcePath);
+        ImportItem importItem = computeImportItem(resManager, resourcePath);
         if (progressMonitor.isCanceled()) {
             return null;
         }
-        if (itemRecord != null && itemRecord.getProperty() != null) {
-            if (checkItem(resManager, itemRecord, overwrite)) {
+        if (importItem != null && importItem.getProperty() != null) {
+            if (checkItem(resManager, importItem, overwrite)) {
                 if (progressMonitor.isCanceled()) {
                     return null;
                 }
-                checkAndSetProject(resManager, itemRecord);
+                checkAndSetProject(resManager, importItem);
             }
             // set the import handler
-            itemRecord.setImportHandler(this);
-            return itemRecord;
+            importItem.setImportHandler(this);
+            return importItem;
         }
         return null;
 
     }
 
-    public ItemRecord computeItemRecord(ResourcesManager resManager, IPath path) {
-        ItemRecord itemRecord = new ItemRecord(path);
+    public ImportItem computeImportItem(ResourcesManager resManager, IPath path) {
+        ImportItem itemRecord = new ImportItem(path);
         computeProperty(resManager, itemRecord);
         return itemRecord;
     }
 
-    protected void computeProperty(ResourcesManager manager, ItemRecord itemRecord) {
+    protected void computeProperty(ResourcesManager manager, ImportItem itemRecord) {
         Resource resource = loadResource(manager, itemRecord);
         if (resource != null) {
             itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
                     PropertiesPackage.eINSTANCE.getProperty()));
         } else {
-            ImportExportHandlersManager
+            ImportCacheHelper
                     .getInstance()
                     .getImportErrors()
                     .add(Messages.getString("ImportBasicHandler_LoadEMFResourceError", itemRecord.getPath().lastSegment(),
@@ -252,7 +251,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param resource
      * @return
      */
-    protected Resource loadResource(ResourcesManager manager, ItemRecord itemRecord) {
+    protected Resource loadResource(ResourcesManager manager, ImportItem itemRecord) {
         InputStream stream = null;
         try {
             final Resource resource = createResource(itemRecord, itemRecord.getPath(), false);
@@ -295,7 +294,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return null;
     }
 
-    protected Resource createResource(ItemRecord itemRecord, IPath path, boolean byteArrayResource) throws FileNotFoundException {
+    protected Resource createResource(ImportItem itemRecord, IPath path, boolean byteArrayResource) throws FileNotFoundException {
         Resource resource;
         ResourceSet resourceSet = itemRecord.getResourceSet();
         final URI pathUri = HandlerUtil.getURI(path);
@@ -332,7 +331,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /**
      * it's same item or not.
      */
-    public boolean isSame(ItemRecord itemRecord1, ItemRecord itemRecord2) {
+    public boolean isSame(ImportItem itemRecord1, ImportItem itemRecord2) {
         return StringUtils.equals(itemRecord1.getProperty().getId(), itemRecord2.getProperty().getId())
                 && StringUtils.equals(itemRecord1.getProperty().getVersion(), itemRecord2.getProperty().getVersion());
     }
@@ -341,7 +340,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * 
      * check the item is valid or not。
      */
-    public boolean checkItem(ResourcesManager resManager, ItemRecord itemRecord, boolean overwrite) {
+    public boolean checkItem(ResourcesManager resManager, ImportItem itemRecord, boolean overwrite) {
         try {
             Item item = itemRecord.getItem();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
@@ -432,7 +431,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * 
      * item with same name.
      */
-    protected boolean isSameName(ItemRecord itemRecord, IRepositoryViewObject repObject) {
+    protected boolean isSameName(ImportItem itemRecord, IRepositoryViewObject repObject) {
         final Property property = itemRecord.getProperty();
         if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(repObject.getLabel())) // same label
         ) {
@@ -448,7 +447,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @return
      * @throws PersistenceException
      */
-    protected boolean checkIfLocked(ItemRecord itemRecord) throws PersistenceException {
+    protected boolean checkIfLocked(ImportItem itemRecord) throws PersistenceException {
         final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
         Boolean lockState = repObjectcache.getItemLockState(itemRecord);
         if (lockState != null) {
@@ -470,7 +469,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return false;
     }
 
-    public void checkAndSetProject(ResourcesManager resManager, ItemRecord itemRecord) {
+    public void checkAndSetProject(ResourcesManager resManager, ImportItem itemRecord) {
         InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
         URI uri = null;
         if (author != null) {
@@ -499,7 +498,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
-    protected Project computeProject(ResourcesManager manager, ItemRecord itemRecord, IPath path) {
+    protected Project computeProject(ResourcesManager manager, ImportItem itemRecord, IPath path) {
         InputStream stream = null;
         Map<IPath, Project> pathWithProjects = ImportCacheHelper.getInstance().getPathWithProjects();
         try {
@@ -526,7 +525,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return null;
     }
 
-    protected boolean checkProject(Project project, ItemRecord itemRecord) {
+    protected boolean checkProject(Project project, ImportItem itemRecord) {
         boolean checkProject = false;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
@@ -560,7 +559,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param itemRecord
      * @return
      */
-    protected boolean checkMigrationTasks(Project currentProject, Project importedProject, ItemRecord itemRecord) {
+    protected boolean checkMigrationTasks(Project currentProject, Project importedProject, ImportItem itemRecord) {
 
         Map<String, Boolean> migrationTasksStatusPerProject = ImportCacheHelper.getInstance().getMigrationTasksStatusPerProject();
         Map<String, List<MigrationTask>> migrationTasksToApplyPerProject = ImportCacheHelper.getInstance()
@@ -632,7 +631,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * java.util.Set, java.util.Set)
      */
     @Override
-    public void importItemRecord(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
+    public void doImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord,
             boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
         resolveItem(resManager, selectedItemRecord);
@@ -658,7 +657,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
-    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord,
+    protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord,
             boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         final Item item = selectedItemRecord.getItem();
         if (item != null) {
@@ -691,8 +690,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     }
 
                     /* only delete when name exsit rather than id exist */
-                    if (selectedItemRecord.getState().equals(ItemRecord.State.NAME_EXISTED)
-                            || selectedItemRecord.getState().equals(ItemRecord.State.NAME_AND_ID_EXISTED)) {
+                    if (selectedItemRecord.getState().equals(ImportItem.State.NAME_EXISTED)
+                            || selectedItemRecord.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED)) {
                         final IRepositoryViewObject lastVersionBackup = lastVersion;
                         if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
                             // TDI-19535 (check if exists, delete all items with same id)
@@ -728,7 +727,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 beforeCreatingItem(selectedItemRecord);
 
                 final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
-                if (lastVersion == null || selectedItemRecord.getState().equals(ItemRecord.State.ID_EXISTED)) {
+                if (lastVersion == null || selectedItemRecord.getState().equals(ImportItem.State.ID_EXISTED)) {
                     repFactory.create(tmpItem, path, true);
 
                     afterCreatedItem(resManager, selectedItemRecord);
@@ -799,7 +798,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param contentType
      * @return
      */
-    protected IPath checkAndCreatePath(ItemRecord selectedItemRecord, IPath destinationPath) {
+    protected IPath checkAndCreatePath(ImportItem selectedItemRecord, IPath destinationPath) {
         final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         final Item item = selectedItemRecord.getItem();
         final ERepositoryObjectType curItemType = ERepositoryObjectType.getItemType(item);
@@ -851,11 +850,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return path;
     }
 
-    protected void beforeCreatingItem(ItemRecord selectedItemRecord) {
+    protected void beforeCreatingItem(ImportItem selectedItemRecord) {
         // noting to do specially.
     }
 
-    protected void afterCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
+    protected void afterCreatedItem(ResourcesManager resManager, ImportItem selectedItemRecord) throws Exception {
 
         // connections from migrations (from 4.0.x or previous version) doesn't support reference or
         // screenshots
@@ -872,11 +871,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
-    protected void afterForceCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
+    protected void afterForceCreatedItem(ResourcesManager resManager, ImportItem selectedItemRecord) throws Exception {
         // nothing to do
     }
 
-    protected boolean copyReferenceFiles(ResourcesManager manager, ItemRecord selectedItemRecord) throws IOException {
+    protected boolean copyReferenceFiles(ResourcesManager manager, ImportItem selectedItemRecord) throws IOException {
         OutputStream os = null;
         InputStream is = null;
 
@@ -906,7 +905,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return haveRef;
     }
 
-    public void resolveItem(ResourcesManager manager, ItemRecord itemRecord) {
+    public void resolveItem(ResourcesManager manager, ImportItem itemRecord) {
         if (itemRecord.isResolved()) {
             return;
         }
@@ -997,7 +996,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * such as, "[" is "%5B", "]" is "%5D", etc.
      */
     @SuppressWarnings("unchecked")
-    private void resetItemReference(ItemRecord itemRecord, Resource resource) {
+    private void resetItemReference(ImportItem itemRecord, Resource resource) {
         Item item = itemRecord.getItem();
         EList<EObject> contents = resource.getContents();
         /*
@@ -1070,7 +1069,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param itemRecord
      * @param monitor
      */
-    protected void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
+    protected void applyMigrationTasks(ImportItem itemRecord, IProgressMonitor monitor) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMigrationToolService.class)) {
             IMigrationToolService migrationService = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);
@@ -1109,7 +1108,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * .repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
     @Override
-    public void afterImportingItemRecords(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord selectedItemRecord) {
+    public void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord) {
         if (selectedItemRecord == null) {
             return;
         }

@@ -13,7 +13,7 @@
 package org.talend.repository.items.importexport.handlers.imports;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -39,7 +39,7 @@ public interface IImportResourcesHandler {
     /**
      * After populate the resouces for item records.
      */
-    void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] populatedItemRecords);
+    void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] populatedItemRecords);
 
     /**
      * If need do some operations before importing items. can do it in this.
@@ -50,13 +50,13 @@ public interface IImportResourcesHandler {
      * @param checkedItemRecords which items are checked from the import tree.
      * @param allImportItemRecords which items are populated
      */
-    void preImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] checkedItemRecords,
-            ItemRecord[] allImportItemRecords);
+    void preImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] checkedItemRecords,
+            ImportItem[] allImportItemRecords);
 
     /**
      * After all items have been imported, or some items should do some special operations after import.
      * 
      * also, provide the items which are imported already.
      */
-    void postImport(IProgressMonitor monitor, ResourcesManager resManager, ItemRecord[] importedItemRecords);
+    void postImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] importedItemRecords);
 }

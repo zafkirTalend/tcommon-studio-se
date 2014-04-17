@@ -25,7 +25,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -45,7 +45,7 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
      * org.talend.repository.items.importexport.ui.wizard.imports.models.ItemRecord)
      */
     @Override
-    protected void afterCreatedItem(ResourcesManager resManager, ItemRecord selectedItemRecord) throws Exception {
+    protected void afterCreatedItem(ResourcesManager resManager, ImportItem selectedItemRecord) throws Exception {
         final Item tmpItem = selectedItemRecord.getItem();
         // import has not been developed to cope with migration in mind
         // so some model may not be able to load like the ConnectionItems

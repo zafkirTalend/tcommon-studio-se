@@ -28,7 +28,7 @@ import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -72,7 +72,7 @@ public final class HandlerUtil {
     }
 
     // added by dlin 2011-7-25 don't like .item and .property ,just copy .screenshot file will be ok
-    public static void copyScreenshotFile(ResourcesManager manager, ItemRecord itemRecord) throws IOException {
+    public static void copyScreenshotFile(ResourcesManager manager, ImportItem itemRecord) throws IOException {
         int id = itemRecord.getItem().eClass().getClassifierID();
         if (id != PropertiesPackage.PROCESS_ITEM && id != PropertiesPackage.JOBLET_PROCESS_ITEM) {
             return;
