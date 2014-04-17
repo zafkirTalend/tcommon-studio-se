@@ -158,6 +158,13 @@ public final class TalendQuoteUtils {
         return str.replace("\\\"", "\\\\\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    public static String checkSlashAndRemoveQuotation(String str) {
+        if (str == null) {
+            return ""; //$NON-NLS-1$
+        }
+        return str.replace("\\\"", "\""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
     public static String checkStringQuotationMarks(String str) {
         String newStr = str;
         if (str == null) {

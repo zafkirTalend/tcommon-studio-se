@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -93,7 +92,7 @@ public final class ElementParameterParser {
 
     public static boolean canEncrypt(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
-        if (StringUtils.countMatches(value, "\"") == 2 && value.startsWith("\"") && value.endsWith("\"")) { //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+        if (value.startsWith("\"") && value.endsWith("\"") && TalendQuoteUtils.filterQuote(value).length() == 0) { //$NON-NLS-1$//$NON-NLS-2$
             return true;
         } else {
             return false;
@@ -103,7 +102,10 @@ public final class ElementParameterParser {
     public static String getEncryptedValue(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
         try {
-            value = PasswordEncryptUtil.encryptPasswordHex(TalendQuoteUtils.removeQuotes(value));
+            String removeQuotes = TalendQuoteUtils.removeQuotes(value);
+            removeQuotes = TalendQuoteUtils.checkSlashAndRemoveQuotation(removeQuotes);
+            removeQuotes = TalendQuoteUtils.checkAndRemoveBackslashes(removeQuotes);
+            value = PasswordEncryptUtil.encryptPasswordHex(removeQuotes);
             value = TalendQuoteUtils.addQuotes(value, TalendQuoteUtils.QUOTATION_MARK);
         } catch (Exception e) {
             ExceptionHandler.process(e);
