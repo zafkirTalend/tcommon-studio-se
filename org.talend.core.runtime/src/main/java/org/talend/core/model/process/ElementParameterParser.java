@@ -103,7 +103,7 @@ public final class ElementParameterParser {
     public static String getEncryptedValue(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
         try {
-            value = PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(value));
+            value = PasswordEncryptUtil.encryptPasswordHex(TalendQuoteUtils.removeQuotes(value));
             value = TalendQuoteUtils.addQuotes(value, TalendQuoteUtils.QUOTATION_MARK);
         } catch (Exception e) {
             ExceptionHandler.process(e);

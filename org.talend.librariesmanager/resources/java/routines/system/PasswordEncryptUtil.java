@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.utils;
+package routines.system;
 
 import java.security.SecureRandom;
 
@@ -19,8 +19,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * DOC chuang class global comment. Detailled comment
@@ -35,10 +33,12 @@ public class PasswordEncryptUtil {
 
     private static SecureRandom secureRandom = new SecureRandom();
 
+    private static String CHARSET = "UTF-8";
+
     private static SecretKey getSecretKey() throws Exception {
         if (key == null) {
 
-            byte rawKeyData[] = rawKey.getBytes();
+            byte rawKeyData[] = rawKey.getBytes(CHARSET);//$NON-NLS-1$
             DESKeySpec dks = new DESKeySpec(rawKeyData);
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES"); //$NON-NLS-1$
             key = keyFactory.generateSecret(dks);
@@ -54,48 +54,26 @@ public class PasswordEncryptUtil {
         SecretKey key = getSecretKey();
         Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
         c.init(Cipher.ENCRYPT_MODE, key, secureRandom);
-        byte[] cipherByte = c.doFinal(input.getBytes());
-        String dec = new String(Base64.encodeBase64(cipherByte));
-        return dec;
-    }
-
-    private static SecretKey passwordKey = null;
-    
-    private static String CHARSET = "UTF-8";
-    
-    private static SecretKey getSecretKeyUTF8() throws Exception {
-        if (passwordKey == null) {
-            byte rawKeyData[] = rawKey.getBytes(CHARSET);
-            DESKeySpec dks = new DESKeySpec(rawKeyData);
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES"); //$NON-NLS-1$
-            passwordKey = keyFactory.generateSecret(dks);
-        }
-        return passwordKey;
-    }
-    
-    public static String encryptPasswordHex(String input) throws Exception {
-        if (input == null || input.length() == 0) {
-            return input;
-        }
-        SecretKey key = getSecretKeyUTF8();
-        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
-        c.init(Cipher.ENCRYPT_MODE, key, secureRandom);
         byte[] cipherByte = c.doFinal(input.getBytes(CHARSET));//$NON-NLS-1$
         String dec = Hex.encodeHexString(cipherByte);
         return dec;
     }
 
-    
-    public static String decryptPassword(String input) throws Exception, BadPaddingException {
+    public static String decryptPassword(String input) {
         if (input == null || input.length() == 0) {
             return input;
         }
-        byte[] dec = Base64.decodeBase64(input.getBytes());
-        SecretKey key = getSecretKey();
-        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
-        c.init(Cipher.DECRYPT_MODE, key, secureRandom);
-        byte[] clearByte = c.doFinal(dec);
-        return new String(clearByte);
+        byte[] dec = Hex.decodeHex(input.toCharArray());
+        try {
+            SecretKey key = getSecretKey();
+            Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
+            c.init(Cipher.DECRYPT_MODE, key, secureRandom);
+            byte[] clearByte = c.doFinal(dec);
+            return new String(clearByte, CHARSET);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static boolean isPasswordType(String type) {
