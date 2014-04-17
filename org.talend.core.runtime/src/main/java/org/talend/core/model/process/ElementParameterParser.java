@@ -105,7 +105,7 @@ public final class ElementParameterParser {
             String removeQuotes = TalendQuoteUtils.removeQuotes(value);
             removeQuotes = TalendQuoteUtils.checkSlashAndRemoveQuotation(removeQuotes);
             removeQuotes = TalendQuoteUtils.checkAndRemoveBackslashes(removeQuotes);
-            value = PasswordEncryptUtil.encryptPassword(removeQuotes);
+            value = PasswordEncryptUtil.encryptPasswordHex(removeQuotes);
             value = TalendQuoteUtils.addQuotes(value, TalendQuoteUtils.QUOTATION_MARK);
         } catch (Exception e) {
             ExceptionHandler.process(e);
