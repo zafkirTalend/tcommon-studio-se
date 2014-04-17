@@ -15,6 +15,7 @@ package org.talend.core.model.metadata.query.generator;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.QueryUtil;
@@ -27,6 +28,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.service.ICoreUIService;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -43,7 +45,10 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
     public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName) {
         super.setParameters(element, metadataTable, schema, realTableName);
         //
-        standardSyntax = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            standardSyntax = service.getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+        }
         if (getElement() != null) {
             IElementParameter parentParam = getElement().getElementParameterFromField(EParameterFieldType.PROPERTY_TYPE);
             if (parentParam != null && parentParam.getChildParameters() != null) {
@@ -74,7 +79,10 @@ public class AS400QueryGenerator extends AbstractQueryGenerator {
     public void setParameters(IElement element, IMetadataTable metadataTable, String schema, String realTableName, boolean isJdbc) {
         super.setParameters(element, metadataTable, schema, realTableName, isJdbc);
         //
-        standardSyntax = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            standardSyntax = service.getPreferenceStore().getBoolean(ITalendCorePrefConstants.AS400_SQL_SEG);
+        }
         if (getElement() != null) {
             IElementParameter parentParam = getElement().getElementParameterFromField(EParameterFieldType.PROPERTY_TYPE);
             if (parentParam != null && parentParam.getChildParameters() != null) {
