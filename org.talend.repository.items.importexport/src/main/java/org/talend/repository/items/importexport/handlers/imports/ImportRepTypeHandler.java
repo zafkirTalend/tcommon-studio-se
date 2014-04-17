@@ -55,8 +55,8 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             }
             String[] products = type.getProducts();
             if (products != null) {
-                for (String p : products) {
-                    String perspectiveId = ProductUtils.getPerspectiveId(p);
+                for (String product : products) {
+                    String perspectiveId = ProductUtils.getPerspectiveId(product);
                     List<IPath> list = product4PathMap.get(perspectiveId);
                     if (list == null) {
                         list = new ArrayList<IPath>();
@@ -94,16 +94,17 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             Map parametersMap = (Map) data;
             Object object = parametersMap.get(PARAM_TYPE);
             if (object != null) {
-                String[] types = object.toString().split(IImportConstants.SEP_COMMA);
-                for (String type : types) {
-                    if (StringUtils.isNotEmpty(type)) {
-                        type = type.trim();
-                        if (StringUtils.isNotEmpty(type)) {
-                            ERepositoryObjectType type2 = ERepositoryObjectType.getType(type);
-                            if (type2 != null) {
-                                checkedItemTypes.add(type2);
-                                if (StringUtils.isNotEmpty(type2.getFolder())) {
-                                    checkedBasePathes.add(type2.getFolder());
+                String[] typeStrs = object.toString().split(IImportConstants.SEP_COMMA);
+                for (String typeStr : typeStrs) {
+                    if (StringUtils.isNotEmpty(typeStr)) {
+                        typeStr = typeStr.trim();
+                        if (StringUtils.isNotEmpty(typeStr)) {
+                            ERepositoryObjectType type = ERepositoryObjectType.getType(typeStr);
+                            if (type != null) {
+                                checkedItemTypes.add(type);
+                                // if enable the base path, will use the path of type.
+                                if (StringUtils.isNotEmpty(type.getFolder())) {
+                                    checkedBasePathes.add(type.getFolder());
                                 }
                             }
                         }
@@ -122,16 +123,15 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
         if (valid && !CommonsPlugin.isHeadless() && isEnableProductChecking()) {
             String currentPerspectiveId = CoreRuntimePlugin.getInstance().getActivedPerspectiveId();
             if (StringUtils.isNotEmpty(currentPerspectiveId)) {
-                valid = false; // reset to check
                 List<IPath> pathes = product4PathMap.get(currentPerspectiveId);
                 if (pathes != null) {
                     for (IPath typePath : pathes) {
                         if (typePath.isPrefixOf(relativePath)) {
-                            valid = true; // the path is under current product.
-                            break;
+                            return true; // the path is under current product.
                         }
                     }
                 }
+                return false; // in studio, if don't match, will be false.
             }
         }
         return valid;
@@ -144,6 +144,20 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             Item item = importItem.getItem();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
             if (itemType != null && checkedItemTypes.contains(itemType)) {
+                // if in studio, check the product.
+                if (!CommonsPlugin.isHeadless() && isEnableProductChecking()) {
+                    String currentPerspectiveId = CoreRuntimePlugin.getInstance().getActivedPerspectiveId();
+                    String[] products = itemType.getProducts();
+                    if (products != null) {
+                        for (String product : products) {
+                            String perspectiveId = ProductUtils.getPerspectiveId(product);
+                            if (currentPerspectiveId != null && currentPerspectiveId.equals(perspectiveId)) {
+                                return true; // match the product and perspective.
+                            }
+                        }
+                        return false; // if enable product check, have set the product.
+                    }
+                }
                 return true;
             }
         }
