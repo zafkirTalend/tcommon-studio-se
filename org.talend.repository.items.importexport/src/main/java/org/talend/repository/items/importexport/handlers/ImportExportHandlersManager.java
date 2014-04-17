@@ -47,6 +47,7 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler;
 import org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler;
+import org.talend.repository.items.importexport.handlers.imports.ImportBasicHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
@@ -71,6 +72,10 @@ public final class ImportExportHandlersManager {
         registryReader.init();
     }
 
+    private boolean baseOnPathOfItemType() {
+        return false; // by default, don't base on the path of item type. only base on item type.
+    }
+
     public IImportItemsHandler[] getImportHandlers() {
         if (importHandlers == null) {
             importHandlers = registryReader.getImportHandlers();
@@ -93,6 +98,19 @@ public final class ImportExportHandlersManager {
             }
         }
         // the path is not valid in current product, so ignore to import
+        return null;
+    }
+
+    private IImportItemsHandler findValidImportHandler(ImportItem importItem, boolean enableProductChecking) {
+        for (IImportItemsHandler handler : getImportHandlers()) {
+            handler.setEnableProductChecking(enableProductChecking);
+            if (handler.valid(importItem)) {
+                // set the handler
+                importItem.setImportHandler(handler);
+                return handler;
+            }
+        }
+        // the item is not valid in current product, so ignore to import
         return null;
     }
 
@@ -129,16 +147,32 @@ public final class ImportExportHandlersManager {
 
             List<ImportItem> items = new ArrayList<ImportItem>();
 
+            ImportHandlerHelper importHandlerHelper = new ImportHandlerHelper();
             for (IPath path : resPaths) {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
-                if (importHandler != null) {
-                    ImportItem itemRecord = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
-                    if (itemRecord != null) {
-                        items.add(itemRecord);
+                ImportItem importItem = null;
+                if (baseOnPathOfItemType()) {
+                    IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
+                    if (importHandler != null) {
+                        importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
                     }
+                } else {
+                    importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
+                    if (importItem != null) {
+                        IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
+                        if (importHandler instanceof ImportBasicHandler) {
+                            // save as the createImportItem of ImportBasicHandler
+                            ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
+                            if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
+                                importBasicHandler.checkAndSetProject(resManager, importItem);
+                            }
+                        }
+                    }
+                }
+                if (importItem != null) {
+                    items.add(importItem);
                 }
                 monitor.worked(1);
             }

@@ -18,15 +18,22 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
@@ -127,5 +134,62 @@ public final class HandlerUtil {
             return path.makeRelativeTo(projectRootPath);
         }
         return null;
+    }
+
+    /**
+     * 
+     * load the resource
+     */
+    public static Resource loadResource(ResourcesManager manager, ImportItem importItem) throws Exception {
+        InputStream stream = null;
+        try {
+            final Resource resource = createResource(importItem, importItem.getPath(), false);
+            stream = manager.getStream(importItem.getPath());
+            URIConverter uriConverter = resource.getResourceSet().getURIConverter();
+            resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#createInputStream(org.eclipse.
+                 * emf.common.util.URI, java.util.Map)
+                 */
+                @Override
+                public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
+                    InputStream inputStream = null;
+                    EPackage ePackage = resource.getResourceSet().getPackageRegistry().getEPackage(uri.toString());
+                    if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
+                        inputStream = super.createInputStream(uri, options);
+                    } else {
+                        inputStream = null;
+                    }
+                    return inputStream;
+                }
+            });
+            resource.load(stream, null);
+            resource.getResourceSet().setURIConverter(uriConverter);
+            return resource;
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
+    public static Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) {
+        Resource resource;
+        ResourceSet resourceSet = importItem.getResourceSet();
+        final URI pathUri = HandlerUtil.getURI(path);
+        if (byteArrayResource) {
+            resource = new ByteArrayResource(pathUri);
+            resourceSet.getResources().add(resource);
+        } else {
+            resource = resourceSet.createResource(pathUri);
+        }
+        return resource;
     }
 }

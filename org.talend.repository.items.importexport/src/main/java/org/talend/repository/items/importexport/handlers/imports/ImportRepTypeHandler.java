@@ -14,8 +14,10 @@ package org.talend.repository.items.importexport.handlers.imports;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
@@ -23,10 +25,12 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.talend.commons.CommonsPlugin;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.DynaEnum;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ProductUtils;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -69,6 +73,13 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
 
     }
 
+    /**
+     * set by extension point, will be item type of import items.
+     * 
+     * for example, for job designer, will be "ERepositoryObjectType.PROCCESS".
+     */
+    protected final Set<ERepositoryObjectType> checkedItemTypes = new HashSet<ERepositoryObjectType>();
+
     /*
      * (non-Javadoc)
      * 
@@ -89,8 +100,11 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
                         type = type.trim();
                         if (StringUtils.isNotEmpty(type)) {
                             ERepositoryObjectType type2 = ERepositoryObjectType.getType(type);
-                            if (type2 != null && StringUtils.isNotEmpty(type2.getFolder())) {
-                                checkedBasePathes.add(type2.getFolder());
+                            if (type2 != null) {
+                                checkedItemTypes.add(type2);
+                                if (StringUtils.isNotEmpty(type2.getFolder())) {
+                                    checkedBasePathes.add(type2.getFolder());
+                                }
                             }
                         }
                     }
@@ -121,6 +135,19 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             }
         }
         return valid;
+    }
+
+    @Override
+    public boolean valid(ImportItem importItem) {
+        boolean valid = super.valid(importItem);
+        if (valid) {
+            Item item = importItem.getItem();
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+            if (itemType != null && checkedItemTypes.contains(itemType)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

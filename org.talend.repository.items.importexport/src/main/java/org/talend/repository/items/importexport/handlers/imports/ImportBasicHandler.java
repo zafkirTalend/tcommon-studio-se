@@ -38,13 +38,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.CwmResource;
 import org.talend.commons.exception.ExceptionHandler;
@@ -193,6 +190,18 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     /*
      * (non-Javadoc)
      * 
+     * @see
+     * org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#valid(org.talend.repository.items
+     * .importexport.handlers.model.ImportItem)
+     */
+    @Override
+    public boolean valid(ImportItem importItem) {
+        return importItem != null && importItem.getItem() != null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler#createImportItem(org.eclipse.
      * core. runtime.IProgressMonitor,
      * org.talend.repository.items.importexport.ui.wizard.imports.managers.ResourcesManager,
@@ -221,12 +230,20 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
+    /**
+     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
+     */
+    @Deprecated
     public ImportItem computeImportItem(ResourcesManager resManager, IPath path) {
         ImportItem importItem = new ImportItem(path);
         computeProperty(resManager, importItem);
         return importItem;
     }
 
+    /**
+     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
+     */
+    @Deprecated
     protected void computeProperty(ResourcesManager manager, ImportItem importItem) {
         Resource resource = loadResource(manager, importItem);
         if (resource != null) {
@@ -249,64 +266,31 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param importItem
      * @param resource
      * @return
+     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
      */
+    @Deprecated
     protected Resource loadResource(ResourcesManager manager, ImportItem importItem) {
-        InputStream stream = null;
         try {
-            final Resource resource = createResource(importItem, importItem.getPath(), false);
-            stream = manager.getStream(importItem.getPath());
-            URIConverter uriConverter = resource.getResourceSet().getURIConverter();
-            resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
-
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#createInputStream(org.eclipse.
-                 * emf.common.util.URI, java.util.Map)
-                 */
-                @Override
-                public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
-                    InputStream inputStream = null;
-                    EPackage ePackage = resource.getResourceSet().getPackageRegistry().getEPackage(uri.toString());
-                    if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
-                        inputStream = super.createInputStream(uri, options);
-                    } else {
-                        inputStream = null;
-                    }
-                    return inputStream;
-                }
-            });
-            resource.load(stream, null);
-            resource.getResourceSet().setURIConverter(uriConverter);
-            return resource;
+            return HandlerUtil.loadResource(manager, importItem);
         } catch (Exception e) {
             // ignore, must be one invalid or unknown item
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
         }
         return null;
     }
 
     protected Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) throws FileNotFoundException {
         Resource resource;
-        ResourceSet resourceSet = importItem.getResourceSet();
-        final URI pathUri = HandlerUtil.getURI(path);
         if (byteArrayResource) {
-            resource = new ByteArrayResource(pathUri);
-            resourceSet.getResources().add(resource);
+            resource = HandlerUtil.createResource(importItem, path, true);
         } else {
             String[] exts = getResourceNeededExtensions();
             if (ArrayUtils.contains(exts, path.getFileExtension())) {
+                ResourceSet resourceSet = importItem.getResourceSet();
+                final URI pathUri = HandlerUtil.getURI(path);
                 resource = createItemResource(pathUri);
                 resourceSet.getResources().add(resource);
             } else {
-                resource = resourceSet.createResource(pathUri);
+                resource = HandlerUtil.createResource(importItem, path, false);
             }
         }
         return resource;
