@@ -48,7 +48,7 @@ public abstract class AbstractCommonBrandingService implements IBrandingService 
 
     @Override
     public String getRoutineLicenseHeader(String version) {
-        String contents = Messages.getString("AbstractBrandingService.routines_license_header_content1", //$NON-NLS-1$
+        String contents = Messages.getString("AbstractBrandingService.routines_license_header_content2014", //$NON-NLS-1$
                 this.getFullProductName(), version);
         return contents;
     }
