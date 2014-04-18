@@ -83,7 +83,7 @@ public enum ComponentCategory {
                 return ComponentCategory.CATEGORY_4_CAMEL;
             }
         }
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
             IMRProcessService mrService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
                     IMRProcessService.class);
             if (mrService.isMapReduceItem(item)) {
