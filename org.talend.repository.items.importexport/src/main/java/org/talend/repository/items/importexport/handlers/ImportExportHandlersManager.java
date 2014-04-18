@@ -162,12 +162,16 @@ public final class ImportExportHandlersManager {
                     importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
                     if (importItem != null) {
                         IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
-                        if (importHandler instanceof ImportBasicHandler) {
-                            // save as the createImportItem of ImportBasicHandler
-                            ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
-                            if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
-                                importBasicHandler.checkAndSetProject(resManager, importItem);
+                        if (importHandler != null) {
+                            if (importHandler instanceof ImportBasicHandler) {
+                                // save as the createImportItem of ImportBasicHandler
+                                ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
+                                if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
+                                    importBasicHandler.checkAndSetProject(resManager, importItem);
+                                }
                             }
+                        } else { // if don't find valid handler, won't add the item for dialog, so set null here.
+                            importItem = null;
                         }
                     }
                 }

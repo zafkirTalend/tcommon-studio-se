@@ -89,7 +89,10 @@ public class ImportItem {
     }
 
     public Item getItem() {
-        return property.getItem();
+        if (property != null) {
+            return property.getItem();
+        }
+        return null;
     }
 
     public void setProperty(Property property) {
@@ -171,7 +174,11 @@ public class ImportItem {
     }
 
     public ERepositoryObjectType getType() {
-        return ERepositoryObjectType.getItemType(getItem());
+        Item item = getItem();
+        if (item != null) {
+            return ERepositoryObjectType.getItemType(item);
+        }
+        return null;
     }
 
     /**
@@ -210,7 +217,7 @@ public class ImportItem {
     }
 
     public String getLabel() {
-        if (label == null) {
+        if (label == null && property != null) {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                     IBrandingService.class);
             boolean allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();

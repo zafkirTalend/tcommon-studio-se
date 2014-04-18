@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.talend.commons.CommonsPlugin;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.DynaEnum;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -141,8 +140,7 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
     public boolean valid(ImportItem importItem) {
         boolean valid = super.valid(importItem);
         if (valid) {
-            Item item = importItem.getItem();
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+            ERepositoryObjectType itemType = importItem.getType();
             if (itemType != null && checkedItemTypes.contains(itemType)) {
                 // if in studio, check the product.
                 if (!CommonsPlugin.isHeadless() && isEnableProductChecking()) {

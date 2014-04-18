@@ -140,7 +140,7 @@ public final class HandlerUtil {
      * 
      * load the resource
      */
-    public static Resource loadResource(ResourcesManager manager, ImportItem importItem) throws Exception {
+    public static Resource loadResource(ResourcesManager manager, ImportItem importItem) {
         InputStream stream = null;
         try {
             final Resource resource = createResource(importItem, importItem.getPath(), false);
@@ -169,6 +169,9 @@ public final class HandlerUtil {
             resource.load(stream, null);
             resource.getResourceSet().setURIConverter(uriConverter);
             return resource;
+        } catch (Exception e) {
+            // same as old ImportItemUtil.computeProperty
+            // ignore, must be one invalid or unknown item
         } finally {
             if (stream != null) {
                 try {
@@ -178,6 +181,7 @@ public final class HandlerUtil {
                 }
             }
         }
+        return null;
     }
 
     public static Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) {

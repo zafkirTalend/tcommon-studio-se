@@ -57,8 +57,12 @@ public class ImportHandlerHelper {
             importItem.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
                     PropertiesPackage.eINSTANCE.getProperty()));
         } else {
-            throw new ResourceNotFoundException(Messages.getString("ImportBasicHandler_LoadEMFResourceError", //$NON-NLS-1$
+            ResourceNotFoundException ex = new ResourceNotFoundException(Messages.getString(
+                    "ImportBasicHandler_LoadEMFResourceError", //$NON-NLS-1$
                     importItem.getPath().lastSegment(), HandlerUtil.getValidItemRelativePath(resManager, importItem.getPath())));
+            importItem.addError(ex.getMessage());
+            // don't throw, just add in error of item. because if one item is error, will block all.
+            // throw ex;
         }
         return importItem;
     }

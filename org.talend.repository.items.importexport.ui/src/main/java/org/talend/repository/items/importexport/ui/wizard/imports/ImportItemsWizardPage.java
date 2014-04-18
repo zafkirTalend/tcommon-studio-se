@@ -715,7 +715,7 @@ public class ImportItemsWizardPage extends WizardPage {
                         List<ImportItem> items = importManager.populateImportingItems(resManager, overwrite, monitor, true);
                         nodesBuilder.addItems(items);
                     } catch (Exception e) {
-                        throw new InvocationTargetException(e);
+                        ExceptionHandler.process(e);
                     }
                 }
 
