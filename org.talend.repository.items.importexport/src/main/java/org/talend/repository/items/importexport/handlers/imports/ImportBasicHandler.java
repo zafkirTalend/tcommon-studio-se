@@ -362,9 +362,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     // different one,see bug 20445
                     importItem.setState(State.ID_EXISTED);
                     importItem.setExistingItemWithSameId(itemWithSameIdObj);
-                    if (!overwrite) {
-                        importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
-                    }
+                    // TDI-29125:remove the error here since it is not a real error and it blocked show the item ,keep
+                    // same as before
+                    // if (!overwrite) {
+                    //                        itemRecord.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
+                    // }
                 }
             } else {
                 if (idAvailable) {
