@@ -209,7 +209,7 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         int index = -1;
         EList<MetadataColumn> columns = metadataTable.getColumns();
         if (columns != null && !columns.isEmpty()) {
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = columns.size() - 1; 0 <= i; i--) {
                 MetadataColumn mdColumn = columns.get(i);
                 String name = mdColumn.getLabel();
                 if (name != null && name.equals(orignalColumnName)) {
