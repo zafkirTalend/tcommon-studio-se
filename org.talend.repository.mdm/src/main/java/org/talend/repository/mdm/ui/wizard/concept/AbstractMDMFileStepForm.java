@@ -14,6 +14,7 @@ package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
@@ -209,14 +210,23 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         int index = -1;
         EList<MetadataColumn> columns = metadataTable.getColumns();
         if (columns != null && !columns.isEmpty()) {
-            for (int i = columns.size() - 1; 0 <= i; i--) {
-                MetadataColumn mdColumn = columns.get(i);
+            Iterator<MetadataColumn> imc = columns.iterator();
+            int i = -1;
+            while (imc.hasNext()) {
+                if (i < 0) {
+                    i = 0;
+                }
+                MetadataColumn mdColumn = imc.next();
                 String name = mdColumn.getLabel();
                 if (name != null && name.equals(orignalColumnName)) {
-                    metadataTable.getColumns().remove(i);
-                    index = i;
+                    imc.remove();
+                    if (index < 0) {
+                        index = i;
+                    }
                 }
+                i++;
             }
+
         }
 
         return index;
