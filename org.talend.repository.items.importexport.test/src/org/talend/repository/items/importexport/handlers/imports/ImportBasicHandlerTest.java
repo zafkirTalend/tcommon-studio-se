@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -57,10 +54,11 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord;
-import org.talend.repository.items.importexport.handlers.model.ItemRecord.State;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
+
+import static org.mockito.Mockito.*;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -292,80 +290,80 @@ public class ImportBasicHandlerTest {
     public void testCheckAndSetProject4NoProject() {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
+        ImportItem ImportItem = new ImportItem(processPropPath1);
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
 
         ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
         when(property.getItem()).thenReturn(item);
 
         ResourcesManager resManager = mock(ResourcesManager.class);
-        basicHandler.checkAndSetProject(resManager, itemRecord);
+        basicHandler.checkAndSetProject(resManager, ImportItem);
 
-        Assert.assertFalse(itemRecord.getErrors().isEmpty());
-        Assert.assertFalse(itemRecord.isValid());
-        Assert.assertTrue(itemRecord.getErrors().size() == 1);
+        Assert.assertFalse(ImportItem.getErrors().isEmpty());
+        Assert.assertFalse(ImportItem.isValid());
+        Assert.assertTrue(ImportItem.getErrors().size() == 1);
     }
 
     @Test
     public void testIsSame() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
+        ImportItem ImportItem1 = mock(ImportItem.class);
         Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
+        when(ImportItem1.getProperty()).thenReturn(property1);
         when(property1.getId()).thenReturn("123456789");
         when(property1.getLabel()).thenReturn("test");
 
-        ItemRecord itemRecord2 = mock(ItemRecord.class);
+        ImportItem ImportItem2 = mock(ImportItem.class);
         Property property2 = mock(Property.class);
-        when(itemRecord2.getProperty()).thenReturn(property2);
+        when(ImportItem2.getProperty()).thenReturn(property2);
         when(property2.getId()).thenReturn("123456789");
         when(property2.getLabel()).thenReturn("test");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
-        Assert.assertTrue(basicHandler.isSame(itemRecord1, itemRecord2));
+        Assert.assertTrue(basicHandler.isSame(ImportItem1, ImportItem2));
     }
 
     @Test
     public void testIsSame4DiffId() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
+        ImportItem ImportItem1 = mock(ImportItem.class);
         Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
+        when(ImportItem1.getProperty()).thenReturn(property1);
         when(property1.getId()).thenReturn("987654321");
         when(property1.getVersion()).thenReturn("0.1");
 
-        ItemRecord itemRecord2 = mock(ItemRecord.class);
+        ImportItem ImportItem2 = mock(ImportItem.class);
         Property property2 = mock(Property.class);
-        when(itemRecord2.getProperty()).thenReturn(property2);
+        when(ImportItem2.getProperty()).thenReturn(property2);
         when(property2.getId()).thenReturn("123456789");
         when(property2.getVersion()).thenReturn("0.1");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
-        Assert.assertFalse(basicHandler.isSame(itemRecord1, itemRecord2));
+        Assert.assertFalse(basicHandler.isSame(ImportItem1, ImportItem2));
     }
 
     @Test
     public void testIsSame4DiffVersion() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
+        ImportItem ImportItem1 = mock(ImportItem.class);
         Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
+        when(ImportItem1.getProperty()).thenReturn(property1);
         when(property1.getId()).thenReturn("123456789");
         when(property1.getVersion()).thenReturn("0.1");
 
-        ItemRecord itemRecord2 = mock(ItemRecord.class);
+        ImportItem ImportItem2 = mock(ImportItem.class);
         Property property2 = mock(Property.class);
-        when(itemRecord2.getProperty()).thenReturn(property2);
+        when(ImportItem2.getProperty()).thenReturn(property2);
         when(property2.getId()).thenReturn("123456789");
         when(property2.getVersion()).thenReturn("0.2");
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
-        Assert.assertFalse(basicHandler.isSame(itemRecord1, itemRecord2));
+        Assert.assertFalse(basicHandler.isSame(ImportItem1, ImportItem2));
     }
 
     @Test
     public void testIsSameName() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
+        ImportItem ImportItem1 = mock(ImportItem.class);
         Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
+        when(ImportItem1.getProperty()).thenReturn(property1);
         when(property1.getLabel()).thenReturn("test");
         // when(property1.getId()).thenReturn("123456789");
 
@@ -375,14 +373,14 @@ public class ImportBasicHandlerTest {
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
         // now only check the label
-        Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
+        Assert.assertTrue(basicHandler.isSameName(ImportItem1, repViewObj));
     }
 
     @Test
     public void testIsSameName4DiffLabel() {
-        ItemRecord itemRecord1 = mock(ItemRecord.class);
+        ImportItem ImportItem1 = mock(ImportItem.class);
         Property property1 = mock(Property.class);
-        when(itemRecord1.getProperty()).thenReturn(property1);
+        when(ImportItem1.getProperty()).thenReturn(property1);
         when(property1.getLabel()).thenReturn("test1");
         // when(property1.getId()).thenReturn("123456789");
 
@@ -392,14 +390,14 @@ public class ImportBasicHandlerTest {
 
         ImportBasicHandler basicHandler = new ImportBasicHandler();
         // only when same label with diff id. don't care the same id with diff label.
-        Assert.assertFalse(basicHandler.isSameName(itemRecord1, repViewObj));
+        Assert.assertFalse(basicHandler.isSameName(ImportItem1, repViewObj));
     }
 
     // @Test
     // public void testIsSameName4DiffId() {
-    // ItemRecord itemRecord1 = mock(ItemRecord.class);
+    // ImportItem ImportItem1 = mock(ImportItem.class);
     // Property property1 = mock(Property.class);
-    // when(itemRecord1.getProperty()).thenReturn(property1);
+    // when(ImportItem1.getProperty()).thenReturn(property1);
     // when(property1.getLabel()).thenReturn("test");
     // when(property1.getId()).thenReturn("987654321");
     //
@@ -409,7 +407,7 @@ public class ImportBasicHandlerTest {
     //
     // ImportBasicHandler basicHandler = new ImportBasicHandler();
     // // diff id, don't care same label.
-    // Assert.assertTrue(basicHandler.isSameName(itemRecord1, repViewObj));
+    // Assert.assertTrue(basicHandler.isSameName(ImportItem1, repViewObj));
     // }
 
     @Test
@@ -417,13 +415,13 @@ public class ImportBasicHandlerTest {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
         // create process item resource
-        ItemRecord processItemRecord = new ItemRecord(processItemPath1);
-        Resource processItemResource = basicHandler.createResource(processItemRecord, processItemPath1, false);
+        ImportItem processImportItem = new ImportItem(processItemPath1);
+        Resource processItemResource = basicHandler.createResource(processImportItem, processItemPath1, false);
         Assert.assertTrue(processItemResource != null);
         Assert.assertTrue(processItemResource.getURI().fileExtension().equals("item"));
 
         // create property resource
-        ItemRecord propertyRecord = new ItemRecord(processPropPath1);
+        ImportItem propertyRecord = new ImportItem(processPropPath1);
         Resource propertyResource = basicHandler.createResource(propertyRecord, processPropPath1, false);
         Assert.assertTrue(propertyResource != null);
         Assert.assertTrue(propertyResource.getURI().fileExtension().equals("properties"));
@@ -443,11 +441,11 @@ public class ImportBasicHandlerTest {
     public void testLoadItemResource() throws Exception {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
-        itemRecord.setItemName(processPropPath1.lastSegment());
+        ImportItem ImportItem = new ImportItem(processPropPath1);
+        ImportItem.setItemName(processPropPath1.lastSegment());
         // Property
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
         // Resources
         ResourcesManager resManager = mock(ResourcesManager.class);
         Set<IPath> pathes = new HashSet<IPath>();
@@ -457,7 +455,7 @@ public class ImportBasicHandlerTest {
         pathes.add(processItemPath1);
         when(resManager.getPaths()).thenReturn(pathes);
         // call
-        Resource resource = basicHandler.loadResource(resManager, itemRecord);
+        Resource resource = basicHandler.loadResource(resManager, ImportItem);
         //
         Assert.assertNull(resource);
         //
@@ -467,11 +465,11 @@ public class ImportBasicHandlerTest {
     public void testCheckItem() throws Exception {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
-        itemRecord.setItemName(processPropPath1.lastSegment());
+        ImportItem ImportItem = new ImportItem(processPropPath1);
+        ImportItem.setItemName(processPropPath1.lastSegment());
         // Property
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
         // Process Item
         ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
         when(property.getItem()).thenReturn(item);
@@ -483,31 +481,31 @@ public class ImportBasicHandlerTest {
         pathes.add(processPropPath1);
         pathes.add(processItemPath1);
         // Case 1 : item no state
-        Assert.assertFalse(basicHandler.checkItem(resManager, itemRecord, false));
-        Assert.assertFalse(itemRecord.getErrors().isEmpty());
+        Assert.assertFalse(basicHandler.checkItem(resManager, ImportItem, false));
+        Assert.assertFalse(ImportItem.getErrors().isEmpty());
         // Case 2 : init item state
         ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
         item.setState(itemState);
-        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, false));
+        Assert.assertTrue(basicHandler.checkItem(resManager, ImportItem, false));
         // Case 3 : item not been locked , then overwrite
-        itemRecord.setState(State.NAME_AND_ID_EXISTED);
-        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, true));
+        ImportItem.setState(State.NAME_AND_ID_EXISTED);
+        Assert.assertTrue(basicHandler.checkItem(resManager, ImportItem, true));
         // Case 4 : item been locked , can not overwrite
-        // when(ImportCacheHelper.getInstance().getRepObjectcache().getItemLockState(itemRecord)).thenReturn(true);
-        Assert.assertTrue(basicHandler.checkItem(resManager, itemRecord, true));
-        Assert.assertTrue(itemRecord.getErrors().size() == 1);
+        // when(ImportCacheHelper.getInstance().getRepObjectcache().getItemLockState(ImportItem)).thenReturn(true);
+        Assert.assertTrue(basicHandler.checkItem(resManager, ImportItem, true));
+        Assert.assertTrue(ImportItem.getErrors().size() == 1);
         // ...
     }
 
     @Test
-    public void testComputeItemRecord() throws Exception {
+    public void testComputeImportItem() throws Exception {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
-        itemRecord.setItemName(processPropPath1.lastSegment());
+        ImportItem ImportItem = new ImportItem(processPropPath1);
+        ImportItem.setItemName(processPropPath1.lastSegment());
         // Property
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
         // Resources
         ResourcesManager resManager = mock(ResourcesManager.class);
         Set<IPath> pathes = new HashSet<IPath>();
@@ -517,10 +515,10 @@ public class ImportBasicHandlerTest {
         pathes.add(processItemPath1);
         when(resManager.getPaths()).thenReturn(pathes);
         // call
-        basicHandler.computeItemRecord(resManager, processPropPath1);
+        basicHandler.computeImportItem(resManager, processPropPath1);
         // Load Resource failed
-        Assert.assertNull(basicHandler.loadResource(resManager, itemRecord));
-        Assert.assertTrue(ImportExportHandlersManager.getInstance().getImportErrors().size() == 1);
+        Assert.assertNull(basicHandler.loadResource(resManager, ImportItem));
+        Assert.assertTrue(ImportCacheHelper.getInstance().getImportErrors().size() == 1);
         // ...
     }
 
@@ -530,11 +528,11 @@ public class ImportBasicHandlerTest {
         // => normal item, can be import
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
-        itemRecord.setItemName(processPropPath1.lastSegment());
+        ImportItem ImportItem = new ImportItem(processPropPath1);
+        ImportItem.setItemName(processPropPath1.lastSegment());
         // Property
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
 
         // Process Item
         ProcessItem processItem = createTempProcessItem();
@@ -555,23 +553,23 @@ public class ImportBasicHandlerTest {
                 return 1;
             }
         });
-        basicHandler.resolveItem(resManager, itemRecord);
+        basicHandler.resolveItem(resManager, ImportItem);
 
         // only check this
-        Assert.assertTrue(itemRecord.getErrors().isEmpty());
-        Assert.assertTrue(itemRecord.isValid());
-        Assert.assertTrue(itemRecord.getErrors().size() == 0);
+        Assert.assertTrue(ImportItem.getErrors().isEmpty());
+        Assert.assertTrue(ImportItem.isValid());
+        Assert.assertTrue(ImportItem.getErrors().size() == 0);
     }
 
     @Test
     public void testResolveItem4MissItemFile() throws Exception {
         ImportBasicHandler basicHandler = new ImportBasicHandler();
 
-        ItemRecord itemRecord = new ItemRecord(processPropPath1);
-        itemRecord.setItemName(processPropPath1.lastSegment());
+        ImportItem ImportItem = new ImportItem(processPropPath1);
+        ImportItem.setItemName(processPropPath1.lastSegment());
         // Property
         Property property = mock(Property.class);
-        itemRecord.setProperty(property);
+        ImportItem.setProperty(property);
 
         // Process Item
         ProcessItem item = PropertiesFactory.eINSTANCE.createProcessItem();
@@ -584,12 +582,12 @@ public class ImportBasicHandlerTest {
         pathes.add(processPropPath1);
         when(resManager.getPaths()).thenReturn(pathes);
         // call
-        basicHandler.resolveItem(resManager, itemRecord);
+        basicHandler.resolveItem(resManager, ImportItem);
 
         //
-        Assert.assertFalse(itemRecord.getErrors().isEmpty());
-        Assert.assertFalse(itemRecord.isValid());
-        Assert.assertTrue(itemRecord.getErrors().size() == 1);
+        Assert.assertFalse(ImportItem.getErrors().isEmpty());
+        Assert.assertFalse(ImportItem.isValid());
+        Assert.assertTrue(ImportItem.getErrors().size() == 1);
     }
 
     private ProcessItem createTempProcessItem() {
