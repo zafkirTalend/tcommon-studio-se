@@ -14,6 +14,7 @@ package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
@@ -78,26 +79,33 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         return (MDMConnection) connectionItem.getConnection();
     }
 
+    @Override
     public void redrawLinkers() {
     }
 
+    @Override
     public void updateConnection() {
     }
 
+    @Override
     public void updateStatus() {
     }
 
+    @Override
     public List<FOXTreeNode> getTreeData() {
         return null;
     }
 
+    @Override
     public void setSelectedText(String label) {
     }
 
+    @Override
     public MetadataTable getMetadataTable() {
         return null;
     }
 
+    @Override
     public TableViewer getSchemaViewer() {
         return null;
     }
@@ -209,13 +217,21 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         int index = -1;
         EList<MetadataColumn> columns = metadataTable.getColumns();
         if (columns != null && !columns.isEmpty()) {
-            for (int i = 0; i < columns.size(); i++) {
-                MetadataColumn mdColumn = columns.get(i);
+            Iterator<MetadataColumn> imc = columns.iterator();
+            int i = -1;
+            while (imc.hasNext()) {
+                if (i < 0) {
+                    i = 0;
+                }
+                MetadataColumn mdColumn = imc.next();
                 String name = mdColumn.getLabel();
                 if (name != null && name.equals(orignalColumnName)) {
-                    metadataTable.getColumns().remove(i);
-                    index = i;
+                    imc.remove();
+                    if (index < 0) {
+                        index = i;
+                    }
                 }
+                i++;
             }
         }
 
