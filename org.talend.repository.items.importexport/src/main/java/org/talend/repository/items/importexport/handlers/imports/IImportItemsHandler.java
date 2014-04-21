@@ -43,17 +43,14 @@ public interface IImportItemsHandler extends IExecutableExtension {
     void setEnableProductChecking(boolean enableProductChecking);
 
     /**
-     * When baseOnPathOfItemType return true in class ImportExportHandlersManager,Check the path is valid to import or
-     * ignore.
+     * If enable to import normal files which can't be loaded via *.properties and not valid, will try to check via the
+     * path of resource to import.
      * 
-     * @deprecated because base on the item type, not path. so deprecated it temp.
      */
-    @Deprecated
     boolean valid(ResourcesManager resManager, IPath path);
 
     /**
-     * When baseOnPathOfItemType return false in class ImportExportHandlersManager, will use this valid to test the
-     * item.
+     * If the items can be loaded to EMF via *.properties, will use this valid to test the import item first.
      */
     boolean valid(ImportItem importItem);
 
@@ -68,9 +65,7 @@ public interface IImportItemsHandler extends IExecutableExtension {
      * @param existedImportItems this items list has been calculated. will check the duplicated name or not.
      * @return if not valid, will return null.
      * 
-     * @deprecated because base on the item type, not path. so deprecated it temp.
      */
-    @Deprecated
     ImportItem createImportItem(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath, boolean overwrite,
             List<ImportItem> existedImportItems) throws Exception;
 

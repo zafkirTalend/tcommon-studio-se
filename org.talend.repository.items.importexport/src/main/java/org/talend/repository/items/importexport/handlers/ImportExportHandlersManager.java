@@ -72,10 +72,6 @@ public final class ImportExportHandlersManager {
         registryReader.init();
     }
 
-    private boolean baseOnPathOfItemType() {
-        return false; // by default, don't base on the path of item type. only base on item type.
-    }
-
     public IImportItemsHandler[] getImportHandlers() {
         if (importHandlers == null) {
             importHandlers = registryReader.getImportHandlers();
@@ -152,29 +148,31 @@ public final class ImportExportHandlersManager {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
-                ImportItem importItem = null;
-                if (baseOnPathOfItemType()) {
+                ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
+                if (importItem != null) {
+                    IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
+                    if (importHandler != null) {
+                        if (importHandler instanceof ImportBasicHandler) {
+                            // save as the createImportItem of ImportBasicHandler
+                            ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
+                            if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
+                                importBasicHandler.checkAndSetProject(resManager, importItem);
+                            }
+                        }
+                    } else {
+                        // if don't find valid handler, will try to check by noraml path of items, so set null here.
+                        importItem = null;
+                    }
+                }
+
+                // if can't load rightly via *.properties, try to check another way for normal files.
+                if (importItem == null) {
                     IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
                     if (importHandler != null) {
                         importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
                     }
-                } else {
-                    importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
-                    if (importItem != null) {
-                        IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
-                        if (importHandler != null) {
-                            if (importHandler instanceof ImportBasicHandler) {
-                                // save as the createImportItem of ImportBasicHandler
-                                ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
-                                if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
-                                    importBasicHandler.checkAndSetProject(resManager, importItem);
-                                }
-                            }
-                        } else { // if don't find valid handler, won't add the item for dialog, so set null here.
-                            importItem = null;
-                        }
-                    }
                 }
+
                 if (importItem != null) {
                     items.add(importItem);
                 }

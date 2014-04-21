@@ -230,20 +230,12 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
-    /**
-     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
-     */
-    @Deprecated
     public ImportItem computeImportItem(ResourcesManager resManager, IPath path) {
         ImportItem importItem = new ImportItem(path);
         computeProperty(resManager, importItem);
         return importItem;
     }
 
-    /**
-     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
-     */
-    @Deprecated
     protected void computeProperty(ResourcesManager manager, ImportItem importItem) {
         Resource resource = loadResource(manager, importItem);
         if (resource != null) {
@@ -266,9 +258,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * @param importItem
      * @param resource
      * @return
-     * @deprecated deprecated it temp, because the createImportItem is deprecated too.
      */
-    @Deprecated
     protected Resource loadResource(ResourcesManager manager, ImportItem importItem) {
         try {
             return HandlerUtil.loadResource(manager, importItem);
