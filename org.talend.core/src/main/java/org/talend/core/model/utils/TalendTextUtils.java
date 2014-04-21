@@ -478,8 +478,10 @@ public class TalendTextUtils {
         }
 
         // don't hide password if it is valid pure context
-        if (password.startsWith(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX)) {
-            String variableName = password.substring(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX.length(), password.length());
+        String testPassword = password.trim();
+        if (testPassword.startsWith(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX)) {
+            String variableName = testPassword.substring(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX.length(),
+                    testPassword.length());
             if (!ContextUtils.isJavaKeyWords(variableName)) {
                 return password;
             }
