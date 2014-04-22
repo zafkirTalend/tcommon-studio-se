@@ -57,7 +57,9 @@ public class EclipseCommandLine {
      */
     static public final String TALEND_DISABLE_LOGINDIALOG_COMMAND = "--disableLoginDialog"; //$NON-NLS-1$   
 
-    static public final String TALEND_DISABLE_UPDATE_DIALOG_COMMAND = "--disableUpdateDialog"; //$NON-NLS-1$   
+    static public final String TALEND_DISABLE_UPDATE_DIALOG_COMMAND = "--disableUpdateDialog"; //$NON-NLS-1$
+
+    static public final String TALEND_DISABLE_EXTERNAL_MODULE_INSTALL_DIALOG_COMMAND = "--disableExternalModuleInstallDialog"; //$NON-NLS-1$
 
     static public final String TALEND_NOSPLASH_COMMAND = "-nosplash";
 

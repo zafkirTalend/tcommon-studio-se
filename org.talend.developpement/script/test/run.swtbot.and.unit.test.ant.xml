@@ -184,7 +184,7 @@
             </classpath>
             <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
             <arg line="-testpluginname ${unit.test-plugin-name}"/>
-            <arg line="-testApplication org.talend.rcp.branding.generic.application -clean -nl ta --disableLoginDialog --disableUpdateDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+            <arg line="-testApplication org.talend.rcp.branding.generic.application -clean -nl ta --disableExternalModuleInstallDialog --disableLoginDialog --disableUpdateDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
             <arg line="-classname ${unit.test-class-name}"/>
             <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
             <arg line="-consoleLog -console 1234"/>
