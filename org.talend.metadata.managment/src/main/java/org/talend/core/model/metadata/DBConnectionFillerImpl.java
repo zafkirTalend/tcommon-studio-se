@@ -1339,7 +1339,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                     column.setLength(column_size);
                     decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                     column.setPrecision(decimalDigits);
-                    numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    // Teradata SQL Mode no need this column
+                    if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {
+                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    }
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }

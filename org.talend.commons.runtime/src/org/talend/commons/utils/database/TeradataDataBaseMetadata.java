@@ -275,6 +275,9 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                 } else {
                     isNullable = rs.getString("Nullable"); //$NON-NLS-1$
                 }
+                if (decimalDigits == null) {
+                    decimalDigits = "0";
+                }
                 String remarks = ""; //$NON-NLS-1$
                 String columnDef = ""; //$NON-NLS-1$
 

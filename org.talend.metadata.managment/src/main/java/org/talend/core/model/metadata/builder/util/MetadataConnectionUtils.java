@@ -436,6 +436,19 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isTeradataSQLMode(IMetadataConnection metadataConnection) {
+        if (metadataConnection != null) {
+            Object connection = metadataConnection.getCurrentConnection();
+            if (connection != null && connection instanceof DatabaseConnection) {
+                DatabaseConnection dbConn = (DatabaseConnection) connection;
+                if (dbConn != null && isTeradata(dbConn) && dbConn.isSQLMode()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * zshen Comment method "isOdbcConnection". feature 10630
      * 
@@ -1142,8 +1155,8 @@ public class MetadataConnectionUtils {
     public static boolean isOracle(DatabaseMetaData metadata) {
         if (metadata != null) {
             try {
-                String name = metadata.getDatabaseProductName().toUpperCase();
-                if (name != null && name.equals(EDatabaseTypeName.ORACLEFORSID.getProduct().toUpperCase())) {
+                String name = metadata.getDatabaseProductName();
+                if (name != null && name.toUpperCase().equals(EDatabaseTypeName.ORACLEFORSID.getProduct().toUpperCase())) {
                     return true;
                 }
             } catch (SQLException e) {
