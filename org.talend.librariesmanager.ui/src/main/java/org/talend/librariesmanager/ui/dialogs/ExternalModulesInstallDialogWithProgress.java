@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
@@ -38,7 +40,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.librariesmanager.utils.DownloadModuleRunnableWithLicenseDialog;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -661,6 +665,11 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
      * @param requiredJars, list of required jars
      */
     public void showDialog(boolean block, String[] requiredJars) {
+        if (ArrayUtils.contains(Platform.getApplicationArgs(),
+                EclipseCommandLine.TALEND_DISABLE_EXTERNAL_MODULE_INSTALL_DIALOG_COMMAND)) {
+            CommonExceptionHandler.warn("missing jars: " + ArrayUtils.toString(requiredJars)); //$NON-NLS-1$
+            return;
+        }
         IRunnableWithProgress notInstalledModulesRunnable = RemoteModulesHelper.getInstance().getNotInstalledModulesRunnable(
                 requiredJars, inputList);
         setBlockOnOpen(block);
