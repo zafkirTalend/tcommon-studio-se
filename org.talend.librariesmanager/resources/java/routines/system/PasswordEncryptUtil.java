@@ -14,7 +14,6 @@ package routines.system;
 
 import java.security.SecureRandom;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -74,14 +73,5 @@ public class PasswordEncryptUtil {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static boolean isPasswordType(String type) {
-        // should match with JavaTypesManager.PASSWORD.getLabel() and
-        // JavaTypesManager.PASSWORD.getId()
-        if (type == null) {
-            return false;
-        }
-        return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
     }
 }
