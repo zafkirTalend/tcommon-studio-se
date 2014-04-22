@@ -82,10 +82,7 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
-
-import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.Package;
-import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
@@ -1305,7 +1302,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     column.setLength(column_size);
                     decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
                     column.setPrecision(decimalDigits);
-                    numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    // Teradata SQL Mode no need this column
+                    if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {
+                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                    }
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
