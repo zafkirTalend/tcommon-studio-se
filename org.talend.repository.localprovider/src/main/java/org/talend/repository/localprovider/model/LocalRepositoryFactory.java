@@ -2925,11 +2925,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 ((Property) object).getItem().setParent(null);
                             }
                         }
-                        possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI(),
-                                (((Property) object).getItem()).isNeedVersion(),
-                                (((Property) object).getItem()).getFileExtension()));
-
-                        // possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
+                        if (!(((Property) object).getItem()).isNeedVersion()) {
+                            possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI(),
+                                    (((Property) object).getItem()).isNeedVersion(),
+                                    (((Property) object).getItem()).getFileExtension()));
+                        } else {
+                            possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
+                        }
                     }
                 }
             }
