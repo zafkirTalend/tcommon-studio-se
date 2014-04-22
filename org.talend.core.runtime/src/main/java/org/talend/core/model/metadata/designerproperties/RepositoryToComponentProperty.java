@@ -1004,18 +1004,11 @@ public class RepositoryToComponentProperty {
                 }
                 if (isContextMode(connection, dbVersionString)) {
                     return dbVersionString;
-                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
-                        && EDatabaseVersion4Drivers.VERTICA_5_1.getVersionValue().equals(dbVersionString)) {
-                    return "VERTICA_5_1";
-                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
-                        && EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersionString)) {
-                    return "VERTICA_6_0";
-                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
-                        && EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue().equals(dbVersionString)) {
-                    return EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue();
-                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)
-                        && EDatabaseVersion4Drivers.VERTICA_7.getVersionValue().equals(dbVersionString)) {
-                    return EDatabaseVersion4Drivers.VERTICA_7.getVersionValue();
+                } else if (EDatabaseTypeName.VERTICA.getXmlName().equals(databaseType)) {
+                    EDatabaseVersion4Drivers indexOfByVersionDisplay = EDatabaseVersion4Drivers.indexOfByVersion(dbVersionString);
+                    if (indexOfByVersionDisplay != null) {
+                        return indexOfByVersionDisplay.getVersionValue();
+                    }
                 } else {
                     return driverValue;
                 }
