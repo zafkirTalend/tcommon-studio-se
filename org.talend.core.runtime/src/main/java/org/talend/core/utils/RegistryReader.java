@@ -205,7 +205,10 @@ public abstract class RegistryReader {
             if (!isInitialized) {
                 IExtensionPoint point = registry.getExtensionPoint(pluginId, extensionPointId);
                 if (point == null) {
-                    return;
+                    point = registry.getExtensionPoint(extensionPointId);
+                    if (point == null) {
+                        return;
+                    }
                 }
                 IExtension[] extensions = point.getExtensions();
                 extensions = orderExtensions(extensions);

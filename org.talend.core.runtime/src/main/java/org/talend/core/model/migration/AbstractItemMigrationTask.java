@@ -15,6 +15,7 @@ package org.talend.core.model.migration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
@@ -29,6 +30,7 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.migration.AbstractMigrationTask;
 import org.talend.migration.IProjectMigrationTask;
+import org.talend.migration.MigrationTaskExtensionEPReader;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -48,7 +50,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         ExecutionResult executeFinal = null;
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
-            for (ERepositoryObjectType curTyp : getTypes()) {
+            for (ERepositoryObjectType curTyp : getAllTypes()) {
                 if (curTyp != null && curTyp.isResourceItem()) {
                     /* specific project so that on svn model it will migrate all ref projects,bug 17295 */
                     list.addAll(factory.getAll(project, curTyp, true, true));
@@ -99,7 +101,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     @Override
     public ExecutionResult execute(Project project, Item item) {
-        if (!getTypes().contains(ERepositoryObjectType.getItemType(item))) {
+        if (!getAllTypes().contains(ERepositoryObjectType.getItemType(item))) {
             return ExecutionResult.NOTHING_TO_DO;
         }
         setProject(project);
@@ -138,6 +140,31 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
      */
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    /**
+     * this returns all type handled by this migration task even the extended type that could benefit from this
+     * migrations
+     * */
+    List<ERepositoryObjectType> getAllTypes() {
+        List<ERepositoryObjectType> declaredTypes = getTypes();
+        ArrayList<ERepositoryObjectType> allTypes = new ArrayList<ERepositoryObjectType>(declaredTypes.size());
+        allTypes.addAll(declaredTypes);
+        allTypes.addAll(getExtendedTypes());
+        return allTypes;
+    }
+
+    // created as class variable to avoid to many instances creation in the getExtendedTypes
+    private MigrationTaskExtensionEPReader migrationTaskExtensionEPReader = new MigrationTaskExtensionEPReader();
+
+    /**
+     * DOC sgandon Comment method "getExtendedTypes".
+     * 
+     * @return
+     */
+    Set<? extends ERepositoryObjectType> getExtendedTypes() {
+        Set<ERepositoryObjectType> objectTypeExtensions = migrationTaskExtensionEPReader.getObjectTypeExtensions(getTypes());
+        return objectTypeExtensions;
     }
 
 }

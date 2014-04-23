@@ -99,3 +99,4 @@ Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/resty-0.2.0.jar
+Eclipse-RegisterBuddy: org.talend.testutils
