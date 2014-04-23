@@ -28,6 +28,7 @@ import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
+import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
@@ -106,7 +107,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      * @throws SQLException
      */
     public boolean checkConnection() throws SQLException {
-        getTables(this.metadataConn.getDatabase(), null, "%", new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        getTables(this.metadataConn.getDatabase(), null, null, new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ 
         return true;
     }
 
@@ -272,7 +273,7 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                 }
             }
             String tempTableNamepattern = tableNamePattern;
-            if (StringUtils.isEmpty(tempTableNamepattern)) {
+            if (StringUtils.isEmpty(tempTableNamepattern) || TableInfoParameters.DEFAULT_FILTER.equals(tempTableNamepattern)) {
                 tempTableNamepattern = "*"; //$NON-NLS-1$
             }
             Object tables = ReflectionUtils.invokeMethod(hiveObject,
