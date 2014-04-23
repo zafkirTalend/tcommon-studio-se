@@ -33,8 +33,38 @@ import org.talend.repository.items.importexport.manager.ResourcesManager;
  */
 public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
 
+    private boolean isConnectionEmptyBeforeMigration = false;
+
     public MetadataConnectionImportHandler() {
         super();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.items.importexport.handlers.imports.ImportBasicHandler#beforeCreatingItem(org.talend.repository
+     * .items.importexport.handlers.model.ImportItem)
+     */
+    @Override
+    protected void beforeCreatingItem(ImportItem selectedItemRecord) {
+        super.beforeCreatingItem(selectedItemRecord);
+        final Item tmpItem = selectedItemRecord.getItem();
+        // import has not been developed to cope with migration in mind
+        // so some model may not be able to load like the ConnectionItems
+        // in that case items needs to be copied before migration
+        // here we check that the loading of the item failed before calling the create method
+        /*
+         * If load the old emf item files, in fact when resolveItem, will error to load for connection items. But the
+         * resolveItem won't catch the exception at all. And in this case, before do the model migration, the
+         * isConnectionEmptyBeforeMigration need to be true. Then, enable to copy the old items file manually.
+         * 
+         * Else, will cause the problem TDI-29262. Because after "factory.create", the isConnectionEmptyBeforeMigration
+         * will be false, so don't copy the old items to prepare for model migration.
+         */
+        isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
+                && ((ConnectionItem) tmpItem).getConnection().eResource() == null
+                && !selectedItemRecord.getMigrationTasksToApply().isEmpty();
     }
 
     /*
@@ -47,19 +77,11 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
     @Override
     protected void afterCreatedItem(ResourcesManager resManager, ImportItem importItem) throws Exception {
         final Item tmpItem = importItem.getItem();
-        // import has not been developed to cope with migration in mind
-        // so some model may not be able to load like the ConnectionItems
-        // in that case items needs to be copied before migration
-        // here we check that the loading of the item failed before calling the create method
-        boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
-                && ((ConnectionItem) tmpItem).getConnection().eResource() == null
-                && !importItem.getMigrationTasksToApply().isEmpty();
         if (isConnectionEmptyBeforeMigration) {
-            // copy the file before migration, this is bad because it
-            // should not refer to Filesytem
-            // but this is a quick hack and anyway the migration task only works on files
-            // IPath itemPath = itemRecord.getPath().removeFileExtension().addFileExtension(
-            // FileConstants.ITEM_EXTENSION);
+            /*
+             * copy the file before migration, this is bad. because it should not refer to Filesytem. but this is a
+             * quick hack and anyway the migration task only works on files
+             */
 
             InputStream is = resManager.getStream(importItem.getPath().removeFileExtension()
                     .addFileExtension(FileConstants.ITEM_EXTENSION));
