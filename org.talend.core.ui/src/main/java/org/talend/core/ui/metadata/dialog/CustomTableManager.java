@@ -212,7 +212,7 @@ public class CustomTableManager {
             TableViewerCreatorColumnNotModifiable tableColumn = (TableViewerCreatorColumnNotModifiable) tableViewerCreator
                     .getColumns().get(columnIndex);
             if (column.isCustom()) {
-                if (column.isReadOnly() || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
+                if (column.isReadOnly() || readOnly || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
                     return CELL_READ_ONLY_COLOR;
                 } else {
                     return CUSTOM_CELL_BG_COLOR;
@@ -254,15 +254,8 @@ public class CustomTableManager {
         public boolean canModify(Object element, String property) {
             if (element instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) element;
-                if (column.isReadOnly()) {
+                if (column.isReadOnly() || (column.isCustom() && property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME))) {
                     return false;
-                }
-                if (column.isCustom()) {
-                    if (property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
-                        return false;
-                    } else {
-                        return true;
-                    }
                 }
             }
             return super.canModify(element, property);
