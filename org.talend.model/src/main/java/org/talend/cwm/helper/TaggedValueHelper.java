@@ -197,8 +197,8 @@ public final class TaggedValueHelper {
      * @return the tagged value (if found) or null
      */
     public static TaggedValue getTaggedValue(String tag, Collection<TaggedValue> taggedValues) {
-        if (tag == null) {
-            return null;
+    	if (tag == null || taggedValues == null) {
+             return null;
         }
         TaggedValue value = null;
         for (TaggedValue taggedValue : taggedValues) {
