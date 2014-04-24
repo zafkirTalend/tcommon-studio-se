@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class RuntimeMap {
 
-    public static java.util.Map<String, Object> globalMap = null;
+    public static java.util.Map<String, Object> globalTDMMap = null;
 
     private static RuntimeMap runtimeMap;
 
@@ -31,11 +31,11 @@ public class RuntimeMap {
         return runtimeMap;
     }
 
-    public static synchronized java.util.Map<String, Object> getRuntimeMap() {
-        if (globalMap == null) {
-            globalMap = new HashMap<String, Object>();
+    public java.util.Map<String, Object> getRuntimeMap() {
+        if (globalTDMMap == null) {
+            globalTDMMap = new HashMap<String, Object>();
         }
-        return globalMap;
+        return globalTDMMap;
     }
 
 }
