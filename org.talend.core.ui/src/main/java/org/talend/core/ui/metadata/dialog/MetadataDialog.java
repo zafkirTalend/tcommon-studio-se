@@ -288,36 +288,46 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    private boolean isRepository(INode node) {
-        IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE");
-        if (schemaParam != null) {
-            String schemaType = (String) schemaParam.getValue();
-            if (schemaType.equals("REPOSITORY")) {
-                return true;
+    private boolean isRepository(INode node, IMetadataTable currentTable) {
+        // TDI-29264:improve here for adapt two or more schemas with different mode,such as tHiveCreateTable etc
+        boolean nodeModeFlag = false;
+        for (IElementParameter param : node.getElementParameters()) {
+            if (param.getFieldType() == EParameterFieldType.SCHEMA_TYPE
+                    && (param.getContext() == null || param.getContext().equals(currentTable.getAttachedConnector()))) {
+                IElementParameter schemaParam = param.getChildParameters().get("SCHEMA_TYPE");
+                if (schemaParam.getValue() != null) {
+                    if (schemaParam.getValue().equals("REPOSITORY")) {
+                        nodeModeFlag = true;
+                        break;
+                    }
+                }
             }
         }
+
         // for sap
-        schemaParam = node.getElementParameter("SCHEMAS");
-        if (schemaParam != null) {
-            List schemaType = (List) schemaParam.getValue();
-            for (int i = 0; i < schemaType.size(); i++) {
-                HashMap map = (HashMap) schemaType.get(i);
-                Set set = map.keySet();
-                Iterator it = set.iterator();
-                while (it.hasNext()) {
-                    String key = (String) it.next();
-                    if (key.equals("SAP_TABLE_NAME")) {
-                        String value = (String) map.get(key);
-                        if (this.outputMetaTable.getLabel().equals(TalendQuoteUtils.removeQuotes(value))) {
-                            if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
-                                return true;
+        if (!nodeModeFlag) {
+            IElementParameter schemaParam = node.getElementParameter("SCHEMAS");
+            if (schemaParam != null) {
+                List schemaType = (List) schemaParam.getValue();
+                for (int i = 0; i < schemaType.size(); i++) {
+                    HashMap map = (HashMap) schemaType.get(i);
+                    Set set = map.keySet();
+                    Iterator it = set.iterator();
+                    while (it.hasNext()) {
+                        String key = (String) it.next();
+                        if (key.equals("SAP_TABLE_NAME")) {
+                            String value = (String) map.get(key);
+                            if (this.outputMetaTable.getLabel().equals(TalendQuoteUtils.removeQuotes(value))) {
+                                if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
+                                    nodeModeFlag = true;
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        return false;
+        return nodeModeFlag;
     }
 
     @Override
@@ -327,7 +337,7 @@ public class MetadataDialog extends Dialog {
         MetadataTableEditor metadataTableEditor;
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
-            if (isRepository(outputNode)) {
+            if (isRepository(outputNode, outputMetaTable)) {
                 metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput, true);
             } else {
                 metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
@@ -339,7 +349,7 @@ public class MetadataDialog extends Dialog {
                     && outputNode.getComponent().getPaletteType().equals("MR")) {
                 outputMetaView.setMapreduce(true);
             }
-            outputMetaView.setIsRepository(isRepository(outputNode));
+            outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -505,14 +515,14 @@ public class MetadataDialog extends Dialog {
             }
 
             MetadataTableEditor metadataTableEditorForOutput;
-            if (isRepository(outputNode)) {
+            if (isRepository(outputNode, outputMetaTable)) {
                 metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)", true);
             } else {
                 metadataTableEditorForOutput = new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)");
             }
             outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     metadataTableEditorForOutput, outputReadOnly, true, true, false);
-            outputMetaView.setIsRepository(isRepository(outputNode));
+            outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
