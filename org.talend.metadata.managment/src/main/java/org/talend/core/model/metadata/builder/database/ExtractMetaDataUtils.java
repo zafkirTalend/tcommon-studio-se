@@ -242,7 +242,7 @@ public class ExtractMetaDataUtils {
     public DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType, boolean isSqlMode, String database) {
         DatabaseMetaData dbMetaData = null;
         try {
-            if (conn != null) {
+            if (conn != null && !conn.isClosed()) {
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
                 if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
                     dbMetaData = createJtdsDatabaseMetaData(conn);
