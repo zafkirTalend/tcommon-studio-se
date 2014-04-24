@@ -27,6 +27,7 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -65,9 +66,10 @@ public class ExtractMetaDataUtilsTest {
             fail(e.getMessage());
         }
 
-        DatabaseConnection mockDBConn = mock(DatabaseConnection.class);
-        when(mockDBConn.getDatabaseType()).thenReturn(EDatabaseTypeName.TERADATA.getXmlName());
-        when(mockDBConn.getSID()).thenReturn("talendDB");//$NON-NLS-1$
+        // use emf create
+        DatabaseConnection mockDBConn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
+        mockDBConn.setDatabaseType(EDatabaseTypeName.TERADATA.getXmlName());
+        mockDBConn.setSID("talendDB");
 
         java.sql.DatabaseMetaData databaseMetaData1 = extractMetaManger.getDatabaseMetaData(mockConn, mockDBConn, true);
         java.sql.DatabaseMetaData databaseMetaData2 = extractMetaManger.getDatabaseMetaData(mockConn, mockDBConn, false);
@@ -629,8 +631,8 @@ public class ExtractMetaDataUtilsTest {
 
     @Test
     public void testGetDBConnectionSchema() {
-        DatabaseConnection conn = mock(DatabaseConnection.class);
-        when(conn.getUiSchema()).thenReturn("schemaTest"); //$NON-NLS-1$
+        DatabaseConnection conn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
+        conn.setUiSchema("schemaTest");
         Assert.assertEquals(extractMetaManger.getDBConnectionSchema(conn), "schemaTest"); //$NON-NLS-1$
     }
 
