@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -256,8 +257,10 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         try {
             final Resource resource = createResource(itemRecord, itemRecord.getPath(), false);
             stream = manager.getStream(itemRecord.getPath());
-            URIConverter uriConverter = resource.getResourceSet().getURIConverter();
-            resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
+            final ResourceSet resourceSet = resource.getResourceSet();
+
+            URIConverter uriConverter = resourceSet.getURIConverter();
+            resourceSet.setURIConverter(new ExtensibleURIConverterImpl() {
 
                 /*
                  * (non-Javadoc)
@@ -268,7 +271,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 @Override
                 public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
                     InputStream inputStream = null;
-                    EPackage ePackage = resource.getResourceSet().getPackageRegistry().getEPackage(uri.toString());
+                    EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
                     if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
                         inputStream = super.createInputStream(uri, options);
                     } else {
@@ -278,16 +281,23 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 }
             });
             resource.load(stream, null);
-            resource.getResourceSet().setURIConverter(uriConverter);
+            // set back the old one
+            resourceSet.setURIConverter(uriConverter);
             return resource;
         } catch (Exception e) {
             // ignore, must be one invalid or unknown item
+            if (Platform.inDebugMode()) {
+                ExceptionHandler.process(e);
+            }
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException e) {
                     // ignore
+                    if (Platform.inDebugMode()) {
+                        ExceptionHandler.process(e);
+                    }
                 }
             }
         }
@@ -515,6 +525,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             return pathWithProjects.get(path);
         } catch (IOException e) {
             // ignore
+            if (Platform.inDebugMode()) {
+                ExceptionHandler.process(e);
+            }
         } finally {
             if (stream != null) {
                 try {
@@ -633,8 +646,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * java.util.Set, java.util.Set)
      */
     @Override
-    public void doImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord,
-            boolean overwrite, IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
+    public void doImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedItemRecord, boolean overwrite,
+            IPath destinationPath, Set<String> overwriteDeletedItems, Set<String> idDeletedBeforeImport) {
         monitor.subTask(Messages.getString("AbstractImportHandler_importing", selectedItemRecord.getItemName())); //$NON-NLS-1$
         resolveItem(resManager, selectedItemRecord);
         if (!selectedItemRecord.isValid()) {

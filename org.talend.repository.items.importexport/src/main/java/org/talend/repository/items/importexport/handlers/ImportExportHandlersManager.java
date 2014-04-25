@@ -29,11 +29,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.GlobalServiceRegister;
@@ -248,6 +250,9 @@ public final class ImportExportHandlersManager {
                                 importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
                                         allImportItemRecords, destinationPath, overwriteDeletedItems, idDeletedBeforeImport);
                             } catch (Exception e) {
+                                if (Platform.inDebugMode()) {
+                                    ExceptionHandler.process(e);
+                                }
                                 throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass())
                                         .getSymbolicName(),
                                         Messages.getString("ImportExportHandlersManager_importingItemsError"), e)); //$NON-NLS-1$ 
@@ -278,6 +283,9 @@ public final class ImportExportHandlersManager {
                                             .getProxyRepositoryFactory();
                                     factory.saveProject(ProjectManager.getInstance().getCurrentProject());
                                 } catch (PersistenceException e) {
+                                    if (Platform.inDebugMode()) {
+                                        ExceptionHandler.process(e);
+                                    }
                                     throw new CoreException(new Status(IStatus.ERROR, FrameworkUtil.getBundle(this.getClass())
                                             .getSymbolicName(),
                                             Messages.getString("ImportExportHandlersManager_importingItemsError"), e)); //$NON-NLS-1$
@@ -302,44 +310,55 @@ public final class ImportExportHandlersManager {
                                 if (itemRecord.isImported()) {
                                     return; // have imported
                                 }
-                                final IImportItemsHandler importHandler = itemRecord.getImportHandler();
-                                if (importHandler != null && itemRecord.isValid()) {
-                                    List<ImportItem> relatedItemRecord = importHandler.findRelatedImportItems(monitor, manager,
-                                            itemRecord, allPopulatedImportItemRecords);
-                                    // import related items first
-                                    if (importHandler.isPriorImportRelatedItem()) {
-                                        if (!relatedItemRecord.isEmpty()) {
-                                            importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
-                                                    allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
-                                                    idDeletedBeforeImport);
+                                try {
+                                    final IImportItemsHandler importHandler = itemRecord.getImportHandler();
+                                    if (importHandler != null && itemRecord.isValid()) {
+                                        List<ImportItem> relatedItemRecord = importHandler.findRelatedImportItems(monitor,
+                                                manager, itemRecord, allPopulatedImportItemRecords);
+                                        // import related items first
+                                        if (importHandler.isPriorImportRelatedItem()) {
+                                            if (!relatedItemRecord.isEmpty()) {
+                                                importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
+                                                        allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
+                                                        idDeletedBeforeImport);
+                                            }
                                         }
-                                    }
-                                    if (monitor.isCanceled()) {
-                                        return;
-                                    }
-
-                                    // will import
-                                    importHandler.doImport(monitor, manager, itemRecord, overwriting, destinationPath,
-                                            overwriteDeletedItems, idDeletedBeforeImport);
-
-                                    if (monitor.isCanceled()) {
-                                        return;
-                                    }
-                                    // if import related items behind current item
-                                    if (!importHandler.isPriorImportRelatedItem()) {
-                                        if (!relatedItemRecord.isEmpty()) {
-                                            importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
-                                                    allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
-                                                    idDeletedBeforeImport);
+                                        if (monitor.isCanceled()) {
+                                            return;
                                         }
+
+                                        // will import
+                                        importHandler.doImport(monitor, manager, itemRecord, overwriting, destinationPath,
+                                                overwriteDeletedItems, idDeletedBeforeImport);
+
+                                        if (monitor.isCanceled()) {
+                                            return;
+                                        }
+                                        // if import related items behind current item
+                                        if (!importHandler.isPriorImportRelatedItem()) {
+                                            if (!relatedItemRecord.isEmpty()) {
+                                                importItemRecordsWithRelations(monitor, manager, relatedItemRecord, overwriting,
+                                                        allPopulatedImportItemRecords, destinationPath, overwriteDeletedItems,
+                                                        idDeletedBeforeImport);
+                                            }
+                                        }
+
+                                        importHandler.afterImportingItems(monitor, manager, itemRecord);
+
+                                        // record the imported items with related items too.
+                                        ImportCacheHelper.getInstance().getImportedItemRecords().add(itemRecord);
+
+                                        monitor.worked(1);
                                     }
-
-                                    importHandler.afterImportingItems(monitor, manager, itemRecord);
-
-                                    // record the imported items with related items too.
-                                    ImportCacheHelper.getInstance().getImportedItemRecords().add(itemRecord);
-
-                                    monitor.worked(1);
+                                } catch (Exception e) {
+                                    // ???, PTODO if there one error, need throw error or not.
+                                    if (Platform.inDebugMode()) {
+                                        // FIXME, catch the exception, and don't block others to import
+                                        itemRecord.addError(e.getMessage());
+                                        // same the the ImportBasicHandler.logError
+                                        ImportCacheHelper.getInstance().setImportingError(true);
+                                        ExceptionHandler.process(e);
+                                    }
                                 }
                             }
                         }
@@ -353,7 +372,9 @@ public final class ImportExportHandlersManager {
                         // of changes before the end of the modifications.
                         workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, progressMonitor);
                     } catch (CoreException e) {
-                        // ?
+                        if (Platform.inDebugMode()) {
+                            ExceptionHandler.process(e);
+                        }
                     }
                 }
             };
