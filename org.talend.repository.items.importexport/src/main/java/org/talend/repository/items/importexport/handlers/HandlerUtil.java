@@ -23,6 +23,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -145,8 +147,10 @@ public final class HandlerUtil {
         try {
             final Resource resource = createResource(importItem, importItem.getPath(), false);
             stream = manager.getStream(importItem.getPath());
-            URIConverter uriConverter = resource.getResourceSet().getURIConverter();
-            resource.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
+            final ResourceSet resourceSet = resource.getResourceSet();
+
+            URIConverter uriConverter = resourceSet.getURIConverter();
+            resourceSet.setURIConverter(new ExtensibleURIConverterImpl() {
 
                 /*
                  * (non-Javadoc)
@@ -157,7 +161,7 @@ public final class HandlerUtil {
                 @Override
                 public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
                     InputStream inputStream = null;
-                    EPackage ePackage = resource.getResourceSet().getPackageRegistry().getEPackage(uri.toString());
+                    EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
                     if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
                         inputStream = super.createInputStream(uri, options);
                     } else {
@@ -167,17 +171,23 @@ public final class HandlerUtil {
                 }
             });
             resource.load(stream, null);
-            resource.getResourceSet().setURIConverter(uriConverter);
+            // set back the old one
+            resourceSet.setURIConverter(uriConverter);
             return resource;
         } catch (Exception e) {
-            // same as old ImportItemUtil.computeProperty
-            // ignore, must be one invalid or unknown item
+            // same as old ImportItemUtil.computeProperty ignore, must be one invalid or unknown item
+            if (Platform.inDebugMode()) {
+                ExceptionHandler.process(e);
+            }
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException e) {
                     // ignore
+                    if (Platform.inDebugMode()) {
+                        ExceptionHandler.process(e);
+                    }
                 }
             }
         }

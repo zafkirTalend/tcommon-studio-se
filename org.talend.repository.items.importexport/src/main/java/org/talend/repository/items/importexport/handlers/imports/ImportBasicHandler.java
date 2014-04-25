@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -488,6 +489,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             return pathWithProjects.get(path);
         } catch (IOException e) {
             // ignore
+            if (Platform.inDebugMode()) {
+                ExceptionHandler.process(e);
+            }
         } finally {
             if (stream != null) {
                 try {
