@@ -24,7 +24,8 @@ public class AS400QueryGeneratorTest {
 
     private void set4AS400(boolean flag) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreUIService.class)) {
-            CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, flag);
+            ICoreUIService service = (ICoreUIService) GlobalServiceRegister.getDefault().getService(ICoreUIService.class);
+            service.getPreferenceStore().setValue(ITalendCorePrefConstants.AS400_SQL_SEG, flag);
         }
     }
 
