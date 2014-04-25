@@ -43,6 +43,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
 /**
@@ -368,6 +369,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     @Override
     public Set<String> list(IProgressMonitor... monitorWrap) {
+        return list(true, monitorWrap);
+    }
+
+    @Override
+    public Set<String> list(boolean withComponent, IProgressMonitor... monitorWrap) {
         Set<String> names = new HashSet<String>();
         try {
             List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
@@ -375,8 +381,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 for (File file : jarFiles) {
                     names.add(file.getName());
                 }
-            } else {
-
             }
         } catch (MalformedURLException e) {
             CommonExceptionHandler.process(e);
@@ -422,10 +426,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             }
             if (jarFound) {
-                names.add(jarName);
+                if (!withComponent) {
+                    if (ModulesNeededProvider.getModulesNeededNames().contains(jarName)) {
+                        names.add(jarName);
+                    }
+                } else {
+                    names.add(jarName);
+                }
             }
         }
         return names;
+
     }
 
     @Override
