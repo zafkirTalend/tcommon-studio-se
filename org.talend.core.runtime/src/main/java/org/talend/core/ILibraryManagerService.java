@@ -103,4 +103,6 @@ public interface ILibraryManagerService extends IService {
     public boolean contains(String jarName);
 
     public void clearCache();
+    
+    public Set<String> list(boolean withComponent, IProgressMonitor... monitorWrap) ;
 }
