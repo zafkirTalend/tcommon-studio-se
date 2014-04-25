@@ -525,10 +525,6 @@ public class AbstractTest4ExtractManager {
     }
 
     protected void verifyTdTable4ReturnColumns4DontCreateConnection(TdTable tdTable) {
-        // addColumns twince
-        verify(tdTable, times(1)).getFeature();
-        verify(tdTable, times(1)).eResource();
-
         Assert.assertTrue(tdTable.getFeature().isEmpty());
         Assert.assertTrue(tdTable.getOwnedElement().isEmpty());
     }
