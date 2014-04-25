@@ -319,7 +319,7 @@ public class DqRepositoryViewServiceTest {
             Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
+            Mockito.verify(sqlConn, times(2)).isClosed();
             Mockito.verify(catalog).getName();
 
         } catch (Exception e) {
@@ -327,7 +327,7 @@ public class DqRepositoryViewServiceTest {
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, catalog);
+        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, catalog);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -408,7 +408,7 @@ public class DqRepositoryViewServiceTest {
             Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.TABLE_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
+            Mockito.verify(sqlConn, times(2)).isClosed();
             Mockito.verify(schema).getName();
 
         } catch (Exception e) {
@@ -416,7 +416,7 @@ public class DqRepositoryViewServiceTest {
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, schema);
+        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, schema);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -493,7 +493,7 @@ public class DqRepositoryViewServiceTest {
             Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
+            Mockito.verify(sqlConn, times(2)).isClosed();
             Mockito.verify(catalog).getName();
 
         } catch (Exception e) {
@@ -501,7 +501,7 @@ public class DqRepositoryViewServiceTest {
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, catalog);
+        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, catalog);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -580,7 +580,7 @@ public class DqRepositoryViewServiceTest {
             Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.VIEW_TYPES);
             Mockito.verify(tables).next();
             // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
+            Mockito.verify(sqlConn, times(2)).isClosed();
             Mockito.verify(schema).getName();
 
         } catch (Exception e) {
@@ -588,7 +588,7 @@ public class DqRepositoryViewServiceTest {
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, schema);
+        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, schema);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
