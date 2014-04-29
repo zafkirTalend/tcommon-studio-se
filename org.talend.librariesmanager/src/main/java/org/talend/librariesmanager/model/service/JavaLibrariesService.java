@@ -177,10 +177,10 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
+        List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
         Set<String> existLibraries = repositoryBundleService.list(false);
         Set<String> existDllLibraries = repositoryBundleService.listAllDllFiles();
         existLibraries.addAll(existDllLibraries);
-        List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
         for (ModuleNeeded current : toCheck) {
             if (existLibraries.contains(current.getModuleName())) {
                 current.setStatus(ELibraryInstallStatus.INSTALLED);
