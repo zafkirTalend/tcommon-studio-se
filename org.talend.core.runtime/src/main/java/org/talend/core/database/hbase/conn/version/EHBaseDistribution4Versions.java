@@ -52,6 +52,8 @@ public enum EHBaseDistribution4Versions {
 
     MAPR(EHBaseDistributions.MAPR, "MapR 2.0.0", "MAPR2"),
 
+    PIVOTAL_HD_2_0(EHBaseDistributions.PIVOTAL_HD, "Pivotal HD 2.0", "PIVOTAL_HD_2_0"),
+
     PIVOTAL_HD_1_0_1(EHBaseDistributions.PIVOTAL_HD, "Pivotal HD 1.0.1", "PIVOTAL_HD_1_0_1"),
 
     CUSTOM(EHBaseDistributions.CUSTOM, "", "");

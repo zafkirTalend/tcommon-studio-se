@@ -79,6 +79,14 @@ public enum EHadoopVersion4Drivers {
 
     MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
 
+    PIVOTAL_HD_2_0(
+                   EHadoopDistributions.PIVOTAL_HD,
+                   "Pivotal HD 2.0",
+                   "PIVOTAL_HD_2_0",
+                   false,
+                   false,
+                   new EMRVersion[] { EMRVersion.YARN }),
+
     PIVOTAL_HD_1_0_1(
                      EHadoopDistributions.PIVOTAL_HD,
                      "Pivotal HD 1.0.1",
