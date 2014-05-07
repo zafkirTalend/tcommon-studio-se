@@ -35,6 +35,7 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * Operation for exporting a resource and its children to a new .zip or .tar.gz file.
@@ -256,10 +257,30 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
      * @exception java.io.IOException
      */
     protected void initialize() throws IOException {
+        checkDestinationParentFolder();
         if (useTarFormat) {
             exporter = new TarFileExporterFullPath(destinationFilename, useCompression);
         } else {
             exporter = new ZipFileExporterFullPath(destinationFilename, useCompression);
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "checkDestinationParentFolder".
+     * 
+     * Check and create the parent folder.
+     * 
+     * @throws IOException
+     */
+    private void checkDestinationParentFolder() throws IOException {
+        File destFile = new File(destinationFilename);
+        File parentFile = destFile.getParentFile();
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
+        if (!parentFile.exists()) {
+            throw new IOException(Messages.getString("ArchiveFileExportOperationFullPath.cannotCreateDir", parentFile)); //$NON-NLS-1$
         }
     }
 
