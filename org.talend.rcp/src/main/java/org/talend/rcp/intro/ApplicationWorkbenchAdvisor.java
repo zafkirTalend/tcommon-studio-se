@@ -29,6 +29,7 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.system.EclipseCommandLine;
@@ -137,6 +138,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         }
         // feature 19053
         PerspectiveReviewUtil.setPerspectiveTabs();
+        CommonsPlugin.setWorkbenchCreated(true);
         Job myJob = new Job("SVN update and commit on startup") {
 
             @Override
