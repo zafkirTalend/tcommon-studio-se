@@ -19,8 +19,9 @@ import java.util.List;
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHBaseDistribution4Versions {
+    HDP_2_1(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.1.0(Baikal)", "HDP_2_1"),
 
-    HDP_2_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0", "HDP_2_0"),
+    HDP_2_0(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0(BigWheel)", "HDP_2_0"),
 
     HDP_1_3(EHBaseDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3"),
 
