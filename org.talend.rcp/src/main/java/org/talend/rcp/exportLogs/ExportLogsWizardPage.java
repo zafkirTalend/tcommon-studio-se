@@ -23,6 +23,7 @@ import java.lang.management.MemoryUsage;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -40,8 +41,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.utils.ZipToFile;
 import org.talend.repository.ui.wizards.exportjob.JavaJobExportReArchieveCreator;
@@ -105,13 +104,15 @@ public class ExportLogsWizardPage extends WizardPage {
         projectGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         logsFromArchiveRadio = new Button(projectGroup, SWT.RADIO);
-        logsFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
+        // logsFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
+        logsFromArchiveRadio.setText(Messages.getString("DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle")); //$NON-NLS-1$
 
         archivePathField = new Text(projectGroup, SWT.BORDER);
 
         archivePathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
         browseArchivesButton = new Button(projectGroup, SWT.PUSH);
-        browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
+        // browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
+        browseArchivesButton.setText(Messages.getString("DataTransferMessages.DataTransfer_browse")); //$NON-NLS-1$
         setButtonLayoutData(browseArchivesButton);
 
         archivePathField.setEnabled(false);
@@ -191,7 +192,8 @@ public class ExportLogsWizardPage extends WizardPage {
 
         FileDialog dialog = new FileDialog(archivePathField.getShell(), SWT.SAVE);
         dialog.setFilterExtensions(FILE_EXPORT_MASK);
-        dialog.setText(DataTransferMessages.ArchiveExport_selectDestinationTitle);
+        // dialog.setText(DataTransferMessages.ArchiveExport_selectDestinationTitle);
+        dialog.setText(Messages.getString("DataTransferMessages.ArchiveExport_selectDestinationTitle")); //$NON-NLS-1$
 
         String fileName = archivePathField.getText().trim();
         if (fileName.length() == 0) {
@@ -199,7 +201,8 @@ public class ExportLogsWizardPage extends WizardPage {
         }
 
         if (fileName.length() == 0) {
-            dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            // dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
         } else {
             File path = new File(fileName);
             if (path.exists()) {

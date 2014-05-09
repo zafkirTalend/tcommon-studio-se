@@ -29,7 +29,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.internal.provisional.action.IToolBarContributionItem;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
@@ -42,7 +41,6 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.internal.PluginActionContributionItem;
-import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.actions.CommandAction;
 import org.eclipse.ui.internal.ide.actions.OpenLocalFileAction;
@@ -134,7 +132,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     @Override
     public void fillMenuBar(final IMenuManager menuBar) {
-
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = reg.getActionSets();
 
@@ -192,8 +189,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
                 };
                 action.setId(getId());
-                action.setText(WorkbenchMessages.CloseEditorAction_text);
-                action.setToolTipText(WorkbenchMessages.CloseEditorAction_toolTip);
+                // action.setText(WorkbenchMessages.CloseEditorAction_text);
+                action.setText(Messages.getString("ActionBarBuildHelper.CloseEditorAction_text")); //$NON-NLS-1$
+                // action.setToolTipText(WorkbenchMessages.CloseEditorAction_toolTip);
+                action.setToolTipText(Messages.getString("ActionBarBuildHelper.CloseEditorAction_toolTip")); //$NON-NLS-1$
                 return action;
             }
         };
@@ -236,8 +235,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
                 };
                 action.setId(getId());
-                action.setText(WorkbenchMessages.CloseAllAction_text);
-                action.setToolTipText(WorkbenchMessages.CloseAllAction_toolTip);
+                // action.setText(WorkbenchMessages.CloseAllAction_text);
+                action.setText(Messages.getString("ActionBarBuildHelper.CloseAllAction_text")); //$NON-NLS-1$
+                // action.setToolTipText(WorkbenchMessages.CloseAllAction_toolTip);
+                action.setToolTipText(Messages.getString("ActionBarBuildHelper.CloseAllAction_toolTip")); //$NON-NLS-1$
                 return action;
             }
         };
@@ -286,8 +287,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 };
 
                 action.setId(getId());
-                action.setText(WorkbenchMessages.SaveAll_text);
-                action.setToolTipText(WorkbenchMessages.SaveAll_toolTip);
+                // action.setText(WorkbenchMessages.SaveAll_text);
+                action.setText(Messages.getString("ActionBarBuildHelper.SaveAll_text")); //$NON-NLS-1$
+                // action.setToolTipText(WorkbenchMessages.SaveAll_toolTip);
+                action.setToolTipText(Messages.getString("ActionBarBuildHelper.SaveAll_toolTip")); //$NON-NLS-1$
                 return action;
             }
         };
@@ -407,10 +410,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         IContributionItem[] items = coolBar.getItems();
         for (IContributionItem item : items) {
-            IToolBarContributionItem it = (IToolBarContributionItem) item;
-
-            IToolBarManager manager = it.getToolBarManager();
-            printItemId(manager);
+            if (item instanceof ToolBarContributionItem) {
+                ToolBarContributionItem it = (ToolBarContributionItem) item;
+                IToolBarManager manager = it.getToolBarManager();
+                printItemId(manager);
+            }
 
         }
     }
@@ -545,7 +549,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                             if (iContributionItem2 != null && iContributionItem2 instanceof PluginActionContributionItem) {
                                 for (String id : enableCoolBarActionIds) {
                                     if (id.equals(iContributionItem2.getId())) {
-                                        ((PluginActionContributionItem) iContributionItem2).getAction().setEnabled(false);
+                                        ((ActionContributionItem) iContributionItem2).getAction().setEnabled(false);
                                     }
                                 }
                             }

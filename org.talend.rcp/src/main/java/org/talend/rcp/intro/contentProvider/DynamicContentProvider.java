@@ -23,9 +23,9 @@ import java.util.StringTokenizer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.internal.intro.impl.model.util.ModelUtil;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.html.TalendHtmlModelUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
@@ -267,7 +267,8 @@ public class DynamicContentProvider extends IntroProvider {
 
     private void setDIVStyle(Document dom, boolean online) {
         NodeList elementsByTagName = dom.getElementsByTagName("div"); //$NON-NLS-1$
-        Node[] array = ModelUtil.getArray(elementsByTagName);
+        // Node[] array = ModelUtil.getArray(elementsByTagName);
+        Node[] array = TalendHtmlModelUtil.getArray(elementsByTagName);
         Element leftDiv = null;
         Element rightDiv = null;
         for (Node element : array) {

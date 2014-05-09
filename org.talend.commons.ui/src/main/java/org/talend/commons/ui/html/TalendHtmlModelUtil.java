@@ -12,10 +12,16 @@
 // ============================================================================
 package org.talend.commons.ui.html;
 
-import org.eclipse.ui.internal.intro.impl.model.url.IntroURLParser;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.Properties;
+
 import org.eclipse.ui.internal.intro.impl.model.util.BundleUtil;
 import org.osgi.framework.Bundle;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -77,8 +83,10 @@ public class TalendHtmlModelUtil {
     private static void qualifyAttribute(Element element, String attributeName, String base, Bundle bundle) {
         if (element.hasAttribute(attributeName)) {
             String attributeValue = element.getAttribute(attributeName);
-            if (new IntroURLParser(attributeValue).hasProtocol())
+            // if (new IntroURLParser(attributeValue).hasProtocol())
+            if (hasProtocol(attributeValue)) {
                 return;
+            }
 
             // resolve the resource against the nl mechanism.
             String attributePath = BundleUtil.getResolvedResourceLocation(base, attributeValue, bundle);
@@ -86,17 +94,83 @@ public class TalendHtmlModelUtil {
         }
     }
 
+    public static boolean hasProtocol(String url) {
+        boolean hasProtocol = false;
+        if (url == null) {
+            return hasProtocol;
+        }
+        URL url_inst = null;
+        try {
+            url_inst = new URL(url);
+        } catch (MalformedURLException e) {
+            // not a valid URL. set state.
+            return hasProtocol;
+        }
+
+        if (url_inst.getProtocol() != null) {
+            // URL has some valid protocol. Check to see if it is an intro url.
+            hasProtocol = true;
+        }
+        return hasProtocol;
+    }
+
     private static void qualifyValueAttribute(Element element, String base, Bundle bundle) {
         if (element.hasAttribute(ATT_VALUE) && element.hasAttribute(ATT_VALUE_TYPE)
                 && element.getAttribute(ATT_VALUE_TYPE).equals("ref") //$NON-NLS-1$
                 && element.getLocalName().equals(TAG_PARAM)) {
             String value = element.getAttribute(ATT_VALUE);
-            if (new IntroURLParser(value).hasProtocol())
+            // if (new IntroURLParser(value).hasProtocol())
+            if (hasProtocol(value)) {
                 return;
+            }
             // resolve the resource against the nl mechanism.
             String attributePath = BundleUtil.getResolvedResourceLocation(base, value, bundle);
             element.setAttribute(ATT_VALUE, attributePath);
         }
     }
 
+    /**
+     * Returns an array version of the passed NodeList. Used to work around DOM design issues.
+     */
+    public static Node[] getArray(NodeList nodeList) {
+        Node[] nodes = new Node[nodeList.getLength()];
+        for (int i = 0; i < nodeList.getLength(); i++)
+            nodes[i] = nodeList.item(i);
+        return nodes;
+    }
+
+    public static Element createElement(Document dom, String elementName, Properties attributes) {
+
+        // make sure to create element with any namespace uri to enable finding
+        // it again using Dom.getElementsByTagNameNS()
+        Element element = dom.createElementNS("", elementName); //$NON-NLS-1$
+        if (attributes != null) {
+            Enumeration e = attributes.keys();
+            while (e.hasMoreElements()) {
+                String key = (String) e.nextElement();
+                element.setAttribute(key, attributes.getProperty(key));
+            }
+        }
+        return element;
+    }
+
+    /*
+     * Util method similar to DOM getElementById() method, but it works without an id attribute being specified. Deep
+     * searches all children in this container's DOM for the first child with the given id. The element retrieved must
+     * have the passed local name. Note that in an XHTML file (aka DOM) elements should have a unique id within the
+     * scope of a document. We use local name because this allows for finding intro anchors, includes and dynamic
+     * content element regardless of whether or not an xmlns was used in the xml.
+     */
+    public static Element getElementById(Document dom, String id, String localElementName) {
+
+        NodeList children = dom.getElementsByTagNameNS("*", localElementName); //$NON-NLS-1$
+        for (int i = 0; i < children.getLength(); i++) {
+            Element element = (Element) children.item(i);
+            if (element.getAttribute("id").equals(id)) //$NON-NLS-1$
+                return element;
+        }
+        // non found.
+        return null;
+
+    }
 }

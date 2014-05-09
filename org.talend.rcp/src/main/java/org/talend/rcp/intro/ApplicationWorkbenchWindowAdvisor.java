@@ -51,11 +51,8 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
-import org.eclipse.ui.internal.ide.IDEInternalPreferences;
-import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
@@ -76,6 +73,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.model.utils.TalendPropertiesUtil;
+import org.talend.core.prefs.IDEInternalPreferences;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.hidden.HidePreferencePageProvider;
 import org.talend.core.prefs.hidden.HidePreferencePagesManager;
@@ -114,6 +112,25 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
+
+    /**
+     * constant from org.eclipse.ui.internal.IWorkbenchConstants;
+     */
+    public class IWorkbenchConstants {
+
+        public static final String TAG_WINDOW = "window"; //$NON-NLS-1$
+
+        public static final String TAG_PAGE = "page"; //$NON-NLS-1$
+
+        public static final String TAG_PERSPECTIVES = "perspectives"; //$NON-NLS-1$
+
+        public static final String TAG_HIDE_MENU = "hide_menu_item_id"; //$NON-NLS-1$
+
+        public static final String TAG_PERSPECTIVE = "perspective"; //$NON-NLS-1$
+
+        public static final String TAG_ID = "id"; //$NON-NLS-1$
+
+    }
 
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
@@ -448,11 +465,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         boolean promptOnExit = store.getBoolean(IDEInternalPreferences.EXIT_PROMPT_ON_CLOSE_LAST_WINDOW);
 
         if (promptOnExit) {
-            String message = IDEWorkbenchMessages.PromptOnExitDialog_message0;
+            // String message = IDEWorkbenchMessages.PromptOnExitDialog_message0;
+            String message = Messages.getString("ApplicationWorkbenchWindowAdvisor.PromptOnExitDialog_message0"); //$NON-NLS-1$
 
+            // MessageDialogWithToggle dlg =
+            // MessageDialogWithToggle.openOkCancelConfirm(getWindowConfigurer().getWindow()
+            // .getShell(), IDEWorkbenchMessages.PromptOnExitDialog_shellTitle, message,
+            // IDEWorkbenchMessages.PromptOnExitDialog_choice, false, null, null);
             MessageDialogWithToggle dlg = MessageDialogWithToggle.openOkCancelConfirm(getWindowConfigurer().getWindow()
-                    .getShell(), IDEWorkbenchMessages.PromptOnExitDialog_shellTitle, message,
-                    IDEWorkbenchMessages.PromptOnExitDialog_choice, false, null, null);
+                    .getShell(), Messages.getString("ApplicationWorkbenchWindowAdvisor.PromptOnExitDialog_shellTitle"), message, //$NON-NLS-1$
+                    Messages.getString("ApplicationWorkbenchWindowAdvisor.PromptOnExitDialog_choice"), false, null, null); //$NON-NLS-1$
             if (dlg.getReturnCode() != IDialogConstants.OK_ID) {
                 return false;
             }

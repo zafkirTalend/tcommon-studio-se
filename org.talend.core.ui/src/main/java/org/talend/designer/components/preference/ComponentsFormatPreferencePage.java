@@ -23,7 +23,6 @@ import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
-import org.eclipse.gef.internal.InternalImages;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -57,8 +56,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PlatformUI;
+import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.components.ComponentPaletteUtilities;
@@ -288,9 +290,11 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
                 ImageDescriptor descriptor = entry.getSmallIcon();
                 if (descriptor == null) {
                     if (entry instanceof PaletteContainer) {
-                        descriptor = InternalImages.DESC_FOLDER_OPEN;
-                    } else if (entry instanceof PaletteSeparator) {
-                        descriptor = InternalImages.DESC_SEPARATOR;
+                        // descriptor = InternalImages.DESC_FOLDER_OPEN;
+                        descriptor = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
+                    } else if (entry instanceof PaletteSeparator) {// icons/separator.gif
+                        // descriptor = InternalImages.DESC_SEPARATOR;
+                        descriptor = ImageProvider.getImageDesc(EImage.SEPARATOR_ICON);
                     } else {
                         return null;
                     }

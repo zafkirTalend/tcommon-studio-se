@@ -59,8 +59,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
-import org.eclipse.ui.internal.WorkbenchImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.talend.commons.exception.ExceptionHandler;
@@ -138,12 +137,12 @@ public class ImportItemsWizardPage extends WizardPage {
      * 
      * @param pageName
      */
-    @SuppressWarnings("restriction")
     public ImportItemsWizardPage(String pageName, IStructuredSelection s) {
         super(pageName);
         this.selection = s;
         setDescription(Messages.getString("ImportItemsWizardPage_importDescription")); //$NON-NLS-1$
-        setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
+        // setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor("IMG_WIZBAN_IMPORT_WIZ")); //$NON-NLS-1$
     }
 
     public IStructuredSelection getSelection() {

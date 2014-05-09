@@ -17,7 +17,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.PartPane;
 import org.eclipse.ui.internal.PartSite;
 import org.eclipse.ui.internal.cheatsheets.ICheatSheetResource;
 import org.eclipse.ui.internal.cheatsheets.views.CheatSheetView;
@@ -75,8 +74,9 @@ public class CheatSheetUtils {
     public void maxDisplayCheatSheetView(CheatSheetView view) {
         // ADD msjian TDQ-7407 2013-8-23: Only display the Cheat Sheet view on new startup of the studio
         if (isFirstTime() && !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName())) {
-            PartPane pane = ((PartSite) view.getSite()).getPane();
-            view.getSite().getPage().toggleZoom(pane.getPartReference());
+            // PartPane pane = ((PartSite) view.getSite()).getPane();
+            // view.getSite().getPage().toggleZoom(pane.getPartReference());
+            view.getSite().getPage().toggleZoom(((PartSite) view.getSite()).getPartReference());
             view.setFocus();
 
             setFirstTime(false);

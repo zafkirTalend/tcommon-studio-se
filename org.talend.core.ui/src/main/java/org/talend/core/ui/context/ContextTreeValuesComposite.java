@@ -47,9 +47,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
-import org.eclipse.ui.internal.WorkbenchImages;
-import org.eclipse.ui.internal.WorkbenchMessages;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.core.language.ECodeLanguage;
@@ -413,10 +411,12 @@ public class ContextTreeValuesComposite extends AbstractContextTabEditComposite 
 
     private void createMenuBar(final ToolBar menuBar) {
         ToolItem pullDownButton = new ToolItem(menuBar, SWT.PUSH);
-        Image hoverImage = WorkbenchImages.getImage(IWorkbenchGraphicConstants.IMG_LCL_RENDERED_VIEW_MENU);
+        // Image hoverImage = WorkbenchImages.getImage(IWorkbenchGraphicConstants.IMG_LCL_RENDERED_VIEW_MENU);
+        Image hoverImage = PlatformUI.getWorkbench().getSharedImages().getImage("IMG_LCL_RENDERED_VIEW_MENU"); //$NON-NLS-1$
         pullDownButton.setDisabledImage(hoverImage);
         pullDownButton.setImage(hoverImage);
-        pullDownButton.setToolTipText(WorkbenchMessages.Menu);
+        // pullDownButton.setToolTipText(WorkbenchMessages.Menu);
+        pullDownButton.setToolTipText(Messages.getString("ContextTreeValuesComposite.Menu")); //$NON-NLS-1$
         pullDownButton.setWidth(5);
 
         MenuManager menuManager = new MenuManager("Context Presentation"); //$NON-NLS-1$

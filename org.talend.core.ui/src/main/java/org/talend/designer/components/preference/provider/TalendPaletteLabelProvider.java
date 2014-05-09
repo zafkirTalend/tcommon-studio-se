@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.components.preference.provider;
 
-import org.eclipse.gef.internal.InternalImages;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteSeparator;
@@ -20,6 +19,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 
 /**
@@ -40,9 +42,11 @@ public class TalendPaletteLabelProvider implements ILabelProvider {
         ImageDescriptor descriptor = entry.getSmallIcon();
         if (descriptor == null) {
             if (entry instanceof PaletteContainer) {
-                descriptor = InternalImages.DESC_FOLDER_OPEN;
+                // descriptor = InternalImages.DESC_FOLDER_OPEN;
+                descriptor = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
             } else if (entry instanceof PaletteSeparator) {
-                descriptor = InternalImages.DESC_SEPARATOR;
+                // descriptor = InternalImages.DESC_SEPARATOR;
+                descriptor = ImageProvider.getImageDesc(EImage.SEPARATOR_ICON);
             } else {
                 return null;
             }
@@ -91,7 +95,8 @@ public class TalendPaletteLabelProvider implements ILabelProvider {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
+     * @see
+     * org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
      */
     public void removeListener(ILabelProviderListener listener) {
         // TODO Auto-generated method stub

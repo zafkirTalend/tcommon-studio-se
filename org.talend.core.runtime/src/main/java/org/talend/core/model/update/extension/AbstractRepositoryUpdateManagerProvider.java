@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.update.IUpdateItemType;
 import org.talend.core.model.update.RepositoryUpdateManager;
@@ -152,7 +152,9 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
         };
 
         try {
-            final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(null);
+            // final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(null);
+            // dialog.run(true, cancelable, runnable);
+            final ProgressMonitorDialog dialog = new ProgressMonitorDialog(null);
             dialog.run(true, cancelable, runnable);
 
             // PlatformUI.getWorkbench().getProgressService().run(true, true, runnable);

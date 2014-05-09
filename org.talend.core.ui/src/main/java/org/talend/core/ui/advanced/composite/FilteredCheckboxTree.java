@@ -52,9 +52,9 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
-import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.progress.WorkbenchJob;
+import org.talend.core.runtime.i18n.Messages;
 
 /**
  * Modification from eclipse built-in class FilteredTree. A simple control that provides a text widget and a tree
@@ -199,7 +199,8 @@ public class FilteredCheckboxTree extends Composite {
         showFilterControls = PlatformUI.getPreferenceStore().getBoolean(IWorkbenchPreferenceConstants.SHOW_FILTERED_TEXTS);
         createControl(parent, treeStyle);
         createRefreshJob();
-        setInitialText(WorkbenchMessages.FilteredTree_FilterMessage);
+        // setInitialText(WorkbenchMessages.FilteredTree_FilterMessage);
+        setInitialText(Messages.getString("WorkbenchMessages.FilteredTree_FilterMessage")); //$NON-NLS-1$
         setFont(parent.getFont());
     }
 
@@ -700,7 +701,8 @@ public class FilteredCheckboxTree extends Composite {
                 }
             };
 
-            clearTextAction.setToolTipText(WorkbenchMessages.FilteredTree_ClearToolTip);
+            // clearTextAction.setToolTipText(WorkbenchMessages.FilteredTree_ClearToolTip);
+            clearTextAction.setToolTipText(Messages.getString("WorkbenchMessages.FilteredTree_ClearToolTip")); //$NON-NLS-1$
             clearTextAction.setImageDescriptor(JFaceResources.getImageRegistry().getDescriptor(CLEAR_ICON));
             clearTextAction.setDisabledImageDescriptor(JFaceResources.getImageRegistry().getDescriptor(DCLEAR_ICON));
 

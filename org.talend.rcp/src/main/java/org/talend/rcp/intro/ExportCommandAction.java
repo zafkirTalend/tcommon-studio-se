@@ -29,9 +29,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
-import org.eclipse.ui.internal.IWorkbenchHelpContextIds;
-import org.eclipse.ui.internal.WorkbenchPlugin;
-import org.eclipse.ui.internal.dialogs.ImportExportWizard;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.wizards.newproject.copyfromeclipse.TalendImportExportWizard;
 
@@ -45,6 +43,16 @@ public class ExportCommandAction extends Action {
     private static final int SIZING_WIZARD_HEIGHT = 550;
 
     private IWorkbenchAction exportAction;
+
+    /**
+     * Constants from org.eclipse.ui.internal.IWorkbenchHelpContextIds
+     */
+    public class IWorkbenchHelpContextIds {
+
+        public static final String EXPORT_ACTION = PlatformUI.PLUGIN_ID + "." + "export_action_context"; //$NON-NLS-1$ //$NON-NLS-2$
+
+        public static final String EXPORT_WIZARD = PlatformUI.PLUGIN_ID + "." + "export_wizard_context"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
 
     /**
      */
@@ -80,12 +88,14 @@ public class ExportCommandAction extends Action {
             job.setPriority(Job.BUILD);
             job.schedule();
 
-            TalendImportExportWizard wizard = new TalendImportExportWizard(ImportExportWizard.EXPORT);
+            // TalendImportExportWizard wizard = new TalendImportExportWizard(ImportExportWizard.EXPORT);
+            TalendImportExportWizard wizard = new TalendImportExportWizard(TalendImportExportWizard.EXPORT);
             IStructuredSelection selectionToPass = StructuredSelection.EMPTY;
 
             IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
             wizard.init(activeWorkbenchWindow.getWorkbench(), selectionToPass);
-            IDialogSettings workbenchSettings = WorkbenchPlugin.getDefault().getDialogSettings();
+            // IDialogSettings workbenchSettings = WorkbenchPlugin.getDefault().getDialogSettings();
+            IDialogSettings workbenchSettings = CoreUIPlugin.getDefault().getDialogSettings();
             IDialogSettings wizardSettings = workbenchSettings.getSection("ImportExportAction"); //$NON-NLS-1$
             if (wizardSettings == null) {
                 wizardSettings = workbenchSettings.addNewSection("ImportExportAction"); //$NON-NLS-1$

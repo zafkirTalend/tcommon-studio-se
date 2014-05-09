@@ -17,14 +17,14 @@ import java.net.URL;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.eclipse.ui.internal.intro.impl.model.IntroContentProvider;
 import org.eclipse.ui.internal.intro.impl.model.loader.ContentProviderManager;
 import org.eclipse.ui.internal.intro.impl.model.loader.IntroContentParser;
-import org.eclipse.ui.internal.intro.impl.model.util.ModelUtil;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
+import org.talend.commons.ui.html.TalendHtmlModelUtil;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.prefs.IIntroHTMLConstants;
 import org.talend.core.ui.branding.AbstractBrandingService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.branding.StartingConstants;
@@ -96,7 +96,8 @@ public class StartingHelper {
         NodeList internationals = dom.getElementsByTagNameNS("*", //$NON-NLS-1$
                 StartingConstants.KEY_INTERNATIONAL);
 
-        Node[] nodes = ModelUtil.getArray(internationals);
+        // Node[] nodes = ModelUtil.getArray(internationals);
+        Node[] nodes = TalendHtmlModelUtil.getArray(internationals);
         for (Node node : nodes) {
             Element internationalElement = (Element) node;
             internationalElement.getParentNode().replaceChild(
@@ -112,7 +113,8 @@ public class StartingHelper {
                 IntroContentProvider.TAG_CONTENT_PROVIDER);
 
         // get the array version of the nodelist to work around DOM api design.
-        Node[] nodes = ModelUtil.getArray(contentProviders);
+        // Node[] nodes = ModelUtil.getArray(contentProviders);
+        Node[] nodes = TalendHtmlModelUtil.getArray(contentProviders);
         for (Node node : nodes) {
             Element contentProviderElement = (Element) node;
             IntroContentProvider provider = new IntroContentProvider(contentProviderElement, Activator.getDefault().getBundle());
@@ -132,7 +134,8 @@ public class StartingHelper {
                 // replace the contentProvider element with this div.
                 Properties att = new Properties();
                 att.setProperty(IIntroHTMLConstants.ATTRIBUTE_ID, provider.getId());
-                Element contentDiv = ModelUtil.createElement(dom, ModelUtil.TAG_DIV, att);
+                // Element contentDiv = ModelUtil.createElement(dom, ModelUtil.TAG_DIV, att);
+                Element contentDiv = TalendHtmlModelUtil.createElement(dom, TalendHtmlModelUtil.TAG_DIV, att);
                 providerClass.createContent(provider.getId(), contentDiv);
 
                 if (contentDiv.getChildNodes().getLength() != 0) {

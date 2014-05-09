@@ -15,7 +15,6 @@ package org.talend.commons.ui.html;
 import java.util.Properties;
 
 import org.eclipse.ui.internal.intro.impl.model.loader.ModelLoaderUtil;
-import org.eclipse.ui.internal.intro.impl.model.url.IntroURL;
 import org.eclipse.ui.internal.intro.impl.util.StringUtil;
 import org.eclipse.ui.intro.config.IIntroAction;
 import org.eclipse.ui.intro.config.IIntroURL;

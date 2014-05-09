@@ -30,7 +30,6 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.core.SourceType;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -86,9 +85,13 @@ public abstract class AbstractTalendFunctionParser extends AbstractFunctionParse
                         ICompilationUnit compilationUnit = (ICompilationUnit) element;
                         IType[] types = compilationUnit.getAllTypes();
                         if (types.length > 0) {
-                            SourceType sourceType = (SourceType) types[0];
+                            // SourceType sourceType = (SourceType) types[0];
+                            IMember sourceType = (IMember) types[0];
                             if (sourceType != null) {
-                                processSourceType(sourceType, sourceType.getElementName(), sourceType.getFullyQualifiedName(),
+                                // processSourceType(sourceType, sourceType.getElementName(),
+                                // sourceType.getFullyQualifiedName(),
+                                // sourceType.getElementName(), false);
+                                processSourceType(sourceType, sourceType.getElementName(), types[0].getFullyQualifiedName(),
                                         sourceType.getElementName(), false);
                             }
                         }

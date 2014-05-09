@@ -23,7 +23,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -37,7 +36,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -56,6 +54,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -549,11 +548,16 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @param part
      * @return
      */
-    @SuppressWarnings("restriction")
     protected int promptForSavingDialog(IEditorPart part) {
         String[] buttons = new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL };
-        String message = NLS.bind(WorkbenchMessages.EditorManager_saveChangesQuestion, part.getTitle());
-        Dialog dialog = new MessageDialog(Display.getCurrent().getActiveShell(), WorkbenchMessages.Save_Resource, null, message,
+        // String message = NLS.bind(WorkbenchMessages.EditorManager_saveChangesQuestion, part.getTitle());
+        String message = Messages.getString("AContextualAction.EditorManager_saveChangesQuestion", //$NON-NLS-1$
+                new Object[] { part.getTitle() });
+        // Dialog dialog = new MessageDialog(Display.getCurrent().getActiveShell(), WorkbenchMessages.Save_Resource,
+        // null, message,
+        // MessageDialog.QUESTION, buttons, 0) {
+        Dialog dialog = new MessageDialog(Display.getCurrent().getActiveShell(),
+                Messages.getString("AContextualAction.Save_Resource"), null, message, //$NON-NLS-1$
                 MessageDialog.QUESTION, buttons, 0) {
 
             @Override

@@ -27,7 +27,6 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.ui.internal.navigator.NavigatorActivationService;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.repository.model.IRepositoryNode;
@@ -35,7 +34,6 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.actions.MoveObjectAction;
 import org.talend.repository.ui.views.RepositoryDropAdapter;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
-import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
@@ -79,17 +77,18 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
         // updateNavigatorContentState();
     }
 
-    @SuppressWarnings("restriction")
-    private void updateNavigatorContentState() {
-        INavigatorContentService contentService = getNavigatorContentService();
-        String[] visibleExtensionIds = contentService.getVisibleExtensionIds();
-        List<String> needRemovedExtensionIds = RepositoryNodeFilterHelper.getExtensionIdsNeedRemove(visibleExtensionIds);
-        if (contentService.getActivationService() instanceof NavigatorActivationService) {
-            NavigatorActivationService activationService = (NavigatorActivationService) contentService.getActivationService();
-            activationService.setActive(needRemovedExtensionIds.toArray(new String[needRemovedExtensionIds.size()]), false);
-            activationService.persistExtensionActivations();
-        }
-    }
+    // @SuppressWarnings("restriction")
+    // private void updateNavigatorContentState() {
+    // INavigatorContentService contentService = getNavigatorContentService();
+    // String[] visibleExtensionIds = contentService.getVisibleExtensionIds();
+    // List<String> needRemovedExtensionIds = RepositoryNodeFilterHelper.getExtensionIdsNeedRemove(visibleExtensionIds);
+    // if (contentService.getActivationService() instanceof NavigatorActivationService) {
+    // NavigatorActivationService activationService = (NavigatorActivationService)
+    // contentService.getActivationService();
+    // activationService.setActive(needRemovedExtensionIds.toArray(new String[needRemovedExtensionIds.size()]), false);
+    // activationService.persistExtensionActivations();
+    // }
+    // }
 
     private RepositoryNode getRepositoryNode(Item node) {
         Object data = node.getData();

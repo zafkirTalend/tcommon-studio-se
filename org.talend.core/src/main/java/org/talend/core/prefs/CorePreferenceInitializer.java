@@ -27,7 +27,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
-import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
@@ -45,6 +44,20 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
     private static final String JAVA_WIN32_INTERPRETER = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_WIN32);
+
+    /**
+     * Constants from org.eclipse.update.internal.scheduler.SchedulerStartup
+     */
+    public class SchedulerStartup {
+
+        private static final String P_ENABLED = "enabled"; //$NON-NLS-1$
+
+        private static final String P_SCHEDULE = "schedule"; //$NON-NLS-1$
+
+        private static final String VALUE_ON_SCHEDULE = "on-schedule"; //$NON-NLS-1$
+
+        private static final String P_DOWNLOAD = "download"; //$NON-NLS-1$
+    }
 
     /**
      * Construct a new CorePreferenceInitializer.

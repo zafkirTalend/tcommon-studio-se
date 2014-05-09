@@ -131,6 +131,8 @@ public enum EImage implements IImage {
 
     HADOOP_WIZ_ICON("/icons/hadoop-logo-wiz.png"), //$NON-NLS-1$
 
+    SEPARATOR_ICON("/icons/separator.gif"), //$NON-NLS-1$
+
     HIGHTLIGHT_ICON("/icons/hightLight.png");//$NON-NLS-1$
 
     private String path;

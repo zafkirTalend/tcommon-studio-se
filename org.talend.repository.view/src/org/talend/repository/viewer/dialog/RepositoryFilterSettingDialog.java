@@ -44,10 +44,10 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.internal.navigator.extensions.NavigatorContentExtension;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.INavigatorContentExtension;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -68,7 +68,7 @@ import org.talend.repository.viewer.ui.viewer.CheckboxRepoCommonViewer;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-@SuppressWarnings({ "rawtypes", "restriction" })
+@SuppressWarnings({ "rawtypes" })
 public class RepositoryFilterSettingDialog extends Dialog {
 
     private static final int WIDTH = 600;
@@ -406,7 +406,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
                 boolean found = false;
                 Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
                 for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
-                    if (filteredContents.contains(((NavigatorContentExtension) itr.next()).getId())) {
+                    if (filteredContents.contains(((INavigatorContentExtension) itr.next()).getId())) {
                         found = true;
                         break;
                     }
@@ -445,7 +445,7 @@ public class RepositoryFilterSettingDialog extends Dialog {
                     if (!isStandardJobsNode) {
                         Set contentExtensions = navigatorContentService.findRootContentExtensions(data);
                         for (Iterator itr = contentExtensions.iterator(); itr.hasNext();) {
-                            filteredContents.add(((NavigatorContentExtension) itr.next()).getId());
+                            filteredContents.add(((INavigatorContentExtension) itr.next()).getId());
                         }
                     }
                 }

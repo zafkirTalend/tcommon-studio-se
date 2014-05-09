@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -27,10 +29,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
-import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.dialogs.ShowViewDialog;
-import org.eclipse.ui.internal.misc.StatusUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.talend.rcp.i18n.Messages;
@@ -119,8 +119,13 @@ public class ShowViewAction extends Action {
             try {
                 page.showView(descriptors[i].getId());
             } catch (PartInitException e) {
-                StatusUtil.handleStatus(e.getStatus(), WorkbenchMessages.ShowView_errorTitle + ": " + e.getMessage(), //$NON-NLS-1$
-                        StatusManager.SHOW);
+                //                StatusUtil.handleStatus(e.getStatus(), WorkbenchMessages.ShowView_errorTitle + ": " + e.getMessage(), //$NON-NLS-1$
+                // StatusManager.SHOW);
+                IStatus istatus = e.getStatus();
+                StatusManager.getManager().handle(
+                        new Status(istatus.getSeverity(), istatus.getPlugin(), istatus.getCode(),
+                                Messages.getString("WorkbenchMessages.ShowView_errorTitle") + ": " + e.getMessage(), //$NON-NLS-1$ //$NON-NLS-2$
+                                istatus.getException()), StatusManager.SHOW);
             }
         }
     }

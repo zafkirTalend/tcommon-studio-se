@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.actions.toolbar;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -22,8 +20,8 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuAdapter;
 import org.eclipse.swt.events.MenuEvent;
@@ -37,7 +35,6 @@ import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
 import org.eclipse.ui.internal.WWinPluginPulldown;
-import org.eclipse.ui.internal.navigator.NavigatorContentServiceContentProvider;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -209,8 +206,10 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.BUSINESS_PROCESS)) {
             TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
-            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
-                    .getViewer()).getContentProvider();
+            // NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer)
+            // repositoryView
+            // .getViewer()).getContentProvider();
+            ITreeContentProvider provider = (ITreeContentProvider) ((TreeViewer) repositoryView.getViewer()).getContentProvider();
             Object[] objects = provider.getElements(repositoryView.getRoot());
             boolean flag = containsType(objects, ERepositoryObjectType.BUSINESS_PROCESS);
             if (flag) {
@@ -259,8 +258,10 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_FILE_LDIF)) {
             TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
-            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
-                    .getViewer()).getContentProvider();
+            // NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer)
+            // repositoryView
+            // .getViewer()).getContentProvider();
+            ITreeContentProvider provider = (ITreeContentProvider) ((TreeViewer) repositoryView.getViewer()).getContentProvider();
             Object[] objects = provider.getElements(repositoryView.getRoot()
                     .getRootRepositoryNode(ERepositoryObjectType.METADATA));
             boolean flag = containsType(objects, ERepositoryObjectType.METADATA_FILE_LDIF);
@@ -273,8 +274,10 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_LDAP_SCHEMA)) {
             TreeItem[] items = ((TreeViewer) repositoryView.getViewer()).getTree().getItems();
-            NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer) repositoryView
-                    .getViewer()).getContentProvider();
+            // NavigatorContentServiceContentProvider provider = (NavigatorContentServiceContentProvider) ((TreeViewer)
+            // repositoryView
+            // .getViewer()).getContentProvider();
+            ITreeContentProvider provider = (ITreeContentProvider) ((TreeViewer) repositoryView.getViewer()).getContentProvider();
             Object[] objects = provider.getElements(repositoryView.getRoot()
                     .getRootRepositoryNode(ERepositoryObjectType.METADATA));
             boolean flag = containsType(objects, ERepositoryObjectType.METADATA_LDAP_SCHEMA);

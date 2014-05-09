@@ -32,9 +32,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.prefs.IDEWorkbenchPlugin;
 import org.talend.core.runtime.i18n.Messages;
 
 /**

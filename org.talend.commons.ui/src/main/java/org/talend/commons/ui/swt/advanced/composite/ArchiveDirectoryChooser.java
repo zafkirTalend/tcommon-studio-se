@@ -23,6 +23,7 @@ package org.talend.commons.ui.swt.advanced.composite;
 
 import java.io.File;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -40,8 +41,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
+import org.talend.commons.ui.i18n.Messages;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -88,7 +88,6 @@ public class ArchiveDirectoryChooser {
         createItemRoot(workArea);
     }
 
-    @SuppressWarnings("restriction")
     private void createItemRoot(Composite workArea) {
         Composite projectGroup = new Composite(workArea, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -99,19 +98,22 @@ public class ArchiveDirectoryChooser {
         projectGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         itemFromDirectoryRadio = new Button(projectGroup, SWT.RADIO);
-        itemFromDirectoryRadio.setText(DataTransferMessages.WizardProjectsImportPage_RootSelectTitle);
+        // itemFromDirectoryRadio.setText(DataTransferMessages.WizardProjectsImportPage_RootSelectTitle);
+        itemFromDirectoryRadio.setText(Messages.getString("ArchiveDirectoryChooser.WizardProjectsImportPage_RootSelectTitle")); //$NON-NLS-1$
 
         this.directoryPathField = new Combo(projectGroup, SWT.SINGLE | SWT.BORDER);
 
         this.directoryPathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
 
         browseDirectoriesButton = new Button(projectGroup, SWT.PUSH);
-        browseDirectoriesButton.setText(DataTransferMessages.DataTransfer_browse);
+        // browseDirectoriesButton.setText(DataTransferMessages.DataTransfer_browse);
+        browseDirectoriesButton.setText(Messages.getString("ArchiveDirectoryChooser.DataTransfer_browse")); //$NON-NLS-1$
         setButtonLayoutData(browseDirectoriesButton);
 
         // new project from archive radio button
         itemFromArchiveRadio = new Button(projectGroup, SWT.RADIO);
-        itemFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
+        // itemFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
+        itemFromArchiveRadio.setText(Messages.getString("ArchiveDirectoryChooser.WizardProjectsImportPage_ArchiveSelectTitle")); //$NON-NLS-1$
 
         // project location entry field
         archivePathField = new Combo(projectGroup, SWT.SINGLE | SWT.BORDER);
@@ -119,7 +121,8 @@ public class ArchiveDirectoryChooser {
         archivePathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
         // browse button
         browseArchivesButton = new Button(projectGroup, SWT.PUSH);
-        browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
+        // browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
+        browseArchivesButton.setText(Messages.getString("ArchiveDirectoryChooser.DataTransfer_browse")); //$NON-NLS-1$
         setButtonLayoutData(browseArchivesButton);
 
         itemFromDirectoryRadio.setSelection(true);
@@ -224,7 +227,8 @@ public class ArchiveDirectoryChooser {
     protected void handleLocationDirectoryButtonPressed() {
 
         DirectoryDialog dialog = new DirectoryDialog(directoryPathField.getShell());
-        dialog.setMessage(DataTransferMessages.FileExport_selectDestinationMessage);
+        // dialog.setMessage(DataTransferMessages.FileExport_selectDestinationMessage);
+        dialog.setMessage(Messages.getString("ArchiveDirectoryChooser.FileExport_selectDestinationMessage")); //$NON-NLS-1$
 
         String dirName = directoryPathField.getText().trim();
         if (dirName.length() == 0) {
@@ -232,7 +236,8 @@ public class ArchiveDirectoryChooser {
         }
 
         if (dirName.length() == 0) {
-            dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            // dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
         } else {
             File path = new File(dirName);
             if (path.exists()) {
@@ -252,19 +257,20 @@ public class ArchiveDirectoryChooser {
     /**
      * The browse button has been selected. Select the location.
      */
-    @SuppressWarnings("restriction")
     protected void handleLocationArchiveButtonPressed() {
 
         FileDialog dialog = new FileDialog(archivePathField.getShell(), SWT.SAVE);
         dialog.setFilterExtensions(fileFilterString);
-        dialog.setText(DataTransferMessages.ArchiveExport_description);
+        // dialog.setText(DataTransferMessages.ArchiveExport_description);
+        dialog.setText(Messages.getString("ArchiveDirectoryChooser.ArchiveExport_description")); //$NON-NLS-1$
         String fileName = archivePathField.getText().trim();
         if (fileName.length() == 0) {
             fileName = previouslyBrowsedArchive;
         }
 
         if (fileName.length() == 0) {
-            dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            // dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
         } else {
             File path = new File(fileName);
             if (path.exists()) {

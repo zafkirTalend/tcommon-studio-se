@@ -26,11 +26,11 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -253,7 +253,6 @@ public abstract class RepositoryUpdateManager {
         return getContextRenamedMap() != null && !getContextRenamedMap().isEmpty();
     }
 
-    @SuppressWarnings("restriction")
     public boolean doWork(boolean show, final boolean onlyImpactAnalysis) {
         /*
          * NOTE: Most of functions are similar with AbstractRepositoryUpdateManagerProvider.updateForRepository, so if
@@ -299,7 +298,8 @@ public abstract class RepositoryUpdateManager {
             };
 
             try {
-                final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(null);
+                // final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(null);
+                final ProgressMonitorDialog dialog = new ProgressMonitorDialog(null);
                 dialog.run(true, cancelable, runnable);
 
                 // PlatformUI.getWorkbench().getProgressService().run(true, true, runnable);
@@ -1856,7 +1856,7 @@ public abstract class RepositoryUpdateManager {
         Item item = node.getObject().getProperty().getItem();
         List<Relation> relations = null;
         if (parameter instanceof Query) {
-            String id = item.getProperty().getId() ; //$NON-NLS-1$
+            String id = item.getProperty().getId(); //$NON-NLS-1$
             relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, RelationshipItemBuilder.LATEST_VERSION,
                     RelationshipItemBuilder.QUERY_RELATION);
         }
