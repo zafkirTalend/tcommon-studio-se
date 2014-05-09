@@ -50,6 +50,7 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -780,6 +781,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public void saveProject(Project project) throws PersistenceException {
+        for (EAttribute attribute : project.getEmfProject().eClass().getEAllAttributes()) {
+            if (attribute.getName().equals("url")) {
+                if (!attribute.isTransient()) {
+                    attribute.setTransient(true);
+                }
+            }
+        }
         for (EReference reference : project.getEmfProject().eClass().getEAllReferences()) {
             if (reference.getName().equals("folders")) {
                 if (!reference.isTransient()) {
