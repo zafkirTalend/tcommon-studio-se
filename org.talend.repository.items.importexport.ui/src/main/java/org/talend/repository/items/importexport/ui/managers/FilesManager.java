@@ -76,4 +76,14 @@ public class FilesManager extends AbstractImportResourcesManager {
         // TODO Auto-generated method stub
 
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.items.importexport.manager.ResourcesManager#getRoot()
+     */
+    @Override
+    public Object getRoot() {
+        return null;
+    }
 }

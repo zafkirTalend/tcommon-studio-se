@@ -40,4 +40,6 @@ public abstract class ResourcesManager {
     public abstract boolean collectPath2Object(Object root);
 
     public abstract void closeResource();
+
+    public abstract Object getRoot();
 }

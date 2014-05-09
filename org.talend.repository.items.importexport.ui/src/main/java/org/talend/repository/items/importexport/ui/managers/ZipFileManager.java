@@ -72,4 +72,15 @@ public class ZipFileManager extends AbstractImportResourcesManager {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.items.importexport.manager.ResourcesManager#getRoot()
+     */
+    @Override
+    public Object getRoot() {
+        // TODO Auto-generated method stub
+        return null;
+    };
+
 }

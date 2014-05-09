@@ -25,6 +25,10 @@ public class ResourcesManagerFactory {
         return new ProviderManager(provider);
     }
 
+    public ProviderManager createResourcesManager(File file) throws Exception {
+        return new ProviderManager(file);
+    }
+
     public ZipFileManager createResourcesManager(ZipFile zipFile) {
         return new ZipFileManager(zipFile);
     }

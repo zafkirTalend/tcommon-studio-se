@@ -12,12 +12,16 @@
 // ============================================================================
 package org.talend.repository.items.importexport.ui.managers;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.ui.internal.wizards.datatransfer.ArchiveFileManipulations;
+import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
@@ -30,6 +34,15 @@ public class ProviderManager extends AbstractImportResourcesManager {
 
     public ProviderManager(Object provider) {
         this.provider = (IImportStructureProvider) provider;
+    }
+
+    public ProviderManager(File file) throws Exception {
+        if (ArchiveFileManipulations.isTarFile(file.getPath())) {
+            provider = new TarLeveledStructureProvider(new TarFile(file));
+        } else if (ArchiveFileManipulations.isZipFile(file.getPath())) {
+            provider = new ZipLeveledStructureProvider(new ZipFile(file));
+        }
+
     }
 
     @Override
@@ -78,5 +91,22 @@ public class ProviderManager extends AbstractImportResourcesManager {
     @Override
     public IImportStructureProvider getProvider() {
         return this.provider;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.items.importexport.manager.ResourcesManager#getRoot()
+     */
+    @Override
+    public Object getRoot() {
+        if (provider instanceof ZipLeveledStructureProvider) {
+            return ((ZipLeveledStructureProvider) provider).getRoot();
+        }
+
+        if (provider instanceof TarLeveledStructureProvider) {
+            return ((TarLeveledStructureProvider) provider).getRoot();
+        }
+        return null;
     }
 }
