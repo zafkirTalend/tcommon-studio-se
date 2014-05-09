@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jfreechart Plug-in
-Bundle-SymbolicName: org.talend.libraries.jfreechart
+Bundle-SymbolicName: org.talend.libraries.jfreechart;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/jcommon-1.0.15.jar,
