@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ClassPath: .,
- lib/wizard/jxl.jar
+ lib/jxl-wizard.jar
 Export-Package: common,
  common.log,
  jxl,
