@@ -21,13 +21,6 @@ import org.apache.commons.lang.ArrayUtils;
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHadoopVersion4Drivers {
-
-    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0", "HDP_1_0", true, false),
-
-    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false),
-
-    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
-
     HDP_2_0(
             EHadoopDistributions.HORTONWORKS,
             "Hortonworks Data Platform V2.0.0(BigWheel)",
@@ -35,6 +28,12 @@ public enum EHadoopVersion4Drivers {
             true,
             false,
             new EMRVersion[] { EMRVersion.YARN }),
+
+    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
+
+    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false),
+
+    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false),
 
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
 
@@ -44,9 +43,13 @@ public enum EHadoopVersion4Drivers {
 
     APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
 
-    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3", "Cloudera_CDH3", false, false),
-
-    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
+    CLOUDERA_CDH5(
+                  EHadoopDistributions.CLOUDERA,
+                  "Cloudera CDH5",
+                  "Cloudera_CDH5",
+                  true,
+                  false,
+                  new EMRVersion[] { EMRVersion.YARN }),
 
     CLOUDERA_CDH4_YARN(
                        EHadoopDistributions.CLOUDERA,
@@ -56,19 +59,23 @@ public enum EHadoopVersion4Drivers {
                        false,
                        new EMRVersion[] { EMRVersion.YARN }),
 
-    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
+    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
 
-    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true),
-
-    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true),
-
-    MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true),
+    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false),
 
     MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true),
 
-    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8", "MapR_EMR", false, true),
+    MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true),
+
+    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true),
+
+    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true),
+
+    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
     APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
+
+    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
 
     PIVOTAL_HD_1_0_1(
                      EHadoopDistributions.PIVOTAL_HD,
