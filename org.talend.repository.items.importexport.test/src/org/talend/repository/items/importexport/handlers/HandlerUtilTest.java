@@ -12,8 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,11 +22,14 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.repository.constants.FileConstants;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -104,5 +106,38 @@ public class HandlerUtilTest {
         pathes.add(projPath);
         when(resManager.getPaths()).thenReturn(pathes);
         Assert.assertEquals(itemRelativePath, HandlerUtil.getValidItemRelativePath(resManager, itemPath));
+    }
+
+    @Test
+    public void testCreateResource4Null() {
+        Assert.assertNull(HandlerUtil.createResource(null, null, false));
+        Assert.assertNull(HandlerUtil.createResource(null, propPath, false));
+    }
+
+    @Test
+    public void testCreateResource() {
+        ImportItem importItem = new ImportItem(propPath);
+        Assert.assertEquals(propPath, importItem.getPath());
+
+        Resource res = HandlerUtil.createResource(importItem, propPath, false);
+        Assert.assertNotNull(res);
+        Assert.assertEquals(propPath.lastSegment(), res.getURI().toString());
+        Assert.assertEquals(importItem.getResourceSet(), res.getResourceSet());
+        Assert.assertEquals(1, importItem.getResourceSet().getResources().size());
+        //
+    }
+
+    @Test
+    public void testCreateResource4ByteArray() {
+        ImportItem importItem = new ImportItem(itemPath);
+        Assert.assertEquals(itemPath, importItem.getPath());
+
+        Resource res = HandlerUtil.createResource(importItem, itemPath, true);
+        Assert.assertNotNull(res);
+        Assert.assertTrue(res instanceof ByteArrayResource);
+        Assert.assertEquals(itemPath.lastSegment(), res.getURI().path());
+        Assert.assertEquals(importItem.getResourceSet(), res.getResourceSet());
+        Assert.assertEquals(1, importItem.getResourceSet().getResources().size());
+        //
     }
 }

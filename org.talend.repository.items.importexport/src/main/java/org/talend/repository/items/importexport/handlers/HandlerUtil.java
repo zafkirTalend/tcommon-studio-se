@@ -195,6 +195,9 @@ public final class HandlerUtil {
     }
 
     public static Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) {
+        if (importItem == null || path == null) {
+            return null;
+        }
         Resource resource;
         ResourceSet resourceSet = importItem.getResourceSet();
         final URI pathUri = HandlerUtil.getURI(path);
