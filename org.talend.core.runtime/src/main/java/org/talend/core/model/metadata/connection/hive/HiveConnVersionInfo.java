@@ -79,6 +79,8 @@ public enum HiveConnVersionInfo {
 
     MapR_EMR(1, "MapR_EMR", "MapR 1.2.8(deprecated)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
+    PIVOTAL_HD_2_0(1, "PIVOTAL_HD_2_0", "Pivotal HD 2.0", true, false, true, false, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
+
     PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, false, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
 
     DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
@@ -101,6 +103,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.MAPR3_1_0,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
                   HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
+                  HiveConnVersionInfo.PIVOTAL_HD_2_0,
                   HiveConnVersionInfo.DISTRO_VERSION_CUSTOM),
 
     MODE_STANDALONE(2, "STANDALONE",//$NON-NLS-1$
@@ -124,6 +127,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MapR_EMR,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
+                    HiveConnVersionInfo.PIVOTAL_HD_2_0,
                     HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
 
     private int level;
