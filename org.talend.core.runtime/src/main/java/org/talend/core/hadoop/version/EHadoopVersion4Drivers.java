@@ -21,6 +21,14 @@ import org.apache.commons.lang.ArrayUtils;
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHadoopVersion4Drivers {
+    HDP_2_1(
+            EHadoopDistributions.HORTONWORKS,
+            "Hortonworks Data Platform V2.1.0(Baikal)",
+            "HDP_2_1",
+            true,
+            false,
+            new EMRVersion[] { EMRVersion.YARN }),
+
     HDP_2_0(
             EHadoopDistributions.HORTONWORKS,
             "Hortonworks Data Platform V2.0.0(BigWheel)",

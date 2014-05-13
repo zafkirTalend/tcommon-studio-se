@@ -43,7 +43,9 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_1(1, "HDP_2_1", "Hortonworks Data Platform V2.1.0(Baikal)", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+
+    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0(BigWheel)", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -92,6 +94,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.HDP_1_2,
                   HiveConnVersionInfo.HDP_1_3,
                   HiveConnVersionInfo.HDP_2_0,
+                  HiveConnVersionInfo.HDP_2_1,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
@@ -112,6 +115,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.HDP_1_2,
                     HiveConnVersionInfo.HDP_1_3,
                     HiveConnVersionInfo.HDP_2_0,
+                    HiveConnVersionInfo.HDP_2_1,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH3,
