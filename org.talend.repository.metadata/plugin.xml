@@ -1186,6 +1186,7 @@
        <repositoryNode
              alias="%repository.metadataFileXml.alias"
              folder="metadata/fileXml"
+             isAllowMultiName="true"
              isResouce="true"
              key="repository.metadataFileXml"
              label="%repository.metadataFileXml"

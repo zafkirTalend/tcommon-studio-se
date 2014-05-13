@@ -123,7 +123,7 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                     String typeName = productsIterator.next();
                     ERepositoryObjectType type = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, typeName);
                     if (type == null) {
-                        log.log(Level.WARN, "Can't find the type " + typeName);
+                        log.log(Level.WARN, "Can't find the type " + typeName); //$NON-NLS-1$
                     } else {
                         Set<String> set = extraProducts.get(typeName);
                         if (set != null) {
@@ -243,25 +243,25 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
 
                 @Override
                 public void run() throws Exception {
-                    String key = element.getAttribute("key");
-                    String label = element.getAttribute("label");
-                    String alias = element.getAttribute("alias");
-                    String type = element.getAttribute("type");
-                    String folder = element.getAttribute("folder");
+                    String key = element.getAttribute("key"); //$NON-NLS-1$
+                    String label = element.getAttribute("label"); //$NON-NLS-1$
+                    String alias = element.getAttribute("alias"); //$NON-NLS-1$
+                    String type = element.getAttribute("type"); //$NON-NLS-1$
+                    String folder = element.getAttribute("folder"); //$NON-NLS-1$
                     if (folder == null) {
                         folder = EMPTY;
                     }
                     if (key == null || key.trim().length() == 0) {
                         key = type;
                     }
-                    String isResouce = element.getAttribute("isResouce");
+                    String isResouce = element.getAttribute("isResouce"); //$NON-NLS-1$
                     boolean isResource = false;
                     if (isResouce != null) {
                         isResource = Boolean.parseBoolean(isResouce);
                     }
                     boolean[] resource = new boolean[] { isResource };
 
-                    String ordinalStr = element.getAttribute("ordinal");
+                    String ordinalStr = element.getAttribute("ordinal"); //$NON-NLS-1$
                     int ordinal = 0;
                     if (ordinalStr != null && ordinalStr.length() > 0) {
                         try {
@@ -270,23 +270,20 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                             log.error(e.getMessage(), e);
                         }
                     }
-                    String iconPath = element.getAttribute("icon");
+                    String iconPath = element.getAttribute("icon"); //$NON-NLS-1$
                     // IImage icon = null;
                     // PTODO
-                    String namePatternAttribute = element.getAttribute("name_pattern");
-                    String isAllowMultiName = element.getAttribute("isAllowMultiName");
-                    if (isAllowMultiName == null || isAllowMultiName.trim().equals("")) {
-                        isAllowMultiName = "false";
-                    }
+                    String namePatternAttribute = element.getAttribute("name_pattern"); //$NON-NLS-1$
+                    String isAllowMultiName = element.getAttribute("isAllowMultiName"); //$NON-NLS-1$
 
                     String[] products = getProducts(element);
 
-                    String rightAttribute = element.getAttribute("user_right");
+                    String rightAttribute = element.getAttribute("user_right"); //$NON-NLS-1$
                     if (rightAttribute == null) {
                         rightAttribute = EMPTY;
                     }
 
-                    String[] user_right = rightAttribute.split(";");
+                    String[] user_right = rightAttribute.split(";"); //$NON-NLS-1$
                     if (user_right == null) {
                         user_right = new String[] { rightAttribute };
                     }
@@ -303,32 +300,29 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                             // }
                         }
                     }
-                    Object instance = null;
-                    if (namePatternAttribute == null || "".equals(namePatternAttribute.trim())) {
+                    Object typeObject = null;
+                    if (namePatternAttribute == null || namePatternAttribute.trim().length() == 0) {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
                                 String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
                                 boolean.class, String[].class, boolean[].class });
-                        instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
+                        typeObject = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
                                 Boolean.parseBoolean(isAllowMultiName), user_right, resource);
 
                     } else {
                         Constructor dynamicConstructor = getConstructor(ERepositoryObjectType.class, new Class[] { String.class,
                                 String.class, String.class, String.class, int.class, boolean.class, String.class, String[].class,
                                 String[].class, boolean.class, String.class, boolean[].class });
-                        instance = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
+                        typeObject = dynamicConstructor.newInstance(key, label, folder, type, ordinal, false, alias, products,
                                 user_right, Boolean.parseBoolean(isAllowMultiName), namePatternAttribute.trim(), resource);
                     }
 
-                    if (instance != null && instance instanceof ERepositoryObjectType) {
-                        ERepositoryObjectType currentType = (ERepositoryObjectType) instance;
+                    if (typeObject != null && typeObject instanceof ERepositoryObjectType) {
+                        ERepositoryObjectType currentType = (ERepositoryObjectType) typeObject;
 
-                        String isAllowPlainFolder = element.getAttribute("isAllowPlainFolder");
-                        if (isAllowPlainFolder == null || isAllowPlainFolder.trim().equals("")) {
-                            isAllowPlainFolder = "false";
-                        }
+                        String isAllowPlainFolder = element.getAttribute("isAllowPlainFolder"); //$NON-NLS-1$
                         currentType.setAllowPlainFolder(Boolean.parseBoolean(isAllowPlainFolder));
 
-                        String parentTypesAttr = element.getAttribute("parentNodeType");
+                        String parentTypesAttr = element.getAttribute("parentNodeType"); //$NON-NLS-1$
                         if (parentTypesAttr != null) {
                             String[] parentTypes = parentTypesAttr.split(SPLIT_CHARS);
                             for (String parentTypeName : parentTypes) {
@@ -346,7 +340,7 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
                         }
                         allDynamicRepositoryNodes.put(currentType, provider);
                     } else {
-                        log.log(Level.WARN, "The type can't be initialized.");
+                        log.log(Level.WARN, "The type can't be initialized."); //$NON-NLS-1$
                     }
 
                 }
@@ -357,7 +351,7 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
 
                 @Override
                 public void run() throws Exception {
-                    String type = element.getAttribute("type");
+                    String type = element.getAttribute("type"); //$NON-NLS-1$
                     String[] products = getProducts(element);
                     addExtraProducts(type, products);
                 }
@@ -382,7 +376,7 @@ public class RepositoryNodeProviderRegistryReader extends RegistryReader {
     }
 
     private IRepositoryNode.ENodeType getNodeType(final IConfigurationElement element) {
-        String nodeTypeStr = element.getAttribute("nodeType");
+        String nodeTypeStr = element.getAttribute("nodeType"); //$NON-NLS-1$
         if (nodeTypeStr != null && nodeTypeStr.trim().length() > 0) {
             ENodeType[] types = IRepositoryNode.ENodeType.values();
             for (ENodeType type : types) {
