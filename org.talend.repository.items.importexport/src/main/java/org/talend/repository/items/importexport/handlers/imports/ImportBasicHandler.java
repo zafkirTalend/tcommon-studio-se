@@ -447,6 +447,18 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         final Property property = itemRecord.getProperty();
         if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(repObject.getLabel())) // same label
         ) {
+            ERepositoryObjectType importType = itemRecord.getRepositoryType();
+            ERepositoryObjectType repType = repObject.getRepositoryObjectType();
+            // if support mult name
+            if (importType != null && importType.equals(repType) && importType.isAllowMultiName()) {
+                String importPath = itemRecord.getProperty().getItem().getState().getPath();
+                String repPath = repObject.getPath();
+                // Check the path, if same path, should return true
+                if (importPath == null && repPath == null || importPath != null && importPath.equals(repPath)) {
+                    return true;
+                }
+                return false; // in different path. should be not same name, so return false.
+            }
             return true;
         }
         return false;
