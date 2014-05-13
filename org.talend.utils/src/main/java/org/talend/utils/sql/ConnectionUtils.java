@@ -184,7 +184,8 @@ public final class ConnectionUtils {
     }
 
     /**
-     * add ";shutdown=true" to the end of the hsql url when the url don't contain it.
+     * add ";shutdown=true" to the end of the hsql url when the url don't contain it. this is only used for hsql
+     * database.(ConnectionUtils.isHsql(url))
      * 
      * @param url
      * @param AdditionalParams
@@ -192,8 +193,7 @@ public final class ConnectionUtils {
      */
     public static String addShutDownForHSQLUrl(String url, String AdditionalParams) {
         String dbUrl = url;
-        boolean isHSQL = ConnectionUtils.isHsql(dbUrl);
-        if (isHSQL && AdditionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
+        if (AdditionalParams.indexOf(SHUTDOWN_PARAM) == -1) {
             dbUrl = dbUrl + SHUTDOWN_PARAM;
         }
         return dbUrl;
