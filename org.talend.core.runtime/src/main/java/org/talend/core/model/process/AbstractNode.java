@@ -105,6 +105,11 @@ public abstract class AbstractNode implements INode {
     // indicate if this MR component will generate Reduce part
     private boolean mrContainsReduce;
 
+    private boolean mapOnlyAfterReduce;
+
+    // for MR, tag this component is the ref(lookup) start node
+    private boolean isRefNode = false;
+
     public String getComponentName() {
         return componentName;
     }
@@ -1137,5 +1142,41 @@ public abstract class AbstractNode implements INode {
      */
     public void setRefNodes(List<INode> refNodes) {
         this.refNodes = refNodes;
+    }
+
+    /**
+     * Getter for mapOnlyAfterReduce.
+     * 
+     * @return the mapOnlyAfterReduce
+     */
+    public boolean isMapOnlyAfterReduce() {
+        return this.mapOnlyAfterReduce;
+    }
+
+    /**
+     * Sets the mapOnlyAfterReduce.
+     * 
+     * @param mapOnlyAfterReduce the mapOnlyAfterReduce to set
+     */
+    public void setMapOnlyAfterReduce(boolean mapOnlyAfterReduce) {
+        this.mapOnlyAfterReduce = mapOnlyAfterReduce;
+    }
+
+    /**
+     * Getter for isRefNode.
+     * 
+     * @return the isRefNode
+     */
+    public boolean isRefNode() {
+        return this.isRefNode;
+    }
+
+    /**
+     * Sets the isRefNode.
+     * 
+     * @param isRefNode the isRefNode to set
+     */
+    public void setRefNode(boolean isRefNode) {
+        this.isRefNode = isRefNode;
     }
 }
