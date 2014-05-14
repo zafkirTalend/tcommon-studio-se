@@ -225,7 +225,9 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
     }
 
-    /**
+    public static boolean isVertica(String url) { 
+ 	    return url != null && url.startsWith("jdbc:vertica"); //$NON-NLS-1$ 
+ 	}     /**
      * Method "isValid".
      * 
      * @param connection the connection to test
