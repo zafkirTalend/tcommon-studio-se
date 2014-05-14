@@ -45,6 +45,16 @@ public class CommonsPlugin implements BundleActivator {
     private static boolean isSameProjectLogonCommline = false;
 
     private static boolean useCommandLineRepository = false;
+    
+    private static boolean isWorkbenchCreated = false;
+
+    public static boolean isWorkbenchCreated() {
+        return isWorkbenchCreated;
+    }
+
+    public static void setWorkbenchCreated(boolean isWorkbenchCreated) {
+        CommonsPlugin.isWorkbenchCreated = isWorkbenchCreated;
+    }
 
     public static boolean isStoreLibsInWorkspace() {
         return storeLibsInWorkspace;
