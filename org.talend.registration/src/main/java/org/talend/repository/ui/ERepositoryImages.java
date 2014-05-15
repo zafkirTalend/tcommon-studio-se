@@ -26,6 +26,8 @@ public enum ERepositoryImages implements IImage {
     REGISTER_ICO("/icons/register_icon.png"), //$NON-NLS-1$ 
     //    REGISTER_ICO("/icons/login_v.png"), //$NON-NLS-1$
     LICENSE_WIZ("/icons/license_wiz.png"), //$NON-NLS-1$
+    DOT_ICON("/icons/dot.jpg"), //$NON-NLS-N$
+    TALENDFORGE_ICON("/icons/talendforge.jpg"), //$NON-NLS-N$
     REGISTER_WIZ("/icons/register_wiz.png"); //$NON-NLS-1$
 
     private String path;
