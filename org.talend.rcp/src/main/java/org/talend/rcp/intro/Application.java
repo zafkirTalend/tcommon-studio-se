@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -63,7 +64,11 @@ public class Application implements IApplication {
 
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
-
+            // To show that the studio does not fully support java 8 yet
+            if (!checkUnSupportJavaVersion(shell)) {
+                shell.dispose();
+                return EXIT_OK;
+            }
             // check workspace inuse, if true, means have do lock in configurator. if false, will try to lock
             if (!Boolean.getBoolean("org.talend.workspace.locked")) { //$NON-NLS-1$
                 // TDI-28205, the lock may be acquired by the configurator but leave a possibility to do it here for TOS
@@ -310,5 +315,34 @@ public class Application implements IApplication {
                 }
             }
         });
+    }
+
+    public boolean checkUnSupportJavaVersion(Shell shell) {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        String javaVersion = System.getProperty("java.version");
+        if (javaVersion != null) {
+            org.talend.commons.utils.Version v = new org.talend.commons.utils.Version(javaVersion);
+            if (v.getMajor() == 1 && v.getMinor() > 7) { // more than JDK 1.7
+                if (brandingService.isPoweredbyTalend()) {
+                    MessageDialog dialog = new MessageDialog(shell, "", shell.getBackgroundImage(),
+                            Messages.getString("Application.doNotSupportJavaVersionYetPoweredbyTalend"), MessageDialog.WARNING,
+                            new String[] { "Quit" }, 0);
+                    dialog.open();
+                    if (dialog.getReturnCode() == IDialogConstants.OK_ID) {
+                        return false;
+                    }
+                } else {
+                    MessageDialog dialog = new MessageDialog(shell, "", shell.getBackgroundImage(),
+                            Messages.getString("Application.doNotSupportJavaVersionYetNoPoweredbyTalend"), MessageDialog.WARNING,
+                            new String[] { "Quit" }, 0);
+                    dialog.open();
+                    if (dialog.getReturnCode() == IDialogConstants.OK_ID) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
