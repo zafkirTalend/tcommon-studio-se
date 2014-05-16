@@ -35,8 +35,10 @@ import org.eclipse.update.core.SiteManager;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ConnectionBean;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.token.DefaultTokenCollector;
 import org.talend.core.ui.branding.IBrandingService;
@@ -448,12 +450,10 @@ public class RegisterManagement {
         if (!brandingService.getBrandingConfiguration().isUseProductRegistration()) {
             return;
         }
-        ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
-        boolean install_done = read.isInstallDone();
+        boolean install_done = checkInstallDone();
         if (install_done) {
             return;
         }
-        read.setInstallDone();
         URL registURL = null;
         try {
             // UNIQUE_ID
@@ -491,6 +491,29 @@ public class RegisterManagement {
         } catch (MalformedURLException e) {
             ExceptionHandler.process(e);
         }
+    }
+
+    /**
+     * check the install is done or not, after call this method, will set install_done as true.
+     * 
+     * @return
+     */
+    private boolean checkInstallDone() {
+        boolean install_done = false;
+        if (PluginChecker.isOnlyTopLoaded()) {
+            IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+            install_done = prefStore.getBoolean(ITalendCorePrefConstants.TOP_INSTALL_DONE);
+            if (!install_done) {
+                prefStore.setValue(ITalendCorePrefConstants.TOP_INSTALL_DONE, Boolean.TRUE);
+            }
+        } else {
+            ConnectionUserPerReader read = ConnectionUserPerReader.getInstance();
+            install_done = read.isInstallDone();
+            if (!install_done) {
+                read.setInstallDone();
+            }
+        }
+        return install_done;
     }
 
     /**

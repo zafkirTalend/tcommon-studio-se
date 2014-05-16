@@ -155,4 +155,5 @@ public interface ITalendCorePrefConstants {
 
     public static final String CoreUIPlugin_ID = "org.talend.core.ui"; //$NON-NLS-1$
 
+    public static final String TOP_INSTALL_DONE = "top.install.done"; //$NON-NLS-1$
 }
