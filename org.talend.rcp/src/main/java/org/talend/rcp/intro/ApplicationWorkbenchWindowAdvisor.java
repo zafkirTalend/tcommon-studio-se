@@ -27,6 +27,8 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
@@ -322,18 +324,36 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IWorkbenchActivitySupport activitySupport = getWindowConfigurer().getWindow().getWorkbench().getActivitySupport();
         String hideUpdateSiteId = "org.talend.rcp.hideUpdatesite"; //$NON-NLS-1$
         Set<String> enabledActivities = new HashSet<String>();
-        enabledActivities.addAll(activitySupport.getActivityManager().getEnabledActivityIds());
         if (!PluginChecker.isSVNProviderPluginLoaded()) {
             if (activitySupport.getActivityManager().getActivity(hideUpdateSiteId).isDefined()) {
                 enabledActivities.remove(hideUpdateSiteId);
             }
-            activitySupport.setEnabledActivityIds(enabledActivities);
+
         } else {
             if (activitySupport.getActivityManager().getActivity(hideUpdateSiteId).isDefined()) {
                 enabledActivities.add(hideUpdateSiteId);
             }
-            activitySupport.setEnabledActivityIds(enabledActivities);
         }
+
+        activitySupport.setEnabledActivityIds(enabledActivities);
+
+        IWorkbenchWindowConfigurer workbenchWindowConfigurer = getWindowConfigurer();
+        IActionBarConfigurer actionBarConfigurer = workbenchWindowConfigurer.getActionBarConfigurer();
+        IMenuManager menuManager = actionBarConfigurer.getMenuManager();
+
+        IContributionItem[] menuItems = menuManager.getItems();
+        for (int i = 0; i < menuItems.length; i++) {
+            IContributionItem menuItem = menuItems[i];
+
+            // Hack to remove the Run menu - it seems you cannot do this using the
+            // "org.eclipse.ui.activities" extension
+            if ("org.eclipse.ui.run".equals(menuItem.getId())) {
+                menuManager.remove(menuItem);
+            }
+        }
+
+        menuManager.update(true);
+
     }
 
     private void showStarting() {
@@ -360,24 +380,21 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
-                IRepositoryView view = RepositoryManager.getRepositoryView();
-                if (view != null) {
-                    if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
-                            || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
+
+                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
+                        || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
+                    IRepositoryView view = RepositoryManager.getRepositoryView();
+                    if (view != null) {
                         /* 0016610 need to refresh not only databaseconnection but only trash bin */
                         view.refresh();
                         TalendPaletteHelper.checkAndInitToolBar();
-                    } else if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(pId)) {
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-                            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister
-                                    .getDefault().getService(ITDQRepositoryService.class);
-                            if (tdqRepositoryService != null) {
-                                tdqRepositoryService.refresh();
-                            }
-                        }
-                        IViewReference findViewReference = RepositoryManagerHelper.findRepositoryViewRef();
-                        if (findViewReference != null) {
-                            page.hideView(findViewReference);
+                    }
+                } else if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(pId)) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                        ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault()
+                                .getService(ITDQRepositoryService.class);
+                        if (tdqRepositoryService != null) {
+                            tdqRepositoryService.refresh();
                         }
                     }
                 }

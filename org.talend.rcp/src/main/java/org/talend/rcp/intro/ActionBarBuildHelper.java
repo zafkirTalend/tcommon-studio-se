@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -31,28 +30,12 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.internal.PluginActionContributionItem;
-import org.eclipse.ui.internal.WorkbenchPlugin;
-import org.eclipse.ui.internal.actions.CommandAction;
-import org.eclipse.ui.internal.ide.actions.OpenLocalFileAction;
-import org.eclipse.ui.internal.registry.ActionSetRegistry;
-import org.eclipse.ui.internal.registry.IActionSetDescriptor;
-import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
-import org.eclipse.ui.internal.registry.PerspectiveRegistry;
-import org.eclipse.ui.internal.registry.ViewDescriptor;
-import org.eclipse.ui.internal.registry.ViewRegistry;
-import org.eclipse.ui.views.IViewDescriptor;
-import org.talend.commons.exception.LoginException;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.GlobalServiceRegister;
@@ -66,7 +49,6 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
-import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
@@ -118,35 +100,36 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
 
-    protected void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
-        IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
-        reg.removeExtension(ext, new Object[] { actionSet });
-    }
+    // protected void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
+    // IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
+    // reg.removeExtension(ext, new Object[] { actionSet });
+    // }
 
-    protected static final String[] ACTIONSETID = new String[] {
-            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
-            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet",
-            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ 
+    // protected static final String[] ACTIONSETID = new String[] {
+    //            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
+    //            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
+    //            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
+    // "org.eclipse.search.searchActionSet",
+    //            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ 
 
     @Override
     public void fillMenuBar(final IMenuManager menuBar) {
-        ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
-        IActionSetDescriptor[] actionSets = reg.getActionSets();
-
-        List<String> list = new ArrayList<String>();
-        for (String item : ACTIONSETID) {
-            list.add(item);
-        }
-        if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
-            list.add("org.talend.repository.CreateactionSet"); //$NON-NLS-1$
-        }
-        for (IActionSetDescriptor actionSet : actionSets) {
-            if (list.contains(actionSet.getId())) {
-                removeAction(reg, actionSet);
-            }
-        }
+        // replaced by activities extension
+        // ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
+        // IActionSetDescriptor[] actionSets = reg.getActionSets();
+        //
+        // List<String> list = new ArrayList<String>();
+        // for (String item : ACTIONSETID) {
+        // list.add(item);
+        // }
+        // if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
+        //            list.add("org.talend.repository.CreateactionSet"); //$NON-NLS-1$
+        // }
+        // for (IActionSetDescriptor actionSet : actionSets) {
+        // if (list.contains(actionSet.getId())) {
+        // removeAction(reg, actionSet);
+        // }
+        // }
 
         fileMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuFileLabel"), IWorkbenchActionConstants.M_FILE); //$NON-NLS-1$
@@ -155,95 +138,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         // subFile.add(ActionFactory.NEW.create(window));
         // fileMenu.add(subFile);
 
-        ActionFactory factClose = new ActionFactory("close",//$NON-NLS-1$
-                IWorkbenchCommandConstants.FILE_CLOSE) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
-             */
-            @Override
-            public IWorkbenchAction create(IWorkbenchWindow window) {
-                if (window == null) {
-                    throw new IllegalArgumentException();
-                }
-                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
-
-                    public void doRun(final Event event) {
-                        super.runWithEvent(event);
-                    }
-
-                    @Override
-                    public void runWithEvent(final Event event) {
-                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Close") {
-
-                            @Override
-                            protected void run() throws LoginException, PersistenceException {
-                                doRun(event);
-                            }
-                        };
-                        rwu.setAvoidUnloadResources(true);
-                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
-                    }
-
-                };
-                action.setId(getId());
-                // action.setText(WorkbenchMessages.CloseEditorAction_text);
-                action.setText(Messages.getString("ActionBarBuildHelper.CloseEditorAction_text")); //$NON-NLS-1$
-                // action.setToolTipText(WorkbenchMessages.CloseEditorAction_toolTip);
-                action.setToolTipText(Messages.getString("ActionBarBuildHelper.CloseEditorAction_toolTip")); //$NON-NLS-1$
-                return action;
-            }
-        };
-
-        IWorkbenchAction closeAction = factClose.create(window);
+        IWorkbenchAction closeAction = ActionFactory.CLOSE.create(window);
         fileMenu.add(closeAction);
         actionBarConfigurer.registerGlobalAction(closeAction);
 
-        ActionFactory factCloseAll = new ActionFactory("closeAll",//$NON-NLS-1$
-                IWorkbenchCommandConstants.FILE_CLOSE_ALL) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
-             */
-            @Override
-            public IWorkbenchAction create(IWorkbenchWindow window) {
-                if (window == null) {
-                    throw new IllegalArgumentException();
-                }
-                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
-
-                    public void doRun(final Event event) {
-                        super.runWithEvent(event);
-                    }
-
-                    @Override
-                    public void runWithEvent(final Event event) {
-                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Close All") {
-
-                            @Override
-                            protected void run() throws LoginException, PersistenceException {
-                                doRun(event);
-                            }
-                        };
-                        rwu.setAvoidUnloadResources(true);
-                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
-                    }
-
-                };
-                action.setId(getId());
-                // action.setText(WorkbenchMessages.CloseAllAction_text);
-                action.setText(Messages.getString("ActionBarBuildHelper.CloseAllAction_text")); //$NON-NLS-1$
-                // action.setToolTipText(WorkbenchMessages.CloseAllAction_toolTip);
-                action.setToolTipText(Messages.getString("ActionBarBuildHelper.CloseAllAction_toolTip")); //$NON-NLS-1$
-                return action;
-            }
-        };
-
-        IWorkbenchAction closeAllAction = factCloseAll.create(window);
+        IWorkbenchAction closeAllAction = ActionFactory.CLOSE_ALL.create(window);
 
         fileMenu.add(closeAllAction);
         actionBarConfigurer.registerGlobalAction(closeAllAction);
@@ -253,49 +152,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         fileMenu.add(ActionFactory.SAVE_AS.create(window));
 
-        ActionFactory factSaveAll = new ActionFactory("saveAll",//$NON-NLS-1$
-                IWorkbenchCommandConstants.FILE_SAVE_ALL) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.ui.actions.ActionFactory#create(org.eclipse.ui.IWorkbenchWindow)
-             */
-            @Override
-            public IWorkbenchAction create(IWorkbenchWindow window) {
-                if (window == null) {
-                    throw new IllegalArgumentException();
-                }
-                WorkbenchCommandAction action = new WorkbenchCommandAction(getCommandId(), window) {
-
-                    public void doRun(final Event event) {
-                        super.runWithEvent(event);
-                    }
-
-                    @Override
-                    public void runWithEvent(final Event event) {
-                        RepositoryWorkUnit rwu = new RepositoryWorkUnit("Save All") {
-
-                            @Override
-                            protected void run() throws LoginException, PersistenceException {
-                                doRun(event);
-                            }
-                        };
-                        rwu.setAvoidUnloadResources(true);
-                        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
-                    }
-                };
-
-                action.setId(getId());
-                // action.setText(WorkbenchMessages.SaveAll_text);
-                action.setText(Messages.getString("ActionBarBuildHelper.SaveAll_text")); //$NON-NLS-1$
-                // action.setToolTipText(WorkbenchMessages.SaveAll_toolTip);
-                action.setToolTipText(Messages.getString("ActionBarBuildHelper.SaveAll_toolTip")); //$NON-NLS-1$
-                return action;
-            }
-        };
-
-        IWorkbenchAction saveAllAction = factSaveAll.create(window);
+        IWorkbenchAction saveAllAction = ActionFactory.SAVE_ALL.create(window);
         fileMenu.add(saveAllAction);
         actionBarConfigurer.registerGlobalAction(saveAllAction);
 
@@ -314,11 +171,11 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.QUIT.create(window));
 
-        fileMenu.add(new Separator());
-        OpenLocalFileAction openLocalFileAction = new OpenLocalFileAction();
-        openLocalFileAction.init(window);
-        openLocalFileAction.setText("Open Files");
-        fileMenu.add(openLocalFileAction);
+        // fileMenu.add(new Separator());
+        // OpenLocalFileAction openLocalFileAction = new OpenLocalFileAction();
+        // openLocalFileAction.init(window);
+        // openLocalFileAction.setText("Open Files");
+        // fileMenu.add(openLocalFileAction);
 
         if (PluginChecker.isMetalanguagePluginLoaded()) {
             IOpenJobScriptActionService openJobScriptActionService = (IOpenJobScriptActionService) GlobalServiceRegister
@@ -442,7 +299,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (factory.isUserReadOnlyOnCurrentProject()) {
             enableFileMenuActions();
-            enableCoolBarActions();
         }
 
         boolean useJava = LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA;
@@ -454,52 +310,49 @@ public class ActionBarBuildHelper implements IActionBarHelper {
             }
         }
 
-        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" };
-        if (useJava) {
-            perspectivesId = (String[]) ArrayUtils.add(perspectivesId, "org.epic.core.Perspective");
-        }
+        // String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" };
+        //
+        // List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
+        //
+        // for (IPerspectiveDescriptor desc : window.getWorkbench().getPerspectiveRegistry().getPerspectives()) {
+        // if (ArrayUtils.contains(perspectivesId, desc.getId())) {
+        // perspectivesToDelete.add(desc);
+        // }
+        // }
+        //
+        // for (IPerspectiveDescriptor desc : perspectivesToDelete) {
+        // PerspectiveDescriptor perspDesc = (PerspectiveDescriptor) desc;
+        // PerspectiveRegistry registry = (PerspectiveRegistry) window.getWorkbench().getPerspectiveRegistry();
+        // PerspectiveDescriptor[] descriptors = { perspDesc };
+        // registry.removeExtension(perspDesc.getConfigElement().getDeclaringExtension(), descriptors);
+        // }
 
-        List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
-
-        for (IPerspectiveDescriptor desc : window.getWorkbench().getPerspectiveRegistry().getPerspectives()) {
-            if (ArrayUtils.contains(perspectivesId, desc.getId())) {
-                perspectivesToDelete.add(desc);
-            }
-        }
-
-        for (IPerspectiveDescriptor desc : perspectivesToDelete) {
-            PerspectiveDescriptor perspDesc = (PerspectiveDescriptor) desc;
-            PerspectiveRegistry registry = (PerspectiveRegistry) window.getWorkbench().getPerspectiveRegistry();
-            PerspectiveDescriptor[] descriptors = { perspDesc };
-            registry.removeExtension(perspDesc.getConfigElement().getDeclaringExtension(), descriptors);
-        }
-
-        String[] viewsId = { "org.eclipse.pde.runtime.RegistryBrowser", "org.eclipse.pde.ui.DependenciesView",
-                "org.eclipse.pde.ui.PluginsView", "org.eclipse.team.sync.views.SynchronizeView",
-                "org.eclipse.team.ui.GenericHistoryView" };
-
-        if (useJava) {
-            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.core.views.browser.BrowserView");
-            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.ExplainErrorsView");
-            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.PerlDocView");
-            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.regexp.views.RegExpView");
-            viewsId = (String[]) ArrayUtils.add(viewsId, "org.eclipse.debug.expressionview");
-        }
-
-        List<IViewDescriptor> viewsToDelete = new ArrayList<IViewDescriptor>();
-
-        for (IViewDescriptor desc : window.getWorkbench().getViewRegistry().getViews()) {
-            if (ArrayUtils.contains(viewsId, desc.getId())) {
-                viewsToDelete.add(desc);
-            }
-        }
-
-        for (IViewDescriptor desc : viewsToDelete) {
-            ViewDescriptor viewDesc = (ViewDescriptor) desc;
-            ViewRegistry registry = (ViewRegistry) window.getWorkbench().getViewRegistry();
-            ViewDescriptor[] descriptors = { viewDesc };
-            registry.removeExtension(viewDesc.getConfigurationElement().getDeclaringExtension(), descriptors);
-        }
+        // String[] viewsId = { "org.eclipse.pde.runtime.RegistryBrowser", "org.eclipse.pde.ui.DependenciesView",
+        // "org.eclipse.pde.ui.PluginsView", "org.eclipse.team.sync.views.SynchronizeView",
+        // "org.eclipse.team.ui.GenericHistoryView" };
+        //
+        // if (useJava) {
+        // viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.core.views.browser.BrowserView");
+        // viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.ExplainErrorsView");
+        // viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.PerlDocView");
+        // viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.regexp.views.RegExpView");
+        // viewsId = (String[]) ArrayUtils.add(viewsId, "org.eclipse.debug.expressionview");
+        // }
+        //
+        // List<IViewDescriptor> viewsToDelete = new ArrayList<IViewDescriptor>();
+        //
+        // for (IViewDescriptor desc : window.getWorkbench().getViewRegistry().getViews()) {
+        // if (ArrayUtils.contains(viewsId, desc.getId())) {
+        // viewsToDelete.add(desc);
+        // }
+        // }
+        //
+        // for (IViewDescriptor desc : viewsToDelete) {
+        // ViewDescriptor viewDesc = (ViewDescriptor) desc;
+        // ViewRegistry registry = (ViewRegistry) window.getWorkbench().getViewRegistry();
+        // ViewDescriptor[] descriptors = { viewDesc };
+        // registry.removeExtension(viewDesc.getConfigurationElement().getDeclaringExtension(), descriptors);
+        // }
 
         List<IPreferenceNode> prefsToDelete = new ArrayList<IPreferenceNode>();
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
@@ -529,31 +382,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 for (IPreferenceNode subNode : node.getSubNodes()) {
                     if (subNode.getId().equals("org.talend.core.prefs.datacollector")) { //$NON-NLS-1$
                         node.remove(subNode);
-                    }
-                }
-            }
-        }
-    }
-
-    // bug 20871
-    protected void enableCoolBarActions() {
-        String[] enableCoolBarActionSetIds = { "org.talend.repository.localprovider.actionSet" }; //$NON-NLS-1$
-        String[] enableCoolBarActionIds = { "org.talend.repository.localprovider.ui.actions.ImportItemAction" }; //$NON-NLS-1$
-        IContributionItem[] items = coolBar.getItems();
-        for (IContributionItem iContributionItem : items) {
-            if (iContributionItem != null && iContributionItem instanceof ToolBarContributionItem) {
-                for (String setId : enableCoolBarActionSetIds) {
-                    if (setId.equals(iContributionItem.getId())) {
-                        IContributionItem[] cis = ((ToolBarContributionItem) iContributionItem).getToolBarManager().getItems();
-                        for (IContributionItem iContributionItem2 : cis) {
-                            if (iContributionItem2 != null && iContributionItem2 instanceof PluginActionContributionItem) {
-                                for (String id : enableCoolBarActionIds) {
-                                    if (id.equals(iContributionItem2.getId())) {
-                                        ((ActionContributionItem) iContributionItem2).getAction().setEnabled(false);
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -625,19 +453,4 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     protected void hideEditActions() {
         // do nothing
     }
-
-    /**
-     * Copy from Eclipse code.
-     */
-    private static class WorkbenchCommandAction extends CommandAction implements IWorkbenchAction {
-
-        /**
-         * @param commandIdIn
-         * @param window
-         */
-        public WorkbenchCommandAction(String commandIdIn, IWorkbenchWindow window) {
-            super(window, commandIdIn);
-        }
-    }
-
 }

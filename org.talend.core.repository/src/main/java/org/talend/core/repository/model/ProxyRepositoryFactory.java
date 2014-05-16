@@ -1841,10 +1841,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
-                    // sap
-                    if (PluginChecker.isSAPWizardPluginLoaded()) {
-                        coreService.synchronizeSapLib();
-                    }
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }

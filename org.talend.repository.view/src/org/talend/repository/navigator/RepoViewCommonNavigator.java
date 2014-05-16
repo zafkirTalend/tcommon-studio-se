@@ -25,6 +25,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -54,7 +55,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.internal.dialogs.EventLoopProgressMonitor;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.CommonViewerSorter;
@@ -666,7 +666,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 Timer timer = Timer.getTimer("repositoryView"); //$NON-NLS-1$
                 timer.start();
                 if (needInitialize) {
-                    monitorWrap = new EventLoopProgressMonitor(monitor);
+                    // monitorWrap = new EventLoopProgressMonitor(monitor);
+                    monitorWrap = SubMonitor.convert(monitor);
                     try {
                         final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                         factory.initialize();

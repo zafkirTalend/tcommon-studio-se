@@ -14,7 +14,6 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
-import org.talend.core.PluginChecker;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
@@ -37,10 +36,6 @@ public class SyncLibrariesLoginTask implements IRunnableWithProgress {
         TimeMeasure.step("SyncLibraries", "sync components libraries");
         if (monitor != null && monitor.isCanceled()) {
             throw new OperationCanceledException(""); //$NON-NLS-1$
-        }
-        // sap
-        if (PluginChecker.isSAPWizardPluginLoaded()) {
-            coreService.synchronizeSapLib();
         }
         if (monitor != null && monitor.isCanceled()) {
             throw new OperationCanceledException(""); //$NON-NLS-1$

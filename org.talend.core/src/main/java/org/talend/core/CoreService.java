@@ -61,7 +61,6 @@ import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.designerproperties.SapJcoVersion;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
@@ -461,32 +460,6 @@ public class CoreService implements ICoreService {
             out.create(fis, true, null);
         }
         fis.close();
-    }
-
-    @Override
-    public void synchronizeSapLib() {
-        ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                ILibraryManagerService.class);
-
-        // feature 17789
-        Bundle bundle = Platform.getBundle(PluginChecker.getSapWizardPluginId());
-        if (bundle instanceof BundleHost) {
-            BundleHost bundleHost = (BundleHost) bundle;
-            final BundleData bundleData = bundleHost.getBundleData();
-            if (bundleData instanceof BaseData) {
-                BaseData baseData = (BaseData) bundleData;
-                final BundleFile bundleFile = baseData.getBundleFile();
-                final File baseFile = bundleFile.getBaseFile();
-                String[] allNeededModuls = SapJcoVersion.getAllNeededModuls();
-                for (String allNeededModul : allNeededModuls) {
-                    String name = allNeededModul;
-                    if (!libManager.contains(name)) {
-                        continue;
-                    }
-                    libManager.retrieve(name, baseFile.getAbsolutePath(), new NullProgressMonitor());
-                }
-            }
-        }
     }
 
     @Override

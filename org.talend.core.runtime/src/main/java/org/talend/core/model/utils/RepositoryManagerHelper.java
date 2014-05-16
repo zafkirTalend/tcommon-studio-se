@@ -25,7 +25,6 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchPage;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -94,14 +93,15 @@ public final class RepositoryManagerHelper {
                     try {
                         // if the Perspective is DataProfilingPerspective refuse the
                         // RepositoryView be display by automatic
-                        if (page.getPerspective().getId().equalsIgnoreCase("org.talend.dataprofiler.DataProfilingPerspective")) {//$NON-NLS-1$
-                            part = ((WorkbenchPage) page).getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
-                        } else {
-                            String perId = page.getPerspective().getId();
-                            if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
-                                part = page.showView(IRepositoryView.VIEW_ID);
-                            }
+                        //                        if (page.getPerspective().getId().equalsIgnoreCase("org.talend.dataprofiler.DataProfilingPerspective")) {//$NON-NLS-1$
+                        // part = ((WorkbenchPage)
+                        // page).getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
+                        // } else {
+                        String perId = page.getPerspective().getId();
+                        if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                            part = page.showView(IRepositoryView.VIEW_ID);
                         }
+                        // }
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }

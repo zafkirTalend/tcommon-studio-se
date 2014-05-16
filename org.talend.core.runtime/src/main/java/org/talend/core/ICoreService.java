@@ -119,8 +119,6 @@ public interface ICoreService extends IService {
 
     public void synchronizeMapptingXML();
 
-    public void synchronizeSapLib();
-
     public IPreferenceStore getPreferenceStore();
 
     public boolean isOpenedItemInEditor(IRepositoryViewObject object);
