@@ -29,6 +29,8 @@ import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -357,7 +359,17 @@ public class Application implements IApplication {
 
         @Override
         protected Control createDialogArea(Composite parent) {
-            Composite composite = (Composite) super.createDialogArea(parent);
+            // create message area
+            createMessageArea(parent);
+            // add custom controls
+            Composite composite = new Composite(parent, SWT.NONE);
+            GridLayout layout = new GridLayout();
+            layout.marginHeight = 0;
+            layout.marginWidth = 43;
+            composite.setLayout(layout);
+            GridData data = new GridData(GridData.FILL_BOTH);
+            data.horizontalSpan = 2;
+            composite.setLayoutData(data);
             Hyperlink link = new Hyperlink(composite, SWT.WRAP);
             link.setText("https://help.talend.com/display/KB/Java+8+Support");
             link.setBackground(parent.getBackground());
