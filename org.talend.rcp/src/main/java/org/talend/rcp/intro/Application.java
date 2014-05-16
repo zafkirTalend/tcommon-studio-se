@@ -28,11 +28,17 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -41,6 +47,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.tis.ICoreTisService;
+import org.talend.core.ui.TalendBrowserLaunchHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.RegistrationPlugin;
@@ -324,7 +331,7 @@ public class Application implements IApplication {
             org.talend.commons.utils.Version v = new org.talend.commons.utils.Version(javaVersion);
             if (v.getMajor() == 1 && v.getMinor() > 7) { // more than JDK 1.7
                 if (brandingService.isPoweredbyTalend()) {
-                    MessageDialog dialog = new MessageDialog(shell, "", shell.getBackgroundImage(),
+                    OpenLinkMessageDialog dialog = new OpenLinkMessageDialog(shell, "", shell.getBackgroundImage(),
                             Messages.getString("Application.doNotSupportJavaVersionYetPoweredbyTalend"), MessageDialog.WARNING,
                             new String[] { "Quit" }, 0);
                     dialog.open();
@@ -339,5 +346,31 @@ public class Application implements IApplication {
             }
         }
         return false;
+    }
+
+    private static class OpenLinkMessageDialog extends MessageDialog {
+
+        public OpenLinkMessageDialog(Shell parentShell, String dialogTitle, Image dialogTitleImage, String dialogMessage,
+                int dialogImageType, String[] dialogButtonLabels, int defaultIndex) {
+            super(parentShell, dialogTitle, dialogTitleImage, dialogMessage, dialogImageType, dialogButtonLabels, defaultIndex);
+        }
+
+        @Override
+        protected Control createDialogArea(Composite parent) {
+            Composite composite = (Composite) super.createDialogArea(parent);
+            Hyperlink link = new Hyperlink(composite, SWT.WRAP);
+            link.setText("https://help.talend.com/display/KB/Java+8+Support");
+            link.setBackground(parent.getBackground());
+            link.setUnderlined(true);
+            link.addHyperlinkListener(new HyperlinkAdapter() {
+
+                @Override
+                public void linkActivated(HyperlinkEvent e) {
+                    String url = "https://help.talend.com/display/KB/Java+8+Support";
+                    TalendBrowserLaunchHelper.openURL(url);
+                }
+            });
+            return composite;
+        }
     }
 }
