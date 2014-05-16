@@ -43,7 +43,7 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
 
-    HDP_2_1(1, "HDP_2_1", "Hortonworks Data Platform V2.1.0(Baikal)", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_1(1, "HDP_2_1", "Hortonworks Data Platform V2.1.0(Baikal)", true, false, true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
     HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0(BigWheel)", true, false, true, false, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
 
