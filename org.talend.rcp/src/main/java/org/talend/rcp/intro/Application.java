@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -65,7 +64,7 @@ public class Application implements IApplication {
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
             // To show that the studio does not fully support java 8 yet
-            if (!checkUnSupportJavaVersion(shell)) {
+            if (checkUnSupportJavaVersion(shell)) {
                 shell.dispose();
                 return EXIT_OK;
             }
@@ -329,20 +328,16 @@ public class Application implements IApplication {
                             Messages.getString("Application.doNotSupportJavaVersionYetPoweredbyTalend"), MessageDialog.WARNING,
                             new String[] { "Quit" }, 0);
                     dialog.open();
-                    if (dialog.getReturnCode() == IDialogConstants.OK_ID) {
-                        return false;
-                    }
+                    return true;
                 } else {
                     MessageDialog dialog = new MessageDialog(shell, "", shell.getBackgroundImage(),
                             Messages.getString("Application.doNotSupportJavaVersionYetNoPoweredbyTalend"), MessageDialog.WARNING,
                             new String[] { "Quit" }, 0);
                     dialog.open();
-                    if (dialog.getReturnCode() == IDialogConstants.OK_ID) {
-                        return false;
-                    }
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 }
