@@ -15,8 +15,6 @@ package org.talend.core.model.metadata.connection.hive;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.commons.utils.platform.PluginChecker;
-
 /**
  * @author Marvin Wang
  * @version 1.0 jdk1.6
@@ -126,9 +124,9 @@ public class HiveConnUtils {
                 }
             }
             // ADD msjian TDQ-6407 2012-11-26:for top not support hive embedded mode
-            if (PluginChecker.isOnlyTopLoaded() && (level == 0 || level == 2)) {
-                list.remove(0);
-            }
+            // if (PluginChecker.isOnlyTopLoaded() && (level == 0 || level == 2)) {
+            // list.remove(0);
+            // }
             // TDQ-6407~
             return list;
         }
@@ -242,9 +240,9 @@ public class HiveConnUtils {
     protected static List<String> getHiveModeNameList(int distributionIndex, int versionIndex, int hiveServerIndex) {
         List<HiveConnVersionInfo> hiveModeObjs = getHiveModes(distributionIndex, versionIndex, hiveServerIndex);
         // ADD msjian TDQ-6407 2012-11-26: for top, not support hive embeded mode,hide this menu
-        if (PluginChecker.isOnlyTopLoaded() && hiveModeObjs.size() > 1) {
-            hiveModeObjs.remove(0);
-        }
+        // if (PluginChecker.isOnlyTopLoaded() && hiveModeObjs.size() > 1) {
+        // hiveModeObjs.remove(0);
+        // }
         // TDQ-6407~
         if (hiveModeObjs != null && hiveModeObjs.size() > 0) {
             List<String> hiveModeNameList = new ArrayList<String>();
