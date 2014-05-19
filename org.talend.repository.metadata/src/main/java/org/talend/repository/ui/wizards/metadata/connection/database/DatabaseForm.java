@@ -1051,8 +1051,8 @@ public class DatabaseForm extends AbstractForm {
                         try {
                             MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
                             Class[] classes = cl.getAssignableClasses(Driver.class);
-                            for (int i = 0; i < classes.length; ++i) {
-                                driverClassTxt.add(classes[i].getName());
+                            for (Class classe : classes) {
+                                driverClassTxt.add(classe.getName());
                             }
                         } catch (Exception ex) {
                             ExceptionHandler.process(ex);
@@ -3145,8 +3145,8 @@ public class DatabaseForm extends AbstractForm {
                         try {
                             MyURLClassLoader cl = new MyURLClassLoader(file.toURL());
                             Class[] classes = cl.getAssignableClasses(Driver.class);
-                            for (int i = 0; i < classes.length; ++i) {
-                                generalJdbcClassNameText.add(classes[i].getName());
+                            for (Class classe : classes) {
+                                generalJdbcClassNameText.add(classe.getName());
                             }
                         } catch (Exception ex) {
                             ExceptionHandler.process(ex);
@@ -4601,21 +4601,21 @@ public class DatabaseForm extends AbstractForm {
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
         int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
         // MOD msjian TDQ-6407 2012-11-26: for top, until now, not support embeded mode for hive
-        if (isTOPStandaloneMode()) {
-            getConnection().setURL(getStringConnection());
-            handleUIWhenStandaloneModeSelected();
+        // if (isTOPStandaloneMode()) {
+        // getConnection().setURL(getStringConnection());
+        // handleUIWhenStandaloneModeSelected();
+        // } else {
+        boolean isEmbeddedMode = HiveConnUtils
+                .isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
+        getConnection().setURL(getStringConnection());
+        if (isEmbeddedMode) {
+            // handleEmbeddedMode();
+            handleUIWhenEmbeddedModeSelected();
         } else {
-            boolean isEmbeddedMode = HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex,
-                    hiveServerIndex);
-            getConnection().setURL(getStringConnection());
-            if (isEmbeddedMode) {
-                // handleEmbeddedMode();
-                handleUIWhenEmbeddedModeSelected();
-            } else {
-                // handleStandaloneMode();
-                handleUIWhenStandaloneModeSelected();
-            }
+            // handleStandaloneMode();
+            handleUIWhenStandaloneModeSelected();
         }
+        // }
         // TDQ-6407~
 
         doUpdateConnection();
