@@ -875,8 +875,7 @@ public class NodeUtil {
             }
             // System.out.println("leftQuote="+leftQuotes + ", rightQuote="+rightQuotes);
             if (leftQuotes < rightQuotes) {
-                result += original.substring(leftQuotes, rightQuotes + 1).replace("\r\n", "\\n").replace("\r", "\\r")
-                        .replace("\n", "\\n");
+                result += original.substring(leftQuotes, rightQuotes + 1).replace("\r", "\\r").replace("\n", "\\n");
             }
 
             leftQuotes = original.indexOf("\"", rightQuotes + 1);
