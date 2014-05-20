@@ -149,7 +149,9 @@ public class JDBCDriverLoader {
                 connection = wapperDriver.connect(url, info);
 
             } else {
-                url = ConnectionUtils.addShutDownForHSQLUrl(url, additionalParams);
+                if (ConnectionUtils.isHsql(url)) {
+                    url = ConnectionUtils.addShutDownForHSQLUrl(url, additionalParams);
+                }
                 if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.MSSQL.getDisplayName()) && "".equals(username)) {
                     ExtractMetaDataUtils.getInstance().setDriverCache(wapperDriver);
                 }

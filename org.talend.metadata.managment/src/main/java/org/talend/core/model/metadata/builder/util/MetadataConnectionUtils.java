@@ -172,7 +172,9 @@ public class MetadataConnectionUtils {
             String userName = metadataBean.getUsername();
             String dbType = metadataBean.getDbType();
 
-            dbUrl = ConnectionUtils.addShutDownForHSQLUrl(dbUrl, metadataBean.getAdditionalParams());
+            if (ConnectionUtils.isHsql(dbUrl)) {
+                dbUrl = ConnectionUtils.addShutDownForHSQLUrl(dbUrl, metadataBean.getAdditionalParams());
+            }
 
             Properties props = new Properties();
             props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
