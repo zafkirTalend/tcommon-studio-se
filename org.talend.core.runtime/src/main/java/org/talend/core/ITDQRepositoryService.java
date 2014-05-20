@@ -14,6 +14,7 @@ package org.talend.core;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,5 +187,9 @@ public interface ITDQRepositoryService extends IService {
      * @param newMetadataTable
      */
     public void reloadMetadataOfDelimitedFile(MetadataTable newMetadataTable) throws BusinessException;
+
+    public Collection<org.talend.core.model.metadata.builder.connection.Connection> getAllDataProviders();
+
+    public void updateDriverIfClassNotLoad(DatabaseConnection databaseConnection);
 
 }
