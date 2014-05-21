@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.talend.core.runtime.librariesNeeded">
+      <libraryNeeded
+              context="plugin:org.talend.libraries.jfreechart"
+              language="java"
+              message="Needed for jfreechart plugin"
+              name="jcommon-1.0.15.jar"
+              required="true">
+        </libraryNeeded>
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jfreechart"
+              language="java"
+              message="Needed for jfreechart plugin"
+              name="jfreechart-1.0.12.jar"
+              required="true">
+        </libraryNeeded>
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jfreechart"
+              language="java"
+              message="Needed for jfreechart plugin"
+              name="jfreechart-1.0.12-experimental.jar"
+              required="true">
+        </libraryNeeded>
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jfreechart"
+              language="java"
+              message="Needed for jfreechart plugin"
+              name="jfreechart-1.0.12-swt.jar"
+              required="true">
+        </libraryNeeded>
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jfreechart"
+              language="java"
+              message="Needed for jfreechart plugin"
+              name="swtgraphics2d.jar"
+              required="true">
+        </libraryNeeded>
+   </extension>
+</plugin>
