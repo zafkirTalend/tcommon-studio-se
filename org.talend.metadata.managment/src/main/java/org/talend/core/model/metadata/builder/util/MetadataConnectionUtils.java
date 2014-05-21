@@ -13,7 +13,6 @@
 package org.talend.core.model.metadata.builder.util;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -23,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.xml.rpc.ServiceException;
 
@@ -35,7 +33,6 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.database.SybaseDatabaseMetaData;
-import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -57,7 +54,6 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
-import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
@@ -166,77 +162,44 @@ public class MetadataConnectionUtils {
                 CommonExceptionHandler.process(e);
             }
         } else {
-            String driverClass = metadataBean.getDriverClass();
             String dbUrl = metadataBean.getUrl();
-            String password = metadataBean.getPassword();
-            String userName = metadataBean.getUsername();
-            String dbType = metadataBean.getDbType();
-
             if (ConnectionUtils.isHsql(dbUrl)) {
                 dbUrl = ConnectionUtils.addShutDownForHSQLUrl(dbUrl, metadataBean.getAdditionalParams());
             }
-
-            Properties props = new Properties();
-            props.setProperty(TaggedValueHelper.PASSWORD, password == null ? "" : password); //$NON-NLS-1$
-            props.setProperty(TaggedValueHelper.USER, userName == null ? "" : userName); //$NON-NLS-1$
-            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-                if (systemCharset != null && systemCharset.displayName() != null) {
-                    props.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
-                }
+            // TDQ-8893 Don't use ConnectionUtils.createConnection(...) to get a java sql connetcion,replace it with
+            // ExtractMetaDataUtils.connect(...).
+            java.sql.Connection sqlConn = null;
+            List<Object> list = new ArrayList<Object>();
+            try {
+                list = ExtractMetaDataUtils.getInstance().connect(metadataBean.getDbType(), metadataBean.getUrl(),
+                        metadataBean.getUsername(), metadataBean.getPassword(), metadataBean.getDriverClass(),
+                        metadataBean.getDriverJarPath(), metadataBean.getDbVersionString(), metadataBean.getAdditionalParams());
+            } catch (Exception e) {
+                rc.setMessage("fail to connect database!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
+                return rc;
             }
 
-            if (StringUtils.isNotBlank(dbUrl) && StringUtils.isNotBlank(driverClass)) {
-                java.sql.Connection sqlConn = null;
-                Driver driver = null;
-                try {
-                    if (isHsqlInprocess(metadataBean)) {
-                        List list = getConnection(metadataBean);
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i) instanceof Driver) {
-                                driver = (Driver) list.get(i);
-                            }
-                            if (list.get(i) instanceof java.sql.Connection) {
-                                sqlConn = (java.sql.Connection) list.get(i);
-                            }
-                        }
-                    } else {
-                        driver = getClassDriver(metadataBean);
-                        sqlConn = ConnectionUtils.createConnection(dbUrl, driver, props);
+            Driver driver = null;
+            if (!list.isEmpty()) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Driver) {
+                        driver = (Driver) list.get(i);
                     }
-
-                    ReturnCode varc = ConnectionUtils.isValid(sqlConn);
-                    if (varc.isOk()) {
-                        derbyDriver = null;
-                        if (driver != null && isDerbyRelatedDb(driverClass, dbType)) {
-                            DBConnectionFillerImpl.setDriver(driver);
-                            derbyDriver = driver;
-                        }
-                        rc.setObject(sqlConn);
-                        rc.setMessage(varc.getMessage());
-                        rc.setOk(true);
+                    if (list.get(i) instanceof java.sql.Connection) {
+                        sqlConn = (java.sql.Connection) list.get(i);
                     }
-                } catch (SQLException e) {
-                    log.error(e.getMessage());
-                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-                } catch (InstantiationException e) {
-                    log.error(e.getMessage(), e);
-                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-                } catch (IllegalAccessException e) {
-                    log.error(e.getMessage(), e);
-                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-                } catch (ClassNotFoundException e) {
-                    log.error(e.getMessage(), e);
-                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
-                } catch (RuntimeException e) {
-                    log.error(e.getMessage(), e);
-                    rc.setMessage(e.getCause() == null ? e.getMessage() : e.getCause().toString());
                 }
-            } else {
-                if (StringUtils.isNotBlank(dbUrl)) {
-                    rc.setMessage("the driver of connection parameter can not be null"); //$NON-NLS-1$
-                } else {
-                    rc.setMessage("the url of connection parameter can not be null"); //$NON-NLS-1$
+                ReturnCode varc = ConnectionUtils.isValid(sqlConn);
+                if (varc.isOk()) {
+                    derbyDriver = null;
+                    if (driver != null && isDerbyRelatedDb(metadataBean.getDriverClass(), metadataBean.getDbType())) {
+                        DBConnectionFillerImpl.setDriver(driver);
+                        derbyDriver = driver;
+                    }
+                    rc.setObject(sqlConn);
+                    rc.setMessage(varc.getMessage());
+                    rc.setOk(true);
                 }
             }
         }

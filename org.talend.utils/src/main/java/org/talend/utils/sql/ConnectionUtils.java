@@ -67,7 +67,9 @@ public final class ConnectionUtils {
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
+     * @deprecated use 'ExtractMetaDataUtils.connect(...)' instead.
      */
+    @Deprecated
     public static Connection createConnection(String url, String driverClassName, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         Driver driver = (Driver) Class.forName(driverClassName).newInstance();
@@ -87,7 +89,9 @@ public final class ConnectionUtils {
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
+     * @deprecated use 'ExtractMetaDataUtils.connect(...)' instead.
      */
+    @Deprecated
     public static Connection createConnection(String url, Driver driver, Properties props) throws SQLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         // MOD sizhaoliu TDI-23409 revert this method to previeus version of 92079 to fix the bug.

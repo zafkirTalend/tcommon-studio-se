@@ -71,7 +71,7 @@ public final class JavaSqlFactory {
      * 
      * @param providerConnection the provider connection
      * @return a ReturnCode (never null)
-     * @deprecated
+     * @deprecated {@link #createConnection(Connection)}
      */
     @Deprecated
     public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection providerConnection) {
@@ -131,25 +131,9 @@ public final class JavaSqlFactory {
             rc.setOk(false);
             return rc; // MOD scorreia 2010-10-20 bug 16403 avoid NPE while importing items
         }
-
-        String driverClassName = getDriverClass(connection);
-        // MOD scorreia 2010-10-20 bug 16403 avoid NPE while importing items
-        if (StringUtils.isEmpty(driverClassName)) {
-            rc.setMessage(Messages.getString("JavaSqlFactory.NoClassName")); //$NON-NLS-1$
-            rc.setOk(false);
-            return rc;
-        }
-        Properties props = new Properties();
-        props.put(TaggedValueHelper.USER, getUsername(connection));
-        props.put(TaggedValueHelper.PASSWORD, getPassword(connection));
         java.sql.Connection sqlConnection = null;
-        try {
-            sqlConnection = ConnectionUtils.createConnection(url, driverClassName, props);
-        } catch (Throwable e) {
-            rc.setReturnCode(e.getMessage(), false);
-        }
 
-        if (sqlConnection == null && connection instanceof DatabaseConnection) {
+        if (connection instanceof DatabaseConnection) {
             sqlConnection = MetadataConnectionUtils.createConnection((DatabaseConnection) connection).getObject();
         }
         rc.setObject(sqlConnection);
