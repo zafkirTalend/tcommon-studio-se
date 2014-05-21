@@ -414,7 +414,6 @@ public class DBConnectionFillerImplTest {
 
         ResultSet rs = mock(ResultSet.class);
         when(rs.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-        verify(rs, atMost(5)).next();
         when(rs.getString(GetTable.TABLE_NAME.name())).thenReturn("Table1").thenReturn("Table2");//$NON-NLS-1$ //$NON-NLS-2$
         when(rs.getString(GetTable.TABLE_TYPE.name())).thenReturn("Table");//$NON-NLS-1$
         when(rs.getString(GetTable.REMARKS.name())).thenReturn("");//$NON-NLS-1$

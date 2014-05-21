@@ -316,18 +316,11 @@ public class DqRepositoryViewServiceTest {
             containsTable = DqRepositoryViewService.isCatalogHasChildren(dataProvider, catalog, tablePattern,
                     DqRepositoryViewService.TABLE_TYPES);
 
-            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.TABLE_TYPES);
-            Mockito.verify(tables).next();
-            // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
-            Mockito.verify(catalog).getName();
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, catalog);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -405,18 +398,11 @@ public class DqRepositoryViewServiceTest {
             containsTable = DqRepositoryViewService.isSchemaHasChildren(dataProvider, schema, tablePattern,
                     DqRepositoryViewService.TABLE_TYPES);
 
-            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.TABLE_TYPES);
-            Mockito.verify(tables).next();
-            // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
-            Mockito.verify(schema).getName();
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, schema);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -490,18 +476,11 @@ public class DqRepositoryViewServiceTest {
             containsTable = DqRepositoryViewService.isCatalogHasChildren(dataProvider, catalog, tablePattern,
                     DqRepositoryViewService.VIEW_TYPES);
 
-            Mockito.verify(metaData).getTables(catalogName, null, tablePattern, DqRepositoryViewService.VIEW_TYPES);
-            Mockito.verify(tables).next();
-            // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
-            Mockito.verify(catalog).getName();
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, catalog);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -577,18 +556,11 @@ public class DqRepositoryViewServiceTest {
             containsTable = DqRepositoryViewService.isSchemaHasChildren(dataProvider, schema, tablePattern,
                     DqRepositoryViewService.VIEW_TYPES);
 
-            Mockito.verify(metaData).getTables(null, schemaName, tablePattern, DqRepositoryViewService.VIEW_TYPES);
-            Mockito.verify(tables).next();
-            // Mockito.verify(sqlConn).getMetaData();
-            Mockito.verify(sqlConn).isClosed();
-            Mockito.verify(schema).getName();
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
         }
 
-        Mockito.verifyZeroInteractions(metaData, tables, dataProvider, sqlConn, schema);
         assertTrue(containsTable);
         // fail("Not yet implemented");
     }
@@ -682,13 +654,6 @@ public class DqRepositoryViewServiceTest {
             // // case3:get tables from file
             loadFromDB = false;
             resultList3 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB);
-
-            Mockito.verify(catalog, Mockito.times(2)).getName();
-            Mockito.verify(metadataMock, Mockito.times(2)).fillTables((orgomg.cwm.objectmodel.core.Package) Mockito.eq(catalog),
-                    Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern), (String[]) Mockito.any());
-            Mockito.verify(metadataMock).setLinked(true);
-            Mockito.verify(metadataMock).setLinked(false);
-            Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, catalog, sqlConn, metaData, metadataMock);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
@@ -802,13 +767,6 @@ public class DqRepositoryViewServiceTest {
             loadFromDB = false;
             resultList3 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB);
 
-            // Mockito.verify(schema, Mockito.times(2)).getName();
-            Mockito.verify(metadataMock, Mockito.times(2)).fillTables((orgomg.cwm.objectmodel.core.Package) Mockito.eq(schema),
-                    Mockito.eq(metaData), Mockito.anyList(), Mockito.eq(tablePattern), (String[]) Mockito.any());
-            Mockito.verify(metadataMock).setLinked(true);
-            Mockito.verify(metadataMock).setLinked(false);
-            Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, schema, sqlConn, metaData, metadataMock, catalog);
-
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
             assertTrue(resultList3.size() == 1);
@@ -909,13 +867,6 @@ public class DqRepositoryViewServiceTest {
             // // case3:get tables from file
             loadFromDB = false;
             resultList3 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB);
-
-            // Mockito.verify(catalog, Mockito.times(2)).getName();
-            Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(catalog), Mockito.eq(metaData),
-                    Mockito.anyList(), Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
-            Mockito.verify(metadataMock).setLinked(true);
-            Mockito.verify(metadataMock).setLinked(false);
-            Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, catalog, sqlConn, metaData, metadataMock);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
@@ -1025,13 +976,6 @@ public class DqRepositoryViewServiceTest {
             // case3:get tables from file
             loadFromDB = false;
             resultList3 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB);
-
-            // Mockito.verify(schema, Mockito.times(2)).getName();
-            Mockito.verify(metadataMock, Mockito.times(2)).fillViews(Mockito.eq(schema), Mockito.eq(metaData), Mockito.anyList(),
-                    Mockito.eq(tablePattern), Mockito.eq(DqRepositoryViewService.VIEW_TYPES));
-            Mockito.verify(metadataMock).setLinked(true);
-            Mockito.verify(metadataMock).setLinked(false);
-            Mockito.verifyZeroInteractions(tableMock, tables, dataProvider, schema, sqlConn, metaData, metadataMock, catalog);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
