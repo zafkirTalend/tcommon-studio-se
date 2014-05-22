@@ -41,13 +41,15 @@ public class FolderWizardPage extends WizardPage {
 
     private static final String DESC = Messages.getString("NewFolderWizard.description"); //$NON-NLS-1$
 
+    private static final String RENAME_DESC = Messages.getString("RenameFolderAction.description"); //$NON-NLS-1$
+
     private Text nameText;
 
     private IStatus nameStatus;
 
     private final String defaultLabel;
 
-	private boolean isPlainFolder = false;
+    private boolean isPlainFolder = false;
 
     /**
      * Constructs a new NewProjectWizardPage.
@@ -61,7 +63,7 @@ public class FolderWizardPage extends WizardPage {
         if (defaultLabel == null) {
             setDescription(DESC);
         } else {
-            setDescription("");
+            setDescription(RENAME_DESC);
         }
 
         nameStatus = createOkStatus();
@@ -109,28 +111,28 @@ public class FolderWizardPage extends WizardPage {
      */
     protected void checkFieldsValue() {
         // Field Name
-    	if(isPlainFolder){
-    		nameStatus = ResourcesPlugin.getWorkspace().validateName(nameText.getText(), IResource.FOLDER);
-    		if(nameStatus.isOK() && (defaultLabel == null || !defaultLabel.equals(nameText.getText()))
-    				&& !((FolderWizard) getWizard()).isValid(nameText.getText())) {
-    			nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
-    					"NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
-    		}
-    	}else{
-	        if (nameText.getText().length() == 0) {
-	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
-	                    Messages.getString("NewFolderWizard.nameEmpty"), null); //$NON-NLS-1$
-	        } else if (!Pattern.matches(RepositoryConstants.FOLDER_PATTERN, nameText.getText())) {
-	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
-	                    Messages.getString("NewFolderWizard.nameIncorrect"), null); //$NON-NLS-1$
-	        } else if ((defaultLabel == null || !defaultLabel.equals(nameText.getText()))
-	                && !((FolderWizard) getWizard()).isValid(nameText.getText())) {
-	            nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
-	                    "NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
-	        } else {
-	            nameStatus = createOkStatus();
-	        }
-    	}
+        if (isPlainFolder) {
+            nameStatus = ResourcesPlugin.getWorkspace().validateName(nameText.getText(), IResource.FOLDER);
+            if (nameStatus.isOK() && (defaultLabel == null || !defaultLabel.equals(nameText.getText()))
+                    && !((FolderWizard) getWizard()).isValid(nameText.getText())) {
+                nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
+                        "NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
+            }
+        } else {
+            if (nameText.getText().length() == 0) {
+                nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
+                        Messages.getString("NewFolderWizard.nameEmpty"), null); //$NON-NLS-1$
+            } else if (!Pattern.matches(RepositoryConstants.FOLDER_PATTERN, nameText.getText())) {
+                nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK,
+                        Messages.getString("NewFolderWizard.nameIncorrect"), null); //$NON-NLS-1$
+            } else if ((defaultLabel == null || !defaultLabel.equals(nameText.getText()))
+                    && !((FolderWizard) getWizard()).isValid(nameText.getText())) {
+                nameStatus = new Status(IStatus.ERROR, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, Messages.getString(
+                        "NewFolderWizard.nameInvalid", nameText.getText()), null); //$NON-NLS-1$
+            } else {
+                nameStatus = createOkStatus();
+            }
+        }
         updatePageStatus();
     }
 
@@ -148,7 +150,9 @@ public class FolderWizardPage extends WizardPage {
             setErrorMessage(status.getMessage());
             setMessage(""); //$NON-NLS-1$
         } else {
-            setMessage(DESC);
+            if (defaultLabel != null) {
+                setMessage(RENAME_DESC);
+            }
             setErrorMessage(null);
         }
     }
