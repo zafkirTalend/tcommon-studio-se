@@ -45,6 +45,8 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -186,6 +188,10 @@ public class SelectorTableForm extends AbstractForm {
 
     private Map<String, Boolean> mapCheckState = new HashMap<String, Boolean>();
 
+    private ScrolledComposite scrolledComposite;
+
+    private Composite newParent;
+
     /**
      * TableForm Constructor to use by RCP Wizard.
      * 
@@ -244,31 +250,30 @@ public class SelectorTableForm extends AbstractForm {
 
     @Override
     protected void addFields() {
-        int leftCompositeWidth = 80;
-        int rightCompositeWidth = WIDTH_GRIDDATA_PIXEL - leftCompositeWidth;
-        int headerCompositeHeight = 60;
-        int tableSettingsCompositeHeight = 90;
-        int tableCompositeHeight = 200;
-
-        int height = headerCompositeHeight + tableSettingsCompositeHeight + tableCompositeHeight;
-
+        int width = getSize().x;
         // Main Composite : 2 columns
-        Composite mainComposite = Form.startNewDimensionnedGridLayout(this, 1, leftCompositeWidth + rightCompositeWidth, height);
+        Composite mainComposite = Form.startNewGridLayout(this, 1);
         mainComposite.setLayout(new GridLayout(1, false));
         GridData gridData = new GridData(GridData.FILL_BOTH);
         mainComposite.setLayoutData(gridData);
 
-        Composite rightComposite = Form.startNewDimensionnedGridLayout(mainComposite, 1, rightCompositeWidth, height);
+        Composite rightComposite = Form.startNewGridLayout(mainComposite, 1);
 
         // Group Table Settings
-        Group groupTableSettings = Form.createGroup(rightComposite, 1,
-                Messages.getString("SelectorTableForm.groupTableSettings"), tableSettingsCompositeHeight); //$NON-NLS-1$
+        Group groupTableSettings = Form
+                .createGroup(rightComposite, 1, Messages.getString("SelectorTableForm.groupTableSettings")); //$NON-NLS-1$
+
+        scrolledComposite = new ScrolledComposite(groupTableSettings, SWT.V_SCROLL | SWT.H_SCROLL);
+        scrolledComposite.setExpandHorizontal(true);
+        scrolledComposite.setExpandVertical(true);
+        scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        newParent = new Composite(scrolledComposite, SWT.NONE);
+        newParent.setLayout(new GridLayout());
+        scrolledComposite.setContent(newParent);
 
         // Composite TableSettings
-        Composite compositeTableSettings = Form.startNewDimensionnedGridLayout(groupTableSettings, 1, rightCompositeWidth,
-                tableSettingsCompositeHeight);
+        Composite compositeTableSettings = Form.startNewGridLayout(newParent, 1);
         gridData = new GridData(GridData.FILL_BOTH);
-        gridData.widthHint = rightCompositeWidth;
         gridData.horizontalSpan = 3;
 
         Composite filterComposite = new Composite(compositeTableSettings, SWT.NONE);
@@ -287,8 +292,7 @@ public class SelectorTableForm extends AbstractForm {
         scrolledCompositeFileViewer.setExpandHorizontal(true);
         scrolledCompositeFileViewer.setExpandVertical(true);
         GridData gridData1 = new GridData(GridData.FILL_BOTH);
-        int width = 700;
-        int hight = 325;
+        int hight = 290;
         if (forTemplate) {
             width = 375;
             hight = 300;
@@ -330,6 +334,14 @@ public class SelectorTableForm extends AbstractForm {
             selectNoneTablesButton.setEnabled(false);
             selectNoneTablesButton.setToolTipText(Messages.getString("SelectorTableForm.toolTip"));
         }
+
+        scrolledComposite.addControlListener(new ControlAdapter() {
+
+            @Override
+            public void controlResized(ControlEvent e) {
+                scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+            }
+        });
     }
 
     /**
