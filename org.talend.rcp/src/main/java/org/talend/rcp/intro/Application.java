@@ -77,11 +77,7 @@ public class Application implements IApplication {
                 shell.dispose();
                 return EXIT_OK;
             }
-            // check workspace inuse, if true, means have do lock in configurator. if false, will try to lock
-            if (!Boolean.getBoolean("org.talend.workspace.locked")) { //$NON-NLS-1$
-                // TDI-28205, the lock may be acquired by the configurator but leave a possibility to do it here for TOS
-                inuse = !acquireWorkspaceLock(shell);
-            }// else already locked by the configurator so not in use.
+            inuse = !acquireWorkspaceLock(shell);
             if (inuse) {// if inuse, will forbid launching.
                 MessageDialog.openError(shell, Messages.getString("Application.WorkspaceInuseTitle"), //$NON-NLS-1$
                         Messages.getString("Application.WorkspaceInuseMessage")); //$NON-NLS-1$
@@ -229,9 +225,9 @@ public class Application implements IApplication {
      * Return <code>true</code> if the lock could be acquired.
      * 
      * @param shell
-     * @throws IOException
+     * @throws IOException if lock acquisition fails somehow
      */
-    private boolean acquireWorkspaceLock(Shell shell) {
+    private boolean acquireWorkspaceLock(Shell shell) throws IOException {
         Location instanceLoc = Platform.getInstanceLocation();
         ConnectionUserPerReader perReader = ConnectionUserPerReader.getInstance();
         if (perReader.isHaveUserPer() && instanceLoc != null && !instanceLoc.isSet()) {
@@ -269,27 +265,27 @@ public class Application implements IApplication {
                 ExceptionHandler.process(e);
             } catch (IllegalStateException e) {
                 ExceptionHandler.process(e);
-            } catch (IOException e) {
-                ExceptionHandler.process(e);
             }
 
         }
 
-        // It may be the first time for user to use tos, and we haven't create workspace yet.
+        // This should never happend but in case then we accept the lauch.
         if (instanceLoc == null || instanceLoc.getURL() == null) {
             return true;
         }
-        if (instanceLoc.isSet()) {
+        if (!instanceLoc.isSet()) {// not set previously, so set it to default value.
             try {
-                // try to lock the workspace
-                if (instanceLoc.lock()) {
-                    return true;
-                }
-            } catch (Throwable t) {
-                // do nothing
+                instanceLoc.set(instanceLoc.getDefault(), false);
+            } catch (IllegalStateException e) {// happens if instance url is already set which is not the case here
+                ExceptionHandler.process(e);
             }
+        }// else already set
+        if (instanceLoc.isLocked()) {
+            return false;
+        } else {
+            // try to lock the workspace
+            return instanceLoc.lock();
         }
-        return false;
     }
 
     /**
