@@ -92,7 +92,7 @@ public final class ElementParameterParser {
 
     public static boolean canEncrypt(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
-        if (value.startsWith("\"") && value.endsWith("\"") && TalendQuoteUtils.filterQuote(value).length() == 0) { //$NON-NLS-1$//$NON-NLS-2$
+        if (value != null && value.startsWith("\"") && value.endsWith("\"") && TalendQuoteUtils.filterQuote(value).length() == 0) { //$NON-NLS-1$//$NON-NLS-2$
             return true;
         } else {
             return false;
