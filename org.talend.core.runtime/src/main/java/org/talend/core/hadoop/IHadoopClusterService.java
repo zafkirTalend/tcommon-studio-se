@@ -190,6 +190,6 @@ public interface IHadoopClusterService extends IService {
      * @param process
      * @return true if there are some changes from them, otherwise return false.
      */
-    public boolean hasDiffsFromClusterToProcess(Connection hcConnection, IProcess process);
+    public boolean hasDiffsFromClusterToProcess(Item item, IProcess process);
 
 }

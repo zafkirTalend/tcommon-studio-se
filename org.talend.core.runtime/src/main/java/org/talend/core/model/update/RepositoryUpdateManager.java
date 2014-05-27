@@ -1160,6 +1160,7 @@ public abstract class RepositoryUpdateManager {
                 types.add(EUpdateItemType.JOB_PROPERTY_EXTRA);
                 types.add(EUpdateItemType.JOB_PROPERTY_STATS_LOGS);
                 types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
+                types.add(EUpdateItemType.JOB_PROPERTY_MAPREDUCE); 
 
                 return types;
             }
