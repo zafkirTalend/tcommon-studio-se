@@ -444,26 +444,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             }
 
             try {
-                if (tdqRepService != null) {
-                    // TODO use seperate subclass to handle the create and update logic , using a varable "creation" is
-                    // not
-                    // a good practice.
-                    // MOD qiongli 2012-11-19 TDQ-6287
-                    if (creation) {
-                        handleCreation(connection, metadataConnection, tdqRepService);
-                        tdqRepService.notifySQLExplorer(connectionItem);
-                        tdqRepService.openConnectionEditor(connectionItem);
-                    } else {
-                        tdqRepService.updateAliasInSQLExplorer(connectionItem, originaleObjectLabel);
-                        // refresh the opened connection editor whatever is in DI or DQ perspective.
-                        tdqRepService.refreshConnectionEditor(connectionItem);
-                        Boolean isSuccess = handleUpdate(metadataConnection, tdqRepService);
-                        if (!isSuccess) {
-                            return false;
-                        }
-                    }
-                    if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
-                        tdqRepService.refresh(node.getParent());
+                // TODO use seperate subclass to handle the create and update logic , using a varable "creation" is not
+                // a good practice.
+                if (creation) {
+                    handleCreation(connection, metadataConnection, tdqRepService);
+                } else {
+                    Boolean isSuccess = handleUpdate(metadataConnection, tdqRepService);
+                    if (!isSuccess) {
+                        return false;
                     }
                 }
             } catch (Exception e) {
@@ -479,6 +467,22 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                         IRepositoryService.class);
                 service.notifySQLBuilder(list);
+            }
+
+            if (tdqRepService != null) {
+                // MOD qiongli 2012-11-19 TDQ-6287
+                if (creation) {
+                    tdqRepService.notifySQLExplorer(connectionItem);
+                    tdqRepService.openConnectionEditor(connectionItem);
+                } else {
+                    tdqRepService.updateAliasInSQLExplorer(connectionItem, originaleObjectLabel);
+                    // refresh the opened connection editor whatever is in DI or DQ perspective.
+                    tdqRepService.refreshConnectionEditor(connectionItem);
+
+                }
+                if (CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
+                    tdqRepService.refresh(node.getParent());
+                }
             }
 
             refreshHadoopCluster();
