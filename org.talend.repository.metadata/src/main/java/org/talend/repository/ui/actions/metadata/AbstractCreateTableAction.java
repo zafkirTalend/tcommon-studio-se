@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
@@ -83,6 +84,7 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.IRepositoryService;
@@ -1017,27 +1019,32 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                 // ExtractMetaDataUtils.metadataCon = metadataConnection;
                                 // when open,set use synonyms false.
                                 ExtractMetaDataUtils.getInstance().setUseAllSynonyms(false);
-                                DatabaseTableWizard databaseTableWizard = new DatabaseTableWizard(PlatformUI.getWorkbench(),
-                                        creation, node.getObject(), metadataTable, getExistingNames(), forceReadOnly,
-                                        managerConnection, metadataConnection);
-                                //                                UIJob uijob = new UIJob("") { //$NON-NLS-1$
-                                //
-                                // // modified by wzhang. when connection failed,error message display.
-                                // public IStatus runInUIThread(IProgressMonitor monitor) {
-                                // if (!managerConnection.getIsValide()) {
-                                // MessageDialog.openError(null,
-                                //                                                    Messages.getString("AbstractCreateTableAction.connError"), //$NON-NLS-1$
-                                //                                                    Messages.getString("AbstractCreateTableAction.errorMessage")); //$NON-NLS-1$
-                                // }
-                                // return Status.OK_STATUS;
-                                // }
-                                //
-                                // };
-                                WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                                        .getShell(), databaseTableWizard);
-                                wizardDialog.setBlockOnOpen(true);
-                                // uijob.schedule(1300);
-                                handleWizard(node, wizardDialog);
+                                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                                boolean repositoryObjectEditable = factory.isEditableAndLockIfPossible(node.getObject());
+                                if (!repositoryObjectEditable) {
+                                    boolean flag = MessageDialog.openConfirm(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                                            .getShell(), Messages.getString("CreateTableAction.action.Warning"),
+                                            Messages.getString("CreateTableAction.action.NotLockMessage"));
+                                    if (flag) {
+                                        DatabaseTableWizard databaseTableWizard = new DatabaseTableWizard(
+                                                PlatformUI.getWorkbench(), creation, node.getObject(), metadataTable,
+                                                getExistingNames(), forceReadOnly, managerConnection, metadataConnection);
+
+                                        WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench()
+                                                .getActiveWorkbenchWindow().getShell(), databaseTableWizard);
+                                        wizardDialog.setBlockOnOpen(true);
+                                        handleWizard(node, wizardDialog);
+                                    }
+                                } else {
+                                    DatabaseTableWizard databaseTableWizard = new DatabaseTableWizard(PlatformUI.getWorkbench(),
+                                            creation, node.getObject(), metadataTable, getExistingNames(), forceReadOnly,
+                                            managerConnection, metadataConnection);
+
+                                    WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench()
+                                            .getActiveWorkbenchWindow().getShell(), databaseTableWizard);
+                                    wizardDialog.setBlockOnOpen(true);
+                                    handleWizard(node, wizardDialog);
+                                }
                             } else {
                                 // added for bug 16595
                                 // no need connect to database when double click one schema.
