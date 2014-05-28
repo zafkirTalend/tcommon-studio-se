@@ -111,12 +111,9 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
     public boolean checkConnection() throws SQLException {
         boolean isWindows = EnvironmentUtils.isWindowsSystem();
         String hive_version = (String) this.metadataConn.getParameter("CONN_PARA_KEY_HIVE_VERSION");
-        List<HiveConnVersionInfo> hiveEmbeddedNotSupportOnWindows = new ArrayList<HiveConnVersionInfo>();
-        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.HDP_2_0);
-        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.HDP_2_1);
-        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.Cloudera_CDH5);
-        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.PIVOTAL_HD_2_0);
-        boolean isSupportEmbedded = hiveEmbeddedNotSupportOnWindows.contains(HiveConnVersionInfo.valueOf(hive_version));
+
+        boolean isSupportEmbedded = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsNotSupportOnWindows(),
+                HiveConnVersionInfo.valueOf(hive_version));
 
         if (isWindows && isSupportEmbedded) {
             throw new SQLException("Function not supported on windows"); //$NON-NLS-1$ 
