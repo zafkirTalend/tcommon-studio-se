@@ -255,7 +255,8 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             for (final RepositoryNode repoNode : topLevelNodes) {
 
                 IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
-                if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
+                if ((workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath))
+                        || isLinkedTopNode(repoNode, item)) {
                     Display.getDefault().asyncExec(new Runnable() {
 
                         @Override
