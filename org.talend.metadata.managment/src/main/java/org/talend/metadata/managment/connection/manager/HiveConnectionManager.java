@@ -124,48 +124,62 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
     private Connection createHive2StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
+        Connection conn = null;
         String connURL = metadataConn.getUrl();
         String username = metadataConn.getUsername();
         String password = metadataConn.getPassword();
 
         // 1. Get class loader.
+        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
         ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+        Thread.currentThread().setContextClassLoader(hiveClassLoader);
+        try {
+            // 2. Fetch the HiveDriver from the new classloader
+            Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
+            Driver hiveDriver = (Driver) driver.newInstance();
 
-        // 2. Fetch the HiveDriver from the new classloader
-        Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
-        Driver hiveDriver = (Driver) driver.newInstance();
+            // 3. Try to connect by driver
+            Properties info = new Properties();
+            username = username != null ? username : ""; //$NON-NLS-1$
+            password = password != null ? password : "";//$NON-NLS-1$
+            info.setProperty("user", username);//$NON-NLS-1$
+            info.setProperty("password", password);//$NON-NLS-1$
+            conn = hiveDriver.connect(connURL, info);
+        } finally {
+            Thread.currentThread().setContextClassLoader(currClassLoader);
+        }
 
-        // 3. Try to connect by driver
-        Properties info = new Properties();
-
-        username = username != null ? username : ""; //$NON-NLS-1$
-        password = password != null ? password : "";//$NON-NLS-1$
-        info.setProperty("user", username);//$NON-NLS-1$
-        info.setProperty("password", password);//$NON-NLS-1$
-        return hiveDriver.connect(connURL, info);
+        return conn;
     }
 
     private Connection createHive1StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
+        Connection conn = null;
         String connURL = metadataConn.getUrl();
         String username = metadataConn.getUsername();
         String password = metadataConn.getPassword();
 
         // 1. Get class loader.
+        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
         ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+        Thread.currentThread().setContextClassLoader(hiveClassLoader);
+        try {
+            // 2. Fetch the HiveDriver from the new classloader
+            Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
+            Driver hiveDriver = (Driver) driver.newInstance();
 
-        // 2. Fetch the HiveDriver from the new classloader
-        Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
-        Driver hiveDriver = (Driver) driver.newInstance();
+            // 3. Try to connect by driver
+            Properties info = new Properties();
+            username = username != null ? username : ""; //$NON-NLS-1$
+            password = password != null ? password : "";//$NON-NLS-1$
+            info.setProperty("user", username);//$NON-NLS-1$
+            info.setProperty("password", password);//$NON-NLS-1$
+            conn = hiveDriver.connect(connURL, info);
+        } finally {
+            Thread.currentThread().setContextClassLoader(currClassLoader);
+        }
 
-        // 3. Try to connect by driver
-        Properties info = new Properties();
-
-        username = username != null ? username : ""; //$NON-NLS-1$
-        password = password != null ? password : "";//$NON-NLS-1$
-        info.setProperty("user", username);//$NON-NLS-1$
-        info.setProperty("password", password);//$NON-NLS-1$
-        return hiveDriver.connect(connURL, info);
+        return conn;
     }
 
     private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,

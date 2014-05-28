@@ -15,10 +15,14 @@ package org.talend.metadata.managment.hive;
 import java.io.File;
 import java.util.Set;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.classloader.DynamicClassLoader;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.kerberos.EKerberosDependentJars;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
@@ -38,6 +42,8 @@ import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
 public class HiveClassLoaderFactory {
 
     private static HiveClassLoaderFactory instance = null;
+
+    private final static String PATH_SEPARATOR = "/"; //$NON-NLS-1$
 
     private HiveClassLoaderFactory() {
     }
@@ -90,7 +96,7 @@ public class HiveClassLoaderFactory {
      * DOC ycbai Comment method "appendExtraJars".
      * 
      * <p>
-     * Add the extra jars which hive connection needed like when create a hive embedded connection with kerberos.
+     * Add the extra jars which hive connection needed like when creating a hive embedded connection with kerberos.
      * </p>
      * 
      * @param metadataConn
@@ -98,15 +104,40 @@ public class HiveClassLoaderFactory {
      */
     private void appendExtraJars(IMetadataConnection metadataConn, ClassLoader classLoader) {
         if (classLoader instanceof DynamicClassLoader) {
-            String driverJarPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
-            if (driverJarPath != null) {
-                final File driverJar = new File(driverJarPath);
-                if (driverJar.exists()) {
-                    DynamicClassLoader loader = (DynamicClassLoader) classLoader;
-                    Set<String> libraries = loader.getLibraries();
-                    if (!libraries.contains(driverJar)) {
-                        loader.addLibraries(driverJar.getAbsolutePath());
-                    }
+            DynamicClassLoader loader = (DynamicClassLoader) classLoader;
+            loadKerberosJars(metadataConn, loader);
+            loadAuthDriverJars(metadataConn, loader);
+        }
+    }
+
+    private void loadKerberosJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {
+        String useKrb = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+        if (!Boolean.valueOf(useKrb)) {
+            return;
+        }
+
+        ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+        String libStorePath = loader.getLibStorePath();
+        String[] kerberosDependentJars = EKerberosDependentJars.HIVE.getKrbJars();
+        for (String krbJar : kerberosDependentJars) {
+            librairesManagerService.retrieve(krbJar, libStorePath, true, new NullProgressMonitor());
+            String jarPath = libStorePath + PATH_SEPARATOR + krbJar;
+            File jarFile = new File(jarPath);
+            if (jarFile.exists()) {
+                loader.addLibraries(jarFile.getAbsolutePath());
+            }
+        }
+    }
+
+    private void loadAuthDriverJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {
+        Set<String> libraries = loader.getLibraries();
+        String driverJarPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
+        if (driverJarPath != null) {
+            final File driverJar = new File(driverJarPath);
+            if (driverJar.exists()) {
+                if (!libraries.contains(driverJar)) {
+                    loader.addLibraries(driverJar.getAbsolutePath());
                 }
             }
         }
