@@ -56,10 +56,13 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
 
     private ClassLoader classLoader;
 
+    private boolean isSupportJRE;
+
     public EmbeddedHiveDataBaseMetadata(IMetadataConnection metadataConn) {
         super();
         this.metadataConn = metadataConn;
         this.classLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+        this.isSupportJRE = true;
         init();
     }
 
@@ -92,6 +95,9 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
                                 "loginUserFromKeytab", new String[] { principal, keytabPath }); //$NON-NLS-1$
                     }
                 }
+            } catch (UnsupportedClassVersionError e) {
+                // catch the UnsupportedClassVersionError to show user the current jre version is lower
+                isSupportJRE = false;
             } catch (Exception e) {
                 ExceptionHandler.process(e);
             } finally {
@@ -109,6 +115,9 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      * @throws SQLException
      */
     public boolean checkConnection() throws SQLException {
+        if (!isSupportJRE) {
+            throw new SQLException("This function is not available with a JDK < 1.7"); //$NON-NLS-1$ 
+        }
         boolean isWindows = EnvironmentUtils.isWindowsSystem();
         String hive_version = (String) this.metadataConn.getParameter("CONN_PARA_KEY_HIVE_VERSION");
 
