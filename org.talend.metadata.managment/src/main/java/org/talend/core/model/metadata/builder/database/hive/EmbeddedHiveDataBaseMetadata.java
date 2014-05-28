@@ -23,12 +23,14 @@ import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.AbstractFakeDatabaseMetaData;
 import org.talend.commons.utils.database.EmbeddedHiveResultSet;
+import org.talend.commons.utils.system.EnvironmentUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
+import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
@@ -107,6 +109,18 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
      * @throws SQLException
      */
     public boolean checkConnection() throws SQLException {
+        boolean isWindows = EnvironmentUtils.isWindowsSystem();
+        String hive_version = (String) this.metadataConn.getParameter("CONN_PARA_KEY_HIVE_VERSION");
+        List<HiveConnVersionInfo> hiveEmbeddedNotSupportOnWindows = new ArrayList<HiveConnVersionInfo>();
+        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.HDP_2_0);
+        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.HDP_2_1);
+        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.Cloudera_CDH5);
+        hiveEmbeddedNotSupportOnWindows.add(HiveConnVersionInfo.PIVOTAL_HD_2_0);
+        boolean isSupportEmbedded = hiveEmbeddedNotSupportOnWindows.contains(HiveConnVersionInfo.valueOf(hive_version));
+
+        if (isWindows && isSupportEmbedded) {
+            throw new SQLException("Function not supported on windows"); //$NON-NLS-1$ 
+        }
         getTables(this.metadataConn.getDatabase(), null, null, new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ 
         return true;
     }
