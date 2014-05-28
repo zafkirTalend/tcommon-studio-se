@@ -150,6 +150,9 @@ public enum HiveConnVersionInfo {
 
     private boolean supportSecurity;
 
+    private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
+            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0 };
+
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {
         this(level, key, displayName, false, supportSecurity, follows);
@@ -207,6 +210,10 @@ public enum HiveConnVersionInfo {
 
     public boolean isSupportSecurity() {
         return this.supportSecurity;
+    }
+
+    public static HiveConnVersionInfo[] getHiveVersionsNotSupportOnWindows() {
+        return hiveVersions;
     }
 
 }
