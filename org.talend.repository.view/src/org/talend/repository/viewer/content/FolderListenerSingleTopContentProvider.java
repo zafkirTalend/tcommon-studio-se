@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -154,6 +155,10 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
             }
         }
         return workspaceRelativePath;
+    }
+
+    protected boolean isLinkedTopNode(RepositoryNode topLevelNode, Item item) {
+        return false;
     }
 
     /**
