@@ -22,7 +22,7 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.classloader.DynamicClassLoader;
 import org.talend.core.database.conn.ConnParameterKeys;
-import org.talend.core.kerberos.EKerberosDependentJars;
+import org.talend.core.hadoop.EHadoopConfigurationJars;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
@@ -105,24 +105,31 @@ public class HiveClassLoaderFactory {
     private void appendExtraJars(IMetadataConnection metadataConn, ClassLoader classLoader) {
         if (classLoader instanceof DynamicClassLoader) {
             DynamicClassLoader loader = (DynamicClassLoader) classLoader;
-            loadKerberosJars(metadataConn, loader);
+            loadConfigurationJars(metadataConn, loader);
             loadAuthDriverJars(metadataConn, loader);
         }
     }
 
-    private void loadKerberosJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {
-        String useKrb = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
-        if (!Boolean.valueOf(useKrb)) {
+    private void loadConfigurationJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {
+        String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        if (HiveConnUtils.isCustomDistro(distroKey)) {
             return;
+        }
+
+        String[] configurationJars;
+        String useKrb = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+        if (Boolean.valueOf(useKrb)) {
+            configurationJars = EHadoopConfigurationJars.HIVE.getEnableSecurityJars();
+        } else {
+            configurationJars = EHadoopConfigurationJars.HIVE.getDisableSecurityJars();
         }
 
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
         String libStorePath = loader.getLibStorePath();
-        String[] kerberosDependentJars = EKerberosDependentJars.HIVE.getKrbJars();
-        for (String krbJar : kerberosDependentJars) {
-            librairesManagerService.retrieve(krbJar, libStorePath, true, new NullProgressMonitor());
-            String jarPath = libStorePath + PATH_SEPARATOR + krbJar;
+        for (String dependentJar : configurationJars) {
+            librairesManagerService.retrieve(dependentJar, libStorePath, true, new NullProgressMonitor());
+            String jarPath = libStorePath + PATH_SEPARATOR + dependentJar;
             File jarFile = new File(jarPath);
             if (jarFile.exists()) {
                 loader.addLibraries(jarFile.getAbsolutePath());
