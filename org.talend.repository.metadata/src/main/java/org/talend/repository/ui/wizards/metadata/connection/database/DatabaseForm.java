@@ -33,6 +33,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -47,6 +48,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -379,6 +384,18 @@ public class DatabaseForm extends AbstractForm {
 
     private Composite authenticationCom;
 
+    private SashForm sash;
+
+    private Composite dbConnectionArea;
+
+    private Composite hidableArea;
+
+    private Button moveButton;
+
+    private static final String UP = "^"; //$NON-NLS-1$
+
+    private static final String DOWN = "v"; //$NON-NLS-1$
+
     /**
      * Constructor to use by a Wizard to create a new database connection.
      * 
@@ -407,6 +424,11 @@ public class DatabaseForm extends AbstractForm {
             this.provider = ExtractMetaDataFromDataBase.getProviderByDbType(metadataconnection.getDbType());
         }
         setupForm(true);
+
+        exportContextBtn.getControl().getParent().getParent().setParent(hidableArea);
+        sash.setSashWidth(2);
+        sash.setWeights(new int[] { 21, 12 });
+
         addStringConnectionControls();
         GridLayout layout2 = (GridLayout) getLayout();
         layout2.marginHeight = 0;
@@ -642,10 +664,27 @@ public class DatabaseForm extends AbstractForm {
     protected void addFields() {
         int width = getSize().x;
         GridLayout layout2;
+        Composite parent = new Composite(this, SWT.NONE);
+        // FillLayout fillLayout = new FillLayout();
+        // fillLayout.marginHeight = 0;
+        // fillLayout.marginWidth = 0;
+        parent.setLayout(new FillLayout());
+        GridData parentGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+        parent.setLayoutData(parentGridData);
+
+        sash = new SashForm(parent, SWT.VERTICAL | SWT.SMOOTH);
+        // sash.setLayoutData(new GridData(GridData.FILL_BOTH));
+        sash.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        GridLayout layout = new GridLayout();
+        sash.setLayout(layout);
+        dbConnectionArea = new Composite(sash, SWT.NONE);
+        GridLayout dbConnAreaLayout = new GridLayout(1, false);
+        dbConnectionArea.setLayout(dbConnAreaLayout);
+
         // The orginal high is 270.
         //        databaseSettingGroup = Form.createGroup(this, 1, Messages.getString("DatabaseForm.groupDatabaseSettings"), 450); //$NON-NLS-1$
         //
-        databaseSettingGroup = new Group(this, SWT.NONE);
+        databaseSettingGroup = new Group(dbConnectionArea, SWT.NONE);
         GridLayout gridLayout1 = new GridLayout(1, false);
         databaseSettingGroup.setLayout(gridLayout1);
         GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -1739,38 +1778,45 @@ public class DatabaseForm extends AbstractForm {
      */
     private void addCheckAndStandardButtons(int width, Composite compositeGroupDbSettings) {
 
-        GridLayout layout2 = null;
-
         fileField.hide();
         directoryField.hide();
 
+        Composite unionBtnsCompsite = new Composite(dbConnectionArea, SWT.NONE);
+        FormLayout formLayout = new FormLayout();
+        unionBtnsCompsite.setLayout(formLayout);
+
+        moveButton = new Button(unionBtnsCompsite, SWT.PUSH);
+        moveButton.setText(DOWN);
+        moveButton.setToolTipText(Messages.getString("DatabaseForm.hideContext")); //$NON-NLS-1$
+        addMoveButtonListener();
+        FormData moveButtonFormData = new FormData();
+        moveButtonFormData.right = new FormAttachment(100, 0);
+        moveButton.setLayoutData(moveButtonFormData);
+
         // Button Check
-        // Group checkGroup = Form.createGroup(this, 1, "", 5);
-        Composite checkGroup = new Composite(this, SWT.NONE);
+        Composite checkGroup = new Composite(unionBtnsCompsite, SWT.NONE);
+        // align moveButton with checkGroup
+        moveButtonFormData.top = new FormAttachment(checkGroup, 0, SWT.CENTER);
+        FormData checkGroupFormData = new FormData();
+        checkGroupFormData.left = new FormAttachment(0, 0);
+        checkGroupFormData.right = new FormAttachment(100, 0);
+        checkGroup.setLayoutData(checkGroupFormData);
         GridLayout gridLayout = new GridLayout(1, false);
         checkGroup.setLayout(gridLayout);
-        GridData gridData23 = new GridData(SWT.FILL, SWT.FILL, true, true);
-        gridData23.minimumHeight = 2;
-        gridData23.heightHint = 2;
-        checkGroup.setLayoutData(gridData23);
-        Composite compositeCheckButton = Form.startNewGridLayout(checkGroup, 1, false, SWT.CENTER, SWT.BOTTOM);
-        layout2 = (GridLayout) compositeCheckButton.getLayout();
-        layout2.marginHeight = 0;
-        layout2.marginTop = 0;
-        layout2.marginBottom = 0;
-        layout2.marginLeft = 0;
-        layout2.marginRight = 0;
-        layout2.marginWidth = 0;
 
-        GridData checkGridData = new GridData(GridData.FILL_HORIZONTAL);
-        checkGridData.minimumHeight = 5;
-        checkGroup.setLayoutData(checkGridData);
+        Composite compositeCheckButton = Form.startNewGridLayout(checkGroup, 1, false, SWT.CENTER, SWT.BOTTOM);
+
+        unionBtnsCompsite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         checkButton = new UtilsButton(compositeCheckButton, Messages.getString("DatabaseForm.check"), WIDTH_BUTTON_PIXEL, //$NON-NLS-1$
                 HEIGHT_BUTTON_PIXEL);
         checkButton.setEnabled(false);
 
+        hidableArea = new Composite(sash, SWT.NONE);
+        GridLayout hidableAreaLayout = new GridLayout(1, false);
+        hidableArea.setLayout(hidableAreaLayout);
+
         // Group Database Properties
-        Group group1 = Form.createGroup(this, 1, Messages.getString("DatabaseForm.groupDatabaseProperties")); //$NON-NLS-1$
+        Group group1 = Form.createGroup(hidableArea, 1, Messages.getString("DatabaseForm.groupDatabaseProperties")); //$NON-NLS-1$
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         // gridData.minimumHeight = 50;
         gridData.heightHint = 80;
@@ -1806,8 +1852,6 @@ public class DatabaseForm extends AbstractForm {
         GridLayout layout = new GridLayout(4, false);
         layout.horizontalSpacing = 15;
         layout.verticalSpacing = 0;
-        layout.marginHeight = 0;
-        layout.marginWidth = 0;
         GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
         layoutData.horizontalSpan = 4;
         c.setLayoutData(layoutData);
@@ -1833,6 +1877,26 @@ public class DatabaseForm extends AbstractForm {
                 group1.setVisible(false);
             }
         }
+
+    }
+
+    private void addMoveButtonListener() {
+        // TODO Auto-generated method stub
+        moveButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+                if (moveButton.getText().equals(DOWN)) {
+                    sash.setWeights(new int[] { 33, 0 });
+                    moveButton.setToolTipText(Messages.getString("DatabaseForm.showContext")); //$NON-NLS-1$
+                    moveButton.setText(UP);
+                } else if (moveButton.getText().equals(UP)) {
+                    sash.setWeights(new int[] { 21, 12 });
+                    moveButton.setToolTipText(Messages.getString("DatabaseForm.hideContext")); //$NON-NLS-1$
+                    moveButton.setText(DOWN);
+                }
+            }
+        });
     }
 
     /**
