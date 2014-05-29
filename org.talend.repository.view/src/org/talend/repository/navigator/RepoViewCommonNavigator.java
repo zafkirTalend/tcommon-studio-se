@@ -25,7 +25,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -65,6 +64,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.ui.swt.dialogs.EventLoopProgressMonitor;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.commons.utils.Timer;
@@ -666,8 +666,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 Timer timer = Timer.getTimer("repositoryView"); //$NON-NLS-1$
                 timer.start();
                 if (needInitialize) {
-                    // monitorWrap = new EventLoopProgressMonitor(monitor);
-                    monitorWrap = SubMonitor.convert(monitor);
+                    monitorWrap = new EventLoopProgressMonitor(monitor);
                     try {
                         final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                         factory.initialize();

@@ -27,7 +27,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -44,6 +43,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
+import org.talend.commons.ui.swt.dialogs.EventLoopProgressMonitor;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
 import org.talend.commons.ui.swt.drawing.link.ExtremityEastArrow;
@@ -239,8 +239,7 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
                 TableItem[] loopTableItems = loopTableEditorView.getTable().getItems();
                 TableItem[] fieldsTableItems = fieldsTableEditorView.getTable().getItems();
 
-                // monitorWrap = new EventLoopProgressMonitor(monitor);
-                monitorWrap = SubMonitor.convert(monitor);
+                monitorWrap = new EventLoopProgressMonitor(monitor);
 
                 String taskName = Messages.getString("XmlToXPathLinker.Loop"); //$NON-NLS-1$
                 int totalWork = loopTableItems.length + fieldsTableItems.length;
@@ -524,8 +523,7 @@ public class XmlToXPathLinker extends TreeToTablesLinker<Object, Object> {
                 @Override
                 public void run(IProgressMonitor monitor) {
 
-                    // monitorWrap = new EventLoopProgressMonitor(monitor);
-                    monitorWrap = SubMonitor.convert(monitor);
+                    monitorWrap = new EventLoopProgressMonitor(monitor);
 
                     List<SchemaTarget> addedObjects = new ArrayList<SchemaTarget>(event.addedObjects);
 
