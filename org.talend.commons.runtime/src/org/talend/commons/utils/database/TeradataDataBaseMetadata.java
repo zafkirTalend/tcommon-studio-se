@@ -44,6 +44,12 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
     private static final String CONST_SYNONYM = "SYNONYM";//$NON-NLS-1$
 
+    private static final String CONST_T = "T";//$NON-NLS-1$
+
+    private static final String CONST_V = "V";//$NON-NLS-1$
+
+    private static final String CONST_S = "S";//$NON-NLS-1$
+
     /**
      * 
      * @param metaData
@@ -168,16 +174,8 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         // end
         String sql = null;
         if (types != null && types.length > 0) {
-            // value of index 0 is indicating the table,view or synonym.
-            String kind = "'T'";//$NON-NLS-1$
-            if (types[0].equalsIgnoreCase(CONST_VIEW)) {
-                kind = "'V'";//$NON-NLS-1$
-            } else if (types[0].equalsIgnoreCase(CONST_SYNONYM)) {
-                // TODO check if the alias of synonym is really "S".
-                kind = "'S'";//$NON-NLS-1$
-            }
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
-                    + "') AND tablekind = " + kind + " AND tablename LIKE '" + tableNamePattern + "' Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$
+                    + "') AND tablekind " + addTypesToSql(types) + " AND tablename LIKE '" + tableNamePattern + "' Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$
         } else {
             // When the types is empty, all the tables and views will be retrieved.
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
@@ -217,6 +215,36 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    private String addTypesToSql(String[] types) {
+        String result = "";
+        if (types != null && types.length > 0) {
+            String typeClause = "in("; //$NON-NLS-1$
+            int len = types.length;
+            for (int i = 0; i < len; ++i) {
+                String comma = ""; //$NON-NLS-1$
+                if (i > 0) {
+                    comma = " , "; //$NON-NLS-1$
+                }
+                typeClause = typeClause + comma + "'" + getTeradataTypeName(types[i]) + "'";//$NON-NLS-1$ //$NON-NLS-2$
+            }
+            typeClause = typeClause + ")"; //$NON-NLS-1$
+            result = typeClause;
+        }
+        return result;
+    }
+
+    private String getTeradataTypeName(String typeName) {
+        String result = typeName;
+        if (CONST_TABLE.equals(typeName)) {
+            result = CONST_T;
+        } else if (CONST_VIEW.equals(typeName)) {
+            result = CONST_V;
+        } else if (CONST_SYNONYM.equals(typeName)) {
+            result = CONST_S;
+        }
+        return result;
     }
 
     /*
