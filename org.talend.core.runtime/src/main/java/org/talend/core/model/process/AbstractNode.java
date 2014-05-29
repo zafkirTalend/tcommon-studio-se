@@ -34,81 +34,83 @@ import org.talend.core.model.utils.ParameterValueUtil;
  */
 public abstract class AbstractNode implements INode {
 
-    private String componentName;
+    private String                           componentName;
 
-    List<? extends IElementParameter> elementParameters;
+    List<? extends IElementParameter>        elementParameters;
 
-    private List<? extends IConnection> outgoingConnections = new ArrayList<IConnection>();
+    private List<? extends IConnection>      outgoingConnections   = new ArrayList<IConnection>();
 
-    private List<? extends IConnection> incomingConnections = new ArrayList<IConnection>();
+    private List<? extends IConnection>      incomingConnections   = new ArrayList<IConnection>();
 
-    private List<IMetadataTable> metadataList;
+    private List<IMetadataTable>             metadataList;
 
-    private String uniqueName;
+    private String                           uniqueName;
 
-    private boolean activate;
+    private boolean                          activate;
 
-    private boolean start;
+    private boolean                          start;
 
-    private boolean subProcessStart;
+    private boolean                          subProcessStart;
 
-    private IProcess process;
+    private IProcess                         process;
 
-    private IComponent component;
+    private IComponent                       component;
 
-    private boolean readOnly;
+    private boolean                          readOnly;
 
-    private IExternalNode externalNode;
+    private IExternalNode                    externalNode;
 
-    private boolean hasConditionalOutputs = Boolean.FALSE;
+    private boolean                          hasConditionalOutputs = Boolean.FALSE;
 
-    private boolean isMultiplyingOutputs = Boolean.FALSE;
+    private boolean                          isMultiplyingOutputs  = Boolean.FALSE;
 
-    private List<BlockCode> blocksCodeToClose;
+    private List<BlockCode>                  blocksCodeToClose;
 
-    private boolean isThereLinkWithHash;
+    private boolean                          isThereLinkWithHash;
 
-    private boolean isThereLinkWithMerge;
+    private boolean                          isThereLinkWithMerge;
 
-    private Map<INode, Integer> mergeInfo;
+    private Map<INode, Integer>              mergeInfo;
 
-    private String label;
+    private String                           label;
 
     protected List<? extends INodeConnector> listConnector;
 
-    private INode designSubjobStartNode;
+    private INode                            designSubjobStartNode;
 
-    private boolean isVirtualGenerateNode;
+    private boolean                          isVirtualGenerateNode;
 
-    private EConnectionType virtualLinkTo;
+    private EConnectionType                  virtualLinkTo;
 
-    private String uniqueShortName;
+    private String                           uniqueShortName;
 
-    private boolean subProcessContainBreakpoint;
+    private boolean                          subProcessContainBreakpoint;
 
-    private boolean isThereLinkWithRef = Boolean.FALSE;
+    private boolean                          isThereLinkWithRef    = Boolean.FALSE;
 
-    private List<INode> refNodes;
+    private List<INode>                      refNodes;
 
-    private List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
+    private List<ModuleNeeded>               modulesNeeded         = new ArrayList<ModuleNeeded>();
 
-    // as the talend job contains multiple mapreduce jobs, use this to indicate which mapreduce job contains this
+    // as the talend job contains multiple mapreduce jobs, use this to indicate
+    // which mapreduce job contains this
     // graphic node
-    private Integer mrGroupId;
+    private Integer                          mrGroupId;
 
-    // for the component which will generate multiple mapreduce jobs, count the size of mapreduce jobs.
-    private Integer mrJobInGroupCount;
+    // for the component which will generate multiple mapreduce jobs, count the
+    // size of mapreduce jobs.
+    private Integer                          mrJobInGroupCount;
 
     // for the component which will generate multiple mapreduce jobs
-    private Integer mrJobIDInGroup;
+    private Integer                          mrJobIDInGroup;
 
     // indicate if this MR component will generate Reduce part
-    private boolean mrContainsReduce;
+    private boolean                          mrContainsReduce;
 
-    private boolean mapOnlyAfterReduce;
+    private boolean                          mapOnlyAfterReduce;
 
     // for MR, tag this component is the ref(lookup) start node
-    private boolean isRefNode = false;
+    private boolean                          isRefNode             = false;
 
     public String getComponentName() {
         return componentName;
@@ -282,20 +284,23 @@ public abstract class AbstractNode implements INode {
     public INode getSubProcessStartNode(boolean withConditions) {
         if (!withConditions) {
             Map<INode, Integer> mapMerge = NodeUtil.getLinkedMergeInfo(this);
-            if (mapMerge == null) { // no merge after, so must be sub process start.
+            if (mapMerge == null) { // no merge after, so must be sub process
+                                    // start.
                 if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
                     return this;
                 }
             } else {
                 for (Integer i : mapMerge.values()) {
                     if (i != 1) {
-                        // not first merge, so will take the last merge from the tree, and retrieve the main sub
+                        // not first merge, so will take the last merge from the
+                        // tree, and retrieve the main sub
                         // process start.
                         return mapMerge.keySet().iterator().next().getSubProcessStartNode(withConditions);
                     }
                 }
                 if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
-                    return this; // main branch here, so we got the correct sub process start.
+                    return this; // main branch here, so we got the correct sub
+                                 // process start.
                 }
             }
         } else {
@@ -528,7 +533,7 @@ public abstract class AbstractNode implements INode {
         }
 
         for (IElementParameter param : this.getElementParameters()) {
-            if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param)) { //$NON-NLS-1$
+            if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param) || isTDMParameter(param)) { //$NON-NLS-1$
                 continue;
             }
             ParameterValueUtil.renameValues(param, oldName, newName);
@@ -545,6 +550,20 @@ public abstract class AbstractNode implements INode {
      */
     private boolean isSQLQueryParameter(final IElementParameter parameter) {
         return parameter.getFieldType().equals(EParameterFieldType.MEMO_SQL) && parameter.getName().equals("QUERY"); //$NON-NLS-1$
+    }
+
+    /**
+     * bug TDM-409
+     * <p>
+     * DOC hwang Comment method "isTDMParameter".
+     * 
+     * @param parameter
+     * @return
+     */
+    private boolean isTDMParameter(final IElementParameter parameter) {
+
+        return parameter.getFieldType().equals(EParameterFieldType.HMAP_PATH)
+                && parameter.getName().equals(EParameterFieldType.HMAP_PATH.getName());
     }
 
     /*
@@ -1018,7 +1037,8 @@ public abstract class AbstractNode implements INode {
     public List<ModuleNeeded> getModulesNeeded() {
         if (modulesNeeded.isEmpty() && component != null && component.getModulesNeeded() != null) {
             // if the list is empty, initialize from the original component
-            // this avoids complex refactor to initialize this list all the time, and add the possibility to add more
+            // this avoids complex refactor to initialize this list all the
+            // time, and add the possibility to add more
             // modules needed to one original component
 
             modulesNeeded.addAll(component.getModulesNeeded());
