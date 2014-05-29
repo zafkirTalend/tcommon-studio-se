@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * Dimensionned Button ( defined width & height OR use FillLayout).
@@ -194,5 +195,9 @@ public class UtilsButton {
      */
     public String getText() {
         return button.getText();
+    }
+
+    public Control getControl() {
+        return button;
     }
 }
