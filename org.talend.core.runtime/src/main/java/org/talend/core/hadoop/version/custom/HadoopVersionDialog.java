@@ -34,6 +34,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -99,7 +100,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
-        newShell.setSize(580, 450);
+        newShell.setSize(700, 450);
         setHelpAvailable(false);
     }
 
@@ -411,6 +412,8 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                                     if (ECustomVersionType.PIG == type || ECustomVersionType.PIG_HBASE == type
                                             || ECustomVersionType.PIG_HCATALOG == type) {
                                         hadoopLibraries = getLibrariesForPig(type);
+                                    } else if (ECustomVersionType.MAP_REDUCE == type) {
+                                        hadoopLibraries = getLibrariesForMapReduce(type);
                                     } else {
                                         // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
                                         if (!commonGroupCalculated
@@ -446,6 +449,30 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         }
 
         return libMap;
+    }
+    
+    private Set<String> getLibrariesForMapReduce(ECustomVersionType type) {
+        Set<String> neededLibraries = new HashSet<String>();
+        INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .getRefrenceNode("tMRConfiguration", ComponentCategory.CATEGORY_4_MAPREDUCE.getName());//$NON-NLS-1$
+
+        IElementParameter elementParameter = node.getElementParameter("DISTRIBUTION");//$NON-NLS-1$
+        if (elementParameter != null) {
+            elementParameter.setValue(distribution);
+        }
+
+        elementParameter = node.getElementParameter("MR_VERSION");//$NON-NLS-1$
+        if (elementParameter != null) {
+            elementParameter.setValue(version);
+        }
+
+        List<ModuleNeeded> modulesNeeded = node.getModulesNeeded();
+        for (ModuleNeeded module : modulesNeeded) {
+            if (module.isRequired(node.getElementParameters())) {
+                neededLibraries.add(module.getModuleName());
+            }
+        }
+        return neededLibraries;
     }
 
     private Set<String> getLibrariesForPig(ECustomVersionType type) {

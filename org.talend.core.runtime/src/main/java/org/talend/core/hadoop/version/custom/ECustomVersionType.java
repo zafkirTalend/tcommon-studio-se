@@ -21,6 +21,8 @@ public enum ECustomVersionType {
     PIG_HBASE("Pig for HBase", ECustomVersionGroup.PIG_HBASE), //$NON-NLS-1$
 
     PIG_HCATALOG("Pig for Hcatalog", ECustomVersionGroup.PIG_HCATALOG), //$NON-NLS-1$
+    
+    MAP_REDUCE("Map Reduce", ECustomVersionGroup.MAP_REDUCE),  //$NON-NLS-1$
 
     ALL("All", ECustomVersionGroup.ALL); //$NON-NLS-1$
 

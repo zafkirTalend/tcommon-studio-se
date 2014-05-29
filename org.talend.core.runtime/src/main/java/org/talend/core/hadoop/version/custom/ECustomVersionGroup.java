@@ -28,6 +28,8 @@ public enum ECustomVersionGroup {
 
     PIG_HBASE,
     PIG_HCATALOG,
+    
+    MAP_REDUCE,
 
     ALL;
 
