@@ -111,6 +111,8 @@ public interface IDesignerCoreService extends IService {
 
     public INode getRefrenceNode(String componentName);
 
+    public INode getRefrenceNode(String componentName, String paletteType);
+
     public boolean executeUpdatesManager(List<UpdateResult> results, boolean onlySimpleShow);
 
     public Map<String, Date> getLastGeneratedJobsDateMap();
