@@ -273,7 +273,8 @@ public class ReflectionUtils {
                 argsClass[i] = args[i].getClass();
             }
         }
-        Constructor cons = newClass.getConstructor(argsClass);
+        Constructor cons = newClass.getDeclaredConstructor(argsClass);
+        cons.setAccessible(true);
         instance = cons.newInstance(args);
 
         return instance;
