@@ -38,7 +38,7 @@ public class ChangeProcessor {
      * iteration by adding/changing/removing any of the other (for example, if it deregisters itself).
      */
     public synchronized void addRepositoryChangedListener(IRepositoryChangedListener listener) {
-        if (listeners.contains(listener)) {
+        if (listener == null || listeners.contains(listener)) {
             return;
         }
         listeners.add(listener);
@@ -61,7 +61,7 @@ public class ChangeProcessor {
      * @param listener
      */
     public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener) {
-        if (listeners.contains(listener)) {
+        if (listener == null || listeners.contains(listener)) {
             return;
         }
         listeners.add(0, listener);

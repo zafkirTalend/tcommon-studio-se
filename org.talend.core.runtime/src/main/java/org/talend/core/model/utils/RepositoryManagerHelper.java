@@ -25,7 +25,6 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchPage;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -90,10 +89,7 @@ public final class RepositoryManagerHelper {
                 part = findRepositoryView();
                 if (part == null) {
                     try {
-                        // DataProfilingPerspective refuse the RepositoryView be display by automatic
-                        if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(page.getPerspective().getId())) {
-                            part = ((WorkbenchPage) page).getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
-                        } else if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(page.getPerspective().getId())) {
+                        if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(page.getPerspective().getId())) {
                             part = page.showView(IRepositoryView.VIEW_ID);
                         }
                     } catch (Exception e) {
