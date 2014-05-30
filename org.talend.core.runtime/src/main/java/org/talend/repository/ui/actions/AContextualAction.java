@@ -624,7 +624,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected abstract void doRun();
 
-    protected boolean isLastVersion(RepositoryNode repositoryObject) {
+    protected boolean isLastVersion(IRepositoryNode repositoryObject) {
         if (repositoryObject.getObject() instanceof RepositoryViewObject) {
             return true;
         }
