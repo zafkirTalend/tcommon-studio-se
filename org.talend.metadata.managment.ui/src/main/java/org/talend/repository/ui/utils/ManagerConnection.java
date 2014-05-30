@@ -13,7 +13,6 @@
 package org.talend.repository.ui.utils;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -160,38 +159,7 @@ public class ManagerConnection {
             HiveConnectionManager.getInstance().checkConnection(metadataConn);
             isValide = true;
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
-        } catch (ClassNotFoundException e) {
-            isValide = false;
-            // if (metadataConn.getCurrentConnection() instanceof DatabaseConnection) {
-            // DatabaseConnection connection = (DatabaseConnection) metadataConn.getCurrentConnection();
-            // String hiveDistribution =
-            // connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-            // String hiveDVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-            // if (hiveDistribution.equals(EHadoopDistributions.MAPR.getName())) {
-            // Set<String> jars = new HashSet<String>();
-            // String missJarMsg = "";
-            // if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopService.class)) {
-            // IHadoopService hadoopService = (IHadoopService) GlobalServiceRegister.getDefault().getService(
-            // IHadoopService.class);
-            // jars = hadoopService.getMissingLibraries(hiveDistribution, hiveDVersion);
-            // if (jars.size() > 0) {
-            // missJarMsg = "Missing jars:" + jars.toString() + "; " + "Need to check them in modules view.";
-            // messageException = messageException + "\n" + missJarMsg;
-            // }
-            // }
-            // }
-            // }
-            messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
-        } catch (InstantiationException e) {
-            isValide = false;
-            messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
-        } catch (IllegalAccessException e) {
-            isValide = false;
-            messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             isValide = false;
             messageException = ExceptionUtils.getFullStackTrace(e);
             CommonExceptionHandler.process(e);
