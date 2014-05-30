@@ -528,7 +528,7 @@ public abstract class AbstractNode implements INode {
         }
 
         for (IElementParameter param : this.getElementParameters()) {
-            if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param)) { //$NON-NLS-1$
+            if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param) || isTDMParameter(param)) { //$NON-NLS-1$
                 continue;
             }
             ParameterValueUtil.renameValues(param, oldName, newName);
@@ -545,6 +545,20 @@ public abstract class AbstractNode implements INode {
      */
     private boolean isSQLQueryParameter(final IElementParameter parameter) {
         return parameter.getFieldType().equals(EParameterFieldType.MEMO_SQL) && parameter.getName().equals("QUERY"); //$NON-NLS-1$
+    }
+
+    /**
+     * bug TDM-409
+     * <p>
+     * DOC hwang Comment method "isTDMParameter".
+     * 
+     * @param parameter
+     * @return
+     */
+    private boolean isTDMParameter(final IElementParameter parameter) {
+
+        return parameter.getFieldType().equals(EParameterFieldType.HMAP_PATH)
+                && parameter.getName().equals(EParameterFieldType.HMAP_PATH.getName());
     }
 
     /*
