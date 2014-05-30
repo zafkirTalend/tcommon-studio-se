@@ -191,7 +191,7 @@ public final class ElementParameterParser {
      * @return
      */
     public static Object getObjectValue(final IElement element, final String text) {
-        if (text == null) {
+        if (text == null || element == null) {
             return null;
         }
         IElementParameter param;
