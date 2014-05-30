@@ -25,6 +25,7 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchPage;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -32,6 +33,7 @@ import org.talend.core.ICoreService;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.designer.core.IMultiPageTalendEditor;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -39,8 +41,6 @@ import org.talend.repository.ui.views.IRepositoryView;
  * ggu class global comment. Detailled comment
  */
 public final class RepositoryManagerHelper {
-
-    private static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
     public static IViewReference findRepositoryViewRef() {
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -81,7 +81,6 @@ public final class RepositoryManagerHelper {
         if (CommonsPlugin.isHeadless()) {
             return null;
         }
-
         IViewPart part = null;
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null) {
@@ -91,26 +90,19 @@ public final class RepositoryManagerHelper {
                 part = findRepositoryView();
                 if (part == null) {
                     try {
-                        // if the Perspective is DataProfilingPerspective refuse the
-                        // RepositoryView be display by automatic
-                        //                        if (page.getPerspective().getId().equalsIgnoreCase("org.talend.dataprofiler.DataProfilingPerspective")) {//$NON-NLS-1$
-                        // part = ((WorkbenchPage)
-                        // page).getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
-                        // } else {
-                        String perId = page.getPerspective().getId();
-                        if ((!"".equals(perId) || null != perId) && perId.equalsIgnoreCase(PERSPECTIVE_DI_ID)) {
+                        // DataProfilingPerspective refuse the RepositoryView be display by automatic
+                        if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(page.getPerspective().getId())) {
+                            part = ((WorkbenchPage) page).getViewFactory().createView(IRepositoryView.VIEW_ID).getView(true);
+                        } else if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(page.getPerspective().getId())) {
                             part = page.showView(IRepositoryView.VIEW_ID);
                         }
-                        // }
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }
                 }
                 return (IRepositoryView) part;
-
             }
         }
-
         return (IRepositoryView) part;
     }
 
