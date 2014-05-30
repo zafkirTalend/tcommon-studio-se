@@ -397,6 +397,11 @@ public class DatabaseForm extends AbstractForm {
     private static final String DOWN = "v"; //$NON-NLS-1$
 
     /**
+     * wheather the db properties group visible
+     */
+    private boolean isDbPropertiesVisible = true;
+
+    /**
      * Constructor to use by a Wizard to create a new database connection.
      * 
      * @param existingNames
@@ -425,14 +430,31 @@ public class DatabaseForm extends AbstractForm {
         }
         setupForm(true);
 
-        exportContextBtn.getControl().getParent().getParent().setParent(hidableArea);
-        sash.setSashWidth(2);
-        sash.setWeights(new int[] { 21, 12 });
+        refreshHidableArea();
 
         addStringConnectionControls();
         GridLayout layout2 = (GridLayout) getLayout();
         layout2.marginHeight = 0;
         setLayout(layout2);
+    }
+
+    /**
+     * refresh the hidable area when hide/visible the DbProperties group
+     */
+    protected void refreshHidableArea() {
+        if (exportContextBtn != null) {
+            if (isDbPropertiesVisible) {
+                exportContextBtn.getControl().getParent().getParent().setParent(hidableArea);
+            } else {
+                exportContextBtn.getControl().getParent().getParent().setParent(dbConnectionArea);
+            }
+        }
+        moveButton.setVisible(isDbPropertiesVisible);
+        hidableArea.setVisible(isDbPropertiesVisible);
+        sash.setSashWidth(2);
+        sash.setWeights(new int[] { 21, 12 });
+        hidableArea.layout();
+        this.layout();
     }
 
     /**
@@ -1877,7 +1899,7 @@ public class DatabaseForm extends AbstractForm {
                 group1.setVisible(false);
             }
         }
-
+        isDbPropertiesVisible = group1.getVisible();
     }
 
     private void addMoveButtonListener() {
