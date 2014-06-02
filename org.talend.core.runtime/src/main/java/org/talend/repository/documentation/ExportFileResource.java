@@ -25,7 +25,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.CoreException;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * 
@@ -46,7 +46,7 @@ public class ExportFileResource {
 
     private String directoryName;
 
-    private RepositoryNode node;
+    private IRepositoryNode node;
 
     // string is the relative path of the directoryName, where to store the resources in List.
     private Map<String, Set<URL>> map = new HashMap<String, Set<URL>>();
@@ -191,7 +191,7 @@ public class ExportFileResource {
      * 
      * @return the node
      */
-    public RepositoryNode getNode() {
+    public IRepositoryNode getNode() {
         return this.node;
     }
 
@@ -200,7 +200,7 @@ public class ExportFileResource {
      * 
      * @param node the node to set
      */
-    public void setNode(RepositoryNode node) {
+    public void setNode(IRepositoryNode node) {
         this.node = node;
     }
 }
