@@ -59,6 +59,14 @@ public enum SupportDBUrlType {
                         "oracle.jdbc.OracleDriver", //$NON-NLS-1$
                         null,
                         "Oracle"), //$NON-NLS-1$
+    ORACLECUSTOMDEFAULTURL("Oracle Custom", //$NON-NLS-1$
+                           "", //$NON-NLS-1$
+                           "", //$NON-NLS-1$
+                           "dbname", //$NON-NLS-1$
+                           null,
+                           "oracle.jdbc.OracleDriver", //$NON-NLS-1$
+                           null,
+                           "Oracle"), //$NON-NLS-1$
     MSSQLDEFAULTURL("Microsoft SQL Server", //$NON-NLS-1$
                     "localhost", //$NON-NLS-1$
                     "1433", //$NON-NLS-1$

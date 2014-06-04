@@ -72,6 +72,7 @@ public final class SupportDBUrlStore {
         supportDBUrlMap.put(SupportDBUrlType.ORACLEWITHSERVICENAMEDEFAULTURL.getDBKey(),
                 SupportDBUrlType.ORACLEWITHSERVICENAMEDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.ORACLEOCIDEFAULTURL.getDBKey(), SupportDBUrlType.ORACLEOCIDEFAULTURL);
+        supportDBUrlMap.put(SupportDBUrlType.ORACLECUSTOMDEFAULTURL.getDBKey(), SupportDBUrlType.ORACLECUSTOMDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.MSSQLDEFAULTURL.getDBKey(), SupportDBUrlType.MSSQLDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.MSSQL2008URL.getDBKey(), SupportDBUrlType.MSSQL2008URL);
         supportDBUrlMap.put(SupportDBUrlType.DB2DEFAULTURL.getDBKey(), SupportDBUrlType.DB2DEFAULTURL);
