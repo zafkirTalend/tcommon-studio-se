@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * DOC rli class global comment. Detailled comment <br/>
- *
+ * 
  */
 public enum SupportDBUrlType {
     ODBCDEFAULTURL("Generic ODBC", //$NON-NLS-1$
@@ -51,6 +51,14 @@ public enum SupportDBUrlType {
                                     "oracle.jdbc.OracleDriver", //$NON-NLS-1$
                                     null,
                                     "Oracle"), //$NON-NLS-1$
+    ORACLEOCIDEFAULTURL("Oracle OCI", //$NON-NLS-1$
+                        "", //$NON-NLS-1$
+                        "", //$NON-NLS-1$
+                        "dbname", //$NON-NLS-1$
+                        null,
+                        "oracle.jdbc.OracleDriver", //$NON-NLS-1$
+                        null,
+                        "Oracle"), //$NON-NLS-1$
     MSSQLDEFAULTURL("Microsoft SQL Server", //$NON-NLS-1$
                     "localhost", //$NON-NLS-1$
                     "1433", //$NON-NLS-1$
@@ -226,7 +234,7 @@ public enum SupportDBUrlType {
 
     /**
      * SupportDBUrlType constructor.
-     *
+     * 
      * @param dbKey the key identifying the connection string in dburl.properties file
      * @param hostName the hostname
      * @param port the port
@@ -270,7 +278,7 @@ public enum SupportDBUrlType {
 
     /**
      * Getter for dbDriver.
-     *
+     * 
      * @return the dbDriver
      */
     public String getDbDriver() {
@@ -291,7 +299,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC bZhou Comment method "getDBTypeByKey".
-     *
+     * 
      * @param dbKey
      * @return
      */
@@ -314,7 +322,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "isMssql".
-     *
+     * 
      * @param dbKey
      * @return
      */
@@ -325,7 +333,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "hasCatalog". (just have catalog: mysql)
-     *
+     * 
      * @param dbKey
      * @return
      */
@@ -336,7 +344,7 @@ public enum SupportDBUrlType {
 
     /**
      * DOC msjian Comment method "hasSchema". (just have schema: oracle,teredata,ingres,DB2)
-     *
+     * 
      * @param dbKey
      * @return
      */

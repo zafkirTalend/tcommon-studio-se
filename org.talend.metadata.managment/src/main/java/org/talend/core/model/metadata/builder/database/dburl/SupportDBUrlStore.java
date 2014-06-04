@@ -29,7 +29,7 @@ import org.talend.core.model.metadata.builder.database.PluginConstant;
 
 /**
  * This class store the all the support database connection url.
- *
+ * 
  */
 public final class SupportDBUrlStore {
 
@@ -71,6 +71,7 @@ public final class SupportDBUrlStore {
         supportDBUrlMap.put(SupportDBUrlType.ORACLEWITHSIDDEFAULTURL.getDBKey(), SupportDBUrlType.ORACLEWITHSIDDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.ORACLEWITHSERVICENAMEDEFAULTURL.getDBKey(),
                 SupportDBUrlType.ORACLEWITHSERVICENAMEDEFAULTURL);
+        supportDBUrlMap.put(SupportDBUrlType.ORACLEOCIDEFAULTURL.getDBKey(), SupportDBUrlType.ORACLEOCIDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.MSSQLDEFAULTURL.getDBKey(), SupportDBUrlType.MSSQLDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.MSSQL2008URL.getDBKey(), SupportDBUrlType.MSSQL2008URL);
         supportDBUrlMap.put(SupportDBUrlType.DB2DEFAULTURL.getDBKey(), SupportDBUrlType.DB2DEFAULTURL);
@@ -173,7 +174,7 @@ public final class SupportDBUrlStore {
 
     /**
      * Get dburl which content are replaced by parameter value.
-     *
+     * 
      * @param dbType
      * @param host
      * @param port
@@ -205,7 +206,7 @@ public final class SupportDBUrlStore {
 
     /**
      * Get the dburl via the dbType, and the dburl content come from the default value of SupportDBUrlType.
-     *
+     * 
      * @param dbType
      * @return
      */
@@ -228,7 +229,7 @@ public final class SupportDBUrlStore {
 
     /**
      * MOD mzhao bug 12313, 2010-04-02 There is not dbType in prv files before 4.0 release, here use driver class name.
-     *
+     * 
      * @param dbType
      * @return
      */
@@ -274,7 +275,7 @@ public final class SupportDBUrlStore {
 
     /**
      * DOC bZhou Comment method "findDBTypeByName".
-     *
+     * 
      * @param dbName
      * @return
      */
