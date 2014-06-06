@@ -13,6 +13,9 @@
 package org.talend.librariesmanager.ui.dialogs;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,8 +46,12 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.program.Program;
@@ -58,8 +65,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -653,7 +663,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
                             @Override
                             public void widgetSelected(final SelectionEvent e) {
-                                Program.launch(data.getUrl_description());
+                                // Program.launch(data.getUrl_description());
+                                openURL(data.getUrl_description());
                             }
                         });
                     }// else no download URL so just add the install buttonb
@@ -667,7 +678,6 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     importButton.setEnabled(!isInstalled);
                 }
                 editor.grabHorizontal = true;
-                editor.minimumHeight = 20;
                 editor.setEditor(control, item, tableViewerCreator.getColumns().indexOf(installcolumn));
                 editor.layout();
                 // url
@@ -675,26 +685,30 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                 installButtonsEditors.add(editor);
                 Composite composite = new Composite(table, SWT.NONE);
                 composite.setBackground(color);
-                GridLayout layout = new GridLayout();
+                // GridLayout layout = new GridLayout();
+                FormLayout layout = new FormLayout();
                 layout.marginHeight = 0;
-                layout.marginRight = 0;
-                layout.verticalSpacing = 1;
+                layout.marginWidth = 0;
                 composite.setLayout(layout);
-                GridData gData = new GridData(GridData.FILL_HORIZONTAL);
-                // gData.verticalAlignment = SWT.CENTER;
+                FormData gData = new FormData();
+                gData.left = new FormAttachment(0);
+                gData.right = new FormAttachment(100);
+                gData.top = new FormAttachment(composite, 0, SWT.CENTER);
                 final Link openLink = new Link(composite, SWT.NONE);
                 openLink.setLayoutData(gData);
                 openLink.setBackground(color);
+                gData.height = new GC(composite).stringExtent(" ").y; //$NON-NLS-1$
                 openLink.setText("<a href=\"\">" + (hasDownloadUrl ? data.getUrl_description() : "") + "</a>"); //$NON-NLS-1$ //$NON-NLS-2$
                 openLink.addSelectionListener(new SelectionAdapter() {
 
                     @Override
                     public void widgetSelected(final SelectionEvent e) {
-                        Program.launch(data.getUrl_description());
+                        // Program.launch(data.getUrl_description());
+                        openURL(data.getUrl_description());
                     }
                 });
                 editor.grabHorizontal = true;
-                editor.minimumHeight = 20;
+                // editor.minimumHeight = 20;
                 editor.setEditor(composite, item, tableViewerCreator.getColumns().indexOf(urlcolumn));
                 editor.layout();
             }
@@ -702,6 +716,36 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         tableViewerCreator.getTableViewer().getTable().layout();
         tableViewerCreator.getTableViewer().refresh(true);
         tableViewerCreator.getTableViewer().getControl().setRedraw(true);
+    }
+
+    private static void openURL(String strURL) {
+        if (Program.launch(strURL)) {
+            return;
+        }
+        URL openURL = null;
+        try {
+            openURL = new URL(strURL);
+            PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(openURL);
+        } catch (PartInitException e) {
+            // if no default browser (like on linux), try to open directly with firefox.
+            try {
+                Runtime.getRuntime().exec("firefox " + openURL.toString()); //$NON-NLS-1$
+            } catch (IOException e2) {
+                if (PlatformUI.getWorkbench().getBrowserSupport().isInternalWebBrowserAvailable()) {
+                    IWebBrowser browser;
+                    try {
+                        browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("registrationId"); //$NON-NLS-1$
+                        browser.openURL(openURL);
+                    } catch (PartInitException e1) {
+                        ExceptionHandler.process(e);
+                    }
+                } else {
+                    ExceptionHandler.process(e);
+                }
+            }
+        } catch (MalformedURLException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /**
