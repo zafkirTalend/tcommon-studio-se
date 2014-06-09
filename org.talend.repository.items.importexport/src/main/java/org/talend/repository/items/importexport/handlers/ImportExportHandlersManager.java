@@ -14,7 +14,9 @@ package org.talend.repository.items.importexport.handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -168,6 +170,28 @@ public final class ImportExportHandlersManager {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
         TimeMeasure.begin("ImportingItems"); //$NON-NLS-1$
+
+        /*
+         * Re-order the import items according to the priority of extension point.
+         */
+        final List<IImportItemsHandler> importItemHandlersList = new ArrayList<IImportItemsHandler>(
+                Arrays.asList(getImportHandlers()));
+        Collections.sort(checkedItemRecords, new Comparator<ImportItem>() {
+
+            @Override
+            public int compare(ImportItem o1, ImportItem o2) {
+                IImportItemsHandler importHandler1 = o1.getImportHandler();
+                IImportItemsHandler importHandler2 = o2.getImportHandler();
+                if (importHandler1 != null && importHandler2 != null) {
+                    int index1 = importItemHandlersList.indexOf(importHandler1);
+                    int index2 = importItemHandlersList.indexOf(importHandler2);
+                    if (index1 > -1 && index2 > -1) { // both found
+                        return index1 - index2;
+                    }
+                }
+                return 0;
+            }
+        });
 
         ImportCacheHelper importCacheHelper = ImportCacheHelper.getInstance();
         try {
