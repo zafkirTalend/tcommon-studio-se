@@ -339,4 +339,9 @@ public class ImportItem {
         return this.itemPath;
     }
 
+    @Override
+    public String toString() {
+        return "ImportItem [path=" + this.path + "]"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
 }
