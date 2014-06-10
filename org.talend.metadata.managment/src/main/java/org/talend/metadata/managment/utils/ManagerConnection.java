@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.ui.utils;
+package org.talend.metadata.managment.utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import org.talend.metadata.managment.ui.i18n.Messages;
+import metadata.managment.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
 /**
