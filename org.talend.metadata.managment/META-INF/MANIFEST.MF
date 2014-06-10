@@ -30,7 +30,7 @@ Export-Package: metadata.managment.i18n,
  org.talend.metadata.managment.connection.manager,
  org.talend.metadata.managment.hive,
  org.talend.metadata.managment.hive.handler,
- org.talend.metadata.managment.utils
+ org.talend.repository.ui.utils
 Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
 
