@@ -23,6 +23,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -272,7 +273,13 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
         if (activePart instanceof IRepositoryView) {
             workbenchPart = activePart;
-            return ((IRepositoryView) activePart).getViewer().getSelection();
+            ISelection selection = ((IRepositoryView) activePart).getViewer().getSelection();
+            if (!selection.isEmpty()) {
+                return ((IRepositoryView) activePart).getViewer().getSelection();
+            } else {
+                selection = new StructuredSelection(node);
+                return selection;
+            }
         }
 
         if (workbenchPart != null) {
