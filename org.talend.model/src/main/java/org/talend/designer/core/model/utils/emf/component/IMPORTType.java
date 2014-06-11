@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getUrlPath <em>Url Path</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isMRREQUIRED <em>MRREQUIRED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULEGROUP <em>MODULEGROUP</em>}</li>
  * </ul>
  * </p>
  *
@@ -340,6 +341,32 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     void setMRREQUIRED(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>MODULEGROUP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MODULEGROUP</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MODULEGROUP</em>' attribute.
+     * @see #setMODULEGROUP(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MODULEGROUP()
+     * @model extendedMetaData="kind='attribute' name='MODULE_GROUP' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getMODULEGROUP();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULEGROUP <em>MODULEGROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MODULEGROUP</em>' attribute.
+     * @see #getMODULEGROUP()
+     * @generated
+     */
+    void setMODULEGROUP(String value);
 
     /**
      * Returns the value of the '<em><b>Bundle ID</b></em>' attribute.

@@ -45,6 +45,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isMRREQUIRED <em>MRREQUIRED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMODULEGROUP <em>MODULEGROUP</em>}</li>
  * </ul>
  * </p>
  *
@@ -268,6 +269,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected boolean mRREQUIRED = MRREQUIRED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMODULEGROUP() <em>MODULEGROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMODULEGROUP()
+     * @generated
+     * @ordered
+     */
+    protected static final String MODULEGROUP_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getMODULEGROUP() <em>MODULEGROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMODULEGROUP()
+     * @generated
+     * @ordered
+     */
+    protected String mODULEGROUP = MODULEGROUP_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -535,6 +556,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getMODULEGROUP() {
+        return mODULEGROUP;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMODULEGROUP(String newMODULEGROUP) {
+        String oldMODULEGROUP = mODULEGROUP;
+        mODULEGROUP = newMODULEGROUP;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__MODULEGROUP, oldMODULEGROUP, mODULEGROUP));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getBundleID() {
         return bundleID;
     }
@@ -595,6 +637,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return getREQUIREDIF();
             case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
                 return isMRREQUIRED() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.IMPORT_TYPE__MODULEGROUP:
+                return getMODULEGROUP();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -643,6 +687,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
                 setMRREQUIRED(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.IMPORT_TYPE__MODULEGROUP:
+                setMODULEGROUP((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -688,6 +735,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
                 setMRREQUIRED(MRREQUIRED_EDEFAULT);
                 return;
+            case ComponentPackage.IMPORT_TYPE__MODULEGROUP:
+                setMODULEGROUP(MODULEGROUP_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -722,6 +772,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return REQUIREDIF_EDEFAULT == null ? rEQUIREDIF != null : !REQUIREDIF_EDEFAULT.equals(rEQUIREDIF);
             case ComponentPackage.IMPORT_TYPE__MRREQUIRED:
                 return mRREQUIRED != MRREQUIRED_EDEFAULT;
+            case ComponentPackage.IMPORT_TYPE__MODULEGROUP:
+                return MODULEGROUP_EDEFAULT == null ? mODULEGROUP != null : !MODULEGROUP_EDEFAULT.equals(mODULEGROUP);
         }
         return super.eIsSet(featureID);
     }
@@ -756,6 +808,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         result.append(rEQUIREDIF);
         result.append(", mRREQUIRED: ");
         result.append(mRREQUIRED);
+        result.append(", mODULEGROUP: ");
+        result.append(mODULEGROUP);
         result.append(')');
         return result.toString();
     }

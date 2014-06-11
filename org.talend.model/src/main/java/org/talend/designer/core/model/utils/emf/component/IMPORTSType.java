@@ -17,7 +17,9 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getIMPORT <em>IMPORT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getIMPORTS <em>IMPORTS</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,6 +28,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface IMPORTSType extends EObject {
+    /**
+     * Returns the value of the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>REQUIREDIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #setREQUIREDIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTSType_REQUIREDIF()
+     * @model extendedMetaData="kind='attribute' name='REQUIRED_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getREQUIREDIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getREQUIREDIF <em>REQUIREDIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>REQUIREDIF</em>' attribute.
+     * @see #getREQUIREDIF()
+     * @generated
+     */
+    void setREQUIREDIF(String value);
+
     /**
      * Returns the value of the '<em><b>IMPORT</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.IMPORTType}.
@@ -42,5 +70,22 @@ public interface IMPORTSType extends EObject {
      * @generated
      */
     EList getIMPORT();
+
+    /**
+     * Returns the value of the '<em><b>IMPORTS</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.IMPORTSType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>IMPORTS</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>IMPORTS</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTSType_IMPORTS()
+     * @model type="org.talend.designer.core.model.utils.emf.component.IMPORTSType" containment="true"
+     *        extendedMetaData="kind='element' name='IMPORTS' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getIMPORTS();
 
 } // IMPORTSType

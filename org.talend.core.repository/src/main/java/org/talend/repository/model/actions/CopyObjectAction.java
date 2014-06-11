@@ -176,8 +176,14 @@ public class CopyObjectAction {
             List<IRepositoryViewObject> allVersion = factory.getAllVersion(originalItem.getProperty().getId());
 
             if (allVersion.size() == 1) {
-                copySingleVersionItem(originalItem, path);
-
+                Item curItem = originalItem;
+                for (IRepositoryViewObject obj : allVersion) {
+                    if (obj.getVersion().equals(originalItem.getProperty().getVersion())) {
+                        curItem = obj.getProperty().getItem();
+                        break;
+                    }
+                }
+                copySingleVersionItem(curItem, path);
             } else if (allVersion.size() > 1) {
                 PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion, sourceNode);
                 if (dialog.open() == Window.OK) {

@@ -25,6 +25,8 @@ import org.talend.core.runtime.CoreRuntimePlugin;
  */
 public class ModuleNeeded {
 
+    private String id;
+
     private String context;
 
     private String moduleName;
@@ -99,6 +101,10 @@ public class ModuleNeeded {
 
     public String getRequiredIf() {
         return requiredIf;
+    }
+
+    public void setRequiredIf(String requiredIf) {
+        this.requiredIf = requiredIf;
     }
 
     /**
@@ -254,6 +260,14 @@ public class ModuleNeeded {
      */
     public void setMrRequired(boolean mrRequired) {
         this.mrRequired = mrRequired;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

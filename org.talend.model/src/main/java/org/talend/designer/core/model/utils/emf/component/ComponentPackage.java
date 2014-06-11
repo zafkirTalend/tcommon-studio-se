@@ -1218,13 +1218,31 @@ public interface ComponentPackage extends EPackage {
     int IMPORTS_TYPE = 13;
 
     /**
+     * The feature id for the '<em><b>REQUIREDIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORTS_TYPE__REQUIREDIF = 0;
+
+    /**
      * The feature id for the '<em><b>IMPORT</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORTS_TYPE__IMPORT = 0;
+    int IMPORTS_TYPE__IMPORT = 1;
+
+    /**
+     * The feature id for the '<em><b>IMPORTS</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORTS_TYPE__IMPORTS = 2;
 
     /**
      * The number of structural features of the '<em>IMPORTS Type</em>' class.
@@ -1233,7 +1251,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORTS_TYPE_FEATURE_COUNT = 1;
+    int IMPORTS_TYPE_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl <em>IMPORT Type</em>}' class.
@@ -1345,13 +1363,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE__MRREQUIRED = 10;
 
     /**
+     * The feature id for the '<em><b>MODULEGROUP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__MODULEGROUP = 11;
+
+    /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 11;
+    int IMPORT_TYPE_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
@@ -3665,6 +3692,17 @@ public interface ComponentPackage extends EPackage {
     EClass getIMPORTSType();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getREQUIREDIF <em>REQUIREDIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>REQUIREDIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTSType#getREQUIREDIF()
+     * @see #getIMPORTSType()
+     * @generated
+     */
+    EAttribute getIMPORTSType_REQUIREDIF();
+
+    /**
      * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getIMPORT <em>IMPORT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3674,6 +3712,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getIMPORTSType_IMPORT();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType#getIMPORTS <em>IMPORTS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>IMPORTS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTSType#getIMPORTS()
+     * @see #getIMPORTSType()
+     * @generated
+     */
+    EReference getIMPORTSType_IMPORTS();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType <em>IMPORT Type</em>}'.
@@ -3794,6 +3843,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getIMPORTType_MRREQUIRED();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULEGROUP <em>MODULEGROUP</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>MODULEGROUP</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULEGROUP()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_MODULEGROUP();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID <em>Bundle ID</em>}'.
@@ -5852,12 +5912,28 @@ public interface ComponentPackage extends EPackage {
         EClass IMPORTS_TYPE = eINSTANCE.getIMPORTSType();
 
         /**
+         * The meta object literal for the '<em><b>REQUIREDIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORTS_TYPE__REQUIREDIF = eINSTANCE.getIMPORTSType_REQUIREDIF();
+
+        /**
          * The meta object literal for the '<em><b>IMPORT</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EReference IMPORTS_TYPE__IMPORT = eINSTANCE.getIMPORTSType_IMPORT();
+
+        /**
+         * The meta object literal for the '<em><b>IMPORTS</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference IMPORTS_TYPE__IMPORTS = eINSTANCE.getIMPORTSType_IMPORTS();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl <em>IMPORT Type</em>}' class.
@@ -5948,6 +6024,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__MRREQUIRED = eINSTANCE.getIMPORTType_MRREQUIRED();
+
+        /**
+         * The meta object literal for the '<em><b>MODULEGROUP</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__MODULEGROUP = eINSTANCE.getIMPORTType_MODULEGROUP();
 
         /**
          * The meta object literal for the '<em><b>Bundle ID</b></em>' attribute feature.

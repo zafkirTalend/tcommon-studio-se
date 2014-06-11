@@ -508,6 +508,17 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return isUnderDBConnection(node.getParent());
     }
 
+    protected boolean isUnderValidationRuleConnection(IRepositoryNode repNode) {
+        if (repNode == null) {
+            return false;
+        }
+        if ((repNode.getType() == ENodeType.SYSTEM_FOLDER || repNode.getType() == ENodeType.STABLE_SYSTEM_FOLDER)
+                && repNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
+            return true;
+        }
+        return isUnderValidationRuleConnection(repNode.getParent());
+    }
+
     /**
      * Display a "Save job" prompt dialog if the job eidtor of the selectedNode is unsaved.
      */

@@ -274,18 +274,7 @@ public class ModulesNeededProvider {
                     EList emfImportList = info.getImportType();
                     for (int i = 0; i < emfImportList.size(); i++) {
                         IMPORTType importType = (IMPORTType) emfImportList.get(i);
-                        String msg = importType.getMESSAGE();
-                        if (msg == null) {
-                            msg = Messages.getString("modules.required");
-                        }
-                        List<String> list = getInstallURL(importType);
-                        ModuleNeeded componentImportNeeds = new ModuleNeeded(key, importType.getMODULE(), msg,
-                                importType.isREQUIRED(), list, importType.getREQUIREDIF());
-                        initBundleID(importType, componentImportNeeds);
-                        componentImportNeeds.setMrRequired(importType.isMRREQUIRED());
-                        componentImportNeeds.setShow(importType.isSHOW());
-                        componentImportNeeds.setModuleLocaion(importType.getUrlPath());
-                        importNeedsList.add(componentImportNeeds);
+                        collectModuleNeeded(key, importType, importNeedsList);
                     }
                 }
             }
@@ -303,6 +292,37 @@ public class ModulesNeededProvider {
             }
             return importNeedsList;
         }
+    }
+
+    public static void collectModuleNeeded(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
+        boolean foundModule = createModuleNeededForComponentFromExtension(context, importType, importNeedsList);
+        if (!foundModule) { // If cannot find the jar from extension point then do it like before.
+            createModuleNeededForComponent(context, importType, importNeedsList);
+        }
+    }
+
+    private static boolean createModuleNeededForComponentFromExtension(String context, IMPORTType importType,
+            List<ModuleNeeded> importNeedsList) {
+        List<ModuleNeeded> importModuleNeeded = ExtensionModuleManager.getInstance().getModuleNeededForComponent(context,
+                importType);
+        importNeedsList.addAll(importModuleNeeded);
+
+        return importModuleNeeded.size() > 0;
+    }
+
+    public static void createModuleNeededForComponent(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
+        String msg = importType.getMESSAGE();
+        if (msg == null) {
+            msg = Messages.getString("modules.required"); //$NON-NLS-1$
+        }
+        List<String> list = getInstallURL(importType);
+        ModuleNeeded moduleNeeded = new ModuleNeeded(context, importType.getMODULE(), msg, importType.isREQUIRED(), list,
+                importType.getREQUIREDIF());
+        initBundleID(importType, moduleNeeded);
+        moduleNeeded.setMrRequired(importType.isMRREQUIRED());
+        moduleNeeded.setShow(importType.isSHOW());
+        moduleNeeded.setModuleLocaion(importType.getUrlPath());
+        importNeedsList.add(moduleNeeded);
     }
 
     public static List<String> getInstallURL(IMPORTType importType) {
@@ -608,13 +628,16 @@ public class ModulesNeededProvider {
      * @return
      */
     public static ModuleNeeded createModuleNeededInstance(IConfigurationElement current) {
-        String context = current.getAttribute("context"); //$NON-NLS-1$
-        String name = current.getAttribute("name"); //$NON-NLS-1$
-        String message = current.getAttribute("message"); //$NON-NLS-1$
-        boolean required = new Boolean(current.getAttribute("required")); //$NON-NLS-1$
-        String uripath = current.getAttribute("uripath");
+        String id = current.getAttribute(ExtensionModuleManager.ID_ATTR);
+        String context = current.getAttribute(ExtensionModuleManager.CONTEXT_ATTR);
+        String name = current.getAttribute(ExtensionModuleManager.NAME_ATTR);
+        String message = current.getAttribute(ExtensionModuleManager.MESSAGE_ATTR);
+        boolean required = new Boolean(current.getAttribute(ExtensionModuleManager.REQUIRED_ATTR));
+        String uripath = current.getAttribute(ExtensionModuleManager.URIPATH_ATTR);
+        uripath = ExtensionModuleManager.getInstance().getFormalModulePath(uripath, current);
         ModuleNeeded module = new ModuleNeeded(context, name, message, required);
         module.setModuleLocaion(uripath);
+        module.setId(id);
         return module;
     }
 

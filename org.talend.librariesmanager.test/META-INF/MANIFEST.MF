@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
-Bundle-SymbolicName: org.talend.librariesmanager.test
+Bundle-SymbolicName: org.talend.librariesmanager.test;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.talend.librariesmanager
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit4;bundle-version="4.8.1"
+Require-Bundle: org.junit4;bundle-version="4.8.1",
+ org.talend.testutils

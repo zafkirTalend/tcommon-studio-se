@@ -197,8 +197,12 @@
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTSType" name="IMPORTS_._type">
     <xsd:sequence>
-      <xsd:element ecore:name="iMPORT" maxOccurs="unbounded" minOccurs="0" name="IMPORT" type="IMPORT_._type"/>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ecore:name="iMPORT" maxOccurs="unbounded" minOccurs="0" name="IMPORT" type="IMPORT_._type"/>
+        <xsd:element ecore:name="iMPORTS" maxOccurs="unbounded" minOccurs="0" name="IMPORTS" type="IMPORTS_._type"/>
+      </xsd:choice>
     </xsd:sequence>
+    <xsd:attribute ecore:name="rEQUIREDIF" name="REQUIRED_IF" type="ecore:EString"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="IMPORTType" name="IMPORT_._type">
     <xsd:sequence>
@@ -214,6 +218,7 @@
     <xsd:attribute ecore:name="urlPath" name="UrlPath" type="xsd:string"/>
     <xsd:attribute ecore:name="rEQUIREDIF" name="REQUIRED_IF" type="ecore:EString"/>
     <xsd:attribute default="false" ecore:name="mRREQUIRED" name="MRREQUIRED" type="xsd:boolean"/>
+    <xsd:attribute ecore:name="mODULEGROUP" name="MODULE_GROUP" type="xsd:string"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="INSTALLType" name="INSTALL_._type">
     <xsd:sequence>

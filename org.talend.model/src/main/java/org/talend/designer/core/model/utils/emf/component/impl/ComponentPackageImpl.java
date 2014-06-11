@@ -1375,8 +1375,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getIMPORTSType_REQUIREDIF() {
+        return (EAttribute)importsTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getIMPORTSType_IMPORT() {
-        return (EReference)importsTypeEClass.getEStructuralFeatures().get(0);
+        return (EReference)importsTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getIMPORTSType_IMPORTS() {
+        return (EReference)importsTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1476,6 +1494,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      */
     public EAttribute getIMPORTType_MRREQUIRED() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIMPORTType_MODULEGROUP() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -2542,7 +2569,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__SUPPORTS_DB_TYPE);
 
         importsTypeEClass = createEClass(IMPORTS_TYPE);
+        createEAttribute(importsTypeEClass, IMPORTS_TYPE__REQUIREDIF);
         createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORT);
+        createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORTS);
 
         importTypeEClass = createEClass(IMPORT_TYPE);
         createEReference(importTypeEClass, IMPORT_TYPE__INSTALL);
@@ -2556,6 +2585,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(importTypeEClass, IMPORT_TYPE__URL_PATH);
         createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIREDIF);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MRREQUIRED);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__MODULEGROUP);
 
         installTypeEClass = createEClass(INSTALL_TYPE);
         createEAttribute(installTypeEClass, INSTALL_TYPE__COMMAND);
@@ -2831,7 +2861,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_SUPPORTS_DB_TYPE(), theXMLTypePackage.getBoolean(), "sUPPORTS_DB_TYPE", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importsTypeEClass, IMPORTSType.class, "IMPORTSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getIMPORTSType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIMPORTSType_IMPORT(), this.getIMPORTType(), null, "iMPORT", null, 0, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIMPORTSType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importTypeEClass, IMPORTType.class, "IMPORTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIMPORTType_INSTALL(), this.getINSTALLType(), null, "iNSTALL", null, 0, -1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2845,6 +2877,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getIMPORTType_UrlPath(), theXMLTypePackage.getString(), "urlPath", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MRREQUIRED(), theXMLTypePackage.getBoolean(), "mRREQUIRED", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_MODULEGROUP(), ecorePackage.getEString(), "mODULEGROUP", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(installTypeEClass, INSTALLType.class, "INSTALLType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getINSTALLType_COMMAND(), theXMLTypePackage.getString(), "cOMMAND", null, 1, 1, INSTALLType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3879,11 +3912,27 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "elementOnly"
            });		
         addAnnotation
+          (getIMPORTSType_REQUIREDIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED_IF",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getIMPORTSType_IMPORT(), 
            source, 
            new String[] {
              "kind", "element",
              "name", "IMPORT",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getIMPORTSType_IMPORTS(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "IMPORTS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -3979,6 +4028,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "MRREQUIRED",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getIMPORTType_MODULEGROUP(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "MODULE_GROUP",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
