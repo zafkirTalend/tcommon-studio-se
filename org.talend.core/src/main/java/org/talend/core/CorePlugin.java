@@ -188,7 +188,7 @@ public class CorePlugin extends Plugin {
         return (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(IDesignerMapperService.class);
     }
 
-	public IDesignerXMLMapperService getHMapperService() {
+	public IDesignerHMapperService getHMapperService() {
         return (IDesignerHMapperService) GlobalServiceRegister.getDefault().getService(IDesignerHMapperService.class);
     }
 	
