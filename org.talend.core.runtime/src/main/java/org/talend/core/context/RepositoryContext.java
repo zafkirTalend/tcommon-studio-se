@@ -14,6 +14,7 @@ package org.talend.core.context;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.User;
 
@@ -62,7 +63,18 @@ public class RepositoryContext {
      * @param user the user to set
      */
     public void setUser(User user) {
+    	 // svn authentification is not saved actually in the emf model.
+        // if the new user have no svn authentification, but old instance of user have svn authentification
+        // we force the new instance to set the svn infos.
+        String oldAuthentification = null;
+        if (this.user != null && user != null && StringUtils.equals(this.user.getLogin(), user.getLogin())
+                && user.getAuthenticationInfo() == null) {
+            oldAuthentification = this.user.getAuthenticationInfo();
+        }
         this.user = user;
+        if (oldAuthentification != null) {
+            this.user.setAuthenticationInfo(oldAuthentification);
+        }
     }
 
     /**
