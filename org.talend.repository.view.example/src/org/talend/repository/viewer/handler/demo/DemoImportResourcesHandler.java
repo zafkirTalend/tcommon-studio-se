@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.repository.viewer.handler.demo;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
@@ -29,7 +31,8 @@ public class DemoImportResourcesHandler implements IImportResourcesHandler {
      * .items.importexport.manager.ResourcesManager)
      */
     @Override
-    public void preImport(ResourcesManager resManager) {
+    public void preImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] checkedItemRecords,
+            ImportItem[] allImportItemRecords) {
         if (resManager.getPaths().isEmpty()) {
             ExceptionHandler.log("There is no resource to import."); //$NON-NLS-1$
         } else {
@@ -45,8 +48,35 @@ public class DemoImportResourcesHandler implements IImportResourcesHandler {
      * .items.importexport.manager.ResourcesManager)
      */
     @Override
-    public void postImport(ResourcesManager resManager) {
+    public void postImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] importedItemRecords) {
         ExceptionHandler.log("The items have been imported successfully."); //$NON-NLS-1$
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler#prePopulate(org.eclipse.core
+     * .runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager)
+     */
+    @Override
+    public void prePopulate(IProgressMonitor monitor, ResourcesManager resManager) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.repository.items.importexport.handlers.imports.IImportResourcesHandler#postPopulate(org.eclipse.core
+     * .runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager,
+     * org.talend.repository.items.importexport.handlers.model.ImportItem[])
+     */
+    @Override
+    public void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] populatedItemRecords) {
+        // nothing to do
+
     }
 
 }

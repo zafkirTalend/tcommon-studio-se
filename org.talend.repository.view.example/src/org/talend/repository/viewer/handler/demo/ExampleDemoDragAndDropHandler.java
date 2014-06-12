@@ -162,6 +162,9 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
         if ("EXAMPLE_DEMO".equals(repositoryType)) {
             return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
         }
+        if ("EXTENDED_EXAMPLE_DEMO".equals(repositoryType)) {
+            return ExampleDemoRepositoryNodeType.repositoryExtendedExampleDemoType;
+        }
         return null;
     }
 

@@ -20,6 +20,7 @@ import org.talend.repository.example.model.demo.DemoFactory;
 import org.talend.repository.example.model.demo.DemoPackage;
 import org.talend.repository.example.model.demo.ExampleDemoConnection;
 import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
+import org.talend.repository.example.model.demo.ExtendedExampleDemoConnectionItem;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,6 +42,13 @@ public class DemoPackageImpl extends EPackageImpl implements DemoPackage {
      * @generated
      */
     private EClass exampleDemoConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass extendedExampleDemoConnectionItemEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -147,6 +155,15 @@ public class DemoPackageImpl extends EPackageImpl implements DemoPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getExtendedExampleDemoConnectionItem() {
+        return extendedExampleDemoConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public DemoFactory getDemoFactory() {
         return (DemoFactory)getEFactoryInstance();
     }
@@ -175,6 +192,8 @@ public class DemoPackageImpl extends EPackageImpl implements DemoPackage {
         exampleDemoConnectionEClass = createEClass(EXAMPLE_DEMO_CONNECTION);
         createEAttribute(exampleDemoConnectionEClass, EXAMPLE_DEMO_CONNECTION__TYPE);
         createEAttribute(exampleDemoConnectionEClass, EXAMPLE_DEMO_CONNECTION__VALID);
+
+        extendedExampleDemoConnectionItemEClass = createEClass(EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM);
     }
 
     /**
@@ -211,6 +230,7 @@ public class DemoPackageImpl extends EPackageImpl implements DemoPackage {
         // Add supertypes to classes
         exampleDemoConnectionItemEClass.getESuperTypes().add(thePropertiesPackage.getConnectionItem());
         exampleDemoConnectionEClass.getESuperTypes().add(theConnectionPackage.getConnection());
+        extendedExampleDemoConnectionItemEClass.getESuperTypes().add(this.getExampleDemoConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(exampleDemoConnectionItemEClass, ExampleDemoConnectionItem.class, "ExampleDemoConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -218,6 +238,8 @@ public class DemoPackageImpl extends EPackageImpl implements DemoPackage {
         initEClass(exampleDemoConnectionEClass, ExampleDemoConnection.class, "ExampleDemoConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExampleDemoConnection_Type(), ecorePackage.getEString(), "type", null, 0, 1, ExampleDemoConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExampleDemoConnection_Valid(), ecorePackage.getEBoolean(), "valid", null, 0, 1, ExampleDemoConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(extendedExampleDemoConnectionItemEClass, ExtendedExampleDemoConnectionItem.class, "ExtendedExampleDemoConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

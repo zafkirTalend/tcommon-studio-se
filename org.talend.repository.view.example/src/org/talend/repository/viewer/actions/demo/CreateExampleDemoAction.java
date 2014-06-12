@@ -23,8 +23,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.utils.VersionUtils;
@@ -58,24 +58,21 @@ import org.talend.repository.model.RepositoryNodeUtilities;
  * 
  * NOTE: this class is not finished, because need add some wizards or wizard pages also.
  */
+@SuppressWarnings("nls")
 public class CreateExampleDemoAction extends AbstractCreateAction {
 
-    private static final String EDIT_LABEL = "Edit Example Demo";
+    protected String EDIT_LABEL = "Edit Example Demo";
 
-    private static final String CREATE_LABEL = "Create Example Demo";
+    protected String CREATE_LABEL = "Create Example Demo";
 
-    private static final String OPEN_LABEL = "Open Example Demo";
+    protected String OPEN_LABEL = "Open Example Demo";
 
-    private static ImageDescriptor defaultImage = ImageProvider.getImageDesc(EExampleDemoImage.DEMO_ICON);
+    protected static ImageDescriptor defaultImage = ImageProvider.getImageDesc(EExampleDemoImage.DEMO_ICON);
 
-    private static ImageDescriptor createImage = OverlayImageProvider.getImageWithNew(ImageProvider
+    protected static ImageDescriptor createImage = OverlayImageProvider.getImageWithNew(ImageProvider
             .getImage(EExampleDemoImage.DEMO_ICON));
 
-    private boolean creation = false;
-
-    private static final int WIZARD_WIDTH = 920;
-
-    private static final int WIZARD_HEIGHT = 560;
+    protected boolean creation = false;
 
     /**
      * DOC ggu CreateDemoAction constructor comment.
@@ -96,7 +93,7 @@ public class CreateExampleDemoAction extends AbstractCreateAction {
     @Override
     protected void init(RepositoryNode node) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
-        if (!ExampleDemoRepositoryNodeType.repositoryExampleDemoType.equals(nodeType)) {
+        if (!getRepoObjectType().equals(nodeType)) {
             return;
         }
 
@@ -107,6 +104,7 @@ public class CreateExampleDemoAction extends AbstractCreateAction {
                 setEnabled(false);
                 return;
             }
+            break;
         case SYSTEM_FOLDER:
             if (factory.isUserReadOnlyOnCurrentProject() || !ProjectManager.getInstance().isInCurrentMainProject(node)) {
                 setEnabled(false);
@@ -162,8 +160,7 @@ public class CreateExampleDemoAction extends AbstractCreateAction {
                     IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
                     int index = 0;
                     try {
-                        List<IRepositoryViewObject> demoObjects = factory.getAll(
-                                ExampleDemoRepositoryNodeType.repositoryExampleDemoType, true);
+                        List<IRepositoryViewObject> demoObjects = factory.getAll(getRepoObjectType(), true);
                         for (IRepositoryViewObject object : demoObjects) {
                             Item item = object.getProperty().getItem();
                             if (item instanceof ExampleDemoConnectionItem) {
@@ -198,19 +195,19 @@ public class CreateExampleDemoAction extends AbstractCreateAction {
 
                     // create the items
                     Property connectionProperty = PropertiesFactory.eINSTANCE.createProperty();
-                    connectionProperty.setLabel("DemoItem" + index);
+                    connectionProperty.setLabel(getBaseLabel() + index);
                     connectionProperty.setAuthor(((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
                             .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser());
                     connectionProperty.setVersion(VersionUtils.DEFAULT_VERSION);
                     connectionProperty.setId(factory.getNextId());
 
-                    ExampleDemoConnectionItem demoItem = DemoFactory.eINSTANCE.createExampleDemoConnectionItem();
+                    ExampleDemoConnectionItem demoItem = createDemoItem();
                     demoItem.setProperty(connectionProperty);
 
                     ExampleDemoConnection demoConn = DemoFactory.eINSTANCE.createExampleDemoConnection();
                     demoItem.setConnection(demoConn);
 
-                    demoConn.setName(ExampleDemoRepositoryNodeType.repositoryExampleDemoType.getType());
+                    demoConn.setName(getRepoObjectType().getType());
                     demoConn.setType(Integer.toString(index));
                     demoConn.setValid(true);
 
@@ -259,6 +256,18 @@ public class CreateExampleDemoAction extends AbstractCreateAction {
 
         });
 
+    }
+
+    protected ERepositoryObjectType getRepoObjectType() {
+        return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
+    }
+
+    protected ExampleDemoConnectionItem createDemoItem() {
+        return DemoFactory.eINSTANCE.createExampleDemoConnectionItem();
+    }
+
+    protected String getBaseLabel() {
+        return "DemoItem";
     }
 
     /*

@@ -31,7 +31,7 @@ public class DemoFactoryImpl extends EFactoryImpl implements DemoFactory {
      */
     public static DemoFactory init() {
         try {
-            DemoFactory theDemoFactory = (DemoFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.com/exampleDemo"); 
+            DemoFactory theDemoFactory = (DemoFactory)EPackage.Registry.INSTANCE.getEFactory(DemoPackage.eNS_URI);
             if (theDemoFactory != null) {
                 return theDemoFactory;
             }
@@ -62,6 +62,7 @@ public class DemoFactoryImpl extends EFactoryImpl implements DemoFactory {
         switch (eClass.getClassifierID()) {
             case DemoPackage.EXAMPLE_DEMO_CONNECTION_ITEM: return createExampleDemoConnectionItem();
             case DemoPackage.EXAMPLE_DEMO_CONNECTION: return createExampleDemoConnection();
+            case DemoPackage.EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM: return createExtendedExampleDemoConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -85,6 +86,16 @@ public class DemoFactoryImpl extends EFactoryImpl implements DemoFactory {
     public ExampleDemoConnection createExampleDemoConnection() {
         ExampleDemoConnectionImpl exampleDemoConnection = new ExampleDemoConnectionImpl();
         return exampleDemoConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExtendedExampleDemoConnectionItem createExtendedExampleDemoConnectionItem() {
+        ExtendedExampleDemoConnectionItemImpl extendedExampleDemoConnectionItem = new ExtendedExampleDemoConnectionItemImpl();
+        return extendedExampleDemoConnectionItem;
     }
 
     /**

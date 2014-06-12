@@ -124,6 +124,15 @@ public class DemoSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case DemoPackage.EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM: {
+                ExtendedExampleDemoConnectionItem extendedExampleDemoConnectionItem = (ExtendedExampleDemoConnectionItem)theEObject;
+                T result = caseExtendedExampleDemoConnectionItem(extendedExampleDemoConnectionItem);
+                if (result == null) result = caseExampleDemoConnectionItem(extendedExampleDemoConnectionItem);
+                if (result == null) result = caseConnectionItem(extendedExampleDemoConnectionItem);
+                if (result == null) result = caseItem(extendedExampleDemoConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -155,6 +164,21 @@ public class DemoSwitch<T> {
      * @generated
      */
     public T caseExampleDemoConnection(ExampleDemoConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Extended Example Demo Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Extended Example Demo Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseExtendedExampleDemoConnectionItem(ExtendedExampleDemoConnectionItem object) {
         return null;
     }
 

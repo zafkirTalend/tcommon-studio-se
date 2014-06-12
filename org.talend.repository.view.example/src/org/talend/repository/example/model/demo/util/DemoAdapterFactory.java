@@ -94,6 +94,10 @@ public class DemoAdapterFactory extends AdapterFactoryImpl {
                 return createExampleDemoConnectionAdapter();
             }
             @Override
+            public Adapter caseExtendedExampleDemoConnectionItem(ExtendedExampleDemoConnectionItem object) {
+                return createExtendedExampleDemoConnectionItemAdapter();
+            }
+            @Override
             public Adapter caseItem(Item object) {
                 return createItemAdapter();
             }
@@ -182,6 +186,20 @@ public class DemoAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createExampleDemoConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.repository.example.model.demo.ExtendedExampleDemoConnectionItem <em>Extended Example Demo Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.repository.example.model.demo.ExtendedExampleDemoConnectionItem
+     * @generated
+     */
+    public Adapter createExtendedExampleDemoConnectionItemAdapter() {
         return null;
     }
 

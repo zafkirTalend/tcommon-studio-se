@@ -27,4 +27,9 @@ public class ExampleDemoRepositoryNodeType {
     public static ERepositoryObjectType repositoryExampleDemoType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class,
             EXAMPLE_DEMO);
 
+    public static final String EXTENDED_EXAMPLE_DEMO = "EXTENDED_EXAMPLE_DEMO"; //$NON-NLS-1$
+
+    public static ERepositoryObjectType repositoryExtendedExampleDemoType = ERepositoryObjectType.valueOf(
+            ERepositoryObjectType.class, EXTENDED_EXAMPLE_DEMO);
+
 }

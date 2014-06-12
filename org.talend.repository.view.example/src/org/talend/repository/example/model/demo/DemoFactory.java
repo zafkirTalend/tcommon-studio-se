@@ -44,6 +44,15 @@ public interface DemoFactory extends EFactory {
     ExampleDemoConnection createExampleDemoConnection();
 
     /**
+     * Returns a new object of class '<em>Extended Example Demo Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Extended Example Demo Connection Item</em>'.
+     * @generated
+     */
+    ExtendedExampleDemoConnectionItem createExtendedExampleDemoConnectionItem();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

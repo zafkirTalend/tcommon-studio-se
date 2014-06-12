@@ -26,6 +26,7 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -35,6 +36,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.example.model.demo.DemoFactory;
+import org.talend.repository.example.model.demo.DemoPackage;
 import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
 import org.talend.repository.image.EExampleDemoImage;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
@@ -49,7 +51,7 @@ import org.talend.repository.model.RepositoryNode;
  */
 public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
 
-    private XmiResourceManager xmiResourceManager = new XmiResourceManager();
+    protected XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     /**
      * DOC ggu ExampleDemoRepositoryHandler constructor comment.
@@ -117,8 +119,8 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public ERepositoryObjectType getRepositoryObjectType(Item item) {
-        if (item instanceof ExampleDemoConnectionItem) {
-            return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
+        if (item.eClass() == DemoPackage.Literals.EXAMPLE_DEMO_CONNECTION_ITEM) {
+            return getHandleType();
         }
         return null;
     }
@@ -131,7 +133,7 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public boolean isRepObjType(ERepositoryObjectType type) {
-        return ExampleDemoRepositoryNodeType.repositoryExampleDemoType.equals(type);
+        return getHandleType().equals(type);
     }
 
     /*
@@ -258,7 +260,7 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public boolean hideAction(IRepositoryNode node, Class actionType) {
-        return node != null ? isRepObjType(node.getObjectType()) : false;
+        return false;
     }
 
     /*
@@ -356,6 +358,20 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
      */
     @Override
     public URI getReferenceFileURI(Item item, String extension) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#newSchemaWizard(org.eclipse.ui.IWorkbench,
+     * boolean, org.talend.core.model.repository.IRepositoryViewObject,
+     * org.talend.core.model.metadata.builder.connection.MetadataTable, java.lang.String[], boolean)
+     */
+    @Override
+    public IWizard newSchemaWizard(IWorkbench workbench, boolean creation, IRepositoryViewObject object,
+            MetadataTable metadataTable, String[] existingNames, boolean forceReadOnly) {
         // TODO Auto-generated method stub
         return null;
     }

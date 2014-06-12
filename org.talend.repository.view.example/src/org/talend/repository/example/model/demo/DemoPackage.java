@@ -118,6 +118,15 @@ public interface DemoPackage extends EPackage {
     int EXAMPLE_DEMO_CONNECTION_ITEM__FILE_EXTENSION = PropertiesPackage.CONNECTION_ITEM__FILE_EXTENSION;
 
     /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXAMPLE_DEMO_CONNECTION_ITEM__NEED_VERSION = PropertiesPackage.CONNECTION_ITEM__NEED_VERSION;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -552,6 +561,89 @@ public interface DemoPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.repository.example.model.demo.impl.ExtendedExampleDemoConnectionItemImpl <em>Extended Example Demo Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.repository.example.model.demo.impl.ExtendedExampleDemoConnectionItemImpl
+     * @see org.talend.repository.example.model.demo.impl.DemoPackageImpl#getExtendedExampleDemoConnectionItem()
+     * @generated
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM = 2;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__PROPERTY = EXAMPLE_DEMO_CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__STATE = EXAMPLE_DEMO_CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__PARENT = EXAMPLE_DEMO_CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Reference Resources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__REFERENCE_RESOURCES = EXAMPLE_DEMO_CONNECTION_ITEM__REFERENCE_RESOURCES;
+
+    /**
+     * The feature id for the '<em><b>File Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__FILE_EXTENSION = EXAMPLE_DEMO_CONNECTION_ITEM__FILE_EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Need Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__NEED_VERSION = EXAMPLE_DEMO_CONNECTION_ITEM__NEED_VERSION;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM__CONNECTION = EXAMPLE_DEMO_CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Extended Example Demo Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM_FEATURE_COUNT = EXAMPLE_DEMO_CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link org.talend.repository.example.model.demo.ExampleDemoConnectionItem <em>Example Demo Connection Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -592,6 +684,16 @@ public interface DemoPackage extends EPackage {
      * @generated
      */
     EAttribute getExampleDemoConnection_Valid();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.repository.example.model.demo.ExtendedExampleDemoConnectionItem <em>Extended Example Demo Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Extended Example Demo Connection Item</em>'.
+     * @see org.talend.repository.example.model.demo.ExtendedExampleDemoConnectionItem
+     * @generated
+     */
+    EClass getExtendedExampleDemoConnectionItem();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -650,6 +752,16 @@ public interface DemoPackage extends EPackage {
          * @generated
          */
         EAttribute EXAMPLE_DEMO_CONNECTION__VALID = eINSTANCE.getExampleDemoConnection_Valid();
+
+        /**
+         * The meta object literal for the '{@link org.talend.repository.example.model.demo.impl.ExtendedExampleDemoConnectionItemImpl <em>Extended Example Demo Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.repository.example.model.demo.impl.ExtendedExampleDemoConnectionItemImpl
+         * @see org.talend.repository.example.model.demo.impl.DemoPackageImpl#getExtendedExampleDemoConnectionItem()
+         * @generated
+         */
+        EClass EXTENDED_EXAMPLE_DEMO_CONNECTION_ITEM = eINSTANCE.getExtendedExampleDemoConnectionItem();
 
     }
 

@@ -27,10 +27,15 @@ public class ExampleDemoMetadataNodeTester extends CoMetadataNodeTester {
      */
     private static final String IS_EXAMPLE_DEMO = "isExampleDemo"; //$NON-NLS-1$
 
+    private static final String IS_EXTENDED_EXAMPLE_DEMO = "isExtendedExampleDemo"; //$NON-NLS-1$
+
     @Override
     protected ERepositoryObjectType findType(String property) {
         if (IS_EXAMPLE_DEMO.equals(property)) {
             return ExampleDemoRepositoryNodeType.repositoryExampleDemoType;
+        }
+        if (IS_EXTENDED_EXAMPLE_DEMO.equals(property)) {
+            return ExampleDemoRepositoryNodeType.repositoryExtendedExampleDemoType;
         }
         return null;
     }
