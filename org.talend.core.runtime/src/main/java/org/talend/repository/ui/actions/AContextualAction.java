@@ -277,7 +277,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             if (!selection.isEmpty()) {
                 return ((IRepositoryView) activePart).getViewer().getSelection();
             } else {
-                selection = new StructuredSelection(node);
+                if (node != null) {
+                    selection = new StructuredSelection(node);
+                }
                 return selection;
             }
         }
