@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -23,23 +23,19 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
- * DOC ggu class global comment. Detailled comment <br/>
- * 
- * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
- * 
+ * DOC zwzhao class global comment. Detailled comment
  */
-public interface IMRProcessService extends IService {
+public interface IStormProcessService extends IService {
 
-    boolean needMRProcess();
+    boolean needStormProcess();
 
     IRepositoryNode getRootNode(IProjectRepositoryNode projectNode);
 
     public boolean collectStandardProcessNode(List<String> filteredContents, Object node);
 
-    public boolean isMapReduceItem(Item item);
+    public boolean isStormItem(Item item);
 
-    public boolean isMapReduceEditor(IEditorPart editorPart);
+    public boolean isStormEditor(IEditorPart editorPart);
 
-    public List<IRepositoryViewObject> getMapReduceProcesses(Project project);
-
+    public List<IRepositoryViewObject> getStormProcesses(Project project);
 }
