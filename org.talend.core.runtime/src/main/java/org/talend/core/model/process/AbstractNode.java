@@ -314,10 +314,8 @@ public abstract class AbstractNode implements INode {
                 return this;
             }
         }
-        IConnection connec;
 
-        for (int j = 0; j < getIncomingConnections().size(); j++) {
-            connec = getIncomingConnections().get(j);
+        for (IConnection connec : getIncomingConnections()) {
             if (((AbstractNode) connec.getSource()).isOnMainMergeBranch()) {
                 if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
                     return connec.getSource().getSubProcessStartNode(withConditions);
@@ -683,6 +681,7 @@ public abstract class AbstractNode implements INode {
     public INode getDesignSubjobStartNode() {
         if (designSubjobStartNode == null) {
             // used for process without design.
+            // TODO: can we cache the data directly
             return getSubProcessStartNode(false);
         }
         return designSubjobStartNode;

@@ -194,12 +194,11 @@ public final class ElementParameterParser {
         if (text == null || element == null) {
             return null;
         }
-        IElementParameter param;
 
         List<IElementParameter> params = (List<IElementParameter>) element.getElementParametersWithChildrens();
         if (params != null && !params.isEmpty()) {
             for (int i = 0; i < params.size(); i++) {
-                param = params.get(i);
+                IElementParameter param = params.get(i);
                 if (text.indexOf(param.getVariableName()) != -1
                         || (param.getVariableName() != null && param.getVariableName().contains(text))) {
                     if (param.getFieldType() == EParameterFieldType.TABLE) {
