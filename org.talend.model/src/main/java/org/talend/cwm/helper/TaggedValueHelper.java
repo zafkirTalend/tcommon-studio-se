@@ -119,6 +119,8 @@ public final class TaggedValueHelper {
     // report database connection info
     public static final String REP_DBINFO_DBTYPE = "REP_DBINFO_DBTYPE"; //$NON-NLS-1$
 
+    public static final String REP_DBINFO_DBVERSION = "REP_DBINFO_DBVERSION"; //$NON-NLS-1$
+
     public static final String REP_DBINFO_DBNAME = "REP_DBINFO_DBNAME"; //$NON-NLS-1$
 
     public static final String REP_DBINFO_USER = "REP_DBINFO_USER"; //$NON-NLS-1$
