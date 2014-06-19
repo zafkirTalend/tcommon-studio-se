@@ -216,4 +216,15 @@ public enum HiveConnVersionInfo {
         return hiveVersions;
     }
 
+    public static HiveConnVersionInfo getVersionByKey(String key) {
+        HiveConnVersionInfo[] values = values();
+        for (HiveConnVersionInfo version : values) {
+            if (version.getLevel() == 1 && version.getKey().equals(key)) {
+                return version;
+            }
+        }
+
+        return null;
+    }
+
 }

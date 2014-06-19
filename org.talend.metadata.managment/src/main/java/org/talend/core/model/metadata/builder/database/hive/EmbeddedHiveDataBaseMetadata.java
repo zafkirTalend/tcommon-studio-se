@@ -119,10 +119,10 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
             throw new SQLException("This function is not available with a JDK < 1.7"); //$NON-NLS-1$ 
         }
         boolean isWindows = EnvironmentUtils.isWindowsSystem();
-        String hive_version = (String) this.metadataConn.getParameter("CONN_PARA_KEY_HIVE_VERSION");
+        String hive_version = (String) this.metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
 
         boolean isSupportEmbedded = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsNotSupportOnWindows(),
-                HiveConnVersionInfo.valueOf(hive_version));
+                HiveConnVersionInfo.getVersionByKey(hive_version));
 
         if (isWindows && isSupportEmbedded) {
             throw new SQLException("Function not supported on windows"); //$NON-NLS-1$ 
