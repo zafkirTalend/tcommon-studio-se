@@ -801,10 +801,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             throws PersistenceException {
         List<IRepositoryViewObject> serializableAllVersion = null;
         Object fullFolder = getFullFolder(project, type, relativeFolder);
-        serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, false, false, false, true);
+        serializableAllVersion = getSerializableFromFolder(project, fullFolder, id, type, false, false, true, true);
         if (serializableAllVersion.isEmpty()) {
             // look in all folders
-            serializableAllVersion = getSerializable(project, id, true, false);
+            serializableAllVersion = getSerializable(project, id, false, false);
         }
         int size = serializableAllVersion.size();
 
