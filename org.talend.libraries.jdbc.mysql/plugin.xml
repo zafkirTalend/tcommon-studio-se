@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    <extension point="org.talend.core.runtime.librariesNeeded">
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jdbc.mysql"
+              language="java"
+              message="Needed for Mysql jdbc plugin"
+              name="mysql-connector-java-5.1.22-bin.jar"
+              required="true">
+        </libraryNeeded>
+    </extension>
+</plugin>
