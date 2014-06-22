@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.talend.rcp.perspective">
+         <actionSet
+               id="org.talend.debug.ui.launchActionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.CreateactionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.actionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.localprovider.actionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   
+<extension
+      point="org.eclipse.ui.commands">
+   <category
+         id="talend"
+         name="Talend"/>
+   <command
+         id="org.talend.rcp.command.closeIntro"
+         name="name">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.contexts">
+   <context
+         id="talend.global"
+         name="Default"
+         parentId="org.eclipse.ui.contexts.window"/>
+</extension>
+<extension
+      point="org.talend.core.talendperspectives">
+   <TalendPerspective
+         refPerspectiveId="org.eclipse.debug.ui.DebugPerspective"
+         talendPerspectiveId="org.talend.rcp.DebugPerspective"/>
+</extension>
+<extension
+      point="org.talend.core.runtime.service">
+   <Service
+         class="org.talend.rcp.RcpServices"
+         serviceId="IRcpService">
+   </Service>
+   <Service
+         class="org.talend.rcp.intro.ApplicationWorkbenchWindowAdvisor"
+         serviceId="WorkbenchService">
+   </Service>
+</extension>
+<extension
+      point="org.eclipse.ui.bindings">
+   <key
+         commandId="org.talend.rcp.command.closeIntro"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="ESC">
+   </key>
+</extension>
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+         class="org.talend.rcp.intro.starting.StartingBrowser"
+         default="false"
+         id="org.talend.rcp.intro.starting.StartingBrowser"
+         name="starting">
+   </editor>
+</extension>
+<extension
+      point="org.eclipse.ui.activities">
+   <activity
+         id="org.talend.rcp.hideUpdatesite"
+         name="Hide Updatesite">
+   </activity>
+   <activityPatternBinding
+         activityId="org.talend.rcp.hideUpdatesite"
+         isEqualityPattern="true"
+         pattern="org.eclipse.ui.ide.application/org.eclipse.update.ui.updateMenu">
+   </activityPatternBinding>
+</extension>
+</plugin>
