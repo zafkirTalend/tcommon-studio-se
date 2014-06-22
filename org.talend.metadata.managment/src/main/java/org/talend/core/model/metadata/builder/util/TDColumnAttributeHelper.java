@@ -85,6 +85,7 @@ public class TDColumnAttributeHelper {
      * @throws SQLException
      * 
      */
+    @Deprecated
     public static TdColumn addColumnAttribute(ResultSet resutSet, TdColumn column) throws SQLException {
         Connection conn = ConnectionHelper.getConnection(column);
         boolean isMssql = isMssql(createConnection((DatabaseConnection) conn).getObject());
@@ -302,7 +303,7 @@ public class TDColumnAttributeHelper {
             // ~ 16538
         } catch (Exception e) {
             // for ORACLE synonyms
-            column.setNullable(false);//$NON-NLS-1$
+            column.setNullable(false);
         }
         return column;
     }
@@ -383,8 +384,9 @@ public class TDColumnAttributeHelper {
      * 
      * @param conn2
      * @return
+     * @throws SQLException
      */
-    private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) {
+    private static DatabaseMetaData createFakeDatabaseMetaData(java.sql.Connection conn) throws SQLException {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
     }

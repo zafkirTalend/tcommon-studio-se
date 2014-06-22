@@ -348,8 +348,9 @@ public class ExtractMetaDataUtils {
      *
      * @param conn2
      * @return
+     * @throws SQLException
      */
-    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) {
+    public static DatabaseMetaData createDB2ForZosFakeDatabaseMetaData(Connection conn) throws SQLException {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
     }
@@ -1019,18 +1020,18 @@ public class ExtractMetaDataUtils {
             // Don't use DriverManager
 
             try {
-            Class<?> klazz = Class.forName(driverClassName);
+                Class<?> klazz = Class.forName(driverClassName);
 
-            Properties info = new Properties();
-            info.put("user", username); //$NON-NLS-1$
-            info.put("password", pwd); //$NON-NLS-1$
-            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
-                Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
-                if (systemCharset != null && systemCharset.displayName() != null) {
-                    info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                Properties info = new Properties();
+                info.put("user", username); //$NON-NLS-1$
+                info.put("password", pwd); //$NON-NLS-1$
+                if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName()) || dbType.equals(EDatabaseTypeName.GODBC.getXmlName())) {
+                    Charset systemCharset = CharsetToolkit.getInternalSystemCharset();
+                    if (systemCharset != null && systemCharset.displayName() != null) {
+                        info.put("charSet", systemCharset.displayName()); //$NON-NLS-1$
+                    }
                 }
-            }
-            connection = ((Driver) klazz.newInstance()).connect(url, info);
+                connection = ((Driver) klazz.newInstance()).connect(url, info);
             } catch (ClassNotFoundException e) {
                 String errorMessage = Messages.getString("ExtractMetaDataUtils.missDriver.1") + driverClassName; //$NON-NLS-1$
                 if (driverJarPath != null && driverJarPath.length > 0) {
