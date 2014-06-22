@@ -37,6 +37,7 @@ public class AlertUserOnLogin implements IStartup {
         earlyStartup();
     }
 
+    @Override
     public void earlyStartup() {
         if (!startUnderPluginModel && !CoreRuntimePlugin.getInstance().getRepositoryService().isRCPMode()) {
             return;
@@ -44,6 +45,7 @@ public class AlertUserOnLogin implements IStartup {
         final IWorkbench workbench = PlatformUI.getWorkbench();
         workbench.getDisplay().asyncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
                 if (window != null) {
@@ -52,8 +54,8 @@ public class AlertUserOnLogin implements IStartup {
 
                     MigrationToolService m = (MigrationToolService) service;
 
-                    if (!m.doneThisSession.isEmpty()) {
-                        SummaryDialog loginDialog = new SummaryDialog(new Shell(), m.doneThisSession);
+                    if (!m.getDoneThisSession().isEmpty()) {
+                        SummaryDialog loginDialog = new SummaryDialog(new Shell(), m.getDoneThisSession());
                         loginDialog.open();
                     }
                 }

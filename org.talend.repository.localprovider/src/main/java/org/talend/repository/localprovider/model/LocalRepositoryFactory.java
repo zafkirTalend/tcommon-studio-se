@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -172,6 +173,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private static LocalRepositoryFactory singleton = null;
 
     private boolean copyScreenshotFlag = false;
+
+    private Set<String> invalidFiles = new HashSet<String>();
 
     public LocalRepositoryFactory() {
         super();
@@ -364,9 +367,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             Property property = null;
                             try {
                                 property = xmiResourceManager.loadProperty(current);
-                            } catch (RuntimeException e) {
+                            } catch (Exception e) {
                                 // property will be null
-                                ExceptionHandler.process(e);
+                                // ExceptionHandler.process(e);
+                                // no log anymore here since we add the log.error, it should be enough
                             }
                             if (property != null) {
                                 if (property.getItem() == null || property.getItem().getState() == null) {
@@ -388,7 +392,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     currentObject = new RepositoryObject(property);
                                 }
                             } else {
-                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                String curFile = current.getFullPath().toPortableString();
+                                if (!invalidFiles.contains(curFile)) {
+                                    invalidFiles.add(curFile);
+                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                }
                             }
                             addItemToContainer(toReturn, currentObject, onlyLastVersion);
                         }
@@ -615,9 +623,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 Property property = null;
                                 try {
                                     property = xmiResourceManager.loadProperty(current);
-                                } catch (RuntimeException e) {
+                                } catch (Exception e) {
                                     // property will be null
-                                    ExceptionHandler.process(e);
+                                    // ExceptionHandler.process(e);
+                                    // no log anymore here since we add the log.error, it should be enough
                                 }
                                 if (property != null) {
                                     if (property.getItem() == null || property.getItem().getState() == null) {
@@ -640,7 +649,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                         property.getItem().setParent(currentFolderItem);
                                     }
                                 } else {
-                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                    String curFile = current.getFullPath().toPortableString();
+                                    if (!invalidFiles.contains(curFile)) {
+                                        invalidFiles.add(curFile);
+                                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                    }
                                 }
                             }
                         }
@@ -3244,5 +3257,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public boolean isModified(Property property) {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.talend.core.repository.model.AbstractRepositoryFactory#logOffProject()
+     */
+    @Override
+    public void logOffProject() {
+        invalidFiles.clear();
+        super.logOffProject();
     }
 }
