@@ -342,9 +342,11 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public void cleanTempProLib() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IPath libPath = prj.getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
-        if (libPath.toFile().exists()) {
-            FilesUtils.emptyFolder(libPath.toFile());
+        if (prj.exists()) {
+            IPath libPath = prj.getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
+            if (libPath.toFile().exists()) {
+                FilesUtils.emptyFolder(libPath.toFile());
+            }
         }
     }
 

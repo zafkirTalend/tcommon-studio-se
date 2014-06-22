@@ -39,6 +39,26 @@ public class Project {
     // used for create project or sandbox project in remote
     private boolean isSandboxProject;
 
+    private boolean mainProject = true;
+
+    /**
+     * Getter for mainProject.
+     *
+     * @return the mainProject
+     */
+    public boolean isMainProject() {
+        return this.mainProject;
+    }
+
+    /**
+     * Sets the mainProject.
+     *
+     * @param mainProject the mainProject to set
+     */
+    public void setMainProject(boolean mainProject) {
+        this.mainProject = mainProject;
+    }
+
     // end
     /**
      * DOC smallet Project constructor comment.
