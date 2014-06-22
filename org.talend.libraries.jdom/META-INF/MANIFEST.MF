@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JDom library
+Bundle-SymbolicName: org.talend.libraries.jdom
+Bundle-Version: 1.1.0.qualifier
+Bundle-Vendor: .Talend SA.
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: lib/jdom-1.1.jar,
+ .
+Export-Package: org.jdom,
+ org.jdom.adapters,
+ org.jdom.filter,
+ org.jdom.input,
+ org.jdom.output,
+ org.jdom.transform,
+ org.jdom.xpath

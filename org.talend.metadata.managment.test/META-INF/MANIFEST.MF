@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.talend.metadata.managment.test
+Bundle-SymbolicName: org.talend.metadata.managment.test
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: org.talend.metadata.managment;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit4,
+ org.mockito,
+ org.talend.libraries.jdbc.mysql,
+ org.talend.libraries.jdbc.teradata,
+ org.eclipse.osgi.services
+Bundle-ClassPath: .,
+ lib/powermock-classloading-base-1.4.11.jar,
+ lib/powermock-classloading-objenesis-1.4.11.jar,
+ lib/powermock-classloading-xstream-1.4.11.jar,
+ lib/powermock-easymock-1.4.11-full.jar,
+ lib/powermock-mockito-1.4.11-full.jar,
+ lib/powermock-module-junit4-rule-1.4.11.jar,
+ lib/powermock-module-junit4-rule-agent-1.4.11.jar
+Bundle-Vendor: .Talend SA.
+
