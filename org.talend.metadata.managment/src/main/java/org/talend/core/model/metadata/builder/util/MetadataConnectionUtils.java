@@ -467,9 +467,22 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isOracle(DatabaseMetaData metadata) {
+        if (metadata != null) {
+            try {
+                String name = metadata.getDatabaseProductName().toUpperCase();
+                if (name != null && name.equals(EDatabaseTypeName.ORACLEFORSID.getProduct().toUpperCase())) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return false;
+    }
+
     public static boolean isMssql(DatabaseMetaData connectionMetadata) throws SQLException {
-        if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {
-            if (EDataBaseType.Microsoft_SQL_Server.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {
+        if (connectionMetadata.getDriverName() != null && connectionMetadata.getDatabaseProductName() != null) {            if (EDataBaseType.Microsoft_SQL_Server.getProductName().equals(connectionMetadata.getDatabaseProductName().trim())) {
                 return true;
 
             }

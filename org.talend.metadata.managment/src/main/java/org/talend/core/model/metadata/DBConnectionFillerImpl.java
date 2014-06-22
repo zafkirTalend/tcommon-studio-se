@@ -815,15 +815,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         try {
             // common
-            boolean flag = true;
+            boolean isOracle8i = true;
+            boolean isOracle = false;
+            boolean isOracleJdbc = false;
             String tableComment = null;
             List<String> tablesToFilter = new ArrayList<String>();
             if (pack != null) {
                 Connection c = ConnectionHelper.getConnection(pack);
-                flag = MetadataConnectionUtils.isOracle8i(c);
-                boolean isOracle = MetadataConnectionUtils.isOracle(c);
-                boolean isOracleJdbc = MetadataConnectionUtils.isOracleJDBC(c);
-                if ((isOracleJdbc || isOracle) && !flag) {// oracle and not oracle8
+                isOracle8i = MetadataConnectionUtils.isOracle8i(c);
+                isOracle = MetadataConnectionUtils.isOracle(c);
+                isOracleJdbc = MetadataConnectionUtils.isOracleJDBC(c);
+                if ((isOracleJdbc || isOracle) && !isOracle8i) {// oracle and not oracle8
                     Statement stmt;
                     try {
                         // MOD qiongli TDQ-4732 use the common method to create statement both DI and DQ,avoid Exception
@@ -881,21 +883,25 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (!isCreateElement(tableFilter, tableName)) {
                     continue;
                 }
-                if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) { //$NON-NLS-1$
+                if (tableName == null || tablesToFilter.contains(tableName)) { //$NON-NLS-1$
                     continue;
                 }
                 String tableOwner = null;
                 if (!isHive && MetadataConnectionUtils.isSybase(dbJDBCMetadata)) {
                     tableOwner = tableSchema;
                 }
-                if (!flag) {
-                    tableComment = tables.getString(GetTable.REMARKS.name());
-                    if (StringUtils.isBlank(tableComment)) {
-                        String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
-                        if (selectRemarkOnTable != null) {
-                            tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                if (!isOracle8i) {
+                    try {
+                        tableComment = tables.getString(GetTable.REMARKS.name());
+                        if (StringUtils.isBlank(tableComment)) {
+                            String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
+                            if (selectRemarkOnTable != null) {
+                                tableComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+                            }
                         }
+                    } catch (SQLException e) {
                     }
+
                 }
                 MetadataTable metadatatable = null;
                 if (TableType.VIEW.toString().equals(temptableType) || ETableTypes.VIRTUAL_VIEW.getName().equals(temptableType)) {
@@ -1208,6 +1214,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
+            // TDI-28578 Metadata wizard doesn't display tables starting with '/'
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
+            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
+                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
+            }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                 boolean check = !Pattern.matches("^\\w+$", tablePattern);//$NON-NLS-1$
@@ -1364,6 +1375,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 schemaPattern = ColumnSetHelper.getTableOwner(colSet);
             }
             // --- add columns to table
+            boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
+            if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
+                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
+            }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             // MOD qiongli 2012-8-15 TDQ-5898,Odbc Terdata don't support some API.
             boolean isOdbcTeradata = ConnectionUtils.isOdbcTeradata(dbJDBCMetadata);

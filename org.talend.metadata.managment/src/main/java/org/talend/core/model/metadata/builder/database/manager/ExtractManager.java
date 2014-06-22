@@ -268,7 +268,7 @@ public class ExtractManager {
                 tableName = extractMeta.getStringMetaDataInfo(rsTables, ExtractManager.SYNONYM_NAME, null);
                 isSynonym = true;
             }
-            if (tableName == null || tablesToFilter.contains(tableName) || tableName.startsWith("/")) {
+            if (tableName == null || tablesToFilter.contains(tableName)) {
                 continue;
             }
 
@@ -377,10 +377,6 @@ public class ExtractManager {
                 }
                 fillSynonyms(metadataConnection, metadataColumns, table, tableName, dbMetaData);
             } else {
-                if (tableLabel.contains("/")) {
-                    tableLabel = tableLabel.replace("/", "");
-                }
-                newNode.setValue(tableLabel);
                 metadataColumns = MetadataFillFactory.getDBInstance().fillColumns(table, metadataConnection, dbMetaData, null);
             }
 
@@ -835,6 +831,9 @@ public class ExtractManager {
             throws SQLException {
         ResultSet columns = null;
         if (dbMetaData != null) {
+            if (tableName.contains("/")) {//$NON-NLS-1$
+                tableName = tableName.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
+            }
             columns = dbMetaData.getColumns(catalogName, schemaName, tableName, null);
         }
         return columns;
