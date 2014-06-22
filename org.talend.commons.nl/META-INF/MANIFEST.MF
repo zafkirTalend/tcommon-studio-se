@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Commons Nl Fragment
+Bundle-SymbolicName: org.talend.commons.nl
+Bundle-Version: 2.2.0.qualifier
+Fragment-Host: org.talend.commons
+Bundle-Vendor: .Talend SA.
