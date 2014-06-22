@@ -40,7 +40,7 @@ import orgomg.cwm.resource.relational.NamedColumnSet;
  */
 public class IBMDB2ExtractManager extends ExtractManager {
 
-    public static final String DATABASE_PRODUCT_NAME = "DB2/NT"; //$NON-NLS-1$
+    public static final String DATABASE_PRODUCT_NAME = "DB2/"; //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(IBMDB2ExtractManager.class);
 
