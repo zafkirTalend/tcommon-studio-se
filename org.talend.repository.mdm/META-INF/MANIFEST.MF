@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MDM Repository Plug-in
+Bundle-SymbolicName: org.talend.repository.mdm;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.talend.repository.mdm.MDMPlugin
+Require-Bundle: javax.xml.rpc,
+ org.eclipse.ui.workbench,
+ org.eclipse.core.runtime,
+ org.eclipse.xsd,
+ org.eclipse.jface,
+ org.apache.axis,
+ org.apache.commons.lang,
+ org.talend.libraries.mdm,
+ org.talend.model,
+ org.talend.commons.ui,
+ org.talend.core.repository,
+ org.talend.core.runtime,
+ org.talend.core.ui,
+ org.talend.metadata.managment,
+ org.talend.metadata.managment.ui,
+ org.talend.libraries.apache,
+ org.apache.log4j,
+ org.talend.commons.runtime,
+ org.talend.repository.metadata,
+ org.talend.datatools.xml,
+ org.talend.repository.view.di;resolution:=optional,
+ javax.mail,
+ org.talend.repository.items.importexport
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: .Talend SA.
+Bundle-ClassPath: .
+Import-Package: org.eclipse.gef.commands

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="lib/jasperreports-fonts-5.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/iText-2.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jasperreports-5.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/talend_auditChart.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-all-1.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-bcel-20050813.jar"/>
+	<classpathentry kind="lib" path="lib/png-encoder-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/rhino-1.7R1.jar"/>
+	<classpathentry kind="lib" path="lib/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis-ext.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="lib/jxl-2.6.10.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

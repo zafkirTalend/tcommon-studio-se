@@ -1,0 +1,91 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.utils.sql;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+import org.talend.utils.format.StringFormatUtil;
+
+/**
+ * @author scorreia
+ * 
+ * Utility class for working with ResultSet.
+ */
+public final class ResultSetUtils {
+
+    private ResultSetUtils() {
+    }
+
+    /**
+     * Method "resultSetPrinter" prints the header, the column types and then the rows. Each row is formatted with a
+     * fixed column width.
+     * 
+     * Attention: set.next() is called up to the end of the result set.
+     * 
+     * @param set a resultSet to print
+     * @param width the width of the column for display
+     * @throws SQLException
+     */
+    public static void printResultSet(ResultSet set, int width) throws SQLException {
+        // print header
+
+        ResultSetMetaData metaData = set.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        // find the largest column name
+        int minWidth = width;
+        for (int i = 1; i <= columnCount; i++) {
+            minWidth = Math.max(minWidth, metaData.getColumnName(i).length());
+        }
+        // print header
+        String header = new String();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = StringFormatUtil.padString(metaData.getColumnName(i), minWidth);
+            header += columnName;
+        }
+        System.out.println(header);
+
+        // print column types
+        String types = new String();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnTypeName = StringFormatUtil.padString(metaData.getColumnTypeName(i), minWidth);
+            types += columnTypeName;
+        }
+        System.out.println(types);
+
+        // print rows
+        while (set.next()) {
+            System.out.println(formatRow(set, columnCount, minWidth));
+        }
+    }
+
+    /**
+     * Method "formatRow".
+     * 
+     * @param set a result set
+     * @param nbColumns the number of columns of the result set
+     * @param width the fixed width of each column
+     * @return the current row of the result set format with fixed width.
+     * @throws SQLException
+     */
+    public static String formatRow(ResultSet set, int nbColumns, int width) throws SQLException {
+        String row = new String();
+        for (int i = 1; i <= nbColumns; i++) {
+            Object col = set.getObject(i);
+            row += StringFormatUtil.padString(col != null ? col.toString() : "", width);
+        }
+        return row;
+    }
+
+}

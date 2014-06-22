@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Datatools XML Plug-in
+Bundle-SymbolicName: org.talend.datatools.xml
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.xsd,
+ org.apache.commons.beanutils,
+ org.apache.commons.lang,
+ org.talend.libraries.apache
+Export-Package: org.talend.datatools.xml.utils
+Bundle-Vendor: .Talend SA.
