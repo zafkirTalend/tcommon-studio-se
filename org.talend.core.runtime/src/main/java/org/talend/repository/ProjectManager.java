@@ -1,0 +1,498 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.repository;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.ecore.EObject;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.model.repository.SVNConstant;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.IReferencedProjectService;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
+import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
+
+/**
+ * ggu class global comment. Detailled comment
+ */
+public final class ProjectManager {
+
+    private static ProjectManager singleton;
+
+    private Project currentProject;
+
+    private List<Project> referencedprojects = new ArrayList<Project>();
+
+    private List<IProjectRepositoryNode> viewProjectNodes = new ArrayList<IProjectRepositoryNode>();
+
+    private List<Project> allReferencedprojects = new ArrayList<Project>();
+
+    private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
+
+    private static Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
+    
+    public static final String SEP_CHAR = SVNConstant.SEP_CHAR;
+
+    public static final String NAME_TRUNK = SVNConstant.NAME_TRUNK;
+
+    public static final String NAME_BRANCHES = SVNConstant.NAME_BRANCHES;
+
+    public static final String NAME_TAGS = SVNConstant.NAME_TAGS;
+    
+    public static final String UNDER_LINE_CHAR = SVNConstant.UNDER_LINE_CHAR;
+
+    private ProjectManager() {
+        initCurrentProject();
+    }
+
+    public static synchronized ProjectManager getInstance() {
+        if (singleton == null) {
+            singleton = new ProjectManager();
+        }
+        return singleton;
+    }
+
+    private void initCurrentProject() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (ctx != null) {
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            if (repositoryContext != null) {
+                currentProject = repositoryContext.getProject();
+                if (currentProject != null) {
+                    resolveRefProject(currentProject.getEmfProject());
+                }
+                return;
+            }
+        }
+        currentProject = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resolveRefProject(org.talend.core.model.properties.Project p) {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (p != null && ctx != null) {
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
+            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                    resolveRefProject(pr.getReferencedProject()); // only to resolve all
+                }
+            }
+        }
+    }
+
+    private void resolveSubRefProject(org.talend.core.model.properties.Project p) {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (ctx != null && p != null) {
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
+            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                    Project project = new Project(pr.getReferencedProject());
+                    allReferencedprojects.add(project);
+                    resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+                }
+            }
+        }
+    }
+
+    /**
+     * 
+     * retrieve the referenced projects of current project.
+     */
+    public void retrieveReferencedProjects() {
+        referencedprojects.clear();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            if (factory != null) {
+                List<org.talend.core.model.properties.Project> rProjects = factory
+                        .getReferencedProjects(this.getCurrentProject());
+                if (rProjects != null) {
+                    for (org.talend.core.model.properties.Project p : rProjects) {
+                        Project project = new Project(p);
+                        resolveRefProject(p);
+                        referencedprojects.add(project);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * return current project.
+     * 
+     */
+    public Project getCurrentProject() {
+        initCurrentProject();
+        return this.currentProject;
+    }
+
+    /**
+     * 
+     * return the referenced projects of current project.
+     */
+    public List<Project> getReferencedProjects() {
+        // if (this.referencedprojects.isEmpty() || CommonsPlugin.isHeadless())
+        // {
+        retrieveReferencedProjects();
+        // }
+        return this.referencedprojects;
+    }
+
+    /**
+     * 
+     * return all the referenced projects of current project.
+     */
+    public List<Project> getAllReferencedProjects() {
+        // if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
+        allReferencedprojects.clear();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            if (factory != null) {
+                List<org.talend.core.model.properties.Project> rProjects = factory
+                        .getReferencedProjects(this.getCurrentProject());
+                if (rProjects != null) {
+                    for (org.talend.core.model.properties.Project p : rProjects) {
+                        Project project = new Project(p);
+                        allReferencedprojects.add(project);
+                        resolveSubRefProject(p);
+                    }
+                }
+            }
+        }
+        // }
+        return this.allReferencedprojects;
+    }
+
+    /**
+     * 
+     * return the referenced projects of the project.
+     */
+    @SuppressWarnings("unchecked")
+    public List<Project> getReferencedProjects(Project project) {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (project != null && ctx != null) {
+            if (project.equals(this.currentProject)) {
+                return getReferencedProjects();
+            }
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+
+            List<Project> refProjects = new ArrayList<Project>();
+            for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
+                if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
+                    refProjects.add(new Project(refProject.getReferencedProject()));
+                }
+            }
+            return refProjects;
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * 
+     * return the project by object.
+     */
+    public org.talend.core.model.properties.Project getProject(EObject object) {
+        if (object != null) {
+            if (object instanceof org.talend.core.model.properties.Project) {
+                return (org.talend.core.model.properties.Project) object;
+            }
+            if (object instanceof Property) {
+                return getProject(((Property) object).getItem());
+            }
+            if (object instanceof Item) {
+                return getProject(((Item) object).getParent());
+            }
+        }
+
+        // default
+        Project p = getCurrentProject();
+        if (p != null) {
+            return p.getEmfProject();
+        }
+        return null;
+    }
+
+    public IProject getResourceProject(org.talend.core.model.properties.Project project) {
+        if (project != null) {
+            try {
+                return ResourceUtils.getProject(project.getTechnicalLabel());
+            } catch (PersistenceException e) {
+                //
+            }
+        }
+        Project p = getCurrentProject();
+        if (p != null) {
+            return ResourcesPlugin.getWorkspace().getRoot().getProject(p.getEmfProject().getTechnicalLabel());
+        }
+        return null;
+    }
+
+    public IProject getResourceProject(EObject object) {
+        return getResourceProject(getProject(object));
+    }
+
+    /**
+     * 
+     * ggu Comment method "isInCurrentMainProject".
+     * 
+     * check the EObject in current main project.
+     */
+    public boolean isInCurrentMainProject(EObject object) {
+        if (object != null) {
+            org.talend.core.model.properties.Project project = getProject(object);
+            Project p = getCurrentProject();
+            if (project != null && p != null) {
+                return project.getTechnicalLabel().equals(p.getEmfProject().getTechnicalLabel());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * ggu Comment method "isInCurrentMainProject".
+     * 
+     * check the node in current main project.
+     */
+    public boolean isInCurrentMainProject(IRepositoryNode node) {
+        if (node != null) {
+            Project curP = getCurrentProject();
+            if (PluginChecker.isRefProjectLoaded()) {
+                IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
+                        IReferencedProjectService.class);
+                if (service != null && service.isMergeRefProject() && curP != null) {
+                    IRepositoryViewObject object = node.getObject();
+                    if (object == null) {
+                        return true;
+                    }
+                    org.talend.core.model.properties.Project emfProject = getProject(object.getProperty().getItem());
+                    org.talend.core.model.properties.Project curProject = curP.getEmfProject();
+                    return emfProject.equals(curProject);
+
+                } else {
+                    IProjectRepositoryNode root = node.getRoot();
+                    if (root != null) {
+                        Project project = root.getProject();
+                        if (project != null) {
+                            return project.equals(curP);
+                        } else {
+                            return true;
+                        }
+                    }
+                }
+                // refplugin is not loaded
+            } else {
+                IProjectRepositoryNode root = node.getRoot();
+                if (root != null) {
+                    Project project = root.getProject();
+                    if (project != null && curP != null) {
+                        return project.getTechnicalLabel().equals(curP.getTechnicalLabel());
+                    } else {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    public static IProjectRepositoryNode researchProjectNode(Project project) {
+        final IRepositoryView repositoryView = RepositoryManager.getRepositoryView();
+        if (repositoryView != null && project != null) {
+            IProjectRepositoryNode root = (IProjectRepositoryNode) repositoryView.getRoot();
+            return researchProjectNode(root, project);
+        }
+        return null;
+    }
+
+    private static IProjectRepositoryNode researchProjectNode(IProjectRepositoryNode root, Project project) {
+        final String technicalLabel = project.getTechnicalLabel();
+        if (project == null || root.getProject().getTechnicalLabel().equals(technicalLabel)) {
+            return root;
+        }
+        IRepositoryNode refRoot = root.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS);
+        if (refRoot != null) {
+            for (IRepositoryNode node : refRoot.getChildren()) {
+                if (node instanceof IProjectRepositoryNode) {
+                    IProjectRepositoryNode pNode = (IProjectRepositoryNode) node;
+                    final IProjectRepositoryNode foundProjectNode = researchProjectNode(pNode, project);
+                    if (foundProjectNode != null) {
+                        return foundProjectNode;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * 
+     * DOC ldong Comment method "getCurrentBranchLabel".
+     * 
+     * @param project
+     * @return
+     */
+    public static String getCurrentBranchLabel(Project project) {
+        // just for TAC session,they do not want the label start with "/"
+    	
+    	Context ctx = CoreRuntimePlugin.getInstance().getContext();
+    	RepositoryContext context = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+    	String branchSelection =  NAME_TRUNK;
+        String branchKey = IProxyRepositoryFactory.BRANCH_SELECTION + UNDER_LINE_CHAR + project.getTechnicalLabel();
+        if (context.getFields().containsKey(branchKey)
+                && context.getFields().get(branchKey) != null) {
+            branchSelection = context.getFields().get(branchKey);
+            if (!branchSelection.contains(NAME_BRANCHES) && !branchSelection.contains(NAME_TRUNK)) {
+                branchSelection = NAME_BRANCHES + branchSelection;
+            }
+        } 
+        return branchSelection;
+    }
+    public String getCurrentBranchURL(Project project) {
+        if (mapProjectUrlToBranchUrl != null && project != null && project.getEmfProject() != null) {
+            return mapProjectUrlToBranchUrl.get(project.getEmfProject().getUrl());
+        }
+        return null;
+    }
+
+    public String getCurrentBranchURL(String projectUrl) {
+        return mapProjectUrlToBranchUrl.get(projectUrl);
+    }
+
+    public void setCurrentBranchURL(Project project, String currentBranch) {
+        mapProjectUrlToBranchUrl.put(project.getEmfProject().getUrl(), currentBranch);
+    }
+
+    public List<FolderItem> getFolders(org.talend.core.model.properties.Project project) {
+        if (!foldersMap.containsKey(project.getTechnicalLabel())) {
+            foldersMap.put(project.getTechnicalLabel(), new ArrayList<FolderItem>());
+        }
+        return foldersMap.get(project.getTechnicalLabel());
+    }
+
+    public synchronized void updateViewProjectNode(IProjectRepositoryNode projectRepNode) {
+        if (projectRepNode != null) {
+            final Iterator<IProjectRepositoryNode> iterator = viewProjectNodes.iterator();
+            while (iterator.hasNext()) {
+                IProjectRepositoryNode tmpProjectNode = iterator.next();
+                // remove the old one.
+                if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectRepNode.getProject().getTechnicalLabel())) {
+                    iterator.remove();
+                    // FIXME, later will check this to make sure work well. just now, disable on trunk only.
+                    // if (tmpProjectNode instanceof RepositoryNode) {
+                    // ((RepositoryNode) tmpProjectNode).setEnableDisposed(true);
+                    // }
+                    //
+                    // tmpProjectNode.dispose();
+                }
+            }
+            viewProjectNodes.add(projectRepNode);
+        }
+    }
+
+    public synchronized IProjectRepositoryNode getProjectNode(String projectName) {
+        if (projectName != null) {
+            final Iterator<IProjectRepositoryNode> iterator = viewProjectNodes.iterator();
+            while (iterator.hasNext()) {
+                final IProjectRepositoryNode tmpProjectNode = iterator.next();
+                if (tmpProjectNode.getProject().getTechnicalLabel().equals(projectName)) {
+                    return tmpProjectNode;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * DOC ggu Comment method "getRepositoryContextFields".
+     * 
+     * @return
+     */
+    private Map<String, String> getRepositoryContextFields() {
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        if (ctx == null) {
+            return null;
+        }
+        RepositoryContext repContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        if (repContext == null) {
+            return null;
+        }
+        Map<String, String> fields = repContext.getFields();
+        return fields;
+    }
+    public void setMainProjectBranch(Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getEmfProject(), branchValue);
+        }
+    }
+
+    public void setMainProjectBranch(org.talend.core.model.properties.Project project, String branchValue) {
+        if (project != null) {
+            setMainProjectBranch(project.getTechnicalLabel(), branchValue);
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "setMainProjectBranch".
+     * 
+     * When use this method to set the branch value, make sure that have set the RepositoryContext object in context
+     * "ctx.putProperty(Context.REPOSITORY_CONTEXT_KEY, repositoryContext)"
+     * 
+     * @param technicalLabel
+     * @param branchValue
+     */
+    public void setMainProjectBranch(String technicalLabel, String branchValue) {
+        Map<String, String> fields = getRepositoryContextFields();
+        if (fields == null || technicalLabel == null) {
+            return;
+        }
+        String key = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
+        // TDI-23291:when branchValue is null,should not set "" to the branchkey.
+        if (branchValue != null) {
+            fields.put(key, branchValue);
+        }
+    }
+}
