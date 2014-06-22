@@ -70,6 +70,12 @@ public final class TaggedValueHelper {
 
     public static final String TABLE_OWNER = "Table Owner"; //$NON-NLS-1$
 
+    public static final String SYSTEMTABLENAME = "SYSTEM_TABLE_NAME"; //$NON-NLS-1$
+
+    public static final String SYSTEMTABLESCHEMA = "SYSTEM_TABLE_SCHEMA"; //$NON-NLS-1$
+
+    public static final String TABLESCHEMA = "TABLE_SCHEMA"; //$NON-NLS-1$
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // data connection tagged values
