@@ -1960,9 +1960,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void setMigrationTasksDone(Project project, List<MigrationTask> list) throws PersistenceException {
         List oldMigrationTasks = project.getEmfProject().getMigrationTask();
-        if (oldMigrationTasks.size() == list.size()) {
-            return;
-        }
         project.getEmfProject().getMigrationTask().clear();
         project.getEmfProject().getMigrationTask().addAll(list);
         saveProject(project);
