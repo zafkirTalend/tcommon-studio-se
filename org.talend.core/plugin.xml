@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="global_actions" name="Global actions" schema="schema/global_actions.exsd"/>
+   <extension-point id="components_provider" name="Components provider" schema="schema/components_provider.exsd"/>
+   <extension-point id="external_component" name="External component" schema="schema/external_component.exsd"/>
+   <extension-point id="repositoryContextualsActions" name="Repository actions" schema="schema/repository_actions.exsd"/>
+   <extension-point id="migrationTask" name="Migration tool atomic task" schema="schema/migrationTask.exsd"/>
+   <extension-point id="talendperspectives" name="Talend Perspectives" schema="schema/talendperspectives.exsd"/>
+   <extension-point id="component_custom_action" name="Component Custom Action" schema="schema/component_custom_action.exsd"/>
+   <extension-point id="talend_external_proposals" name="Talend External Proposals" schema="schema/talend_external_proposals.exsd"/>
+   <extension-point id="component_definition" name="Component Definition" schema="schema/component_definition.exsd"/>
+   <extension-point id="routines_provider" name="Routines Provider" schema="schema/routines_provider.exsd"/>
+   <extension-point id="systemRoutineLibrary" name="system routine library" schema="schema/systemRoutineLibrary.exsd"/>
+   <extension-point id="cli_command" name="CommandLine Command" schema="schema/cli_command.exsd"/>
+   <extension-point id="java_type" name="Java Type" schema="schema/java_type.exsd"/>
+   <extension-point id="org.talend.designer.core.ui.editorHandler" name="org.talend.designer.core.ui.editorHandler" schema="schema/org.talend.designer.core.ui.editor.handler.exsd"/>
+	
+	
+	   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.runtime.MetadataPrecisionPage"
+            id="org.talend.core.runtime.MetadataPrecisionPage"
+            name="%Metadata">
+      </page>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreferencePage"
+            id="org.talend.core.prefs.datacollector"
+            name="%TalendDataCollector">
+      </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+            name="%TalendDataCollectorPreview">
+      </page>
+     <page
+            category="org.talend.core.prefs.datacollector"
+            class="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+            name="%TalendDataCollectorUploading">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer"/>
+      <initializer
+            class="org.talend.core.runtime.MetadataPreferenceInitializer">
+      </initializer>
+   </extension>
+	<extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.designer.core.ui.preferences.AppearancePreferencePage"
+            class="org.talend.core.prefs.ui.ColorsCodeViewerPreferencePage"
+            id="org.talend.core.pref.colorcodeviewer"
+            name="%prefColors"/>
+            
+       <page
+            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
+            class="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
+            id="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
+            name="%metadataofTalendType"/>
+       <page
+            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
+            class="org.talend.core.prefs.ui.MetadataTypeLengthPreferencePage"
+            id="org.talend.core.prefs.ui.MetadataTypeLengthPreferencePage"
+            name="%defaultTypeAndLength"/>
+   </extension> 
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.core.prefs.CorePreferenceInitializer"/>
+   </extension>
+   <extension
+         id="talendnature"
+         name="Talend"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="org.talend.core.model.general.TalendNature"/>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+               <category
+            id="org.talend.core.root"
+            name="Talend"/>
+   </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <workspacetask
+            breaks="5.1.1"
+            class="org.talend.core.prefs.InitConnectionsMigrationTask"
+            id="org.talend.core.InitConnectionsMigrationTask"
+            name="Init connections preferences"
+            version="5.1.2"/>
+      <workspacetask
+            breaks="5.1.3"
+            class="org.talend.core.prefs.EmptyConnectionsMigrationTask"
+            id="org.talend.core.EmptyConnectionsMigrationTask"
+            name="Empty connection from preference"
+            version="5.2.2">
+      </workspacetask>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.talend.core.ui.DisableLanguageActions"/>
+   </extension>
+   <extension
+         id="tos.variables"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="true"
+            class="org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer">
+      </javaCompletionProposalComputer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <scheme
+            description="%talend.scheme"
+            id="org.talend.core.scheme"
+            name="%talend.scheme"
+            parentId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </scheme>
+   </extension>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.core.CoreService"
+            serviceId="ICoreService">
+      </Service>
+   </extension>
+
+</plugin>

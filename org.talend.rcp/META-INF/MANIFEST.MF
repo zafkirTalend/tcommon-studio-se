@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: -Talend Open Studio -
+Bundle-SymbolicName: org.talend.rcp;singleton:=true
+Bundle-Version: 2.2.0.qualifier
+Bundle-Activator: org.talend.rcp.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui.intro,
+ org.talend.core,
+ org.talend.repository,
+ org.talend.designer.runprocess,
+ org.talend.designer.codegen,
+ org.eclipse.ui.ide.application,
+ org.talend.designer.core,
+ org.talend.commons.ui,
+ org.eclipse.ui.forms,
+ org.eclipse.core.expressions,
+ org.talend.core.repository,
+ org.eclipse.ui.ide,
+ org.talend.model,
+ org.talend.metadata.managment,
+ org.talend.registration,
+ org.eclipse.jface,
+ org.eclipse.ui.workbench,
+ org.apache.commons.lang,
+ org.talend.libraries.apache,
+ org.eclipse.ui.cheatsheets,
+ org.eclipse.ui
+Eclipse-LazyStart: true
+Export-Package: org.talend.rcp,
+ org.talend.rcp.intro,
+ org.talend.rcp.intro.linksbar,
+ org.talend.rcp.intro.starting,
+ org.talend.rcp.perspective
+Bundle-Vendor: .Talend SA.
