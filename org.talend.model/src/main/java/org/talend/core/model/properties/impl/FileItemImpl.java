@@ -309,8 +309,8 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
         URIConverter theURIConverter = resourceSet.getURIConverter();
         URI normalizedURI = theURIConverter.normalize(resourceUri);
-
-        if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) { //$NON-NLS-1$ //$NON-NLS-2$
+        // TUP-1814:because the routine proxyUri is File type,need handle with it.
+        if ((proxyUri.isPlatform() && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) || proxyUri.isFile()) { //$NON-NLS-1$
             List<Resource> resources = resourceSet.getResources();
             synchronized (resources) {
                 for (Resource resource : resources) {
