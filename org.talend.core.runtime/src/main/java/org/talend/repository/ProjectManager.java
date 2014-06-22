@@ -67,13 +67,13 @@ public final class ProjectManager {
 
     private Project currentProject;
 
-    private List<Project> referencedprojects = new ArrayList<Project>();
+    private final List<Project> referencedprojects = new ArrayList<Project>();
 
-    private List<Project> allReferencedprojects = new ArrayList<Project>();
+    private final List<Project> allReferencedprojects = new ArrayList<Project>();
 
-    private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
+    private final Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
-    private Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
+    private final Map<String, List<FolderItem>> foldersMap = new HashMap<String, List<FolderItem>>();
 
     private ProjectManager() {
         initCurrentProject();
@@ -84,6 +84,18 @@ public final class ProjectManager {
             singleton = new ProjectManager();
         }
         return singleton;
+    }
+
+    public Project getProjectFromProjectLabel(String label) {
+        if (currentProject.getLabel().equals(label)) {
+            return currentProject;
+        }
+        for (Project project : getReferencedProjects()) {
+            if (project.getLabel().equals(label)) {
+                return project;
+            }
+        }
+        return null;
     }
 
     private void initCurrentProject() {
