@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Helpers Plug-in
+Bundle-SymbolicName: org.talend.helpers;singleton:=true
+Bundle-Version: 2.3.0.qualifier
+Bundle-Activator: org.talend.helpers.HelpersPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.talend.core,
+ org.apache.log4j
+Eclipse-LazyStart: true
+Export-Package: org.talend.helpers,
+ org.talend.helpers.i18n,
+ org.talend.helpers.ui.actions

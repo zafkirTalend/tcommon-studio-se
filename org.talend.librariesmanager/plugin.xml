@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.librariesmanager.model.service.LibrariesService"
+            serviceId="ILibrariesService"/>
+      <Service
+            class="org.talend.librariesmanager.model.service.RoutinesProviderService"
+            serviceId="IRoutinesService">
+      </Service>
+      <Service
+            class="org.talend.librariesmanager.model.service.LocalLibraryManager"
+            serviceId="ILibraryManagerService">
+      </Service>
+   </extension>
+  
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.talend.librariesmanager.emf.librariesindex.LibrariesindexPackage"
+            genModel="model/librariesindex.genmodel"
+            uri="www.talend.com/librariesindex">
+      </package>
+   </extension>
+</plugin>
