@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.talend.helpers.nl Fragment
+Bundle-SymbolicName: org.talend.helpers.nl
+Bundle-Version: 4.0.0.qualifier
+Fragment-Host: org.talend.helpers
+Bundle-Vendor: .Talend SA.

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jtds Plug-in
+Bundle-SymbolicName: org.talend.libraries.jdbc.jtds;singleton:=true
+Bundle-Version: 2.2.0.qualifier
+Bundle-Vendor: .Talend SA.
+Bundle-ClassPath: lib/jtds-1.2.5.jar,
+ .
+Export-Package: net.sourceforge.jtds.jdbc,
+ net.sourceforge.jtds.jdbc.cache,
+ net.sourceforge.jtds.jdbcx,
+ net.sourceforge.jtds.jdbcx.proxy,
+ net.sourceforge.jtds.ssl,
+ net.sourceforge.jtds.util
+Bundle-ActivationPolicy: lazy
