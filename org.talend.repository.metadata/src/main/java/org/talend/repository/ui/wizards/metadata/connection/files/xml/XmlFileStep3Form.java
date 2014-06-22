@@ -440,8 +440,12 @@ public class XmlFileStep3Form extends AbstractXmlFileStepForm {
                 if (curNode == null || retriever == null) {
                     metadataColumn.setTalendType(MetadataTalendType.getDefaultTalendType());
                 } else {
-
-                    metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType("xs:" + curNode.getOriginalDataType())); //$NON-NLS-1$
+                    // TPS TPS-518(TDI-26579)
+                    String originalDataType = curNode.getOriginalDataType();
+                    if (originalDataType != null && !originalDataType.startsWith("xs:")) { //$NON-NLS-1$
+                        originalDataType = "xs:" + originalDataType; //$NON-NLS-1$
+                    }
+                    metadataColumn.setTalendType(retriever.getDefaultSelectedTalendType(originalDataType));
                 }
                 columns.add(metadataColumn);
             }
