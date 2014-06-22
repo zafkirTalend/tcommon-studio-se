@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.talend.core.repository.test
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: org.talend.core.repository
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit4,
+ org.talend.testutils

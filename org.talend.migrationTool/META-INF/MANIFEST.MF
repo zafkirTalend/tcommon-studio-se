@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MigrationTool Plug-in
+Bundle-SymbolicName: org.talend.migrationTool;singleton:=true
+Bundle-Version: 2.2.0.qualifier
+Bundle-Activator: org.talend.migrationtool.MigrationToolPlugin
+Bundle-Vendor: .Talend SA.
+Require-Bundle: org.eclipse.core.runtime,
+ org.talend.model,
+ org.talend.metadata.managment,
+ org.talend.core.runtime,
+ org.talend.common.ui.runtime,
+ org.eclipse.ui,
+ org.apache.log4j,
+ org.talend.commons.runtime,
+ org.apache.commons.lang,
+ org.talend.core.repository,
+ org.talend.utils
+Eclipse-LazyStart: true
+Export-Package: org.talend.migrationtool.model
+Eclipse-RegisterBuddy: org.talend.testutils
