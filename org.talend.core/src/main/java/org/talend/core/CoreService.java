@@ -285,8 +285,8 @@ public class CoreService implements ICoreService {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().syncAllRoutines();
-            codeGenService.createRoutineSynchronizer().syncAllPigudf();
+            codeGenService.createRoutineSynchronizer().syncAllRoutinesForLogOn();
+            codeGenService.createRoutineSynchronizer().syncAllPigudfForLogOn();
         }
 
     }
@@ -298,7 +298,7 @@ public class CoreService implements ICoreService {
                     ICodeGeneratorService.class);
             ITalendSynchronizer talendSynchronizer = codeGenService.createCamelBeanSynchronizer();
             if (talendSynchronizer != null) {
-                talendSynchronizer.syncAllBeans();
+                talendSynchronizer.syncAllBeansForLogOn();
             }
         }
 

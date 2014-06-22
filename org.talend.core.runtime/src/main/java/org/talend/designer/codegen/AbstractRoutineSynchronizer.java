@@ -160,7 +160,12 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     @Override
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException {
-        if (!isRoutineUptodate(routineItem) || !getFile(routineItem).exists()) {
+        syncRoutine(routineItem, copyToTemp, false);
+
+    }
+
+    public void syncRoutine(RoutineItem routineItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
+        if (routineItem != null && (forceUpdate || !isRoutineUptodate(routineItem) || !getFile(routineItem).exists())) {
             doSyncRoutine(routineItem, copyToTemp);
             setRoutineAsUptodate(routineItem);
         }
@@ -175,7 +180,11 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     @Override
     public void syncBean(Item beanItem, boolean copyToTemp) throws SystemException {
-        if (!isBeanUptodate(beanItem) || !getFile(beanItem).exists()) {
+        syncBean(beanItem, copyToTemp, false);
+    }
+
+    public void syncBean(Item beanItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
+        if (beanItem != null && (forceUpdate || !isBeanUptodate(beanItem) || !getFile(beanItem).exists())) {
             doSyncBean(beanItem, copyToTemp);
             setBeanAsUptodate(beanItem);
         }
@@ -314,5 +323,17 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     public void syncAllPigudf() throws SystemException {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void syncAllRoutinesForLogOn() throws SystemException {
+    }
+
+    @Override
+    public void syncAllBeansForLogOn() throws SystemException {
+    }
+
+    @Override
+    public void syncAllPigudfForLogOn() throws SystemException {
     }
 }
