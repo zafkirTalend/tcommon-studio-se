@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Google
+Bundle-SymbolicName: org.talend.libraries.apache.google
+Bundle-Version: 1.0.0.qualifier
+
