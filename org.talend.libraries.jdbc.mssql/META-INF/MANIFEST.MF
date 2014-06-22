@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mssql Plug-in
+Bundle-SymbolicName: org.talend.libraries.jdbc.mssql
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: .Talend SA.
