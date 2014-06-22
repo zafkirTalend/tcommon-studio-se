@@ -1,0 +1,236 @@
+<project name="talend.unit.and.swtbot.tests.ant.project" default="run.all.test.for.talend.rcp.app" basedir=".">
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpath="ant-contrib-1.0b3.jar"/>
+	<dirname property="this.test.build.file.dir" file="${ant.file.talend.unit.and.swtbot.tests.ant.project}"  />
+<!--    <property name="rcp-app-home" value="${this.test.build.file.dir}\..\.." />-->
+<!--     <property name="rcp-app-home" value="E:\java\Talend\TOSTestDistrib\TDQ_EE_MPX-All-r51548-V4.2.0NB\TDQ_EE_MPX-All-r51548-V4.2.0NB" />
+-->
+	<!-- common properties for test one application-->
+    <!--property name="test-application" value="org.talend.rcp.branding.tos.application"/-->
+    <property name="temp-workspace" value="${rcp-app-home}/workspace" />
+
+    <!-- define swt bot properties from file and locally-->
+	<propertyset id="swtbot.test.class.collector.properties" description="defines all the prefix and suffix used to find the classes to tested">
+		<propertyref prefix="swtbot.test."/>
+		<mapper type="glob" from="swtbot.test.*" to="test.*"/>
+	</propertyset>
+ 		
+    <!-- define unit test from file and locally-->
+    <property file="${this.test.build.file.dir}/unit.test.properties"/>
+	<property name="unit.junit.results.path" value="${rcp-app-home}/unit-junit-results-for-${test-application}.xml" />
+ 	<property name="unit.log.path" value="${rcp-app-home}/unit-log-for-${test-application}.log" />
+	<propertyset id="unit.test.class.collector.properties" description="defines all the prefix and suffix used to find the classes to tested">
+		<propertyref prefix="unit.test."/>
+		<mapper type="glob" from="unit.test.*" to="test.*"/>
+	</propertyset>
+
+	<target name="init">
+		<tstamp />
+		<fail unless="rcp-app-home" message="You must set the rcp-app-home property to specify the path the RCP application to test"/>
+		<fail unless="test-application" message="You must set the test-application property to specify the the application to test"/>
+		<fail unless="talend.licence.path" message="You must set the talend.licence.path property to specify where to find the licence"/>
+	</target>
+
+	<target name="init.swtbot">
+        <tstamp />
+        <fail unless="rcp-app-home" message="You must set the rcp-app-home property to specify the path the RCP application to test"/>
+        <fail unless="licences.folder.path" message="You must set the licences.folder.path property to specify where to find all the licenses to be used for swtbot tests"/>
+    </target>
+			
+	<target name="clean.application.config.and.workspace">
+ 		<delete includeemptydirs="true" quiet="true">
+    		<fileset dir="${rcp-app-home}/configuration" includes="**/*" excludes="config.ini,*.javacache,*.perlcache,org.talend.configurator/*"/>
+    		<fileset dir="${temp-workspace}" includes="**/*" excludes=".JETEmitters/**/*"/>
+		</delete>
+	</target>
+
+	<!-- ================================= 
+          target: swtbot.test.for.talend.rcp.app               
+         ================================= -->
+    <target name="swtbot.test.for.talend.rcp.app" description="launch swt bot test for Talend product defined in ${test-application}, output junit is localted a TOS root and named junit-results.xml, the console output is also located at the root" depends="init">
+        <property file="${this.test.build.file.dir}/swtbot.test.properties"/>
+        <property name="swtbot.junit.results.path" value="${rcp-app-home}/swtbot-junit-results-for-${test-application}.xml" />
+        <property name="swtbot.log.path" value="${rcp-app-home}/swtbot-log-for-${test-application}.log" />
+    	
+        <!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
+        <antcall target="clean.application.config.and.workspace"></antcall>
+        <echo>SWTBot test for Product ${test-application} : 
+   log file : ${swtbot.log.path}
+   JunitResult : ${swtbot.junit.results.path} </echo>
+        <!-- remove last build results -->
+        <delete includeemptydirs="true" quiet="true">
+            <fileset file="${swtbot.junit.results.path}" />
+            <fileset file="${swtbot.log.path}"/>
+            <fileset dir="${rcp-app-home}/screenshots"/>
+        </delete>
+        <java dir="${rcp-app-home}" fork="true" output="${swtbot.log.path}" logError="true"
+        classname="org.eclipse.core.launcher.Main" failonerror="false">
+            <syspropertyset refid="swtbot.test.class.collector.properties"/>
+            <sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
+            <classpath>
+                <fileset dir="${rcp-app-home}/plugins">
+                    <include name="org.eclipse.equinox.launcher_*.jar"/>
+                </fileset>
+            </classpath>
+            <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
+            <arg line="-testPluginName ${swtbot.test-plugin-name}"/>
+            <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+            <arg line="-className ${swtbot.test-class-name}"/>
+            <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${swtbot.junit.results.path}"/>
+            <arg line="-consoleLog"/>
+            <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
+        </java>        
+    </target>	
+	
+    <target name="launch.swtbot.test.for.one.license" description="launch swt bot test for Talend product defined in the licence file  ${talend.licence.path}, output junit is localted a TOS root and named junit-results.xml, the console output is also located at the root" depends="init.swtbot">
+        <fail unless="swtbot.propeties.file" message="You must set the swtbot.propeties.file property to specify the path the swt test properties"/>
+        <echo>loading properties from file =${swtbot.propeties.file}</echo>
+        <property file="${swtbot.propeties.file}"/>
+        <first id="first.license">
+            <fileset dir="${licences.folder.path}" includes="${swtbot.test.licence.product}-*.license" />
+        </first>
+        <property name="talend.licence.path" value="${toString:first.license}"/>
+        <fail message="You must set the talend.licence.path property to specify the path the license file">
+            <condition>
+                     <equals arg1="${talend.licence.path}" arg2="" trim="true"/>
+            </condition>
+        </fail>
+        <echo message=" licence path : ${talend.licence.path}" />
+        <!-- canot use depends because the clean target must be called right before to this target and depends assures it is called once before but may be to early -->
+        <antcall target="clean.application.config.and.workspace"></antcall>
+        <property name="swtbot.junit.results.path" value="${rcp-app-home}/swtbot-junit-results-for-${swtbot.test.licence.product}.xml" />
+        <property name="swtbot.log.path" value="${rcp-app-home}/swtbot-log-for-${swtbot.test.licence.product}.log" />
+
+    	
+    	
+    	<echo>SWTBot test for Product ${talend.licence.path} : 
+   log file : ${swtbot.log.path}
+   JunitResult : ${swtbot.junit.results.path} </echo>
+        <condition property="extra.jvm.args" value = "-XstartOnFirstThread" else="">
+                <equals arg1="${os.name}" arg2="Mac OS X"/>
+        </condition>
+    	<!-- remove last build results 
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${rcp-app-home}/screenshots"/>
+		</delete>-->
+    	<java dir="${rcp-app-home}" fork="true" output="${swtbot.log.path}" logError="true"
+    	classname="org.eclipse.core.launcher.Main" failonerror="false">
+    		<syspropertyset refid="swtbot.test.class.collector.properties"/>
+    		<sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
+    	    <classpath>
+    	        <fileset dir="${rcp-app-home}/plugins">
+    	            <include name="org.eclipse.equinox.launcher_*.jar"/>
+    	        </fileset>
+    	    </classpath>
+    	    <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
+    	    <arg line="-testPluginName ${swtbot.test-plugin-name}"/>
+    	    <arg line="-testApplication org.talend.rcp.branding.generic.application -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+    	    <arg line="-className ${swtbot.test-class-name}"/>
+    	    <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${swtbot.junit.results.path}"/>
+            <arg line="-consoleLog"/>
+            <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1716"/>-->
+    	</java>        
+    </target>
+
+	<!-- ================================= 
+          target: to launch all unit tests               
+         ================================= -->
+    <target name="unit.test.for.talend.rcp.app" description="launch unit test for Talend product defined in ${test-application}, output the unit test result and the application log"  depends="init">
+        <echo>Unit test for Product ${test-application} :
+   log file : ${unit.log.path}
+   JunitResult : ${unit.junit.results.path} </echo>
+        <!-- remove last build results -->
+                <delete includeemptydirs="true" quiet="true">
+                        <fileset file="${unit.junit.results.path}" />
+                        <fileset file="${unit.log.path}"/>
+                </delete>
+                <condition property="extra.jvm.args" value = "-XstartOnFirstThread" else="">
+                        <equals arg1="${os.name}" arg2="Mac OS X"/>
+                </condition>
+        <java dir="${rcp-app-home}" fork="true" output="${unit.log.path}" logError="true"
+        classname="org.eclipse.core.launcher.Main" failonerror="false">
+                <syspropertyset refid="unit.test.class.collector.properties"/>
+                <sysproperty key="talend.licence.path" value="${talend.licence.path}"/>
+            <classpath>
+                <fileset dir="${rcp-app-home}/plugins">
+                    <include name="org.eclipse.equinox.launcher_*.jar"/>
+                </fileset>
+            </classpath>
+            <arg line="-application org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication"/>
+            <arg line="-testpluginname ${unit.test-plugin-name}"/>
+            <arg line="-testApplication ${test-application} -clean -nl ta --disableLoginDialog -project TEST_NOLOGIN --deleteProjectIfExist -language java -login a@b.c"/>
+            <arg line="-classname ${unit.test-class-name}"/>
+            <arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,${unit.junit.results.path}"/>
+            <arg line="-consoleLog"/>
+            <jvmarg line="-Xms128m -Xmx1024m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError ${extra.jvm.args}"/><!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1716"/>-->
+                <env key="${extra.env.key}" value="${extra.env.value}"/>
+        </java>
+    </target>  
+
+    <target name="run.all.test.for.talend.rcp.app" depends="init,unit.test.for.talend.rcp.app, swtbot.test.for.talend.rcp.app" description="launch unit test and swtbot for Talend product defined in ${test-application}">
+    </target>
+	<!-- ================================= 
+          target: swtbot.multi-license.launch              
+         ================================= -->
+    <target name="swtbot.multi-license.launch" depends="init.swtbot" description="launch swt bot test multiple times with different licenses">
+        <foreach target="launch.swtbot.test.for.one.license" param="swtbot.propeties.file">
+        	<fileset dir="${this.test.build.file.dir}/swtbot_resources">
+        	        <include name="*.swtbot.test.properties"/>
+        	</fileset>
+        </foreach>
+    </target>
+<!-- ================================= 
+          target: test              
+         ================================= -->
+    <target name="test" description="test">
+        <fileset id="all.config.files.fileset" dir="/Applications/java/temp/testAntCp/original/"  includes="**/*"/>
+        <echo message="all files to be copied : ${toString:all.config.files.fileset}"/>
+    	<echo message=" files to be filtered : ${toString:files.to.be.filtered}"/>
+        <echo message=" files not filtered : ${toString:files.not.filtered}"/>
+    	<!-- creates all the required folders cause the native cp does not-->
+    	<for param="file.to.copy">
+    		<mappedresources>
+                <restrict>
+                    <fileset refid="all.config.files.fileset"/>
+                	<and>
+                        <not>
+                            <contains text="@TALEND_VERSION@" casesensitive="yes"/>
+                        </not>
+                	</and>
+                </restrict>
+                <globmapper from="*" to="/Applications/java/temp/testAntCp/dest/*"/>
+    		</mappedresources>
+    		<sequential>
+    			<echo message="file to extract folder:@{file.to.copy}"/>
+    			<dirname file="@{file.to.copy}" property="dir.name"/>
+    			<mkdir dir="${dir.name}"/>
+    			<var name="dir.name" unset="true"/>
+    		</sequential>
+    	</for >   	
+        <!-- copy all files that do not need to be filtered -->
+        <apply executable="cp" dest="/Applications/java/temp/testAntCp/dest/" parallel="false" type="both">
+                                               <arg value="-vRp"/>
+                                               <srcfile/>
+                                               <targetfile/>
+           <restrict>
+               <fileset refid="all.config.files.fileset"/>
+               <not>
+                   <contains text="@TALEND_VERSION@" casesensitive="yes"/>
+               </not>
+           </restrict>
+           <mapper type="identity"/>
+         </apply>
+        <!-- copy all files that need to be filtered -->
+        <copy todir="/Applications/java/temp/testAntCp/dest/">
+        	<restrict>
+        	            <fileset refid="all.config.files.fileset"/>
+        	            <contains text="@TALEND_VERSION@" casesensitive="yes"/>
+        	</restrict>
+        	<filterset>
+        	    <filter token="TALEND_VERSION" value="XXXXX"/>
+        	  </filterset>
+        </copy>
+    	
+
+    </target>
+
+</project>

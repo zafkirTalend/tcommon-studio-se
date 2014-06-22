@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resources Plug-in
+Bundle-SymbolicName: org.talend.resources;singleton:=true
+Bundle-Version: 2.2.0.qualifier
+Bundle-Activator: org.talend.resources.ResourcesPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.talend.core,
+ org.talend.commons.ui,
+ org.eclipse.ui.workbench,
+ org.eclipse.jface
+Eclipse-LazyStart: true
+Bundle-ClassPath: .
+Bundle-Vendor: .Talend SA.
+Export-Package: org.talend.resources,
+ org.talend.resources.util
