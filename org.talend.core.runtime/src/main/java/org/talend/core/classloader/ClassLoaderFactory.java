@@ -31,7 +31,10 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 
@@ -229,4 +232,36 @@ public class ClassLoaderFactory {
 
         return new File(tmpFolderPath);
     }
+
+    public static String[] getDriverModuleList(IMetadataConnection metadataConn) {
+        String[] moduleList;
+        String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+        if (HiveConnUtils.isCustomDistro(distroKey)) {
+            String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
+            moduleList = jarsStr.split(";");
+        } else {
+            String index = "HIVE" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$
+            moduleList = getDriverModuleList(index);
+        }
+        return moduleList;
+    }
+
+    public static String[] getDriverModuleList(String connKeyString) {
+        if (connKeyString != null && configurationElements != null) {
+            for (IConfigurationElement current : configurationElements) {
+                String key = current.getAttribute(INDEX_ATTR);
+                if (connKeyString.equals(key)) {
+                    String libraries = current.getAttribute(LIB_ATTR);
+                    if (StringUtils.isNotEmpty(libraries)) {
+                        String[] librariesArray = libraries.split(SEPARATOR);
+                        return librariesArray;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }
