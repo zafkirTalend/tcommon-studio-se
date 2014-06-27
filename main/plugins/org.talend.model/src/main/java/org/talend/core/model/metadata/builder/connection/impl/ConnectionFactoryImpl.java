@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionFactoryImpl.java 89342 2012-08-20 03:46:34Z ycbai $
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
@@ -207,6 +207,10 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createSalesforceModuleUnit();
         case ConnectionPackage.ADDITIONAL_PROPERTIES:
             return (EObject) createAdditionalProperties();
+        case ConnectionPackage.SAP_TABLE_FIELD:
+            return createSAPTableField();
+        case ConnectionPackage.SAP_TABLE:
+            return createSAPTable();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -707,6 +711,26 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public Map.Entry<String, String> createAdditionalProperties() {
         AdditionalPropertiesImpl additionalProperties = new AdditionalPropertiesImpl();
         return additionalProperties;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTableField createSAPTableField() {
+        SAPTableFieldImpl sapTableField = new SAPTableFieldImpl();
+        return sapTableField;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTable createSAPTable() {
+        SAPTableImpl sapTable = new SAPTableImpl();
+        return sapTable;
     }
 
     /**

@@ -1421,20 +1421,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } else if (metadataConnection instanceof SAPConnection) {
             // The sap wizard plugin is loaded
             // 1.Tables:
+            createSAPTableNodes(recBinNode, repObj, metadataConnection, node, validationRules);
+
+            // 2.Functions:
             RepositoryNode functionNode = new StableRepositoryNode(node,
                     Messages.getString("ProjectRepositoryNode.sapFunctions"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
             node.getChildren().add(functionNode);
 
             // add functions
             createSAPFunctionNodes(recBinNode, repObj, metadataConnection, functionNode, validationRules);
-
-            RepositoryNode iDocNode = new StableRepositoryNode(node,
-                    Messages.getString("ProjectRepositoryNode.sapIDocs"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
-            node.getChildren().add(iDocNode);
+            //
+            // RepositoryNode iDocNode = new StableRepositoryNode(node,
+            //                    Messages.getString("ProjectRepositoryNode.sapIDocs"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            // node.getChildren().add(iDocNode);
 
             // add functions
-            createSAPIDocNodes(recBinNode, repObj, metadataConnection, iDocNode);
-
+            // createSAPIDocNodes(recBinNode, repObj, metadataConnection, iDocNode);
         } else if (metadataConnection instanceof SalesforceSchemaConnection) {
             createSalesforceModuleNodes(recBinNode, repObj, metadataConnection, node, validationRules);
         } else {
@@ -1444,6 +1446,60 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             tables.addAll(tableset);
             createTables(recBinNode, node, repObj, tables, ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
         }
+    }
+
+    private void createSAPTableNodes(final RepositoryNode recBin, IRepositoryViewObject repObj, Connection metadataConnection,
+            RepositoryNode node, List<IRepositoryViewObject> validationRules) {
+        RepositoryNode tableContainer = new StableRepositoryNode(node,
+                Messages.getString("ProjectRepositoryNode.sapTables"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+        node.getChildren().add(tableContainer);
+
+        List<MetadataTable> tablesWithOrders = ConnectionHelper.getTablesWithOrders(metadataConnection);
+        EList tables = new BasicEList();
+        tables.addAll(tablesWithOrders);
+        createTables(recBin, tableContainer, repObj, tables, ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+        // if (SubItemHelper.isDeleted(unit)) {
+        // recBin.getChildren().add(tableNode);
+        // } else {
+        // tableContainer.getChildren().add(tableNode);
+        // }
+
+        // EList sapTables = ((SAPConnection) metadataConnection).getSapTables();
+        //
+        // for (Object currentTable : sapTables) {
+        // if (currentTable instanceof SAPTable) {
+        // SAPTable metadataTable = (SAPTable) currentTable;
+        // RepositoryNode tableNode = createMetatableNode(tableContainer, repObj, metadataTable,
+        // ERepositoryObjectType.METADATA_CON_TABLE);
+        // if (!SubItemHelper.isDeleted(metadataTable)) {
+        // tableContainer.getChildren().add(tableNode);
+        // }
+        // if (metadataTable.getFields().size() > 0) {
+        // int num = metadataTable.getFields().size();
+        // StringBuffer floderName = new StringBuffer();
+        //                    floderName.append(Messages.getString("ProjectRepositoryNode.columns"));//$NON-NLS-1$
+        //                    floderName.append("(");//$NON-NLS-1$
+        // floderName.append(num);
+        //                    floderName.append(")");//$NON-NLS-1$
+        // RepositoryNode container = new StableRepositoryNode(tableNode, floderName.toString(),
+        // ECoreImage.FOLDER_CLOSE_ICON);
+        // tableNode.getChildren().add(container);
+        //
+        // for (MetadataColumn column : metadataTable.getFields()) {
+        // if (column == null) {
+        // continue;
+        // }
+        // RepositoryNode columnNode = createMataColumnNode(container, repObj, column,
+        // ERepositoryObjectType.METADATA_CON_COLUMN);
+        // container.getChildren().add(columnNode);
+        //
+        // }
+        // createValidationRules(recBinNode, tableNode, repObj, metadataTable,
+        // ERepositoryObjectType.METADATA_VALIDATION_RULES, validationRules);
+        //
+        // }
+        // }
+        // }
     }
 
     private void createSalesforceModuleNodes(final RepositoryNode recBin, IRepositoryViewObject rebObj,
@@ -1755,3 +1811,4 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         defaultProjRepoNode = null;
     }
 }
+>>>>>>> c1aa3a4 feature TDI-26405 added :  Import SAP target table definitions

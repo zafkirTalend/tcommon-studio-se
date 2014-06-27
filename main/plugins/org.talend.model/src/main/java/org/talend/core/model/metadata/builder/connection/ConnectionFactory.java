@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionFactory.java 58072 2011-04-07 03:20:55Z hywang $
  */
 package org.talend.core.model.metadata.builder.connection;
 
@@ -388,6 +388,24 @@ public interface ConnectionFactory extends EFactory {
      * @generated
      */
     SalesforceModuleUnit createSalesforceModuleUnit();
+
+    /**
+     * Returns a new object of class '<em>SAP Table Field</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Table Field</em>'.
+     * @generated
+     */
+    SAPTableField createSAPTableField();
+
+    /**
+     * Returns a new object of class '<em>SAP Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Table</em>'.
+     * @generated
+     */
+    SAPTable createSAPTable();
 
     /**
      * Returns a new object of class '<em>EDIFACT Column</em>'.

@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionPackage.java 107751 2013-09-10 06:08:00Z zwzhao $
  */
 package org.talend.core.model.metadata.builder.connection;
 
@@ -17858,13 +17858,1041 @@ public interface ConnectionPackage extends EPackage {
     int ADDITIONAL_PROPERTIES_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl <em>SAP Table Field</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTableField()
+     * @generated
+     */
+    int SAP_TABLE_FIELD = 51;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NAME = METADATA_COLUMN__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__VISIBILITY = METADATA_COLUMN__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CLIENT_DEPENDENCY = METADATA_COLUMN__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SUPPLIER_DEPENDENCY = METADATA_COLUMN__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CONSTRAINT = METADATA_COLUMN__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NAMESPACE = METADATA_COLUMN__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__IMPORTER = METADATA_COLUMN__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__STEREOTYPE = METADATA_COLUMN__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TAGGED_VALUE = METADATA_COLUMN__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DOCUMENT = METADATA_COLUMN__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DESCRIPTION = METADATA_COLUMN__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RESPONSIBLE_PARTY = METADATA_COLUMN__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ELEMENT_NODE = METADATA_COLUMN__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SET = METADATA_COLUMN__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RENDERED_OBJECT = METADATA_COLUMN__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__VOCABULARY_ELEMENT = METADATA_COLUMN__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__MEASUREMENT = METADATA_COLUMN__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CHANGE_REQUEST = METADATA_COLUMN__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DASDL_PROPERTY = METADATA_COLUMN__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PROPERTIES = METADATA_COLUMN__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ID = METADATA_COLUMN__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__COMMENT = METADATA_COLUMN__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__LABEL = METADATA_COLUMN__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__READ_ONLY = METADATA_COLUMN__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SYNCHRONISED = METADATA_COLUMN__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DIVERGENCY = METADATA_COLUMN__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__OWNER_SCOPE = METADATA_COLUMN__OWNER_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Owner</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__OWNER = METADATA_COLUMN__OWNER;
+
+    /**
+     * The feature id for the '<em><b>Feature Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__FEATURE_NODE = METADATA_COLUMN__FEATURE_NODE;
+
+    /**
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__FEATURE_MAP = METADATA_COLUMN__FEATURE_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CF_MAP = METADATA_COLUMN__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Changeability</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CHANGEABILITY = METADATA_COLUMN__CHANGEABILITY;
+
+    /**
+     * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__MULTIPLICITY = METADATA_COLUMN__MULTIPLICITY;
+
+    /**
+     * The feature id for the '<em><b>Ordering</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORDERING = METADATA_COLUMN__ORDERING;
+
+    /**
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TARGET_SCOPE = METADATA_COLUMN__TARGET_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TYPE = METADATA_COLUMN__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Slot</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SLOT = METADATA_COLUMN__SLOT;
+
+    /**
+     * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DISCRIMINATED_UNION = METADATA_COLUMN__DISCRIMINATED_UNION;
+
+    /**
+     * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__INDEXED_FEATURE = METADATA_COLUMN__INDEXED_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__KEY_RELATIONSHIP = METADATA_COLUMN__KEY_RELATIONSHIP;
+
+    /**
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__UNIQUE_KEY = METADATA_COLUMN__UNIQUE_KEY;
+
+    /**
+     * The feature id for the '<em><b>Data Item</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DATA_ITEM = METADATA_COLUMN__DATA_ITEM;
+
+    /**
+     * The feature id for the '<em><b>Remap</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__REMAP = METADATA_COLUMN__REMAP;
+
+    /**
+     * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__INITIAL_VALUE = METADATA_COLUMN__INITIAL_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__LENGTH = METADATA_COLUMN__LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Precision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PRECISION = METADATA_COLUMN__PRECISION;
+
+    /**
+     * The feature id for the '<em><b>Scale</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SCALE = METADATA_COLUMN__SCALE;
+
+    /**
+     * The feature id for the '<em><b>Source Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SOURCE_TYPE = METADATA_COLUMN__SOURCE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DEFAULT_VALUE = METADATA_COLUMN__DEFAULT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Talend Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TALEND_TYPE = METADATA_COLUMN__TALEND_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__KEY = METADATA_COLUMN__KEY;
+
+    /**
+     * The feature id for the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NULLABLE = METADATA_COLUMN__NULLABLE;
+
+    /**
+     * The feature id for the '<em><b>Table</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TABLE = METADATA_COLUMN__TABLE;
+
+    /**
+     * The feature id for the '<em><b>Original Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORIGINAL_FIELD = METADATA_COLUMN__ORIGINAL_FIELD;
+
+    /**
+     * The feature id for the '<em><b>Pattern</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PATTERN = METADATA_COLUMN__PATTERN;
+
+    /**
+     * The feature id for the '<em><b>Display Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DISPLAY_FIELD = METADATA_COLUMN__DISPLAY_FIELD;
+
+    /**
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORIGINAL_LENGTH = METADATA_COLUMN__ORIGINAL_LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RELATED_ENTITY = METADATA_COLUMN__RELATED_ENTITY;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RELATIONSHIP_TYPE = METADATA_COLUMN__RELATIONSHIP_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Ref Table</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__REF_TABLE = METADATA_COLUMN_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>SAP Table Field</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD_FEATURE_COUNT = METADATA_COLUMN_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl <em>SAP Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTable()
+     * @generated
+     */
+    int SAP_TABLE = 52;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__NAME = METADATA_TABLE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__VISIBILITY = METADATA_TABLE__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CLIENT_DEPENDENCY = METADATA_TABLE__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SUPPLIER_DEPENDENCY = METADATA_TABLE__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CONSTRAINT = METADATA_TABLE__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__NAMESPACE = METADATA_TABLE__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__IMPORTER = METADATA_TABLE__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__STEREOTYPE = METADATA_TABLE__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__TAGGED_VALUE = METADATA_TABLE__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DOCUMENT = METADATA_TABLE__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DESCRIPTION = METADATA_TABLE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__RESPONSIBLE_PARTY = METADATA_TABLE__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ELEMENT_NODE = METADATA_TABLE__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SET = METADATA_TABLE__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__RENDERED_OBJECT = METADATA_TABLE__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__VOCABULARY_ELEMENT = METADATA_TABLE__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MEASUREMENT = METADATA_TABLE__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CHANGE_REQUEST = METADATA_TABLE__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DASDL_PROPERTY = METADATA_TABLE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__PROPERTIES = METADATA_TABLE__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ID = METADATA_TABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__COMMENT = METADATA_TABLE__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__LABEL = METADATA_TABLE__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__READ_ONLY = METADATA_TABLE__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SYNCHRONISED = METADATA_TABLE__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DIVERGENCY = METADATA_TABLE__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__OWNED_ELEMENT = METADATA_TABLE__OWNED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__IS_ABSTRACT = METADATA_TABLE__IS_ABSTRACT;
+
+    /**
+     * The feature id for the '<em><b>Feature</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__FEATURE = METADATA_TABLE__FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__STRUCTURAL_FEATURE = METADATA_TABLE__STRUCTURAL_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Parameter</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__PARAMETER = METADATA_TABLE__PARAMETER;
+
+    /**
+     * The feature id for the '<em><b>Generalization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__GENERALIZATION = METADATA_TABLE__GENERALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Specialization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SPECIALIZATION = METADATA_TABLE__SPECIALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Instance</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__INSTANCE = METADATA_TABLE__INSTANCE;
+
+    /**
+     * The feature id for the '<em><b>Alias</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ALIAS = METADATA_TABLE__ALIAS;
+
+    /**
+     * The feature id for the '<em><b>Expression Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__EXPRESSION_NODE = METADATA_TABLE__EXPRESSION_NODE;
+
+    /**
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MAPPING_FROM = METADATA_TABLE__MAPPING_FROM;
+
+    /**
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MAPPING_TO = METADATA_TABLE__MAPPING_TO;
+
+    /**
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CLASSIFIER_MAP = METADATA_TABLE__CLASSIFIER_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CF_MAP = METADATA_TABLE__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Domain</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DOMAIN = METADATA_TABLE__DOMAIN;
+
+    /**
+     * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SIMPLE_DIMENSION = METADATA_TABLE__SIMPLE_DIMENSION;
+
+    /**
+     * The feature id for the '<em><b>Index</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__INDEX = METADATA_TABLE__INDEX;
+
+    /**
+     * The feature id for the '<em><b>Source Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SOURCE_NAME = METADATA_TABLE__SOURCE_NAME;
+
+    /**
+     * The feature id for the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__TABLE_TYPE = METADATA_TABLE__TABLE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ATTACHED_CDC = METADATA_TABLE__ATTACHED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ACTIVATED_CDC = METADATA_TABLE__ACTIVATED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Columns</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__COLUMNS = METADATA_TABLE__COLUMNS;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CONNECTION = METADATA_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ADDITIONAL_PROPERTIES = METADATA_TABLE__ADDITIONAL_PROPERTIES;
+
+    /**
+     * The number of structural features of the '<em>SAP Table</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 51;
+    int FILE_FORMAT = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -17873,7 +18901,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 52;
+    int FIELD_SEPARATOR = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -17882,7 +18910,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 53;
+    int ESCAPE = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -17891,7 +18919,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 54;
+    int ROW_SEPARATOR = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -17900,7 +18928,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 55;
+    int MDM_CONNECTION_PROTOCOL = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -17910,7 +18938,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 56;
+    int MDM_CONCEPT_TYPE = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
@@ -17920,7 +18948,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
      * @generated
      */
-    int RULE_TYPE = 57;
+    int RULE_TYPE = 59;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
@@ -17930,7 +18958,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
      * @generated
      */
-    int FUNCTION = 58;
+    int FUNCTION = 60;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
@@ -17940,7 +18968,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
      * @generated
      */
-    int OPERATOR = 59;
+    int OPERATOR = 61;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -17950,7 +18978,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
      * @generated
      */
-    int LOGICAL_OPERATOR = 60;
+    int LOGICAL_OPERATOR = 62;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -17959,7 +18987,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 61;
+    int MAP = 63;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -17968,7 +18996,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 62;
+    int LIST = 64;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -22019,6 +23047,37 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getAdditionalProperties_Value();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTableField <em>SAP Table Field</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Table Field</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTableField
+     * @generated
+     */
+    EClass getSAPTableField();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getRefTable <em>Ref Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Ref Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTableField#getRefTable()
+     * @see #getSAPTableField()
+     * @generated
+     */
+    EAttribute getSAPTableField_RefTable();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTable <em>SAP Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTable
+     * @generated
+     */
+    EClass getSAPTable();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -25450,6 +26509,34 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute ADDITIONAL_PROPERTIES__VALUE = eINSTANCE.getAdditionalProperties_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl <em>SAP Table Field</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTableField()
+         * @generated
+         */
+        EClass SAP_TABLE_FIELD = eINSTANCE.getSAPTableField();
+
+        /**
+         * The meta object literal for the '<em><b>Ref Table</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_TABLE_FIELD__REF_TABLE = eINSTANCE.getSAPTableField_RefTable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl <em>SAP Table</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTable()
+         * @generated
+         */
+        EClass SAP_TABLE = eINSTANCE.getSAPTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionPackageImpl.java 113672 2014-01-26 10:46:50Z msjian $
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
@@ -69,6 +69,8 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterCol
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
+import org.talend.core.model.metadata.builder.connection.SAPTable;
+import org.talend.core.model.metadata.builder.connection.SAPTableField;
 import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
@@ -418,6 +420,20 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass additionalPropertiesEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapTableFieldEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapTableEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3692,6 +3708,33 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPTableField() {
+        return sapTableFieldEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPTableField_RefTable() {
+        return (EAttribute) sapTableFieldEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPTable() {
+        return sapTableEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4398,6 +4441,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(additionalPropertiesEClass, ADDITIONAL_PROPERTIES__KEY);
         createEAttribute(additionalPropertiesEClass, ADDITIONAL_PROPERTIES__VALUE);
 
+        sapTableFieldEClass = createEClass(SAP_TABLE_FIELD);
+        createEAttribute(sapTableFieldEClass, SAP_TABLE_FIELD__REF_TABLE);
+
+        sapTableEClass = createEClass(SAP_TABLE);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -4505,6 +4553,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         edifactConnectionEClass.getESuperTypes().add(this.getConnection());
         edifactColumnEClass.getESuperTypes().add(this.getMetadataColumn());
         salesforceModuleUnitEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        sapTableFieldEClass.getESuperTypes().add(this.getMetadataColumn());
+        sapTableEClass.getESuperTypes().add(this.getMetadataTable());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5597,6 +5647,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdditionalProperties_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapTableFieldEClass, SAPTableField.class, "SAPTableField", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPTableField_RefTable(), ecorePackage.getEString(), "refTable", null, 0, -1, SAPTableField.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapTableEClass, SAPTable.class, "SAPTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");
