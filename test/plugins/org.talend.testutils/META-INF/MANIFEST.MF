@@ -5,14 +5,14 @@ Bundle-SymbolicName: org.talend.testutils
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
+ lib/xpp3.jar,
+ lib/xstream-1.4.2.jar,
  lib/cglib-nodep-2.2.jar,
  lib/javassist-3.15.0-GA.jar,
  lib/mockito-all-1.9.0.jar,
- lib/objenesis-1.2.jar,
  lib/hamcrest-all-1.2.jar,
  lib/powermock-mockito-1.4.12-full.jar,
  lib/powermock-classloading-base-1.4.11.jar,
- lib/powermock-classloading-objenesis-1.4.11.jar,
  lib/powermock-classloading-xstream-1.4.11.jar,
  lib/powermock-module-junit4-rule-1.4.11.jar,
  lib/powermock-module-junit4-rule-agent-1.4.11.jar,
@@ -128,7 +128,6 @@ Export-Package: com.javamex.classmexer,
  org.objenesis.instantiator.basic,
  org.objenesis.instantiator.gcj,
  org.objenesis.instantiator.jrockit,
- org.objenesis.instantiator.perc,
  org.objenesis.instantiator.sun,
  org.objenesis.strategy,
  org.powermock.api.extension.listener,
@@ -190,6 +189,7 @@ Export-Package: com.javamex.classmexer,
  org.powermock.tests.utils.impl,
  org.talend.test.utils,
  org.talend.testutils.threading
-Require-Bundle: org.junit4;bundle-version="4.8.1";visibility:=reexport
+Require-Bundle: org.junit4;bundle-version="4.8.1";visibility:=reexport,
+ org.apache.axis;bundle-version="1.4.0"
 Eclipse-BuddyPolicy: registered
 
