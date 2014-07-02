@@ -892,88 +892,90 @@ public class ExtractMetaDataUtils {
 
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
-        // see feature 4720&4722
-        if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
-            List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
-            if (driverNames != null) {
-                // fix for TUP-857 , to retreive needed jar one time
-                librairesManagerService.retrieve(driverNames, getJavaLibPath(), new NullProgressMonitor());
-                for (String jar : driverNames) {
-                    jarPathList.add(getJavaLibPath() + jar);
-                }
-                driverClassName = getDriverClassByDbType(dbType);
-                // feature TDI-22108
-                if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
-                        && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)
-                                || EDatabaseVersion4Drivers.VERTICA_5_1.getVersionValue().equals(dbVersion)
-                                || EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue().equals(dbVersion) || EDatabaseVersion4Drivers.VERTICA_7
-                                .getVersionValue().equals(dbVersion))) {
-                    driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
-                }
-            }
-        } else {
-            Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());
-            // add another test with start with / in case of linux OS.
-            if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
-                if (driverJarPathArg.contains(";")) {
-                    String jars[] = driverJarPathArg.split(";");
-                    List<String> jarsToRetreive = new ArrayList<String>();
-                    for (String jar : jars) {
-                        Path path = new Path(jar);
-                        if (!checkFileCRCCode(new File(getJavaLibPath() + path.lastSegment()), new File(jar))) {
-                            String librariesPath = getLibrariesPath(ECodeLanguage.JAVA);
-                            File existJar = new File(librariesPath + File.separator + path.lastSegment());
-                            // here will overwrite the original jar if exist(TDI-27784)
-                            if (existJar.exists()) {
-                                existJar.delete();
-                                FilesUtils.copyFile(new File(jar), existJar);
-                            }
-                        }
-                        // fix for 19020
-                        if (jarsAvailable.contains(path.lastSegment())) {
-                            if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
-                                jarsToRetreive.add(path.lastSegment());
-                            }
-                            jarPathList.add(getJavaLibPath() + path.lastSegment());
-                        } else {
-                            jarsToRetreive.add(path.lastSegment());
-                            jarPathList.add(jar);
-                        }
+        if (librairesManagerService != null) {
+            // see feature 4720&4722
+            if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
+                List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
+                if (driverNames != null) {
+                    // fix for TUP-857 , to retreive needed jar one time
+                    librairesManagerService.retrieve(driverNames, getJavaLibPath(), new NullProgressMonitor());
+                    for (String jar : driverNames) {
+                        jarPathList.add(getJavaLibPath() + jar);
                     }
-                    librairesManagerService.retrieve(jarsToRetreive, getJavaLibPath(), new NullProgressMonitor());
-                } else {
-                    Path path = new Path(driverJarPathArg);
-                    File driverFile = new File(driverJarPathArg);
-                    boolean isExist = driverFile.exists();
-                    // if (!isExist || !driverJarPathArg.contains(":")) { Removed by Marvin Wang for TDI-25766.
-                    if (!isExist) {
-                        jarPathList.add("");
-                    } else {
-                        // removed by fwang for bug TDI-24594
-                        // if (jarsAvailable.contains(path.lastSegment())) {
-                        // String jarUnderLib = getJavaLibPath() + path.lastSegment();
-                        // File file = new File(jarUnderLib);
-                        // if (!file.exists()) {
-                        // librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new
-                        // NullProgressMonitor());
-                        // }
-                        // jarPathList.add(jarUnderLib);
-                        // } else {
-                        jarPathList.add(driverJarPathArg);
+                    driverClassName = getDriverClassByDbType(dbType);
+                    // feature TDI-22108
+                    if (EDatabaseTypeName.VERTICA.getXmlName().equals(dbType)
+                            && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(dbVersion)
+                                    || EDatabaseVersion4Drivers.VERTICA_5_1.getVersionValue().equals(dbVersion)
+                                    || EDatabaseVersion4Drivers.VERTICA_6_1_X.getVersionValue().equals(dbVersion) || EDatabaseVersion4Drivers.VERTICA_7
+                                    .getVersionValue().equals(dbVersion))) {
+                        driverClassName = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                     }
                 }
             } else {
-                if (driverJarPathArg.contains(";")) {
-                    String jars[] = driverJarPathArg.split(";");
-                    librairesManagerService.retrieve(Arrays.asList(jars), getJavaLibPath(), new NullProgressMonitor());
-                    for (String jar : jars) {
-                        jarPathList.add(getJavaLibPath() + jar);
+                Set<String> jarsAvailable = librairesManagerService.list(new NullProgressMonitor());
+                // add another test with start with / in case of linux OS.
+                if (driverJarPathArg.contains("\\") || driverJarPathArg.startsWith("/")) { //$NON-NLS-1$
+                    if (driverJarPathArg.contains(";")) {
+                        String jars[] = driverJarPathArg.split(";");
+                        List<String> jarsToRetreive = new ArrayList<String>();
+                        for (String jar : jars) {
+                            Path path = new Path(jar);
+                            if (!checkFileCRCCode(new File(getJavaLibPath() + path.lastSegment()), new File(jar))) {
+                                String librariesPath = getLibrariesPath(ECodeLanguage.JAVA);
+                                File existJar = new File(librariesPath + File.separator + path.lastSegment());
+                                // here will overwrite the original jar if exist(TDI-27784)
+                                if (existJar.exists()) {
+                                    existJar.delete();
+                                    FilesUtils.copyFile(new File(jar), existJar);
+                                }
+                            }
+                            // fix for 19020
+                            if (jarsAvailable.contains(path.lastSegment())) {
+                                if (!new File(getJavaLibPath() + path.lastSegment()).exists()) {
+                                    jarsToRetreive.add(path.lastSegment());
+                                }
+                                jarPathList.add(getJavaLibPath() + path.lastSegment());
+                            } else {
+                                jarsToRetreive.add(path.lastSegment());
+                                jarPathList.add(jar);
+                            }
+                        }
+                        librairesManagerService.retrieve(jarsToRetreive, getJavaLibPath(), new NullProgressMonitor());
+                    } else {
+                        Path path = new Path(driverJarPathArg);
+                        File driverFile = new File(driverJarPathArg);
+                        boolean isExist = driverFile.exists();
+                        // if (!isExist || !driverJarPathArg.contains(":")) { Removed by Marvin Wang for TDI-25766.
+                        if (!isExist) {
+                            jarPathList.add("");
+                        } else {
+                            // removed by fwang for bug TDI-24594
+                            // if (jarsAvailable.contains(path.lastSegment())) {
+                            // String jarUnderLib = getJavaLibPath() + path.lastSegment();
+                            // File file = new File(jarUnderLib);
+                            // if (!file.exists()) {
+                            // librairesManagerService.retrieve(path.lastSegment(), getJavaLibPath(), new
+                            // NullProgressMonitor());
+                            // }
+                            // jarPathList.add(jarUnderLib);
+                            // } else {
+                            jarPathList.add(driverJarPathArg);
+                        }
                     }
                 } else {
-                    if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
-                        librairesManagerService.retrieve(driverJarPathArg, getJavaLibPath(), new NullProgressMonitor());
+                    if (driverJarPathArg.contains(";")) {
+                        String jars[] = driverJarPathArg.split(";");
+                        librairesManagerService.retrieve(Arrays.asList(jars), getJavaLibPath(), new NullProgressMonitor());
+                        for (String jar : jars) {
+                            jarPathList.add(getJavaLibPath() + jar);
+                        }
+                    } else {
+                        if (!new File(getJavaLibPath() + driverJarPathArg).exists()) {
+                            librairesManagerService.retrieve(driverJarPathArg, getJavaLibPath(), new NullProgressMonitor());
+                        }
+                        jarPathList.add(getJavaLibPath() + driverJarPathArg);
                     }
-                    jarPathList.add(getJavaLibPath() + driverJarPathArg);
                 }
             }
         }
@@ -1158,7 +1160,9 @@ public class ExtractMetaDataUtils {
         String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
         try {
             physProject = ResourceModelUtils.getProject(project);
-            tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+            if (physProject != null) {
+                tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+            }
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
