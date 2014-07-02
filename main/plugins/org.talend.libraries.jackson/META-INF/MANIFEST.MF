@@ -7,7 +7,11 @@ Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
  lib/ezmorph-1.0.6.jar,
  lib/jackson-0.9.2.jar,
- lib/json-lib-2.4-jdk15.jar
+ lib/json-lib-2.4-jdk15.jar,
+ lib/jackson-core-2.2.2.jar,
+ lib/jackson-databind-2.2.2.jar,
+ lib/jackson-annotations-2.1.2.jar,
+ lib/jackson-module-jaxb-annotations-2.2.2.jar
 Export-Package: net.sf.json,
  net.sf.json.filters,
  net.sf.json.groovy,
@@ -22,7 +26,10 @@ Export-Package: net.sf.json,
  org.codehaus.jackson.map,
  org.codehaus.jackson.map.impl,
  org.codehaus.jackson.sym,
- org.codehaus.jackson.util
+ org.codehaus.jackson.util,
+ com.fasterxml.jackson.core,
+ com.fasterxml.jackson.databind,
+ com.fasterxml.jackson.module.jaxb
 Require-Bundle: org.apache.commons.lang,
  org.apache.commons.logging,
  org.apache.commons.collections,
