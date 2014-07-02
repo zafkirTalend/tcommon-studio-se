@@ -8,15 +8,15 @@ package routines.system;
  */
 public class PigHelper {
 
-    private java.util.List<Object[]> pigLatins = new java.util.ArrayList<Object[]>();
+    private java.util.List<String[]> pigLatins = new java.util.ArrayList<String[]>();
 
     
-    public java.util.List<Object[]> getPigLatins() {
+    public java.util.List<String[]> getPigLatins() {
         return this.pigLatins;
     }
 
-    public void add(String type, Object pigLatin) {
-        Object[] pl = new Object[2];
+    public void add(String type, String pigLatin) {
+        String[] pl = new String[2];
         pl[0] = type;
         pl[1] = pigLatin;
         pigLatins.add(pl);
