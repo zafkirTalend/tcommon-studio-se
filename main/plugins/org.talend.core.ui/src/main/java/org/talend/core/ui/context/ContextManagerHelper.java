@@ -29,6 +29,8 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ITdqUiService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -37,7 +39,6 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.context.cmd.OrderContextParameterCommand;
 import org.talend.core.ui.context.model.template.ContextConstant;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
@@ -624,32 +625,34 @@ public final class ContextManagerHelper {
     }
 
     public void refreshContextView() {
-        IViewPart view = getContextView();
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        // refresh context view of DI
+        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
         if (view instanceof AbstractContextView) {
             ((AbstractContextView) view).updateContextView(true);
         }
-
+        // refresh context view of DQ
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true);
+            }
+        }
     }
 
     public void refreshContextViewForRename() {
-        IViewPart view = getContextView();
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        // refresh context view of DI
+        IViewPart view = page.findView(AbstractContextView.CTX_ID_DESIGNER);
         if (view instanceof AbstractContextView) {
             ((AbstractContextView) view).updateContextView(true, false, false);
         }
-    }
-
-    /**
-     * DOC msjian Comment method "getContextView".
-     * 
-     * @return
-     */
-    protected IViewPart getContextView() {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        String id = page.getPerspective().getId();
-        String viewId = AbstractContextView.CTX_ID_DESIGNER;
-        if (id.equals(IBrandingConfiguration.PERSPECTIVE_DQ_ID)) {
-            viewId = AbstractContextView.CTX_ID_TDQ;
+        // refresh context view of DQ
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqUiService.class)) {
+            ITdqUiService tdqUiService = (ITdqUiService) GlobalServiceRegister.getDefault().getService(ITdqUiService.class);
+            if (tdqUiService != null) {
+                tdqUiService.updateContextView(true, false, false);
+            }
         }
-        return page.findView(viewId);
     }
 }
