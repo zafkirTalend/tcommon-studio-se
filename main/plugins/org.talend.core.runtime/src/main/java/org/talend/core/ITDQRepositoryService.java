@@ -192,4 +192,7 @@ public interface ITDQRepositoryService extends IService {
 
     public void updateDriverIfClassNotLoad(DatabaseConnection databaseConnection);
 
+    // Added TDQ-8787 20140616: publish a dynamic chart event
+    public void publishDynamicEvent(ModelElement indicator, Object value);
+
 }
