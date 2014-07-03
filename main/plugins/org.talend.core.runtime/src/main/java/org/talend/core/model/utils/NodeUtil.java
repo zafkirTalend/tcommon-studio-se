@@ -18,8 +18,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.talend.core.model.components.IComponent;
@@ -823,8 +825,52 @@ public class NodeUtil {
     }
 
     public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
-        String value = "";
-        value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
+        if (EParameterFieldType.TABLE.equals(ep.getFieldType())) {
+            Map<String, IElementParameter> types = new HashMap<String, IElementParameter>();
+            for (Object o : ep.getListItemsValue()) {
+                IElementParameter cep = (IElementParameter) o;
+                types.put(cep.getName(), cep);
+            }
+            List<Map<String, String>> lines = (List<Map<String, String>>) ElementParameterParser.getObjectValue(node,
+                    "__" + ep.getName() + "__");
+            StringBuilder value = new StringBuilder();
+            // implement List & Map toString(), different is the value of Map
+            Iterator<Map<String, String>> linesIter = lines.iterator();
+            if (!linesIter.hasNext()) {
+                return "\"[]\"";
+            }
+            value.append("\"[");
+            for (;;) {
+                Map<String, String> columns = linesIter.next();
+                Iterator<Entry<String, String>> columnsIter = columns.entrySet().iterator();
+                if (!columnsIter.hasNext()) {
+                    value.append("{}");
+                }
+                value.append("{");
+                for (;;) {
+                    Entry<String, String> column = columnsIter.next();
+                    value.append(column.getKey());
+                    value.append("=\"+");
+                    value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey())));
+                    if (!columnsIter.hasNext()) {
+                        value.append("+\"}").toString();
+                        break;
+                    }
+                    value.append("+\",").append(" ");
+                }
+                if (!linesIter.hasNext()) {
+                    return value.append("]\"").toString();
+                }
+                value.append(",").append(" ");
+            }
+        } else {
+            String value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
+            return getNormalizeParameterValue(value, ep);
+        }
+
+    }
+
+    private static String getNormalizeParameterValue(String value, IElementParameter ep) {
         List<EParameterFieldType> escapeQuotation = Arrays.asList(EParameterFieldType.MEMO_JAVA);
         if (escapeQuotation.contains(ep.getFieldType())) {
             value = value.replaceAll("\\\"", "\\\\\\\"");
@@ -837,15 +883,22 @@ public class NodeUtil {
         List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
                 EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
                 EParameterFieldType.MEMO_JAVA);
-        if (needQuoteList.contains(ep.getFieldType())) {
+        List<String> needQuoteListByName = Arrays.asList("SCHEMA_COLUMN");// SCHEMA_COLUMN for BASED_ON_SCHEMA="true"
+        if (needQuoteList.contains(ep.getFieldType()) || needQuoteListByName.contains(ep.getName())) {
             value = "\"" + value + "\"";
         }
-        if (EParameterFieldType.TABLE.equals(ep.getFieldType())) {
-            value = ElementParameterParser.getObjectValue(node, "__" + ep.getName() + "__").toString();
-            value = value.replace("=\"", "=\\\"");
-            value = value.replace("\",", "\\\",");
-            value = value.replace("\"}", "\\\"}");
-            value = "\"" + value + "\"";
+        if (value == null || "".equals(value.trim())) {
+            value = "\"\"";
+        } else if ("\"\\n\"".equals(value) || "\"\\r\"".equals(value) || "\"\\r\\n\"".equals(value)) {
+            value = value.replaceAll("\\\\", "\\\\\\\\");
+        } else if ("\"\"\"".equals(value)) {
+            value = "\"" + "\\" + "\"" + "\"";
+        } else if ("\"\"\\r\\n\"\"".equals(value)) {
+            value = "\"\\\\r\\\\n\"";
+        } else if ("\"\"\\r\"\"".equals(value)) {
+            value = "\"\\\\r\"";
+        } else if ("\"\"\\n\"\"".equals(value)) {
+            value = "\"\\\\n\"";
         }
         return value;
     }
