@@ -143,6 +143,11 @@ public final class TaggedValueHelper {
 
     public static final String REP_PASSWORD_CONTEXT = "REP_PASSWORD_CONTEXT"; //$NON-NLS-1$
 
+    /**
+     * the analysis last run context tag value key.
+     */
+    public static final String ANA_LAST_RUN_CONTEXT = "ANA_LAST_RUN_CONTEXT"; //$NON-NLS-1$
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
     /**
      * The tag used for setting a technical name.

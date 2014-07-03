@@ -20,9 +20,9 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ITdqContextService;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.update.EUpdateItemType;
 import org.talend.core.model.update.IUpdateManager;
@@ -65,12 +65,10 @@ public class ConfigureContextAction extends Action {
                         }
                     } else {
                         // set the report editor dirty according to the manager(TdqContextViewComposite)
-                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITdqContextService.class)) {
-                            ITdqContextService tdqContextService = (ITdqContextService) GlobalServiceRegister.getDefault()
-                                    .getService(ITdqContextService.class);
-                            if (tdqContextService != null) {
-                                tdqContextService.setReportEditorDirty(manager);
-                            }
+                        IContextManager contextManager = manager.getContextManager();
+                        if (contextManager instanceof JobContextManager) {
+                            JobContextManager jobContextManager = (JobContextManager) contextManager;
+                            jobContextManager.setModified(true);
                         }
                     }
                     // refresh both

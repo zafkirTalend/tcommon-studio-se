@@ -52,7 +52,7 @@ public abstract class AbstractContextView extends ViewPart {
 
     public static final String CTX_ID_DESIGNER = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$    
 
-    public static final String CTX_ID_TDQ = "org.talend.dataprofiler.core.tdq.ui.views.context.TdqContextView"; //$NON-NLS-1$
+    public static final String CTX_ID_TDQ = "org.talend.dataprofiler.core.ui.views.context.TdqContextView"; //$NON-NLS-1$
 
     protected ContextComposite contextComposite;
 
