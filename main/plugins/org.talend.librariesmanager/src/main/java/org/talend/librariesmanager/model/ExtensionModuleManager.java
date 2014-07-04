@@ -13,9 +13,7 @@
 package org.talend.librariesmanager.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -28,9 +26,9 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.librariesmanager.i18n.Messages;
 
 /**
- * 
+ *
  * created by ycbai on 2014-5-7 Detailled comment
- * 
+ *
  */
 public class ExtensionModuleManager {
 
@@ -67,10 +65,6 @@ public class ExtensionModuleManager {
     public final static String DEFAULT_LIB_FOLDER = "lib"; //$NON-NLS-1$
 
     private static ExtensionModuleManager manager = new ExtensionModuleManager();
-
-    private static Map<String, ModuleNeeded> id2moduleMap = new HashMap<String, ModuleNeeded>();
-
-    private static Map<String, ModuleNeeded> name2moduleMap = new HashMap<String, ModuleNeeded>();
 
     private ExtensionModuleManager() {
     }
@@ -135,36 +129,31 @@ public class ExtensionModuleManager {
         IExtensionPointLimiter extensionPoint = new ExtensionPointLimiterImpl(EXT_ID, MODULE_ELE);
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(extensionPoint);
         // Find the module definition by id first.
-        ModuleNeeded moduleNeeded = collectModuleAndMap(extension, id2moduleMap, id);
+        ModuleNeeded moduleNeeded = collectModuleAndMap(extension, id);
         if (moduleNeeded == null) { // If cannot find it then find it by name.
-            moduleNeeded = collectModuleAndMap(extension, name2moduleMap, id, true);
+            moduleNeeded = collectModuleAndMap(extension, id, true);
         }
         if (moduleNeeded != null) {
             importNeedsList.add(moduleNeeded);
         }
     }
 
-    private ModuleNeeded collectModuleAndMap(List<IConfigurationElement> extension, Map<String, ModuleNeeded> moduleMap, String id) {
-        return collectModuleAndMap(extension, moduleMap, id, false);
+    private ModuleNeeded collectModuleAndMap(List<IConfigurationElement> extension, String id) {
+        return collectModuleAndMap(extension, id, false);
     }
 
-    private ModuleNeeded collectModuleAndMap(List<IConfigurationElement> extension, Map<String, ModuleNeeded> moduleMap,
-            String id, boolean byName) {
-        ModuleNeeded moduleNeeded = moduleMap.get(id);
-        if (moduleNeeded == null) {
-            for (IConfigurationElement configElement : extension) {
-                String moduleIdOrName = configElement.getAttribute(ID_ATTR);
-                if (byName) {
-                    moduleIdOrName = configElement.getAttribute(NAME_ATTR);
-                }
-                if (id.equals(moduleIdOrName)) {
-                    moduleNeeded = ModulesNeededProvider.createModuleNeededInstance(configElement);
-                    moduleMap.put(id, moduleNeeded);
-                    break;
-                }
+    private ModuleNeeded collectModuleAndMap(List<IConfigurationElement> extension, String id, boolean byName) {
+        ModuleNeeded moduleNeeded = null;
+        for (IConfigurationElement configElement : extension) {
+            String moduleIdOrName = configElement.getAttribute(ID_ATTR);
+            if (byName) {
+                moduleIdOrName = configElement.getAttribute(NAME_ATTR);
+            }
+            if (id.equals(moduleIdOrName)) {
+                moduleNeeded = ModulesNeededProvider.createModuleNeededInstance(configElement);
+                break;
             }
         }
-
         return moduleNeeded;
     }
 
@@ -194,9 +183,9 @@ public class ExtensionModuleManager {
      * If uripath is null we will seek the jar from /lib/${jarName} from the contributor plugin of the lib extension
      * point.
      * <p>
-     * 
+     *
      * DOC ycbai Comment method "getFormalModulePath".
-     * 
+     *
      * @param uriPath
      * @param current
      * @return the formal module path which start with "platform:/plugin/" or "platform:/base/plugins/".
