@@ -370,7 +370,7 @@ public final class ImportExportHandlersManager {
                                     return;
                                 }
                                 if (itemRecord.isImported()) {
-                                    return; // have imported
+                                    continue; // have imported
                                 }
                                 try {
                                     final IImportItemsHandler importHandler = itemRecord.getImportHandler();
@@ -463,9 +463,9 @@ public final class ImportExportHandlersManager {
     }
 
     /**
-     * 
+     *
      * DOC ggu Comment method "prePopulate".
-     * 
+     *
      * Bofore populate the items.
      */
     public void prePopulate(IProgressMonitor monitor, ResourcesManager resManager) {
@@ -477,9 +477,9 @@ public final class ImportExportHandlersManager {
     }
 
     /**
-     * 
+     *
      * DOC ggu Comment method "postPopulate".
-     * 
+     *
      * after populate the items from resources
      */
     public void postPopulate(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] populatedItemRecords) {
@@ -491,9 +491,9 @@ public final class ImportExportHandlersManager {
     }
 
     /**
-     * 
+     *
      * DOC ggu Comment method "preImport".
-     * 
+     *
      * Before import items.
      */
     public void preImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] checkedItemRecords,
@@ -506,9 +506,9 @@ public final class ImportExportHandlersManager {
     }
 
     /**
-     * 
+     *
      * DOC ggu Comment method "postImport".
-     * 
+     *
      * After import items
      */
     public void postImport(IProgressMonitor monitor, ResourcesManager resManager, ImportItem[] importedItemRecords) {
