@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2008 Syntax Consulting, Inc. All rights reserved.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  ******************************************************************************/
@@ -37,42 +37,43 @@ import org.osgi.framework.Bundle;
  * <p>
  * To use this collector, simply create a JUnit test suite with a method like this:
  * <p>
- * 
+ *
  * <pre>
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  * 
  * public static Test suite() {
  * 
@@ -85,18 +86,18 @@ import org.osgi.framework.Bundle;
  * 
  * }
  * </pre>
- * 
+ *
  * <p>
  * Note that because JUnit 4 implements suites through annotations, a similar mechanism cannot be used. If anyone has
  * ideas concerning how this could be made to work using JUnit 4, please let me know. Comments and suggestions can be
  * sent to patrick@rcpquickstart.com.
- * 
+ *
  * @author Patrick Paulin
  */
 public class BundleTestCollector {
 
     /**
-     * 
+     *
      */
     private static final String RECORD_NON_TEST_CLASSES_PROP = "talend.record.non.test.classes";
 
@@ -112,7 +113,7 @@ public class BundleTestCollector {
     /**
      * Create a list of test classes for the bundles currently resolved by the framework. This method works with JUnit
      * 3.x test cases only, meaning that it searches for classes that subclass the TestCase class.
-     * 
+     *
      * @param suite to which tests should be added
      * @param bundleRoot root string that a bundle id needs to start with in order for the bundle to be included in the
      * search
@@ -140,7 +141,7 @@ public class BundleTestCollector {
 
     /**
      * Create a list of test classes for the bundles currently resolved by the framework.
-     * 
+     *
      * @param bundlePrefix root string that a bundle id needs to start with in order for the bundle to be included in
      * the search, may be null or empty
      * @param bundleSuffix the suffix of the bundle or null if no suffix is needed, ay be null or empty
@@ -164,7 +165,7 @@ public class BundleTestCollector {
 
     /**
      * DOC sgandon Comment method "collectClassesFromBundles".
-     * 
+     *
      * @param bundlePrefix root string that a bundle id needs to start with in order for the bundle to be included in
      * the search, may be null or empty
      * @param bundleSuffix the suffix of the bundle or null if no suffix is needed, ay be null or empty
@@ -193,7 +194,7 @@ public class BundleTestCollector {
 
     /**
      * Create a list of test classes for the bundles currently resolved by the framework.
-     * 
+     *
      * @param featureNames coma separateed list of features Id or null or empty
      * @param bundlePrefix root string that a bundle id needs to start with in order for the bundle to be included in
      * the search, may be null or empty
@@ -333,7 +334,7 @@ public class BundleTestCollector {
 
     /**
      * check the testString starts with one of the prefixes.
-     * 
+     *
      * @param testString , the string to test
      * @param allPrefixes , all the prefix to check
      * @return true if the testString starts with one of the prefixes or false otherwise. Also true is return if no
@@ -342,6 +343,15 @@ public class BundleTestCollector {
     private boolean isPrefix(String testClassName, String[] allPrefixes) {
         if (allPrefixes == null || allPrefixes.length == 0) {
             return true;
+        }
+        // test "NOT" condition first to avoid to have prefix we don't want.
+        for (String prefix : allPrefixes) {
+            if (prefix.startsWith("!")) { //$NON-NLS-1$
+                String testPrefix = prefix.replace("!", ""); //$NON-NLS-1$//$NON-NLS-2$
+                if (testClassName.startsWith(testPrefix)) {
+                    return false;
+                }
+            }
         }
         for (String prefix : allPrefixes) {
             if (testClassName.startsWith(prefix)) {
@@ -353,7 +363,7 @@ public class BundleTestCollector {
 
     /**
      * check the testString ends with one of the suffixes.
-     * 
+     *
      * @param testString , the string to test
      * @param suffixes , all the suffixes to check
      * @return true if the testString ends with one of the suffixes or false otherwise. Also true is return if no suffix
@@ -373,7 +383,7 @@ public class BundleTestCollector {
 
     /**
      * get the IdeOutputDir
-     * 
+     *
      * @param bundle the bundle to fing the output dir
      * @return the dir subpath or null if none found
      * @throws IOException if the build.properties failed to load.
@@ -397,7 +407,7 @@ public class BundleTestCollector {
 
     /**
      * check that clazz has got at least one method with a Test annotation
-     * 
+     *
      * @param clazz to look for Test methods
      * @return true if th class has at least one method annotated with Test
      */
@@ -413,7 +423,7 @@ public class BundleTestCollector {
     /**
      * DOC sgandon creates a message test case and store error messages that may have happend during the collection of
      * test cases so that is does not stop the test process.
-     * 
+     *
      * @param errorMessage the message to display in the Junit report
      * @return the test case or null if alread created
      */
