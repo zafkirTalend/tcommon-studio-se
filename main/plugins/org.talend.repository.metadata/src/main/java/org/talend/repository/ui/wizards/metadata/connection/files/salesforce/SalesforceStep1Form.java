@@ -50,6 +50,8 @@ import org.talend.repository.preview.SalesforceSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.salesforce.SforceConnection;
+import org.talend.salesforce.SforceSessionConnection;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
 
@@ -661,9 +663,9 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                         client.stopServer();
                         if (code != null && !code.equals("")) {
                             token = client.getTokenForWizard(code);
-                            org.talend.salesforce.SforceManagement sfMgr = new org.talend.salesforce.SforceManagementImpl();
+
                             String endpoint = null;
-                            endpoint = client.getSOAPEndpoint(token, apiVersion);
+                            endpoint = OAuthClient.getSOAPEndpoint(token, apiVersion);
 
                             if (token != null) {
                                 java.util.Properties properties = new java.util.Properties();
@@ -672,7 +674,12 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                                 FileWriter w = new FileWriter(tokenText.getText());
                                 properties.store(w, "");
                                 w.close();
-                                result = sfMgr.login(token.getAccess_token(), endpoint, Integer.parseInt(timeOut), false);
+                                try {
+                                    SforceConnection sforceConn = new SforceSessionConnection.Builder(endpoint, token
+                                            .getAccess_token()).setTimeout(timeOut).needCompression(false).build();
+                                    result = true;
+                                } catch (Exception ex) {
+                                }
                             }
 
                             if (!result) {
