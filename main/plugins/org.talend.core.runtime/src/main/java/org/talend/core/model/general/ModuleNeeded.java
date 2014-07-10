@@ -19,9 +19,9 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
- * 
+ *
  * $Id: ModuleNeeded.java 38013 2010-03-05 14:21:59Z mhirt $
- * 
+ *
  */
 public class ModuleNeeded {
 
@@ -60,9 +60,9 @@ public class ModuleNeeded {
 
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
-     * 
+     *
      * $Id: ModuleNeeded.java 38013 2010-03-05 14:21:59Z mhirt $
-     * 
+     *
      */
     public enum ELibraryInstallStatus {
         UNKNOWN,
@@ -73,7 +73,7 @@ public class ModuleNeeded {
 
     /**
      * DOC smallet ModuleNeeded constructor comment.
-     * 
+     *
      * @param context
      * @param moduleName
      * @param informationMsg
@@ -110,10 +110,10 @@ public class ModuleNeeded {
     /**
      * Check if the library is required depends the condition of "required if". Note that if the flag "required=true" in
      * the xml of component, it will never check in the required_if.
-     * 
+     *
      * In some cases where we only want to check the basic "required=true" and not the required_if (module view for
      * example), it's possible to simply give null parameter.
-     * 
+     *
      * @param listParam
      * @return
      */
@@ -123,7 +123,7 @@ public class ModuleNeeded {
         }
         boolean isRequired = false;
 
-        if (requiredIf != null && listParam != null) {
+        if (requiredIf != null && !requiredIf.isEmpty() && listParam != null) {
             isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
         }
         return isRequired;
@@ -131,7 +131,7 @@ public class ModuleNeeded {
 
     /**
      * Getter for installURL.
-     * 
+     *
      * @return the installURL
      */
     public List<String> getInstallURL() {
@@ -140,7 +140,7 @@ public class ModuleNeeded {
 
     /**
      * Sets the installURL.
-     * 
+     *
      * @param installURL the installURL to set
      */
     public void setInstallURL(List<String> installURL) {
@@ -149,7 +149,7 @@ public class ModuleNeeded {
 
     /**
      * Getter for component.
-     * 
+     *
      * @return the component
      */
     public String getContext() {
@@ -158,7 +158,7 @@ public class ModuleNeeded {
 
     /**
      * Sets the component.
-     * 
+     *
      * @param component the component to set
      */
     public void setContext(String component) {
@@ -212,7 +212,7 @@ public class ModuleNeeded {
 
     /**
      * Getter for isShow.
-     * 
+     *
      * @return the isShow
      */
     public boolean isShow() {
@@ -221,7 +221,7 @@ public class ModuleNeeded {
 
     /**
      * Sets the isShow.
-     * 
+     *
      * @param isShow the isShow to set
      */
     public void setShow(boolean isShow) {
@@ -246,7 +246,7 @@ public class ModuleNeeded {
 
     /**
      * Getter for mrRequired.
-     * 
+     *
      * @return the mrRequired
      */
     public boolean isMrRequired() {
@@ -255,7 +255,7 @@ public class ModuleNeeded {
 
     /**
      * Sets the mrRequired.
-     * 
+     *
      * @param mrRequired the mrRequired to set
      */
     public void setMrRequired(boolean mrRequired) {
