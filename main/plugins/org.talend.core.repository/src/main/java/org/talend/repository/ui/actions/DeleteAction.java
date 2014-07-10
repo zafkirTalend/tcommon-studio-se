@@ -586,10 +586,10 @@ public class DeleteAction extends AContextualAction {
             BusinessException bex = null;
             for (IRepositoryNode repositoryNode2 : repositoryList) {
                 try {
-                	 boolean ret = deleteRepositoryNode(repositoryNode2, factory);
-                     if (!ret) {
-                         return false;
-                     }
+                    boolean ret = deleteRepositoryNode(repositoryNode2, factory);
+                    if (!ret) {
+                        return false;
+                    }
                 } catch (PersistenceException e) {
                     pex = e;
                 } catch (BusinessException e) {
@@ -620,12 +620,12 @@ public class DeleteAction extends AContextualAction {
             folderItem.getState().setPath(fullPath);
             return true;
         } else {
-        	final DeleteActionCache deleteActionCache = DeleteActionCache.getInstance();
+            final DeleteActionCache deleteActionCache = DeleteActionCache.getInstance();
             deleteActionCache.setGetAlways(false);
             deleteActionCache.setDocRefresh(false);
             deleteActionCache.createRecords();
             final IRepositoryViewObject objToDelete = repositoryNode.getObject();
-            
+
             final boolean[] enableDeleting = new boolean[1];
             enableDeleting[0] = true;
 
@@ -1447,9 +1447,7 @@ public class DeleteAction extends AContextualAction {
                 case SIMPLE_FOLDER:
                     Object obj = node.getProperties(EProperties.LABEL);
                     String label = null;
-                    IRepositoryViewObject folderObj = node.getObject();
-                    ERepositoryStatus statusFolder = folderObj.getRepositoryStatus();
-                    boolean isDeletedFolder = statusFolder == ERepositoryStatus.DELETED;
+                    boolean isDeletedFolder = node.getObject().isDeleted();
                     if (obj instanceof String) {
                         label = (String) obj;
                     }
