@@ -42,7 +42,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.cwm.helper.ConnectionHelper;
 
 /**

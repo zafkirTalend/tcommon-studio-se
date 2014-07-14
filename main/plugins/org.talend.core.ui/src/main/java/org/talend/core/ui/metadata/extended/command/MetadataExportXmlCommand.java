@@ -23,7 +23,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

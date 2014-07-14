@@ -19,7 +19,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
 /**

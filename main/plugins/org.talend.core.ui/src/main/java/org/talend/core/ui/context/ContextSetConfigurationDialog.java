@@ -38,7 +38,7 @@ import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.model.RepositoryConstants;
 
 /**

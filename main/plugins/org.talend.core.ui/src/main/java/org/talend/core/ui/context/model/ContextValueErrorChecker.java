@@ -36,7 +36,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.designer.runprocess.IRunProcessService;
 
 /**

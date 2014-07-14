@@ -15,8 +15,8 @@ package org.talend.designer.core.ui.editor.cmd;
 import org.eclipse.gef.commands.Command;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.ContextManagerHelper;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * Command that will change the default context.

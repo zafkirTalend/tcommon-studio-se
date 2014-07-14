@@ -34,9 +34,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.token.TokenCollectorFactory;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.i18n.Messages;
 
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONException;

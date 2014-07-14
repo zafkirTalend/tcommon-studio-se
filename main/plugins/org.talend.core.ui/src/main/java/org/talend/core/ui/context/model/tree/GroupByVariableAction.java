@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Tree;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.ContextTreeValuesComposite;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * cli class global comment. Detailled comment

@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * ggu class global comment. Detailled comment

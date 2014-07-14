@@ -33,8 +33,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.core.ui.metadata.dialog.DbTableSelectorObject.ObjectType;
 
 /**

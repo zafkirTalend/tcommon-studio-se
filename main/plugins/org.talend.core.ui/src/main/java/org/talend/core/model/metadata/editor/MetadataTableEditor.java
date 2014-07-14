@@ -25,8 +25,8 @@ import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

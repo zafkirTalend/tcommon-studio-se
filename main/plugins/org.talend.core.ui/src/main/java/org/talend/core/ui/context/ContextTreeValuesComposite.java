@@ -56,7 +56,6 @@ import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.model.ContextProviderProxy;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 import org.talend.core.ui.context.model.ContextViewerProvider;
@@ -65,6 +64,7 @@ import org.talend.core.ui.context.model.tree.ContextTreeConstants;
 import org.talend.core.ui.context.model.tree.GroupByContextAction;
 import org.talend.core.ui.context.model.tree.GroupByVariableAction;
 import org.talend.core.ui.context.model.tree.GroupByVariableProvider;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>

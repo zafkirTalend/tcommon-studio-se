@@ -44,7 +44,7 @@ import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ContextItem;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 
 /**

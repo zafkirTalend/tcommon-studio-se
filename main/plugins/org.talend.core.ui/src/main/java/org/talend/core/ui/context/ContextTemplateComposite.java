@@ -62,7 +62,6 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.action.ContextBuiltinToRepositoryAction;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.ContextViewerProvider;
@@ -74,6 +73,7 @@ import org.talend.core.ui.context.model.template.ContextVariableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextViewerSorter;
 import org.talend.core.ui.context.model.template.GroupByNothingProvider;
 import org.talend.core.ui.context.model.template.GroupBySourceProvider;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
 
 /**

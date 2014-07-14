@@ -55,13 +55,13 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 import org.talend.core.ui.context.model.ContextViewerProvider;
 import org.talend.core.ui.context.model.table.ContextTableCellModifier;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.GroupByNothingTableProvider;
 import org.talend.core.ui.context.model.table.GroupBySourceTableProvider;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * DOC zwang class global comment. Detailled comment <br/>

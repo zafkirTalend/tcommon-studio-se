@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.context.model.tree;
 
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * cli class global comment. Detailled comment

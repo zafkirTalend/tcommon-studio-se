@@ -22,10 +22,10 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
 import org.talend.core.ui.context.model.template.ContextVariableTabParentModel;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.ui.actions.AContextualAction;
 
 /**

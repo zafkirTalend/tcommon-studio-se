@@ -15,7 +15,7 @@ package org.talend.core.ui.proposal;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
-import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * DOC qwei class global comment. Detailled comment

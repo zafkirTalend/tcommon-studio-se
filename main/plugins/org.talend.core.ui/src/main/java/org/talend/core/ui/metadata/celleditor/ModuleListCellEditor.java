@@ -53,9 +53,9 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
-import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * ggu class global comment. Detailled comment
