@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Control;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.RepositoryNode;
 
@@ -116,24 +117,29 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
 
     /**
      * Run all of the runnables that are the widget updates
-     * 
+     *
      * @param runnables
      */
     private void runUpdates(Collection<Runnable> runnables) {
-        //
-        final Collection<Runnable> orderedRunnables = order(runnables);
+        try {
+            final Collection<Runnable> orderedRunnables = order(runnables);
 
-        for (Runnable runnable : orderedRunnables) {
-            runnable.run();
+            for (Runnable runnable : orderedRunnables) {
+                runnable.run();
+            }
+        } catch (Exception e) {
+            // in case of any exception during this update, do not throw exception to avoid to block anything in the
+            // product.
+            // only log it. cf: TDI-29991
+            ExceptionHandler.process(e);
         }
-
     }
 
     /**
      * Make sure the bin top level node should be the last one to do runnable task.
-     * 
+     *
      * THis related to the ProjectRepositoryNode.addItemToRecycleBin, so must be after other nodes.
-     * 
+     *
      * @param originalRunnables
      */
     private Collection<Runnable> order(final Collection<Runnable> originalRunnables) {
