@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -478,17 +479,20 @@ public class ContextUtils {
     }
 
     public static boolean isPropagateContextVariable() {
+        if (PluginChecker.isOnlyTopLoaded()) {
+            return false;
+        }
+
         // preference name must match TalendDesignerPrefConstants.PROPAGATE_CONTEXT_VARIABLE
-        return Boolean.parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getPreferenceStore("propagateContextVariable")); //$NON-NLS-1$
+        return Boolean
+                .parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService().getPreferenceStore("propagateContextVariable")); //$NON-NLS-1$
     }
 
     /**
      * 
      * ggu Comment method "addInContextModelForProcessItem".
      */
-    public static boolean addInContextModelForProcessItem(Item item, Map<String, Set<String>> contextVars,
-            List<ContextItem> allContextItems) {
+    public static boolean addInContextModelForProcessItem(Item item, Map<String, Set<String>> contextVars, List<ContextItem> allContextItems) {
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
             processType = ((ProcessItem) item).getProcess();
@@ -514,10 +518,9 @@ public class ContextUtils {
 
                             boolean modified = false;
                             for (String varName : set) {
-                                ContextParameterType contextParameterType = ContextUtils.getContextParameterTypeByName(
-                                        contextType, varName);
-                                IContextParameter contextParameter = processJobManager.getDefaultContext().getContextParameter(
-                                        varName);
+                                ContextParameterType contextParameterType = ContextUtils
+                                        .getContextParameterTypeByName(contextType, varName);
+                                IContextParameter contextParameter = processJobManager.getDefaultContext().getContextParameter(varName);
                                 if (contextParameter == null) { // added
                                     addContextParameterType(processJobManager, contextItem, contextParameterType);
                                     modified = true;
@@ -540,8 +543,7 @@ public class ContextUtils {
     public static void addContextParameterType(IContextManager manager, ContextItem contextItem,
             ContextParameterType setContextParameterType) {
         for (IContext context : manager.getListContext()) {
-            ContextParameterType foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(),
-                    false);
+            ContextParameterType foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(), false);
             if (foundParam == null) {
                 // not found, set the default
                 foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(), true);
@@ -564,8 +566,8 @@ public class ContextUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static ContextParameterType getContextParameterType(ContextItem item,
-            ContextParameterType defaultContextParameterType, String typeName, boolean defaultType) {
+    private static ContextParameterType getContextParameterType(ContextItem item, ContextParameterType defaultContextParameterType,
+            String typeName, boolean defaultType) {
         if (checkObject(item) || checkObject(defaultContextParameterType) || checkObject(typeName)) {
             return null;
         }
