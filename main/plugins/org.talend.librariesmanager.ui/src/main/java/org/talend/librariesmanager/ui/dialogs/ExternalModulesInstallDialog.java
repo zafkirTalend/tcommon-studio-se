@@ -202,7 +202,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
+                //                Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
+                openURL(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
             }
         });
         setupColumnSortListener();
@@ -482,7 +483,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     }
 
     private void helpPressed() {
-        Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
+        //        Program.launch(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
+        openURL(Messages.getString("download.external.dialog.help.url")); //$NON-NLS-1$
     }
 
     private ToolBar createHelpImageButton(Composite parent, Image image) {
