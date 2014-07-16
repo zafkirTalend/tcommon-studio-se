@@ -18,6 +18,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,16 +27,21 @@ import org.talend.core.model.general.ModuleNeeded;
 
 /**
  * created by ycbai on 2014-5-8 Detailled comment
- * 
+ *
  */
 @RunWith(PowerMockRunner.class)
 public class ExtensionModuleManagerTest {
 
-    private ExtensionModuleManager manager;
+    private static ExtensionModuleManager manager;
 
     @BeforeClass
-    public void setUp() throws Exception {
+    public static void setUp() throws Exception {
         manager = ExtensionModuleManager.getInstance();
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        manager = null;
     }
 
     @Test

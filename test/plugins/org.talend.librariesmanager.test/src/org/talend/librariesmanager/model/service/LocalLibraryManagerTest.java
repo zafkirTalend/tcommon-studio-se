@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -54,7 +55,7 @@ public class LocalLibraryManagerTest {
 
     /**
      * DOC Administrator Comment method "setUp".
-     * 
+     *
      * @throws java.lang.Exception
      */
     @Before
@@ -77,7 +78,7 @@ public class LocalLibraryManagerTest {
      * Test method for
      * {@link org.talend.librariesmanager.model.service.LocalLibraryManagerTest#deploy(java.net.URI, org.eclipse.core.runtime.IProgressMonitor[])}
      * .
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -154,7 +155,7 @@ public class LocalLibraryManagerTest {
      * Test method for
      * {@link org.talend.librariesmanager.model.service.LocalLibraryManagerTest#retrieve(java.lang.String, java.lang.String, org.eclipse.core.runtime.IProgressMonitor[])}
      * .
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -237,6 +238,7 @@ public class LocalLibraryManagerTest {
      * Test method for studio have all the lib for the system of db connection .
      */
     @Test
+    @Ignore
     public void testMissingJar() throws MalformedURLException {
         Set<String> names = new HashSet<String>();
         List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);

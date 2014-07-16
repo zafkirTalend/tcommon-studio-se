@@ -33,7 +33,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.LoginException;
@@ -68,26 +70,36 @@ public class ImportIntegrationTest {
 
     private static int nbTests = 0;
 
-    private Project originalProject;
+    private static Project originalProject;
 
     private Project sampleProject;
 
-    @Before
-    public void beforeTest() throws PersistenceException, CoreException, LoginException {
-        createTempProject();
+    @BeforeClass
+    public static void recordOriginalProject() throws PersistenceException, CoreException, LoginException {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
         originalProject = repositoryContext.getProject();
-        repositoryContext.setProject(sampleProject);
+    }
+
+    @AfterClass
+    public static void relogonOriginalProject() throws Exception {
+        if (originalProject != null) {
+            ProxyRepositoryFactory.getInstance().logOnProject(originalProject, new NullProgressMonitor());
+        }
+        originalProject = null;
+    }
+
+    @Before
+    public void beforeTest() throws PersistenceException, CoreException, LoginException {
+        ProxyRepositoryFactory.getInstance().logOffProject();
+        createTempProject();
+        ProxyRepositoryFactory.getInstance().logOnProject(sampleProject, new NullProgressMonitor());
     }
 
     @After
     public void afterTest() throws Exception {
         removeTempProject();
-        Context ctx = CoreRuntimePlugin.getInstance().getContext();
-        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        repositoryContext.setProject(originalProject);
-        originalProject = null;
+        ProxyRepositoryFactory.getInstance().logOffProject();
         sampleProject = null;
     }
 
@@ -136,7 +148,6 @@ public class ImportIntegrationTest {
         projectResource.getContents().add(sampleProject.getEmfProject());
         projectResource.getContents().add(sampleProject.getAuthor());
         xmiResourceManager.saveResource(projectResource);
-        ProxyRepositoryFactory.getInstance().logOnProject(sampleProject, new NullProgressMonitor());
     }
 
     private void removeTempProject() throws PersistenceException, CoreException {

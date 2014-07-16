@@ -12,12 +12,12 @@
 // ============================================================================
 package org.talend.migrationtool;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import junit.framework.Assert;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,13 +38,18 @@ import org.talend.core.model.utils.MigrationUtil;
 @PrepareForTest({ VersionUtils.class })
 public class MigrationToolServiceTest {
 
-    private IMigrationToolService service;
+    private static IMigrationToolService service;
 
     private MigrationStatus DEFAULT_STATUS = MigrationUtil.DEFAULT_STATUS;
 
     @BeforeClass
-    public void setUp() throws Exception {
+    public static void setUp() throws Exception {
         service = new MigrationToolService();
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        service = null;
     }
 
     /**
