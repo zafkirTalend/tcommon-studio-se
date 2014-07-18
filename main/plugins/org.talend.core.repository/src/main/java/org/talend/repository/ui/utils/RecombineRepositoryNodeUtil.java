@@ -102,13 +102,15 @@ public final class RecombineRepositoryNodeUtil {
             for (ERepositoryObjectType type : prcessTypes) {
                 RepositoryNode rootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(type, true);
                 if (rootNode != null) {
-                    // Has mapReduce jobs ,then add .
-                    if (ERepositoryObjectType.PROCESS.equals(type) && type.hasChildrenType()) {
-                        RepositoryNode childRootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(
-                                type.getChildrenTypesArray()[0], true);
-                        if (childRootNode != null && childRootNode.hasChildren()
-                                && !rootNode.getChildren().contains(childRootNode)) {
-                            rootNode.getChildren().add(childRootNode);
+                    // Has childType nodes ,then add it.
+                    if (type != null && type.hasChildrenType()) {
+                        for (ERepositoryObjectType childType : type.getChildrenTypesArray()) {
+                            RepositoryNode childRootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(
+                                    childType, true);
+                            if (childRootNode != null && childRootNode.hasChildren()
+                                    && !rootNode.getChildren().contains(childRootNode)) {
+                                rootNode.getChildren().add(childRootNode);
+                            }
                         }
                     }
                     rootNodes.add(rootNode);
