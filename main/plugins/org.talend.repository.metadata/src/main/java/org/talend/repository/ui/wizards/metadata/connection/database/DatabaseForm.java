@@ -3015,7 +3015,7 @@ public class DatabaseForm extends AbstractForm {
         }
         if (selectedVersion != null && !"".equals(selectedVersion)) { //$NON-NLS-1$
             EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(selectedVersion);
-            if (version != null && versions.toString().contains(version.getVersionDisplay())) {
+            if (version != null) {
                 dbVersionCombo.setText(version.getVersionDisplay());
             }
         } else {
