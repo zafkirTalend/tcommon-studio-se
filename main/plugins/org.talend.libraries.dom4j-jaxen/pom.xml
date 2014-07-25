@@ -9,7 +9,7 @@
     <relativePath>../../../</relativePath>
   </parent>
   <groupId>org.talend.studio</groupId>
-  <artifactId>org.talend.utils</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <artifactId>org.talend.libraries.dom4j-jaxen</artifactId>
+  <version>1.6.1-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 </project>
