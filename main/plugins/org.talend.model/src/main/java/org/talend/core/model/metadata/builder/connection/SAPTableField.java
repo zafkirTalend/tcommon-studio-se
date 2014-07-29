@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getBusinessName <em>Business Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getRefTable <em>Ref Table</em>}</li>
  * </ul>
  * </p>
@@ -24,6 +25,32 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface SAPTableField extends MetadataColumn {
+
+    /**
+     * Returns the value of the '<em><b>Business Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Business Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Business Name</em>' attribute.
+     * @see #setBusinessName(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPTableField_BusinessName()
+     * @model
+     * @generated
+     */
+    String getBusinessName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getBusinessName <em>Business Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Business Name</em>' attribute.
+     * @see #getBusinessName()
+     * @generated
+     */
+    void setBusinessName(String value);
 
     /**
      * Returns the value of the '<em><b>Ref Table</b></em>' attribute list.

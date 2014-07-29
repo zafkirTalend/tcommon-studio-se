@@ -378,13 +378,28 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseSAPTable(SAPTable object) {
+            return createSAPTableAdapter();
+        }
+
+        @Override
         public Adapter caseSAPTableField(SAPTableField object) {
             return createSAPTableFieldAdapter();
         }
 
         @Override
-        public Adapter caseSAPTable(SAPTable object) {
-            return createSAPTableAdapter();
+        public Adapter caseSAPFunctionParameter(SAPFunctionParameter object) {
+            return createSAPFunctionParameterAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPFunctionParamData(SAPFunctionParamData object) {
+            return createSAPFunctionParamDataAdapter();
+        }
+
+        @Override
+        public Adapter caseAdditionalConnectionProperty(AdditionalConnectionProperty object) {
+            return createAdditionalConnectionPropertyAdapter();
         }
 
         @Override
@@ -1159,6 +1174,48 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSAPTableFieldAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter <em>SAP Function Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter
+     * @generated
+     */
+    public Adapter createSAPFunctionParameterAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParamData <em>SAP Function Param Data</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParamData
+     * @generated
+     */
+    public Adapter createSAPFunctionParamDataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty <em>Additional Connection Property</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty
+     * @generated
+     */
+    public Adapter createAdditionalConnectionPropertyAdapter() {
         return null;
     }
 

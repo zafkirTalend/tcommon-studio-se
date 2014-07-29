@@ -652,10 +652,10 @@ public final class MetadataToolHelper {
         connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
-            if (connection instanceof SAPConnection) {
-                // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
-                return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
-            }
+            // if (connection instanceof SAPConnection) {
+            // // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
+            // return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
+            // }
             Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;

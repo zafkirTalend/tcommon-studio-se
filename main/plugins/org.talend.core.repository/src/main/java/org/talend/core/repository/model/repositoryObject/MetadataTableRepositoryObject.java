@@ -184,6 +184,12 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                             || !table.getLabel().equals(repObj.getLabel())) {
                         continue;
                     }
+                    if (repObj.getTableType() != null && !repObj.getTableType().equals(table.getTableType())) {
+                        continue;
+                    }
+                    if (table.getTableType() != null && !table.getTableType().equals(repObj.getTableType())) {
+                        continue;
+                    }
                     // if table name is same,should compare its parent name for TdTable
                     TdTable doSwitch = SwitchHelpers.TABLE_SWITCH.doSwitch(table);
                     if (doSwitch != null) {

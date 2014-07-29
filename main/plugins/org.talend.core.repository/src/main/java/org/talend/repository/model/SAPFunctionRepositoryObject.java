@@ -25,7 +25,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.model.ISubRepositoryObject;
-import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -68,6 +67,7 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
         return ERepositoryObjectType.METADATA_SAP_FUNCTION;
     }
 
+    @Override
     public void setLabel(String value) {
         if (functionUnit.getLabel() == null) {
             functionUnit.setLabel(value);
@@ -106,6 +106,7 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#getAbstractMetadataObject ()
      */
+    @Override
     public AbstractMetadataObject getAbstractMetadataObject() {
         return this.functionUnit;
     }
@@ -115,10 +116,12 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#removeFromParent()
      */
+    @Override
     public void removeFromParent() {
         functionUnit.getConnection().getFuntions().remove(functionUnit);
     }
 
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repObj.getRepositoryStatus();
     }
@@ -151,7 +154,8 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
 
     }
 
-    public ModelElement getModelElement() {
+    @Override
+    public SAPFunctionUnit getModelElement() {
         return this.functionUnit;
     }
 

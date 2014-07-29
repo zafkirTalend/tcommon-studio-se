@@ -5,7 +5,9 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>SAP Connection</b></em>'. <!-- end-user-doc -->
@@ -23,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getCurrentFucntion <em>Current Fucntion</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getJcoVersion <em>Jco Version</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -184,7 +187,6 @@ public interface SAPConnection extends Connection {
     /**
      * Returns the value of the '<em><b>Funtions</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Funtions</em>' containment reference list isn't clear, there really should be more of
@@ -193,8 +195,7 @@ public interface SAPConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Funtions</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPConnection_Funtions()
-     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection
-     * @model opposite="connection" containment="true" resolveProxies="true"
+     * @model containment="true" resolveProxies="true"
      * @generated
      */
     EList<SAPFunctionUnit> getFuntions();
@@ -269,5 +270,21 @@ public interface SAPConnection extends Connection {
      * @generated
      */
     void setJcoVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additional Properties</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Properties</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Properties</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPConnection_AdditionalProperties()
+     * @model containment="true" resolveProxies="true"
+     * @generated
+     */
+    EList<AdditionalConnectionProperty> getAdditionalProperties();
 
 } // SAPConnection

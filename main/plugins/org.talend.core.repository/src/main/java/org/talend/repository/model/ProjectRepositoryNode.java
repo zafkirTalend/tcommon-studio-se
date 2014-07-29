@@ -687,7 +687,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                             }
                         }
                     }
-                    return;
                 }
 
                 for (MetadataTable table : ConnectionHelper.getTables(connection)) {
@@ -1084,6 +1083,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             createTables(recBinNode, node, repositoryObject, metadataConnection, validationRules);
         }
         if (type == ERepositoryObjectType.METADATA_FILE_XML) {
+            if (repositoryObject == null || repositoryObject.getProperty() == null
+                    || repositoryObject.getProperty().getItem() == null) {
+                System.out.println();
+            }
             XmlFileConnection metadataConnection = (XmlFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
                     .getConnection();
             createTables(recBinNode, node, repositoryObject, metadataConnection, validationRules);
@@ -1535,7 +1538,20 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             SAPFunctionUnit unit = (SAPFunctionUnit) functions.get(i);
             RepositoryNode tableNode = createSAPNode(rebObj, functionNode, unit);
 
-            createTables(recBin, tableNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+            // create input and output container
+
+            RepositoryNode inputNode = new StableRepositoryNode(tableNode,
+                    Messages.getString("ProjectRepositoryNode.sapFunctions.inputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            tableNode.getChildren().add(inputNode);
+
+            createTables(recBin, inputNode, rebObj, unit.getInputTables(), ERepositoryObjectType.METADATA_CON_TABLE,
+                    validationRules);
+
+            RepositoryNode outputNode = new StableRepositoryNode(tableNode,
+                    Messages.getString("ProjectRepositoryNode.sapFunctions.outputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            tableNode.getChildren().add(outputNode);
+
+            createTables(recBin, outputNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
             if (SubItemHelper.isDeleted(unit)) {
                 // recBin.getChildren().add(tableNode);
             } else {

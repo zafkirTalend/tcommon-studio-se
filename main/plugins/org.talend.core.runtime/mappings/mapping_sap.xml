@@ -21,6 +21,14 @@
 			<dbType type="TABLE" ignoreLen="true" ignorePre="true" />
 			<dbType type="INVALID" ignoreLen="true" ignorePre="true" />
 			<dbType type="EXCEPTION" ignoreLen="true" ignorePre="true" />
+			
+			<!-- added by wchen -->
+			<dbType type="BIG_DECIMAL"  ignorePre="true" />
+			<dbType type="BIG_INTEGER"  ignorePre="true" />
+			<dbType type="RAW"  ignorePre="true" />
+			<dbType type="DOUBLE"  ignorePre="true" ignoreLen="true"/>
+			<dbType type="INTEGER"  ignorePre="true" ignoreLen="true"/>
+			<dbType type="SHORT"  ignorePre="true" ignoreLen="true"/>
 		</dbTypes>
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
@@ -35,6 +43,7 @@
 					<dbType type="NUM" />
 				</talendType>
 				<talendType type="id_byte[]">
+				    <dbType type="RAW" />
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true" />
@@ -45,8 +54,11 @@
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="FLOAT" defautle="true" />
+					<dbType type="BIG_DECIMAL" defautle="true" />
 				</talendType>
-				<talendType type="id_Double" />
+				<talendType type="id_Double" >
+				    <dbType type="DOUBLE" default="true" />
+				</talendType>    
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
 				</talendType>
@@ -55,6 +67,8 @@
 					<dbType type="NUM" />
 					<dbType type="INT1" />
 					<dbType type="INT2" />
+					<dbType type="BIG_INTEGER" />
+					<dbType type="INTEGER" />
 				</talendType>
 				<talendType type="id_Long" />
 				<talendType type="id_Object">
@@ -67,7 +81,8 @@
 					<dbType type="EXCEPTION" />
 				</talendType>
 				<talendType type="id_Short">
-					<dbType type="INT" default="true" />
+				    <dbType type="SHORT" default="true" />
+					<dbType type="INT" />
 				</talendType>
 				<talendType type="id_String">
 					<dbType type="STRING" default="true" />
@@ -130,6 +145,26 @@
 				<dbType type="STRUCTURE">
 					<talendType type="id_Object" default="true" />
 				</dbType>
+				
+				<!-- added by wchen -->
+				<dbType type="BIG_DECIMAL"  >
+				    <talendType type="id_BigDecimal" default="true" />
+				</dbType>    
+                <dbType type="BIG_INTEGER" >
+                    <talendType type="id_Integer"  default="true"/>
+                </dbType> 
+                <dbType type="RAW"  >
+                    <talendType type="id_byte[]" default="true" />
+                </dbType> 
+                <dbType type="DOUBLE"  >
+                    <talendType type="id_Double" default="true"/>
+                </dbType> 
+                <dbType type="INTEGER"  >
+                    <talendType type="id_Integer" default="true" />
+                </dbType>
+                <dbType type="SHORT"  >
+                    <talendType type="id_Short" default="true" />
+                </dbType>
 			</dbToTalendTypes>
 		</language>
 	</dbms>
