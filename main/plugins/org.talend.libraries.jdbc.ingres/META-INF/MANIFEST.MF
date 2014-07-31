@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ingres Plug-in
 Bundle-SymbolicName: org.talend.libraries.jdbc.ingres;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.6.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: lib/iijdbc.jar,
  .
