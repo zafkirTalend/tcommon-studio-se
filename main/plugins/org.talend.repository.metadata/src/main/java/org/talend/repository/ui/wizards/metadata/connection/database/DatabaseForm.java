@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -96,7 +97,10 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
+import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.conf.EHadoopProperties;
+import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.custom.ECustomVersionType;
@@ -516,6 +520,12 @@ public class DatabaseForm extends AbstractForm {
 
         if (isDBTypeSelected(EDatabaseConnTemplate.HBASE) || isDBTypeSelected(EDatabaseConnTemplate.HIVE)) {
             initHadoopClusterSettings();
+            if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
+                fillDefaultsWhenHBaseVersionChanged();
+            } else {
+                fillDefaultsWhenHiveVersionChanged();
+                fillDefaultsWhenHiveModeChanged(isHiveEmbeddedMode());
+            }
         }
 
         updateStatus(IStatus.OK, ""); //$NON-NLS-1$
@@ -2759,8 +2769,14 @@ public class DatabaseForm extends AbstractForm {
                     }
                     if (isHiveDBConnSelected()) {
                         doHiveDBTypeSelected();
+                        fillDefaultsWhenHiveVersionChanged();
+                        fillDefaultsWhenHiveModeChanged(isHiveEmbeddedMode());
                     } else {
                         doHiveDBTypeNotSelected();
+                    }
+
+                    if (isHBaseDBConnSelected()) {
+                        fillDefaultsWhenHBaseVersionChanged();
                     }
                 }
 
@@ -3047,6 +3063,7 @@ public class DatabaseForm extends AbstractForm {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
                     updateHBaseVersionPart(newDistributionDisplayName);
+                    fillDefaultsWhenHBaseVersionChanged();
                     checkFieldsValue();
                 }
             }
@@ -3060,7 +3077,7 @@ public class DatabaseForm extends AbstractForm {
                     return;
                 }
                 String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
-                String newVersionDisplayName = hbaseVersionCombo.getText();
+                String newVersionDisplayName = StringUtils.trimToNull(hbaseVersionCombo.getText());
                 EHBaseDistribution4Versions newVersion4Drivers = EHBaseDistribution4Versions
                         .indexOfByVersionDisplay(newVersionDisplayName);
                 EHBaseDistribution4Versions originalVersion4Drivers = EHBaseDistribution4Versions
@@ -3068,6 +3085,7 @@ public class DatabaseForm extends AbstractForm {
                 if (newVersion4Drivers != null && newVersion4Drivers != originalVersion4Drivers) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION,
                             newVersion4Drivers.getVersionValue());
+                    fillDefaultsWhenHBaseVersionChanged();
                     checkFieldsValue();
                 }
             }
@@ -3288,6 +3306,10 @@ public class DatabaseForm extends AbstractForm {
      */
     private boolean isHiveDBConnSelected() {
         return EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText());
+    }
+
+    private boolean isHBaseDBConnSelected() {
+        return EDatabaseTypeName.HBASE.getDisplayName().equals(dbTypeCombo.getText());
     }
 
     /**
@@ -4717,6 +4739,7 @@ public class DatabaseForm extends AbstractForm {
             // handleStandaloneMode();
             handleUIWhenStandaloneModeSelected();
         }
+        fillDefaultsWhenHiveModeChanged(isEmbeddedMode);
         // }
         // TDQ-6407~
 
@@ -4738,6 +4761,7 @@ public class DatabaseForm extends AbstractForm {
             setHideVersionInfoWidgets(false);
             updateYarnInfo(indexSelected, 0);
             doHiveModeModify();
+            fillDefaultsWhenHiveVersionChanged();
         }
     }
 
@@ -4755,6 +4779,69 @@ public class DatabaseForm extends AbstractForm {
             updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
             updateYarnInfo(distributionIndex, currSelectedIndex);
             doHiveModeModify();
+            fillDefaultsWhenHiveVersionChanged();
+        }
+    }
+
+    private void fillDefaultsWhenHiveVersionChanged() {
+        if (isCreation) {
+            String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+            String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+            if (distribution == null) {
+                return;
+            }
+            String[] versionPrefix = new String[] { distribution };
+            if (HiveConnVersionInfo.AMAZON_EMR.getKey().equals(distribution)
+                    && (HiveConnVersionInfo.APACHE_1_0_3_EMR.getKey().equals(version) || HiveConnVersionInfo.MapR_EMR.getKey()
+                            .equals(version))) {
+                versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
+            }
+            boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
+            String defaultNN = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                    (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
+            if (defaultNN != null) {
+                nameNodeURLTxt.setText(defaultNN);
+            }
+            String defaultJTORRM = null;
+            if (useYarn) {
+                defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                        (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.RESOURCE_MANAGER.getName()));
+            } else {
+                defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                        (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.JOBTRACKER.getName()));
+            }
+            if (defaultJTORRM != null) {
+                jobTrackerURLTxt.setText(defaultJTORRM);
+            }
+            String defaultPrincipal = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
+                    EHadoopCategory.HIVE.getName(), EHadoopProperties.HIVE_PRINCIPAL.getName());
+            if (defaultPrincipal != null) {
+                hivePrincipalTxt.setText(defaultPrincipal);
+            }
+            String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
+                    EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
+            sidOrDatabaseText.setText(defaultDatabase);
+        }
+    }
+
+    private void fillDefaultsWhenHBaseVersionChanged() {
+        if (isCreation) {
+            String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+            String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+            if (distribution == null) {
+                return;
+            }
+            String[] versionPrefix = new String[] { distribution };
+            if (EHBaseDistributions.AMAZON_EMR.getName().equals(distribution)
+                    && EHBaseDistribution4Versions.APACHE_1_0_3_EMR.getVersionValue().equals(version)) {
+                versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
+            }
+            String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                    (String[]) ArrayUtils.add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()),
+                            EHadoopProperties.PORT.getName()));
+            if (defaultPort != null) {
+                portText.setText(defaultPort);
+            }
         }
     }
 
@@ -4959,6 +5046,30 @@ public class DatabaseForm extends AbstractForm {
         doHiveUIContentsLayout();
     }
 
+    private void fillDefaultsWhenHiveModeChanged(boolean isEmbeddedMode) {
+        if (isCreation) {
+            int distributionIndex = distributionCombo.getSelectionIndex();
+            String distribution = HiveConnUtils.getDistributionObj(distributionIndex).getKey();
+            if (distribution == null) {
+                return;
+            }
+            String defaultPort = null;
+            if (isEmbeddedMode) {
+                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
+                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_EMBEDDED.getKey(),
+                        EHadoopProperties.PORT.getName());
+            } else {
+                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
+                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_STANDALONE.getKey(),
+                        EHadoopProperties.PORT.getName());
+            }
+
+            if (defaultPort != null) {
+                portText.setText(defaultPort);
+            }
+        }
+    }
+
     /**
      * It is invoked when the mode EMBEDDED is selected. Added by Marvin Wang on Aug. 3, 2012.
      */
@@ -5094,7 +5205,9 @@ public class DatabaseForm extends AbstractForm {
                 yarnCompGd.exclude = true;
                 useYarnButton.setSelection(false);
             }
-            doUseYarnModify();
+            if (yarnComp.isVisible()) {
+                doUseYarnModify();
+            }
         }
     }
 
