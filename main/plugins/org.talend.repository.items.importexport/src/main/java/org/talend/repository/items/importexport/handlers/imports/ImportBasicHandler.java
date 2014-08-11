@@ -722,11 +722,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 User author = selectedImportItem.getProperty().getAuthor();
                 if (author != null) {
                     if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                        // if the import user not exist in talend.project, then add
-                        Resource resource = ProjectManager.getInstance().getCurrentProject().getEmfProject().eResource();
-                        if (resource != null && resource.getContents() != null) {
-                            resource.getContents().add(author);
-                        }
+                        // author will be the logged user in create method
+                        tmpItem.getProperty().setAuthor(null);
                     }
                 }
 
