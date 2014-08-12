@@ -301,10 +301,6 @@
                   pattern="org.eclipse.ui.externaltools/org.eclipse.ui.externaltools.OpenExternalToolsConfigurations">
             </activityPatternBinding>
             <activityPatternBinding
-                  activityId="org.talend.rcp.branding.activity.hideMenu"
-                  pattern="org.talend.repository.metadata/org.talend.repository.repositoryitem.createJob">
-            </activityPatternBinding>
-            <activityPatternBinding
                   activityId="org.talend.rcp.branding.activity.hideView"
                   pattern=".*/org.eclipse.pde.runtime.RegistryBrowser">
             </activityPatternBinding>
