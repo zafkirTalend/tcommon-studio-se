@@ -14,6 +14,7 @@ package org.talend.designer.core;
 
 import java.util.List;
 
+import org.dom4j.Element;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorPart;
@@ -65,5 +66,7 @@ public interface ICamelDesignerCoreService extends IService {
 	public boolean canCreateNodeOnLink(IConnection connection, INode node);
 	
 	public EConnectionType getTargetConnectionType(INode node);
+
+	public void appendRouteInfo2Doc(Item item, Element jobElement);
 
 }
