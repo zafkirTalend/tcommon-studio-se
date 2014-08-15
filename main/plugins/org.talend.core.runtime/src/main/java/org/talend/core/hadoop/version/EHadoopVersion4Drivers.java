@@ -91,7 +91,7 @@ public enum EHadoopVersion4Drivers {
                    EHadoopDistributions.PIVOTAL_HD,
                    "Pivotal HD 2.0",
                    "PIVOTAL_HD_2_0",
-                   false,
+                   true,
                    false,
                    new EMRVersion[] { EMRVersion.YARN }),
 
