@@ -12,6 +12,7 @@
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="DOUBLE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
 			<dbType type="INT" ignoreLen="true" ignorePre="true"/>		
 			<dbType type="LONGVARBINARY" ignoreLen="true" ignorePre="true"/>
 			<dbType type="LONGVARCHAR" ignoreLen="true" ignorePre="true"/>
@@ -44,6 +45,7 @@
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INT" default="true"/>
+					<dbType type="INTEGER"/>
 					<dbType type="BIGINT"/>
 				</talendType>
 				<talendType type="id_Long">
@@ -140,6 +142,9 @@
 				<dbType type="INT">
 					<talendType type="id_Integer" default="true"/>
 					<talendType type="id_Long"/>
+				</dbType>
+				<dbType type="INTEGER">
+					<talendType type="id_Integer" default="true" />
 				</dbType>																								
 				<dbType type="LONGVARBINARY">
 					<talendType type="id_byte[]" default="true"/>
