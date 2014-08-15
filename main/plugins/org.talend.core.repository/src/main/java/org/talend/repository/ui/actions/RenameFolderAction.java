@@ -153,6 +153,7 @@ public class RenameFolderAction extends AContextualAction {
                     if (node.getContentType().equals(camelService.getRouteDocsType())
                             || node.getContentType().equals(camelService.getRouteDocType())) {
                         canWork = false;
+
                     }
                 }
                 if (node.getObject() != null && node.getObject().isDeleted()) {
