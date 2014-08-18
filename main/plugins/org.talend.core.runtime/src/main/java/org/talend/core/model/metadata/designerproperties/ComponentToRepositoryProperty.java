@@ -118,8 +118,10 @@ public class ComponentToRepositoryProperty {
                         product = EDatabaseTypeName.MYSQL.getProduct();
                     }
                 }
-                String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
-                conn.setDbmsId(mapping);
+                if (MetadataTalendType.getDefaultDbmsFromProduct(product) != null) {
+                    String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
+                    conn.setDbmsId(mapping);
+                }
             }
         }
         return true;
