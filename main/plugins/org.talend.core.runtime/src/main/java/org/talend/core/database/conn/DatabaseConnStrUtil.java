@@ -308,6 +308,9 @@ public class DatabaseConnStrUtil {
         // Added by Marvin Wang on May. 6, 2013 for bug TDI-25873.
         if (version != null) {
             for (EDatabaseConnTemplate template : EDatabaseConnTemplate.values()) {
+                if (template == EDatabaseConnTemplate.GODBC || template == EDatabaseConnTemplate.MSODBC) {
+                    continue;
+                }
                 String urlTemplate = template.getUrlTemplate(version);
                 if (urlTemplate.indexOf("<") != -1) {
                     startTemplateString = urlTemplate.substring(0, urlTemplate.indexOf("<")); //$NON-NLS-1$

@@ -2633,6 +2633,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().getParameters().clear();
+                urlConnectionStringText.setEditable(false);
                 // add for bug 12649
                 boolean isGeneralJDBC = isGeneralJDBC();
                 if (isGeneralJDBC) {
