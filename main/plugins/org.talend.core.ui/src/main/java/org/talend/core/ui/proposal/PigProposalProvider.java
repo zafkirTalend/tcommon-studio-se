@@ -78,20 +78,20 @@ public class PigProposalProvider extends TalendProposalProvider {
                 Function function = (Function) objectFunction;
                 // pig components
                 if (currentNode != null) {
-                    if (currentNode.getComponent().getName().equals("tPigLoad") && "LoadFunc".equals(function.getPreview())) {
+                    if (currentNode.getComponent().getName().equals("tPigLoad") && "LoadFunc".equals(function.getPreview())) {//$NON-NLS-1$//$NON-NLS-2$
                         if (function.isUserDefined()) {
                             proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
                         }
-                    } else if (currentNode.getComponent().getName().equals("tPigStoreResult")
-                            && "StoreFunc".equals(function.getPreview())) {
+                    } else if (currentNode.getComponent().getName().equals("tPigStoreResult")//$NON-NLS-1$
+                            && "StoreFunc".equals(function.getPreview())) {//$NON-NLS-1$
                         if (function.isUserDefined()) {
                             proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
                         }
-                    } else if (currentNode.getComponent().getName().equals("tPigMap")
-                            && !"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {
+                    } else if (currentNode.getComponent().getName().equals("tPigMap")//$NON-NLS-1$
+                            && !"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {//$NON-NLS-1$//$NON-NLS-2$
                         proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
                     }
-                } else if (!"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {
+                } else if (!"StoreFunc".equals(function.getPreview()) && !"LoadFunc".equals(function.getPreview())) {//$NON-NLS-1$//$NON-NLS-2$
                     proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
                 }
             }
@@ -113,13 +113,13 @@ public class PigProposalProvider extends TalendProposalProvider {
         // set a default function avoid NPE
         if (proposals.size() == 0) {
             Function function = new Function();
-            function.setClassName("NONE");
-            function.setName("NONE");
-            function.setDescription(Messages.getString("PigProposalProvider.defaultUDFDescription"));
-            function.setCategory("Pig UDF");
+            function.setClassName("NONE");//$NON-NLS-1$
+            function.setName("NONE");//$NON-NLS-1$
+            function.setDescription(Messages.getString("PigProposalProvider.defaultUDFDescription"));//$NON-NLS-1$
+            function.setCategory("Pig UDF");//$NON-NLS-1$
             function.setUserDefined(true);
             TalendType talendType = new TalendType();
-            talendType.setName("id_String");
+            talendType.setName("id_String");//$NON-NLS-1$
             function.setTalendType(talendType);
             proposals.add(new PigFunctionProposal(function, JavaUtils.JAVA_PIG_DIRECTORY));
         }
@@ -139,9 +139,9 @@ public class PigProposalProvider extends TalendProposalProvider {
             this.function = function;
             if (function != null && JavaUtils.JAVA_PIG_DIRECTORY.equals(type)) {
                 if (function.isUserDefined()) {
-                    method = JavaUtils.JAVA_PIGUDF_DIRECTORY + "." + function.getName() + "()";
+                    method = JavaUtils.JAVA_PIGUDF_DIRECTORY + "." + function.getName() + "()";//$NON-NLS-1$//$NON-NLS-2$
                 } else {
-                    method = function.getName() + "()";
+                    method = function.getName() + "()";//$NON-NLS-1$
                 }
             }
         }
