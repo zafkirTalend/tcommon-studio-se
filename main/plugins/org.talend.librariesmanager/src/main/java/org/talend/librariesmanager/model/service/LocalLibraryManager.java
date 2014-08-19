@@ -162,7 +162,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         // get jars file path from index
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
         String uriPath = jarsToRelative.get(jarNeeded);
-        if (uriPath.startsWith("platform:/")) {
+        if (uriPath != null && uriPath.startsWith("platform:/")) {
             if (checkJarInstalledFromPlatform(uriPath)) {
                 return new File(uriJarInstalled.get(uriPath));
             }
