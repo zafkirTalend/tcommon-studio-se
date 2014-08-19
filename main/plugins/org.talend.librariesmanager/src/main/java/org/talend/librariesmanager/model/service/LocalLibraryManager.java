@@ -177,21 +177,28 @@ public class LocalLibraryManager implements ILibraryManagerService {
         try {
             File jarFile = getJarFile(jarNeeded);
             if (jarFile == null) {
-                // popup dialog if needed to download the jar.
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
-                    ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
-                            .getService(ILibraryManagerUIService.class);
+                if (popUp && !CommonsPlugin.isHeadless()) {
+                    // popup dialog if needed to download the jar.
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                        ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
+                                .getService(ILibraryManagerUIService.class);
 
-                    libUiService.installModules(new String[] { jarNeeded });
-                }
-                jarFile = getJarFile(jarNeeded);
-                if (jarFile == null) {
+                        libUiService.installModules(new String[] { jarNeeded });
+                    }
+                    jarFile = getJarFile(jarNeeded);
+                    if (jarFile == null) {
+                        // jar not found even after the popup > stop here
+                        return false;
+                    }
+                    // jar found > reset the modules just after install the jars
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                        ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                                ILibrariesService.class);
+                        librariesService.resetModulesNeeded();
+                    }
+                } else {
+                    // jar not found, and no popup at this point
                     return false;
-                }
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-                    ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                            ILibrariesService.class);
-                    librariesService.resetModulesNeeded();
                 }
             }
             File target = new File(StringUtils.trimToEmpty(pathToStore));
