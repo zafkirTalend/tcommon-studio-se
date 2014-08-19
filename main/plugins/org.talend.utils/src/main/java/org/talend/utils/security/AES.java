@@ -33,7 +33,7 @@ public class AES {
 
     private static Logger log = Logger.getLogger(AES.class);
 
-    private static final String OS_NAME = "SunOS";
+    private static final String PROVIDER_SUN_JCE = "SunJCE";
 
     private static final String RANDOM_SHA1PRNG = "SHA1PRNG";
 
@@ -62,43 +62,23 @@ public class AES {
 
     private AES() {
         try {
-            String osName = System.getProperty("os.name");
-            boolean isSunOS = false;
-            if (null != osName) {
-                isSunOS = osName.contains(OS_NAME);
-            }
-
-            Provider providerSunJCE = null;
             // TDI-28380: Database password in tac db configuration page becomes empty once restart tomcat on Solaris.
+            // TDI-30348: Whole tac configuration lost for the passwords.
             // To solve this problem, there are two ways:
             // Security.removeProvider("SunPKCS11-Solaris");
             // or: providerSunJCE = Security.getProvider("SunJCE");
-            if (isSunOS) {
-                providerSunJCE = Security.getProvider("SunJCE");
-            }
 
-            KeyGenerator keyGen = null;
-            SecureRandom random = null;
+            Provider providerSunJCE = Security.getProvider(PROVIDER_SUN_JCE);
+            KeyGenerator keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
 
-            if (isSunOS) {
-                keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-            } else {
-                keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM);
-            }
-
-            random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
+            SecureRandom random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
             random.setSeed(KeyValues);
             keyGen.init(128, random);
 
             Key key = keyGen.generateKey();
 
-            if (isSunOS) {
-                ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-                dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-            } else {
-                ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
-                dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
-            }
+            ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
+            dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
 
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
