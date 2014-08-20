@@ -579,6 +579,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             List<String> filterList = new ArrayList<String>();
             filterList.addAll(postFillCatalog(metaConnection, catalogList, filterList,
                     TalendCWMService.getReadableName(dbConn, catalogName), dbConn));
+            List<Catalog> newCatalogList = new ArrayList<Catalog>();
             for (Catalog catalog : catalogList) {
                 List<Schema> schemaList = new ArrayList<Schema>();
                 try {
@@ -589,8 +590,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 } catch (Throwable e) {
                     log.info(e);
                 }
-                ConnectionHelper.addCatalog(catalog, dbConn);
+                newCatalogList.add(catalog);
+                // ConnectionHelper.addCatalog(catalog, dbConn);
             }
+            ConnectionHelper.addCatalogs(newCatalogList, dbConn);
         }
         return catalogList;
     }
