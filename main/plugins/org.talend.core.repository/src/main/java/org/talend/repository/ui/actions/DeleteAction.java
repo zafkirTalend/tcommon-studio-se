@@ -1201,14 +1201,14 @@ public class DeleteAction extends AContextualAction {
         return false;
     }
 
-    private boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
+    protected boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             RepositoryNode currentJobNode) throws PersistenceException, BusinessException {
         return deleteElements(factory, deleteActionCache, currentJobNode, null);
     }
 
     protected boolean confirmFromDialog = false;
 
-    private boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
+    protected boolean deleteElements(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
             final RepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
         boolean needReturn = false;
         final boolean[] enableDeleting = new boolean[1];
