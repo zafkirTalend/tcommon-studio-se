@@ -113,12 +113,16 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA);
                 String keytabPath = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB);
-                ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-                try {
-                    ReflectionUtils.invokeStaticMethod("org.apache.hadoop.security.UserGroupInformation", hiveClassLoader, //$NON-NLS-1$
-                            "loginUserFromKeytab", new String[] { principal, keytabPath }); //$NON-NLS-1$
-                } catch (Exception e) {
-                    throw new SQLException(e);
+                boolean useKeytab = Boolean.valueOf((String) metadataConn
+                        .getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_USEKEYTAB));
+                if (useKeytab) {
+                    ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+                    try {
+                        ReflectionUtils.invokeStaticMethod("org.apache.hadoop.security.UserGroupInformation", hiveClassLoader, //$NON-NLS-1$
+                                "loginUserFromKeytab", new String[] { principal, keytabPath }); //$NON-NLS-1$
+                    } catch (Exception e) {
+                        throw new SQLException(e);
+                    }
                 }
             }
             if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
