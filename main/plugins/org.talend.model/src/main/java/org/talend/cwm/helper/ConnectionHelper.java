@@ -1069,8 +1069,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getDecryptPassword(String password) {
-        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
-        return cryptoHelper.decrypt(password);
+        return CryptoHelper.DEFAULT.decrypt(password);
     }
 
     /**
@@ -1080,8 +1079,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getEncryptPassword(String password) {
-        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
-        return cryptoHelper.encrypt(password);
+        return CryptoHelper.DEFAULT.encrypt(password);
     }
 
     /**
@@ -1308,7 +1306,7 @@ public class ConnectionHelper {
     public static void setPassword(Connection conn, String password) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            dbConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+            dbConn.setRawPassword(password);
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -1325,7 +1323,7 @@ public class ConnectionHelper {
     public static String getPassword(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            return dbConn.getPassword();
+            return dbConn.getRawPassword();
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
