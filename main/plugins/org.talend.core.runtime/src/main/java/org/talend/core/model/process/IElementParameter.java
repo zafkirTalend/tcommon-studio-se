@@ -218,4 +218,6 @@ public interface IElementParameter {
     public IElementParameter getClone();
 
     public int getMaxlength();
+
+    public boolean isValueSetToDefault();
 }
