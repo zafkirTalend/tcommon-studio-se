@@ -972,4 +972,14 @@ public class ObjectElementParameter implements IElementParameter {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isValueSetToDefault()
+     */
+    @Override
+    public boolean isValueSetToDefault() {
+        return false;
+    }
+
 }
