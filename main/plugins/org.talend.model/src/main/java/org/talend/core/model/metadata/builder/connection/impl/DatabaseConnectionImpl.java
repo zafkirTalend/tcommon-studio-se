@@ -576,7 +576,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.DATABASE_CONNECTION;
     }
@@ -1192,7 +1191,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
@@ -1208,7 +1206,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
@@ -1291,7 +1288,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * 
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
@@ -1306,7 +1302,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1395,7 +1390,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1484,7 +1478,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1549,7 +1542,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy())
             return super.toString();
@@ -1615,7 +1607,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * 
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getConnectionTypeName()
      */
-    @Override
     public String getConnectionTypeName() {
         return getDatabaseType();
     }
