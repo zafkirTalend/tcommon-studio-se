@@ -851,7 +851,15 @@ public class NodeUtil {
                     Entry<String, String> column = columnsIter.next();
                     value.append(column.getKey());
                     value.append("=\"+");
+
+                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
+                        value.append("\"");
+                    }
                     value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey())));
+                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
+                        value.append("\"");
+                    }
+
                     if (!columnsIter.hasNext()) {
                         value.append("+\"}").toString();
                         break;
@@ -882,7 +890,7 @@ public class NodeUtil {
         }
         List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
                 EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
-                EParameterFieldType.MEMO_JAVA, EParameterFieldType.MODULE_LIST);
+                EParameterFieldType.MEMO_JAVA);
         List<String> needQuoteListByName = Arrays.asList("SCHEMA_COLUMN");// SCHEMA_COLUMN for BASED_ON_SCHEMA="true"
         if (needQuoteList.contains(ep.getFieldType()) || needQuoteListByName.contains(ep.getName())) {
             value = "\"" + value + "\"";
