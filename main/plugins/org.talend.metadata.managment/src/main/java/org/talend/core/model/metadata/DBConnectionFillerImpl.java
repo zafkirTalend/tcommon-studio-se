@@ -895,14 +895,19 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
 
+            boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
             while (tables.next()) {
+                String tableSchema = null;
                 String coloumnName = GetTable.TABLE_SCHEM.name();
                 if (schemaPattern != null) {
                     try {
-                        tables.getString(coloumnName);
+                        tableSchema = tables.getString(coloumnName);
                     } catch (Exception e) {
                         coloumnName = GetTable.TABLE_SCHEMA.name();
+                        tableSchema = tables.getString(coloumnName);
                     }
+                } else {
+                    tableSchema = " "; //$NON-NLS-1$
                 }
                 String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
                 String temptableType = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
