@@ -320,7 +320,7 @@ public class DatabaseForm extends AbstractForm {
     private Button mappingSelectButton;
 
     // 19754 end
-    private boolean isCreation;
+    private final boolean isCreation;
 
     private boolean first = true;
 
@@ -338,11 +338,11 @@ public class DatabaseForm extends AbstractForm {
 
     private ContextType selectedContextType;
 
-    private String originalUischema;
+    private final String originalUischema;
 
-    private String originalURL;
+    private final String originalURL;
 
-    private Boolean originalIsNeedReload;
+    private final Boolean originalIsNeedReload;
 
     private Composite hadoopLinkComp;
 
@@ -2652,6 +2652,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().getParameters().clear();
+                urlConnectionStringText.setEditable(false);
                 // add for bug 12649
                 boolean isGeneralJDBC = isGeneralJDBC();
                 if (isGeneralJDBC) {
