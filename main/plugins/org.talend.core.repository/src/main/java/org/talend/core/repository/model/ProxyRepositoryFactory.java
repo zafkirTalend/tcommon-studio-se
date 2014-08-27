@@ -14,8 +14,6 @@ package org.talend.core.repository.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
@@ -39,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -72,13 +69,11 @@ import org.talend.core.AbstractDQModelService;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
-import org.talend.core.ISVNProviderServiceInCoreRuntime;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.exception.TalendInternalPersistenceException;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -1085,10 +1080,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // for bug 9352: .svnlog folder should not be visible in wizards
             EObject obj = source.getParent();
             if (obj != null && obj instanceof FolderItemImpl) {
-                target.add(path + source.getProperty().getLabel());
+                String onePath = path + source.getProperty().getLabel();
+                // TDI-29841, if in win, case sensitive issue for folder.
+                onePath = onePath.toUpperCase();
+                target.add(onePath);
+
                 for (Object current : source.getChildren()) {
                     if (current instanceof FolderItem) {
-                        addChildren(target, (FolderItem) current, type, path + source.getProperty().getLabel() + "/"); //$NON-NLS-1$
+                        addChildren(target, (FolderItem) current, type, onePath + "/"); //$NON-NLS-1$
                     }
                 }
             }
@@ -1187,6 +1186,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             String folderLabel = path.segment(i);
 
             String folderName = parentPath.append(folderLabel).toString();
+            // TDI-29841, if in win, case insensitive issue for folder.
+            folderName = folderName.toUpperCase();
             if (!folders.contains(folderName)) {
                 createFolder(project, itemType, parentPath, folderLabel);
             }
