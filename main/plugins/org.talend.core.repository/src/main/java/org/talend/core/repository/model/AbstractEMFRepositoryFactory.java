@@ -890,10 +890,15 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
 
     @Override
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path) {
+        if (project == null || itemType == null) {
+            // add this to fix NPE of junit for logon
+            return null;
+        }
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem folderItem = folderHelper.getFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
-        if (folderItem == null && itemType != null) {
-            folderItem = folderHelper.createFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        String pathStr = ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path;
+        FolderItem folderItem = folderHelper.getFolder(pathStr);
+        if (folderItem == null) {
+            folderItem = folderHelper.createFolder(pathStr);
         }
         return folderItem;
     }
