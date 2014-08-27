@@ -851,7 +851,15 @@ public class NodeUtil {
                     Entry<String, String> column = columnsIter.next();
                     value.append(column.getKey());
                     value.append("=\"+");
+
+                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
+                        value.append("\"");
+                    }
                     value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey())));
+                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
+                        value.append("\"");
+                    }
+
                     if (!columnsIter.hasNext()) {
                         value.append("+\"}").toString();
                         break;

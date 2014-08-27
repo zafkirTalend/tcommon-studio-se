@@ -146,10 +146,10 @@ public class RenameFolderAction extends AContextualAction {
                         || (node.getContentType() == ERepositoryObjectType.SQLPATTERNS && !isUnderUserDefined(node))
                         || RepositoryConstants.USER_DEFINED.equals(label)) {
                     canWork = false;
-                } else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                } else if (node.getContentType() != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                     ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                             .getService(ICamelDesignerCoreService.class);
-                    if(camelService.getRouteDocsType().equals(node.getContentType())|| camelService.getRouteDocType().equals(node.getContentType())){
+                    if(node.getContentType().equals(camelService.getRouteDocsType())|| node.getContentType().equals(camelService.getRouteDocType())){
                     	canWork = false;
                     }
                 }

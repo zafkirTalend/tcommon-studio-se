@@ -745,7 +745,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)){
         	ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(ICamelDesignerCoreService.class);
-        	convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(), service.getRouteDocType());
+        	if(service.getRouteDocsType() != null && service.getRouteDocType() != null){
+        		convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(), service.getRouteDocType());
+        	}
         }
 
     }

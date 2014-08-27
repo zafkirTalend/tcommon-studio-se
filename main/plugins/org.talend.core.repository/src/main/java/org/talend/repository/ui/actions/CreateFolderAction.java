@@ -111,10 +111,10 @@ public class CreateFolderAction extends AContextualAction {
                         || ERepositoryObjectType.REFERENCED_PROJECTS.equals(property)
                         || ERepositoryObjectType.SVN_ROOT.equals(property)) {
                     canWork = false;
-                }else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                }else if (property != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                     ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                             .getService(ICamelDesignerCoreService.class);
-                    if(camelService.getRouteDocsType().equals(property)){
+                    if(property.equals(camelService.getRouteDocsType())){
                     	canWork = false;
                     }
                 }
@@ -123,10 +123,10 @@ public class CreateFolderAction extends AContextualAction {
                 if (ERepositoryObjectType.JOB_DOC.equals(property) || ERepositoryObjectType.JOBLET_DOC.equals(property)
                         || (ERepositoryObjectType.SQLPATTERNS.equals(property) && !isUnderUserDefined(node))) {
                     canWork = false;
-                }else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                }else if (property != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                     ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                             .getService(ICamelDesignerCoreService.class);
-                    if(camelService.getRouteDocType().equals(property)){
+                    if(property.equals(camelService.getRouteDocType())){
                     	canWork = false;
                     }
                 }
