@@ -103,6 +103,14 @@ public enum EHadoopVersion4Drivers {
                      false,
                      new EMRVersion[] { EMRVersion.YARN }),
 
+    MICROSOFT_HD_INSIGHT_3_1(
+                             EHadoopDistributions.MICROSOFT_HD_INSIGHT,
+                             "Microsoft HD Insight 3.1",
+                             "MICROSOFT_HD_INSIGHT_3_1",
+                             true,
+                             false,
+                             new EMRVersion[] { EMRVersion.YARN }),
+
     CUSTOM(EHadoopDistributions.CUSTOM, "", "", false, false, new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN });
 
     private EHadoopDistributions distribution;
