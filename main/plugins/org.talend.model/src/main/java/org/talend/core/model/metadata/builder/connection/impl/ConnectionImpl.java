@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.utils.security.CryptoHelper;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
@@ -282,7 +283,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.CONNECTION;
     }
@@ -526,12 +526,10 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         return version;
     }
 
-    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
 
-    @Override
     public void setReadOnly(boolean newReadOnly) {
         readOnly = newReadOnly;
     }
@@ -693,7 +691,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @generated
      */
     @SuppressWarnings("unchecked")
-    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -732,7 +729,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -763,7 +759,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
         case ConnectionPackage.CONNECTION__MACHINE:
@@ -777,7 +772,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -825,7 +819,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @generated
      */
     @SuppressWarnings("unchecked")
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -891,7 +884,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -950,7 +942,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ConnectionPackage.CONNECTION__OWNED_ELEMENT:
@@ -993,7 +984,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
         if (baseClass == Namespace.class) {
             switch (derivedFeatureID) {
@@ -1054,7 +1044,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
         if (baseClass == Namespace.class) {
             switch (baseFeatureID) {
@@ -1115,7 +1104,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy())
             return super.toString();
@@ -1137,4 +1125,21 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         return result.toString();
     }
 
+    /**
+     * @generated NOT
+     */
+    public String getValue(String value, boolean encrypt) {
+        if (!isContextMode() && value != null && value.length() > 0) {
+            String newValue = null;
+            if (encrypt) {
+                newValue = CryptoHelper.DEFAULT.encrypt(value);
+            } else {
+                newValue = CryptoHelper.DEFAULT.decrypt(value);
+            }
+            if (newValue != null) { // if enable to encrypt/decrypt will return the new value.
+                return newValue;
+            }
+        }
+        return value;
+    }
 } // ConnectionImpl
