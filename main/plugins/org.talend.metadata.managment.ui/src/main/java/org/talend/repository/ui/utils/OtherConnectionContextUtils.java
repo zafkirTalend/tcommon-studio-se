@@ -188,7 +188,7 @@ public final class OtherConnectionContextUtils {
         conn.setFilePath(filePath);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static LdifFileConnection cloneOriginalValueLdifFileConnection(LdifFileConnection fileConn, ContextType contextType) {
         if (fileConn == null) {
             return null;
@@ -367,7 +367,7 @@ public final class OtherConnectionContextUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static XmlFileConnection cloneOriginalValueXmlFileConnection(XmlFileConnection fileConn, ContextType contextType) {
         if (fileConn == null) {
             return null;
@@ -391,7 +391,7 @@ public final class OtherConnectionContextUtils {
 
         cloneConn.getSchema().clear();
 
-        List<XmlXPathLoopDescriptor> descs = (List<XmlXPathLoopDescriptor>) fileConn.getSchema();
+        List<XmlXPathLoopDescriptor> descs = fileConn.getSchema();
         for (XmlXPathLoopDescriptor desc : descs) {
             XmlXPathLoopDescriptor cloneDesc = ConnectionFactory.eINSTANCE.createXmlXPathLoopDescriptor();
             cloneDesc.setLimitBoucle(desc.getLimitBoucle().intValue());
@@ -400,7 +400,7 @@ public final class OtherConnectionContextUtils {
             cloneDesc.setAbsoluteXPathQuery(xPathQuery);
 
             cloneDesc.getSchemaTargets().clear();
-            List<SchemaTarget> schemaTargets = (List<SchemaTarget>) desc.getSchemaTargets();
+            List<SchemaTarget> schemaTargets = desc.getSchemaTargets();
             for (SchemaTarget schemaTarget : schemaTargets) {
                 SchemaTarget cloneSchemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
                 cloneSchemaTarget.setRelativeXPathQuery(schemaTarget.getRelativeXPathQuery());
@@ -866,7 +866,7 @@ public final class OtherConnectionContextUtils {
 
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static SalesforceSchemaConnection cloneOriginalValueSalesforceConnection(SalesforceSchemaConnection ssConn,
             ContextType contextType) {
         if (ssConn == null) {
@@ -937,6 +937,7 @@ public final class OtherConnectionContextUtils {
         paramName = prefixName + EParamName.Port;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getPort(), JavaTypesManager.INTEGER);
 
+        // because the encrytion are same as context, so no need do decrypt for LDAP and redo-encrypt for context.
         paramName = prefixName + EParamName.BindPassword;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getBindPassword(), JavaTypesManager.PASSWORD);
 
@@ -1043,7 +1044,8 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getPort());
         String bindPrincipal = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPrincipal());
-        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPassword());
+        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ldapConn.getValue(ldapConn.getBindPassword(), false));
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
@@ -1052,14 +1054,14 @@ public final class OtherConnectionContextUtils {
         ldapConn.setHost(host);
         ldapConn.setPort(port);
         ldapConn.setBindPrincipal(bindPrincipal);
-        ldapConn.setBindPassword(bindPassword);
+        ldapConn.setBindPassword(ldapConn.getValue(bindPassword, true));
         ldapConn.setFilter(filter);
         ldapConn.setCountLimit(countLimit);
         ldapConn.setTimeOutLimit(timeOutLimit);
         ldapConn.setSelectedDN(baseDN);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static LDAPSchemaConnection cloneOriginalValueLDAPSchemaConnection(LDAPSchemaConnection ldapConn,
             ContextType contextType) {
         if (ldapConn == null) {
@@ -1071,7 +1073,8 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getPort());
         String bindPrincipal = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPrincipal());
-        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPassword());
+        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                cloneConn.getValue(ldapConn.getBindPassword(), false));
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
@@ -1080,7 +1083,7 @@ public final class OtherConnectionContextUtils {
         cloneConn.setHost(host);
         cloneConn.setPort(port);
         cloneConn.setBindPrincipal(bindPrincipal);
-        cloneConn.setBindPassword(bindPassword);
+        cloneConn.setBindPassword(cloneConn.getValue(bindPassword, true));
         cloneConn.setFilter(filter);
         cloneConn.setCountLimit(countLimit);
         cloneConn.setTimeOutLimit(timeOutLimit);
@@ -1320,7 +1323,7 @@ public final class OtherConnectionContextUtils {
         wsdlConn.setWSDL(wsdl);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static WSDLSchemaConnection cloneOriginalValueWSDLSchemaConnection(WSDLSchemaConnection wsdlConn,
             ContextType contextType) {
         if (wsdlConn == null) {
@@ -1370,7 +1373,7 @@ public final class OtherConnectionContextUtils {
         if (isContextMode) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                     connectionItem.getConnection().getContextName(), defaultContext);
-            return (XmlFileConnection) OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
+            return OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
         }
         return connection;
 
