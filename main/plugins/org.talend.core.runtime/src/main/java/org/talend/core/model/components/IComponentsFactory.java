@@ -29,6 +29,8 @@ public interface IComponentsFactory {
 
     String COMPONENTS_LOCATION = "org.talend.designer.components.localprovider"; //$NON-NLS-1$
 
+    String MR_COMPONENTS_LOCATION = "org.talend.designer.components.mrprovider"; //$NON-NLS-1$
+
     String CAMEL_COMPONENTS_LOCATION = "org.talend.designer.camel.components.localprovider";
 
     String COMPONENTS_INNER_FOLDER = "components"; //$NON-NLS-1$
