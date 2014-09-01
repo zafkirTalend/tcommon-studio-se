@@ -661,9 +661,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
             JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
         }
-        if (false) {
-            MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
-        }
+        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
         // if after fillConnection there is still no dataPackages, need to fill them from extractor
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
         List<Schema> schemas = ConnectionHelper.getSchema(connection);
