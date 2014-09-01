@@ -175,7 +175,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
-        LibrariesIndexManager.getInstance().loadResource();
+        // MOD TDQ-9357 msjian: fix a java.io.FileNotFoundException
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
+        // TDQ-9357~
         String sourcePath = null, targetPath = pathToStore;
         try {
             File jarFile = getJarFile(jarNeeded);
