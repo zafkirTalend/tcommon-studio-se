@@ -1310,7 +1310,7 @@ public class ConnectionHelper {
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
-            mdmConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+            mdmConn.setPassword(mdmConn.getValue(password, true));
         }
     }
 
@@ -1327,7 +1327,7 @@ public class ConnectionHelper {
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
-            return mdmConn.getPassword();
+            return mdmConn.getValue(mdmConn.getPassword(), false);
         }
         return null;
     }
