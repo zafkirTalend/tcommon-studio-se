@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -2349,12 +2348,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getPassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getPassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getPassword()) : TalendQuoteUtils.addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         }
         if (value.equals("KEYSTORE_FILE")) {
@@ -2369,13 +2363,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getKeystorePassword())) {
                 return connection.getKeystorePassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getKeystorePassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getKeystorePassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getKeystorePassword()) : TalendQuoteUtils
-                            .addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getKeystorePassword(), false));
             }
         }
         if (value.equals("PRIVATEKEY")) {
@@ -2390,12 +2378,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassphrase())) {
                 return connection.getPassphrase();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getPassphrase()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getPassphrase());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getPassphrase()) : TalendQuoteUtils.addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassphrase(), false));
             }
         }
         if (value.equals("AUTH_METHOD")) {
@@ -2462,13 +2445,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxypassword())) {
                 return connection.getProxypassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getProxypassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getProxypassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getProxypassword()) : TalendQuoteUtils
-                            .addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxypassword(), false));
             }
         }
         return null;
