@@ -18,6 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.ColumnNameChanged;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
@@ -30,9 +31,9 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
 
     private IODataComponentContainer ioDataContainer;
 
-    protected ImageDescriptor screenshot = null;
+    protected ImageDescriptor        screenshot = null;
 
-    protected INode originalNode;
+    protected INode                  originalNode;
 
     /*
      * (non-Javadoc)
@@ -84,6 +85,10 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
             // System.out.println(" -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
             this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
+    }
+
+    public void metadataOutputChanged(IMetadataTable currentMetadata) {
+
     }
 
     protected abstract void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
