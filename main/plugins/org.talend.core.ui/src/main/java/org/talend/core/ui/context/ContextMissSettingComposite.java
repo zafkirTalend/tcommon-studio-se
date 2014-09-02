@@ -90,10 +90,10 @@ public class ContextMissSettingComposite extends Composite {
         boolean allInstalled = true;
         List<String> updatedModules = new ArrayList<String>();
         if (libUiService != null) {
-
-            updatedModules = libUiService.getNeedInstallModuleForBundle(REQUIRE_BUNDLE_NAME);
-
             allInstalled = libUiService.isModuleInstalledForBundle(REQUIRE_BUNDLE_NAME);
+            if (!allInstalled) {
+                updatedModules = libUiService.getNeedInstallModuleForBundle(REQUIRE_BUNDLE_NAME);
+            }
         }
 
         missModulesNeeded.addAll(updatedModules);

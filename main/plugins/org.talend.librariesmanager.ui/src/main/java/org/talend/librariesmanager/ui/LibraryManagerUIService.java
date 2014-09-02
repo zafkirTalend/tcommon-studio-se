@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.librariesmanager.ui;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +20,8 @@ import java.util.Set;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
@@ -111,10 +112,14 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
         List<ModuleNeeded> requiredModulesForBundle = ModulesNeededProvider.filterRequiredModulesForBundle(bundleName,
                 allModulesNeededExtensionsForPlugin);
         List<String> requiredJars = new ArrayList<String>(requiredModulesForBundle.size());
-        for (ModuleNeeded module : requiredModulesForBundle) {
-            String moduleName = module.getModuleName();
-            if (!new File(getLibrariesPath(ECodeLanguage.JAVA), moduleName).exists()) {
-                requiredJars.add(moduleName);
+        ILibraryManagerService service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(ILibraryManagerService.class);
+            for (ModuleNeeded module : requiredModulesForBundle) {
+                String moduleName = module.getModuleName();
+                if (!service.contains(moduleName)) {
+                    requiredJars.add(moduleName);
+                }
             }
         }
         return requiredJars;
@@ -133,13 +138,18 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
         List<ModuleNeeded> allModulesNeededExtensionsForPlugin = ModulesNeededProvider.getAllModulesNeededExtensionsForPlugin();
         List<ModuleNeeded> requiredModulesForBundle = ModulesNeededProvider.filterRequiredModulesForBundle(bundleName,
                 allModulesNeededExtensionsForPlugin);
-        for (ModuleNeeded module : requiredModulesForBundle) {
-            String moduleName = module.getModuleName();
-            if (!new File(getLibrariesPath(ECodeLanguage.JAVA), moduleName).exists()) {
-                return false;
+        ILibraryManagerService service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(ILibraryManagerService.class);
+            for (ModuleNeeded module : requiredModulesForBundle) {
+                String moduleName = module.getModuleName();
+                if (!service.contains(moduleName)) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

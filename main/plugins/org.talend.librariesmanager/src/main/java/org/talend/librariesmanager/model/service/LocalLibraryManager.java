@@ -42,6 +42,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
+import org.talend.librariesmanager.model.ExtensionModuleManager;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
@@ -304,6 +305,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } catch (MalformedURLException e) {
             CommonExceptionHandler.process(e);
         }
+        jarList.addAll(jarsFromExtensions.keySet());
 
         LibrariesIndexManager.getInstance().loadResource();
 
@@ -489,7 +491,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         boolean jarFound = false;
 
         try {
-            if (uriPath.startsWith("platform:/plugin/")) {
+            if (uriPath.startsWith(ExtensionModuleManager.URIPATH_PREFIX)) {
                 String plugin = uriPath.substring(17);
                 plugin = plugin.substring(0, plugin.indexOf("/"));
                 String path = uriPath.substring(17 + plugin.length());
@@ -532,7 +534,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         String jarName = null;
         try {
-            if (uriJarInstalled.containsKey(uriPath)) {
+            if (checkJarInstalledFromPlatform(uriPath)) {
                 File file = new File(uriJarInstalled.get(uriPath));
                 if (file.exists()) {
                     jarName = file.getName();
