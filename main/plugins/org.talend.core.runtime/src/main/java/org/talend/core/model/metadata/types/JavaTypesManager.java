@@ -506,4 +506,22 @@ public final class JavaTypesManager {
         return javaTypeMappingFromExtension;
     }
 
+    /**
+     * the numerical types with id_.
+     */
+    public final static String[] NUMBERS = new String[] { JavaTypesManager.INTEGER.getId(), JavaTypesManager.FLOAT.getId(),
+            JavaTypesManager.DOUBLE.getId(), JavaTypesManager.LONG.getId(), JavaTypesManager.SHORT.getId(),
+            JavaTypesManager.BIGDECIMAL.getId(), JavaTypesManager.BYTE.getId() };
+
+    public static boolean isNumber(String type) {
+        return ArrayUtils.contains(NUMBERS, type);
+    }
+
+    public static boolean isString(String type) {
+        return JavaTypesManager.STRING.getId().equals(type);
+    }
+
+    public static boolean isBoolean(String type) {
+        return JavaTypesManager.BOOLEAN.getId().equals(type);
+    }
 }
