@@ -294,6 +294,9 @@ public class ContextTreeTable {
 
             natTable.configure();
 
+            GridDataFactory.fillDefaults().grab(true, true).applyTo(natTable);
+
+            // add selection listener for the context NatTable
             ISelectionProvider selectionProvider = new RowSelectionProvider<ContextTreeNode>(selectionLayer, bodyDataProvider,
                     false);
 
@@ -355,8 +358,8 @@ public class ContextTreeTable {
             @Override
             public void mouseDoubleClick(MouseEvent e) {
                 int rowPos = natTable.getRowPositionByY(e.y);
-                if (rowPos == 0) {
-                    // in case click the column header
+                if (rowPos == 0 || rowPos == -1) {
+                    // in case click the column header or the empty space
                     return;
                 }
                 int rowIndex = natTable.getRowIndexByPosition(rowPos);
