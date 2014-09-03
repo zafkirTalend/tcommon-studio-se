@@ -15,6 +15,8 @@ package org.talend.core.ui.context.nattableTree;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.model.context.ContextUtils;
@@ -24,9 +26,11 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
+import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -162,6 +166,31 @@ public class ContextNatTableUtils {
             }
         }
         return firstLevelNode;
+    }
+
+    public boolean renameParameter(IContextModelManager manager, final String oldParamName, String sourceId,
+            final String newParamName, boolean reposFlag) {
+        if (!manager.getContextManager().checkValidParameterName(oldParamName, newParamName)) {
+            MessageDialog
+                    .openError(
+                            new Shell(),
+                            Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextProcessSection.ParameterNameIsNotValid")); //$NON-NLS-1$ //$NON-NLS-2$
+            return false;
+        }
+        // fix 0017942: It is unlimited for total characters of context variable name
+        if (null != newParamName && !"".equals(newParamName)) { //$NON-NLS-1$
+            if (newParamName.length() > 255) {
+                MessageDialog
+                        .openError(
+                                new Shell(),
+                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextTemplateComposite.ParamterLengthInvilid")); //$NON-NLS-1$ //$NON-NLS-2$
+                return false;
+            }
+        }
+
+        manager.onContextRenameParameter(manager.getContextManager(), sourceId, oldParamName, newParamName);
+        manager.refresh();
+        return true;
     }
 
 }
