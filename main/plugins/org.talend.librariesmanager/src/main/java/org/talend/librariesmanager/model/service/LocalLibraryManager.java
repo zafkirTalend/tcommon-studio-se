@@ -307,7 +307,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         jarList.addAll(jarsFromExtensions.keySet());
 
-        LibrariesIndexManager.getInstance().loadResource();
+        // MOD TDQ-9357 msjian: fix a java.io.FileNotFoundException
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
+        // TDQ-9357~
 
         // fix for TDI-25474 ,some libraries are removed form tos,only list jars exist
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
