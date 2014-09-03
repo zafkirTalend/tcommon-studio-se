@@ -23,11 +23,9 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -45,7 +43,6 @@ import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextConstant;
-import org.talend.core.ui.i18n.Messages;
 
 /**
  * this one is specially for access the context columns
@@ -60,6 +57,10 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
     private final ColumnGroupModel groupModel;
 
     private Map<String, PropertyDescriptor> propertyDescriptorMap;
+
+    private final static String JOBLET_CONTEXT = " (from joblet)";
+
+    private final static String REPOSITORYT_CONTEXT = " (from repository context)";
 
     /**
      * @param propertyNames of the members of the row bean
@@ -157,9 +158,9 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                     Item item = ContextUtils.getContextItemById3(sourceId);
                     if (item != null) {
                         if (item instanceof JobletProcessItem) {
-                            return contextParaName + " (from joblet)";
+                            return contextParaName + JOBLET_CONTEXT;
                         } else {
-                            return contextParaName + " (from repository context)";
+                            return contextParaName + REPOSITORYT_CONTEXT;
                         }
                     }
                 } else {
@@ -180,67 +181,45 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                         return contextParaType;
                     }
                 } else {
-
                     if (this.groupModel.isPartOfAGroup(columnIndex)) {
                         String columnGroupName = this.groupModel.getColumnGroupByIndex(columnIndex).getName();
-                        if (currentColumnName.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
-                            if (manager.getContextManager() != null) {
-                                List<IContext> contexts = manager.getContextManager().getListContext();
-                                for (IContext envContext : contexts) {
-                                    if (envContext.getName().equals(columnGroupName)) {
-                                        List<IContextParameter> list = envContext.getContextParameterList();
-                                        if (list != null && list.size() > 0) {
-                                            for (IContextParameter contextPara : list) {
-                                                String tempContextParaName = contextPara.getName();
-                                                if (tempContextParaName.equals(contextParaName)) {
-                                                    return contextPara.isPromptNeeded();
-                                                }
-                                            }
-                                        }
-                                    }
+                        if (manager.getContextManager() != null) {
+                            List<IContext> contexts = manager.getContextManager().getListContext();
+                            IContextParameter currentPara = findContextPara(contexts, columnGroupName, contextParaName);
+                            if (currentColumnName.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
+                                return currentPara.isPromptNeeded();
+                            } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
+                                return currentPara.getPrompt();
+                            } else {
+                                String value = currentPara.getValue();
+                                if (NatTableCellEditorFactory.isPassword(currentPara.getType())) {
+                                    return value != null ? value.replaceAll(".", "*") : "";
                                 }
-                            }
-                        } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
-                            if (manager.getContextManager() != null) {
-                                List<IContext> contexts = manager.getContextManager().getListContext();
-                                for (IContext envContext : contexts) {
-                                    if (envContext.getName().equals(columnGroupName)) {
-                                        List<IContextParameter> list = envContext.getContextParameterList();
-                                        if (list != null && list.size() > 0) {
-                                            for (IContextParameter contextPara : list) {
-                                                String tempContextParaName = contextPara.getName();
-                                                if (tempContextParaName.equals(contextParaName)) {
-                                                    return contextPara.getPrompt();
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if (manager.getContextManager() != null) {
-                                List<IContext> contexts = manager.getContextManager().getListContext();
-                                for (IContext envContext : contexts) {
-                                    if (envContext.getName().equals(columnGroupName)) {
-                                        List<IContextParameter> list = envContext.getContextParameterList();
-                                        if (list != null && list.size() > 0) {
-                                            for (IContextParameter contextPara : list) {
-                                                String tempContextParaName = contextPara.getName();
-                                                if (tempContextParaName.equals(contextParaName)) {
-                                                    return contextPara.getValue();
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                return value;
                             }
                         }
                     }
-
                 }
             }
         }
         return "";
+    }
+
+    private IContextParameter findContextPara(List<IContext> contexts, String columnGroupName, String contextParaName) {
+        for (IContext envContext : contexts) {
+            if (envContext.getName().equals(columnGroupName)) {
+                List<IContextParameter> list = envContext.getContextParameterList();
+                if (list != null && list.size() > 0) {
+                    for (IContextParameter contextPara : list) {
+                        String tempContextParaName = contextPara.getName();
+                        if (tempContextParaName.equals(contextParaName)) {
+                            return contextPara;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private void setPropertyValue(IContextModelManager manager, Object dataElement, String contextParaName, int columnIndex,
@@ -293,31 +272,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                 runCommand(cmd, manager);
             }
         }
-    }
-
-    public boolean renameParameter(IContextModelManager manager, final String oldParamName, String sourceId,
-            final String newParamName, boolean reposFlag) {
-        if (!manager.getContextManager().checkValidParameterName(oldParamName, newParamName)) {
-            MessageDialog
-                    .openError(
-                            new Shell(),
-                            Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextProcessSection.ParameterNameIsNotValid")); //$NON-NLS-1$ //$NON-NLS-2$
-            return false;
-        }
-        // fix 0017942: It is unlimited for total characters of context variable name
-        if (null != newParamName && !"".equals(newParamName)) { //$NON-NLS-1$
-            if (newParamName.length() > 255) {
-                MessageDialog
-                        .openError(
-                                new Shell(),
-                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextTemplateComposite.ParamterLengthInvilid")); //$NON-NLS-1$ //$NON-NLS-2$
-                return false;
-            }
-        }
-
-        manager.onContextRenameParameter(manager.getContextManager(), sourceId, oldParamName, newParamName);
-        manager.refresh();
-        return true;
     }
 
     private String getRealType(String type) {
@@ -659,14 +613,5 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
             }
         }
         return false;
-    }
-
-    private String combineStrings(String[] arrays) {
-        StringBuilder sb = new StringBuilder();
-        for (String string : arrays) {
-            sb.append(string).append(",");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
     }
 }
