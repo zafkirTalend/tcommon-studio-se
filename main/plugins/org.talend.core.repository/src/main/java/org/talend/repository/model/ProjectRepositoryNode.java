@@ -730,7 +730,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         return false;
     }
-    
+
     @SuppressWarnings("rawtypes")
     private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
             RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode) {
@@ -738,23 +738,28 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         // RepositoryNode generatedFolder = getRootRepositoryNode(ERepositoryObjectType.GENERATED);
 
         // for folder Documentation/generated/jobs
-        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBS, ERepositoryObjectType.JOB_DOC);
-        
-        // for folder Documentation/generated/joblets
-        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBLETS, ERepositoryObjectType.JOBLET_DOC);
+        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBS,
+                ERepositoryObjectType.JOB_DOC);
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)){
-        	ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(ICamelDesignerCoreService.class);
-        	if(service.getRouteDocsType() != null && service.getRouteDocType() != null){
-        		convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(), service.getRouteDocType());
-        	}
+        // for folder Documentation/generated/joblets
+        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBLETS,
+                ERepositoryObjectType.JOBLET_DOC);
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
+            if (service.getRouteDocsType() != null && service.getRouteDocType() != null) {
+                convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(),
+                        service.getRouteDocType());
+            }
         }
 
     }
-    
+
     @SuppressWarnings("rawtypes")
     private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
-            RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode, ERepositoryObjectType parentDocType, ERepositoryObjectType docType) {
+            RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode, ERepositoryObjectType parentDocType,
+            ERepositoryObjectType docType) {
         RepositoryNode docsFolder = getRootRepositoryNode(parentDocType);
 
         Container docsNode = null;
@@ -764,7 +769,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 break;
             }
         }
-        
+
         // get the files under generated/nodes.
         if (docsNode != null) {
             convert(newProject, docsNode, docsFolder, docType, recBinNode);

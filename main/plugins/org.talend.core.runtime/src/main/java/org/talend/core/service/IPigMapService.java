@@ -16,6 +16,7 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.talend.commons.ui.expressionbuilder.IExpressionDataBean;
 import org.talend.core.IService;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
+import org.talend.designer.rowgenerator.data.AbstractTalendFunctionParser;
 
 /**
  * DOC hcyi class global comment. Detailled comment
@@ -25,4 +26,6 @@ public interface IPigMapService extends IService {
     public IContentProposalProvider createExpressionProposalProvider(IExpressionDataBean dataBean);
 
     public void setPigMapData(AbstractExternalData externalData);
+
+    public AbstractTalendFunctionParser pigFunctionParser();
 }
