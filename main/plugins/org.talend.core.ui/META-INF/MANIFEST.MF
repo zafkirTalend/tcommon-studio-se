@@ -18,8 +18,8 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.commons.ui,
  org.talend.core.runtime,
  org.talend.core.repository,
- org.eclipse.nebula.widgets.nattable.core;bundle-version="1.1.0",
- org.eclipse.nebula.widgets.nattable.extension.glazedlists;bundle-version="1.1.0",
+ org.eclipse.nebula.widgets.nattable.core,
+ org.eclipse.nebula.widgets.nattable.extension.glazedlists,
  org.talend.libraries.nattable
 Import-Package: org.eclipse.jdt.internal.ui.workingsets
 Export-Package: org.talend.core.model.components,

@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.adaptor.LocationManager;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PartInitException;
@@ -547,8 +547,8 @@ public class RegisterManagement {
      * @return
      */
     private void initPreferenceStore() {
-        String tmp = LocationManager.getConfigurationLocation().getURL().getPath();
-        String s = new Path(LocationManager.getConfigurationLocation().getURL().getPath()).toFile().getPath();
+        String tmp = Platform.getConfigurationLocation().getURL().getPath();
+        String s = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getPath();
         path = tmp.substring(tmp.indexOf("/") + 1, tmp.length());//$NON-NLS-1$
 
     }
