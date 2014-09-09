@@ -33,12 +33,15 @@ public class DbVersion4DriversForOracle11 extends DbVersion4Drivers {
     @Override
     Set<String> getDrivers() {
         Set<String> drivers = new HashSet<String>();
-        if (System.getProperty("java.version").startsWith("1.6")) { //$NON-NLS-1$ //$NON-NLS-2$
-            drivers.add(DRIVER_1_6);
-        } else {
-            drivers.add(DRIVER_1_5);
+        String javaVersion = System.getProperty("java.version");//$NON-NLS-1$
+        if (javaVersion != null) {
+            org.talend.commons.utils.Version v = new org.talend.commons.utils.Version(javaVersion);
+            if (v.getMajor() == 1 && v.getMinor() > 6) { // more than JDK 1.6
+                drivers.add(DRIVER_1_6);
+            } else {
+                drivers.add(DRIVER_1_5);
+            }
         }
         return drivers;
     }
-
 }
