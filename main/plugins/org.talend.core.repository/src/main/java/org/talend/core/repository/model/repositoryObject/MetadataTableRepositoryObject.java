@@ -104,7 +104,12 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
         if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
-            funUnit.getTables().remove(table);
+            String tableType = table.getTableType();
+            if ("Input".endsWith(tableType)) {//$NON-NLS-1$
+                funUnit.getInputTables().remove(table);
+            } else {
+                funUnit.getTables().remove(table);
+            }
             return;
         }
         if (table.eContainer() instanceof SalesforceModuleUnit) {
