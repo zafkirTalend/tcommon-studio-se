@@ -665,6 +665,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             }
                         }
                     }
+                } else {
+                    scheamFilterList.add(dbConnection.getSID());
                 }
             }
         } else {
@@ -750,7 +752,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
                     schemaRs = ((SybaseDatabaseMetaData) dbJDBCMetadata).getSchemas(catalog.getName(), null);
                 } else if (dbJDBCMetadata instanceof AS400DatabaseMetaData) {
-                    schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
+                    String schemaPattern = null;
+                    if (!schemaFilter.isEmpty()) {
+                        schemaPattern = schemaFilter.get(0);
+                    }
+                    schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), schemaPattern);
                 } else {
                     schemaRs = dbJDBCMetadata.getSchemas();
                 }
