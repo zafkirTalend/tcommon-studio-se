@@ -13,39 +13,40 @@
 package org.talend.commons.utils.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;  
-import java.util.ArrayList;  
-import java.util.List;  
-import org.apache.commons.lang.StringUtils;
-import java.sql.PreparedStatement; 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 
 /**
  * created by zshen on Apr 12, 2013 Detailled comment
  * 
  */
 public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
-	
-	 private static final String[] TABLE_META = {
-         "TABLE_TYPE", "TABLE_NAME", "SYSTEM_TABLE_NAME", "TABLE_SCHEMA", "SYSTEM_TABLE_SCHEMA" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-	 private String T = "T";//$NON-NLS-1$
-	
-	 private String V = "V";//$NON-NLS-1$
-	
-	 private String S = "S";//$NON-NLS-1$
-	
-	 private String A = "A";//$NON-NLS-1$
-	
-	 private String TABLE = "TABLE"; //$NON-NLS-1$
-	
-	 private String VIEW = "VIEW"; //$NON-NLS-1$
-	
-	 private String SYNONYM = "SYNONYM"; //$NON-NLS-1$
-	
-	 private String ALIAS = "ALIAS"; //$NON-NLS-1$
+    private static final String[] TABLE_META = {
+            "TABLE_TYPE", "TABLE_NAME", "SYSTEM_TABLE_NAME", "TABLE_SCHEMA", "SYSTEM_TABLE_SCHEMA" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+    private String T = "T";//$NON-NLS-1$
+
+    private String V = "V";//$NON-NLS-1$
+
+    private String S = "S";//$NON-NLS-1$
+
+    private String A = "A";//$NON-NLS-1$
+
+    private String TABLE = "TABLE"; //$NON-NLS-1$
+
+    private String VIEW = "VIEW"; //$NON-NLS-1$
+
+    private String SYNONYM = "SYNONYM"; //$NON-NLS-1$
+
+    private String ALIAS = "ALIAS"; //$NON-NLS-1$
 
     public AS400DatabaseMetaData(Connection conn) throws SQLException {
         super(conn);
@@ -112,6 +113,7 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
+        Set<String> tablesRetrieved = new HashSet<String>();
         try {
             stmt = connection.prepareStatement(sql);
             if (!StringUtils.isEmpty(tableNamePattern)) {
@@ -122,10 +124,11 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
                 String type = rs.getString("TYPE"); //$NON-NLS-1$
                 String table_name = rs.getString("TABLE_NAME"); //$NON-NLS-1$
                 String system_table_name = rs.getString("SYSTEM_TABLE_NAME"); //$NON-NLS-1$
+                tablesRetrieved.add(system_table_name);
                 String table_schema = rs.getString("TABLE_SCHEMA"); //$NON-NLS-1$
-                String system_table_schema = rs.getString("SYSTEM_TABLE_SCHEMA");
+                String system_table_schema = rs.getString("SYSTEM_TABLE_SCHEMA");//$NON-NLS-1$
 
-                String[] r = new String[] { type, table_name, system_table_name, table_schema, system_table_schema }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { type, table_name, system_table_name, table_schema, system_table_schema };
                 list.add(r);
             }
 
@@ -138,11 +141,23 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
             } catch (Exception e) {
             }
         }
+
+        ResultSet jdbcRset = super.getTables(catalog, schemaPattern, tableNamePattern, types);
+        while (jdbcRset.next()) {
+            String table_name = jdbcRset.getString("TABLE_NAME"); //$NON-NLS-1$
+            if (tablesRetrieved.contains(table_name)) {
+                continue;
+            }
+            String type = jdbcRset.getString("TABLE_TYPE"); //$NON-NLS-1$
+            String table_schema = jdbcRset.getString("TABLE_SCHEM"); //$NON-NLS-1$
+
+            String[] r = new String[] { type, table_name, table_name, table_schema, table_schema };
+            list.add(r);
+        }
         AS400ResultSet tableResultSet = new AS400ResultSet();
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
-        // return super.getTables(catalog, schemaPattern, tableNamePattern, types);
     }
 
     private String getTypeNameType(String typeName) {
