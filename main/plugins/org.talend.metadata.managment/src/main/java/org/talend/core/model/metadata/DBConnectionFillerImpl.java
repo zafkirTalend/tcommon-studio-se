@@ -66,7 +66,6 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
-import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
@@ -1540,13 +1539,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 column.setInitialValue(defExpression);
                 extractMeta.handleDefaultValue(column, dbJDBCMetadata);
 
-                DatabaseConnection dbConnection = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(ConnectionHelper
-                        .getConnection(colSet));
-                String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+                DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
+                String dbmsId = JavaSqlFactory.getDbmsId(dbConnection);
                 if (dbmsId != null) {
-                    if (dbConnection.isContextMode()) {
-                        dbmsId = JavaSqlFactory.getOriginalConntextValue(dbConnection, dbmsId);
-                    }
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                     String talendType = mappingTypeRetriever
                             .getDefaultSelectedTalendType(
