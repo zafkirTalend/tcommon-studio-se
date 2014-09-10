@@ -20,9 +20,25 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.update.IUpdateItemType;
+import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.model.update.UpdateResult;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -156,7 +172,9 @@ public enum UpdateManagerProviderDetector {
         if (result != null) {
             IProcessUpdateManagerProvider[] processProviders = reader.getProcessProviders();
             for (IProcessUpdateManagerProvider provider : processProviders) {
-                updated = updated || provider.doUpdate(monitor, result);
+                if (provider.doUpdate(monitor, result)) {
+                    updated = true;
+                }
             }
         }
         return updated;
@@ -225,13 +243,92 @@ public enum UpdateManagerProviderDetector {
      * @param node
      * @return
      */
-    public boolean updateForRepository(Object node, boolean needConfirm) {
-        boolean updated = false;
+    public boolean updateForRepository(IStructuredSelection selection, boolean needConfirm) {
+        boolean forcePropagation = false;
         IRepositoryUpdateManagerProvider[] repositoryProviders = reader.getRepositoryProviders();
         for (IRepositoryUpdateManagerProvider provider : repositoryProviders) {
+            if (provider.needForcePropagation(selection)) {
+                forcePropagation = true;
+            }
+        }
+
+        if (!forcePropagation && needConfirm) {
+            IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+            boolean deactive = designerCoreService != null ? Boolean.parseBoolean(designerCoreService
+                    .getPreferenceStore(ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE)) : true;
+            if (deactive) {// disable to do update
+                return false;
+            }
+
+            boolean propagated = RepositoryUpdateManager.openPropagationDialog();
+            if (!propagated) {
+                return false;
+            }
+        }
+
+        boolean updated = false;
+        for (IRepositoryUpdateManagerProvider provider : repositoryProviders) {
             // if one upate successfully, will return true.
-            updated = updated || provider.updateForRepository(node, needConfirm);
+            if (provider.updateForRepository(selection)) {
+                updated = true;
+            }
+        }
+        // Old Updates
+        if (doOldUpdates(selection)) {
+            updated = true;
+        }
+        if (!updated) {
+            // nothing to update
+            RepositoryUpdateManager.openNoModificationDialog();
         }
         return updated;
+    }
+
+    private boolean doOldUpdates(IStructuredSelection selection) {
+        Object firstElement = selection.getFirstElement();
+        if (firstElement == null || !(firstElement instanceof RepositoryNode)) {
+            return false;
+        }
+        RepositoryNode node = (RepositoryNode) firstElement;
+        if (node.getObject() instanceof ISubRepositoryObject) {
+            ISubRepositoryObject subObject = (ISubRepositoryObject) node.getObject();
+            if (subObject != null) {
+                // schema
+                AbstractMetadataObject metadataObject = subObject.getAbstractMetadataObject();
+                if (metadataObject instanceof MetadataTable) {
+                    return RepositoryUpdateManager.updateSchema((MetadataTable) metadataObject, node, false, false);
+                } else
+                // query
+                if (metadataObject instanceof Query) {
+                    return RepositoryUpdateManager.updateQuery((Query) metadataObject, node, false, false);
+                } else
+                // sap function
+                if (metadataObject instanceof SAPFunctionUnit) {
+                    return RepositoryUpdateManager.updateSAPFunction((SAPFunctionUnit) metadataObject, false, false);
+                }
+            }
+        } else {
+            IRepositoryViewObject object = node.getObject();
+            if (object != null) {
+                Item item = object.getProperty().getItem();
+                if (item != null) {
+                    // context
+                    if (item instanceof ContextItem) {
+                        return RepositoryUpdateManager.updateContext((ContextItem) item, false, false);
+                    } else
+                    // connection
+                    if (item instanceof ConnectionItem) {
+                        Connection connection = ((ConnectionItem) item).getConnection();
+                        if (connection instanceof DatabaseConnection) {
+                            return RepositoryUpdateManager.updateDBConnection((ConnectionItem) item, false, false);
+                        } else {
+                            return RepositoryUpdateManager.updateFileConnection((ConnectionItem) item, false, false);
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
     }
 }

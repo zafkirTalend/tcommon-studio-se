@@ -23,8 +23,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.repository.model.ISubRepositoryObject;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
