@@ -100,6 +100,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
