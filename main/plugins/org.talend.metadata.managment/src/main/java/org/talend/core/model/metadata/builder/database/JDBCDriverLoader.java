@@ -84,6 +84,14 @@ public class JDBCDriverLoader {
         return loader;
     }
 
+    public Driver getDriver(HotClassLoader loader, String[] jarPath, String driverClassName, String dbType, String dbVersion)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Driver driver;
+        Class<?> cDriver = Class.forName(driverClassName, true, loader);
+        driver = (Driver) cDriver.newInstance();
+        return driver;
+    }
+
     /**
      * 
      * DOC YeXiaowei Comment method "getConnection".
@@ -99,13 +107,12 @@ public class JDBCDriverLoader {
             String dbType, String dbVersion, String additionalParams) throws Exception {
         // qli modified to fix the bug 7656.
         List list = new ArrayList();
-        HotClassLoader loader = getHotClassLoader(jarPath, dbType, dbVersion);
 
         DriverShim wapperDriver = null;
         Connection connection = null;
         try {
-            Class<?> driver = Class.forName(driverClassName, true, loader);
-            wapperDriver = new DriverShim((Driver) (driver.newInstance()));
+            HotClassLoader loader = getHotClassLoader(jarPath, dbType, dbVersion);
+            wapperDriver = new DriverShim((getDriver(loader, jarPath, driverClassName, dbType, dbVersion)));
             // Object driver = loader.loadClass(driverClassName).newInstance();
             // wapperDriver = new DriverShim((Driver) (driver));
             Properties info = new Properties();
