@@ -25,10 +25,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.update.IUpdateItemType;
-import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.model.update.UpdateResult;
 import org.talend.core.model.update.UpdatesConstants;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -69,12 +67,11 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.core.model.update.extension.IRepositoryUpdateManagerProvider#updateForRepository(java.lang.Object,
-     * boolean)
+     * org.talend.core.model.update.extension.IRepositoryUpdateManagerProvider#updateForRepository(IStructuredSelection)
      */
     @Override
-    public boolean updateForRepository(Object node, boolean needConfirm) {
-        if (!needPropagate(needConfirm)) {
+    public boolean updateForRepository(IStructuredSelection selection) {
+        if (!needPropagate(selection)) {
             return false;
         }
         /*
@@ -83,7 +80,7 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
          */
 
         // retrieve Results
-        List<UpdateResult> updateResults = retrieveUpdateResults(node);
+        List<UpdateResult> updateResults = retrieveUpdateResults(selection);
 
         // valid results
         List<UpdateResult> validResults = validResults(updateResults);
@@ -92,8 +89,6 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
         if (doUpdate(validResults)) {
             return true;
         }
-        // nothing to update
-        RepositoryUpdateManager.openNoModificationDialog();
         return false;
     }
 
@@ -101,31 +96,20 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
      * 
      * DOC ggu Comment method "needPropagate".
      * 
-     * @param continued
      * @return
      */
-    protected boolean needPropagate(boolean needConfirm) {
-        if (needForcePropagation()) {
+    @Override
+    public boolean needPropagate(IStructuredSelection selection) {
+        if (needForcePropagation(selection)) {
             return true;
         }
-        if (needConfirm) {
-            IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-            boolean deactive = designerCoreService != null ? Boolean.parseBoolean(designerCoreService
-                    .getPreferenceStore(ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE)) : true;
-            if (deactive) {// disable to do update
-                return false;
-            }
 
-            boolean propagated = RepositoryUpdateManager.openPropagationDialog();
-            if (propagated) { // update
-                return true;
-            }
-        }
         // by default, will propagate always.
         return true;
     }
 
-    protected boolean needForcePropagation() {
+    @Override
+    public boolean needForcePropagation(IStructuredSelection selection) {
         return false; // diable to force propagating by default
     }
 
@@ -136,15 +120,15 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
      * @param node
      * @return
      */
-    protected List<UpdateResult> retrieveUpdateResults(final Object node) {
+    protected List<UpdateResult> retrieveUpdateResults(final IStructuredSelection selection) {
         final List<UpdateResult> results = new ArrayList<UpdateResult>();
-        boolean cancelable = !needForcePropagation();
+        boolean cancelable = !needForcePropagation(selection);
 
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                List<UpdateResult> returnResult = retrieveUpdateResults(monitor, node);
+                List<UpdateResult> returnResult = retrieveUpdateResults(monitor, selection);
                 if (returnResult != null) {
                     results.addAll(returnResult);
                 }
@@ -175,10 +159,10 @@ public abstract class AbstractRepositoryUpdateManagerProvider implements IReposi
      * 
      * retrieve the result for current node.
      * 
-     * @param node
+     * @param selection
      * @return
      */
-    protected abstract List<UpdateResult> retrieveUpdateResults(IProgressMonitor monitor, Object node);
+    protected abstract List<UpdateResult> retrieveUpdateResults(IProgressMonitor monitor, IStructuredSelection selection);
 
     /**
      * 

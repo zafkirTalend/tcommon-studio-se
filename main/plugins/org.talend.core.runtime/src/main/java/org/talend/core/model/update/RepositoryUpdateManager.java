@@ -325,7 +325,9 @@ public abstract class RepositoryUpdateManager {
                 }
                 return false;
             }
-            openNoModificationDialog();
+            if (show) {
+                openNoModificationDialog();
+            }
         }
         return false;
     }
@@ -1166,7 +1168,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(true, false);
+        return repositoryUpdateManager.doWork(show, false);
     }
 
     /**

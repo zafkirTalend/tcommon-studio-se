@@ -25,8 +25,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.cwm.helper.SubItemHelper;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -67,6 +67,7 @@ public class SalesforceModuleRepositoryObject extends RepositoryObject implement
         return ERepositoryObjectType.METADATA_SALESFORCE_MODULE;
     }
 
+    @Override
     public void setLabel(String value) {
         if (moduleUnit.getLabel() == null) {
             moduleUnit.setLabel(value);
@@ -114,6 +115,7 @@ public class SalesforceModuleRepositoryObject extends RepositoryObject implement
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#getAbstractMetadataObject ()
      */
+    @Override
     public AbstractMetadataObject getAbstractMetadataObject() {
         return this.moduleUnit;
     }
@@ -123,10 +125,12 @@ public class SalesforceModuleRepositoryObject extends RepositoryObject implement
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#removeFromParent()
      */
+    @Override
     public void removeFromParent() {
         moduleUnit.getConnection().getModules().remove(moduleUnit);
     }
 
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repObj.getRepositoryStatus();
     }
@@ -159,6 +163,7 @@ public class SalesforceModuleRepositoryObject extends RepositoryObject implement
 
     }
 
+    @Override
     public ModelElement getModelElement() {
         return this.moduleUnit;
     }

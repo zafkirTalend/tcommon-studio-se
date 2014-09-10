@@ -23,8 +23,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.repository.model.ISubRepositoryObject;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -51,6 +51,7 @@ public class SAPIDocRepositoryObject extends RepositoryObject implements ISubRep
         return ERepositoryObjectType.METADATA_SAP_IDOC;
     }
 
+    @Override
     public void setLabel(String value) {
         if (iDocUnit.getLabel() == null) {
             iDocUnit.setLabel(value);
@@ -89,6 +90,7 @@ public class SAPIDocRepositoryObject extends RepositoryObject implements ISubRep
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#getAbstractMetadataObject ()
      */
+    @Override
     public AbstractMetadataObject getAbstractMetadataObject() {
         return iDocUnit;
     }
@@ -98,10 +100,12 @@ public class SAPIDocRepositoryObject extends RepositoryObject implements ISubRep
      * 
      * @see org.talend.repository.model.ISubRepositoryObject#removeFromParent()
      */
+    @Override
     public void removeFromParent() {
         iDocUnit.getConnection().getIDocs().remove(iDocUnit);
     }
 
+    @Override
     public ERepositoryStatus getRepositoryStatus() {
         return repObj.getRepositoryStatus();
     }
@@ -132,6 +136,7 @@ public class SAPIDocRepositoryObject extends RepositoryObject implements ISubRep
 
     }
 
+    @Override
     public ModelElement getModelElement() {
         return iDocUnit;
     }
