@@ -659,6 +659,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
                         iMetadataCon.getAdditionalParams());
+                String sid = dbConnection.getSID();
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
                     if (multiSchems != null) {
@@ -668,8 +669,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                             }
                         }
                     }
-                } else {
-                    scheamFilterList.add(dbConnection.getSID());
+                } else if (sid != null && !"".equals(sid)) { //$NON-NLS-1$
+                    scheamFilterList.add(sid);
                 }
             }
         } else {
