@@ -31,6 +31,8 @@ public enum EHBaseDistribution4Versions {
 
     APACHE_0_20_203(EHBaseDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203"),
 
+    APACHE_2_4_0_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 2.4.0(EMR)", "APACHE_2_4_0_EMR"),
+
     APACHE_1_0_3_EMR(EHBaseDistributions.AMAZON_EMR, "Apache 1.0.3(EMR)", "APACHE_1_0_3_EMR"),
 
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
