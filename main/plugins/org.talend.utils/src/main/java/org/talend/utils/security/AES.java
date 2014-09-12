@@ -25,11 +25,18 @@ import javax.crypto.KeyGenerator;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * created by zwli on Feb 27, 2013 Detailed comment
  */
 public class AES {
+
+    static {
+        if (null == Security.getProvider("BC")) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
 
     private static Logger log = Logger.getLogger(AES.class);
 
@@ -64,12 +71,9 @@ public class AES {
         try {
             // TDI-28380: Database password in tac db configuration page becomes empty once restart tomcat on Solaris.
             // TDI-30348: Whole tac configuration lost for the passwords.
-            // To solve this problem, there are two ways:
-            // Security.removeProvider("SunPKCS11-Solaris");
-            // or: providerSunJCE = Security.getProvider("SunJCE");
 
-            Provider providerSunJCE = Security.getProvider(PROVIDER_SUN_JCE);
-            KeyGenerator keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
+            Provider p = Security.getProvider("BC");
+            KeyGenerator keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, p);
 
             SecureRandom random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
             random.setSeed(KeyValues);
@@ -77,8 +81,8 @@ public class AES {
 
             Key key = keyGen.generateKey();
 
-            ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-            dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
+            ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, p);
+            dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, p);
 
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
@@ -108,4 +112,17 @@ public class AES {
         return decryptedData;
     }
 
+    public static void main(String[] args) {
+        AES aes = new AES();
+        String[] arr = { "bt4AUzTV14kK8FwkcK/BNg==", "3IqdoqEElsy8Dzz9iP3HVQ==", "w4AXOA1a34afqqnlmVLB4A==",
+                "3IqdoqEElsy8Dzz9iP3HVQ==", "m9Ut0k3oP5pLE2BH1r9xQA==", "3IqdoqEElsy8Dzz9iP3HVQ==",
+                "zPfoS7aDB2mNUrpRfbfwcOza/VXudqA9QYULYn4xTb8=", "3mTjF2v1D4ZYqnJleFKl/wFybG4/24iyhCFKyEuveDY=" };
+        try {
+            for (String t : arr) {
+                System.out.println(aes.decrypt(t));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
