@@ -23,13 +23,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
@@ -37,12 +36,13 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextConstant;
-import org.talend.core.ui.i18n.Messages;
 
 /**
  * this one is specially for access the context columns
@@ -57,6 +57,10 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
     private final ColumnGroupModel groupModel;
 
     private Map<String, PropertyDescriptor> propertyDescriptorMap;
+
+    private final static String JOBLET_CONTEXT = " (from joblet)";
+
+    private final static String REPOSITORYT_CONTEXT = " (from repository context)";
 
     /**
      * @param propertyNames of the members of the row bean
@@ -77,11 +81,9 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         try {
             Method managerMethod = contextRowClas.getMethod("getManager");
             IContextModelManager manager = (IContextModelManager) managerMethod.invoke(rowObj);
-            Method nameMethod = contextRowClas.getMethod("getName");
-            String paraName = (String) nameMethod.invoke(rowObj);
             Method dataMethod = contextRowClas.getMethod("getTreeData");
             Object treeData = dataMethod.invoke(rowObj);
-            return getPropertyValue(manager, treeData, paraName, columnIndex);
+            return getPropertyValue(manager, treeData, columnIndex);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -130,98 +132,94 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         return propertyNames.indexOf(propertyName);
     }
 
-    private Object getPropertyValue(IContextModelManager manager, Object element, String contextParaName, int columnIndex) {
-        if (isEmptyTreeNode(element)) {
-            return null;
+    private String getCurrentModelName(Object element) {
+        if (element instanceof ContextTableTabParentModel) {
+            if (((ContextTableTabParentModel) element).getContextParameter() == null) {
+                return ((ContextTableTabParentModel) element).getSourceName();
+            } else {
+                return ((ContextTableTabParentModel) element).getContextParameter().getName();
+            }
+        } else {
+            return ((ContextTableTabChildModel) element).getContextParameter().getName();
         }
+    }
+
+    private Object getPropertyValue(IContextModelManager manager, Object element, int columnIndex) {
+
+        if (isEmptyTreeNode(element)) {
+            return "";
+        }
+        String contextParaName = getCurrentModelName(element);
         String currentColumnName = getColumnProperty(columnIndex);
-        IContextParameter currentParam = getRealParameter(manager.getContextManager(), currentColumnName, element);
-        if (currentParam != null) {
-            if (columnIndex == 0) {
-                return currentParam.getName();
-            } else if (columnIndex == 1) {
-                String contextParaType = currentParam.getType();
-                JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(contextParaType);
-                if (javaType != null) {
-                    return javaType.getLabel();
+        if (currentColumnName.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
+            if (element instanceof ContextTableTabParentModel) {
+                String sourceId = ((ContextTableTabParentModel) element).getSourceId();
+                if (!sourceId.equals(IContextParameter.BUILT_IN)) {
+                    Item item = ContextUtils.getContextItemById3(sourceId);
+                    if (item != null) {
+                        if (item instanceof JobletProcessItem) {
+                            return contextParaName + JOBLET_CONTEXT;
+                        } else {
+                            return contextParaName + REPOSITORYT_CONTEXT;
+                        }
+                    }
                 } else {
-                    return contextParaType;
+                    return contextParaName;
                 }
             } else {
-
-                if (this.groupModel.isPartOfAGroup(columnIndex)) {
-                    String columnGroupName = this.groupModel.getColumnGroupByIndex(columnIndex).getName();
-                    if (currentColumnName.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
-                        if (manager.getContextManager() != null) {
-                            List<IContext> contexts = manager.getContextManager().getListContext();
-                            for (IContext envContext : contexts) {
-                                if (envContext.getName().equals(columnGroupName)) {
-                                    List<IContextParameter> list = envContext.getContextParameterList();
-                                    if (list != null && list.size() > 0) {
-                                        for (IContextParameter contextPara : list) {
-                                            String tempContextParaName = contextPara.getName();
-                                            if (tempContextParaName.equals(contextParaName)) {
-                                                return contextPara.isPromptNeeded();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        // return currentParam.isPromptNeeded();
-                    } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
-                        // return currentParam.getPrompt();
-                        if (manager.getContextManager() != null) {
-                            List<IContext> contexts = manager.getContextManager().getListContext();
-                            for (IContext envContext : contexts) {
-                                if (envContext.getName().equals(columnGroupName)) {
-                                    List<IContextParameter> list = envContext.getContextParameterList();
-                                    if (list != null && list.size() > 0) {
-                                        for (IContextParameter contextPara : list) {
-                                            String tempContextParaName = contextPara.getName();
-                                            if (tempContextParaName.equals(contextParaName)) {
-                                                return contextPara.getPrompt();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                return contextParaName;
+            }
+        } else {
+            IContextParameter currentParam = getRealParameter(manager.getContextManager(), currentColumnName, element);
+            if (currentParam != null) {
+                if (columnIndex == 1) {
+                    String contextParaType = currentParam.getType();
+                    JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(contextParaType);
+                    if (javaType != null) {
+                        return javaType.getLabel();
                     } else {
+                        return contextParaType;
+                    }
+                } else {
+                    if (this.groupModel.isPartOfAGroup(columnIndex)) {
+                        String columnGroupName = this.groupModel.getColumnGroupByIndex(columnIndex).getName();
                         if (manager.getContextManager() != null) {
                             List<IContext> contexts = manager.getContextManager().getListContext();
-                            for (IContext envContext : contexts) {
-                                if (envContext.getName().equals(columnGroupName)) {
-                                    List<IContextParameter> list = envContext.getContextParameterList();
-                                    if (list != null && list.size() > 0) {
-                                        for (IContextParameter contextPara : list) {
-                                            String tempContextParaName = contextPara.getName();
-                                            if (tempContextParaName.equals(contextParaName)) {
-                                                // if (contextPara.getValueList() != null &&
-                                                // contextPara.getValueList().length != 0) {
-                                                // return contextPara.getDisplayValue();
-                                                // } else {
-                                                return contextPara.getValue();
-                                                // }
-                                            }
-                                        }
-                                    }
+                            IContextParameter currentPara = findContextPara(contexts, columnGroupName, contextParaName);
+                            if (currentColumnName.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
+                                return currentPara.isPromptNeeded();
+                            } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
+                                return currentPara.getPrompt();
+                            } else {
+                                String value = currentPara.getValue();
+                                if (NatTableCellEditorFactory.isPassword(currentPara.getType())) {
+                                    return value != null ? value.replaceAll(".", "*") : "";
                                 }
+                                return value;
                             }
                         }
                     }
                 }
-
-            }
-        } else {
-            // this is the first level node for the repository context
-            if (columnIndex == 0) {
-                return contextParaName;
-            } else {
-                return null;
             }
         }
         return "";
+    }
+
+    private IContextParameter findContextPara(List<IContext> contexts, String columnGroupName, String contextParaName) {
+        for (IContext envContext : contexts) {
+            if (envContext.getName().equals(columnGroupName)) {
+                List<IContextParameter> list = envContext.getContextParameterList();
+                if (list != null && list.size() > 0) {
+                    for (IContextParameter contextPara : list) {
+                        String tempContextParaName = contextPara.getName();
+                        if (tempContextParaName.equals(contextParaName)) {
+                            return contextPara;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private void setPropertyValue(IContextModelManager manager, Object dataElement, String contextParaName, int columnIndex,
@@ -261,36 +259,19 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
             } else if (currentColumnName.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
                 ContextTableTabParentModel parent = (ContextTableTabParentModel) dataElement;
                 IContextParameter contextPara = parent.getContextParameter();
-                String originalParamName = contextPara.getName();
                 String sourceId = contextPara.getSource();
-                renameParameter(manager, originalParamName, sourceId, (String) newValue, false);
+                String newParaName = (String) newValue;
+
+                if (manager.getContextManager() instanceof JobContextManager) {
+                    // in case joblet rename will propagate to the job,just record it
+                    JobContextManager contextManager = (JobContextManager) manager.getContextManager();
+                    contextManager.addNewName(newParaName, contextPara.getName());
+                    contextManager.setModified(true);
+                }
+                Command cmd = new SetContextNameCommand(manager, contextPara, newParaName, sourceId);
+                runCommand(cmd, manager);
             }
         }
-    }
-
-    public boolean renameParameter(IContextModelManager manager, final String oldParamName, String sourceId,
-            final String newParamName, boolean reposFlag) {
-        if (!manager.getContextManager().checkValidParameterName(oldParamName, newParamName)) {
-            MessageDialog
-                    .openError(
-                            new Shell(),
-                            Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextProcessSection.ParameterNameIsNotValid")); //$NON-NLS-1$ //$NON-NLS-2$
-            return false;
-        }
-        // fix 0017942: It is unlimited for total characters of context variable name
-        if (null != newParamName && !"".equals(newParamName)) { //$NON-NLS-1$
-            if (newParamName.length() > 255) {
-                MessageDialog
-                        .openError(
-                                new Shell(),
-                                Messages.getString("ContextProcessSection.errorTitle"), Messages.getString("ContextTemplateComposite.ParamterLengthInvilid")); //$NON-NLS-1$ //$NON-NLS-2$
-                return false;
-            }
-        }
-
-        manager.onContextRenameParameter(manager.getContextManager(), sourceId, oldParamName, newParamName);
-        manager.refresh();
-        return true;
     }
 
     private String getRealType(String type) {
@@ -323,7 +304,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
             if (context == null) {
                 return null;
             }
-
             if (element instanceof ContextTableTabParentModel) {
                 if (IContextParameter.BUILT_IN.equals(((ContextTableTabParentModel) element).getSourceId())) {
                     IContextParameter builtContextParameter = ((ContextTableTabParentModel) element).getContextParameter();
@@ -520,6 +500,103 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
 
     }
 
+    class SetContextNameCommand extends Command {
+
+        IContextParameter param;
+
+        IContextModelManager modelManager;
+
+        String sourceId;
+
+        String newName, originalName;
+
+        public SetContextNameCommand(IContextModelManager modelManager, IContextParameter param, String newName, String sourceId) {
+            super();
+            this.modelManager = modelManager;
+            this.param = param;
+            this.newName = newName;
+            this.sourceId = sourceId;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.gef.commands.Command#execute()
+         */
+        @Override
+        public void execute() {
+            boolean modified = false;
+            if (modelManager.getContextManager() != null) {
+                originalName = param.getName();
+                for (IContext context : modelManager.getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                        String tempSourceId = contextParameter.getSource();
+                        if (originalName.equals(contextParameter.getName()) && tempSourceId.equals(sourceId)) {
+                            contextParameter.setName(newName);
+
+                            if (contextParameter.getPrompt().equals(originalName + "?")) {
+                                contextParameter.setPrompt(newName + "?");
+                            }
+                            modified = true;
+                        }
+                    }
+                }
+                param.setName(newName);
+                if (param.getPrompt().equals(originalName + "?")) {
+                    param.setPrompt(newName + "?");
+                }
+            }
+            if (modified) {
+                updateRelation();
+            }
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.gef.commands.Command#undo()
+         */
+        @Override
+        public void undo() {
+            boolean modified = false;
+            if (!modified) {
+                return;
+            }
+            if (modelManager.getContextManager() != null) {
+                for (IContext context : modelManager.getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                        if (newName.equals(contextParameter.getName())) {
+                            contextParameter.setName(originalName);
+                            if (contextParameter.getPrompt().equals(newName + "?")) {
+                                contextParameter.setPrompt(originalName + "?");
+                            }
+                        }
+                    }
+                }
+            }
+            if (modified) {
+                updateRelation();
+            }
+        }
+
+        private void updateRelation() {
+            // set updated flag.
+            if (param != null) {
+                IContextManager manager = modelManager.getContextManager();
+                if (manager != null && manager instanceof JobContextManager) {
+                    JobContextManager jobContextManager = (JobContextManager) manager;
+                    // not added new
+                    if (!modelManager.isRepositoryContext() || modelManager.isRepositoryContext()
+                            && jobContextManager.isOriginalParameter(param.getName())) {
+                        jobContextManager.setModified(true);
+                        manager.fireContextsChangedEvent();
+                    }
+                }
+            }
+        }
+
+    }
+
     public void runCommand(Command command, IContextModelManager modelManager) {
         if (modelManager.getCommandStack() == null) {
             command.execute();
@@ -536,14 +613,5 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
             }
         }
         return false;
-    }
-
-    private String combineStrings(String[] arrays) {
-        StringBuilder sb = new StringBuilder();
-        for (String string : arrays) {
-            sb.append(string).append(",");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
     }
 }

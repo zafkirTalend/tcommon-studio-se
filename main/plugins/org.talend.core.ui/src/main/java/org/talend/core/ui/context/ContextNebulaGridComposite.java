@@ -21,20 +21,15 @@ import java.util.Set;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TreeEditor;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -47,7 +42,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
@@ -65,21 +59,19 @@ import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.properties.Project;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.properties.tab.HorizontalTabFactory;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 import org.talend.core.ui.context.model.ContextViewerProvider;
 import org.talend.core.ui.context.model.table.ContextTableCellModifier;
-import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
+import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
-import org.talend.repository.ProjectManager;
 
 /**
  * created by ldong on Jul 8, 2014 Detailled comment
@@ -129,7 +121,17 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private Composite contextTableComp;
 
+    private Composite availableLabelComp;
+
+    private Composite messageComp;
+
+    private Composite contextsSelectComp;
+
+    private Composite buttonsComp;
+
     private ContextTreeTable treeTable;
+
+    private HorizontalTabFactory tabFactory = null;
 
     /**
      * Constructor.
@@ -143,6 +145,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         cellFactory = new DefaultCellEditorFactory(this);
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());
+        tabFactory = new HorizontalTabFactory();
         this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
@@ -158,44 +161,36 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
      * @param viewer
      */
     private void initializeUI() {
-        createContextsGroup(this);
+        if (getContextManager() == null) {
+            createContextNotAvailableGroup(this);
+        } else {
+            if (!ContextNatTableUtils.checkIsInstallExternalJar()) {
+                createMessageGroup(this);
+            } else {
+                createContextsGroup(this);
 
-        contextTableComp = new Composite(this, SWT.NULL);
-        GridLayout dataTableLayout = new GridLayout(1, Boolean.TRUE);
-        contextTableComp.setLayout(dataTableLayout);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        // gridData.heightHint = 550;
-        // gridData.widthHint = 500;
-        contextTableComp.setLayoutData(gridData);
-        treeTable = new ContextTreeTable();
+                createNatTableGroup(this);
 
-        createNatTable(new ArrayList<ContextTableTabParentModel>());
+                createNatTable();
 
-        final Composite buttonsComposite = new Composite(this, SWT.NONE);
-        buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComposite);
-        buttonList.clear();
-        Button addButton = createAddPushButton(buttonsComposite);
-        buttonList.add(addButton);
-        removeButton = createRemovePushButton(buttonsComposite);
-        buttonList.add(removeButton);
+                createButtonsGroup(this);
 
-        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
-                && ((ContextComposite) modelManager).isRepositoryContext();
-        if (!isRepositoryContext) {// for bug 7393
-            moveUpButton = createMoveUpPushButton(buttonsComposite);
-            buttonList.add(moveUpButton);
-            moveDownButton = createMoveDownPushButton(buttonsComposite);
-            buttonList.add(moveDownButton);
+                addListener(SWT.Resize, resizeListener);
+            }
         }
+    }
 
-        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-            Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComposite);
-            buttonList.add(selectContextVariablesButton);
+    /**
+     * need force refresh here after install the external jar
+     */
+    private void reInitializeUI() {
+        disposeInstallMessageComp();
+        disposeUnAvailableContextComp();
+        if (contextsSelectComp == null || (contextsSelectComp != null && contextsSelectComp.isDisposed())) {
+            initializeUI();
+            contextsSelectComp.getParent().layout();
+            contextsSelectComp.layout();
         }
-        // propertyResized = true;
-        addListener(SWT.Resize, resizeListener);
-        // resizeScrolledComposite();
     }
 
     private int lastCompositeSize = 0;
@@ -210,22 +205,14 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         propertyResized = true;
     }
 
-    private void createNatTable(List<ContextTableTabParentModel> listOfData) {
-        ScrolledComposite panel = new ScrolledComposite(contextTableComp, SWT.NULL | SWT.V_SCROLL | SWT.H_SCROLL);
-        panel.setLayout(new GridLayout());
-        panel.setLayoutData(new GridData(GridData.FILL_BOTH));
-        panel.setExpandHorizontal(true);
-        panel.setExpandVertical(true);
-
+    private void createNatTable() {
         GridData layoutDataFillBoth = new GridData(GridData.FILL_BOTH);
-        Composite subPanel = new Composite(panel, SWT.NULL);
+        Composite subPanel = new Composite(contextTableComp, SWT.NULL);
         subPanel.setLayoutData(layoutDataFillBoth);
         subPanel.setLayout(new GridLayout());
 
-        ContextTreeTable.TControl tControl = treeTable.createTable(subPanel, modelManager, listOfData);
+        ContextTreeTable.TControl tControl = treeTable.createTable(subPanel);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(tControl.getControl());
-
-        panel.setContent(subPanel);
     }
 
     private Button createAddPushButton(final Composite parent) {
@@ -239,8 +226,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                     // set the source to built-in
                     parameter.setSource(IContextParameter.BUILT_IN);
                     modelManager.onContextAddParameter(getContextManager(), parameter);
-                    ContextManagerHelper.revertTreeSelection(getViewer(), parameter);
-                    checkButtonEnableState();
 
                     // see feature 4661: Add an option to propagate when add or remove a variable in a repository
                     // context to jobs/joblets.
@@ -344,30 +329,36 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
                 IStructuredSelection sel = treeTable.getSelection();
 
-                Object[] obj = new Object[sel.toList().size()];
+                if (treeTable.getSelection() != null) {
 
-                int i = 0;
-                for (Object node : sel.toList().toArray()) {
-                    if (node instanceof ContextTreeNode) {
-                        obj[i++] = ((ContextTreeNode) node).getTreeData();
+                    Object[] obj = new Object[sel.toList().size()];
+
+                    int i = 0;
+                    for (Object node : sel.toList().toArray()) {
+                        if (node instanceof ContextTreeNode) {
+                            obj[i++] = ((ContextTreeNode) node).getTreeData();
+                        }
+
                     }
 
-                }
+                    for (Object object : obj) { // multi delete
+                        if (object == null) {
+                            return;
+                        }
+                        if (object instanceof ContextTableTabParentModel) {
+                            ContextTableTabParentModel parentModel = (ContextTableTabParentModel) object;
+                            removeParentModelInGroupBySource(parentModel);
+                        } else if (object instanceof ContextTableTabChildModel) {
+                            ContextTableTabChildModel childModel = (ContextTableTabChildModel) object;
+                            removeChildModelInGroupBySource(childModel);
+                        }
 
-                for (Object object : obj) { // multi delete
-                    if (object == null) {
-                        return;
+                        modelManager.refreshTableTab();
+                        checkButtonEnableState();
                     }
-                    if (object instanceof ContextTableTabParentModel) {
-                        ContextTableTabParentModel parentModel = (ContextTableTabParentModel) object;
-                        removeParentModelInGroupBySource(parentModel);
-                    } else if (object instanceof ContextTableTabChildModel) {
-                        ContextTableTabChildModel childModel = (ContextTableTabChildModel) object;
-                        removeChildModelInGroupBySource(childModel);
+                    if (!treeTable.getSelection().isEmpty()) {
+                        treeTable.clearSelection();
                     }
-
-                    modelManager.refreshTableTab();
-                    checkButtonEnableState();
                 }
             }
         });
@@ -589,8 +580,26 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         return editorListener;
     }
 
+    private void createMessageGroup(Composite parentComposite) {
+        messageComp = new ContextMissSettingComposite(parentComposite, SWT.NULL);
+        messageComp.setLayout(new GridLayout(3, false));
+        messageComp.setLayoutData(new GridData(GridData.FILL_BOTH));
+        messageComp.getParent().layout();
+        messageComp.layout();
+    }
+
+    private void createContextNotAvailableGroup(Composite parentComposite) {
+        availableLabelComp = new Composite(parentComposite, SWT.NULL);
+        availableLabelComp.setLayout(new GridLayout());
+        availableLabelComp.setLayoutData(new GridData(GridData.FILL_BOTH));
+        Label contextUnAvailableLabel = new Label(availableLabelComp, SWT.NULL);
+        contextUnAvailableLabel.setText(Messages.getString("ContextNebulaComposite.ContextsUnAvailable"));
+        availableLabelComp.getParent().layout();
+        availableLabelComp.layout();
+    }
+
     private void createContextsGroup(Composite parentComposite) {
-        Composite contextsSelectComp = new Composite(parentComposite, SWT.NULL);
+        contextsSelectComp = new Composite(parentComposite, SWT.NULL);
         contextsSelectComp.setLayout(new GridLayout(3, false));
         GridLayout layout2 = (GridLayout) contextsSelectComp.getLayout();
         layout2.marginHeight = 0;
@@ -600,10 +609,10 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         Label contextSeletLabel = new Label(contextsSelectComp, SWT.NULL);
         contextSeletLabel.setText("Default context enviroment");
         contextsCombo = new Combo(contextsSelectComp, SWT.READ_ONLY);
-        contextsCombo.addModifyListener(new ModifyListener() {
+        contextsCombo.addSelectionListener(new SelectionListener() {
 
             @Override
-            public void modifyText(final ModifyEvent e) {
+            public void widgetSelected(SelectionEvent e) {
                 Object obj = e.getSource();
                 String selectContext = ((Combo) obj).getText();
                 IContext defaultContext = modelManager.getContextManager().getDefaultContext();
@@ -617,9 +626,15 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                     }
                     modelManager.onContextChangeDefault(modelManager.getContextManager(), newSelContext);
                     refresh();
-                    // fTableViewer.refresh(true);
                 }
+
             }
+
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+
+            }
+
         });
 
         configContext = new ConfigureContextAction(modelManager, this.getShell());
@@ -635,10 +650,48 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         });
     }
 
+    private void createNatTableGroup(Composite parentComposite) {
+        contextTableComp = new Composite(this, SWT.NULL);
+        GridLayout dataTableLayout = new GridLayout(1, Boolean.TRUE);
+        contextTableComp.setLayout(dataTableLayout);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        contextTableComp.setLayoutData(gridData);
+        treeTable = new ContextTreeTable(modelManager);
+    }
+
+    private void createButtonsGroup(Composite parentComposite) {
+        buttonsComp = new Composite(parentComposite, SWT.NONE);
+        buttonsComp.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComp);
+        buttonList.clear();
+        Button addButton = createAddPushButton(buttonsComp);
+        buttonList.add(addButton);
+        removeButton = createRemovePushButton(buttonsComp);
+        buttonList.add(removeButton);
+
+        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
+                && ((ContextComposite) modelManager).isRepositoryContext();
+        if (!isRepositoryContext) {// for bug 7393
+            moveUpButton = createMoveUpPushButton(buttonsComp);
+            buttonList.add(moveUpButton);
+            moveDownButton = createMoveDownPushButton(buttonsComp);
+            buttonList.add(moveDownButton);
+        }
+
+        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+            Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComp);
+            buttonList.add(selectContextVariablesButton);
+        }
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
-        configContext.setEnabled(enabled);
-
+        if (configContext != null) {
+            configContext.setEnabled(enabled);
+        }
+        if (messageComp != null) {
+            this.getParent().setEnabled(true);
+        }
     }
 
     private ICellEditorListener editorListener;
@@ -679,51 +732,55 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     @Override
     public void refresh() {
-        List<IContext> contextList = getContexts();
-        List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
-        if (modelManager.getContextManager() != null) {
-            for (IContext context : modelManager.getContextManager().getListContext()) {
-                if (!Arrays.asList(contextsCombo.getItems()).contains(context.getName())) {
-                    contextsCombo.add(context.getName());
-                }
+        if (getContextManager() == null) {
+            disposeInstallMessageComp();
+            disposeNatTableComp();
+            if (availableLabelComp == null || (availableLabelComp != null && availableLabelComp.isDisposed())) {
+                createContextNotAvailableGroup(this);
             }
-
-            for (int i = 0; i < contextsCombo.getItemCount(); i++) {
-                IContext defaultContext = modelManager.getContextManager().getDefaultContext();
-                if (defaultContext.getName().equals(contextsCombo.getItem(i))) {
-                    contextsCombo.select(i);
-                    break;
+        } else {
+            if (!ContextNatTableUtils.checkIsInstallExternalJar()) {
+                disposeUnAvailableContextComp();
+                if (messageComp == null || (messageComp != null && messageComp.isDisposed())) {
+                    createMessageGroup(this);
                 }
+            } else {
+                reInitializeUI();
+                if (contextsCombo.getItems().length > 0) {
+                    contextsCombo.removeAll();
+                }
+                if (modelManager.getContextManager() != null) {
+                    for (IContext context : modelManager.getContextManager().getListContext()) {
+                        if (!Arrays.asList(contextsCombo.getItems()).contains(context.getName())) {
+                            contextsCombo.add(context.getName());
+                        }
+                    }
+
+                    for (int i = 0; i < contextsCombo.getItemCount(); i++) {
+                        IContext defaultContext = modelManager.getContextManager().getDefaultContext();
+                        if (defaultContext.getName().equals(contextsCombo.getItem(i))) {
+                            contextsCombo.select(i);
+                            break;
+                        }
+                    }
+                }
+
+                int visibleItemCount = contextsCombo.getItemCount();
+                if (visibleItemCount > 20) {
+                    visibleItemCount = 20;
+                }
+                contextsCombo.setVisibleItemCount(visibleItemCount);
+
+                // dispose the data table composite
+                disposeDataTable();
+                // create the data table composite
+                createNatTable();
+
+                contextTableComp.getParent().layout();
+                contextTableComp.layout();
+                treeTable.refresh();
             }
         }
-        int visibleItemCount = contextsCombo.getItemCount();
-        if (visibleItemCount > 20) {
-            visibleItemCount = 20;
-        }
-        contextsCombo.setVisibleItemCount(visibleItemCount);
-
-        List<ContextTableTabParentModel> listofData = constructContextDatas(contextDatas);
-        // dispose the data table composite
-        disposeDataTable();
-        // create the data table composite
-        createNatTable(listofData);
-
-        contextTableComp.getParent().layout();
-        contextTableComp.layout();
-        treeTable.refresh();
-
-        // if (propertyResized) {
-        // try {
-        // removeListener(SWT.Resize, resizeListener);
-        // contextTableComp.getParent().layout();
-        //
-        // contextTableComp.pack();
-        // propertyResized = false;
-        // addListener(SWT.Resize, resizeListener);
-        // } catch (Exception e) {
-        // }
-        //
-        // }
     }
 
     public int getLastCompositeSize() {
@@ -749,95 +806,13 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                     @Override
                     public void run() {
                         if (!isDisposed() && !getParent().isDisposed()) {
-                            int currentSize = getParent().getClientArea().height;
-                            // if (getLastCompositeSize() != currentSize) {
                             refresh();
-                            // }
                         }
                     }
-
                 });
             }
         }
     };
-
-    private ContextTableTabParentModel lookupContextParentForNonBuiltinNode(String sourceId,
-            List<ContextTableTabParentModel> output) {
-        ContextTableTabParentModel firstLevelNode = null;
-        if (output != null && output.size() > 0) {
-            for (ContextTableTabParentModel parent : output) {
-                String tempSourceId = parent.getSourceId();
-                if (tempSourceId != null && sourceId.equals(tempSourceId)) {
-                    firstLevelNode = parent;
-                    break;
-                }
-            }
-        }
-        return firstLevelNode;
-    }
-
-    private List<ContextTableTabParentModel> constructContextDatas(List<IContextParameter> contextDatas) {
-        List<ContextTableTabParentModel> output = new ArrayList<ContextTableTabParentModel>();
-        if (!contextDatas.isEmpty()) {
-            int i = 0;
-            for (IContextParameter para : contextDatas) {
-                String sourceId = para.getSource();
-                if (IContextParameter.BUILT_IN.equals(sourceId)) {
-                    sourceId = para.getSource();
-                    ContextTableTabParentModel firstLevelNode = new ContextTableTabParentModel();
-                    String sourceLabel = sourceId;
-                    ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
-                    if (contextItem != null) {
-                        sourceLabel = contextItem.getProperty().getLabel();
-                        final ProjectManager pm = ProjectManager.getInstance();
-                        if (!pm.isInCurrentMainProject(contextItem)) {
-                            final Project project = pm.getProject(contextItem);
-                            if (project != null) {
-                                firstLevelNode.setProjectLabel(project.getLabel());
-                            }
-                        }
-                    }
-                    firstLevelNode.setOrder(i);
-                    firstLevelNode.setSourceName(sourceLabel);
-                    firstLevelNode.setSourceId(sourceId);
-                    firstLevelNode.setContextParameter(para);
-                    output.add(firstLevelNode);
-                } else {
-                    ContextTableTabParentModel firstLevelNode = null;
-                    if (sourceId != null) {
-                        firstLevelNode = lookupContextParentForNonBuiltinNode(sourceId, output);
-                        if (firstLevelNode == null) {
-                            firstLevelNode = new ContextTableTabParentModel();
-                            output.add(firstLevelNode);
-                            String sourceLabel = sourceId;
-                            ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
-                            if (contextItem != null) {
-                                sourceLabel = contextItem.getProperty().getLabel();
-                                final ProjectManager pm = ProjectManager.getInstance();
-                                if (!pm.isInCurrentMainProject(contextItem)) {
-                                    final Project project = pm.getProject(contextItem);
-                                    if (project != null) {
-                                        firstLevelNode.setProjectLabel(project.getLabel());
-                                    }
-                                }
-                            }
-                            firstLevelNode.setSourceName(sourceLabel);
-                            firstLevelNode.setOrder(i);
-                            firstLevelNode.setSourceId(sourceId);
-                        }
-
-                        ContextTableTabChildModel child = new ContextTableTabChildModel();
-                        child.setSourceId(sourceId);
-                        child.setContextParameter(para);
-                        child.setParent(firstLevelNode);
-                        firstLevelNode.addChild(child);
-                    }
-                }
-                i++;
-            }
-        }
-        return output;
-    }
 
     private void disposeDataTable() {
         if (contextTableComp != null && !contextTableComp.isDisposed()) {
@@ -847,64 +822,32 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
     }
 
-    /**
-     * cli Comment method "createColumnsAndCellEditors".
-     */
-    private void createColumnsAndCellEditors(final Tree tree, List<IContext> contextList) {
-        TreeColumn column = new TreeColumn(tree, SWT.NONE);
-        column.setText(Messages.getString("ConextTableValuesComposite.nameLabel")); //$NON-NLS-1$
-        column.setWidth(ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
-
-        column = new TreeColumn(tree, SWT.NONE);
-        column.setText(Messages.getString("ContextTemplateComposite.typeLabel")); //$NON-NLS-1$
-        column.setWidth(ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
-
-        for (IContext context : contextList) {
-            column = new TreeColumn(tree, SWT.NONE);
-            column.setText(context.getName());
-            column.setWidth(ContextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+    private void disposeUnAvailableContextComp() {
+        if (availableLabelComp != null && !availableLabelComp.isDisposed()) {
+            availableLabelComp.dispose();
         }
+    }
 
-        cellEditors = new CellEditor[getContexts().size() + 2];
-        for (int i = 0; i < getContexts().size() + 2; i++) {
-            if (i == 0) {
-                cellEditors[i] = new TextCellEditor(tree);
-            } else if (i == 1) {
-                String[] values = ContextParameterJavaTypeManager.getJavaTypesLabels();
-                cellEditors[i] = new ComboBoxCellEditor(tree, values, SWT.NULL);
-            } else {
-                cellEditors[i] = new TextCellEditor(tree);
-            }
+    private void disposeInstallMessageComp() {
+        if (messageComp != null && !messageComp.isDisposed()) {
+            messageComp.dispose();
         }
-        ((CCombo) cellEditors[1].getControl()).setEditable(false);
+    }
 
-        properties = new String[contextList.size() + 2];
-        properties[0] = ContextTableConstants.COLUMN_NAME_PROPERTY;
-        properties[1] = ContextTableConstants.COLUMN_TYPE_PROPERTY;
-        for (int i = 0; i < contextList.size(); i++) {
-            properties[i + 2] = contextList.get(i).getName();
+    private void disposeNatTableComp() {
+        if (contextsSelectComp != null && !contextsSelectComp.isDisposed()) {
+            contextsSelectComp.dispose();
         }
-        viewer.setColumnProperties(properties);
-        viewer.setCellEditors(cellEditors);
+        if (contextTableComp != null && !contextTableComp.isDisposed()) {
+            contextTableComp.dispose();
+        }
+        if (buttonsComp != null && !buttonsComp.isDisposed()) {
+            buttonsComp.dispose();
+        }
     }
 
     public String[] getColumnProperties() {
         return this.properties;
-    }
-
-    private void checkItemValueErrors(final TreeItem[] items) {
-        if (items == null) {
-            return;
-        }
-        for (TreeItem item : items) {
-            for (int i = 1; i < viewer.getColumnProperties().length; i++) {
-                IContextParameter para = cellModifier.getRealParameter((String) viewer.getColumnProperties()[i], item.getData());
-                if (para != null && para instanceof IContextParameter) {
-                    valueChecker.checkErrors(item, i, para);
-                }
-            }
-            checkItemValueErrors(item.getItems());
-        }
     }
 
     /**
@@ -921,21 +864,4 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         // viewer.setInput(Collections.EMPTY_LIST);
     }
 
-    /**
-     * DOC zli ContextCompare class global comment. Detailled comment
-     */
-    private class ContextCompare implements java.util.Comparator<IContext> {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-         */
-        @Override
-        public int compare(IContext o1, IContext o2) {
-            String name1 = o1.getName().toUpperCase();
-            String name2 = o2.getName().toUpperCase();
-            return name1.compareTo(name2);
-        }
-    }
 }

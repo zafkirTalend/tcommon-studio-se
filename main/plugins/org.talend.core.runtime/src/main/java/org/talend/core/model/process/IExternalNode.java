@@ -97,4 +97,6 @@ public interface IExternalNode extends INode {
     public void buildExternalData(AbstractExternalData abstractData);
 
     public List<String> checkNeededRoutines(List<String> possibleRoutines, String additionalString);
+
+    public void metadataOutputChanged(IMetadataTable currentMetadata);
 }

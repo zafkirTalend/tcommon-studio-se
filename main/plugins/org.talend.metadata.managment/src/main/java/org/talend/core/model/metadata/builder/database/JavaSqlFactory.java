@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
-import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -33,14 +33,11 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlStore;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
 import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
-import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.utils.sql.ConnectionUtils;
@@ -146,7 +143,7 @@ public final class JavaSqlFactory {
     public static String getDriverClass(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            String driverClassName = dbConn.getDriverClass();
+            String driverClassName = getOriginalValueConnection(dbConn).getDriverClass();
             // SG : issue http://talendforge.org/bugs/view.php?id=16199
             if (driverClassName == null) {// no drive is specified so let us try
                                           // to guess it
@@ -156,10 +153,6 @@ public final class JavaSqlFactory {
                 }// else we keep the drive class to null, we do not know how to
                  // guess it anymore.
             } // else we are ok
-              // ADD mzhao 2012-06-25 bug TDI-21552, driver class should be replaced when in context mode.
-            if (conn.isContextMode()) {
-                driverClassName = getOriginalConntextValue(dbConn, driverClassName);
-            }
             return driverClassName;
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
@@ -174,7 +167,8 @@ public final class JavaSqlFactory {
     }
 
     /**
-     * DOC xqliu Comment method "setURL".
+     * set Url of connection. when the connection is MDM connection, set its pathname, when the connection is file
+     * connection, set its filepath.
      * 
      * @param conn
      * @param url
@@ -203,13 +197,8 @@ public final class JavaSqlFactory {
      */
     public static String getUsername(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        String dbUserName = null;
         if (dbConn != null) {
-            dbUserName = dbConn.getUsername();
-            if (conn.isContextMode()) {
-                dbUserName = getOriginalConntextValue(dbConn, dbUserName);
-            }
-            return dbUserName;
+            return getOriginalValueConnection(dbConn).getUsername();
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -228,12 +217,7 @@ public final class JavaSqlFactory {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         String psw = "";//$NON-NLS-1$
         if (dbConn != null) {
-            psw = dbConn.getPassword();
-            if (conn.isContextMode()) {
-                psw = getOriginalConntextValue(dbConn, psw);
-
-            }
-
+            psw = getOriginalValueConnection(dbConn).getPassword();
         } else {
             MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
             if (mdmConn != null) {
@@ -281,7 +265,8 @@ public final class JavaSqlFactory {
     }
 
     /**
-     * DOC xqliu Comment method "getURL".
+     * get Url of connection. when the connection is MDM connection, return its pathname, when the connection is file
+     * connection, return its filepath.
      * 
      * @param conn
      * @return url string of the connection or null
@@ -292,7 +277,15 @@ public final class JavaSqlFactory {
         if (dbConn != null) {
             url = dbConn.getURL();
             if (conn.isContextMode()) {
-                url = getOriginalConntextValue(dbConn, url);
+                IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance()
+                        .getRepositoryContextService();
+                if (repositoryContextService != null) {
+                    // get the original value and select the defalut context
+                    String contextName = conn.getContextName();
+                    DatabaseConnection origValueConn = repositoryContextService.cloneOriginalValueConnection(dbConn,
+                            contextName == null ? true : false, contextName);
+                    url = DatabaseConnStrUtil.getURLString(origValueConn);
+                }
             }
             return url;
         }
@@ -303,7 +296,7 @@ public final class JavaSqlFactory {
         // MOD qiongli 2011-1-11 feature 16796.
         DelimitedFileConnection dfConnection = SwitchHelpers.DELIMITEDFILECONNECTION_SWITCH.doSwitch(conn);
         if (dfConnection != null) {
-            return dfConnection.getFilePath();
+            return getOriginalValueConnection(dfConnection).getFilePath();
         }
         return null;
     }
@@ -319,36 +312,9 @@ public final class JavaSqlFactory {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         String driveJarPath = null;
         if (dbConn != null) {
-            driveJarPath = dbConn.getDriverJarPath();
-            driveJarPath = getOriginalConntextValue(dbConn, driveJarPath);
+            driveJarPath = getOriginalValueConnection(dbConn).getDriverJarPath();
         }
         return driveJarPath;
-    }
-
-    /**
-     * Get the original value for context mode.
-     * 
-     * @param connection
-     * @param rawValue
-     * @return
-     */
-    public static String getOriginalConntextValue(Connection connection, String rawValue) {
-        if (rawValue == null) {
-            return PluginConstant.EMPTY_STRING;
-        }
-        String origValu = null;
-        if (connection != null && connection.isContextMode()) {
-            String contextName = connection.getContextName();
-            ContextType contextType = null;
-            ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
-            if (contextName == null) {
-                contextName = contextItem.getDefaultContext();
-            }
-            contextType = ContextUtils.getContextTypeByName(contextItem, contextName, true);
-
-            origValu = ContextParameterUtils.getOriginalValue(contextType, rawValue);
-        }
-        return origValu == null ? rawValue : origValu;
     }
 
     /**
@@ -478,4 +444,261 @@ public final class JavaSqlFactory {
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_PASSWORD.getKey());
         // System.clearProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_JDO_CONNECTION_DRIVERNAME.getKey());
     }
+
+    /**
+     * get Server Name from connection.
+     * 
+     * @param conn
+     * @return server name of the connection or null
+     */
+    public static String getServerName(Connection conn) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            return getOriginalValueConnection(dbConn).getServerName();
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            return mdmConn.getServer();
+        }
+        return null;
+    }
+
+    /**
+     * DOC xqliu Comment method "setDriverClass".
+     * 
+     * @param conn
+     * @param driverClass
+     */
+    public static void setDriverClass(Connection conn, String driverClass) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setDriverClass(driverClass);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "setServerName".
+     * 
+     * @param conn
+     * @param serverName
+     */
+    public static void setServerName(Connection conn, String serverName) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setServerName(serverName);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setServer(serverName);
+        }
+    }
+
+    /**
+     * get Port from connection.
+     * 
+     * @param conn
+     * @return port of the connection or null
+     */
+    public static String getPort(Connection conn) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            return getOriginalValueConnection(dbConn).getPort();
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            return mdmConn.getPort();
+        }
+        return null;
+    }
+
+    /**
+     * DOC xqliu Comment method "setPort".
+     * 
+     * @param conn
+     * @param port
+     */
+    public static void setPort(Connection conn, String port) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setPort(port);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPort(port);
+        }
+    }
+
+    /**
+     * DOC xqliu Comment method "getSID".
+     * 
+     * @param conn
+     * @return sid of the connection or null
+     */
+    public static String getSID(Connection conn) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            return getOriginalValueConnection(dbConn).getSID();
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            return mdmConn.getContext();
+        }
+        return null;
+    }
+
+    /**
+     * set SID for connection.
+     * 
+     * @param conn
+     * @param sid
+     */
+    public static void setSID(Connection conn, String sid) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setSID(sid);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setContext(sid);
+        }
+    }
+
+    /**
+     * get dbmsid from connection.
+     * 
+     * @param conn
+     * @return sid of the connection or null
+     */
+    public static String getDbmsId(Connection conn) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        String dbmsid = null;
+        if (dbConn != null) {
+            dbmsid = getOriginalValueConnection(dbConn).getDbmsId();
+        }
+        return dbmsid;
+    }
+
+    /**
+     * get Original Value Connection.
+     * 
+     * @param fileconnection
+     * @param headValue
+     * @return
+     */
+    private static DatabaseConnection getOriginalValueConnection(DatabaseConnection conn) {
+        if (conn.isContextMode()) {
+            IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance().getRepositoryContextService();
+            if (repositoryContextService != null) {
+                // get the original value and select the defalut context
+                String contextName = conn.getContextName();
+                return repositoryContextService.cloneOriginalValueConnection(conn, contextName == null ? true : false,
+                        contextName);
+            }
+        }
+        return conn;
+    }
+
+    /**
+     * get Original Value Connection.
+     * 
+     * @param fileconnection
+     * @param headValue
+     * @return
+     */
+    private static DelimitedFileConnection getOriginalValueConnection(DelimitedFileConnection fileconnection) {
+        if (fileconnection.isContextMode()) {
+            IRepositoryContextService repositoryContextService = CoreRuntimePlugin.getInstance().getRepositoryContextService();
+            if (repositoryContextService != null) {
+                // get the original value Connection
+                return (DelimitedFileConnection) repositoryContextService.cloneOriginalValueConnection(fileconnection);
+            }
+        }
+        return fileconnection;
+    }
+
+    /**
+     * get HeadValue for fileconnection.
+     * 
+     * @param fileconnection
+     * @return
+     */
+    public static int getHeadValue(DelimitedFileConnection fileconnection) {
+        String headValue = null;
+        if (fileconnection != null) {
+            headValue = getOriginalValueConnection(fileconnection).getHeaderValue();
+        }
+        return Integer.parseInt(headValue == null || PluginConstant.EMPTY_STRING.equals(headValue) ? "0" : headValue); //$NON-NLS-1$
+    }
+
+    /**
+     * get FooterValue for fileconnection.
+     * 
+     * @param fileconnection
+     * @return
+     */
+    public static int getFooterValue(DelimitedFileConnection fileconnection) {
+        String footerValue = null;
+        if (fileconnection != null) {
+            footerValue = getOriginalValueConnection(fileconnection).getFooterValue();
+        }
+        return Integer.parseInt(footerValue == null || PluginConstant.EMPTY_STRING.equals(footerValue) ? "0" : footerValue); //$NON-NLS-1$
+
+    }
+
+    /**
+     * get LimitValue for fileconnection.
+     * 
+     * @param delimitedFileconnection
+     * @return
+     */
+    public static int getLimitValue(DelimitedFileConnection fileconnection) {
+        String limitValue = null;
+        if (fileconnection != null) {
+            limitValue = getOriginalValueConnection(fileconnection).getLimitValue();
+        }
+        return Integer.parseInt(PluginConstant.EMPTY_STRING.equals(limitValue) || "0".equals(limitValue) ? "-1" : limitValue); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    /**
+     * get FieldSeparator Value for fileconnection.
+     * 
+     * @param fileconnection
+     * @return
+     */
+    public static String getFieldSeparatorValue(DelimitedFileConnection fileconnection) {
+        String separator = null;
+        if (fileconnection != null) {
+            separator = getOriginalValueConnection(fileconnection).getFieldSeparatorValue();
+        }
+        return separator;
+    }
+
+    /**
+     * get Encoding for fileconnection.
+     * 
+     * @param fileconnection
+     * @return
+     */
+    public static String getEncoding(DelimitedFileConnection fileconnection) {
+        String encoding = null;
+        if (fileconnection != null) {
+            encoding = getOriginalValueConnection(fileconnection).getEncoding();
+        }
+        return encoding;
+    }
+
+    /**
+     * get RowSeparator Value for fileconnection.
+     * 
+     * @param fileconnection
+     * @return
+     */
+    public static String getRowSeparatorValue(DelimitedFileConnection fileconnection) {
+        String rowSeparatorValue = null;
+        if (fileconnection != null) {
+            rowSeparatorValue = getOriginalValueConnection(fileconnection).getRowSeparatorValue();
+        }
+        return rowSeparatorValue;
+    }
+
 }

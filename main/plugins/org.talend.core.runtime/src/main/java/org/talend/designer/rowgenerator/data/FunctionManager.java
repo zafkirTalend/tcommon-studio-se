@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.service.IPigMapService;
 
 /**
  * class global comment. Detailled comment <br/>
@@ -112,9 +114,13 @@ public class FunctionManager {
         AbstractFunctionParser parser = null;
         if (JavaUtils.JAVA_PIG_DIRECTORY.equals(type)) {
             // pig map expressionbuilder
-            parser = new PigFunctionParser();
-            parser.parse();
-            talendTypes = parser.getList();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IPigMapService.class)) {
+                final IPigMapService service = (IPigMapService) GlobalServiceRegister.getDefault().getService(
+                        IPigMapService.class);
+                parser = service.pigFunctionParser();
+                parser.parse();
+                talendTypes = parser.getList();
+            }
         }
     }
 

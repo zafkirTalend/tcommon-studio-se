@@ -18,7 +18,6 @@ import java.util.Set;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -44,12 +43,6 @@ import org.talend.designer.core.ui.editor.cmd.ContextTemplateModifyCommand;
 public abstract class ContextComposite extends Composite implements IContextModelManager {
 
     private boolean readOnly;
-
-    private ContextTemplateComposite template;
-
-    private ContextTreeValuesComposite treeValues;
-
-    private ContextTableValuesComposite tableValues;
 
     private ContextNebulaGridComposite tableNebulas;
 
@@ -88,15 +81,11 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     public void setPart(EditorPart part) {
         this.part = part;
-        refreshTemplateTab();
         refreshTableTab();
-        refreshTreeTab();
     }
 
     public void setTabEnable(boolean enable) {
 
-        // no need to set the ConextTreeValuesComposite and ConextTableValuesComposite. They can take care of
-        // themselvies.
         boolean flag = false;
         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         if (page != null) {
@@ -195,22 +184,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
         this.layout();
     }
 
-    private void creatTemplate(CTabFolder tab, CTabItem templateItem) {
-        template = new ContextTemplateComposite(tab, this);
-        templateItem.setControl(template);
-
-    }
-
-    private void creatTreeValues(CTabFolder tab, CTabItem treeValuesItem) {
-        treeValues = new ContextTreeValuesComposite(tab, this);
-        treeValuesItem.setControl(treeValues);
-    }
-
-    private void creatTableValues(CTabFolder tab, CTabItem tableValuesItem) {
-        tableValues = new ContextTableValuesComposite(tab, this);
-        tableValuesItem.setControl(tableValues);
-    }
-
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
@@ -248,10 +221,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
     @Override
     public boolean isRepositoryContext() {
         return this.isRepositoryContext;
-    }
-
-    public ContextTemplateComposite getContextTemplateComposite() {
-        return this.template;
     }
 
     public ContextNebulaGridComposite getContextTableComposite() {

@@ -205,7 +205,7 @@ public final class ImportExportHandlersManager {
         TimeMeasure.display = CommonsPlugin.isDebugMode();
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
-        TimeMeasure.begin("ImportingItems"); //$NON-NLS-1$
+        TimeMeasure.begin("importItemRecords"); //$NON-NLS-1$
 
         /*
          * Re-order the import items according to the priority of extension point.
@@ -455,7 +455,7 @@ public final class ImportExportHandlersManager {
             // cache
             importCacheHelper.afterImportItems();
             //
-            TimeMeasure.end("ImportingItems"); //$NON-NLS-1$
+            TimeMeasure.end("importItemRecords"); //$NON-NLS-1$
             TimeMeasure.display = false;
             TimeMeasure.displaySteps = false;
             TimeMeasure.measureActive = false;

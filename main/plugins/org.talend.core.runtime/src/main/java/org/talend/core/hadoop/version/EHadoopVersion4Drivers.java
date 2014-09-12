@@ -83,6 +83,14 @@ public enum EHadoopVersion4Drivers {
 
     MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
+    APACHE_2_4_0_EMR(
+                     EHadoopDistributions.AMAZON_EMR,
+                     "Apache 2.4.0",
+                     "APACHE_2_4_0_EMR",
+                     true,
+                     false,
+                     new EMRVersion[] { EMRVersion.YARN }),
+
     APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
 
     MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
@@ -91,7 +99,7 @@ public enum EHadoopVersion4Drivers {
                    EHadoopDistributions.PIVOTAL_HD,
                    "Pivotal HD 2.0",
                    "PIVOTAL_HD_2_0",
-                   false,
+                   true,
                    false,
                    new EMRVersion[] { EMRVersion.YARN }),
 
@@ -102,6 +110,14 @@ public enum EHadoopVersion4Drivers {
                      false,
                      false,
                      new EMRVersion[] { EMRVersion.YARN }),
+
+    MICROSOFT_HD_INSIGHT_3_1(
+                             EHadoopDistributions.MICROSOFT_HD_INSIGHT,
+                             "Microsoft HD Insight 3.1",
+                             "MICROSOFT_HD_INSIGHT_3_1",
+                             true,
+                             false,
+                             new EMRVersion[] { EMRVersion.YARN }),
 
     CUSTOM(EHadoopDistributions.CUSTOM, "", "", false, false, new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN });
 

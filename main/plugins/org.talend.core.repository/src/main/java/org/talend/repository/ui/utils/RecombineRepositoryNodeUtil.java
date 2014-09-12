@@ -15,11 +15,16 @@ package org.talend.repository.ui.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * ggu class global comment. Detailled comment
@@ -102,8 +107,13 @@ public final class RecombineRepositoryNodeUtil {
             for (ERepositoryObjectType type : prcessTypes) {
                 RepositoryNode rootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(type, true);
                 if (rootNode != null) {
+                    // Expand process node
+                    IRepositoryView viewPart = RepositoryManagerHelper.getRepositoryView();
+                    if (viewPart != null) {
+                        RepositoryNodeUtilities.expandParentNode(viewPart, rootNode);
+                    }
                     // Has childType nodes ,then add it.
-                    if (type != null && type.hasChildrenType()) {
+                    if (type != null && type.hasChildrenType() && !isHadoopCluster(type)) {
                         for (ERepositoryObjectType childType : type.getChildrenTypesArray()) {
                             RepositoryNode childRootNode = ((ProjectRepositoryNode) projectRepoNode).getRootRepositoryNode(
                                     childType, true);
@@ -118,6 +128,19 @@ public final class RecombineRepositoryNodeUtil {
             }
         }
         return rootNodes;
+    }
+
+    private boolean isHadoopCluster(ERepositoryObjectType type) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null && type.equals(hadoopClusterService.getHadoopClusterType())) {
+            return true;
+        }
+
+        return false;
     }
 
 }

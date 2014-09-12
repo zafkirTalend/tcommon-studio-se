@@ -66,7 +66,6 @@ import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SchemaHelper;
-import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalFactory;
@@ -579,6 +578,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             List<String> filterList = new ArrayList<String>();
             filterList.addAll(postFillCatalog(metaConnection, catalogList, filterList,
                     TalendCWMService.getReadableName(dbConn, catalogName), dbConn));
+            List<Catalog> newCatalogList = new ArrayList<Catalog>();
             for (Catalog catalog : catalogList) {
                 List<Schema> schemaList = new ArrayList<Schema>();
                 try {
@@ -589,8 +589,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 } catch (Throwable e) {
                     log.info(e);
                 }
-                ConnectionHelper.addCatalog(catalog, dbConn);
+                newCatalogList.add(catalog);
+                // ConnectionHelper.addCatalog(catalog, dbConn);
             }
+            ConnectionHelper.addCatalogs(newCatalogList, dbConn);
         }
         return catalogList;
     }
@@ -656,6 +658,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
                 String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
                         iMetadataCon.getAdditionalParams());
+                String sid = dbConnection.getSID();
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
                     if (multiSchems != null) {
@@ -665,6 +668,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                             }
                         }
                     }
+                } else if (sid != null && !"".equals(sid)) { //$NON-NLS-1$
+                    scheamFilterList.add(sid);
                 }
             }
         } else {
@@ -750,7 +755,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 if (dbJDBCMetadata instanceof SybaseDatabaseMetaData) {
                     schemaRs = ((SybaseDatabaseMetaData) dbJDBCMetadata).getSchemas(catalog.getName(), null);
                 } else if (dbJDBCMetadata instanceof AS400DatabaseMetaData) {
-                    schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), null);
+                    String schemaPattern = null;
+                    if (!schemaFilter.isEmpty()) {
+                        schemaPattern = schemaFilter.get(0);
+                    }
+                    schemaRs = dbJDBCMetadata.getSchemas(catalog.getName(), schemaPattern);
                 } else {
                     schemaRs = dbJDBCMetadata.getSchemas();
                 }
@@ -894,22 +903,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
 
-            boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
             while (tables.next()) {
-                String tableSchema = null;
                 String coloumnName = GetTable.TABLE_SCHEM.name();
                 if (schemaPattern != null) {
                     try {
-                        tableSchema = tables.getString(coloumnName);
+                        tables.getString(coloumnName);
                     } catch (Exception e) {
                         coloumnName = GetTable.TABLE_SCHEMA.name();
-                        tableSchema = tables.getString(coloumnName);
                     }
-                } else {
-                    tableSchema = " "; //$NON-NLS-1$
                 }
-                String tableName = tables.getString(GetTable.TABLE_NAME.name());
-                String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+                String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
+                String temptableType = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
 
                 // for special db. teradata_sql_model/db2_zos
                 if (temptableType != null) {
@@ -935,7 +939,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 // }
                 if (!isOracle8i) {
                     try {
-                        tableComment = tables.getString(GetTable.REMARKS.name());
+                        tableComment = getStringFromResultSet(tables, GetTable.REMARKS.name());
                         if (StringUtils.isBlank(tableComment)) {
                             String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
                             if (selectRemarkOnTable != null) {
@@ -971,14 +975,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     ColumnSetHelper.setComment(tableComment, metadatatable);
                 }
                 try {
-                    if (tables.getString("SYSTEM_TABLE_NAME") != null && tables.getString("SYSTEM_TABLE_SCHEMA") != null
-                            && tables.getString("TABLE_SCHEMA") != null) {
+                    if (tables.getString("SYSTEM_TABLE_NAME") != null && tables.getString("SYSTEM_TABLE_SCHEMA") != null //$NON-NLS-1$//$NON-NLS-2$
+                            && tables.getString("TABLE_SCHEMA") != null) { //$NON-NLS-1$
                         TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLENAME,
-                                tables.getString("SYSTEM_TABLE_NAME").trim());
+                                tables.getString("SYSTEM_TABLE_NAME").trim()); //$NON-NLS-1$
                         TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.SYSTEMTABLESCHEMA,
-                                tables.getString("SYSTEM_TABLE_SCHEMA").trim());
+                                tables.getString("SYSTEM_TABLE_SCHEMA").trim()); //$NON-NLS-1$
                         TaggedValueHelper.setTaggedValue(metadatatable, TaggedValueHelper.TABLESCHEMA,
-                                tables.getString("TABLE_SCHEMA").trim());
+                                tables.getString("TABLE_SCHEMA").trim()); //$NON-NLS-1$
                     }
                 } catch (SQLException e) {
                     // don't catch anything if the system table name or schema doesn't exist
@@ -1104,8 +1108,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             ResultSet tables = dbJDBCMetadata.getTables(catalogName, schemaPattern, tablePattern, tableType);
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
-                String tableName = tables.getString(GetTable.TABLE_NAME.name());
-                String temptableType = tables.getString(GetTable.TABLE_TYPE.name());
+                String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
+                String temptableType = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
                 // if TableType is view type don't create it at here.
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
@@ -1120,7 +1124,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     continue;
                 }
                 if (!flag) {
-                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    tableComment = getStringFromResultSet(tables, GetTable.REMARKS.name());
                     if (StringUtils.isBlank(tableComment)) {
                         String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
                         if (selectRemarkOnTable != null) {
@@ -1181,8 +1185,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             String productName = dbJDBCMetadata.getDatabaseProductName();
             while (tables.next()) {
 
-                String tableName = tables.getString(GetTable.TABLE_NAME.name());
-                String type = tables.getString(GetTable.TABLE_TYPE.name());
+                String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
+                String type = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
                 if (!isCreateElement(viewFilter, tableName)) {
                     continue;
                 }
@@ -1194,7 +1198,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     flag = MetadataConnectionUtils.isOracle8i(c);
                 }
                 if (!flag) {
-                    tableComment = tables.getString(GetTable.REMARKS.name());
+                    tableComment = getStringFromResultSet(tables, GetTable.REMARKS.name());
                     if (StringUtils.isBlank(tableComment)) {
                         String selectRemarkOnTable = MetadataConnectionUtils.getCommonQueryStr(productName, tableName);
                         if (selectRemarkOnTable != null) {
@@ -1219,6 +1223,34 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             log.error(e, e);
         }
         return viewList;
+    }
+
+    /**
+     * Add try/catch, some DB donot support some strings, like :REMARKS. (TDQ-9344) and it should not break any
+     * operations, if some string can not be get from the resultset, just continue to get others.
+     * 
+     * @param tables
+     * @param tableComment
+     * @return
+     */
+    private String getStringFromResultSet(ResultSet resultSet, String nameOfString) {
+        String valueOfString = null;
+        try {
+            valueOfString = resultSet.getString(nameOfString);
+        } catch (SQLException e) {
+            log.warn(e, e);
+        }
+        return valueOfString;
+    }
+
+    private int getIntFromResultSet(ResultSet resultSet, String nameOfInt) {
+        int valueOfInt = -1;
+        try {
+            valueOfInt = resultSet.getInt(nameOfInt);
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+        return valueOfInt;
     }
 
     @Override
@@ -1261,7 +1293,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
-                String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
+                String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
 
                 String label = column.getLabel();
@@ -1279,11 +1311,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 int dataType = 0;
 
                 if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
-                    dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                    dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
                 }
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
                 // data type it is null and results in a NPE
-                typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                 typeName = typeName.toUpperCase().trim();
                 typeName = ManagementTextUtils.filterSpecialChar(typeName);
                 if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -1304,13 +1336,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     }
                 }
                 try {
-                    int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
+                    int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
                     column.setLength(column_size);
-                    decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                    decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
                     column.setPrecision(decimalDigits);
                     // Teradata SQL Mode no need this column
                     if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {
-                        numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
+                        numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
                     }
                 } catch (Exception e1) {
                     log.warn(e1, e1);
@@ -1323,12 +1355,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
                 // Null able
                 if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
-                    int nullable = columns.getInt(GetColumn.NULLABLE.name());
+                    int nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
                     column.getSqlDataType().setNullable(NullableType.get(nullable));
                 }
 
                 // Comment
-                String colComment = columns.getString(GetColumn.REMARKS.name());
+                String colComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
                 if (colComment == null) {
                     colComment = ""; //$NON-NLS-1$
                 }
@@ -1361,7 +1393,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     column.setSourceType(typeName);
                 }
                 try {
-                    column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                    column.setNullable("YES".equals(getStringFromResultSet(columns, GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
                 } catch (Exception e) {
                     // do nothing
                 }
@@ -1413,7 +1445,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
-                String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
+                String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
 
                 int dataType = 0;
@@ -1421,7 +1453,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the
                     // sql
                     // data type it is null and results in a NPE
-                    typeName = columns.getString(GetColumn.TYPE_NAME.name());
+                    typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                     typeName = typeName.toUpperCase().trim();
                     typeName = ManagementTextUtils.filterSpecialChar(typeName);
                     if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -1431,17 +1463,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata) {
                         // MOD klliu bug TDQ-1164 2011-09-26
                         dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
-                        decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                        decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
                         // ~
                     } else if (dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
                         // dataType = columns.getInt(GetColumn.TYPE_NAME.name());
                         dataType = Java2SqlType.getTeradataJavaTypeBySqlTypeAsInt(typeName);
                         typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
                     } else {
-                        dataType = columns.getInt(GetColumn.DATA_TYPE.name());
+                        dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
                         if (!isOdbcTeradata) {
-                            numPrecRadix = columns.getInt(GetColumn.NUM_PREC_RADIX.name());
-                            decimalDigits = columns.getInt(GetColumn.DECIMAL_DIGITS.name());
+                            numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
+                            decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
                         }
                     }
                     if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
@@ -1461,7 +1493,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     }
 
                     if (!isOdbcTeradata) {
-                        int column_size = columns.getInt(GetColumn.COLUMN_SIZE.name());
+                        int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
                         column.setLength(column_size);
                     }
 
@@ -1478,17 +1510,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 int nullable = 0;
                 if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata
                         || dbJDBCMetadata instanceof EmbeddedHiveDataBaseMetadata) {
-                    String isNullable = columns.getString("IS_NULLABLE");//$NON-NLS-1$
+                    String isNullable = getStringFromResultSet(columns, "IS_NULLABLE");//$NON-NLS-1$
                     if (!isNullable.equals("Y")) { //$NON-NLS-1$ 
                         nullable = 1;
                     }
                 } else {
-                    nullable = columns.getInt(GetColumn.NULLABLE.name());
+                    nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
                 }
                 column.getSqlDataType().setNullable(NullableType.get(nullable));
 
                 // Comment
-                String colComment = columns.getString(GetColumn.REMARKS.name());
+                String colComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
                 if (colComment == null) {
                     colComment = "";//$NON-NLS-1$
                 }
@@ -1508,13 +1540,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 column.setInitialValue(defExpression);
                 extractMeta.handleDefaultValue(column, dbJDBCMetadata);
 
-                DatabaseConnection dbConnection = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(ConnectionHelper
-                        .getConnection(colSet));
-                String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+                DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
+                String dbmsId = JavaSqlFactory.getDbmsId(dbConnection);
                 if (dbmsId != null) {
-                    if (dbConnection.isContextMode()) {
-                        dbmsId = JavaSqlFactory.getOriginalConntextValue(dbConnection, dbmsId);
-                    }
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
                     String talendType = mappingTypeRetriever
                             .getDefaultSelectedTalendType(
@@ -1527,7 +1555,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     column.setSourceType(defaultSelectedDbType);
                 }
                 try {
-                    column.setNullable("YES".equals(columns.getString(GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                    column.setNullable("YES".equals(getStringFromResultSet(columns, GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
                 } catch (Exception e) {
                     // do nothing
                 }

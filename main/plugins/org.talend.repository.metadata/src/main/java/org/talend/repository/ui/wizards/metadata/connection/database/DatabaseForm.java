@@ -320,7 +320,7 @@ public class DatabaseForm extends AbstractForm {
     private Button mappingSelectButton;
 
     // 19754 end
-    private boolean isCreation;
+    private final boolean isCreation;
 
     private boolean first = true;
 
@@ -338,11 +338,11 @@ public class DatabaseForm extends AbstractForm {
 
     private ContextType selectedContextType;
 
-    private String originalUischema;
+    private final String originalUischema;
 
-    private String originalURL;
+    private final String originalURL;
 
-    private Boolean originalIsNeedReload;
+    private final Boolean originalIsNeedReload;
 
     private Composite hadoopLinkComp;
 
@@ -1193,9 +1193,6 @@ public class DatabaseForm extends AbstractForm {
             hideControl(browseDriverClassButton, false);
             usernameTxt.show();
             passwordTxt.show();
-            hideControl(useKeyTab, false);
-            principalTxt.show();
-            keytabTxt.show();
         } else {
             metastoreUrlTxt.hide();
             driverJarTxt.hide();
@@ -1204,9 +1201,6 @@ public class DatabaseForm extends AbstractForm {
             hideControl(browseDriverClassButton, true);
             usernameTxt.hide();
             passwordTxt.hide();
-            hideControl(useKeyTab, true);
-            principalTxt.hide();
-            keytabTxt.hide();
         }
     }
 
@@ -2652,6 +2646,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().getParameters().clear();
+                urlConnectionStringText.setEditable(false);
                 // add for bug 12649
                 boolean isGeneralJDBC = isGeneralJDBC();
                 if (isGeneralJDBC) {
@@ -4794,8 +4789,9 @@ public class DatabaseForm extends AbstractForm {
             }
             String[] versionPrefix = new String[] { distribution };
             if (HiveConnVersionInfo.AMAZON_EMR.getKey().equals(distribution)
-                    && (HiveConnVersionInfo.APACHE_1_0_3_EMR.getKey().equals(version) || HiveConnVersionInfo.MapR_EMR.getKey()
-                            .equals(version))) {
+                    && (HiveConnVersionInfo.APACHE_1_0_3_EMR.getKey().equals(version)
+                            || HiveConnVersionInfo.MapR_EMR.getKey().equals(version) || HiveConnVersionInfo.APACHE_2_4_0_EMR
+                            .getKey().equals(version))) {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));

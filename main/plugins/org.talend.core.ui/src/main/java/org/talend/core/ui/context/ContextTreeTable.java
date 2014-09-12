@@ -28,7 +28,6 @@ import org.eclipse.jface.window.DefaultToolTip;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.config.ConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.DefaultComparator;
-import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.DetailGlazedListsEventLayer;
@@ -71,6 +70,7 @@ import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -89,6 +89,9 @@ import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.nattableTree.ContextNatTableBackGroudPainter;
 import org.talend.core.ui.context.nattableTree.ContextNatTableConfiguration;
+import org.talend.core.ui.context.nattableTree.ContextNatTableStyleConfiguration;
+import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
+import org.talend.core.ui.context.nattableTree.ContextParaModeChangeMenuConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextRowDataListFixture;
 import org.talend.core.ui.context.nattableTree.ContextTextPainter;
 import org.talend.core.ui.context.nattableTree.ExtendedContextColumnPropertyAccessor;
@@ -111,25 +114,32 @@ public class ContextTreeTable {
 
     private IStructuredSelection currentNatTabSel;
 
-    private final static String TREE_CONTEXT_ROOT = "root";
+    private final static String TREE_CONTEXT_ROOT = "";
 
     private final static String TREE_DEFAULT_NODE = "node";
 
     // by default sort by the model id
     private final static String TREE_CONTEXT_ID = "orderId";
 
-    public ContextTreeTable() {
+    private IContextModelManager manager;
+
+    public ContextTreeTable(IContextModelManager manager) {
+        this.manager = manager;
     }
 
-    public TControl createTable(Composite parentContainer, IContextModelManager manager,
-            List<ContextTableTabParentModel> listOfData) {
-        TControl retObj = createTableControl(parentContainer, manager, listOfData);
+    public TControl createTable(Composite parentContainer) { // IContextModelManager
+                                                             // manager,
+        TControl retObj = createTableControl(parentContainer);
         retObj.setControl(retObj.getControl());
         return retObj;
     }
 
     public IStructuredSelection getSelection() {
         return currentNatTabSel;
+    }
+
+    public void clearSelection() {
+        currentNatTabSel = null;
     }
 
     public List<IContext> getContexts(IContextManager contextManger) {
@@ -154,17 +164,16 @@ public class ContextTreeTable {
      * @param data
      * @return
      */
-    private TControl createTableControl(Composite parent, final IContextModelManager manager,
-            List<ContextTableTabParentModel> listOfData) {
+    private TControl createTableControl(Composite parent) {
         ConfigRegistry configRegistry = new ConfigRegistry();
         ColumnGroupModel columnGroupModel = new ColumnGroupModel();
         configRegistry.registerConfigAttribute(SortConfigAttributes.SORT_COMPARATOR, new DefaultComparator());
         String[] propertyNames = ContextRowDataListFixture.getPropertyNames(manager);
-        int comWidth = parent.getParent().getParent().getClientArea().width;
+        int comWidth = parent.getParent().getClientArea().width;
         // the data source for the context
         if (propertyNames.length > 0) {
             treeNodes.clear();
-            contructContextTrees(manager, listOfData);
+            constructContextTreeNodes();
             EventList<ContextTreeNode> eventList = GlazedLists.eventList(treeNodes.values());
             SortedList<ContextTreeNode> sortedList = new SortedList<ContextTreeNode>(eventList, null);
             // init Column header layer
@@ -241,7 +250,15 @@ public class ContextTreeTable {
             natTable = new NatTable(parent, NatTable.DEFAULT_STYLE_OPTIONS | SWT.BORDER, gridLayer, false);
             natTable.setConfigRegistry(configRegistry);
 
-            addCustomStylingBehaviour(bodyDataProvider, columnGroupModel, manager.getContextManager());
+            addCustomStylingBehaviour(parent.getFont(), bodyDataProvider, columnGroupModel, manager.getContextManager());
+
+            boolean isRepositoryContext = (manager instanceof ContextComposite)
+                    && ((ContextComposite) manager).isRepositoryContext();
+
+            if (!isRepositoryContext) {
+
+                addCustomContextMenuBehavior(manager, bodyDataProvider);
+            }
 
             natTable.addConfiguration(new DefaultTreeLayerConfiguration(treeLayer));
 
@@ -273,6 +290,10 @@ public class ContextTreeTable {
                 public void mouseDoubleClick(MouseEvent e) {
                     // get the row position for the click in the NatTable
                     int rowPos = natTable.getRowPositionByY(e.y);
+                    if (rowPos == 0) {
+                        // in case click the column header
+                        return;
+                    }
                     int rowIndex = natTable.getRowIndexByPosition(rowPos);
                     ContextTreeNode treeNode = bodyDataProvider.getRowObject(rowIndex);
                     if (treeNode != null && (treeNode.getChildren().size() != 0 || treeNode.getParent() != null)) {
@@ -330,6 +351,13 @@ public class ContextTreeTable {
         return null;
     }
 
+    private void constructContextTreeNodes() {
+        List<IContext> contextList = getContexts(manager.getContextManager());
+        List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
+        List<ContextTableTabParentModel> listofData = ContextNatTableUtils.constructContextDatas(contextDatas);
+        contructContextTrees(listofData);
+    }
+
     private List<Integer> getAllCheckPosBehaviour(IContextModelManager manager, ColumnGroupModel contextGroupModel) {
         List<Integer> checkPos = new ArrayList<Integer>();
         if (manager.getContextManager() != null) {
@@ -344,42 +372,50 @@ public class ContextTreeTable {
     }
 
     private void addCustomColumnsResizeBehaviour(DataLayer dataLayer, List<Integer> hideColumnsPos,
-            List<Integer> checkColumnsPos, int cornerWith, int maxWidth) {
+            List<Integer> checkColumnsPos, int cornerWidth, int maxWidth) {
         dataLayer.setColumnsResizableByDefault(true);
         int dataColumnsCount = dataLayer.getPreferredColumnCount();
 
-        int fixedCheckBoxWidth = 30;
-
-        int fixedTypeWidth = 90;
-
-        int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
-
-        int leftWidth = maxWidth - cornerWith - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size();
-
-        int currentColumnsCount = dataColumnsCount - hideColumnsPos.size() - checkColumnsPos.size() - 1;
-        int averageWidth = leftWidth / currentColumnsCount;
-        for (int i = 0; i < dataLayer.getColumnCount(); i++) {
-            boolean findHide = false;
-            boolean findCheck = false;
-            boolean findType = false;
-            if (typeColumnPos == i) {
-                findType = true;
-                dataLayer.setColumnWidthByPosition(i, fixedTypeWidth);
-            }
-            for (int hidePos : hideColumnsPos) {
-                if (hidePos == i) {
-                    findHide = true;
-                    dataLayer.setColumnWidthByPosition(i, 0);
-                }
-            }
-            for (int checkPos : checkColumnsPos) {
-                if (checkPos == i) {
-                    findCheck = true;
-                    dataLayer.setColumnWidthByPosition(i, fixedCheckBoxWidth);
-                }
-            }
-            if (!findHide && !findCheck && !findType) {
+        if (dataColumnsCount == 2) {
+            int averageWidth = maxWidth / dataColumnsCount;
+            for (int i = 0; i < dataColumnsCount; i++) {
                 dataLayer.setColumnWidthByPosition(i, averageWidth);
+            }
+        } else {
+
+            int fixedCheckBoxWidth = 30;
+
+            int fixedTypeWidth = 90;
+
+            int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
+
+            int leftWidth = maxWidth - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size() - cornerWidth * 2;
+
+            int currentColumnsCount = dataColumnsCount - hideColumnsPos.size() - checkColumnsPos.size() - 1;
+            int averageWidth = leftWidth / currentColumnsCount;
+            for (int i = 0; i < dataLayer.getColumnCount(); i++) {
+                boolean findHide = false;
+                boolean findCheck = false;
+                boolean findType = false;
+                if (typeColumnPos == i) {
+                    findType = true;
+                    dataLayer.setColumnWidthByPosition(i, fixedTypeWidth);
+                }
+                for (int hidePos : hideColumnsPos) {
+                    if (hidePos == i) {
+                        findHide = true;
+                        dataLayer.setColumnWidthByPosition(i, 0);
+                    }
+                }
+                for (int checkPos : checkColumnsPos) {
+                    if (checkPos == i) {
+                        findCheck = true;
+                        dataLayer.setColumnWidthByPosition(i, fixedCheckBoxWidth);
+                    }
+                }
+                if (!findHide && !findCheck && !findType) {
+                    dataLayer.setColumnWidthByPosition(i, averageWidth);
+                }
             }
         }
     }
@@ -413,9 +449,9 @@ public class ContextTreeTable {
         return hidePos;
     }
 
-    private void addCustomStylingBehaviour(final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
+    private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
             ColumnGroupModel groupModel, IContextManager manager) {
-        DefaultNatTableStyleConfiguration natTableConfiguration = new DefaultNatTableStyleConfiguration();
+        ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
         // for the repository context's background.we control its backgroup colour is gray
         natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false, false),
                 bodyDataProvider);
@@ -424,8 +460,11 @@ public class ContextTreeTable {
 
         // add configuration for the context columns to do the column edit,color,style,etc.
         natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, manager));
+    }
 
-        // natTable.addConfiguration(new ContextSelectBindings());
+    private void addCustomContextMenuBehavior(final IContextModelManager modelManager,
+            final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider) { // final
+        natTable.addConfiguration(new ContextParaModeChangeMenuConfiguration(natTable, bodyDataProvider));
     }
 
     private void addCustomSelectionBehaviour(final IContextModelManager manager, final ColumnGroupModel contextGroupModel,
@@ -647,7 +686,7 @@ public class ContextTreeTable {
         }
     }
 
-    private void contructContextTrees(IContextModelManager manager, List<ContextTableTabParentModel> listOfData) {
+    private void contructContextTrees(List<ContextTableTabParentModel> listOfData) {
         if (listOfData.size() > 0) {
             for (ContextTableTabParentModel contextModel : listOfData) {
                 if (contextModel.hasChildren()) {

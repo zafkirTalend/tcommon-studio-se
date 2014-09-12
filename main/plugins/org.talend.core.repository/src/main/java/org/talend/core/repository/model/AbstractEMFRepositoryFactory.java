@@ -942,9 +942,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             return null;
         }
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem folderItem = folderHelper.getFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+        String pathStr = ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path;
+        FolderItem folderItem = folderHelper.getFolder(pathStr);
         if (folderItem == null && itemType != null) {
-            folderItem = folderHelper.createFolder(ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path);
+            folderItem= folderHelper.createFolder(pathStr);
         }
         return folderItem;
     }
@@ -1017,5 +1018,15 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             return new LockInfo(item.getState().getLocker().getLogin(), "studio", item.getState().getLockDate());//$NON-NLS-1$
         }
         return new LockInfo("", "", null);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.model.IRepositoryFactory#afterLogon()
+     */
+    @Override
+    public void afterLogon() {
+        // do nothing by default
     }
 }
