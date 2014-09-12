@@ -77,7 +77,7 @@ public enum HiveConnVersionInfo {
 
     MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
 
-    APACHE_2_4_0_EMR(1, "APACHE_2_4_0_EMR", "Apache 2.4.0 (Hive 0.11.0)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_2_4_0_EMR(1, "APACHE_2_4_0_EMR", "Apache 2.4.0 (Hive 0.11.0)", true, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
     APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
 
