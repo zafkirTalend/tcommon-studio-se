@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.SearchPattern;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.ExceptionMessageDialog;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
@@ -624,20 +625,31 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     } else if (oldTemConnection.isUseHttpProxy()) {
                         proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;
                     }
+                    try {
+                        itemTableName = connectFromCustomModuleName(proxy);
 
-                    itemTableName = connectFromCustomModuleName(proxy);
-
-                    if (itemTableName.size() <= 0) {
-                        // connection is done but any table exist
-                        if (displayMessageBox) {
-                            openInfoDialogInUIThread(getShell(),
-                                    Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
-                                            .getString("DatabaseTableForm.tableNoExist"), true);//$NON-NLS-1$
+                        if (itemTableName == null || itemTableName.size() <= 0) {
+                            // connection is done but any table exist
+                            if (displayMessageBox) {
+                                openInfoDialogInUIThread(null, Messages.getString("DatabaseTableForm.checkConnection"), Messages //$NON-NLS-1$
+                                        .getString("DatabaseTableForm.tableNoExist"), true);//$NON-NLS-1$
+                            }
+                        } else {
+                            createAllItems(displayMessageBox, null);
                         }
-                    } else {
-                        createAllItems(displayMessageBox, null);
+                    } catch (final Exception ex) {
+                        Display.getDefault().asyncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                ExceptionMessageDialog.openError(
+                                        getShell(),
+                                        Messages.getString("SeletorModuleForm.connectFromCustomModuleName.errorTitle"), ex.getMessage(), ex); //$NON-NLS-1$
+                            }
+                        });
+                    } finally {
+                        monitor.done();
                     }
-                    monitor.done();
                 }
             });
         } catch (Exception e) {
@@ -695,17 +707,21 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         });
     }
 
-    public static void openInfoDialogInUIThread(final Shell shell, final String title, final String msg, boolean ifUseRunnable) {
+    public static void openInfoDialogInUIThread(Shell shell, final String title, final String msg, boolean ifUseRunnable) {
         if (ifUseRunnable) {
-            shell.getDisplay().asyncExec(new Runnable() {
+            Display.getDefault().asyncExec(new Runnable() {
 
                 @Override
                 public void run() {
-                    MessageDialog.openInformation(shell, title, msg);
+                    MessageDialog.openInformation(new Shell(), title, msg);
                 }
             });
         } else {
-            MessageDialog.openInformation(shell, title, msg);
+            Shell iShell = shell;
+            if (iShell == null) {
+                iShell = new Shell();
+            }
+            MessageDialog.openInformation(iShell, title, msg);
         }
     }
 
@@ -1169,6 +1185,9 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
+                if (itemTableName == null) {
+                    return;
+                }
                 List<String> newList = new ArrayList<String>();
 
                 String pattern = nameFilter.getText();
@@ -1400,7 +1419,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         return this.itemTableName;
     }
 
-    public List<String> connectFromCustomModuleName(String proxy) {
+    public List<String> connectFromCustomModuleName(String proxy) throws Exception {
         preparModuleInit();
         SalesforceModuleParseAPI salesforceAPI = new SalesforceModuleParseAPI();
         String[] types = null;
@@ -1419,83 +1438,77 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                 httpProxy = true;
             }
         }
-        try {
-            if (loginType.equalsIgnoreCase(BASIC)) {
-                salesforceAPI.resetAllProxy();
-                salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
-                salesforceAPI.login(endPoint, username, pwd, timeOut);
-                ISalesforceModuleParser currentAPI = salesforceAPI.getCurrentAPI();
-                if (currentAPI instanceof SalesforceModuleParseEnterprise) {
-                    describeGlobalResult = describeGlobal();
-                    if (describeGlobalResult != null) {
-                        types = describeGlobalResult.getTypes();
-                    }
-                } else {
-                    // for bug 17280 use new jar axis2 for salesforce component and wizard.
-                    if (currentAPI instanceof SalesforceModuleParserPartner) {
-                        SalesforceModuleParserPartner partner = (SalesforceModuleParserPartner) currentAPI;
-                        SforceManagementImpl sforceManagement = partner.getSforceManagement();
-                        com.salesforce.soap.partner.DescribeGlobalResult dgr = sforceManagement.describeGlobal();
-                        dgsrs = dgr.getSobjects();
-
-                    }
+        if (loginType.equalsIgnoreCase(BASIC)) {
+            salesforceAPI.resetAllProxy();
+            salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
+            salesforceAPI.login(endPoint, username, pwd, timeOut);
+            ISalesforceModuleParser currentAPI = salesforceAPI.getCurrentAPI();
+            if (currentAPI instanceof SalesforceModuleParseEnterprise) {
+                describeGlobalResult = describeGlobal();
+                if (describeGlobalResult != null) {
+                    types = describeGlobalResult.getTypes();
                 }
             } else {
-                salesforceAPI.resetAllProxy();
-                salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
-                Token token = salesforceAPI.login(endPointForAuth, consumerKey, consumeSecret, callbackHost, callbackPort,
-                        salesforceVersion, tokenProperties, timeOut);
-                if (token != null) {
-                    OAuthClient client = new OAuthClient();
-                    client.setBaseOAuthURL(endPointForAuth);
-                    client.setCallbackHost(callbackHost);
-                    client.setCallbackPort(Integer.parseInt(callbackPort));
-                    client.setClientID(consumerKey);
-                    client.setClientSecret(consumeSecret);
-                    String endpoint = OAuthClient.getSOAPEndpoint(token, salesforceVersion);
-                    org.talend.salesforce.SforceManagement sfMgr = null;
-                    SforceConnection sforceConn = new SforceSessionConnection.Builder(endpoint, token.getAccess_token())
-                            .setTimeout(timeOut).needCompression(false).build();
-                    sfMgr = new org.talend.salesforce.SforceManagementImpl(sforceConn);
-                    dgsrs = sfMgr.describeGlobal().getSobjects();
+                // for bug 17280 use new jar axis2 for salesforce component and wizard.
+                if (currentAPI instanceof SalesforceModuleParserPartner) {
+                    SalesforceModuleParserPartner partner = (SalesforceModuleParserPartner) currentAPI;
+                    SforceManagementImpl sforceManagement = partner.getSforceManagement();
+                    com.salesforce.soap.partner.DescribeGlobalResult dgr = sforceManagement.describeGlobal();
+                    dgsrs = dgr.getSobjects();
+
                 }
             }
-
+        } else {
             salesforceAPI.resetAllProxy();
-            INode node = getSalesforceNode();
-
-            List list = new ArrayList();
-
-            IElementParameter modulesNameParam = node.getElementParameter("MODULENAME"); //$NON-NLS-1$
-            Object[] modulename = modulesNameParam.getListItemsValue();
-            if (modulename != null && modulename.length > 1) {
-                for (int i = 0; i < modulename.length - 1; i++) {
-                    list.add(i, modulename[i]);
-                }
+            salesforceAPI.setProxy(proxyHost, proxyPort, proxyUsername, proxyPassword, httpProxy, socksProxy, httpsProxy);
+            Token token = salesforceAPI.login(endPointForAuth, consumerKey, consumeSecret, callbackHost, callbackPort,
+                    salesforceVersion, tokenProperties, timeOut);
+            if (token != null) {
+                OAuthClient client = new OAuthClient();
+                client.setBaseOAuthURL(endPointForAuth);
+                client.setCallbackHost(callbackHost);
+                client.setCallbackPort(Integer.parseInt(callbackPort));
+                client.setClientID(consumerKey);
+                client.setClientSecret(consumeSecret);
+                String endpoint = OAuthClient.getSOAPEndpoint(token, salesforceVersion);
+                org.talend.salesforce.SforceManagement sfMgr = null;
+                SforceConnection sforceConn = new SforceSessionConnection.Builder(endpoint, token.getAccess_token())
+                        .setTimeout(timeOut).needCompression(false).build();
+                sfMgr = new org.talend.salesforce.SforceManagementImpl(sforceConn);
+                dgsrs = sfMgr.describeGlobal().getSobjects();
             }
-            if (types != null && types.length > 0) {
-                for (int j = 0; j < types.length; j++) {
-                    if (!list.contains(types[j])) {
-                        list.add(types[j]);
-                    }
-                }
-            }
-            if (dgsrs != null && dgsrs.length > 0) {
-                for (DescribeGlobalSObjectResult dsResult : dgsrs) {
-                    String name = dsResult.getName();
-                    if (!list.contains(name)) {
-                        list.add(name);
-                    }
-                }
-
-            }
-            // createAllItems(false, list);
-            return list;
-
-        } catch (Exception ex) {
-            ExceptionHandler.process(ex);
-            return null;
         }
+
+        salesforceAPI.resetAllProxy();
+        INode node = getSalesforceNode();
+
+        List list = new ArrayList();
+
+        IElementParameter modulesNameParam = node.getElementParameter("MODULENAME"); //$NON-NLS-1$
+        Object[] modulename = modulesNameParam.getListItemsValue();
+        if (modulename != null && modulename.length > 1) {
+            for (int i = 0; i < modulename.length - 1; i++) {
+                list.add(i, modulename[i]);
+            }
+        }
+        if (types != null && types.length > 0) {
+            for (int j = 0; j < types.length; j++) {
+                if (!list.contains(types[j])) {
+                    list.add(types[j]);
+                }
+            }
+        }
+        if (dgsrs != null && dgsrs.length > 0) {
+            for (DescribeGlobalSObjectResult dsResult : dgsrs) {
+                String name = dsResult.getName();
+                if (!list.contains(name)) {
+                    list.add(name);
+                }
+            }
+
+        }
+        // createAllItems(false, list);
+        return list;
 
     }
 
