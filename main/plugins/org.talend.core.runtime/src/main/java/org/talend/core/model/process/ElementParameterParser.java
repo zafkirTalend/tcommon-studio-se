@@ -114,7 +114,6 @@ public final class ElementParameterParser {
     }
 
     public static List<Map<String, String>> getTableElementParameterValue(IElementParameter parameter) {
-        ((IElementParameter) parameter.getListItemsValue()[0]).isRaw();
         if (parameter.getFieldType() == EParameterFieldType.TABLE) {
             return createTableValues((List<Map<String, Object>>) parameter.getValue(), parameter);
         }
