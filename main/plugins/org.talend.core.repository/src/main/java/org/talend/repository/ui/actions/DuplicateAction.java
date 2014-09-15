@@ -162,6 +162,7 @@ public class DuplicateAction extends AContextualAction {
                             canWork = false;
                         }
                     }
+
                 }
             }
         } else {

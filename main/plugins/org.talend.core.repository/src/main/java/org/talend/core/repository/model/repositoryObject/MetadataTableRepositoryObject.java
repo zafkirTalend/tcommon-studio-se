@@ -104,7 +104,12 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
         if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
-            funUnit.getTables().remove(table);
+            String tableType = table.getTableType();
+            if ("Input".endsWith(tableType)) {//$NON-NLS-1$
+                funUnit.getInputTables().remove(table);
+            } else {
+                funUnit.getTables().remove(table);
+            }
             return;
         }
         if (table.eContainer() instanceof SalesforceModuleUnit) {
@@ -182,6 +187,12 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                     // MOD qiongli 2012-1-13 TDQ-4269.
                     if (repObj == null || table.getLabel() == null || repObj.getLabel() == null
                             || !table.getLabel().equals(repObj.getLabel())) {
+                        continue;
+                    }
+                    if (repObj.getTableType() != null && !repObj.getTableType().equals(table.getTableType())) {
+                        continue;
+                    }
+                    if (table.getTableType() != null && !table.getTableType().equals(repObj.getTableType())) {
                         continue;
                     }
                     // if table name is same,should compare its parent name for TdTable

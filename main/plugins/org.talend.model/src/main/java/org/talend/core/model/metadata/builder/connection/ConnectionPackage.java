@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionPackage.java 107751 2013-09-10 06:08:00Z zwzhao $
  */
 package org.talend.core.model.metadata.builder.connection;
 
@@ -5598,13 +5598,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_CONNECTION__JCO_VERSION = CONNECTION_FEATURE_COUNT + 9;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION__ADDITIONAL_PROPERTIES = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
      * The number of structural features of the '<em>SAP Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 10;
+    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
@@ -5880,7 +5889,7 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT__METADATA_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -5898,13 +5907,40 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
 
     /**
+     * The feature id for the '<em><b>Input Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__INPUT_TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 7;
+
+    /**
      * The feature id for the '<em><b>Test Input Parameter Table</b></em>' containment reference.
      * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 7;
+    int SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Param Data</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__PARAM_DATA = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>As Xml Schema</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__AS_XML_SCHEMA = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
 
     /**
      * The number of structural features of the '<em>SAP Function Unit</em>' class.
@@ -5913,7 +5949,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
+    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
@@ -17858,13 +17894,1215 @@ public interface ConnectionPackage extends EPackage {
     int ADDITIONAL_PROPERTIES_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl <em>SAP Table Field</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTableField()
+     * @generated
+     */
+    int SAP_TABLE_FIELD = 52;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl <em>SAP Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTable()
+     * @generated
+     */
+    int SAP_TABLE = 51;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__NAME = METADATA_TABLE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__VISIBILITY = METADATA_TABLE__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CLIENT_DEPENDENCY = METADATA_TABLE__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SUPPLIER_DEPENDENCY = METADATA_TABLE__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CONSTRAINT = METADATA_TABLE__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__NAMESPACE = METADATA_TABLE__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__IMPORTER = METADATA_TABLE__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__STEREOTYPE = METADATA_TABLE__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__TAGGED_VALUE = METADATA_TABLE__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DOCUMENT = METADATA_TABLE__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DESCRIPTION = METADATA_TABLE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__RESPONSIBLE_PARTY = METADATA_TABLE__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ELEMENT_NODE = METADATA_TABLE__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SET = METADATA_TABLE__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__RENDERED_OBJECT = METADATA_TABLE__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__VOCABULARY_ELEMENT = METADATA_TABLE__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MEASUREMENT = METADATA_TABLE__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CHANGE_REQUEST = METADATA_TABLE__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DASDL_PROPERTY = METADATA_TABLE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__PROPERTIES = METADATA_TABLE__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ID = METADATA_TABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__COMMENT = METADATA_TABLE__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__LABEL = METADATA_TABLE__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__READ_ONLY = METADATA_TABLE__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SYNCHRONISED = METADATA_TABLE__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DIVERGENCY = METADATA_TABLE__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__OWNED_ELEMENT = METADATA_TABLE__OWNED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__IS_ABSTRACT = METADATA_TABLE__IS_ABSTRACT;
+
+    /**
+     * The feature id for the '<em><b>Feature</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__FEATURE = METADATA_TABLE__FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__STRUCTURAL_FEATURE = METADATA_TABLE__STRUCTURAL_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Parameter</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__PARAMETER = METADATA_TABLE__PARAMETER;
+
+    /**
+     * The feature id for the '<em><b>Generalization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__GENERALIZATION = METADATA_TABLE__GENERALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Specialization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SPECIALIZATION = METADATA_TABLE__SPECIALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Instance</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__INSTANCE = METADATA_TABLE__INSTANCE;
+
+    /**
+     * The feature id for the '<em><b>Alias</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ALIAS = METADATA_TABLE__ALIAS;
+
+    /**
+     * The feature id for the '<em><b>Expression Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__EXPRESSION_NODE = METADATA_TABLE__EXPRESSION_NODE;
+
+    /**
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MAPPING_FROM = METADATA_TABLE__MAPPING_FROM;
+
+    /**
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__MAPPING_TO = METADATA_TABLE__MAPPING_TO;
+
+    /**
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CLASSIFIER_MAP = METADATA_TABLE__CLASSIFIER_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CF_MAP = METADATA_TABLE__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Domain</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__DOMAIN = METADATA_TABLE__DOMAIN;
+
+    /**
+     * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SIMPLE_DIMENSION = METADATA_TABLE__SIMPLE_DIMENSION;
+
+    /**
+     * The feature id for the '<em><b>Index</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__INDEX = METADATA_TABLE__INDEX;
+
+    /**
+     * The feature id for the '<em><b>Source Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__SOURCE_NAME = METADATA_TABLE__SOURCE_NAME;
+
+    /**
+     * The feature id for the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__TABLE_TYPE = METADATA_TABLE__TABLE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ATTACHED_CDC = METADATA_TABLE__ATTACHED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ACTIVATED_CDC = METADATA_TABLE__ACTIVATED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Columns</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__COLUMNS = METADATA_TABLE__COLUMNS;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__CONNECTION = METADATA_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__ADDITIONAL_PROPERTIES = METADATA_TABLE__ADDITIONAL_PROPERTIES;
+
+    /**
+     * The number of structural features of the '<em>SAP Table</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NAME = METADATA_COLUMN__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__VISIBILITY = METADATA_COLUMN__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CLIENT_DEPENDENCY = METADATA_COLUMN__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SUPPLIER_DEPENDENCY = METADATA_COLUMN__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CONSTRAINT = METADATA_COLUMN__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NAMESPACE = METADATA_COLUMN__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__IMPORTER = METADATA_COLUMN__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__STEREOTYPE = METADATA_COLUMN__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TAGGED_VALUE = METADATA_COLUMN__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DOCUMENT = METADATA_COLUMN__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DESCRIPTION = METADATA_COLUMN__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RESPONSIBLE_PARTY = METADATA_COLUMN__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ELEMENT_NODE = METADATA_COLUMN__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SET = METADATA_COLUMN__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RENDERED_OBJECT = METADATA_COLUMN__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__VOCABULARY_ELEMENT = METADATA_COLUMN__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__MEASUREMENT = METADATA_COLUMN__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CHANGE_REQUEST = METADATA_COLUMN__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DASDL_PROPERTY = METADATA_COLUMN__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PROPERTIES = METADATA_COLUMN__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ID = METADATA_COLUMN__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__COMMENT = METADATA_COLUMN__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__LABEL = METADATA_COLUMN__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__READ_ONLY = METADATA_COLUMN__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SYNCHRONISED = METADATA_COLUMN__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DIVERGENCY = METADATA_COLUMN__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__OWNER_SCOPE = METADATA_COLUMN__OWNER_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Owner</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__OWNER = METADATA_COLUMN__OWNER;
+
+    /**
+     * The feature id for the '<em><b>Feature Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__FEATURE_NODE = METADATA_COLUMN__FEATURE_NODE;
+
+    /**
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__FEATURE_MAP = METADATA_COLUMN__FEATURE_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CF_MAP = METADATA_COLUMN__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Changeability</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__CHANGEABILITY = METADATA_COLUMN__CHANGEABILITY;
+
+    /**
+     * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__MULTIPLICITY = METADATA_COLUMN__MULTIPLICITY;
+
+    /**
+     * The feature id for the '<em><b>Ordering</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORDERING = METADATA_COLUMN__ORDERING;
+
+    /**
+     * The feature id for the '<em><b>Target Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TARGET_SCOPE = METADATA_COLUMN__TARGET_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TYPE = METADATA_COLUMN__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Slot</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SLOT = METADATA_COLUMN__SLOT;
+
+    /**
+     * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DISCRIMINATED_UNION = METADATA_COLUMN__DISCRIMINATED_UNION;
+
+    /**
+     * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__INDEXED_FEATURE = METADATA_COLUMN__INDEXED_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__KEY_RELATIONSHIP = METADATA_COLUMN__KEY_RELATIONSHIP;
+
+    /**
+     * The feature id for the '<em><b>Unique Key</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__UNIQUE_KEY = METADATA_COLUMN__UNIQUE_KEY;
+
+    /**
+     * The feature id for the '<em><b>Data Item</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DATA_ITEM = METADATA_COLUMN__DATA_ITEM;
+
+    /**
+     * The feature id for the '<em><b>Remap</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__REMAP = METADATA_COLUMN__REMAP;
+
+    /**
+     * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__INITIAL_VALUE = METADATA_COLUMN__INITIAL_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__LENGTH = METADATA_COLUMN__LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Precision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PRECISION = METADATA_COLUMN__PRECISION;
+
+    /**
+     * The feature id for the '<em><b>Scale</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SCALE = METADATA_COLUMN__SCALE;
+
+    /**
+     * The feature id for the '<em><b>Source Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__SOURCE_TYPE = METADATA_COLUMN__SOURCE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DEFAULT_VALUE = METADATA_COLUMN__DEFAULT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Talend Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TALEND_TYPE = METADATA_COLUMN__TALEND_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__KEY = METADATA_COLUMN__KEY;
+
+    /**
+     * The feature id for the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__NULLABLE = METADATA_COLUMN__NULLABLE;
+
+    /**
+     * The feature id for the '<em><b>Table</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__TABLE = METADATA_COLUMN__TABLE;
+
+    /**
+     * The feature id for the '<em><b>Original Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORIGINAL_FIELD = METADATA_COLUMN__ORIGINAL_FIELD;
+
+    /**
+     * The feature id for the '<em><b>Pattern</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__PATTERN = METADATA_COLUMN__PATTERN;
+
+    /**
+     * The feature id for the '<em><b>Display Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__DISPLAY_FIELD = METADATA_COLUMN__DISPLAY_FIELD;
+
+    /**
+     * The feature id for the '<em><b>Original Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__ORIGINAL_LENGTH = METADATA_COLUMN__ORIGINAL_LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Related Entity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RELATED_ENTITY = METADATA_COLUMN__RELATED_ENTITY;
+
+    /**
+     * The feature id for the '<em><b>Relationship Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__RELATIONSHIP_TYPE = METADATA_COLUMN__RELATIONSHIP_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Business Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__BUSINESS_NAME = METADATA_COLUMN_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Ref Table</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD__REF_TABLE = METADATA_COLUMN_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>SAP Table Field</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE_FIELD_FEATURE_COUNT = METADATA_COLUMN_FEATURE_COUNT + 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl <em>SAP Function Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameter()
+     * @generated
+     */
+    int SAP_FUNCTION_PARAMETER = 53;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__TYPE = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__LENGTH = 3;
+
+    /**
+     * The feature id for the '<em><b>Changing</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__CHANGING = 4;
+
+    /**
+     * The feature id for the '<em><b>Test Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__TEST_VALUE = 5;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__PARENT = 6;
+
+    /**
+     * The feature id for the '<em><b>Children</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__CHILDREN = 7;
+
+    /**
+     * The number of structural features of the '<em>SAP Function Parameter</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER_FEATURE_COUNT = 8;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl <em>SAP Function Param Data</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParamData()
+     * @generated
+     */
+    int SAP_FUNCTION_PARAM_DATA = 54;
+
+    /**
+     * The feature id for the '<em><b>Input Root</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAM_DATA__INPUT_ROOT = 0;
+
+    /**
+     * The feature id for the '<em><b>Output Root</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAM_DATA__OUTPUT_ROOT = 1;
+
+    /**
+     * The number of structural features of the '<em>SAP Function Param Data</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAM_DATA_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.AdditionalConnectionPropertyImpl <em>Additional Connection Property</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.AdditionalConnectionPropertyImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAdditionalConnectionProperty()
+     * @generated
+     */
+    int ADDITIONAL_CONNECTION_PROPERTY = 55;
+
+    /**
+     * The feature id for the '<em><b>Property Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_CONNECTION_PROPERTY__PROPERTY_NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_CONNECTION_PROPERTY__VALUE = 1;
+
+    /**
+     * The number of structural features of the '<em>Additional Connection Property</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADDITIONAL_CONNECTION_PROPERTY_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 51;
+    int FILE_FORMAT = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -17873,7 +19111,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 52;
+    int FIELD_SEPARATOR = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -17882,7 +19120,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 53;
+    int ESCAPE = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -17891,7 +19129,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 54;
+    int ROW_SEPARATOR = 59;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -17900,7 +19138,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 55;
+    int MDM_CONNECTION_PROTOCOL = 60;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MdmConceptType <em>Mdm Concept Type</em>}' enum.
@@ -17910,7 +19148,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMdmConceptType()
      * @generated
      */
-    int MDM_CONCEPT_TYPE = 56;
+    int MDM_CONCEPT_TYPE = 61;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RuleType <em>Rule Type</em>}' enum.
@@ -17920,7 +19158,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRuleType()
      * @generated
      */
-    int RULE_TYPE = 57;
+    int RULE_TYPE = 62;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Function <em>Function</em>}' enum.
@@ -17930,7 +19168,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFunction()
      * @generated
      */
-    int FUNCTION = 58;
+    int FUNCTION = 63;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Operator <em>Operator</em>}' enum.
@@ -17940,7 +19178,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOperator()
      * @generated
      */
-    int OPERATOR = 59;
+    int OPERATOR = 64;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -17950,7 +19188,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLogicalOperator()
      * @generated
      */
-    int LOGICAL_OPERATOR = 60;
+    int LOGICAL_OPERATOR = 65;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -17959,7 +19197,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 61;
+    int MAP = 66;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -17968,7 +19206,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 62;
+    int LIST = 67;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -19234,6 +20472,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_JcoVersion();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getAdditionalProperties <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Additional Properties</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getAdditionalProperties()
+     * @see #getSAPConnection()
+     * @generated
+     */
+    EReference getSAPConnection_AdditionalProperties();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit <em>SAP Function Unit</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Function Unit</em>'.
@@ -19293,9 +20542,9 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPFunctionUnit_MetadataTable();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}'.
+     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @return the meta object for the reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection()
      * @see #getSAPFunctionUnit()
      * @generated
@@ -19315,6 +20564,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPFunctionUnit_Tables();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputTables <em>Input Tables</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Input Tables</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputTables()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EReference getSAPFunctionUnit_InputTables();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Test Input Parameter Table</em>'.
@@ -19323,6 +20583,28 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getSAPFunctionUnit_TestInputParameterTable();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getParamData <em>Param Data</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Param Data</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getParamData()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EReference getSAPFunctionUnit_ParamData();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#isAsXmlSchema <em>As Xml Schema</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>As Xml Schema</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#isAsXmlSchema()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EAttribute getSAPFunctionUnit_AsXmlSchema();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit <em>SAPI Doc Unit</em>}'.
@@ -22019,6 +23301,210 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getAdditionalProperties_Value();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTableField <em>SAP Table Field</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Table Field</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTableField
+     * @generated
+     */
+    EClass getSAPTableField();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getBusinessName <em>Business Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Business Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTableField#getBusinessName()
+     * @see #getSAPTableField()
+     * @generated
+     */
+    EAttribute getSAPTableField_BusinessName();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.SAPTableField#getRefTable <em>Ref Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Ref Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTableField#getRefTable()
+     * @see #getSAPTableField()
+     * @generated
+     */
+    EAttribute getSAPTableField_RefTable();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter <em>SAP Function Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Function Parameter</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter
+     * @generated
+     */
+    EClass getSAPFunctionParameter();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getName()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getType()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getDescription()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getLength <em>Length</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Length</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getLength()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_Length();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isChanging <em>Changing</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Changing</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isChanging()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_Changing();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getTestValue <em>Test Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Test Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getTestValue()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_TestValue();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent <em>Parent</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Parent</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EReference getSAPFunctionParameter_Parent();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getChildren <em>Children</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Children</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getChildren()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EReference getSAPFunctionParameter_Children();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParamData <em>SAP Function Param Data</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Function Param Data</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParamData
+     * @generated
+     */
+    EClass getSAPFunctionParamData();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParamData#getInputRoot <em>Input Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Input Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParamData#getInputRoot()
+     * @see #getSAPFunctionParamData()
+     * @generated
+     */
+    EReference getSAPFunctionParamData_InputRoot();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParamData#getOutputRoot <em>Output Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Output Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParamData#getOutputRoot()
+     * @see #getSAPFunctionParamData()
+     * @generated
+     */
+    EReference getSAPFunctionParamData_OutputRoot();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty <em>Additional Connection Property</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Additional Connection Property</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty
+     * @generated
+     */
+    EClass getAdditionalConnectionProperty();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty#getPropertyName <em>Property Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Property Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty#getPropertyName()
+     * @see #getAdditionalConnectionProperty()
+     * @generated
+     */
+    EAttribute getAdditionalConnectionProperty_PropertyName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty#getValue()
+     * @see #getAdditionalConnectionProperty()
+     * @generated
+     */
+    EAttribute getAdditionalConnectionProperty_Value();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTable <em>SAP Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTable
+     * @generated
+     */
+    EClass getSAPTable();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -23291,6 +24777,14 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SAP_CONNECTION__JCO_VERSION = eINSTANCE.getSAPConnection_JcoVersion();
 
         /**
+         * The meta object literal for the '<em><b>Additional Properties</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_CONNECTION__ADDITIONAL_PROPERTIES = eINSTANCE.getSAPConnection_AdditionalProperties();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl
@@ -23340,7 +24834,7 @@ public interface ConnectionPackage extends EPackage {
         EReference SAP_FUNCTION_UNIT__METADATA_TABLE = eINSTANCE.getSAPFunctionUnit_MetadataTable();
 
         /**
-         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
          * <!-- begin-user-doc
          * --> <!-- end-user-doc -->
          * @generated
@@ -23356,11 +24850,35 @@ public interface ConnectionPackage extends EPackage {
         EReference SAP_FUNCTION_UNIT__TABLES = eINSTANCE.getSAPFunctionUnit_Tables();
 
         /**
+         * The meta object literal for the '<em><b>Input Tables</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_UNIT__INPUT_TABLES = eINSTANCE.getSAPFunctionUnit_InputTables();
+
+        /**
          * The meta object literal for the '<em><b>Test Input Parameter Table</b></em>' containment reference feature.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_TestInputParameterTable();
+
+        /**
+         * The meta object literal for the '<em><b>Param Data</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_UNIT__PARAM_DATA = eINSTANCE.getSAPFunctionUnit_ParamData();
+
+        /**
+         * The meta object literal for the '<em><b>As Xml Schema</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_UNIT__AS_XML_SCHEMA = eINSTANCE.getSAPFunctionUnit_AsXmlSchema();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
@@ -25450,6 +26968,168 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute ADDITIONAL_PROPERTIES__VALUE = eINSTANCE.getAdditionalProperties_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl <em>SAP Table Field</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableFieldImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTableField()
+         * @generated
+         */
+        EClass SAP_TABLE_FIELD = eINSTANCE.getSAPTableField();
+
+        /**
+         * The meta object literal for the '<em><b>Business Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_TABLE_FIELD__BUSINESS_NAME = eINSTANCE.getSAPTableField_BusinessName();
+
+        /**
+         * The meta object literal for the '<em><b>Ref Table</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_TABLE_FIELD__REF_TABLE = eINSTANCE.getSAPTableField_RefTable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl <em>SAP Function Parameter</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameter()
+         * @generated
+         */
+        EClass SAP_FUNCTION_PARAMETER = eINSTANCE.getSAPFunctionParameter();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__NAME = eINSTANCE.getSAPFunctionParameter_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__TYPE = eINSTANCE.getSAPFunctionParameter_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__DESCRIPTION = eINSTANCE.getSAPFunctionParameter_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__LENGTH = eINSTANCE.getSAPFunctionParameter_Length();
+
+        /**
+         * The meta object literal for the '<em><b>Changing</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__CHANGING = eINSTANCE.getSAPFunctionParameter_Changing();
+
+        /**
+         * The meta object literal for the '<em><b>Test Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__TEST_VALUE = eINSTANCE.getSAPFunctionParameter_TestValue();
+
+        /**
+         * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_PARAMETER__PARENT = eINSTANCE.getSAPFunctionParameter_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_PARAMETER__CHILDREN = eINSTANCE.getSAPFunctionParameter_Children();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl <em>SAP Function Param Data</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParamData()
+         * @generated
+         */
+        EClass SAP_FUNCTION_PARAM_DATA = eINSTANCE.getSAPFunctionParamData();
+
+        /**
+         * The meta object literal for the '<em><b>Input Root</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_PARAM_DATA__INPUT_ROOT = eINSTANCE.getSAPFunctionParamData_InputRoot();
+
+        /**
+         * The meta object literal for the '<em><b>Output Root</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_PARAM_DATA__OUTPUT_ROOT = eINSTANCE.getSAPFunctionParamData_OutputRoot();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AdditionalConnectionPropertyImpl <em>Additional Connection Property</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.AdditionalConnectionPropertyImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAdditionalConnectionProperty()
+         * @generated
+         */
+        EClass ADDITIONAL_CONNECTION_PROPERTY = eINSTANCE.getAdditionalConnectionProperty();
+
+        /**
+         * The meta object literal for the '<em><b>Property Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_CONNECTION_PROPERTY__PROPERTY_NAME = eINSTANCE.getAdditionalConnectionProperty_PropertyName();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ADDITIONAL_CONNECTION_PROPERTY__VALUE = eINSTANCE.getAdditionalConnectionProperty_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl <em>SAP Table</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTable()
+         * @generated
+         */
+        EClass SAP_TABLE = eINSTANCE.getSAPTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

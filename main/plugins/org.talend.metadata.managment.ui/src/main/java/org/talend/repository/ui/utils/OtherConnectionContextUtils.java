@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
@@ -118,6 +119,10 @@ public final class OtherConnectionContextUtils {
         // DATACERT CONNECTION
         URL,
         Directory,
+        // for sap
+        Client,
+        SystemNumber,
+        Language,
     }
 
     /*
@@ -556,6 +561,102 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
 
         return varList;
+    }
+
+    static List<IContextParameter> getSAPConnectionVariables(String prefixName, SAPConnection conn) {
+        if (conn == null || prefixName == null) {
+            return Collections.emptyList();
+        }
+        List<IContextParameter> varList = new ArrayList<IContextParameter>();
+        prefixName = prefixName + ConnectionContextHelper.LINE;
+        String paramName = null;
+
+        paramName = prefixName + EParamName.Client;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getClient());
+
+        paramName = prefixName + EParamName.Host;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getHost());
+
+        paramName = prefixName + EParamName.UserName;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
+
+        paramName = prefixName + EParamName.Password;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
+
+        paramName = prefixName + EParamName.SystemNumber;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getSystemNumber());
+
+        paramName = prefixName + EParamName.Language;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getLanguage());
+
+        return varList;
+    }
+
+    static void setSAPConnectionProperties(String prefixName, SAPConnection conn) {
+        if (conn == null || prefixName == null) {
+        }
+        String originalVariableName = prefixName + ConnectionContextHelper.LINE;
+        String paramName = null;
+        paramName = originalVariableName + EParamName.Client;
+        conn.setClient(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Host;
+        conn.setHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.UserName;
+        conn.setUsername(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Password;
+        conn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.SystemNumber;
+        conn.setSystemNumber(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Language;
+        conn.setLanguage(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+    }
+
+    static void revertSAPPropertiesForContextMode(SAPConnection conn, ContextType contextType) {
+        String client = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getClient()));
+        String host = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getHost()));
+        String userName = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername()));
+        String passWord = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getPassword()));
+        String systemNumber = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
+                conn.getSystemNumber()));
+        String language = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getLanguage()));
+        conn.setClient(client);
+        conn.setHost(host);
+        conn.setUsername(userName);
+        conn.setPassword(passWord);
+        conn.setSystemNumber(systemNumber);
+        conn.setLanguage(language);
+    }
+
+    public static SAPConnection cloneOriginalValueSAPConnection(SAPConnection fileConn, ContextType contextType) {
+        if (fileConn == null) {
+            return null;
+        }
+
+        SAPConnection cloneConn = ConnectionFactory.eINSTANCE.createSAPConnection();
+
+        String client = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getClient());
+        String host = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getHost());
+        String user = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getUsername());
+        String pass = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getPassword());
+        String sysNumber = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getSystemNumber());
+        String language = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getLanguage());
+        cloneConn.setClient(client);
+        cloneConn.setHost(host);
+        cloneConn.setUsername(user);
+        cloneConn.setPassword(pass);
+        cloneConn.setSystemNumber(sysNumber);
+        cloneConn.setLanguage(language);
+        ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
+
+        return cloneConn;
     }
 
     static void setSalesforcePropertiesForContextMode(String prefixName, SalesforceSchemaConnection ssConn,
@@ -1270,6 +1371,16 @@ public final class OtherConnectionContextUtils {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                     connectionItem.getConnection().getContextName(), defaultContext);
             return (XmlFileConnection) OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
+        }
+        return connection;
+
+    }
+
+    public static SAPConnection getOriginalValueConnection(SAPConnection connection, String contextString, boolean defaultContext) {
+        if (connection.isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection, contextString,
+                    defaultContext);
+            return (SAPConnection) OtherConnectionContextUtils.cloneOriginalValueSAPConnection(connection, contextType);
         }
         return connection;
 

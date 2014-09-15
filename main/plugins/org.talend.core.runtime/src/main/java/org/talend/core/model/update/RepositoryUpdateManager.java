@@ -1313,11 +1313,11 @@ public abstract class RepositoryUpdateManager {
             return Collections.emptyMap();
         }
         Map<String, String> idAndNameMap = new HashMap<String, String>();
-        EList tables = functionUnit.getTables();
-        if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
-                idAndNameMap.put(table.getId(), table.getLabel());
-            }
+        List tablesAll = new ArrayList();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (MetadataTable table : (List<MetadataTable>) tablesAll) {
+            idAndNameMap.put(table.getId(), table.getLabel());
         }
         return idAndNameMap;
     }
@@ -1403,14 +1403,14 @@ public abstract class RepositoryUpdateManager {
         Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
         final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
-        EList tables = functionUnit.getTables();
-        if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
-                String oldName = oldTableMap.get(table.getId());
-                String newName = table.getLabel();
-                if (oldName != null && !oldName.equals(newName)) {
-                    schemaRenamedMap.put(prefix + oldName, prefix + newName);
-                }
+        List tablesAll = new ArrayList();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (MetadataTable table : (List<MetadataTable>) tablesAll) {
+            String oldName = oldTableMap.get(table.getId());
+            String newName = table.getLabel();
+            if (oldName != null && !oldName.equals(newName)) {
+                schemaRenamedMap.put(prefix + oldName, prefix + newName);
             }
         }
         return schemaRenamedMap;
@@ -2027,16 +2027,15 @@ public abstract class RepositoryUpdateManager {
             return Collections.emptyList();
         }
         List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
-
-        EList tables2 = functionUnit.getTables();
-        if (tables2 != null) {
-            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (List<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
-                    IMetadataManagmentService service = (IMetadataManagmentService) GlobalServiceRegister.getDefault()
-                            .getService(IMetadataManagmentService.class);
-                    IMetadataTable conversionTable = service.convertMetadataTable(originalTable);
-                    tables.add(conversionTable);
-                }
+        List<MetadataTable> tablesAll = new ArrayList<MetadataTable>();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : tablesAll) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
+                IMetadataManagmentService service = (IMetadataManagmentService) GlobalServiceRegister.getDefault().getService(
+                        IMetadataManagmentService.class);
+                IMetadataTable conversionTable = service.convertMetadataTable(originalTable);
+                tables.add(conversionTable);
             }
         }
 

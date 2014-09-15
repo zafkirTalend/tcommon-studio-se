@@ -37,35 +37,25 @@ import orgomg.cwm.objectmodel.core.Namespace;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getOwnedElement <em>Owned Element
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getImportedElement <em>Imported
- * Element</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDataManager <em>Data Manager
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getPathname <em>Pathname</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getMachine <em>Machine</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDeployedSoftwareSystem <em>
- * Deployed Software System</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getComponent <em>Component</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isIsCaseSensitive <em>Is Case
- * Sensitive</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getClientConnection <em>Client
- * Connection</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDataPackage <em>Data Package
- * </em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getResourceConnection <em>Resource
- * Connection</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getVersion <em>Version</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getQueries <em>Queries</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isContextMode <em>Context Mode</em>}
- * </li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextId <em>Context Id</em>}</li>
- * <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextName <em>Context Name
- * </em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getOwnedElement <em>Owned Element</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getImportedElement <em>Imported Element</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDataManager <em>Data Manager</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getPathname <em>Pathname</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getMachine <em>Machine</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDeployedSoftwareSystem <em>Deployed Software System</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getComponent <em>Component</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isIsCaseSensitive <em>Is Case Sensitive</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getClientConnection <em>Client Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getDataPackage <em>Data Package</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getResourceConnection <em>Resource Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getQueries <em>Queries</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isContextMode <em>Context Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextId <em>Context Id</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextName <em>Context Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connection {
@@ -91,9 +81,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<ModelElement> importedElement;
 
     /**
-     * The cached value of the '{@link #getDataManager() <em>Data Manager</em>}' reference list. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDataManager() <em>Data Manager</em>}' reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDataManager()
      * @generated
      * @ordered
@@ -101,9 +91,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<DataManager> dataManager;
 
     /**
-     * The default value of the '{@link #getPathname() <em>Pathname</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPathname() <em>Pathname</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPathname()
      * @generated
      * @ordered
@@ -111,9 +101,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final String PATHNAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPathname() <em>Pathname</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPathname() <em>Pathname</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPathname()
      * @generated
      * @ordered
@@ -123,7 +113,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     /**
      * The cached value of the '{@link #getDeployedSoftwareSystem() <em>Deployed Software System</em>}' reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @see #getDeployedSoftwareSystem()
      * @generated
      * @ordered
@@ -131,9 +120,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<DeployedSoftwareSystem> deployedSoftwareSystem;
 
     /**
-     * The cached value of the '{@link #getComponent() <em>Component</em>}' reference. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getComponent()
      * @generated
      * @ordered
@@ -141,9 +130,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected Component component;
 
     /**
-     * The default value of the '{@link #isIsCaseSensitive() <em>Is Case Sensitive</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #isIsCaseSensitive() <em>Is Case Sensitive</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #isIsCaseSensitive()
      * @generated
      * @ordered
@@ -151,9 +140,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final boolean IS_CASE_SENSITIVE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isIsCaseSensitive() <em>Is Case Sensitive</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #isIsCaseSensitive() <em>Is Case Sensitive</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #isIsCaseSensitive()
      * @generated
      * @ordered
@@ -171,9 +160,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<ProviderConnection> clientConnection;
 
     /**
-     * The cached value of the '{@link #getDataPackage() <em>Data Package</em>}' reference list. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDataPackage() <em>Data Package</em>}' reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDataPackage()
      * @generated
      * @ordered
@@ -181,9 +170,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<orgomg.cwm.objectmodel.core.Package> dataPackage;
 
     /**
-     * The cached value of the '{@link #getResourceConnection() <em>Resource Connection</em>}' containment reference
-     * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getResourceConnection() <em>Resource Connection</em>}' containment reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getResourceConnection()
      * @generated
      * @ordered
@@ -191,9 +179,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected EList<ProviderConnection> resourceConnection;
 
     /**
-     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getVersion()
      * @generated
      * @ordered
@@ -201,9 +189,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final String VERSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getVersion()
      * @generated
      * @ordered
@@ -211,9 +199,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected String version = VERSION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getQueries()
      * @generated
      * @ordered
@@ -221,9 +209,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected QueriesConnection queries;
 
     /**
-     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isContextMode()
      * @generated
      * @ordered
@@ -231,9 +219,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final boolean CONTEXT_MODE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isContextMode()
      * @generated
      * @ordered
@@ -241,9 +229,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected boolean contextMode = CONTEXT_MODE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getContextId()
      * @generated
      * @ordered
@@ -251,9 +239,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final String CONTEXT_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getContextId()
      * @generated
      * @ordered
@@ -261,9 +249,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected String contextId = CONTEXT_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextName() <em>Context Name</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getContextName()
      * @generated
      * @ordered
@@ -271,9 +259,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
     protected static final String CONTEXT_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextName() <em>Context Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getContextName()
      * @generated
      * @ordered
@@ -284,7 +272,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ConnectionImpl() {
@@ -293,7 +280,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -303,7 +289,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<ModelElement> getOwnedElement() {
@@ -316,7 +301,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<ModelElement> getImportedElement() {
@@ -329,7 +313,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<DataManager> getDataManager() {
@@ -342,7 +325,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getPathname() {
@@ -351,32 +333,27 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPathname(String newPathname) {
         String oldPathname = pathname;
         pathname = newPathname;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__PATHNAME, oldPathname, pathname));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Machine getMachine() {
-        if (eContainerFeatureID() != ConnectionPackage.CONNECTION__MACHINE) {
+        if (eContainerFeatureID() != ConnectionPackage.CONNECTION__MACHINE)
             return null;
-        }
-        return (Machine) eContainer();
+        return (Machine) eInternalContainer();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetMachine(Machine newMachine, NotificationChain msgs) {
@@ -386,35 +363,28 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setMachine(Machine newMachine) {
         if (newMachine != eInternalContainer()
                 || (eContainerFeatureID() != ConnectionPackage.CONNECTION__MACHINE && newMachine != null)) {
-            if (EcoreUtil.isAncestor(this, newMachine)) {
+            if (EcoreUtil.isAncestor(this, newMachine))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-            }
             NotificationChain msgs = null;
-            if (eInternalContainer() != null) {
+            if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
-            }
-            if (newMachine != null) {
+            if (newMachine != null)
                 msgs = ((InternalEObject) newMachine).eInverseAdd(this, SoftwaredeploymentPackage.MACHINE__DEPLOYED_COMPONENT,
                         Machine.class, msgs);
-            }
             msgs = basicSetMachine(newMachine, msgs);
-            if (msgs != null) {
+            if (msgs != null)
                 msgs.dispatch();
-            }
-        } else if (eNotificationRequired()) {
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__MACHINE, newMachine, newMachine));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<DeployedSoftwareSystem> getDeployedSoftwareSystem() {
@@ -428,7 +398,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Component getComponent() {
@@ -436,10 +405,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             InternalEObject oldComponent = (InternalEObject) component;
             component = (Component) eResolveProxy(oldComponent);
             if (component != oldComponent) {
-                if (eNotificationRequired()) {
+                if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.CONNECTION__COMPONENT,
                             oldComponent, component));
-                }
             }
         }
         return component;
@@ -447,7 +415,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Component basicGetComponent() {
@@ -456,7 +423,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
@@ -465,44 +431,37 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
                     ConnectionPackage.CONNECTION__COMPONENT, oldComponent, newComponent);
-            if (msgs == null) {
+            if (msgs == null)
                 msgs = notification;
-            } else {
+            else
                 msgs.add(notification);
-            }
         }
         return msgs;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setComponent(Component newComponent) {
         if (newComponent != component) {
             NotificationChain msgs = null;
-            if (component != null) {
+            if (component != null)
                 msgs = ((InternalEObject) component).eInverseRemove(this, SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT,
                         Component.class, msgs);
-            }
-            if (newComponent != null) {
+            if (newComponent != null)
                 msgs = ((InternalEObject) newComponent).eInverseAdd(this, SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT,
                         Component.class, msgs);
-            }
             msgs = basicSetComponent(newComponent, msgs);
-            if (msgs != null) {
+            if (msgs != null)
                 msgs.dispatch();
-            }
-        } else if (eNotificationRequired()) {
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__COMPONENT, newComponent,
                     newComponent));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isIsCaseSensitive() {
@@ -511,21 +470,18 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setIsCaseSensitive(boolean newIsCaseSensitive) {
         boolean oldIsCaseSensitive = isCaseSensitive;
         isCaseSensitive = newIsCaseSensitive;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__IS_CASE_SENSITIVE,
                     oldIsCaseSensitive, isCaseSensitive));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<ProviderConnection> getClientConnection() {
@@ -538,7 +494,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<orgomg.cwm.objectmodel.core.Package> getDataPackage() {
@@ -552,7 +507,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<ProviderConnection> getResourceConnection() {
@@ -566,7 +520,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getVersion() {
@@ -585,20 +538,17 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setVersion(String newVersion) {
         String oldVersion = version;
         version = newVersion;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__VERSION, oldVersion, version));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public QueriesConnection getQueries() {
@@ -613,13 +563,11 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                     msgs = newQueries.eInverseAdd(this, ConnectionPackage.QUERIES_CONNECTION__CONNECTION,
                             QueriesConnection.class, msgs);
                 }
-                if (msgs != null) {
+                if (msgs != null)
                     msgs.dispatch();
-                }
-                if (eNotificationRequired()) {
+                if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.CONNECTION__QUERIES, oldQueries,
                             queries));
-                }
             }
         }
         return queries;
@@ -627,7 +575,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public QueriesConnection basicGetQueries() {
@@ -636,7 +583,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetQueries(QueriesConnection newQueries, NotificationChain msgs) {
@@ -645,43 +591,36 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__QUERIES,
                     oldQueries, newQueries);
-            if (msgs == null) {
+            if (msgs == null)
                 msgs = notification;
-            } else {
+            else
                 msgs.add(notification);
-            }
         }
         return msgs;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setQueries(QueriesConnection newQueries) {
         if (newQueries != queries) {
             NotificationChain msgs = null;
-            if (queries != null) {
+            if (queries != null)
                 msgs = ((InternalEObject) queries).eInverseRemove(this, ConnectionPackage.QUERIES_CONNECTION__CONNECTION,
                         QueriesConnection.class, msgs);
-            }
-            if (newQueries != null) {
+            if (newQueries != null)
                 msgs = ((InternalEObject) newQueries).eInverseAdd(this, ConnectionPackage.QUERIES_CONNECTION__CONNECTION,
                         QueriesConnection.class, msgs);
-            }
             msgs = basicSetQueries(newQueries, msgs);
-            if (msgs != null) {
+            if (msgs != null)
                 msgs.dispatch();
-            }
-        } else if (eNotificationRequired()) {
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__QUERIES, newQueries, newQueries));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isContextMode() {
@@ -690,21 +629,18 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setContextMode(boolean newContextMode) {
         boolean oldContextMode = contextMode;
         contextMode = newContextMode;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_MODE, oldContextMode,
                     contextMode));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getContextId() {
@@ -713,21 +649,18 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setContextId(String newContextId) {
         String oldContextId = contextId;
         contextId = newContextId;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_ID, oldContextId,
                     contextId));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getContextName() {
@@ -736,16 +669,14 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setContextName(String newContextName) {
         String oldContextName = contextName;
         contextName = newContextName;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_NAME, oldContextName,
                     contextName));
-        }
     }
 
     /**
@@ -759,7 +690,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -773,17 +703,15 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__DATA_MANAGER:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getDataManager()).basicAdd(otherEnd, msgs);
         case ConnectionPackage.CONNECTION__MACHINE:
-            if (eInternalContainer() != null) {
+            if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
-            }
             return basicSetMachine((Machine) otherEnd, msgs);
         case ConnectionPackage.CONNECTION__DEPLOYED_SOFTWARE_SYSTEM:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getDeployedSoftwareSystem()).basicAdd(otherEnd, msgs);
         case ConnectionPackage.CONNECTION__COMPONENT:
-            if (component != null) {
+            if (component != null)
                 msgs = ((InternalEObject) component).eInverseRemove(this, SoftwaredeploymentPackage.COMPONENT__DEPLOYMENT,
                         Component.class, msgs);
-            }
             return basicSetComponent((Component) otherEnd, msgs);
         case ConnectionPackage.CONNECTION__CLIENT_CONNECTION:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getClientConnection()).basicAdd(otherEnd, msgs);
@@ -792,10 +720,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__RESOURCE_CONNECTION:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getResourceConnection()).basicAdd(otherEnd, msgs);
         case ConnectionPackage.CONNECTION__QUERIES:
-            if (queries != null) {
+            if (queries != null)
                 msgs = ((InternalEObject) queries).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
                         - ConnectionPackage.CONNECTION__QUERIES, null, msgs);
-            }
             return basicSetQueries((QueriesConnection) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -803,7 +730,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -835,7 +761,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -850,7 +775,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -869,9 +793,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__DEPLOYED_SOFTWARE_SYSTEM:
             return getDeployedSoftwareSystem();
         case ConnectionPackage.CONNECTION__COMPONENT:
-            if (resolve) {
+            if (resolve)
                 return getComponent();
-            }
             return basicGetComponent();
         case ConnectionPackage.CONNECTION__IS_CASE_SENSITIVE:
             return isIsCaseSensitive();
@@ -884,9 +807,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         case ConnectionPackage.CONNECTION__VERSION:
             return getVersion();
         case ConnectionPackage.CONNECTION__QUERIES:
-            if (resolve) {
+            if (resolve)
                 return getQueries();
-            }
             return basicGetQueries();
         case ConnectionPackage.CONNECTION__CONTEXT_MODE:
             return isContextMode();
@@ -900,7 +822,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -968,7 +889,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1028,7 +948,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1072,7 +991,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1134,7 +1052,6 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -1196,14 +1113,12 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) {
+        if (eIsProxy())
             return super.toString();
-        }
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (pathname: ");

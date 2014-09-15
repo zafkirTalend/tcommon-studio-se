@@ -70,7 +70,7 @@ public abstract class CoMetadataNodeTester extends AbstractNodeTester {
 
     protected abstract ERepositoryObjectType findType(String property);
 
-    private boolean checkImplicatedTeser(SubNodeTester subTester, RepositoryNode repositoryNode,
+    protected boolean checkImplicatedTeser(SubNodeTester subTester, RepositoryNode repositoryNode,
             ERepositoryObjectType testerType, ERepositoryObjectType propertyType) {
         return subTester.isTypeNode(repositoryNode, testerType) && (subTester.findParentItemType(repositoryNode) == propertyType);
     }

@@ -31,8 +31,7 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
      */
     public static XmlFactory init() {
         try {
-            XmlFactory theXmlFactory = (XmlFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/cwm/resource/xml/2010");
+            XmlFactory theXmlFactory = (XmlFactory) EPackage.Registry.INSTANCE.getEFactory(XmlPackage.eNS_URI);
             if (theXmlFactory != null) {
                 return theXmlFactory;
             }

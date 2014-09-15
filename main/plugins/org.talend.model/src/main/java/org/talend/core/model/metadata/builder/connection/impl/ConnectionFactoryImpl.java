@@ -1,7 +1,7 @@
 /**
  * <copyright> </copyright>
  * 
- * $Id$
+ * $Id: ConnectionFactoryImpl.java 89342 2012-08-20 03:46:34Z ycbai $
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
@@ -83,7 +83,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public static ConnectionFactory init() {
         try {
             ConnectionFactory theConnectionFactory = (ConnectionFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/metadata/connection/2010");
+                    .getEFactory(ConnectionPackage.eNS_URI);
             if (theConnectionFactory != null) {
                 return theConnectionFactory;
             }
@@ -207,6 +207,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createSalesforceModuleUnit();
         case ConnectionPackage.ADDITIONAL_PROPERTIES:
             return (EObject) createAdditionalProperties();
+        case ConnectionPackage.SAP_TABLE:
+            return createSAPTable();
+        case ConnectionPackage.SAP_TABLE_FIELD:
+            return createSAPTableField();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER:
+            return createSAPFunctionParameter();
+        case ConnectionPackage.SAP_FUNCTION_PARAM_DATA:
+            return createSAPFunctionParamData();
+        case ConnectionPackage.ADDITIONAL_CONNECTION_PROPERTY:
+            return createAdditionalConnectionProperty();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -707,6 +717,56 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public Map.Entry<String, String> createAdditionalProperties() {
         AdditionalPropertiesImpl additionalProperties = new AdditionalPropertiesImpl();
         return additionalProperties;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTableField createSAPTableField() {
+        SAPTableFieldImpl sapTableField = new SAPTableFieldImpl();
+        return sapTableField;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParameter createSAPFunctionParameter() {
+        SAPFunctionParameterImpl sapFunctionParameter = new SAPFunctionParameterImpl();
+        return sapFunctionParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParamData createSAPFunctionParamData() {
+        SAPFunctionParamDataImpl sapFunctionParamData = new SAPFunctionParamDataImpl();
+        return sapFunctionParamData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AdditionalConnectionProperty createAdditionalConnectionProperty() {
+        AdditionalConnectionPropertyImpl additionalConnectionProperty = new AdditionalConnectionPropertyImpl();
+        return additionalConnectionProperty;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTable createSAPTable() {
+        SAPTableImpl sapTable = new SAPTableImpl();
+        return sapTable;
     }
 
     /**
