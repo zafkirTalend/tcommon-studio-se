@@ -656,7 +656,8 @@ public final class JavaSqlFactory {
         if (fileconnection != null) {
             limitValue = getOriginalValueConnection(fileconnection).getLimitValue();
         }
-        return Integer.parseInt(PluginConstant.EMPTY_STRING.equals(limitValue) || "0".equals(limitValue) ? "-1" : limitValue); //$NON-NLS-1$ //$NON-NLS-2$
+        return Integer
+                .parseInt(limitValue == null || PluginConstant.EMPTY_STRING.equals(limitValue) || "0".equals(limitValue) ? "-1" : limitValue); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
