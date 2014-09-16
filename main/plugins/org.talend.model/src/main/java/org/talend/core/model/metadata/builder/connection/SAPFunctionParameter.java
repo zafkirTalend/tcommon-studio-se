@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isChanging <em>Changing</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getTestValue <em>Test Value</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getChildren <em>Children</em>}</li>
  * </ul>
  * </p>
@@ -186,32 +185,6 @@ public interface SAPFunctionParameter extends EObject {
      * @generated
      */
     void setTestValue(String value);
-
-    /**
-     * Returns the value of the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Parent</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Parent</em>' reference.
-     * @see #setParent(SAPFunctionParameter)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionParameter_Parent()
-     * @model
-     * @generated
-     */
-    SAPFunctionParameter getParent();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Parent</em>' reference.
-     * @see #getParent()
-     * @generated
-     */
-    void setParent(SAPFunctionParameter value);
 
     /**
      * Returns the value of the '<em><b>Children</b></em>' containment reference list.
