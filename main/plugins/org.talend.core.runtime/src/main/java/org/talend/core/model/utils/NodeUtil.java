@@ -884,13 +884,13 @@ public class NodeUtil {
             value = value.replaceAll("\\\"", "\\\\\\\"");
         }
         List<EParameterFieldType> needRemoveCRLFList = Arrays.asList(EParameterFieldType.MEMO, EParameterFieldType.MEMO_JAVA,
-                EParameterFieldType.MEMO_SQL);
+                EParameterFieldType.MEMO_SQL, EParameterFieldType.MEMO_IMPORT);
         if (needRemoveCRLFList.contains(ep.getFieldType())) {
             value = value.replaceAll("[\r\n]", " ");
         }
         List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
                 EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
-                EParameterFieldType.MEMO_JAVA);
+                EParameterFieldType.MEMO_JAVA, EParameterFieldType.MEMO_IMPORT);
         List<String> needQuoteListByName = Arrays.asList("SCHEMA_COLUMN");// SCHEMA_COLUMN for BASED_ON_SCHEMA="true"
         if (needQuoteList.contains(ep.getFieldType()) || needQuoteListByName.contains(ep.getName())) {
             value = "\"" + value + "\"";
