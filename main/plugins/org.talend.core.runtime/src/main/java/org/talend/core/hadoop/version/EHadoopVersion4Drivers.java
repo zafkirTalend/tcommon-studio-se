@@ -87,7 +87,7 @@ public enum EHadoopVersion4Drivers {
                      EHadoopDistributions.AMAZON_EMR,
                      "Apache 2.4.0",
                      "APACHE_2_4_0_EMR",
-                     true,
+                     false,
                      false,
                      new EMRVersion[] { EMRVersion.YARN }),
 
