@@ -44,6 +44,7 @@ import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IGEFProcess;
+import org.talend.core.model.process.IGraphicalNode;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -72,6 +73,12 @@ public class SchemaCellEditor extends DialogCellEditor {
     private INode node;
 
     private AbstractDataTableEditorView tableEditorView;
+
+    private final String SINGLE = "SINGLE";
+
+    private final String STRUCTURE = "STRUCTURE";
+
+    private final String TABLE = "TABLE";
 
     public SchemaCellEditor(Composite parent, INode node) {
         super(parent, SWT.NONE);
@@ -315,8 +322,17 @@ public class SchemaCellEditor extends DialogCellEditor {
             }
 
         } else {
-
-            tableToEdit = MetadataToolHelper.getMetadataTableFromNodeTableName(node, schemaToEdit);
+            if (isSAPNode(node) && getTableViewer() != null) {
+                Table tTable = getTableViewer().getTable();
+                Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                if (data instanceof Map) {
+                    final Map<String, Object> valueMap = (Map<String, Object>) data;
+                    Object code = valueMap.get(IEbcdicConstant.FIELD_SCHEMA);
+                    tableToEdit = MetadataToolHelper.getMetadataTableFromNodeTableName(node, code.toString());
+                }
+            } else {
+                tableToEdit = MetadataToolHelper.getMetadataTableFromNodeTableName(node, schemaToEdit);
+            }
             if (getTableViewer() != null && tableToEdit != null && isEBCDICNode(node)) {
                 Table tTable = getTableViewer().getTable();
                 Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
@@ -399,56 +415,63 @@ public class SchemaCellEditor extends DialogCellEditor {
                             processType = EProcessType.REPOSITORY;
                         }
                     }
-                    SchemaOperationChoiceDialog choiceDialog = new SchemaOperationChoiceDialog(cellEditorWindow.getShell(), node,
-                            repositoryItem, processType, schemaToEdit, node.getProcess().isReadOnly());
-                    if (choiceDialog.open() == Window.OK) {
-                        ESelectionCategory selctionType = choiceDialog.getSelctionType();
-                        switch (selctionType) {
-                        case SHOW_SCHEMA:
-                            if (processType == EProcessType.REPOSITORY) {
-                                metaReadonly = true; // readonly
-                            }
-                            break;
-                        case REPOSITORY:
-                            final org.talend.core.model.metadata.builder.connection.MetadataTable selectedMetadataTable = choiceDialog
-                                    .getSelectedMetadataTable();
-                            if (selectedMetadataTable != null) {
-                                String newSchema = selectedMetadataTable.getLabel();
-                                if (!schemaToEdit.equals(newSchema) || processType == EProcessType.BUILTIN) {
-                                    // changed
-                                    RepositoryChangeMetadataForSAPCommand cmd = new RepositoryChangeMetadataForSAPCommand(node,
-                                            ISAPConstant.TABLE_SCHEMAS, newSchema, schemaToEdit,
-                                            ConvertionHelper.convert(selectedMetadataTable), tableToEdit,
-                                            tTable.getSelectionIndex());
-
-                                    // (node, ISAPConstant.TABLE_SCHEMAS, metaTable.getLabel(), metaTable, index)
-                                    executeCommand(cmd);
-                                    if (getTableViewer() != null) {
-                                        getTableViewer().refresh();
-                                    }
+                    Object type = valueMap.get(ISAPConstant.TYPE);
+                    if (type != null && type.toString().equals(TABLE)) {
+                        SchemaOperationChoiceDialog choiceDialog = new SchemaOperationChoiceDialog(cellEditorWindow.getShell(),
+                                node, repositoryItem, processType, schemaToEdit, node.getProcess().isReadOnly());
+                        if (choiceDialog.open() == Window.OK) {
+                            ESelectionCategory selctionType = choiceDialog.getSelctionType();
+                            switch (selctionType) {
+                            case SHOW_SCHEMA:
+                                if (processType == EProcessType.REPOSITORY) {
+                                    metaReadonly = true; // readonly
                                 }
-                                return newSchema;
-                            } else {
-                                // built-in
-                            }
-                        case BUILDIN:
-                            executeCommand(new Command() {
+                                break;
+                            case REPOSITORY:
+                                final org.talend.core.model.metadata.builder.connection.MetadataTable selectedMetadataTable = choiceDialog
+                                        .getSelectedMetadataTable();
+                                if (selectedMetadataTable != null) {
+                                    String newSchema = selectedMetadataTable.getLabel();
+                                    if (!schemaToEdit.equals(newSchema) || processType == EProcessType.BUILTIN) {
+                                        // changed
+                                        RepositoryChangeMetadataForSAPCommand cmd = new RepositoryChangeMetadataForSAPCommand(
+                                                node, ISAPConstant.TABLE_SCHEMAS, newSchema, schemaToEdit,
+                                                ConvertionHelper.convert(selectedMetadataTable), tableToEdit,
+                                                tTable.getSelectionIndex());
 
-                                @Override
-                                public void execute() {
-                                    valueMap.remove(key);
-                                    if (getTableViewer() != null) {
-                                        getTableViewer().refresh();
+                                        // (node, ISAPConstant.TABLE_SCHEMAS, metaTable.getLabel(), metaTable, index)
+                                        executeCommand(cmd);
+                                        if (getTableViewer() != null) {
+                                            getTableViewer().refresh();
+                                        }
                                     }
+                                    return newSchema;
+                                } else {
+                                    // built-in
                                 }
+                            case BUILDIN:
+                                executeCommand(new Command() {
 
-                            });
-                            return schemaToEdit; // keep
-                        default:
+                                    @Override
+                                    public void execute() {
+                                        valueMap.remove(key);
+                                        if (getTableViewer() != null) {
+                                            getTableViewer().refresh();
+                                        }
+                                    }
 
+                                });
+                                return schemaToEdit; // keep
+                            default:
+
+                            }
+                        } else {
+                            return null;
                         }
                     } else {
-                        return null;
+                        if (processType == EProcessType.REPOSITORY) {
+                            metaReadonly = true; // readonly
+                        }
                     }
                 }
             }
@@ -459,9 +482,26 @@ public class SchemaCellEditor extends DialogCellEditor {
             if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
                 copyHL7OutputMetadata(node, tableToEdit);
             } else {
+                Table tTable = getTableViewer().getTable();
+                Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                Object type = null;
+                if (data instanceof Map) {
+                    final Map<String, Object> valueMap = (Map<String, Object>) data;
+                    final String key = ISAPConstant.TYPE;
+                    type = valueMap.get(key);
+                    if (isSAPNode(node) && type instanceof Integer) {
+                        type = SINGLE;
+                        valueMap.remove(key);
+                        valueMap.put(key, SINGLE);
+                    }
+                }
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
+                dialog.setSingleAndStruct(false);
                 dialog.setInputReadOnly(metaReadonly);
                 dialog.setOutputReadOnly(metaReadonly);
+                if (isSAPNode(node) && type != null && (type.equals(SINGLE) || type.equals(STRUCTURE))) {
+                    dialog.setSingleAndStruct(true);
+                }
                 if (dialog.open() == MetadataDialog.OK) {
                     final IMetadataTable oldTable = tableToEdit;
                     final IMetadataTable newTable = dialog.getOutputMetaData();
@@ -473,6 +513,14 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 oldTable.getListUsedColumns().clear();
                                 oldTable.getListUnusedColumns().clear();
                                 oldTable.setListColumns(newTable.getListColumns(true));
+                                List<IMetadataColumn> columns = newTable.getListColumns(true);
+                                if (node instanceof IGraphicalNode) {
+                                    IGraphicalNode gNode = (IGraphicalNode) node;
+                                    gNode.checkAndRefreshNode();
+                                }
+                                if (getTableViewer() != null) {
+                                    getTableViewer().refresh();
+                                }
                             }
 
                         });
