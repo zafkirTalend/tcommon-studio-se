@@ -18995,22 +18995,13 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_PARAMETER__TEST_VALUE = 5;
 
     /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SAP_FUNCTION_PARAMETER__PARENT = 6;
-
-    /**
      * The feature id for the '<em><b>Children</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_PARAMETER__CHILDREN = 7;
+    int SAP_FUNCTION_PARAMETER__CHILDREN = 6;
 
     /**
      * The number of structural features of the '<em>SAP Function Parameter</em>' class.
@@ -19019,7 +19010,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_PARAMETER_FEATURE_COUNT = 8;
+    int SAP_FUNCTION_PARAMETER_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl <em>SAP Function Param Data</em>}' class.
@@ -23409,17 +23400,6 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPFunctionParameter_TestValue();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent <em>Parent</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Parent</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getParent()
-     * @see #getSAPFunctionParameter()
-     * @generated
-     */
-    EReference getSAPFunctionParameter_Parent();
-
-    /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getChildren <em>Children</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -27052,14 +27032,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SAP_FUNCTION_PARAMETER__TEST_VALUE = eINSTANCE.getSAPFunctionParameter_TestValue();
-
-        /**
-         * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference SAP_FUNCTION_PARAMETER__PARENT = eINSTANCE.getSAPFunctionParameter_Parent();
 
         /**
          * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.

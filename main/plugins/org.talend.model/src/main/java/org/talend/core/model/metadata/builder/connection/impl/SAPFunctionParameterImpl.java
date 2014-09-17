@@ -35,7 +35,6 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameter;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#isChanging <em>Changing</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getTestValue <em>Test Value</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getChildren <em>Children</em>}</li>
  * </ul>
  * </p>
@@ -163,16 +162,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
      * @ordered
      */
     protected String testValue = TEST_VALUE_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getParent() <em>Parent</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getParent()
-     * @generated
-     * @ordered
-     */
-    protected SAPFunctionParameter parent;
 
     /**
      * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
@@ -338,46 +327,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
      * <!-- end-user-doc -->
      * @generated
      */
-    public SAPFunctionParameter getParent() {
-        if (parent != null && parent.eIsProxy()) {
-            InternalEObject oldParent = (InternalEObject) parent;
-            parent = (SAPFunctionParameter) eResolveProxy(oldParent);
-            if (parent != oldParent) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT,
-                            oldParent, parent));
-            }
-        }
-        return parent;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public SAPFunctionParameter basicGetParent() {
-        return parent;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setParent(SAPFunctionParameter newParent) {
-        SAPFunctionParameter oldParent = parent;
-        parent = newParent;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT, oldParent,
-                    parent));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EList<SAPFunctionParameter> getChildren() {
         if (children == null) {
             children = new EObjectContainmentEList.Resolving<SAPFunctionParameter>(SAPFunctionParameter.class, this,
@@ -420,10 +369,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             return isChanging();
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__TEST_VALUE:
             return getTestValue();
-        case ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT:
-            if (resolve)
-                return getParent();
-            return basicGetParent();
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             return getChildren();
         }
@@ -456,9 +401,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             return;
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__TEST_VALUE:
             setTestValue((String) newValue);
-            return;
-        case ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT:
-            setParent((SAPFunctionParameter) newValue);
             return;
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             getChildren().clear();
@@ -494,9 +436,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__TEST_VALUE:
             setTestValue(TEST_VALUE_EDEFAULT);
             return;
-        case ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT:
-            setParent((SAPFunctionParameter) null);
-            return;
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             getChildren().clear();
             return;
@@ -524,8 +463,6 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             return changing != CHANGING_EDEFAULT;
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__TEST_VALUE:
             return TEST_VALUE_EDEFAULT == null ? testValue != null : !TEST_VALUE_EDEFAULT.equals(testValue);
-        case ConnectionPackage.SAP_FUNCTION_PARAMETER__PARENT:
-            return parent != null;
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             return children != null && !children.isEmpty();
         }

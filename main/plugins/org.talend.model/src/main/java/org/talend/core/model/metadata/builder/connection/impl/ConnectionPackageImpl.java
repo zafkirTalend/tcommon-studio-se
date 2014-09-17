@@ -3862,17 +3862,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getSAPFunctionParameter_Parent() {
-        return (EReference) sapFunctionParameterEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getSAPFunctionParameter_Children() {
-        return (EReference) sapFunctionParameterEClass.getEStructuralFeatures().get(7);
+        return (EReference) sapFunctionParameterEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -4662,7 +4653,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__LENGTH);
         createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__CHANGING);
         createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__TEST_VALUE);
-        createEReference(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__PARENT);
         createEReference(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__CHILDREN);
 
         sapFunctionParamDataEClass = createEClass(SAP_FUNCTION_PARAM_DATA);
@@ -5915,9 +5905,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getSAPFunctionParameter_TestValue(), ecorePackage.getEString(), "testValue", null, 0, 1,
                 SAPFunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionParameter_Parent(), this.getSAPFunctionParameter(), null, "parent", null, 0, 1,
-                SAPFunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSAPFunctionParameter_Children(), this.getSAPFunctionParameter(), null, "children", null, 0, -1,
                 SAPFunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
