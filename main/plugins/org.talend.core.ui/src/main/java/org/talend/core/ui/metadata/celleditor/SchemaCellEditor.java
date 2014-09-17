@@ -487,6 +487,7 @@ public class SchemaCellEditor extends DialogCellEditor {
         boolean hasParentRow = false;
         Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
         Object type = null;
+        Object parent_row = null;
         if (data instanceof Map) {
             final Map<String, Object> valueMap = (Map<String, Object>) data;
             if (valueMap.containsKey(PARENT_ROW)) {
@@ -494,6 +495,7 @@ public class SchemaCellEditor extends DialogCellEditor {
             }
             final String key = ISAPConstant.TYPE;
             type = valueMap.get(key);
+            parent_row = valueMap.get(PARENT_ROW);
             if (isSAPNode(node) && type instanceof Integer) {
                 type = SINGLE;
                 valueMap.remove(key);
@@ -505,7 +507,7 @@ public class SchemaCellEditor extends DialogCellEditor {
             if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
                 copyHL7OutputMetadata(node, tableToEdit);
             } else if (isSAPNode(node) && type.toString().equals(TABLE) && node.getIncomingConnections().size() > 0
-                    && hasParentRow) {
+                    && hasParentRow && (parent_row != null && !parent_row.equals(""))) {
                 copySAPOutputMetadata(node, tableToEdit);
             } else {
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
