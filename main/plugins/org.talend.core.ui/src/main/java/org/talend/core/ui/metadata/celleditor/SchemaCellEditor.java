@@ -81,6 +81,8 @@ public class SchemaCellEditor extends DialogCellEditor {
 
     private final String TABLE = "TABLE";
 
+    private final String PARENT_ROW = "PARENT_ROW";
+
     public SchemaCellEditor(Composite parent, INode node) {
         super(parent, SWT.NONE);
         this.node = node;
@@ -482,7 +484,7 @@ public class SchemaCellEditor extends DialogCellEditor {
         boolean hasParentRow = false;
         TableColumn[] columns = tTable.getColumns();
         for (TableColumn column : columns) {
-            if (column.getText().equals("PARENT_ROW")) {
+            if (column.getText().equals(PARENT_ROW)) {
                 hasParentRow = true;
             }
         }
