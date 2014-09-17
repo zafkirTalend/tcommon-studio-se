@@ -507,7 +507,7 @@ public class SchemaCellEditor extends DialogCellEditor {
             if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
                 copyHL7OutputMetadata(node, tableToEdit);
             } else if (isSAPNode(node) && type.toString().equals(TABLE) && node.getIncomingConnections().size() > 0
-                    && hasParentRow && (parent_row != null && !parent_row.equals(""))) {
+                    && hasParentRow && (parent_row != null && !parent_row.equals("") && !(parent_row instanceof Integer))) {
                 copySAPOutputMetadata(node, tableToEdit);
             } else {
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
