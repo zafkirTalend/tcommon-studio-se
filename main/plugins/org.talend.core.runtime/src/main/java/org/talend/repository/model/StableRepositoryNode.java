@@ -13,6 +13,7 @@
 package org.talend.repository.model;
 
 import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -25,6 +26,8 @@ public class StableRepositoryNode extends RepositoryNode {
     private IImage icon;
 
     private String label;
+
+    private ERepositoryObjectType childrenObjectType;
 
     /**
      * DOC smallet StableRepositoryNode constructor comment.
@@ -88,6 +91,24 @@ public class StableRepositoryNode extends RepositoryNode {
         this.icon = null;
         this.label = null;
         super.dispose();
+    }
+
+    /**
+     * Sets the childrenObjectType.
+     * 
+     * @param childrenObjectType the childrenObjectType to set
+     */
+    public void setChildrenObjectType(ERepositoryObjectType childrenObjectType) {
+        this.childrenObjectType = childrenObjectType;
+    }
+
+    /**
+     * Getter for childrenObjectType.
+     * 
+     * @return the childrenObjectType
+     */
+    public ERepositoryObjectType getChildrenObjectType() {
+        return this.childrenObjectType;
     }
 
 }
