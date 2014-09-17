@@ -27,7 +27,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -82,6 +81,10 @@ public class SchemaCellEditor extends DialogCellEditor {
     private final String TABLE = "TABLE";
 
     private final String PARENT_ROW = "PARENT_ROW";
+
+    private final String ISINPUT = "isinput";
+
+    private final String TRUE = "true";
 
     public SchemaCellEditor(Composite parent, INode node) {
         super(parent, SWT.NONE);
@@ -482,16 +485,13 @@ public class SchemaCellEditor extends DialogCellEditor {
         }
         Table tTable = getTableViewer().getTable();
         boolean hasParentRow = false;
-        TableColumn[] columns = tTable.getColumns();
-        for (TableColumn column : columns) {
-            if (column.getText().equals(PARENT_ROW)) {
-                hasParentRow = true;
-            }
-        }
         Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
         Object type = null;
         if (data instanceof Map) {
             final Map<String, Object> valueMap = (Map<String, Object>) data;
+            if (valueMap.containsKey(PARENT_ROW)) {
+                hasParentRow = true;
+            }
             final String key = ISAPConstant.TYPE;
             type = valueMap.get(key);
             if (isSAPNode(node) && type instanceof Integer) {
@@ -500,6 +500,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                 valueMap.put(key, SINGLE);
             }
         }
+        final boolean hasParentRowForExe = hasParentRow;
         if (tableToEdit != null) {
             if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
                 copyHL7OutputMetadata(node, tableToEdit);
@@ -528,6 +529,9 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 if (node instanceof IGraphicalNode) {
                                     IGraphicalNode gNode = (IGraphicalNode) node;
                                     gNode.checkAndRefreshNode();
+                                }
+                                if (isSAPNode(node) && hasParentRowForExe) {
+                                    oldTable.getAdditionalProperties().put(ISINPUT, TRUE);
                                 }
                                 if (getTableViewer() != null) {
                                     getTableViewer().refresh();
