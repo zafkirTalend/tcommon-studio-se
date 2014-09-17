@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -477,29 +478,37 @@ public class SchemaCellEditor extends DialogCellEditor {
             }
 
         }
-
+        Table tTable = getTableViewer().getTable();
+        boolean hasParentRow = false;
+        TableColumn[] columns = tTable.getColumns();
+        for (TableColumn column : columns) {
+            if (column.getText().equals("PARENT_ROW")) {
+                hasParentRow = true;
+            }
+        }
+        Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+        Object type = null;
+        if (data instanceof Map) {
+            final Map<String, Object> valueMap = (Map<String, Object>) data;
+            final String key = ISAPConstant.TYPE;
+            type = valueMap.get(key);
+            if (isSAPNode(node) && type instanceof Integer) {
+                type = SINGLE;
+                valueMap.remove(key);
+                valueMap.put(key, SINGLE);
+            }
+        }
         if (tableToEdit != null) {
             if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
                 copyHL7OutputMetadata(node, tableToEdit);
+            } else if (isSAPNode(node) && type.toString().equals(TABLE) && node.getIncomingConnections().size() > 0) {
+                copySAPOutputMetadata(node, tableToEdit);
             } else {
-                Table tTable = getTableViewer().getTable();
-                Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
-                Object type = null;
-                if (data instanceof Map) {
-                    final Map<String, Object> valueMap = (Map<String, Object>) data;
-                    final String key = ISAPConstant.TYPE;
-                    type = valueMap.get(key);
-                    if (isSAPNode(node) && type instanceof Integer) {
-                        type = SINGLE;
-                        valueMap.remove(key);
-                        valueMap.put(key, SINGLE);
-                    }
-                }
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
                 dialog.setSingleAndStruct(false);
                 dialog.setInputReadOnly(metaReadonly);
                 dialog.setOutputReadOnly(metaReadonly);
-                if (isSAPNode(node) && type != null && (type.equals(SINGLE) || type.equals(STRUCTURE))) {
+                if (isSAPNode(node) && type != null && (type.equals(SINGLE) || type.equals(STRUCTURE)) && hasParentRow) {
                     dialog.setSingleAndStruct(true);
                 }
                 if (dialog.open() == MetadataDialog.OK) {
@@ -614,6 +623,59 @@ public class SchemaCellEditor extends DialogCellEditor {
         if (!executed) {
             cmd.execute();
         }
+    }
+
+    private void copySAPOutputMetadata(INode node, IMetadataTable tableToEdit) {
+        List<Map<String, String>> maps = (List<Map<String, String>>) ElementParameterParser.getObjectValue(node,
+                "__MAPPING_INPUT__"); //$NON-NLS-1$
+        String tableName = tableToEdit.getTableName();
+        List<IConnection> connList = (List<IConnection>) node.getIncomingConnections(EConnectionType.FLOW_MERGE);
+        for (Map<String, String> map : maps) {
+            if (map.containsValue(tableName)) {
+                if (map.get("SCHEMA") != null && map.get("SCHEMA").equals(tableName)) {
+                    String rowName = map.get("PARENT_ROW");
+                    for (IConnection conn : connList) {
+                        if (conn.getName().equals(rowName)) {
+                            IMetadataTable originalInputTable = null, originalCurrentOutTable = null, finalOutTable = null, finalInputTable = null;
+                            int index = getTableViewer().getTable().getSelectionIndex();
+                            originalInputTable = conn.getMetadataTable();
+                            INode inputNode = conn.getSource();
+                            List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
+                            // originalCurrentOutTable = new MetadataTable();
+                            // originalCurrentOutTable.setListColumns(listColumns);
+                            // 2.open metadataDialog,set finalOutTable
+                            MetadataDialog metaDialog = new MetadataDialog(new Shell(), originalInputTable, inputNode,
+                                    tableToEdit.clone(), node, tableEditorView.getTableViewerCreator().getCommandStack());
+                            if (metaDialog.open() == Window.OK) {
+                                finalInputTable = metaDialog.getInputMetaData().clone();
+                                finalOutTable = metaDialog.getOutputMetaData().clone();
+                                tableToEdit.setListColumns(finalOutTable.getListColumns());
+                                // 3.ChangeRuleMetadataCommand
+                                // ChangeRuleMetadataCommand changeRuleMetadataCommand = new
+                                // ChangeRuleMetadataCommand(node,
+                                //                                        "SCHEMAS", //$NON-NLS-1$
+                                // tableToEdit.getLabel(), finalOutTable, index);
+                                // changeMetadataCommand changeMetadataCommand = new ChangeMetadataCommand(node, param,
+                                // inputNode,
+                                // inputMetadata, finalInputTable, originaleOutputTable, finalOutTable);
+                                // executeCommand(changeRuleMetadataCommand);
+                                IProcess process = node.getProcess();
+                                if (process instanceof IProcess2) {
+                                    ((IProcess2) process).checkTableParameters();
+                                    ((IProcess2) process).checkProcess();
+                                }
+                                if (getTableViewer() != null) {
+                                    getTableViewer().refresh();
+                                }
+                            }
+                            return;
+                        }
+                    }
+
+                }
+            }
+        }
+
     }
 
     private void copyHL7OutputMetadata(INode node, IMetadataTable tableToEdit) {
