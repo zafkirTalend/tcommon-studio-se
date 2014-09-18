@@ -249,4 +249,15 @@ public class TalendWebServiceUpdateExtraFeature implements ExtraFeature {
         return mustBeInstalled;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.updates.runtime.model.ExtraFeature#createFeatureIfUpdates(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public ExtraFeature createFeatureIfUpdates(IProgressMonitor progress) throws Exception {
+        return null;// we do not handle udpates yet.
+    }
+
 }

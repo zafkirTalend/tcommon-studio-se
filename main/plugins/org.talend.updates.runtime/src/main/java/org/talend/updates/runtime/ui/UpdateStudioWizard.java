@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.updates.runtime.UpdatesRuntimePlugin;
+import org.talend.updates.runtime.Constants;
 import org.talend.updates.runtime.engine.ExtraFeaturesUpdatesFactory;
 import org.talend.updates.runtime.engine.InstallNewFeatureJob;
 import org.talend.updates.runtime.i18n.Messages;
@@ -56,7 +56,7 @@ public class UpdateStudioWizard extends Wizard {
     /**
      * preference node for the org.talend.updates plugin.
      */
-    public static final String ORG_TALEND_UPDATES_PREF_NODE = UpdatesRuntimePlugin.PLUGIN_ID;
+    public static final String ORG_TALEND_UPDATES_PREF_NODE = Constants.PLUGIN_ID;
 
     UpdateWizardModel updateWizardModel;// model that hold all the parameters set in the wizard
 
@@ -114,7 +114,7 @@ public class UpdateStudioWizard extends Wizard {
                 if (hasAnySuccess) {
                     ExtraFeaturesUpdatesFactory updatesFactory = new ExtraFeaturesUpdatesFactory();
                     try {
-                        updatesFactory.afterUpdate();
+                        updatesFactory.afterCompleteInstall();
                     } catch (Exception e) {
                         hasAnyFailure = true;
                     }
@@ -151,7 +151,7 @@ public class UpdateStudioWizard extends Wizard {
         try {
             updatesNode.flush();
         } catch (BackingStoreException e) {
-            log.error("could not store the \"Do No Show this again\" pref of the Install Dialog", e);
+            log.error("could not store the \"Do No Show this again\" pref of the Install Dialog", e); //$NON-NLS-1$
         }
     }
 

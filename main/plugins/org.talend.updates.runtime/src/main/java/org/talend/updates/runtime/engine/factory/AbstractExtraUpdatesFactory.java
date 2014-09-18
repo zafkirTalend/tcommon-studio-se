@@ -67,9 +67,10 @@ public abstract class AbstractExtraUpdatesFactory {
     }
 
     /**
-     * after update studio, will do this.
+     * This is called once all the different features of different types have all been installed. This is only called if
+     * there is at least one feature successfully installed, even if this current feature failed to be installed.
      */
-    public void afterUpdate() throws Exception {
+    public void afterCompleteInstall() throws Exception {
         // nothing to do
     }
 }

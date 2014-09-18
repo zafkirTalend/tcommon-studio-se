@@ -73,11 +73,11 @@ public class ExtraFeaturesUpdatesFactory {
         }
     }
 
-    public void afterUpdate() throws Exception {
+    public void afterCompleteInstall() throws Exception {
         AbstractExtraUpdatesFactory[] updatesFactories = updatesFactoryReader.getUpdatesFactories();
         if (updatesFactories != null) {
             for (AbstractExtraUpdatesFactory factory : updatesFactories) {
-                factory.afterUpdate();
+                factory.afterCompleteInstall();
             }
         }
     }
