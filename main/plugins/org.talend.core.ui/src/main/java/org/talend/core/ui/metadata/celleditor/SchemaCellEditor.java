@@ -517,8 +517,8 @@ public class SchemaCellEditor extends DialogCellEditor {
                 if (isSAPNode(node) && type != null && (type.equals(SINGLE) || type.equals(STRUCTURE)) && hasParentRow) {
                     dialog.setSingleAndStruct(true);
                 }
+                final IMetadataTable oldTable = tableToEdit;
                 if (dialog.open() == MetadataDialog.OK) {
-                    final IMetadataTable oldTable = tableToEdit;
                     final IMetadataTable newTable = dialog.getOutputMetaData();
                     if (!oldTable.sameMetadataAs(newTable, IMetadataColumn.OPTIONS_NONE)) {
                         executeCommand(new Command() {
@@ -542,8 +542,15 @@ public class SchemaCellEditor extends DialogCellEditor {
                             }
 
                         });
+                    } else {
+                        if (isSAPNode(node) && hasParentRowForExe) {
+                            oldTable.getAdditionalProperties().put(ISINPUT, TRUE);
+                        }
                     }
-
+                } else {
+                    if (isSAPNode(node) && hasParentRowForExe) {
+                        oldTable.getAdditionalProperties().put(ISINPUT, TRUE);
+                    }
                 }
             }
             return schemaToEdit;
