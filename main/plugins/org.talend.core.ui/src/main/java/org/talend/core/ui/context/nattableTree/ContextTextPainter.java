@@ -15,6 +15,7 @@ package org.talend.core.ui.context.nattableTree;
 import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.nebula.widgets.nattable.painter.cell.TextPainter;
+import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.IStyle;
 import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
 import org.eclipse.swt.graphics.GC;
@@ -40,7 +41,9 @@ public class ContextTextPainter extends TextPainter {
     @Override
     public void setupGCFromConfig(GC gc, IStyle cellStyle) {
         super.setupGCFromConfig(gc, cellStyle);
-        if (changeBackgroundColor) {
+        if (cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR).equals(GUIHelper.COLOR_RED)) {
+            gc.setForeground(GUIHelper.COLOR_BLACK);
+        } else if (changeBackgroundColor) {
             gc.setForeground(GUIHelper.COLOR_GRAY);
         }
     }

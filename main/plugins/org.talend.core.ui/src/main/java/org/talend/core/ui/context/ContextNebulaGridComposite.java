@@ -61,7 +61,6 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.properties.tab.HorizontalTabFactory;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
@@ -131,8 +130,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private ContextTreeTable treeTable;
 
-    private HorizontalTabFactory tabFactory = null;
-
     /**
      * Constructor.
      * 
@@ -145,7 +142,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         cellFactory = new DefaultCellEditorFactory(this);
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());
-        tabFactory = new HorizontalTabFactory();
         this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
@@ -167,8 +163,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
             if (!ContextNatTableUtils.checkIsInstallExternalJar()) {
                 createMessageGroup(this);
             } else {
-                createContextsGroup(this);
-
                 createNatTableGroup(this);
 
                 createNatTable();
@@ -186,10 +180,10 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
     private void reInitializeUI() {
         disposeInstallMessageComp();
         disposeUnAvailableContextComp();
-        if (contextsSelectComp == null || (contextsSelectComp != null && contextsSelectComp.isDisposed())) {
+        if (contextTableComp == null || (contextTableComp != null && contextTableComp.isDisposed())) {
             initializeUI();
-            contextsSelectComp.getParent().layout();
-            contextsSelectComp.layout();
+            contextTableComp.getParent().layout();
+            contextTableComp.layout();
         }
     }
 
@@ -203,16 +197,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
         // setMinSize(compositeSize);
         propertyResized = true;
-    }
-
-    private void createNatTable() {
-        GridData layoutDataFillBoth = new GridData(GridData.FILL_BOTH);
-        Composite subPanel = new Composite(contextTableComp, SWT.NULL);
-        subPanel.setLayoutData(layoutDataFillBoth);
-        subPanel.setLayout(new GridLayout());
-
-        ContextTreeTable.TControl tControl = treeTable.createTable(subPanel);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(tControl.getControl());
     }
 
     private Button createAddPushButton(final Composite parent) {
@@ -600,14 +584,15 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private void createContextsGroup(Composite parentComposite) {
         contextsSelectComp = new Composite(parentComposite, SWT.NULL);
-        contextsSelectComp.setLayout(new GridLayout(3, false));
+        contextsSelectComp.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(2).create());
+        GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.DOWN).grab(true, false).applyTo(contextsSelectComp);
         GridLayout layout2 = (GridLayout) contextsSelectComp.getLayout();
         layout2.marginHeight = 0;
         layout2.marginTop = 0;
         layout2.marginBottom = 0;
 
         Label contextSeletLabel = new Label(contextsSelectComp, SWT.NULL);
-        contextSeletLabel.setText("Default context enviroment");
+        contextSeletLabel.setText(Messages.getString("ContextNebulaComposite.ContextGroupLabel"));
         contextsCombo = new Combo(contextsSelectComp, SWT.READ_ONLY);
         contextsCombo.addSelectionListener(new SelectionListener() {
 
@@ -636,10 +621,27 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
             }
 
         });
+    }
+
+    private void createNatTableGroup(Composite parentComposite) {
+        contextTableComp = new Composite(parentComposite, SWT.NULL);
+        GridLayout dataTableLayout = new GridLayout(2, Boolean.FALSE);
+        contextTableComp.setLayout(dataTableLayout);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        contextTableComp.setLayoutData(gridData);
+        treeTable = new ContextTreeTable(modelManager);
+    }
+
+    private void createNatTable() {
+        ContextTreeTable.TControl tControl = treeTable.createTable(contextTableComp);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(tControl.getControl());
 
         configContext = new ConfigureContextAction(modelManager, this.getShell());
-        contextConfigButton = new Button(contextsSelectComp, SWT.NULL);
-        contextConfigButton.setImage(ImageProvider.getImage(configContext.getImageDescriptor()));
+        contextConfigButton = new Button(contextTableComp, SWT.NULL);
+        GridData addContextGridData = new GridData();
+        addContextGridData.verticalAlignment = SWT.TOP;
+        contextConfigButton.setLayoutData(addContextGridData);
+        contextConfigButton.setImage(ImageProvider.getImage(EImage.ADD_ICON));
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
 
@@ -650,17 +652,8 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         });
     }
 
-    private void createNatTableGroup(Composite parentComposite) {
-        contextTableComp = new Composite(this, SWT.NULL);
-        GridLayout dataTableLayout = new GridLayout(1, Boolean.TRUE);
-        contextTableComp.setLayout(dataTableLayout);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        contextTableComp.setLayoutData(gridData);
-        treeTable = new ContextTreeTable(modelManager);
-    }
-
     private void createButtonsGroup(Composite parentComposite) {
-        buttonsComp = new Composite(parentComposite, SWT.NONE);
+        buttonsComp = new Composite(parentComposite, SWT.NULL);
         buttonsComp.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComp);
         buttonList.clear();
@@ -682,6 +675,12 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
             Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComp);
             buttonList.add(selectContextVariablesButton);
         }
+        // move the context group from the top to the bottom
+        Composite layoutComposite = new Composite(buttonsComp, SWT.NULL);
+        layoutComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).numColumns(1).create());
+        GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.DOWN).grab(true, false).applyTo(layoutComposite);
+
+        createContextsGroup(layoutComposite);
     }
 
     @Override

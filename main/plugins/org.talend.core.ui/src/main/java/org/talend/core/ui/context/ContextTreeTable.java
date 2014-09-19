@@ -89,6 +89,7 @@ import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
+import org.talend.core.ui.context.nattableTree.ContextColumnGroupConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextNatTableBackGroudPainter;
 import org.talend.core.ui.context.nattableTree.ContextNatTableConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextNatTableStyleConfiguration;
@@ -226,6 +227,7 @@ public class ContextTreeTable {
                     columnGroupModel);
             AddContextColumnGroupsBehaviour(columnGroupHeaderLayer,
                     ContextRowDataListFixture.getContexts(manager.getContextManager()));
+            columnGroupHeaderLayer.addConfiguration(new ContextColumnGroupConfiguration(columnGroupModel));
 
             // Register labels
             SortHeaderLayer<ContextTreeNode> sortHeaderLayer = new SortHeaderLayer<ContextTreeNode>(columnGroupHeaderLayer,
@@ -455,8 +457,9 @@ public class ContextTreeTable {
     private void addCustomSelectionBehaviour(SelectionLayer layer) {
         // need control the selection style when select the rows.
         DefaultSelectionStyleConfiguration selectStyleConfig = new DefaultSelectionStyleConfiguration();
-        selectStyleConfig.selectionBgColor = GUIHelper.COLOR_DARK_GRAY;
-        selectStyleConfig.anchorBgColor = GUIHelper.COLOR_DARK_GRAY;
+        selectStyleConfig.selectedHeaderBgColor = GUIHelper.COLOR_WIDGET_BACKGROUND;
+        selectStyleConfig.selectedHeaderFgColor = GUIHelper.COLOR_BLACK;
+        selectStyleConfig.selectedHeaderFont = GUIHelper.DEFAULT_FONT;
         layer.addConfiguration(selectStyleConfig);
     }
 
@@ -713,13 +716,14 @@ public class ContextTreeTable {
                             .getContextParameter().getName());
                 }
             }
-        } else {
-            // if empty data,we still need construct the empty tree
-            for (int i = 0; i < 8; i++) {
-                ContextTableTabParentModel emptyLevelNode = new ContextTableTabParentModel();
-                createContextTreeNode(i, manager, emptyLevelNode, TREE_CONTEXT_ROOT, TREE_DEFAULT_NODE + i);
-            }
         }
+        // else {
+        // // if empty data,we still need construct the empty tree
+        // for (int i = 0; i < 8; i++) {
+        // ContextTableTabParentModel emptyLevelNode = new ContextTableTabParentModel();
+        // createContextTreeNode(i, manager, emptyLevelNode, TREE_CONTEXT_ROOT, TREE_DEFAULT_NODE + i);
+        // }
+        // }
     }
 
     private void attachCheckColumnTip(NatTable nt) {
