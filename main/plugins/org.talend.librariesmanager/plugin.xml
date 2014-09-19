@@ -24,4 +24,16 @@
             uri="www.talend.com/librariesindex">
       </package>
    </extension>
+   <extension
+         point="org.talend.core.systemRoutineLibrary">
+      <systemRoutine
+            name="SharedDBConnectionLog4j">
+         <library
+               name="log4j-1.2.15.jar">
+            <bundleId
+                  bundleId="">
+            </bundleId>
+         </library>
+      </systemRoutine>
+   </extension>
 </plugin>
