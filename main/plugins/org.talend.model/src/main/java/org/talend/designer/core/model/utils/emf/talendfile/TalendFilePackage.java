@@ -983,13 +983,22 @@ public interface TalendFilePackage extends EPackage {
     int METADATA_TYPE__SOURCE = 5;
 
     /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TYPE__TYPE = 6;
+
+    /**
      * The number of structural features of the '<em>Metadata Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TYPE_FEATURE_COUNT = 6;
+    int METADATA_TYPE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.
@@ -2686,6 +2695,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getMetadataType_Source();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getType()
+     * @see #getMetadataType()
+     * @generated
+     */
+    EAttribute getMetadataType_Type();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType <em>Node Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4173,6 +4193,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_TYPE__SOURCE = eINSTANCE.getMetadataType_Source();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TYPE__TYPE = eINSTANCE.getMetadataType_Type();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.

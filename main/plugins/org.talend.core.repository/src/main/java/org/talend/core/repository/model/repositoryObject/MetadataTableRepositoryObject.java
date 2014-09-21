@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.core.model.metadata.MetadataSchemaType;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -86,6 +87,7 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         return table.getId();
     }
 
+    @Override
     public String getTableType() {
         return table.getTableType();
     }
@@ -101,11 +103,10 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
     @Override
     public void removeFromParent() {
-
         if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
             String tableType = table.getTableType();
-            if ("Input".endsWith(tableType)) {//$NON-NLS-1$
+            if (MetadataSchemaType.INPUT.name().endsWith(tableType)) {
                 funUnit.getInputTables().remove(table);
             } else {
                 funUnit.getTables().remove(table);

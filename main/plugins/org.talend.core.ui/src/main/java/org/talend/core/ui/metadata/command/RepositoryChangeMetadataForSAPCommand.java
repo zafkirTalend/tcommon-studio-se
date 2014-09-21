@@ -23,8 +23,8 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
-import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
-import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParamData;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameter;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -194,22 +194,39 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
         if (functionUnit == null) {
             return false;
         }
-        OutputSAPFunctionParameterTable outputParameterTable = functionUnit.getOutputParameterTable();
-        for (Object obj : outputParameterTable.getColumns()) {
-            if (obj instanceof SAPFunctionParameterColumn) {
-                SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) obj;
-                if (column == null || column.getStructureOrTableName() == null) {
-                    continue;
-                }
-                if (column.getStructureOrTableName().equals(label)) {
-                    String type = column.getParameterType();
-                    if (type.startsWith("output") && type.endsWith("structure")) { //$NON-NLS-1$ //$NON-NLS-2$
-                        return true;
-                    }
+        SAPFunctionParamData paramData = functionUnit.getParamData();
+        if (paramData == null) {
+            return false;
+        }
+
+        // SCHEMAS is output param
+        for (SAPFunctionParameter parameter : paramData.getOutputRoot().getChildren()) {
+            if (parameter.getName().equals(label)) {
+                if (parameter.getType().equals(ISAPConstant.PARAM_STRUCTURE)) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
 
         }
+
+        // OutputSAPFunctionParameterTable outputParameterTable = functionUnit.getOutputParameterTable();
+        // for (Object obj : outputParameterTable.getColumns()) {
+        // if (obj instanceof SAPFunctionParameterColumn) {
+        // SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) obj;
+        // if (column == null || column.getStructureOrTableName() == null) {
+        // continue;
+        // }
+        // if (column.getStructureOrTableName().equals(label)) {
+        // String type = column.getParameterType();
+        //                    if (type.startsWith("output") && type.endsWith("structure")) { //$NON-NLS-1$ //$NON-NLS-2$
+        // return true;
+        // }
+        // }
+        // }
+        //
+        // }
         return false;
     }
 }

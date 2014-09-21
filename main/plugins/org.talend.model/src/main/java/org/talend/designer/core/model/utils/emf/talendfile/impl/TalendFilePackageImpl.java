@@ -976,6 +976,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataType_Type() {
+        return (EAttribute)metadataTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1648,6 +1657,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(metadataTypeEClass, METADATA_TYPE__LABEL);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__NAME);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__SOURCE);
+        createEAttribute(metadataTypeEClass, METADATA_TYPE__TYPE);
 
         nodeTypeEClass = createEClass(NODE_TYPE);
         createEReference(nodeTypeEClass, NODE_TYPE__ELEMENT_PARAMETER);
@@ -1857,6 +1867,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getMetadataType_Label(), theXMLTypePackage.getString(), "label", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Source(), theXMLTypePackage.getString(), "source", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataType_Type(), ecorePackage.getEString(), "type", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(nodeTypeEClass, NodeType.class, "NodeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNodeType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1956,20 +1967,20 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     protected void createExtendedMetaDataAnnotations() {
-        String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
+        String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";	
         addAnnotation
           (this, 
            source, 
            new String[] {
              "qualified", "false"
-           });		
+           });	
         addAnnotation
           (columnTypeEClass, 
            source, 
            new String[] {
              "name", "Column_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getColumnType_Comment(), 
            source, 
@@ -1977,7 +1988,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Comment",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_DefaultValue(), 
            source, 
@@ -1985,7 +1996,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "defaultValue",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Key(), 
            source, 
@@ -1993,7 +2004,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "key",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Length(), 
            source, 
@@ -2001,7 +2012,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "length",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Name(), 
            source, 
@@ -2009,7 +2020,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Nullable(), 
            source, 
@@ -2017,7 +2028,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "nullable",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_OriginalDbColumnName(), 
            source, 
@@ -2025,7 +2036,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "originalDbColumnName",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Pattern(), 
            source, 
@@ -2033,7 +2044,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "pattern",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Precision(), 
            source, 
@@ -2041,7 +2052,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "precision",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_SourceType(), 
            source, 
@@ -2049,7 +2060,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "sourceType",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_Type(), 
            source, 
@@ -2057,7 +2068,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "type",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_RelatedEntity(), 
            source, 
@@ -2065,7 +2076,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "relatedEntity",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getColumnType_RelationshipType(), 
            source, 
@@ -2073,14 +2084,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "relationshipType",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (connectionTypeEClass, 
            source, 
            new String[] {
              "name", "Connection_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getConnectionType_ElementParameter(), 
            source, 
@@ -2088,7 +2099,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_ConnectorName(), 
            source, 
@@ -2096,7 +2107,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "connectorName",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_Label(), 
            source, 
@@ -2104,7 +2115,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "label",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_LineStyle(), 
            source, 
@@ -2112,7 +2123,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "lineStyle",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_MergeOrder(), 
            source, 
@@ -2120,7 +2131,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "mergeOrder",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_Metaname(), 
            source, 
@@ -2128,7 +2139,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "metaname",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_OffsetLabelX(), 
            source, 
@@ -2136,7 +2147,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "offsetLabelX",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_OffsetLabelY(), 
            source, 
@@ -2144,7 +2155,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "offsetLabelY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_OutputId(), 
            source, 
@@ -2152,7 +2163,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "outputId",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_Source(), 
            source, 
@@ -2160,7 +2171,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "source",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getConnectionType_Target(), 
            source, 
@@ -2168,14 +2179,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "target",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (contextParameterTypeEClass, 
            source, 
            new String[] {
              "name", "ContextParameter_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_Comment(), 
            source, 
@@ -2183,7 +2194,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "comment",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_Name(), 
            source, 
@@ -2191,7 +2202,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_Prompt(), 
            source, 
@@ -2199,7 +2210,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "prompt",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_PromptNeeded(), 
            source, 
@@ -2207,7 +2218,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "promptNeeded",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_RepositoryContextId(), 
            source, 
@@ -2215,7 +2226,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "repositoryContextId",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_Type(), 
            source, 
@@ -2223,7 +2234,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "type",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextParameterType_Value(), 
            source, 
@@ -2231,14 +2242,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "value",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (contextTypeEClass, 
            source, 
            new String[] {
              "name", "Context_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getContextType_ContextParameter(), 
            source, 
@@ -2246,7 +2257,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ContextParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextType_ConfirmationNeeded(), 
            source, 
@@ -2254,7 +2265,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "confirmationNeeded",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getContextType_Name(), 
            source, 
@@ -2262,35 +2273,35 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (documentRootEClass, 
            source, 
            new String[] {
              "name", "",
              "kind", "mixed"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Mixed(), 
            source, 
            new String[] {
              "kind", "elementWildcard",
              "name", ":mixed"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_XMLNSPrefixMap(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "xmlns:prefix"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_XSISchemaLocation(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "xsi:schemaLocation"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Connection(), 
            source, 
@@ -2298,7 +2309,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Connection",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Context(), 
            source, 
@@ -2306,7 +2317,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Context",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_ElementParameter(), 
            source, 
@@ -2314,7 +2325,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Node(), 
            source, 
@@ -2322,7 +2333,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Node",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Note(), 
            source, 
@@ -2330,7 +2341,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Note",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Parameters(), 
            source, 
@@ -2338,7 +2349,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Parameters",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Process(), 
            source, 
@@ -2346,7 +2357,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Process",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Required(), 
            source, 
@@ -2354,7 +2365,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Required",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Subjob(), 
            source, 
@@ -2362,14 +2373,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Subjob",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (elementParameterTypeEClass, 
            source, 
            new String[] {
              "name", "ElementParameter_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getElementParameterType_ElementValue(), 
            source, 
@@ -2377,7 +2388,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementValue",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getElementParameterType_Field(), 
            source, 
@@ -2385,7 +2396,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "field",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getElementParameterType_Name(), 
            source, 
@@ -2393,7 +2404,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getElementParameterType_Value(), 
            source, 
@@ -2401,7 +2412,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "value",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getElementParameterType_ContextMode(), 
            source, 
@@ -2409,14 +2420,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "contextMode",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (elementValueTypeEClass, 
            source, 
            new String[] {
              "name", "ElementValue_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getElementValueType_ElementRef(), 
            source, 
@@ -2424,7 +2435,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "elementRef",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getElementValueType_Value(), 
            source, 
@@ -2432,14 +2443,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "value",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (jobTypeEClass, 
            source, 
            new String[] {
              "name", "Job_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getJobType_Context(), 
            source, 
@@ -2447,7 +2458,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "context",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getJobType_Name(), 
            source, 
@@ -2455,14 +2466,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (logsTypeEClass, 
            source, 
            new String[] {
              "name", "Logs_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getLogsType_LogToFile(), 
            source, 
@@ -2470,7 +2481,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "LogToFile",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogsType_LogToDatabase(), 
            source, 
@@ -2478,7 +2489,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "LogToDatabase",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogsType_LogToStdOut(), 
            source, 
@@ -2486,14 +2497,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "LogToStdOut",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (logToDatabaseTypeEClass, 
            source, 
            new String[] {
              "name", "LogToDatabase_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getLogToDatabaseType_Database(), 
            source, 
@@ -2501,7 +2512,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "database",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogToDatabaseType_Level(), 
            source, 
@@ -2509,7 +2520,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "level",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogToDatabaseType_Selected(), 
            source, 
@@ -2517,14 +2528,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "selected",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (logToFileTypeEClass, 
            source, 
            new String[] {
              "name", "LogToFile_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getLogToFileType_Filename(), 
            source, 
@@ -2532,7 +2543,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "filename",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogToFileType_Level(), 
            source, 
@@ -2540,7 +2551,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "level",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogToFileType_Selected(), 
            source, 
@@ -2548,14 +2559,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "selected",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (logToStdOutTypeEClass, 
            source, 
            new String[] {
              "name", "LogToStdOut_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getLogToStdOutType_Level(), 
            source, 
@@ -2563,7 +2574,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "level",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLogToStdOutType_Selected(), 
            source, 
@@ -2571,14 +2582,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "selected",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (metadataTypeEClass, 
            source, 
            new String[] {
              "name", "Metadata_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Column(), 
            source, 
@@ -2586,7 +2597,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Column",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Comment(), 
            source, 
@@ -2594,7 +2605,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Comment",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Connector(), 
            source, 
@@ -2602,7 +2613,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "connector",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Label(), 
            source, 
@@ -2610,7 +2621,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "label",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Name(), 
            source, 
@@ -2618,7 +2629,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getMetadataType_Source(), 
            source, 
@@ -2626,14 +2637,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "source",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (nodeTypeEClass, 
            source, 
            new String[] {
              "name", "Node_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getNodeType_ElementParameter(), 
            source, 
@@ -2641,7 +2652,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_Metadata(), 
            source, 
@@ -2649,7 +2660,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Metadata",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_BinaryData(), 
            source, 
@@ -2657,7 +2668,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "BinaryData",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_StringData(), 
            source, 
@@ -2665,7 +2676,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "StringData",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_ComponentName(), 
            source, 
@@ -2673,7 +2684,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "componentName",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_ComponentVersion(), 
            source, 
@@ -2681,7 +2692,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "componentVersion",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_OffsetLabelX(), 
            source, 
@@ -2689,7 +2700,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "offsetLabelX",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_OffsetLabelY(), 
            source, 
@@ -2697,7 +2708,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "offsetLabelY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_PosX(), 
            source, 
@@ -2705,7 +2716,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "posX",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_PosY(), 
            source, 
@@ -2713,7 +2724,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "posY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_SizeX(), 
            source, 
@@ -2721,7 +2732,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "sizeX",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeType_SizeY(), 
            source, 
@@ -2729,14 +2740,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "sizeY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (noteTypeEClass, 
            source, 
            new String[] {
              "name", "Note_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getNoteType_Opaque(), 
            source, 
@@ -2744,7 +2755,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "opaque",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNoteType_PosX(), 
            source, 
@@ -2752,7 +2763,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "posX",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNoteType_PosY(), 
            source, 
@@ -2760,7 +2771,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "posY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNoteType_SizeHeight(), 
            source, 
@@ -2768,7 +2779,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "sizeHeight",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNoteType_SizeWidth(), 
            source, 
@@ -2776,7 +2787,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "sizeWidth",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNoteType_Text(), 
            source, 
@@ -2784,14 +2795,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "text",
              "namespace", "##targetNamespace"
-           });			
+           });	
         addAnnotation
           (parametersTypeEClass, 
            source, 
            new String[] {
              "name", "Parameters_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getParametersType_ElementParameter(), 
            source, 
@@ -2799,14 +2810,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (processTypeEClass, 
            source, 
            new String[] {
              "name", "Process_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getProcessType_Description(), 
            source, 
@@ -2814,7 +2825,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Description",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Required(), 
            source, 
@@ -2822,7 +2833,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Required",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Context(), 
            source, 
@@ -2830,7 +2841,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Context",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Parameters(), 
            source, 
@@ -2838,7 +2849,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Parameters",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Node(), 
            source, 
@@ -2846,7 +2857,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Node",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Connection(), 
            source, 
@@ -2854,7 +2865,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Connection",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Note(), 
            source, 
@@ -2862,7 +2873,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Note",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Logs(), 
            source, 
@@ -2870,7 +2881,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Logs",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Author(), 
            source, 
@@ -2878,7 +2889,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "author",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Comment(), 
            source, 
@@ -2886,7 +2897,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "comment",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_DefaultContext(), 
            source, 
@@ -2894,7 +2905,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "defaultContext",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Name(), 
            source, 
@@ -2902,7 +2913,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "name",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Purpose(), 
            source, 
@@ -2910,7 +2921,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "purpose",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_RepositoryContextId(), 
            source, 
@@ -2918,7 +2929,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "repositoryContextId",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Status(), 
            source, 
@@ -2926,7 +2937,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "status",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Version(), 
            source, 
@@ -2934,7 +2945,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "version",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getProcessType_Subjob(), 
            source, 
@@ -2942,14 +2953,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Subjob",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (requiredTypeEClass, 
            source, 
            new String[] {
              "name", "Required_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getRequiredType_Job(), 
            source, 
@@ -2957,14 +2968,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "Job",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (subjobTypeEClass, 
            source, 
            new String[] {
              "name", "Subjob_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getSubjobType_ElementParameter(), 
            source, 
@@ -2972,7 +2983,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getNodeContainerType_ElementParameter(), 
            source, 
@@ -2980,7 +2991,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
-           });		
+           });
     }
 
     /**
@@ -2989,7 +3000,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     protected void createExtendedMetaData_1Annotations() {
-        String source = "ExtendedMetaData";																																																																																																												
+        String source = "ExtendedMetaData";	
         addAnnotation
           (getNoteType_ElementParameter(), 
            source, 
@@ -2997,7 +3008,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "ElementParameterType",
              "namespace", "##targetNamespace"
-           });																											
+           });
     }
 
     /**
@@ -3007,12 +3018,12 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     protected void createMapEntryAnnotations() {
-        String source = "MapEntry";																																																																																																																																						
+        String source = "MapEntry";	
         addAnnotation
           (screenshotsMapEClass, 
            source, 
            new String[] {
-           });		
+           });	
         addAnnotation
           (additionalFieldMapEClass, 
            source, 

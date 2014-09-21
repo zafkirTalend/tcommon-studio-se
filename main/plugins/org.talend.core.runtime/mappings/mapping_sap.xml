@@ -29,6 +29,8 @@
 			<dbType type="DOUBLE"  ignorePre="true" ignoreLen="true"/>
 			<dbType type="INTEGER"  ignorePre="true" ignoreLen="true"/>
 			<dbType type="SHORT"  ignorePre="true" ignoreLen="true"/>
+			<!-- need to check -->
+			<dbType type="LONG"  ignorePre="true" ignoreLen="true"/>
 		</dbTypes>
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
@@ -70,7 +72,9 @@
 					<dbType type="BIG_INTEGER" />
 					<dbType type="INTEGER" />
 				</talendType>
-				<talendType type="id_Long" />
+				<talendType type="id_Long" >
+				    <dbType type="LONG" default ="true" />
+				</talendType>
 				<talendType type="id_Object">
 					<dbType type="BCD" default="true" />
 					<dbType type="ITAB" />
@@ -164,6 +168,9 @@
                 </dbType>
                 <dbType type="SHORT"  >
                     <talendType type="id_Short" default="true" />
+                </dbType>
+                <dbType type="LONG"  >
+                    <talendType type="id_Long" default="true" />
                 </dbType>
 			</dbToTalendTypes>
 		</language>

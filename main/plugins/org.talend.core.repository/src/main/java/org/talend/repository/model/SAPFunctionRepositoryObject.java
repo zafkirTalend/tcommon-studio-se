@@ -44,22 +44,6 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.repository.RepositoryObject#getAdapter(java.lang .Class)
-     */
-    public Object getAdapter(Class adapter) {
-        if (adapter == org.talend.core.model.metadata.builder.connection.MetadataTable.class) {
-            return functionUnit.getMetadataTable();
-        } else if (adapter == org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable.class) {
-            return functionUnit.getInputParameterTable();
-        } else if (adapter == org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable.class) {
-            return functionUnit.getOutputParameterTable();
-        }
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.core.model.repository.IRepositoryObject#getType()
      */
     @Override

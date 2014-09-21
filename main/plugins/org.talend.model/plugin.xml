@@ -98,4 +98,18 @@
             type="component"
             class="org.talend.designer.core.model.utils.emf.component.util.ComponentResourceFactoryImpl"/>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated TalendFile -->
+      <package
+            uri="platform:/resource/org.talend.model/model/TalendFile.xsd"
+            class="org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage"
+            genModel="model/TalendFile.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated TalendFile -->
+      <parser
+            type="talendfile"
+            class="org.talend.designer.core.model.utils.emf.talendfile.util.TalendFileResourceFactoryImpl"/>
+   </extension>
 </plugin>

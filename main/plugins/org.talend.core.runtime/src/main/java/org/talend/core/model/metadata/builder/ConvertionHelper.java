@@ -335,6 +335,7 @@ public final class ConvertionHelper {
         result.setComment(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
+        result.setTableType(old.getTableType());
         String sourceName = old.getName();
         if (sourceName == null) {
             sourceName = old.getLabel();

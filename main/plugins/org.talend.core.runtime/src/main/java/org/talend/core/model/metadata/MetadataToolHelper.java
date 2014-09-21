@@ -85,27 +85,69 @@ public final class MetadataToolHelper {
 
     private static final int MAX = 255;
 
+    /**
+     * 
+     * DOC wchen Comment method "getMetadataTableFromConnection".
+     * 
+     * @param conn
+     * @return
+     * @deprecated deprecated by getMetadataTableFromConnection(final Connection conn,String tableName) , sap tableName
+     * might be sapfunction/tableType/tableName
+     */
+    @Deprecated
     public static EList getMetadataTableFromConnection(final Connection conn) {
+        return getMetadataTableFromConnection(conn, null);
+    }
+
+    public static EList getMetadataTableFromConnection(final Connection conn, String tableName) {
         if (conn == null) {
             return null;
         }
         // return conn.getTables();
+        EList tables = new BasicEList();
         if (conn instanceof SAPConnection) {
             final SAPConnection sapConnection = (SAPConnection) conn;
-            final EList functions = sapConnection.getFuntions();
-            if (functions != null && !functions.isEmpty()) {
-                final EList tables = new BasicEList();
+            // get tables from connection and funciton output by default if tableName is null
+            if (tableName == null) {
+                // add sap tables
+                tables.addAll(ConnectionHelper.getTables(conn));
+                // add function param output tables
+                final List<SAPFunctionUnit> functions = sapConnection.getFuntions();
                 for (int i = 0; i < functions.size(); i++) {
-                    tables.addAll(((SAPFunctionUnit) functions.get(i)).getTables());
+                    tables.addAll((functions.get(i)).getTables());
                 }
                 return tables;
+            } else {
+                String[] split = tableName.split("/");
+                if (split.length == 1) {
+                    // only add sap tables
+                    tables.addAll(ConnectionHelper.getTables(conn));
+                } else if (split.length == 3) {
+                    // only add function param tables by function label and table type
+                    String functionLabel = split[0];
+                    String tableType = split[1];
+                    final List<SAPFunctionUnit> functions = sapConnection.getFuntions();
+                    for (int i = 0; i < functions.size(); i++) {
+                        SAPFunctionUnit function = functions.get(i);
+                        if (functionLabel.equals(function.getLabel())) {
+                            if (MetadataSchemaType.INPUT.equals(tableType)) {
+                                tables.addAll(function.getInputTables());
+                            } else {
+                                tables.addAll(function.getTables());
+                            }
+
+                        }
+
+                    }
+                }
+
             }
         } else {
-            EList tables = new BasicEList();
+            // tables in connection
             tables.addAll(ConnectionHelper.getTables(conn));
-            return tables;
         }
-        return null;
+        return tables;
+
     }
 
     public static ConnectionItem getConnectionItemByItemId(String itemId, boolean deleted) {
@@ -642,24 +684,24 @@ public final class MetadataToolHelper {
             return null;
         }
         String linkedRepository = names[0];
-        String name2 = null;
+        String tableName = null;
         if (names.length == 2) {
-            name2 = names[1];
+            tableName = names[1];
         } else if (names.length > 2) {
-            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
+            tableName = metaRepositoryId.substring(linkedRepository.length() + 3);
         }
 
         connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
-            // if (connection instanceof SAPConnection) {
-            // // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
-            // return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
-            // }
+            if (connection instanceof SAPConnection) {
+                // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
+                return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
+            }
             Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;
-                if (table.getLabel().equals(name2)) {
+                if (table.getLabel().equals(tableName)) {
                     return table;
                 }
             }
@@ -698,15 +740,39 @@ public final class MetadataToolHelper {
         return null;
     }
 
-    private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
+    private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String repositoryId) {
         String functionName = null;
         String tableName = null;
-        String[] names = name.split(" - "); //$NON-NLS-1$
+        String[] names = repositoryId.split(" - "); //$NON-NLS-1$
         if (names.length == 2) {
             functionName = names[0];
             tableName = names[1];
         } else {
             return null;
+        }
+
+        String[] split = tableName.split("/");
+        if (split.length == 3) {
+            functionName = split[0];
+            String type = split[1];
+            tableName = split[2];
+            for (Object obj : connection.getFuntions()) {
+                SAPFunctionUnit function = (SAPFunctionUnit) obj;
+                if (functionName.equals(function.getLabel())) {
+                    List<MetadataTable> tables = null;
+                    if (MetadataSchemaType.INPUT.name().equals(type)) {
+                        tables = function.getInputTables();
+                    } else {
+                        tables = function.getTables();
+                    }
+                    for (Object object : tables) {
+                        MetadataTable table = (MetadataTable) object;
+                        if (tableName.equals(table.getLabel())) {
+                            return table;
+                        }
+                    }
+                }
+            }
         }
 
         for (Object obj : connection.getFuntions()) {
@@ -719,7 +785,6 @@ public final class MetadataToolHelper {
                     }
                 }
             }
-
         }
         return null;
     }

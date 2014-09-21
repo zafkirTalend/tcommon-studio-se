@@ -97,4 +97,7 @@ public interface IMetadataTable {
 
     public void setAdditionalProperties(Map<String, String> additionalProperties);
 
+    public String getTableType();
+
+    public void setTableType(String tableType);
 }
