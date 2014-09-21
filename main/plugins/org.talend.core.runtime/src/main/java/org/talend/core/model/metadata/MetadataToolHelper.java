@@ -130,7 +130,7 @@ public final class MetadataToolHelper {
                     for (int i = 0; i < functions.size(); i++) {
                         SAPFunctionUnit function = functions.get(i);
                         if (functionLabel.equals(function.getLabel())) {
-                            if (MetadataSchemaType.INPUT.equals(tableType)) {
+                            if (MetadataSchemaType.INPUT.name().equals(tableType)) {
                                 tables.addAll(function.getInputTables());
                             } else {
                                 tables.addAll(function.getTables());
