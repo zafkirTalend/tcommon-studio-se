@@ -34,13 +34,31 @@ public interface IRepositoryUpdateManagerProvider extends IUpdateManagerProvider
 
     /**
      * 
+     * DOC ggu Comment method "needPropagate".
+     * 
+     * @param selection
+     * @return
+     */
+    boolean needPropagate(IStructuredSelection selection);
+
+    /**
+     * 
+     * DOC ggu Comment method "needForcePropagation".
+     * 
+     * @param selection
+     * @return if true, will force propagate to update manager.
+     */
+    boolean needForcePropagation(IStructuredSelection selection);
+
+    /**
+     * 
      * DOC ggu Comment method "updateForRepository".
      * 
      * Work for DetecteViewImpactAction.
      * 
-     * @param node
-     * @param needConfirm true, will display the confirm dialog to continue to propagate or not.
+     * @param selection
      * @return true, update successfully
      */
-    boolean updateForRepository(Object node, boolean needConfirm);
+    boolean updateForRepository(IStructuredSelection selection);
+
 }
