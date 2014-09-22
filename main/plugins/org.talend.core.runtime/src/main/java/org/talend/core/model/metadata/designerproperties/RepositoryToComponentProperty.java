@@ -950,6 +950,14 @@ public class RepositoryToComponentProperty {
             }
         }
 
+        if (value.equals("CDC_MODE")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getCdcTypeMode())) {
+                return connection.getCdcTypeMode();
+            } else {
+                return connection.getCdcTypeMode();
+            }
+        }
+
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
             if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
