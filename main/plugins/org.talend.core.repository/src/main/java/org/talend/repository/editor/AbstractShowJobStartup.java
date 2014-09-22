@@ -102,7 +102,7 @@ public abstract class AbstractShowJobStartup implements IStartup {
     private String getAppArgValue(String arg, String defaultValue) {
         String value = defaultValue;
         int index = ArrayUtils.indexOf(Platform.getApplicationArgs(), arg);
-        if (index > 0) {
+        if (index > -1) { // found
             if (index + 1 < Platform.getApplicationArgs().length) {
                 value = Platform.getApplicationArgs()[index + 1];
             }
