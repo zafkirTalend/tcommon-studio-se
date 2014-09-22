@@ -41,6 +41,7 @@ import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataSchemaType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -524,7 +525,18 @@ public abstract class RepositoryUpdateManager {
             } else if (parameter instanceof SAPFunctionUnit) {
                 // check sap function and schema
                 IMetadataTable table1 = ((IMetadataTable) object);
-                return table1.getId().equals(((SAPFunctionUnit) parameter).getMetadataTable().getId());
+                List<MetadataTable> tables = null;
+                if (MetadataSchemaType.INPUT.name().equals(table1.getTableType())) {
+                    tables = ((SAPFunctionUnit) parameter).getInputTables();
+                } else {
+                    tables = ((SAPFunctionUnit) parameter).getTables();
+                }
+                for (MetadataTable table : tables) {
+                    boolean equals = table1.getId().equals(table.getId());
+                    if (equals) {
+                        return true;
+                    }
+                }
             } else if (parameter instanceof Connection) {
                 Set<MetadataTable> tables = ConnectionHelper.getTables((Connection) parameter);
                 if (tables.size() == 1) {

@@ -941,20 +941,21 @@ public class ConnectionHelper {
                 }
             }
             return result;
-        } else if (connection instanceof SAPConnection) {
-            SAPConnection sapConnection = (SAPConnection) connection;
-            final EList<SAPFunctionUnit> funtions = sapConnection.getFuntions();
-            for (SAPFunctionUnit unit : new ArrayList<SAPFunctionUnit>(funtions)) {
-                // add tables from function
-                result.addAll(unit.getTables());
-            }
-            // add sap table
-            EList<Package> packages = connection.getDataPackage();
-            for (Package pack : new ArrayList<Package>(packages)) {
-                PackageHelper.getAllTables(pack, result);
-            }
-            return result;
         }
+        // else if (connection instanceof SAPConnection) {
+        // SAPConnection sapConnection = (SAPConnection) connection;
+        // final EList<SAPFunctionUnit> funtions = sapConnection.getFuntions();
+        // for (SAPFunctionUnit unit : new ArrayList<SAPFunctionUnit>(funtions)) {
+        // // add tables from function
+        // result.addAll(unit.getTables());
+        // }
+        // // add sap table
+        // EList<Package> packages = connection.getDataPackage();
+        // for (Package pack : new ArrayList<Package>(packages)) {
+        // PackageHelper.getAllTables(pack, result);
+        // }
+        // return result;
+        // }
 
         if (connection != null) {
             EList<Package> packages = connection.getDataPackage();

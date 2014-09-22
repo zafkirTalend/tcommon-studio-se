@@ -353,6 +353,9 @@ public final class RepositoryComponentManager {
         List<IComponent> exceptedComponents = new ArrayList<IComponent>();
 
         for (IComponent component : components) {
+            if (component.isTechnical()) {
+                continue;
+            }
             for (RepositoryComponentDndFilterSetting dndFilter : getDndFilterSettings()) {
                 IRepositoryComponentDndFilter filter = dndFilter.getFilter();
                 if (filter == null) {

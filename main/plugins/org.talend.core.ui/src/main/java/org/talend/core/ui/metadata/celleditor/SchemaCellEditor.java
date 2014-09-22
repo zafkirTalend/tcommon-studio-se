@@ -39,6 +39,7 @@ import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
@@ -59,6 +60,7 @@ import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProce
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.ESelectionCategory;
 import org.talend.core.ui.metadata.command.ChangeRuleMetadataCommand;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForEBCDICCommand;
+import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPBapi;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPCommand;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
 
@@ -132,9 +134,17 @@ public class SchemaCellEditor extends DialogCellEditor {
                             if (getTableViewer() != null) {
                                 index = getTableViewer().getTable().getSelectionIndex();
                             }
-                            //
-                            executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS,
-                                    metaTable.getLabel(), metaTable, index));
+                            SAPFunctionUnit functionUnit = null;
+                            if (selectedMetadataTable.eContainer() instanceof SAPFunctionUnit) {
+                                functionUnit = (SAPFunctionUnit) selectedMetadataTable.eContainer();
+                            }
+                            if ("tSAPBapi".equals(node.getComponent().getName())) {
+                                node.getMetadataFromConnector(schemaToEdit);
+                                executeCommand(new RepositoryChangeMetadataForSAPBapi(node, functionUnit, metaTable, null));
+                            } else {
+                                executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS,
+                                        metaTable.getLabel(), metaTable, index));
+                            }
                             //
                             if (getTableViewer() != null) {
                                 getTableViewer().refresh(true);
@@ -166,9 +176,16 @@ public class SchemaCellEditor extends DialogCellEditor {
                             if (getTableViewer() != null) {
                                 index = getTableViewer().getTable().getSelectionIndex();
                             }
-                            //
-                            executeCommand(new RepositoryChangeMetadataForEBCDICCommand(node, IEbcdicConstant.TABLE_SCHEMAS,
-                                    metaTable.getLabel(), metaTable, index));
+                            SAPFunctionUnit functionUnit = null;
+                            if (selectedMetadataTable.eContainer() instanceof SAPFunctionUnit) {
+                                functionUnit = (SAPFunctionUnit) selectedMetadataTable.eContainer();
+                            }
+                            if ("tSAPBapi".equals(node.getComponent().getName())) {
+                                executeCommand(new RepositoryChangeMetadataForSAPBapi(node, functionUnit, tableToEdit, metaTable));
+                            } else {
+                                executeCommand(new RepositoryChangeMetadataForEBCDICCommand(node, IEbcdicConstant.TABLE_SCHEMAS,
+                                        metaTable.getLabel(), metaTable, index));
+                            }
                             //
                             if (getTableViewer() != null) {
                                 getTableViewer().refresh(true);
