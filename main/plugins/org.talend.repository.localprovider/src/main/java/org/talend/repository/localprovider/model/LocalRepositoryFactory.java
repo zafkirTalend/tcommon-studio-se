@@ -2513,19 +2513,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
 
-        // if win, need try to find the existed folder item which is case insensitive.
-        final ERepositoryObjectType curItemType = ERepositoryObjectType.getItemType(item);
-        FolderItem folderItem = this.getFolderItem(project, curItemType, path);
-        if (folderItem != null) {
-            String pathStr = folderItem.getState().getPath();
-            if (pathStr == null) {
-                pathStr = ""; //$NON-NLS-1$
-            }
-            if (!path.isEmpty()) {
-                path = new Path(pathStr).append(folderItem.getProperty().getLabel());
-            }
-        }
-
         if (item.getProperty().getVersion() == null) {
             item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
         }
