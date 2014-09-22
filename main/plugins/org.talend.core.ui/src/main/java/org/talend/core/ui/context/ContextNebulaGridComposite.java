@@ -584,7 +584,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private void createContextsGroup(Composite parentComposite) {
         contextsSelectComp = new Composite(parentComposite, SWT.NULL);
-        contextsSelectComp.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(2).create());
+        contextsSelectComp.setLayout(GridLayoutFactory.swtDefaults().spacing(10, 0).margins(0, 0).numColumns(2).create());
         GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.DOWN).grab(true, false).applyTo(contextsSelectComp);
         GridLayout layout2 = (GridLayout) contextsSelectComp.getLayout();
         layout2.marginHeight = 0;

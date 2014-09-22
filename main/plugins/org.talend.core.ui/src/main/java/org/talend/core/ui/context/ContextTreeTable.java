@@ -53,9 +53,9 @@ import org.eclipse.nebula.widgets.nattable.hideshow.ColumnHideShowLayer;
 import org.eclipse.nebula.widgets.nattable.hideshow.RowHideShowLayer;
 import org.eclipse.nebula.widgets.nattable.hideshow.command.ColumnHideCommand;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
-import org.eclipse.nebula.widgets.nattable.layer.ILayerListener;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ColumnOverrideLabelAccumulator;
-import org.eclipse.nebula.widgets.nattable.layer.event.ILayerEvent;
+import org.eclipse.nebula.widgets.nattable.layer.config.DefaultColumnHeaderStyleConfiguration;
+import org.eclipse.nebula.widgets.nattable.painter.cell.TextPainter;
 import org.eclipse.nebula.widgets.nattable.painter.layer.NatGridLayerPainter;
 import org.eclipse.nebula.widgets.nattable.reorder.ColumnReorderLayer;
 import org.eclipse.nebula.widgets.nattable.selection.RowSelectionProvider;
@@ -90,6 +90,7 @@ import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.nattableTree.ContextColumnGroupConfiguration;
+import org.talend.core.ui.context.nattableTree.ContextColumnHeaderDecorator;
 import org.talend.core.ui.context.nattableTree.ContextNatTableBackGroudPainter;
 import org.talend.core.ui.context.nattableTree.ContextNatTableConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextNatTableStyleConfiguration;
@@ -98,6 +99,7 @@ import org.talend.core.ui.context.nattableTree.ContextParaModeChangeMenuConfigur
 import org.talend.core.ui.context.nattableTree.ContextRowDataListFixture;
 import org.talend.core.ui.context.nattableTree.ContextTextPainter;
 import org.talend.core.ui.context.nattableTree.ExtendedContextColumnPropertyAccessor;
+import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
@@ -126,12 +128,15 @@ public class ContextTreeTable {
 
     private IContextModelManager manager;
 
+    private final static int fixedCheckBoxWidth = 30;
+
+    private final static int fixedTypeWidth = 90;
+
     public ContextTreeTable(IContextModelManager manager) {
         this.manager = manager;
     }
 
-    public TControl createTable(Composite parentContainer) { // IContextModelManager
-                                                             // manager,
+    public TControl createTable(Composite parentContainer) {
         TControl retObj = createTableControl(parentContainer);
         retObj.setControl(retObj.getControl());
         return retObj;
@@ -164,7 +169,6 @@ public class ContextTreeTable {
      * create the context NatTable
      * 
      * @param parent
-     * @param data
      * @return
      */
     private TControl createTableControl(Composite parent) {
@@ -225,7 +229,7 @@ public class ContextTreeTable {
 
             ColumnGroupHeaderLayer columnGroupHeaderLayer = new ColumnGroupHeaderLayer(columnHeaderLayer, selectionLayer,
                     columnGroupModel);
-            AddContextColumnGroupsBehaviour(columnGroupHeaderLayer,
+            addContextColumnGroupsBehaviour(columnGroupHeaderLayer,
                     ContextRowDataListFixture.getContexts(manager.getContextManager()));
             columnGroupHeaderLayer.addConfiguration(new ContextColumnGroupConfiguration(columnGroupModel));
 
@@ -267,6 +271,8 @@ public class ContextTreeTable {
 
             natTable.addConfiguration(new DefaultTreeLayerConfiguration(treeLayer));
 
+            addCustomColumnHeaderStyleBehaviour();
+
             // hide the prompt column by default if the checkbox totally no check
             List<Integer> hideColumnsPos = addCustomHideColumnsBehaviour(manager, columnGroupModel, bodyDataLayer);
 
@@ -287,67 +293,12 @@ public class ContextTreeTable {
 
             natTable.configure();
 
-            GridDataFactory.fillDefaults().grab(true, true).applyTo(natTable);
-
-            this.natTable.addMouseListener(new MouseListener() {
-
-                @Override
-                public void mouseDoubleClick(MouseEvent e) {
-                    // get the row position for the click in the NatTable
-                    int rowPos = natTable.getRowPositionByY(e.y);
-                    if (rowPos == 0) {
-                        // in case click the column header
-                        return;
-                    }
-                    int rowIndex = natTable.getRowIndexByPosition(rowPos);
-                    ContextTreeNode treeNode = bodyDataProvider.getRowObject(rowIndex);
-                    if (treeNode != null && (treeNode.getChildren().size() != 0 || treeNode.getParent() != null)) {
-                        String repositoryContextName = (treeNode.getChildren().size() != 0) ? treeNode.getName() : treeNode
-                                .getParent().getName();
-                        List<IRepositoryViewObject> contextObjs;
-                        try {
-                            contextObjs = ProxyRepositoryFactory.getInstance().getAll(
-                                    ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.CONTEXT);
-                            for (IRepositoryViewObject contextObj : contextObjs) {
-                                if (contextObj.getProperty().getLabel().equals(repositoryContextName)) {
-                                    RepositoryNode relateNode = new RepositoryNode(contextObj, null, ENodeType.REPOSITORY_ELEMENT);
-                                    contextObj.setRepositoryNode(relateNode);
-                                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
-                                        IMetadataManagmentUiService mmUIService = (IMetadataManagmentUiService) GlobalServiceRegister
-                                                .getDefault().getService(IMetadataManagmentUiService.class);
-                                        mmUIService.openRepositoryContextWizard(relateNode);
-                                    }
-                                }
-                            }
-                        } catch (PersistenceException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void mouseDown(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseUp(MouseEvent e) {
-
-                }
-
-            });
-
-            // add selection listener for the context NatTable
             ISelectionProvider selectionProvider = new RowSelectionProvider<ContextTreeNode>(selectionLayer, bodyDataProvider,
-                    false);// selectionLayer columnHeaderLayer.getSelectionLayer()
+                    false);
 
-            selectionProvider.addSelectionChangedListener(new ISelectionChangedListener() {
+            addNatTableListener(bodyDataProvider, selectionProvider);
 
-                @Override
-                public void selectionChanged(SelectionChangedEvent event) {
-                    currentNatTabSel = (IStructuredSelection) event.getSelection();
-                }
-            });
+            GridDataFactory.fillDefaults().grab(true, true).applyTo(natTable);
 
             TControl retObj = new TControl();
             retObj.setControl(natTable);
@@ -361,6 +312,64 @@ public class ContextTreeTable {
         List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
         List<ContextTableTabParentModel> listofData = ContextNatTableUtils.constructContextDatas(contextDatas);
         contructContextTrees(listofData);
+    }
+
+    private void addNatTableListener(final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
+            ISelectionProvider selectionProvider) {
+        this.natTable.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                int rowPos = natTable.getRowPositionByY(e.y);
+                if (rowPos == 0) {
+                    // in case click the column header
+                    return;
+                }
+                int rowIndex = natTable.getRowIndexByPosition(rowPos);
+                ContextTreeNode treeNode = bodyDataProvider.getRowObject(rowIndex);
+                if (treeNode != null && (treeNode.getChildren().size() != 0 || treeNode.getParent() != null)) {
+                    String repositoryContextName = (treeNode.getChildren().size() != 0) ? treeNode.getName() : treeNode
+                            .getParent().getName();
+                    List<IRepositoryViewObject> contextObjs;
+                    try {
+                        contextObjs = ProxyRepositoryFactory.getInstance().getAll(
+                                ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.CONTEXT);
+                        for (IRepositoryViewObject contextObj : contextObjs) {
+                            if (contextObj.getProperty().getLabel().equals(repositoryContextName)) {
+                                RepositoryNode relateNode = new RepositoryNode(contextObj, null, ENodeType.REPOSITORY_ELEMENT);
+                                contextObj.setRepositoryNode(relateNode);
+                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
+                                    IMetadataManagmentUiService mmUIService = (IMetadataManagmentUiService) GlobalServiceRegister
+                                            .getDefault().getService(IMetadataManagmentUiService.class);
+                                    mmUIService.openRepositoryContextWizard(relateNode);
+                                }
+                            }
+                        }
+                    } catch (PersistenceException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseUp(MouseEvent e) {
+
+            }
+
+        });
+
+        selectionProvider.addSelectionChangedListener(new ISelectionChangedListener() {
+
+            @Override
+            public void selectionChanged(SelectionChangedEvent event) {
+                currentNatTabSel = (IStructuredSelection) event.getSelection();
+            }
+        });
     }
 
     private List<Integer> getAllCheckPosBehaviour(IContextModelManager manager, ColumnGroupModel contextGroupModel) {
@@ -387,11 +396,6 @@ public class ContextTreeTable {
                 dataLayer.setColumnWidthByPosition(i, averageWidth);
             }
         } else {
-
-            int fixedCheckBoxWidth = 30;
-
-            int fixedTypeWidth = 90;
-
             int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
 
             int leftWidth = maxWidth - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size() - cornerWidth * 2;
@@ -425,11 +429,11 @@ public class ContextTreeTable {
         }
     }
 
-    private List<Integer> addCustomHideColumnsBehaviour(IContextModelManager manager, ColumnGroupModel contextGroupModel,
+    private List<Integer> addCustomHideColumnsBehaviour(IContextModelManager modelManager, ColumnGroupModel contextGroupModel,
             DataLayer dataLayer) {
         List<Integer> hidePos = new ArrayList<Integer>();
-        if (manager.getContextManager() != null) {
-            List<IContext> contexts = manager.getContextManager().getListContext();
+        if (modelManager.getContextManager() != null) {
+            List<IContext> contexts = modelManager.getContextManager().getListContext();
             for (IContext envContext : contexts) {
                 boolean needHidePrompt = true;
                 ColumnGroup group = contextGroupModel.getColumnGroupByName(envContext.getName());
@@ -463,6 +467,12 @@ public class ContextTreeTable {
         layer.addConfiguration(selectStyleConfig);
     }
 
+    private void addCustomColumnHeaderStyleBehaviour() {
+        DefaultColumnHeaderStyleConfiguration columnStyle = new DefaultColumnHeaderStyleConfiguration();
+        columnStyle.cellPainter = new ContextColumnHeaderDecorator(new TextPainter());
+        natTable.addConfiguration(columnStyle);
+    }
+
     private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
             ColumnGroupModel groupModel, IContextManager contextManager) {
         ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
@@ -477,19 +487,16 @@ public class ContextTreeTable {
     }
 
     private void addCustomContextMenuBehavior(final IContextModelManager modelManager,
-            final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider) { // final
+            final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider) {
         natTable.addConfiguration(new ContextParaModeChangeMenuConfiguration(natTable, bodyDataProvider));
     }
 
-    private void addCustomSelectionBehaviour(final IContextModelManager manager, final ColumnGroupModel contextGroupModel,
-            final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider) {
-
-        this.natTable.addLayerListener(new ILayerListener() {
-
-            @Override
-            public void handleLayerEvent(ILayerEvent event) {
-            }
-        });
+    private void addContextColumnGroupsBehaviour(ColumnGroupHeaderLayer columnHeaderLayer, List<IContext> contexts) {
+        int i = 1;
+        for (IContext context : contexts) {
+            String evnContext = context.getName();
+            columnHeaderLayer.addColumnsIndexesToGroup(evnContext, new int[] { ++i, ++i, ++i });
+        }
     }
 
     private void registerColumnLabels(ColumnOverrideLabelAccumulator columnLabelAccumulator, List<IContext> contexts) {
@@ -501,14 +508,6 @@ public class ContextTreeTable {
             columnLabelAccumulator.registerColumnOverrides(j++, new String[] { ContextTableConstants.COLUMN_CONTEXT_VALUE });
             columnLabelAccumulator.registerColumnOverrides(j++, new String[] { ContextTableConstants.COLUMN_CHECK_PROPERTY });
             columnLabelAccumulator.registerColumnOverrides(j++, new String[] { ContextTableConstants.COLUMN_PROMPT_PROPERTY });
-        }
-    }
-
-    private void AddContextColumnGroupsBehaviour(ColumnGroupHeaderLayer columnHeaderLayer, List<IContext> contexts) {
-        int i = 1;
-        for (IContext context : contexts) {
-            String evnContext = context.getName();
-            columnHeaderLayer.addColumnsIndexesToGroup(evnContext, new int[] { ++i, ++i, ++i });
         }
     }
 
@@ -621,15 +620,15 @@ public class ContextTreeTable {
 
     private Map<String, ContextTreeNode> treeNodes = new HashMap<String, ContextTreeNode>();
 
-    private void createContextTreeNode(int orderId, IContextModelManager manager, Object data, String parent,
+    private void createContextTreeNode(int orderId, IContextModelManager modelManager, Object data, String parent,
             String currentNodeName) {
-        ContextTreeNode datum = new ContextTreeNode(orderId, manager, data, treeNodes.get(parent), currentNodeName);
+        ContextTreeNode datum = new ContextTreeNode(orderId, modelManager, data, treeNodes.get(parent), currentNodeName);
         treeNodes.put(currentNodeName, datum);
     }
 
     public class ContextTreeNode implements Comparable<ContextTreeNode> {
 
-        private IContextModelManager manager;
+        private IContextModelManager modelManager;
 
         private Object treeData;
 
@@ -641,9 +640,9 @@ public class ContextTreeTable {
 
         private final int orderId;
 
-        public ContextTreeNode(int orderId, IContextModelManager manager, Object data, ContextTreeNode parent, String name) {
+        public ContextTreeNode(int orderId, IContextModelManager modelManager, Object data, ContextTreeNode parent, String name) {
             this.orderId = orderId;
-            this.manager = manager;
+            this.modelManager = modelManager;
             this.treeData = data;
             this.parent = parent;
             if (parent != null) {
@@ -658,7 +657,7 @@ public class ContextTreeTable {
         }
 
         public IContextModelManager getManager() {
-            return manager;
+            return modelManager;
         }
 
         public Object getTreeData() {
@@ -717,13 +716,6 @@ public class ContextTreeTable {
                 }
             }
         }
-        // else {
-        // // if empty data,we still need construct the empty tree
-        // for (int i = 0; i < 8; i++) {
-        // ContextTableTabParentModel emptyLevelNode = new ContextTableTabParentModel();
-        // createContextTreeNode(i, manager, emptyLevelNode, TREE_CONTEXT_ROOT, TREE_DEFAULT_NODE + i);
-        // }
-        // }
     }
 
     private void attachCheckColumnTip(NatTable nt) {
@@ -758,7 +750,7 @@ public class ContextTreeTable {
 
         @Override
         protected String getText(Event event) {
-            return "activate prompt on variable";
+            return Messages.getString("ContextTreeTable.PromptToolTips"); //$NON-NLS-1$
         }
 
         @Override
