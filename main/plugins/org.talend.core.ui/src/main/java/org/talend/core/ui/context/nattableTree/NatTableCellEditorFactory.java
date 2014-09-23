@@ -22,7 +22,6 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.ui.context.AbstractContextTabEditComposite;
 import org.talend.core.ui.context.MultiStringSelectionDialog;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -33,10 +32,6 @@ import org.talend.core.utils.TalendQuoteUtils;
 public class NatTableCellEditorFactory {
 
     public static final String[] BOOLEANS = new String[] { Boolean.FALSE.toString(), Boolean.TRUE.toString() };
-
-    private IContextParameter parameter = null;
-
-    private AbstractContextTabEditComposite parentModel;
 
     public NatTableCellEditorFactory() {
     }

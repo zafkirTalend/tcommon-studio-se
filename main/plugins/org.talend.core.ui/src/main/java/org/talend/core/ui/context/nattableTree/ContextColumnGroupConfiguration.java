@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.context.nattableTree;
 
+import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
+import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
+import org.eclipse.nebula.widgets.nattable.grid.GridRegion;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
 import org.eclipse.nebula.widgets.nattable.group.action.ColumnGroupExpandCollapseAction;
 import org.eclipse.nebula.widgets.nattable.group.action.ColumnGroupHeaderReorderDragMode;
@@ -19,6 +22,8 @@ import org.eclipse.nebula.widgets.nattable.group.action.ColumnHeaderReorderDragM
 import org.eclipse.nebula.widgets.nattable.group.action.CreateColumnGroupAction;
 import org.eclipse.nebula.widgets.nattable.group.action.UngroupColumnsAction;
 import org.eclipse.nebula.widgets.nattable.group.config.DefaultColumnGroupHeaderLayerConfiguration;
+import org.eclipse.nebula.widgets.nattable.group.painter.ColumnGroupHeaderTextPainter;
+import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
 import org.eclipse.nebula.widgets.nattable.ui.action.AggregateDragMode;
 import org.eclipse.nebula.widgets.nattable.ui.action.CellDragMode;
 import org.eclipse.nebula.widgets.nattable.ui.action.NoOpMouseAction;
@@ -44,6 +49,19 @@ public class ContextColumnGroupConfiguration extends DefaultColumnGroupHeaderLay
         super(columnGroupModel);
         this.columnGroupModel = columnGroupModel;
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.nebula.widgets.nattable.group.config.DefaultColumnGroupHeaderLayerConfiguration#configureRegistry
+     * (org.eclipse.nebula.widgets.nattable.config.IConfigRegistry)
+     */
+    @Override
+    public void configureRegistry(IConfigRegistry configRegistry) {
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ContextColumnHeaderDecorator(
+                new ColumnGroupHeaderTextPainter()), DisplayMode.NORMAL, GridRegion.COLUMN_GROUP_HEADER);
     }
 
     /*

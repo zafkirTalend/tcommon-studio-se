@@ -132,24 +132,12 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         return propertyNames.indexOf(propertyName);
     }
 
-    private String getCurrentModelName(Object element) {
-        if (element instanceof ContextTableTabParentModel) {
-            if (((ContextTableTabParentModel) element).getContextParameter() == null) {
-                return ((ContextTableTabParentModel) element).getSourceName();
-            } else {
-                return ((ContextTableTabParentModel) element).getContextParameter().getName();
-            }
-        } else {
-            return ((ContextTableTabChildModel) element).getContextParameter().getName();
-        }
-    }
-
     private Object getPropertyValue(IContextModelManager manager, Object element, int columnIndex) {
 
         if (isEmptyTreeNode(element)) {
             return "";
         }
-        String contextParaName = getCurrentModelName(element);
+        String contextParaName = ContextNatTableUtils.getCurrentContextModelName(element);
         String currentColumnName = getColumnProperty(columnIndex);
         if (currentColumnName.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
             if (element instanceof ContextTableTabParentModel) {

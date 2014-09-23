@@ -113,7 +113,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
     private void refreshView() {
         if (getContextManager() == null) {
             this.setEnabled(false);
-            tableNebulas.clear();
             tableNebulas.setEnabled(isReadOnly());
         } else {
             this.setEnabled(true);

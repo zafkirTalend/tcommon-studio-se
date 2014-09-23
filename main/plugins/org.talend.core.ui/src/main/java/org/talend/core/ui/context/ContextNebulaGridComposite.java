@@ -20,13 +20,10 @@ import java.util.Set;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -40,13 +37,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -55,16 +48,13 @@ import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
-import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
-import org.talend.core.ui.context.model.ContextViewerProvider;
 import org.talend.core.ui.context.model.table.ContextTableCellModifier;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
@@ -84,8 +74,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private TreeViewer viewer;
 
-    private ContextViewerProvider provider;
-
     private IContextModelManager modelManager = null;
 
     private ContextTableCellModifier cellModifier;
@@ -98,8 +86,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private Button contextConfigButton;
 
-    private CellEditor[] cellEditors;
-
     private ContextValueErrorChecker valueChecker;
 
     private static final int VALUES_INDEX = 1;
@@ -108,13 +94,9 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private List<Button> buttonList;
 
-    private Listener sortListener;
-
     private Button moveDownButton;
 
     private Button moveUpButton;
-
-    private Button orderButton;
 
     private Button removeButton;
 
@@ -230,38 +212,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         Image image = ImageProvider.getImage(EImage.ADD_ICON);
         addPushButton.setImage(image);
         return addPushButton;
-    }
-
-    /**
-     * bqian Comment method "createTreeTooltip".
-     * 
-     * @param tree
-     */
-    protected void createTreeTooltip(final Tree tree) {
-        new AbstractTreeTooltip(tree) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see
-             * org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip#getTooltipContent(org.eclipse.swt.widgets.TreeItem)
-             */
-            @Override
-            public String getTooltipContent(TreeItem item) {
-
-                String property = ""; //$NON-NLS-1$
-                if (properties != null && properties.length > VALUES_INDEX) {
-                    property = properties[VALUES_INDEX];
-                }
-
-                IContextParameter para = cellModifier.getRealParameter(property, item.getData());
-                if (para.getType().equalsIgnoreCase(PerlTypesManager.STRING)) {
-                    return Messages.getString("PromptDialog.stringTip"); //$NON-NLS-1$
-                }
-
-                return null;
-            }
-        };
     }
 
     public Object createNewEntry() {
@@ -462,64 +412,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
     }
 
-    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
-
-        IContextParameter para = cellModifier.getRealParameter(properties[column], item.getData());
-
-        if (para == null) {
-            return;
-        }
-        valueChecker.checkErrors(item, column, para);
-        if (!para.isBuiltIn()) {
-            // not built-in
-            return;
-        }
-        cellEditor = cellFactory.getCustomCellEditor(para, tree);
-
-        if (cellEditor == null) {
-            // unable to create the editor
-            return;
-        }
-
-        // activate the cell editor
-        cellEditor.activate();
-        // if the cell editor has no control we can stop now
-        Control control = cellEditor.getControl();
-        if (control == null) {
-            cellEditor.deactivate();
-            cellEditor = null;
-            return;
-        }
-        Text textControl = valueChecker.getTextControl(control);
-        if (textControl != null) {
-            if (ContextParameterUtils.isPasswordType(para)) {
-                textControl.setEchoChar('*');
-            } else {
-                textControl.setEchoChar((char) 0);
-            }
-        }
-
-        valueChecker.register(control);
-        // add our editor listener
-        cellEditor.addListener(createEditorListener(treeEditor, column));
-
-        // set the layout of the tree editor to match the cell editor
-        CellEditor.LayoutData layout = cellEditor.getLayoutData();
-        treeEditor.horizontalAlignment = layout.horizontalAlignment;
-        treeEditor.grabHorizontal = layout.grabHorizontal;
-        treeEditor.minimumWidth = layout.minimumWidth;
-
-        treeEditor.setEditor(control, item, column);
-        // give focus to the cell editor
-        cellEditor.setFocus();
-
-    }
-
-    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
-        // get the new selection
-        activateCellEditor(item, tree, treeEditor, columnIndex, column);
-    }
-
     @Override
     public boolean isGroupBySource() {
         boolean isRepositoryContext = false;
@@ -529,39 +421,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
         boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
         return value && !isRepositoryContext;
-    }
-
-    private void deactivateCellEditor(final TreeEditor tableEditor, int columnIndex) {
-        tableEditor.setEditor(null, null, columnIndex);
-        if (cellEditor != null) {
-            Control control = cellEditor.getControl();
-            if (control != null) {
-                valueChecker.unregister(control);
-            }
-            cellEditor.deactivate();
-            cellEditor.removeListener(editorListener);
-            cellEditor = null;
-        }
-    }
-
-    private ICellEditorListener createEditorListener(final TreeEditor tableEditor, final int columnIndex) {
-        editorListener = new ICellEditorListener() {
-
-            @Override
-            public void cancelEditor() {
-                deactivateCellEditor(tableEditor, columnIndex);
-            }
-
-            @Override
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-            }
-
-            @Override
-            public void applyEditorValue() {
-                editing = true;
-            }
-        };
-        return editorListener;
     }
 
     private void createMessageGroup(Composite parentComposite) {
@@ -693,28 +552,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
     }
 
-    private ICellEditorListener editorListener;
-
-    private CellEditor cellEditor;
-
-    private String[] properties;
-
-    private boolean editing;
-
-    /**
-     * bqian Comment method "getContexts".
-     * 
-     * @return
-     */
-    public List<IContext> getContexts() {
-        List<IContext> contexts = new ArrayList<IContext>();
-        IContextManager cm = modelManager.getContextManager();
-        if (cm != null) {
-            contexts = cm.getListContext();
-        }
-        return contexts;
-    }
-
     @Override
     public IContextModelManager getContextModelManager() {
         return this.modelManager;
@@ -843,24 +680,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         if (buttonsComp != null && !buttonsComp.isDisposed()) {
             buttonsComp.dispose();
         }
-    }
-
-    public String[] getColumnProperties() {
-        return this.properties;
-    }
-
-    /**
-     * Clear the data in this viewer.
-     * 
-     * @param jobContextManager2
-     */
-    public void clear() {
-        // final Tree tree = viewer.getTree();
-        // TreeColumn[] columns = tree.getColumns();
-        // for (TreeColumn tableColumn : columns) {
-        // tableColumn.dispose();
-        // }
-        // viewer.setInput(Collections.EMPTY_LIST);
     }
 
 }
