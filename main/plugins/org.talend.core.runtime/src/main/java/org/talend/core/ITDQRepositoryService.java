@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.talend.commons.exception.BusinessException;
@@ -190,9 +191,8 @@ public interface ITDQRepositoryService extends IService {
 
     public Collection<org.talend.core.model.metadata.builder.connection.Connection> getAllDataProviders();
 
-    public void updateDriverIfClassNotLoad(DatabaseConnection databaseConnection);
-
     // Added TDQ-8787 20140616: publish a dynamic chart event
     public void publishDynamicEvent(ModelElement indicator, Object value);
 
+    public Item createFile(String content, IPath path, String label, String extension);
 }
