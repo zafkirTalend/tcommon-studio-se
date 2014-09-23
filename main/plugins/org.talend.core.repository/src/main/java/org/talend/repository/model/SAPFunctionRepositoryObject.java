@@ -102,7 +102,13 @@ public class SAPFunctionRepositoryObject extends RepositoryObject implements ISu
      */
     @Override
     public void removeFromParent() {
-        functionUnit.getConnection().getFuntions().remove(functionUnit);
+        SAPConnection connection = functionUnit.getConnection();
+        if (connection == null && functionUnit.eContainer() instanceof SAPConnection) {
+            connection = (SAPConnection) functionUnit.eContainer();
+        }
+        if (connection != null) {
+            connection.getFuntions().remove(functionUnit);
+        }
     }
 
     @Override
