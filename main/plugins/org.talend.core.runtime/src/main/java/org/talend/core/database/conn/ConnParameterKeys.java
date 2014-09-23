@@ -109,6 +109,31 @@ public class ConnParameterKeys {
      */
     public static final String CONN_PARA_KEY_METASTORE_PROT = "CONN_PARA_KEY_METASTORE_PROT"; //$NON-NLS-1$
 
+    /*********** HD Insight keys ***************/
+    public static final String CONN_PARA_KEY_WEB_HCAT_HOSTNAME = "CONN_PARA_KEY_WEB_HCAT_HOSTNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_WEB_HCAT_PORT = "CONN_PARA_KEY_WEB_HCAT_PORT"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_WEB_HCAT_USERNAME = "CONN_PARA_KEY_WEB_HCAT_USERNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_WEB_HCAT_JOB_RESULT_FOLDER = "CONN_PARA_KEY_WEB_HCAT_JOB_RESULT_FOLDER"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_HDI_USERNAME = "CONN_PARA_KEY_HDI_USERNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_HDI_PASSWORD = "CONN_PARA_KEY_HDI_PASSWORD"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_AZURE_HOSTNAME = "CONN_PARA_KEY_AZURE_HOSTNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_AZURE_CONTAINER = "CONN_PARA_KEY_AZURE_CONTAINER"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_AZURE_USERNAME = "CONN_PARA_KEY_AZURE_USERNAME"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_AZURE_PASSWORD = "CONN_PARA_KEY_AZURE_PASSWORD"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_AZURE_DEPLOY_BLOB = "CONN_PARA_KEY_AZURE_DEPLOY_BLOB"; //$NON-NLS-1$
+
+    /******************************************/
+
     /**
      * HBase keys.
      */
