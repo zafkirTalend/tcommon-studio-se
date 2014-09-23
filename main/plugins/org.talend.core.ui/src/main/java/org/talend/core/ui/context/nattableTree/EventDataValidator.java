@@ -18,6 +18,7 @@ import org.eclipse.nebula.widgets.nattable.data.validate.ValidationFailedExcepti
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.GlazedListsDataProvider;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * created by ldong on Jul 17, 2014 Detailled comment
@@ -38,16 +39,21 @@ public class EventDataValidator extends DataValidator {
     public boolean validate(int columnIndex, int rowIndex, Object newValue) {
         @SuppressWarnings("unchecked")
         ContextTreeNode rowNode = ((GlazedListsDataProvider<ContextTreeNode>) dataProvider).getRowObject(rowIndex);
+        String oldName = ContextNatTableUtils.getCurrentContextModelName(rowNode.getTreeData());
         String newName = (String) newValue;
+        if (oldName.equals(newName)) {
+            return true;
+        }
         if (manager.checkValidParameterName(rowNode.getName(), (String) newValue)) {
             return true;
         }
-        if (null != newName && !"".equals(newName)) { //$NON-NLS-1$
+        if (null != newName && !"".equals(newName)) {
             if (newName.length() > 255) {
-                throw new ValidationFailedException("parameter name is not valid");
+                throw new ValidationFailedException(Messages.getString("ContextValidator.ParameterNotValid")); //$NON-NLS-1$
             }
         }
 
-        throw new ValidationFailedException("parameter name is not valid");
+        throw new ValidationFailedException(Messages.getString("ContextValidator.ParameterNotValid")); //$NON-NLS-1$
     }
+
 }

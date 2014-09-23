@@ -168,7 +168,7 @@ public class ContextNatTableUtils {
         return firstLevelNode;
     }
 
-    public boolean renameParameter(IContextModelManager manager, final String oldParamName, String sourceId,
+    public static boolean renameParameter(IContextModelManager manager, final String oldParamName, String sourceId,
             final String newParamName, boolean reposFlag) {
         if (!manager.getContextManager().checkValidParameterName(oldParamName, newParamName)) {
             MessageDialog
@@ -191,6 +191,18 @@ public class ContextNatTableUtils {
         manager.onContextRenameParameter(manager.getContextManager(), sourceId, oldParamName, newParamName);
         manager.refresh();
         return true;
+    }
+
+    public static String getCurrentContextModelName(Object element) {
+        if (element instanceof ContextTableTabParentModel) {
+            if (((ContextTableTabParentModel) element).getContextParameter() == null) {
+                return ((ContextTableTabParentModel) element).getSourceName();
+            } else {
+                return ((ContextTableTabParentModel) element).getContextParameter().getName();
+            }
+        } else {
+            return ((ContextTableTabChildModel) element).getContextParameter().getName();
+        }
     }
 
 }
