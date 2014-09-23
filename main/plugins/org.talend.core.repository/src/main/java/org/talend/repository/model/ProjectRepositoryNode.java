@@ -1428,7 +1428,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
             // 2.Functions:
             StableRepositoryNode functionNode = new StableRepositoryNode(node,
-                    Messages.getString("ProjectRepositoryNode.sapFunctions"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+                    Messages.getString("ProjectRepositoryNode.sapBapi"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
             functionNode.setChildrenObjectType(ERepositoryObjectType.METADATA_SAP_FUNCTION);
             node.getChildren().add(functionNode);
 

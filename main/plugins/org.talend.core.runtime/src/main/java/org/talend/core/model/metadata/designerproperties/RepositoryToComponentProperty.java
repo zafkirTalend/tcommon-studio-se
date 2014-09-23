@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.MappingType;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
@@ -392,6 +393,18 @@ public class RepositoryToComponentProperty {
             }
 
             return version;
+        } else if ("SAP_PROPERTIES".equals(value)) {//$NON-NLS-1$
+            EList<AdditionalConnectionProperty> additionalProperties = connection.getAdditionalProperties();
+            List<Map<String, Object>> values = new ArrayList<Map<String, Object>>();
+            for (AdditionalConnectionProperty property : additionalProperties) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                if (property.getPropertyName() != null && !"".equals(property.getPropertyName())) {
+                    map.put("PROPERTY", property.getPropertyName());//$NON-NLS-1$
+                    map.put("VALUE", property.getValue());//$NON-NLS-1$
+                    values.add(map);
+                }
+            }
+            return values;
         }
 
         return null;
