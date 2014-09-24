@@ -225,49 +225,6 @@ public class ContextUtils {
         return null;
     }
 
-    public static Item getContextItemById3(String contextId) {
-        if (IContextParameter.BUILT_IN.equals(contextId)) {
-            return null;
-        }
-        if (checkObject(contextId)) {
-            return null;
-        }
-
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        try {
-            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
-            if (lastVersion != null) {
-                final Item item = lastVersion.getProperty().getItem();
-                if (item != null) {
-                    return item;
-                }
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
-    public static JobletProcessItem getJobletContextItemById2(String contextId) {
-        if (IContextParameter.BUILT_IN.equals(contextId)) {
-            return null;
-        }
-        if (checkObject(contextId)) {
-            return null;
-        }
-
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        try {
-            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
-            if (lastVersion != null) {
-                return (JobletProcessItem) lastVersion.getProperty().getItem();
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
     public static ContextItem getContextItemById(List<ContextItem> contextItemList, String contextId) {
         if (IContextParameter.BUILT_IN.equals(contextId)) {
             return null;
@@ -457,6 +414,33 @@ public class ContextUtils {
             itemMap.put(item.getProperty().getId(), item);
         }
         return itemMap;
+    }
+
+    /**
+     * 
+     * get the repository context item,now contextId can be either joblet node or context node.
+     */
+    public static Item getRepositoryContextItemById(String contextId) {
+        if (IContextParameter.BUILT_IN.equals(contextId)) {
+            return null;
+        }
+        if (checkObject(contextId)) {
+            return null;
+        }
+
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        try {
+            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
+            if (lastVersion != null) {
+                final Item item = lastVersion.getProperty().getItem();
+                if (item != null) {
+                    return item;
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     /**

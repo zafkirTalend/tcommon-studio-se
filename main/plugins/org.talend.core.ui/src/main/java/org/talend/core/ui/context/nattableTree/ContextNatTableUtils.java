@@ -124,7 +124,7 @@ public class ContextNatTableUtils {
                             output.add(firstLevelNode);
                             String sourceLabel = sourceId;
                             // the item maybe a joblet item now
-                            Item contextItem = ContextUtils.getContextItemById3(sourceId);
+                            Item contextItem = ContextUtils.getRepositoryContextItemById(sourceId);
                             if (contextItem != null) {
                                 sourceLabel = contextItem.getProperty().getLabel();
                                 final ProjectManager pm = ProjectManager.getInstance();

@@ -143,7 +143,7 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
             if (element instanceof ContextTableTabParentModel) {
                 String sourceId = ((ContextTableTabParentModel) element).getSourceId();
                 if (!sourceId.equals(IContextParameter.BUILT_IN)) {
-                    Item item = ContextUtils.getContextItemById3(sourceId);
+                    Item item = ContextUtils.getRepositoryContextItemById(sourceId);
                     if (item != null) {
                         if (item instanceof JobletProcessItem) {
                             return contextParaName + JOBLET_CONTEXT;
