@@ -91,6 +91,8 @@ public final class RepositoryManagerHelper {
                     try {
                         if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(page.getPerspective().getId())) {
                             part = page.showView(IRepositoryView.VIEW_ID);
+                        } else if (IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(page.getPerspective().getId())) {
+                            part = page.showView(IRepositoryView.VIEW_ID, null, IWorkbenchPage.VIEW_CREATE);
                         }
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
@@ -132,6 +134,7 @@ public final class RepositoryManagerHelper {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                 if (activeWorkbenchWindow != null && activeWorkbenchWindow.getActivePage() != null) {
