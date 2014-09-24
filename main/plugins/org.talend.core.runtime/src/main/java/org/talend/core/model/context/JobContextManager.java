@@ -294,7 +294,7 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
-                        Item item = ContextUtils.getContextItemById3(contextParam.getSource());
+                        Item item = ContextUtils.getRepositoryContextItemById(contextParam.getSource());
                         if (item != null) {
                             contextParamType.setRepositoryContextId(item.getProperty().getId());
                         }
@@ -379,7 +379,7 @@ public class JobContextManager implements IContextManager {
                 if (repositoryContextId != null && !"".equals(repositoryContextId)) { //$NON-NLS-1$
                     Item item = ContextUtils.getContextItemById(contextItemList, repositoryContextId);
                     if (item == null) {
-                        item = ContextUtils.getContextItemById3(repositoryContextId);
+                        item = ContextUtils.getRepositoryContextItemById(repositoryContextId);
                     }
                     if (item != null) {
                         source = item.getProperty().getId();

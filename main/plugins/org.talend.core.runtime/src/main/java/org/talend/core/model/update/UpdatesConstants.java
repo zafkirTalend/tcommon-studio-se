@@ -46,6 +46,8 @@ public final class UpdatesConstants {
 
     public static final String CONTEXT_MODE = "(Context Mode)"; //$NON-NLS-1$
 
+    public static final String CONTEXT_FROM = "from"; //$NON-NLS-1$
+
     /*
      * Category
      */
