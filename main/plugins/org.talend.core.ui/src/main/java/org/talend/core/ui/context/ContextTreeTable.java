@@ -117,6 +117,8 @@ public class ContextTreeTable {
 
     private NatTable natTable;
 
+    private Map<String, ContextTreeNode> treeNodes = new HashMap<String, ContextTreeNode>();
+
     private IStructuredSelection currentNatTabSel;
 
     private final static String TREE_CONTEXT_ROOT = "";
@@ -273,7 +275,6 @@ public class ContextTreeTable {
 
             addCustomColumnHeaderStyleBehaviour();
 
-            // hide the prompt column by default if the checkbox totally no check
             List<Integer> hideColumnsPos = addCustomHideColumnsBehaviour(manager, columnGroupModel, bodyDataLayer);
 
             List<Integer> checkColumnPos = getAllCheckPosBehaviour(manager, columnGroupModel);
@@ -307,11 +308,44 @@ public class ContextTreeTable {
         return null;
     }
 
+    private void attachCheckColumnTip(NatTable nt) {
+        DefaultToolTip toolTip = new ContextNatTableToolTip(nt);
+        toolTip.setBackgroundColor(natTable.getDisplay().getSystemColor(7));
+        toolTip.setPopupDelay(500);
+        toolTip.activate();
+        toolTip.setShift(new Point(10, 10));
+    }
+
     private void constructContextTreeNodes() {
         List<IContext> contextList = getContexts(manager.getContextManager());
         List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
         List<ContextTableTabParentModel> listofData = ContextNatTableUtils.constructContextDatas(contextDatas);
         contructContextTrees(listofData);
+    }
+
+    private void contructContextTrees(List<ContextTableTabParentModel> listOfData) {
+        if (listOfData.size() > 0) {
+            for (ContextTableTabParentModel contextModel : listOfData) {
+                if (contextModel.hasChildren()) {
+                    createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT,
+                            contextModel.getSourceName());
+                    List<ContextTabChildModel> childModels = contextModel.getChildren();
+                    for (ContextTabChildModel childModel : childModels) {
+                        createContextTreeNode(contextModel.getOrder(), manager, childModel, contextModel.getSourceName(),
+                                childModel.getContextParameter().getName());
+                    }
+                } else {
+                    createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT, contextModel
+                            .getContextParameter().getName());
+                }
+            }
+        }
+    }
+
+    private void createContextTreeNode(int orderId, IContextModelManager modelManager, Object data, String parent,
+            String currentNodeName) {
+        ContextTreeNode datum = new ContextTreeNode(orderId, modelManager, data, treeNodes.get(parent), currentNodeName);
+        treeNodes.put(currentNodeName, datum);
     }
 
     private void addNatTableListener(final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
@@ -615,14 +649,6 @@ public class ContextTreeTable {
         }
     }
 
-    private Map<String, ContextTreeNode> treeNodes = new HashMap<String, ContextTreeNode>();
-
-    private void createContextTreeNode(int orderId, IContextModelManager modelManager, Object data, String parent,
-            String currentNodeName) {
-        ContextTreeNode datum = new ContextTreeNode(orderId, modelManager, data, treeNodes.get(parent), currentNodeName);
-        treeNodes.put(currentNodeName, datum);
-    }
-
     public class ContextTreeNode implements Comparable<ContextTreeNode> {
 
         private IContextModelManager modelManager;
@@ -694,33 +720,6 @@ public class ContextTreeTable {
                 return 0;
             }
         }
-    }
-
-    private void contructContextTrees(List<ContextTableTabParentModel> listOfData) {
-        if (listOfData.size() > 0) {
-            for (ContextTableTabParentModel contextModel : listOfData) {
-                if (contextModel.hasChildren()) {
-                    createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT,
-                            contextModel.getSourceName());
-                    List<ContextTabChildModel> childModels = contextModel.getChildren();
-                    for (ContextTabChildModel childModel : childModels) {
-                        createContextTreeNode(contextModel.getOrder(), manager, childModel, contextModel.getSourceName(),
-                                childModel.getContextParameter().getName());
-                    }
-                } else {
-                    createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT, contextModel
-                            .getContextParameter().getName());
-                }
-            }
-        }
-    }
-
-    private void attachCheckColumnTip(NatTable nt) {
-        DefaultToolTip toolTip = new ContextNatTableToolTip(nt);
-        toolTip.setBackgroundColor(natTable.getDisplay().getSystemColor(7));
-        toolTip.setPopupDelay(500);
-        toolTip.activate();
-        toolTip.setShift(new Point(10, 10));
     }
 
     private class ContextNatTableToolTip extends DefaultToolTip {
