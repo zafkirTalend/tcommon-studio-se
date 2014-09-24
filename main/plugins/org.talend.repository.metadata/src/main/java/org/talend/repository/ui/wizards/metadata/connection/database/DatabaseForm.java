@@ -4797,7 +4797,11 @@ public class DatabaseForm extends AbstractForm {
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
             String defaultNN = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
                     (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
-            if (defaultNN != null) {
+            String nameNodeURLstr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
+            String jobTrackerURLStr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            if (StringUtils.isNotEmpty(nameNodeURLstr)) {
+                nameNodeURLTxt.setText(nameNodeURLstr);
+            } else if (defaultNN != null) {
                 nameNodeURLTxt.setText(defaultNN);
             }
             String defaultJTORRM = null;
@@ -4808,7 +4812,9 @@ public class DatabaseForm extends AbstractForm {
                 defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
                         (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.JOBTRACKER.getName()));
             }
-            if (defaultJTORRM != null) {
+            if (StringUtils.isNotEmpty(jobTrackerURLStr)) {
+                jobTrackerURLTxt.setText(jobTrackerURLStr);
+            } else if (defaultJTORRM != null) {
                 jobTrackerURLTxt.setText(defaultJTORRM);
             }
             String defaultPrincipal = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
@@ -4838,6 +4844,7 @@ public class DatabaseForm extends AbstractForm {
                     (String[]) ArrayUtils.add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()),
                             EHadoopProperties.PORT.getName()));
             if (defaultPort != null) {
+                getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
             }
         }
@@ -5063,6 +5070,7 @@ public class DatabaseForm extends AbstractForm {
             }
 
             if (defaultPort != null) {
+                getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
             }
         }
