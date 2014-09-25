@@ -51,15 +51,16 @@ public final class ParameterValueUtil {
         if (param == null || oldName == null || newName == null) {
             return;
         }
-        boolean flag = true;
-        if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
-            flag = false;
-        }
+        // boolean flag = true;
+        // if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
+        // flag = false;
+        // }
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();
             if (value.contains(oldName)) {
                 // param.setValue(value.replaceAll(oldName, newName));
-                String newValue = renameValues(value, oldName, newName, flag);
+                // String newValue = renameValues(value, oldName, newName, flag);
+                String newValue = splitQueryData(oldName, newName, value);
                 if (!value.equals(newValue)) {
                     param.setValue(newValue);
                 }
@@ -76,7 +77,8 @@ public final class ParameterValueUtil {
                         if (value.contains(oldName)) {
                             // line.put(key, value.replaceAll(oldName,
                             // newName));
-                            String newValue = renameValues(value, oldName, newName, flag);
+                            // String newValue = renameValues(value, oldName, newName, flag);
+                            String newValue = splitQueryData(oldName, newName, value);
                             if (!value.equals(newValue)) {
                                 line.put(key, newValue);
                             }
