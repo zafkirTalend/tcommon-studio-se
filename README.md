@@ -5,7 +5,7 @@ http://www.talend.com
 ![alt text](http://www.talend.com/sites/default/files/logo-talend.jpg "Talend")
 
 
-> Contents
+## Contents
 
 This repository contains the source files that are common across all Talend Open Studio products. These files must be used together with one or more of the following: [tdi-studio-se](https://github.com/Talend/tdi-studio-se), [tdq-studio-se](https://github.com/Talend/tdq-studio-se), [tmdm-studio-se](https://github.com/Talend/tmdm-studio-se), [tesb-studio-se](https://github.com/Talend/tesb-studio-se) or [tbd-studio-se](https://github.com/Talend/tbd-studio-se).
 
