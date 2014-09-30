@@ -731,6 +731,9 @@ public abstract class AbstractNode implements INode {
 
     @Override
     public List<? extends IElementParameter> getElementParametersWithChildrens() {
+        if (this.elementParameters == null) {
+            return new ArrayList<IElementParameter>();
+        }
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
 
         for (IElementParameter curParam : elementParameters) {
