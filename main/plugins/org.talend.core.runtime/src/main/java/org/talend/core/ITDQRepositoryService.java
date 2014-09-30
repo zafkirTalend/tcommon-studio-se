@@ -195,4 +195,6 @@ public interface ITDQRepositoryService extends IService {
     public void publishDynamicEvent(ModelElement indicator, Object value);
 
     public Item createFile(String content, IPath path, String label, String extension);
+
+    public void changePerspectiveAction(String perspectiveId);
 }
