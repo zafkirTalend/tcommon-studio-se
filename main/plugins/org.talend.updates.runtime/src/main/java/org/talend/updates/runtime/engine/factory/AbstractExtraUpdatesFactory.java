@@ -17,7 +17,6 @@ import java.util.Set;
 import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.updates.runtime.model.ExtraFeature;
-import org.talend.updates.runtime.model.StatusException;
 
 /**
  * created by ggu on Jul 17, 2014 Detailled comment
@@ -50,27 +49,4 @@ public abstract class AbstractExtraUpdatesFactory {
         }
     }
 
-    /**
-     * 
-     * before install, will call this.
-     */
-    public void beforeInstall() throws StatusException {
-        // nothing to do
-    }
-
-    /**
-     * 
-     * after install, will call this.
-     */
-    public void afterInstall() throws StatusException {
-        // nothing to do
-    }
-
-    /**
-     * This is called once all the different features of different types have all been installed. This is only called if
-     * there is at least one feature successfully installed, even if this current feature failed to be installed.
-     */
-    public void afterCompleteInstall() throws Exception {
-        // nothing to do
-    }
 }

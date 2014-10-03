@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.updates.runtime.engine.factory.AbstractExtraUpdatesFactory;
 import org.talend.updates.runtime.model.ExtraFeature;
-import org.talend.updates.runtime.model.StatusException;
 
 /**
  * created by ggu on Jul 17, 2014 Detailled comment
@@ -55,30 +54,4 @@ public class ExtraFeaturesUpdatesFactory {
         }
     }
 
-    public void beforeInstall() throws StatusException {
-        AbstractExtraUpdatesFactory[] updatesFactories = updatesFactoryReader.getUpdatesFactories();
-        if (updatesFactories != null) {
-            for (AbstractExtraUpdatesFactory factory : updatesFactories) {
-                factory.beforeInstall();
-            }
-        }
-    }
-
-    public void afterInstall() throws StatusException {
-        AbstractExtraUpdatesFactory[] updatesFactories = updatesFactoryReader.getUpdatesFactories();
-        if (updatesFactories != null) {
-            for (AbstractExtraUpdatesFactory factory : updatesFactories) {
-                factory.afterInstall();
-            }
-        }
-    }
-
-    public void afterCompleteInstall() throws Exception {
-        AbstractExtraUpdatesFactory[] updatesFactories = updatesFactoryReader.getUpdatesFactories();
-        if (updatesFactories != null) {
-            for (AbstractExtraUpdatesFactory factory : updatesFactories) {
-                factory.afterCompleteInstall();
-            }
-        }
-    }
 }

@@ -47,6 +47,7 @@ public class UpdateWizardModel {
                 return ValidationStatus.error(Messages
                         .getString("SelectExtraFeaturesToInstallWizardPage.one.feature.must.be.selected")); //$NON-NLS-1$
             } else if (!selectedExtraFeatures.isEmpty() && !canConfigureUpdateSiteLocation()) {
+                @SuppressWarnings("unchecked")
                 ExtraFeature extraFeature = getFirstExtraFeatureNotAllowingUpdateSiteConfig(selectedExtraFeatures);
                 return ValidationStatus.warning(Messages.getString("no.dowload.location.to.configure", extraFeature.getName())); //$NON-NLS-1$
             }
@@ -153,6 +154,7 @@ public class UpdateWizardModel {
      * @return true is all of the selected feature can have a customisable remote update site, and false otherwise
      */
     public boolean canConfigureUpdateSiteLocation() {
+        @SuppressWarnings("unchecked")
         ExtraFeature firstExtraFeatureNotAllowingUpdateSiteConfig = getFirstExtraFeatureNotAllowingUpdateSiteConfig(selectedExtraFeatures);
         return firstExtraFeatureNotAllowingUpdateSiteConfig == null;
     }
