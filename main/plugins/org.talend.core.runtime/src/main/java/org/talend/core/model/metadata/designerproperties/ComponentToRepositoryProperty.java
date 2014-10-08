@@ -1243,31 +1243,29 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("FIELD_SEPARATOR".equals(param.getRepositoryValue())) { //$NON-NLS-1$
-            if (param.isShow(node.getElementParameters())) {
-                String value = getParameterValue(connection, node, param);
-                if (value != null) {
-                    // set the type
-                    FieldSeparator separatorType = null;
-                    if (";".equals(value)) { //$NON-NLS-1$
-                        separatorType = FieldSeparator.SEMICOLON_LITERAL;
-                    } else if (",".equals(value)) { //$NON-NLS-1$
-                        separatorType = FieldSeparator.COMMA_LITERAL;
-                    } else if ("\\t".equals(value)) { //$NON-NLS-1$
-                        separatorType = FieldSeparator.TABULATION_LITERAL;
-                    } else if (" ".equals(value)) { //$NON-NLS-1$
-                        separatorType = FieldSeparator.SPACE_LITERAL;
-                    } else if ("''".equals(value)) { //$NON-NLS-1$
-                        separatorType = FieldSeparator.ALT_65_LITERAL;
-                    } else {
-                        separatorType = FieldSeparator.CUSTOM_UTF8_LITERAL;
-                        // custom string, need to reserve the quota
-                        value = getParameterOriginalValue(connection, node, param);
-                    }
-                    connection.setFieldSeparatorType(separatorType);
-
-                    // set the value
-                    connection.setFieldSeparatorValue(value);
+            String value = getParameterValue(connection, node, param);
+            if (value != null) {
+                // set the type
+                FieldSeparator separatorType = null;
+                if (";".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.SEMICOLON_LITERAL;
+                } else if (",".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.COMMA_LITERAL;
+                } else if ("\\t".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.TABULATION_LITERAL;
+                } else if (" ".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.SPACE_LITERAL;
+                } else if ("''".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.ALT_65_LITERAL;
+                } else {
+                    separatorType = FieldSeparator.CUSTOM_UTF8_LITERAL;
+                    // custom string, need to reserve the quota
+                    value = getParameterOriginalValue(connection, node, param);
                 }
+                connection.setFieldSeparatorType(separatorType);
+
+                // set the value
+                connection.setFieldSeparatorValue(value);
             }
         }
         if ("CSV_OPTION".equals(param.getRepositoryValue())) { //$NON-NLS-1$
