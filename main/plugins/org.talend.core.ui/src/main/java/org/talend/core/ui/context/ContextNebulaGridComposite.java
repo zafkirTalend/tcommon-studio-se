@@ -91,6 +91,8 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private Button moveDownButton;
 
+    private Button selectContextVariablesButton;
+
     private Composite contextTableComp;
 
     private Composite availableLabelComp;
@@ -218,7 +220,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-            Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComp);
+            selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComp);
             buttonList.add(selectContextVariablesButton);
         }
         // move the context group from the top to the bottom
@@ -417,6 +419,9 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
         if (this.moveDownButton != null) {
             this.moveDownButton.setEnabled(enableState);
+        }
+        if (this.selectContextVariablesButton != null) {
+            this.selectContextVariablesButton.setEnabled(enableState);
         }
         if (contextConfigButton != null) {
             this.contextConfigButton.setEnabled(enableState);
