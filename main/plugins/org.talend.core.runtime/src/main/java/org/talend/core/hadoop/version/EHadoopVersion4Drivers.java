@@ -196,7 +196,7 @@ public enum EHadoopVersion4Drivers {
                 }
             }
         }
-        return EHadoopVersion4Drivers.CUSTOM;
+        return null;
     }
 
     public static List<EHadoopVersion4Drivers> indexOfByDistribution(EHadoopDistributions distribution) {
