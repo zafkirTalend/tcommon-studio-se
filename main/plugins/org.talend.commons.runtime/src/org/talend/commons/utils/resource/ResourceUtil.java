@@ -28,9 +28,11 @@ public class ResourceUtil {
 
     private static final String BUNDLERESOURCE = "bundleresource"; //$NON-NLS-1$
 
+    private static final String BUNDLEENTRY = "bundleentry"; //$NON-NLS-1$
+
     public static File convertResourceToFile(URL resource) throws IOException, URISyntaxException {
         File fileDir = null;
-        if (BUNDLERESOURCE.equals(resource.getProtocol())) {
+        if (BUNDLERESOURCE.equals(resource.getProtocol()) || BUNDLEENTRY.equals(resource.getProtocol())) {
             URL unescapedURL = FileLocator.toFileURL(resource);
             URI escapedURI = new URI(unescapedURL.getProtocol(), unescapedURL.getPath(), unescapedURL.getQuery());
             fileDir = URIUtil.toFile(escapedURI);
