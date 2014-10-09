@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.updates.runtime.UpdatesRuntimePlugin;
+import org.talend.updates.runtime.Constants;
 import org.talend.updates.runtime.engine.ExtraFeaturesUpdatesFactory;
 import org.talend.updates.runtime.engine.InstallNewFeatureJob;
 import org.talend.updates.runtime.i18n.Messages;
@@ -56,7 +56,7 @@ public class UpdateStudioWizard extends Wizard {
     /**
      * preference node for the org.talend.updates plugin.
      */
-    public static final String ORG_TALEND_UPDATES_PREF_NODE = UpdatesRuntimePlugin.PLUGIN_ID;
+    public static final String ORG_TALEND_UPDATES_PREF_NODE = Constants.PLUGIN_ID;
 
     UpdateWizardModel updateWizardModel;// model that hold all the parameters set in the wizard
 
@@ -112,12 +112,6 @@ public class UpdateStudioWizard extends Wizard {
                 // display message in case of any success
                 String firstPartOfMessage = Messages.getString("UpdateStudioWizard.all.feautures.installed.successfully"); //$NON-NLS-1$
                 if (hasAnySuccess) {
-                    ExtraFeaturesUpdatesFactory updatesFactory = new ExtraFeaturesUpdatesFactory();
-                    try {
-                        updatesFactory.afterUpdate();
-                    } catch (Exception e) {
-                        hasAnyFailure = true;
-                    }
                     if (hasAnyFailure) {
                         firstPartOfMessage = Messages.getString("UpdateStudioWizard.some.feautures.installed.sucessfully"); //$NON-NLS-1$
                     }// else only success to keep initial message
@@ -151,7 +145,7 @@ public class UpdateStudioWizard extends Wizard {
         try {
             updatesNode.flush();
         } catch (BackingStoreException e) {
-            log.error("could not store the \"Do No Show this again\" pref of the Install Dialog", e);
+            log.error("could not store the \"Do No Show this again\" pref of the Install Dialog", e); //$NON-NLS-1$
         }
     }
 

@@ -96,6 +96,7 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
      * 
      * @param parent
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void createControl(Composite parent) {
         Composite container = new Composite(parent, SWT.NULL);
@@ -198,7 +199,6 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
     /**
      * DOC sgandon Comment method "updateEnabledStatus".
      */
-    @SuppressWarnings("unchecked")
     protected void updatePageStatus() {
         // tell the user when no feature is to be installed.
         if (updateWizardModel.availableExtraFeatures.isEmpty()) {

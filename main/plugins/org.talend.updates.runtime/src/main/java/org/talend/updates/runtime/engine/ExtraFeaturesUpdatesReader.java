@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
 import org.talend.core.utils.RegistryReader;
-import org.talend.updates.runtime.UpdatesRuntimePlugin;
+import org.talend.updates.runtime.Constants;
 import org.talend.updates.runtime.engine.factory.AbstractExtraUpdatesFactory;
 
 /**
@@ -37,7 +37,7 @@ public class ExtraFeaturesUpdatesReader extends RegistryReader {
     private AbstractExtraUpdatesFactory[] factories;
 
     public ExtraFeaturesUpdatesReader() {
-        super(UpdatesRuntimePlugin.PLUGIN_ID, "extraUpdatesFactory"); //$NON-NLS-1$
+        super(Constants.PLUGIN_ID, "extraUpdatesFactory"); //$NON-NLS-1$
 
         init();
     }
