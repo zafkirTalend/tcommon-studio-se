@@ -358,6 +358,22 @@ public final class ConnectionUtils {
         return false;
     }
 
+    public static boolean isOracleForSid(DatabaseMetaData metadata, String oracleProduct) throws SQLException {
+        if (metadata != null && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().indexOf(oracleProduct) > -1) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isSqlite(DatabaseMetaData metadata, String sqliteProduct) throws SQLException {
+        if (metadata != null && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().toUpperCase().indexOf(sqliteProduct) > -1) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isPostgresql(DatabaseMetaData metadata) {
         boolean result = false;
         try {
@@ -431,4 +447,5 @@ public final class ConnectionUtils {
         }
         return false;
     }
+
 }
