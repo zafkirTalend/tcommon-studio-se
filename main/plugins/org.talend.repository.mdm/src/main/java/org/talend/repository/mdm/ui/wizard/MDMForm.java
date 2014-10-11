@@ -33,7 +33,7 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
+import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractForm;
@@ -223,7 +223,7 @@ public class MDMForm extends AbstractForm {
             return;
         }
         try {
-            XtentisPort xtentisWS = xtentisService.getXtentisPort();
+            XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
             stub = (XtentisBindingStub) xtentisWS;
             stub.setUsername(mdmUsernameText.getText());
             stub.setPassword(mdmPasswordText.getText());

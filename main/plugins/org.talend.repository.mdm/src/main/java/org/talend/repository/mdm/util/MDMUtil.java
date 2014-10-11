@@ -42,7 +42,7 @@ import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.WSRegexDataModelPKs;
 import org.talend.mdm.webservice.WSUniversePK;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
+import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -128,7 +128,7 @@ public class MDMUtil {
         WSDataModelPK modelPK = null;
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
         xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        XtentisPort xtentisWS = xtentisService.getXtentisPort();
+        XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
         stub = (XtentisBindingStub) xtentisWS;
         stub.setUsername(userName);
         stub.setPassword(password);

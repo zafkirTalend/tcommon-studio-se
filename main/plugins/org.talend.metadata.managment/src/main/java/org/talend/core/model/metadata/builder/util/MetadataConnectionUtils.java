@@ -59,7 +59,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
+import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.utils.exceptions.MissingDriverException;
@@ -815,7 +815,7 @@ public class MetadataConnectionUtils {
         // initialization Web Service calling
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
         xtentisService.setXtentisPortEndpointAddress(url);
-        XtentisPort xtentisWS = xtentisService.getXtentisPort();
+        XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
         XtentisBindingStub stub = (XtentisBindingStub) xtentisWS;
 
         // authorization
