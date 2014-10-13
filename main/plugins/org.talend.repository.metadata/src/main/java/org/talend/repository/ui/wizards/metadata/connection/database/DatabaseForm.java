@@ -107,6 +107,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
@@ -3381,7 +3382,8 @@ public class DatabaseForm extends AbstractForm {
     // Added yyin 20121219 TDQ-6485, check if the url is changed, if yes ,need reload
     private void checkURLIsChanged() {
         if (originalURL != null) {
-            if (!originalURL.equalsIgnoreCase(urlConnectionStringText.getText())) {
+            String url = isGeneralJdbc() ? generalJdbcUrlText.getText() : urlConnectionStringText.getText();
+            if (!originalURL.equalsIgnoreCase(url)) {
                 ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
             } else if (!originalUischema.equalsIgnoreCase(schemaText.getText())) {
                 ConnectionHelper.setIsConnNeedReload(getConnection(), Boolean.TRUE);
@@ -3390,6 +3392,18 @@ public class DatabaseForm extends AbstractForm {
             }
         }
     }// ~
+
+    private boolean isGeneralJdbc() {
+        boolean result = false;
+        if (connectionItem != null && connectionItem.getConnection() != null) {
+            Connection connection = connectionItem.getConnection();
+            if (connection instanceof DatabaseConnection) {
+                result = EDatabaseTypeName.GENERAL_JDBC == EDatabaseTypeName.getTypeFromDbType(((DatabaseConnection) connection)
+                        .getDatabaseType());
+            }
+        }
+        return result;
+    }
 
     /**
      * DOC bZhou Comment method "isSupportByTDQ" for feature 17159.
