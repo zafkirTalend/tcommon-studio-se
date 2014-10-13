@@ -241,12 +241,16 @@ public class ManagerConnection {
         return tmpFolder + "/"; //$NON-NLS-1$
     }
 
+    public boolean check() {
+        return check(null);
+    }
+
     /**
      * Check connexion from the fields form.
      * 
      * @return isValide
      */
-    public boolean check() {
+    public boolean check(StringBuffer retProposedSchema) {
         messageException = null;
         ConnectionStatus testConnection = null;
         try {
@@ -259,7 +263,7 @@ public class ManagerConnection {
             }
             // test the connection
             testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username, password,
-                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams, retProposedSchema);
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
         } catch (Exception e) {
@@ -268,12 +272,16 @@ public class ManagerConnection {
         return isValide;
     }
 
+    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+        return check(metadataConnection, null, onlyIfNeeded);
+    }
+
     /**
      * DOC cantoine : Check connexion from IMetadataConnection comment. Detailled comment.
      * 
      * @return isValide
      */
-    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+    public boolean check(IMetadataConnection metadataConnection, StringBuffer retProposedSchema, boolean... onlyIfNeeded) {
         messageException = null;
 
         ConnectionStatus testConnection = null;
@@ -320,7 +328,7 @@ public class ManagerConnection {
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
                         metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
-                        metadataConnection.getAdditionalParams());
+                        metadataConnection.getAdditionalParams(), retProposedSchema);
             }
             // qli
             // record this metadataConnection as old connection.
