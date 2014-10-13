@@ -2014,6 +2014,10 @@ public class DatabaseForm extends AbstractForm {
      * Check data connection.
      */
     private void checkConnection() {
+        checkConnection(null);
+    }
+
+    private void checkConnection(StringBuffer retProposedSchema) {
         if (isSqliteFileFieldInvalidate()) {
             return;
         }
@@ -2079,7 +2083,7 @@ public class DatabaseForm extends AbstractForm {
         EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
         if (dbType.isUseProvider()) {
             IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
-            databaseSettingIsValide = managerConnection.check(metadataConn);
+            databaseSettingIsValide = managerConnection.check(metadataConn, retProposedSchema);
         } else if (isHiveDBConnSelected()) {
             IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
             if (isHiveEmbeddedMode()) {
@@ -2088,7 +2092,7 @@ public class DatabaseForm extends AbstractForm {
             databaseSettingIsValide = managerConnection.checkHiveConnection(metadataConn);
         } else {
             // check the connection
-            databaseSettingIsValide = managerConnection.check();
+            databaseSettingIsValide = managerConnection.check(retProposedSchema);
         }
 
         // if (!databaseSettingIsValide)
@@ -2341,7 +2345,13 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 // ClassLoader currentContextCL = Thread.currentThread().getContextClassLoader();
-                checkConnection();
+                StringBuffer retProposedSchema = new StringBuffer();
+                checkConnection(retProposedSchema);
+                if (0 < retProposedSchema.length()) {
+                    if (schemaText != null) {
+                        schemaText.setText(retProposedSchema.toString());
+                    }
+                }
                 if (isHiveDBConnSelected()) {
                     if (isHiveEmbeddedMode()) {
                         // Thread.currentThread().setContextClassLoader(currentContextCL);
