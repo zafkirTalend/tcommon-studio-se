@@ -57,7 +57,11 @@ public enum HiveConnVersionInfo {
 
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
-    Cloudera_CDH5_1(1, "Cloudera_CDH5_1", "Cloudera CDH5.1", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH5_1(1, "Cloudera_CDH5_1", "Cloudera CDH5.1(YARN mode)", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+
+    Cloudera_CDH5_1_MR1(
+                        1,
+                        "Cloudera_CDH5_1_MR1", "Cloudera CDH5.1(MR 1 mode)", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
     Cloudera_CDH5(1, "Cloudera_CDH5", "Cloudera CDH5", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
@@ -106,6 +110,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
                   HiveConnVersionInfo.Cloudera_CDH5,
                   HiveConnVersionInfo.Cloudera_CDH5_1,
+                  HiveConnVersionInfo.Cloudera_CDH5_1_MR1,
                   HiveConnVersionInfo.MAPR2,
                   HiveConnVersionInfo.MAPR2_1_2,
                   HiveConnVersionInfo.MAPR2_1_3,
@@ -132,6 +137,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.Cloudera_CDH4_YARN,
                     HiveConnVersionInfo.Cloudera_CDH5,
                     HiveConnVersionInfo.Cloudera_CDH5_1,
+                    HiveConnVersionInfo.Cloudera_CDH5_1_MR1,
                     HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
                     HiveConnVersionInfo.MAPR2_1_2,
@@ -163,7 +169,8 @@ public enum HiveConnVersionInfo {
     private boolean supportSecurity;
 
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
-            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0 };
+            HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.HDP_2_1,
+            HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0 };
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {

@@ -37,7 +37,9 @@ public enum EHBaseDistribution4Versions {
 
     APACHE_1_0_0(EHBaseDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0"),
 
-    CLOUDERA_CDH5_1(EHBaseDistributions.CLOUDERA, "Cloudera CDH5.1", "Cloudera_CDH5_1"),
+    CLOUDERA_CDH5_1(EHBaseDistributions.CLOUDERA, "Cloudera CDH5.0(YARN mode)", "Cloudera_CDH5_1"),
+
+    CLOUDERA_CDH5_1_MR1(EHBaseDistributions.CLOUDERA, "Cloudera CDH5.1(MR 1 mode)", "Cloudera_CDH5_1_MR1"),
 
     CLOUDERA_CDH5(EHBaseDistributions.CLOUDERA, "Cloudera CDH5", "Cloudera_CDH5"),
 
