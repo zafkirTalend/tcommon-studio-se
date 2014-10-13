@@ -311,6 +311,12 @@ public class ModulesNeededProvider {
     }
 
     public static void createModuleNeededForComponent(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
+        if (importType.getMODULE() == null) {
+            if (importType.getMODULEGROUP() != null) {
+                CommonExceptionHandler.warn("Missing module group definition: " + importType.getMODULEGROUP());
+            }
+            return;
+        }
         String msg = importType.getMESSAGE();
         if (msg == null) {
             msg = Messages.getString("modules.required"); //$NON-NLS-1$
