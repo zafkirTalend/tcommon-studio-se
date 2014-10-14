@@ -120,7 +120,7 @@ public final class TalendQuoteUtils {
         if (!text.startsWith(quote)) {
             text = quote + text;
         }
-        if (!text.endsWith(quote)) {
+        if (!text.endsWith(quote) || (quote != null && quote.equals(text))) {
             text = text + quote;
         }
         return text;
