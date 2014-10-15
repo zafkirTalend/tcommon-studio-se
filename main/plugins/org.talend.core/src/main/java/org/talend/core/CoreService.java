@@ -228,6 +228,8 @@ public class CoreService implements ICoreService {
         // if (!CommonsPlugin.isHeadless()) {
         // CorePlugin.getDefault().getRunProcessService().updateLibraries(new HashSet<String>(), null);
         // }
+        resetUniservLibraries();
+
     }
 
     @Override
@@ -455,29 +457,33 @@ public class CoreService implements ICoreService {
         fis.close();
     }
 
-    @Override
-    public void resetUniservLibraries() {
+    /**
+     * 
+     * FIXME, According to the fixing of TDI-21162 and TUP-461
+     * (http://www.talendforge.org/trac/tos/changeset/97720#file58), this method is no need at all.
+     * 
+     * should remove it later.
+     */
+    private void resetUniservLibraries() {
         // ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
         // ILibraryManagerService.class);
         //
         //        String jarNeeded = "uniserv.jar"; //$NON-NLS-1$
         // if (libManager.contains(jarNeeded)) {
-        // Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv/lib");
-        // if (bundle instanceof BundleHost) {
-        // BundleHost bundleHost = (BundleHost) bundle;
-        // final BundleData bundleData = bundleHost.getBundleData();
-        // if (bundleData instanceof BaseData) {
-        // BaseData baseData = (BaseData) bundleData;
-        // final BundleFile bundleFile = baseData.getBundleFile();
-        // final File baseFile = bundleFile.getBaseFile();
+        //            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv"); //$NON-NLS-1$
+        // try {
+        // File bundleFile = FileLocator.getBundleFile(bundle);
+        // if (bundleFile.exists()) {
+        //                    File libFolder = new File(bundleFile, "lib"); //$NON-NLS-1$
         // // fix for TDI-21162
-        // File jarFile = new File(baseFile.getAbsolutePath(), jarNeeded);
+        // File jarFile = new File(libFolder, jarNeeded);
         // if (jarFile.exists()) {
         // return;
         // }
-        //
-        // libManager.retrieve(jarNeeded, baseFile.getAbsolutePath(), new NullProgressMonitor());
+        // libManager.retrieve(jarNeeded, libFolder.getAbsolutePath(), new NullProgressMonitor());
         // }
+        // } catch (IOException e) {
+        // ExceptionHandler.process(e);
         // }
         // }
     }

@@ -1841,14 +1841,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
-                    if (monitor != null && monitor.isCanceled()) {
-                        throw new OperationCanceledException(""); //$NON-NLS-1$
-                    }
-                    coreService.resetUniservLibraries();
-                    TimeMeasure.step("logOnProject", "sync specific libraries"); //$NON-NLS-1$ //$NON-NLS-2$
-                    if (monitor != null && monitor.isCanceled()) {
-                        throw new OperationCanceledException(""); //$NON-NLS-1$
-                    }
                     coreService.createStatsLogAndImplicitParamter(project);
                     if (monitor != null && monitor.isCanceled()) {
                         throw new OperationCanceledException(""); //$NON-NLS-1$

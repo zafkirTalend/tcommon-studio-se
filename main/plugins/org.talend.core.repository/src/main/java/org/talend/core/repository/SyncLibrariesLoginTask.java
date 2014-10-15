@@ -37,14 +37,6 @@ public class SyncLibrariesLoginTask implements IRunnableWithProgress {
         if (monitor != null && monitor.isCanceled()) {
             throw new OperationCanceledException(""); //$NON-NLS-1$
         }
-        if (monitor != null && monitor.isCanceled()) {
-            throw new OperationCanceledException(""); //$NON-NLS-1$
-        }
-        coreService.resetUniservLibraries();
-        TimeMeasure.step("SyncLibraries", "sync specific libraries");
-        if (monitor != null && monitor.isCanceled()) {
-            throw new OperationCanceledException(""); //$NON-NLS-1$
-        }
         // remove the auto-build to enhance the build speed and application's use
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceDescription description = workspace.getDescription();
