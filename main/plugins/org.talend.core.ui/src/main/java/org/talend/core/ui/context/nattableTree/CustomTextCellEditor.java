@@ -25,6 +25,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.process.IContextParameter;
 
 /**
@@ -50,6 +51,11 @@ public class CustomTextCellEditor extends AbstractCellEditor {
      */
     private ContextValuesNatText buttonText;
 
+    /**
+     * if password, the value will be * always. should find out the real value.
+     */
+    private Object recordOriginalCanonicalValue;
+
     public CustomTextCellEditor(IContextParameter realPara, IStyle cellStyle, boolean commitOnUpDown, boolean moveSelectionOnEnter) {
         this.realPara = realPara;
         this.cellStyle = cellStyle;
@@ -65,12 +71,12 @@ public class CustomTextCellEditor extends AbstractCellEditor {
      * )
      */
     @Override
-    public Control createEditorControl(Composite parent) {
+    public Control createEditorControl(Composite parentComp) {
         int style = this.editMode == EditModeEnum.INLINE ? SWT.NONE : SWT.BORDER;
         if (!this.freeEdit) {
             style |= SWT.READ_ONLY;
         }
-        final ContextValuesNatText text = new ContextValuesNatText(parent, cellStyle, realPara, style);
+        final ContextValuesNatText text = new ContextValuesNatText(parentComp, cellStyle, realPara, style);
 
         text.setCursor(new Cursor(Display.getDefault(), SWT.CURSOR_IBEAM));
 
@@ -144,7 +150,7 @@ public class CustomTextCellEditor extends AbstractCellEditor {
      */
     @Override
     public void setEditorValue(Object value) {
-        this.buttonText.setValue(value != null && value.toString().length() > 0 ? value.toString() : "");
+        this.buttonText.setValue(value != null && value.toString().length() > 0 ? value.toString() : ""); //$NON-NLS-1$
 
     }
 
@@ -156,10 +162,15 @@ public class CustomTextCellEditor extends AbstractCellEditor {
      * , java.lang.Object)
      */
     @Override
-    public Control activateCell(Composite parent, Object originalCanonicalValue) {
-        this.buttonText = (ContextValuesNatText) createEditorControl(parent);
+    public Control activateCell(Composite parentComp, Object originalCanonicalValue) {
+        this.recordOriginalCanonicalValue = originalCanonicalValue;
+        if (PasswordEncryptUtil.isPasswordType(realPara.getType())) { // if pasword, get the real one.
+            this.recordOriginalCanonicalValue = realPara.getValue(); // correct the value.
+        }
 
-        setCanonicalValue(originalCanonicalValue);
+        this.buttonText = (ContextValuesNatText) createEditorControl(parentComp);
+        // use the real value.
+        setCanonicalValue(this.recordOriginalCanonicalValue);
 
         return this.buttonText;
     }
