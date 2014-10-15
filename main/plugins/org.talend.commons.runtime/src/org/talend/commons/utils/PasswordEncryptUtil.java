@@ -46,6 +46,13 @@ public class PasswordEncryptUtil {
         return key;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "encryptPassword".
+     * 
+     * TDI-30227, should only work for old migration task.
+     */
+    @Deprecated
     public static String encryptPassword(String input) throws Exception {
         if (input == null || input.length() == 0) {
             return input;
@@ -57,6 +64,25 @@ public class PasswordEncryptUtil {
         byte[] cipherByte = c.doFinal(input.getBytes());
         String dec = new String(Base64.encodeBase64(cipherByte));
         return dec;
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "encryptPassword".
+     * 
+     * TDI-30227, should only work for old migration task.
+     */
+    @Deprecated
+    public static String decryptPassword(String input) throws Exception, BadPaddingException {
+        if (input == null || input.length() == 0) {
+            return input;
+        }
+        byte[] dec = Base64.decodeBase64(input.getBytes());
+        SecretKey key = getSecretKey();
+        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
+        c.init(Cipher.DECRYPT_MODE, key, secureRandom);
+        byte[] clearByte = c.doFinal(dec);
+        return new String(clearByte);
     }
 
     private static SecretKey passwordKey = null;
@@ -73,8 +99,13 @@ public class PasswordEncryptUtil {
         return passwordKey;
     }
 
+    /**
+     * Work for codegen only. and must be same as the routine
+     * "routines.system.PasswordEncryptUtil.encryptPassword(input)".
+     * 
+     */
     public static String encryptPasswordHex(String input) throws Exception {
-        if (input == null) {
+        if (input == null || input.length() == 0) {
             return input;
         }
         SecretKey key = getSecretKeyUTF8();
@@ -85,24 +116,48 @@ public class PasswordEncryptUtil {
         return dec;
     }
 
-    public static String decryptPassword(String input) throws Exception, BadPaddingException {
-        if (input == null || input.length() == 0) {
-            return input;
-        }
-        byte[] dec = Base64.decodeBase64(input.getBytes());
-        SecretKey key = getSecretKey();
-        Cipher c = Cipher.getInstance("DES"); //$NON-NLS-1$
-        c.init(Cipher.DECRYPT_MODE, key, secureRandom);
-        byte[] clearByte = c.doFinal(dec);
-        return new String(clearByte);
+    /**
+     * 
+     * DOC ggu Comment method "isPasswordType".
+     * 
+     * should match with JavaTypesManager.PASSWORD.getId()
+     * 
+     * @param type
+     * @return
+     */
+    public static boolean isPasswordType(String type) {
+        return "Password".equals(type) || "id_Password".equals(type); //$NON-NLS-1$   //$NON-NLS-2$
     }
 
-    public static boolean isPasswordType(String type) {
-        // should match with JavaTypesManager.PASSWORD.getLabel() and
-        // JavaTypesManager.PASSWORD.getId()
-        if (type == null) {
-            return false;
-        }
-        return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
+    /**
+     * 
+     * DOC ggu Comment method "isPasswordField".
+     * 
+     * should match with the EParameterFieldType.PASSWORD
+     * 
+     * @param field
+     * @return
+     */
+    public static boolean isPasswordField(String field) {
+        return "PASSWORD".equals(field); //$NON-NLS-1$   
     }
+
+    /**
+     * 
+     * DOC ggu Comment method "getPasswordDisplay".
+     * 
+     * will be * to dispaly always.
+     * 
+     * @param value
+     * @return
+     */
+    public static String getPasswordDisplay(String value) {
+        if (value == null || value.length() == 0) {
+            // always display 4 start characters.
+            return "****"; //$NON-NLS-1$
+        } else {
+            return value.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+    }
+
 }

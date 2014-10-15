@@ -14,11 +14,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Database Connection</b></em>'. <!--
@@ -577,7 +575,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.DATABASE_CONNECTION;
     }
@@ -723,31 +720,14 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @not generated
+     * @generated
      */
     public String getPassword() {
-        if (!contextMode) {
-            try {
-                return PasswordEncryptUtil.decryptPassword(password);
-            } catch (Exception e) {
-                // MOD xqliu 2010-07-07 bug 13826
-                String pwd = ConnectionHelper.getDecryptPassword(password);
-                return pwd == null ? password : pwd;
-                // ~ 13826
-            }
-        }
         return password;
     }
 
-    /**
-     * 
-     * Get the password directly without decryption.
-     * 
-     * @not generated
-     * @return
-     */
     public String getRawPassword() {
-        return password;
+        return getValue(password, false);
     }
 
     /**
@@ -760,6 +740,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword,
                     password));
+    }
+
+    public void setRawPassword(String value) {
+        setPassword(getValue(value, true));
     }
 
     /**
@@ -1193,7 +1177,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
@@ -1209,7 +1192,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
@@ -1290,14 +1272,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated NOT
+     * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-            return getRawPassword();
-            // return getPassword();
+            return getPassword();
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
             return getCdcConns();
         }
@@ -1308,7 +1288,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1397,7 +1376,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1486,7 +1464,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -1551,7 +1528,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy())
             return super.toString();
@@ -1617,7 +1593,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * 
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getConnectionTypeName()
      */
-    @Override
     public String getConnectionTypeName() {
         return getDatabaseType();
     }

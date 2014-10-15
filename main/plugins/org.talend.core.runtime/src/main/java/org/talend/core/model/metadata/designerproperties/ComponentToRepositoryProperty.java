@@ -22,8 +22,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -525,13 +523,8 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                // see bug in feature 5998,encrypt the password.
-                try {
-                    String pwd = TalendQuoteUtils.checkAndRemoveBackslashes(value);
-                    connection.setPassword(PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(pwd)));
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
+                String pwd = TalendQuoteUtils.checkAndRemoveBackslashes(value);
+                connection.setRawPassword(TalendQuoteUtils.removeQuotes(pwd));
             }
         }
         if ("SERVER_NAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -871,7 +864,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = (getParameterValue(connection, node, param)).replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ 
             if (value != null) {
-                connection.setBindPassword(value);
+                connection.setBindPassword(connection.getValue(value, true));
             }
         }
         if ("FILTER".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -934,7 +927,7 @@ public class ComponentToRepositoryProperty {
         if ("AUTH_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("UES_PROXY".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -964,7 +957,7 @@ public class ComponentToRepositoryProperty {
         if ("PROXY_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setProxyPassword(value);
+                connection.setProxyPassword(connection.getValue(value, true));
             }
         }
         if ("METHOD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1428,7 +1421,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("LANGUAGE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1482,7 +1475,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("MODULENAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1531,7 +1524,7 @@ public class ComponentToRepositoryProperty {
         if ("PROXY_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setProxyPassword(value);
+                connection.setProxyPassword(connection.getValue(value, true));
             }
 
         }

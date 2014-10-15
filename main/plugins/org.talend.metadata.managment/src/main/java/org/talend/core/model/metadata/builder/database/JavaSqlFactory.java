@@ -84,10 +84,10 @@ public final class JavaSqlFactory {
         String driverClassName = providerConnection.getDriverClass();
         Properties props = new Properties();
         props.put(TaggedValueHelper.USER, providerConnection.getUsername());
-        props.put(TaggedValueHelper.PASSWORD, providerConnection.getPassword());
+        props.put(TaggedValueHelper.PASSWORD, providerConnection.getRawPassword());
         String pass = props.getProperty(TaggedValueHelper.PASSWORD);
         if (pass != null) {
-            String clearTextPassword = providerConnection.getPassword();
+            String clearTextPassword = providerConnection.getRawPassword();
             if (clearTextPassword == null) {
                 rc.setMessage(Messages.getString("JavaSqlFactory.UnableDecryptPassword")); //$NON-NLS-1$
                 rc.setOk(false);
@@ -217,7 +217,7 @@ public final class JavaSqlFactory {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         String psw = "";//$NON-NLS-1$
         if (dbConn != null) {
-            psw = getOriginalValueConnection(dbConn).getPassword();
+            psw = getOriginalValueConnection(dbConn).getRawPassword();
         } else {
             MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
             if (mdmConn != null) {
@@ -237,14 +237,7 @@ public final class JavaSqlFactory {
      * @param username
      */
     public static void setUsername(Connection conn, String username) {
-        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (dbConn != null) {
-            dbConn.setUsername(username);
-        }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            mdmConn.setUsername(username);
-        }
+        ConnectionHelper.setUsername(conn, username);
     }
 
     /**
@@ -254,14 +247,7 @@ public final class JavaSqlFactory {
      * @param password
      */
     public static void setPassword(Connection conn, String password) {
-        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (dbConn != null) {
-            dbConn.setPassword(ConnectionHelper.getEncryptPassword(password));
-        }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            mdmConn.setPassword(ConnectionHelper.getEncryptPassword(password));
-        }
+        ConnectionHelper.setPassword(conn, password);
     }
 
     /**

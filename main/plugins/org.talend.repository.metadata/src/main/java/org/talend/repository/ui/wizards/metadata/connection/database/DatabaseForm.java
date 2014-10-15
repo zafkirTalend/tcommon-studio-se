@@ -84,7 +84,6 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.ui.utils.loader.MyURLClassLoader;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.GlobalServiceRegister;
@@ -128,6 +127,7 @@ import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -517,7 +517,7 @@ public class DatabaseForm extends AbstractForm {
 
         }
         usernameText.setText(getConnection().getUsername());
-        passwordText.setText(getConnection().getPassword());
+        passwordText.setText(getConnection().getRawPassword());
         serverText.setText(getConnection().getServerName());
         portText.setText(getConnection().getPort());
         datasourceText.setText(getConnection().getDatasourceName());
@@ -620,7 +620,7 @@ public class DatabaseForm extends AbstractForm {
         generalJdbcUrlText.setText(getConnection().getURL());
         generalJdbcClassNameText.setText(getConnection().getDriverClass());
         generalJdbcUserText.setText(getConnection().getUsername());
-        generalJdbcPasswordText.setText(getConnection().getPassword());
+        generalJdbcPasswordText.setText(getConnection().getRawPassword());
 
         generalJdbcDriverjarText.setText(getConnection().getDriverJarPath());
         generalMappingFileText.setText(getConnection().getDbmsId());
@@ -644,7 +644,7 @@ public class DatabaseForm extends AbstractForm {
                 for (ContextParameterType param : (List<ContextParameterType>) selectedContextType.getContextParameter()) {
                     if (param.getName() != null && param.getName().endsWith(ConnectionContextHelper.LINE + EDBParamName.Schema)) {
                         if (getConnection().isContextMode()) {
-                            schema = "context." + param.getName();
+                            schema = ContextParameterUtils.getNewScriptCode(param.getName(), ECodeLanguage.JAVA);
                         } else {
                             schema = param.getValue();
                         }
@@ -2677,12 +2677,7 @@ public class DatabaseForm extends AbstractForm {
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!urlConnectionStringText.getEditable()) {
-                        try {
-                            String password = PasswordEncryptUtil.encryptPassword(passwordText.getText());
-                            getConnection().setPassword(password);
-                        } catch (Exception ex) {
-                            ExceptionHandler.process(ex);
-                        }
+                        getConnection().setRawPassword(passwordText.getText());
                     }
                 }
             }
@@ -3491,12 +3486,7 @@ public class DatabaseForm extends AbstractForm {
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (generalJdbcPasswordText.getText() != null) {
-                        try {
-                            String password = PasswordEncryptUtil.encryptPassword(generalJdbcPasswordText.getText());
-                            getConnection().setPassword(password);
-                        } catch (Exception ex) {
-                            ExceptionHandler.process(ex);
-                        }
+                        getConnection().setRawPassword(generalJdbcPasswordText.getText());
                     }
                     checkFieldsValue();
                 }
