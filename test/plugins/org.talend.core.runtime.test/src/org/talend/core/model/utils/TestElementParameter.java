@@ -1101,4 +1101,26 @@ class TestElementParameter implements IElementParameter {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isRaw()
+     */
+    @Override
+    public boolean isRaw() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setRaw(boolean)
+     */
+    @Override
+    public void setRaw(boolean raw) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
