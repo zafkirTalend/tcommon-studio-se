@@ -829,7 +829,9 @@ public class NodeUtil {
             Map<String, IElementParameter> types = new HashMap<String, IElementParameter>();
             for (Object o : ep.getListItemsValue()) {
                 IElementParameter cep = (IElementParameter) o;
-                types.put(cep.getName(), cep);
+                if(cep.isShow(node.getElementParameters())) {
+                	types.put(cep.getName(), cep);
+                }
             }
             List<Map<String, String>> lines = (List<Map<String, String>>) ElementParameterParser.getObjectValue(node,
                     "__" + ep.getName() + "__");
@@ -843,23 +845,33 @@ public class NodeUtil {
             for (;;) {
                 Map<String, String> columns = linesIter.next();
                 Iterator<Entry<String, String>> columnsIter = columns.entrySet().iterator();
-                if (!columnsIter.hasNext()) {
-                    value.append("{}");
-                }
+                
                 value.append("{");
-                for (;;) {
-                    Entry<String, String> column = columnsIter.next();
+                Entry<String, String> column = null;
+                boolean printedColumnExist = false;
+                while (columnsIter.hasNext()) {
+                    column = columnsIter.next();
+                    if(types.get(column.getKey())==null) {
+                    	continue;
+                    }
+                    printedColumnExist = true;
+                    
                     value.append(column.getKey());
                     value.append("=\"+");
 
                     value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true));
 
-                    if (!columnsIter.hasNext()) {
-                        value.append("+\"}").toString();
-                        break;
+                    value.append("+\"");
+                    
+                    if (columnsIter.hasNext()) {
+                        value.append(", ");
                     }
-                    value.append("+\",").append(" ");
                 }
+                if(printedColumnExist && column!=null && (types.get(column.getKey())==null)) {
+                	value.setLength(value.length()-2);
+                }
+                value.append("}");
+                
                 if (!linesIter.hasNext()) {
                     return value.append("]\"").toString();
                 }
