@@ -5181,10 +5181,7 @@ public class DatabaseForm extends AbstractForm {
                 return;
             }
             String[] versionPrefix = new String[] { distribution };
-            if (HiveConnVersionInfo.AMAZON_EMR.getKey().equals(distribution)
-                    && (HiveConnVersionInfo.APACHE_1_0_3_EMR.getKey().equals(version)
-                            || HiveConnVersionInfo.MapR_EMR.getKey().equals(version) || HiveConnVersionInfo.APACHE_2_4_0_EMR
-                            .getKey().equals(version))) {
+            if (HiveConnVersionInfo.AMAZON_EMR.getKey().equals(distribution)) {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
@@ -5229,8 +5226,7 @@ public class DatabaseForm extends AbstractForm {
                 return;
             }
             String[] versionPrefix = new String[] { distribution };
-            if (EHBaseDistributions.AMAZON_EMR.getName().equals(distribution)
-                    && EHBaseDistribution4Versions.APACHE_1_0_3_EMR.getVersionValue().equals(version)) {
+            if (EHBaseDistributions.AMAZON_EMR.getName().equals(distribution)) {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(

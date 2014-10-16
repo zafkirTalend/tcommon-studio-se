@@ -83,6 +83,9 @@
         "APACHE_2_4_0_EMR": {
             "NAMENODE_URI": "hdfs://localhost:9000",
             "RESOURCE_MANAGER": "localhost:9022",
+            "HBASE": {
+                "PORT": 2181
+            }
         },
         "APACHE_1_0_3_EMR": {
             "NAMENODE_URI": "hdfs://localhost:9000",

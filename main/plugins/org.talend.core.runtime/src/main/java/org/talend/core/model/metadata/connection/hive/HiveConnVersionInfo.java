@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.model.metadata.connection.hive;
 
+import org.talend.core.hadoop.version.EHadoopDistributions;
+import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
+
 /**
  * This class provides the info for Hive. There are 3 levels as follows:
  * 
@@ -29,71 +32,165 @@ package org.talend.core.model.metadata.connection.hive;
  */
 public enum HiveConnVersionInfo {
 
-    HORTONWORKS(0, "HORTONWORKS", "HortonWorks", true), //$NON-NLS-1$//$NON-NLS-2$
+    HORTONWORKS(0, EHadoopDistributions.HORTONWORKS.getName(), EHadoopDistributions.HORTONWORKS.getDisplayName(), true),
 
-    APACHE(0, "APACHE", "Apache", false), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE(0, EHadoopDistributions.APACHE.getName(), EHadoopDistributions.APACHE.getDisplayName(), false),
 
-    CLOUDERA(0, "CLOUDERA", "Cloudera", false), //$NON-NLS-1$//$NON-NLS-2$
+    CLOUDERA(0, EHadoopDistributions.CLOUDERA.getName(), EHadoopDistributions.CLOUDERA.getDisplayName(), false),
 
-    MAPR(0, "MAPR", "MapR", false), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR(0, EHadoopDistributions.MAPR.getName(), EHadoopDistributions.MAPR.getDisplayName(), false),
 
-    AMAZON_EMR(0, "AMAZON_EMR", "Amazon EMR", false), //$NON-NLS-1$//$NON-NLS-2$
+    AMAZON_EMR(0, EHadoopDistributions.AMAZON_EMR.getName(), EHadoopDistributions.AMAZON_EMR.getDisplayName(), false),
 
-    PIVOTAL_HD(0, "PIVOTAL_HD", "Pivotal HD", false), //$NON-NLS-1$ //$NON-NLS-2$
+    PIVOTAL_HD(0, EHadoopDistributions.PIVOTAL_HD.getName(), EHadoopDistributions.PIVOTAL_HD.getDisplayName(), false),
 
-    DISTRO_CUSTOM(0, "CUSTOM", "Custom - Unsupported", false), //$NON-NLS-1$//$NON-NLS-2$
+    DISTRO_CUSTOM(0, EHadoopDistributions.CUSTOM.getName(), EHadoopDistributions.CUSTOM.getDisplayName(), false),
 
-    HDP_2_1(1, "HDP_2_1", "Hortonworks Data Platform V2.1.0(Baikal)", true, false, true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_1(
+            1,
+            EHadoopVersion4Drivers.HDP_2_1.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_2_1.getVersionDisplay(),
+            true,
+            false,
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
-    HDP_2_0(1, "HDP_2_0", "Hortonworks Data Platform V2.0.0(BigWheel)", true, false, true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_2_0(
+            1,
+            EHadoopVersion4Drivers.HDP_2_0.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_2_0.getVersionDisplay(),
+            true,
+            false,
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
-    HDP_1_3(1, "HDP_1_3", "Hortonworks Data Platform V1.3.0(Condor)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_3(
+            1,
+            EHadoopVersion4Drivers.HDP_1_3.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_1_3.getVersionDisplay(),
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
-    HDP_1_2(1, "HDP_1_2", "Hortonworks Data Platform V1.2.0(Bimota)", true, true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_2(
+            1,
+            EHadoopVersion4Drivers.HDP_1_2.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_1_2.getVersionDisplay(),
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
-    HDP_1_0(1, "HDP_1_0", "Hortonworks Data Platform V1.0.0(deprecated)", true, HiveConnVersionInfo.HORTONWORKS), //$NON-NLS-1$//$NON-NLS-2$
+    HDP_1_0(
+            1,
+            EHadoopVersion4Drivers.HDP_1_0.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_1_0.getVersionDisplay(),
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
-    APACHE_1_0_0(1, "APACHE_1_0_0", "Apache 1.0.0 (Hive 0.9.0)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_1_0_0(1, EHadoopVersion4Drivers.APACHE_1_0_0.getVersionValue(), EHadoopVersion4Drivers.APACHE_1_0_0
+            .getVersionDisplay(), false, HiveConnVersionInfo.APACHE),
 
-    APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_0_20_203(1, EHadoopVersion4Drivers.APACHE_0_20_203.getVersionValue(), EHadoopVersion4Drivers.APACHE_0_20_203
+            .getVersionDisplay(), false, HiveConnVersionInfo.APACHE),
 
-    Cloudera_CDH5_1(1, "Cloudera_CDH5_1", "Cloudera CDH5.1(YARN mode)", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH5_1(1, EHadoopVersion4Drivers.CLOUDERA_CDH5_1.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH5_1
+            .getVersionDisplay(), true, false, true, true, HiveConnVersionInfo.CLOUDERA),
 
     Cloudera_CDH5_1_MR1(
                         1,
-                        "Cloudera_CDH5_1_MR1", "Cloudera CDH5.1(MR 1 mode)", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+                        EHadoopVersion4Drivers.CLOUDERA_CDH5_1_MR1.getVersionValue(),
+                        EHadoopVersion4Drivers.CLOUDERA_CDH5_1_MR1.getVersionDisplay(),
+                        true,
+                        false,
+                        true,
+                        true,
+                        HiveConnVersionInfo.CLOUDERA),
 
-    Cloudera_CDH5(1, "Cloudera_CDH5", "Cloudera CDH5", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH5(1, EHadoopVersion4Drivers.CLOUDERA_CDH5.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH5
+            .getVersionDisplay(), true, false, true, true, HiveConnVersionInfo.CLOUDERA),
 
-    Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4_YARN(1, EHadoopVersion4Drivers.CLOUDERA_CDH4_YARN.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH4_YARN
+            .getVersionDisplay(), true, false, true, false, HiveConnVersionInfo.CLOUDERA),
 
-    Cloudera_CDH4(1, "Cloudera_CDH4", "Cloudera CDH4", true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH4(1, EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH4
+            .getVersionDisplay(), true, true, HiveConnVersionInfo.CLOUDERA),
 
-    Cloudera_CDH3(1, "Cloudera_CDH3", "Cloudera CDH3(deprecated)", false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+    Cloudera_CDH3(1, EHadoopVersion4Drivers.CLOUDERA_CDH3.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH3
+            .getVersionDisplay(), false, HiveConnVersionInfo.CLOUDERA),
 
-    MAPR4_0_1(1, "MAPR401", "MapR 4.0.1", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR4_0_1(
+              1,
+              EHadoopVersion4Drivers.MAPR401.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR401.getVersionDisplay(),
+              true,
+              false,
+              HiveConnVersionInfo.MAPR),
 
-    MAPR3_1_0(1, "MAPR310", "MapR 3.1.0", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR3_1_0(
+              1,
+              EHadoopVersion4Drivers.MAPR310.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR310.getVersionDisplay(),
+              true,
+              false,
+              HiveConnVersionInfo.MAPR),
 
-    MAPR3_0_1(1, "MAPR301", "MapR 3.0.1", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR3_0_1(
+              1,
+              EHadoopVersion4Drivers.MAPR301.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR301.getVersionDisplay(),
+              true,
+              false,
+              HiveConnVersionInfo.MAPR),
 
-    MAPR2_1_3(1, "MAPR213", "MapR 2.1.3", true, false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_3(
+              1,
+              EHadoopVersion4Drivers.MAPR213.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR213.getVersionDisplay(),
+              true,
+              false,
+              HiveConnVersionInfo.MAPR),
 
-    MAPR2_1_2(1, "MAPR212", "MapR 2.1.2", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2_1_2(
+              1,
+              EHadoopVersion4Drivers.MAPR212.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR212.getVersionDisplay(),
+              false,
+              HiveConnVersionInfo.MAPR),
 
-    MAPR2(1, "MAPR2", "MapR 2.0.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR2(
+          1,
+          EHadoopVersion4Drivers.MAPR2.getVersionValue(),
+          EHadoopVersion4Drivers.MAPR2.getVersionDisplay(),
+          false,
+          HiveConnVersionInfo.MAPR),
 
-    MAPR1(1, "MAPR1", "MapR 1.2.0", false, HiveConnVersionInfo.MAPR), //$NON-NLS-1$//$NON-NLS-2$
+    MAPR1(
+          1,
+          EHadoopVersion4Drivers.MAPR1.getVersionValue(),
+          EHadoopVersion4Drivers.MAPR1.getVersionDisplay(),
+          false,
+          HiveConnVersionInfo.MAPR),
 
-    APACHE_2_4_0_EMR(1, "APACHE_2_4_0_EMR", "Apache 2.4.0 (Hive 0.11.0)", true, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_2_4_0_EMR(1, EHadoopVersion4Drivers.APACHE_2_4_0_EMR.getVersionValue(), EHadoopVersion4Drivers.APACHE_2_4_0_EMR
+            .getVersionDisplay(), true, HiveConnVersionInfo.AMAZON_EMR),
 
-    APACHE_1_0_3_EMR(1, "APACHE_1_0_3_EMR", "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    APACHE_1_0_3_EMR(1, EHadoopVersion4Drivers.APACHE_1_0_3_EMR.getVersionValue(), EHadoopVersion4Drivers.APACHE_1_0_3_EMR
+            .getVersionDisplay(), false, HiveConnVersionInfo.AMAZON_EMR),
 
-    MapR_EMR(1, "MapR_EMR", "MapR 1.2.8(deprecated)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$//$NON-NLS-2$
+    MapR_EMR(
+             1,
+             EHadoopVersion4Drivers.MAPR_EMR.getVersionValue(),
+             EHadoopVersion4Drivers.MAPR_EMR.getVersionDisplay(),
+             false,
+             HiveConnVersionInfo.AMAZON_EMR),
 
-    PIVOTAL_HD_2_0(1, "PIVOTAL_HD_2_0", "Pivotal HD 2.0", true, false, true, true, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
+    PIVOTAL_HD_2_0(1, EHadoopVersion4Drivers.PIVOTAL_HD_2_0.getVersionValue(), EHadoopVersion4Drivers.PIVOTAL_HD_2_0
+            .getVersionDisplay(), true, false, true, true, HiveConnVersionInfo.PIVOTAL_HD),
 
-    PIVOTAL_HD_1_0_1(1, "PIVOTAL_HD_1_0_1", "Pivotal HD 1.0.1", false, false, true, false, HiveConnVersionInfo.PIVOTAL_HD), //$NON-NLS-1$//$NON-NLS-2$
+    PIVOTAL_HD_1_0_1(1, EHadoopVersion4Drivers.PIVOTAL_HD_1_0_1.getVersionValue(), EHadoopVersion4Drivers.PIVOTAL_HD_1_0_1
+            .getVersionDisplay(), false, false, true, false, HiveConnVersionInfo.PIVOTAL_HD),
 
     DISTRO_VERSION_CUSTOM(1, "DISTRO_VERSION_CUSTOM", "Customized Version", true, true, HiveConnVersionInfo.DISTRO_CUSTOM), //$NON-NLS-1$//$NON-NLS-2$
 
