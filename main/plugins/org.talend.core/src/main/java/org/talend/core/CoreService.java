@@ -228,7 +228,6 @@ public class CoreService implements ICoreService {
         // if (!CommonsPlugin.isHeadless()) {
         // CorePlugin.getDefault().getRunProcessService().updateLibraries(new HashSet<String>(), null);
         // }
-        resetUniservLibraries();
 
     }
 
@@ -455,37 +454,6 @@ public class CoreService implements ICoreService {
             out.create(fis, true, null);
         }
         fis.close();
-    }
-
-    /**
-     * 
-     * FIXME, According to the fixing of TDI-21162 and TUP-461
-     * (http://www.talendforge.org/trac/tos/changeset/97720#file58), this method is no need at all.
-     * 
-     * should remove it later.
-     */
-    private void resetUniservLibraries() {
-        // ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-        // ILibraryManagerService.class);
-        //
-        //        String jarNeeded = "uniserv.jar"; //$NON-NLS-1$
-        // if (libManager.contains(jarNeeded)) {
-        //            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv"); //$NON-NLS-1$
-        // try {
-        // File bundleFile = FileLocator.getBundleFile(bundle);
-        // if (bundleFile.exists()) {
-        //                    File libFolder = new File(bundleFile, "lib"); //$NON-NLS-1$
-        // // fix for TDI-21162
-        // File jarFile = new File(libFolder, jarNeeded);
-        // if (jarFile.exists()) {
-        // return;
-        // }
-        // libManager.retrieve(jarNeeded, libFolder.getAbsolutePath(), new NullProgressMonitor());
-        // }
-        // } catch (IOException e) {
-        // ExceptionHandler.process(e);
-        // }
-        // }
     }
 
     @Override
