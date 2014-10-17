@@ -54,7 +54,7 @@ public class PasswordEncryptUtil {
      */
     @Deprecated
     public static String encryptPassword(String input) throws Exception {
-        if (input == null || input.length() == 0) {
+        if (input == null) {
             return input;
         }
 
@@ -105,7 +105,7 @@ public class PasswordEncryptUtil {
      * 
      */
     public static String encryptPasswordHex(String input) throws Exception {
-        if (input == null || input.length() == 0) {
+        if (input == null) {
             return input;
         }
         SecretKey key = getSecretKeyUTF8();

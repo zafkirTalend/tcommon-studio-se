@@ -78,9 +78,6 @@ public class CryptoHelper {
         if (str == null) {
             return null;
         }
-        if (EMPTY_STRING.equals(str)) {
-            return EMPTY_STRING;
-        }
         try {
             byte[] utf8 = str.getBytes(UTF8);
             byte[] enc = ecipher.doFinal(utf8);
@@ -94,6 +91,7 @@ public class CryptoHelper {
         if (str == null) {
             return null;
         }
+        // if empty, no need decrypt.
         if (EMPTY_STRING.equals(str)) {
             return EMPTY_STRING;
         }
