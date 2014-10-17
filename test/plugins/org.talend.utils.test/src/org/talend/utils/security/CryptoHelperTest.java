@@ -33,7 +33,7 @@ public class CryptoHelperTest {
     public void testEncrypt4EMPTY() {
         String encrypt = CryptoHelper.DEFAULT.encrypt("");
         Assert.assertNotNull(encrypt);
-        Assert.assertEquals("", encrypt);
+        Assert.assertEquals("yJKHKGWEAQw=", encrypt);
     }
 
     @Test
