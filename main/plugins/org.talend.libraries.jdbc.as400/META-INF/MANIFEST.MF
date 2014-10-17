@@ -19,3 +19,4 @@ Bundle-ClassPath: .,
  lib/jt400_V5R3.jar
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

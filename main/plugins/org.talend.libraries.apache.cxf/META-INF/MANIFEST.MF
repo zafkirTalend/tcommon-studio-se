@@ -867,3 +867,4 @@ Import-Package: bsh;resolution:=optional,com.ibm.wsdl.util.xml;resolut
  ;resolution:=optional,org.xml.sax.helpers;resolution:=optional,sun.mi
  sc;resolution:=optional
 Require-Bundle: javax.wsdl;bundle-version="1.6.2"
+Eclipse-BundleShape: dir

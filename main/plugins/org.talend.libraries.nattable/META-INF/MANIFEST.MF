@@ -42,3 +42,4 @@ Export-Package: ca.odell.glazedlists,
  ca.odell.glazedlists.swing,
  ca.odell.glazedlists.swt,
  ca.odell.glazedlists.util.concurrent
+Eclipse-BundleShape: dir

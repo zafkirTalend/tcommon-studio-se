@@ -185,3 +185,4 @@ Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.apache.log4j
 Import-Package: javax.transaction,
  javax.transaction.xa
+Eclipse-BundleShape: dir

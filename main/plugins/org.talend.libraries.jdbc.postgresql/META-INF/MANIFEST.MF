@@ -25,3 +25,4 @@ Export-Package: org.postgresql,
  org.postgresql.util,
  org.postgresql.xa
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

@@ -35,3 +35,4 @@ Export-Package: com.ncr.teradata,
  com.teradata.tdgss.jgssspi,
  com.teradata.tdgss.jtdgss
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

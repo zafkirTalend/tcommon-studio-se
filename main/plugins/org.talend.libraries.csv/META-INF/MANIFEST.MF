@@ -9,3 +9,4 @@ Bundle-ClassPath: .,
 Export-Package: com.talend.csv,
  org.skife.csv
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

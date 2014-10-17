@@ -58,4 +58,4 @@ Export-Package: org.apache.xmlbeans,
  schemaorg_apache_xmlbeans.system.sXMLSCHEMA,
  schemaorg_apache_xmlbeans.system.sXMLTOOLS
 Bundle-ActivationPolicy: lazy
-
+Eclipse-BundleShape: dir

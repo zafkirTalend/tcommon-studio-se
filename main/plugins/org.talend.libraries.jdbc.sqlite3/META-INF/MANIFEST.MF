@@ -11,3 +11,4 @@ Export-Package: org.ibex.nestedvm,
  org.sqlite
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

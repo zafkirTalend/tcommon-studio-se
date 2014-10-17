@@ -13,3 +13,4 @@ Export-Package: net.sourceforge.jtds.jdbc,
  net.sourceforge.jtds.ssl,
  net.sourceforge.jtds.util
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

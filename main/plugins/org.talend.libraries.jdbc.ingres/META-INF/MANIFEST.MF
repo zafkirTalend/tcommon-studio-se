@@ -12,3 +12,4 @@ Export-Package: com.ingres.gcf.dam,
  com.ingres.jdbc
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

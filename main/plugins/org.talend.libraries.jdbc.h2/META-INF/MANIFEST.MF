@@ -155,3 +155,4 @@ Export-Package: org.h2,
    org.h2.message,
    org.h2.engine"
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

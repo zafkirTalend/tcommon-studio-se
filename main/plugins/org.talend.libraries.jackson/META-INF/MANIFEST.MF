@@ -38,3 +38,4 @@ Require-Bundle: org.apache.commons.lang,
  org.apache.commons.collections,
  org.apache.commons.beanutils
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

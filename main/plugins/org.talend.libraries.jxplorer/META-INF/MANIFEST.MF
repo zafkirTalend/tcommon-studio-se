@@ -29,3 +29,4 @@ Export-Package: com.ca.commons.cbutil,
  com.ca.jndiproviders.dsml,
  org.apache.axis.utils,
  org.talend.libraries.jxplorer
+Eclipse-BundleShape: dir
