@@ -4,6 +4,8 @@
         "JOBTRACKER": "localhost:50300",
         "RESOURCE_MANAGER": "localhost:8050",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -22,7 +24,9 @@
         "NAMENODE_URI": "hdfs://localhost:8020",
         "JOBTRACKER": "localhost:8021",
         "RESOURCE_MANAGER": "localhost:8032",
-        "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "NAMENODE_PRINCIPAL": "hdfs/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -59,6 +63,8 @@
         "NAMENODE_URI": "hdfs://localhost:9000",
         "JOBTRACKER": "localhost:9001",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -93,6 +99,8 @@
             }
         },
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -108,6 +116,9 @@
         "NAMENODE_URI": "hdfs://localhost:8020",
         "JOBTRACKER": "localhost:8032",
         "RESOURCE_MANAGER": "localhost:8032",
+        "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -127,6 +138,8 @@
         "JOBTRACKER": "localhost:50300",
         "RESOURCE_MANAGER": "localhost:8050",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
