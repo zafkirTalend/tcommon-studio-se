@@ -532,6 +532,7 @@ public class MigrationToolService implements IMigrationToolService {
                     && dataVersionSystem <= productVersionSystem) {
                 return true;
             }
+            log.warn((Messages.getString("MigrationToolService.projectCanNotOpen", taskId))); //$NON-NLS-1$
             return false;
         }
 
