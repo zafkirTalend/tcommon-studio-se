@@ -96,6 +96,8 @@ public class MigrationToolService implements IMigrationToolService {
     
     private boolean migrationOnNewProject = false;
 
+    private String taskId;
+
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
     }
@@ -506,6 +508,7 @@ public class MigrationToolService implements IMigrationToolService {
                 ProductVersion taskVersion = ProductVersion.fromString(version);
                 if (taskVersion.compareTo(topTaskVersion) > 0) {
                     topTaskVersion = taskVersion;
+                    taskId = task.getId();
                 }
             }
             String breaks = task.getBreaks();
@@ -531,6 +534,7 @@ public class MigrationToolService implements IMigrationToolService {
                     && dataVersionSystem <= productVersionSystem) {
                 return true;
             }
+            log.warn((Messages.getString("MigrationToolService.projectCanNotOpen", taskId))); //$NON-NLS-1$
             return false;
         }
 
@@ -705,6 +709,16 @@ public class MigrationToolService implements IMigrationToolService {
         };
         Collections.sort(doneThisSession, comparator);
         return this.doneThisSession;
+    }
+
+    /**
+     * Getter for taskId.
+     * 
+     * @return the taskId
+     */
+    @Override
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }
