@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jasperreport Plug-in
 Bundle-SymbolicName: org.talend.libraries.jasperreport;singleton:=true
-Bundle-Version: 5.6.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
  lib/jakarta-bcel-20050813.jar,
