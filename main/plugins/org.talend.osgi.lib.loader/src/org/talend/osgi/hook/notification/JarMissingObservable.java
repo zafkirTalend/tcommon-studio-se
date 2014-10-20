@@ -14,7 +14,7 @@ package org.talend.osgi.hook.notification;
 
 import java.util.Observable;
 
-import org.eclipse.osgi.baseadaptor.BaseData;
+import org.eclipse.osgi.storage.BundleInfo.Generation;
 
 /**
  * This observable is registered as an OSGI service and can be used to register Observers by clients that whishes to be
@@ -28,16 +28,16 @@ public class JarMissingObservable extends Observable {
 
         private final String jarName;
 
-        private final BaseData baseData;
-
         private final String expectedLibFolder;
+
+        private Generation generation;
 
         /**
          * DOC sgandon JarMissingObservable.JarMissingEvent constructor comment.
          */
-        public JarMissingEvent(String jarName, BaseData sourcedata, String expectedLibFolder) {
+        public JarMissingEvent(String jarName, Generation generation, String expectedLibFolder) {
             this.jarName = jarName;
-            this.baseData = sourcedata;
+            this.generation = generation;
             this.expectedLibFolder = expectedLibFolder;
 
         }
@@ -53,11 +53,11 @@ public class JarMissingObservable extends Observable {
 
         /**
          * return the name of the bundle that has a missing jar.
-         * 
+         *
          * @return the bundleName
          */
         public String getBundleSymbolicName() {
-            return baseData.getSymbolicName();
+            return generation.getRevision().getSymbolicName();
         }
 
         /**
@@ -73,7 +73,7 @@ public class JarMissingObservable extends Observable {
          * return the OSGI Bundle Id
          * */
         public long getBundleId() {
-            return baseData.getBundleID();
+            return generation.getBundleInfo().getBundleId();
         }
     }
 
