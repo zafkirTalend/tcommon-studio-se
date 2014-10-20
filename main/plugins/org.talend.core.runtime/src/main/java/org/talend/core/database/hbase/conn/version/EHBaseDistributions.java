@@ -15,24 +15,26 @@ package org.talend.core.database.hbase.conn.version;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.hadoop.version.EHadoopDistributions;
+
 /**
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHBaseDistributions {
 
-    HORTONWORKS("HortonWorks"),
+    HORTONWORKS(EHadoopDistributions.HORTONWORKS.getDisplayName()),
 
-    CLOUDERA("Cloudera"),
+    CLOUDERA(EHadoopDistributions.CLOUDERA.getDisplayName()),
 
-    MAPR("MapR"),
+    MAPR(EHadoopDistributions.MAPR.getDisplayName()),
 
-    APACHE("Apache"),
+    APACHE(EHadoopDistributions.APACHE.getDisplayName()),
 
-    AMAZON_EMR("AmazonEMR"),
+    AMAZON_EMR(EHadoopDistributions.AMAZON_EMR.getDisplayName()),
 
-    PIVOTAL_HD("Pivotal HD"),
+    PIVOTAL_HD(EHadoopDistributions.PIVOTAL_HD.getDisplayName()),
 
-    CUSTOM("Custom - Unsupported");
+    CUSTOM(EHadoopDistributions.CUSTOM.getDisplayName());
 
     private String displayName;
 
