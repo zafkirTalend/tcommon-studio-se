@@ -187,9 +187,9 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
 
     private int count = 0;
 
-    private int countSuccess = 0;
+    private Integer countSuccess = 0;
 
-    private int countPending = 0;
+    private Integer countPending = 0;
 
     private final WizardPage parentWizardPage;
 
@@ -519,7 +519,9 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                     TableItem tableItem = tableItem2;
                     if (!tableItem.getChecked()) {
                         tableItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                        countPending++;
+                        synchronized (countPending) {
+                            countPending++;
+                        }
                         parentWizardPage.setPageComplete(false);
                         refreshTable(tableItem, size);
                     } else {
@@ -573,14 +575,18 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
                         clearTableItem(tableItem);
                         tableItem.setText(2, ""); //$NON-NLS-1$
                         tableItem.setText(3, Messages.getString("SelectorTableForm.Pending")); //$NON-NLS-1$
-                        countPending++;
+                        synchronized (countPending) {
+                            countPending++;
+                        }
                         parentWizardPage.setPageComplete(false);
                         refreshTable(tableItem, -1);
                     } else {
+                        String pending = tableItem.getText(3);
                         clearTableItem(tableItem);
-                        if (tableItem.getText() != null
-                                && tableItem.getText().equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
-                            countPending--;
+                        if (pending != null && pending.equals(Messages.getString("SelectorTableForm.Pending"))) { //$NON-NLS-1$
+                            synchronized (countPending) {
+                                countPending--;
+                            }
                         }
                     }
                     if (forTemplate && (ConnectionHelper.getTables(getConnection()).size() <= 0)) {
@@ -755,7 +761,9 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
 
             tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
             tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
-            countSuccess++;
+            synchronized (countSuccess) {
+                countSuccess++;
+            }
 
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
@@ -1085,7 +1093,9 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
             if (checkConnectionIsDone) {
                 tableItem.setText(2, "" + listColumns.size()); //$NON-NLS-1$
                 tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
-                countSuccess++;
+                synchronized (countSuccess) {
+                    countSuccess++;
+                }
                 ((SalesforceSchemaConnection) connectionItem.getConnection()).setModuleName(tableItem.getText(0));
                 temConnection.setModuleName(tableItem.getText(0));
                 SalesforceModuleUnit module = ConnectionFactory.eINSTANCE.createSalesforceModuleUnit();
