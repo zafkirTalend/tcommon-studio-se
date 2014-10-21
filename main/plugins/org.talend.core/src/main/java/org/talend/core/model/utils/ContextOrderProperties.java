@@ -116,7 +116,8 @@ public class ContextOrderProperties extends Properties {
                         this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                 BUILD_IN_COMMENT);
                     } else {
-                        String contextName = ContextUtils.getContextItemById3(parameter.getSource()).getProperty().getLabel();
+                        String contextName = ContextUtils.getRepositoryContextItemById(parameter.getSource()).getProperty()
+                                .getLabel();
                         this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                 REPOSITORY_COMMENT + contextName);
                     }
@@ -132,7 +133,8 @@ public class ContextOrderProperties extends Properties {
                                     BUILD_IN_COMMENT);
                         }
                     } else {
-                        String contextName = ContextUtils.getContextItemById3(parameter.getSource()).getProperty().getLabel();
+                        String contextName = ContextUtils.getRepositoryContextItemById(parameter.getSource()).getProperty()
+                                .getLabel();
                         if (parameterList.get(previousIndex).getSource().equals(IContextParameter.BUILT_IN)) {
                             this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                     REPOSITORY_COMMENT + contextName);

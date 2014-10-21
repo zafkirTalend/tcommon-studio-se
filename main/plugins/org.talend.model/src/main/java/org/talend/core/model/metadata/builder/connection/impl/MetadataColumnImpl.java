@@ -622,7 +622,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     public Classifier getOwner() {
         if (eContainerFeatureID() != ConnectionPackage.METADATA_COLUMN__OWNER)
             return null;
-        return (Classifier) eContainer();
+        return (Classifier) eInternalContainer();
     }
 
     /**

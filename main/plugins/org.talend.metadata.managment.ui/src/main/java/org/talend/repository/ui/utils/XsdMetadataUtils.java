@@ -65,9 +65,9 @@ import orgomg.cwm.resource.record.RecordFile;
 
 /**
  * created by hcyi on Aug 29, 2014 Detailled comment
- * 
+ *
  * related to: class PublishMetadataRunnable
- * 
+ *
  */
 public final class XsdMetadataUtils {
 
@@ -89,10 +89,22 @@ public final class XsdMetadataUtils {
         }
     }
 
+    public static void createMetadataFromXSD(QName parameter, String connectionLabel, String portTypeName, String operationName,
+            File schemaFile) {
+        XSDPopulationUtil2 populationUtil = new XSDPopulationUtil2();
+        Collection<XmlFileConnectionItem> selectItems = new ArrayList<XmlFileConnectionItem>();
+        try {
+            createMetadataFromXSD(parameter, connectionLabel, portTypeName, operationName, schemaFile, selectItems, schemaFile,
+                    populationUtil);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
-     * 
+     *
      * DOC hcyi Comment method "createMetadataFromXSD".
-     * 
+     *
      * @param parameter
      * @param portTypeName
      * @param operationName
@@ -104,6 +116,27 @@ public final class XsdMetadataUtils {
      */
     public static void createMetadataFromXSD(QName parameter, String portTypeName, String operationName, File schemaFile,
             Collection<XmlFileConnectionItem> selectItems, File zip, XSDPopulationUtil2 populationUtil) throws IOException {
+        createMetadataFromXSD(parameter, parameter.getLocalPart(), portTypeName, operationName, schemaFile, selectItems, zip,
+                populationUtil);
+    }
+
+    /**
+     * 
+     * DOC wchen Comment method "createMetadataFromXSD".
+     * 
+     * @param parameter
+     * @param connectionLabel
+     * @param portTypeName
+     * @param operationName
+     * @param schemaFile
+     * @param selectItems
+     * @param zip
+     * @param populationUtil
+     * @throws IOException
+     */
+    public static void createMetadataFromXSD(QName parameter, String connectionLabel, String portTypeName, String operationName,
+            File schemaFile, Collection<XmlFileConnectionItem> selectItems, File zip, XSDPopulationUtil2 populationUtil)
+            throws IOException {
         String name = /* componentName + "_"+ */parameter.getLocalPart();
         XmlFileConnection connection = null;
         Property connectionProperty = null;
@@ -112,7 +145,6 @@ public final class XsdMetadataUtils {
         String oldTableId = null;
         IMetadataTable oldMetadataTable = null;
         Map<String, String> oldTableMap = null;
-
         if (!selectItems.isEmpty()) {
             boolean needRewrite = false;
             for (XmlFileConnectionItem item : selectItems) {
@@ -137,43 +169,34 @@ public final class XsdMetadataUtils {
                 return;
             }
         }
-
         connection = ConnectionFactory.eINSTANCE.createXmlFileConnection();
         connection.setName(ERepositoryObjectType.METADATA_FILE_XML.getKey());
         connectionItem = PropertiesFactory.eINSTANCE.createXmlFileConnectionItem();
         connectionProperty = PropertiesFactory.eINSTANCE.createProperty();
         connectionProperty.setAuthor(((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
                 .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getUser());
-        connectionProperty.setLabel(name);
+        connectionProperty.setLabel(connectionLabel);
         connectionProperty.setVersion(VersionUtils.DEFAULT_VERSION);
         connectionProperty.setStatusCode(""); //$NON-NLS-1$
-
         connectionItem.setProperty(connectionProperty);
         connectionItem.setConnection(connection);
-
         connection.setInputModel(false);
-
         ByteArray byteArray = PropertiesFactory.eINSTANCE.createByteArray();
         byteArray.setInnerContentFromFile(zip);
         connection.setFileContent(byteArray.getInnerContent());
-
         // don't put any XSD directly inside the xml connection but put zip file
         // Use xsd schema file name + zip file name as xml file path in case we need get the root schema of xml
         // connection after.
         String schemaFileName = schemaFile.getName();
         schemaFileName = schemaFileName.substring(0, schemaFileName.lastIndexOf(".")); //$NON-NLS-1$
         connection.setXmlFilePath(schemaFileName.concat("_").concat(zip.getName())); //$NON-NLS-1$
-
         try {
             String filePath = schemaFile.getPath(); // name of xsd file needed
             XSDSchema xsdSchema = populationUtil.getXSDSchema(filePath);
             List<ATreeNode> rootNodes = populationUtil.getAllRootNodes(xsdSchema);
-
             ATreeNode node = null;
-
             // try to find the root element needed from XSD file.
             // note: if there is any prefix, it will get the node with the first correct name, no matter the prefix.
-
             // once the we can get the correct prefix value from the wsdl, this code should be modified.
             for (ATreeNode curNode : rootNodes) {
                 String curName = (String) curNode.getValue();
@@ -188,7 +211,6 @@ public final class XsdMetadataUtils {
                     break;
                 }
             }
-
             node = populationUtil.getSchemaTree(xsdSchema, node);
             orderId = 1;
             loopElementFound = false;
@@ -224,7 +246,6 @@ public final class XsdMetadataUtils {
         } catch (OdaException e) {
             ExceptionHandler.process(e);
         }
-
         // save
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         connectionProperty.setId(factory.getNextId());
@@ -234,14 +255,12 @@ public final class XsdMetadataUtils {
             String folderPath = getImportedXmlSchemaPath(parameter.getNamespaceURI(), portTypeName, operationName);
             IPath path = new Path(folderPath);
             factory.create(connectionItem, path, true); // consider this as migration will overwrite the old metadata if
-                                                        // existing in the same path
+            // existing in the same path
             if (oldConnectionId != null) {
                 connectionItem.getProperty().setId(oldConnectionId);
                 factory.save(connectionItem);
             }
-
             propagateSchemaChange(oldMetadataTable, oldTableMap, connection, connectionItem);
-
             ProxyRepositoryFactory.getInstance().saveProject(ProjectManager.getInstance().getCurrentProject());
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -255,7 +274,6 @@ public final class XsdMetadataUtils {
         if (oldMetaTable == null) {
             return;
         }
-
         Display.getDefault().syncExec(new Runnable() {
 
             @Override
@@ -321,7 +339,6 @@ public final class XsdMetadataUtils {
             // specific for namespace... no path set, there is only the prefix value.
             // this value is saved now in node.getDataType()
             xmlNode.setXMLPath(node.getDataType());
-
             xmlNode.setDefaultValue((String) node.getValue());
             break;
         case ATreeNode.OTHER_TYPE:
@@ -331,7 +348,6 @@ public final class XsdMetadataUtils {
         // will try to get the first element (branch or main), and set it as loop.
         if ((!loopElementFound && path.split("/").length == 2 && node.getType() == ATreeNode.ELEMENT_TYPE) || subElementsInLoop) { //$NON-NLS-1$
             connection.getLoop().add(xmlNode);
-
             loopElementFound = true;
             subElementsInLoop = true;
         } else {
@@ -345,10 +361,8 @@ public final class XsdMetadataUtils {
     }
 
     private static String extractColumnName(String currentExpr, List<MetadataColumn> fullSchemaTargetList) {
-
         String columnName = currentExpr.startsWith("@") ? currentExpr.substring(1) : currentExpr; //$NON-NLS-1$
         columnName = PATTERN_TOREPLACE.matcher(columnName).replaceAll("_"); //$NON-NLS-1$
-
         UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(columnName,
                 fullSchemaTargetList) {
 

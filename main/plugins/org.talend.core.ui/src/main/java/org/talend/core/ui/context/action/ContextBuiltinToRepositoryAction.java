@@ -21,9 +21,12 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.cmd.ContextBuiltinToRepositoryCommand;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
@@ -63,8 +66,13 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
     @Override
     protected void doRun() {
         if (contextManager != null) {
-            CoreRuntimePlugin.getInstance().getRepositoryService()
+            ContextItem item = CoreRuntimePlugin.getInstance().getRepositoryService()
                     .openRepositoryReviewDialog(ERepositoryObjectType.CONTEXT, null, params, contextManager);
+            if (modelManager.getCommandStack() != null) {
+                modelManager.getCommandStack().execute(new ContextBuiltinToRepositoryCommand(params, contextManager, item));
+            } else {
+                new ContextBuiltinToRepositoryCommand(params, contextManager, item).execute();
+            }
             modelManager.refresh();
         }
     }
@@ -113,30 +121,32 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
         setEnabled(canWork);
     }
 
-    public void init(NatTable table, Object rowData) {
+    public void init(NatTable table, Object[] rowNodes) {
         this.table = table;
         this.contextManager = modelManager.getContextManager();
-        boolean canWork = table != null && rowData != null;
+        boolean canWork = table != null && rowNodes != null;
         if (canWork) {
-            if (rowData instanceof ContextTableTabParentModel) {
-                ContextTableTabParentModel param = (ContextTableTabParentModel) rowData;
-                if (!IContextParameter.BUILT_IN.equals(param.getSourceId())) {
-                    setEnabled(false);
-                    return;
-                } else {
-                    params.add(param.getContextParameter());
-                }
-            } else if (rowData instanceof ContextTableTabChildModel) {
-                ContextTableTabChildModel param = (ContextTableTabChildModel) rowData;
-                if (!IContextParameter.BUILT_IN.equals(param.getContextParameter().getSource())) {
-                    setEnabled(false);
-                    return;
-                } else {
-                    params.add(param.getContextParameter());
+            for (Object rowNode : rowNodes) {
+                Object rowData = ((ContextTreeNode) rowNode).getTreeData();
+                if (rowData instanceof ContextTableTabParentModel) {
+                    ContextTableTabParentModel param = (ContextTableTabParentModel) rowData;
+                    if (!IContextParameter.BUILT_IN.equals(param.getSourceId())) {
+                        setEnabled(false);
+                        return;
+                    } else {
+                        params.add(param.getContextParameter());
+                    }
+                } else if (rowData instanceof ContextTableTabChildModel) {
+                    ContextTableTabChildModel param = (ContextTableTabChildModel) rowData;
+                    if (!IContextParameter.BUILT_IN.equals(param.getContextParameter().getSource())) {
+                        setEnabled(false);
+                        return;
+                    } else {
+                        params.add(param.getContextParameter());
+                    }
                 }
             }
         }
         setEnabled(canWork);
     }
-
 }

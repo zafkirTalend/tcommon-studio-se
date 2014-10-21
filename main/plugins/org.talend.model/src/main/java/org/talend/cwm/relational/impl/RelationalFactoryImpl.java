@@ -34,7 +34,7 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     public static RelationalFactory init() {
         try {
             RelationalFactory theRelationalFactory = (RelationalFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/cwm/resource/relational/2010");
+                    .getEFactory(RelationalPackage.eNS_URI);
             if (theRelationalFactory != null) {
                 return theRelationalFactory;
             }
@@ -187,8 +187,8 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
      * @generated
      */
     @SuppressWarnings("unchecked")
-    public HashMap createjavaHashMapFromString(EDataType eDataType, String initialValue) {
-        return (HashMap) super.createFromString(initialValue);
+    public HashMap<String, String> createjavaHashMapFromString(EDataType eDataType, String initialValue) {
+        return (HashMap<String, String>) super.createFromString(initialValue);
     }
 
     /**

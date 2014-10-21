@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -40,9 +39,12 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.ISAPConstant;
+import org.talend.core.model.metadata.MappingType;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
@@ -65,8 +67,8 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
-import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
-import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParamData;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameter;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
@@ -217,102 +219,68 @@ public class RepositoryToComponentProperty {
                 break;
             }
         }
-        if (unit == null) {
+        if (unit == null || unit.getParamData() == null) {
             return;
         }
 
-        SAPFunctionParameterTable table = isInput ? unit.getTestInputParameterTable() : unit.getOutputParameterTable();
-        if (table == null || table.getColumns() == null || table.getColumns().isEmpty()) {
-            return;
-        }
+        SAPFunctionParameter table = isInput ? unit.getParamData().getInputRoot() : unit.getParamData().getOutputRoot();
+
         value2.clear(); // Make sure for this
-        Map<String, List<Object>> mergedKeyValues = new HashMap<String, List<Object>>(); // all merged columns's key
-        for (int i = 0; i < table.getColumns().size(); i++) {
-            SAPFunctionParameterColumn column = table.getColumns().get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            if (isInput) {
-                mergeColumn(map, column, table.getColumns(), mergedKeyValues);
-            } else {
-                map.put("SAP_PARAMETER_TYPE", column.getParameterType().replace('.', '_')); //$NON-NLS-1$
-                map.put("SAP_TABLE_NAME", TalendQuoteUtils.addQuotes(column.getStructureOrTableName())); //$NON-NLS-1$
-                map.put("SAP_PARAMETER_NAME", TalendQuoteUtils.addQuotes(column.getName())); //$NON-NLS-1$
-            }
-            if (!map.isEmpty()) {
-                value2.add(map);
-            }
-        }
-    }
-
-    private static void mergeColumn(Map<String, Object> map, SAPFunctionParameterColumn column,
-            EList<SAPFunctionParameterColumn> columns, Map<String, List<Object>> mergedMapping) {
-        boolean merged = false;
-        String mergeName = column.getName();
-        String mergeValue = "";
-        String mergeStructure = "";
-        String mergeType = "";
-        String value = "";
-        String talendType = getTalendTypeFromJCOType(column.getDataType());
-        if (talendType.contains("String")) { //$NON-NLS-1$
-            value = TalendQuoteUtils.addQuotes(column.getValue());
+        if (isInput) {
+            mergeColumn(table, table.getChildren(), value2);
         } else {
-            value = column.getValue();
-        }
-
-        for (SAPFunctionParameterColumn current : columns) {
-            String currentValue = "";
-            if (talendType.contains("String")) { //$NON-NLS-1$
-                currentValue = TalendQuoteUtils.addQuotes(current.getValue());
-            } else {
-                currentValue = current.getValue();
-            }
-            if (current.getStructureOrTableName() != null && !"".equals(current.getStructureOrTableName())) {
-                if (current.getStructureOrTableName().equals(column.getStructureOrTableName())
-                        && current.getName().equals(column.getName())) {
-
-                    String key = current.getStructureOrTableName() + "_" + current.getName();
-                    if (!mergedMapping.keySet().contains(key)) {// need
-                        // merge
-                        mergeType = column.getParameterType().replace('.', '_');
-                        mergeStructure = current.getStructureOrTableName();
-                        if ("".equals(mergeValue)) {
-                            mergeValue = value;
-                        } else {
-                            mergeValue = mergeValue + "," + currentValue;
-                        }
-                        List values = new ArrayList();
-                        values.add(current.getValue());
-                        mergedMapping.put(key, values);
-                        merged = true;
-                        /*
-                         * same key,different values,need to put the value to the valuelist of this key.
-                         */
-                    } else if (mergedMapping.keySet().contains(key) && !mergedMapping.get(key).contains(current.getValue())) {
-                        mergedMapping.get(key).add(current.getValue());
-                        mergeType = column.getParameterType().replace('.', '_');
-                        mergeStructure = current.getStructureOrTableName();
-                        if ("".equals(mergeValue)) {
-                            mergeValue = value;
-                        } else {
-                            mergeValue = mergeValue + "," + currentValue;
-                        }
-                        merged = true;
-                    }
-                    // break; // merge one,add one
+            for (int i = 0; i < table.getChildren().size(); i++) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                SAPFunctionParameter column = table.getChildren().get(i);
+                // this part maybe no use , didn't find OUTPUT_PARAMS in sap component
+                map.put("SAP_PARAMETER_TYPE", column.getType().replace('.', '_')); //$NON-NLS-1$
+                map.put("SAP_TABLE_NAME", TalendQuoteUtils.addQuotes("")); //$NON-NLS-1$
+                map.put("SAP_PARAMETER_NAME", TalendQuoteUtils.addQuotes(column.getName())); //$NON-NLS-1$
+                if (!map.isEmpty()) {
+                    value2.add(map);
                 }
             }
 
         }
-        if (merged) {
-            map.put("SAP_PARAMETER_VALUE", mergeValue); //$NON-NLS-1$
-            map.put("SAP_PARAMETER_TYPE", mergeType); //$NON-NLS-1$
-            map.put("SAP_TABLE_NAME", TalendQuoteUtils.addQuotes(mergeStructure)); //$NON-NLS-1$
-            map.put("SAP_PARAMETER_NAME", TalendQuoteUtils.addQuotes(mergeName)); //$NON-NLS-1$
-        } else if (!mergedMapping.keySet().contains(column.getStructureOrTableName() + "_" + column.getName())) {
+    }
+
+    private static void mergeColumn(SAPFunctionParameter parent, EList<SAPFunctionParameter> columns,
+            List<Map<String, Object>> values) {
+
+        for (SAPFunctionParameter current : columns) {
+            HashMap map = new HashMap<String, Object>();
+            if (!current.getChildren().isEmpty()) {
+                mergeColumn(current, current.getChildren(), values);
+                continue;
+            }
+            String talendType = getTalendTypeFromJCOType(current.getType());
+            String value = "";
+            if (talendType.contains("String")) { //$NON-NLS-1$
+                value = TalendQuoteUtils.addQuotes(current.getTestValue());
+            } else {
+                value = current.getTestValue();
+            }
+            String type = null;
+            String structrueOrTableName = "";
+            // if it is not root node
+            if (!(parent.eContainer() instanceof SAPFunctionParamData)) {
+                if (ISAPConstant.PARAM_STRUCTURE.equals(parent.getType())) {
+                    type = "input_structure";//$NON-NLS-1$
+                } else if (ISAPConstant.PARAM_TABLE.equals(parent.getType())) {
+                    type = "table_input";//$NON-NLS-1$
+                }
+                structrueOrTableName = parent.getName();
+            } else {
+                type = "input_single";//$NON-NLS-1$
+            }
             map.put("SAP_PARAMETER_VALUE", value); //$NON-NLS-1$
-            map.put("SAP_PARAMETER_TYPE", column.getParameterType().replace('.', '_')); //$NON-NLS-1$
-            map.put("SAP_TABLE_NAME", TalendQuoteUtils.addQuotes(column.getStructureOrTableName())); //$NON-NLS-1$
-            map.put("SAP_PARAMETER_NAME", TalendQuoteUtils.addQuotes(column.getName())); //$NON-NLS-1$
+            map.put("SAP_PARAMETER_TYPE", type); //$NON-NLS-1$
+            map.put("SAP_TABLE_NAME", TalendQuoteUtils.addQuotes(structrueOrTableName)); //$NON-NLS-1$
+            map.put("SAP_PARAMETER_NAME", TalendQuoteUtils.addQuotes(current.getName())); //$NON-NLS-1$
+            values.add(map);
+
         }
+
     }
 
     /**
@@ -359,7 +327,12 @@ public class RepositoryToComponentProperty {
         if (jcoType == null) {
             return ""; //$NON-NLS-1$
         }
-        return MetadataTalendType.getMappingTypeRetriever("sap_id").getAdvicedDbToTalendTypes(jcoType).get(0).getTalendType(); //$NON-NLS-1$
+        List<MappingType> advicedDbToTalendTypes = MetadataTalendType.getMappingTypeRetriever("sap_id")//$NON-NLS-1$
+                .getAdvicedDbToTalendTypes(jcoType);
+        if (advicedDbToTalendTypes.isEmpty()) {
+            return "";//$NON-NLS-1$
+        }
+        return advicedDbToTalendTypes.get(0).getTalendType();
     }
 
     /**
@@ -388,7 +361,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         } else if ("LANGUAGE".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getLanguage())) {
@@ -419,6 +392,18 @@ public class RepositoryToComponentProperty {
             }
 
             return version;
+        } else if ("SAP_PROPERTIES".equals(value)) {//$NON-NLS-1$
+            EList<AdditionalConnectionProperty> additionalProperties = connection.getAdditionalProperties();
+            List<Map<String, Object>> values = new ArrayList<Map<String, Object>>();
+            for (AdditionalConnectionProperty property : additionalProperties) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                if (property.getPropertyName() != null && !"".equals(property.getPropertyName())) {
+                    map.put("PROPERTY", property.getPropertyName());//$NON-NLS-1$
+                    map.put("VALUE", property.getValue());//$NON-NLS-1$
+                    values.add(map);
+                }
+            }
+            return values;
         }
 
         return null;
@@ -487,7 +472,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         }
         // for bug TDI-8662 . should be careful that connection.getModuleName() will always get the latest name of the
@@ -544,7 +529,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxyPassword())) {
                 return connection.getProxyPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getProxyPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false));
             }
         } else if ("TIMEOUT".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getTimeOut())) {
@@ -568,7 +553,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getConsumeSecret())) {
                 return connection.getConsumeSecret();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getConsumeSecret());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getConsumeSecret(), false));
             }
         } else if ("OAUTH_CALLBACK_HOST".equals(value)) {
             if (isContextMode(connection, connection.getCallbackHost())) {
@@ -625,7 +610,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         } else if ("UES_PROXY".equals(value)) { //$NON-NLS-1$
             return new Boolean(connection.isUseProxy());
@@ -651,7 +636,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxyPassword())) {
                 return connection.getProxyPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getProxyPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false));
             }
         } else if ("METHOD".equals(value)) { //$NON-NLS-1$
             if (!connection.isIsInputModel()) {
@@ -743,7 +728,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         } else if ("UNIVERSE".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUniverse())) {
@@ -944,7 +929,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
+                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getRawPassword());
                 return TalendQuoteUtils.addQuotes(pwd);
             }
         }
@@ -974,6 +959,14 @@ public class RepositoryToComponentProperty {
                 return connection.getAdditionalParams();
             } else {
                 return TalendQuoteUtils.addQuotes(connection.getAdditionalParams());
+            }
+        }
+
+        if (value.equals("CDC_MODE")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getCdcTypeMode())) {
+                return connection.getCdcTypeMode();
+            } else {
+                return connection.getCdcTypeMode();
             }
         }
 
@@ -1389,6 +1382,10 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("KEYTAB_PATH")) {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB));
+        }
+
+        if (value.equals("IMPALA_PRINCIPAL")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA));
         }
 
         return null;
@@ -2159,7 +2156,8 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getBindPassword())) {
                 return connection.getBindPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getBindPassword()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getBindPassword(), false)).replaceAll(
+                        "\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         if (value.equals("FILTER")) { //$NON-NLS-1$
@@ -2350,12 +2348,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getPassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getPassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getPassword()) : TalendQuoteUtils.addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         }
         if (value.equals("KEYSTORE_FILE")) {
@@ -2370,13 +2363,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getKeystorePassword())) {
                 return connection.getKeystorePassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getKeystorePassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getKeystorePassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getKeystorePassword()) : TalendQuoteUtils
-                            .addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getKeystorePassword(), false));
             }
         }
         if (value.equals("PRIVATEKEY")) {
@@ -2391,12 +2378,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassphrase())) {
                 return connection.getPassphrase();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getPassphrase()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getPassphrase());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getPassphrase()) : TalendQuoteUtils.addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassphrase(), false));
             }
         }
         if (value.equals("AUTH_METHOD")) {
@@ -2463,13 +2445,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxypassword())) {
                 return connection.getProxypassword();
             } else {
-                try {
-                    return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.decryptPassword(connection.getProxypassword()));
-                } catch (Exception e) {
-                    String pwd = ConnectionHelper.getDecryptPassword(connection.getProxypassword());
-                    return pwd == null ? TalendQuoteUtils.addQuotes(connection.getProxypassword()) : TalendQuoteUtils
-                            .addQuotes(pwd);
-                }
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxypassword(), false));
             }
         }
         return null;

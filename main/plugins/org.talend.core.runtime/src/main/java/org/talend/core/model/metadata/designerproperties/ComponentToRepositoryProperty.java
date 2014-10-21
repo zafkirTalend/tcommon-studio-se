@@ -22,8 +22,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -36,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
+import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -43,6 +42,7 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -525,13 +525,8 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                // see bug in feature 5998,encrypt the password.
-                try {
-                    String pwd = TalendQuoteUtils.checkAndRemoveBackslashes(value);
-                    connection.setPassword(PasswordEncryptUtil.encryptPassword(TalendQuoteUtils.removeQuotes(pwd)));
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
+                String pwd = TalendQuoteUtils.checkAndRemoveBackslashes(value);
+                connection.setRawPassword(TalendQuoteUtils.removeQuotes(pwd));
             }
         }
         if ("SERVER_NAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -871,7 +866,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = (getParameterValue(connection, node, param)).replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ 
             if (value != null) {
-                connection.setBindPassword(value);
+                connection.setBindPassword(connection.getValue(value, true));
             }
         }
         if ("FILTER".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -934,7 +929,7 @@ public class ComponentToRepositoryProperty {
         if ("AUTH_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("UES_PROXY".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -964,7 +959,7 @@ public class ComponentToRepositoryProperty {
         if ("PROXY_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setProxyPassword(value);
+                connection.setProxyPassword(connection.getValue(value, true));
             }
         }
         if ("METHOD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1229,14 +1224,47 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("ROW_SEPARATOR".equals(param.getRepositoryValue())) { //$NON-NLS-1$
-            String value = getParameterValue(connection, node, param);
-            if (value != null) {
-                connection.setRowSeparatorValue(value);
+            if (param.isShow(node.getElementParameters())) {
+                String value = getParameterValue(connection, node, param);
+                if (value != null) {
+                    // set the type
+                    RowSeparator rowSeparator = null;
+                    if ("\\n".equals(value)) { //$NON-NLS-1$
+                        rowSeparator = RowSeparator.STANDART_EOL_LITERAL;
+                    } else {
+                        rowSeparator = RowSeparator.CUSTOM_STRING_LITERAL;
+                        value = getParameterOriginalValue(connection, node, param);
+                    }
+                    connection.setRowSeparatorType(rowSeparator);
+
+                    // set the value
+                    connection.setRowSeparatorValue(value);
+                }
             }
         }
         if ("FIELD_SEPARATOR".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
+                // set the type
+                FieldSeparator separatorType = null;
+                if (";".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.SEMICOLON_LITERAL;
+                } else if (",".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.COMMA_LITERAL;
+                } else if ("\\t".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.TABULATION_LITERAL;
+                } else if (" ".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.SPACE_LITERAL;
+                } else if ("''".equals(value)) { //$NON-NLS-1$
+                    separatorType = FieldSeparator.ALT_65_LITERAL;
+                } else {
+                    separatorType = FieldSeparator.CUSTOM_UTF8_LITERAL;
+                    // custom string, need to reserve the quota
+                    value = getParameterOriginalValue(connection, node, param);
+                }
+                connection.setFieldSeparatorType(separatorType);
+
+                // set the value
                 connection.setFieldSeparatorValue(value);
             }
         }
@@ -1252,14 +1280,24 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("ESCAPE_CHAR".equals(param.getRepositoryValue())) { //$NON-NLS-1$
-            String value = getParameterValue(connection, node, param);
+            String value = getParameterOriginalValue(connection, node, param);
             if (value != null) {
+                // the tFileInputDelimited, the default value of Escape char is ["""] rather than ["\""]
+                // so... need some format..
+                if ("\"\"\"".equals(value)) { //$NON-NLS-1$
+                    value = "\"\\\"\""; //$NON-NLS-1$
+                }
                 connection.setEscapeChar(value);
             }
         }
         if ("TEXT_ENCLOSURE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
-            String value = getParameterValue(connection, node, param);
+            String value = getParameterOriginalValue(connection, node, param);
             if (value != null) {
+                // the tFileInputDelimited, the default value of text enclosure is ["""] rather than ["\""]
+                // so... need some format..
+                if ("\"\"\"".equals(value)) { //$NON-NLS-1$
+                    value = "\"\\\"\""; //$NON-NLS-1$
+                }
                 connection.setTextEnclosure(value);
             }
         }
@@ -1428,7 +1466,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("LANGUAGE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1482,7 +1520,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("MODULENAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1531,7 +1569,7 @@ public class ComponentToRepositoryProperty {
         if ("PROXY_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setProxyPassword(value);
+                connection.setProxyPassword(connection.getValue(value, true));
             }
 
         }

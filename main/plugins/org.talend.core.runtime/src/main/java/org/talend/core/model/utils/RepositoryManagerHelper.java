@@ -77,6 +77,17 @@ public final class RepositoryManagerHelper {
     }
 
     public static IRepositoryView getRepositoryView() {
+        return getDIRepositoryView(true);
+    }
+
+    /**
+     * get the RepoViewCommonNavigator from UI.
+     * 
+     * @param flag if it is true return RepoViewCommonNavigator even if the current perspective is DQ, if is is false
+     * return null when the current perspective is DQ
+     * @return
+     */
+    public static IRepositoryView getDIRepositoryView(boolean flag) {
         if (CommonsPlugin.isHeadless()) {
             return null;
         }
@@ -91,6 +102,8 @@ public final class RepositoryManagerHelper {
                     try {
                         if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(page.getPerspective().getId())) {
                             part = page.showView(IRepositoryView.VIEW_ID);
+                        } else if (flag && IBrandingConfiguration.PERSPECTIVE_DQ_ID.equals(page.getPerspective().getId())) {
+                            part = page.showView(IRepositoryView.VIEW_ID, null, IWorkbenchPage.VIEW_CREATE);
                         }
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
@@ -132,6 +145,7 @@ public final class RepositoryManagerHelper {
         final List<IEditorReference> list = new ArrayList<IEditorReference>();
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                 if (activeWorkbenchWindow != null && activeWorkbenchWindow.getActivePage() != null) {

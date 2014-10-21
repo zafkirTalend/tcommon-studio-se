@@ -104,21 +104,41 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
     }
 
     private void registerStyleRules(IConfigRegistry configRegistry) {
-        Style cellStyle = new Style();
-        cellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_WHITE);
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
+        // register the default cell fg/bg colour for the natTable
+        Style cellStyleDefault = new Style();
+        cellStyleDefault.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_WHITE);
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_TYPE_PROPERTY);
 
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_NAME_PROPERTY);
 
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_CHECK_PROPERTY);
 
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_PROMPT_PROPERTY);
 
-        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL,
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
+                ContextTableConstants.COLUMN_CONTEXT_VALUE);
+
+        Style cellStyleSelect = new Style();
+        cellStyleSelect.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_TITLE_INACTIVE_BACKGROUND);
+        cellStyleSelect.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, GUIHelper.COLOR_RED);
+        cellStyleSelect.setAttributeValue(CellStyleAttributes.FONT, GUIHelper.DEFAULT_FONT);
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
+                ContextTableConstants.COLUMN_TYPE_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
+                ContextTableConstants.COLUMN_NAME_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
+                ContextTableConstants.COLUMN_CHECK_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
+                ContextTableConstants.COLUMN_PROMPT_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
                 ContextTableConstants.COLUMN_CONTEXT_VALUE);
     }
 
@@ -162,7 +182,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
     private void registerColumnFirstTextEditor(IConfigRegistry configRegistry) {
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, new TextCellEditor(true, true),
-                DisplayMode.NORMAL, ContextTableConstants.COLUMN_NAME_PROPERTY);
+                DisplayMode.EDIT, ContextTableConstants.COLUMN_NAME_PROPERTY);
     }
 
     private void registerColumnTwoComboxEditor(IConfigRegistry configRegistry) {

@@ -199,7 +199,7 @@ public final class ConvertionHelper {
         result.setId(connection.getId());
         result.setLabel(connection.getLabel());
         result.setNullChar(connection.getNullChar());
-        result.setPassword(connection.getPassword());
+        result.setPassword(connection.getRawPassword());
         result.setPort(connection.getPort());
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
@@ -277,7 +277,7 @@ public final class ConvertionHelper {
         result.setId(connection.getId());
         result.setLabel(connection.getLabel());
 
-        result.setPassword(connection.getPassword());
+        result.setPassword(connection.getValue(connection.getPassword(), false));
         result.setPort(connection.getPort());
         result.setServerName(connection.getServer());
 
@@ -335,6 +335,7 @@ public final class ConvertionHelper {
         result.setComment(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
+        result.setTableType(old.getTableType());
         String sourceName = old.getName();
         if (sourceName == null) {
             sourceName = old.getLabel();

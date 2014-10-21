@@ -26,6 +26,10 @@ public enum EHadoopProperties {
 
     NAMENODE_PRINCIPAL,
 
+    JOBTRACKER_PRINCIPAL,
+
+    RESOURCE_MANAGER_PRINCIPAL,
+
     HIVE_PRINCIPAL,
 
     DATABASE,

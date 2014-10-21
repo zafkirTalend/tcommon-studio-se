@@ -23,6 +23,12 @@ public interface ISAPConstant {
 
     public static final String TABLE_SCHEMAS = "SCHEMAS"; //$NON-NLS-1$
 
+    public static final String MAPPING_INPUT = "MAPPING_INPUT"; //$NON-NLS-1$
+
+    public static final String PARENT_ROW = "PARENT_ROW"; //$NON-NLS-1$
+
+    public static final String SAP_FUNCTION = "SAP_FUNCTION"; //$NON-NLS-1$
+
     public static final String REF_ATTR_REPOSITORY = "REPOSITORY"; //$NON-NLS-1$
 
     public static final String FIELD_SCHEMA = "SCHEMA"; //$NON-NLS-1$
@@ -33,6 +39,10 @@ public interface ISAPConstant {
 
     public static final String FIELD_MAPPING = "MAPPING";//$NON-NLS-1$
 
+    public static final String TYPE = "TYPE"; //$NON-NLS-1$
+
+    public static final String NAME = "NAME"; //$NON-NLS-1$
+
     /*
      * 
      */
@@ -41,4 +51,37 @@ public interface ISAPConstant {
     public static final String PROPERTY_TYPE = "PROPERTY_TYPE"; //$NON-NLS-1$
 
     public static final String REPOSITORY_PROPERTY_TYPE = "REPOSITORY_PROPERTY_TYPE"; //$NON-NLS-1$
+
+    public static final String PARAM_INPUT = "Input"; //$NON-NLS-1$
+
+    public static final String PARAM_OUTPUT = "Output"; //$NON-NLS-1$
+
+    public static final String PARAM_TEST = "Test"; //$NON-NLS-1$
+
+    public static final String PARAM_SINGLE = "single"; //$NON-NLS-1$
+
+    public static final String PARAM_STRUCTURE = "structure"; //$NON-NLS-1$
+
+    public static final String PARAM_TABLE = "table"; //$NON-NLS-1$
+
+    public static final String PARAM_TYPE_SEPARATOR = "."; //$NON-NLS-1$
+
+    public static final String PARAM_PATH__SEPARATOR = "/"; //$NON-NLS-1$
+
+    public static final String XSD_PARAM_EXTENSION = "xsd"; //$NON-NLS-1$
+
+    public static final String XML_PARAM_EXTENSION = "xml"; //$NON-NLS-1$
+
+    public static final String XML_ITEM_TAG = "item"; //$NON-NLS-1$
+
+    public static final String SINGLE_PARAM_TABLE_NAME = "SINGLE_PARAM";
+
+    public static final String NAMESAPCE_RUI = "http://SAPConnections";
+
+    public static final String SCHEMA_SUFIX = "_Schema";
+
+    public static final String INPUT_XML_META_NAME = PARAM_INPUT + SCHEMA_SUFIX;
+
+    public static final String OUTPUT_XML_META_NAME = PARAM_OUTPUT + SCHEMA_SUFIX;
+
 }

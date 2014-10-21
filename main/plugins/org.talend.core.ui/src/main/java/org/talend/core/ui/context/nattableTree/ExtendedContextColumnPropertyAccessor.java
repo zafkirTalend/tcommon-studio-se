@@ -26,6 +26,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -38,6 +39,7 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
@@ -132,30 +134,18 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         return propertyNames.indexOf(propertyName);
     }
 
-    private String getCurrentModelName(Object element) {
-        if (element instanceof ContextTableTabParentModel) {
-            if (((ContextTableTabParentModel) element).getContextParameter() == null) {
-                return ((ContextTableTabParentModel) element).getSourceName();
-            } else {
-                return ((ContextTableTabParentModel) element).getContextParameter().getName();
-            }
-        } else {
-            return ((ContextTableTabChildModel) element).getContextParameter().getName();
-        }
-    }
-
     private Object getPropertyValue(IContextModelManager manager, Object element, int columnIndex) {
 
         if (isEmptyTreeNode(element)) {
             return "";
         }
-        String contextParaName = getCurrentModelName(element);
+        String contextParaName = ContextNatTableUtils.getCurrentContextModelName(element);
         String currentColumnName = getColumnProperty(columnIndex);
         if (currentColumnName.equals(ContextTableConstants.COLUMN_NAME_PROPERTY)) {
             if (element instanceof ContextTableTabParentModel) {
                 String sourceId = ((ContextTableTabParentModel) element).getSourceId();
                 if (!sourceId.equals(IContextParameter.BUILT_IN)) {
-                    Item item = ContextUtils.getContextItemById3(sourceId);
+                    Item item = ContextUtils.getRepositoryContextItemById(sourceId);
                     if (item != null) {
                         if (item instanceof JobletProcessItem) {
                             return contextParaName + JOBLET_CONTEXT;
@@ -190,12 +180,13 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                                 return currentPara.isPromptNeeded();
                             } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
                                 return currentPara.getPrompt();
-                            } else {
-                                String value = currentPara.getValue();
-                                if (NatTableCellEditorFactory.isPassword(currentPara.getType())) {
-                                    return value != null ? value.replaceAll(".", "*") : "";
+                            } else if (currentColumnName.equals(ContextTableConstants.COLUMN_CONTEXT_VALUE)) {
+                                // because it's raw value, so need display * for password type.
+                                if (PasswordEncryptUtil.isPasswordType(currentPara.getType())) {
+                                    return PasswordEncryptUtil.getPasswordDisplay(currentPara.getValue());
                                 }
-                                return value;
+                                return currentPara.getDisplayValue();
+
                             }
                         }
                     }
@@ -385,15 +376,15 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (property.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
                 param.setPromptNeeded((Boolean) oldValue);
+                modified = true;
             } else if (property.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
                 param.setPrompt((String) oldValue);
+                modified = true;
             } else if (property.equals(ContextTableConstants.COLUMN_CONTEXT_VALUE)) {
                 param.setValue((String) oldValue);
+                modified = true;
             }
 
             if (modified) {
@@ -465,14 +456,12 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
                         if (param.getName().equals(contextParameter.getName())) {
                             contextParameter.setType(oldValue);
+                            modified = true;
                         }
                     }
                 }
@@ -547,7 +536,7 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                 }
             }
             if (modified) {
-                updateRelation();
+                updateRelation(originalName, newName);
             }
         }
 
@@ -559,9 +548,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
@@ -570,16 +556,18 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                             if (contextParameter.getPrompt().equals(newName + "?")) {
                                 contextParameter.setPrompt(originalName + "?");
                             }
+                            modified = true;
                         }
                     }
                 }
             }
             if (modified) {
-                updateRelation();
+                // it is undo, so the order changed
+                updateRelation(newName, originalName);
             }
         }
 
-        private void updateRelation() {
+        private void updateRelation(String _oldName, String _newName) {
             // set updated flag.
             if (param != null) {
                 IContextManager manager = modelManager.getContextManager();
@@ -592,6 +580,11 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                         manager.fireContextsChangedEvent();
                     }
                 }
+            }
+            // update nodes in the job
+            if (modelManager instanceof ContextComposite) {
+                ((ContextComposite) modelManager).switchSettingsView(_oldName, _newName);
+                modelManager.refresh();
             }
         }
 

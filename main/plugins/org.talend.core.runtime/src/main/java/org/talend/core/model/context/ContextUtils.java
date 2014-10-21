@@ -85,7 +85,7 @@ public class ContextUtils {
                 contextParam.setPrompt(parameterType.getPrompt());
                 contextParam.setPromptNeeded(parameterType.isPromptNeeded());
                 contextParam.setType(parameterType.getType());
-                contextParam.setValue(parameterType.getValue());
+                contextParam.setValue(parameterType.getRawValue());
                 return true;
             }
         }
@@ -218,49 +218,6 @@ public class ContextUtils {
                 if (item != null && item instanceof ContextItem) {
                     return (ContextItem) item;
                 }
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
-    public static Item getContextItemById3(String contextId) {
-        if (IContextParameter.BUILT_IN.equals(contextId)) {
-            return null;
-        }
-        if (checkObject(contextId)) {
-            return null;
-        }
-
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        try {
-            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
-            if (lastVersion != null) {
-                final Item item = lastVersion.getProperty().getItem();
-                if (item != null) {
-                    return item;
-                }
-            }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
-    public static JobletProcessItem getJobletContextItemById2(String contextId) {
-        if (IContextParameter.BUILT_IN.equals(contextId)) {
-            return null;
-        }
-        if (checkObject(contextId)) {
-            return null;
-        }
-
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        try {
-            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
-            if (lastVersion != null) {
-                return (JobletProcessItem) lastVersion.getProperty().getItem();
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -438,7 +395,7 @@ public class ContextUtils {
         } else {
             targetParam.setType(MetadataTalendType.getDefaultTalendType());
         }
-        targetParam.setValue(sourceParam.getValue());
+        targetParam.setValue(sourceParam.getRawValue());
         targetParam.setPromptNeeded(sourceParam.isPromptNeeded());
         targetParam.setComment(sourceParam.getComment());
 
@@ -457,6 +414,33 @@ public class ContextUtils {
             itemMap.put(item.getProperty().getId(), item);
         }
         return itemMap;
+    }
+
+    /**
+     * 
+     * get the repository context item,now contextId can be either joblet node or context node.
+     */
+    public static Item getRepositoryContextItemById(String contextId) {
+        if (IContextParameter.BUILT_IN.equals(contextId)) {
+            return null;
+        }
+        if (checkObject(contextId)) {
+            return null;
+        }
+
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        try {
+            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
+            if (lastVersion != null) {
+                final Item item = lastVersion.getProperty().getItem();
+                if (item != null) {
+                    return item;
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     /**
@@ -513,7 +497,8 @@ public class ContextUtils {
             if (sourceParam.isPromptNeeded() != targetParamType.isPromptNeeded()) {
                 return false;
             }
-            if (!sourceParam.getValue().equals(targetParamType.getValue())) {
+            // need check the raw value, because in sourceParam, it's raw
+            if (!sourceParam.getValue().equals(targetParamType.getRawValue())) {
                 return false;
             }
 
@@ -647,30 +632,20 @@ public class ContextUtils {
 
         contextParam.setName(contextParamType.getName());
         contextParam.setPrompt(contextParamType.getPrompt());
-        boolean exists = false;
-        ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
-        if (curLanguage == ECodeLanguage.JAVA) {
-            exists = true;
-            try {
-                ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
-            } catch (IllegalArgumentException e) {
-                exists = false;
-            }
-        } else {
-            String[] existingTypes;
-            existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (String existingType : existingTypes) {
-                if (existingType.equals(contextParamType.getType())) {
-                    exists = true;
-                }
-            }
+        boolean exists = true;
+        try {
+            ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
+        } catch (IllegalArgumentException e) {
+            exists = false;
         }
         if (exists) {
             contextParam.setType(contextParamType.getType());
         } else {
             contextParam.setType(MetadataTalendType.getDefaultTalendType());
         }
-        contextParam.setValue(contextParamType.getValue());
+        // specially for Password type to get raw value.
+        contextParam.setValue(contextParamType.getRawValue());
+
         contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
         contextParam.setComment(contextParamType.getComment());
         contextParam.setSource(contextItem.getProperty().getId());

@@ -31,6 +31,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,6 +148,26 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
      * @ordered
      */
     protected String source = SOURCE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected String type = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -271,6 +292,27 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType(String newType) {
+        String oldType = type;
+        type = newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.METADATA_TYPE__TYPE, oldType, type));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -300,6 +342,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return getName();
             case TalendFilePackage.METADATA_TYPE__SOURCE:
                 return getSource();
+            case TalendFilePackage.METADATA_TYPE__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -329,6 +373,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
             case TalendFilePackage.METADATA_TYPE__SOURCE:
                 setSource((String)newValue);
                 return;
+            case TalendFilePackage.METADATA_TYPE__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -357,6 +404,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
             case TalendFilePackage.METADATA_TYPE__SOURCE:
                 setSource(SOURCE_EDEFAULT);
                 return;
+            case TalendFilePackage.METADATA_TYPE__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -379,6 +429,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case TalendFilePackage.METADATA_TYPE__SOURCE:
                 return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+            case TalendFilePackage.METADATA_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
@@ -401,6 +453,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
         result.append(name);
         result.append(", source: ");
         result.append(source);
+        result.append(", type: ");
+        result.append(type);
         result.append(')');
         return result.toString();
     }

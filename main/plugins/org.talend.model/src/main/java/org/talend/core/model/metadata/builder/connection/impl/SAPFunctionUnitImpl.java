@@ -22,6 +22,7 @@ import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParamet
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParamData;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
 import org.talend.cwm.helper.SAPFunctionHelper;
@@ -125,6 +126,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
     protected MetadataTable metadataTable;
 
     /**
+     * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConnection()
+     * @generated
+     * @ordered
+     */
+    protected SAPConnection connection;
+
+    /**
      * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
      * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
@@ -135,6 +146,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
     protected EList<MetadataTable> tables;
 
     /**
+     * The cached value of the '{@link #getInputTables() <em>Input Tables</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getInputTables()
+     * @generated
+     * @ordered
+     */
+    protected EList<MetadataTable> inputTables;
+
+    /**
      * The cached value of the '{@link #getTestInputParameterTable() <em>Test Input Parameter Table</em>}' containment reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getTestInputParameterTable()
@@ -142,6 +163,36 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @ordered
      */
     protected SAPTestInputParameterTable testInputParameterTable;
+
+    /**
+     * The cached value of the '{@link #getParamData() <em>Param Data</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParamData()
+     * @generated
+     * @ordered
+     */
+    protected SAPFunctionParamData paramData;
+
+    /**
+     * The default value of the '{@link #isAsXmlSchema() <em>As Xml Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAsXmlSchema()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean AS_XML_SCHEMA_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isAsXmlSchema() <em>As Xml Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAsXmlSchema()
+     * @generated
+     * @ordered
+     */
+    protected boolean asXmlSchema = AS_XML_SCHEMA_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -438,9 +489,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
     public SAPConnection getConnection() {
-        if (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION)
-            return null;
-        return (SAPConnection) eContainer();
+        if (connection != null && connection.eIsProxy()) {
+            InternalEObject oldConnection = (InternalEObject) connection;
+            connection = (SAPConnection) eResolveProxy(oldConnection);
+            if (connection != oldConnection) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION,
+                            oldConnection, connection));
+            }
+        }
+        return connection;
     }
 
     /**
@@ -448,18 +506,7 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
     public SAPConnection basicGetConnection() {
-        if (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION)
-            return null;
-        return (SAPConnection) eInternalContainer();
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetConnection(SAPConnection newConnection, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject) newConnection, ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION, msgs);
-        return msgs;
+        return connection;
     }
 
     /**
@@ -467,22 +514,11 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
     public void setConnection(SAPConnection newConnection) {
-        if (newConnection != eInternalContainer()
-                || (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION && newConnection != null)) {
-            if (EcoreUtil.isAncestor(this, newConnection))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-            NotificationChain msgs = null;
-            if (eInternalContainer() != null)
-                msgs = eBasicRemoveFromContainer(msgs);
-            if (newConnection != null)
-                msgs = ((InternalEObject) newConnection).eInverseAdd(this, ConnectionPackage.SAP_CONNECTION__FUNTIONS,
-                        SAPConnection.class, msgs);
-            msgs = basicSetConnection(newConnection, msgs);
-            if (msgs != null)
-                msgs.dispatch();
-        } else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION, newConnection,
-                    newConnection));
+        SAPConnection oldConnection = connection;
+        connection = newConnection;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION, oldConnection,
+                    connection));
     }
 
     /**
@@ -495,6 +531,19 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                     ConnectionPackage.SAP_FUNCTION_UNIT__TABLES);
         }
         return tables;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<MetadataTable> getInputTables() {
+        if (inputTables == null) {
+            inputTables = new EObjectContainmentEList.Resolving<MetadataTable>(MetadataTable.class, this,
+                    ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES);
+        }
+        return inputTables;
     }
 
     /**
@@ -576,6 +625,105 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParamData getParamData() {
+        if (paramData != null && paramData.eIsProxy()) {
+            InternalEObject oldParamData = (InternalEObject) paramData;
+            paramData = (SAPFunctionParamData) eResolveProxy(oldParamData);
+            if (paramData != oldParamData) {
+                InternalEObject newParamData = (InternalEObject) paramData;
+                NotificationChain msgs = oldParamData.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, null, null);
+                if (newParamData.eInternalContainer() == null) {
+                    msgs = newParamData.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                            - ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, null, msgs);
+                }
+                if (msgs != null)
+                    msgs.dispatch();
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA,
+                            oldParamData, paramData));
+            }
+        }
+        return paramData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParamData basicGetParamData() {
+        return paramData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParamData(SAPFunctionParamData newParamData, NotificationChain msgs) {
+        SAPFunctionParamData oldParamData = paramData;
+        paramData = newParamData;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, oldParamData, newParamData);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParamData(SAPFunctionParamData newParamData) {
+        if (newParamData != paramData) {
+            NotificationChain msgs = null;
+            if (paramData != null)
+                msgs = ((InternalEObject) paramData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, null, msgs);
+            if (newParamData != null)
+                msgs = ((InternalEObject) newParamData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                        - ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, null, msgs);
+            msgs = basicSetParamData(newParamData, msgs);
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA, newParamData,
+                    newParamData));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isAsXmlSchema() {
+        return asXmlSchema;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAsXmlSchema(boolean newAsXmlSchema) {
+        boolean oldAsXmlSchema = asXmlSchema;
+        asXmlSchema = newAsXmlSchema;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__AS_XML_SCHEMA,
+                    oldAsXmlSchema, asXmlSchema));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated NOT
@@ -606,10 +754,6 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 msgs = ((InternalEObject) outputParameterTable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
                         - ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE, null, msgs);
             return basicSetOutputParameterTable((OutputSAPFunctionParameterTable) otherEnd, msgs);
-        case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
-            if (eInternalContainer() != null)
-                msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetConnection((SAPConnection) otherEnd, msgs);
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             if (testInputParameterTable != null)
                 msgs = ((InternalEObject) testInputParameterTable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
@@ -632,28 +776,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             return basicSetOutputParameterTable(null, msgs);
         case ConnectionPackage.SAP_FUNCTION_UNIT__METADATA_TABLE:
             return basicSetMetadataTable(null, msgs);
-        case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
-            return basicSetConnection(null, msgs);
         case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
             return ((InternalEList<?>) getTables()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES:
+            return ((InternalEList<?>) getInputTables()).basicRemove(otherEnd, msgs);
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             return basicSetTestInputParameterTable(null, msgs);
+        case ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA:
+            return basicSetParamData(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID()) {
-        case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
-            return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_CONNECTION__FUNTIONS, SAPConnection.class,
-                    msgs);
-        }
-        return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
@@ -685,10 +817,18 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             return basicGetConnection();
         case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
             return getTables();
+        case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES:
+            return getInputTables();
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             if (resolve)
                 return getTestInputParameterTable();
             return basicGetTestInputParameterTable();
+        case ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA:
+            if (resolve)
+                return getParamData();
+            return basicGetParamData();
+        case ConnectionPackage.SAP_FUNCTION_UNIT__AS_XML_SCHEMA:
+            return isAsXmlSchema();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -723,8 +863,18 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             getTables().clear();
             getTables().addAll((Collection<? extends MetadataTable>) newValue);
             return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES:
+            getInputTables().clear();
+            getInputTables().addAll((Collection<? extends MetadataTable>) newValue);
+            return;
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             setTestInputParameterTable((SAPTestInputParameterTable) newValue);
+            return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA:
+            setParamData((SAPFunctionParamData) newValue);
+            return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__AS_XML_SCHEMA:
+            setAsXmlSchema((Boolean) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -758,8 +908,17 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
             getTables().clear();
             return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES:
+            getInputTables().clear();
+            return;
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             setTestInputParameterTable((SAPTestInputParameterTable) null);
+            return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA:
+            setParamData((SAPFunctionParamData) null);
+            return;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__AS_XML_SCHEMA:
+            setAsXmlSchema(AS_XML_SCHEMA_EDEFAULT);
             return;
         }
         super.eUnset(featureID);
@@ -784,11 +943,17 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         case ConnectionPackage.SAP_FUNCTION_UNIT__METADATA_TABLE:
             return metadataTable != null;
         case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
-            return basicGetConnection() != null;
+            return connection != null;
         case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
             return tables != null && !tables.isEmpty();
+        case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_TABLES:
+            return inputTables != null && !inputTables.isEmpty();
         case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
             return testInputParameterTable != null;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__PARAM_DATA:
+            return paramData != null;
+        case ConnectionPackage.SAP_FUNCTION_UNIT__AS_XML_SCHEMA:
+            return asXmlSchema != AS_XML_SCHEMA_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -807,6 +972,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         result.append(outputType);
         result.append(", OutputTableName: ");
         result.append(outputTableName);
+        result.append(", asXmlSchema: ");
+        result.append(asXmlSchema);
         result.append(')');
         return result.toString();
     }

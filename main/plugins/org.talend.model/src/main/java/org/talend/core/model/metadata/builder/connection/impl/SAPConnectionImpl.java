@@ -7,19 +7,26 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.Collection;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
@@ -42,6 +49,7 @@ import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getCurrentFucntion <em>Current Fucntion</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getIDocs <em>IDocs</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getJcoVersion <em>Jco Version</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -230,6 +238,16 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
     protected String jcoVersion = JCO_VERSION_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalProperties()
+     * @generated
+     * @ordered
+     */
+    protected EList<AdditionalConnectionProperty> additionalProperties;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -385,8 +403,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
      */
     public EList<SAPFunctionUnit> getFuntions() {
         if (funtions == null) {
-            funtions = new EObjectContainmentWithInverseEList.Resolving<SAPFunctionUnit>(SAPFunctionUnit.class, this,
-                    ConnectionPackage.SAP_CONNECTION__FUNTIONS, ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION);
+            funtions = new EObjectContainmentEList.Resolving<SAPFunctionUnit>(SAPFunctionUnit.class, this,
+                    ConnectionPackage.SAP_CONNECTION__FUNTIONS);
         }
         return funtions;
     }
@@ -454,11 +472,23 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
      * @generated
      */
     @SuppressWarnings("unchecked")
+    public EList<AdditionalConnectionProperty> getAdditionalProperties() {
+        if (additionalProperties == null) {
+            additionalProperties = new EObjectContainmentEList.Resolving<AdditionalConnectionProperty>(
+                    AdditionalConnectionProperty.class, this, ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES);
+        }
+        return additionalProperties;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case ConnectionPackage.SAP_CONNECTION__FUNTIONS:
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getFuntions()).basicAdd(otherEnd, msgs);
         case ConnectionPackage.SAP_CONNECTION__IDOCS:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getIDocs()).basicAdd(otherEnd, msgs);
         }
@@ -477,6 +507,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             return ((InternalEList<?>) getFuntions()).basicRemove(otherEnd, msgs);
         case ConnectionPackage.SAP_CONNECTION__IDOCS:
             return ((InternalEList<?>) getIDocs()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES:
+            return ((InternalEList<?>) getAdditionalProperties()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -509,6 +541,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             return getIDocs();
         case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
             return getJcoVersion();
+        case ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES:
+            return getAdditionalProperties();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -554,6 +588,10 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
             setJcoVersion((String) newValue);
             return;
+        case ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES:
+            getAdditionalProperties().clear();
+            getAdditionalProperties().addAll((Collection<? extends AdditionalConnectionProperty>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -596,6 +634,9 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
             setJcoVersion(JCO_VERSION_EDEFAULT);
             return;
+        case ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES:
+            getAdditionalProperties().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -629,6 +670,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             return iDocs != null && !iDocs.isEmpty();
         case ConnectionPackage.SAP_CONNECTION__JCO_VERSION:
             return JCO_VERSION_EDEFAULT == null ? jcoVersion != null : !JCO_VERSION_EDEFAULT.equals(jcoVersion);
+        case ConnectionPackage.SAP_CONNECTION__ADDITIONAL_PROPERTIES:
+            return additionalProperties != null && !additionalProperties.isEmpty();
         }
         return super.eIsSet(featureID);
     }

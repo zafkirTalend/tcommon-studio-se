@@ -15,6 +15,7 @@ package org.talend.core.repository.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.swt.events.SelectionListener;
@@ -44,19 +45,14 @@ public class RepositoryFactoryProvider {
             "RepositoryFactory", 1, -1); //$NON-NLS-1$
 
     public static List<IRepositoryFactory> getAvailableRepositories() {
-        //MOD by zshen for bug 4757
-        boolean serviceRegistered = GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class);
-        boolean isOnlyRemoteConnection = false;
-        if (serviceRegistered) {
-            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                    IBrandingService.class);
-            if (brandingService != null) {
-                isOnlyRemoteConnection = brandingService.getBrandingConfiguration().isOnlyRemoteConnection();
-            }
-        }
         if (list == null) {
             list = new ArrayList<IRepositoryFactory>();
             List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(REPOSITORY_PROVIDER);
+            String hiddenRepos = System.getProperty("hidden.repositories"); //$NON-NLS-1$
+            String hiddenRepository[] = new String[]{};
+            if (hiddenRepos != null) {
+                hiddenRepository = hiddenRepos.split(";"); //$NON-NLS-1$
+            }
 
             for (IConfigurationElement current : extension) {
                 try {
@@ -92,15 +88,10 @@ public class RepositoryFactoryProvider {
                         }
                         currentAction.getChoices().add(key);
                     }
-                    // feature 5,hide local connection for Uniserv in loginDialog
-                    if (!isOnlyRemoteConnection) {
-                        list.add(currentAction);
-                    } else {
-                        if (currentAction.getId().equals(RepositoryConstants.REPOSITORY_REMOTE_ID)) {
-                            list.add(currentAction);
-                        }
+                    if (ArrayUtils.contains(hiddenRepository, currentAction.getId())) {
+                        continue;
                     }
-
+                    list.add(currentAction);
                 } catch (CoreException e) {
                     // e.printStackTrace();
                     ExceptionHandler.process(e);

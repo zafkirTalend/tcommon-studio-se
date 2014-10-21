@@ -55,6 +55,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private boolean isRepository = false;
 
+    private String tableType;
+
     @Override
     public String getReadOnlyColumnPosition() {
         return this.readOnlyColumnPosition;
@@ -461,5 +463,25 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     public void setRepository(boolean isRepository) {
         this.isRepository = isRepository;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.IMetadataTable#getTableType()
+     */
+    @Override
+    public String getTableType() {
+        return this.tableType;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.IMetadataTable#setTableType()
+     */
+    @Override
+    public void setTableType(String tableType) {
+        this.tableType = tableType;
     }
 }

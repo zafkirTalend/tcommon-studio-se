@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
@@ -118,6 +119,10 @@ public final class OtherConnectionContextUtils {
         // DATACERT CONNECTION
         URL,
         Directory,
+        // for sap
+        Client,
+        SystemNumber,
+        Language,
     }
 
     /*
@@ -183,7 +188,7 @@ public final class OtherConnectionContextUtils {
         conn.setFilePath(filePath);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static LdifFileConnection cloneOriginalValueLdifFileConnection(LdifFileConnection fileConn, ContextType contextType) {
         if (fileConn == null) {
             return null;
@@ -362,7 +367,7 @@ public final class OtherConnectionContextUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static XmlFileConnection cloneOriginalValueXmlFileConnection(XmlFileConnection fileConn, ContextType contextType) {
         if (fileConn == null) {
             return null;
@@ -386,7 +391,7 @@ public final class OtherConnectionContextUtils {
 
         cloneConn.getSchema().clear();
 
-        List<XmlXPathLoopDescriptor> descs = (List<XmlXPathLoopDescriptor>) fileConn.getSchema();
+        List<XmlXPathLoopDescriptor> descs = fileConn.getSchema();
         for (XmlXPathLoopDescriptor desc : descs) {
             XmlXPathLoopDescriptor cloneDesc = ConnectionFactory.eINSTANCE.createXmlXPathLoopDescriptor();
             cloneDesc.setLimitBoucle(desc.getLimitBoucle().intValue());
@@ -395,7 +400,7 @@ public final class OtherConnectionContextUtils {
             cloneDesc.setAbsoluteXPathQuery(xPathQuery);
 
             cloneDesc.getSchemaTargets().clear();
-            List<SchemaTarget> schemaTargets = (List<SchemaTarget>) desc.getSchemaTargets();
+            List<SchemaTarget> schemaTargets = desc.getSchemaTargets();
             for (SchemaTarget schemaTarget : schemaTargets) {
                 SchemaTarget cloneSchemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
                 cloneSchemaTarget.setRelativeXPathQuery(schemaTarget.getRelativeXPathQuery());
@@ -431,7 +436,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getUserName());
 
             paramName = prefixName + EParamName.Password;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getPassword(), JavaTypesManager.PASSWORD);
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getPassword(), false),
+                    JavaTypesManager.PASSWORD);
 
             paramName = prefixName + EParamName.BatchSize;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
@@ -452,7 +458,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyUsername());
 
             paramName = prefixName + EParamName.SFProxyPassword;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyPassword());
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getProxyPassword(), false),
+                    JavaTypesManager.PASSWORD);
         } else {
             paramName = prefixName + EParamName.WebServiceUrlForOauth;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrlTextForOAuth());
@@ -461,7 +468,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeKey());
 
             paramName = prefixName + EParamName.ConsumerSecret;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeSecret());
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getConsumeSecret(), false),
+                    JavaTypesManager.PASSWORD);
 
             paramName = prefixName + EParamName.CallbackHost;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackHost());
@@ -553,9 +561,105 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
 
         paramName = prefixName + EParamName.FTPPASSWORD;
-        ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getValue(conn.getPassword(), false));
 
         return varList;
+    }
+
+    static List<IContextParameter> getSAPConnectionVariables(String prefixName, SAPConnection conn) {
+        if (conn == null || prefixName == null) {
+            return Collections.emptyList();
+        }
+        List<IContextParameter> varList = new ArrayList<IContextParameter>();
+        prefixName = prefixName + ConnectionContextHelper.LINE;
+        String paramName = null;
+
+        paramName = prefixName + EParamName.Client;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getClient());
+
+        paramName = prefixName + EParamName.Host;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getHost());
+
+        paramName = prefixName + EParamName.UserName;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
+
+        paramName = prefixName + EParamName.Password;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
+
+        paramName = prefixName + EParamName.SystemNumber;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getSystemNumber());
+
+        paramName = prefixName + EParamName.Language;
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getLanguage());
+
+        return varList;
+    }
+
+    static void setSAPConnectionProperties(String prefixName, SAPConnection conn) {
+        if (conn == null || prefixName == null) {
+        }
+        String originalVariableName = prefixName + ConnectionContextHelper.LINE;
+        String paramName = null;
+        paramName = originalVariableName + EParamName.Client;
+        conn.setClient(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Host;
+        conn.setHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.UserName;
+        conn.setUsername(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Password;
+        conn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.SystemNumber;
+        conn.setSystemNumber(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+
+        paramName = originalVariableName + EParamName.Language;
+        conn.setLanguage(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
+    }
+
+    static void revertSAPPropertiesForContextMode(SAPConnection conn, ContextType contextType) {
+        String client = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getClient()));
+        String host = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getHost()));
+        String userName = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername()));
+        String passWord = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getPassword()));
+        String systemNumber = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
+                conn.getSystemNumber()));
+        String language = TalendQuoteUtils
+                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getLanguage()));
+        conn.setClient(client);
+        conn.setHost(host);
+        conn.setUsername(userName);
+        conn.setPassword(passWord);
+        conn.setSystemNumber(systemNumber);
+        conn.setLanguage(language);
+    }
+
+    public static SAPConnection cloneOriginalValueSAPConnection(SAPConnection fileConn, ContextType contextType) {
+        if (fileConn == null) {
+            return null;
+        }
+
+        SAPConnection cloneConn = ConnectionFactory.eINSTANCE.createSAPConnection();
+
+        String client = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getClient());
+        String host = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getHost());
+        String user = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getUsername());
+        String pass = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getPassword());
+        String sysNumber = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getSystemNumber());
+        String language = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getLanguage());
+        cloneConn.setClient(client);
+        cloneConn.setHost(host);
+        cloneConn.setUsername(user);
+        cloneConn.setPassword(pass);
+        cloneConn.setSystemNumber(sysNumber);
+        cloneConn.setLanguage(language);
+        ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
+
+        return cloneConn;
     }
 
     static void setSalesforcePropertiesForContextMode(String prefixName, SalesforceSchemaConnection ssConn,
@@ -728,14 +832,15 @@ public final class OtherConnectionContextUtils {
         }
         String url = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getWebServiceUrl());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getUserName());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getValue(ssConn.getPassword(), false));
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
         String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
         String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
                 ssConn.getWebServiceUrlTextForOAuth());
         String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
-        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getConsumeSecret(), false));
         String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
@@ -743,17 +848,18 @@ public final class OtherConnectionContextUtils {
         String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
         String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
         String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
-        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getProxyPassword(), false));
 
         ssConn.setWebServiceUrl(url);
         ssConn.setUserName(userName);
-        ssConn.setPassword(password);
+        ssConn.setPassword(ssConn.getValue(password, true));
         ssConn.setBatchSize(batchSize);
         ssConn.setQueryCondition(queryCondition);
         ssConn.setTimeOut(timeOut);
         ssConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
         ssConn.setConsumeKey(consumerKey);
-        ssConn.setConsumeSecret(consumerSecret);
+        ssConn.setConsumeSecret(ssConn.getValue(consumerSecret, true));
         ssConn.setCallbackHost(callbackHost);
         ssConn.setCallbackPort(callbackPort);
         ssConn.setSalesforceVersion(salesforceVersion);
@@ -761,11 +867,11 @@ public final class OtherConnectionContextUtils {
         ssConn.setProxyHost(proxyHost);
         ssConn.setProxyPort(proxyPort);
         ssConn.setProxyUsername(proxyUsername);
-        ssConn.setProxyPassword(proxyPassword);
+        ssConn.setProxyPassword(ssConn.getValue(proxyPassword, true));
 
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static SalesforceSchemaConnection cloneOriginalValueSalesforceConnection(SalesforceSchemaConnection ssConn,
             ContextType contextType) {
         if (ssConn == null) {
@@ -776,14 +882,15 @@ public final class OtherConnectionContextUtils {
 
         String url = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getWebServiceUrl());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getUserName());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getValue(ssConn.getPassword(), false));
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
         String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
                 ssConn.getWebServiceUrlTextForOAuth());
         String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
-        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getConsumeSecret(), false));
         String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
@@ -791,17 +898,18 @@ public final class OtherConnectionContextUtils {
         String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
         String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
         String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
-        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getProxyPassword(), false));
 
         cloneConn.setWebServiceUrl(url);
         cloneConn.setUserName(userName);
-        cloneConn.setPassword(password);
+        cloneConn.setPassword(cloneConn.getValue(password, true));
         cloneConn.setBatchSize(batchSize);
         cloneConn.setTimeOut(timeOut);
         cloneConn.setQueryCondition(queryCondition);
         cloneConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
         cloneConn.setConsumeKey(consumerKey);
-        cloneConn.setConsumeSecret(consumerSecret);
+        cloneConn.setConsumeSecret(cloneConn.getValue(consumerSecret, true));
         cloneConn.setCallbackHost(callbackHost);
         cloneConn.setCallbackPort(callbackPort);
         cloneConn.setSalesforceVersion(salesforceVersion);
@@ -809,7 +917,7 @@ public final class OtherConnectionContextUtils {
         cloneConn.setProxyHost(proxyHost);
         cloneConn.setProxyPort(proxyPort);
         cloneConn.setProxyUsername(proxyUsername);
-        cloneConn.setProxyPassword(proxyPassword);
+        cloneConn.setProxyPassword(cloneConn.getValue(proxyPassword, true));
 
         ConnectionContextHelper.cloneConnectionProperties(ssConn, cloneConn);
 
@@ -837,7 +945,8 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getPort(), JavaTypesManager.INTEGER);
 
         paramName = prefixName + EParamName.BindPassword;
-        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getBindPassword(), JavaTypesManager.PASSWORD);
+        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getValue(ldapConn.getBindPassword(), false),
+                JavaTypesManager.PASSWORD);
 
         paramName = prefixName + EParamName.BindPrincipal;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getBindPrincipal());
@@ -942,7 +1051,8 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getPort());
         String bindPrincipal = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPrincipal());
-        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPassword());
+        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ldapConn.getValue(ldapConn.getBindPassword(), false));
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
@@ -951,14 +1061,14 @@ public final class OtherConnectionContextUtils {
         ldapConn.setHost(host);
         ldapConn.setPort(port);
         ldapConn.setBindPrincipal(bindPrincipal);
-        ldapConn.setBindPassword(bindPassword);
+        ldapConn.setBindPassword(ldapConn.getValue(bindPassword, true));
         ldapConn.setFilter(filter);
         ldapConn.setCountLimit(countLimit);
         ldapConn.setTimeOutLimit(timeOutLimit);
         ldapConn.setSelectedDN(baseDN);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static LDAPSchemaConnection cloneOriginalValueLDAPSchemaConnection(LDAPSchemaConnection ldapConn,
             ContextType contextType) {
         if (ldapConn == null) {
@@ -970,7 +1080,8 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getPort());
         String bindPrincipal = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPrincipal());
-        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getBindPassword());
+        String bindPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                cloneConn.getValue(ldapConn.getBindPassword(), false));
         String filter = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getFilter());
         String countLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getCountLimit());
         String timeOutLimit = ConnectionContextHelper.getOriginalValue(contextType, ldapConn.getTimeOutLimit());
@@ -979,7 +1090,7 @@ public final class OtherConnectionContextUtils {
         cloneConn.setHost(host);
         cloneConn.setPort(port);
         cloneConn.setBindPrincipal(bindPrincipal);
-        cloneConn.setBindPassword(bindPassword);
+        cloneConn.setBindPassword(cloneConn.getValue(bindPassword, true));
         cloneConn.setFilter(filter);
         cloneConn.setCountLimit(countLimit);
         cloneConn.setTimeOutLimit(timeOutLimit);
@@ -1025,12 +1136,12 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getPort());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getValue(ftpConn.getPassword(), false));
 
         cloneConn.setHost(host);
         cloneConn.setPort(port);
         cloneConn.setUsername(userName);
-        cloneConn.setPassword(password);
+        cloneConn.setPassword(cloneConn.getValue(password, true));
 
         return cloneConn;
     }
@@ -1059,7 +1170,8 @@ public final class OtherConnectionContextUtils {
                 ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getUserName());
 
                 paramName = prefixName + EParamName.Password;
-                ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getPassword(), JavaTypesManager.PASSWORD);
+                ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getValue(wsdlConn.getPassword(), false),
+                        JavaTypesManager.PASSWORD);
 
                 paramName = prefixName + EParamName.ProxyHost;
                 ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getProxyHost());
@@ -1071,8 +1183,8 @@ public final class OtherConnectionContextUtils {
                 ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getProxyUser());
 
                 paramName = prefixName + EParamName.ProxyPassword;
-                ConnectionContextHelper.createParameters(varList, paramName, wsdlConn.getProxyPassword(),
-                        JavaTypesManager.PASSWORD);
+                ConnectionContextHelper.createParameters(varList, paramName,
+                        wsdlConn.getValue(wsdlConn.getProxyPassword(), false), JavaTypesManager.PASSWORD);
             }
             break;
         case PERL:
@@ -1197,21 +1309,23 @@ public final class OtherConnectionContextUtils {
         String wsdl = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getWSDL());
         if (wsdlConn.isIsInputModel()) {
             String username = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getUserName());
-            String password = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getPassword());
+            String password = ConnectionContextHelper.getOriginalValue(contextType,
+                    wsdlConn.getValue(wsdlConn.getPassword(), false));
             String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyHost());
             String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyPort());
             String proxyUser = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyUser());
-            String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyPassword());
+            String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                    wsdlConn.getValue(wsdlConn.getProxyPassword(), false));
             String methodName = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getMethodName());
             String encoding = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getEncoding());
             String endpointURL = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getEndpointURI());
 
             wsdlConn.setUserName(username);
-            wsdlConn.setPassword(password);
+            wsdlConn.setPassword(wsdlConn.getValue(password, true));
             wsdlConn.setProxyHost(proxyHost);
             wsdlConn.setProxyPort(proxyPort);
             wsdlConn.setProxyUser(proxyUser);
-            wsdlConn.setProxyPassword(proxyPassword);
+            wsdlConn.setProxyPassword(wsdlConn.getValue(proxyPassword, true));
             wsdlConn.setMethodName(methodName);
             wsdlConn.setEncoding(encoding);
             wsdlConn.setEndpointURI(endpointURL);
@@ -1219,7 +1333,7 @@ public final class OtherConnectionContextUtils {
         wsdlConn.setWSDL(wsdl);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static WSDLSchemaConnection cloneOriginalValueWSDLSchemaConnection(WSDLSchemaConnection wsdlConn,
             ContextType contextType) {
         if (wsdlConn == null) {
@@ -1231,21 +1345,23 @@ public final class OtherConnectionContextUtils {
         String wsdl = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getWSDL());
         if (wsdlConn.isIsInputModel()) {
             String username = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getUserName());
-            String password = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getPassword());
+            String password = ConnectionContextHelper.getOriginalValue(contextType,
+                    wsdlConn.getValue(wsdlConn.getPassword(), false));
             String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyHost());
             String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyPort());
             String proxyUser = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyUser());
-            String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getProxyPassword());
+            String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                    wsdlConn.getValue(wsdlConn.getProxyPassword(), false));
             String methodName = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getMethodName());
             String encoding = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getEncoding());
             String endpointURL = ConnectionContextHelper.getOriginalValue(contextType, wsdlConn.getEndpointURI());
 
             cloneConn.setUserName(username);
-            cloneConn.setPassword(password);
+            cloneConn.setPassword(cloneConn.getValue(password, true));
             cloneConn.setProxyHost(proxyHost);
             cloneConn.setProxyPort(proxyPort);
             cloneConn.setProxyUser(proxyUser);
-            cloneConn.setProxyPassword(proxyPassword);
+            cloneConn.setProxyPassword(cloneConn.getValue(proxyPassword, true));
             cloneConn.setMethodName(methodName);
             cloneConn.setEncoding(encoding);
             cloneConn.setEndpointURI(endpointURL);
@@ -1269,7 +1385,17 @@ public final class OtherConnectionContextUtils {
         if (isContextMode) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
                     connectionItem.getConnection().getContextName(), defaultContext);
-            return (XmlFileConnection) OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
+            return OtherConnectionContextUtils.cloneOriginalValueXmlFileConnection(connection, contextType);
+        }
+        return connection;
+
+    }
+
+    public static SAPConnection getOriginalValueConnection(SAPConnection connection, String contextString, boolean defaultContext) {
+        if (connection.isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection, contextString,
+                    defaultContext);
+            return (SAPConnection) OtherConnectionContextUtils.cloneOriginalValueSAPConnection(connection, contextType);
         }
         return connection;
 

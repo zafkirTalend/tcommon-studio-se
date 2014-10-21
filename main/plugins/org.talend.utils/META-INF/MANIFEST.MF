@@ -31,7 +31,8 @@ Bundle-ClassPath: .
 Require-Bundle: org.apache.commons.lang,
  org.talend.libraries.apache;visibility:=reexport,
  org.apache.log4j,
- org.apache.commons.io
+ org.apache.commons.io,
+ bcprov
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j, org.talend.testutils
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

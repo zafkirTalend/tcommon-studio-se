@@ -278,7 +278,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 Set<String> components = new HashSet<String>();
                 Set<String> locations = new HashSet<String>();
                 for (ModuleNeeded module : modules) {
-                    if (module.getModuleName().equals(lib)) {
+                    if (lib != null && lib.equals(module.getModuleName())) {
                         components.add(module.getContext());
                         locations.add(module.getModuleLocaion());
                     }

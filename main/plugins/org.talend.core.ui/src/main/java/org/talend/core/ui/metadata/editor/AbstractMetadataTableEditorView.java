@@ -121,11 +121,25 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean showPatternColumn = true;
 
+    private boolean showKeyColumn = true;
+
+    private boolean showNullableColumn = true;
+
+    private boolean showLengthColumn = true;
+
+    private boolean showAdditionalFieldColumn = true;
+
+    private boolean showPrecisionColumn = true;
+
+    private boolean showCommentColumn = true;
+
     protected String dbmsId;
 
     private List<String> additionalFields;
 
     private boolean isRepository = false;
+
+    private boolean isSapSpecialSchema = false;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -228,8 +242,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////
-
-        configureKeyColumn(tableViewerCreator);
+        if (showKeyColumn) {
+            configureKeyColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -266,8 +281,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         // });
 
         // //////////////////////////////////////////////////////////////////////////////////////
-
-        configureNullableColumn(tableViewerCreator);
+        if (showNullableColumn) {
+            configureNullableColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -275,16 +291,22 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        configureLengthColumn(tableViewerCreator);
+        if (showLengthColumn) {
+            configureLengthColumn(tableViewerCreator);
+        }
 
         if (showOriginalLength) {
             configureOriginalLengthColumn(tableViewerCreator);
         }
 
-        configureAdditionalFieldColumns(tableViewerCreator);
+        if (showAdditionalFieldColumn) {
+            configureAdditionalFieldColumns(tableViewerCreator);
+        }
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        configurePrecisionColumn(tableViewerCreator);
+        if (showPrecisionColumn) {
+            configurePrecisionColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -292,7 +314,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        configureCommentColumn(tableViewerCreator);
+        if (showCommentColumn) {
+            configureCommentColumn(tableViewerCreator);
+        }
 
         if (PluginChecker.isDatacertPluginLoaded()) {
             // Datacert related column configuration set ups
@@ -413,7 +437,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     protected void configureDefaultColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
+        if (isSapSpecialSchema) {
+            column.setTitle(Messages.getString("MetadataTableEditorView.ValueTitle")); //$NON-NLS-1$
+        } else {
+            column.setTitle(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
+        }
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_DEFAULT);
         column.setBeanPropertyAccessors(getDefaultValueAccessor());
@@ -1073,5 +1101,47 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public boolean isRepository() {
         return this.isRepository;
+    }
+
+    public void setShowKeyColumn(boolean showKeyColumn) {
+        this.showKeyColumn = showKeyColumn;
+    }
+
+    public void setShowNullableColumn(boolean showNullableColumn) {
+        this.showNullableColumn = showNullableColumn;
+    }
+
+    public void setShowLengthColumn(boolean showLengthColumn) {
+        this.showLengthColumn = showLengthColumn;
+    }
+
+    public void setShowAdditionalFieldColumn(boolean showAdditionalFieldColumn) {
+        this.showAdditionalFieldColumn = showAdditionalFieldColumn;
+    }
+
+    public void setShowPrecisionColumn(boolean showPrecisionColumn) {
+        this.showPrecisionColumn = showPrecisionColumn;
+    }
+
+    public void setShowCommentColumn(boolean showCommentColumn) {
+        this.showCommentColumn = showCommentColumn;
+    }
+
+    /**
+     * Getter for isSapSpecialSchema.
+     * 
+     * @return the isSapSpecialSchema
+     */
+    public boolean isSapSpecialSchema() {
+        return this.isSapSpecialSchema;
+    }
+
+    /**
+     * Sets the isSapSpecialSchema.
+     * 
+     * @param isSapSpecialSchema the isSapSpecialSchema to set
+     */
+    public void setSapSpecialSchema(boolean isSapSpecialSchema) {
+        this.isSapSpecialSchema = isSapSpecialSchema;
     }
 }
