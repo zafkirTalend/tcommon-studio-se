@@ -34,6 +34,9 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
@@ -290,6 +293,13 @@ public class ExtractMetaDataFromDataBase {
      */
     public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
             final String driverClassName, final String driverJarPath, String dbVersionString, String additionalParam) {
+        return testConnection(dbType, url, username, pwd, schema, driverClassName, driverJarPath, dbVersionString,
+                additionalParam, null);
+    }
+
+    public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
+            final String driverClassName, final String driverJarPath, String dbVersionString, String additionalParam,
+            StringBuffer retProposedSchema) {
 
         Connection connection = null;
         ConnectionStatus connectionStatus = new ConnectionStatus();
@@ -316,7 +326,7 @@ public class ExtractMetaDataFromDataBase {
                         || EDatabaseTypeName.TERADATA.getProduct().equals(product)
                         || EDatabaseTypeName.VERTICA.getProduct().equals(product);
                 // We have to check schema
-                if (!checkSchemaConnection(schema, connection, equals, dbType)) {
+                if (!checkSchemaConnection(schema, connection, equals, dbType, retProposedSchema)) {
                     connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
@@ -355,8 +365,14 @@ public class ExtractMetaDataFromDataBase {
      */
     public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive, String dbType)
             throws SQLException {
+        return checkSchemaConnection(schema, connection, notCaseSensitive, dbType, null);
+    }
+
+    public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive, String dbType,
+            StringBuffer retPropsedSchema) throws SQLException {
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         DatabaseMetaData dbMetaData = extractMeta.getDatabaseMetaData(connection, dbType);
+        String proposeSchema = null;
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
@@ -367,14 +383,30 @@ public class ExtractMetaDataFromDataBase {
                         return (true);
                     }
                 } else {
-                    if (rs.getString(1).compareTo(schema) == 0) {
-                        extractMeta.setSchema(schema);
-                        rs.close();
-                        return (true);
+                    String schemaFromDB = rs.getString(1);
+                    if (schemaFromDB.toLowerCase().compareTo(schema.toLowerCase()) == 0) {
+                        if (schemaFromDB.compareTo(schema) == 0) {
+                            extractMeta.setSchema(schema);
+                            rs.close();
+                            return (true);
+                        } else {
+                            proposeSchema = schemaFromDB;
+                        }
                     }
                 }
             }
             rs.close();
+        }
+        if (retPropsedSchema != null && proposeSchema != null) {
+            String title = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.title"); //$NON-NLS-1$
+            String proposeMessage = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.message", new Object[] { //$NON-NLS-1$
+                    schema, proposeSchema });
+            MessageDialog messageDialog = new MessageDialog(new Shell(), title, null, proposeMessage, MessageDialog.CONFIRM,
+                    new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0);
+            if (messageDialog.open() == 0) {
+                retPropsedSchema.append(proposeSchema);
+                return true;
+            }
         }
         return false;
     }
