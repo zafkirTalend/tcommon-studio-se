@@ -157,8 +157,7 @@ public class ATreeNode {
      */
     public void addChild(Object[] children) {
         for (Object element : children) {
-            this.children.add(element);
-            ((ATreeNode) element).setNodeParent(this);
+            addChild(element);
         }
     }
 
