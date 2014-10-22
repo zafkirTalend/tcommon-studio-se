@@ -271,6 +271,7 @@ public class XSDPopulationUtil2 {
                     } else {
                         boolean namespaceFoundInParent = false;
                         ATreeNode node = parentNode;
+                        Set<ATreeNode> checkedNodes = new HashSet<ATreeNode>();
                         do {
                             for (Object child : node.getChildren()) {
                                 if (child instanceof ATreeNode) {
@@ -281,8 +282,9 @@ public class XSDPopulationUtil2 {
                                     }
                                 }
                             }
+                            checkedNodes.add(node);
                             node = node.getParent();
-                        } while (node != null && !namespaceFoundInParent);
+                        } while (node != null && !namespaceFoundInParent && !checkedNodes.contains(node));
                         if (!namespaceFoundInParent) {
                             ATreeNode namespaceNode = new ATreeNode();
                             namespaceNode.setDataType(""); //$NON-NLS-1$
@@ -303,22 +305,12 @@ public class XSDPopulationUtil2 {
             parentNode.addChild(partNode);
             boolean resolvedAsComplex = false;
             if (typeDef instanceof XSDComplexTypeDefinition) {
-                if (!currentPath.contains("/" + elementName + "/")) {
+                XSDTypeDefinition xsdTypeDefinition = typeDef;
                     String path = currentPath + elementName + "/";
-                    // XSDTypeDefinition xsdTypeDefinition = xsdElementDeclarationParticle.getTypeDefinition();
-                    // if (xsdTypeDefinition == null) {
-                    // XSDComplexTypeDefinition generalType = xsdSchema
-                    // .resolveComplexTypeDefinitionURI(xsdElementDeclarationParticle.getURI());
-                    // if (generalType.getContainer() != null) {
-                    // xsdTypeDefinition = generalType;
-                    // }
-                    // }
-                    XSDTypeDefinition xsdTypeDefinition = typeDef;
                     if (xsdTypeDefinition != null && xsdTypeDefinition.getName() != null) {
                         partNode.setDataType(xsdTypeDefinition.getQName());
                     }
                     addComplexTypeDetails(xsdSchema, partNode, xsdTypeDefinition, prefix, namespace, path);
-                }
                 resolvedAsComplex = true;
             } else if (typeDef.getTargetNamespace() != null) {
                 resolvedAsComplex = true;

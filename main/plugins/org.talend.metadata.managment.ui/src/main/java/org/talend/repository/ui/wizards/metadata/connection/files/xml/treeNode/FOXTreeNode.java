@@ -218,7 +218,7 @@ public abstract class FOXTreeNode {
      * @param child
      */
     public void addChild(int index, FOXTreeNode child) {
-        if (index < children.size()) {
+        if (index < children.size() && index > 0) {
             children.add(index, child);
         } else {
             children.add(child);
