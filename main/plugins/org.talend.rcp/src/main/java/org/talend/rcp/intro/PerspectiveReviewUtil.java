@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.StringConverter;
@@ -340,7 +341,7 @@ public final class PerspectiveReviewUtil {
     private static void hideToolBarItem(String pId, String actionID, String[] perspectivesID) {
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null && pId != null && !"".equals(pId)) {
-            CoolBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getCoolBarManager();
+            ICoolBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getCoolBarManager2();
             if (barManager != null && (barManager instanceof CoolBarManager)) {
                 IContributionItem diCItem = barManager.find(actionID);
                 if (diCItem != null) {

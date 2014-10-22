@@ -210,14 +210,6 @@
    </menuContribution>
 </extension>
 <extension
-      point="org.eclipse.ui.presentationFactories">
-   <factory
-         class="org.talend.rcp.intro.linksbar.TalendActionBarPresentationFactory"
-         id="org.talend.rcp.presentationfactory"
-         name="Talend presentation for coolbar">
-   </factory>
-</extension>
-<extension
                point="org.eclipse.ui.activities">
             <activity
                   id="org.talend.rcp.branding.activity.hideMenu"

@@ -53,6 +53,8 @@ public class LinksToolbarItem extends ContributionItem {
 
     private static ImageRegistry registry = new ImageRegistry();
 
+    public static final String COOLITEM_LINKS_ID = Activator.PLUGIN_ID + ".CoolItemLinks"; //$NON-NLS-1$
+
     @Override
     public void fill(ToolBar parent, int index) {
         // parent.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
