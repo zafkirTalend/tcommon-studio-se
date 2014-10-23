@@ -1503,6 +1503,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
             RepositoryNode inputNode = new StableRepositoryNode(tableNode,
                     Messages.getString("ProjectRepositoryNode.sapFunctions.inputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            inputNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAP_FUNCTION);
             tableNode.getChildren().add(inputNode);
 
             createTables(recBin, inputNode, rebObj, unit.getInputTables(), ERepositoryObjectType.METADATA_CON_TABLE,
@@ -1510,6 +1511,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
             RepositoryNode outputNode = new StableRepositoryNode(tableNode,
                     Messages.getString("ProjectRepositoryNode.sapFunctions.outputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            outputNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAP_FUNCTION);
             tableNode.getChildren().add(outputNode);
 
             createTables(recBin, outputNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
@@ -1539,8 +1541,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         for (int i = 0; i < iDocs.size(); i++) {
             SAPIDocUnit unit = (SAPIDocUnit) iDocs.get(i);
             RepositoryNode tableNode = createSAPNode(rebObj, iDocNode, unit);
-
-            // createTables(recBin, tableNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE);
             if (SubItemHelper.isDeleted(unit)) {
                 // recBin.getChildren().add(tableNode);
             } else {
