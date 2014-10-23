@@ -914,6 +914,12 @@ public class NodeUtil {
             value = "\"" + value + "\"";
         }
 
+        if (itemFromTable) {
+            if ("*".equals(value)) {
+                value = "\"" + value + "\"";
+            }
+        }
+
         // copied it from Log4jFileUtil.javajet but need more comment for this script
         if (value == null || "".equals(value.trim())) {// for the value which empty
             value = "\"\"";
