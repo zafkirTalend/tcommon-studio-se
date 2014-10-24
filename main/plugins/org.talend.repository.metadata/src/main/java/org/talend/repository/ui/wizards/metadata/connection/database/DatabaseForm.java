@@ -1728,6 +1728,8 @@ public class DatabaseForm extends AbstractForm {
         } else {
             impalaVersionCombo.select(0);
         }
+        authenticationGrpForImpala.setVisible(true);
+        authenticationGrpForImpala.getParent().layout();
     }
 
     private void updateImpalaVersionPart(String distribution) {
@@ -2873,8 +2875,6 @@ public class DatabaseForm extends AbstractForm {
                     initHBaseSettings();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                     initImpalaSettings();
-                    authenticationGrpForImpala.setVisible(true);
-                    authenticationGrpForImpala.getParent().layout();
                     getConnection().setDbVersionString("");
                 } else {
                     if (urlConnectionStringText != null) {
