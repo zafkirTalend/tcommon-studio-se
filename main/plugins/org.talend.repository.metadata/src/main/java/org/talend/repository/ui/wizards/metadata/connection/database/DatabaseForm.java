@@ -3932,6 +3932,7 @@ public class DatabaseForm extends AbstractForm {
                 String template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
                 s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(), getConnection()
                         .getPort(), getConnection().getSID(), template);
+                getConnection().setUiSchema(getConnection().getSID());
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {
