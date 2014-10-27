@@ -691,14 +691,34 @@ public class NodeUtil {
      */
     public static INode getNodeByUniqueName(final IProcess process, String uniqueName) {
 
+        return getNodeByUniqueName(process,uniqueName,false);
+    }
+    
+    /**
+     * DOC jzhao
+     * <p>
+     * function:get the node(maybe include virtual node) from generating nodes by unique name. aim:to get the property value from any node.
+     * </p>
+     * Notice: It is used to get property values from the pointed node we can also get the virtual node.
+     * 
+     * @param process: a job process
+     * @param uniqueName:the unique name of the pointed node.
+     * @param isReturnVirtualNode: specify whether return the virtual node.
+     * 
+     * @return
+     */
+    public static INode getNodeByUniqueName(final IProcess process, String uniqueName ,boolean isReturnVirtualNode) {
+
         List<INode> nodes = (List<INode>) process.getGeneratingNodes();
-        INode return_node = null;
         for (INode current_node : nodes) {
+        	if(isReturnVirtualNode && current_node.isVirtualGenerateNode()){
+        		current_node = getVirtualNode(current_node);
+        	}
             if (uniqueName.equals(current_node.getUniqueName())) {
-                return_node = current_node;
+                return current_node;
             }
         }
-        return return_node;
+        return null;
     }
 
     /**
