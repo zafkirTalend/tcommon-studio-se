@@ -430,6 +430,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         if (!isHive && !MetadataConnectionUtils.isODBCCatalog(catalogName, dbJDBCMetadata)) {
                             continue;
                         }
+                        // db2 no need fill the catalog
+                        if (ConnectionUtils.isDB2(dbJDBCMetadata)) {
+                            continue;
+                        }
                     } catch (Exception e) {
                         log.warn(e, e);
                         if (dbJDBCMetadata.getDatabaseProductName() != null
