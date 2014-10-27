@@ -853,7 +853,7 @@ public class NodeUtil {
             if (!linesIter.hasNext()) {
                 return "\"[]\"";
             }
-            value.append("\"[");
+            value.append("new StringBuilder().append(\"[");
             for (;;) {
                 Map<String, String> columns = linesIter.next();
                 Iterator<Entry<String, String>> columnsIter = columns.entrySet().iterator();
@@ -869,11 +869,11 @@ public class NodeUtil {
                     printedColumnExist = true;
 
                     value.append(column.getKey());
-                    value.append("=\"+(");
+                    value.append("=\").append((");
 
                     value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true));
 
-                    value.append(")+\"");
+                    value.append(")).append(\"");
 
                     if (columnsIter.hasNext()) {
                         value.append(", ");
@@ -885,7 +885,7 @@ public class NodeUtil {
                 value.append("}");
 
                 if (!linesIter.hasNext()) {
-                    return value.append("]\"").toString();
+                    return value.append("]\").toString()").toString();
                 }
                 value.append(",").append(" ");
             }
