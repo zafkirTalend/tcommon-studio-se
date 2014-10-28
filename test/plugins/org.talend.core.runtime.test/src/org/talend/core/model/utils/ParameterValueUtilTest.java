@@ -560,8 +560,8 @@ public class ParameterValueUtilTest {
         contextParam.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
 
-        contextParam.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+        contextParam.setValue("");// because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(contextParam));
 
         contextParam.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(contextParam));
@@ -590,8 +590,8 @@ public class ParameterValueUtilTest {
         contextParam.setValue(null);
         Assert.assertNull(ParameterValueUtil.getEncryptValue(contextParam));
 
-        contextParam.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(contextParam));
+        contextParam.setValue("");// because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getEncryptValue(contextParam));
 
         contextParam.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(contextParam));
@@ -629,8 +629,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+        param.setValue(""); // because don't hide password, and empty is encrypted also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
@@ -641,8 +641,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+        param.setValue(""); // because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
@@ -675,8 +675,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertNull(ParameterValueUtil.getEncryptValue(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(param));
+        param.setValue(""); // because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getEncryptValue(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(param));
