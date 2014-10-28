@@ -870,8 +870,11 @@ public class NodeUtil {
 
                     value.append(column.getKey());
                     value.append("=\").append((");
-
-                    value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true));
+                    String tempValue = getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true);
+                    if (tempValue == null || tempValue.equals("null")) {
+                        tempValue = "\"null\"";
+                    }
+                    value.append(tempValue);
 
                     value.append(")).append(\"");
 
