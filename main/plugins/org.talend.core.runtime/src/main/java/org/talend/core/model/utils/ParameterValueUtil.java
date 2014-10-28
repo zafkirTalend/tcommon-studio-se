@@ -336,7 +336,7 @@ public final class ParameterValueUtil {
             String oldFill = null;
             String newFill = null;
 
-            String subRegEx = "(\\b" + vOldName + "(\\s*\\.\\s*\\w+)+)"; //$NON-NLS-1$ //$NON-NLS-2$
+            String subRegEx = "^" + vOldName + "(\\s*\\.\\s*\\w+)+"; //$NON-NLS-1$ //$NON-NLS-2$
             java.util.regex.Pattern subPattern = java.util.regex.Pattern.compile(subRegEx);
 
             while (true) {
