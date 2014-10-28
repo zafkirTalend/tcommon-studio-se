@@ -466,8 +466,8 @@ public class ParameterValueUtilTest {
     @Test
     public void testReplaceConnectionNameInJavaCode() {
         // Add for https://jira.talendforge.org/browse/TUP-2333
-        String testString = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\tout = obj1;\n\tout.a.out = obj2;\n\tout.out = obj3;\n\tout(obj1);\n";
-        String expectRetValue = "\tSystem.out.println(\"=====\");\n\trow1.a = b;\n\trow1 = obj1;\n\trow1.a.out = obj2;\n\trow1.out = obj3;\n\tout(obj1);\n";
+        String testString = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\tout = obj1;\n\tout.a.out = obj2;\n\tout.out = obj3;\n\tout(obj1);\n\ta.out.b.out.c.out = 1;\n\tout.a.out.b.out.c.out();\n";
+        String expectRetValue = "\tSystem.out.println(\"=====\");\n\trow1.a = b;\n\trow1 = obj1;\n\trow1.a.out = obj2;\n\trow1.out = obj3;\n\tout(obj1);\n\ta.out.b.out.c.out = 1;\n\trow1.a.out.b.out.c.out();\n";
 
         String retValue = ParameterValueUtil.splitQueryData("out", "row1", testString);
         Assert.assertTrue(expectRetValue.equals(retValue));
