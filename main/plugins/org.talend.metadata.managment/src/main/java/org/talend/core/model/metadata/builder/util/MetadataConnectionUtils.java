@@ -161,6 +161,8 @@ public class MetadataConnectionUtils {
                 rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
                 CommonExceptionHandler.process(e);
             }
+        } else if (EDatabaseTypeName.HBASE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
+            rc.setOk(true);
         } else {
             String dbUrl = metadataBean.getUrl();
             if (ConnectionUtils.isHsql(dbUrl)) {

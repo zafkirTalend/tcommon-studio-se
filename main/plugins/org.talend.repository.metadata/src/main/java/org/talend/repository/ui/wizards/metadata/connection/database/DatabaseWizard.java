@@ -661,8 +661,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
             JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
         }
-        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
-        // if after fillConnection there is still no dataPackages, need to fill them from extractor
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
         List<Schema> schemas = ConnectionHelper.getSchema(connection);
         if (catalogs.isEmpty() && schemas.isEmpty()) {
@@ -672,6 +670,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 repFactory.save(connectionItem);
             }
         }
+        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
         if (tdqRepService != null) {
             // Update software system when TDQ service available.
             tdqRepService.publishSoftwareSystemUpdateEvent(dbConn);
