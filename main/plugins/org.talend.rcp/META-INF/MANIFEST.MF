@@ -26,7 +26,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.lang,
  org.talend.libraries.apache,
  org.eclipse.ui.cheatsheets,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.workbench
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro,

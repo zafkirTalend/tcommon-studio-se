@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,18 +36,26 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
@@ -56,8 +65,8 @@ import org.eclipse.ui.internal.IPreferenceConstants;
 import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
+import org.eclipse.ui.internal.menus.MenuHelper;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
-import org.eclipse.ui.internal.util.PrefUtil;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.w3c.dom.Document;
@@ -123,6 +132,11 @@ public final class PerspectiveReviewUtil {
 
     private static Map<String, IContributionItem> lastPerspectives = new HashMap<String, IContributionItem>();
 
+    /*
+     * record the perspective to reset. maybe should try to find another way. if have done reset, don't do again.
+     */
+    private static Map<String, Boolean> resetPerspectiveFlags = new HashMap<String, Boolean>();
+
     public static void setPerspectiveReviewUtil() {
         // DI
         diViewList.add(componentSettingViewerId);
@@ -150,151 +164,6 @@ public final class PerspectiveReviewUtil {
 
     /**
      * 
-     * DOC Comment method "setPerspectiveTabs".
-     */
-
-    public static void setPerspectiveTabs() {
-        // // feature 19053 add
-        // IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        //
-        // // fix TDI-23057
-        // ((WorkbenchWindow) activeWorkbenchWindow).addPerspectiveReorderListener(null);
-        //
-        // PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
-        //
-        // if (barManager != null && (barManager instanceof PerspectiveBarManager)) {
-        // cleanPerspectiveBar();
-        // // DI
-        // IContributionItem lastPerspective = null;
-        // IContributionItem diCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DI_ID);
-        // if (null == diCItem) {
-        // IPerspectiveDescriptor diMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-        // .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DI_ID);
-        // if (null != diMailPerspective && (diMailPerspective instanceof IPerspectiveDescriptor)) {
-        // PerspectiveBarContributionItem diItem = new PerspectiveBarContributionItem(diMailPerspective,
-        // activeWorkbenchWindow.getActivePage());
-        // if (null != diItem && (diItem instanceof PerspectiveBarContributionItem)) {
-        // barManager.addItem(diItem);
-        // diCItem = diItem;
-        // }
-        // }
-        // }
-        // lastPerspective = diCItem;
-        //
-        // // DQ
-        // IContributionItem dqCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
-        // if (null == dqCItem) {
-        // IPerspectiveDescriptor dqMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-        // .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
-        // if (null != dqMailPerspective && (dqMailPerspective instanceof IPerspectiveDescriptor)) {
-        // PerspectiveBarContributionItem dqItem = new PerspectiveBarContributionItem(dqMailPerspective,
-        // activeWorkbenchWindow.getActivePage());
-        // if (null != dqItem && (dqItem instanceof PerspectiveBarContributionItem)) {
-        // if (diCItem != null) {
-        // barManager.insertAfter(diCItem.getId(), dqItem);
-        // } else {
-        // barManager.addItem(dqItem);
-        // }
-        // dqCItem = dqItem;
-        // }
-        // }
-        // }
-        // if (dqCItem != null) {
-        // lastPerspective = dqCItem;
-        // }
-        // // MDM
-        // IContributionItem mdmCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
-        // if (null == mdmCItem) {
-        // IPerspectiveDescriptor mdmMailPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-        // .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_MDM_ID);
-        // if (null != mdmMailPerspective && (mdmMailPerspective instanceof IPerspectiveDescriptor)) {
-        // PerspectiveBarContributionItem mdmItem = new PerspectiveBarContributionItem(mdmMailPerspective,
-        // activeWorkbenchWindow.getActivePage());
-        // if (null != mdmItem && (mdmItem instanceof PerspectiveBarContributionItem)) {
-        // if (lastPerspective != null) {
-        // barManager.insertAfter(lastPerspective.getId(), mdmItem);
-        // } else {
-        // barManager.addItem(mdmItem);
-        // }
-        // mdmCItem = mdmItem;
-        // }
-        // }
-        // }
-        // if (mdmCItem != null) {
-        // lastPerspective = mdmCItem;
-        // }
-        //
-        // // CAMEL
-        // IContributionItem esbCItem = barManager.find(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
-        // if (null == esbCItem) {
-        // IPerspectiveDescriptor esbPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-        // .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
-        // if (null != esbPerspective && (esbPerspective instanceof IPerspectiveDescriptor)) {
-        // PerspectiveBarContributionItem esbItem = new PerspectiveBarContributionItem(esbPerspective,
-        // activeWorkbenchWindow.getActivePage());
-        // if (null != esbItem && (esbItem instanceof PerspectiveBarContributionItem)) {
-        // if (lastPerspective != null) {
-        // barManager.insertAfter(lastPerspective.getId(), esbItem);
-        // } else {
-        // barManager.addItem(esbItem);
-        // }
-        // mdmCItem = esbItem;
-        // }
-        // }
-        // }
-        //
-        // barManager.update(false);
-        // }
-    }
-
-    private static void cleanPerspectiveBar() {
-        // IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        // if (activeWorkbenchWindow == null) {
-        // return;
-        // }
-        // PerspectiveBarManager barManager = ((WorkbenchWindow) activeWorkbenchWindow).getPerspectiveBar();
-        // if (barManager == null) {
-        // return;
-        // }
-        //
-        // for (IContributionItem item : barManager.getItems()) {
-        // if (item instanceof PerspectiveBarContributionItem) {
-        // PerspectiveBarContributionItem perspectiveItem = (PerspectiveBarContributionItem) item;
-        // String pId = perspectiveItem.getId();
-        // IPerspectiveDescriptor pPerspective = WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-        // .findPerspectiveWithId(pId);
-        // if (pPerspective == null) {
-        // barManager.removeItem(perspectiveItem);
-        // }
-        // }
-        // }
-    }
-
-    /**
-     * 
-     * DOC Comment method "setPerspectiveTabsBarSize".
-     */
-    public static void setPerspectiveTabsBarSize() {
-        int nbPerpectives = 1;
-
-        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry().findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_DQ_ID) != null) {
-            nbPerpectives++;
-        }
-        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_MDM_ID) != null) {
-            nbPerpectives++;
-        }
-        if (WorkbenchPlugin.getDefault().getPerspectiveRegistry()
-                .findPerspectiveWithId(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID) != null) {
-            nbPerpectives++;
-        }
-
-        IPreferenceStore apiStore = PrefUtil.getAPIPreferenceStore();
-        apiStore.setValue(IWorkbenchPreferenceConstants.PERSPECTIVE_BAR_SIZE, nbPerpectives * 100);
-    }
-
-    /**
-     * 
      * DOC Comment method "regisitPerspectiveBarSelectListener".
      */
     public static void regisitPerspectiveBarSelectListener() {
@@ -315,6 +184,16 @@ public final class PerspectiveReviewUtil {
                     isfirst = perspective.getId();
                     refreshAll();
                 }
+
+                // reset the new created perspective.
+                if (resetPerspectiveFlags.containsKey(pId)) {
+                    Boolean flag = resetPerspectiveFlags.get(pId);
+                    if (flag == null || !flag.booleanValue()) { // don't do
+                        page.resetPerspective();
+                        resetPerspectiveFlags.put(pId, true);
+                    }
+                }
+
             }
 
         });
@@ -432,7 +311,246 @@ public final class PerspectiveReviewUtil {
         }
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "checkPerspectiveDisplayItems".
+     * 
+     * try to display several Talend official perspectives.
+     */
+
+    public static void checkPerspectiveDisplayItems() {
+        // TUP-2293
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench instanceof org.eclipse.e4.ui.workbench.IWorkbench) {
+            org.eclipse.e4.ui.workbench.IWorkbench e4Workbench = (org.eclipse.e4.ui.workbench.IWorkbench) workbench;
+            MApplication mApp = e4Workbench.getApplication();
+            IEclipseContext context = mApp.getContext();
+            EModelService modelService = context.get(EModelService.class);
+            if (modelService == null) {
+                return;
+            }
+            MWindow mWindow = mApp.getSelectedElement();
+
+            List<MPerspectiveStack> perspStackList = modelService.findElements(mWindow, null, MPerspectiveStack.class, null);
+            if (perspStackList.size() > 0) {
+                MPerspectiveStack perspectiveStack = perspStackList.get(0);
+
+                List<MPerspective> validChildren = new ArrayList<MPerspective>();
+
+                // DI
+                findAndCreatePerspective(mApp, perspectiveStack, IBrandingConfiguration.PERSPECTIVE_DI_ID, validChildren);
+                // DQ
+                findAndCreatePerspective(mApp, perspectiveStack, IBrandingConfiguration.PERSPECTIVE_DQ_ID, validChildren);
+                // MDM
+                findAndCreatePerspective(mApp, perspectiveStack, IBrandingConfiguration.PERSPECTIVE_MDM_ID, validChildren);
+                // Camel
+                findAndCreatePerspective(mApp, perspectiveStack, IBrandingConfiguration.PERSPECTIVE_CAMEL_ID, validChildren);
+
+                List<MPerspective> children = perspectiveStack.getChildren();
+
+                // record the order of perspective.
+                Map<Integer, MPerspective> otherCustomPerspMap = new HashMap<Integer, MPerspective>();
+                // try add back other custom perspectives
+                for (int i = 0; i < children.size(); i++) {
+                    MPerspective p = children.get(i);
+                    if (!validChildren.contains(p)) { // not added, another custom
+                        otherCustomPerspMap.put(i, p);
+                    }// have added in front.
+                }
+
+                children.clear(); // clean other perspectives.
+                children.addAll(validChildren); // add back the valid perspectives.
+
+                // add the other costom perspective back
+                Iterator<Integer> iterator = otherCustomPerspMap.keySet().iterator();
+                while (iterator.hasNext()) {
+                    Integer index = iterator.next();
+                    if (index != null) {
+                        MPerspective persp = otherCustomPerspMap.get(index);
+                        // maybe this is not good, because after add, the original index have be changed.
+                        if (index < children.size()) {
+                            children.add(index, persp);
+                        } else {
+                            children.add(persp);
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "findAndCreatePerspective".
+     * 
+     * try to find and create the perspective. if the existed custom perspective, will use the custom one. won't create
+     * original one.
+     */
+    public static void findAndCreatePerspective(MApplication mApp, MPerspectiveStack perspectiveStack, String id,
+            List<MPerspective> validPerspList) {
+        if (id != null && mApp != null && perspectiveStack != null) {
+            MPerspective mPersp = null;
+
+            IPerspectiveRegistry perspectiveRegistry = PlatformUI.getWorkbench().getPerspectiveRegistry();
+            IPerspectiveDescriptor perspDesc = perspectiveRegistry.findPerspectiveWithId(id);
+            if (perspDesc != null) {
+                // find the existed.
+                if (perspectiveStack != null) {
+                    for (MPerspective mp : perspectiveStack.getChildren()) {
+                        if (mp.getElementId().equals(id)) { // existed.
+                            mPersp = mp;
+                            break;
+                        } else { // try to check custom perspective. (the element id should be different with id.)
+                            IPerspectiveDescriptor persp = perspectiveRegistry.findPerspectiveWithId(mp.getElementId());
+                            if (persp != null && persp instanceof PerspectiveDescriptor) {
+                                PerspectiveDescriptor pd = (PerspectiveDescriptor) persp;
+
+                                // if custom perspective, the original id and id are different.
+                                if (!pd.getOriginalId().equals(pd.getId()) //
+                                        && pd.getOriginalId().equals(id)) { // when custom, just use it.
+                                    mPersp = mp;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                /*
+                 * PTODO, if created, will be some problem for the perspective, like related view, action, etc... must
+                 * do reset for those perspective.
+                 */
+                // create new
+                if (mPersp == null) { // FIXME copied some form method setPerspective of class WorkbenchPage
+                    String perspId = perspDesc.getId();
+
+                    resetPerspectiveFlags.put(perspId, false);
+
+                    IEclipseContext context = mApp.getContext();
+                    EModelService modelService = context.get(EModelService.class);
+                    MWindow mWindow = mApp.getSelectedElement();
+
+                    mPersp = (MPerspective) modelService.cloneSnippet(mApp, perspId, mWindow);
+                    if (mPersp == null) {
+                        // couldn't find the perspective, create a new one
+                        mPersp = modelService.createModelElement(MPerspective.class);
+                        // tag it with the same id
+                        mPersp.setElementId(perspId);
+                    }
+                    mPersp.setLabel(perspDesc.getLabel());
+                    ImageDescriptor imageDescriptor = perspDesc.getImageDescriptor();
+                    if (imageDescriptor != null) {
+                        String imageURL = MenuHelper.getImageUrl(imageDescriptor);
+                        mPersp.setIconURI(imageURL);
+                    }
+
+                    // mPersp.setToBeRendered(true); // no need, it's true by default already.
+                }
+            }// else { // can't find or not be loaded.
+
+            if (mPersp != null) {
+                validPerspList.add(mPersp);
+            }
+        }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "resetDefaultPerspective".
+     * 
+     * If the perspective is not found, should reset one default perspective.
+     */
+    public static void resetDefaultPerspective() {
+        // TUP-2293
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench instanceof org.eclipse.e4.ui.workbench.IWorkbench) {
+            org.eclipse.e4.ui.workbench.IWorkbench e4Workbench = (org.eclipse.e4.ui.workbench.IWorkbench) workbench;
+            MApplication mApp = e4Workbench.getApplication();
+            IEclipseContext context = mApp.getContext();
+            EPartService partService = context.get(EPartService.class);
+            EModelService modelService = context.get(EModelService.class);
+            MWindow mWindow = mApp.getSelectedElement();
+
+            if (partService != null && modelService != null && mWindow != null) {
+                List<MPerspectiveStack> perspStackList = modelService.findElements(mWindow, null, MPerspectiveStack.class, null);
+                if (perspStackList.size() > 0) {
+                    MPerspectiveStack perspectiveStack = perspStackList.get(0);
+                    List<MPerspective> children = perspectiveStack.getChildren();
+
+                    // just find out the last perspective.
+                    String lastPerspId = perspectiveStack.getSelectedElement() != null ? perspectiveStack.getSelectedElement()
+                            .getElementId() : null;
+
+                    IPerspectiveDescriptor perspDesc = PlatformUI.getWorkbench().getPerspectiveRegistry()
+                            .findPerspectiveWithId(lastPerspId);
+
+                    if (perspDesc != null) { // existed, no need rest
+                        return;
+                    }
+                    // for default
+                    IPerspectiveRegistry perspectiveRegistry = workbench.getPerspectiveRegistry();
+                    perspDesc = perspectiveRegistry.findPerspectiveWithId(perspectiveRegistry.getDefaultPerspective());
+
+                    MPerspective mPersp = null;
+                    if (perspDesc != null) {
+                        for (MPerspective mp : children) {
+                            if (mp.getElementId().equals(perspDesc.getId())) { // existed.
+                                mPersp = mp;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (mPersp == null && !children.isEmpty()) { // if not found, try to use the first one.
+                        mPersp = children.get(0);
+                    }
+                    if (mPersp != null) {
+                        perspDesc = PlatformUI.getWorkbench().getPerspectiveRegistry()
+                                .findPerspectiveWithId(mPersp.getElementId());
+
+                        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                        if (activeWorkbenchWindow != null && perspDesc != null) {
+                            perspectiveStack.setSelectedElement(mPersp); // set one valid perspective.
+                            IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+                            if (activePage != null) {
+                                activePage.resetPerspective();
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 
+     * reset for perspective.
+     */
     public static void resetPerspective() {
+
+        // delete the invalid custom perspective, if not existed
+        final IPerspectiveRegistry perspectiveRegistry = WorkbenchPlugin.getDefault().getPerspectiveRegistry();
+        for (IPerspectiveDescriptor pd : perspectiveRegistry.getPerspectives()) {
+            if (pd instanceof PerspectiveDescriptor) {
+                PerspectiveDescriptor descriptor = (PerspectiveDescriptor) pd;
+                // if custom, the OriginalId will not equal with id.
+                if (descriptor.getOriginalId() != null && !descriptor.getOriginalId().equals(descriptor.getId())) {
+                    IPerspectiveDescriptor findPerspective = perspectiveRegistry
+                            .findPerspectiveWithId(descriptor.getOriginalId());
+                    if (findPerspective == null) { // not found
+                        perspectiveRegistry.deletePerspective(pd);
+                    }
+                }
+            }
+        }
+
+        /*
+         * the following codes should be @Deprecated, Seems it't not useful after E4. and should try to find other way
+         * to do.
+         */
         boolean reset = false;
 
         IPath path = WorkbenchPlugin.getDefault().getDataLocation();
@@ -445,37 +563,41 @@ public final class PerspectiveReviewUtil {
             reset = true;
         }
         FileInputStream input = null;
-        final IPerspectiveRegistry perspectiveRegistry = WorkbenchPlugin.getDefault().getPerspectiveRegistry();
-        if (stateFile != null && stateExist) {
+
+        if (stateFile != null && stateExist) { // PTODO seems can't work in E4, need check.
             try {
                 input = new FileInputStream(stateFile);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input, "utf-8")); //$NON-NLS-1$
                 IMemento memento = XMLMemento.createReadRoot(reader);
+                /*
+                 * it's not useful after E4, and will do reset in reSwitchPerspective.
+                 */
 
-                IMemento[] windowArray = memento.getChildren(IWorkbenchConstants.TAG_WINDOW);
-                for (int cw = 0; windowArray != null && cw < windowArray.length; cw++) {
-                    final IMemento windowMem = windowArray[cw];
-                    IMemento[] pageArray = windowMem.getChildren(IWorkbenchConstants.TAG_PAGE);
-                    for (int i = 0; pageArray != null && i < pageArray.length; i++) {
-                        final IMemento pageMem = pageArray[i];
-                        IMemento pespectiveMem = pageMem.getChild(IWorkbenchConstants.TAG_PERSPECTIVES);
-                        if (pespectiveMem != null) {
-                            String activePerspectiveID = pespectiveMem.getString(IWorkbenchConstants.TAG_ACTIVE_PERSPECTIVE);
-                            IPerspectiveDescriptor perspectiveDesc = perspectiveRegistry
-                                    .findPerspectiveWithId(activePerspectiveID);
-                            // find from original id
-                            if (perspectiveDesc != null && perspectiveDesc instanceof PerspectiveDescriptor) {
-                                String originalId = ((PerspectiveDescriptor) perspectiveDesc).getOriginalId();
-                                perspectiveDesc = perspectiveRegistry.findPerspectiveWithId(originalId);
-                            }
-                            if (perspectiveDesc == null) { // not found, reset the workbench
-                                stateFile.delete(); // if delete, will recreate a default new one
-                                reset = true;
-                                break;
-                            }
-                        }
-                    }
-                }
+                // IMemento[] windowArray = memento.getChildren(IWorkbenchConstants.TAG_WINDOW);
+                // for (int cw = 0; windowArray != null && cw < windowArray.length; cw++) {
+                // final IMemento windowMem = windowArray[cw];
+                // IMemento[] pageArray = windowMem.getChildren(IWorkbenchConstants.TAG_PAGE);
+                // for (int i = 0; pageArray != null && i < pageArray.length; i++) {
+                // final IMemento pageMem = pageArray[i];
+                // IMemento pespectiveMem = pageMem.getChild(IWorkbenchConstants.TAG_PERSPECTIVES);
+                // if (pespectiveMem != null) {
+                // String activePerspectiveID = pespectiveMem.getString(IWorkbenchConstants.TAG_ACTIVE_PERSPECTIVE);
+                // IPerspectiveDescriptor perspectiveDesc = perspectiveRegistry
+                // .findPerspectiveWithId(activePerspectiveID);
+                // // find from original id
+                // if (perspectiveDesc != null && perspectiveDesc instanceof PerspectiveDescriptor) {
+                // String originalId = ((PerspectiveDescriptor) perspectiveDesc).getOriginalId();
+                // perspectiveDesc = perspectiveRegistry.findPerspectiveWithId(originalId);
+                // }
+                // if (perspectiveDesc == null) { // not found, reset the workbench
+                // stateFile.delete(); // if delete, will recreate a default new one
+                // reset = true;
+                // break;
+                // }
+                // }
+                // }
+                // }
+
                 // check if bpm is installed to fix for TUP-647
                 if (!reset) {
                     IMemento window = memento.getChild(IWorkbenchConstants.TAG_WINDOW);
@@ -525,20 +647,6 @@ public final class PerspectiveReviewUtil {
                         input.close();
                     } catch (IOException e) {
                         //
-                    }
-                }
-            }
-        }
-        // delete the custom
-        for (IPerspectiveDescriptor pd : perspectiveRegistry.getPerspectives()) {
-            if (pd instanceof PerspectiveDescriptor) {
-                PerspectiveDescriptor descriptor = (PerspectiveDescriptor) pd;
-                // if custom, the OriginalId will have value
-                if (descriptor.getOriginalId() != null) {
-                    IPerspectiveDescriptor findPerspective = perspectiveRegistry
-                            .findPerspectiveWithId(descriptor.getOriginalId());
-                    if (findPerspective == null) { // not found
-                        perspectiveRegistry.deletePerspective(pd);
                     }
                 }
             }

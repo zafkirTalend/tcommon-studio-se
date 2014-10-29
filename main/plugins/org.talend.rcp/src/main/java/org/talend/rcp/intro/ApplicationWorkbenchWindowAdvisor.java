@@ -146,8 +146,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void preWindowOpen() {
-        // feature 19053
-        PerspectiveReviewUtil.setPerspectiveTabsBarSize();
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
         configurer.setShowCoolBar(true);
@@ -222,6 +220,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
+
+        PerspectiveReviewUtil.resetDefaultPerspective();
+
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         getWindowConfigurer()
                 .setTitle(getWindowConfigurer().getTitle() + service.getBrandingConfiguration().getAdditionalTitle());
