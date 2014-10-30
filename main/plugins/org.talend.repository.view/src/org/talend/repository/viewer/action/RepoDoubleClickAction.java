@@ -29,7 +29,8 @@ import org.talend.core.model.metadata.builder.connection.EDIFACTConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
-import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl;
+import org.talend.core.model.metadata.builder.connection.impl.SAPTableImpl;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
@@ -203,15 +204,31 @@ public class RepoDoubleClickAction extends Action {
         if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
             RepositoryNode node = theNode.getParent();
             nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
-            if (nodeType == ERepositoryObjectType.METADATA_SAP_FUNCTION || nodeType == ERepositoryObjectType.METADATA_SAP_IDOC
-                    || nodeType == ERepositoryObjectType.METADATA_SAP_TABLE) {
+            if (nodeType == ERepositoryObjectType.METADATA_SAP_TABLE) {
                 return true;
             }
         } else if (nodeType == ERepositoryObjectType.METADATA_CON_COLUMN) {
             RepositoryNode node = theNode.getParent().getParent().getParent();
             nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
-            if (nodeType == ERepositoryObjectType.METADATA_SAP_FUNCTION || nodeType == ERepositoryObjectType.METADATA_SAP_IDOC
-                    || nodeType == ERepositoryObjectType.METADATA_SAP_TABLE) {
+            if (nodeType == ERepositoryObjectType.METADATA_SAP_TABLE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSAPBapiTable(RepositoryNode theNode) {
+        ERepositoryObjectType nodeType = (ERepositoryObjectType) theNode.getProperties(EProperties.CONTENT_TYPE);
+        if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
+            RepositoryNode node = theNode.getParent();
+            nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+            if (nodeType == ERepositoryObjectType.METADATA_SAP_FUNCTION) {
+                return true;
+            }
+        } else if (nodeType == ERepositoryObjectType.METADATA_CON_COLUMN) {
+            RepositoryNode node = theNode.getParent().getParent().getParent();
+            nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+            if (nodeType == ERepositoryObjectType.METADATA_SAP_FUNCTION) {
                 return true;
             }
         }
@@ -294,7 +311,11 @@ public class RepoDoubleClickAction extends Action {
                     return current;
                 }
 
-                if (isSAPTable(obj) && current.getClassForDoubleClick().equals(SAPConnection.class)) {
+                if (isSAPTable(obj) && current.getClassForDoubleClick().equals(SAPTableImpl.class)) {
+                    return current;
+                }
+
+                if (isSAPBapiTable(obj) && current.getClassForDoubleClick().equals(MetadataTableImpl.class)) {
                     return current;
                 }
 
