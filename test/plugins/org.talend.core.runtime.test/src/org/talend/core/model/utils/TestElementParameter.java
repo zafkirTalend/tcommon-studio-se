@@ -1123,4 +1123,26 @@ class TestElementParameter implements IElementParameter {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setLog4JEnabled(boolean)
+     */
+    @Override
+    public void setLog4JEnabled(boolean enable) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isLog4JEnabled()
+     */
+    @Override
+    public boolean isLog4JEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
