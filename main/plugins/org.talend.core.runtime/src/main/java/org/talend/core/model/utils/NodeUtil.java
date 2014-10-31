@@ -890,4 +890,12 @@ public class NodeUtil {
         result += original.substring(leftPrev);
         return result;
     }
+    
+    public static boolean containsMultiThreadComponent(IProcess process) {
+		List<? extends INode> multiThreadComponentList = process.getNodesOfType("tWriteXMLFieldOut");
+		if(multiThreadComponentList != null && multiThreadComponentList.size() > 0){
+			return true;
+    	}
+		return false;
+    }
 }
