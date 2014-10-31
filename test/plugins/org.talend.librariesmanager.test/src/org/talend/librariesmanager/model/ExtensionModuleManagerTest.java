@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.librariesmanager.model;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import junit.framework.Assert;
@@ -21,15 +19,12 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.talend.core.model.general.ModuleNeeded;
 
 /**
  * created by ycbai on 2014-5-8 Detailled comment
  *
  */
-@RunWith(PowerMockRunner.class)
 public class ExtensionModuleManagerTest {
 
     private static ExtensionModuleManager manager;
@@ -45,28 +40,44 @@ public class ExtensionModuleManagerTest {
     }
 
     @Test
-    public void testGetModuleNeeded() {
+    public void testGetModuleNeededViaId() {
         /*
          * Get single module from id.
          */
-        List<ModuleNeeded> moduleNeededs = manager.getModuleNeeded("test-jar1"); //$NON-NLS-1$
-        Assert.assertTrue(moduleNeededs != null && moduleNeededs.size() > 0
-                && "test-jar1.jar".equals(moduleNeededs.get(0).getModuleName())); //$NON-NLS-1$
+        List<ModuleNeeded> moduleNeededs = manager.getModuleNeeded("test_jar1"); //$NON-NLS-1$
+        Assert.assertNotNull(moduleNeededs);
+        Assert.assertFalse(moduleNeededs.isEmpty());
+        Assert.assertTrue(moduleNeededs.size() == 1);
+        Assert.assertEquals("test_jar1.jar", moduleNeededs.get(0).getModuleName()); //$NON-NLS-1$
+        Assert.assertEquals("test_jar1", moduleNeededs.get(0).getId()); //$NON-NLS-1$
+    }
 
+    @Test
+    public void testGetModuleNeededViaName() {
         /*
          * Get single module from name.
          */
-        moduleNeededs = manager.getModuleNeeded("test-jar1.jar"); //$NON-NLS-1$
-        Assert.assertTrue(moduleNeededs != null && moduleNeededs.size() > 0 && "test-jar1".equals(moduleNeededs.get(0).getId())); //$NON-NLS-1$
+        List<ModuleNeeded> moduleNeededs = manager.getModuleNeeded("test_jar1.jar"); //$NON-NLS-1$
+        Assert.assertNotNull(moduleNeededs);
+        Assert.assertFalse(moduleNeededs.isEmpty());
+        Assert.assertTrue(moduleNeededs.size() == 1);
+        Assert.assertEquals("test_jar1.jar", moduleNeededs.get(0).getModuleName()); //$NON-NLS-1$
+        Assert.assertEquals("test_jar1", moduleNeededs.get(0).getId()); //$NON-NLS-1$
+    }
 
+    @Test
+    public void testGetModuleNeededViaGroup() {
         /*
          * Get modules from group.
          */
-        moduleNeededs = manager.getModuleNeeded("test-jars-group"); //$NON-NLS-1$
-        assertNotNull(moduleNeededs);
+        List<ModuleNeeded> moduleNeededs = manager.getModuleNeeded("test_jars_group", true); //$NON-NLS-1$
+        Assert.assertNotNull(moduleNeededs);
         Assert.assertTrue(moduleNeededs.size() == 3);
-        Assert.assertTrue("test-jar1".equals(moduleNeededs.get(0).getId())); //$NON-NLS-1$
-        Assert.assertTrue("test-jar2".equals(moduleNeededs.get(1).getId())); //$NON-NLS-1$
-        Assert.assertTrue("test-jar3".equals(moduleNeededs.get(2).getId())); //$NON-NLS-1$
+        Assert.assertEquals("test_jar1.jar", moduleNeededs.get(0).getModuleName()); //$NON-NLS-1$
+        Assert.assertTrue("test_jar1".equals(moduleNeededs.get(0).getId())); //$NON-NLS-1$
+        Assert.assertEquals("test_jar2.jar", moduleNeededs.get(1).getModuleName()); //$NON-NLS-1$
+        Assert.assertTrue("test_jar2".equals(moduleNeededs.get(1).getId())); //$NON-NLS-1$
+        Assert.assertEquals("test_jar3.jar", moduleNeededs.get(2).getModuleName()); //$NON-NLS-1$
+        Assert.assertTrue("test_jar3".equals(moduleNeededs.get(2).getId())); //$NON-NLS-1$
     }
 }

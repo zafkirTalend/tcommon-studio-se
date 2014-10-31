@@ -130,7 +130,7 @@ public class AbstractItemMigrationTaskTest {
         // we use a migration task that is migrate JOB_DOC only and we will check that it will migrate our jobDocExtItem
         // to because we have extended the JOB_DOC type
         JobDocItemMigrationTask jobDocItemMigrationTaskSpy = spy(new JobDocItemMigrationTask());
-        jobDocItemMigrationTaskSpy.execute(null, jobDocExtItem);
+        jobDocItemMigrationTaskSpy.execute(jobDocExtItem);
         verify(jobDocItemMigrationTaskSpy).execute(jobDocExtItem);
     }
 }

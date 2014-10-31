@@ -5,7 +5,7 @@
          point="org.talend.core.runtime.librariesNeeded">
       <libraryNeededGroup
             description="A test jars group."
-            id="test-jars-group"
+            id="test_jars_group"
             name="Test JARS Group">
          <library
                id="test_jar1">
