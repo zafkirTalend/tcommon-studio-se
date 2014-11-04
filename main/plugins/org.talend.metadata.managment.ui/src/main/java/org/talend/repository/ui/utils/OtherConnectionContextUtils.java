@@ -634,7 +634,7 @@ public final class OtherConnectionContextUtils {
         conn.setClient(client);
         conn.setHost(host);
         conn.setUsername(userName);
-        conn.setPassword(passWord);
+        conn.setPassword(conn.getValue(passWord, true));
         conn.setSystemNumber(systemNumber);
         conn.setLanguage(language);
     }
@@ -655,7 +655,7 @@ public final class OtherConnectionContextUtils {
         cloneConn.setClient(client);
         cloneConn.setHost(host);
         cloneConn.setUsername(user);
-        cloneConn.setPassword(pass);
+        cloneConn.setPassword(cloneConn.getValue(pass, true));
         cloneConn.setSystemNumber(sysNumber);
         cloneConn.setLanguage(language);
         ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
