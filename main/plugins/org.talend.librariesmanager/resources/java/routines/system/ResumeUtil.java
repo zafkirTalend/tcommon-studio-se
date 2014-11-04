@@ -336,7 +336,7 @@ public class ResumeUtil {
             JSONObject secondNode = new JSONObject(context);
             if (parametersToEncrypt != null) {
                 for (String parameterToEncrypt : parametersToEncrypt) {
-                    if (secondNode.get(parameterToEncrypt) == null) {
+                    if (secondNode.isNull(parameterToEncrypt)) {
                         continue;
                     }
 
