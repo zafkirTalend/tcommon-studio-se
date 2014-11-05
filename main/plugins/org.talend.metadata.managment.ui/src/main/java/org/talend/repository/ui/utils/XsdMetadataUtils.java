@@ -63,7 +63,6 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
-
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -379,7 +378,7 @@ public final class XsdMetadataUtils {
         }
         if (node.getChildren().length > 0) {
             for (Object curNode : node.getChildren()) {
-                if (!path.contains((String) node.getValue())) {
+                if (!path.contains("/" + (String) node.getValue() + "/")) { //$NON-NLS-1$ //$NON-NLS-2$
                     fillRootInfo(connection, (ATreeNode) curNode, path + '/' + node.getValue(), subElementsInLoop);
                 }
             }
