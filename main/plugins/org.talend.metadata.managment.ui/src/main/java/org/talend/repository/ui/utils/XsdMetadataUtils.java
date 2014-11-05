@@ -27,6 +27,7 @@ import javax.xml.namespace.QName;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.ExceptionHandler;
@@ -60,6 +61,8 @@ import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -238,6 +241,26 @@ public final class XsdMetadataUtils {
                     break;
                 }
             }
+            List<FOXTreeNode> foxTreeNodes = TreeUtil.getFoxTreeNodesByRootNode(xsdSchema, node, true);
+            if (foxTreeNodes.size() > 0 && false) {
+                FOXTreeNode foxTreeNode = foxTreeNodes.get(0);
+                EList root = connection.getRoot();
+                if (root != null) {
+                    XMLFileNode xmlFileNode = ConnectionFactory.eINSTANCE.createXMLFileNode();
+                    String currentPath = "/" + foxTreeNode.getLabel();
+                    xmlFileNode.setXMLPath(currentPath);
+                    xmlFileNode.setRelatedColumn(foxTreeNode.getColumnLabel());
+                    xmlFileNode.setAttribute(foxTreeNode.isMain() ? "main" : "branch");
+                    xmlFileNode.setDefaultValue(foxTreeNode.getDefaultValue());
+                    xmlFileNode.setType(foxTreeNode.getDataType());
+                    XMLFileNode originalXmlNode = null;
+                    if (root.size() > 0) {
+                        originalXmlNode = (XMLFileNode) root.get(0);
+                    }
+                    root.clear();
+                    root.add(xmlFileNode);
+                }
+            }
             fillRootInfo(connection, node, "", !haveElement); //$NON-NLS-1$
         } catch (IOException e) {
             throw e;
@@ -355,7 +378,9 @@ public final class XsdMetadataUtils {
         }
         if (node.getChildren().length > 0) {
             for (Object curNode : node.getChildren()) {
-                fillRootInfo(connection, (ATreeNode) curNode, path + '/' + node.getValue(), subElementsInLoop);
+                if (!path.contains("/" + (String) node.getValue() + "/")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    fillRootInfo(connection, (ATreeNode) curNode, path + '/' + node.getValue(), subElementsInLoop);
+                }
             }
         }
     }
