@@ -989,4 +989,25 @@ public class NodeUtil {
         }
         return false;
     }
+    
+    public static boolean subBranchContainsParallelIterate(INode node) {
+    	for (IConnection connection : node.getIncomingConnections()) {
+    		if(connection==null || !connection.isActivate()) {
+    			continue;
+    		}
+    		
+    		if(!(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MAIN | IConnectionCategory.USE_ITERATE))) {
+    			continue;
+    		}
+    		
+    		if(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
+				if (Boolean.TRUE.toString().equals(ElementParameterParser.getValue(connection, "__ENABLE_PARALLEL__"))) {
+					return true;
+				}
+    		}
+    		
+    		return subBranchContainsParallelIterate(connection.getSource());
+    	}
+    	return false;
+    }
 }
