@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -36,6 +37,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -397,8 +400,36 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
             public void widgetSelected(SelectionEvent e) {
                 SelectRepositoryContextDialog dialog = new SelectRepositoryContextDialog(getContextModelManager(), parent
                         .getShell(), helper);
-                dialog.open();
-                refresh();
+                if (dialog.open() == Dialog.OK) {
+                    // ADD msjian TDQ-9629: if the current perspective is dataprofiling, change all to builtin context
+                    IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+                    if (activePage != null) {
+                        if ("org.talend.dataprofiler.DataProfilingPerspective".equals(activePage.getPerspective().getId())) { //$NON-NLS-1$
+                            IContextManager contextManager = getContextModelManager().getContextManager();
+                            if (contextManager instanceof JobContextManager) {
+                                JobContextManager jobContextManager = (JobContextManager) contextManager;
+                                jobContextManager.setModified(true);
+                            }
+
+                            List<IContext> listContext = contextManager.getListContext();
+                            if (listContext != null) {
+                                for (IContext context : listContext) {
+                                    List<IContextParameter> contextParameterList = context.getContextParameterList();
+                                    if (contextParameterList != null) {
+                                        for (IContextParameter contextParameter : contextParameterList) {
+                                            contextParameter.setSource(IContextParameter.BUILT_IN);
+                                        }
+                                    }
+                                }
+                            }
+
+                            contextManager.fireContextsChangedEvent();
+                        }
+                    }
+                    // TDQ-9629~
+
+                    refresh();
+                }
             }
 
         });
