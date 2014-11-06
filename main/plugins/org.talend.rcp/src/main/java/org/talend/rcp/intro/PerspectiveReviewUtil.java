@@ -63,6 +63,7 @@ import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.internal.IPreferenceConstants;
 import org.eclipse.ui.internal.IWorkbenchConstants;
+import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.internal.menus.MenuHelper;
@@ -185,7 +186,7 @@ public final class PerspectiveReviewUtil {
                     refreshAll();
                 }
 
-                // reset the new created perspective.
+                // FIXME TUP-2293, reset the new created perspective.
                 if (resetPerspectiveFlags.containsKey(pId)) {
                     Boolean flag = resetPerspectiveFlags.get(pId);
                     if (flag == null || !flag.booleanValue()) { // don't do
@@ -313,12 +314,12 @@ public final class PerspectiveReviewUtil {
 
     /**
      * 
-     * DOC ggu Comment method "checkPerspectiveDisplayItems".
+     * DOC ggu Comment method "createPerspectiveBars".
      * 
      * try to display several Talend official perspectives.
      */
 
-    public static void checkPerspectiveDisplayItems() {
+    public static void createPerspectiveBars() {
         // TUP-2293
         IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench instanceof org.eclipse.e4.ui.workbench.IWorkbench) {
@@ -330,6 +331,18 @@ public final class PerspectiveReviewUtil {
                 return;
             }
             MWindow mWindow = mApp.getSelectedElement();
+            if (mWindow == null) {
+                IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+                if (workbenchWindow != null) {
+                    IWorkbenchPage activePage = workbenchWindow.getActivePage();
+                    if (activePage != null && activePage instanceof WorkbenchPage) {
+                        mWindow = ((WorkbenchPage) activePage).getWindowModel();
+                    }
+                }
+            }
+            if (mWindow == null) {
+                return;
+            }
 
             List<MPerspectiveStack> perspStackList = modelService.findElements(mWindow, null, MPerspectiveStack.class, null);
             if (perspStackList.size() > 0) {
@@ -346,35 +359,8 @@ public final class PerspectiveReviewUtil {
                 // Camel
                 findAndCreatePerspective(mApp, perspectiveStack, IBrandingConfiguration.PERSPECTIVE_CAMEL_ID, validChildren);
 
-                List<MPerspective> children = perspectiveStack.getChildren();
-
-                // record the order of perspective.
-                Map<Integer, MPerspective> otherCustomPerspMap = new HashMap<Integer, MPerspective>();
-                // try add back other custom perspectives
-                for (int i = 0; i < children.size(); i++) {
-                    MPerspective p = children.get(i);
-                    if (!validChildren.contains(p)) { // not added, another custom
-                        otherCustomPerspMap.put(i, p);
-                    }// have added in front.
-                }
-
-                children.clear(); // clean other perspectives.
-                children.addAll(validChildren); // add back the valid perspectives.
-
-                // add the other costom perspective back
-                Iterator<Integer> iterator = otherCustomPerspMap.keySet().iterator();
-                while (iterator.hasNext()) {
-                    Integer index = iterator.next();
-                    if (index != null) {
-                        MPerspective persp = otherCustomPerspMap.get(index);
-                        // maybe this is not good, because after add, the original index have be changed.
-                        if (index < children.size()) {
-                            children.add(index, persp);
-                        } else {
-                            children.add(persp);
-                        }
-                    }
-                }
+                //
+                reoderPerspectives(perspectiveStack, validChildren);
 
             }
 
@@ -419,8 +405,8 @@ public final class PerspectiveReviewUtil {
                     }
                 }
                 /*
-                 * PTODO, if created, will be some problem for the perspective, like related view, action, etc... must
-                 * do reset for those perspective.
+                 * if created, will be some problem for the perspective, like related view, action, etc... must do reset
+                 * for those perspective.(need reset perspective is in resetPerspectiveFlags)
                  */
                 // create new
                 if (mPersp == null) { // FIXME copied some form method setPerspective of class WorkbenchPage
@@ -452,6 +438,38 @@ public final class PerspectiveReviewUtil {
 
             if (mPersp != null) {
                 validPerspList.add(mPersp);
+            }
+        }
+    }
+
+    private static void reoderPerspectives(MPerspectiveStack perspectiveStack, List<MPerspective> validChildren) {
+        List<MPerspective> children = perspectiveStack.getChildren();
+
+        // record the order of perspective.
+        Map<Integer, MPerspective> otherCustomPerspMap = new HashMap<Integer, MPerspective>();
+        // try add back other custom perspectives
+        for (int i = 0; i < children.size(); i++) {
+            MPerspective p = children.get(i);
+            if (!validChildren.contains(p)) { // not added, another custom
+                otherCustomPerspMap.put(i, p);
+            }// else { have added in front.
+        }
+
+        children.clear(); // clean other perspectives.
+        children.addAll(validChildren); // add back the valid perspectives.
+
+        // add back other costom perspectives
+        Iterator<Integer> iterator = otherCustomPerspMap.keySet().iterator();
+        while (iterator.hasNext()) {
+            Integer index = iterator.next();
+            if (index != null) {
+                MPerspective persp = otherCustomPerspMap.get(index);
+                // maybe this is not good, because after add, the original index have be changed.
+                if (index < children.size()) {
+                    children.add(index, persp);
+                } else {
+                    children.add(persp);
+                }
             }
         }
     }

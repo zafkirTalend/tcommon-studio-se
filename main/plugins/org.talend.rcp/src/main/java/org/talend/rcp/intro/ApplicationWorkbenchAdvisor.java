@@ -138,8 +138,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
             RegisterManagement.getInstance().validateRegistration();
         }
 
-        PerspectiveReviewUtil.checkPerspectiveDisplayItems();
-
         CommonsPlugin.setWorkbenchCreated(true);
         Job myJob = new Job("SVN update and commit on startup") {
 

@@ -204,6 +204,20 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     /*
      * (non-Javadoc)
      * 
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowCreate()
+     */
+    @Override
+    public void postWindowCreate() {
+        super.postWindowCreate();
+
+        // after window created, check the perspective bars
+        PerspectiveReviewUtil.createPerspectiveBars();
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
      */
     @Override
