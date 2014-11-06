@@ -955,18 +955,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
                 String temptableType = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
 
-                // for special db. teradata_sql_model/db2_zos
-                if (temptableType != null) {
-                    if ("T".equals(temptableType)) { //$NON-NLS-1$
-                        temptableType = ETableTypes.TABLETYPE_TABLE.getName();
-                    }
-                    if ("V".equals(temptableType)) { //$NON-NLS-1$
-                        temptableType = ETableTypes.TABLETYPE_VIEW.getName();
-                    }
-                    if ("A".equals(temptableType)) { //$NON-NLS-1$
-                        temptableType = ETableTypes.TABLETYPE_ALIAS.getName();
-                    }
-                }
+                // for special db. teradata_sql_model/db2_zos/as400
+                temptableType = convertSpecialTableType(temptableType);
                 // for
                 if (!isCreateElement(tableFilter, tableName)) {
                     continue;
@@ -1168,6 +1158,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (tables.next()) {
                 String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
                 String temptableType = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
+                // for special db. teradata_sql_model/db2_zos/as400
+                temptableType = convertSpecialTableType(temptableType);
                 // if TableType is view type don't create it at here.
                 if (TableType.VIEW.toString().equals(temptableType)) {
                     continue;
@@ -1238,6 +1230,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
                 String tableName = getStringFromResultSet(tables, GetTable.TABLE_NAME.name());
                 String type = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
+                // for special db. teradata_sql_model/db2_zos/as400
+                type = convertSpecialTableType(type);
                 if (!isCreateElement(viewFilter, tableName)) {
                     continue;
                 }
@@ -1723,6 +1717,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
             }
         }
+    }
+
+    private String convertSpecialTableType(String oldTableType) {
+        // for special db. teradata_sql_model/db2_zos/as400
+        if (oldTableType != null) {
+            // In the as400, "P" is one case for table
+            if ("T".equals(oldTableType) || "P".equals(oldTableType)) { //$NON-NLS-1$ //$NON-NLS-2$
+                return ETableTypes.TABLETYPE_TABLE.getName();
+            }
+            if ("V".equals(oldTableType)) { //$NON-NLS-1$
+                return ETableTypes.TABLETYPE_VIEW.getName();
+            }
+            if ("A".equals(oldTableType)) { //$NON-NLS-1$
+                return ETableTypes.TABLETYPE_ALIAS.getName();
+            }
+        }
+        return oldTableType;
     }
 
     /**
