@@ -60,6 +60,14 @@ public class RepositoryNodeUtilities {
 
     private final static String[] METADATA_LABELS = new String[] {};
 
+    private static IHadoopClusterService hadoopClusterService = null;
+    static {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+    }
+
     public static IPath getPath(RepositoryNode node) {
         if (node == null) {
             return null;
@@ -259,7 +267,15 @@ public class RepositoryNodeUtilities {
             return null;
         }
         RepositoryNode toReturn = getRepositoryNode(viewRootNode, curNode, monitor);
+
+        // try to find the node from the root type of node.
+        if (toReturn == null && viewRootNode instanceof IProjectRepositoryNode) {
+            IRepositoryNode typeNode = ((IProjectRepositoryNode) viewRootNode).getRootRepositoryNode(curNode
+                    .getRepositoryObjectType());
+            toReturn = getRepositoryNode(typeNode, curNode, monitor);
+        }
         viewRootNode = null;
+
         return toReturn;
     }
 
@@ -284,7 +300,8 @@ public class RepositoryNodeUtilities {
 
             for (IRepositoryNode childNode : children) {
                 RepositoryNode node = (RepositoryNode) childNode;
-                if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT) {
+                if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT
+                        || (hadoopClusterService != null && hadoopClusterService.isHadoopClusterNode(node))) {
                     folderChild.add(node);
                 } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
                     return node;
