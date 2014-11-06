@@ -48,6 +48,7 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.database.conn.version.EImpalaDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
@@ -412,6 +413,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
             if (dbType != EDatabaseTypeName.GENERAL_JDBC) {
                 String driverClass = ExtractMetaDataUtils.getInstance().getDriverClassByDbType(connection.getDatabaseType());
+                DatabaseConnection dbConnection = (DatabaseConnection) connectionItem.getConnection();
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.equals(dbType)
                         && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString())
@@ -421,7 +423,16 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .equals(connection.getDbVersionString()))) {
                     driverClass = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                 }
-                ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
+                if (EDatabaseTypeName.IMPALA.equals(dbType)) {
+                    String distributionName = dbConnection.getParameters().get(
+                            ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
+                    EImpalaDistributions distribution = EImpalaDistributions.getDistributionByName(distributionName, false);
+                    if (null != distribution && EImpalaDistributions.CUSTOM != distribution) {
+                        dbConnection.setDbVersionString(dbConnection.getParameters().get(
+                                ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION));
+                    }
+                }
+                dbConnection.setDriverClass(driverClass);
             }
             // ~19528
 

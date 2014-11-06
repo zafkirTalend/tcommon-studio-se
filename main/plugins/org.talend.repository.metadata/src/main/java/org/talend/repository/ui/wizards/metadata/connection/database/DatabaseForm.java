@@ -2254,6 +2254,11 @@ public class DatabaseForm extends AbstractForm {
                 versionStr = driver.getVersionValue();
             } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
                 urlConnectionStringText.setText(getStringConnection());
+                if (EImpalaDistributions.CUSTOM != EImpalaDistributions.getDistributionByName(impalaDistributionCombo.getText(),
+                        true)) {
+                    versionStr = EImpalaDistribution4Versions.indexOfByVersionDisplay(impalaVersionCombo.getText())
+                            .getVersionValue();
+                }
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {
