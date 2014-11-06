@@ -1038,7 +1038,7 @@ public class MetadataConnectionUtils {
                 }
                 EDatabaseTypeName currentEDatabaseType = EDatabaseTypeName.getTypeFromDbType(metaConnection.getDbType());
                 if (currentEDatabaseType != null) {
-                    MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(currentEDatabaseType);
+                    MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(metaConnection);
                     dbInstance.fillUIConnParams(metaConnection, dbConn);
                     sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
                     if (sqlConn != null) {
@@ -1051,10 +1051,10 @@ public class MetadataConnectionUtils {
                         }
 
                         if (sqlConn != null) {
-                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillCatalogs(dbConn, databaseMetaData,
-                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillSchemas(dbConn, databaseMetaData,
-                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
+                            dbInstance.fillCatalogs(dbConn, databaseMetaData, metaConnection,
+                                    MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
+                            dbInstance.fillSchemas(dbConn, databaseMetaData, metaConnection,
+                                    MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                         }
                     }
                 }
