@@ -363,6 +363,17 @@ public class ProjectNodeHelper {
     public static void addTableForTemCatalogOrSchema(String dbsid, String schema, DatabaseConnection connection,
             MetadataTable dbtable, IMetadataConnection iMetadataConnection) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
+        addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection, 1);
+    }
+
+    private static void addTableForTemCatalogOrSchema(String dbsid, String schema, DatabaseConnection connection,
+            MetadataTable dbtable, IMetadataConnection iMetadataConnection, int stackCount) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
+        if (3 < stackCount) {
+            // if loop count is more than 3 times, seems it will never end this loop, and will never get the dbsid and
+            // schema
+            return;
+        }
         boolean hasSchemaInCatalog = false;
         boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(iMetadataConnection.getDbType());
         Catalog c = (Catalog) ConnectionHelper.getPackage(dbsid, connection, Catalog.class);
@@ -407,12 +418,13 @@ public class ProjectNodeHelper {
                 }
                 // PackageHelper.addMetadataTable(dbtable, s);
             }
-        } else if (s == null && c == null && !isAccess) { // TDI-20584:after migration from 4.0 to 4.2,lost all catalogs
-                                                          // and schemas for database
+        } else if (s == null && c == null && !isAccess && stackCount == 1) { // TDI-20584:after migration from 4.0 to
+                                                                             // 4.2,lost all catalogs
+            // and schemas for database
             // in case after migration connetion from the version before 4.0,there is no any db structure on
             // temConnection,it will casue pbs,so sychronize with imetadataConnection
             fillCatalogAndSchemas(iMetadataConnection, connection);
-            addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection);
+            addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection, stackCount + 1);
         } else {
             /*
              * if there is no catalog or schema,create the structure correctly rather than always create a catalog,found
@@ -420,9 +432,10 @@ public class ProjectNodeHelper {
              */
             ProjectNodeHelper.addCatalogOrSchema(iMetadataConnection, connection);
             if (isAccess) {
-                addTableForTemCatalogOrSchema(dbsid, connection.getName(), connection, dbtable, iMetadataConnection);
+                addTableForTemCatalogOrSchema(dbsid, connection.getName(), connection, dbtable, iMetadataConnection,
+                        stackCount + 1);
             } else {
-                addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection);
+                addTableForTemCatalogOrSchema(dbsid, schema, connection, dbtable, iMetadataConnection, stackCount + 1);
             }
         }
     }
