@@ -5232,6 +5232,7 @@ public class DatabaseForm extends AbstractForm {
             }
             String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
                     EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
+            getConnection().setSID(defaultDatabase);
             sidOrDatabaseText.setText(defaultDatabase);
         }
     }
