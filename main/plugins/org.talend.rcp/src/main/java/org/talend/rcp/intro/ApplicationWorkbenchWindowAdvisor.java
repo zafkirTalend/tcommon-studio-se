@@ -210,9 +210,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowCreate() {
         super.postWindowCreate();
 
-        // after window created, check the perspective bars
-        PerspectiveReviewUtil.createPerspectiveBars();
-
     }
 
     /*
@@ -234,8 +231,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
-
-        PerspectiveReviewUtil.resetDefaultPerspective();
 
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         getWindowConfigurer()
@@ -279,7 +274,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // feature 18752
         regisitPerspectiveListener();
         // feature 19053
-        PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
 
         if (PluginChecker.isBPMloaded()) {
             IPath path = WorkbenchPlugin.getDefault().getDataLocation();
