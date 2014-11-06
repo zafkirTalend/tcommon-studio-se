@@ -380,12 +380,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         try {
-            if (dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
-                return catalogList;
-            }
-            // ODBC teradata dosen't support 'dbJDBCMetadata.getCatalogs()',return at here.
-            if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+            if (!isDbSupportCatalogNames(dbJDBCMetadata)) {
                 return catalogList;
             }
             ResultSet catalogNames = null;
@@ -556,6 +551,21 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return catalogList;
+    }
+
+    /**
+     * judge db support get catalogNames or not
+     * 
+     * @param dbJDBCMetadata
+     * @return
+     */
+    private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
+        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+            return false;
+        }
+        return true;
     }
 
     /**
