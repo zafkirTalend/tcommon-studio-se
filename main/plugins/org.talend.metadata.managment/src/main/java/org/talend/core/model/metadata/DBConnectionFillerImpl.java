@@ -575,11 +575,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * @return
      */
     private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
-        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())) {
-            return false;
-        }
-        // ODBC teradata dosen't support 'dbJDBCMetadata.getCatalogs()',return at here.
-        if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
             return false;
         }
         return true;
