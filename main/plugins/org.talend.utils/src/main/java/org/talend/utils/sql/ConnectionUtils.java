@@ -448,4 +448,24 @@ public final class ConnectionUtils {
         return false;
     }
 
+    /**
+     * return true if it is netezza.
+     * 
+     * @param dbJDBCMetadata
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isNetezza(DatabaseMetaData dbJDBCMetadata) {
+        try {
+            if (dbJDBCMetadata.getDriverName() != null
+                    && dbJDBCMetadata.getDriverName().toLowerCase().startsWith("netezza") //$NON-NLS-1$
+                    && dbJDBCMetadata.getDatabaseProductName() != null
+                    && dbJDBCMetadata.getDatabaseProductName().toLowerCase().startsWith("netezza")) { //$NON-NLS-1$
+                return true;
+            }
+        } catch (SQLException e) {
+            log.warn(e);
+        }
+        return false;
+    }
 }
