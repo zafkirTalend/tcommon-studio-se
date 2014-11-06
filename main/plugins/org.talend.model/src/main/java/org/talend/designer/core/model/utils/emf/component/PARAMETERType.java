@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNUMROW <em>NUMROW</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
@@ -40,7 +42,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getSHOWIF <em>SHOWIF</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}</li>
  * </ul>
  * </p>
  *
@@ -1036,5 +1037,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     boolean isSetRAW();
+
+    /**
+     * Returns the value of the '<em><b>LOG4J ENABLED</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>LOG4J ENABLED</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>LOG4J ENABLED</em>' attribute.
+     * @see #isSetLOG4J_ENABLED()
+     * @see #unsetLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_LOG4J_ENABLED()
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='LOG4J_ENABLED' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isLOG4J_ENABLED();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>LOG4J ENABLED</em>' attribute.
+     * @see #isSetLOG4J_ENABLED()
+     * @see #unsetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @generated
+     */
+    void setLOG4J_ENABLED(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @generated
+     */
+    void unsetLOG4J_ENABLED();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>LOG4J ENABLED</em>' attribute is set.
+     * @see #unsetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @generated
+     */
+    boolean isSetLOG4J_ENABLED();
 
 } // PARAMETERType

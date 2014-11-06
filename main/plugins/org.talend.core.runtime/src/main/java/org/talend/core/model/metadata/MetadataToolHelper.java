@@ -696,7 +696,15 @@ public final class MetadataToolHelper {
         if (connection != null) {
             if (connection instanceof SAPConnection) {
                 // Changed by Marvin Wang on Jun. 19, 2012 for subtask TDI-21657.
-                return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
+                // return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
+                if (tableName == null) {
+                    return null;
+                }
+                if (tableName.contains("/")) { //$NON-NLS-1$
+                    // if tableName contains "/", means the selected table name is from SAPFunction; else it is from SAP
+                    // table, then just go the common codes
+                    return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
+                }
             }
             Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
@@ -751,7 +759,7 @@ public final class MetadataToolHelper {
             return null;
         }
 
-        String[] split = tableName.split("/");
+        String[] split = tableName.split("/"); //$NON-NLS-1$
         if (split.length == 3) {
             functionName = split[0];
             String type = split[1];

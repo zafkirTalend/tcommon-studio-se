@@ -19,23 +19,23 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
-import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>MDM Connection</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getUsername <em>Username</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getPassword <em>Password</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getPort <em>Port</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getServer <em>Server</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getUniverse <em>Universe</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getDatamodel <em>Datamodel</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getDatacluster <em>Datacluster</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getSchemas <em>Schemas</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getProtocol <em>Protocol</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getContext <em>Context</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getUsername <em>Username</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getPassword <em>Password</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getPort <em>Port</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getServer <em>Server</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getUniverse <em>Universe</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getDatamodel <em>Datamodel</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getDatacluster <em>Datacluster
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getSchemas <em>Schemas</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getProtocol <em>Protocol</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,9 +44,9 @@ import org.talend.cwm.helper.ConnectionHelper;
 public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
-     * The default value of the '{@link #getUsername() <em>Username</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getUsername() <em>Username</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getUsername()
      * @generated
      * @ordered
@@ -54,9 +54,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String USERNAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUsername() <em>Username</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getUsername() <em>Username</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getUsername()
      * @generated
      * @ordered
@@ -64,9 +64,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String username = USERNAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -74,9 +74,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String PASSWORD_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -104,9 +104,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String port = PORT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getServer() <em>Server</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getServer() <em>Server</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getServer()
      * @generated
      * @ordered
@@ -114,9 +114,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String SERVER_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getServer() <em>Server</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getServer() <em>Server</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getServer()
      * @generated
      * @ordered
@@ -124,9 +124,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String server = SERVER_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getUniverse() <em>Universe</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getUniverse() <em>Universe</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getUniverse()
      * @generated
      * @ordered
@@ -134,9 +134,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String UNIVERSE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUniverse() <em>Universe</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getUniverse() <em>Universe</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getUniverse()
      * @generated
      * @ordered
@@ -144,9 +144,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String universe = UNIVERSE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDatamodel() <em>Datamodel</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDatamodel() <em>Datamodel</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatamodel()
      * @generated
      * @ordered
@@ -154,9 +154,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String DATAMODEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDatamodel() <em>Datamodel</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDatamodel() <em>Datamodel</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatamodel()
      * @generated
      * @ordered
@@ -164,9 +164,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String datamodel = DATAMODEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDatacluster() <em>Datacluster</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDatacluster() <em>Datacluster</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatacluster()
      * @generated
      * @ordered
@@ -174,9 +174,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String DATACLUSTER_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDatacluster() <em>Datacluster</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDatacluster() <em>Datacluster</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatacluster()
      * @generated
      * @ordered
@@ -184,9 +184,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected String datacluster = DATACLUSTER_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getSchemas() <em>Schemas</em>}' containment reference list.
-     * <!-- begin-user-doc
+     * The cached value of the '{@link #getSchemas() <em>Schemas</em>}' containment reference list. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
+     * 
      * @see #getSchemas()
      * @generated
      * @ordered
@@ -194,9 +194,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected EList<Concept> schemas;
 
     /**
-     * The default value of the '{@link #getProtocol() <em>Protocol</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getProtocol() <em>Protocol</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getProtocol()
      * @generated
      * @ordered
@@ -204,9 +204,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final MDMConnectionProtocol PROTOCOL_EDEFAULT = MDMConnectionProtocol.HTTP;
 
     /**
-     * The cached value of the '{@link #getProtocol() <em>Protocol</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getProtocol() <em>Protocol</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getProtocol()
      * @generated
      * @ordered
@@ -214,9 +214,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected MDMConnectionProtocol protocol = PROTOCOL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getContext() <em>Context</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getContext()
      * @generated
      * @ordered
@@ -224,9 +224,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     protected static final String CONTEXT_EDEFAULT = "talend/TalendPort";
 
     /**
-     * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContext() <em>Context</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getContext()
      * @generated
      * @ordered
@@ -235,6 +235,7 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected MDMConnectionImpl() {
@@ -243,15 +244,16 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.MDM_CONNECTION;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getUsername() {
@@ -260,52 +262,44 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setUsername(String newUsername) {
         String oldUsername = username;
         username = newUsername;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__USERNAME, oldUsername,
                     username));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @not generated
+     * generated
      */
     public String getPassword() {
-        // MOD xqliu 2010-07-07 bug 13826
-        String pwd = ConnectionHelper.getDecryptPassword(password);
-        return pwd == null ? password : pwd;
-        // ~ 13826
+        return password;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @not generated
-     */
-    public String getRawPassword() {
-        return password;
-        // ~ 16729
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPassword(String newPassword) {
         String oldPassword = password;
         password = newPassword;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__PASSWORD, oldPassword,
                     password));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getPort() {
@@ -314,17 +308,20 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setPort(String newPort) {
         String oldPort = port;
         port = newPort;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__PORT, oldPort, port));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getServer() {
@@ -333,17 +330,20 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setServer(String newServer) {
         String oldServer = server;
         server = newServer;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__SERVER, oldServer, server));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getUniverse() {
@@ -352,18 +352,21 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setUniverse(String newUniverse) {
         String oldUniverse = universe;
         universe = newUniverse;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__UNIVERSE, oldUniverse,
                     universe));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getDatamodel() {
@@ -372,18 +375,21 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDatamodel(String newDatamodel) {
         String oldDatamodel = datamodel;
         datamodel = newDatamodel;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__DATAMODEL, oldDatamodel,
                     datamodel));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getDatacluster() {
@@ -392,18 +398,21 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDatacluster(String newDatacluster) {
         String oldDatacluster = datacluster;
         datacluster = newDatacluster;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__DATACLUSTER, oldDatacluster,
                     datacluster));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<Concept> getSchemas() {
@@ -416,6 +425,7 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public MDMConnectionProtocol getProtocol() {
@@ -424,14 +434,16 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProtocol(MDMConnectionProtocol newProtocol) {
         MDMConnectionProtocol oldProtocol = protocol;
         protocol = newProtocol == null ? PROTOCOL_EDEFAULT : newProtocol;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__PROTOCOL, oldProtocol,
                     protocol));
+        }
     }
 
     /**
@@ -445,6 +457,7 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getContext() {
@@ -453,20 +466,22 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setContext(String newContext) {
         String oldContext = context;
         context = newContext;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.MDM_CONNECTION__CONTEXT, oldContext, context));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__SCHEMAS:
@@ -477,9 +492,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -508,10 +523,10 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -551,9 +566,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -592,9 +607,9 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -623,12 +638,13 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    @Override
     public String toString() {
-        if (eIsProxy())
+        if (eIsProxy()) {
             return super.toString();
+        }
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (Username: ");
@@ -658,7 +674,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated NOT
      */
-    @Override
     public String getPathname() {
         return pathname == null ? this.getConnectionString() : pathname;
     }
@@ -668,7 +683,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getConnectionTypeName()
      */
-    @Override
     public String getConnectionTypeName() {
         return "MDM"; //$NON-NLS-1$
     }

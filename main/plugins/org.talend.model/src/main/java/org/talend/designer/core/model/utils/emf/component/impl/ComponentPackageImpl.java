@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
@@ -437,15 +438,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getCOLUMNType_DEFAULT() {
-        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCOLUMNType_KEY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -454,7 +446,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_LENGTH() {
+    public EAttribute getCOLUMNType_KEY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -463,7 +455,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_NAME() {
+    public EAttribute getCOLUMNType_LENGTH() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -472,7 +464,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_NULLABLE() {
+    public EAttribute getCOLUMNType_NAME() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -481,7 +473,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_PATTERN() {
+    public EAttribute getCOLUMNType_NULLABLE() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -490,7 +482,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_PRECISION() {
+    public EAttribute getCOLUMNType_PATTERN() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -499,7 +491,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_READONLY() {
+    public EAttribute getCOLUMNType_PRECISION() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -508,7 +500,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_RELATEDENTITY() {
+    public EAttribute getCOLUMNType_READONLY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -517,7 +509,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_RELATIONSHIPTYPE() {
+    public EAttribute getCOLUMNType_RELATEDENTITY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -526,7 +518,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_TYPE() {
+    public EAttribute getCOLUMNType_RELATIONSHIPTYPE() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -535,8 +527,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_DBTYPE() {
+    public EAttribute getCOLUMNType_TYPE() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCOLUMNType_DBTYPE() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1175,15 +1176,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getHEADERType_MAINCODECALLED() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(10);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getHEADERType_NUMBERPARALLELIZE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1192,7 +1184,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_PARALLELIZE() {
+    public EAttribute getHEADERType_NUMBERPARALLELIZE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1201,7 +1193,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_PLATEFORM() {
+    public EAttribute getHEADERType_PARALLELIZE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1210,16 +1202,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_RELEASEDATE() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(14);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
+    public EAttribute getHEADERType_PLATEFORM() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(15);
     }
 
@@ -1228,16 +1211,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SERIAL() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(16);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getHEADERType_SHORTNAME() {
+    public EAttribute getHEADERType_RELEASEDATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(17);
     }
 
@@ -1246,7 +1220,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SINGLETON() {
+    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(18);
     }
 
@@ -1255,7 +1229,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STARTABLE() {
+    public EAttribute getHEADERType_SERIAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(19);
     }
 
@@ -1264,7 +1238,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STATUS() {
+    public EAttribute getHEADERType_SHORTNAME() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(20);
     }
 
@@ -1273,7 +1247,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SUBJOBCOLOR() {
+    public EAttribute getHEADERType_SINGLETON() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(21);
     }
 
@@ -1282,7 +1256,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SUBJOBTITLECOLOR() {
+    public EAttribute getHEADERType_STARTABLE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(22);
     }
 
@@ -1291,7 +1265,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_TECHNICAL() {
+    public EAttribute getHEADERType_STATUS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(23);
     }
 
@@ -1300,7 +1274,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
+    public EAttribute getHEADERType_SUBJOBCOLOR() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(24);
     }
 
@@ -1309,7 +1283,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VERSION() {
+    public EAttribute getHEADERType_SUBJOBTITLECOLOR() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(25);
     }
 
@@ -1318,16 +1292,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VISIBLE() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(26);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getHEADERType_TYPE() {
+    public EAttribute getHEADERType_TECHNICAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(27);
     }
 
@@ -1336,7 +1301,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_REDUCE() {
+    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(28);
     }
 
@@ -1345,7 +1310,25 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_PARTITIONING() {
+    public EAttribute getHEADERType_VERSION() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(30);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_VISIBLE() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(31);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_TYPE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(29);
     }
 
@@ -1354,8 +1337,35 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getHEADERType_REDUCE() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_PARTITIONING() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getHEADERType_SUPPORTS_DB_TYPE() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(30);
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(26);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_LOG4J_ENABLED() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -1373,7 +1383,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getIMPORTSType_REQUIREDIF() {
-        return (EAttribute)importsTypeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)importsTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1382,7 +1392,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EReference getIMPORTSType_IMPORT() {
-        return (EReference)importsTypeEClass.getEStructuralFeatures().get(1);
+        return (EReference)importsTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1391,7 +1401,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EReference getIMPORTSType_IMPORTS() {
-        return (EReference)importsTypeEClass.getEStructuralFeatures().get(2);
+        return (EReference)importsTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1454,24 +1464,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getIMPORTType_NAME() {
-        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getIMPORTType_REQUIRED() {
-        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getIMPORTType_SHOW() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -1480,8 +1472,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_UrlPath() {
+    public EAttribute getIMPORTType_REQUIRED() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIMPORTType_SHOW() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIMPORTType_UrlPath() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -1499,7 +1509,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getIMPORTType_MRREQUIRED() {
-        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1508,7 +1518,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getIMPORTType_MODULEGROUP() {
-        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1697,15 +1707,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getITEMType_READONLY() {
-        return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(9);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getITEMType_READONLYIF() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1714,7 +1715,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_REPOSITORYITEM() {
+    public EAttribute getITEMType_READONLYIF() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1723,7 +1724,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_SHOWIF() {
+    public EAttribute getITEMType_REPOSITORYITEM() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1732,7 +1733,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_VALUE() {
+    public EAttribute getITEMType_SHOWIF() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1741,8 +1742,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_RAW() {
+    public EAttribute getITEMType_VALUE() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getITEMType_RAW() {
+        return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1958,15 +1968,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getPARAMETERType_MAXLENGTH() {
-        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(12);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getPARAMETERType_NAME() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1975,7 +1976,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NBLINES() {
+    public EAttribute getPARAMETERType_NAME() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(14);
     }
 
@@ -1984,7 +1985,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NOCONTEXTASSIST() {
+    public EAttribute getPARAMETERType_NBLINES() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(15);
     }
 
@@ -1993,7 +1994,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NOTREADONLYIF() {
+    public EAttribute getPARAMETERType_NOCONTEXTASSIST() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(16);
     }
 
@@ -2002,7 +2003,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NOTSHOWIF() {
+    public EAttribute getPARAMETERType_NOTREADONLYIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(17);
     }
 
@@ -2011,7 +2012,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NUMROW() {
+    public EAttribute getPARAMETERType_NOTSHOWIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(18);
     }
 
@@ -2020,7 +2021,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_READONLY() {
+    public EAttribute getPARAMETERType_NUMROW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(19);
     }
 
@@ -2029,16 +2030,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_READONLYIF() {
-        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(20);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
+    public EAttribute getPARAMETERType_READONLY() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(21);
     }
 
@@ -2047,7 +2039,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REQUIRED() {
+    public EAttribute getPARAMETERType_READONLYIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(22);
     }
 
@@ -2056,7 +2048,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REQUIREDIF() {
+    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(23);
     }
 
@@ -2065,7 +2057,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOW() {
+    public EAttribute getPARAMETERType_REQUIRED() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(24);
     }
 
@@ -2074,7 +2066,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOWIF() {
+    public EAttribute getPARAMETERType_REQUIREDIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(25);
     }
 
@@ -2083,8 +2075,35 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_RAW() {
+    public EAttribute getPARAMETERType_SHOW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(26);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_SHOWIF() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(27);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_RAW() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(20);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_LOG4J_ENABLED() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -2174,7 +2193,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getRETURNType_TYPE() {
-        return (EAttribute)returnTypeEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)returnTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2183,7 +2202,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getRETURNType_SHOWIF() {
-        return (EAttribute)returnTypeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)returnTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2470,6 +2489,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         columnTypeEClass = createEClass(COLUMN_TYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__COMMENT);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__CUSTOM);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__DBTYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__DEFAULT);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__KEY);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__LENGTH);
@@ -2481,7 +2501,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATEDENTITY);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__RELATIONSHIPTYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__TYPE);
-        createEAttribute(columnTypeEClass, COLUMN_TYPE__DBTYPE);
 
         componentTypeEClass = createEClass(COMPONENT_TYPE);
         createEReference(componentTypeEClass, COMPONENT_TYPE__HEADER);
@@ -2561,10 +2580,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__HASCONDITIONALOUTPUTS);
         createEAttribute(headerTypeEClass, HEADER_TYPE__HASHCOMPONENT);
         createEAttribute(headerTypeEClass, HEADER_TYPE__ISMULTIPLYINGOUTPUTS);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__LOG4J_ENABLED);
         createEAttribute(headerTypeEClass, HEADER_TYPE__MAINCODECALLED);
         createEAttribute(headerTypeEClass, HEADER_TYPE__NUMBERPARALLELIZE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__PARALLELIZE);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__PARTITIONING);
         createEAttribute(headerTypeEClass, HEADER_TYPE__PLATEFORM);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__REDUCE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__RELEASEDATE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SCHEMAAUTOPROPAGATE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SERIAL);
@@ -2574,19 +2596,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__STATUS);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SUBJOBCOLOR);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SUBJOBTITLECOLOR);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__SUPPORTS_DB_TYPE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__TECHNICAL);
         createEAttribute(headerTypeEClass, HEADER_TYPE__TSTATCATCHERSTATS);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__TYPE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__VERSION);
         createEAttribute(headerTypeEClass, HEADER_TYPE__VISIBLE);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__TYPE);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__REDUCE);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__PARTITIONING);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__SUPPORTS_DB_TYPE);
 
         importsTypeEClass = createEClass(IMPORTS_TYPE);
-        createEAttribute(importsTypeEClass, IMPORTS_TYPE__REQUIREDIF);
         createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORT);
         createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORTS);
+        createEAttribute(importsTypeEClass, IMPORTS_TYPE__REQUIREDIF);
 
         importTypeEClass = createEClass(IMPORT_TYPE);
         createEReference(importTypeEClass, IMPORT_TYPE__INSTALL);
@@ -2594,13 +2614,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(importTypeEClass, IMPORT_TYPE__BUNDLE_ID);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MESSAGE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MODULE);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__MODULEGROUP);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__MRREQUIRED);
         createEAttribute(importTypeEClass, IMPORT_TYPE__NAME);
         createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIRED);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIREDIF);
         createEAttribute(importTypeEClass, IMPORT_TYPE__SHOW);
         createEAttribute(importTypeEClass, IMPORT_TYPE__URL_PATH);
-        createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIREDIF);
-        createEAttribute(importTypeEClass, IMPORT_TYPE__MRREQUIRED);
-        createEAttribute(importTypeEClass, IMPORT_TYPE__MODULEGROUP);
 
         installTypeEClass = createEClass(INSTALL_TYPE);
         createEAttribute(installTypeEClass, INSTALL_TYPE__COMMAND);
@@ -2624,12 +2644,12 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(itemTypeEClass, ITEM_TYPE__NOCONTEXTASSIST);
         createEAttribute(itemTypeEClass, ITEM_TYPE__NOTREADONLYIF);
         createEAttribute(itemTypeEClass, ITEM_TYPE__NOTSHOWIF);
+        createEAttribute(itemTypeEClass, ITEM_TYPE__RAW);
         createEAttribute(itemTypeEClass, ITEM_TYPE__READONLY);
         createEAttribute(itemTypeEClass, ITEM_TYPE__READONLYIF);
         createEAttribute(itemTypeEClass, ITEM_TYPE__REPOSITORYITEM);
         createEAttribute(itemTypeEClass, ITEM_TYPE__SHOWIF);
         createEAttribute(itemTypeEClass, ITEM_TYPE__VALUE);
-        createEAttribute(itemTypeEClass, ITEM_TYPE__RAW);
 
         javacommandTypeEClass = createEClass(JAVACOMMAND_TYPE);
         createEReference(javacommandTypeEClass, JAVACOMMAND_TYPE__ARG);
@@ -2657,6 +2677,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__FIELD);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__FILTER);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__GROUP);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__LOG4J_ENABLED);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__MAXLENGTH);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NAME);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NBLINES);
@@ -2664,6 +2685,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NOTREADONLYIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NOTSHOWIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NUMROW);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__RAW);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__READONLY);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__READONLYIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REPOSITORYVALUE);
@@ -2671,7 +2693,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REQUIREDIF);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOW);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOWIF);
-        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__RAW);
 
         plugindependenciesTypeEClass = createEClass(PLUGINDEPENDENCIES_TYPE);
         createEReference(plugindependenciesTypeEClass, PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY);
@@ -2685,8 +2706,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         returnTypeEClass = createEClass(RETURN_TYPE);
         createEAttribute(returnTypeEClass, RETURN_TYPE__AVAILABILITY);
         createEAttribute(returnTypeEClass, RETURN_TYPE__NAME);
-        createEAttribute(returnTypeEClass, RETURN_TYPE__TYPE);
         createEAttribute(returnTypeEClass, RETURN_TYPE__SHOWIF);
+        createEAttribute(returnTypeEClass, RETURN_TYPE__TYPE);
 
         sqltemplatesTypeEClass = createEClass(SQLTEMPLATES_TYPE);
         createEReference(sqltemplatesTypeEClass, SQLTEMPLATES_TYPE__SQLTEMPLATE);
@@ -2764,6 +2785,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(columnTypeEClass, COLUMNType.class, "COLUMNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getCOLUMNType_COMMENT(), theXMLTypePackage.getString(), "cOMMENT", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_CUSTOM(), theXMLTypePackage.getBoolean(), "cUSTOM", "false", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCOLUMNType_DBTYPE(), theXMLTypePackage.getString(), "dBTYPE", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_DEFAULT(), theXMLTypePackage.getString(), "dEFAULT", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_KEY(), theXMLTypePackage.getBoolean(), "kEY", "false", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_LENGTH(), theXMLTypePackage.getInt(), "lENGTH", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2775,7 +2797,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getCOLUMNType_RELATEDENTITY(), theXMLTypePackage.getString(), "rELATEDENTITY", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_RELATIONSHIPTYPE(), theXMLTypePackage.getString(), "rELATIONSHIPTYPE", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCOLUMNType_DBTYPE(), theXMLTypePackage.getString(), "dBTYPE", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(componentTypeEClass, COMPONENTType.class, "COMPONENTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCOMPONENTType_HEADER(), this.getHEADERType(), null, "hEADER", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2855,10 +2876,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_HASCONDITIONALOUTPUTS(), theXMLTypePackage.getBoolean(), "hASCONDITIONALOUTPUTS", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_HASHCOMPONENT(), theXMLTypePackage.getBoolean(), "hASHCOMPONENT", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_ISMULTIPLYINGOUTPUTS(), theXMLTypePackage.getBoolean(), "iSMULTIPLYINGOUTPUTS", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_LOG4J_ENABLED(), theXMLTypePackage.getBoolean(), "lOG4J_ENABLED", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_MAINCODECALLED(), theXMLTypePackage.getBoolean(), "mAINCODECALLED", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_NUMBERPARALLELIZE(), theXMLTypePackage.getString(), "nUMBERPARALLELIZE", "2", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_PARALLELIZE(), theXMLTypePackage.getBoolean(), "pARALLELIZE", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_PARTITIONING(), ecorePackage.getEString(), "pARTITIONING", "AUTO", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_PLATEFORM(), theXMLTypePackage.getString(), "pLATEFORM", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_REDUCE(), ecorePackage.getEBoolean(), "rEDUCE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_RELEASEDATE(), theXMLTypePackage.getString(), "rELEASEDATE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_SCHEMAAUTOPROPAGATE(), theXMLTypePackage.getBoolean(), "sCHEMAAUTOPROPAGATE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_SERIAL(), theXMLTypePackage.getString(), "sERIAL", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2868,19 +2892,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_STATUS(), theXMLTypePackage.getString(), "sTATUS", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_SUBJOBCOLOR(), theXMLTypePackage.getString(), "sUBJOBCOLOR", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_SUBJOBTITLECOLOR(), theXMLTypePackage.getString(), "sUBJOBTITLECOLOR", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_SUPPORTS_DB_TYPE(), theXMLTypePackage.getBoolean(), "sUPPORTS_DB_TYPE", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_TECHNICAL(), theXMLTypePackage.getBoolean(), "tECHNICAL", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_TSTATCATCHERSTATS(), theXMLTypePackage.getBoolean(), "tSTATCATCHERSTATS", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_VERSION(), theXMLTypePackage.getDecimal(), "vERSION", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_VISIBLE(), theXMLTypePackage.getBoolean(), "vISIBLE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_TYPE(), ecorePackage.getEString(), "tYPE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_REDUCE(), ecorePackage.getEBoolean(), "rEDUCE", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_PARTITIONING(), ecorePackage.getEString(), "pARTITIONING", "AUTO", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_SUPPORTS_DB_TYPE(), theXMLTypePackage.getBoolean(), "sUPPORTS_DB_TYPE", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importsTypeEClass, IMPORTSType.class, "IMPORTSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getIMPORTSType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIMPORTSType_IMPORT(), this.getIMPORTType(), null, "iMPORT", null, 0, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIMPORTSType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTSType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importTypeEClass, IMPORTType.class, "IMPORTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIMPORTType_INSTALL(), this.getINSTALLType(), null, "iNSTALL", null, 0, -1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2888,13 +2910,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getIMPORTType_BundleID(), theXMLTypePackage.getString(), "bundleID", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MESSAGE(), theXMLTypePackage.getString(), "mESSAGE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MODULE(), theXMLTypePackage.getString(), "mODULE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_MODULEGROUP(), theXMLTypePackage.getString(), "mODULEGROUP", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_MRREQUIRED(), theXMLTypePackage.getBoolean(), "mRREQUIRED", "false", 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_REQUIRED(), theXMLTypePackage.getBoolean(), "rEQUIRED", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_SHOW(), theXMLTypePackage.getBoolean(), "sHOW", "true", 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_UrlPath(), theXMLTypePackage.getString(), "urlPath", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIMPORTType_REQUIREDIF(), ecorePackage.getEString(), "rEQUIREDIF", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIMPORTType_MRREQUIRED(), theXMLTypePackage.getBoolean(), "mRREQUIRED", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIMPORTType_MODULEGROUP(), ecorePackage.getEString(), "mODULEGROUP", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(installTypeEClass, INSTALLType.class, "INSTALLType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getINSTALLType_COMMAND(), theXMLTypePackage.getString(), "cOMMAND", null, 1, 1, INSTALLType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2918,12 +2940,12 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getITEMType_NOCONTEXTASSIST(), theXMLTypePackage.getBoolean(), "nOCONTEXTASSIST", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_NOTREADONLYIF(), theXMLTypePackage.getString(), "nOTREADONLYIF", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_NOTSHOWIF(), theXMLTypePackage.getString(), "nOTSHOWIF", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getITEMType_RAW(), theXMLTypePackage.getBoolean(), "rAW", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_READONLY(), theXMLTypePackage.getBoolean(), "rEADONLY", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_READONLYIF(), theXMLTypePackage.getString(), "rEADONLYIF", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_REPOSITORYITEM(), theXMLTypePackage.getString(), "rEPOSITORYITEM", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_VALUE(), theXMLTypePackage.getString(), "vALUE", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getITEMType_RAW(), theXMLTypePackage.getBoolean(), "rAW", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(javacommandTypeEClass, JAVACOMMANDType.class, "JAVACOMMANDType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getJAVACOMMANDType_ARG(), this.getARGType(), null, "aRG", null, 0, -1, JAVACOMMANDType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2951,6 +2973,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getPARAMETERType_FIELD(), theXMLTypePackage.getString(), "fIELD", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_FILTER(), theXMLTypePackage.getString(), "fILTER", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_GROUP(), theXMLTypePackage.getString(), "gROUP", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_LOG4J_ENABLED(), theXMLTypePackage.getBoolean(), "lOG4J_ENABLED", "true", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_MAXLENGTH(), theXMLTypePackage.getInt(), "mAXLENGTH", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_NBLINES(), theXMLTypePackage.getInt(), "nBLINES", "3", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2958,6 +2981,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getPARAMETERType_NOTREADONLYIF(), theXMLTypePackage.getString(), "nOTREADONLYIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_NOTSHOWIF(), theXMLTypePackage.getString(), "nOTSHOWIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_NUMROW(), theXMLTypePackage.getInt(), "nUMROW", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_RAW(), theXMLTypePackage.getBoolean(), "rAW", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_READONLY(), theXMLTypePackage.getBoolean(), "rEADONLY", "false", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_READONLYIF(), theXMLTypePackage.getString(), "rEADONLYIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_REPOSITORYVALUE(), theXMLTypePackage.getString(), "rEPOSITORYVALUE", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2965,7 +2989,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getPARAMETERType_REQUIREDIF(), theXMLTypePackage.getString(), "rEQUIREDIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOW(), theXMLTypePackage.getBoolean(), "sHOW", "true", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getPARAMETERType_RAW(), theXMLTypePackage.getBoolean(), "rAW", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(plugindependenciesTypeEClass, PLUGINDEPENDENCIESType.class, "PLUGINDEPENDENCIESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY(), this.getPLUGINDEPENDENCYType(), null, "pLUGINDEPENDENCY", null, 0, -1, PLUGINDEPENDENCIESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2979,8 +3002,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(returnTypeEClass, RETURNType.class, "RETURNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRETURNType_AVAILABILITY(), theXMLTypePackage.getString(), "aVAILABILITY", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getRETURNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getRETURNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sqltemplatesTypeEClass, SQLTEMPLATESType.class, "SQLTEMPLATESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSQLTEMPLATESType_SQLTEMPLATE(), this.getSQLTEMPLATEType(), null, "sQLTEMPLATE", null, 0, -1, SQLTEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3030,20 +3053,20 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     protected void createExtendedMetaDataAnnotations() {
-        String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
+        String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";	
         addAnnotation
           (this, 
            source, 
            new String[] {
              "qualified", "false"
-           });		
+           });	
         addAnnotation
           (advancedparametersTypeEClass, 
            source, 
            new String[] {
              "name", "ADVANCED_PARAMETERS_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getADVANCEDPARAMETERSType_PARAMETER(), 
            source, 
@@ -3051,28 +3074,28 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PARAMETER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (argTypeEClass, 
            source, 
            new String[] {
              "name", "ARG_._type",
              "kind", "simple"
-           });		
+           });	
         addAnnotation
           (getARGType_Value(), 
            source, 
            new String[] {
              "name", ":0",
              "kind", "simple"
-           });		
+           });	
         addAnnotation
           (codegenerationTypeEClass, 
            source, 
            new String[] {
              "name", "CODEGENERATION_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getCODEGENERATIONType_TEMPLATES(), 
            source, 
@@ -3080,7 +3103,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "TEMPLATES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCODEGENERATIONType_IMPORTS(), 
            source, 
@@ -3088,14 +3111,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "IMPORTS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (columnTypeEClass, 
            source, 
            new String[] {
              "name", "COLUMN_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getCOLUMNType_COMMENT(), 
            source, 
@@ -3103,7 +3126,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COMMENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOLUMNType_CUSTOM(), 
            source, 
@@ -3111,95 +3134,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CUSTOM",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_DEFAULT(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "DEFAULT",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_KEY(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "KEY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_LENGTH(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "LENGTH",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_NAME(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "NAME",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_NULLABLE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "NULLABLE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_PATTERN(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "PATTERN",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_PRECISION(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "PRECISION",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_READONLY(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READONLY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_RELATEDENTITY(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "RELATEDENTITY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_RELATIONSHIPTYPE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "RELATIONSHIPTYPE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOLUMNType_TYPE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "TYPE",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOLUMNType_DBTYPE(), 
            source, 
@@ -3207,14 +3142,102 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DBTYPE",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getCOLUMNType_DEFAULT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "DEFAULT",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_KEY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "KEY",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_LENGTH(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "LENGTH",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_NAME(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "NAME",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_NULLABLE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "NULLABLE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_PATTERN(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "PATTERN",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_PRECISION(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "PRECISION",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_READONLY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READONLY",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_RELATEDENTITY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "RELATEDENTITY",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_RELATIONSHIPTYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "RELATIONSHIPTYPE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getCOLUMNType_TYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TYPE",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (componentTypeEClass, 
            source, 
            new String[] {
              "name", "COMPONENT_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_HEADER(), 
            source, 
@@ -3222,7 +3245,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "HEADER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_FAMILIES(), 
            source, 
@@ -3230,7 +3253,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "FAMILIES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_DOCUMENTATION(), 
            source, 
@@ -3238,7 +3261,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "DOCUMENTATION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_CONNECTORS(), 
            source, 
@@ -3246,7 +3269,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "CONNECTORS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_SQLTEMPLATES(), 
            source, 
@@ -3254,7 +3277,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "SQLTEMPLATES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_PARAMETERS(), 
            source, 
@@ -3262,7 +3285,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PARAMETERS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_ADVANCEDPARAMETERS(), 
            source, 
@@ -3270,7 +3293,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ADVANCED_PARAMETERS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_CODEGENERATION(), 
            source, 
@@ -3278,7 +3301,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "CODEGENERATION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_RETURNS(), 
            source, 
@@ -3286,7 +3309,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "RETURNS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCOMPONENTType_PLUGINDEPENDENCIES(), 
            source, 
@@ -3294,14 +3317,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PLUGINDEPENDENCIES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (connectorsTypeEClass, 
            source, 
            new String[] {
              "name", "CONNECTORS_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getCONNECTORSType_CONNECTOR(), 
            source, 
@@ -3309,14 +3332,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "CONNECTOR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (connectorTypeEClass, 
            source, 
            new String[] {
              "name", "CONNECTOR_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_BASESCHEMA(), 
            source, 
@@ -3324,7 +3347,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BASE_SCHEMA",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_BUILTIN(), 
            source, 
@@ -3332,7 +3355,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BUILTIN",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_COLOR(), 
            source, 
@@ -3340,7 +3363,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COLOR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_COMPONENT(), 
            source, 
@@ -3348,7 +3371,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COMPONENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_CTYPE(), 
            source, 
@@ -3356,7 +3379,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CTYPE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_INPUTLINKSELECTION(), 
            source, 
@@ -3364,7 +3387,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "INPUT_LINK_SELECTION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_LINESTYLE(), 
            source, 
@@ -3372,7 +3395,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "LINE_STYLE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MAXINPUT(), 
            source, 
@@ -3380,7 +3403,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MAX_INPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MAXOUTPUT(), 
            source, 
@@ -3388,7 +3411,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MAX_OUTPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MERGEALLOWDIFFERENTSCHEMA(), 
            source, 
@@ -3396,7 +3419,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MERGE_ALLOW_DIFFERENT_SCHEMA",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MININPUT(), 
            source, 
@@ -3404,7 +3427,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MIN_INPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MINOUTPUT(), 
            source, 
@@ -3412,7 +3435,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MIN_OUTPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_MULTISCHEMA(), 
            source, 
@@ -3420,7 +3443,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MULTI_SCHEMA",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_NAME(), 
            source, 
@@ -3428,7 +3451,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_NOTSHOWIF(), 
            source, 
@@ -3436,7 +3459,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_SHOW_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getCONNECTORType_SHOWIF(), 
            source, 
@@ -3444,21 +3467,21 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "SHOW_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (defaultTypeEClass, 
            source, 
            new String[] {
              "name", "DEFAULT_._type",
              "kind", "simple"
-           });		
+           });	
         addAnnotation
           (getDEFAULTType_Value(), 
            source, 
            new String[] {
              "name", ":0",
              "kind", "simple"
-           });		
+           });	
         addAnnotation
           (getDEFAULTType_IF(), 
            source, 
@@ -3466,7 +3489,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDEFAULTType_NOTIF(), 
            source, 
@@ -3474,14 +3497,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (documentationTypeEClass, 
            source, 
            new String[] {
              "name", "DOCUMENTATION_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getDOCUMENTATIONType_URL(), 
            source, 
@@ -3489,35 +3512,35 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "URL",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (documentRootEClass, 
            source, 
            new String[] {
              "name", "",
              "kind", "mixed"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_Mixed(), 
            source, 
            new String[] {
              "kind", "elementWildcard",
              "name", ":mixed"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_XMLNSPrefixMap(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "xmlns:prefix"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_XSISchemaLocation(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "xsi:schemaLocation"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_ADVANCEDPARAMETERS(), 
            source, 
@@ -3525,7 +3548,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ADVANCED_PARAMETERS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_CODEGENERATION(), 
            source, 
@@ -3533,7 +3556,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "CODEGENERATION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_COMPONENT(), 
            source, 
@@ -3541,7 +3564,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "COMPONENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_CONNECTORS(), 
            source, 
@@ -3549,7 +3572,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "CONNECTORS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_DOCUMENTATION(), 
            source, 
@@ -3557,7 +3580,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "DOCUMENTATION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_FAMILIES(), 
            source, 
@@ -3565,7 +3588,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "FAMILIES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_HEADER(), 
            source, 
@@ -3573,7 +3596,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "HEADER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_ITEMS(), 
            source, 
@@ -3581,7 +3604,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ITEMS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_PARAMETER(), 
            source, 
@@ -3589,7 +3612,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PARAMETER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_PARAMETERS(), 
            source, 
@@ -3597,7 +3620,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PARAMETERS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_PLUGINDEPENDENCIES(), 
            source, 
@@ -3605,7 +3628,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PLUGINDEPENDENCIES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_RETURNS(), 
            source, 
@@ -3613,7 +3636,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "RETURNS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getDocumentRoot_SQLTEMPLATES(), 
            source, 
@@ -3621,14 +3644,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "SQLTEMPLATES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (familiesTypeEClass, 
            source, 
            new String[] {
              "name", "FAMILIES_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getFAMILIESType_FAMILY(), 
            source, 
@@ -3636,14 +3659,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "FAMILY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (formatTypeEClass, 
            source, 
            new String[] {
              "name", "FORMAT_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getFORMATType_CONNECTION(), 
            source, 
@@ -3651,7 +3674,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONNECTION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getFORMATType_HINT(), 
            source, 
@@ -3659,7 +3682,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "HINT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getFORMATType_LABEL(), 
            source, 
@@ -3667,14 +3690,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "LABEL",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (headerTypeEClass, 
            source, 
            new String[] {
              "name", "HEADER_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getHEADERType_SIGNATURE(), 
            source, 
@@ -3682,7 +3705,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "SIGNATURE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_FORMAT(), 
            source, 
@@ -3690,7 +3713,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "FORMAT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_AUTHOR(), 
            source, 
@@ -3698,7 +3721,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "AUTHOR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_COMBINE(), 
            source, 
@@ -3706,7 +3729,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COMBINE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_COMPATIBILITY(), 
            source, 
@@ -3714,7 +3737,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COMPATIBILITY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_DATAAUTOPROPAGATE(), 
            source, 
@@ -3722,7 +3745,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DATA_AUTO_PROPAGATE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_EXTENSION(), 
            source, 
@@ -3730,7 +3753,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "EXTENSION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_HASCONDITIONALOUTPUTS(), 
            source, 
@@ -3738,7 +3761,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "HAS_CONDITIONAL_OUTPUTS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_HASHCOMPONENT(), 
            source, 
@@ -3746,7 +3769,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "HASH_COMPONENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_ISMULTIPLYINGOUTPUTS(), 
            source, 
@@ -3754,7 +3777,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "IS_MULTIPLYING_OUTPUTS",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getHEADERType_LOG4J_ENABLED(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "LOG4J_ENABLED",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (getHEADERType_MAINCODECALLED(), 
            source, 
@@ -3762,7 +3793,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MAIN_CODE_CALLED",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_NUMBERPARALLELIZE(), 
            source, 
@@ -3770,7 +3801,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NUMBER_PARALLELIZE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_PARALLELIZE(), 
            source, 
@@ -3778,135 +3809,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "PARALLELIZE",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_PLATEFORM(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "PLATEFORM",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_RELEASEDATE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "RELEASE_DATE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SCHEMAAUTOPROPAGATE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SCHEMA_AUTO_PROPAGATE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SERIAL(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SERIAL",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SHORTNAME(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SHORTNAME",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SINGLETON(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SINGLETON",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_STARTABLE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "STARTABLE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_STATUS(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "STATUS",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SUBJOBCOLOR(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SUBJOB_COLOR",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_SUBJOBTITLECOLOR(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SUBJOB_TITLE_COLOR",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_TECHNICAL(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "TECHNICAL",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_TSTATCATCHERSTATS(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "TSTATCATCHER_STATS",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_VERSION(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "VERSION",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_VISIBLE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "VISIBLE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_TYPE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "TYPE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_REDUCE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REDUCE",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getHEADERType_PARTITIONING(), 
            source, 
@@ -3914,7 +3817,95 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "PARTITIONING",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getHEADERType_PLATEFORM(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "PLATEFORM",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_REDUCE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REDUCE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_RELEASEDATE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "RELEASE_DATE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SCHEMAAUTOPROPAGATE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SCHEMA_AUTO_PROPAGATE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SERIAL(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SERIAL",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SHORTNAME(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHORTNAME",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SINGLETON(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SINGLETON",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_STARTABLE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "STARTABLE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_STATUS(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "STATUS",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SUBJOBCOLOR(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SUBJOB_COLOR",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_SUBJOBTITLECOLOR(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SUBJOB_TITLE_COLOR",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (getHEADERType_SUPPORTS_DB_TYPE(), 
            source, 
@@ -3922,22 +3913,54 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "SUPPORTS_DB_TYPE",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getHEADERType_TECHNICAL(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TECHNICAL",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_TSTATCATCHERSTATS(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TSTATCATCHER_STATS",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_TYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TYPE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_VERSION(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "VERSION",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getHEADERType_VISIBLE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "VISIBLE",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (importsTypeEClass, 
            source, 
            new String[] {
              "name", "IMPORTS_._type",
              "kind", "elementOnly"
-           });		
-        addAnnotation
-          (getIMPORTSType_REQUIREDIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REQUIRED_IF",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTSType_IMPORT(), 
            source, 
@@ -3945,7 +3968,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "IMPORT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTSType_IMPORTS(), 
            source, 
@@ -3953,14 +3976,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "IMPORTS",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getIMPORTSType_REQUIREDIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED_IF",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (importTypeEClass, 
            source, 
            new String[] {
              "name", "IMPORT_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_INSTALL(), 
            source, 
@@ -3968,7 +3999,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "INSTALL",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_URL(), 
            source, 
@@ -3976,7 +4007,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "URL",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_BundleID(), 
            source, 
@@ -3984,7 +4015,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BundleID",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_MESSAGE(), 
            source, 
@@ -3992,7 +4023,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MESSAGE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_MODULE(), 
            source, 
@@ -4000,55 +4031,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MODULE",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_NAME(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "NAME",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_REQUIRED(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REQUIRED",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_SHOW(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SHOW",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_UrlPath(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "UrlPath",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_REQUIREDIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REQUIRED_IF",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getIMPORTType_MRREQUIRED(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "MRREQUIRED",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getIMPORTType_MODULEGROUP(), 
            source, 
@@ -4056,14 +4039,62 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MODULE_GROUP",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getIMPORTType_MRREQUIRED(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "MRREQUIRED",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getIMPORTType_NAME(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "NAME",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getIMPORTType_REQUIRED(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getIMPORTType_REQUIREDIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED_IF",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getIMPORTType_SHOW(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getIMPORTType_UrlPath(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "UrlPath",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (installTypeEClass, 
            source, 
            new String[] {
              "name", "INSTALL_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getINSTALLType_COMMAND(), 
            source, 
@@ -4071,7 +4102,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "COMMAND",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getINSTALLType_OS(), 
            source, 
@@ -4079,14 +4110,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "OS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (itemsTypeEClass, 
            source, 
            new String[] {
              "name", "ITEMS_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getITEMSType_ITEM(), 
            source, 
@@ -4094,7 +4125,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ITEM",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMSType_BASEDONINPUTSCHEMAS(), 
            source, 
@@ -4102,7 +4133,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BASED_ON_INPUT_SCHEMAS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMSType_BASEDONSCHEMA(), 
            source, 
@@ -4110,7 +4141,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BASED_ON_SCHEMA",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMSType_BASEDONSUBJOBSTARTS(), 
            source, 
@@ -4118,7 +4149,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BASED_ON_SUBJOB_STARTS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMSType_COLUMNSBASEDONSCHEMA(), 
            source, 
@@ -4126,7 +4157,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COLUMNS_BASED_ON_SCHEMA",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMSType_DEFAULT(), 
            source, 
@@ -4134,14 +4165,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DEFAULT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (itemTypeEClass, 
            source, 
            new String[] {
              "name", "ITEM_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getITEMType_ITEMS(), 
            source, 
@@ -4149,7 +4180,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ITEMS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_CONTEXT(), 
            source, 
@@ -4157,7 +4188,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONTEXT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_DISPLAYNAMEASVALUE(), 
            source, 
@@ -4165,7 +4196,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DISPLAY_NAME_AS_VALUE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_FIELD(), 
            source, 
@@ -4173,7 +4204,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "FIELD",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_FILTER(), 
            source, 
@@ -4181,7 +4212,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "FILTER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_NAME(), 
            source, 
@@ -4189,7 +4220,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_NOCONTEXTASSIST(), 
            source, 
@@ -4197,7 +4228,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NO_CONTEXT_ASSIST",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_NOTREADONLYIF(), 
            source, 
@@ -4205,7 +4236,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_READONLY_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_NOTSHOWIF(), 
            source, 
@@ -4213,47 +4244,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_SHOW_IF",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getITEMType_READONLY(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READONLY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getITEMType_READONLYIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READONLY_IF",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getITEMType_REPOSITORYITEM(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REPOSITORY_ITEM",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getITEMType_SHOWIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SHOW_IF",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getITEMType_VALUE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "VALUE",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getITEMType_RAW(), 
            source, 
@@ -4261,14 +4252,54 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "RAW",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getITEMType_READONLY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READONLY",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getITEMType_READONLYIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READONLY_IF",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getITEMType_REPOSITORYITEM(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REPOSITORY_ITEM",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getITEMType_SHOWIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW_IF",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getITEMType_VALUE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "VALUE",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (javacommandTypeEClass, 
            source, 
            new String[] {
              "name", "JAVACOMMAND_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getJAVACOMMANDType_ARG(), 
            source, 
@@ -4276,7 +4307,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ARG",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getJAVACOMMANDType_CLASS(), 
            source, 
@@ -4284,7 +4315,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CLASS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getJAVACOMMANDType_FUNCTION(), 
            source, 
@@ -4292,7 +4323,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "FUNCTION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getJAVACOMMANDType_JAR(), 
            source, 
@@ -4300,14 +4331,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "JAR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (linktoTypeEClass, 
            source, 
            new String[] {
              "name", "LINK_TO_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getLINKTOType_CTYPE(), 
            source, 
@@ -4315,7 +4346,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CTYPE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getLINKTOType_NAME(), 
            source, 
@@ -4323,14 +4354,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (parametersTypeEClass, 
            source, 
            new String[] {
              "name", "PARAMETERS_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getPARAMETERSType_PARAMETER(), 
            source, 
@@ -4338,14 +4369,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PARAMETER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (parameterTypeEClass, 
            source, 
            new String[] {
              "name", "PARAMETER_._type",
              "kind", "elementOnly"
-           });			
+           });	
         addAnnotation
           (getPARAMETERType_DEFAULT(), 
            source, 
@@ -4353,7 +4384,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "DEFAULT",
              "namespace", "##targetNamespace"
-           });			
+           });	
         addAnnotation
           (getPARAMETERType_ITEMS(), 
            source, 
@@ -4361,7 +4392,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "ITEMS",
              "namespace", "##targetNamespace"
-           });			
+           });	
         addAnnotation
           (getPARAMETERType_TABLE(), 
            source, 
@@ -4369,7 +4400,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "TABLE",
              "namespace", "##targetNamespace"
-           });			
+           });	
         addAnnotation
           (getPARAMETERType_JAVACOMMAND(), 
            source, 
@@ -4377,7 +4408,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "JAVACOMMAND",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_BACKGROUND(), 
            source, 
@@ -4385,7 +4416,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "BACKGROUND",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_COLOR(), 
            source, 
@@ -4393,7 +4424,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COLOR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_CONTEXT(), 
            source, 
@@ -4401,7 +4432,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONTEXT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_CONTEXTMODE(), 
            source, 
@@ -4409,7 +4440,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONTEXT_MODE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_DYNAMICSETTINGS(), 
            source, 
@@ -4417,7 +4448,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DYNAMIC_SETTINGS",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_FIELD(), 
            source, 
@@ -4425,7 +4456,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "FIELD",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_FILTER(), 
            source, 
@@ -4433,7 +4464,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "FILTER",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_GROUP(), 
            source, 
@@ -4441,7 +4472,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "GROUP",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getPARAMETERType_LOG4J_ENABLED(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "LOG4J_ENABLED",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (getPARAMETERType_MAXLENGTH(), 
            source, 
@@ -4449,7 +4488,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "MAX_LENGTH",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NAME(), 
            source, 
@@ -4457,7 +4496,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NBLINES(), 
            source, 
@@ -4465,7 +4504,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NB_LINES",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NOCONTEXTASSIST(), 
            source, 
@@ -4473,7 +4512,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NO_CONTEXT_ASSIST",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NOTREADONLYIF(), 
            source, 
@@ -4481,7 +4520,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_READONLY_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NOTSHOWIF(), 
            source, 
@@ -4489,7 +4528,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_SHOW_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_NUMROW(), 
            source, 
@@ -4497,63 +4536,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NUM_ROW",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_READONLY(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READONLY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_READONLYIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READONLY_IF",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_REPOSITORYVALUE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REPOSITORY_VALUE",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_REQUIRED(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REQUIRED",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_REQUIREDIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "REQUIRED_IF",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_SHOW(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SHOW",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getPARAMETERType_SHOWIF(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "SHOW_IF",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getPARAMETERType_RAW(), 
            source, 
@@ -4561,14 +4544,70 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "RAW",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getPARAMETERType_READONLY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READONLY",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_READONLYIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READONLY_IF",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_REPOSITORYVALUE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REPOSITORY_VALUE",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_REQUIRED(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_REQUIREDIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "REQUIRED_IF",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_SHOW(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getPARAMETERType_SHOWIF(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW_IF",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (plugindependenciesTypeEClass, 
            source, 
            new String[] {
              "name", "PLUGINDEPENDENCIES_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY(), 
            source, 
@@ -4576,14 +4615,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "PLUGINDEPENDENCY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (plugindependencyTypeEClass, 
            source, 
            new String[] {
              "name", "PLUGINDEPENDENCY_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getPLUGINDEPENDENCYType_ID(), 
            source, 
@@ -4591,14 +4630,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "ID",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (returnsTypeEClass, 
            source, 
            new String[] {
              "name", "RETURNS_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getRETURNSType_RETURN(), 
            source, 
@@ -4606,14 +4645,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "RETURN",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (returnTypeEClass, 
            source, 
            new String[] {
              "name", "RETURN_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getRETURNType_AVAILABILITY(), 
            source, 
@@ -4621,7 +4660,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "AVAILABILITY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getRETURNType_NAME(), 
            source, 
@@ -4629,15 +4668,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getRETURNType_TYPE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "TYPE",
-             "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getRETURNType_SHOWIF(), 
            source, 
@@ -4645,14 +4676,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "SHOW_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
+        addAnnotation
+          (getRETURNType_TYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TYPE",
+             "namespace", "##targetNamespace"
+           });	
         addAnnotation
           (sqltemplatesTypeEClass, 
            source, 
            new String[] {
              "name", "SQLTEMPLATES_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getSQLTEMPLATESType_SQLTEMPLATE(), 
            source, 
@@ -4660,7 +4699,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "SQLTEMPLATE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getSQLTEMPLATESType_DB(), 
            source, 
@@ -4668,14 +4707,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "DB",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (sqltemplateTypeEClass, 
            source, 
            new String[] {
              "name", "SQLTEMPLATE_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getSQLTEMPLATEType_CONTENT(), 
            source, 
@@ -4683,7 +4722,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONTENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getSQLTEMPLATEType_NAME(), 
            source, 
@@ -4691,14 +4730,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NAME",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (tableTypeEClass, 
            source, 
            new String[] {
              "name", "TABLE_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getTABLEType_COLUMN(), 
            source, 
@@ -4706,7 +4745,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "COLUMN",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTABLEType_IF(), 
            source, 
@@ -4714,7 +4753,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTABLEType_NOTIF(), 
            source, 
@@ -4722,7 +4761,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "NOT_IF",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTABLEType_READONLYCOLUMNPOSITION(), 
            source, 
@@ -4730,7 +4769,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "READ_ONLY_COLUMN_POSITION",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTABLEType_READONLY(), 
            source, 
@@ -4738,14 +4777,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "READONLY",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (templateparamTypeEClass, 
            source, 
            new String[] {
              "name", "TEMPLATE_PARAM_._type",
              "kind", "empty"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEPARAMType_SOURCE(), 
            source, 
@@ -4753,7 +4792,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "SOURCE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEPARAMType_TARGET(), 
            source, 
@@ -4761,7 +4800,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "TARGET",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEPARAMType_VALUE(), 
            source, 
@@ -4769,14 +4808,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "VALUE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (templatesTypeEClass, 
            source, 
            new String[] {
              "name", "TEMPLATES_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_TEMPLATE(), 
            source, 
@@ -4784,7 +4823,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "TEMPLATE",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_TEMPLATEPARAM(), 
            source, 
@@ -4792,7 +4831,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "TEMPLATE_PARAM",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_CONNECTOR(), 
            source, 
@@ -4800,7 +4839,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "CONNECTOR",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_INPUT(), 
            source, 
@@ -4808,7 +4847,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "INPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_LOOKUP(), 
            source, 
@@ -4816,7 +4855,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "LOOKUP",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATESType_OUTPUT(), 
            source, 
@@ -4824,14 +4863,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "OUTPUT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (templateTypeEClass, 
            source, 
            new String[] {
              "name", "TEMPLATE_._type",
              "kind", "elementOnly"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEType_LINKTO(), 
            source, 
@@ -4839,7 +4878,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "element",
              "name", "LINK_TO",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEType_COMPONENT(), 
            source, 
@@ -4847,7 +4886,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "kind", "attribute",
              "name", "COMPONENT",
              "namespace", "##targetNamespace"
-           });		
+           });	
         addAnnotation
           (getTEMPLATEType_NAME(), 
            source, 
