@@ -131,8 +131,8 @@ public class MetadataFillFactory {
         case GENERAL_JDBC:
             if (isJdbcNetezza(metadataConnection)) {
                 metadataFiller = new NetezzaConnectionFiller();
+                break;
             }
-            break;
         default:
             metadataFiller = DBmetadataFiller;
         }
