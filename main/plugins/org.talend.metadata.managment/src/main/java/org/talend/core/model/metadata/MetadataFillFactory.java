@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -95,6 +97,42 @@ public class MetadataFillFactory {
         case SYBASEIQ:
             metadataFiller = new SybaseConnectionFillerImpl();
             break;
+        case NETEZZA:
+            metadataFiller = new NetezzaConnectionFiller();
+            break;
+        default:
+            metadataFiller = DBmetadataFiller;
+        }
+
+        return instance;
+    }
+
+    public static MetadataFillFactory getDBInstance(Connection connection) {
+        IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, true);
+        if (metadataConnection == null) {
+            return getDBInstance();
+        }
+        return getDBInstance(metadataConnection);
+    }
+
+    public static MetadataFillFactory getDBInstance(IMetadataConnection metadataConnection) {
+        EDatabaseTypeName eDatabaseType = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
+        if (instance == null) {
+            instance = new MetadataFillFactory();
+        }
+        switch (eDatabaseType) {
+        case SYBASEASE:
+        case SYBASEIQ:
+            metadataFiller = new SybaseConnectionFillerImpl();
+            break;
+        case NETEZZA:
+            metadataFiller = new NetezzaConnectionFiller();
+            break;
+        case GENERAL_JDBC:
+            if (isJdbcNetezza(metadataConnection)) {
+                metadataFiller = new NetezzaConnectionFiller();
+                break;
+            }
         default:
             metadataFiller = DBmetadataFiller;
         }
@@ -383,4 +421,12 @@ public class MetadataFillFactory {
         return metadataFiller;
     }
 
+    public static boolean isJdbcNetezza(IMetadataConnection metadataConnection) {
+        if (metadataConnection == null) {
+            return false;
+        }
+        String dbType = metadataConnection.getDbType();
+        String driverClass = metadataConnection.getDriverClass();
+        return EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbType) && StringUtils.indexOf(driverClass, "netezza") > -1; //$NON-NLS-1$
+    }
 }
