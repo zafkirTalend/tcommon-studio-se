@@ -19,37 +19,72 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.IPerspectiveFactory;
-import org.eclipse.ui.IPerspectiveRegistry;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.PerspectiveExtensionReader;
-import org.eclipse.ui.internal.PerspectiveTagger;
-import org.eclipse.ui.internal.WorkbenchPage;
-import org.eclipse.ui.internal.e4.compatibility.ModeledPageLayout;
-import org.eclipse.ui.internal.menus.MenuHelper;
-import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
-import org.eclipse.ui.internal.registry.UIExtensionTracker;
 import org.talend.core.ui.branding.IBrandingConfiguration;
+import org.talend.rcp.perspective.AbstractPerpsectiveProvider;
 
 /**
- * DOC yhch class global comment. Detailled comment
- * 
+ * Check the DI, DQ, MDM, ESB perspectives and make sure display in the perspective bar always.
  * 
  */
-@SuppressWarnings("restriction")
-public final class PerspectiveReviewUtil {
+public final class PerspectiveReviewUtil extends AbstractPerpsectiveProvider {
 
-    IExtensionTracker tracker;
+    @Inject
+    EModelService fModelService;
+
+    @Inject
+    MWindow fWindow;
+
+    @Inject
+    EPartService fPartService;
+
+    @Inject
+    MApplication fApp;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.rcp.perspective.AbstractPerpsectiveProvider#getEModelService()
+     */
+    @Override
+    protected EModelService getEModelService() {
+        return fModelService;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.rcp.perspective.AbstractPerpsectiveProvider#getMWindow()
+     */
+    @Override
+    protected MWindow getMWindow() {
+        return fWindow;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.rcp.perspective.AbstractPerpsectiveProvider#getEPartService()
+     */
+    @Override
+    protected EPartService getEPartService() {
+        return fPartService;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.rcp.perspective.AbstractPerpsectiveProvider#getMApplication()
+     */
+    @Override
+    protected MApplication getMApplication() {
+        return fApp;
+    }
 
     /**
      * 
@@ -57,40 +92,23 @@ public final class PerspectiveReviewUtil {
      * 
      * try to display several Talend official perspectives.
      */
-    @Inject
-    EModelService modelService;
-
-    @Inject
-    MWindow mWindow;
-
-    @Inject
-    EPartService partService;
-
-    @Inject
-    MApplication mApp;
-
+    @Override
     public void checkPerspectiveDisplayItems() {
-        if (modelService == null) {
-            return;
-        }
+        List<MPerspective> validChildren = new ArrayList<MPerspective>();
 
-        List<MPerspectiveStack> perspStackList = modelService.findElements(mWindow, null, MPerspectiveStack.class, null);
-        if (perspStackList.size() > 0) {
-            MPerspectiveStack perspectiveStack = perspStackList.get(0);
+        // DI
+        findAndCreatePerspective(IBrandingConfiguration.PERSPECTIVE_DI_ID, validChildren);
+        // Camel
+        findAndCreatePerspective(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID, validChildren);
+        // DQ
+        findAndCreatePerspective(IBrandingConfiguration.PERSPECTIVE_DQ_ID, validChildren);
+        // MDM
+        findAndCreatePerspective(IBrandingConfiguration.PERSPECTIVE_MDM_ID, validChildren);
 
-            List<MPerspective> validChildren = new ArrayList<MPerspective>();
-
-            // DI
-            findAndCreatePerspective(perspectiveStack, IBrandingConfiguration.PERSPECTIVE_DI_ID, validChildren);
-            // DQ
-            findAndCreatePerspective(perspectiveStack, IBrandingConfiguration.PERSPECTIVE_DQ_ID, validChildren);
-            // MDM
-            findAndCreatePerspective(perspectiveStack, IBrandingConfiguration.PERSPECTIVE_MDM_ID, validChildren);
-            // Camel
-            findAndCreatePerspective(perspectiveStack, IBrandingConfiguration.PERSPECTIVE_CAMEL_ID, validChildren);
-
-            List<MPerspective> children = perspectiveStack.getChildren();
-
+        // add the valid perspectives.
+        final MPerspectiveStack mPerspStack = getMPerspectiveStack();
+        if (mPerspStack != null) {
+            List<MPerspective> children = mPerspStack.getChildren();
             // record the order of perspective.
             Map<Integer, MPerspective> otherCustomPerspMap = new HashMap<Integer, MPerspective>();
             // try add back other custom perspectives
@@ -104,13 +122,13 @@ public final class PerspectiveReviewUtil {
             children.clear(); // clean other perspectives.
             children.addAll(validChildren); // add back the valid perspectives.
 
-            // add the other costom perspective back
+            // add the other costom perspectives back
             java.util.Iterator<Integer> iterator = otherCustomPerspMap.keySet().iterator();
             while (iterator.hasNext()) {
                 Integer index = iterator.next();
                 if (index != null) {
                     MPerspective persp = otherCustomPerspMap.get(index);
-                    // maybe this is not good, because after add, the original index have be changed.
+                    // maybe this is not good, because after add, the original index have been changed.
                     if (index < children.size()) {
                         children.add(index, persp);
                     } else {
@@ -118,110 +136,7 @@ public final class PerspectiveReviewUtil {
                     }
                 }
             }
-
-        }
-
-        // }
-    }
-
-    /**
-     * 
-     * DOC ggu Comment method "findAndCreatePerspective".
-     * 
-     * try to find and create the perspective. if the existed custom perspective, will use the custom one. won't create
-     * original one.
-     * 
-     * @param mWindow
-     */
-    private void findAndCreatePerspective(MPerspectiveStack perspectiveStack, String id, List<MPerspective> validPerspList) {
-        if (id != null && mApp != null && perspectiveStack != null) {
-            MPerspective mPersp = null;
-
-            IPerspectiveRegistry perspectiveRegistry = PlatformUI.getWorkbench().getPerspectiveRegistry();
-            IPerspectiveDescriptor perspDesc = perspectiveRegistry.findPerspectiveWithId(id);
-            if (perspDesc != null) {
-                // find the existed.
-                if (perspectiveStack != null) {
-                    for (MPerspective mp : perspectiveStack.getChildren()) {
-                        if (mp.getElementId().equals(id)) { // existed.
-                            mPersp = mp;
-                            break;
-                        } else { // try to check custom perspective. (the element id should be different with id.)
-                            IPerspectiveDescriptor persp = perspectiveRegistry.findPerspectiveWithId(mp.getElementId());
-                            if (persp != null && persp instanceof PerspectiveDescriptor) {
-                                PerspectiveDescriptor pd = (PerspectiveDescriptor) persp;
-
-                                // if custom perspective, the original id and id are different.
-                                if (!pd.getOriginalId().equals(pd.getId()) //
-                                        && pd.getOriginalId().equals(id)) { // when custom, just use it.
-                                    mPersp = mp;
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-                }
-                // create new
-                if (mPersp == null) { // FIXME copied some form method setPerspective of class WorkbenchPage
-                    String perspId = perspDesc.getId();
-
-                    WorkbenchPage workbenchPage = (WorkbenchPage) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                            .getActivePage();
-
-                    mPersp = (MPerspective) modelService.cloneSnippet(mApp, perspId, mWindow);
-
-                    if (mPersp == null) {
-
-                        // couldn't find the perspective, create a new one
-                        mPersp = modelService.createModelElement(MPerspective.class);
-
-                        // tag it with the same id
-                        mPersp.setElementId(perspDesc.getId());
-
-                        // instantiate the perspective
-                        IPerspectiveFactory factory = ((PerspectiveDescriptor) perspDesc).createFactory();
-                        ModeledPageLayout modelLayout = new ModeledPageLayout(mWindow, modelService, partService, mPersp,
-                                perspDesc, workbenchPage, true);
-                        factory.createInitialLayout(modelLayout);
-                        PerspectiveTagger.tagPerspective(mPersp, modelService);
-                        PerspectiveExtensionReader reader = new PerspectiveExtensionReader();
-                        reader.extendLayout(getExtensionTracker(workbenchPage.getWorkbenchWindow().getShell().getDisplay()),
-                                perspDesc.getId(), modelLayout);
-                    }
-
-                    mPersp.setLabel(perspDesc.getLabel());
-
-                    ImageDescriptor imageDescriptor = perspDesc.getImageDescriptor();
-                    if (imageDescriptor != null) {
-                        String imageURL = MenuHelper.getImageUrl(imageDescriptor);
-                        mPersp.setIconURI(imageURL);
-                    }
-
-                    // Hide placeholders for parts that exist in the 'global' areas
-                    modelService.hideLocalPlaceholders(mWindow, mPersp);
-
-                    // add it to the stack
-                    perspectiveStack.getChildren().add(mPersp);
-
-                }
-            }// else { // can't find or not be loaded.
-
-            if (mPersp != null) {
-                validPerspList.add(mPersp);
-            }
         }
     }
 
-    /**
-     * DOC sgandon Comment method "getExtensionTracker".
-     * 
-     * @return
-     */
-    private IExtensionTracker getExtensionTracker(Display display) {
-        if (tracker == null) {
-            tracker = new UIExtensionTracker(display);
-        }
-        return tracker;
-    }
 }
