@@ -41,6 +41,9 @@ public class WorkbenchSetupStartupMonitor implements StartupMonitor {
      */
     @Override
     public void applicationRunning() {
+        if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
+            return;
+        }
         org.eclipse.e4.ui.workbench.IWorkbench e4Workbench = (org.eclipse.e4.ui.workbench.IWorkbench) PlatformUI.getWorkbench();
         PerspectiveReviewUtil perspectiveReviewUtil = new PerspectiveReviewUtil();
         ContextInjectionFactory.inject(perspectiveReviewUtil, e4Workbench.getApplication().getContext().getActiveLeaf());
