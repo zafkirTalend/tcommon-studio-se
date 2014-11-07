@@ -13,7 +13,9 @@
 package org.talend.rcp.intro.starting;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.osgi.service.runnable.StartupMonitor;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.talend.rcp.intro.PerspectiveReviewUtil;
 
@@ -43,9 +45,11 @@ public class WorkbenchSetupStartupMonitor implements StartupMonitor {
         if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
             return;
         }
-        org.eclipse.e4.ui.workbench.IWorkbench e4Workbench = (org.eclipse.e4.ui.workbench.IWorkbench) PlatformUI.getWorkbench();
+        IWorkbench workbench = PlatformUI.getWorkbench();
         PerspectiveReviewUtil perspectiveReviewUtil = new PerspectiveReviewUtil();
-        ContextInjectionFactory.inject(perspectiveReviewUtil, e4Workbench.getApplication().getContext().getActiveLeaf());
+        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
+        ContextInjectionFactory.inject(perspectiveReviewUtil, activeContext);
+
         perspectiveReviewUtil.checkPerspectiveDisplayItems();
     }
 
