@@ -70,7 +70,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.SearchPattern;
-import org.eclipse.ui.internal.dialogs.TreeManager.CheckStateProvider;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
@@ -1060,7 +1059,7 @@ public class SelectorTableForm extends AbstractForm {
                         // managerConnection.check(metadataconnection, true);
                         // }
                     } else {
-                        managerConnection.check(metadataconnection, true);
+                        managerConnection.check(metadataconnection, false);
                     }
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
@@ -2425,9 +2424,9 @@ public class SelectorTableForm extends AbstractForm {
         return this.nameFilter.getText().trim();
     }
 
-    
     class checkStateProvider implements ICheckStateProvider {
 
+        @Override
         public boolean isChecked(Object element) {
             if (element instanceof TableNode) {
                 TableNode node = (TableNode) element;
@@ -2443,11 +2442,12 @@ public class SelectorTableForm extends AbstractForm {
 
         }
 
+        @Override
         public boolean isGrayed(Object element) {
             return false;
         }
     }
-    
+
     /**
      * 
      * wzhang SelectorTableForm class global comment. Detailled comment
