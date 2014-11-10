@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -626,5 +627,34 @@ public final class ParameterValueUtil {
             return currentProject.getEmfProject().isHidePassword();
         }
         return false;
+    }
+
+    /**
+     * add \ before \ and " in the string.
+     * 
+     * @param str
+     * @return
+     */
+    public static String handleSpecialCharacters(String str) {
+        // handle backlash first, then handle double quotation mark
+        String result = replaceAll(str, "\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        result = replaceAll(result, "\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
+        return result;
+    }
+
+    private static String replaceAll(String str, String regex, String replacement) {
+        List<String> list = new ArrayList<String>();
+        splitString(str, list, regex);
+        return StringUtils.join(list.toArray(new String[list.size()]), replacement);
+    }
+
+    private static void splitString(String str, List<String> list, String regex) {
+        int indexOf = str.indexOf(regex);
+        if (indexOf > -1) {
+            list.add(str.substring(0, indexOf));
+            splitString(str.substring(indexOf + 1, str.length()), list, regex);
+        } else {
+            list.add(str);
+        }
     }
 }
