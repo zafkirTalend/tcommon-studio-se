@@ -3,4 +3,4 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Nl
 Bundle-SymbolicName: org.talend.registration.nl
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.talend.registration;bundle-version="1.0.0"
+Fragment-Host: org.talend.registration;bundle-version="6.0.0"

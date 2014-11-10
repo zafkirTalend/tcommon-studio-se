@@ -3,5 +3,5 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Test fragment for model migration
 Bundle-SymbolicName: org.talend.model.migration.test
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.talend.model.migration;bundle-version="1.0.0"
+Fragment-Host: org.talend.model.migration;bundle-version="6.0.0"
 Require-Bundle: org.junit4

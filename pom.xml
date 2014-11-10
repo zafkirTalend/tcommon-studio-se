@@ -158,7 +158,7 @@
     <module>test/plugins/org.talend.repository.items.importexport.test</module>
     <module>test/plugins/org.talend.repository.items.importexport.ui.test</module>
     <module>test/plugins/org.talend.repository.localprovider.test</module>
-    <!--<module>test/plugins/org.talend.repository.metadata.test</module>-->
+    <module>test/plugins/org.talend.repository.metadata.test</module>
     <module>test/plugins/org.talend.testutils</module>
     <module>test/plugins/org.talend.utils.test</module>
     <module>test/plugins/test.all.test.suite</module>

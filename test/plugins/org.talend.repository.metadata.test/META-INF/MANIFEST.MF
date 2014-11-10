@@ -3,5 +3,5 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.talend.repository.metadata.test
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.talend.repository.metadata;bundle-version="6.0.0.qualifier"
+Fragment-Host: org.talend.repository.metadata;bundle-version="6.0.0"
 Require-Bundle: org.junit4
