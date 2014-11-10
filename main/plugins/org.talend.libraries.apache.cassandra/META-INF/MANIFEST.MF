@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cassandra
-Bundle-SymbolicName: org.talend.libraries.apache.cassandra
+Bundle-SymbolicName: org.talend.libraries.apache.cassandra;singleton:=true
 Bundle-Version: 6.0.0.qualifier
 Eclipse-BundleShape: dir
