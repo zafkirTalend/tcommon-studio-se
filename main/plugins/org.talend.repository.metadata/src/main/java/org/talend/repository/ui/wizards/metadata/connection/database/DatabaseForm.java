@@ -1728,6 +1728,8 @@ public class DatabaseForm extends AbstractForm {
         } else {
             impalaVersionCombo.select(0);
         }
+        authenticationGrpForImpala.setVisible(true);
+        authenticationGrpForImpala.getParent().layout();
     }
 
     private void updateImpalaVersionPart(String distribution) {
@@ -2252,6 +2254,11 @@ public class DatabaseForm extends AbstractForm {
                 versionStr = driver.getVersionValue();
             } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
                 urlConnectionStringText.setText(getStringConnection());
+                if (EImpalaDistributions.CUSTOM != EImpalaDistributions.getDistributionByName(impalaDistributionCombo.getText(),
+                        true)) {
+                    versionStr = EImpalaDistribution4Versions.indexOfByVersionDisplay(impalaVersionCombo.getText())
+                            .getVersionValue();
+                }
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {
@@ -2873,8 +2880,6 @@ public class DatabaseForm extends AbstractForm {
                     initHBaseSettings();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                     initImpalaSettings();
-                    authenticationGrpForImpala.setVisible(true);
-                    authenticationGrpForImpala.getParent().layout();
                     getConnection().setDbVersionString("");
                 } else {
                     if (urlConnectionStringText != null) {
@@ -2987,6 +2992,8 @@ public class DatabaseForm extends AbstractForm {
                 // be removed.
                 if (isHiveDBConnSelected()) {
                     scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+                } else if (isImpalaDBConnSelected()) {
+                    scrolledComposite.setMinSize(newParent.computeSize(SWT.DEFAULT, 550));
                 } else {
                     checkScrolledCompositeSize();
                 }
@@ -3932,6 +3939,7 @@ public class DatabaseForm extends AbstractForm {
                 String template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
                 s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(), getConnection()
                         .getPort(), getConnection().getSID(), template);
+                getConnection().setUiSchema(getConnection().getSID());
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
                 if (version != null) {

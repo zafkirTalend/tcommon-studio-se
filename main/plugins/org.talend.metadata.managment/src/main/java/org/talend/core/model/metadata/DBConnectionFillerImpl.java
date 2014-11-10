@@ -153,25 +153,27 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 dbMetadata = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection, dbconn, false);
             }
 
-            // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
-            String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING : dbMetadata
-                    .getDatabaseProductName();
-            String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING : dbMetadata
-                    .getDatabaseProductVersion();
-            TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
-            TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
+            if (dbMetadata != null) {
+                // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
+                String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING : dbMetadata
+                        .getDatabaseProductName();
+                String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING : dbMetadata
+                        .getDatabaseProductVersion();
+                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
+                TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
-            boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
-            boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
-                    && dbconn.getDriverClass() != null
-                    && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
-            boolean isImpala = dbconn.getDatabaseType().equals(EDatabaseTypeName.IMPALA.getDisplayName());
-            boolean isImpalaJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.IMPALA.getDisplayName())
-                    && dbconn.getDriverClass() != null
-                    && dbconn.getDriverClass().equals(EDatabase4DriverClassName.IMPALA.getDriverClass());
-            if (!isHive && !isHiveJdbc && !isImpala && !isImpalaJdbc) {
-                String identifierQuote = dbMetadata.getIdentifierQuoteString();
-                ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn); //$NON-NLS-1$
+                boolean isHive = dbconn.getDatabaseType().equals(EDatabaseTypeName.HIVE.getDisplayName());
+                boolean isHiveJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())
+                        && dbconn.getDriverClass() != null
+                        && dbconn.getDriverClass().equals(EDatabase4DriverClassName.HIVE.getDriverClass());
+                boolean isImpala = dbconn.getDatabaseType().equals(EDatabaseTypeName.IMPALA.getDisplayName());
+                boolean isImpalaJdbc = dbconn.getDatabaseType().equals(EDatabaseTypeName.IMPALA.getDisplayName())
+                        && dbconn.getDriverClass() != null
+                        && dbconn.getDriverClass().equals(EDatabase4DriverClassName.IMPALA.getDriverClass());
+                if (!isHive && !isHiveJdbc && !isImpala && !isImpalaJdbc) {
+                    String identifierQuote = dbMetadata.getIdentifierQuoteString();
+                    ConnectionHelper.setIdentifierQuoteString(identifierQuote == null ? "" : identifierQuote, dbconn); //$NON-NLS-1$
+                }
             }
         } catch (SQLException e) {
             log.error(e, e);
@@ -573,11 +575,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * @return
      */
     private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
-        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())) {
-            return false;
-        }
-        // ODBC teradata dosen't support 'dbJDBCMetadata.getCatalogs()',return at here.
-        if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
             return false;
         }
         return true;

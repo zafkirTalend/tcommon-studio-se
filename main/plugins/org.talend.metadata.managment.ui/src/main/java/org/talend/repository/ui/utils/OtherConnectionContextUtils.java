@@ -584,7 +584,8 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
 
         paramName = prefixName + EParamName.Password;
-        ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getValue(conn.getPassword(), false),
+                JavaTypesManager.PASSWORD);
 
         paramName = prefixName + EParamName.SystemNumber;
         ConnectionContextHelper.createParameters(varList, paramName, conn.getSystemNumber());
@@ -624,8 +625,8 @@ public final class OtherConnectionContextUtils {
         String host = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getHost()));
         String userName = TalendQuoteUtils
                 .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername()));
-        String passWord = TalendQuoteUtils
-                .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, conn.getPassword()));
+        String passWord = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
+                conn.getValue(conn.getPassword(), false)));
         String systemNumber = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
                 conn.getSystemNumber()));
         String language = TalendQuoteUtils
@@ -633,7 +634,7 @@ public final class OtherConnectionContextUtils {
         conn.setClient(client);
         conn.setHost(host);
         conn.setUsername(userName);
-        conn.setPassword(passWord);
+        conn.setPassword(conn.getValue(passWord, true));
         conn.setSystemNumber(systemNumber);
         conn.setLanguage(language);
     }
@@ -648,13 +649,13 @@ public final class OtherConnectionContextUtils {
         String client = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getClient());
         String host = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getHost());
         String user = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getUsername());
-        String pass = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getPassword());
+        String pass = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getValue(fileConn.getPassword(), false));
         String sysNumber = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getSystemNumber());
         String language = ConnectionContextHelper.getOriginalValue(contextType, fileConn.getLanguage());
         cloneConn.setClient(client);
         cloneConn.setHost(host);
         cloneConn.setUsername(user);
-        cloneConn.setPassword(pass);
+        cloneConn.setPassword(cloneConn.getValue(pass, true));
         cloneConn.setSystemNumber(sysNumber);
         cloneConn.setLanguage(language);
         ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
@@ -1395,7 +1396,7 @@ public final class OtherConnectionContextUtils {
         if (connection.isContextMode()) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection, contextString,
                     defaultContext);
-            return (SAPConnection) OtherConnectionContextUtils.cloneOriginalValueSAPConnection(connection, contextType);
+            return OtherConnectionContextUtils.cloneOriginalValueSAPConnection(connection, contextType);
         }
         return connection;
 

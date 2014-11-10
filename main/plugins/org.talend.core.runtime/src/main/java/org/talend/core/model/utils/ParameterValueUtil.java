@@ -243,6 +243,7 @@ public final class ParameterValueUtil {
                 strBuffer.append(replacedString);
 
                 // get the const string
+                // deal with: context.getProperty("test") + "test"
                 subString = value.substring(start, end);
                 if (start < methodMaxIndex) {
                     subString = subString.replaceAll(oldName, newName);
@@ -277,6 +278,9 @@ public final class ParameterValueUtil {
      */
     private static String doVaribleReplace(String oldName, String newName, String value, List<Point> functionNameAreas,
             int vStart, int vEnd) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         StringBuffer replacedString = new StringBuffer();
         int replaceableStart = vStart;
@@ -292,9 +296,9 @@ public final class ParameterValueUtil {
                 replaceableEnd = functionNameArea.x;
                 String replaceableString = value.substring(replaceableStart, replaceableEnd);
                 replacedString.append(doReplace(oldName, newName, replaceableString));
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             } else {
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             }
             replaceableStart = functionNameArea.y;
         }
@@ -306,11 +310,14 @@ public final class ParameterValueUtil {
     }
 
     private static String doReplace(String oldName, String newName, String value) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         String vOldName = oldName.replaceAll("\\.", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
 
         // ((\b\w+\s*\.\s*)+schema(\s*\.\s*\w+)*)|((\b\w+\s*\.\s*)*schema(\s*\.\s*\w+)+)
-        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "(\\s*\\.\\s*\\w+)*)|((\\b\\w+\\s*\\.\\s*)*" + vOldName + "(\\s*\\.\\s*\\w+)+)"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "\\b)|(\\b" + vOldName + "\\s*\\()"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         // obtain all varibles
         String[] split = value.split(regex);
         Map<String, String> replacedStrings = new HashMap<String, String>();
@@ -336,6 +343,10 @@ public final class ParameterValueUtil {
             int valueLength = value.length();
             String oldFill = null;
             String newFill = null;
+
+            String subRegEx = "^" + vOldName + "(\\s*\\.\\s*\\w+)+"; //$NON-NLS-1$ //$NON-NLS-2$
+            java.util.regex.Pattern subPattern = java.util.regex.Pattern.compile(subRegEx);
+
             while (true) {
                 if (curPos == valueLength) {
                     break;
@@ -350,7 +361,13 @@ public final class ParameterValueUtil {
                     curPos = x;
                     continue;
                 }
-                returnValue.append(matcher.group());
+                String matchedString = matcher.group();
+                Matcher subMatcher = subPattern.matcher(matchedString);
+                if (subMatcher.find()) {
+                    returnValue.append(matchedString.replaceFirst(vOldName, newName));
+                } else {
+                    returnValue.append(matchedString);
+                }
                 curPos = y;
                 if (!matcher.find()) {
                     x = valueLength;

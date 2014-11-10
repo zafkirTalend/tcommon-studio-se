@@ -297,7 +297,7 @@ public class ParameterValueUtilTest {
         // expectString : "select * from " + context.table + "where id = " + getId(context.id) +
         // globalMap.get("globalMap1")
         testString = "\"select * from \" + context.table + \"where id = \" + getId(context.id) + globalMap.get(\"globalMap\")";
-        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(context.id) + globalMap.get(\"globalMap1\")";
+        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(context.id) + globalMap1.get(\"globalMap1\")";
         retValue = ParameterValueUtil.splitQueryData("globalMap", "globalMap1", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -308,7 +308,7 @@ public class ParameterValueUtilTest {
         // expectString : "select * from " + context.table.a.b + contextA.table.a + table.a.b + table.a1 + "where id = "
         // + getId(table.a1) + table.a.get("table.a1")
         testString = "\"select * from \" + context.table.a.b + contextA.table.a + table.a.b + table.a + \"where id = \" + getId(table.a) + table.a.get(\"table.a\")";
-        expectRetValue = "\"select * from \" + context.table.a.b + contextA.table.a + table.a.b + table.a1 + \"where id = \" + getId(table.a1) + table.a.get(\"table.a1\")";
+        expectRetValue = "\"select * from \" + context.table.a.b + contextA.table.a + table.a1.b + table.a1 + \"where id = \" + getId(table.a1) + table.a1.get(\"table.a1\")";
         retValue = ParameterValueUtil.splitQueryData("table.a", "table.a1", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -320,7 +320,7 @@ public class ParameterValueUtilTest {
         // CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, "\"CONTEXT_ID1\"\\" + CONTEXT_ID1, CONTEXT_ID1, "CONTEXT_ID1") +
         // "CONTEXT_ID1", CONTEXT_ID(ID, "CONTEXT_ID1"), "CONTEXT_ID1")
         testString = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID.b + CONTEXT_ID + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID, \"\\\"CONTEXT_ID\\\"\\\\\" + CONTEXT_ID, CONTEXT_ID, \"CONTEXT_ID\") + \"CONTEXT_ID\", CONTEXT_ID(ID, \"CONTEXT_ID\"), \"CONTEXT_ID\")";
-        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID1\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
+        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID1.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID1\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
         retValue = ParameterValueUtil.splitQueryData("CONTEXT_ID", "CONTEXT_ID1", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -457,7 +457,17 @@ public class ParameterValueUtilTest {
     @Test
     public void testRenameJavaCode() {
         String testString = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\tout = obj1;";
-        String expectRetValue = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\trow1 = obj1;";
+        String expectRetValue = "\tSystem.out.println(\"=====\");\n\trow1.a = b;\n\trow1 = obj1;";
+
+        String retValue = ParameterValueUtil.splitQueryData("out", "row1", testString);
+        Assert.assertTrue(expectRetValue.equals(retValue));
+    }
+
+    @Test
+    public void testReplaceConnectionNameInJavaCode() {
+        // Add for https://jira.talendforge.org/browse/TUP-2333
+        String testString = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\tout = obj1;\n\tout.a.out = obj2;\n\tout.out = obj3;\n\tout(obj1);\n\ta.out.b.out.c.out = 1;\n\tout.a.out.b.out.c.out();\n";
+        String expectRetValue = "\tSystem.out.println(\"=====\");\n\trow1.a = b;\n\trow1 = obj1;\n\trow1.a.out = obj2;\n\trow1.out = obj3;\n\tout(obj1);\n\ta.out.b.out.c.out = 1;\n\trow1.a.out.b.out.c.out();\n";
 
         String retValue = ParameterValueUtil.splitQueryData("out", "row1", testString);
         Assert.assertTrue(expectRetValue.equals(retValue));
@@ -550,8 +560,8 @@ public class ParameterValueUtilTest {
         contextParam.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
 
-        contextParam.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+        contextParam.setValue("");// because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(contextParam));
 
         contextParam.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(contextParam));
@@ -580,8 +590,8 @@ public class ParameterValueUtilTest {
         contextParam.setValue(null);
         Assert.assertNull(ParameterValueUtil.getEncryptValue(contextParam));
 
-        contextParam.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(contextParam));
+        contextParam.setValue("");// because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getEncryptValue(contextParam));
 
         contextParam.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(contextParam));
@@ -619,8 +629,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+        param.setValue(""); // because don't hide password, and empty is encrypted also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
@@ -631,8 +641,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+        param.setValue(""); // because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getValue4Doc(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
@@ -665,8 +675,8 @@ public class ParameterValueUtilTest {
         param.setValue(null);
         Assert.assertNull(ParameterValueUtil.getEncryptValue(param));
 
-        param.setValue("");
-        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(param));
+        param.setValue(""); // because empty need encrypt also.
+        Assert.assertEquals("yJKHKGWEAQw=", ParameterValueUtil.getEncryptValue(param));
 
         param.setValue("123");
         Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(param));
