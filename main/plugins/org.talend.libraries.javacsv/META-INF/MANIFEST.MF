@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Javacsv Plug-in
 Bundle-SymbolicName: org.talend.libraries.javacsv;singleton:=true
-Bundle-Version: 2.2.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/javacsv.jar
 Export-Package: com.csvreader
-
+Eclipse-BundleShape: dir

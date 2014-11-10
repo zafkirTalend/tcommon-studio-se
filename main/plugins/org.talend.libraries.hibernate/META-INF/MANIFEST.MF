@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Hibernate Plug-in
 Bundle-SymbolicName: org.talend.libraries.hibernate
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
  lib/commons-logging-1.0.4.jar,
@@ -181,3 +181,4 @@ Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.apache.log4j
 Import-Package: javax.transaction,
  javax.transaction.xa
+Eclipse-BundleShape: dir

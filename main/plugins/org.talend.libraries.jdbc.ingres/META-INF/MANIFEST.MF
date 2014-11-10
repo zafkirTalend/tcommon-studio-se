@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ingres Plug-in
 Bundle-SymbolicName: org.talend.libraries.jdbc.ingres;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-ClassPath: lib/iijdbc.jar,
  .
 Export-Package: com.ingres.gcf.dam,
@@ -11,3 +11,4 @@ Export-Package: com.ingres.gcf.dam,
  com.ingres.jdbc
 Bundle-Vendor: .Talend SA.
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir
