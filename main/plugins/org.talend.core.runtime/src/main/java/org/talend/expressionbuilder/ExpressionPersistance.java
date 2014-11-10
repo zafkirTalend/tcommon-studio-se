@@ -190,9 +190,12 @@ public class ExpressionPersistance {
                     }
                 }
             }
+            this.contents.clear();
             this.contents.add(emfExpression);
+            resource.getContents().clear();
             resource.getContents().addAll(this.contents);
         } else {
+            resource.getContents().clear();
             resource.getContents().add(emfExpression);
         }
 
