@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -1480,11 +1482,28 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             // --- add columns to table
             boolean isOracle = MetadataConnectionUtils.isOracle(dbJDBCMetadata);
             if (isOracle && tablePattern.contains("/")) {//$NON-NLS-1$
-                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$
+                tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
             }
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             // MOD qiongli 2012-8-15 TDQ-5898,Odbc Terdata don't support some API.
             boolean isOdbcTeradata = ConnectionUtils.isOdbcTeradata(dbJDBCMetadata);
+
+            // get the MappingTypeRetriever according to the DbmsId of the DatabaseConnection
+            MappingTypeRetriever mappingTypeRetriever = null;
+            DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
+            String dbmsId = JavaSqlFactory.getDbmsId(dbConnection);
+            if (StringUtils.isBlank(dbmsId)) {
+                log.error(Messages.getString("DBConnectionFillerImpl.dbmsIdIsBlank")); //$NON-NLS-1$
+            } else {
+                mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+            }
+            if (mappingTypeRetriever == null) {
+                EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbConnection.getDatabaseType(), false);
+                if (dbType != null) {
+                    mappingTypeRetriever = MetadataTalendType.getMappingTypeRetrieverByProduct(dbType.getProduct());
+                }
+            }
+
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
@@ -1583,25 +1602,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 column.setInitialValue(defExpression);
                 extractMeta.handleDefaultValue(column, dbJDBCMetadata);
 
-                DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
-                String dbmsId = JavaSqlFactory.getDbmsId(dbConnection);
-                if (dbmsId != null) {
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                if (mappingTypeRetriever != null) {
                     String talendType = mappingTypeRetriever
                             .getDefaultSelectedTalendType(
                                     typeName,
                                     extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
                                                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                     column.setTalendType(talendType);
-                    String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbmsId).getDefaultSelectedDbType(
-                            talendType);
+                    String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
                     column.setSourceType(defaultSelectedDbType);
                 }
+
                 try {
                     column.setNullable(nullable == 1);
                 } catch (Exception e) {
                     // do nothing
                 }
+
                 returnColumns.add(column);
                 columnMap.put(columnName, column);
             }
