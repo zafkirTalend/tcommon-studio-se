@@ -161,7 +161,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getTables(String catalog, String database, String tableNamePattern, String[] types) throws SQLException {
         // modify by wzhang
-        if (databaseName != null) {
+        if (databaseName != null && !databaseName.trim().isEmpty()) {
             database = databaseName;
         }
         // end
