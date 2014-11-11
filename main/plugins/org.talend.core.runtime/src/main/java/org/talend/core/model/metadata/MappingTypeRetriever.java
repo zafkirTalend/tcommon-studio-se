@@ -240,12 +240,14 @@ public class MappingTypeRetriever {
             DbPreBeforeLength dbPBL = (DbPreBeforeLength) preBeforeLen.get(i);
             if (dbPBL.getDbType().equals(dbType)) {
                 before = dbPBL.getPreBeforeLen();
-                if (before == null)
+                if (before == null) {
                     return false;
-                if (before.equals("true")) //$NON-NLS-1$
+                }
+                if (before.equals("true")) { //$NON-NLS-1$
                     return true;
-                else
+                } else {
                     return false;
+                }
             }
         }
         return false;
@@ -299,7 +301,7 @@ public class MappingTypeRetriever {
         if (!corePluginNode.getBoolean(ITalendCorePrefConstants.FORBIDDEN_MAPPING_LENGTH_PREC_LOGIC, false)) {
             TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
             String mappingType = talendTypePre.getMappingType();
-            if (listMappingtype.size() != 0) {
+            if (listMappingtype != null && listMappingtype.size() != 0) {
                 for (MappingType type : listMappingtype) {
                     if (type.getTalendType().equals(mappingType)) {
                         return type.getTalendType();
