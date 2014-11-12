@@ -8,28 +8,141 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package routines.system;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CoderResult;
+import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-	
-	public static final String[] EMPTY_STRING_ARRAY = new String[0];
-	
-	public static final String EMPTY = "";
-	
-	/**
-	 * replace the method : String.split(String regex)
-	 * @param str
-	 * @param separatorChars
-	 * @return
-	 */
-	public static String[] splitNotRegex(String str,String separatorChars) {
-		if (str == null) {
+
+    public static final String[] EMPTY_STRING_ARRAY = new String[0];
+
+    public static final String EMPTY = "";
+
+    public static String newStringFromSplit(CharsetDecoder decoder, CharsetDecoder utf8Decoder, String encoding,
+            byte[] fieldBytes, int length) {
+        ByteBuffer fieldBuf = ByteBuffer.wrap(fieldBytes, 0, length);
+        CharBuffer fieldCharBuf = CharBuffer.allocate(length);
+        utf8Decoder.reset();
+        CoderResult res = utf8Decoder.decode(fieldBuf, fieldCharBuf, true);
+        // decoder.reset();
+        // CoderResult res = decoder.decode(fieldBuf, fieldCharBuf, true);
+        if (res.isError() && decoder != null) {
+            // fieldBuf.reset();
+            // fieldCharBuf.reset();
+            // fallBackDecoder.reset();
+            // res = fallBackDecoder.decode(fieldBuf, fieldCharBuf, true);
+            decoder.reset();
+            res = decoder.decode(fieldBuf, fieldCharBuf, true);
+            if (!res.isError()) {
+                // fallBackDecoder.flush(fieldCharBuf);
+                decoder.flush(fieldCharBuf);
+                return new String(fieldCharBuf.array());
+            }
+            // else {}
+        } else {
+            utf8Decoder.flush(fieldCharBuf);
+            // decoder.flush(fieldCharBuf);
+            return new String(fieldCharBuf.array());
+        }
+        return "";
+    }
+
+    public static String[] splitNotRegexWithEncoding(byte[] bline, String encoding, String separatorChars)
+            throws UnsupportedEncodingException {
+        if (bline == null) {
+            return null;
+        }
+
+        ByteBuffer line = ByteBuffer.wrap(bline);
+
+        byte[] sep = null;
+        CharsetDecoder decoder = null;
+        if (encoding != null) {
+            sep = separatorChars.getBytes(encoding);
+
+            decoder = Charset.forName(encoding).newDecoder();
+            decoder.onMalformedInput(CodingErrorAction.REPORT);
+            decoder.onUnmappableCharacter(CodingErrorAction.REPORT);
+        } else {
+            sep = separatorChars.getBytes();
+        }
+
+        if (sep.length == 0) {
+            String[] result = new String[1];
+            result[0] = new String(bline, encoding);
+            return result;
+        }
+
+        CharsetDecoder utf8Decoder = Charset.forName("UTF-8").newDecoder(); //$NON-NLS-1$
+        utf8Decoder.onMalformedInput(CodingErrorAction.REPORT);
+        utf8Decoder.onUnmappableCharacter(CodingErrorAction.REPORT);
+
+        ArrayList<String> substrings = new ArrayList<String>();
+
+        int lineLength = line.limit();
+        int sepCursor = 0;
+        int fieldCursor = 0;
+        byte[] fieldBytes = new byte[lineLength];
+        while (line.position() < line.limit()) {
+            if (sepCursor < sep.length) {
+                byte currentByte = line.get();
+                if (currentByte == sep[sepCursor]) {
+                    sepCursor++;
+                } else {
+                    sepCursor = 0;
+                    fieldBytes[fieldCursor++] = currentByte;
+                }
+            } else {
+                // we found a new field
+                if (fieldCursor > 0) {
+                    substrings.add(newStringFromSplit(decoder, utf8Decoder, encoding, fieldBytes, fieldCursor));
+                    fieldCursor = 0;
+                } else {
+                    // empty field
+                    substrings.add(""); //$NON-NLS-1$
+                }
+                sepCursor = 0;
+            }
+        }
+        if (fieldCursor > 0) {
+            substrings.add(newStringFromSplit(decoder, utf8Decoder, encoding, fieldBytes, fieldCursor));
+        }
+        if (sepCursor == sep.length) {
+            substrings.add(""); //$NON-NLS-1$
+        }
+
+        int resultSize = substrings.size();
+        if (resultSize == 0) {
+            // no delimiter found so we have only one column
+            String[] result = new String[1];
+            result[0] = new String(bline, encoding);
+            return result;
+        }
+        String[] result = new String[resultSize];
+        substrings.toArray(result);
+        return result;
+    }
+
+    /**
+     * replace the method : String.split(String regex)
+     * 
+     * @param str
+     * @param separatorChars
+     * @return
+     */
+    public static String[] splitNotRegex(String str, String separatorChars) {
+        if (str == null) {
             return null;
         }
 
@@ -62,12 +175,12 @@ public class StringUtils {
         }
 
         int resultSize = substrings.size();
-        while (resultSize > 0 && substrings.get(resultSize-1).equals("")) {
-        	resultSize--;
+        while (resultSize > 0 && substrings.get(resultSize - 1).equals("")) {
+            resultSize--;
         }
         String[] result = new String[resultSize];
         return substrings.subList(0, resultSize).toArray(result);
-	}
+    }
 
     public static String[] split(String str, String separator) {
         return str.split(separator);
@@ -203,7 +316,7 @@ public class StringUtils {
             } else {
                 // case 3:
                 if (replacement == null) {
-                    if ( (caseSensitive && src.equals(search)) || (!caseSensitive && src.equalsIgnoreCase(search))) {
+                    if ((caseSensitive && src.equals(search)) || (!caseSensitive && src.equalsIgnoreCase(search))) {
                         // regex != null && src != null && replacement != null, and match the whole src
                         return replacement;
                     } else {
@@ -269,44 +382,43 @@ public class StringUtils {
 
         return sb.toString();
     }
-    
-    
+
     /**
-     * return null value not "null" String when obj is null 
-     * that is the only difference with String.valueOf(Object obj)
+     * return null value not "null" String when obj is null that is the only difference with String.valueOf(Object obj)
+     * 
      * @param obj
      * @return
      */
-	public static String valueOf(Object obj) {
-		return (obj == null) ? null : obj.toString();
-	}
+    public static String valueOf(Object obj) {
+        return (obj == null) ? null : obj.toString();
+    }
 
-	public static String valueOf(char data[]) {
-		return String.valueOf(data);
-	}
+    public static String valueOf(char data[]) {
+        return String.valueOf(data);
+    }
 
-	public static String valueOf(boolean b) {
-		return String.valueOf(b);
-	}
+    public static String valueOf(boolean b) {
+        return String.valueOf(b);
+    }
 
-	public static String valueOf(char c) {
-		return String.valueOf(c);
-	}
+    public static String valueOf(char c) {
+        return String.valueOf(c);
+    }
 
-	public static String valueOf(int i) {
-		return String.valueOf(i);
-	}
+    public static String valueOf(int i) {
+        return String.valueOf(i);
+    }
 
-	public static String valueOf(long l) {
-		return String.valueOf(l);
-	}
+    public static String valueOf(long l) {
+        return String.valueOf(l);
+    }
 
-	public static String valueOf(float f) {
-		return String.valueOf(f);
-	}
+    public static String valueOf(float f) {
+        return String.valueOf(f);
+    }
 
-	public static String valueOf(double d) {
-		return String.valueOf(d);
-	}
-	
+    public static String valueOf(double d) {
+        return String.valueOf(d);
+    }
+
 }
