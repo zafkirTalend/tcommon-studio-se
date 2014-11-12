@@ -224,7 +224,7 @@ public class MetadataSchema {
             metadataColumn.setOriginalDbColumnName(nodeValue);
         }
 
-        if (originalLength.getNodeValue() != null) {
+        if (originalLength != null && originalLength.getNodeValue() != null) {
             try {
                 metadataColumn.setOriginalLength(Integer.parseInt(originalLength.getNodeValue()));
             } catch (final NumberFormatException e) {
