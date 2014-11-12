@@ -17,7 +17,7 @@
     </properties>
 
     <modules>
-        <module>org.talend.utils</module>
+        <module>org.talend.utils/pom_server.xml</module>
     </modules>
 
 	<distributionManagement>
