@@ -10,7 +10,7 @@
   </parent>
   <artifactId>org.talend.utils</artifactId>
   <packaging>eclipse-plugin</packaging>
-<dependencies>
+	<dependencies>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
