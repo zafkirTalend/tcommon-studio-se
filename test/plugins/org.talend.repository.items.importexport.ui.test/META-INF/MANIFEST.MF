@@ -6,4 +6,4 @@ Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.repository.items.importexport.ui;bundle-version="6.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit4;bundle-version="4.8.1",
- org.talend.testutils;bundle-version="6.0.0"s
+ org.talend.testutils;bundle-version="6.0.0"
