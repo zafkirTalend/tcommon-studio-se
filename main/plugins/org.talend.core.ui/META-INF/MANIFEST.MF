@@ -11,6 +11,10 @@ Require-Bundle: org.apache.commons.lang,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide,
  org.eclipse.jdt.core,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.di,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.workbench,
  org.talend.model,
  org.talend.libraries.dom4j-jaxen,
  org.talend.commons.runtime,
@@ -67,6 +71,7 @@ Export-Package: org.talend.core.model.components,
  org.talend.repository.editor,
  org.talend.repository.model
 Bundle-Vendor: .Talend SA.
+Service-Component: META-INF/OSGI-INF/component.xml
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.talend.core.ui.CoreUIPlugin
 Bundle-Localization: plugin

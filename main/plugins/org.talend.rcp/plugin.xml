@@ -335,5 +335,11 @@
          type="java.lang.Object">
    </propertyTester>
 </extension>
+<extension
+      point="org.talend.core.ui.showPerspectiveAtStartup">
+   <perspective
+         id="org.talend.rcp.perspective">
+   </perspective>
+</extension>
 
 </plugin>

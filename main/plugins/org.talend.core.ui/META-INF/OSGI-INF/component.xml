@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.talend.core.ui">
+   <implementation class="org.talend.core.ui.perspective.ShowPerspectivesAtStartupMonitor"/>
+   <service>
+      <provide interface="org.eclipse.osgi.service.runnable.StartupMonitor"/>
+   </service>
+</scr:component>
