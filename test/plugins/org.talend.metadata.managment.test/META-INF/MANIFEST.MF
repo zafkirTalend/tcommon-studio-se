@@ -4,7 +4,6 @@ Bundle-Name: org.talend.metadata.managment.test
 Bundle-SymbolicName: org.talend.metadata.managment.test
 Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.metadata.managment;bundle-version="6.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.talend.testutils,
  org.talend.libraries.jdbc.mysql,
  org.talend.libraries.jdbc.teradata,

@@ -5,4 +5,3 @@ Bundle-SymbolicName: org.talend.core.ui.nl
 Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Fragment-Host: org.talend.core.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Mockito
 Bundle-SymbolicName: org.talend.testutils
 Bundle-Version: 6.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/xpp3.jar,
  lib/xstream-1.4.2.jar,

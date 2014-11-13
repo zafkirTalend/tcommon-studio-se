@@ -34,7 +34,6 @@ Require-Bundle: org.talend.core.runtime,
 Bundle-Activator: org.talend.repository.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository.example.model.demo,
  org.talend.repository.example.model.demo.impl,
  org.talend.repository.example.model.demo.util

@@ -35,4 +35,3 @@ Require-Bundle: org.apache.commons.lang,
  bcprov
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j, org.talend.testutils
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
