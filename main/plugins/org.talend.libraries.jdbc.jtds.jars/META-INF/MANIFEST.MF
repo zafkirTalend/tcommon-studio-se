@@ -3,4 +3,4 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jars
 Bundle-SymbolicName: org.talend.libraries.jdbc.jtds.jars
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.talend.libraries.jdbc.jtds;bundle-version="2.2.0"
+Fragment-Host: org.talend.libraries.jdbc.jtds

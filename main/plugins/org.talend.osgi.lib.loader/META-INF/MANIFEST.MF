@@ -3,6 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Loader
 Bundle-SymbolicName: org.talend.osgi.lib.loader
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.eclipse.osgi;bundle-version="3.6.1"
+Fragment-Host: org.eclipse.osgi
 Export-Package: org.talend.osgi.hook,
  org.talend.osgi.hook.notification

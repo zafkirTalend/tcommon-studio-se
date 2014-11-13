@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.talend.core.test
 Bundle-Version: 6.0.0.qualifier
-Fragment-Host: org.talend.core;bundle-version="2.2.0"
+Fragment-Host: org.talend.core
 Require-Bundle: org.junit4,
  org.eclipse.jface,
  org.talend.testutils
