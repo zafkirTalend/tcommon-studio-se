@@ -1107,6 +1107,34 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return tableComment;
     }
 
+    /**
+     * get the Column Comment especially for oracle type.
+     * 
+     * @param dbJDBCMetadata
+     * @param columns
+     * @param tableName
+     * @param columnName
+     * @param schemaPattern
+     * @return
+     */
+    private String getColumnComment(DatabaseMetaData dbJDBCMetadata, ResultSet columns, String tableName, String columnName,
+            String schemaPattern) {
+        String columnComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
+        try {
+            if (StringUtils.isBlank(columnComment) && MetadataConnectionUtils.isOracle(dbJDBCMetadata)) {
+                String selectRemarkOnTable = "SELECT COMMENTS FROM ALL_COL_COMMENTS WHERE TABLE_NAME='" + tableName //$NON-NLS-1$
+                        + "' AND OWNER='" + schemaPattern.toUpperCase() + "' AND COLUMN_NAME='" + columnName + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                columnComment = executeGetCommentStatement(selectRemarkOnTable, dbJDBCMetadata.getConnection());
+            }
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+        if (columnComment == null) {
+            columnComment = "";//$NON-NLS-1$
+        }
+        return columnComment;
+    }
+
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType) {
         return fillAll(pack, dbJDBCMetadata, null, tableFilter, tablePattern, tableType);
@@ -1405,10 +1433,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
 
                 // Comment
-                String colComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
-                if (colComment == null) {
-                    colComment = ""; //$NON-NLS-1$
-                }
+                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
                 colComment = ManagementTextUtils.filterSpecialChar(colComment);
                 column.setComment(colComment);
                 ColumnHelper.setComment(colComment, column);
@@ -1582,10 +1607,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 column.getSqlDataType().setNullable(NullableType.get(nullable));
 
                 // Comment
-                String colComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
-                if (colComment == null) {
-                    colComment = "";//$NON-NLS-1$
-                }
+                // MOD msjian TDQ-8546: fix the oracle type database column's comment is wrong
+                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
                 ColumnHelper.setComment(colComment, column);
 
                 // TdExpression
