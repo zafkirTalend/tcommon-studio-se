@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.ui;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +20,18 @@ import java.util.Set;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.service.RoutineProviderManager;
 import org.talend.librariesmanager.utils.ModulesInstaller;
@@ -99,6 +104,52 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
     @Override
     public String getLibrariesPath(ECodeLanguage language) {
         return LibrariesManagerUtils.getLibrariesPath(language);
+    }
+
+    @Override
+    public List<String> getNeedInstallModuleForBundle(String bundleName) {
+        List<ModuleNeeded> allModulesNeededExtensionsForPlugin = ModulesNeededProvider.getAllModulesNeededExtensionsForPlugin();
+        List<ModuleNeeded> requiredModulesForBundle = ModulesNeededProvider.filterRequiredModulesForBundle(bundleName,
+                allModulesNeededExtensionsForPlugin);
+        List<String> requiredJars = new ArrayList<String>(requiredModulesForBundle.size());
+        ILibraryManagerService service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(ILibraryManagerService.class);
+            for (ModuleNeeded module : requiredModulesForBundle) {
+                String moduleName = module.getModuleName();
+                if (!service.contains(moduleName)) {
+                    requiredJars.add(moduleName);
+                }
+            }
+        }
+        return requiredJars;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerUIService#isModuleInstalledForBundle(java.lang.String)
+     */
+    @Override
+    public boolean isModuleInstalledForBundle(String bundleName) {
+        if (LibManagerUiPlugin.getDefault().getBundle().getBundleContext().getProperty("osgi.dev") != null) {
+            return true;
+        }
+        List<ModuleNeeded> allModulesNeededExtensionsForPlugin = ModulesNeededProvider.getAllModulesNeededExtensionsForPlugin();
+        List<ModuleNeeded> requiredModulesForBundle = ModulesNeededProvider.filterRequiredModulesForBundle(bundleName,
+                allModulesNeededExtensionsForPlugin);
+        ILibraryManagerService service;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(ILibraryManagerService.class);
+            for (ModuleNeeded module : requiredModulesForBundle) {
+                String moduleName = module.getModuleName();
+                if (!service.contains(moduleName)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
 }

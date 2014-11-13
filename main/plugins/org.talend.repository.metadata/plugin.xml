@@ -30,6 +30,43 @@
             name="AddRulesGlobalMapMigrationTask"
             version="5.1.2">
       </projecttask>
+      
+      <projecttask
+            beforeLogon="false"
+            breaks="5.0.0"
+            class="org.talend.repository.model.migration.CorrectDBVersionListForAS400"
+            description="Correct the DB Version list for as400 in DB wizard, please see TDI-30337"
+            id="org.talend.repository.model.migration.CorrectDBVersionListForAS400"
+            name="CorrectDBVersionListForAS400"
+            version="5.6.0">
+      </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="5.6.0"
+            class="org.talend.repository.model.migration.UnifyPasswordEncryption4LdapConnectionMigrationTask"
+            description="Unify the entryption for LDAP password field"
+            id="org.talend.repository.model.migration.UnifyPasswordEncryption4LdapConnectionMigrationTask"
+            name="UnifyPasswordEncryption4LdapConnectionMigrationTask"
+            version="5.6.0">
+      </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="5.6.0"
+            class="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            description="Unify the entryption for Salesforce password fields"
+            id="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            name="UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            version="5.6.0">
+      </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="5.6.0"
+            class="org.talend.repository.model.migration.UnifyPasswordEncryption4WsdlConnectionMigrationTask"
+            description="Unify the entryption for WSDL password fields"
+            id="org.talend.repository.model.migration.UnifyPasswordEncryption4WsdlConnectionMigrationTask"
+            name="UnifyPasswordEncryption4WsdlConnectionMigrationTask"
+            version="5.6.0">
+      </projecttask>
    </extension>
    <extension
          point="org.talend.core.repositoryContextualsActions">
@@ -1290,6 +1327,21 @@
             </parameter>
          </importItemsHandler>
       </importItemsProvider>
+   </extension>
+   <extension
+         point="org.talend.core.runtime.repositoryComponent_provider">
+      <RepositoryComponent
+            input="tImpalaInput"
+            name="IMPALA"
+            output="tImpalaOutput"
+            withSchema="true">
+         <Item
+               clazz="org.talend.core.model.properties.DatabaseConnectionItem">
+         </Item>
+         <DBType
+               type="Impala">
+         </DBType>
+      </RepositoryComponent>
    </extension>
 
 </plugin>

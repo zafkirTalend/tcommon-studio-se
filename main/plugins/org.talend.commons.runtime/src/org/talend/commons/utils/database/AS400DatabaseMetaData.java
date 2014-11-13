@@ -16,7 +16,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,11 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
 
     private String A = "A";//$NON-NLS-1$
 
+    private String P = "P";//$NON-NLS-1$
+
     private String TABLE = "TABLE"; //$NON-NLS-1$
+
+    private String EXTERNAL_TABLE = "EXTERNAL_TABLE"; //$NON-NLS-1$
 
     private String VIEW = "VIEW"; //$NON-NLS-1$
 
@@ -126,9 +129,9 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
                 String table_name = rs.getString("TABLE_NAME"); //$NON-NLS-1$
                 String system_table_name = rs.getString("SYSTEM_TABLE_NAME"); //$NON-NLS-1$
                 String table_schema = rs.getString("TABLE_SCHEMA"); //$NON-NLS-1$
-                String system_table_schema = rs.getString("SYSTEM_TABLE_SCHEMA");
+                String system_table_schema = rs.getString("SYSTEM_TABLE_SCHEMA"); //$NON-NLS-1$
 
-                String[] r = new String[] { type, table_name, system_table_name, table_schema, system_table_schema }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { type, table_name, system_table_name, table_schema, system_table_schema };
                 list.add(r);
             }
 
@@ -141,11 +144,11 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
             } catch (Exception e) {
             }
         }
+
         AS400ResultSet tableResultSet = new AS400ResultSet();
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
-        // return super.getTables(catalog, schemaPattern, tableNamePattern, types);
     }
 
     private String getTypeNameType(String typeName) {
@@ -190,6 +193,8 @@ public class AS400DatabaseMetaData extends PackageFakeDatabaseMetadata {
             result = S;
         } else if (ALIAS.equals(typeName)) {
             result = A;
+        } else if (EXTERNAL_TABLE.equals(typeName)) {
+            result = P;
         }
         return result;
     }

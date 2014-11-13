@@ -40,9 +40,9 @@ public enum EDatabaseVersion4Drivers {
     ORACLE_8(new DbVersion4Drivers(new EDatabaseTypeName[] { EDatabaseTypeName.ORACLEFORSID, EDatabaseTypeName.ORACLESN,
             EDatabaseTypeName.ORACLE_OCI, EDatabaseTypeName.ORACLE_CUSTOM }, "Oracle 8", "ORACLE_8", "ojdbc12.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // AS400
-    AS400_V5R4_V6R1(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R4 to V6R1", "V5R4 to V6R1", "jt400_V5R3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "V5R2 to V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    AS400_V6R1_V7R2(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V6R1 to V7R2", "V6R1 to V7R2", "jt400_V6R1.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400_V6R1_V7R2(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V6R1 to V7R2", "AS400_V6R1_V7R2", "jt400_V6R1.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400_V5R3_V6R1(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R3 to V6R1", "AS400_V5R3_V6R1", "jt400_V5R3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400_V5R2_V5R4(new DbVersion4Drivers(EDatabaseTypeName.AS400, "V5R2 to V5R4", "AS400_V5R2_V5R4", "jt400_V5R2.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     //
     INTERBASE(new DbVersion4Drivers(EDatabaseTypeName.INTERBASE, "interclient.jar")), //$NON-NLS-1$
 
@@ -145,9 +145,9 @@ public enum EDatabaseVersion4Drivers {
             "slf4j-log4j12-1.6.1.jar", "hive-exec-0.10.0-cdh4.4.0.jar" })),
 
     IMPALA_CDH5(new DbVersion4Drivers(EDatabaseTypeName.IMPALA, "Cloudera 5", "CLOUDERA_5", new String[] {
-            "commons-logging-1.1.1.jar", "hive-jdbc-0.12.0-cdh5.0.0.jar", "hive-metastore-0.12.0-cdh5.0.0.jar",
-            "hive-service-0.12.0-cdh5.0.0.jar", "libfb303-0.9.0.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
-            "slf4j-log4j12-1.6.1.jar", "hive-exec-0.12.0-cdh5.0.0.jar", "httpcore-4.2.5.jar", "httpclient-4.2.5.jar",
+            "commons-logging-1.1.1.jar", "hive-jdbc-0.12.0-cdh5.0.4.jar", "hive-metastore-0.12.0-cdh5.0.4.jar",
+            "hive-service-0.12.0-cdh5.0.4.jar", "libfb303-0.9.0.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
+            "slf4j-log4j12-1.6.1.jar", "hive-exec-0.12.0-cdh5.0.4.jar", "httpcore-4.2.5.jar", "httpclient-4.2.5.jar",
             "hadoop-core-1.0.0.jar" })),
 
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$

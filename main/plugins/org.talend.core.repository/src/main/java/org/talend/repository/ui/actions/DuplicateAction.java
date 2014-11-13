@@ -153,13 +153,16 @@ public class DuplicateAction extends AContextualAction {
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESOPERATION
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.SERVICESPORT) {
                         canWork = false;
-                    } else if (node.getContentType() != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                    } else if (node.getContentType() != null
+                            && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                         ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                                 .getService(ICamelDesignerCoreService.class);
-                        if(node.getContentType().equals(camelService.getRouteDocsType())|| node.getContentType().equals(camelService.getRouteDocType())){
-                        	canWork = false;
+                        if (node.getContentType().equals(camelService.getRouteDocsType())
+                                || node.getContentType().equals(camelService.getRouteDocType())) {
+                            canWork = false;
                         }
-                    } 
+                    }
+
                 }
             }
         } else {

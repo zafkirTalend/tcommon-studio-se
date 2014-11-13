@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -31,17 +32,25 @@ import org.apache.oro.text.regex.Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Point;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.repository.ProjectManager;
+import org.talend.utils.security.CryptoHelper;
 
 /**
  * cli class global comment. Detailled comment
  */
 public final class ParameterValueUtil {
+
+    public static final String EMPTY = ""; //$NON-NLS-1$
 
     private ParameterValueUtil() {
     }
@@ -51,15 +60,16 @@ public final class ParameterValueUtil {
         if (param == null || oldName == null || newName == null) {
             return;
         }
-        boolean flag = true;
-        if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
-            flag = false;
-        }
+        // boolean flag = true;
+        // if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
+        // flag = false;
+        // }
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();
             if (value.contains(oldName)) {
                 // param.setValue(value.replaceAll(oldName, newName));
-                String newValue = renameValues(value, oldName, newName, flag);
+                // String newValue = renameValues(value, oldName, newName, flag);
+                String newValue = splitQueryData(oldName, newName, value);
                 if (!value.equals(newValue)) {
                     param.setValue(newValue);
                 }
@@ -76,7 +86,8 @@ public final class ParameterValueUtil {
                         if (value.contains(oldName)) {
                             // line.put(key, value.replaceAll(oldName,
                             // newName));
-                            String newValue = renameValues(value, oldName, newName, flag);
+                            // String newValue = renameValues(value, oldName, newName, flag);
+                            String newValue = splitQueryData(oldName, newName, value);
                             if (!value.equals(newValue)) {
                                 line.put(key, newValue);
                             }
@@ -105,7 +116,7 @@ public final class ParameterValueUtil {
 
         if (matcher.contains(value, pattern)) {
             // replace
-            String returnValue = "";
+            String returnValue = EMPTY;
             if (value.contains(TalendQuoteUtils.getQuoteChar()) && !flag) {
                 // returnValue = splitQueryData(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
                 returnValue = splitQueryData(oldName, newName, value);
@@ -124,7 +135,7 @@ public final class ParameterValueUtil {
     public static String splitQueryData(PatternMatcher matcher, Pattern pattern, Substitution sub, String value, int numSubs) {
         String[] split = value.split("\"");
         int i = 0;
-        String replace = "";
+        String replace = EMPTY;
         for (String s : split) {
             if (i % 2 == 0) {
                 replace = s;
@@ -137,7 +148,7 @@ public final class ParameterValueUtil {
             }
             i++;
         }
-        String returnValue = "";
+        String returnValue = EMPTY;
         for (int t = 1; t < split.length; t++) {
             if (t % 2 == 0) {
                 returnValue += split[t];
@@ -233,6 +244,7 @@ public final class ParameterValueUtil {
                 strBuffer.append(replacedString);
 
                 // get the const string
+                // deal with: context.getProperty("test") + "test"
                 subString = value.substring(start, end);
                 if (start < methodMaxIndex) {
                     subString = subString.replaceAll(oldName, newName);
@@ -267,6 +279,9 @@ public final class ParameterValueUtil {
      */
     private static String doVaribleReplace(String oldName, String newName, String value, List<Point> functionNameAreas,
             int vStart, int vEnd) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         StringBuffer replacedString = new StringBuffer();
         int replaceableStart = vStart;
@@ -282,9 +297,9 @@ public final class ParameterValueUtil {
                 replaceableEnd = functionNameArea.x;
                 String replaceableString = value.substring(replaceableStart, replaceableEnd);
                 replacedString.append(doReplace(oldName, newName, replaceableString));
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             } else {
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             }
             replaceableStart = functionNameArea.y;
         }
@@ -296,11 +311,14 @@ public final class ParameterValueUtil {
     }
 
     private static String doReplace(String oldName, String newName, String value) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         String vOldName = oldName.replaceAll("\\.", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
 
         // ((\b\w+\s*\.\s*)+schema(\s*\.\s*\w+)*)|((\b\w+\s*\.\s*)*schema(\s*\.\s*\w+)+)
-        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "(\\s*\\.\\s*\\w+)*)|((\\b\\w+\\s*\\.\\s*)*" + vOldName + "(\\s*\\.\\s*\\w+)+)"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "\\b)|(\\b" + vOldName + "\\s*\\()"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         // obtain all varibles
         String[] split = value.split(regex);
         Map<String, String> replacedStrings = new HashMap<String, String>();
@@ -326,6 +344,10 @@ public final class ParameterValueUtil {
             int valueLength = value.length();
             String oldFill = null;
             String newFill = null;
+
+            String subRegEx = "^" + vOldName + "(\\s*\\.\\s*\\w+)+"; //$NON-NLS-1$ //$NON-NLS-2$
+            java.util.regex.Pattern subPattern = java.util.regex.Pattern.compile(subRegEx);
+
             while (true) {
                 if (curPos == valueLength) {
                     break;
@@ -340,7 +362,13 @@ public final class ParameterValueUtil {
                     curPos = x;
                     continue;
                 }
-                returnValue.append(matcher.group());
+                String matchedString = matcher.group();
+                Matcher subMatcher = subPattern.matcher(matchedString);
+                if (subMatcher.find()) {
+                    returnValue.append(matchedString.replaceFirst(vOldName, newName));
+                } else {
+                    returnValue.append(matchedString);
+                }
                 curPos = y;
                 if (!matcher.find()) {
                     x = valueLength;
@@ -493,5 +521,140 @@ public final class ParameterValueUtil {
 
         return prefix + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + suffix;
 
+    }
+
+    public static String getValue4Doc(ContextParameterType contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (isHidePassword() && PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    // use the raw value to display.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(contextParam.getRawValue());
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getValue4Doc(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ContextParameterType.
+                        String encryptValue = getEncryptValue(contextParam);
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getEncryptValue(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue);
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Object getValue4Doc(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null) {
+                if ((param.getRepositoryValue() != null && param.getRepositoryValue().toUpperCase().contains("PASSWORD") //$NON-NLS-1$
+                || EParameterFieldType.PASSWORD.equals(param.getFieldType()))//
+                        && !ContextParameterUtils.containContextVariables((String) docValue)) {
+
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ElementParameterType.
+                        String encryptValue = getEncryptValue(param);
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getEncryptValue(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null && docValue instanceof String) {
+                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String getValue4Doc(ElementParameterType param) {
+        if (param != null) {
+            String docValue = param.getValue();
+            if (docValue != null) {
+                if (EParameterFieldType.PASSWORD.getName().equals(param.getField()) && isHidePassword()
+                        && !ContextParameterUtils.containContextVariables(docValue)) {
+                    // the value has been raw, so just get dispaly value.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(param.getRawValue());
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static boolean isHidePassword() {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject != null) {
+            return currentProject.getEmfProject().isHidePassword();
+        }
+        return false;
+    }
+
+    /**
+     * add \ before \ and " in the string.
+     * 
+     * @param str
+     * @return
+     */
+    public static String handleSpecialCharacters(String str) {
+        // handle backlash first, then handle double quotation mark
+        String result = replaceAll(str, "\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        result = replaceAll(result, "\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
+        return result;
+    }
+
+    private static String replaceAll(String str, String regex, String replacement) {
+        List<String> list = new ArrayList<String>();
+        splitString(str, list, regex);
+        return StringUtils.join(list.toArray(new String[list.size()]), replacement);
+    }
+
+    private static void splitString(String str, List<String> list, String regex) {
+        int indexOf = str.indexOf(regex);
+        if (indexOf > -1) {
+            list.add(str.substring(0, indexOf));
+            splitString(str.substring(indexOf + 1, str.length()), list, regex);
+        } else {
+            list.add(str);
+        }
     }
 }

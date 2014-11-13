@@ -341,6 +341,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", "SYSTEM_INDICATORS_FRAUDDETECTION", 103, true, "repository.systemIndicators.fraudDetectionStatistics.alias", new String[] { PROD_DQ }, new String[] {}, false); //$NON-NLS-1$ //$NON-NLS-2$
 
+    public final static ERepositoryObjectType METADATA_SAP_TABLE = new ERepositoryObjectType(
+            "repository.SAPTable", "METADATA_SAP_TABLE", 104, true, true, new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$
+
     private String label;
 
     private String alias;

@@ -2,9 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Teradata Plug-in
 Bundle-SymbolicName: org.talend.libraries.jdbc.teradata;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: lib/terajdbc4.jar,
  lib/tdgssconfig.jar,
  .
@@ -35,3 +34,4 @@ Export-Package: com.ncr.teradata,
  com.teradata.tdgss.jgssspi,
  com.teradata.tdgss.jtdgss
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

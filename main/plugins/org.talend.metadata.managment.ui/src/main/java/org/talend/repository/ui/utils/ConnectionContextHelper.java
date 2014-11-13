@@ -50,6 +50,7 @@ import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -124,7 +125,11 @@ public final class ConnectionContextHelper {
         if (connItem == null) {
             return null;
         }
-        Connection connection = connItem.getConnection();
+
+        return checkContextMode(connItem.getConnection());
+    }
+
+    public static ContextItem checkContextMode(Connection connection) {
         if (connection == null) {
             return null;
         }
@@ -285,6 +290,8 @@ public final class ConnectionContextHelper {
             varList = OtherConnectionContextUtils.getMDMSchemaVariables(label, (MDMConnection) conn);
         } else if (conn instanceof FTPConnection) {
             varList = OtherConnectionContextUtils.getFTPSChemaVariables(label, (FTPConnection) conn);
+        } else if (conn instanceof SAPConnection) {
+            varList = OtherConnectionContextUtils.getSAPConnectionVariables(label, (SAPConnection) conn);
         }
 
         return varList;
@@ -340,6 +347,8 @@ public final class ConnectionContextHelper {
                     contextItem, paramSet, map);
         } else if (conn instanceof GenericSchemaConnection) {
             //
+        } else if (conn instanceof SAPConnection) {
+            OtherConnectionContextUtils.setSAPConnectionProperties(label, (SAPConnection) conn);
         }
         // set connection for context mode
         connectionItem.getConnection().setContextMode(true);
@@ -475,29 +484,6 @@ public final class ConnectionContextHelper {
             }
         }
         return selection;
-    }
-
-    @SuppressWarnings("unchecked")
-    static String getContextValue(ContextType contextType, final String value, final String paramName) {
-        if (value == null) {
-            return EMPTY;
-        }
-
-        if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
-            ContextParameterType param = null;
-            for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
-                if (paramType.getName().equals(paramName)) {
-                    param = paramType;
-                    break;
-                }
-            }
-            if (param != null && param.getValue() != null) {
-                return param.getValue();
-            }
-            return EMPTY;
-        }
-        return value;
-
     }
 
     /**

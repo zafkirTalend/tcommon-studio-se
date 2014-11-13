@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -139,13 +138,7 @@ public class TalendWebServiceUpdateExtraFeature implements ExtraFeature {
             });
             return accepted.get();
         } else {// should ask the user to agree on license.
-            throw new NotImplementedException("User should be able to accept licences when downloading missing jars");
-            // new DownloadModuleRunnable(modulesToBeInstalled) {
-            //
-            // @Override
-            // protected boolean acceptLicence(ModuleToInstall module) {
-            // }
-            // };
+            throw new RuntimeException("Unable to get the default Display to show the license agreement, should never appear."); //$NON-NLS-1$
         }
     }
 
@@ -247,6 +240,17 @@ public class TalendWebServiceUpdateExtraFeature implements ExtraFeature {
     @Override
     public boolean mustBeInstalled() {
         return mustBeInstalled;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.updates.runtime.model.ExtraFeature#createFeatureIfUpdates(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public ExtraFeature createFeatureIfUpdates(IProgressMonitor progress) throws Exception {
+        return null;// we do not handle udpates yet.
     }
 
 }

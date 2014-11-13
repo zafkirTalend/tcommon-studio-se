@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Axis2
 Bundle-SymbolicName: org.talend.libraries.apache.axis2
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.httpclient,
  javax.wsdl,
@@ -10,7 +10,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.logging,
  javax.mail;bundle-version="1.4.0",
  javax.activation;bundle-version="1.1.0"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: lib/activation-1.1.jar,
  lib/axiom-api-1.2.13.jar,
  lib/axiom-impl-1.2.13.jar,
@@ -177,3 +176,4 @@ Export-Package: com.ctc.wstx.api,
  org.codehaus.stax2.ri,
  org.codehaus.stax2.validation
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

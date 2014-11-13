@@ -17,7 +17,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -27,17 +30,22 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
 /**
@@ -287,6 +295,57 @@ public class LocalLibraryManagerTest {
             throw new RuntimeException(buffer.toString());
         }
         assertTrue(missJars.size() == 0);
+    }
+    
+    @Test
+    public void testUnusedJars() throws URISyntaxException {
+        
+        Bundle currentBundle = Platform.getBundle("org.talend.librariesmanager"); //$NON-NLS-1$
+        Bundle[] bundles = currentBundle.getBundleContext().getBundles();
+        Long totalSize = 0L;
+        StringBuffer strBuff = new StringBuffer();
+        List<String> neededJars = new ArrayList<String>();
+        ModulesNeededProvider.reset();
+        for (ModuleNeeded module: ModulesNeededProvider.getModulesNeeded()) {
+            if (module.getStatus() != ELibraryInstallStatus.UNUSED) {
+                neededJars.add(module.getModuleName());
+            }
+        }
+        for (Bundle bundle: bundles) {
+            String name = bundle.getSymbolicName();
+            if (name.startsWith("org.talend.libraries")) {
+                String classpath = (String) bundle.getHeaders().get("Bundle-ClassPath");
+                List<URL> urls = FilesUtils.getFilesFromFolder(bundle, "/lib", ".jar", true, true);
+                for (URL url : urls) {
+                    String jarFile = new Path(url.getFile()).lastSegment();
+                    if (!neededJars.contains(jarFile) && (classpath == null || !classpath.contains(jarFile))) {
+                        File file = new File(url.toURI());
+                        Long fileSize = file.length();
+                        String path = url.getPath().substring(url.getPath().indexOf("/plugins/")+9);
+                        strBuff.append(path+" : "+fileSize+"\n");
+                        totalSize += fileSize;
+                    }
+                    
+                }
+            }
+            if (name.contains(".components.")) {
+                List<URL> urls = FilesUtils.getFilesFromFolder(bundle, "/components", ".jar", true, true);
+                for (URL url : urls) {
+                    String jarFile = new Path(url.getFile()).lastSegment();
+                    if (!neededJars.contains(jarFile)) {
+                        File file = new File(url.toURI());
+                        Long fileSize = file.length();
+                        String path = url.getPath().substring(url.getPath().indexOf("/plugins/")+9);
+                        strBuff.append(path+" : "+fileSize+"\n");
+                        totalSize += fileSize;
+                    }
+                }
+            }
+        }
+        
+        if (strBuff.length() != 0) {
+            fail("Unused jars still in product (total byte size: "+totalSize+"):\n"+strBuff);
+        }
     }
 
     /**

@@ -111,11 +111,12 @@ public class CreateFolderAction extends AContextualAction {
                         || ERepositoryObjectType.REFERENCED_PROJECTS.equals(property)
                         || ERepositoryObjectType.SVN_ROOT.equals(property)) {
                     canWork = false;
-                }else if (property != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                } else if (property != null
+                        && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                     ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                             .getService(ICamelDesignerCoreService.class);
-                    if(property.equals(camelService.getRouteDocsType())){
-                    	canWork = false;
+                    if (property.equals(camelService.getRouteDocsType())) {
+                        canWork = false;
                     }
                 }
                 break;
@@ -123,11 +124,12 @@ public class CreateFolderAction extends AContextualAction {
                 if (ERepositoryObjectType.JOB_DOC.equals(property) || ERepositoryObjectType.JOBLET_DOC.equals(property)
                         || (ERepositoryObjectType.SQLPATTERNS.equals(property) && !isUnderUserDefined(node))) {
                     canWork = false;
-                }else if (property != null && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                } else if (property != null
+                        && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
                     ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
                             .getService(ICamelDesignerCoreService.class);
-                    if(property.equals(camelService.getRouteDocType())){
-                    	canWork = false;
+                    if (property.equals(camelService.getRouteDocType())) {
+                        canWork = false;
                     }
                 }
                 if (node.getObject().isDeleted()) {

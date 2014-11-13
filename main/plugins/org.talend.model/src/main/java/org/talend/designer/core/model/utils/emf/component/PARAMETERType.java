@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -29,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getMAXLENGTH <em>MAXLENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
@@ -36,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNUMROW <em>NUMROW</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
@@ -55,10 +54,6 @@ public interface PARAMETERType extends EObject {
      * Returns the value of the '<em><b>DEFAULT</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.DEFAULTType}.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>DEFAULT</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
@@ -76,10 +71,6 @@ public interface PARAMETERType extends EObject {
     /**
      * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ITEMS</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
@@ -290,11 +281,11 @@ public interface PARAMETERType extends EObject {
     /**
      * Returns the value of the '<em><b>DYNAMICSETTINGS</b></em>' attribute.
      * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>DYNAMICSETTINGS</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DYNAMICSETTINGS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
      * @return the value of the '<em>DYNAMICSETTINGS</em>' attribute.
      * @see #isSetDYNAMICSETTINGS()
      * @see #unsetDYNAMICSETTINGS()
@@ -304,44 +295,44 @@ public interface PARAMETERType extends EObject {
      *        extendedMetaData="kind='attribute' name='DYNAMIC_SETTINGS' namespace='##targetNamespace'"
      * @generated
      */
-	boolean isDYNAMICSETTINGS();
+    boolean isDYNAMICSETTINGS();
 
-				/**
+    /**
      * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isDYNAMICSETTINGS <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>DYNAMICSETTINGS</em>' attribute.
      * @see #isSetDYNAMICSETTINGS()
      * @see #unsetDYNAMICSETTINGS()
      * @see #isDYNAMICSETTINGS()
      * @generated
      */
-	void setDYNAMICSETTINGS(boolean value);
+    void setDYNAMICSETTINGS(boolean value);
 
-				/**
+    /**
      * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isDYNAMICSETTINGS <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isSetDYNAMICSETTINGS()
      * @see #isDYNAMICSETTINGS()
      * @see #setDYNAMICSETTINGS(boolean)
      * @generated
      */
-	void unsetDYNAMICSETTINGS();
+    void unsetDYNAMICSETTINGS();
 
-				/**
+    /**
      * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isDYNAMICSETTINGS <em>DYNAMICSETTINGS</em>}' attribute is set.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @return whether the value of the '<em>DYNAMICSETTINGS</em>' attribute is set.
      * @see #unsetDYNAMICSETTINGS()
      * @see #isDYNAMICSETTINGS()
      * @see #setDYNAMICSETTINGS(boolean)
      * @generated
      */
-	boolean isSetDYNAMICSETTINGS();
+    boolean isSetDYNAMICSETTINGS();
 
-				/**
+    /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -557,6 +548,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     boolean isSetNBLINES();
+
+    /**
+     * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOCONTEXTASSIST</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NOCONTEXTASSIST()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isNOCONTEXTASSIST();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     */
+    void setNOCONTEXTASSIST(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    void unsetNOCONTEXTASSIST();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    boolean isSetNOCONTEXTASSIST();
 
     /**
      * Returns the value of the '<em><b>NOTREADONLYIF</b></em>' attribute.
@@ -940,57 +985,112 @@ public interface PARAMETERType extends EObject {
     void setSHOWIF(String value);
 
     /**
-     * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * Returns the value of the '<em><b>RAW</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>NOCONTEXTASSIST</em>' attribute isn't clear,
+     * If the meaning of the '<em>RAW</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NOCONTEXTASSIST()
+     * @return the value of the '<em>RAW</em>' attribute.
+     * @see #isSetRAW()
+     * @see #unsetRAW()
+     * @see #setRAW(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_RAW()
      * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     *        extendedMetaData="kind='attribute' name='RAW' namespace='##targetNamespace'"
      * @generated
      */
-    boolean isNOCONTEXTASSIST();
+    boolean isRAW();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
+     * @param value the new value of the '<em>RAW</em>' attribute.
+     * @see #isSetRAW()
+     * @see #unsetRAW()
+     * @see #isRAW()
      * @generated
      */
-    void setNOCONTEXTASSIST(boolean value);
+    void setRAW(boolean value);
 
     /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
+     * @see #isSetRAW()
+     * @see #isRAW()
+     * @see #setRAW(boolean)
      * @generated
      */
-    void unsetNOCONTEXTASSIST();
+    void unsetRAW();
 
     /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}' attribute is set.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
+     * @return whether the value of the '<em>RAW</em>' attribute is set.
+     * @see #unsetRAW()
+     * @see #isRAW()
+     * @see #setRAW(boolean)
      * @generated
      */
-    boolean isSetNOCONTEXTASSIST();
+    boolean isSetRAW();
+
+    /**
+     * Returns the value of the '<em><b>LOG4J ENABLED</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>LOG4J ENABLED</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>LOG4J ENABLED</em>' attribute.
+     * @see #isSetLOG4J_ENABLED()
+     * @see #unsetLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_LOG4J_ENABLED()
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='LOG4J_ENABLED' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isLOG4J_ENABLED();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>LOG4J ENABLED</em>' attribute.
+     * @see #isSetLOG4J_ENABLED()
+     * @see #unsetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @generated
+     */
+    void setLOG4J_ENABLED(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @generated
+     */
+    void unsetLOG4J_ENABLED();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>LOG4J ENABLED</em>' attribute is set.
+     * @see #unsetLOG4J_ENABLED()
+     * @see #isLOG4J_ENABLED()
+     * @see #setLOG4J_ENABLED(boolean)
+     * @generated
+     */
+    boolean isSetLOG4J_ENABLED();
 
 } // PARAMETERType

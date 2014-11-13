@@ -59,7 +59,7 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_SAPCONNECTION_ICON;
         } else if (type == ERepositoryObjectType.SQLPATTERNS) {
             return ECoreImage.METADATA_SQLPATTERN_ICON;
-        } else if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
+        } else if (type == ERepositoryObjectType.METADATA_CON_TABLE || type == ERepositoryObjectType.METADATA_SAP_IDOC) {
             return ECoreImage.METADATA_TABLE_ICON;
         } else if (type == ERepositoryObjectType.METADATA_CON_COLUMN) {
             return ECoreImage.METADATA_COLUMN_ICON;

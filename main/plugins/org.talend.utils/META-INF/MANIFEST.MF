@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utils Plug-in
 Bundle-SymbolicName: org.talend.utils
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Export-Package: 
  org.talend.utils,
@@ -31,7 +31,8 @@ Bundle-ClassPath: .
 Require-Bundle: org.apache.commons.lang,
  org.talend.libraries.apache;visibility:=reexport,
  org.apache.log4j,
- org.apache.commons.io
+ org.apache.commons.io,
+ bcprov
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j, org.talend.testutils
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

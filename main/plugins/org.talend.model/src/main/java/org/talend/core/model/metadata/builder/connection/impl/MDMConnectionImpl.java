@@ -19,7 +19,6 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
-import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>MDM Connection</b></em>'. <!-- end-user-doc -->
@@ -39,7 +38,7 @@ import org.talend.cwm.helper.ConnectionHelper;
  * <li>{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
@@ -248,7 +247,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.MDM_CONNECTION;
     }
@@ -279,23 +277,10 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @not generated
+     * generated
      */
     public String getPassword() {
-        // MOD xqliu 2010-07-07 bug 13826
-        String pwd = ConnectionHelper.getDecryptPassword(password);
-        return pwd == null ? password : pwd;
-        // ~ 13826
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @not generated
-     */
-    public String getRawPassword() {
         return password;
-        // ~ 16729
     }
 
     /**
@@ -497,7 +482,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__SCHEMAS:
@@ -511,7 +495,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -544,7 +527,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * @generated
      */
     @SuppressWarnings("unchecked")
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -587,7 +569,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -629,7 +610,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
         case ConnectionPackage.MDM_CONNECTION__USERNAME:
@@ -661,7 +641,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) {
             return super.toString();
@@ -695,7 +674,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @generated NOT
      */
-    @Override
     public String getPathname() {
         return pathname == null ? this.getConnectionString() : pathname;
     }
@@ -705,7 +683,6 @@ public class MDMConnectionImpl extends ConnectionImpl implements MDMConnection {
      * 
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getConnectionTypeName()
      */
-    @Override
     public String getConnectionTypeName() {
         return "MDM"; //$NON-NLS-1$
     }

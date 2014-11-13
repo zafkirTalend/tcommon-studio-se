@@ -48,11 +48,11 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.link.IRepoViewLinker;
 import org.talend.core.repository.link.RepoViewLinkerRegistryReader;
-import org.talend.core.repository.model.ISubRepositoryObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
@@ -262,7 +262,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
                         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
                         for (IEditorReference editors : page.getEditorReferences()) {
                             IEditorInput nameInEditor = editors.getEditorInput();
-                            if (isRelation(nameInEditor, objToDelete.getId())) { //$NON-NLS-1$
+                            if (isRelation(nameInEditor, objToDelete.getId())) {
                                 page.closeEditor(editors.getEditor(false), false);
                             }
                         }

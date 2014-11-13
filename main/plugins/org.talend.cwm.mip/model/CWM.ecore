@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="orgomg"
-    nsURI="http:///orgomg.ecore" nsPrefix="orgomg">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="orgomg" nsURI="http:///orgomg.ecore" nsPrefix="orgomg">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="Object Management Group, Inc.&#xA;250 First Ave. Suite 201&#xA;Needham, MA 02494&#xA;U.S.A.&#xA;&#xA;Ph: +1-781-444 0404&#xA;Fax: +1-781-444 0320&#xA;Email: info@omg.org&#xA;&#xA;Web:  http://www.omg.org&#xA;"/>
   </eAnnotations>

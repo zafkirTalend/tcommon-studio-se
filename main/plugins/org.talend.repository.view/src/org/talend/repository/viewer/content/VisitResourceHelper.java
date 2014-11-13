@@ -14,6 +14,7 @@ package org.talend.repository.viewer.content;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
@@ -93,6 +94,9 @@ public class VisitResourceHelper {
         IResourceDelta[] affectedChildren = delta.getAffectedChildren();
 
         IResource res = delta.getResource();
+        if (res instanceof IProject && delta.getKind() == IResourceDelta.REMOVED) {
+            return false;
+        }
         IPath path = delta.getFullPath();
 
         boolean noChild = (affectedChildren == null || (affectedChildren.length == 0));

@@ -59,7 +59,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
+import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.utils.exceptions.MissingDriverException;
@@ -161,6 +161,8 @@ public class MetadataConnectionUtils {
                 rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
                 CommonExceptionHandler.process(e);
             }
+        } else if (EDatabaseTypeName.HBASE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
+            rc.setOk(true);
         } else {
             String dbUrl = metadataBean.getUrl();
             if (ConnectionUtils.isHsql(dbUrl)) {
@@ -248,7 +250,7 @@ public class MetadataConnectionUtils {
         } else {
             metadataConnection = new MetadataConnection();
             String dbUrl = databaseConnection.getURL();
-            String password = databaseConnection.getPassword();
+            String password = databaseConnection.getRawPassword();
             String userName = databaseConnection.getUsername();
             String dbType = databaseConnection.getDatabaseType();
             String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
@@ -274,7 +276,7 @@ public class MetadataConnectionUtils {
 
                     if (origValueConn != null) {
                         dbUrl = origValueConn.getURL();
-                        password = origValueConn.getPassword();
+                        password = origValueConn.getRawPassword();
                         userName = origValueConn.getUsername();
                         driverClass = origValueConn.getDriverClass();
                         driverJarPath = origValueConn.getDriverJarPath();
@@ -687,7 +689,9 @@ public class MetadataConnectionUtils {
      * 
      * @param sqlConn
      * @return null only if conn is null.or can not find the
+     * @deprecated {@link #getCommentQueryStr(String, String, String)} instead.
      */
+    @Deprecated
     public static String getCommonQueryStr(String productName, String tableName) {
         if (productName == null) {
             return null;
@@ -706,6 +710,42 @@ public class MetadataConnectionUtils {
             break;
         case MySQL:
             sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            break;
+        default:
+            sqlStr = null;
+
+        }
+        return sqlStr;
+
+    }
+
+    /**
+     * get Comment Query Str.
+     * 
+     * @param productName
+     * @param tableName
+     * @param catalogName
+     * @param schemaPattern
+     * @return null only if conn is null.or can not find
+     */
+    public static String getCommentQueryStr(String productName, String tableName, String catalogName, String schemaPattern) {
+        if (productName == null) {
+            return null;
+        }
+        productName = productName.replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+        EDataBaseType eDataBaseType = null;
+        try {
+            eDataBaseType = EDataBaseType.valueOf(productName);
+        } catch (Exception e) {
+            eDataBaseType = EDataBaseType.Microsoft_SQL_Server;
+        }
+        String sqlStr = ""; //$NON-NLS-1$
+        switch (eDataBaseType) {
+        case Oracle:
+            sqlStr = "SELECT COMMENTS FROM ALL_TAB_COMMENTS WHERE TABLE_NAME='" + tableName + "' AND OWNER='" + schemaPattern.toUpperCase() + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            break;
+        case MySQL:
+            sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "' AND TABLE_SCHEMA='" + catalogName + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             break;
         default:
             sqlStr = null;
@@ -757,7 +797,7 @@ public class MetadataConnectionUtils {
      */
     public static XtentisBindingStub getXtentisBindingStub(MDMConnection dataProvider) throws ServiceException {
         return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
-                dataProvider.getUsername(), dataProvider.getPassword());
+                dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
     }
 
     /**
@@ -777,7 +817,7 @@ public class MetadataConnectionUtils {
         // initialization Web Service calling
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
         xtentisService.setXtentisPortEndpointAddress(url);
-        XtentisPort xtentisWS = xtentisService.getXtentisPort();
+        XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
         XtentisBindingStub stub = (XtentisBindingStub) xtentisWS;
 
         // authorization
@@ -998,7 +1038,7 @@ public class MetadataConnectionUtils {
                 }
                 EDatabaseTypeName currentEDatabaseType = EDatabaseTypeName.getTypeFromDbType(metaConnection.getDbType());
                 if (currentEDatabaseType != null) {
-                    MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(currentEDatabaseType);
+                    MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(metaConnection);
                     dbInstance.fillUIConnParams(metaConnection, dbConn);
                     sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
                     if (sqlConn != null) {
@@ -1011,10 +1051,10 @@ public class MetadataConnectionUtils {
                         }
 
                         if (sqlConn != null) {
-                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillCatalogs(dbConn, databaseMetaData,
-                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
-                            MetadataFillFactory.getDBInstance(currentEDatabaseType).fillSchemas(dbConn, databaseMetaData,
-                                    metaConnection, MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
+                            dbInstance.fillCatalogs(dbConn, databaseMetaData, metaConnection,
+                                    MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, true));
+                            dbInstance.fillSchemas(dbConn, databaseMetaData, metaConnection,
+                                    MetadataConnectionUtils.getPackageFilter(dbConn, databaseMetaData, false));
                         }
                     }
                 }

@@ -90,11 +90,14 @@ public abstract class AbstractRepositoryNodeUpdateManagerProvider extends Abstra
     }
 
     @Override
-    protected List<UpdateResult> retrieveUpdateResults(IProgressMonitor monitor, Object node) {
-        if (node != null && node instanceof IRepositoryNode) {
-            IRepositoryNode repNode = (IRepositoryNode) node;
-            IRepositoryViewObject object = repNode.getObject();
-            return retrieveUpdateResults(monitor, object);
+    protected List<UpdateResult> retrieveUpdateResults(IProgressMonitor monitor, IStructuredSelection selection) {
+        if (selection != null) {
+            Object node = selection.getFirstElement();
+            if (node != null && node instanceof IRepositoryNode) {
+                IRepositoryNode repNode = (IRepositoryNode) node;
+                IRepositoryViewObject object = repNode.getObject();
+                return retrieveUpdateResults(monitor, object);
+            }
         }
         return null;
     }

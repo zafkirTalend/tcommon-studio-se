@@ -206,6 +206,7 @@ public class MetadataSchema {
         final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
         final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
         final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+        final Node originalLength = nodeMap.getNamedItem("originalLength");//$NON-NLS-1$
         // see feature 4456
 
         String nodeValue = MetadataToolHelper.validateColumnName(label.getNodeValue(), 0);
@@ -222,6 +223,16 @@ public class MetadataSchema {
         } else {
             metadataColumn.setOriginalDbColumnName(nodeValue);
         }
+        if (originalLength != null && originalLength.getNodeValue() != null) {
+            try {
+                metadataColumn.setOriginalLength(Integer.parseInt(originalLength.getNodeValue()));
+            } catch (final NumberFormatException e) {
+                metadataColumn.setOriginalLength(null);
+            }
+        } else {
+            metadataColumn.setOriginalLength(null);
+        }
+
         if (length.getNodeValue() != null) {
             try {
                 metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
@@ -783,6 +794,14 @@ public class MetadataSchema {
             length.setNodeValue(String.valueOf(metadataColumn.getLength()));
         }
         column.setAttributeNode(length);
+
+        Attr originalLength = document.createAttribute("originalLength"); //$NON-NLS-1$
+        if (metadataColumn.getOriginalLength() == null) {
+            originalLength.setNodeValue("-1"); //$NON-NLS-1$
+        } else {
+            originalLength.setNodeValue(String.valueOf(metadataColumn.getOriginalLength()));
+        }
+        column.setAttributeNode(originalLength);
 
         Attr precision = document.createAttribute("precision"); //$NON-NLS-1$
         if (metadataColumn.getPrecision() == null) {

@@ -46,7 +46,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
      */
     public static TalendFileFactory init() {
         try {
-            TalendFileFactory theTalendFileFactory = (TalendFileFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/TalendFile.xsd"); 
+            TalendFileFactory theTalendFileFactory = (TalendFileFactory)EPackage.Registry.INSTANCE.getEFactory(TalendFilePackage.eNS_URI);
             if (theTalendFileFactory != null) {
                 return theTalendFileFactory;
             }

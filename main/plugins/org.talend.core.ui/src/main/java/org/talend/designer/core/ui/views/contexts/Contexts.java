@@ -77,6 +77,18 @@ public class Contexts {
         AbstractContextView cxtView = getView(perspIDs, AbstractContextView.CTX_ID_DESIGNER);
         if (cxtView != null) {
             refreshView(cxtView);
+        } else {
+            perspIDs = new HashSet<String>();
+            perspIDs.add(IBrandingConfiguration.PERSPECTIVE_DQ_ID);
+            cxtView = getView(perspIDs, AbstractContextView.CTX_ID_TDQ);
+            if (cxtView != null) {
+                refreshView(cxtView);
+            } else {
+                cxtView = forceGetView(AbstractContextView.CTX_ID_DESIGNER);
+                if (cxtView != null) {
+                    refreshView(cxtView);
+                }
+            }
         }
     }
 
@@ -84,10 +96,7 @@ public class Contexts {
      * DOC xqliu Comment method "forceRefreshContextsView".
      */
     public static void forceRefreshContextsView() {
-        AbstractContextView cxtView = forceGetView(AbstractContextView.CTX_ID_DESIGNER);
-        if (cxtView != null) {
-            refreshView(cxtView);
-        }
+        refreshContextsView();
     }
 
     /**

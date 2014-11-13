@@ -352,7 +352,7 @@ public final class DqRepositoryViewService {
                 DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
                         (DatabaseConnection) dataProvider);
 
-                return MetadataFillFactory.getDBInstance().fillColumns(columnSet, dm, null, null);
+                return MetadataFillFactory.getDBInstance(dataProvider).fillColumns(columnSet, dm, null, null);
             } finally {
                 if (connection != null) {
                     ConnectionUtils.closeConnection(connection);
@@ -425,12 +425,13 @@ public final class DqRepositoryViewService {
         DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
                 (DatabaseConnection) dataProvider, false);
         Package pack = schema == null ? catalog : schema;
+        MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(dataProvider);
         if (PackageHelper.getTables(pack).size() == 0) {
-            tables = MetadataFillFactory.getDBInstance().fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
+            tables = dbInstance.fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
         } else {
-            MetadataFillFactory.getDBInstance().setLinked(false);
-            tables = MetadataFillFactory.getDBInstance().fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
-            MetadataFillFactory.getDBInstance().setLinked(true);
+            dbInstance.setLinked(false);
+            tables = dbInstance.fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
+            dbInstance.setLinked(true);
         }
         return tables;
     }
@@ -441,12 +442,13 @@ public final class DqRepositoryViewService {
         DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
                 (DatabaseConnection) dataProvider, false);
         Package pack = schema == null ? catalog : schema;
+        MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(dataProvider);
         if (PackageHelper.getViews(pack).size() == 0) {
-            views = MetadataFillFactory.getDBInstance().fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
+            views = dbInstance.fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
         } else {
-            MetadataFillFactory.getDBInstance().setLinked(false);
-            views = MetadataFillFactory.getDBInstance().fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
-            MetadataFillFactory.getDBInstance().setLinked(true);
+            dbInstance.setLinked(false);
+            views = dbInstance.fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
+            dbInstance.setLinked(true);
         }
         return views;
     }

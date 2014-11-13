@@ -33,7 +33,7 @@ public class ConstantsFactoryImpl extends EFactoryImpl implements ConstantsFacto
     public static ConstantsFactory init() {
         try {
             ConstantsFactory theConstantsFactory = (ConstantsFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/cwm/constants/constants/2010");
+                    .getEFactory(ConstantsPackage.eNS_URI);
             if (theConstantsFactory != null) {
                 return theConstantsFactory;
             }

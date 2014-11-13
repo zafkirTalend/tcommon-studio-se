@@ -1071,7 +1071,7 @@ public class SelectorTableForm extends AbstractForm {
                         // managerConnection.check(metadataconnection, true);
                         // }
                     } else {
-                        managerConnection.check(metadataconnection, true);
+                        managerConnection.check(metadataconnection, false); // Always check the connection.
                     }
                     if (managerConnection.getIsValide()) {
                         // need to check catalog/schema if import a old db connection
@@ -2431,6 +2431,7 @@ public class SelectorTableForm extends AbstractForm {
 
     class checkStateProvider implements ICheckStateProvider {
 
+        @Override
         public boolean isChecked(Object element) {
             if (element instanceof TableNode) {
                 TableNode node = (TableNode) element;
@@ -2446,6 +2447,7 @@ public class SelectorTableForm extends AbstractForm {
 
         }
 
+        @Override
         public boolean isGrayed(Object element) {
             return false;
         }

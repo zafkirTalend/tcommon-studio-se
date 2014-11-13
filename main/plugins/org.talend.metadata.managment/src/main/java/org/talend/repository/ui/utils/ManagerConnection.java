@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -38,7 +40,6 @@ import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import metadata.managment.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -241,12 +242,16 @@ public class ManagerConnection {
         return tmpFolder + "/"; //$NON-NLS-1$
     }
 
+    public boolean check() {
+        return check(null);
+    }
+
     /**
      * Check connexion from the fields form.
      * 
      * @return isValide
      */
-    public boolean check() {
+    public boolean check(StringBuffer retProposedSchema) {
         messageException = null;
         ConnectionStatus testConnection = null;
         try {
@@ -254,12 +259,12 @@ public class ManagerConnection {
             // MOD xqliu 2012-01-05 TDQ-4162
             // get the real schema name
             String schemaName = schemaOracle;
-            if (EDatabaseTypeName.TERADATA.equals(type)) {
+            if (EDatabaseTypeName.TERADATA.equals(type) || EDatabaseTypeName.IMPALA.equals(type)) {
                 schemaName = sidOrDatabase;
             }
             // test the connection
             testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username, password,
-                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams, retProposedSchema);
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
         } catch (Exception e) {
@@ -268,12 +273,16 @@ public class ManagerConnection {
         return isValide;
     }
 
+    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+        return check(metadataConnection, null, onlyIfNeeded);
+    }
+
     /**
      * DOC cantoine : Check connexion from IMetadataConnection comment. Detailled comment.
      * 
      * @return isValide
      */
-    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+    public boolean check(IMetadataConnection metadataConnection, StringBuffer retProposedSchema, boolean... onlyIfNeeded) {
         messageException = null;
 
         ConnectionStatus testConnection = null;
@@ -320,7 +329,7 @@ public class ManagerConnection {
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
                         metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
-                        metadataConnection.getAdditionalParams());
+                        metadataConnection.getAdditionalParams(), retProposedSchema);
             }
             // qli
             // record this metadataConnection as old connection.

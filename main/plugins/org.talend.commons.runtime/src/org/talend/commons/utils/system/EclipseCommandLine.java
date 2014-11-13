@@ -61,7 +61,19 @@ public class EclipseCommandLine {
 
     static public final String TALEND_DISABLE_EXTERNAL_MODULE_INSTALL_DIALOG_COMMAND = "--disableExternalModuleInstallDialog"; //$NON-NLS-1$
 
-    static public final String TALEND_NOSPLASH_COMMAND = "-nosplash";
+    static public final String TALEND_NOSPLASH_COMMAND = "-nosplash"; //$NON-NLS-1$
+
+    /**
+     * for TUP-2218, enable to open the job auto, when open studio. the args should be name of job. if want to open
+     * several jobs at same times. will split by comma "," or semicolon ";"
+     */
+    static public final String TALEND_SHOW_JOB_COMMAND = "--showJob"; //$NON-NLS-1$
+
+    /**
+     * By default, the type is PROCESS, but can be other type of job, like MR, Storm, Joblet etc, will implement it
+     * later.
+     */
+    static public final String TALEND_SHOW_JOB_TYPE_COMMAND = "--showJobType"; //$NON-NLS-1$
 
     static public void updateOrCreateExitDataPropertyWithCommand(String command, String value, boolean delete) {
         updateOrCreateExitDataPropertyWithCommand(command, value, delete, false);

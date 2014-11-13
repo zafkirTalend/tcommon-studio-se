@@ -35,6 +35,16 @@ public interface ExtraFeature {
     public boolean isInstalled(IProgressMonitor progress) throws Exception;
 
     /**
+     * Check that the feature has an udpate with a version higher than the one already installed. If that is the case
+     * then a new instance of ExtraFeature is created, it returns null otherwhise.
+     * 
+     * @param progress
+     * 
+     * @return a new feature is an upate is available or null
+     */
+    public ExtraFeature createFeatureIfUpdates(IProgressMonitor progress) throws Exception;
+
+    /**
      * Getter for name.
      * 
      * @return the name

@@ -25,23 +25,27 @@ import org.talend.core.model.properties.Item;
 
 /**
  * Simple Text implementation of IElementParameter. <br/>
- *
+ * 
  * $Id: TextElementParameter.java 387 2006-11-10 08:34:31 +0000 (ven., 10 nov. 2006) nrousseau $
- *
+ * 
  */
 public class ObjectElementParameter implements IElementParameter {
 
-    private String name;
+    private String   name;
 
-    private Object value;
+    private Object   value;
 
     private String[] listItemsDisplayCodeName;
 
-    private boolean contextMode;
+    private boolean  contextMode;
 
-    private RGB color;
+    private RGB      color;
 
-    private RGB backgroundColor;
+    private RGB      backgroundColor;
+
+    private boolean  raw;
+
+    private boolean  enable = true;
 
     /**
      * Constructs a new TextElementParameter.
@@ -656,7 +660,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for contextMode.
-     *
+     * 
      * @return the contextMode
      */
     @Override
@@ -666,7 +670,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the contextMode.
-     *
+     * 
      * @param contextMode the contextMode to set
      */
     @Override
@@ -696,7 +700,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for color.
-     *
+     * 
      * @return the color
      */
     @Override
@@ -706,7 +710,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the color.
-     *
+     * 
      * @param color the color to set
      */
     @Override
@@ -716,7 +720,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for backgroundColor.
-     *
+     * 
      * @return the backgroundColor
      */
     @Override
@@ -726,7 +730,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the backgroundColor.
-     *
+     * 
      * @param backgroundColor the backgroundColor to set
      */
     @Override
@@ -980,6 +984,46 @@ public class ObjectElementParameter implements IElementParameter {
     @Override
     public boolean isValueSetToDefault() {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isRaw()
+     */
+    @Override
+    public boolean isRaw() {
+        return raw;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setRaw(boolean)
+     */
+    @Override
+    public void setRaw(boolean raw) {
+        this.raw = raw;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isLog4JEnabled()
+     */
+    @Override
+    public boolean isLog4JEnabled() {
+        return this.enable;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setLog4JEnabled(boolean)
+     */
+    @Override
+    public void setLog4JEnabled(boolean enable) {
+        this.enable = enable;
     }
 
 }
