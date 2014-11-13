@@ -10,20 +10,22 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.starting;
+package org.talend.rcp.perspective;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.osgi.service.runnable.StartupMonitor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.talend.rcp.intro.PerspectiveReviewUtil;
+import org.talend.core.ui.perspective.RestorePerspectiveProvider;
 
 /**
- * created by sgandon on 6 nov. 2014 Detailled comment
+ * created by ggu on 12 nov. 2014 Detailled comment
  *
+ * The integer value of "service.ranking" is set by 5, this restoring should be lower than the
+ * ShowPerspectivesAtStartupMonitor.
  */
-public class WorkbenchSetupStartupMonitor implements StartupMonitor {
+public class RestorePerspectiveStartupMonitor implements StartupMonitor {
 
     /*
      * (non-Javadoc)
@@ -45,12 +47,17 @@ public class WorkbenchSetupStartupMonitor implements StartupMonitor {
         if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
             return;
         }
-        IWorkbench workbench = PlatformUI.getWorkbench();
-        PerspectiveReviewUtil perspectiveReviewUtil = new PerspectiveReviewUtil();
-        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
-        ContextInjectionFactory.inject(perspectiveReviewUtil, activeContext);
+        RestorePerspectiveProvider restorePerspProvider = new RestorePerspectiveProvider();
 
-        perspectiveReviewUtil.checkPerspectiveDisplayItems();
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
+        /*
+         * FIXME, seem this active context is different with the ShowPerspectivesAtStartupMonitor, so there is no
+         * problem here. strange
+         */
+        ContextInjectionFactory.inject(restorePerspProvider, activeContext);
+
+        restorePerspProvider.restore();
     }
 
 }

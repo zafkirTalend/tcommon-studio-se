@@ -24,6 +24,8 @@ import org.eclipse.ui.internal.WorkbenchWindow;
 /**
  * created by ggu on Nov 10, 2014 Detailled comment
  *
+ * The integer value of "service.ranking" is set by 10. And make sure the RestorePerspectiveStartupMonitor will be after
+ * this. and set it 5.
  */
 public class ShowPerspectivesAtStartupMonitor implements StartupMonitor {
 
@@ -60,21 +62,21 @@ public class ShowPerspectivesAtStartupMonitor implements StartupMonitor {
             IEclipseContext activeContext = null;
 
             /*
-             * FIXME If it's first time to open studio, this active context is not ok, and will get the exception:
+             * NOTE: If it's first time to open studio, this active context is not ok, and will get the exception:
              * org.eclipse.e4.core.di.InjectionException: Unable to process "ShowPerspectivesAtStarupProvider.fWindow":
              * no actual value was found for the argument "MWindow".
-             * 
-             * Then try the following resolution.
              */
             activeContext = context.getActiveLeaf();
 
+            // FIXME: Then try the following resolution.
+
             /*
-             * Can't work still, will return null for the method getMPerspectiveStack of class
+             * Can't work, will return null for the method getMPerspectiveStack of class
              * ShowPerspectivesAtStarupProvider
              */
             // MApplication mApplication = context.get(MApplication.class);
             // if (mApplication != null) {
-            // // FIXME, copied the codes from method getActiveWorkbenchWindow of class Workbench
+            // // copied the codes from method getActiveWorkbenchWindow of class Workbench
             // MWindow activeWindow = mApplication.getSelectedElement();
             // if (activeWindow == null && !mApplication.getChildren().isEmpty()) {
             // activeWindow = mApplication.getChildren().get(0);
