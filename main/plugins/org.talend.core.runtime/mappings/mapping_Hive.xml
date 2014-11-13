@@ -20,7 +20,7 @@
 			<talendToDbTypes><!-- Adviced mappings  -->
 				<talendType type="id_List"/>
 				<talendType type="id_Boolean">	
-					<dbType type="BOOLEAN"/>				
+					<dbType type="BOOLEAN" default="true"/>				
 				</talendType>
 				<talendType type="id_Byte">
 					<dbType type="TINYINT" default="true"/>
@@ -30,7 +30,7 @@
 				</talendType>
 				<talendType type="id_byte[]"/>
 				<talendType type="id_Character">
-					<dbType type="STRING"/>
+					<dbType type="STRING" default="true"/>
 				</talendType>
 				<talendType type="id_Date">
 				    <dbType type="TIMESTAMP" default="true"/>
@@ -65,7 +65,7 @@
 					<dbType type="INT" />
 				</talendType>
 				<talendType type="id_String">
-					<dbType type="STRING"/>
+					<dbType type="STRING" default="true"/>
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
