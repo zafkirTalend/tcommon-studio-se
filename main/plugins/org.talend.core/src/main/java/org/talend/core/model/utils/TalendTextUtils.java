@@ -301,7 +301,7 @@ public class TalendTextUtils {
         boolean isH2 = EDatabaseTypeName.H2 == name;
 
         // if the database type is IBMDB2 and the field name contain lowercase character, should add quotes
-        if (((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name)
+        if (((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name && EDatabaseTypeName.IMPALA != name)
                 || isIBMDB2ContainLowerCase(dbType, fieldName)) {
             isCheck = true; // contain other char
         }
