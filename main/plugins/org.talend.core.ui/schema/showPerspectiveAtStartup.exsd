@@ -87,7 +87,16 @@ If all are not defined in this extension point, will be same as empty value and 
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         1 You must have the extension of org.eclipse.ui.perspectives extension-point to be defined.
+2 Then you can do
+   &lt;extension
+         point=&quot;org.talend.core.ui.showPerspectiveAtStartup&quot;&gt;
+      &lt;perspective
+            appearsAfter=&quot;org.talend.camel.perspective | org.talend.rcp.perspective&quot;
+            id=&quot;org.eclipse.debug.ui.DebugPerspective&quot;&gt;
+      &lt;/perspective&gt;
+   &lt;/extension&gt;
+   means, the Eclipse debug perspective will appear after the &quot;org.talend.camel.perspective&quot; or&quot;org.talend.rcp.perspective&quot;. if first one have defined, will just after it, else will try to use the second, third... Until find one valid id, if all are not defined, will ignore all.
       </documentation>
    </annotation>
 
