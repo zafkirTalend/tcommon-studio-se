@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,6 +27,10 @@ import org.apache.log4j.Logger;
  * 
  */
 public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
+
+    private static final String[] TABLE_META = { "ID", "TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE", "REMARKS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+    private static final String[] NEEDED_TYPES = { "TABLE", "VIEW" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     private static Logger log = Logger.getLogger(SybaseDatabaseMetaData.class);
 
@@ -150,4 +155,39 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
         return sybaseRS;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.utils.database.PackageFakeDatabaseMetadata#getTables(java.lang.String, java.lang.String,
+     * java.lang.String, java.lang.String[])
+     */
+    @Override
+    public ResultSet getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {
+        ResultSet sybaseRS = super.getTables(catalog, schemaPattern, tableNamePattern, NEEDED_TYPES);
+        List<String[]> list = new ArrayList<String[]>();
+        while (sybaseRS.next()) {
+            String name = sybaseRS.getString("TABLE_NAME"); //$NON-NLS-1$
+            String schema = sybaseRS.getString("TABLE_SCHEM"); //$NON-NLS-1$
+            String type = sybaseRS.getString("TABLE_TYPE"); //$NON-NLS-1$
+
+            String id = ""; //$NON-NLS-1$
+            String remarks = ""; //$NON-NLS-1$
+            try {
+                remarks = sybaseRS.getString("REMARKS"); //$NON-NLS-1$
+            } catch (Exception e) {
+                // nothing
+            }
+
+            if (ArrayUtils.contains(NEEDED_TYPES, type)) {
+                // check if the type is contained is in the types needed.
+                // since sybase can return some system views as "SYSTEM VIEW" instead of "VIEW/TABLE" from the request.
+                String[] r = new String[] { id, schema, name, type, remarks };
+                list.add(r);
+            }
+        }
+        SybaseResultSet tableResultSet = new SybaseResultSet();
+        tableResultSet.setMetadata(TABLE_META);
+        tableResultSet.setData(list);
+        return tableResultSet;
+    }
 }
