@@ -26,7 +26,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.eclipse.update.core.SiteManager;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
@@ -44,20 +43,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
     private static final String JAVA_WIN32_INTERPRETER = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_WIN32);
-
-    /**
-     * Constants from org.eclipse.update.internal.scheduler.SchedulerStartup
-     */
-    public class SchedulerStartup {
-
-        private static final String P_ENABLED = "enabled"; //$NON-NLS-1$
-
-        private static final String P_SCHEDULE = "schedule"; //$NON-NLS-1$
-
-        private static final String VALUE_ON_SCHEDULE = "on-schedule"; //$NON-NLS-1$
-
-        private static final String P_DOWNLOAD = "download"; //$NON-NLS-1$
-    }
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -96,8 +81,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50"); //$NON-NLS-1$
 
         node.putBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME, true);
-
-        initializeUpdatePreference();
 
         // Initialize editors properties : line number shown
         final String perlEditorBundleName = "org.epic.perleditor"; // NON-NLS-1$ //$NON-NLS-1$
@@ -160,18 +143,6 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         store.setValue(editorLineNumberRuler, true);
         store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
         store.setValue(editorLineNumberRuler, true);
-    }
-
-    // unused method : call remove for 2.3
-    public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
-        nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, false);
-        nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_SCHEDULE);
-        nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, false);
-    }
-
-    public static void setProxy(String proxyHost, String proxyPort) {
-        SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
     }
 
 }
