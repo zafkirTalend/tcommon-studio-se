@@ -13,6 +13,7 @@
 			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true" />
+            <dbType type="UNSIGNED INT" ignoreLen="true" ignorePre="true" />
             <dbType type="DOUBLE PRECIS" ignoreLen="true" ignorePre="true" />
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
 			<dbType type="INT" ignoreLen="true" ignorePre="true" />
@@ -92,10 +93,12 @@
 					<dbType type="BIGINT" />
 					<dbType type="SMALLINT"/>
 					<dbType type="TINYINT"/>
+                    <dbType type="UNSIGNED INT"/>
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="BIGINT" default="true" />	
 					<dbType type="INT"/>
+                    <dbType type="UNSIGNED INT"/>
 					<dbType type="SMALLINT"/>
 					<dbType type="TINYINT"/>
 				</talendType>
@@ -172,6 +175,10 @@
 					<talendType type="id_Double"/>
 					<talendType type="id_BigDecimal"/>
 				</dbType>
+                <dbType type="UNSIGNED INT">
+                    <talendType type="id_Long" default="true" />
+                    <talendType type="id_Integer"/>
+                </dbType>
 				<dbType type="INT">
 					<talendType type="id_Integer" default="true" />
 					<talendType type="id_Short"/>
