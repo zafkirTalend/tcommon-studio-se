@@ -98,6 +98,7 @@ import org.talend.core.database.conn.version.EImpalaDistribution4Versions;
 import org.talend.core.database.conn.version.EImpalaDistributions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
+import org.talend.core.exception.WarningSQLException;
 import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.conf.EHadoopProperties;
@@ -2327,12 +2328,19 @@ public class DatabaseForm extends AbstractForm {
                 updateStatus(IStatus.WARNING, msg);
             }
         } else {
-            String mainMsg = Messages.getString("DatabaseForm.checkFailure") + " " //$NON-NLS-1$ //$NON-NLS-2$
-                    + Messages.getString("DatabaseForm.checkFailureTip"); //$NON-NLS-1$
+            String mainMsg = null;
+            Exception exception = managerConnection.getException();
+            if (exception instanceof WarningSQLException) {
+                mainMsg = exception.getMessage();
+                MessageDialog.openWarning(getShell(), Messages.getString("DatabaseForm.warningTitle"), mainMsg); //$NON-NLS-1$
+            } else {
+                mainMsg = Messages.getString("DatabaseForm.checkFailure") + " " //$NON-NLS-1$ //$NON-NLS-2$
+                        + Messages.getString("DatabaseForm.checkFailureTip"); //$NON-NLS-1$
+                new ErrorDialogWidthDetailArea(getShell(), PID, mainMsg, managerConnection.getMessageException());
+            }
             if (!isReadOnly()) {
                 updateStatus(IStatus.WARNING, mainMsg);
             }
-            new ErrorDialogWidthDetailArea(getShell(), PID, mainMsg, managerConnection.getMessageException());
         }
     }
 
