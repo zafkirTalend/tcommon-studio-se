@@ -1448,13 +1448,23 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                 if (dbmsId != null) {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                    String talendType = mappingTypeRetriever
-                            .getDefaultSelectedTalendType(
-                                    typeName,
-                                    extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                                    "DECIMAL_DIGITS")); //$NON-NLS-1$
-                    column.setTalendType(talendType);
-                    column.setSourceType(typeName);
+                    if (mappingTypeRetriever == null) {
+                        @SuppressWarnings("null")
+                        EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbConnection.getDatabaseType(), false);
+                        if (dbType != null) {
+                            mappingTypeRetriever = MetadataTalendType.getMappingTypeRetrieverByProduct(dbType.getProduct());
+                        }
+                    }
+                    if (mappingTypeRetriever != null) {
+                        String talendType = mappingTypeRetriever
+                                .getDefaultSelectedTalendType(
+                                        typeName,
+                                        extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                                        "DECIMAL_DIGITS")); //$NON-NLS-1$
+                        column.setTalendType(talendType);
+                        String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
+                        column.setSourceType(defaultSelectedDbType);
+                    }
                 }
                 try {
                     column.setNullable("YES".equals(getStringFromResultSet(columns, GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
