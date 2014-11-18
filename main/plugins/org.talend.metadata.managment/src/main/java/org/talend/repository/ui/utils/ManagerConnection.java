@@ -30,6 +30,7 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.exception.WarningSQLException;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -51,6 +52,8 @@ public class ManagerConnection {
     private static Logger log = Logger.getLogger(ManagerConnection.class);
 
     private boolean isValide = false;
+
+    private Exception exception;
 
     String messageException = null;
 
@@ -162,8 +165,11 @@ public class ManagerConnection {
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
         } catch (Exception e) {
             isValide = false;
+            exception = e;
             messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
+            if (!(e instanceof WarningSQLException)) {
+                CommonExceptionHandler.process(e);
+            }
         }
         return isValide;
     }
@@ -358,6 +364,14 @@ public class ManagerConnection {
      */
     public boolean getIsValide() {
         return isValide;
+    }
+
+    public Exception getException() {
+        return this.exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
     }
 
     /**
