@@ -24,10 +24,10 @@ import org.eclipse.ui.internal.WorkbenchWindow;
 /**
  * created by ggu on Nov 10, 2014 Detailled comment
  *
- * The integer value of "service.ranking" is set by 10. And make sure the RestorePerspectiveStartupMonitor will be after
- * this. and set it 5.
+ * The integer value of "service.ranking" is set by 10. And make sure the ActivatePerspectiveStartupMonitor will be
+ * after this. and set it 5.
  */
-public class ShowPerspectivesAtStartupMonitor implements StartupMonitor {
+public class RestoreAllRegisteredPerspectivesStartupMonitor implements StartupMonitor {
 
     /*
      * (non-Javadoc)
@@ -51,7 +51,7 @@ public class ShowPerspectivesAtStartupMonitor implements StartupMonitor {
         if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
             return;
         }
-        ShowPerspectivesAtStarupProvider perspProvider = new ShowPerspectivesAtStarupProvider();
+        RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
 
         IEclipseContext context = null;
 

@@ -33,7 +33,7 @@ import org.talend.core.ui.branding.IBrandingService;
  * created by ggu on Nov 12, 2014 Detailled comment
  *
  */
-public class RestorePerspectiveProvider {
+public class ActivatePerspectiveProvider {
 
     @Inject
     private IWorkbench workbench;
@@ -85,7 +85,7 @@ public class RestorePerspectiveProvider {
         // just find the last perspective.
         String lastPerspId = mPerspectiveStack.getSelectedElement() != null ? mPerspectiveStack.getSelectedElement()
                 .getElementId() : null;
-        // PTODO, seems can't get the last perspective.
+        // TODO, seems can't get the last perspective, it will be null always.
         if (lastPerspId != null) {
             validPerspDesc = workbench.getPerspectiveRegistry().findPerspectiveWithId(lastPerspId);
             needReset = false; // have existed before, no need reset.

@@ -72,7 +72,6 @@ Export-Package: org.talend.core.model.components,
  org.talend.repository.editor,
  org.talend.repository.model
 Bundle-Vendor: .Talend SA.
-Service-Component: META-INF/OSGI-INF/component.xml
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.talend.core.ui.CoreUIPlugin
 Bundle-Localization: plugin

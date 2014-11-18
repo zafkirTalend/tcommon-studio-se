@@ -47,7 +47,7 @@ import org.eclipse.ui.internal.registry.UIExtensionTracker;
  *
  */
 @SuppressWarnings("restriction")
-public class ShowPerspectivesAtStarupProvider {
+public class RestoreAllRegisteredPerspectivesProvider {
 
     @Inject
     private IWorkbench workbench;
