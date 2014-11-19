@@ -21,16 +21,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.process.IContextParameter;
 
@@ -44,11 +43,9 @@ public class ContextOrderProperties extends Properties {
 
     List<IContextParameter> parameterList = new ArrayList<IContextParameter>();
 
-    private final static String BUILT_IN_COMMENT = "Build-in context variables";
+    private final static String BUILT_IN_COMMENT = Messages.getString("ContextOrderProperty.BuiltInComment"); //$NON-NLS-1$
 
-    private final static String REPOSITORY_COMMENT = "Context variables from repository context ";
-
-    private Map groupMap = new HashMap();
+    private final static String REPOSITORY_COMMENT = Messages.getString("ContextOrderProperty.RepositoryComment"); //$NON-NLS-1$
 
     /**
      * Version ID
@@ -178,7 +175,8 @@ public class ContextOrderProperties extends Properties {
 
     @Override
     public void store(OutputStream out, String comments) throws IOException {
-        orderStore(new BufferedWriter(new OutputStreamWriter(out, "8859_1")), comments);
+        String defaultEncoding = System.getProperty(Messages.getString("ContextOrderProperty.contextEncoding")); //$NON-NLS-1$
+        orderStore(new BufferedWriter(new OutputStreamWriter(out, defaultEncoding)), comments);
     }
 
     public void orderStore(Writer writer, String comments) throws IOException {
