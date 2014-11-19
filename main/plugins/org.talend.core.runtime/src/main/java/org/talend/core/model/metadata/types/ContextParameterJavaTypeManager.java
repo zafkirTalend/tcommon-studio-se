@@ -37,9 +37,10 @@ import org.talend.core.model.metadata.MetadataTalendType;
 public class ContextParameterJavaTypeManager {
 
     private static final JavaType[] JAVA_TYPES = new JavaType[] { JavaTypesManager.BOOLEAN, JavaTypesManager.CHARACTER,
-            JavaTypesManager.DATE, JavaTypesManager.DOUBLE, JavaTypesManager.FLOAT, JavaTypesManager.INTEGER, JavaTypesManager.LONG,
-            JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.OBJECT, JavaTypesManager.BIGDECIMAL, JavaTypesManager.FILE,
-            JavaTypesManager.DIRECTORY, JavaTypesManager.VALUE_LIST, JavaTypesManager.PASSWORD };
+            JavaTypesManager.DATE, JavaTypesManager.DOUBLE, JavaTypesManager.FLOAT, JavaTypesManager.INTEGER,
+            JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.OBJECT,
+            JavaTypesManager.BIGDECIMAL, JavaTypesManager.FILE, JavaTypesManager.DIRECTORY, JavaTypesManager.VALUE_LIST,
+            JavaTypesManager.PASSWORD };
 
     public static final String PERL_FILE = JavaTypesManager.FILE.getLabel();
 
@@ -99,11 +100,13 @@ public class ContextParameterJavaTypeManager {
                         if ("true".equals(configurationElement.getAttribute("displayInContext"))) {
                             try {
                                 String className = configurationElement.getAttribute("nullableClass");
-                                Class myClass = Platform.getBundle(configurationElement.getContributor().getName()).loadClass(className);
-                                boolean isGenerateWithCanonicalName = configurationElement.getAttribute("generateWithCanonicalName") == null ? false
-                                        : Boolean.valueOf(configurationElement.getAttribute("generateWithCanonicalName"));
-                                boolean isObjectBased = configurationElement.getAttribute("objectBased") == null ? false : Boolean
-                                        .valueOf(configurationElement.getAttribute("objectBased"));
+                                Class myClass = Platform.getBundle(configurationElement.getContributor().getName()).loadClass(
+                                        className);
+                                boolean isGenerateWithCanonicalName = configurationElement
+                                        .getAttribute("generateWithCanonicalName") == null ? false : Boolean
+                                        .valueOf(configurationElement.getAttribute("generateWithCanonicalName"));
+                                boolean isObjectBased = configurationElement.getAttribute("objectBased") == null ? false
+                                        : Boolean.valueOf(configurationElement.getAttribute("objectBased"));
                                 JavaType javaType = new JavaType(myClass, isGenerateWithCanonicalName, isObjectBased);
                                 addJavaType(javaType);
                             } catch (InvalidRegistryObjectException e) {
@@ -315,7 +318,7 @@ public class ContextParameterJavaTypeManager {
                 return JavaTypesManager.DEFAULT_NUMBER;
             }
         } else {
-            return JavaTypesManager.NULL;
+            return JavaTypesManager.DEFAULT_STRING;
         }
     }
 
@@ -324,8 +327,8 @@ public class ContextParameterJavaTypeManager {
      * Return the default value for a given type, if the given parameter "defaultValue" is set, this value is returned.
      * 
      * @param type
-     * @return string value if the case is valid or the default value is valid. If the type is primitive and the <code>defaultValue</code>
-     * is not set, java null is returned.
+     * @return string value if the case is valid or the default value is valid. If the type is primitive and the
+     * <code>defaultValue</code> is not set, java null is returned.
      */
     public static String getDefaultValueFromJavaType(String type, String defaultValue) {
         if (defaultValue != null && defaultValue.length() > 0) {
