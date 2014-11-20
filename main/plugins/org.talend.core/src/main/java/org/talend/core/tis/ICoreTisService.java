@@ -37,14 +37,6 @@ public interface ICoreTisService extends IService {
 
     public List<IUpdateSiteBean> getPatchesInstalled() throws BackingStoreException;
 
-    public List<IUpdateSiteBean> getUpdateSitesToBeInstall(String username, String password, String archivaServicesURL,
-            List<String> repositories) throws BackingStoreException, SystemException;
-
-    public void downLoadAndInstallUpdateSites(String archivaServerURL, String username, String password,
-            List<IUpdateSiteBean> toBeInstalled, List<String> repositories) throws Exception;
-
-    public Object getArchivaObject(User user, String password, String url) throws PersistenceException, LoginException;
-
     public boolean needRestartAfterUpdate();
 
     public void setNeedResartAfterUpdate(boolean needRestart);
@@ -56,5 +48,9 @@ public interface ICoreTisService extends IService {
      * @param destDir
      */
     public void exportAsCWM(URI itemUri, String destDir);
+    
+    public boolean needUpdate(String userName, String password, String adminUrl)  throws SystemException;
+
+    public void downLoadAndInstallUpdates(String userName, String password, String adminUrl) throws Exception;
 
 }
