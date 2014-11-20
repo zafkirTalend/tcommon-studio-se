@@ -500,15 +500,21 @@ public class RepositoryToComponentProperty {
                 return "CustomModule"; //$NON-NLS-1$
             } else {
                 if (table != null) {
-                    EList<SalesforceModuleUnit> moduleList = connection.getModules();
-                    for (SalesforceModuleUnit unit : moduleList) {
-                        if (table.getLabel().equals(unit.getModuleName())) {
-                            return unit.getModuleName();
-                        }
+                    SalesforceModuleUnit currentUnit = getSaleforceModuleUnitByTable(table, connection.getModules());
+                    if (currentUnit != null) {
+                        return currentUnit.getModuleName();
                     }
                 }
                 return connection.getModuleName();
             }
+        } else if ("CUSTOM_MODULE_NAME".equals(value)) { //$NON-NLS-1$
+            if (table != null) {
+                SalesforceModuleUnit currentUnit = getSaleforceModuleUnitByTable(table, connection.getModules());
+                if (currentUnit != null) {
+                    return TalendQuoteUtils.addQuotes(currentUnit.getModuleName());
+                }
+            }
+            return TalendQuoteUtils.addQuotes(connection.getModuleName());
         } else if ("QUERY_CONDITION".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getQueryCondition())) {
                 return connection.getQueryCondition();
@@ -591,6 +597,15 @@ public class RepositoryToComponentProperty {
                 } else {
                     return "OAUTH";
                 }
+            }
+        }
+        return null;
+    }
+
+    private static SalesforceModuleUnit getSaleforceModuleUnitByTable(IMetadataTable table, EList<SalesforceModuleUnit> moduleList) {
+        for (SalesforceModuleUnit unit : moduleList) {
+            if (table.getLabel().equals(unit.getModuleName())) {
+                return unit;
             }
         }
         return null;
