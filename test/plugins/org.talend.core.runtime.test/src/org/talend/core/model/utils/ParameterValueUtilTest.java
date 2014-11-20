@@ -259,7 +259,7 @@ public class ParameterValueUtilTest {
         // expectString : "select * from " + context.table + "where id = " + getId(global.getHeader(context.header,
         // "CONTEXT_IDS") + "CONTEXT_IDS", context.p2, "CONTEXT_IDS")
         testString = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_ID\\\\\\\"\") + \"\\\"CONTEXT_ID\", context.p2, \"CONTEXT_ID\")";
-        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_IDS\\\\\\\"\") + \"\\\"CONTEXT_IDS\", context.p2, \"CONTEXT_IDS\")";
+        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_ID\\\\\\\"\") + \"\\\"CONTEXT_ID\", context.p2, \"CONTEXT_IDS\")";
         retValue = ParameterValueUtil.splitQueryData("CONTEXT_ID", "CONTEXT_IDS", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -320,7 +320,7 @@ public class ParameterValueUtilTest {
         // CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, "\"CONTEXT_ID1\"\\" + CONTEXT_ID1, CONTEXT_ID1, "CONTEXT_ID1") +
         // "CONTEXT_ID1", CONTEXT_ID(ID, "CONTEXT_ID1"), "CONTEXT_ID1")
         testString = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID.b + CONTEXT_ID + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID, \"\\\"CONTEXT_ID\\\"\\\\\" + CONTEXT_ID, CONTEXT_ID, \"CONTEXT_ID\") + \"CONTEXT_ID\", CONTEXT_ID(ID, \"CONTEXT_ID\"), \"CONTEXT_ID\")";
-        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID1.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID1\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
+        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID1.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
         retValue = ParameterValueUtil.splitQueryData("CONTEXT_ID", "CONTEXT_ID1", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -436,6 +436,22 @@ public class ParameterValueUtilTest {
         resultValue = ParameterValueUtil.renameValues(testString, "tFileList_1", "tFileList_2", true);
         Assert.assertTrue(expectedValue.equals(resultValue));
 
+    }
+
+    @Test
+    public void testRenameValues4FunctionsExceptGlobalMap() {
+        String testString = "\"Hello \" + context.getProperty(\"World\") + property.get(\"World\") + globalMap.get(\"World\") + context.getProperty(\"World2\") + property.get(\"World2\") + globalMap.get(\"World2\")";
+        String expectedValue = "\"Hello \" + context.getProperty(\"World1\") + property.get(\"World1\") + globalMap.get(\"World1\") + context.getProperty(\"World2\") + property.get(\"World2\") + globalMap.get(\"World12\")";
+        String resultValue = ParameterValueUtil.renameValues(testString, "World", "World1", false);
+        Assert.assertTrue(expectedValue.equals(resultValue));
+    }
+
+    @Test
+    public void testRenameValues4ComplexFunctions() {
+        String testString = "var1.function1.getProperty(\"key\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key\"))), var1.globalMap.get(\"key\"))) + var1.function1.getProperty(\"key1\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key1\"))), var1.globalMap.get(var1.function3().globalMap.get() + \"key1\", \"key1\", var1.function4(\"key1\", globalMap.put(key, \"key1\")), var1.function5(globalMap.put(key.key.key.getProperty(getProperty(\"key1\")), key1))), var1.globalMap.get(\"key1\"))) + var1.function1.getProperty(\"key2\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key2\"))), var1.globalMap.get(\"key2\")))";
+        String expectedValue = "var1.function1.getProperty(\"k\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k\"))), var1.globalMap.get(\"k\"))) + var1.function1.getProperty(\"key1\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k1\"))), var1.globalMap.get(var1.function3().globalMap.get() + \"key1\", \"key1\", var1.function4(\"key1\", globalMap.put(k, \"k1\")), var1.function5(globalMap.put(k.key.key.getProperty(getProperty(\"key1\")), key1))), var1.globalMap.get(\"key1\"))) + var1.function1.getProperty(\"key2\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k2\"))), var1.globalMap.get(\"key2\")))";
+        String resultValue = ParameterValueUtil.renameValues(testString, "key", "k", false);
+        Assert.assertTrue(expectedValue.equals(resultValue));
     }
 
     @Test
