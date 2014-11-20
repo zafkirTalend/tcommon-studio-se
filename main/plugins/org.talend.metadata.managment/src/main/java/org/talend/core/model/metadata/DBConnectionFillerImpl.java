@@ -225,7 +225,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         // teradata use db name to filter schema
         if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
             if (!dbConn.isContextMode()) {
-                String sid = dbConn.getSID();
+                String sid = getDatabaseName(dbConn);
                 if (sid != null && sid.length() > 0) {
                     schemaFilter.add(sid);
                 }
@@ -289,11 +289,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         uiSchemaOnConnWizard = dbConn.getUiSchema();
                         // for hive2 db name is treat as schema
                         if (isHive2) {
-                            uiSchemaOnConnWizard = dbConn.getSID();
+                            uiSchemaOnConnWizard = getDatabaseName(dbConn);
                         }
                     }
 
-                    if ((!isEmptyString(uiSchemaOnConnWizard) || !isNullUiSchema(dbConn)) && dbConn != null) {
+                    if ((!StringUtils.isEmpty(uiSchemaOnConnWizard) || !isNullUiSchema(dbConn)) && dbConn != null) {
                         // If the UiSchema on ui is not empty, the shema name should be same to this UiSchema name.
                         Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
                         returnSchemas.add(schema);
@@ -451,7 +451,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                                 && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())
                                 && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                                 && !dbConn.getDatabaseType().equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
-                            String databaseOnConnWizard = dbConn.getSID();
+                            String databaseOnConnWizard = getDatabaseName(dbConn);
 
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList,
@@ -571,6 +571,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
     }
 
     /**
+     * return the database name of the DatabaseConnection, if the dbtype is jdbc should get the database name form the
+     * url.
+     * 
+     * @param dbConn
+     * @return
+     */
+    protected String getDatabaseName(DatabaseConnection dbConn) {
+        return dbConn.getSID();
+    }
+
+    /**
      * judge db support get catalogNames or not
      * 
      * @param dbJDBCMetadata
@@ -609,7 +620,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      */
     private List<Catalog> fillPostgresqlCatalogs(IMetadataConnection metaConnection, DatabaseConnection dbConn,
             DatabaseMetaData dbJDBCMetadata, List<Catalog> catalogList) {
-        String catalogName = dbConn.getSID();
+        String catalogName = getDatabaseName(dbConn);
 
         if (StringUtils.isEmpty(catalogName)) {
             catalogName = dbConn.getUsername();
@@ -646,9 +657,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      */
     private boolean isNullSID(Connection dbConn) {
         if (dbConn instanceof DatabaseConnection) {
-            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+            String databaseOnConnWizard = getDatabaseName((DatabaseConnection) dbConn);
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
-            if (isEmptyString(databaseOnConnWizard) || isEmptyString(readableName)) {
+            if (StringUtils.isEmpty(databaseOnConnWizard) || StringUtils.isEmpty(readableName)) {
                 return true;
             }
         }
@@ -665,21 +676,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         if (dbConn instanceof DatabaseConnection) {
             String databaseOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
-            if (isEmptyString(databaseOnConnWizard) || isEmptyString(readableName)) {
+            if (StringUtils.isEmpty(databaseOnConnWizard) || StringUtils.isEmpty(readableName)) {
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * judge whether str is null or length is zreo
-     * 
-     * @param str
-     * @return
-     */
-    private boolean isEmptyString(final String str) {
-        return str == null || str.length() == 0;
     }
 
     private List<String> postFillCatalog(List<Catalog> catalogList, List<String> catalogFilterList,
@@ -699,7 +700,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
                 String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
                         iMetadataCon.getAdditionalParams());
-                String sid = dbConnection.getSID();
+                String sid = getDatabaseName(dbConnection);
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
                     if (multiSchems != null) {
