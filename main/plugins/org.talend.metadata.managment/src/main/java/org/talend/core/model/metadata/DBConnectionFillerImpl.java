@@ -219,7 +219,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         // teradata use db name to filter schema
         if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
             if (!dbConn.isContextMode()) {
-                String sid = ((DatabaseConnection) dbConn).getSID();
+                String sid = getDatabaseName((DatabaseConnection) dbConn);
                 if (sid != null && sid.length() > 0) {
                     schemaFilter.add(sid);
                 }
@@ -283,7 +283,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                         uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getUiSchema();
                         // for hive2 db name is treat as schema
                         if (isHive2) {
-                            uiSchemaOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                            uiSchemaOnConnWizard = getDatabaseName((DatabaseConnection) dbConn);
                         }
                     }
 
@@ -448,7 +448,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                                         EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())
                                 && !((DatabaseConnection) dbConn).getDatabaseType().equals(
                                         EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
-                            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+                            String databaseOnConnWizard = getDatabaseName((DatabaseConnection) dbConn);
                             // If the SID on ui is not empty, the catalog name should be same to this SID name.
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList,
                                     TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
@@ -567,6 +567,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     }
 
     /**
+     * return the database name of the DatabaseConnection, if the dbtype is jdbc should get the database name form the
+     * url.
+     * 
+     * @param dbConn
+     * @return
+     */
+    protected String getDatabaseName(DatabaseConnection dbConn) {
+        return dbConn.getSID();
+    }
+
+    /**
      * judge db support get catalogNames or not
      * 
      * @param dbJDBCMetadata
@@ -606,7 +617,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
     private List<Catalog> fillPostgresqlCatalogs(IMetadataConnection metaConnection, Connection dbConn,
             DatabaseMetaData dbJDBCMetadata, List<Catalog> catalogList) {
         DatabaseConnection databaseConnection = (DatabaseConnection) dbConn;
-        String catalogName = databaseConnection.getSID();
+        String catalogName = getDatabaseName(databaseConnection);
 
         if (StringUtils.isEmpty(catalogName)) {
             catalogName = databaseConnection.getUsername();
@@ -643,7 +654,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      */
     private boolean isNullSID(Connection dbConn) {
         if (dbConn instanceof DatabaseConnection) {
-            String databaseOnConnWizard = ((DatabaseConnection) dbConn).getSID();
+            String databaseOnConnWizard = getDatabaseName((DatabaseConnection) dbConn);
             String readableName = TalendCWMService.getReadableName(dbConn, databaseOnConnWizard);
             if (isEmptyString(databaseOnConnWizard) || isEmptyString(readableName)) {
                 return true;
@@ -696,7 +707,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
                 }
                 String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
                         iMetadataCon.getAdditionalParams());
-                String sid = dbConnection.getSID();
+                String sid = getDatabaseName(dbConnection);
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
                     if (multiSchems != null) {
