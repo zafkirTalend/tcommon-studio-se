@@ -239,7 +239,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
                 }
             }
         };
-        customPainter.setWrappedPainter(new ContextCellPainterDecorator(new ContextTextPainter(false, false, false),
+        customPainter.setWrappedPainter(new ContextCellPainterDecorator(new ContextAutoResizeTextPainter(false, false, true),
                 CellEdgeEnum.RIGHT, new ImagePainter(GUIHelper.getImage("down_2"))));
 
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, customPainter, DisplayMode.NORMAL,
