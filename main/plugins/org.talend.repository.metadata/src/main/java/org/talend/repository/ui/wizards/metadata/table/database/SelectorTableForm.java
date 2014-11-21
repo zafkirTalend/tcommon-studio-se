@@ -970,13 +970,14 @@ public class SelectorTableForm extends AbstractForm {
         String dbType = metadataconnection.getDbType();
         DatabaseConnection dbConn = (DatabaseConnection) metadataconnection.getCurrentConnection();
 
+        MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(metadataconnection);
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
             DatabaseMetaData dm = null;
             try {
                 dm = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm, metadataConnection,
+                dbInstance.fillCatalogs(dbConn, dm, metadataConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm, metadataConnection,
+                dbInstance.fillSchemas(dbConn, dm, metadataConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -1004,10 +1005,8 @@ public class SelectorTableForm extends AbstractForm {
                 if (sqlConn != null) {
                     DatabaseMetaData dm = extractMeta.getDatabaseMetaData(sqlConn, dbType, false,
                             metadataconnection.getDatabase());
-                    MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dm,
-                            MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
-                    MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dm,
-                            MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
+                    dbInstance.fillCatalogs(dbConn, dm, MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
+                    dbInstance.fillSchemas(dbConn, dm, MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
                 }
             } catch (Exception e) {
                 ExceptionHandler.process(e);
