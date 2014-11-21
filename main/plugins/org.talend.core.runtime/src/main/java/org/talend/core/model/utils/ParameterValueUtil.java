@@ -336,7 +336,6 @@ public final class ParameterValueUtil {
         public FunctionInfo getParentFunction(int x, int y) {
             FunctionInfo parentFunction = null;
 
-            int minDistance = -1;
             for (FunctionInfo funcInfo : subFunctions) {
                 int paramX = funcInfo.paramArea.x;
                 int paramY = funcInfo.paramArea.y;
@@ -344,27 +343,16 @@ public final class ParameterValueUtil {
                     if (!funcInfo.subFunctions.isEmpty()) {
                         FunctionInfo retFuncInfo = funcInfo.getParentFunction(x, y);
                         if (retFuncInfo != null) {
-                            int distance = x - retFuncInfo.paramArea.x + retFuncInfo.paramArea.y - y;
-                            if (minDistance < 0 || distance < minDistance) {
-                                minDistance = distance;
-                                parentFunction = retFuncInfo;
-                            }
-                            continue;
+                            return retFuncInfo;
                         }
                     }
-                    int distance = x - paramX + paramY - y;
-                    if (minDistance < 0 || distance < minDistance) {
-                        minDistance = distance;
-                        parentFunction = funcInfo;
-                    }
+                    return funcInfo;
                 }
             }
-            if (minDistance < 0) {
-                int paramX = this.paramArea.x;
-                int paramY = this.paramArea.y;
-                if (paramX <= x && y <= paramY) {
-                    parentFunction = this;
-                }
+            int paramX = this.paramArea.x;
+            int paramY = this.paramArea.y;
+            if (paramX <= x && y <= paramY) {
+                parentFunction = this;
             }
 
             return parentFunction;
@@ -422,6 +410,9 @@ public final class ParameterValueUtil {
             List<FunctionInfo> findedList = new ArrayList<FunctionInfo>();
             for (FunctionInfo funcInfo : functionList) {
                 Point nameArea = funcInfo.getNameArea();
+                if (y < nameArea.y) {
+                    break;
+                }
                 if (x <= nameArea.x && nameArea.y <= y) {
                     findedList.add(funcInfo);
                     List<FunctionInfo> subFuncs = funcInfo.getSubFunctions();
@@ -431,8 +422,6 @@ public final class ParameterValueUtil {
                             findedList.addAll(findedListInSubFuncs);
                         }
                     }
-                } else {
-                    break;
                 }
             }
             return findedList;
