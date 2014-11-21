@@ -164,10 +164,16 @@ public final class ParameterValueUtil {
         // example:"drop table "+context.oracle_schema+".\"TDI_26803\""
         // >>>>>>>>_*_(const)__ _____*_(varible)_______ __*_(const)___
 
+        /**
+         * <b>NOTE</b>: This [inputString] variable only used to debug, should not use it in product
+         */
+        inputString = value;
+
         final int length = value.length();
         // quotaStrings which stores the start and end point for all const strings in the value
         LinkedHashMap<Integer, Integer> quotaStrings = new LinkedHashMap<Integer, Integer>();
-        List<Point> functionNameAreas = new ArrayList<Point>();
+        // List<Point> functionNameAreas = new ArrayList<Point>();
+        List<FunctionInfo> functions = new ArrayList<FunctionInfo>();
 
         // get and store all start and end point of const strings
         int start = -1;
@@ -215,11 +221,25 @@ public final class ParameterValueUtil {
         String subString = null;
         int vStart = 0;
         int vEnd = 0;
-        int methodMaxIndex = 0;
-        int calcMaxIndex = 0;
+        int methodMaxIndex = -1;
+        vStart = 0;
+        vEnd = 0;
         start = 0;
         end = 0;
-
+        for (Entry<Integer, Integer> entry : quotaStrings.entrySet()) {
+            start = entry.getKey();
+            end = entry.getValue() + 1;
+            vEnd = start;
+            if (vStart != start) {
+                subString = value.substring(vStart, vEnd);
+                calcMethodArea(subString, value, vStart, functions);
+            }
+            vStart = end;
+        }
+        vStart = 0;
+        vEnd = 0;
+        start = 0;
+        end = 0;
         for (Entry<Integer, Integer> entry : quotaStrings.entrySet()) {
             start = entry.getKey();
             end = entry.getValue() + 1;
@@ -234,20 +254,29 @@ public final class ParameterValueUtil {
             } else {
                 // get the varible string, do replace, then append it
                 subString = value.substring(vStart, vEnd);
-                calcMaxIndex = calcMethodArea(subString, value, vStart, functionNameAreas, methodMaxIndex);
+                // calcMaxIndex = calcMethodArea(subString, value, vStart, functions, methodMaxIndex);
 
-                if (methodMaxIndex < calcMaxIndex) {
-                    methodMaxIndex = calcMaxIndex;
+                if (methodMaxIndex < start) {
+                    methodMaxIndex = FunctionInfo.getMaxIndexForCurrentParentFunction(start, functions);
                 }
 
-                String replacedString = doVaribleReplace(oldName, newName, value, functionNameAreas, vStart, vEnd);
+                String replacedString = doVaribleReplace(oldName, newName, value, functions, vStart, vEnd);
                 strBuffer.append(replacedString);
 
                 // get the const string
                 // deal with: context.getProperty("test") + "test"
                 subString = value.substring(start, end);
                 if (start < methodMaxIndex) {
-                    subString = subString.replaceAll(oldName, newName);
+                    FunctionInfo function = FunctionInfo.getParentFunctionFromList(start, end, functions);
+                    Point funcNameArea = function.getNameArea();
+                    String functionName = value.substring(funcNameArea.x, funcNameArea.y);
+                    if (functionName.matches("^globalMap\\..+")) { //$NON-NLS-1$
+                        subString = subString.replaceAll(oldName, newName);
+                    } else {
+                        if (subString.equals("\"" + oldName + "\"")) { //$NON-NLS-1$ //$NON-NLS-2$
+                            subString = "\"" + newName + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                    }
                 }
             }
             // append the const string
@@ -260,11 +289,156 @@ public final class ParameterValueUtil {
         // then get it, and do replace, finally append it.
         if (vStart < length) {
             vEnd = length;
-            String replacedString = doVaribleReplace(oldName, newName, value, functionNameAreas, vStart, vEnd);
+            String replacedString = doVaribleReplace(oldName, newName, value, functions, vStart, vEnd);
             strBuffer.append(replacedString);
         }
 
         return strBuffer.toString();
+    }
+
+    /**
+     * <b>NOTE</b>: This variable only used to debug, should not use it in product
+     */
+    private static String inputString = ""; //$NON-NLS-1$
+
+    private static class FunctionInfo {
+
+        private Point nameArea;
+
+        private Point paramArea;
+
+        private List<FunctionInfo> subFunctions = new ArrayList<FunctionInfo>();
+
+        public FunctionInfo(Point _nameArea) {
+            nameArea = _nameArea;
+        }
+
+        public Point getNameArea() {
+            return this.nameArea;
+        }
+
+        public void setParamArea(Point paramArea) {
+            this.paramArea = paramArea;
+        }
+
+        public Point getParamArea() {
+            return this.paramArea;
+        }
+
+        public int getFuncAreaMinIndex() {
+            return nameArea.x;
+        }
+
+        public int getFuncAreaMaxIndex() {
+            return paramArea.y;
+        }
+
+        public FunctionInfo getParentFunction(int x, int y) {
+            FunctionInfo parentFunction = null;
+
+            for (FunctionInfo funcInfo : subFunctions) {
+                int paramX = funcInfo.paramArea.x;
+                int paramY = funcInfo.paramArea.y;
+                if (paramX <= x && y <= paramY) {
+                    if (!funcInfo.subFunctions.isEmpty()) {
+                        FunctionInfo retFuncInfo = funcInfo.getParentFunction(x, y);
+                        if (retFuncInfo != null) {
+                            return retFuncInfo;
+                        }
+                    }
+                    return funcInfo;
+                }
+            }
+            int paramX = this.paramArea.x;
+            int paramY = this.paramArea.y;
+            if (paramX <= x && y <= paramY) {
+                parentFunction = this;
+            }
+
+            return parentFunction;
+        }
+
+        public void addSubFunction(FunctionInfo subFunc) {
+            this.subFunctions.add(subFunc);
+        }
+
+        public List<FunctionInfo> getSubFunctions() {
+            return this.subFunctions;
+        }
+
+        public static void addFunctionToList(FunctionInfo funcInfo, List<FunctionInfo> functionList) {
+            if (functionList != null) {
+                for (FunctionInfo iFuncInfo : functionList) {
+                    FunctionInfo parentFuncInfo = iFuncInfo.getParentFunction(funcInfo.getFuncAreaMinIndex(),
+                            funcInfo.getFuncAreaMaxIndex());
+                    if (parentFuncInfo != null) {
+                        parentFuncInfo.addSubFunction(funcInfo);
+                        return;
+                    }
+                }
+                // if can not found, add it to the functionList dirrectly
+                functionList.add(funcInfo);
+            }
+        }
+
+        public static FunctionInfo getParentFunctionFromList(int x, int y, List<FunctionInfo> functionList) {
+            if (functionList != null) {
+                for (FunctionInfo funcInfo : functionList) {
+                    FunctionInfo parentFunction = funcInfo.getParentFunction(x, y);
+                    if (parentFunction != null) {
+                        return parentFunction;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static int getMaxIndexForCurrentParentFunction(int index, List<FunctionInfo> functionList) {
+            int maxIndex = -1;
+            if (functionList != null) {
+                for (FunctionInfo funcInfo : functionList) {
+                    Point paramArea = funcInfo.getParamArea();
+                    if (paramArea.x <= index && index <= paramArea.y) {
+                        return paramArea.y;
+                    }
+                }
+            }
+            return maxIndex;
+        }
+
+        public static List<FunctionInfo> getFunctionsInSpecifiedAreaFromList(int x, int y, List<FunctionInfo> functionList) {
+            List<FunctionInfo> findedList = new ArrayList<FunctionInfo>();
+            for (FunctionInfo funcInfo : functionList) {
+                Point nameArea = funcInfo.getNameArea();
+                if (y < nameArea.y) {
+                    break;
+                }
+                if (x <= nameArea.x && nameArea.y <= y) {
+                    findedList.add(funcInfo);
+                    List<FunctionInfo> subFuncs = funcInfo.getSubFunctions();
+                    if (subFuncs != null && !subFuncs.isEmpty()) {
+                        List<FunctionInfo> findedListInSubFuncs = getFunctionsInSpecifiedAreaFromList(x, y, subFuncs);
+                        if (findedListInSubFuncs != null && !findedListInSubFuncs.isEmpty()) {
+                            findedList.addAll(findedListInSubFuncs);
+                        }
+                    }
+                }
+            }
+            return findedList;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            if (getFuncAreaMaxIndex() < getFuncAreaMinIndex()) {
+                return "not available"; //$NON-NLS-1$
+            }
+            return inputString.substring(getFuncAreaMinIndex(), getFuncAreaMaxIndex() + 1);
+        }
     }
 
     /**
@@ -277,7 +451,7 @@ public final class ParameterValueUtil {
      * @param vStart
      * @param vEnd
      */
-    private static String doVaribleReplace(String oldName, String newName, String value, List<Point> functionNameAreas,
+    private static String doVaribleReplace(String oldName, String newName, String value, List<FunctionInfo> functions,
             int vStart, int vEnd) {
         if (value.trim().isEmpty()) {
             return value;
@@ -286,7 +460,9 @@ public final class ParameterValueUtil {
         StringBuffer replacedString = new StringBuffer();
         int replaceableStart = vStart;
         int replaceableEnd = vEnd;
-        for (Point functionNameArea : functionNameAreas) {
+        List<FunctionInfo> replaceableFunctions = FunctionInfo.getFunctionsInSpecifiedAreaFromList(vStart, vEnd, functions);
+        for (FunctionInfo funcInfo : replaceableFunctions) {
+            Point functionNameArea = funcInfo.getNameArea();
             if (vEnd <= functionNameArea.x) {
                 break;
             }
@@ -400,28 +576,31 @@ public final class ParameterValueUtil {
         return isEscapeSequence;
     }
 
-    private static int calcMethodArea(String varibleString, String wholeString, int beginIndex, List<Point> functionNameAreas,
-            int lastIndex) {
+    private static int calcMethodArea(String varibleString, String wholeString, int beginIndex, List<FunctionInfo> functions) {
         // globalMap.get(...)
         //        String regex = "\\b\\S*\\s*\\.\\s*\\S*\\s*\\(\\z"; //$NON-NLS-1$
         // maybe get(...) also is target
-        String regex = "\\b[\\S\\.]*?\\s*\\("; //$NON-NLS-1$
+        String regex = "\\b[\\w\\.]*?\\s*\\("; //$NON-NLS-1$
 
         java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
         Matcher matcher = pattern.matcher(varibleString);
         int i = 0;
-        int varibleStringMaxIndex = beginIndex + varibleString.length() - 1;
+        int currentMaxIndex = i;
         while (matcher.find()) {
             boolean isInQuota = false;
             int parenthesisNum = 0;
-            Point functionNameArea = new Point(beginIndex + matcher.start(), beginIndex + matcher.end());
-            functionNameAreas.add(functionNameArea);
+            int matchedStart = matcher.start();
+            int matchedEnd = matcher.end();
+            Point functionNameArea = new Point(beginIndex + matchedStart, beginIndex + matchedEnd);
+            FunctionInfo funcInfo = new FunctionInfo(functionNameArea);
 
-            if (varibleStringMaxIndex < i || varibleStringMaxIndex < lastIndex) {
-                continue;
-            }
+            Point functionParamArea = new Point(-1, -1);
+            funcInfo.setParamArea(functionParamArea);
 
-            for (i = matcher.end(); i < wholeString.length(); i++) {
+            i = beginIndex + matchedEnd;
+            functionParamArea.x = i;
+
+            for (; i < wholeString.length(); i++) {
                 char ch = wholeString.charAt(i);
                 if (ch == '\"' && !isEscapeSequence(wholeString, i)) {
                     isInQuota = !isInQuota;
@@ -438,8 +617,13 @@ public final class ParameterValueUtil {
                     break;
                 }
             }
+            functionParamArea.y = i;
+            FunctionInfo.addFunctionToList(funcInfo, functions);
+            if (currentMaxIndex < i) {
+                currentMaxIndex = i;
+            }
         }
-        return i;
+        return currentMaxIndex;
     }
 
     public static boolean isUseData(final IElementParameter param, final String name) {
