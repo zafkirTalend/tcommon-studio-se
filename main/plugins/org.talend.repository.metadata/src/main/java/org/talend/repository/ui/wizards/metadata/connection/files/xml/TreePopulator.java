@@ -278,7 +278,7 @@ public class TreePopulator {
                 }
 
             }
-            if (!path.isEmpty()) {
+            if (!path.isEmpty() && item != null) {
                 items = item.getItems();
             }
             if (!flag) {
