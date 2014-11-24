@@ -745,7 +745,7 @@ public final class ParameterValueUtil {
         if (contextParam != null) {
             String docValue = contextParam.getValue();
             if (docValue != null) {
-                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue);
+                String encryptValue = CryptoHelper.getDefault().encrypt(docValue);
                 if (encryptValue != null) {
                     return encryptValue;
                 }
@@ -781,7 +781,7 @@ public final class ParameterValueUtil {
         if (param != null) {
             Object docValue = param.getValue();
             if (docValue != null && docValue instanceof String) {
-                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                String encryptValue = CryptoHelper.getDefault().encrypt(docValue.toString());
                 if (encryptValue != null) {
                     return encryptValue;
                 }

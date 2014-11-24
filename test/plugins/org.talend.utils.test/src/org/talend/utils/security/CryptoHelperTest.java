@@ -25,70 +25,70 @@ public class CryptoHelperTest {
 
     @Test
     public void testEncrypt4Null() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt(null);
+        String encrypt = CryptoHelper.getDefault().encrypt(null);
         Assert.assertNull(encrypt);
     }
 
     @Test
     public void testEncrypt4EMPTY() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt("");
+        String encrypt = CryptoHelper.getDefault().encrypt("");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("yJKHKGWEAQw=", encrypt);
     }
 
     @Test
     public void testDecrypt4Null() {
-        String encrypt = CryptoHelper.DEFAULT.decrypt(null);
+        String encrypt = CryptoHelper.getDefault().decrypt(null);
         Assert.assertNull(encrypt);
     }
 
     @Test
     public void testDecrypt4EMPTY() {
-        String encrypt = CryptoHelper.DEFAULT.decrypt("");
+        String encrypt = CryptoHelper.getDefault().decrypt("");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("", encrypt);
     }
 
     @Test
     public void testSpace() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt(" ");
+        String encrypt = CryptoHelper.getDefault().encrypt(" ");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("4n6Q8vByOrg=", encrypt);
 
-        String decrypt = CryptoHelper.DEFAULT.decrypt(encrypt);
+        String decrypt = CryptoHelper.getDefault().decrypt(encrypt);
         Assert.assertNotNull(decrypt);
         Assert.assertEquals(" ", decrypt);
     }
 
     @Test
     public void testNumber() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt("123");
+        String encrypt = CryptoHelper.getDefault().encrypt("123");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("/81ashGeQx8=", encrypt);
 
-        String decrypt = CryptoHelper.DEFAULT.decrypt(encrypt);
+        String decrypt = CryptoHelper.getDefault().decrypt(encrypt);
         Assert.assertNotNull(decrypt);
         Assert.assertEquals("123", decrypt);
     }
 
     @Test
     public void testCharacters() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt("ABC 123");
+        String encrypt = CryptoHelper.getDefault().encrypt("ABC 123");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("l/R1qjFcRGA=", encrypt);
 
-        String decrypt = CryptoHelper.DEFAULT.decrypt(encrypt);
+        String decrypt = CryptoHelper.getDefault().decrypt(encrypt);
         Assert.assertNotNull(decrypt);
         Assert.assertEquals("ABC 123", decrypt);
     }
 
     @Test
     public void testMoreCharacters() {
-        String encrypt = CryptoHelper.DEFAULT.encrypt("ABC 123 !@#$%%^+_ QETUVNK>?><");
+        String encrypt = CryptoHelper.getDefault().encrypt("ABC 123 !@#$%%^+_ QETUVNK>?><");
         Assert.assertNotNull(encrypt);
         Assert.assertEquals("eVC4UR2126US+sO9OaetY+1lXzwYmFd8OG4BkrrOXuk=", encrypt);
 
-        String decrypt = CryptoHelper.DEFAULT.decrypt(encrypt);
+        String decrypt = CryptoHelper.getDefault().decrypt(encrypt);
         Assert.assertNotNull(decrypt);
         Assert.assertEquals("ABC 123 !@#$%%^+_ QETUVNK>?><", decrypt);
     }
