@@ -49,7 +49,7 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
-import org.talend.rcp.intro.workspace.OpenWorkspaceAction;
+import org.talend.core.ui.workspace.OpenWorkspaceAction;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
