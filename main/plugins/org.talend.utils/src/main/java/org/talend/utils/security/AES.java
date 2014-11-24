@@ -40,8 +40,6 @@ public class AES {
 
     private static Logger log = Logger.getLogger(AES.class);
 
-    private static final String PROVIDER_SUN_JCE = "SunJCE";
-
     private static final String RANDOM_SHA1PRNG = "SHA1PRNG";
 
     private static final String ENCRYPTION_ALGORITHM = "AES";
@@ -54,20 +52,15 @@ public class AES {
     private static final byte[] KeyValues = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x35,
             (byte) 0xE3, (byte) 0x03 };
 
-    private static AES instance;
-
     private Cipher ecipher;
 
     private Cipher dcipher;
 
-    public static synchronized AES getInstance() {
-        if (null == instance) {
-            instance = new AES();
-        }
-        return instance;
+    public static AES getInstance() {
+        return new AES();
     }
 
-    private AES() {
+    public AES() {
         try {
             // TDI-28380: Database password in tac db configuration page becomes empty once restart tomcat on Solaris.
             // TDI-30348: Whole tac configuration lost for the passwords.
@@ -115,8 +108,8 @@ public class AES {
     public static void main(String[] args) {
         AES aes = new AES();
         String[] arr = { "bt4AUzTV14kK8FwkcK/BNg==", "3IqdoqEElsy8Dzz9iP3HVQ==", "w4AXOA1a34afqqnlmVLB4A==",
-                "3IqdoqEElsy8Dzz9iP3HVQ==", "m9Ut0k3oP5pLE2BH1r9xQA==", "3IqdoqEElsy8Dzz9iP3HVQ==",
-                "zPfoS7aDB2mNUrpRfbfwcOza/VXudqA9QYULYn4xTb8=", "3mTjF2v1D4ZYqnJleFKl/wFybG4/24iyhCFKyEuveDY=" };
+                "m9Ut0k3oP5pLE2BH1r9xQA==", "zPfoS7aDB2mNUrpRfbfwcOza/VXudqA9QYULYn4xTb8=",
+                "3mTjF2v1D4ZYqnJleFKl/wFybG4/24iyhCFKyEuveDY=" };
         try {
             for (String t : arr) {
                 System.out.println(aes.decrypt(t));
