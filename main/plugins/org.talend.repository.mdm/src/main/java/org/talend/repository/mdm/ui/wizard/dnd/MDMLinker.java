@@ -214,6 +214,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         selectedRelativeLinkColor = new Color(display, 110, 168, 255);
         getTree().addDisposeListener(new DisposeListener() {
 
+            @Override
             public void widgetDisposed(DisposeEvent e) {
                 selectedLoopLinkColor.dispose();
                 selectedRelativeLinkColor.dispose();
@@ -341,6 +342,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         loopModel.addModifiedBeanListener(new IModifiedBeanListener<Concept>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<Concept> event) {
                 handleModifiedBeanEvent(event);
             }
@@ -356,6 +358,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         this.loopTableEditorView.getExtendedTableViewer().addListener(new IExtendedControlListener() {
 
+            @Override
             public void handleEvent(ExtendedControlEvent event) {
                 if (event.getType() == EVENT_TYPE.MODEL_CHANGED) {
                     nodeRetriever.setCurrentLoopXPath(getCurrentLoopXPath());
@@ -367,6 +370,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         SelectionHelper selectionHelper = this.loopTableEditorView.getTableViewerCreator().getSelectionHelper();
         final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
 
+            @Override
             public void handle(LineSelectionEvent e) {
                 updateLinksStyleAndControlsSelection(e.source.getTable(), true);
             }
@@ -385,6 +389,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         schemaModel.addModifiedBeanListener(new IModifiedBeanListener<ConceptTarget>() {
 
+            @Override
             public void handleEvent(ModifiedBeanEvent<ConceptTarget> event) {
                 handleModifiedBeanEvent(event);
             }
@@ -400,6 +405,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         schemaModel.addBeforeOperationListListener(-50, new IListenableListListener<ConceptTarget>() {
 
+            @Override
             public void handleEvent(ListenableListEvent<ConceptTarget> event) {
                 handleListenableListBeforeTableViewerRefreshedEvent(event);
             }
@@ -408,6 +414,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         schemaModel.addAfterOperationListListener(new IListenableListListener<ConceptTarget>() {
 
+            @Override
             public void handleEvent(ListenableListEvent<ConceptTarget> event) {
                 handleListenableListAfterTableViewerRefreshedEvent(event);
             }
@@ -417,6 +424,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         SelectionHelper selectionHelper = this.fieldsTableEditorView.getTableViewerCreator().getSelectionHelper();
         final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
 
+            @Override
             public void handle(LineSelectionEvent e) {
                 updateLinksStyleAndControlsSelection(e.source.getTable(), true);
             }
@@ -653,9 +661,11 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
             if (!alreadyProcessedXPath.contains(xPathExpression)) {
                 loopXpathNodes.add(xPathExpression);
                 TreeItem treeItemFromAbsoluteXPath = treePopulator.getTreeItem(xPathExpression);
-                addLoopLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(), tableItemTarget.getParent(),
-                        (Concept) tableItemTarget.getData());
-                alreadyProcessedXPath.add(xPathExpression);
+                if (treeItemFromAbsoluteXPath != null) {
+                    addLoopLink(treeItemFromAbsoluteXPath, treeItemFromAbsoluteXPath.getData(), tableItemTarget.getParent(),
+                            (Concept) tableItemTarget.getData());
+                    alreadyProcessedXPath.add(xPathExpression);
+                }
             }
         }
     }
@@ -893,16 +903,14 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
             }
 
             TableItem[] selection = ((Table) currentControl).getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TableItem tableItem = selection[i];
+            for (TableItem tableItem : selection) {
                 selectedItems.add(tableItem.getData());
             }
 
         } else {
 
             TreeItem[] selection = getTree().getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TreeItem treeItem = selection[i];
+            for (TreeItem treeItem : selection) {
                 selectedItems.add(treeItem.getData());
             }
 
@@ -1073,6 +1081,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         if (this.drawingLinksComparator == null) {
             this.drawingLinksComparator = new Comparator<LinkDescriptor<TreeItem, Object, Table, Object>>() {
 
+                @Override
                 public int compare(LinkDescriptor<TreeItem, Object, Table, Object> link1,
                         LinkDescriptor<TreeItem, Object, Table, Object> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
