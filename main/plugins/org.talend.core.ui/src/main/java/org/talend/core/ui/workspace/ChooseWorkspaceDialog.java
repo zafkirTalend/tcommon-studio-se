@@ -5,7 +5,7 @@
  *
  * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.talend.rcp.intro.workspace;
+package org.talend.core.ui.workspace;
 
 import java.io.File;
 
@@ -35,8 +35,8 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.rcp.Activator;
-import org.talend.rcp.i18n.Messages;
+import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * A dialog that prompts for a directory to use as a workspace.
@@ -354,7 +354,7 @@ public class ChooseWorkspaceDialog extends TitleAreaDialog {
             return null;
         }
 
-        IDialogSettings settings = Activator.getDefault().getDialogSettings();
+        IDialogSettings settings = CoreUIPlugin.getDefault().getDialogSettings();
         IDialogSettings section = settings.getSection(DIALOG_SETTINGS_SECTION);
         if (section == null) {
             section = settings.addNewSection(DIALOG_SETTINGS_SECTION);

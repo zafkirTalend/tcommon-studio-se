@@ -379,7 +379,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     public String getRawValue() {
         if (value != null && value.length() > 0 && PasswordEncryptUtil.isPasswordType(getType())) {
-            String decryptValue = CryptoHelper.DEFAULT.decrypt(value);
+            String decryptValue = CryptoHelper.getDefault().decrypt(value);
             if (decryptValue != null) {
                 return decryptValue;
             }
@@ -403,7 +403,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     public void setRawValue(String newValue) {
         if (newValue != null && newValue.length() > 0 && PasswordEncryptUtil.isPasswordType(getType())) {
-            String encryptValue = CryptoHelper.DEFAULT.encrypt(newValue);
+            String encryptValue = CryptoHelper.getDefault().encrypt(newValue);
             if (encryptValue != null) {
                 setValue(encryptValue);
                 return;

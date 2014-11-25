@@ -48,7 +48,21 @@ public class CryptoHelper {
 
     public static final String PASSPHRASE = "99ZwBDt1L9yMX2ApJx fnv94o99OeHbCGuIHTy22 V9O6cZ2i374fVjdV76VX9g49DG1r3n90hT5c1"; //$NON-NLS-1$
 
-    public static final CryptoHelper DEFAULT = new CryptoHelper(PASSPHRASE);
+    /*
+     * FIXME, TDI-31303
+     * 
+     * Sometimes, even right encryption value, can't be be decrypted. And throw one exception:
+     * "javax.crypto.BadPaddingException: Given final block not properly padded", then return null.
+     * 
+     * Maybe, caused by the same problem with AES (TDI-31032).
+     * 
+     * Finally, try to use new instance for each one.
+     */
+    // public static final CryptoHelper DEFAULT = new CryptoHelper(PASSPHRASE);
+
+    public static final CryptoHelper getDefault() {
+        return new CryptoHelper(PASSPHRASE);
+    }
 
     /**
      * CryptoHelper constructor.

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.workspace;
+package org.talend.core.ui.workspace;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
-import org.talend.rcp.i18n.Messages;
+import org.talend.core.ui.i18n.Messages;
 
 /**
  * Implements the open workspace action. Opens a dialog prompting for a directory and then restarts the IDE on that

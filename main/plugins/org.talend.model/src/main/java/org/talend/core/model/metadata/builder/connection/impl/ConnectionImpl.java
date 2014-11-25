@@ -1132,9 +1132,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         if (!isContextMode() && value != null && value.length() > 0) {
             String newValue = null;
             if (encrypt) {
-                newValue = CryptoHelper.DEFAULT.encrypt(value);
+                newValue = CryptoHelper.getDefault().encrypt(value);
             } else {
-                newValue = CryptoHelper.DEFAULT.decrypt(value);
+                newValue = CryptoHelper.getDefault().decrypt(value);
             }
             if (newValue != null) { // if enable to encrypt/decrypt will return the new value.
                 return newValue;
