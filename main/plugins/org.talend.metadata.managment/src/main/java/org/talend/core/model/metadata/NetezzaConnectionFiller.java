@@ -53,8 +53,11 @@ public class NetezzaConnectionFiller extends DBConnectionFillerImpl {
      * @return
      */
     private String getDatabaseNameFromUrl(String url) {
+        if (StringUtils.isBlank(url)) {
+            return StringUtils.EMPTY;
+        }
         int lastIndexOf1 = StringUtils.lastIndexOf(url, "/"); //$NON-NLS-1$
-        if (StringUtils.isBlank(url) || lastIndexOf1 < 0 || lastIndexOf1 > url.length() - 1) {
+        if (lastIndexOf1 < 0 || lastIndexOf1 > url.length() - 1) {
             return StringUtils.EMPTY;
         }
         int lastIndexOf2 = StringUtils.lastIndexOf(url, "?"); //$NON-NLS-1$

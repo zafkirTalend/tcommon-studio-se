@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.utils.sugars.ReturnCode;
 
@@ -225,9 +226,11 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
     }
 
-    public static boolean isVertica(String url) { 
- 	    return url != null && url.startsWith("jdbc:vertica"); //$NON-NLS-1$ 
- 	}     /**
+    public static boolean isVertica(String url) {
+        return url != null && url.startsWith("jdbc:vertica"); //$NON-NLS-1$ 
+    }
+
+    /**
      * Method "isValid".
      * 
      * @param connection the connection to test
@@ -451,16 +454,14 @@ public final class ConnectionUtils {
     /**
      * return true if it is netezza.
      * 
-     * @param dbJDBCMetadata
+     * @param databaseMetaData
      * @return
      * @throws SQLException
      */
-    public static boolean isNetezza(DatabaseMetaData dbJDBCMetadata) {
+    public static boolean isNetezza(DatabaseMetaData databaseMetaData) {
         try {
-            if (dbJDBCMetadata.getDriverName() != null
-                    && dbJDBCMetadata.getDriverName().toLowerCase().startsWith("netezza") //$NON-NLS-1$
-                    && dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().toLowerCase().startsWith("netezza")) { //$NON-NLS-1$
+            if (databaseMetaData != null && StringUtils.startsWithIgnoreCase(databaseMetaData.getDriverName(), "netezza") //$NON-NLS-1$
+                    && StringUtils.startsWithIgnoreCase(databaseMetaData.getDatabaseProductName(), "netezza")) { //$NON-NLS-1$
                 return true;
             }
         } catch (SQLException e) {

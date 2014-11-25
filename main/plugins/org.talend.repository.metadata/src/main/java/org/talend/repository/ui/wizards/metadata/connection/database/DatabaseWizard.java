@@ -505,7 +505,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * @param metadataConnection
      */
     private void handleUppercase(DatabaseConnection databaseConnection, IMetadataConnection metadataConnection) {
-        if (databaseConnection.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct())) {
+        if (StringUtils.equals(databaseConnection.getProductId(), EDatabaseTypeName.ORACLEFORSID.getProduct())) {
             if (databaseConnection.getUiSchema() == null) {
                 databaseConnection.setUiSchema(""); //$NON-NLS-1$
             } else {
@@ -515,7 +515,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 metadataConnection.setUiSchema(databaseConnection.getUiSchema());
             }
         }
-        if (databaseConnection.getProductId().equals(EDatabaseTypeName.NETEZZA.getProduct())
+        if (StringUtils.equals(databaseConnection.getProductId(), EDatabaseTypeName.NETEZZA.getProduct())
                 || MetadataFillFactory.isJdbcNetezza(metadataConnection)) {
             uppercaseNetezzaSidUrl(databaseConnection);
             if (metadataConnection != null) {
@@ -698,8 +698,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
      * @param netezzaConnection
      */
     private void uppercaseNetezzaSidUrl(DatabaseConnection netezzaConnection) {
-        netezzaConnection.setSID(netezzaConnection.getSID().toUpperCase());
+        if (netezzaConnection == null) {
+            return;
+        }
+        netezzaConnection.setSID(StringUtils.upperCase(netezzaConnection.getSID()));
         String url = netezzaConnection.getURL();
+        if (StringUtils.isBlank(url)) {
+            return;
+        }
         int lastIndexOf = StringUtils.lastIndexOf(url, "/"); //$NON-NLS-1$
         if (lastIndexOf > 0 && lastIndexOf < url.length() - 1) {
             String part1 = StringUtils.substring(url, 0, lastIndexOf + 1);

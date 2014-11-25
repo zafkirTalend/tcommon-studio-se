@@ -430,7 +430,10 @@ public class MetadataFillFactory {
     }
 
     public static boolean isJdbcNetezza(String dbType, String driverClass) {
-        return EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbType) && StringUtils.indexOf(driverClass, "netezza") > -1; //$NON-NLS-1$
+        if (!StringUtils.isBlank(dbType) && !StringUtils.isBlank(driverClass)) {
+            return StringUtils.equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName(), dbType)
+                    && StringUtils.indexOf(StringUtils.lowerCase(driverClass), "netezza") > -1; //$NON-NLS-1$    
+        }
+        return false;
     }
-
 }
