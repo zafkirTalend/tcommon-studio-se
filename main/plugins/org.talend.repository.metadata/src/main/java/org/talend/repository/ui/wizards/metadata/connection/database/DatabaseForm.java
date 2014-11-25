@@ -140,7 +140,6 @@ import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.metadata.i18n.Messages;
@@ -151,6 +150,7 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 import org.talend.repository.ui.utils.ManagerConnection;
+import org.talend.repository.utils.DatabaseConnectionParameterUtil;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -2305,13 +2305,13 @@ public class DatabaseForm extends AbstractForm {
                 stringQuoteText.getText(), nullCharText.getText());
 
         EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()));
-        AProgressMonitorDialogWithCancel checkingDialog;
+        AProgressMonitorDialogWithCancel<Boolean> checkingDialog;
         if (dbType.isUseProvider()) {
             final IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
-            checkingDialog = new AProgressMonitorDialogWithCancel(getShell()) {
+            checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Object runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
                     return managerConnection.check(metadataConn, retProposedSchema);
                 }
             };
@@ -2320,30 +2320,32 @@ public class DatabaseForm extends AbstractForm {
             if (isHiveEmbeddedMode()) {
                 doHivePreSetup((DatabaseConnection) metadataConn.getCurrentConnection());
             }
-            checkingDialog = new AProgressMonitorDialogWithCancel(getShell()) {
+            checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Object runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
                     return managerConnection.checkHiveConnection(metadataConn);
                 }
             };
         } else {
             // check the connection
-            checkingDialog = new AProgressMonitorDialogWithCancel(getShell()) {
+            checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Object runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
                     return managerConnection.check(retProposedSchema);
                 }
             };
         }
 
         String executeMessage = Messages.getString("DatabaseForm.checkConnection.executeMessage"); //$NON-NLS-1$
-        String waitingFinishMessage = Messages.getString("DatabaseForm.checkConnection.waitingFinishMessage"); //$NON-NLS-1$
         Exception executeException = null;
-        int timeout = getDefaultTimeout();
+        int timeout = DatabaseConnectionParameterUtil.getDefaultDBConnectionTimeout();
+        if (0 < timeout) {
+            timeout += 5;
+        }
         try {
-            checkingDialog.run(executeMessage, waitingFinishMessage, true, timeout);
+            checkingDialog.run(executeMessage, null, true, timeout);
         } catch (Exception e) {
             executeException = e;
         }
@@ -2356,19 +2358,17 @@ public class DatabaseForm extends AbstractForm {
         if (checkingDialog.isUserCanncelled()) {
             return;
         }
-        if (executeException == null) {
+        if (checkingDialog.getExecuteException() != null) {
             executeException = checkingDialog.getExecuteException();
         }
         if (executeException != null) {
             if (executeException instanceof InterruptedException) {
                 CommonExceptionHandler.process(executeException, Priority.WARN);
                 return;
-            } else {
-                CommonExceptionHandler.process(executeException);
             }
             databaseSettingIsValide = false;
         } else {
-            databaseSettingIsValide = (Boolean) checkingDialog.getExecuteResult();
+            databaseSettingIsValide = checkingDialog.getExecuteResult();
         }
 
         // show the result of check connection
@@ -2407,27 +2407,6 @@ public class DatabaseForm extends AbstractForm {
                 updateStatus(IStatus.WARNING, mainMsg);
             }
         }
-    }
-
-    private static int getDefaultTimeout() {
-        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-        int timeout = -1;
-        if (designerCoreService != null) {
-            String objTimeoutActived = designerCoreService
-                    .getPreferenceStore(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED);
-            if (objTimeoutActived != null) {
-                boolean timeoutActived = Boolean.valueOf(objTimeoutActived);
-                if (timeoutActived) {
-                    String objTimeout = designerCoreService.getPreferenceStore(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
-                    if (objTimeout != null) {
-                        // because this timeout parameter is also setted to the connection timeout, so maybe the
-                        // dialog timeout should higher
-                        timeout = Integer.valueOf(objTimeout) + 5;
-                    }
-                }
-            }
-        }
-        return timeout;
     }
 
     private String getUppercaseNetezzaUrl(String url) {

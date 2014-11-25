@@ -31,9 +31,9 @@ import org.talend.core.runtime.i18n.Messages;
  * created by cmeng on Nov 21, 2014 Detailled comment
  *
  */
-public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDialog {
+public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonitorDialog {
 
-    private ARunnableWithProgressCancel runnableWithCancel;
+    private ARunnableWithProgressCancel<T> runnableWithCancel;
 
     private boolean isUserCancelled = false;
 
@@ -46,7 +46,7 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
         super(parent);
     }
 
-    abstract protected Object runWithCancel(IProgressMonitor monitor) throws Exception;
+    abstract protected T runWithCancel(IProgressMonitor monitor) throws Exception;
 
     @Override
     @Deprecated
@@ -66,10 +66,10 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
 
     public void run(String executeMessage, String waitingFinishMessage, boolean needWaitingProgressJob, int timeout)
             throws InvocationTargetException, InterruptedException {
-        runnableWithCancel = new ARunnableWithProgressCancel() {
+        runnableWithCancel = new ARunnableWithProgressCancel<T>() {
 
             @Override
-            protected Object runnableWithCancel(IProgressMonitor monitor) throws Exception {
+            protected T runnableWithCancel(IProgressMonitor monitor) throws Exception {
                 return runWithCancel(monitor);
             }
         };
@@ -99,7 +99,7 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
         return isUserCancelled;
     }
 
-    public Object getExecuteResult() {
+    public T getExecuteResult() {
         if (runnableWithCancel != null) {
             return runnableWithCancel.getExecuteResult();
         } else {
@@ -115,21 +115,22 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
         }
     }
 
-    private static abstract class ARunnableWithProgressCancel implements IRunnableWithProgress {
+    private static abstract class ARunnableWithProgressCancel<T> implements IRunnableWithProgress {
 
-        protected FutureTask<Object> futureTask;
+        protected FutureTask<T> futureTask;
 
         protected Thread executeThread;
 
         protected ThreadGroup threadGroup;
 
-        protected Object executeResult;
+        protected T executeResult;
 
         protected Exception executeException;
 
         protected String executeMessage = Messages.getString("ProgressMonitorDialogWithCancel.executeMessage.default"); //$NON-NLS-1$
 
-        protected String waitingFinishMessage = ""; //$NON-NLS-1$
+        protected String waitingFinishMessage = Messages
+                .getString("ProgressMonitorDialogWithCancel.waitingFinishMessage.default"); //$NON-NLS-1$
 
         protected int timeout = 30;
 
@@ -140,7 +141,7 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
         public ARunnableWithProgressCancel() {
         }
 
-        abstract protected Object runnableWithCancel(IProgressMonitor monitor) throws Exception;
+        abstract protected T runnableWithCancel(IProgressMonitor monitor) throws Exception;
 
         /*
          * (non-Javadoc)
@@ -149,11 +150,11 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
          */
         @Override
         public final void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-            futureTask = new FutureTask<Object>(new Callable<Object>() {
+            futureTask = new FutureTask<T>(new Callable<T>() {
 
                 @Override
-                public Object call() throws Exception {
-                    Object result = null;
+                public T call() throws Exception {
+                    T result = null;
                     try {
                         result = runnableWithCancel(monitor);
                     } catch (Exception e) {
@@ -215,7 +216,7 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
                 title = waitingFinishMessage
                         + Messages.getString("ProgressMonitorDialogWithCancel.CheckingConnectionJob.emptyWaitingfinish"); //$NON-NLS-1$
             }
-            CheckingConnectionJob checkingConnectionJob = new CheckingConnectionJob(title, futureTask);
+            CheckingConnectionJob<T> checkingConnectionJob = new CheckingConnectionJob<T>(title, futureTask);
             checkingConnectionJob.setUser(false);
             checkingConnectionJob.setPriority(Job.DECORATE);
             checkingConnectionJob.schedule();
@@ -233,7 +234,7 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
             waitingFinishMessage = waitingMsg;
         }
 
-        public Object getExecuteResult() {
+        public T getExecuteResult() {
             return executeResult;
         }
 
@@ -252,11 +253,11 @@ public abstract class AProgressMonitorDialogWithCancel extends ProgressMonitorDi
         }
     }
 
-    private static class CheckingConnectionJob extends Job {
+    private static class CheckingConnectionJob<T> extends Job {
 
-        protected FutureTask<Object> futureTask;
+        protected FutureTask<T> futureTask;
 
-        public CheckingConnectionJob(String name, FutureTask<Object> _futureTask) {
+        public CheckingConnectionJob(String name, FutureTask<T> _futureTask) {
             super(name);
             this.futureTask = _futureTask;
         }
