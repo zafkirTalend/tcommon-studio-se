@@ -2431,6 +2431,9 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private String getUppercaseNetezzaUrl(String url) {
+        if (StringUtils.isBlank(url)) {
+            return url;
+        }
         String uppcaseUrl = url;
         int lastIndexOf = StringUtils.lastIndexOf(url, "/"); //$NON-NLS-1$
         if (lastIndexOf > 0 && lastIndexOf < url.length() - 1) {
