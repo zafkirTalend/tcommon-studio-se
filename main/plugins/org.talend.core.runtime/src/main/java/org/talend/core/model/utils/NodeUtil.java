@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.process.AbstractNode;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.ElementParameterParser;
@@ -718,7 +719,7 @@ public class NodeUtil {
                 for (INode tnode : listDepartitioner) {
                     if (tnode.getUniqueName().equals(departitionerName)) { // find the tDepartitioner corresponding to
                                                                            // tRecollector
-                        INode startNode = tnode.getDesignSubjobStartNode(); // find the tCollector
+                        INode startNode = getSubProcessStartNode(tnode); // find the tCollector
                         List<? extends IConnection> inConns = startNode.getIncomingConnections(EConnectionType.STARTS);
                         if (inConns != null && inConns.size() > 0) {
                             if (inConns.get(0).getSource() == node) {
@@ -918,6 +919,38 @@ public class NodeUtil {
     		return subBranchContainsParallelIterate(connection.getSource());
     	}
     	return false;
+    }
+    
+    /**
+     * 
+     * add it for TDI-28503
+     * 
+     * @param departitioner node in collector subprocess
+     * @return collector node as the start node
+     */
+    public static INode getSubProcessStartNode(INode currentNode) {
+        int nb = 0;
+        for (IConnection connection : currentNode.getIncomingConnections()) {
+            if (connection.isActivate()) {
+                nb++;
+            }
+        }
+        if (nb == 0) {
+            return currentNode;
+        }
+        IConnection connec;
+
+        for (int j = 0; j < currentNode.getIncomingConnections().size(); j++) {
+            connec = currentNode.getIncomingConnections().get(j);
+            if (((AbstractNode) connec.getSource()).isOnMainMergeBranch()) {
+                if (connec.getLineStyle() == EConnectionType.STARTS) {
+                    return currentNode;
+                } else if (connec.getLineStyle() != EConnectionType.FLOW_REF) {
+                    return getSubProcessStartNode(connec.getSource());
+                }
+            }
+        }
+        return null;
     }
     
 }
