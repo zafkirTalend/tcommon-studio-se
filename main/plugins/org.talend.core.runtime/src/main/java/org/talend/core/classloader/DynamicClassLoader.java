@@ -45,7 +45,7 @@ public class DynamicClassLoader extends URLClassLoader {
     }
 
     public DynamicClassLoader(URL[] urls) {
-        super(urls, DynamicClassLoader.class.getClassLoader());
+        super(urls);
     }
 
     public void addLibrary(String lib) {
