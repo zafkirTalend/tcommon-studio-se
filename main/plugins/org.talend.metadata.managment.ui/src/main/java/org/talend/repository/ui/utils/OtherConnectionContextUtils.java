@@ -607,10 +607,18 @@ public final class OtherConnectionContextUtils {
         }
         // Create sap context parameters for additional properties
         for (AdditionalConnectionProperty sapProperty : conn.getAdditionalProperties()) {
-            ConnectionContextHelper.createParameters(varList, sapProperty.getPropertyName(), sapProperty.getValue());
+            String sapPropertyContextName = getValidSapContextName(sapProperty.getPropertyName());
+            ConnectionContextHelper.createParameters(varList, sapPropertyContextName, sapProperty.getValue());
         }
 
         return varList;
+    }
+
+    static String getValidSapContextName(String originalName) {
+        if (originalName.contains(ConnectionContextHelper.DOT)) {
+            return originalName.replace(ConnectionContextHelper.DOT, ConnectionContextHelper.LINE);
+        }
+        return originalName;
     }
 
     static void setSAPConnectionPropertiesForContextMode(String prefixName, SAPConnection sapCon, Set<IConnParamName> paramSet) {
@@ -688,7 +696,8 @@ public final class OtherConnectionContextUtils {
 
     static void setSAPConnectionAdditionPropertiesForContextMode(SAPConnection sapConn) {
         for (AdditionalConnectionProperty sapProperty : sapConn.getAdditionalProperties()) {
-            sapProperty.setValue(ContextParameterUtils.getNewScriptCode(sapProperty.getPropertyName(), LANGUAGE));
+            String sapPropertyContextName = getValidSapContextName(sapProperty.getPropertyName());
+            sapProperty.setValue(ContextParameterUtils.getNewScriptCode(sapPropertyContextName, LANGUAGE));
         }
     }
 
