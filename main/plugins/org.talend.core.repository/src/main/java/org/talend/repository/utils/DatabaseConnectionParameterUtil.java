@@ -21,10 +21,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 
@@ -115,24 +112,5 @@ public class DatabaseConnectionParameterUtil {
             }
         }
         return paramValue;
-    }
-
-    public static int getDefaultDBConnectionTimeout() {
-        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
-        int timeout = -1;
-        if (designerCoreService != null) {
-            String objTimeoutActived = designerCoreService
-                    .getPreferenceStore(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED);
-            if (objTimeoutActived != null) {
-                boolean timeoutActived = Boolean.valueOf(objTimeoutActived);
-                if (timeoutActived) {
-                    String objTimeout = designerCoreService.getPreferenceStore(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
-                    if (objTimeout != null) {
-                        timeout = Integer.valueOf(objTimeout);
-                    }
-                }
-            }
-        }
-        return timeout;
     }
 }
