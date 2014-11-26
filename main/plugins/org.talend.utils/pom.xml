@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.talend</groupId>
         <artifactId>org.talend.tos</artifactId>
-        <version>5.6.1-SNAPSHOT</version>
+        <version>5.6.1</version>
     </parent>
 
     <dependencies>
