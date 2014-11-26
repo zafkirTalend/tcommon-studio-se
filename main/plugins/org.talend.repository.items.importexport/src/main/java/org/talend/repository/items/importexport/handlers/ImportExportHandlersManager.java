@@ -176,8 +176,8 @@ public final class ImportExportHandlersManager {
                         importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
                     }
                 }
-
-                if (importItem != null) {
+                // if have existed, won't add again.
+                if (importItem != null && !items.contains(importItem)) {
                     items.add(importItem);
                 }
                 monitor.worked(1);
