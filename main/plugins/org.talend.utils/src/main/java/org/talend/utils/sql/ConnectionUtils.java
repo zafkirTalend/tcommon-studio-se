@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.utils.security.CryptoHelper;
 import org.talend.utils.sugars.ReturnCode;
@@ -464,9 +463,13 @@ public final class ConnectionUtils {
      * @throws SQLException
      */
     public static boolean isNetezza(DatabaseMetaData databaseMetaData) {
+
         try {
-            if (databaseMetaData != null && StringUtils.startsWithIgnoreCase(databaseMetaData.getDriverName(), "netezza") //$NON-NLS-1$
-                    && StringUtils.startsWithIgnoreCase(databaseMetaData.getDatabaseProductName(), "netezza")) { //$NON-NLS-1$
+            if (databaseMetaData != null
+                    && databaseMetaData.getDriverName() != null
+                    && databaseMetaData.getDriverName().toLowerCase().startsWith("netezza") //$NON-NLS-1$
+                    && databaseMetaData.getDatabaseProductName() != null
+                    && databaseMetaData.getDatabaseProductName().toLowerCase().startsWith("netezza")) { //$NON-NLS-1$
                 return true;
             }
         } catch (SQLException e) {
