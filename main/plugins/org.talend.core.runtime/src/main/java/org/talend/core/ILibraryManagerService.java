@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core;
 
-import java.io.File;
 import java.net.URI;
 import java.util.Collection;
 import java.util.List;
@@ -116,7 +115,5 @@ public interface ILibraryManagerService extends IService {
      * Mostly usefull for SVN libraries, after a SVN Update, this will force to refresh the current list of jars
      */
     public void forceListUpdate();
-
-    public boolean refreshDependencyJar(File externalLib);
 
 }
