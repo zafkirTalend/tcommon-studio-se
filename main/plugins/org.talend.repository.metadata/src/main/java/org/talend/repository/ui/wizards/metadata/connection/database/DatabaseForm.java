@@ -150,7 +150,6 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.utils.DBConnectionContextUtils;
 import org.talend.repository.ui.utils.DBConnectionContextUtils.EDBParamName;
 import org.talend.repository.ui.utils.ManagerConnection;
-import org.talend.repository.utils.DatabaseConnectionParameterUtil;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -2340,12 +2339,8 @@ public class DatabaseForm extends AbstractForm {
 
         String executeMessage = Messages.getString("DatabaseForm.checkConnection.executeMessage"); //$NON-NLS-1$
         Exception executeException = null;
-        int timeout = DatabaseConnectionParameterUtil.getDefaultDBConnectionTimeout();
-        if (0 < timeout) {
-            timeout += 5;
-        }
         try {
-            checkingDialog.run(executeMessage, null, true, timeout);
+            checkingDialog.run(executeMessage, null, true, AProgressMonitorDialogWithCancel.ENDLESS_WAIT_TIME);
         } catch (Exception e) {
             executeException = e;
         }

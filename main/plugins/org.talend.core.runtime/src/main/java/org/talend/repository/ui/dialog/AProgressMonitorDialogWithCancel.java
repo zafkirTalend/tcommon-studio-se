@@ -33,6 +33,10 @@ import org.talend.core.runtime.i18n.Messages;
  */
 public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonitorDialog {
 
+    public static final int ENDLESS_WAIT_TIME = -1;
+
+    public static final int DEFAULT_WAIT_TIME = 60;
+
     private ARunnableWithProgressCancel<T> runnableWithCancel;
 
     private boolean isUserCancelled = false;
@@ -56,12 +60,12 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
     }
 
     public void run() throws InvocationTargetException, InterruptedException {
-        run(null, null, true, -1);
+        run(null, null, true, DEFAULT_WAIT_TIME);
     }
 
     public void run(String executeMessage, String waitingFinishMessage, boolean needWaitingProgressJob)
             throws InvocationTargetException, InterruptedException {
-        run(executeMessage, waitingFinishMessage, needWaitingProgressJob, -1);
+        run(executeMessage, waitingFinishMessage, needWaitingProgressJob, DEFAULT_WAIT_TIME);
     }
 
     public void run(String executeMessage, String waitingFinishMessage, boolean needWaitingProgressJob, int timeout)
@@ -80,9 +84,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
             runnableWithCancel.setWaitingFinishMessage(waitingFinishMessage);
         }
         runnableWithCancel.setNeedWaitingProgressJob(needWaitingProgressJob);
-        if (0 < timeout) {
-            runnableWithCancel.setTimeout(timeout);
-        }
+        runnableWithCancel.setTimeout(timeout);
         super.run(true, true, runnableWithCancel);
     }
 
@@ -163,12 +165,20 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
                     return result;
                 }
             });
-            int iTimeout = timeout * 2;
-            monitor.beginTask(executeMessage, iTimeout);
+            int iTimeout;
+            boolean canGain = true;
+            if (ENDLESS_WAIT_TIME == timeout || timeout <= 0) {
+                iTimeout = 1;
+                canGain = false;
+                monitor.beginTask(executeMessage, IProgressMonitor.UNKNOWN);
+            } else {
+                iTimeout = timeout * 2;
+                monitor.beginTask(executeMessage, iTimeout);
+            }
             threadGroup = new ThreadGroup("ARunnableWithProgressCancel"); //$NON-NLS-1$
             executeThread = new Thread(threadGroup, futureTask);
             executeThread.start();
-            for (int i = 0; i < iTimeout; i++) {
+            for (int i = 0; i < iTimeout; i = canGain ? i + 1 : i) {
                 try {
                     if (kill) {
                         break;
