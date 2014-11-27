@@ -60,6 +60,7 @@
                 </talendType>
                 <talendType type="id_Integer">
                     <dbType type="Int32Type" default="true" />
+                    <dbType type="IntegerType"/>
                     <dbType type="VARINT" />
                 </talendType>
                 <talendType type="id_Long">
@@ -70,7 +71,6 @@
                 </talendType>
                 <talendType type="id_Object">
                     <dbType type="ObjectType" default="true" />
-                    <dbType type="IntegerType" />
                     <dbType type="BLOB" />
                 </talendType>
                 <talendType type="id_Short" />
@@ -95,7 +95,7 @@
                     <talendType type="id_String" default="true" />
                 </dbType>
                 <dbType type="IntegerType">
-                    <talendType type="id_Object" default="true" />
+                    <talendType type="id_Integer" default="true" />
                 </dbType>
                 <dbType type="Int32Type">
                     <talendType type="id_Integer" default="true" />
