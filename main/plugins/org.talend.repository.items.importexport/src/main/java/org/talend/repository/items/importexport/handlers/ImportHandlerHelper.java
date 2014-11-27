@@ -46,7 +46,7 @@ public class ImportHandlerHelper {
             return null;
         }
         // only process the *.properties file.
-        if (!ImportCacheHelper.getInstance().getXmiResourceManager().isPropertyFile(resourcePath.lastSegment())) {
+        if (!validResourcePath(resourcePath)) {
             return null;
         }
         ImportItem importItem = new ImportItem(resourcePath);
@@ -65,6 +65,10 @@ public class ImportHandlerHelper {
             // throw ex;
         }
         return importItem;
+    }
+
+    public boolean validResourcePath(IPath resourcePath) {
+        return ImportCacheHelper.getInstance().getXmiResourceManager().isPropertyFile(resourcePath.lastSegment());
     }
 
 }

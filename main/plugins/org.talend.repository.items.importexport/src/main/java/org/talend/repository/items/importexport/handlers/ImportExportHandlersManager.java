@@ -147,11 +147,47 @@ public final class ImportExportHandlersManager {
 
             List<ImportItem> items = new ArrayList<ImportItem>();
 
+            // sort the resources.
+            List<IPath> resourcesPathsList = new ArrayList<IPath>(resPaths);
+            Collections.sort(resourcesPathsList, new Comparator<IPath>() {
+
+                @Override
+                public int compare(IPath o1, IPath o2) {
+                    return o1.toPortableString().compareTo(o2.toPortableString());
+                }
+            });
+
+            // check the special resources first.
+            List<IPath> doneList = new ArrayList<IPath>();
+
             ImportHandlerHelper importHandlerHelper = new ImportHandlerHelper();
+
+            for (IPath path : resourcesPathsList) {
+                if (monitor.isCanceled()) {
+                    return Collections.emptyList();
+                }
+                if (!importHandlerHelper.validResourcePath(path)) { // valid "*.properties" will do it later.
+                    IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
+                    if (importHandler != null) {
+                        ImportItem importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite,
+                                items);
+                        // if have existed, won't add again.
+                        if (importItem != null && !items.contains(importItem)) {
+                            items.add(importItem);
+                            doneList.add(path);
+                        }
+                    }
+                    monitor.worked(1);
+                }
+            }
+            // remove done list
+            resourcesPathsList.removeAll(doneList);
+            //
             for (IPath path : resPaths) {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
+                // process the "*.properties"
                 ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
                 if (importItem != null) {
                     IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
@@ -169,13 +205,6 @@ public final class ImportExportHandlersManager {
                     }
                 }
 
-                // if can't load rightly via *.properties, try to check another way for normal files.
-                if (importItem == null) {
-                    IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
-                    if (importHandler != null) {
-                        importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
-                    }
-                }
                 // if have existed, won't add again.
                 if (importItem != null && !items.contains(importItem)) {
                     items.add(importItem);
