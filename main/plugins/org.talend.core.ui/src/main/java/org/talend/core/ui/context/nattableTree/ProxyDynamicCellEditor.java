@@ -23,6 +23,7 @@ import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.GlazedListsDataProvider;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
+import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectionEnum;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.talend.core.model.process.IContextManager;
@@ -142,6 +143,21 @@ public class ProxyDynamicCellEditor extends AbstractCellEditor {
             }
         }
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.nebula.widgets.nattable.edit.editor.AbstractCellEditor#commit(org.eclipse.nebula.widgets.nattable
+     * .selection.SelectionLayer.MoveDirectionEnum, boolean, boolean)
+     */
+    @Override
+    public boolean commit(MoveDirectionEnum direction, boolean closeAfterCommit, boolean skipValidation) {
+        if (dynamicEditor != null) {
+            return dynamicEditor.commit(direction, closeAfterCommit, skipValidation);
+        }
+        return super.commit(direction, closeAfterCommit, skipValidation);
     }
 
 }
