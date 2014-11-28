@@ -300,9 +300,14 @@ public class RepositoryNodeUtilities {
 
             for (IRepositoryNode childNode : children) {
                 RepositoryNode node = (RepositoryNode) childNode;
-                if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT
-                        || (hadoopClusterService != null && hadoopClusterService.isHadoopClusterNode(node))) {
+                if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT) {
                     folderChild.add(node);
+                } else if (hadoopClusterService != null && hadoopClusterService.isHadoopClusterNode(node)) {
+                    if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
+                        return node;
+                    } else {
+                        folderChild.add(node);
+                    }
                 } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
                     return node;
                 }
