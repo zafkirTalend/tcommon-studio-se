@@ -13,13 +13,14 @@
 package org.talend.core.ui.perspective;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
@@ -27,13 +28,13 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.PerspectiveExtensionReader;
 import org.eclipse.ui.internal.PerspectiveTagger;
 import org.eclipse.ui.internal.WorkbenchPage;
@@ -41,6 +42,8 @@ import org.eclipse.ui.internal.e4.compatibility.ModeledPageLayout;
 import org.eclipse.ui.internal.menus.MenuHelper;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.UIExtensionTracker;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.branding.IBrandingService;
 
 /**
  * created by ggu on Nov 10, 2014 Detailled comment
@@ -48,6 +51,13 @@ import org.eclipse.ui.internal.registry.UIExtensionTracker;
  */
 @SuppressWarnings("restriction")
 public class RestoreAllRegisteredPerspectivesProvider {
+
+    /**
+     * 
+     */
+    private static final String FIRST_TIME_LAUNCH_PREF = "first.time.launch"; //$NON-NLS-1$
+
+    private static Logger log = Logger.getLogger(RestoreAllRegisteredPerspectivesProvider.class);
 
     @Inject
     private IWorkbench workbench;
@@ -63,6 +73,11 @@ public class RestoreAllRegisteredPerspectivesProvider {
 
     @Inject
     private MApplication fApp;
+
+    @Inject
+    @Preference
+    // by default uses plugin id in the current instance scope (workspace)
+    IEclipsePreferences wsPreferences;
 
     private IExtensionTracker fTracker;
 
@@ -82,9 +97,9 @@ public class RestoreAllRegisteredPerspectivesProvider {
             return fPerspectiveStack;
         }
 
-        if (fPerspectiveStack == null && fWindow != null && fModelService != null) {
+        if (fPerspectiveStack == null) {
             List<MPerspectiveStack> perspStackList = fModelService.findElements(fWindow, null, MPerspectiveStack.class, null);
-            if (perspStackList.size() > 0) {
+            if (perspStackList.size() > 0) {// there must be only one perspectiveStack.
                 fPerspectiveStack = perspStackList.get(0);
                 return fPerspectiveStack;
             }
@@ -112,10 +127,16 @@ public class RestoreAllRegisteredPerspectivesProvider {
      * 
      * Try to create the perspectives which are providered via extension point.
      */
-    public void checkPerspectiveDisplayItems() {
+    public void restoreAlwaysVisiblePerspectives() {
         String[] showPerspectiveIds = getStartupRegReader().getShowPerspectiveIds();
         if (showPerspectiveIds == null || showPerspectiveIds.length == 0) {
             return;
+        }
+        // find the selected perspective to re-select it after all perspective creation
+        MPerspectiveStack mPerspStack = getMPerspectiveStack();
+        MPerspective initialSelectedPerspective = null;
+        if (mPerspStack != null) {
+            initialSelectedPerspective = mPerspStack.getSelectedElement();
         }
 
         //
@@ -123,42 +144,53 @@ public class RestoreAllRegisteredPerspectivesProvider {
 
         // create the perspectives.
         for (String perspId : showPerspectiveIds) {
-            findAndCreatePerspective(perspId, validPerspectiveChildren);
+            restorePerspective(mPerspStack, perspId, validPerspectiveChildren);
         }
 
-        // add the valid perspectives.
-        final MPerspectiveStack mPerspStack = getMPerspectiveStack();
+        activateTheProperPerspective(mPerspStack, initialSelectedPerspective);
+
+    }
+
+    /**
+     * DOC sgandon Comment method "activateTheProperPerspective".
+     * 
+     * @param mPerspStack, the stack to look for the perspecive to activate
+     * @param initialSelectedPerspective, the perspective that was initialy selected
+     */
+    private void activateTheProperPerspective(final MPerspectiveStack mPerspStack, MPerspective initialSelectedPerspective) {
         if (mPerspStack != null) {
-            List<MPerspective> children = mPerspStack.getChildren();
-            // record the order of perspective.
-            Map<Integer, MPerspective> otherCustomPerspMap = new HashMap<Integer, MPerspective>();
-            // try add back other custom perspectives
-            for (int i = 0; i < children.size(); i++) {
-                MPerspective p = children.get(i);
-                if (!validPerspectiveChildren.contains(p)) { // not added, another custom
-                    otherCustomPerspMap.put(i, p);
-                }// have added in front.
-            }
+            MPerspective perspectiveToSelect = null;
+            boolean firstTimeLaunch = wsPreferences.getBoolean(FIRST_TIME_LAUNCH_PREF, true);
 
-            children.clear(); // clean other perspectives.
-            children.addAll(validPerspectiveChildren); // add back the valid perspectives.
-
-            // add the other costom perspectives back
-            java.util.Iterator<Integer> iterator = otherCustomPerspMap.keySet().iterator();
-            while (iterator.hasNext()) {
-                Integer index = iterator.next();
-                if (index != null) {
-                    MPerspective persp = otherCustomPerspMap.get(index);
-                    // maybe this is not good, because after add, the original index have been changed.
-                    if (index < children.size()) {
-                        children.add(index, persp);
-                    } else {
-                        children.add(persp);
-                    }
+            // select the previously opened perspective except if it is the first time the workspace is used
+            if (mPerspStack.getChildren().contains(initialSelectedPerspective) && !firstTimeLaunch) {
+                perspectiveToSelect = initialSelectedPerspective;
+            } else {// look for the Talend default one
+                    // get branding default perspective.
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+                    IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                            IBrandingService.class);
+                    String defaultPerspectiveId = service.getBrandingConfiguration().getInitialWindowPerspectiveId();
+                    // this is not the fastest way but this is to try the find API
+                    List<MPerspective> matchPerspectives = fModelService.findElements(mPerspStack, MPerspective.class,
+                            EModelService.IN_ACTIVE_PERSPECTIVE, new ElementMatcher(defaultPerspectiveId, null, (String) null));
+                    if (!matchPerspectives.isEmpty()) { // get the first
+                        perspectiveToSelect = matchPerspectives.get(0);
+                    }// else no perspective found matching the Talend, this should only occur when no default
+                     // perspective is set.
+                } else {// no talend default perspective then select the first one.
+                    if (!mPerspStack.getChildren().isEmpty()) {
+                        perspectiveToSelect = mPerspStack.getChildren().get(0);
+                    }// else there is not perspective to no need to select one.
                 }
             }
-        }
-
+            if (perspectiveToSelect != null) {
+                mPerspStack.setSelectedElement(perspectiveToSelect);
+            } else {// we could not find any perspective to select, this should never happend so we log it.
+                log.info("Unable to Select the default perspective"); //$NON-NLS-1$
+            }
+            wsPreferences.putBoolean(FIRST_TIME_LAUNCH_PREF, false);
+        }// no perspective stack so nothing to select
     }
 
     /**
@@ -169,13 +201,12 @@ public class RestoreAllRegisteredPerspectivesProvider {
      * original one.
      * 
      */
-    protected void findAndCreatePerspective(String id, List<MPerspective> validPerspList) {
-        final MPerspectiveStack mPerspStack = getMPerspectiveStack();
+    protected void restorePerspective(MPerspectiveStack mPerspStack, String id, List<MPerspective> validPerspList) {
 
-        if (id != null && mPerspStack != null && fWindow != null && fPartService != null && fApp != null) {
+        if (id != null && mPerspStack != null) {
             MPerspective mPersp = null;
 
-            IPerspectiveRegistry perspectiveRegistry = PlatformUI.getWorkbench().getPerspectiveRegistry();
+            IPerspectiveRegistry perspectiveRegistry = workbench.getPerspectiveRegistry();
             IPerspectiveDescriptor perspDesc = perspectiveRegistry.findPerspectiveWithId(id);
             if (perspDesc != null) {
                 // find the existed.
@@ -202,7 +233,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
                 }
 
                 // create new
-                if (mPersp == null) { // FIXME copied some form method setPerspective of class WorkbenchPage
+                if (mPersp == null) { // copied some form method setPerspective of class WorkbenchPage
                     String perspId = perspDesc.getId();
 
                     WorkbenchPage workbenchPage = (WorkbenchPage) workbench.getActiveWorkbenchWindow().getActivePage();
@@ -242,12 +273,9 @@ public class RestoreAllRegisteredPerspectivesProvider {
                     // add it to the stack
                     mPerspStack.getChildren().add(mPersp);
 
-                }
+                }// else already create so do nothing
             }// else { // can't find or not be loaded.
 
-            if (mPersp != null && !validPerspList.contains(mPersp)) {
-                validPerspList.add(mPersp);
-            }
         }
     }
 }
