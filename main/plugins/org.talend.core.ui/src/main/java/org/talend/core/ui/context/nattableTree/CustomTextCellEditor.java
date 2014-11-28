@@ -21,10 +21,9 @@ import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
 import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.process.IContextParameter;
 
@@ -77,8 +76,6 @@ public class CustomTextCellEditor extends AbstractCellEditor {
             style |= SWT.READ_ONLY;
         }
         final ContextValuesNatText text = new ContextValuesNatText(parentComp, cellStyle, realPara, style);
-
-        text.setCursor(new Cursor(Display.getDefault(), SWT.CURSOR_IBEAM));
 
         addTextListener(text);
         return text;
@@ -171,6 +168,10 @@ public class CustomTextCellEditor extends AbstractCellEditor {
         this.buttonText = (ContextValuesNatText) createEditorControl(parentComp);
         // use the real value.
         setCanonicalValue(this.recordOriginalCanonicalValue);
+
+        Text text = buttonText.getText();
+        text.forceFocus();
+        text.setSelection(0, text.getText().length());
 
         return this.buttonText;
     }
