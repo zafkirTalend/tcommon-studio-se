@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.ui.perspective;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -139,12 +138,9 @@ public class RestoreAllRegisteredPerspectivesProvider {
             initialSelectedPerspective = mPerspStack.getSelectedElement();
         }
 
-        //
-        List<MPerspective> validPerspectiveChildren = new ArrayList<MPerspective>();
-
         // create the perspectives.
         for (String perspId : showPerspectiveIds) {
-            restorePerspective(mPerspStack, perspId, validPerspectiveChildren);
+            restorePerspective(mPerspStack, perspId);
         }
 
         activateTheProperPerspective(mPerspStack, initialSelectedPerspective);
@@ -201,7 +197,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
      * original one.
      * 
      */
-    protected void restorePerspective(MPerspectiveStack mPerspStack, String id, List<MPerspective> validPerspList) {
+    protected void restorePerspective(MPerspectiveStack mPerspStack, String id) {
 
         if (id != null && mPerspStack != null) {
             MPerspective mPersp = null;
