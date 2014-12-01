@@ -17,8 +17,6 @@ import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectio
 import org.eclipse.nebula.widgets.nattable.style.IStyle;
 import org.eclipse.nebula.widgets.nattable.widget.EditModeEnum;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -111,13 +109,13 @@ public class CustomTextCellEditor extends AbstractCellEditor {
 
         });
 
-        text.addFocusListener(new FocusAdapter() {
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                commit(MoveDirectionEnum.NONE, editMode == EditModeEnum.INLINE);
-            }
-        });
+        // text.addFocusListener(new FocusAdapter() {
+        //
+        // @Override
+        // public void focusLost(FocusEvent e) {
+        // commit(MoveDirectionEnum.NONE, editMode == EditModeEnum.INLINE);
+        // }
+        // });
     }
 
     /*
@@ -170,7 +168,9 @@ public class CustomTextCellEditor extends AbstractCellEditor {
         setCanonicalValue(this.recordOriginalCanonicalValue);
 
         Text text = buttonText.getText();
-        text.forceFocus();
+        if (buttonText.getButton() == null) {
+            text.forceFocus();
+        }
         text.setSelection(0, text.getText().length());
 
         return this.buttonText;

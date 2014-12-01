@@ -257,4 +257,13 @@ public class ContextValuesNatText extends Composite {
     public Text getText() {
         return this.text;
     }
+
+    /**
+     * Getter for button.
+     * 
+     * @return the button
+     */
+    public Button getButton() {
+        return this.button;
+    }
 }
