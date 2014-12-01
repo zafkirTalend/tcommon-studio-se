@@ -10,18 +10,21 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.intro.starting;
+package org.talend.core.ui.perspective;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.osgi.service.runnable.StartupMonitor;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.talend.rcp.intro.PerspectiveReviewUtil;
 
 /**
- * created by sgandon on 6 nov. 2014 Detailled comment
+ * created by ggu on Nov 10, 2014 Detailled comment
  *
+ * The integer value of "service.ranking" is set by 10. And make sure the ActivatePerspectiveStartupMonitor will be
+ * after this. and set it 5.
  */
-public class WorkbenchSetupStartupMonitor implements StartupMonitor {
+public class RestoreAllRegisteredPerspectivesStartupMonitor implements StartupMonitor {
 
     /*
      * (non-Javadoc)
@@ -30,7 +33,7 @@ public class WorkbenchSetupStartupMonitor implements StartupMonitor {
      */
     @Override
     public void update() {
-        // TODO Auto-generated method stub
+        //
 
     }
 
@@ -39,15 +42,22 @@ public class WorkbenchSetupStartupMonitor implements StartupMonitor {
      * 
      * @see org.eclipse.osgi.service.runnable.StartupMonitor#applicationRunning()
      */
+    @SuppressWarnings("restriction")
     @Override
     public void applicationRunning() {
         if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
             return;
         }
-        org.eclipse.e4.ui.workbench.IWorkbench e4Workbench = (org.eclipse.e4.ui.workbench.IWorkbench) PlatformUI.getWorkbench();
-        PerspectiveReviewUtil perspectiveReviewUtil = new PerspectiveReviewUtil();
-        ContextInjectionFactory.inject(perspectiveReviewUtil, e4Workbench.getApplication().getContext().getActiveLeaf());
-        perspectiveReviewUtil.checkPerspectiveDisplayItems();
-    }
+        RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
 
+        IEclipseContext context = null;
+
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
+
+        ContextInjectionFactory.inject(perspProvider, activeContext);
+
+        perspProvider.restoreAlwaysVisiblePerspectives();
+
+    }
 }

@@ -45,6 +45,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.activities.IWorkbenchActivitySupport;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -204,12 +205,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowCreate()
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowRestore()
      */
     @Override
-    public void postWindowCreate() {
-        super.postWindowCreate();
-
+    public void postWindowRestore() throws WorkbenchException {
+        super.postWindowRestore();
+        // do not use this; never called : see https://bugs.eclipse.org/bugs/show_bug.cgi?id=450541
     }
 
     /*
@@ -361,7 +362,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
 
         menuManager.update(true);
-
     }
 
     private void showStarting() {
