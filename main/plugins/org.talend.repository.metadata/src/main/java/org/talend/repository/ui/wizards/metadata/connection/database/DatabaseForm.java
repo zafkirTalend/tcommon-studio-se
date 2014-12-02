@@ -4328,7 +4328,6 @@ public class DatabaseForm extends AbstractForm {
                         hideMappingFileRelatedWidgets(true);
                     }
                     sidOrDatabaseText.setEditable(true);
-                    addContextParams(EDBParamName.Server, visible);
                 } else {
                     serverText.hide();
                 }
@@ -4342,7 +4341,6 @@ public class DatabaseForm extends AbstractForm {
                 if (isHiveDBConnSelected()) {
                     portText.show();
                     portText.setEditable(visible);
-                    addContextParams(EDBParamName.Port, visible);
                 } else {
                     portText.hide();
                 }
@@ -4524,29 +4522,32 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
+        collectContextParamsForHive(visible);
+    }
 
-        // recheck context params for hive
+    private void collectContextParamsForHive(boolean visible) {
+        // recollect context params for hive
         if (isHiveDBConnSelected()) {
             getConetxtParams().clear();
             if (isHiveEmbeddedMode()) {
-                addContextParams(EDBParamName.Server, true);
-                addContextParams(EDBParamName.Port, true);
-
+                addContextParams(EDBParamName.Login, visible);
+                addContextParams(EDBParamName.Server, visible);
+                addContextParams(EDBParamName.Port, visible);
+                addContextParams(EDBParamName.Database, visible);
                 // if from cluster no need to export the two params
                 String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
                 if (hcId == null) {
-                    addContextParams(EDBParamName.NameNode, true);
-                    addContextParams(EDBParamName.JobTracker, true);
+                    addContextParams(EDBParamName.NameNode, visible);
+                    addContextParams(EDBParamName.JobTracker, visible);
                 }
             } else {
-                addContextParams(EDBParamName.Login, true);
-                addContextParams(EDBParamName.Password, true);
-                addContextParams(EDBParamName.Server, true);
-                addContextParams(EDBParamName.Port, true);
-                addContextParams(EDBParamName.Database, true);
+                addContextParams(EDBParamName.Login, visible);
+                addContextParams(EDBParamName.Password, visible);
+                addContextParams(EDBParamName.Server, visible);
+                addContextParams(EDBParamName.Port, visible);
+                addContextParams(EDBParamName.Database, visible);
             }
         }
-
     }
 
     /**

@@ -369,13 +369,23 @@ public class DatabaseConnStrUtil {
                         if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
                             return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
                         } else if (!startTemplateString.equals("") && startTemplateString.equals(startStringConnection)) {
-                            return template.getDBDisplayName();
+                            if (isHive2EmbeddedUrlString(currentDbType, startStringConnection)) {
+                                return currentDbType;
+                            } else {
+                                return template.getDBDisplayName();
+                            }
                         }
                     }
                 }
             }
         }
         return currentDbType;
+    }
+
+    private static boolean isHive2EmbeddedUrlString(String currentDbType, String urlStringOfConnection) {
+        // Since Impla has same url string with Hive2 embedded mode,need to judge more
+        return currentDbType.equals(EDatabaseConnTemplate.HIVE.getDBDisplayName())
+                && urlStringOfConnection.equals(getHive2EmbeddedURLString());
     }
 
     // test

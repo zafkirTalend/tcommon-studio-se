@@ -255,6 +255,8 @@ public final class DBConnectionContextUtils {
 
                 case Login:
                     conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case JobTracker:
                     conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
@@ -337,6 +339,8 @@ public final class DBConnectionContextUtils {
 
                 case Login:
                     conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
                     break;
                 case JobTracker:
                     conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
@@ -686,6 +690,9 @@ public final class DBConnectionContextUtils {
 
         // for hive
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
+            String hadoopUserName = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                    ConnectionContextHelper.getOriginalValue(contextType, hadoopUserName));
             String jobTracker = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
                     ConnectionContextHelper.getOriginalValue(contextType, jobTracker));
