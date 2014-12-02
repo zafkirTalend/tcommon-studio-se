@@ -1359,11 +1359,17 @@ public final class OtherConnectionContextUtils {
                             }
                         }
                     }
+                    if (wsdlVariableName != null && wsdlParam.equals(EParamName.WSDL)) {
+                        wsdlConn.setWSDL(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
+                    }
+                    if (wsdlVariableName != null && wsdlParam.equals(EParamName.EndpointURI)) {
+                        wsdlConn.setEndpointURI(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
+                    }
+                    if (wsdlVariableName != null && wsdlParam.equals(EParamName.Encoding)) {
+                        wsdlConn.setEncoding(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
+                    }
                     if (wsdlConn.isIsInputModel()) {
                         switch (wsdlParam) {
-                        case WSDL:
-                            wsdlConn.setWSDL(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
-                            break;
                         case MethodName:
                             wsdlConn.setMethodName(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
                         case UserName:
@@ -1378,10 +1384,6 @@ public final class OtherConnectionContextUtils {
                             wsdlConn.setProxyUser(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
                         case ProxyPassword:
                             wsdlConn.setProxyPassword(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
-                        case EndpointURI:
-                            wsdlConn.setEndpointURI(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
-                        case Encoding:
-                            wsdlConn.setEncoding(ContextParameterUtils.getNewScriptCode(wsdlVariableName, LANGUAGE));
                         default:
                         }
                     }

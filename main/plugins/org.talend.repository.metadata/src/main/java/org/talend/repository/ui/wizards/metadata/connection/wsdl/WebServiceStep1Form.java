@@ -159,6 +159,7 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
         super.setVisible(visible);
         if (visible) {
             adaptFormToEditable();
+            collectContextParams(visible);
             checkFieldsValue();
         }
     }
