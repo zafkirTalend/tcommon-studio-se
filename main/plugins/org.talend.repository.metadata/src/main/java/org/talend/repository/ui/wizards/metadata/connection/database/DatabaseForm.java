@@ -2338,7 +2338,7 @@ public class DatabaseForm extends AbstractForm {
         }
 
         String executeMessage = Messages.getString("DatabaseForm.checkConnection.executeMessage"); //$NON-NLS-1$
-        Exception executeException = null;
+        Throwable executeException = null;
         try {
             checkingDialog.run(executeMessage, null, true, AProgressMonitorDialogWithCancel.ENDLESS_WAIT_TIME);
         } catch (Exception e) {
