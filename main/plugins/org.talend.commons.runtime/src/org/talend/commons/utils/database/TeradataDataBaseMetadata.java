@@ -175,11 +175,22 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         String sql = null;
         if (types != null && types.length > 0) {
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
-                    + "') AND tablekind " + addTypesToSql(types) + " AND tablename LIKE '" + tableNamePattern + "' Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$
+                    + "') AND tablekind " + addTypesToSql(types); //$NON-NLS-1$
         } else {
             // When the types is empty, all the tables and views will be retrieved.
             sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
-                    + "') AND (tablekind = 'T' or tablekind = 'V') AND tablename LIKE '" + tableNamePattern + "' Order by tablekind, tablename "; //$NON-NLS-1$
+                    + "') AND (tablekind = 'T' or tablekind = 'V')"; //$NON-NLS-1$
+        }
+
+        // add the filter for table/views
+        if (!StringUtils.isEmpty(tableNamePattern)) {
+            sql = sql + " AND tablename LIKE '" + tableNamePattern + "'";//$NON-NLS-1$//$NON-NLS-2$
+        }
+
+        if (types != null && types.length > 0) {
+            sql = sql + " Order by tablename "; //$NON-NLS-1$
+        } else {
+            sql = sql + " Order by tablekind, tablename "; //$NON-NLS-1$
         }
 
         ResultSet rs = null;
@@ -304,7 +315,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                     isNullable = rs.getString("Nullable"); //$NON-NLS-1$
                 }
                 if (decimalDigits == null) {
-                    decimalDigits = "0";
+                    decimalDigits = "0";//$NON-NLS-1$
                 }
                 String remarks = ""; //$NON-NLS-1$
                 String columnDef = ""; //$NON-NLS-1$
