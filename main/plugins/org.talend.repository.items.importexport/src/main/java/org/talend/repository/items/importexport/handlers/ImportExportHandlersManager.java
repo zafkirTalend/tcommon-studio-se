@@ -183,7 +183,7 @@ public final class ImportExportHandlersManager {
             // remove done list
             resourcesPathsList.removeAll(doneList);
             //
-            for (IPath path : resPaths) {
+            for (IPath path : resourcesPathsList) {
                 if (monitor.isCanceled()) {
                     return Collections.emptyList(); //
                 }
@@ -208,6 +208,7 @@ public final class ImportExportHandlersManager {
                 // if have existed, won't add again.
                 if (importItem != null && !items.contains(importItem)) {
                     items.add(importItem);
+                    // doneList.add(path);
                 }
                 monitor.worked(1);
             }
