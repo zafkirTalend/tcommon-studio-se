@@ -80,6 +80,28 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     }
 
     /**
+     * 
+     * DOC wchen MetadataEmfTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
+     * @param readOnly
+     * @param toolbarVisible
+     * @param labelVisible
+     */
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<MetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
+    }
+
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<MetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
+            boolean labelVisible, boolean initComponent) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, initComponent);
+    }
+
+    /**
      * Graphics components are automatically initialized.
      * 
      * @param parentComposite

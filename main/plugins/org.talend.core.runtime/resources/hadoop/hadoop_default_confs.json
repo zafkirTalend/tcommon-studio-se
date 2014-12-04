@@ -4,6 +4,8 @@
         "JOBTRACKER": "localhost:50300",
         "RESOURCE_MANAGER": "localhost:8050",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -22,7 +24,9 @@
         "NAMENODE_URI": "hdfs://localhost:8020",
         "JOBTRACKER": "localhost:8021",
         "RESOURCE_MANAGER": "localhost:8032",
-        "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "NAMENODE_PRINCIPAL": "hdfs/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -40,6 +44,7 @@
     "MAPR": {
         "NAMENODE_URI": "maprfs:///localhost:7222",
         "JOBTRACKER": "localhost:9001",
+        "RESOURCE_MANAGER": "localhost:8032",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -58,6 +63,8 @@
         "NAMENODE_URI": "hdfs://localhost:9000",
         "JOBTRACKER": "localhost:9001",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -73,6 +80,13 @@
         }
     },
     "AMAZON_EMR": {
+        "APACHE_2_4_0_EMR": {
+            "NAMENODE_URI": "hdfs://localhost:9000",
+            "RESOURCE_MANAGER": "localhost:9022",
+            "HBASE": {
+                "PORT": 2181
+            }
+        },
         "APACHE_1_0_3_EMR": {
             "NAMENODE_URI": "hdfs://localhost:9000",
             "JOBTRACKER": "localhost:9001",
@@ -88,12 +102,14 @@
             }
         },
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
             },
             "STANDALONE": {
-                "PORT": 10000
+                "PORT": 10004
             },
             "DATABASE": "default",
             "HIVE_PRINCIPAL": "hive/_HOST@EXAMPLE.COM"
@@ -103,6 +119,9 @@
         "NAMENODE_URI": "hdfs://localhost:8020",
         "JOBTRACKER": "localhost:8032",
         "RESOURCE_MANAGER": "localhost:8032",
+        "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -122,6 +141,8 @@
         "JOBTRACKER": "localhost:50300",
         "RESOURCE_MANAGER": "localhost:8050",
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
+        "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
+        "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083

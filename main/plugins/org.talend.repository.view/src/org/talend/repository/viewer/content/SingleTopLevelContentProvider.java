@@ -78,7 +78,7 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
      * this must be called only with a node that is return true when isRootNodeType(repositoryNode) is called This will
      * ask for top level node and store is in the internal set.
      */
-    private RepositoryNode getAndStoreTopLevelNode(RepositoryNode repositoryNode) {
+    protected RepositoryNode getAndStoreTopLevelNode(RepositoryNode repositoryNode) {
         RepositoryNode aTopLevelNode = getInitialTopLevelNode(repositoryNode);
         if (aTopLevelNode != null) {
             boolean isNewTopLevel = topLevelNodes.add(aTopLevelNode);

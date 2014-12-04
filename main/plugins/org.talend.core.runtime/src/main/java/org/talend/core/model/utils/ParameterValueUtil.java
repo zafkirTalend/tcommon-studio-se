@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -31,17 +32,25 @@ import org.apache.oro.text.regex.Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Point;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.repository.ProjectManager;
+import org.talend.utils.security.CryptoHelper;
 
 /**
  * cli class global comment. Detailled comment
  */
 public final class ParameterValueUtil {
+
+    public static final String EMPTY = ""; //$NON-NLS-1$
 
     private ParameterValueUtil() {
     }
@@ -51,15 +60,16 @@ public final class ParameterValueUtil {
         if (param == null || oldName == null || newName == null) {
             return;
         }
-        boolean flag = true;
-        if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
-            flag = false;
-        }
+        // boolean flag = true;
+        // if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
+        // flag = false;
+        // }
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();
             if (value.contains(oldName)) {
                 // param.setValue(value.replaceAll(oldName, newName));
-                String newValue = renameValues(value, oldName, newName, flag);
+                // String newValue = renameValues(value, oldName, newName, flag);
+                String newValue = splitQueryData(oldName, newName, value);
                 if (!value.equals(newValue)) {
                     param.setValue(newValue);
                 }
@@ -76,7 +86,8 @@ public final class ParameterValueUtil {
                         if (value.contains(oldName)) {
                             // line.put(key, value.replaceAll(oldName,
                             // newName));
-                            String newValue = renameValues(value, oldName, newName, flag);
+                            // String newValue = renameValues(value, oldName, newName, flag);
+                            String newValue = splitQueryData(oldName, newName, value);
                             if (!value.equals(newValue)) {
                                 line.put(key, newValue);
                             }
@@ -105,7 +116,7 @@ public final class ParameterValueUtil {
 
         if (matcher.contains(value, pattern)) {
             // replace
-            String returnValue = "";
+            String returnValue = EMPTY;
             if (value.contains(TalendQuoteUtils.getQuoteChar()) && !flag) {
                 // returnValue = splitQueryData(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
                 returnValue = splitQueryData(oldName, newName, value);
@@ -124,7 +135,7 @@ public final class ParameterValueUtil {
     public static String splitQueryData(PatternMatcher matcher, Pattern pattern, Substitution sub, String value, int numSubs) {
         String[] split = value.split("\"");
         int i = 0;
-        String replace = "";
+        String replace = EMPTY;
         for (String s : split) {
             if (i % 2 == 0) {
                 replace = s;
@@ -137,7 +148,7 @@ public final class ParameterValueUtil {
             }
             i++;
         }
-        String returnValue = "";
+        String returnValue = EMPTY;
         for (int t = 1; t < split.length; t++) {
             if (t % 2 == 0) {
                 returnValue += split[t];
@@ -153,10 +164,16 @@ public final class ParameterValueUtil {
         // example:"drop table "+context.oracle_schema+".\"TDI_26803\""
         // >>>>>>>>_*_(const)__ _____*_(varible)_______ __*_(const)___
 
+        /**
+         * <b>NOTE</b>: This [inputString] variable only used to debug, should not use it in product
+         */
+        inputString = value;
+
         final int length = value.length();
         // quotaStrings which stores the start and end point for all const strings in the value
         LinkedHashMap<Integer, Integer> quotaStrings = new LinkedHashMap<Integer, Integer>();
-        List<Point> functionNameAreas = new ArrayList<Point>();
+        // List<Point> functionNameAreas = new ArrayList<Point>();
+        List<FunctionInfo> functions = new ArrayList<FunctionInfo>();
 
         // get and store all start and end point of const strings
         int start = -1;
@@ -204,11 +221,25 @@ public final class ParameterValueUtil {
         String subString = null;
         int vStart = 0;
         int vEnd = 0;
-        int methodMaxIndex = 0;
-        int calcMaxIndex = 0;
+        int methodMaxIndex = -1;
+        vStart = 0;
+        vEnd = 0;
         start = 0;
         end = 0;
-
+        for (Entry<Integer, Integer> entry : quotaStrings.entrySet()) {
+            start = entry.getKey();
+            end = entry.getValue() + 1;
+            vEnd = start;
+            if (vStart != start) {
+                subString = value.substring(vStart, vEnd);
+                calcMethodArea(subString, value, vStart, functions);
+            }
+            vStart = end;
+        }
+        vStart = 0;
+        vEnd = 0;
+        start = 0;
+        end = 0;
         for (Entry<Integer, Integer> entry : quotaStrings.entrySet()) {
             start = entry.getKey();
             end = entry.getValue() + 1;
@@ -223,19 +254,29 @@ public final class ParameterValueUtil {
             } else {
                 // get the varible string, do replace, then append it
                 subString = value.substring(vStart, vEnd);
-                calcMaxIndex = calcMethodArea(subString, value, vStart, functionNameAreas, methodMaxIndex);
+                // calcMaxIndex = calcMethodArea(subString, value, vStart, functions, methodMaxIndex);
 
-                if (methodMaxIndex < calcMaxIndex) {
-                    methodMaxIndex = calcMaxIndex;
+                if (methodMaxIndex < start) {
+                    methodMaxIndex = FunctionInfo.getMaxIndexForCurrentParentFunction(start, functions);
                 }
 
-                String replacedString = doVaribleReplace(oldName, newName, value, functionNameAreas, vStart, vEnd);
+                String replacedString = doVaribleReplace(oldName, newName, value, functions, vStart, vEnd);
                 strBuffer.append(replacedString);
 
                 // get the const string
+                // deal with: context.getProperty("test") + "test"
                 subString = value.substring(start, end);
                 if (start < methodMaxIndex) {
-                    subString = subString.replaceAll(oldName, newName);
+                    FunctionInfo function = FunctionInfo.getParentFunctionFromList(start, end, functions);
+                    Point funcNameArea = function.getNameArea();
+                    String functionName = value.substring(funcNameArea.x, funcNameArea.y);
+                    if (functionName.matches("^globalMap\\..+")) { //$NON-NLS-1$
+                        subString = subString.replaceAll(oldName, newName);
+                    } else {
+                        if (subString.equals("\"" + oldName + "\"")) { //$NON-NLS-1$ //$NON-NLS-2$
+                            subString = "\"" + newName + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                    }
                 }
             }
             // append the const string
@@ -248,11 +289,156 @@ public final class ParameterValueUtil {
         // then get it, and do replace, finally append it.
         if (vStart < length) {
             vEnd = length;
-            String replacedString = doVaribleReplace(oldName, newName, value, functionNameAreas, vStart, vEnd);
+            String replacedString = doVaribleReplace(oldName, newName, value, functions, vStart, vEnd);
             strBuffer.append(replacedString);
         }
 
         return strBuffer.toString();
+    }
+
+    /**
+     * <b>NOTE</b>: This variable only used to debug, should not use it in product
+     */
+    private static String inputString = ""; //$NON-NLS-1$
+
+    private static class FunctionInfo {
+
+        private Point nameArea;
+
+        private Point paramArea;
+
+        private List<FunctionInfo> subFunctions = new ArrayList<FunctionInfo>();
+
+        public FunctionInfo(Point _nameArea) {
+            nameArea = _nameArea;
+        }
+
+        public Point getNameArea() {
+            return this.nameArea;
+        }
+
+        public void setParamArea(Point paramArea) {
+            this.paramArea = paramArea;
+        }
+
+        public Point getParamArea() {
+            return this.paramArea;
+        }
+
+        public int getFuncAreaMinIndex() {
+            return nameArea.x;
+        }
+
+        public int getFuncAreaMaxIndex() {
+            return paramArea.y;
+        }
+
+        public FunctionInfo getParentFunction(int x, int y) {
+            FunctionInfo parentFunction = null;
+
+            for (FunctionInfo funcInfo : subFunctions) {
+                int paramX = funcInfo.paramArea.x;
+                int paramY = funcInfo.paramArea.y;
+                if (paramX <= x && y <= paramY) {
+                    if (!funcInfo.subFunctions.isEmpty()) {
+                        FunctionInfo retFuncInfo = funcInfo.getParentFunction(x, y);
+                        if (retFuncInfo != null) {
+                            return retFuncInfo;
+                        }
+                    }
+                    return funcInfo;
+                }
+            }
+            int paramX = this.paramArea.x;
+            int paramY = this.paramArea.y;
+            if (paramX <= x && y <= paramY) {
+                parentFunction = this;
+            }
+
+            return parentFunction;
+        }
+
+        public void addSubFunction(FunctionInfo subFunc) {
+            this.subFunctions.add(subFunc);
+        }
+
+        public List<FunctionInfo> getSubFunctions() {
+            return this.subFunctions;
+        }
+
+        public static void addFunctionToList(FunctionInfo funcInfo, List<FunctionInfo> functionList) {
+            if (functionList != null) {
+                for (FunctionInfo iFuncInfo : functionList) {
+                    FunctionInfo parentFuncInfo = iFuncInfo.getParentFunction(funcInfo.getFuncAreaMinIndex(),
+                            funcInfo.getFuncAreaMaxIndex());
+                    if (parentFuncInfo != null) {
+                        parentFuncInfo.addSubFunction(funcInfo);
+                        return;
+                    }
+                }
+                // if can not found, add it to the functionList dirrectly
+                functionList.add(funcInfo);
+            }
+        }
+
+        public static FunctionInfo getParentFunctionFromList(int x, int y, List<FunctionInfo> functionList) {
+            if (functionList != null) {
+                for (FunctionInfo funcInfo : functionList) {
+                    FunctionInfo parentFunction = funcInfo.getParentFunction(x, y);
+                    if (parentFunction != null) {
+                        return parentFunction;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static int getMaxIndexForCurrentParentFunction(int index, List<FunctionInfo> functionList) {
+            int maxIndex = -1;
+            if (functionList != null) {
+                for (FunctionInfo funcInfo : functionList) {
+                    Point paramArea = funcInfo.getParamArea();
+                    if (paramArea.x <= index && index <= paramArea.y) {
+                        return paramArea.y;
+                    }
+                }
+            }
+            return maxIndex;
+        }
+
+        public static List<FunctionInfo> getFunctionsInSpecifiedAreaFromList(int x, int y, List<FunctionInfo> functionList) {
+            List<FunctionInfo> findedList = new ArrayList<FunctionInfo>();
+            for (FunctionInfo funcInfo : functionList) {
+                Point nameArea = funcInfo.getNameArea();
+                if (y < nameArea.y) {
+                    break;
+                }
+                if (x <= nameArea.x && nameArea.y <= y) {
+                    findedList.add(funcInfo);
+                    List<FunctionInfo> subFuncs = funcInfo.getSubFunctions();
+                    if (subFuncs != null && !subFuncs.isEmpty()) {
+                        List<FunctionInfo> findedListInSubFuncs = getFunctionsInSpecifiedAreaFromList(x, y, subFuncs);
+                        if (findedListInSubFuncs != null && !findedListInSubFuncs.isEmpty()) {
+                            findedList.addAll(findedListInSubFuncs);
+                        }
+                    }
+                }
+            }
+            return findedList;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            if (getFuncAreaMaxIndex() < getFuncAreaMinIndex()) {
+                return "not available"; //$NON-NLS-1$
+            }
+            return inputString.substring(getFuncAreaMinIndex(), getFuncAreaMaxIndex() + 1);
+        }
     }
 
     /**
@@ -265,13 +451,18 @@ public final class ParameterValueUtil {
      * @param vStart
      * @param vEnd
      */
-    private static String doVaribleReplace(String oldName, String newName, String value, List<Point> functionNameAreas,
+    private static String doVaribleReplace(String oldName, String newName, String value, List<FunctionInfo> functions,
             int vStart, int vEnd) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         StringBuffer replacedString = new StringBuffer();
         int replaceableStart = vStart;
         int replaceableEnd = vEnd;
-        for (Point functionNameArea : functionNameAreas) {
+        List<FunctionInfo> replaceableFunctions = FunctionInfo.getFunctionsInSpecifiedAreaFromList(vStart, vEnd, functions);
+        for (FunctionInfo funcInfo : replaceableFunctions) {
+            Point functionNameArea = funcInfo.getNameArea();
             if (vEnd <= functionNameArea.x) {
                 break;
             }
@@ -282,9 +473,9 @@ public final class ParameterValueUtil {
                 replaceableEnd = functionNameArea.x;
                 String replaceableString = value.substring(replaceableStart, replaceableEnd);
                 replacedString.append(doReplace(oldName, newName, replaceableString));
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             } else {
-                replacedString.append(value.substring(functionNameArea.x, functionNameArea.y));
+                replacedString.append(doReplace(oldName, newName, value.substring(functionNameArea.x, functionNameArea.y)));
             }
             replaceableStart = functionNameArea.y;
         }
@@ -296,11 +487,14 @@ public final class ParameterValueUtil {
     }
 
     private static String doReplace(String oldName, String newName, String value) {
+        if (value.trim().isEmpty()) {
+            return value;
+        }
 
         String vOldName = oldName.replaceAll("\\.", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
 
         // ((\b\w+\s*\.\s*)+schema(\s*\.\s*\w+)*)|((\b\w+\s*\.\s*)*schema(\s*\.\s*\w+)+)
-        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "(\\s*\\.\\s*\\w+)*)|((\\b\\w+\\s*\\.\\s*)*" + vOldName + "(\\s*\\.\\s*\\w+)+)"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String regex = "((\\b\\w+\\s*\\.\\s*)+" + vOldName + "\\b)|(\\b" + vOldName + "\\s*\\()"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         // obtain all varibles
         String[] split = value.split(regex);
         Map<String, String> replacedStrings = new HashMap<String, String>();
@@ -326,6 +520,10 @@ public final class ParameterValueUtil {
             int valueLength = value.length();
             String oldFill = null;
             String newFill = null;
+
+            String subRegEx = "^" + vOldName + "(\\s*\\.\\s*\\w+)+"; //$NON-NLS-1$ //$NON-NLS-2$
+            java.util.regex.Pattern subPattern = java.util.regex.Pattern.compile(subRegEx);
+
             while (true) {
                 if (curPos == valueLength) {
                     break;
@@ -340,7 +538,13 @@ public final class ParameterValueUtil {
                     curPos = x;
                     continue;
                 }
-                returnValue.append(matcher.group());
+                String matchedString = matcher.group();
+                Matcher subMatcher = subPattern.matcher(matchedString);
+                if (subMatcher.find()) {
+                    returnValue.append(matchedString.replaceFirst(vOldName, newName));
+                } else {
+                    returnValue.append(matchedString);
+                }
                 curPos = y;
                 if (!matcher.find()) {
                     x = valueLength;
@@ -372,28 +576,31 @@ public final class ParameterValueUtil {
         return isEscapeSequence;
     }
 
-    private static int calcMethodArea(String varibleString, String wholeString, int beginIndex, List<Point> functionNameAreas,
-            int lastIndex) {
+    private static int calcMethodArea(String varibleString, String wholeString, int beginIndex, List<FunctionInfo> functions) {
         // globalMap.get(...)
         //        String regex = "\\b\\S*\\s*\\.\\s*\\S*\\s*\\(\\z"; //$NON-NLS-1$
         // maybe get(...) also is target
-        String regex = "\\b[\\S\\.]*?\\s*\\("; //$NON-NLS-1$
+        String regex = "\\b[\\w\\.]*?\\s*\\("; //$NON-NLS-1$
 
         java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
         Matcher matcher = pattern.matcher(varibleString);
         int i = 0;
-        int varibleStringMaxIndex = beginIndex + varibleString.length() - 1;
+        int currentMaxIndex = i;
         while (matcher.find()) {
             boolean isInQuota = false;
             int parenthesisNum = 0;
-            Point functionNameArea = new Point(beginIndex + matcher.start(), beginIndex + matcher.end());
-            functionNameAreas.add(functionNameArea);
+            int matchedStart = matcher.start();
+            int matchedEnd = matcher.end();
+            Point functionNameArea = new Point(beginIndex + matchedStart, beginIndex + matchedEnd);
+            FunctionInfo funcInfo = new FunctionInfo(functionNameArea);
 
-            if (varibleStringMaxIndex < i || varibleStringMaxIndex < lastIndex) {
-                continue;
-            }
+            Point functionParamArea = new Point(-1, -1);
+            funcInfo.setParamArea(functionParamArea);
 
-            for (i = matcher.end(); i < wholeString.length(); i++) {
+            i = beginIndex + matchedEnd;
+            functionParamArea.x = i;
+
+            for (; i < wholeString.length(); i++) {
                 char ch = wholeString.charAt(i);
                 if (ch == '\"' && !isEscapeSequence(wholeString, i)) {
                     isInQuota = !isInQuota;
@@ -410,8 +617,13 @@ public final class ParameterValueUtil {
                     break;
                 }
             }
+            functionParamArea.y = i;
+            FunctionInfo.addFunctionToList(funcInfo, functions);
+            if (currentMaxIndex < i) {
+                currentMaxIndex = i;
+            }
         }
-        return i;
+        return currentMaxIndex;
     }
 
     public static boolean isUseData(final IElementParameter param, final String name) {
@@ -493,5 +705,140 @@ public final class ParameterValueUtil {
 
         return prefix + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + suffix;
 
+    }
+
+    public static String getValue4Doc(ContextParameterType contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (isHidePassword() && PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    // use the raw value to display.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(contextParam.getRawValue());
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getValue4Doc(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ContextParameterType.
+                        String encryptValue = getEncryptValue(contextParam);
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getEncryptValue(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                String encryptValue = CryptoHelper.getDefault().encrypt(docValue);
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Object getValue4Doc(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null) {
+                if ((param.getRepositoryValue() != null && param.getRepositoryValue().toUpperCase().contains("PASSWORD") //$NON-NLS-1$
+                || EParameterFieldType.PASSWORD.equals(param.getFieldType()))//
+                        && !ContextParameterUtils.containContextVariables((String) docValue)) {
+
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ElementParameterType.
+                        String encryptValue = getEncryptValue(param);
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getEncryptValue(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null && docValue instanceof String) {
+                String encryptValue = CryptoHelper.getDefault().encrypt(docValue.toString());
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String getValue4Doc(ElementParameterType param) {
+        if (param != null) {
+            String docValue = param.getValue();
+            if (docValue != null) {
+                if (EParameterFieldType.PASSWORD.getName().equals(param.getField()) && isHidePassword()
+                        && !ContextParameterUtils.containContextVariables(docValue)) {
+                    // the value has been raw, so just get dispaly value.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(param.getRawValue());
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static boolean isHidePassword() {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject != null) {
+            return currentProject.getEmfProject().isHidePassword();
+        }
+        return false;
+    }
+
+    /**
+     * add \ before \ and " in the string.
+     * 
+     * @param str
+     * @return
+     */
+    public static String handleSpecialCharacters(String str) {
+        // handle backlash first, then handle double quotation mark
+        String result = replaceAll(str, "\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        result = replaceAll(result, "\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
+        return result;
+    }
+
+    private static String replaceAll(String str, String regex, String replacement) {
+        List<String> list = new ArrayList<String>();
+        splitString(str, list, regex);
+        return StringUtils.join(list.toArray(new String[list.size()]), replacement);
+    }
+
+    private static void splitString(String str, List<String> list, String regex) {
+        int indexOf = str.indexOf(regex);
+        if (indexOf > -1) {
+            list.add(str.substring(0, indexOf));
+            splitString(str.substring(indexOf + 1, str.length()), list, regex);
+        } else {
+            list.add(str);
+        }
     }
 }

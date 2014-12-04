@@ -41,6 +41,8 @@ import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataSchemaType;
+import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -51,6 +53,7 @@ import org.talend.core.model.metadata.builder.connection.PositionalFileConnectio
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
@@ -325,7 +328,9 @@ public abstract class RepositoryUpdateManager {
                 }
                 return false;
             }
-            openNoModificationDialog();
+            if (show) {
+                openNoModificationDialog();
+            }
         }
         return false;
     }
@@ -427,6 +432,11 @@ public abstract class RepositoryUpdateManager {
         if (object == parameter) {
             return true;
         }
+        if (object instanceof ConnectionItem) {
+            if (((ConnectionItem) object).getConnection() == parameter) {
+                return true;
+            }
+        }
         if (object instanceof List) {
             List list = ((List) object);
             if (!list.isEmpty()) {
@@ -519,7 +529,18 @@ public abstract class RepositoryUpdateManager {
             } else if (parameter instanceof SAPFunctionUnit) {
                 // check sap function and schema
                 IMetadataTable table1 = ((IMetadataTable) object);
-                return table1.getId().equals(((SAPFunctionUnit) parameter).getMetadataTable().getId());
+                List<MetadataTable> tables = null;
+                if (MetadataSchemaType.INPUT.name().equals(table1.getTableType())) {
+                    tables = ((SAPFunctionUnit) parameter).getInputTables();
+                } else {
+                    tables = ((SAPFunctionUnit) parameter).getTables();
+                }
+                for (MetadataTable table : tables) {
+                    boolean equals = table1.getId().equals(table.getId());
+                    if (equals) {
+                        return true;
+                    }
+                }
             } else if (parameter instanceof Connection) {
                 Set<MetadataTable> tables = ConnectionHelper.getTables((Connection) parameter);
                 if (tables.size() == 1) {
@@ -848,19 +869,21 @@ public abstract class RepositoryUpdateManager {
                         }
                         if (citem == contextItem) {
                             if (conn instanceof SalesforceSchemaConnection) {
-                                SalesforceSchemaConnection dbConn = (SalesforceSchemaConnection) conn;
-                                if (dbConn.getWebServiceUrl() != null && dbConn.getWebServiceUrl().equals(oldValue)) {
-                                    dbConn.setWebServiceUrl(newValue);
-                                } else if (dbConn.getPassword() != null && dbConn.getPassword().equals(oldValue)) {
-                                    dbConn.setPassword(newValue);
-                                } else if (dbConn.getUserName() != null && dbConn.getUserName().equals(oldValue)) {
-                                    dbConn.setUserName(newValue);
-                                } else if (dbConn.getTimeOut() != null && dbConn.getTimeOut().equals(oldValue)) {
-                                    dbConn.setTimeOut(newValue);
-                                } else if (dbConn.getBatchSize() != null && dbConn.getBatchSize().equals(oldValue)) {
-                                    dbConn.setBatchSize(newValue);
-                                } else if (dbConn.getQueryCondition() != null && dbConn.getQueryCondition().equals(oldValue)) {
-                                    dbConn.setQueryCondition(newValue);
+                                SalesforceSchemaConnection ssConn = (SalesforceSchemaConnection) conn;
+                                if (ssConn.getWebServiceUrl() != null && ssConn.getWebServiceUrl().equals(oldValue)) {
+                                    ssConn.setWebServiceUrl(newValue);
+                                } else if (ssConn.getPassword() != null && ssConn.getPassword().equals(oldValue)) {
+                                    // in fact, because in context mode. can setPassword directly.
+                                    // ssConn.setPassword(ssConn.getValue(newValue,true));
+                                    ssConn.setPassword(newValue);
+                                } else if (ssConn.getUserName() != null && ssConn.getUserName().equals(oldValue)) {
+                                    ssConn.setUserName(newValue);
+                                } else if (ssConn.getTimeOut() != null && ssConn.getTimeOut().equals(oldValue)) {
+                                    ssConn.setTimeOut(newValue);
+                                } else if (ssConn.getBatchSize() != null && ssConn.getBatchSize().equals(oldValue)) {
+                                    ssConn.setBatchSize(newValue);
+                                } else if (ssConn.getQueryCondition() != null && ssConn.getQueryCondition().equals(oldValue)) {
+                                    ssConn.setQueryCondition(newValue);
                                 }
                                 factory.save(item);
                             }
@@ -893,6 +916,45 @@ public abstract class RepositoryUpdateManager {
                                     dbConn.setProxyUser(newValue);
                                 } else if (dbConn.getProxyPort() != null && dbConn.getProxyPort().equals(oldValue)) {
                                     dbConn.setProxyPort(newValue);
+                                }
+                                factory.save(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<IRepositoryViewObject> sapConnList = factory.getAll(ERepositoryObjectType.METADATA_SAPCONNECTIONS, true);
+            for (IRepositoryViewObject obj : sapConnList) {
+                Item item = obj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    Connection conn = ((ConnectionItem) item).getConnection();
+                    if (conn.isContextMode()) {
+                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                        if (contextItem == null) {
+                            continue;
+                        }
+                        if (citem == contextItem) {
+                            if (conn instanceof SAPConnection) {
+                                SAPConnection sapConn = (SAPConnection) conn;
+                                if (sapConn.getClient() != null && sapConn.getClient().equals(oldValue)) {
+                                    sapConn.setClient(newValue);
+                                } else if (sapConn.getUsername() != null && sapConn.getUsername().equals(oldValue)) {
+                                    sapConn.setUsername(newValue);
+                                } else if (sapConn.getPassword() != null && sapConn.getPassword().equals(oldValue)) {
+                                    sapConn.setPassword(newValue);
+                                } else if (sapConn.getHost() != null && sapConn.getHost().equals(oldValue)) {
+                                    sapConn.setHost(newValue);
+                                } else if (sapConn.getSystemNumber() != null && sapConn.getSystemNumber().equals(oldValue)) {
+                                    sapConn.setSystemNumber(newValue);
+                                } else if (sapConn.getLanguage() != null && sapConn.getLanguage().equals(oldValue)) {
+                                    sapConn.setLanguage(newValue);
+                                } else {
+                                    for (AdditionalConnectionProperty sapProperty : sapConn.getAdditionalProperties()) {
+                                        if (sapProperty.getValue() != null && sapProperty.getValue().equals(oldValue)) {
+                                            sapProperty.setValue(newValue);
+                                        }
+                                    }
                                 }
                                 factory.save(item);
                             }
@@ -1151,7 +1213,7 @@ public abstract class RepositoryUpdateManager {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1167,7 +1229,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(true, false);
+        return repositoryUpdateManager.doWork(show, false);
     }
 
     /**
@@ -1182,7 +1244,7 @@ public abstract class RepositoryUpdateManager {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.SERVICES_RELATION);
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1234,7 +1296,7 @@ public abstract class RepositoryUpdateManager {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1274,7 +1336,7 @@ public abstract class RepositoryUpdateManager {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.VALIDATION_RULE_RELATION);
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1308,11 +1370,11 @@ public abstract class RepositoryUpdateManager {
             return Collections.emptyMap();
         }
         Map<String, String> idAndNameMap = new HashMap<String, String>();
-        EList tables = functionUnit.getTables();
-        if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
-                idAndNameMap.put(table.getId(), table.getLabel());
-            }
+        List tablesAll = new ArrayList();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (MetadataTable table : (List<MetadataTable>) tablesAll) {
+            idAndNameMap.put(table.getId(), table.getLabel());
         }
         return idAndNameMap;
     }
@@ -1398,14 +1460,14 @@ public abstract class RepositoryUpdateManager {
         Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
         final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
-        EList tables = functionUnit.getTables();
-        if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
-                String oldName = oldTableMap.get(table.getId());
-                String newName = table.getLabel();
-                if (oldName != null && !oldName.equals(newName)) {
-                    schemaRenamedMap.put(prefix + oldName, prefix + newName);
-                }
+        List tablesAll = new ArrayList();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (MetadataTable table : (List<MetadataTable>) tablesAll) {
+            String oldName = oldTableMap.get(table.getId());
+            String newName = table.getLabel();
+            if (oldName != null && !oldName.equals(newName)) {
+                schemaRenamedMap.put(prefix + oldName, prefix + newName);
             }
         }
         return schemaRenamedMap;
@@ -1607,7 +1669,7 @@ public abstract class RepositoryUpdateManager {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), relations) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -2022,16 +2084,15 @@ public abstract class RepositoryUpdateManager {
             return Collections.emptyList();
         }
         List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
-
-        EList tables2 = functionUnit.getTables();
-        if (tables2 != null) {
-            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (List<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
-                    IMetadataManagmentService service = (IMetadataManagmentService) GlobalServiceRegister.getDefault()
-                            .getService(IMetadataManagmentService.class);
-                    IMetadataTable conversionTable = service.convertMetadataTable(originalTable);
-                    tables.add(conversionTable);
-                }
+        List<MetadataTable> tablesAll = new ArrayList<MetadataTable>();
+        tablesAll.addAll(functionUnit.getTables());
+        tablesAll.addAll(functionUnit.getInputTables());
+        for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : tablesAll) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
+                IMetadataManagmentService service = (IMetadataManagmentService) GlobalServiceRegister.getDefault().getService(
+                        IMetadataManagmentService.class);
+                IMetadataTable conversionTable = service.convertMetadataTable(originalTable);
+                tables.add(conversionTable);
             }
         }
 

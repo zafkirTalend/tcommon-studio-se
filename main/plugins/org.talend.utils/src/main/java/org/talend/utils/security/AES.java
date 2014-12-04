@@ -25,15 +25,20 @@ import javax.crypto.KeyGenerator;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * created by zwli on Feb 27, 2013 Detailed comment
  */
 public class AES {
 
-    private static Logger log = Logger.getLogger(AES.class);
+    static {
+        if (null == Security.getProvider("BC")) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
 
-    private static final String OS_NAME = "SunOS";
+    private static Logger log = Logger.getLogger(AES.class);
 
     private static final String RANDOM_SHA1PRNG = "SHA1PRNG";
 
@@ -47,58 +52,30 @@ public class AES {
     private static final byte[] KeyValues = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x35,
             (byte) 0xE3, (byte) 0x03 };
 
-    private static AES instance;
-
     private Cipher ecipher;
 
     private Cipher dcipher;
 
-    public static synchronized AES getInstance() {
-        if (null == instance) {
-            instance = new AES();
-        }
-        return instance;
+    public static AES getInstance() {
+        return new AES();
     }
 
-    private AES() {
+    public AES() {
         try {
-            String osName = System.getProperty("os.name");
-            boolean isSunOS = false;
-            if (null != osName) {
-                isSunOS = osName.contains(OS_NAME);
-            }
-
-            Provider providerSunJCE = null;
             // TDI-28380: Database password in tac db configuration page becomes empty once restart tomcat on Solaris.
-            // To solve this problem, there are two ways:
-            // Security.removeProvider("SunPKCS11-Solaris");
-            // or: providerSunJCE = Security.getProvider("SunJCE");
-            if (isSunOS) {
-                providerSunJCE = Security.getProvider("SunJCE");
-            }
+            // TDI-30348: Whole tac configuration lost for the passwords.
 
-            KeyGenerator keyGen = null;
-            SecureRandom random = null;
+            Provider p = Security.getProvider("BC");
+            KeyGenerator keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, p);
 
-            if (isSunOS) {
-                keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-            } else {
-                keyGen = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM);
-            }
-
-            random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
+            SecureRandom random = SecureRandom.getInstance(RANDOM_SHA1PRNG);
             random.setSeed(KeyValues);
             keyGen.init(128, random);
 
             Key key = keyGen.generateKey();
 
-            if (isSunOS) {
-                ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-                dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, providerSunJCE);
-            } else {
-                ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
-                dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
-            }
+            ecipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, p);
+            dcipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, p);
 
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
@@ -128,4 +105,17 @@ public class AES {
         return decryptedData;
     }
 
+    public static void main(String[] args) {
+        AES aes = new AES();
+        String[] arr = { "bt4AUzTV14kK8FwkcK/BNg==", "3IqdoqEElsy8Dzz9iP3HVQ==", "w4AXOA1a34afqqnlmVLB4A==",
+                "m9Ut0k3oP5pLE2BH1r9xQA==", "zPfoS7aDB2mNUrpRfbfwcOza/VXudqA9QYULYn4xTb8=",
+                "3mTjF2v1D4ZYqnJleFKl/wFybG4/24iyhCFKyEuveDY=" };
+        try {
+            for (String t : arr) {
+                System.out.println(aes.decrypt(t));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

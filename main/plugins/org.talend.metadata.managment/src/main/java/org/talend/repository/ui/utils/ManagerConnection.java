@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -28,6 +30,7 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.exception.WarningSQLException;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -38,7 +41,6 @@ import org.talend.core.repository.ConnectionStatus;
 import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import metadata.managment.i18n.Messages;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -50,6 +52,8 @@ public class ManagerConnection {
     private static Logger log = Logger.getLogger(ManagerConnection.class);
 
     private boolean isValide = false;
+
+    private Exception exception;
 
     String messageException = null;
 
@@ -161,8 +165,11 @@ public class ManagerConnection {
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
         } catch (Exception e) {
             isValide = false;
+            exception = e;
             messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
+            if (!(e instanceof WarningSQLException)) {
+                CommonExceptionHandler.process(e);
+            }
         }
         return isValide;
     }
@@ -241,12 +248,16 @@ public class ManagerConnection {
         return tmpFolder + "/"; //$NON-NLS-1$
     }
 
+    public boolean check() {
+        return check(null);
+    }
+
     /**
      * Check connexion from the fields form.
      * 
      * @return isValide
      */
-    public boolean check() {
+    public boolean check(StringBuffer retProposedSchema) {
         messageException = null;
         ConnectionStatus testConnection = null;
         try {
@@ -254,12 +265,12 @@ public class ManagerConnection {
             // MOD xqliu 2012-01-05 TDQ-4162
             // get the real schema name
             String schemaName = schemaOracle;
-            if (EDatabaseTypeName.TERADATA.equals(type)) {
+            if (isSchemaFromSidOrDatabase(type)) {
                 schemaName = sidOrDatabase;
             }
             // test the connection
             testConnection = ExtractMetaDataFromDataBase.testConnection(dbTypeString, urlConnectionString, username, password,
-                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams);
+                    schemaName, driverClassName, driverJarPath, dbVersionString, additionalParams, retProposedSchema);
             isValide = testConnection.getResult();
             messageException = testConnection.getMessageException();
         } catch (Exception e) {
@@ -268,12 +279,24 @@ public class ManagerConnection {
         return isValide;
     }
 
+    public static boolean isSchemaFromSidOrDatabase(EDatabaseTypeName inType) {
+        if (EDatabaseTypeName.TERADATA.equals(inType) || EDatabaseTypeName.IMPALA.equals(inType)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+        return check(metadataConnection, null, onlyIfNeeded);
+    }
+
     /**
      * DOC cantoine : Check connexion from IMetadataConnection comment. Detailled comment.
      * 
      * @return isValide
      */
-    public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
+    public boolean check(IMetadataConnection metadataConnection, StringBuffer retProposedSchema, boolean... onlyIfNeeded) {
         messageException = null;
 
         ConnectionStatus testConnection = null;
@@ -320,7 +343,7 @@ public class ManagerConnection {
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
                         metadataConnection.getSchema(), metadataConnection.getDriverClass(),
                         metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
-                        metadataConnection.getAdditionalParams());
+                        metadataConnection.getAdditionalParams(), retProposedSchema);
             }
             // qli
             // record this metadataConnection as old connection.
@@ -341,6 +364,14 @@ public class ManagerConnection {
      */
     public boolean getIsValide() {
         return isValide;
+    }
+
+    public Exception getException() {
+        return this.exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
     }
 
     /**

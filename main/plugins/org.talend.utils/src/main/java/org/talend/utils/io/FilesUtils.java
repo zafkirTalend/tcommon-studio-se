@@ -493,7 +493,19 @@ public final class FilesUtils {
      * @throws IOException
      */
     public static void zip(String sourceFileName, String zippedFileName) throws IOException {
-        zip(new File(sourceFileName), zippedFileName);
+        zip(new File(sourceFileName), zippedFileName, null);
+    }
+
+    /**
+     * zip a new file with specified name to the user folder.
+     * 
+     * @param sourceFileName
+     * @param zippedFileName
+     * @param fileFilter optional
+     * @throws IOException
+     */
+    public static void zip(String sourceFileName, String zippedFileName, FileFilter fileFilter) throws IOException {
+        zip(new File(sourceFileName), zippedFileName, fileFilter);
     }
 
     /**
@@ -504,17 +516,52 @@ public final class FilesUtils {
      * @throws IOException
      */
     public static void zip(File sourceFile, String zippedFileName) throws IOException {
+        zip(sourceFile, zippedFileName, null);
+    }
+
+    /**
+     * zip the file to the user folder.
+     * 
+     * @param sourceFile
+     * @param zippedFileName
+     * @param fileFilter optional
+     * @throws IOException
+     */
+    public static void zip(File sourceFile, String zippedFileName, FileFilter fileFilter) throws IOException {
         if (sourceFile.isDirectory()) {
-            zips(sourceFile.listFiles(), zippedFileName);
+            zips(sourceFile.listFiles(fileFilter), zippedFileName, fileFilter);
         } else {
-            zips(new File[] { sourceFile }, zippedFileName);
+            zips(new File[] { sourceFile }, zippedFileName, fileFilter);
         }
     }
 
+    /**
+     * 
+     * Method "jar".
+     * 
+     * @param manifest
+     * @param sourceDir
+     * @param zip
+     * @throws IOException
+     */
     public static void jar(Manifest manifest, File sourceDir, File zip) throws IOException {
+        jar(manifest, sourceDir, zip, null);
+    }
+
+    /**
+     * 
+     * Method "jar".
+     * 
+     * @param manifest
+     * @param sourceDir
+     * @param zip
+     * @param fileFilter optional
+     * @throws IOException
+     */
+    public static void jar(Manifest manifest, File sourceDir, File zip, FileFilter fileFilter) throws IOException {
         ZipOutputStream out = new JarOutputStream(new FileOutputStream(zip), manifest);
         try {
-            zips(sourceDir.listFiles(), out);
+            zips(sourceDir.listFiles(fileFilter), out, fileFilter);
         } finally {
             out.close();
         }
@@ -526,13 +573,27 @@ public final class FilesUtils {
      * 
      * @param sourceFile
      * @param zippedFileName
+     * @param fileFilter optional
      * @throws IOException
      */
     public static void zips(File[] sourceFile, String zippedFileName) throws IOException {
+        zips(sourceFile, zippedFileName, null);
+    }
+
+    /**
+     * 
+     * DOC zshen Comment method "zips".
+     * 
+     * @param sourceFile
+     * @param zippedFileName
+     * @param fileFilter optional
+     * @throws IOException
+     */
+    public static void zips(File[] sourceFile, String zippedFileName, FileFilter fileFilter) throws IOException {
         OutputStream fos = new FileOutputStream(zippedFileName);
         ZipOutputStream out = new ZipOutputStream(fos);
         try {
-            zips(sourceFile, out);
+            zips(sourceFile, out, fileFilter);
         } finally {
             // http://stackoverflow.com/questions/4681459/closing-zipoutputstream
             if (sourceFile.length > 0) {
@@ -543,9 +604,9 @@ public final class FilesUtils {
         }
     }
 
-    private static void zips(File[] sourceFile, ZipOutputStream out) throws IOException {
+    private static void zips(File[] sourceFile, ZipOutputStream out, FileFilter fileFilter) throws IOException {
         for (File theFile : sourceFile) {
-            zips(out, theFile, ""); //$NON-NLS-1$
+            zips(out, theFile, "", fileFilter); //$NON-NLS-1$
         }
     }
 
@@ -556,14 +617,15 @@ public final class FilesUtils {
      * @param out
      * @param f
      * @param base
+     * @param fileFilter optional
      * @throws IOException
      */
-    private static void zips(ZipOutputStream out, File f, String base) throws IOException {
+    private static void zips(ZipOutputStream out, File f, String base, FileFilter fileFilter) throws IOException {
         if (f.isDirectory()) {
             base += f.getName() + '/';
             out.putNextEntry(new ZipEntry(base));
-            for (File element : f.listFiles()) {
-                zips(out, element, base);
+            for (File element : f.listFiles(fileFilter)) {
+                zips(out, element, base, fileFilter);
             }
         } else {
             out.putNextEntry(new ZipEntry(base + f.getName()));
@@ -583,8 +645,12 @@ public final class FilesUtils {
         zip(source, target);
     }
 
-    public static void zipFolderRecursion(String sourceFileName, String zippedFileName) throws Exception {
-        zip(sourceFileName, zippedFileName);
+    public static void zipFolderRecursion(String sourceFileName, String zippedFileName) throws IOException {
+        zip(sourceFileName, zippedFileName, null);
+    }
+
+    public static void zipFolderRecursion(String sourceFileName, String zippedFileName, FileFilter fileFilter) throws Exception {
+        zip(sourceFileName, zippedFileName, fileFilter);
     }
 
     /**

@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -360,15 +361,20 @@ public final class UpdateRepositoryUtils {
         if (item == null || name == null) {
             return null;
         }
+
         final Connection connection = item.getConnection();
         if (connection != null) {
-            final EList tables = MetadataToolHelper.getMetadataTableFromConnection(connection);
+            final EList tables = MetadataToolHelper.getMetadataTableFromConnection(connection, name);
             // for bug 12543
+            String tableLable = name;
+            if (item instanceof SAPConnectionItem && name.split("/").length == 3) {
+                tableLable = name.split("/")[2];
+            }
             if (tables != null && tables.size() > 0) {
                 Object tableObject = tables.get(0);
                 if (tableObject instanceof MetadataTable) {
                     for (MetadataTable table : (List<MetadataTable>) tables) {
-                        if (table.getLabel().equals(name)) {
+                        if (table.getLabel().equals(tableLable)) {
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
                                 IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
                                         .getDefault().getService(IMetadataManagmentService.class);
@@ -380,7 +386,7 @@ public final class UpdateRepositoryUtils {
                 } else if (tableObject instanceof EObjectContainmentEList) {
                     EObjectContainmentEList eObjectContainmentEList = (EObjectContainmentEList) tableObject;
                     for (MetadataTable table : (List<MetadataTable>) eObjectContainmentEList) {
-                        if (table.getLabel().equals(name)) {
+                        if (table.getLabel().equals(tableLable)) {
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {
                                 IMetadataManagmentService mmService = (IMetadataManagmentService) GlobalServiceRegister
                                         .getDefault().getService(IMetadataManagmentService.class);

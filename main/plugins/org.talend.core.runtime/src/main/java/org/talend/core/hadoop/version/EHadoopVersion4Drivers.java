@@ -21,89 +21,104 @@ import org.apache.commons.lang.ArrayUtils;
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHadoopVersion4Drivers {
-    HDP_2_1(
-            EHadoopDistributions.HORTONWORKS,
-            "Hortonworks Data Platform V2.1.0(Baikal)",
-            "HDP_2_1",
+
+    HDP_2_1(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.1.0(Baikal)", //$NON-NLS-1$
+            "HDP_2_1", //$NON-NLS-1$
             true,
             false,
             new EMRVersion[] { EMRVersion.YARN }),
 
-    HDP_2_0(
-            EHadoopDistributions.HORTONWORKS,
-            "Hortonworks Data Platform V2.0.0(BigWheel)",
-            "HDP_2_0",
+    HDP_2_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.0.0(BigWheel)", //$NON-NLS-1$
+            "HDP_2_0", //$NON-NLS-1$
             true,
             false,
             new EMRVersion[] { EMRVersion.YARN }),
 
-    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false),
+    HDP_1_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.3.0(Condor)", "HDP_1_3", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false),
+    HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false),
+    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false),
+    APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false),
+    APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false),
+    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
+    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    CLOUDERA_CDH5(
-                  EHadoopDistributions.CLOUDERA,
-                  "Cloudera CDH5",
-                  "Cloudera_CDH5",
+    CLOUDERA_CDH5_1(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.1(YARN mode)", //$NON-NLS-1$
+                    "Cloudera_CDH5_1", //$NON-NLS-1$
+                    true,
+                    false,
+                    new EMRVersion[] { EMRVersion.YARN }),
+
+    CLOUDERA_CDH5_1_MR1(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.1(MR 1 mode)", //$NON-NLS-1$
+                        "Cloudera_CDH5_1_MR1", //$NON-NLS-1$
+                        true,
+                        false,
+                        new EMRVersion[] { EMRVersion.MR1 }),
+
+    CLOUDERA_CDH5(EHadoopDistributions.CLOUDERA, "Cloudera CDH5", //$NON-NLS-1$
+                  "Cloudera_CDH5", //$NON-NLS-1$
                   true,
                   false,
                   new EMRVersion[] { EMRVersion.YARN }),
 
-    CLOUDERA_CDH4_YARN(
-                       EHadoopDistributions.CLOUDERA,
-                       "Cloudera CDH4 YARN",
-                       "Cloudera_CDH4_YARN",
+    CLOUDERA_CDH4_YARN(EHadoopDistributions.CLOUDERA, "Cloudera CDH4 YARN", //$NON-NLS-1$
+                       "Cloudera_CDH4_YARN", //$NON-NLS-1$
                        true,
                        false,
                        new EMRVersion[] { EMRVersion.YARN }),
 
-    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false),
+    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false),
+    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR310(EHadoopDistributions.MAPR, "MapR 3.1.0", "MAPR310", false, true),
+    MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true),
+    MAPR310(EHadoopDistributions.MAPR, "MapR 3.1.0", "MAPR310", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true),
+    MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true),
+    MAPR213(EHadoopDistributions.MAPR, "MapR 2.1.3", "MAPR213", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true),
+    MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
+    MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
+    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
-
-    PIVOTAL_HD_2_0(
-                   EHadoopDistributions.PIVOTAL_HD,
-                   "Pivotal HD 2.0",
-                   "PIVOTAL_HD_2_0",
-                   true,
-                   false,
-                   new EMRVersion[] { EMRVersion.YARN }),
-
-    PIVOTAL_HD_1_0_1(
-                     EHadoopDistributions.PIVOTAL_HD,
-                     "Pivotal HD 1.0.1",
-                     "PIVOTAL_HD_1_0_1",
+    APACHE_2_4_0_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 2.4.0", //$NON-NLS-1$
+                     "APACHE_2_4_0_EMR", //$NON-NLS-1$
                      false,
                      false,
                      new EMRVersion[] { EMRVersion.YARN }),
 
-    CUSTOM(EHadoopDistributions.CUSTOM, "", "", false, false, new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN });
+    APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false), //$NON-NLS-1$ //$NON-NLS-2$
+
+    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true), //$NON-NLS-1$ //$NON-NLS-2$
+
+    PIVOTAL_HD_2_0(EHadoopDistributions.PIVOTAL_HD, "Pivotal HD 2.0", //$NON-NLS-1$
+                   "PIVOTAL_HD_2_0", //$NON-NLS-1$
+                   true,
+                   false,
+                   new EMRVersion[] { EMRVersion.YARN }),
+
+    PIVOTAL_HD_1_0_1(EHadoopDistributions.PIVOTAL_HD, "Pivotal HD 1.0.1", //$NON-NLS-1$
+                     "PIVOTAL_HD_1_0_1", //$NON-NLS-1$
+                     false,
+                     false,
+                     new EMRVersion[] { EMRVersion.YARN }),
+
+    MICROSOFT_HD_INSIGHT_3_1(EHadoopDistributions.MICROSOFT_HD_INSIGHT, "Microsoft HD Insight 3.1", //$NON-NLS-1$
+                             "MICROSOFT_HD_INSIGHT_3_1", //$NON-NLS-1$
+                             true,
+                             false,
+                             new EMRVersion[] { EMRVersion.YARN }),
+
+    CUSTOM(EHadoopDistributions.CUSTOM, "", "", false, false, new EMRVersion[] { EMRVersion.MR1, EMRVersion.YARN }); //$NON-NLS-1$ //$NON-NLS-2$
 
     private EHadoopDistributions distribution;
 
@@ -170,7 +185,7 @@ public enum EHadoopVersion4Drivers {
                 }
             }
         }
-        return EHadoopVersion4Drivers.CUSTOM;
+        return null;
     }
 
     public static List<EHadoopVersion4Drivers> indexOfByDistribution(EHadoopDistributions distribution) {

@@ -130,6 +130,8 @@ public class MetadataDialog extends Dialog {
 
     private boolean isUsefulChange = false;
 
+    private static boolean isSingleAndStruct = false;
+
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
             INode outputNode, CommandStack commandStack) {
         super(parent);
@@ -285,6 +287,17 @@ public class MetadataDialog extends Dialog {
             fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
             fieldList.add("Signed"); //$NON-NLS-1$
             metaView.setAdditionalFields(fieldList);
+        }
+
+        if (isSingleAndStruct) {
+            metaView.setShowDbColumnName(false, false);
+            metaView.setShowKeyColumn(false);
+            metaView.setShowNullableColumn(false);
+            metaView.setShowLengthColumn(false);
+            metaView.setShowAdditionalFieldColumn(false);
+            metaView.setShowPrecisionColumn(false);
+            metaView.setShowCommentColumn(false);
+            metaView.setSapSpecialSchema(true);
         }
     }
 
@@ -754,6 +767,24 @@ public class MetadataDialog extends Dialog {
             super.setTableViewerCreatorOptions(newTableViewerCreator);
             newTableViewerCreator.setLazyLoad(true);
         }
+    }
+
+    /**
+     * Getter for isSingle.
+     * 
+     * @return the isSingle
+     */
+    public boolean isSingleAndStruct() {
+        return this.isSingleAndStruct;
+    }
+
+    /**
+     * Sets the isSingle.
+     * 
+     * @param isSingle the isSingle to set
+     */
+    public void setSingleAndStruct(boolean isSingle) {
+        this.isSingleAndStruct = isSingle;
     }
 
 }

@@ -76,7 +76,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
     public Connection getConnection() {
         if (eContainerFeatureID() != ConnectionPackage.QUERIES_CONNECTION__CONNECTION)
             return null;
-        return (Connection) eContainer();
+        return (Connection) eInternalContainer();
     }
 
     /**

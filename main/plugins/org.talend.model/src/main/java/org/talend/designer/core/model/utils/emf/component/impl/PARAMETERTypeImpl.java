@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -10,19 +6,23 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
-
 import org.talend.designer.core.model.utils.emf.component.TABLEType;
 
 /**
@@ -44,6 +44,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isLOG4J_ENABLED <em>LOG4J ENABLED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getMAXLENGTH <em>MAXLENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
@@ -51,6 +52,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNUMROW <em>NUMROW</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isRAW <em>RAW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
@@ -196,33 +198,33 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     /**
      * The default value of the '{@link #isDYNAMICSETTINGS() <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isDYNAMICSETTINGS()
      * @generated
      * @ordered
      */
-	protected static final boolean DYNAMICSETTINGS_EDEFAULT = false;
+    protected static final boolean DYNAMICSETTINGS_EDEFAULT = false;
 
-				/**
+    /**
      * The cached value of the '{@link #isDYNAMICSETTINGS() <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isDYNAMICSETTINGS()
      * @generated
      * @ordered
      */
-	protected boolean dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
+    protected boolean dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
 
-				/**
+    /**
      * This is true if the DYNAMICSETTINGS attribute has been set.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	protected boolean dYNAMICSETTINGSESet;
+    protected boolean dYNAMICSETTINGSESet;
 
-				/**
+    /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -281,6 +283,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected String gROUP = GROUP_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isLOG4J_ENABLED() <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isLOG4J_ENABLED()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean LOG4J_ENABLED_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isLOG4J_ENABLED() <em>LOG4J ENABLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isLOG4J_ENABLED()
+     * @generated
+     * @ordered
+     */
+    protected boolean lOG4J_ENABLED = LOG4J_ENABLED_EDEFAULT;
+
+    /**
+     * This is true if the LOG4J ENABLED attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean lOG4J_ENABLEDESet;
 
     /**
      * The default value of the '{@link #getMAXLENGTH() <em>MAXLENGTH</em>}' attribute.
@@ -457,6 +488,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected boolean nUMROWESet;
+
+    /**
+     * The default value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RAW_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected boolean rAW = RAW_EDEFAULT;
+
+    /**
+     * This is true if the RAW attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rAWESet;
 
     /**
      * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
@@ -639,7 +699,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.PARAMETER_TYPE;
     }
@@ -865,19 +924,19 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public boolean isDYNAMICSETTINGS() {
+    public boolean isDYNAMICSETTINGS() {
         return dYNAMICSETTINGS;
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void setDYNAMICSETTINGS(boolean newDYNAMICSETTINGS) {
+    public void setDYNAMICSETTINGS(boolean newDYNAMICSETTINGS) {
         boolean oldDYNAMICSETTINGS = dYNAMICSETTINGS;
         dYNAMICSETTINGS = newDYNAMICSETTINGS;
         boolean oldDYNAMICSETTINGSESet = dYNAMICSETTINGSESet;
@@ -886,12 +945,12 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__DYNAMICSETTINGS, oldDYNAMICSETTINGS, dYNAMICSETTINGS, !oldDYNAMICSETTINGSESet));
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void unsetDYNAMICSETTINGS() {
+    public void unsetDYNAMICSETTINGS() {
         boolean oldDYNAMICSETTINGS = dYNAMICSETTINGS;
         boolean oldDYNAMICSETTINGSESet = dYNAMICSETTINGSESet;
         dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
@@ -900,16 +959,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__DYNAMICSETTINGS, oldDYNAMICSETTINGS, DYNAMICSETTINGS_EDEFAULT, oldDYNAMICSETTINGSESet));
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public boolean isSetDYNAMICSETTINGS() {
+    public boolean isSetDYNAMICSETTINGS() {
         return dYNAMICSETTINGSESet;
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1083,6 +1142,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      */
     public boolean isSetNBLINES() {
         return nBLINESESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isNOCONTEXTASSIST() {
+        return nOCONTEXTASSIST;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSISTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOCONTEXTASSIST() {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+        nOCONTEXTASSISTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOCONTEXTASSIST() {
+        return nOCONTEXTASSISTESet;
     }
 
     /**
@@ -1400,8 +1505,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isNOCONTEXTASSIST() {
-        return nOCONTEXTASSIST;
+    public boolean isRAW() {
+        return rAW;
     }
 
     /**
@@ -1409,13 +1514,13 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        nOCONTEXTASSIST = newNOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSISTESet = true;
+    public void setRAW(boolean newRAW) {
+        boolean oldRAW = rAW;
+        rAW = newRAW;
+        boolean oldRAWESet = rAWESet;
+        rAWESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__RAW, oldRAW, rAW, !oldRAWESet));
     }
 
     /**
@@ -1423,13 +1528,13 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void unsetNOCONTEXTASSIST() {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
-        nOCONTEXTASSISTESet = false;
+    public void unsetRAW() {
+        boolean oldRAW = rAW;
+        boolean oldRAWESet = rAWESet;
+        rAW = RAW_EDEFAULT;
+        rAWESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__RAW, oldRAW, RAW_EDEFAULT, oldRAWESet));
     }
 
     /**
@@ -1437,8 +1542,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isSetNOCONTEXTASSIST() {
-        return nOCONTEXTASSISTESet;
+    public boolean isSetRAW() {
+        return rAWESet;
     }
 
     /**
@@ -1446,7 +1551,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
+    public boolean isLOG4J_ENABLED() {
+        return lOG4J_ENABLED;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLOG4J_ENABLED(boolean newLOG4J_ENABLED) {
+        boolean oldLOG4J_ENABLED = lOG4J_ENABLED;
+        lOG4J_ENABLED = newLOG4J_ENABLED;
+        boolean oldLOG4J_ENABLEDESet = lOG4J_ENABLEDESet;
+        lOG4J_ENABLEDESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED, oldLOG4J_ENABLED, lOG4J_ENABLED, !oldLOG4J_ENABLEDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetLOG4J_ENABLED() {
+        boolean oldLOG4J_ENABLED = lOG4J_ENABLED;
+        boolean oldLOG4J_ENABLEDESet = lOG4J_ENABLEDESet;
+        lOG4J_ENABLED = LOG4J_ENABLED_EDEFAULT;
+        lOG4J_ENABLEDESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED, oldLOG4J_ENABLED, LOG4J_ENABLED_EDEFAULT, oldLOG4J_ENABLEDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetLOG4J_ENABLED() {
+        return lOG4J_ENABLEDESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1466,7 +1616,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1493,6 +1642,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getFILTER();
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 return getGROUP();
+            case ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED:
+                return isLOG4J_ENABLED() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
                 return new Integer(getMAXLENGTH());
             case ComponentPackage.PARAMETER_TYPE__NAME:
@@ -1507,6 +1658,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getNOTSHOWIF();
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 return new Integer(getNUMROW());
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                return isRAW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__READONLYIF:
@@ -1530,8 +1683,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1572,6 +1723,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 setGROUP((String)newValue);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED:
+                setLOG4J_ENABLED(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
                 setMAXLENGTH(((Integer)newValue).intValue());
                 return;
@@ -1592,6 +1746,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 setNUMROW(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                setRAW(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
@@ -1623,7 +1780,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1662,6 +1818,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 setGROUP(GROUP_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED:
+                unsetLOG4J_ENABLED();
+                return;
             case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
                 unsetMAXLENGTH();
                 return;
@@ -1682,6 +1841,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 unsetNUMROW();
+                return;
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                unsetRAW();
                 return;
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 unsetREADONLY();
@@ -1713,7 +1875,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1740,6 +1901,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
             case ComponentPackage.PARAMETER_TYPE__GROUP:
                 return GROUP_EDEFAULT == null ? gROUP != null : !GROUP_EDEFAULT.equals(gROUP);
+            case ComponentPackage.PARAMETER_TYPE__LOG4J_ENABLED:
+                return isSetLOG4J_ENABLED();
             case ComponentPackage.PARAMETER_TYPE__MAXLENGTH:
                 return isSetMAXLENGTH();
             case ComponentPackage.PARAMETER_TYPE__NAME:
@@ -1754,6 +1917,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 return isSetNUMROW();
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                return isSetRAW();
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 return isSetREADONLY();
             case ComponentPackage.PARAMETER_TYPE__READONLYIF:
@@ -1777,7 +1942,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 
@@ -1798,6 +1962,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(fILTER);
         result.append(", gROUP: ");
         result.append(gROUP);
+        result.append(", lOG4J_ENABLED: ");
+        if (lOG4J_ENABLEDESet) result.append(lOG4J_ENABLED); else result.append("<unset>");
         result.append(", mAXLENGTH: ");
         if (mAXLENGTHESet) result.append(mAXLENGTH); else result.append("<unset>");
         result.append(", nAME: ");
@@ -1812,6 +1978,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(nOTSHOWIF);
         result.append(", nUMROW: ");
         if (nUMROWESet) result.append(nUMROW); else result.append("<unset>");
+        result.append(", rAW: ");
+        if (rAWESet) result.append(rAW); else result.append("<unset>");
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(", rEADONLYIF: ");

@@ -42,6 +42,7 @@ import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.FTPConnection;
@@ -50,6 +51,7 @@ import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -112,6 +114,8 @@ public final class ConnectionContextHelper {
 
     public static final String EMPTY = ""; //$NON-NLS-1$
 
+    public static final String DOT = "."; //$NON-NLS-1$
+
     public static IContextManager contextManager;
 
     /**
@@ -124,7 +128,11 @@ public final class ConnectionContextHelper {
         if (connItem == null) {
             return null;
         }
-        Connection connection = connItem.getConnection();
+
+        return checkContextMode(connItem.getConnection());
+    }
+
+    public static ContextItem checkContextMode(Connection connection) {
         if (connection == null) {
             return null;
         }
@@ -285,6 +293,8 @@ public final class ConnectionContextHelper {
             varList = OtherConnectionContextUtils.getMDMSchemaVariables(label, (MDMConnection) conn);
         } else if (conn instanceof FTPConnection) {
             varList = OtherConnectionContextUtils.getFTPSChemaVariables(label, (FTPConnection) conn);
+        } else if (conn instanceof SAPConnection) {
+            varList = OtherConnectionContextUtils.getSAPConnectionVariables(label, (SAPConnection) conn, paramSet);
         }
 
         return varList;
@@ -297,6 +307,14 @@ public final class ConnectionContextHelper {
 
         Set<String> varList = new HashSet<String>();
 
+        collectConnVariablesOfBasicInfo(varList, paramSet);
+
+        collectConnVariablesOfAdditionalTable(varList, connectionItem);
+
+        return varList;
+    }
+
+    private static void collectConnVariablesOfBasicInfo(Set<String> varList, final Set<IConnParamName> paramSet) {
         Iterator<IConnParamName> paramIt = paramSet.iterator();
         while (paramIt.hasNext()) {
             Object param = paramIt.next();
@@ -310,7 +328,17 @@ public final class ConnectionContextHelper {
                 varList.add(((EParamName) param).name());
             }
         }
-        return varList;
+    }
+
+    private static void collectConnVariablesOfAdditionalTable(Set<String> varList, ConnectionItem connectionItem) {
+        Connection currentConnection = connectionItem.getConnection();
+        // TODO:Maybe later has other type support context for the additional table.Now only sap
+        if (currentConnection instanceof SAPConnection) {
+            SAPConnection sapConn = (SAPConnection) currentConnection;
+            for (AdditionalConnectionProperty sapProperty : sapConn.getAdditionalProperties()) {
+                varList.add(sapProperty.getPropertyName());
+            }
+        }
     }
 
     public static void setPropertiesForContextMode(ConnectionItem connectionItem, ContextItem contextItem,
@@ -340,6 +368,8 @@ public final class ConnectionContextHelper {
                     contextItem, paramSet, map);
         } else if (conn instanceof GenericSchemaConnection) {
             //
+        } else if (conn instanceof SAPConnection) {
+            OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(label, (SAPConnection) conn, paramSet);
         }
         // set connection for context mode
         connectionItem.getConnection().setContextMode(true);
@@ -374,7 +404,10 @@ public final class ConnectionContextHelper {
                     map);
         } else if (conn instanceof WSDLSchemaConnection) {
             OtherConnectionContextUtils.setWSDLSchemaPropertiesForExistContextMode((WSDLSchemaConnection) conn, paramSet, map);
+        } else if (conn instanceof SAPConnection) {
+            OtherConnectionContextUtils.setSAPConnectionPropertiesForExistContextMode((SAPConnection) conn, paramSet, map);
         }
+
         // set connection for context mode
         connectionItem.getConnection().setContextMode(true);
         connectionItem.getConnection().setContextId(selItem.getProperty().getId());
@@ -475,29 +508,6 @@ public final class ConnectionContextHelper {
             }
         }
         return selection;
-    }
-
-    @SuppressWarnings("unchecked")
-    static String getContextValue(ContextType contextType, final String value, final String paramName) {
-        if (value == null) {
-            return EMPTY;
-        }
-
-        if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
-            ContextParameterType param = null;
-            for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
-                if (paramType.getName().equals(paramName)) {
-                    param = paramType;
-                    break;
-                }
-            }
-            if (param != null && param.getValue() != null) {
-                return param.getValue();
-            }
-            return EMPTY;
-        }
-        return value;
-
     }
 
     /**
@@ -1589,6 +1599,8 @@ public final class ConnectionContextHelper {
             OtherConnectionContextUtils.revertWSDLSchemaPropertiesForContextMode((WSDLSchemaConnection) conn, contextType);
         } else if (conn instanceof SalesforceSchemaConnection) {
             OtherConnectionContextUtils.revertSalesforcePropertiesForContextMode((SalesforceSchemaConnection) conn, contextType);
+        } else if (conn instanceof SAPConnection) {
+            OtherConnectionContextUtils.revertSAPPropertiesForContextMode((SAPConnection) conn, contextType);
         } else if (conn instanceof GenericSchemaConnection) {
             //
         }

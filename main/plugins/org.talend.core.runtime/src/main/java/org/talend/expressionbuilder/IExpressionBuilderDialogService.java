@@ -33,6 +33,6 @@ public interface IExpressionBuilderDialogService extends IService {
             INode component);
 
     public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean,
-            INode component, List<Variable> vars);
+            INode component, List<Variable> vars, boolean hasPigDataFuCategory);
 
 }

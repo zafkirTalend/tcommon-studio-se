@@ -37,7 +37,7 @@ public class PluginChecker {
 
     private static final String CDC_PLUGIN_ID = "org.talend.designer.cdc"; //$NON-NLS-1$
 
-    private static final String SAP_WZIARD_PLUGIN_ID = "org.talend.repository.sapwizard"; //$NON-NLS-1$
+    private static final String SAP_WZIARD_PLUGIN_ID = "org.talend.repository.sap"; //$NON-NLS-1$
 
     private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic"; //$NON-NLS-1$
 

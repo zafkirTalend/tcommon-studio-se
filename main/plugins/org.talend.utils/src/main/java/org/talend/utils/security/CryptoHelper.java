@@ -31,20 +31,38 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class CryptoHelper {
 
-    private static final String UTF8 = "UTF8";
+    private static final String UTF8 = "UTF8"; //$NON-NLS-1$
 
-    private static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
     private Cipher ecipher;
 
     private Cipher dcipher;
-    
+
     // 8-byte Salt
     private byte[] salt = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x35, (byte) 0xE3,
             (byte) 0x03 };
 
     // Iteration count
     private int iterationCount = 29;
+
+    public static final String PASSPHRASE = "99ZwBDt1L9yMX2ApJx fnv94o99OeHbCGuIHTy22 V9O6cZ2i374fVjdV76VX9g49DG1r3n90hT5c1"; //$NON-NLS-1$
+
+    /*
+     * FIXME, TDI-31303
+     * 
+     * Sometimes, even right encryption value, can't be be decrypted. And throw one exception:
+     * "javax.crypto.BadPaddingException: Given final block not properly padded", then return null.
+     * 
+     * Maybe, caused by the same problem with AES (TDI-31032).
+     * 
+     * Finally, try to use new instance for each one.
+     */
+    // public static final CryptoHelper DEFAULT = new CryptoHelper(PASSPHRASE);
+
+    public static final CryptoHelper getDefault() {
+        return new CryptoHelper(PASSPHRASE);
+    }
 
     /**
      * CryptoHelper constructor.
@@ -55,7 +73,7 @@ public class CryptoHelper {
         try {
             // Create the key
             KeySpec keySpec = new PBEKeySpec(passPhrase.toCharArray(), salt, iterationCount);
-            SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES").generateSecret(keySpec);
+            SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES").generateSecret(keySpec); //$NON-NLS-1$
             ecipher = Cipher.getInstance(key.getAlgorithm());
             dcipher = Cipher.getInstance(key.getAlgorithm());
 
@@ -71,8 +89,8 @@ public class CryptoHelper {
     }
 
     public String encrypt(String str) {
-        if (EMPTY_STRING.equals(str)) {
-            return EMPTY_STRING;
+        if (str == null) {
+            return null;
         }
         try {
             byte[] utf8 = str.getBytes(UTF8);
@@ -84,6 +102,10 @@ public class CryptoHelper {
     }
 
     public String decrypt(String str) {
+        if (str == null) {
+            return null;
+        }
+        // if empty, no need decrypt.
         if (EMPTY_STRING.equals(str)) {
             return EMPTY_STRING;
         }
@@ -106,7 +128,7 @@ public class CryptoHelper {
         try {
             return new String(Base64.encodeBase64(str), UTF8);
         } catch (UnsupportedEncodingException e) {
-            return "";
+            return EMPTY_STRING;
         }
     }
 

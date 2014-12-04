@@ -47,7 +47,7 @@ import org.talend.mdm.webservice.WSDataModelPK;
 import org.talend.mdm.webservice.WSGetDataModel;
 import org.talend.mdm.webservice.WSRegexDataModelPKs;
 import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
+import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.objectmodel.core.Package;
@@ -142,7 +142,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
      * @throws RemoteException
      * @throws CoreException
      */
-    private void adaptToCWMDocument(List<TdXmlSchema> xmlDocCollection, XtentisPort stub, String resName,
+    private void adaptToCWMDocument(List<TdXmlSchema> xmlDocCollection, XtentisPort_PortType stub, String resName,
             String providerTechName, Connection dataProvider) throws RemoteException, CoreException {
         // MOD xqliu 2010-10-18 bug 16161
         String resXSD = null;

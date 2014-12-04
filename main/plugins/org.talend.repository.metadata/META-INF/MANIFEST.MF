@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Repository Metadata Plug-in
 Bundle-SymbolicName: org.talend.repository.metadata;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Activator: org.talend.repository.metadata.Activator
 Require-Bundle: org.apache.commons.lang,
  org.apache.log4j,
@@ -37,7 +37,6 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.repository.items.importexport,
  org.talend.libraries.dom4j-jaxen
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Export-Package: org.talend.core.ui.metadata.celleditor,
  org.talend.repository.metadata,

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Example plugin for Repository usage
 Bundle-SymbolicName: org.talend.repository.view.example;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Import-Package: org.eclipse.core.runtime,
@@ -35,7 +35,6 @@ Require-Bundle: org.talend.core.runtime,
 Bundle-Activator: org.talend.repository.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository.example.model.demo,
  org.talend.repository.example.model.demo.impl,
  org.talend.repository.example.model.demo.util

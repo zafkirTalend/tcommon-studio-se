@@ -26,7 +26,7 @@ import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 
 /**
- * created by ldong on Jul 17, 2014 Detailled comment
+ * For the repository context's background.we control its backgroup colour is gray
  * 
  */
 public class ContextNatTableBackGroudPainter extends BackgroundPainter {
@@ -45,14 +45,14 @@ public class ContextNatTableBackGroudPainter extends BackgroundPainter {
             ContextTableTabParentModel rowModel = (ContextTableTabParentModel) rowNode.getTreeData();
             Boolean isRepositoryContext = rowModel.hasChildren();
             if (isRepositoryContext) {
-                ((ContextTextPainter) getWrappedPainter()).setChangeBackgroundColor(true);
+                ((ContextAutoResizeTextPainter) getWrappedPainter()).setChangeBackgroundColor(true);
             } else {
-                ((ContextTextPainter) getWrappedPainter()).setChangeBackgroundColor(false);
+                ((ContextAutoResizeTextPainter) getWrappedPainter()).setChangeBackgroundColor(false);
             }
         } else {
             ContextTabChildModel rowChildModel = (ContextTabChildModel) rowNode.getTreeData();
             if (rowChildModel != null) {
-                ((ContextTextPainter) getWrappedPainter()).setChangeBackgroundColor(true);
+                ((ContextAutoResizeTextPainter) getWrappedPainter()).setChangeBackgroundColor(true);
             }
         }
         super.paintCell(cell, gc, bounds, configRegistry);

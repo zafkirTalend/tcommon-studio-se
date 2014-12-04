@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.i18n.MessagesCore;
-import org.talend.updates.runtime.UpdatesRuntimePlugin;
+import org.talend.updates.runtime.Constants;
 
 /**
  * created by sgandon on 5 mars 2013 Detailled comment
@@ -39,7 +39,7 @@ public class Messages extends MessagesCore {
      * @see MessagesCore#getString(String, ResourceBundle)
      */
     public static String getString(String key) {
-        return getString(key, UpdatesRuntimePlugin.PLUGIN_ID, resourceBundle);
+        return getString(key, Constants.PLUGIN_ID, resourceBundle);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Messages extends MessagesCore {
      * @see MessagesCore#getString(String, ResourceBundle, Object[])
      */
     public static String getString(String key, Object... args) {
-        return MessagesCore.getString(key, UpdatesRuntimePlugin.PLUGIN_ID, resourceBundle, args);
+        return MessagesCore.getString(key, Constants.PLUGIN_ID, resourceBundle, args);
     }
 
     /**

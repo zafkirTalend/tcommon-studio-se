@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Libraries Manager Plug-in
 Bundle-SymbolicName: org.talend.librariesmanager;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -24,3 +24,4 @@ Export-Package: org.talend.librariesmanager.emf.librariesindex,
  routines,
  routines.system
 Import-Package: org.eclipse.emf.ecore.xmi.impl
+Eclipse-BundleShape: dir

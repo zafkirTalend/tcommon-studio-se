@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
@@ -47,6 +48,7 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.database.conn.version.EImpalaDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataFillFactory;
@@ -411,6 +413,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
             EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(connection.getDatabaseType());
             if (dbType != EDatabaseTypeName.GENERAL_JDBC) {
                 String driverClass = ExtractMetaDataUtils.getInstance().getDriverClassByDbType(connection.getDatabaseType());
+                DatabaseConnection dbConnection = (DatabaseConnection) connectionItem.getConnection();
                 // feature TDI-22108
                 if (EDatabaseTypeName.VERTICA.equals(dbType)
                         && (EDatabaseVersion4Drivers.VERTICA_6.getVersionValue().equals(connection.getDbVersionString())
@@ -420,7 +423,16 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                                 .equals(connection.getDbVersionString()))) {
                     driverClass = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                 }
-                ((DatabaseConnection) connectionItem.getConnection()).setDriverClass(driverClass);
+                if (EDatabaseTypeName.IMPALA.equals(dbType)) {
+                    String distributionName = dbConnection.getParameters().get(
+                            ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
+                    EImpalaDistributions distribution = EImpalaDistributions.getDistributionByName(distributionName, false);
+                    if (null != distribution && EImpalaDistributions.CUSTOM != distribution) {
+                        dbConnection.setDbVersionString(dbConnection.getParameters().get(
+                                ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION));
+                    }
+                }
+                dbConnection.setDriverClass(driverClass);
             }
             // ~19528
 
@@ -443,6 +455,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                         .getService(ITDQRepositoryService.class);
             }
 
+            if (!connection.isContextMode()) {
+                handleUppercase(connection, metadataConnection);
+            }
             try {
                 // TODO use seperate subclass to handle the create and update logic , using a varable "creation" is not
                 // a good practice.
@@ -494,6 +509,34 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     }
 
     /**
+     * if the database if oracle uppercase the ui schema of it; if the database if netezza uppercase the sid and url of
+     * it.
+     * 
+     * @param databaseConnection
+     * @param metadataConnection
+     */
+    private void handleUppercase(DatabaseConnection databaseConnection, IMetadataConnection metadataConnection) {
+        if (StringUtils.equals(databaseConnection.getProductId(), EDatabaseTypeName.ORACLEFORSID.getProduct())) {
+            if (databaseConnection.getUiSchema() == null) {
+                databaseConnection.setUiSchema(""); //$NON-NLS-1$
+            } else {
+                databaseConnection.setUiSchema(databaseConnection.getUiSchema().toUpperCase());
+            }
+            if (metadataConnection != null) {
+                metadataConnection.setUiSchema(databaseConnection.getUiSchema());
+            }
+        }
+        if (StringUtils.equals(databaseConnection.getProductId(), EDatabaseTypeName.NETEZZA.getProduct())
+                || MetadataFillFactory.isJdbcNetezza(metadataConnection)) {
+            uppercaseNetezzaSidUrl(databaseConnection);
+            if (metadataConnection != null) {
+                metadataConnection.setDatabase(databaseConnection.getSID());
+                metadataConnection.setUrl(databaseConnection.getURL());
+            }
+        }
+    }
+
+    /**
      * DOC zhao Comment method "handleUpdate".
      * 
      * @param metadataConnection
@@ -518,14 +561,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 reloadCheck = openConfirmReloadConnectionDialog(Display.getCurrent().getActiveShell());
                 if (!reloadCheck.isOk()) {
                     return false;
-                }
-            }
-            final boolean isOracle = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(conn.getProductId());
-            if (isOracle && !conn.isContextMode()) {
-                if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {//$NON-NLS-1$
-                    // MOD mzhao bug 4227 , don't set the uiScheme after 4.2(included) as the connection
-                    // wizard is uniformed.
-                    conn.setUiSchema(conn.getUiSchema().toUpperCase());
                 }
             }
             // bug 20700
@@ -622,25 +657,14 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
     /**
      * DOC zhao Comment method "handleCreation".
      * 
-     * @param dbConn
+     * @param databaseConnection
      * @param metadataConnection
      * @param tdqRepService
      * @throws PersistenceException
      */
-    private void handleCreation(DatabaseConnection dbConn, IMetadataConnection metadataConnection,
+    private void handleCreation(DatabaseConnection databaseConnection, IMetadataConnection metadataConnection,
             ITDQRepositoryService tdqRepService) throws PersistenceException {
         connectionProperty.setId(propertyId);
-        if (connectionItem.getConnection() instanceof DatabaseConnection) {
-            DatabaseConnection c = (DatabaseConnection) connectionItem.getConnection();
-            final boolean equals = c.getProductId().equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
-            if (equals && !c.isContextMode()) {
-                if (c.getUiSchema() == null) {
-                    c.setUiSchema(""); //$NON-NLS-1$
-                } else {
-                    c.setUiSchema(c.getUiSchema().toUpperCase());
-                }
-            }
-        }
         EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
         String displayName = connectionProperty.getDisplayName();
         this.connection.setName(displayName);
@@ -661,9 +685,6 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
             JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
         }
-        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
-
-        // if after fillConnection there is still no dataPackages, need to fill them from extractor
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);
         List<Schema> schemas = ConnectionHelper.getSchema(connection);
         if (catalogs.isEmpty() && schemas.isEmpty()) {
@@ -673,9 +694,41 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 repFactory.save(connectionItem);
             }
         }
+        MetadataConnectionUtils.fillConnectionInformation(connectionItem, metadataConnection);
         if (tdqRepService != null) {
             // Update software system when TDQ service available.
-            tdqRepService.publishSoftwareSystemUpdateEvent(dbConn);
+            tdqRepService.publishSoftwareSystemUpdateEvent(databaseConnection);
+        }
+    }
+
+    /**
+     * uppercase the sid and url of Netezza connection.
+     * 
+     * @param netezzaConnection
+     */
+    private void uppercaseNetezzaSidUrl(DatabaseConnection netezzaConnection) {
+        if (netezzaConnection == null) {
+            return;
+        }
+        netezzaConnection.setSID(StringUtils.upperCase(netezzaConnection.getSID()));
+        String url = netezzaConnection.getURL();
+        if (StringUtils.isBlank(url)) {
+            return;
+        }
+        int lastIndexOf = StringUtils.lastIndexOf(url, "/"); //$NON-NLS-1$
+        if (lastIndexOf > 0 && lastIndexOf < url.length() - 1) {
+            String part1 = StringUtils.substring(url, 0, lastIndexOf + 1);
+            String part2 = StringUtils.substring(url, lastIndexOf + 1);
+            if (!StringUtils.isEmpty(part2)) {
+                int indexOf = StringUtils.indexOf(part2, "?"); //$NON-NLS-1$
+                if (indexOf > -1) {
+                    String sid = StringUtils.substring(part2, 0, indexOf);
+                    part2 = StringUtils.upperCase(sid) + StringUtils.substring(part2, indexOf, part2.length());
+                } else {
+                    part2 = StringUtils.upperCase(part2);
+                }
+                netezzaConnection.setURL(part1 + part2);
+            }
         }
     }
 
@@ -770,7 +823,8 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         java.sql.Connection sqlConn = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
-            dbConn = (DatabaseConnection) MetadataFillFactory.getDBInstance().fillUIConnParams(metaConnection, dbConn);
+            MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(metaConnection);
+            dbConn = (DatabaseConnection) dbInstance.fillUIConnParams(metaConnection, dbConn);
             sqlConn = MetadataConnectionUtils.createConnection(metaConnection).getObject();
 
             if (sqlConn != null) {
@@ -782,9 +836,9 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                 } else {
                     dbMetaData = extractMeta.getDatabaseMetaData(sqlConn, dbType, false, metaConnection.getDatabase());
                 }
-                MetadataFillFactory.getDBInstance().fillCatalogs(dbConn, dbMetaData, metaConnection,
+                dbInstance.fillCatalogs(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, true));
-                MetadataFillFactory.getDBInstance().fillSchemas(dbConn, dbMetaData, metaConnection,
+                dbInstance.fillSchemas(dbConn, dbMetaData, metaConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dbMetaData, false));
             }
         } finally {

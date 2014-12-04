@@ -28,6 +28,8 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
@@ -40,6 +42,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
+import org.talend.librariesmanager.model.ExtensionModuleManager;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 
@@ -173,7 +176,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
-        LibrariesIndexManager.getInstance().loadResource();
+        // MOD TDQ-9357 msjian: fix a java.io.FileNotFoundException
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
+        // TDQ-9357~
         String sourcePath = null, targetPath = pathToStore;
         try {
             File jarFile = getJarFile(jarNeeded);
@@ -297,8 +305,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } catch (MalformedURLException e) {
             CommonExceptionHandler.process(e);
         }
+        jarList.addAll(jarsFromExtensions.keySet());
 
-        LibrariesIndexManager.getInstance().loadResource();
+        // MOD TDQ-9357 msjian: fix a java.io.FileNotFoundException
+        File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
+        if (indexFile.exists()) {
+            LibrariesIndexManager.getInstance().loadResource();
+        }
+        // TDQ-9357~
 
         // fix for TDI-25474 ,some libraries are removed form tos,only list jars exist
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getIndex().getJarsToRelativePath();
@@ -359,7 +373,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean contains(String jarName) {
-        return jarList.contains(jarName);
+        return list().contains(jarName);
     }
 
     /*
@@ -478,18 +492,41 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (uriJarInstalled.containsKey(uriPath)) {
             return uriJarInstalled.get(uriPath) != null;
         }
-        boolean jarFound = false;
         String absolutePath = null;
+        boolean jarFound = false;
+
         try {
-            URI uri = new URI(uriPath);
-            URL url = FileLocator.toFileURL(uri.toURL());
-            File file = new File(url.getFile());
-            if (file.exists()) {
-                jarFound = true;
-                absolutePath = file.getAbsolutePath();
+            if (uriPath.startsWith(ExtensionModuleManager.URIPATH_PREFIX)) {
+                String plugin = uriPath.substring(17);
+                plugin = plugin.substring(0, plugin.indexOf("/"));
+                String path = uriPath.substring(17 + plugin.length());
+
+                URL url = FileLocator.find(Platform.getBundle(plugin), new Path(path), null);
+                if (url != null) {
+                    URL url2 = FileLocator.toFileURL(url);
+                    File file = new File(url2.getFile());
+                    if (file.exists()) {
+                        jarFound = true;
+                        absolutePath = file.getAbsolutePath();
+                    }
+                }
             }
         } catch (Exception e) {
             // do nothing
+        }
+
+        if (!jarFound) {
+            try {
+                URI uri = new URI(uriPath);
+                URL url = FileLocator.toFileURL(uri.toURL());
+                File file = new File(url.getFile());
+                if (file.exists()) {
+                    jarFound = true;
+                    absolutePath = file.getAbsolutePath();
+                }
+            } catch (Exception e) {
+                // do nothing
+            }
         }
         uriJarInstalled.put(uriPath, absolutePath);
         return jarFound;
@@ -502,7 +539,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         String jarName = null;
         try {
-            if (uriJarInstalled.containsKey(uriPath)) {
+            if (checkJarInstalledFromPlatform(uriPath)) {
                 File file = new File(uriJarInstalled.get(uriPath));
                 if (file.exists()) {
                     jarName = file.getName();

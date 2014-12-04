@@ -2,7 +2,7 @@
 <feature
       id="org.talend.utils_feature"
       label="Utils_feature Feature"
-      version="1.0.0.qualifier">
+      version="6.0.0.qualifier">
 
    <description url="http://www.example.com/description">
       This feature contains the Talend utilities plugin and its dependencies.
@@ -26,6 +26,13 @@
          install-size="0"
          version="0.0.0"
          unpack="true"/>
+
+   <plugin
+         id="bcprov"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.talend.utils"

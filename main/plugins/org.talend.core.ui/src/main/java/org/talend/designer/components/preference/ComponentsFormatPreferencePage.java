@@ -37,17 +37,12 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -67,7 +62,6 @@ import org.talend.core.model.components.ComponentPaletteUtilities;
 import org.talend.core.service.IComponentsLocalProviderService;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.utils.KeywordsValidator;
-import org.talend.designer.components.preference.provider.PaletteContentDialog;
 import org.talend.designer.core.IDesignerCoreService;
 
 /**
@@ -156,22 +150,22 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         panel.setLayout(new GridLayout(2, false));
         panel.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        viewer = new TableViewer(panel);
-        GridData viewerGridData = new GridData(GridData.FILL_BOTH);
-        viewer.getControl().setLayoutData(viewerGridData);
-        configViewer(viewer);
+        // viewer = new TableViewer(panel);
+        // GridData viewerGridData = new GridData(GridData.FILL_BOTH);
+        // viewer.getControl().setLayoutData(viewerGridData);
+        // configViewer(viewer);
 
-        Composite buttonPanel = new Composite(panel, SWT.NONE);
-        buttonPanel.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-        buttonPanel.setLayout(new GridLayout());
-
-        buttonAdd = new Button(buttonPanel, SWT.NONE);
-        buttonAdd.setText(Messages.getString("ComponentsFormatPreferencePage.add")); //$NON-NLS-1$
-        buttonAdd.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        buttonRemove = new Button(buttonPanel, SWT.NONE);
-        buttonRemove.setText(Messages.getString("ComponentsFormatPreferencePage.remove")); //$NON-NLS-1$
-        buttonRemove.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        // Composite buttonPanel = new Composite(panel, SWT.NONE);
+        // buttonPanel.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+        // buttonPanel.setLayout(new GridLayout());
+        //
+        // buttonAdd = new Button(buttonPanel, SWT.NONE);
+        //        buttonAdd.setText(Messages.getString("ComponentsFormatPreferencePage.add")); //$NON-NLS-1$
+        // buttonAdd.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        //
+        // buttonRemove = new Button(buttonPanel, SWT.NONE);
+        //        buttonRemove.setText(Messages.getString("ComponentsFormatPreferencePage.remove")); //$NON-NLS-1$
+        // buttonRemove.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Composite footerPanel = new Composite(panel, SWT.NONE);
         footerPanel.setLayout(new GridLayout(2, false));
@@ -230,11 +224,12 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
                     MessageDialog.openError(getShell(), Messages.getString("ComponentsFormatPreferencePage.ErrorTitle"), message); //$NON-NLS-1$
                     setText(textConnection, configTextConnectionValue, true);
                 }
-                Object[] objs = ((IStructuredSelection) viewer.getSelection()).toArray();
-                for (Object o : objs) {
-                    preferenceCach.put(getIdWithoutPreferenceType(o) + preferenceType, content);
-
-                }
+                // Object[] objs = ((IStructuredSelection) viewer.getSelection()).toArray();
+                // for (Object o : objs) {
+                // preferenceCach.put(preferenceType, content);
+                //
+                // }
+                preferenceCach.put(preferenceType, content);
 
             }
         });
@@ -339,7 +334,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
 
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
-                refreshTextContent((IStructuredSelection) event.getSelection());
+                refreshTextContent();
             }
 
         });
@@ -351,17 +346,21 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * 
      * @param selection
      */
-    private void refreshTextContent(IStructuredSelection selection) {
+    private void refreshTextContent() {
 
-        Object[] objs = selection.toArray();
+        // Object[] objs = selection.toArray();
         List<DefaultFormat> formats = new ArrayList<DefaultFormat>();
+        //
+        // for (Object o : objs) {
+        //
+        // DefaultFormat format = getDefaultPreference();
+        //
+        // formats.add(format);
+        // }
 
-        for (Object o : objs) {
+        DefaultFormat format = getDefaultPreference();
 
-            DefaultFormat format = getDefaultPreference(getIdWithoutPreferenceType(o));
-
-            formats.add(format);
-        }
+        formats.add(format);
 
         if (formats.size() > 1) {
             checkFormatsEquals(formats);
@@ -496,19 +495,28 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * DOC yzhang Comment method "initPreferenceCach".
      */
     private void initPreferenceCach() {
-        List viewerContent = (List) viewer.getInput();
+        // List viewerContent = (List) viewer.getInput();
+        //
+        // for (Object o : viewerContent) {
+        //
+        // String cachId = getIdWithoutPreferenceType(o);
+        //
+        // setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION,
+        // DEFAULT_CONNECTION, false);
+        // setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, DEFAULT_HINT,
+        // false);
+        // setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, DEFAULT_LABEL,
+        // false);
+        //
+        // }
+        String connection = preferenceStore.getString(IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
+        String hint = preferenceStore.getString(IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
+        String label = preferenceStore.getString(IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
 
-        for (Object o : viewerContent) {
-
-            String cachId = getIdWithoutPreferenceType(o);
-
-            setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION,
-                    DEFAULT_CONNECTION, false);
-            setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, DEFAULT_HINT, false);
-            setDefaultValueToPreferenceCach(cachId, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, DEFAULT_LABEL, false);
-
-        }
-
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION, connection, false);
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, hint, false);
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, label, false);
+        refreshTextContent();
     }
 
     /**
@@ -519,10 +527,10 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * @param defaultValue
      */
     private void setDefaultValueToPreferenceCach(String id, String type, String defaultValue, boolean forceDefault) {
-        if (forceDefault || "".equals(preferenceStore.getString(id + type))) { //$NON-NLS-1$
-            preferenceCach.put(id + type, defaultValue);
+        if (forceDefault || "".equals(preferenceStore.getString(type))) { //$NON-NLS-1$
+            preferenceCach.put(type, defaultValue);
         } else {
-            preferenceCach.put(id + type, preferenceStore.getString(id + type));
+            preferenceCach.put(type, preferenceStore.getString(type));
         }
     }
 
@@ -532,14 +540,14 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * @param labelID
      * @return
      */
-    private DefaultFormat getDefaultPreference(String labelID) {
+    private DefaultFormat getDefaultPreference() {
         String h, l, c;
 
-        h = preferenceCach.get(labelID + IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
+        h = preferenceCach.get(IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
 
-        l = preferenceCach.get(labelID + IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
+        l = preferenceCach.get(IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
 
-        c = preferenceCach.get(labelID + IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
+        c = preferenceCach.get(IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
 
         return new DefaultFormat(h, l, c);
 
@@ -627,43 +635,43 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * yzhang Comment method "addButtonListeners".
      */
     private void addButtonListeners() {
-        buttonAdd.addMouseListener(new MouseAdapter() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
-             */
-            @Override
-            public void mouseUp(MouseEvent e) {
-                PaletteContentDialog dialog = new PaletteContentDialog(getShell(), ComponentsFormatPreferencePage.this);
-                dialog.open();
-            }
-        });
-
-        buttonRemove.addMouseListener(new MouseAdapter() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
-             */
-            @Override
-            public void mouseUp(MouseEvent e) {
-                StructuredSelection selection = (StructuredSelection) viewer.getSelection();
-                for (Object obj : selection.toArray()) {
-                    ((List) viewer.getInput()).remove(obj);
-
-                    String id = getIdWithoutPreferenceType(obj);
-                    preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
-                    preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
-                    preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
-
-                }
-                viewer.refresh();
-
-            }
-        });
+        // buttonAdd.addMouseListener(new MouseAdapter() {
+        //
+        // /*
+        // * (non-Javadoc)
+        // *
+        // * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
+        // */
+        // @Override
+        // public void mouseUp(MouseEvent e) {
+        // PaletteContentDialog dialog = new PaletteContentDialog(getShell(), ComponentsFormatPreferencePage.this);
+        // dialog.open();
+        // }
+        // });
+        //
+        // buttonRemove.addMouseListener(new MouseAdapter() {
+        //
+        // /*
+        // * (non-Javadoc)
+        // *
+        // * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
+        // */
+        // @Override
+        // public void mouseUp(MouseEvent e) {
+        // StructuredSelection selection = (StructuredSelection) viewer.getSelection();
+        // for (Object obj : selection.toArray()) {
+        // ((List) viewer.getInput()).remove(obj);
+        //
+        // String id = getIdWithoutPreferenceType(obj);
+        // preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
+        // preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
+        // preferenceCach.remove(id + IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
+        //
+        // }
+        // viewer.refresh();
+        //
+        // }
+        // });
 
     }
 
@@ -671,7 +679,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * yzhang Comment method "initViewer".
      */
     private void initViewerContent() {
-        viewer.setInput(initViewerInput);
+        // viewer.setInput(initViewerInput);
         initPreferenceCach();
     }
 
@@ -681,30 +689,30 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * @param selections
      */
     public void setViewerInput(ISelection selections) {
-        List<PaletteEntry> entryList = new ArrayList<PaletteEntry>();
-
-        List selectionsList = ((TreeSelection) selections).toList();
-
-        if (viewer.getInput() != null) {
-            List s = (List) viewer.getInput();
-            entryList.addAll(s);
-        }
-
-        for (Object paletteEntry : selectionsList) {
-            boolean contained = false;
-            for (PaletteEntry entry : entryList) {
-                if ((((PaletteEntry) paletteEntry)).getLabel().equals(entry.getLabel())) {
-                    contained = true;
-                    break;
-                }
-            }
-            if (!contained) {
-                entryList.add((PaletteEntry) paletteEntry);
-            }
-
-        }
-
-        viewer.setInput(entryList);
+        // List<PaletteEntry> entryList = new ArrayList<PaletteEntry>();
+        //
+        // List selectionsList = ((TreeSelection) selections).toList();
+        //
+        // if (viewer.getInput() != null) {
+        // List s = (List) viewer.getInput();
+        // entryList.addAll(s);
+        // }
+        //
+        // for (Object paletteEntry : selectionsList) {
+        // boolean contained = false;
+        // for (PaletteEntry entry : entryList) {
+        // if ((((PaletteEntry) paletteEntry)).getLabel().equals(entry.getLabel())) {
+        // contained = true;
+        // break;
+        // }
+        // }
+        // if (!contained) {
+        // entryList.add((PaletteEntry) paletteEntry);
+        // }
+        //
+        // }
+        //
+        // viewer.setInput(entryList);
 
         initPreferenceCach();
     }
@@ -732,15 +740,21 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      */
     @Override
     protected void performDefaults() {
-        StructuredSelection selections = (StructuredSelection) viewer.getSelection();
-        for (Object obj : selections.toArray()) {
-            String id = getIdWithoutPreferenceType(obj);
-            setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION, DEFAULT_CONNECTION,
-                    true);
-            setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, DEFAULT_HINT, true);
-            setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, DEFAULT_LABEL, true);
-        }
-        refreshTextContent((IStructuredSelection) viewer.getSelection());
+        // StructuredSelection selections = (StructuredSelection) viewer.getSelection();
+        // for (Object obj : selections.toArray()) {
+        // String id = getIdWithoutPreferenceType(obj);
+        // setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION,
+        // DEFAULT_CONNECTION,
+        // true);
+        // setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, DEFAULT_HINT,
+        // true);
+        // setDefaultValueToPreferenceCach(id, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, DEFAULT_LABEL,
+        // true);
+        // }
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION, DEFAULT_CONNECTION, true);
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_HINT, DEFAULT_HINT, true);
+        setDefaultValueToPreferenceCach("", IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL, DEFAULT_LABEL, true);
+        refreshTextContent();
 
         super.performDefaults();
     }

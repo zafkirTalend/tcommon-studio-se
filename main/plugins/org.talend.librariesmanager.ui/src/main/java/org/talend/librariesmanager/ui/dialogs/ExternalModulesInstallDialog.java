@@ -83,6 +83,7 @@ import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
@@ -150,6 +151,13 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         newShell.setText(text);
     }
 
+    private void checkNetworkStatus() {
+        boolean networkValid = NetworkUtil.isNetworkValid();
+        if (!networkValid) {
+            setErrorMessage(Messages.getString("ExternalModulesInstallDialog.networkUnavailable.msg")); //$NON-NLS-1$
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -157,6 +165,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      */
     @Override
     protected Control createDialogArea(Composite parent) {
+        checkNetworkStatus();
         GridData layoutData = new GridData(GridData.FILL_BOTH);
         Composite composite = new Composite(parent, SWT.BORDER);
         GridLayout layout = new GridLayout();

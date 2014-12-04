@@ -93,13 +93,10 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
                 // null) || (proxy == null && theProxy != null))) {
 
                 // doLoginList = doLogin(endPoint, username, password);
-                try {
-                    SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password)
-                            .setTimeout(10000).needCompression(false).build();
-                    login = true;
-                    sforceManagement = new SforceManagementImpl(sforceConn);
-                } catch (Exception ex) {
-                }
+                SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(10000)
+                        .needCompression(false).build();
+                login = true;
+                sforceManagement = new SforceManagementImpl(sforceConn);
 
             } else {
                 if (isLogin()) {
@@ -108,13 +105,10 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
             }
         } else {
             // doLoginList = doLogin(endPoint, username, password);
-            try {
-                SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(10000)
-                        .needCompression(false).build();
-                login = true;
-                sforceManagement = new SforceManagementImpl(sforceConn);
-            } catch (Exception ex) {
-            }
+            SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(10000)
+                    .needCompression(false).build();
+            login = true;
+            sforceManagement = new SforceManagementImpl(sforceConn);
             doLoginList = new ArrayList();
             doLoginList.add(sforceManagement);
         }
@@ -143,14 +137,10 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
             if (!url.equals(endPoint) || !name.equals(username) || !pwd.equals(password)) {
 
                 // doLoginList = doLogin(endPoint, username, password);
-                try {
-                    SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password)
-                            .setTimeout(time).needCompression(false).build();
-                    login = true;
-                    sforceManagement = new SforceManagementImpl(sforceConn);
-                } catch (Exception ex) {
-
-                }
+                SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(time)
+                        .needCompression(false).build();
+                login = true;
+                sforceManagement = new SforceManagementImpl(sforceConn);
 
             } else {
                 if (isLogin()) {
@@ -159,14 +149,10 @@ public class SalesforceModuleParserPartner implements ISalesforceModuleParser {
             }
         } else {
             // doLoginList = doLogin(endPoint, username, password);
-            try {
-                SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(time)
-                        .needCompression(false).build();
-                login = true;
-                sforceManagement = new SforceManagementImpl(sforceConn);
-            } catch (Exception ex) {
-
-            }
+            SforceConnection sforceConn = new SforceBasicConnection.Builder(endPoint, username, password).setTimeout(time)
+                    .needCompression(false).build();
+            login = true;
+            sforceManagement = new SforceManagementImpl(sforceConn);
             doLoginList = new ArrayList();
             doLoginList.add(sforceManagement);
         }

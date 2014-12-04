@@ -32,7 +32,7 @@ public class SoftwaredeploymentFactoryImpl extends EFactoryImpl implements Softw
     public static SoftwaredeploymentFactory init() {
         try {
             SoftwaredeploymentFactory theSoftwaredeploymentFactory = (SoftwaredeploymentFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/cwm/foundation/softwaredeployment/2010");
+                    .getEFactory(SoftwaredeploymentPackage.eNS_URI);
             if (theSoftwaredeploymentFactory != null) {
                 return theSoftwaredeploymentFactory;
             }

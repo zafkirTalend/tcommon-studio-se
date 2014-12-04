@@ -23,7 +23,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getMetadataTable <em>Metadata Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputTables <em>Input Tables</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getParamData <em>Param Data</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#isAsXmlSchema <em>As Xml Schema</em>}</li>
  * </ul>
  * </p>
  *
@@ -179,28 +182,26 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
     void setMetadataTable(MetadataTable value);
 
     /**
-     * Returns the value of the '<em><b>Connection</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions <em>Funtions</em>}'.
+     * Returns the value of the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Connection</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Connection</em>' container reference.
+     * @return the value of the '<em>Connection</em>' reference.
      * @see #setConnection(SAPConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_Connection()
-     * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions
-     * @model opposite="Funtions" transient="false"
+     * @model
      * @generated
      */
     SAPConnection getConnection();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}' container reference.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Connection</em>' container reference.
+     * @param value the new value of the '<em>Connection</em>' reference.
      * @see #getConnection()
      * @generated
      */
@@ -221,6 +222,22 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
      * @generated
      */
     EList<MetadataTable> getTables();
+
+    /**
+     * Returns the value of the '<em><b>Input Tables</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataTable}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Input Tables</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Input Tables</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_InputTables()
+     * @model containment="true" resolveProxies="true"
+     * @generated
+     */
+    EList<MetadataTable> getInputTables();
 
     /**
      * Returns the value of the '<em><b>Test Input Parameter Table</b></em>' containment reference.
@@ -249,5 +266,57 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
      * @generated
      */
     void setTestInputParameterTable(SAPTestInputParameterTable value);
+
+    /**
+     * Returns the value of the '<em><b>Param Data</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Param Data</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Param Data</em>' containment reference.
+     * @see #setParamData(SAPFunctionParamData)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_ParamData()
+     * @model containment="true" resolveProxies="true"
+     * @generated
+     */
+    SAPFunctionParamData getParamData();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getParamData <em>Param Data</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Param Data</em>' containment reference.
+     * @see #getParamData()
+     * @generated
+     */
+    void setParamData(SAPFunctionParamData value);
+
+    /**
+     * Returns the value of the '<em><b>As Xml Schema</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>As Xml Schema</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>As Xml Schema</em>' attribute.
+     * @see #setAsXmlSchema(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_AsXmlSchema()
+     * @model
+     * @generated
+     */
+    boolean isAsXmlSchema();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#isAsXmlSchema <em>As Xml Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>As Xml Schema</em>' attribute.
+     * @see #isAsXmlSchema()
+     * @generated
+     */
+    void setAsXmlSchema(boolean value);
 
 } // SAPFunctionUnit

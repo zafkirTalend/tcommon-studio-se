@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Repository View Plug-in
 Bundle-SymbolicName: org.talend.repository.view;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -22,7 +22,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.core.repository,
  org.eclipse.osgi.services,
  org.talend.libraries.apache
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.repository,
  org.talend.repository.navigator,
  org.talend.repository.tester,

@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.context;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.talend.commons.exception.ExceptionHandler;
@@ -50,6 +52,12 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * DOC ggu class global comment. Detailled comment
  */
 public class ContextUtils {
+    
+    private static final Set<String> JAVA_KEYWORDS = new HashSet<String>(Arrays.asList("abstract", "continue", "for", "new", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            "switch", "assert", "default", "goto", "package", "synchronized", "boolean", "do", "if", "private", "this", "break", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+            "double", "implements", "protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+            "instanceof", "return", "transient", "catch", "extends", "int", "short", "try", "char", "final", "interface", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+            "static", "void", "class", "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
 
     /**
      * 
@@ -57,10 +65,14 @@ public class ContextUtils {
      * 
      */
     public static boolean isJavaKeyWords(final String name) {
-        IStatus status = JavaConventions.validateFieldName(name, JavaCore.getOption(JavaCore.COMPILER_SOURCE),
-                JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE));
-        if (status.getSeverity() == IStatus.ERROR) {
-            return true;
+        if (Platform.isRunning()) {
+            IStatus status = JavaConventions.validateFieldName(name, JavaCore.getOption(JavaCore.COMPILER_SOURCE),
+                    JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE));
+            if (status.getSeverity() == IStatus.ERROR) {
+                return true;
+            }
+        } else {// MOD sizhaoliu TDQ-9679 avoid calling JavaCore class when this method is called in components
+            return name == null ? false : JAVA_KEYWORDS.contains(name.toLowerCase());
         }
         return false;
     }
@@ -85,7 +97,7 @@ public class ContextUtils {
                 contextParam.setPrompt(parameterType.getPrompt());
                 contextParam.setPromptNeeded(parameterType.isPromptNeeded());
                 contextParam.setType(parameterType.getType());
-                contextParam.setValue(parameterType.getValue());
+                contextParam.setValue(parameterType.getRawValue());
                 return true;
             }
         }
@@ -395,24 +407,52 @@ public class ContextUtils {
         } else {
             targetParam.setType(MetadataTalendType.getDefaultTalendType());
         }
-        targetParam.setValue(sourceParam.getValue());
+        targetParam.setValue(sourceParam.getRawValue());
         targetParam.setPromptNeeded(sourceParam.isPromptNeeded());
         targetParam.setComment(sourceParam.getComment());
 
     }
 
-    public static Map<String, ContextItem> getRepositoryContextItemIdMapping() {
+    public static Map<String, Item> getRepositoryContextItemIdMapping() {
         List<ContextItem> contextItemList = getAllContextItem();
 
+        Map<String, Item> itemMap = new HashMap<String, Item>();
+
         if (checkObject(contextItemList)) {
-            return Collections.emptyMap();
+            return itemMap;
         }
 
-        Map<String, ContextItem> itemMap = new HashMap<String, ContextItem>();
         for (ContextItem item : contextItemList) {
             itemMap.put(item.getProperty().getId(), item);
         }
         return itemMap;
+    }
+
+    /**
+     * 
+     * get the repository context item,now contextId can be either joblet node or context node.
+     */
+    public static Item getRepositoryContextItemById(String contextId) {
+        if (IContextParameter.BUILT_IN.equals(contextId)) {
+            return null;
+        }
+        if (checkObject(contextId)) {
+            return null;
+        }
+
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        try {
+            final IRepositoryViewObject lastVersion = factory.getLastVersion(contextId);
+            if (lastVersion != null) {
+                final Item item = lastVersion.getProperty().getItem();
+                if (item != null) {
+                    return item;
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     /**
@@ -469,7 +509,8 @@ public class ContextUtils {
             if (sourceParam.isPromptNeeded() != targetParamType.isPromptNeeded()) {
                 return false;
             }
-            if (!sourceParam.getValue().equals(targetParamType.getValue())) {
+            // need check the raw value, because in sourceParam, it's raw
+            if (!sourceParam.getValue().equals(targetParamType.getRawValue())) {
                 return false;
             }
 
@@ -484,15 +525,16 @@ public class ContextUtils {
         }
 
         // preference name must match TalendDesignerPrefConstants.PROPAGATE_CONTEXT_VARIABLE
-        return Boolean
-                .parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService().getPreferenceStore("propagateContextVariable")); //$NON-NLS-1$
+        return Boolean.parseBoolean(CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .getPreferenceStore("propagateContextVariable")); //$NON-NLS-1$
     }
 
     /**
      * 
      * ggu Comment method "addInContextModelForProcessItem".
      */
-    public static boolean addInContextModelForProcessItem(Item item, Map<String, Set<String>> contextVars, List<ContextItem> allContextItems) {
+    public static boolean addInContextModelForProcessItem(Item item, Map<String, Set<String>> contextVars,
+            List<ContextItem> allContextItems) {
         ProcessType processType = null;
         if (item instanceof ProcessItem) {
             processType = ((ProcessItem) item).getProcess();
@@ -518,9 +560,10 @@ public class ContextUtils {
 
                             boolean modified = false;
                             for (String varName : set) {
-                                ContextParameterType contextParameterType = ContextUtils
-                                        .getContextParameterTypeByName(contextType, varName);
-                                IContextParameter contextParameter = processJobManager.getDefaultContext().getContextParameter(varName);
+                                ContextParameterType contextParameterType = ContextUtils.getContextParameterTypeByName(
+                                        contextType, varName);
+                                IContextParameter contextParameter = processJobManager.getDefaultContext().getContextParameter(
+                                        varName);
                                 if (contextParameter == null) { // added
                                     addContextParameterType(processJobManager, contextItem, contextParameterType);
                                     modified = true;
@@ -543,7 +586,8 @@ public class ContextUtils {
     public static void addContextParameterType(IContextManager manager, ContextItem contextItem,
             ContextParameterType setContextParameterType) {
         for (IContext context : manager.getListContext()) {
-            ContextParameterType foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(), false);
+            ContextParameterType foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(),
+                    false);
             if (foundParam == null) {
                 // not found, set the default
                 foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(), true);
@@ -566,8 +610,8 @@ public class ContextUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static ContextParameterType getContextParameterType(ContextItem item, ContextParameterType defaultContextParameterType,
-            String typeName, boolean defaultType) {
+    private static ContextParameterType getContextParameterType(ContextItem item,
+            ContextParameterType defaultContextParameterType, String typeName, boolean defaultType) {
         if (checkObject(item) || checkObject(defaultContextParameterType) || checkObject(typeName)) {
             return null;
         }
@@ -600,30 +644,20 @@ public class ContextUtils {
 
         contextParam.setName(contextParamType.getName());
         contextParam.setPrompt(contextParamType.getPrompt());
-        boolean exists = false;
-        ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
-        if (curLanguage == ECodeLanguage.JAVA) {
-            exists = true;
-            try {
-                ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
-            } catch (IllegalArgumentException e) {
-                exists = false;
-            }
-        } else {
-            String[] existingTypes;
-            existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (String existingType : existingTypes) {
-                if (existingType.equals(contextParamType.getType())) {
-                    exists = true;
-                }
-            }
+        boolean exists = true;
+        try {
+            ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
+        } catch (IllegalArgumentException e) {
+            exists = false;
         }
         if (exists) {
             contextParam.setType(contextParamType.getType());
         } else {
             contextParam.setType(MetadataTalendType.getDefaultTalendType());
         }
-        contextParam.setValue(contextParamType.getValue());
+        // specially for Password type to get raw value.
+        contextParam.setValue(contextParamType.getRawValue());
+
         contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
         contextParam.setComment(contextParamType.getComment());
         contextParam.setSource(contextItem.getProperty().getId());

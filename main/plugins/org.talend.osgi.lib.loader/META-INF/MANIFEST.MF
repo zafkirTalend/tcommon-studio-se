@@ -2,9 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Loader
 Bundle-SymbolicName: org.talend.osgi.lib.loader
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.eclipse.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.osgi.hook,
  org.talend.osgi.hook.notification
 ExtensionBundle-Activator: org.talend.osgi.configurator.OsgiLoaderActivator

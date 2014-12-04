@@ -100,6 +100,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.IRepositoryWorkUnitListener;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
@@ -283,7 +284,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         migrationToolService.updateMigrationSystem(project.getEmfProject(), false);
         boolean isProjectCompatibility = migrationToolService.checkMigrationTasks(project.getEmfProject());
         if (!isProjectCompatibility) {
-            throw new LoginException(Messages.getString("ProxyRepositoryFactory.projectIsNotCompatible", project.getLabel())); //$NON-NLS-1$
+            throw new LoginException(Messages.getString(
+                    "ProxyRepositoryFactory.projectCanNotOpen", migrationToolService.getTaskId())); //$NON-NLS-1$
         }
     }
 
@@ -1079,10 +1081,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             // for bug 9352: .svnlog folder should not be visible in wizards
             EObject obj = source.getParent();
             if (obj != null && obj instanceof FolderItemImpl) {
-                target.add(path + source.getProperty().getLabel());
+                String onePath = path + source.getProperty().getLabel();
+                target.add(onePath);
+
                 for (Object current : source.getChildren()) {
                     if (current instanceof FolderItem) {
-                        addChildren(target, (FolderItem) current, type, path + source.getProperty().getLabel() + "/"); //$NON-NLS-1$
+                        addChildren(target, (FolderItem) current, type, onePath + "/"); //$NON-NLS-1$
                     }
                 }
             }
@@ -1174,6 +1178,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path, boolean isImportItem)
             throws PersistenceException {
+
         List<String> folders = getFolders(project, itemType);
 
         for (int i = 0; i < path.segmentCount(); i++) {
@@ -1181,7 +1186,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             String folderLabel = path.segment(i);
 
             String folderName = parentPath.append(folderLabel).toString();
-            if (!folders.contains(folderName)) {
+            boolean found = false;
+            for (String existedFolder : folders) {
+                if (folderName.toUpperCase().equals(existedFolder.toUpperCase())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                // TDI-29841, in win, case insensitive issue for folder. If not existed, create the upper case folder
+                // always.
+                folderName = folderName.toUpperCase();
                 createFolder(project, itemType, parentPath, folderLabel);
             }
         }
@@ -1852,6 +1867,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     }
                 }
                 fullLogonFinished = true;
+                this.repositoryFactoryFromProvider.afterLogon();
             } finally {
                 TimeMeasure.end("logOnProject"); //$NON-NLS-1$
                 TimeMeasure.display = false;

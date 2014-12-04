@@ -2,7 +2,7 @@
 <feature
       id="org.talend.core_feature"
       label="Core Feature"
-      version="1.0.0.qualifier"
+      version="6.0.0.qualifier"
       provider-name=".Talend SA.">
 
    <description url="http://www.talend.com/online/featuresdescription.html#core-feature">
@@ -1132,6 +1132,13 @@
 
    <plugin
          id="org.talend.common.ui.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="bcprov"
          download-size="0"
          install-size="0"
          version="0.0.0"

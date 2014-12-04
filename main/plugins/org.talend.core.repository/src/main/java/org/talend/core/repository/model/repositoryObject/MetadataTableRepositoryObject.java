@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.core.model.metadata.MetadataSchemaType;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -31,7 +32,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.repository.model.ISubRepositoryObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -86,6 +87,7 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
         return table.getId();
     }
 
+    @Override
     public String getTableType() {
         return table.getTableType();
     }
@@ -101,10 +103,14 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
     @Override
     public void removeFromParent() {
-
         if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
-            funUnit.getTables().remove(table);
+            String tableType = table.getTableType();
+            if (MetadataSchemaType.INPUT.name().endsWith(tableType)) {
+                funUnit.getInputTables().remove(table);
+            } else {
+                funUnit.getTables().remove(table);
+            }
             return;
         }
         if (table.eContainer() instanceof SalesforceModuleUnit) {
@@ -182,6 +188,12 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
                     // MOD qiongli 2012-1-13 TDQ-4269.
                     if (repObj == null || table.getLabel() == null || repObj.getLabel() == null
                             || !table.getLabel().equals(repObj.getLabel())) {
+                        continue;
+                    }
+                    if (repObj.getTableType() != null && !repObj.getTableType().equals(table.getTableType())) {
+                        continue;
+                    }
+                    if (table.getTableType() != null && !table.getTableType().equals(repObj.getTableType())) {
                         continue;
                     }
                     // if table name is same,should compare its parent name for TdTable

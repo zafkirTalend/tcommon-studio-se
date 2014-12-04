@@ -64,6 +64,7 @@ import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkType;
@@ -785,10 +786,9 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 }
 
             } catch (Exception e) {
-                selectedImportItem.addError(e.getMessage());
+                selectedImportItem.addError(selectedImportItem.getItemName() + ";" + e.getMessage() + ";" + path);//$NON-NLS-1$
                 logError(e);
             }
-
         }
     }
 
@@ -817,32 +817,36 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         }
 
         try {
-            FolderItem folderItem = repFactory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), curItemType, path);
-            if (folderItem == null) {
-                // if this folder does not exists (and it's parents), it will check if the folder was originally
-                // deleted in source project.
-                // if yes, it will set back the delete status to the folder, to keep the same as the original
-                // project when import.
-                // Without this code, deleted folders of items imported will not be in the recycle bin after import.
-                // delete status is set finally in the function checkDeletedFolders
-                IPath curPath = path;
-                EList deletedFoldersFromOriginalProject = selectedImportItem.getItemProject().getDeletedFolders();
-                while (folderItem == null && !curPath.isEmpty() && !curPath.isRoot()) {
-                    if (deletedFoldersFromOriginalProject.contains(new Path(curItemType.getFolder()).append(
-                            curPath.toPortableString()).toPortableString())) {
-                        final Map<ERepositoryObjectType, Set<String>> foldersCreated = ImportCacheHelper.getInstance()
-                                .getFoldersCreated();
-                        if (!foldersCreated.containsKey(curItemType)) {
-                            foldersCreated.put(curItemType, new HashSet<String>());
-                        }
-                        foldersCreated.get(curItemType).add(curPath.toPortableString());
-                    }
-                    if (curPath.segments().length > 0) {
-                        curPath = curPath.removeLastSegments(1);
-                        folderItem = repFactory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), curItemType,
-                                curPath);
-                    }
+            // TDI-29841 , if win, need try to find the existed folder item which is case insensitive.
+            FolderItem folderItem = getFolderItem(selectedImportItem, curItemType, path);
+            if (folderItem != null) {
+                // if the item is not deleted, will restore folders.
+                if (!selectedImportItem.getItem().getState().isDeleted()) {
+                    restoreFolderItem(folderItem); // restore the parent folders from recycle bin.
+                }
 
+                String pathStr = folderItem.getState().getPath();
+                if (pathStr == null) {
+                    pathStr = ""; //$NON-NLS-1$
+                }
+                /*
+                 * FIXME,TUP-2422, temp, won't reset the item path for DQ items only.
+                 * 
+                 * In fact, need unify the type of folder with FOLDER/SYSTEM_FOLDER/STABLE_SYSTEM_FOLDER. So means, if
+                 * the ERepositoryObjectType is resource, the type should be STABLE_SYSTEM_FOLDER. Else it's "system"
+                 * folder, will be SYSTEM_FOLDER, like "system" of routine. "Generic","Hiv","Generic/system",
+                 * "Generic/UserDefined", etc for SQL Templates.
+                 * 
+                 * Also for DQ, the "TDQ_Libraries" and "TDQ_Libraries\Indicators" are STABLE_SYSTEM_FOLDER. but for the
+                 * "TDQ_Libraries/Indicators/System Indicators" and "TDQ_Libraries/Indicators/User Defined Indicators",
+                 * etc. should be SYSTEM_FOLDER.
+                 */
+                if (!curItemType.isDQItemType() || curItemType.isSharedType()) { // only for pure DQ items.
+
+                    if (!path.isEmpty()) {
+                        // if have path, reset the path, especially for win os with case insensitive.
+                        path = new Path(pathStr).append(folderItem.getProperty().getLabel());
+                    }// else{ // if root path "", keep it, and folderItem will be root node of type.
                 }
             }
             repFactory.createParentFoldersRecursively(ProjectManager.getInstance().getCurrentProject(), curItemType, path, true);
@@ -851,6 +855,53 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             path = new Path(""); //$NON-NLS-1$
         }
         return path;
+    }
+
+    private FolderItem getFolderItem(final ImportItem selectedImportItem, final ERepositoryObjectType curItemType, IPath path) {
+        final ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+        FolderItem folderItem = repFactory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), curItemType, path);
+        if (folderItem == null) {
+            // if this folder does not exists (and it's parents), it will check if the folder was originally
+            // deleted in source project.
+            // if yes, it will set back the delete status to the folder, to keep the same as the original
+            // project when import.
+            // Without this code, deleted folders of items imported will not be in the recycle bin after import.
+            // delete status is set finally in the function checkDeletedFolders
+            IPath curPath = path;
+            EList deletedFoldersFromOriginalProject = selectedImportItem.getItemProject().getDeletedFolders();
+            while (folderItem == null && !curPath.isEmpty() && !curPath.isRoot()) {
+                if (deletedFoldersFromOriginalProject.contains(new Path(curItemType.getFolder()).append(
+                        curPath.toPortableString()).toPortableString())) {
+                    final Map<ERepositoryObjectType, Set<String>> foldersCreated = ImportCacheHelper.getInstance()
+                            .getFoldersCreated();
+                    if (!foldersCreated.containsKey(curItemType)) {
+                        foldersCreated.put(curItemType, new HashSet<String>());
+                    }
+                    foldersCreated.get(curItemType).add(curPath.toPortableString());
+                }
+                if (curPath.segments().length > 0) {
+                    curPath = curPath.removeLastSegments(1);
+                    folderItem = repFactory.getFolderItem(ProjectManager.getInstance().getCurrentProject(), curItemType, curPath);
+                }
+            }
+        }
+        return folderItem;
+    }
+
+    /**
+     * 
+     * most like the RestoreAction for folder item.
+     */
+    private void restoreFolderItem(FolderItem folderItem) {
+        ItemState state = folderItem.getState();
+        if (state.isDeleted()) {
+            state.setDeleted(false);
+        }
+        EObject parent = folderItem.getParent();
+        if (parent instanceof FolderItem) {
+            FolderItem parentFolder = (FolderItem) parent;
+            restoreFolderItem(parentFolder);
+        }
     }
 
     protected void beforeCreatingItem(ImportItem selectedImportItem) {

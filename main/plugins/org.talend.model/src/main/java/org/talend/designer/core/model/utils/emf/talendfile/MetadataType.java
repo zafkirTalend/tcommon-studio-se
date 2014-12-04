@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getSource <em>Source</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -182,5 +183,31 @@ public interface MetadataType extends EObject {
      * @generated
      */
     void setSource(String value);
+
+    /**
+     * Returns the value of the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Type</em>' attribute.
+     * @see #setType(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Type()
+     * @model
+     * @generated
+     */
+    String getType();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getType <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Type</em>' attribute.
+     * @see #getType()
+     * @generated
+     */
+    void setType(String value);
 
 } // MetadataType

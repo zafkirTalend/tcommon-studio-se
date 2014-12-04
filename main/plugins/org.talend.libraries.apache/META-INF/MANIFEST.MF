@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Apache Plug-in
 Bundle-SymbolicName: org.talend.libraries.apache
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-ClassPath: .,
  lib/ant.jar,
  lib/apache-mime4j-0.6.jar,
@@ -188,3 +188,4 @@ Export-Package:
  schemaorg_apache_xmlbeans.system.sXMLSCHEMA,
  schemaorg_apache_xmlbeans.system.sXMLTOOLS
 Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir

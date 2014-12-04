@@ -814,6 +814,7 @@ public class NodeUtil {
         // should ignore Parallelize?
         List<String> ignorePs = Arrays.asList("CONNECTION_FORMAT", "INFORMATION", "COMMENT", "VALIDATION_RULES", "LABEL", "HINT",
                 "ACTIVATE", "TSTATCATCHER_STATS", "PARALLELIZE", "PROPERTY");
+        // Exclude SQLPATTERN_VALUE.
         for (IElementParameter ep : eps) {
             if (ep.isShow(eps)) {
                 if (!ignorePs.contains(ep.getName())) {
@@ -824,12 +825,24 @@ public class NodeUtil {
         return reps;
     }
 
+    public static String getNormalizeParameterValue(INode node, String elementName) {
+        List<? extends IElementParameter> eps = node.getElementParameters();
+        for (IElementParameter ep : eps) {
+            if (elementName.equals(ep.getName())) {
+                return getNormalizeParameterValue(node, ep);
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     public static String getNormalizeParameterValue(INode node, IElementParameter ep) {
         if (EParameterFieldType.TABLE.equals(ep.getFieldType())) {
             Map<String, IElementParameter> types = new HashMap<String, IElementParameter>();
             for (Object o : ep.getListItemsValue()) {
                 IElementParameter cep = (IElementParameter) o;
-                types.put(cep.getName(), cep);
+                if (cep.isShow(node.getElementParameters())) {
+                    types.put(cep.getName(), cep);
+                }
             }
             List<Map<String, String>> lines = (List<Map<String, String>>) ElementParameterParser.getObjectValue(node,
                     "__" + ep.getName() + "__");
@@ -839,75 +852,59 @@ public class NodeUtil {
             if (!linesIter.hasNext()) {
                 return "\"[]\"";
             }
-            value.append("\"[");
+            value.append("new StringBuilder().append(\"[");
             for (;;) {
                 Map<String, String> columns = linesIter.next();
                 Iterator<Entry<String, String>> columnsIter = columns.entrySet().iterator();
-                if (!columnsIter.hasNext()) {
-                    value.append("{}");
-                }
+
                 value.append("{");
-                for (;;) {
-                    Entry<String, String> column = columnsIter.next();
+                Entry<String, String> column = null;
+                boolean printedColumnExist = false;
+                while (columnsIter.hasNext()) {
+                    column = columnsIter.next();
+                    if (types.get(column.getKey()) == null) {
+                        continue;
+                    }
+                    printedColumnExist = true;
+
                     value.append(column.getKey());
-                    value.append("=\"+");
+                    value.append("=\").append(");
+                    value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true));
+                    value.append(").append(\"");
 
-                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
-                        value.append("\"");
+                    if (columnsIter.hasNext()) {
+                        value.append(", ");
                     }
-                    value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey())));
-                    if (types.get(column.getKey()).getFieldType() == EParameterFieldType.MODULE_LIST) {
-                        value.append("\"");
-                    }
-
-                    if (!columnsIter.hasNext()) {
-                        value.append("+\"}").toString();
-                        break;
-                    }
-                    value.append("+\",").append(" ");
                 }
+                if (printedColumnExist && column != null && (types.get(column.getKey()) == null)) {
+                    value.setLength(value.length() - 2);
+                }
+                value.append("}");
+
                 if (!linesIter.hasNext()) {
-                    return value.append("]\"").toString();
+                    return value.append("]\").toString()").toString();
                 }
                 value.append(",").append(" ");
             }
         } else {
             String value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
-            return getNormalizeParameterValue(value, ep);
+            if (EParameterFieldType.TABLE_BY_ROW.equals(ep.getFieldType())) {
+                value = ep.getValue().toString();
+            }
+            return getNormalizeParameterValue(value, ep, false);
         }
 
     }
 
-    private static String getNormalizeParameterValue(String value, IElementParameter ep) {
-        List<EParameterFieldType> escapeQuotation = Arrays.asList(EParameterFieldType.MEMO_JAVA);
-        if (escapeQuotation.contains(ep.getFieldType())) {
-            value = value.replaceAll("\\\"", "\\\\\\\"");
+    private static String getNormalizeParameterValue(String value, IElementParameter ep, boolean itemFromTable) {
+        if (value == null) {
+            value = "";
         }
-        List<EParameterFieldType> needRemoveCRLFList = Arrays.asList(EParameterFieldType.MEMO, EParameterFieldType.MEMO_JAVA,
-                EParameterFieldType.MEMO_SQL);
-        if (needRemoveCRLFList.contains(ep.getFieldType())) {
-            value = value.replaceAll("[\r\n]", " ");
-        }
-        List<EParameterFieldType> needQuoteList = Arrays.asList(EParameterFieldType.CLOSED_LIST, EParameterFieldType.OPENED_LIST,
-                EParameterFieldType.COMPONENT_LIST, EParameterFieldType.COLUMN_LIST, EParameterFieldType.PREV_COLUMN_LIST,
-                EParameterFieldType.MEMO_JAVA);
-        List<String> needQuoteListByName = Arrays.asList("SCHEMA_COLUMN");// SCHEMA_COLUMN for BASED_ON_SCHEMA="true"
-        if (needQuoteList.contains(ep.getFieldType()) || needQuoteListByName.contains(ep.getName())) {
-            value = "\"" + value + "\"";
-        }
-        if (value == null || "".equals(value.trim())) {
-            value = "\"\"";
-        } else if ("\"\\n\"".equals(value) || "\"\\r\"".equals(value) || "\"\\r\\n\"".equals(value)) {
-            value = value.replaceAll("\\\\", "\\\\\\\\");
-        } else if ("\"\"\"".equals(value)) {
-            value = "\"" + "\\" + "\"" + "\"";
-        } else if ("\"\"\\r\\n\"\"".equals(value)) {
-            value = "\"\\\\r\\\\n\"";
-        } else if ("\"\"\\r\"\"".equals(value)) {
-            value = "\"\\\\r\"";
-        } else if ("\"\"\\n\"\"".equals(value)) {
-            value = "\"\\\\n\"";
-        }
+        value = value.replaceAll("[\r\n]", " ");// for multiple lines
+        value = value.replaceAll("\\\\", "\\\\\\\\");// escape all \\
+        value = value.replaceAll("\\\"", "\\\\\\\"");// escape all \"
+        value = "\"" + value + "\"";// wrap double quote make it as string
+
         return value;
     }
 
@@ -937,7 +934,7 @@ public class NodeUtil {
             }
             // System.out.println("leftQuote="+leftQuotes + ", rightQuote="+rightQuotes);
             if (leftQuotes < rightQuotes) {
-                result += original.substring(leftQuotes, rightQuotes + 1).replace("\r", "\\r").replace("\n", "\\n");
+                result += original.substring(leftQuotes, rightQuotes + 1).replace("\r", "").replace("\n", "\\n");
             }
 
             leftQuotes = original.indexOf("\"", rightQuotes + 1);
@@ -983,5 +980,34 @@ public class NodeUtil {
             }
         }
         return null;
+    }
+
+    public static boolean containsMultiThreadComponent(IProcess process) {
+        List<? extends INode> multiThreadComponentList = process.getNodesOfType("tWriteXMLFieldOut");
+        if (multiThreadComponentList != null && multiThreadComponentList.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean subBranchContainsParallelIterate(INode node) {
+    	for (IConnection connection : node.getIncomingConnections()) {
+    		if(connection==null || !connection.isActivate()) {
+    			continue;
+    		}
+    		
+    		if(!(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MAIN | IConnectionCategory.USE_ITERATE))) {
+    			continue;
+    		}
+    		
+    		if(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
+				if (Boolean.TRUE.toString().equals(ElementParameterParser.getValue(connection, "__ENABLE_PARALLEL__"))) {
+					return true;
+				}
+    		}
+    		
+    		return subBranchContainsParallelIterate(connection.getSource());
+    	}
+    	return false;
     }
 }

@@ -687,7 +687,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                             }
                         }
                     }
-                    return;
                 }
 
                 for (MetadataTable table : ConnectionHelper.getTables(connection)) {
@@ -730,7 +729,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         return false;
     }
-    
+
     @SuppressWarnings("rawtypes")
     private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
             RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode) {
@@ -738,23 +737,28 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         // RepositoryNode generatedFolder = getRootRepositoryNode(ERepositoryObjectType.GENERATED);
 
         // for folder Documentation/generated/jobs
-        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBS, ERepositoryObjectType.JOB_DOC);
-        
-        // for folder Documentation/generated/joblets
-        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBLETS, ERepositoryObjectType.JOBLET_DOC);
+        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBS,
+                ERepositoryObjectType.JOB_DOC);
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)){
-        	ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(ICamelDesignerCoreService.class);
-        	if(service.getRouteDocsType() != null && service.getRouteDocType() != null){
-        		convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(), service.getRouteDocType());
-        	}
+        // for folder Documentation/generated/joblets
+        convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, ERepositoryObjectType.JOBLETS,
+                ERepositoryObjectType.JOBLET_DOC);
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
+            if (service.getRouteDocsType() != null && service.getRouteDocType() != null) {
+                convertDocumentation(newProject, generatedContainer, parent, type, recBinNode, service.getRouteDocsType(),
+                        service.getRouteDocType());
+            }
         }
 
     }
-    
+
     @SuppressWarnings("rawtypes")
     private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
-            RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode, ERepositoryObjectType parentDocType, ERepositoryObjectType docType) {
+            RepositoryNode parent, ERepositoryObjectType type, RepositoryNode recBinNode, ERepositoryObjectType parentDocType,
+            ERepositoryObjectType docType) {
         RepositoryNode docsFolder = getRootRepositoryNode(parentDocType);
 
         Container docsNode = null;
@@ -764,7 +768,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 break;
             }
         }
-        
+
         // get the files under generated/nodes.
         if (docsNode != null) {
             convert(newProject, docsNode, docsFolder, docType, recBinNode);
@@ -1079,6 +1083,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             createTables(recBinNode, node, repositoryObject, metadataConnection, validationRules);
         }
         if (type == ERepositoryObjectType.METADATA_FILE_XML) {
+            if (repositoryObject == null || repositoryObject.getProperty() == null
+                    || repositoryObject.getProperty().getItem() == null) {
+                System.out.println();
+            }
             XmlFileConnection metadataConnection = (XmlFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
                     .getConnection();
             createTables(recBinNode, node, repositoryObject, metadataConnection, validationRules);
@@ -1385,7 +1393,13 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             // createTables(recBinNode, node, repObj, metadataConnection.getTables());
 
             // 4.Queries:
-            if (!ConnectionUtils.isHiveConnection(dbconn.getURL())) {
+            boolean isImpala = false;
+            if (metadataConnection instanceof DatabaseConnection) {
+                if (EDatabaseTypeName.IMPALA.getDisplayName().equals(((DatabaseConnection) metadataConnection).getDatabaseType())) {
+                    isImpala = true;
+                }
+            }
+            if (!ConnectionUtils.isHiveConnection(dbconn.getURL()) || isImpala) {
                 RepositoryNode queriesNode = new StableRepositoryNode(node,
                         Messages.getString("ProjectRepositoryNode.queries"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
                 node.getChildren().add(queriesNode);
@@ -1416,20 +1430,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } else if (metadataConnection instanceof SAPConnection) {
             // The sap wizard plugin is loaded
             // 1.Tables:
-            RepositoryNode functionNode = new StableRepositoryNode(node,
-                    Messages.getString("ProjectRepositoryNode.sapFunctions"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            createSAPTableNodes(recBinNode, repObj, metadataConnection, node, validationRules);
+
+            // 2.Functions:
+            StableRepositoryNode functionNode = new StableRepositoryNode(node,
+                    Messages.getString("ProjectRepositoryNode.sapBapi"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            functionNode.setChildrenObjectType(ERepositoryObjectType.METADATA_SAP_FUNCTION);
             node.getChildren().add(functionNode);
 
-            // add functions
             createSAPFunctionNodes(recBinNode, repObj, metadataConnection, functionNode, validationRules);
 
-            RepositoryNode iDocNode = new StableRepositoryNode(node,
+            // add idocs
+            StableRepositoryNode iDocNode = new StableRepositoryNode(node,
                     Messages.getString("ProjectRepositoryNode.sapIDocs"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            iDocNode.setChildrenObjectType(ERepositoryObjectType.METADATA_SAP_IDOC);
             node.getChildren().add(iDocNode);
-
-            // add functions
             createSAPIDocNodes(recBinNode, repObj, metadataConnection, iDocNode);
-
         } else if (metadataConnection instanceof SalesforceSchemaConnection) {
             createSalesforceModuleNodes(recBinNode, repObj, metadataConnection, node, validationRules);
         } else {
@@ -1439,6 +1455,21 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             tables.addAll(tableset);
             createTables(recBinNode, node, repObj, tables, ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
         }
+    }
+
+    private void createSAPTableNodes(final RepositoryNode recBin, IRepositoryViewObject repObj, Connection metadataConnection,
+            RepositoryNode node, List<IRepositoryViewObject> validationRules) {
+        StableRepositoryNode tableContainer = new StableRepositoryNode(node,
+                Messages.getString("ProjectRepositoryNode.sapTables"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+        tableContainer.setChildrenObjectType(ERepositoryObjectType.METADATA_CON_TABLE);
+        tableContainer.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAP_TABLE);
+        node.getChildren().add(tableContainer);
+
+        List<MetadataTable> tablesWithOrders = ConnectionHelper.getTablesWithOrders(metadataConnection);
+        EList tables = new BasicEList();
+        tables.addAll(tablesWithOrders);
+        createTables(recBin, tableContainer, repObj, tables, ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+
     }
 
     private void createSalesforceModuleNodes(final RepositoryNode recBin, IRepositoryViewObject rebObj,
@@ -1474,7 +1505,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             SAPFunctionUnit unit = (SAPFunctionUnit) functions.get(i);
             RepositoryNode tableNode = createSAPNode(rebObj, functionNode, unit);
 
-            createTables(recBin, tableNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
+            // create input and output container
+
+            RepositoryNode inputNode = new StableRepositoryNode(tableNode,
+                    Messages.getString("ProjectRepositoryNode.sapFunctions.inputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            inputNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAP_FUNCTION);
+            tableNode.getChildren().add(inputNode);
+
+            createTables(recBin, inputNode, rebObj, unit.getInputTables(), ERepositoryObjectType.METADATA_CON_TABLE,
+                    validationRules);
+
+            RepositoryNode outputNode = new StableRepositoryNode(tableNode,
+                    Messages.getString("ProjectRepositoryNode.sapFunctions.outputSchema"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$
+            outputNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAP_FUNCTION);
+            tableNode.getChildren().add(outputNode);
+
+            createTables(recBin, outputNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE, validationRules);
             if (SubItemHelper.isDeleted(unit)) {
                 // recBin.getChildren().add(tableNode);
             } else {
@@ -1501,8 +1547,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         for (int i = 0; i < iDocs.size(); i++) {
             SAPIDocUnit unit = (SAPIDocUnit) iDocs.get(i);
             RepositoryNode tableNode = createSAPNode(rebObj, iDocNode, unit);
-
-            // createTables(recBin, tableNode, rebObj, unit.getTables(), ERepositoryObjectType.METADATA_CON_TABLE);
             if (SubItemHelper.isDeleted(unit)) {
                 // recBin.getChildren().add(tableNode);
             } else {
