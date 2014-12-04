@@ -1232,4 +1232,20 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         }
         return null;
     }
+
+    public static List<ERepositoryObjectType> getAllTypesOfProcess() {
+        List<ERepositoryObjectType> allTypes = new ArrayList<ERepositoryObjectType>();
+
+        if (ERepositoryObjectType.PROCESS != null) {
+            allTypes.add(ERepositoryObjectType.PROCESS);
+        }
+        if (ERepositoryObjectType.PROCESS_MR != null) {
+            allTypes.add(ERepositoryObjectType.PROCESS_MR);
+        }
+        if (ERepositoryObjectType.PROCESS_STORM != null) {
+            allTypes.add(ERepositoryObjectType.PROCESS_STORM);
+        }
+
+        return allTypes;
+    }
 }

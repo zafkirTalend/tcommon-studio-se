@@ -215,6 +215,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 if (d != null) {
                     d.syncExec(new Runnable() {
 
+                        @Override
                         public void run() {
                             evaluateTextField();
                         }
@@ -255,6 +256,39 @@ public abstract class PropertiesWizardPage extends WizardPage {
         // Loads other repository view objects with the different repository type.
         if (others != null && others.size() > 0) {
             list.addAll(others);
+        }
+        return list;
+    }
+
+    /**
+     * 
+     * get all available process objects except current object(only If this object is a proecss object)
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    protected List<IRepositoryViewObject> getAllProcessTypeObjectsWithoutCurrentType() throws PersistenceException {
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            final ERepositoryObjectType currentType = ERepositoryObjectType.getItemType(property.getItem());
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+
+            List<ERepositoryObjectType> processTypeList = ERepositoryObjectType.getAllTypesOfProcess();
+            if (processTypeList == null) {
+                return list;
+            }
+            boolean currentTypeIsProcessType = processTypeList.contains(currentType);
+            IProxyRepositoryFactory proxyRepositoryFactory = service.getProxyRepositoryFactory();
+            for (ERepositoryObjectType processType : processTypeList) {
+                if (currentTypeIsProcessType && currentType == processType) {
+                    continue;
+                }
+                List<IRepositoryViewObject> processList = proxyRepositoryFactory.getAll(processType, true, false);
+                if (processList != null && !processList.isEmpty()) {
+                    list.addAll(processList);
+                }
+            }
         }
         return list;
     }
@@ -370,6 +404,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
         GridData data;
 
@@ -721,6 +756,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
          */
+        @Override
         public Object[] getElements(Object inputElement) {
             ERepositoryObjectType type = (ERepositoryObjectType) inputElement;
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
@@ -741,6 +777,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.IContentProvider#dispose()
          */
+        @Override
         public void dispose() {
             // TODO Auto-generated method stub
 
@@ -752,6 +789,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
          * java.lang.Object, java.lang.Object)
          */
+        @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
             // TODO Auto-generated method stub
 
@@ -762,6 +800,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
          */
+        @Override
         public Object[] getChildren(Object parentElement) {
             return ((Folder) parentElement).getChildren().toArray();
         }
@@ -771,6 +810,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
          */
+        @Override
         public Object getParent(Object element) {
             // TODO Auto-generated method stub
             return null;
@@ -781,6 +821,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
          * 
          * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
          */
+        @Override
         public boolean hasChildren(Object element) {
             return ((Folder) element).getChildren().size() > 0;
         }
@@ -817,10 +858,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
         dialog.setLabelProvider(new FoldersLabelProvider(dialog));
         dialog.setTreeListener(new ITreeViewerListener() {
 
+            @Override
             public void treeCollapsed(TreeExpansionEvent event) {
                 setItemImage(event, true);
             }
 
+            @Override
             public void treeExpanded(TreeExpansionEvent event) {
                 setItemImage(event, false);
             }
@@ -957,6 +1000,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected void addListeners() {
         nameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isSaveAs) {// it means create a new one and keep the old logic
                     // if (!update) {
@@ -1002,6 +1046,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         purposeText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (purposeText.getText().length() == 0) {
                     purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
@@ -1019,6 +1064,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         descriptionText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
                     commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
@@ -1069,6 +1115,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         statusText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 property.setStatusCode(statusHelper.getStatusCode(statusText.getText()));
                 property.setModificationDate(new Date());
