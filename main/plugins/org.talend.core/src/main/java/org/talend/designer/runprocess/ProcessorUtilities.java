@@ -105,6 +105,8 @@ public class ProcessorUtilities {
 
     private static Map<String, Integer> lastGeneratedWithStatsOrTrace = new HashMap<String, Integer>();
 
+    private static Date exportTimeStamp;// time stamp create when exporting a job and reset when export ends.
+
     private static final int GENERATED_WITH_STATS = 1;
 
     private static final int GENERATED_WITH_TRACES = 2;
@@ -144,6 +146,11 @@ public class ProcessorUtilities {
         codeLocation = exportCodeLocation;
         libraryPath = exportLibraryPath;
         exportConfig = true;
+        exportTimeStamp = new Date();
+    }
+
+    public static Date getExportTimestamp() {
+        return exportTimeStamp;
     }
 
     public static boolean isExportConfig() {
@@ -155,6 +162,7 @@ public class ProcessorUtilities {
         codeLocation = null;
         libraryPath = null;
         exportConfig = false;
+        exportTimeStamp = null;
     }
 
     public static String getInterpreter() {
