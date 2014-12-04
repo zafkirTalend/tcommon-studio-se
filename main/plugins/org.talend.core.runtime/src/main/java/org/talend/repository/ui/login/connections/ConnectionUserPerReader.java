@@ -27,7 +27,7 @@ import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.adaptor.LocationManager;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
@@ -58,7 +58,7 @@ public class ConnectionUserPerReader {
     private ConnectionUserPerReader() {
         proper = new EncryptedProperties();
         isRead = false;
-        path = new Path(LocationManager.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
+        path = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
         String tmp = String.valueOf(path.charAt(path.length() - 1));
         if (!tmp.equals(File.separator)) {
             perfile = new File(path + File.separator + perfileName);
