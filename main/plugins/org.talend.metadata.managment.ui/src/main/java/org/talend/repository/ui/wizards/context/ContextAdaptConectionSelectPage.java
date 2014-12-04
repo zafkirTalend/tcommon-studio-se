@@ -322,7 +322,7 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
             currentWizard = (ContextModeWizard) getWizard();
         }
         if (currentWizard != null) {
-            this.contextManager = currentWizard.getContextManager();
+            this.contextManager = currentWizard.getResueContextManager();
             // in case click back and chose another context ,and next again,we need to consider to claer the models
             if (!isNeedClearModels(adaptModels)) {
                 adaptModels.clear();
