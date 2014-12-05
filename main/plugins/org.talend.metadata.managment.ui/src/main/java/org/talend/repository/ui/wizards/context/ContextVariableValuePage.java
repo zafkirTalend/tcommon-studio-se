@@ -73,7 +73,7 @@ public class ContextVariableValuePage extends WizardPage {
             currentWizard = (ContextModeWizard) getWizard();
         }
         if (currentWizard != null) {
-            initContextMode(currentWizard.getContextManager(), currentWizard.getAdaptModels());
+            initContextMode(currentWizard.getResueContextManager(), currentWizard.getAdaptModels());
         }
     }
 

@@ -163,7 +163,7 @@ public class ShowRepositoryContextsPage extends WizardPage {
                     }
                     if (selectedItem != null) {
                         // reassign manager here since we select an exist context item
-                        currentWizard.setContextManager(new JobContextManager(selectedItem.getContext(), selectedItem
+                        currentWizard.setReuseContextManager(new JobContextManager(selectedItem.getContext(), selectedItem
                                 .getDefaultContext()));
                     }
                     updatePageComplete();

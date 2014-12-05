@@ -104,8 +104,9 @@ public class ContextModeSelectPage extends WizardPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+                ((ContextModeWizard) getWizard()).clearAdaptModels();
                 createContext = true;
-                ((ContextModeWizard) getWizard()).setCreateContext(createContext);
+                setModeFlag();
             }
 
         });
@@ -114,10 +115,14 @@ public class ContextModeSelectPage extends WizardPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 createContext = false;
-                ((ContextModeWizard) getWizard()).setCreateContext(createContext);
+                setModeFlag();
             }
 
         });
+    }
+
+    private void setModeFlag() {
+        ((ContextModeWizard) getWizard()).setCreateContext(createContext);
     }
 
     @Override

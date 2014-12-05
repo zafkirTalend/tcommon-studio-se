@@ -77,6 +77,11 @@ public class ContextModeWizard extends CheckLastVersionRepositoryWizard implemen
 
     private IContextManager contextManager;
 
+    /**
+     * this one base on contextManager keep the changeable context manager for reuse context
+     */
+    private IContextManager reuseContextManager;
+
     private Set<String> connectionVariables;
 
     private String originaleObjectLabel;
@@ -268,6 +273,7 @@ public class ContextModeWizard extends CheckLastVersionRepositoryWizard implemen
                 } else {
                     contextItem = contextModePage.getReuseItem();
                     contextItem.getContext().clear();
+                    contextManager = reuseContextManager;
                     contextManager.saveToEmf(contextItem.getContext());
                     contextItem.setDefaultContext(contextManager.getDefaultContext().getName());
                     if (contextManager instanceof JobContextManager) {
@@ -393,8 +399,16 @@ public class ContextModeWizard extends CheckLastVersionRepositoryWizard implemen
         return this.contextManager;
     }
 
+    public IContextManager getResueContextManager() {
+        return this.reuseContextManager;
+    }
+
     public void setContextManager(IContextManager contextManager) {
         this.contextManager = contextManager;
+    }
+
+    public void setReuseContextManager(IContextManager contextManager) {
+        this.reuseContextManager = contextManager;
     }
 
     public List<IWizardPage> getDynamicWizardPages() {
@@ -452,6 +466,10 @@ public class ContextModeWizard extends CheckLastVersionRepositoryWizard implemen
 
     public void setAdaptModels(List<ConectionAdaptContextVariableModel> adaptModels) {
         this.adaptModels = adaptModels;
+    }
+
+    public void clearAdaptModels() {
+        this.adaptModels.clear();
     }
 
     public boolean isCreateContext() {
