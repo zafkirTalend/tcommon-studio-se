@@ -111,6 +111,8 @@ public class ExtractMetaDataUtils {
 
     private final Map<String, DriverShim> DRIVER_CACHE = new HashMap<String, DriverShim>();
 
+    private boolean ignoreTimeout = false;
+
     private ExtractMetaDataUtils() {
     }
 
@@ -759,12 +761,34 @@ public class ExtractMetaDataUtils {
     public void setQueryStatementTimeout(Statement statement) {
         if (statement != null) {
             try {
-                statement.setQueryTimeout(getDBConnectionTimeout());
+                if (isIgnoreTimeout()) {
+                    statement.setQueryTimeout(0);
+                } else {
+                    statement.setQueryTimeout(getDBConnectionTimeout());
+                }
             } catch (SQLException e) {
                 // nothing, some db doesn't support the timeout
                 // no need to throw exception or this one will be throw all the time
             }
         }
+    }
+
+    /**
+     * Getter for ignoreTimeout.
+     * 
+     * @return the ignoreTimeout
+     */
+    public boolean isIgnoreTimeout() {
+        return this.ignoreTimeout;
+    }
+
+    /**
+     * Sets the ignoreTimeout.
+     * 
+     * @param ignoreTimeout the ignoreTimeout to set
+     */
+    public void setIgnoreTimeout(boolean ignoreTimeout) {
+        this.ignoreTimeout = ignoreTimeout;
     }
 
     /**
