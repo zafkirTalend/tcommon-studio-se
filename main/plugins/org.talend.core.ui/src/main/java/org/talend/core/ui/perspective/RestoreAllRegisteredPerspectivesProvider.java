@@ -122,7 +122,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
 
     /**
      * 
-     * DOC ggu Comment method "checkPerspectiveDisplayItems".
+     * DOC ggu Comment method "restoreAlwaysVisiblePerspectives".
      * 
      * Try to create the perspectives which are providered via extension point.
      */
@@ -191,7 +191,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
 
     /**
      * 
-     * DOC ggu Comment method "findAndCreatePerspective".
+     * DOC ggu Comment method "restorePerspective".
      * 
      * try to find and create the perspective. if the existed custom perspective, will use the custom one. won't create
      * original one.

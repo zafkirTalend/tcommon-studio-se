@@ -42,15 +42,12 @@ public class RestoreAllRegisteredPerspectivesStartupMonitor implements StartupMo
      * 
      * @see org.eclipse.osgi.service.runnable.StartupMonitor#applicationRunning()
      */
-    @SuppressWarnings("restriction")
     @Override
     public void applicationRunning() {
         if (!PlatformUI.isWorkbenchRunning()) { // if not running, nothing to do.
             return;
         }
         RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
-
-        IEclipseContext context = null;
 
         IWorkbench workbench = PlatformUI.getWorkbench();
         IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
