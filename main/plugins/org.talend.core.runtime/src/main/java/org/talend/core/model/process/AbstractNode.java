@@ -92,6 +92,11 @@ public abstract class AbstractNode implements INode {
 
     private List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
 
+    // for DI job, and indicate if the component after the iterator
+    // connection which enable parallel, even this component after
+    // onComponentOk
+    private String parallelIterator = null;
+
     // as the talend job contains multiple mapreduce jobs, use this to indicate
     // which mapreduce job contains this
     // graphic node
@@ -1200,5 +1205,23 @@ public abstract class AbstractNode implements INode {
      */
     public void setRefNode(boolean isRefNode) {
         this.isRefNode = isRefNode;
+    }
+
+    /**
+     * Getter for parallelIterator.
+     * 
+     * @return the parallelIterator
+     */
+    public String getParallelIterator() {
+        return parallelIterator;
+    }
+
+    /**
+     * Sets the parallelIterator.
+     * 
+     * @param parallelIterator the parallelIterator to set
+     */
+    public void setParallelIterator(String parallelIterator) {
+        this.parallelIterator = parallelIterator;
     }
 }
