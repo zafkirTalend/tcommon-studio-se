@@ -14,12 +14,6 @@ package routines.system;
 
 public class TalendThread extends Thread {
 
-    protected Object[] lockWrite;
-
-    public void assignLock(Object[] lockWrite) {
-        this.lockWrite = lockWrite;
-    }
-
     public TalendThreadPool talendThreadPool = null;
 
     public Integer errorCode = null;
