@@ -22,7 +22,7 @@ import org.eclipse.nebula.widgets.nattable.ui.util.CellEdgeEnum;
  */
 class ContextCellPainterDecorator extends CellPainterDecorator {
 
-    private ContextTextPainter baseCellPainter;
+    private ContextAutoResizeTextPainter baseCellPainter;
 
     private ICellPainter decoratorCellPainter;
 
@@ -35,7 +35,7 @@ class ContextCellPainterDecorator extends CellPainterDecorator {
      * @param cellEdge
      * @param decoratorCellPainter
      */
-    public ContextCellPainterDecorator(ContextTextPainter baseCellPainter, CellEdgeEnum cellEdge,
+    public ContextCellPainterDecorator(ContextAutoResizeTextPainter baseCellPainter, CellEdgeEnum cellEdge,
             ICellPainter decoratorCellPainter) {
         super(baseCellPainter, cellEdge, decoratorCellPainter);
         this.baseCellPainter = baseCellPainter;

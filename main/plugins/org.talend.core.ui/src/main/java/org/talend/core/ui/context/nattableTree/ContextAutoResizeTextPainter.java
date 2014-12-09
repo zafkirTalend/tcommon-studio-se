@@ -25,11 +25,11 @@ import org.eclipse.swt.graphics.Rectangle;
  * created by ldong on Jul 17, 2014 Detailled comment
  * 
  */
-public class ContextTextPainter extends TextPainter {
+public class ContextAutoResizeTextPainter extends TextPainter {
 
     private boolean changeBackgroundColor = false;
 
-    public ContextTextPainter(boolean wrapText, boolean paintBg, boolean calculate) {
+    public ContextAutoResizeTextPainter(boolean wrapText, boolean paintBg, boolean calculate) {
         super(wrapText, paintBg, calculate);
     }
 
@@ -50,5 +50,10 @@ public class ContextTextPainter extends TextPainter {
 
     public void setChangeBackgroundColor(boolean isChange) {
         changeBackgroundColor = isChange;
+    }
+
+    @Override
+    protected boolean performRowResize(int contentHeight, Rectangle rectangle) {
+        return (contentHeight != rectangle.height) && (this.calculateByTextHeight);
     }
 }

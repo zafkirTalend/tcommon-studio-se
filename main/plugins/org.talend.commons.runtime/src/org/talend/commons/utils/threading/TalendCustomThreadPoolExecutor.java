@@ -32,6 +32,11 @@ public class TalendCustomThreadPoolExecutor extends ThreadPoolExecutor {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 
+    public TalendCustomThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+            BlockingQueue<Runnable> workQueue, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, handler);
+    }
+
     public TalendCustomThreadPoolExecutor(int queueCapacity, RejectedExecutionHandler handler) {
         super(5, 10, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueCapacity), handler);
     }

@@ -30,6 +30,7 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.exception.WarningSQLException;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -51,6 +52,8 @@ public class ManagerConnection {
     private static Logger log = Logger.getLogger(ManagerConnection.class);
 
     private boolean isValide = false;
+
+    private Exception exception;
 
     String messageException = null;
 
@@ -162,8 +165,11 @@ public class ManagerConnection {
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
         } catch (Exception e) {
             isValide = false;
+            exception = e;
             messageException = ExceptionUtils.getFullStackTrace(e);
-            CommonExceptionHandler.process(e);
+            if (!(e instanceof WarningSQLException)) {
+                CommonExceptionHandler.process(e);
+            }
         }
         return isValide;
     }
@@ -259,7 +265,7 @@ public class ManagerConnection {
             // MOD xqliu 2012-01-05 TDQ-4162
             // get the real schema name
             String schemaName = schemaOracle;
-            if (EDatabaseTypeName.TERADATA.equals(type) || EDatabaseTypeName.IMPALA.equals(type)) {
+            if (isSchemaFromSidOrDatabase(type)) {
                 schemaName = sidOrDatabase;
             }
             // test the connection
@@ -271,6 +277,14 @@ public class ManagerConnection {
             log.error(Messages.getString("CommonWizard.exception") + "\n" + e.toString()); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return isValide;
+    }
+
+    public static boolean isSchemaFromSidOrDatabase(EDatabaseTypeName inType) {
+        if (EDatabaseTypeName.TERADATA.equals(inType) || EDatabaseTypeName.IMPALA.equals(inType)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean check(IMetadataConnection metadataConnection, boolean... onlyIfNeeded) {
@@ -350,6 +364,14 @@ public class ManagerConnection {
      */
     public boolean getIsValide() {
         return isValide;
+    }
+
+    public Exception getException() {
+        return this.exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
     }
 
     /**

@@ -24,9 +24,11 @@
             <dbType type="BIGINT" ignorePre="true" />
             <dbType type="BLOB" ignorePre="true" />
             <dbType type="BOOLEAN" ignorePre="true" />
+            <dbType type="TEXT" ignorePre="true" />
             <dbType type="UUID" ignorePre="true" />
             <dbType type="TIMEUUID" ignorePre="true" />
             <dbType type="VARINT" ignorePre="true" />
+            <dbType type="INT" ignorePre="true" />
             <dbType type="FLOAT" defaultLength="20" defaultPrecision="10" />
             <dbType type="DOUBLE" defaultLength="20" defaultPrecision="10" />
             <dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
@@ -60,7 +62,9 @@
                 </talendType>
                 <talendType type="id_Integer">
                     <dbType type="Int32Type" default="true" />
+                    <dbType type="IntegerType"/>
                     <dbType type="VARINT" />
+                    <dbType type="INT" />
                 </talendType>
                 <talendType type="id_Long">
                     <dbType type="LongType" default="true" />
@@ -70,7 +74,6 @@
                 </talendType>
                 <talendType type="id_Object">
                     <dbType type="ObjectType" default="true" />
-                    <dbType type="IntegerType" />
                     <dbType type="BLOB" />
                 </talendType>
                 <talendType type="id_Short" />
@@ -80,6 +83,7 @@
                     <dbType type="UUIDType" />
                     <dbType type="TimeUUIDType" />
                     <dbType type="ASCII" />
+                    <dbType type="TEXT" />
                     <dbType type="UUID" />
                     <dbType type="TIMEUUID" />
                 </talendType>
@@ -91,11 +95,14 @@
                 <dbType type="AsciiType">
                     <talendType type="id_String" default="true" />
                 </dbType>
+                <dbType type="TEXT">
+                    <talendType type="id_String" default="true" />
+                </dbType>
                 <dbType type="UTF8Type">
                     <talendType type="id_String" default="true" />
                 </dbType>
                 <dbType type="IntegerType">
-                    <talendType type="id_Object" default="true" />
+                    <talendType type="id_Integer" default="true" />
                 </dbType>
                 <dbType type="Int32Type">
                     <talendType type="id_Integer" default="true" />
@@ -150,6 +157,9 @@
                     <talendType type="id_String" default="true" />
                 </dbType>
                 <dbType type="VARINT">
+                    <talendType type="id_Integer" default="true" />
+                </dbType>
+                <dbType type="INT">
                     <talendType type="id_Integer" default="true" />
                 </dbType>
                 <dbType type="FLOAT">

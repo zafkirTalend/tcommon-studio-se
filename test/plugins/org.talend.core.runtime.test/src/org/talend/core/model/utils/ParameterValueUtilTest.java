@@ -259,7 +259,7 @@ public class ParameterValueUtilTest {
         // expectString : "select * from " + context.table + "where id = " + getId(global.getHeader(context.header,
         // "CONTEXT_IDS") + "CONTEXT_IDS", context.p2, "CONTEXT_IDS")
         testString = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_ID\\\\\\\"\") + \"\\\"CONTEXT_ID\", context.p2, \"CONTEXT_ID\")";
-        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_IDS\\\\\\\"\") + \"\\\"CONTEXT_IDS\", context.p2, \"CONTEXT_IDS\")";
+        expectRetValue = "\"select * from \" + context.table + \"where id = \" + getId(global.getHeader(context.header, \"\\\"CONTEXT_ID\\\\\\\"\") + \"\\\"CONTEXT_ID\", context.p2, \"CONTEXT_IDS\")";
         retValue = ParameterValueUtil.splitQueryData("CONTEXT_ID", "CONTEXT_IDS", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -320,7 +320,7 @@ public class ParameterValueUtilTest {
         // CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, "\"CONTEXT_ID1\"\\" + CONTEXT_ID1, CONTEXT_ID1, "CONTEXT_ID1") +
         // "CONTEXT_ID1", CONTEXT_ID(ID, "CONTEXT_ID1"), "CONTEXT_ID1")
         testString = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID.b + CONTEXT_ID + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID, \"\\\"CONTEXT_ID\\\"\\\\\" + CONTEXT_ID, CONTEXT_ID, \"CONTEXT_ID\") + \"CONTEXT_ID\", CONTEXT_ID(ID, \"CONTEXT_ID\"), \"CONTEXT_ID\")";
-        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID1.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID1\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
+        expectRetValue = "\"select * from \" + a.CONTEXT_ID + CONTEXT_ID1.b + CONTEXT_ID1 + \"where id = \" + CONTEXT_ID(CONTEXT_ID(CONTEXT_ID1, \"\\\"CONTEXT_ID\\\"\\\\\" + CONTEXT_ID1, CONTEXT_ID1, \"CONTEXT_ID1\") + \"CONTEXT_ID1\", CONTEXT_ID(ID, \"CONTEXT_ID1\"), \"CONTEXT_ID1\")";
         retValue = ParameterValueUtil.splitQueryData("CONTEXT_ID", "CONTEXT_ID1", testString);
         Assert.assertTrue("testSplitQueryDataCase_" + i++, expectRetValue.equals(retValue));
 
@@ -436,6 +436,22 @@ public class ParameterValueUtilTest {
         resultValue = ParameterValueUtil.renameValues(testString, "tFileList_1", "tFileList_2", true);
         Assert.assertTrue(expectedValue.equals(resultValue));
 
+    }
+
+    @Test
+    public void testRenameValues4FunctionsExceptGlobalMap() {
+        String testString = "\"Hello \" + context.getProperty(\"World\") + property.get(\"World\") + globalMap.get(\"World\") + context.getProperty(\"World2\") + property.get(\"World2\") + globalMap.get(\"World2\")";
+        String expectedValue = "\"Hello \" + context.getProperty(\"World1\") + property.get(\"World1\") + globalMap.get(\"World1\") + context.getProperty(\"World2\") + property.get(\"World2\") + globalMap.get(\"World12\")";
+        String resultValue = ParameterValueUtil.renameValues(testString, "World", "World1", false);
+        Assert.assertTrue(expectedValue.equals(resultValue));
+    }
+
+    @Test
+    public void testRenameValues4ComplexFunctions() {
+        String testString = "var1.function1.getProperty(\"key\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key\"))), var1.globalMap.get(\"key\"))) + var1.function1.getProperty(\"key1\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key1\"))), var1.globalMap.get(var1.function3().globalMap.get() + \"key1\", \"key1\", var1.function4(\"key1\", globalMap.put(key, \"key1\")), var1.function5(globalMap.put(key.key.key.getProperty(getProperty(\"key1\")), key1))), var1.globalMap.get(\"key1\"))) + var1.function1.getProperty(\"key2\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"key2\"))), var1.globalMap.get(\"key2\")))";
+        String expectedValue = "var1.function1.getProperty(\"k\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k\"))), var1.globalMap.get(\"k\"))) + var1.function1.getProperty(\"key1\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k1\"))), var1.globalMap.get(var1.function3().globalMap.get() + \"key1\", \"key1\", var1.function4(\"key1\", globalMap.put(k, \"k1\")), var1.function5(globalMap.put(k.key.key.getProperty(getProperty(\"key1\")), key1))), var1.globalMap.get(\"key1\"))) + var1.function1.getProperty(\"key2\", var1.function2.getProperty(globalMap.get(var1.globalMap.get(globalMap.get(\"k2\"))), var1.globalMap.get(\"key2\")))";
+        String resultValue = ParameterValueUtil.renameValues(testString, "key", "k", false);
+        Assert.assertTrue(expectedValue.equals(resultValue));
     }
 
     @Test
@@ -747,13 +763,13 @@ public class ParameterValueUtilTest {
         // TDI-30227
 
         String decryptPassword1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
-        String decryptPassword2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        String decryptPassword2 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("pr", decryptPassword1);
         Assert.assertEquals("EL3F4nt3", decryptPassword2);
 
         // redo again.
         decryptPassword1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
-        decryptPassword2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptPassword2 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("pr", decryptPassword1);
         Assert.assertEquals("EL3F4nt3", decryptPassword2);
     }
@@ -763,15 +779,15 @@ public class ParameterValueUtilTest {
         // TDI-30227
 
         String encryptPassword1 = PasswordEncryptUtil.encryptPassword("123");
-        String encryptPassword2 = CryptoHelper.DEFAULT.encrypt("123");
+        String encryptPassword2 = CryptoHelper.getDefault().encrypt("123");
         Assert.assertEquals("123", PasswordEncryptUtil.decryptPassword(encryptPassword1));
-        Assert.assertEquals("123", CryptoHelper.DEFAULT.decrypt(encryptPassword2));
+        Assert.assertEquals("123", CryptoHelper.getDefault().decrypt(encryptPassword2));
 
         // redo again.
         encryptPassword1 = PasswordEncryptUtil.encryptPassword("123");
-        encryptPassword2 = CryptoHelper.DEFAULT.encrypt("123");
+        encryptPassword2 = CryptoHelper.getDefault().encrypt("123");
         Assert.assertEquals("123", PasswordEncryptUtil.decryptPassword(encryptPassword1));
-        Assert.assertEquals("123", CryptoHelper.DEFAULT.decrypt(encryptPassword2));
+        Assert.assertEquals("123", CryptoHelper.getDefault().decrypt(encryptPassword2));
 
     }
 
@@ -780,29 +796,29 @@ public class ParameterValueUtilTest {
         // TDI-30227
 
         String decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
-        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
-        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        String decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        String decryptValue3 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("pr", decryptValue1);
         Assert.assertEquals("aiXea2Va", decryptValue2);
         Assert.assertEquals("EL3F4nt3", decryptValue3);
 
         decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
-        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
-        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue3 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("pr", decryptValue1);
         Assert.assertEquals("aiXea2Va", decryptValue2);
         Assert.assertEquals("EL3F4nt3", decryptValue3);
 
-        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
-        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue3 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
         Assert.assertEquals("pr", decryptValue1);
         Assert.assertEquals("aiXea2Va", decryptValue2);
         Assert.assertEquals("EL3F4nt3", decryptValue3);
 
-        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
         decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
-        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptValue3 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("pr", decryptValue1);
         Assert.assertEquals("aiXea2Va", decryptValue2);
         Assert.assertEquals("EL3F4nt3", decryptValue3);
@@ -834,7 +850,7 @@ public class ParameterValueUtilTest {
             public void run() {
                 // "Oracle_notworkingLinux.item", "HiV5kR+6mPKhnI5NbYbw/Q=="
                 String testEncryptionValue2 = "HiV5kR+6mPKhnI5NbYbw/Q==";
-                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                String decryptValue2 = CryptoHelper.getDefault().decrypt(testEncryptionValue2);
                 Assert.assertNotNull(decryptValue2);
                 Assert.assertEquals("aiXea2Va", decryptValue2);
             }
@@ -847,7 +863,7 @@ public class ParameterValueUtilTest {
             public void run() {
                 // "Oracle_workingWindows.item", "+ZE8yV1ehYi0jSmx94/wVA=="
                 String testEncryptionValue2 = "+ZE8yV1ehYi0jSmx94/wVA==";
-                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                String decryptValue2 = CryptoHelper.getDefault().decrypt(testEncryptionValue2);
                 Assert.assertNotNull(decryptValue2);
                 Assert.assertEquals("EL3F4nt3", decryptValue2);
             }
@@ -885,7 +901,7 @@ public class ParameterValueUtilTest {
             public void run() {
                 // "Oracle_notworkingLinux.item", "HiV5kR+6mPKhnI5NbYbw/Q=="
                 String testEncryptionValue2 = "HiV5kR+6mPKhnI5NbYbw/Q==";
-                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                String decryptValue2 = CryptoHelper.getDefault().decrypt(testEncryptionValue2);
                 Assert.assertNotNull(decryptValue2);
                 Assert.assertEquals("aiXea2Va", decryptValue2);
             }
@@ -898,7 +914,7 @@ public class ParameterValueUtilTest {
             public void run() {
                 // "Oracle_workingWindows.item", "+ZE8yV1ehYi0jSmx94/wVA=="
                 String testEncryptionValue2 = "+ZE8yV1ehYi0jSmx94/wVA==";
-                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                String decryptValue2 = CryptoHelper.getDefault().decrypt(testEncryptionValue2);
                 Assert.assertNotNull(decryptValue2);
                 Assert.assertEquals("EL3F4nt3", decryptValue2);
             }
@@ -918,10 +934,11 @@ public class ParameterValueUtilTest {
      */
     @Test
     public void testTDI30227_NewDecryption4OldValue1() {
-        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        String decryptValue1 = CryptoHelper.getDefault().decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old
+                                                                                  // one.
         Assert.assertNull(decryptValue1);
 
-        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        String decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
         /*
          * Because use the new decryption to decrypt the old encrypted value, will cause this problem. don't know what's
          * happen and why, need find one way to fix maybe. even thought, now all password have be unified for
@@ -933,30 +950,32 @@ public class ParameterValueUtilTest {
 
     @Test
     public void testTDI30227_NewDecryption4OldValue2() {
-        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        String decryptValue1 = CryptoHelper.getDefault().decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old
+                                                                                  // one.
         Assert.assertNull(decryptValue1);
 
-        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        String decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
         // FIXM, ??????? will be failied first time for messy characters.
         // Assert.assertEquals("aiXea2Va", decryptValue2);
 
         // redo
-        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue2 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
         Assert.assertEquals("aiXea2Va", decryptValue2); // now it's ok
     }
 
     @Test
     public void testTDI30227_NewDecryption4OldValue3() {
-        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        String decryptValue1 = CryptoHelper.getDefault().decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old
+                                                                                  // one.
         Assert.assertNull(decryptValue1);
 
-        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        String decryptValue2 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         // FIXM, ??????? will be failied first time
         // Assert.assertEquals("EL3F4nt3", decryptValue2); // same as testTDI30227_NewDecryption4OldValue2, will be
         // messy characters
 
         // redo
-        decryptValue2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptValue2 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertEquals("EL3F4nt3", decryptValue2); // now it's ok
     }
 
@@ -978,7 +997,7 @@ public class ParameterValueUtilTest {
             // e.printStackTrace();
         }
 
-        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        String decryptValue3 = CryptoHelper.getDefault().decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
         Assert.assertNotNull(decryptValue3);
         Assert.assertEquals("aiXea2Va", decryptValue3);
     }
@@ -1003,7 +1022,7 @@ public class ParameterValueUtilTest {
             // e.printStackTrace();
         }
 
-        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        String decryptValue3 = CryptoHelper.getDefault().decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
         Assert.assertNotNull(decryptValue3);
         Assert.assertEquals("EL3F4nt3", decryptValue3);
     }

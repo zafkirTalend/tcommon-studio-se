@@ -279,7 +279,7 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
 
     public String getRawValue() {
         if (value != null && value.length() > 0 && PasswordEncryptUtil.isPasswordField(getField())) {
-            String decrypt = CryptoHelper.DEFAULT.decrypt(value);
+            String decrypt = CryptoHelper.getDefault().decrypt(value);
             if (decrypt != null) {
                 return decrypt;
             }
@@ -303,7 +303,7 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
 
     public void setRawValue(String newValue) {
         if (newValue != null && newValue.length() > 0 && PasswordEncryptUtil.isPasswordField(getField())) {
-            String encryptValue = CryptoHelper.DEFAULT.encrypt(newValue);
+            String encryptValue = CryptoHelper.getDefault().encrypt(newValue);
             if (encryptValue != null) {
                 setValue(encryptValue);
                 return;

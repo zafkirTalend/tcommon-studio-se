@@ -1069,7 +1069,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getDecryptPassword(String password) {
-        return CryptoHelper.DEFAULT.decrypt(password);
+        return CryptoHelper.getDefault().decrypt(password);
     }
 
     /**
@@ -1079,7 +1079,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getEncryptPassword(String password) {
-        return CryptoHelper.DEFAULT.encrypt(password);
+        return CryptoHelper.getDefault().encrypt(password);
     }
 
     /**

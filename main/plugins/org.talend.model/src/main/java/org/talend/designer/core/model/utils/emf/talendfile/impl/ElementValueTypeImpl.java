@@ -142,7 +142,7 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     public String getRawValue() {
         if (value != null && value.length() > 0) {
-            String decrypt = CryptoHelper.DEFAULT.decrypt(value);
+            String decrypt = CryptoHelper.getDefault().decrypt(value);
             if (decrypt != null) {
                 return decrypt;
             }
@@ -165,7 +165,7 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     public void setValue(String value, boolean encrypt) {
         if (encrypt && value != null && value.length() > 0) {
-            String encryptValue = CryptoHelper.DEFAULT.encrypt(value);
+            String encryptValue = CryptoHelper.getDefault().encrypt(value);
             if (encryptValue != null) {
                 setValue(encryptValue);
                 return;

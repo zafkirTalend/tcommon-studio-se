@@ -89,6 +89,7 @@ import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
+import org.talend.core.ui.context.nattableTree.ContextAutoResizeTextPainter;
 import org.talend.core.ui.context.nattableTree.ContextColumnGroupConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextColumnHeaderDecorator;
 import org.talend.core.ui.context.nattableTree.ContextNatTableBackGroudPainter;
@@ -97,7 +98,6 @@ import org.talend.core.ui.context.nattableTree.ContextNatTableStyleConfiguration
 import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
 import org.talend.core.ui.context.nattableTree.ContextParaModeChangeMenuConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextRowDataListFixture;
-import org.talend.core.ui.context.nattableTree.ContextTextPainter;
 import org.talend.core.ui.context.nattableTree.ExtendedContextColumnPropertyAccessor;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
@@ -505,8 +505,8 @@ public class ContextTreeTable {
     private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
             ColumnGroupModel groupModel, IContextManager contextManager) {
         ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
-        natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false, false),
-                bodyDataProvider);
+        natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextAutoResizeTextPainter(false, false,
+                true), bodyDataProvider);
 
         natTable.addConfiguration(natTableConfiguration);
         natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, contextManager));

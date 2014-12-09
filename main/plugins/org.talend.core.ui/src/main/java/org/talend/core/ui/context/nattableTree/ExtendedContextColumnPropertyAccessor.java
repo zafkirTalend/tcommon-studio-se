@@ -347,7 +347,7 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                 param.setPromptNeeded((Boolean) newValue);
                 modified = true;
             } else if (property.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
-                if (param.getPrompt().equals(newValue)) {
+                if (param.getPrompt() != null && param.getPrompt().equals(newValue)) {
                     return;
                 }
                 oldValue = param.getPrompt();
@@ -358,10 +358,10 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                     return;
                 }
                 oldValue = param.getValue();
-                if (newValue != null) {
-                    param.setValue((String) newValue);
-                    modified = true;
-                }
+                // if (newValue != null) {
+                param.setValue(newValue == null ? "" : (String) newValue);
+                modified = true;
+                // }
             }
             if (modified) {
                 updateRelation();

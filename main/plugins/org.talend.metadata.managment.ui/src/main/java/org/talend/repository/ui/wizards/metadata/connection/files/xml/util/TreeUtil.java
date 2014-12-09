@@ -440,7 +440,7 @@ public class TreeUtil {
 
     public static List<FOXTreeNode> getFoxTreeNodes(String filePath) {
         List<FOXTreeNode> list = new ArrayList<FOXTreeNode>();
-        if (filePath == null) {
+        if (filePath == null || filePath.length() <= 0) {
             return list;
         }
 

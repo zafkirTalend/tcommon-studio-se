@@ -271,7 +271,7 @@ public enum HiveConnVersionInfo {
 
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
             HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.HDP_2_1,
-            HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0 };
+            HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR };
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {

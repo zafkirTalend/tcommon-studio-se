@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
@@ -27,6 +29,7 @@ import org.talend.commons.utils.system.EnvironmentUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.exception.WarningSQLException;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
@@ -121,11 +124,11 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
         boolean isWindows = EnvironmentUtils.isWindowsSystem();
         String hive_version = (String) this.metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
 
-        boolean isSupportEmbedded = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsNotSupportOnWindows(),
+        boolean isNotSupportEmbedded = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsNotSupportOnWindows(),
                 HiveConnVersionInfo.getVersionByKey(hive_version));
 
-        if (isWindows && isSupportEmbedded) {
-            throw new SQLException("Function not supported on windows"); //$NON-NLS-1$ 
+        if (isWindows && isNotSupportEmbedded) {
+            throw new WarningSQLException(Messages.getString("EmbeddedHiveDataBaseMetadata.functionNotSupportMessage")); //$NON-NLS-1$ 
         }
         getTables(this.metadataConn.getDatabase(), null, null, new String[] { "TABLE", "VIEW", "SYSTEM_TABLE" }); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ 
         return true;

@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.context;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.talend.commons.exception.ExceptionHandler;
@@ -50,6 +52,12 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * DOC ggu class global comment. Detailled comment
  */
 public class ContextUtils {
+    
+    private static final Set<String> JAVA_KEYWORDS = new HashSet<String>(Arrays.asList("abstract", "continue", "for", "new", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            "switch", "assert", "default", "goto", "package", "synchronized", "boolean", "do", "if", "private", "this", "break", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
+            "double", "implements", "protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+            "instanceof", "return", "transient", "catch", "extends", "int", "short", "try", "char", "final", "interface", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+            "static", "void", "class", "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
 
     /**
      * 
@@ -57,10 +65,14 @@ public class ContextUtils {
      * 
      */
     public static boolean isJavaKeyWords(final String name) {
-        IStatus status = JavaConventions.validateFieldName(name, JavaCore.getOption(JavaCore.COMPILER_SOURCE),
-                JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE));
-        if (status.getSeverity() == IStatus.ERROR) {
-            return true;
+        if (Platform.isRunning()) {
+            IStatus status = JavaConventions.validateFieldName(name, JavaCore.getOption(JavaCore.COMPILER_SOURCE),
+                    JavaCore.getOption(JavaCore.COMPILER_COMPLIANCE));
+            if (status.getSeverity() == IStatus.ERROR) {
+                return true;
+            }
+        } else {// MOD sizhaoliu TDQ-9679 avoid calling JavaCore class when this method is called in components
+            return name == null ? false : JAVA_KEYWORDS.contains(name.toLowerCase());
         }
         return false;
     }

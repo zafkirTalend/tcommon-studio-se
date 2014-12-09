@@ -60,10 +60,10 @@ public class ContextValuesNatText extends Composite {
 
     private NatTableCellEditorFactory cellFactory;
 
-    /**
-     * Flag to determine whether the text is on focus or lost.
-     */
-    private boolean focusLostActive = false;
+    // /**
+    // * Flag to determine whether the text is on focus or lost.
+    // */
+    // private boolean focusLostActive = false;
 
     private List<FocusListener> focusListener = new ArrayList<FocusListener>();
 
@@ -203,24 +203,24 @@ public class ContextValuesNatText extends Composite {
      * 
      * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
      */
-    @Override
-    public void removeFocusListener(final FocusListener listener) {
-        if (focusLostActive) {
-            try {
-                new Thread() {
-
-                    @Override
-                    public void run() {
-                        focusListener.remove(listener);
-                    };
-                }.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } else {
-            focusListener.remove(listener);
-        }
-    }
+    // @Override
+    // public void removeFocusListener(final FocusListener listener) {
+    // if (focusLostActive) {
+    // try {
+    // new Thread() {
+    //
+    // @Override
+    // public void run() {
+    // focusListener.remove(listener);
+    // };
+    // }.join();
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // } else {
+    // focusListener.remove(listener);
+    // }
+    // }
 
     /**
      * Transforms the subDialog's result.
@@ -247,5 +247,23 @@ public class ContextValuesNatText extends Composite {
         String result = "";
         result = getTransformedSelection(focusOnText);
         return result;
+    }
+
+    /**
+     * Getter for text.
+     * 
+     * @return the text
+     */
+    public Text getText() {
+        return this.text;
+    }
+
+    /**
+     * Getter for button.
+     * 
+     * @return the button
+     */
+    public Button getButton() {
+        return this.button;
     }
 }

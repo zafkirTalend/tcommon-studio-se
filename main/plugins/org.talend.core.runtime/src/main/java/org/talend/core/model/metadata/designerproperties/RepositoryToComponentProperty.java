@@ -399,7 +399,11 @@ public class RepositoryToComponentProperty {
                 Map<String, Object> map = new HashMap<String, Object>();
                 if (property.getPropertyName() != null && !"".equals(property.getPropertyName())) {
                     map.put("PROPERTY", TalendQuoteUtils.addQuotes(property.getPropertyName()));//$NON-NLS-1$
-                    map.put("VALUE", TalendQuoteUtils.addQuotes(property.getValue()));//$NON-NLS-1$                   
+                    if (isContextMode(connection, property.getValue())) {
+                        map.put("VALUE", property.getValue());//$NON-NLS-1$  
+                    } else {
+                        map.put("VALUE", TalendQuoteUtils.addQuotes(property.getValue()));//$NON-NLS-1$   
+                    }
                     values.add(map);
                 }
             }
@@ -485,15 +489,21 @@ public class RepositoryToComponentProperty {
                 return "CustomModule"; //$NON-NLS-1$
             } else {
                 if (table != null) {
-                    EList<SalesforceModuleUnit> moduleList = connection.getModules();
-                    for (SalesforceModuleUnit unit : moduleList) {
-                        if (table.getLabel().equals(unit.getModuleName())) {
-                            return unit.getModuleName();
-                        }
+                    SalesforceModuleUnit currentUnit = getSaleforceModuleUnitByTable(table, connection.getModules());
+                    if (currentUnit != null) {
+                        return currentUnit.getModuleName();
                     }
                 }
                 return connection.getModuleName();
             }
+        } else if ("CUSTOM_MODULE_NAME".equals(value)) { //$NON-NLS-1$
+            if (table != null) {
+                SalesforceModuleUnit currentUnit = getSaleforceModuleUnitByTable(table, connection.getModules());
+                if (currentUnit != null) {
+                    return TalendQuoteUtils.addQuotes(currentUnit.getModuleName());
+                }
+            }
+            return TalendQuoteUtils.addQuotes(connection.getModuleName());
         } else if ("QUERY_CONDITION".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getQueryCondition())) {
                 return connection.getQueryCondition();
@@ -576,6 +586,15 @@ public class RepositoryToComponentProperty {
                 } else {
                     return "OAUTH";
                 }
+            }
+        }
+        return null;
+    }
+
+    private static SalesforceModuleUnit getSaleforceModuleUnitByTable(IMetadataTable table, EList<SalesforceModuleUnit> moduleList) {
+        for (SalesforceModuleUnit unit : moduleList) {
+            if (table.getLabel().equals(unit.getModuleName())) {
+                return unit;
             }
         }
         return null;

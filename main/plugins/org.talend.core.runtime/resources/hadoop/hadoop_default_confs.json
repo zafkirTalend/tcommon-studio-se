@@ -109,7 +109,7 @@
                 "PORT": 9083
             },
             "STANDALONE": {
-                "PORT": 10000
+                "PORT": 10004
             },
             "DATABASE": "default",
             "HIVE_PRINCIPAL": "hive/_HOST@EXAMPLE.COM"
@@ -133,7 +133,7 @@
             "HIVE_PRINCIPAL": "hive/_HOST@EXAMPLE.COM"
         },
         "HBASE": {
-            "PORT": 5181
+            "PORT": 2181
         }
     },
     "CUSTOM": {
