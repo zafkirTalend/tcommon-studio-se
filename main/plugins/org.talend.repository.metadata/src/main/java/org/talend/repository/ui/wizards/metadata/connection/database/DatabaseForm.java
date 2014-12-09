@@ -5005,7 +5005,8 @@ public class DatabaseForm extends AbstractForm {
             hiveServerVersionCombo.select(HiveServerVersionUtils.getIndexofHiveServerByKey(hiveServerKey));
         }
         int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
-        updateHiveModeAndMakeSelection(distributionIndex, hiveVersionIndex, 0, hiveServerIndex);
+        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+        updateHiveModeAndMakeSelection(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
     }
 
     protected String getHiveModeKey() {
