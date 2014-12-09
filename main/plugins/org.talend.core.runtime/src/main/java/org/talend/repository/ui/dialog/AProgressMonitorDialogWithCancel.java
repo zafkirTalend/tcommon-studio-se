@@ -109,7 +109,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
         }
     }
 
-    public Exception getExecuteException() {
+    public Throwable getExecuteException() {
         if (runnableWithCancel != null) {
             return runnableWithCancel.getExecuteException();
         } else {
@@ -127,7 +127,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
 
         protected T executeResult;
 
-        protected Exception executeException;
+        protected Throwable executeException;
 
         protected String executeMessage = Messages.getString("ProgressMonitorDialogWithCancel.executeMessage.default"); //$NON-NLS-1$
 
@@ -143,7 +143,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
         public ARunnableWithProgressCancel() {
         }
 
-        abstract protected T runnableWithCancel(IProgressMonitor monitor) throws Exception;
+        abstract protected T runnableWithCancel(IProgressMonitor monitor) throws Throwable;
 
         /*
          * (non-Javadoc)
@@ -159,7 +159,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
                     T result = null;
                     try {
                         result = runnableWithCancel(monitor);
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         executeException = e;
                     }
                     return result;
@@ -248,7 +248,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
             return executeResult;
         }
 
-        public Exception getExecuteException() {
+        public Throwable getExecuteException() {
             return executeException;
         }
 
