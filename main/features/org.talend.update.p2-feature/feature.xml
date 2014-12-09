@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.talend.update.p2_feature"
+      id="org.talend.update.p2-feature"
       label="P2-feature"
       version="6.0.0.qualifier">
 
