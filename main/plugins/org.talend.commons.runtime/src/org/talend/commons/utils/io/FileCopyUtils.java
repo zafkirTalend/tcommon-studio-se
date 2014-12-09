@@ -95,35 +95,48 @@ public class FileCopyUtils {
 
     public static void copyFolder(File resFolder, File destFolder) {
         try {
-            if (!resFolder.exists()) {
-                return;
-            }
-            destFolder.mkdirs();
-            String[] file = resFolder.list();
-            File temp = null;
-            for (String element : file) {
-                temp = new File(resFolder, element);
-
-                if (temp.isFile()) {
-                    FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(new File(destFolder, temp.getName()));
-                    byte[] b = new byte[1024 * 5];
-                    int len;
-                    while ((len = input.read(b)) != -1) {
-                        output.write(b, 0, len);
-                    }
-                    output.flush();
-                    output.close();
-                    input.close();
-                }
-                if (temp.isDirectory()) {
-                    copyFolder(new File(resFolder, element), new File(destFolder, element));
-                }
-            }
+            copyFolder(resFolder, destFolder, false);
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-
     }
 
+    public static void copyFolder(File resFolder, File destFolder, boolean interruptable) throws Exception {
+        Thread currentThread = Thread.currentThread();
+        if (interruptable && currentThread.isInterrupted()) {
+            throw new InterruptedException();
+        }
+        if (!resFolder.exists()) {
+            return;
+        }
+        destFolder.mkdirs();
+        String[] file = resFolder.list();
+        File temp = null;
+        for (String element : file) {
+            if (interruptable && currentThread.isInterrupted()) {
+                throw new InterruptedException();
+            }
+            temp = new File(resFolder, element);
+
+            if (temp.isFile()) {
+                FileInputStream input = new FileInputStream(temp);
+                FileOutputStream output = new FileOutputStream(new File(destFolder, temp.getName()));
+                byte[] b = new byte[1024 * 5];
+                int len;
+                while ((len = input.read(b)) != -1) {
+                    if (interruptable && currentThread.isInterrupted()) {
+                        break;
+                    }
+                    output.write(b, 0, len);
+                }
+                output.flush();
+                output.close();
+                input.close();
+            }
+            if (temp.isDirectory()) {
+                copyFolder(new File(resFolder, element), new File(destFolder, element));
+            }
+        }
+
+    }
 }
