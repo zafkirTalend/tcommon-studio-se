@@ -32,6 +32,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
@@ -95,6 +96,11 @@ public class FileResourcesUnityManager extends FilesManager {
 
     @SuppressWarnings("restriction")
     public ResourcesManager doUnify() throws TarException, ZipException, FileNotFoundException, IOException {
+        return doUnify(false);
+    }
+
+    @SuppressWarnings("restriction")
+    public ResourcesManager doUnify(boolean interruptable) throws TarException, ZipException, FileNotFoundException, IOException {
         final File originalFile = getOriginalFileResouce();
         Assert.isNotNull(originalFile);
         final String absolutePath = originalFile.getAbsolutePath();
@@ -105,8 +111,12 @@ public class FileResourcesUnityManager extends FilesManager {
         final File tmpWorkFolder = getTmpResWorkFolder();
 
         if (originalFile.isDirectory()) {
-            // copy the resouce files to temp folder.
-            FileCopyUtils.copyFolder(originalFile, tmpWorkFolder);
+            try {
+                // copy the resouce files to temp folder.
+                FileCopyUtils.copyFolder(originalFile, tmpWorkFolder, interruptable);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
 
         } else if (originalFile.isFile()) {
             this.isArchiveFile = true;
@@ -131,7 +141,7 @@ public class FileResourcesUnityManager extends FilesManager {
                     throw new IOException("Collect files failure.");
                 }
                 try {
-                    decompress(archiveProviderManager, tmpWorkFolder);
+                    decompress(archiveProviderManager, tmpWorkFolder, interruptable);
                 } finally {
                     if (archiveProviderManager != null) {
                         archiveProviderManager.closeResource();
@@ -139,35 +149,45 @@ public class FileResourcesUnityManager extends FilesManager {
                 }
             }
         }
-        collectPath2Object(tmpWorkFolder);
+        collectPath2Object(tmpWorkFolder, interruptable);
         return this;
     }
 
-    private void decompress(ResourcesManager srcManager, File destRootFolder) throws IOException {
+    private void decompress(ResourcesManager srcManager, File destRootFolder, boolean interrupable) throws IOException {
         Set<IPath> paths = srcManager.getPaths();
-        for (IPath path : paths) {
-            InputStream bis = srcManager.getStream(path);
-            File destFile = new File(destRootFolder, path.toPortableString());
-            File parentFile = destFile.getParentFile();
-            if (!parentFile.exists()) {
-                parentFile.mkdirs();
-            }
-            BufferedOutputStream bos = null;
-            try {
-                bos = new BufferedOutputStream(new FileOutputStream(destFile), BUFFER_SIZE);
-                int count;
-                byte data[] = new byte[BUFFER_SIZE];
-                while ((count = bis.read(data, 0, BUFFER_SIZE)) != -1) {
-                    bos.write(data, 0, count);
+        Thread currentThread = Thread.currentThread();
+        try {
+            for (IPath path : paths) {
+                if (interrupable && currentThread.isInterrupted()) {
+                    throw new InterruptedException();
                 }
-            } finally {
-                if (bos != null) {
-                    bos.flush();
-                    bos.close();
+                InputStream bis = srcManager.getStream(path);
+                File destFile = new File(destRootFolder, path.toPortableString());
+                File parentFile = destFile.getParentFile();
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();
                 }
-                bis.close();
+                BufferedOutputStream bos = null;
+                try {
+                    bos = new BufferedOutputStream(new FileOutputStream(destFile), BUFFER_SIZE);
+                    int count;
+                    byte data[] = new byte[BUFFER_SIZE];
+                    while ((count = bis.read(data, 0, BUFFER_SIZE)) != -1) {
+                        if (interrupable && currentThread.isInterrupted()) {
+                            break;
+                        }
+                        bos.write(data, 0, count);
+                    }
+                } finally {
+                    if (bos != null) {
+                        bos.flush();
+                        bos.close();
+                    }
+                    bis.close();
+                }
             }
-
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
         }
     }
 }
