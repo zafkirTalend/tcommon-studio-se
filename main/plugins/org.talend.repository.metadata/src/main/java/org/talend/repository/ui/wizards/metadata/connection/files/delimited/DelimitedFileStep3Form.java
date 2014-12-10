@@ -44,8 +44,8 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
 import org.talend.repository.metadata.i18n.Messages;

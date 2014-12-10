@@ -20,11 +20,11 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
-import org.talend.core.model.components.ComponentPaletteUtilities;
 import org.talend.core.service.ICoreUIService;
-import org.talend.core.service.IRulesProviderService;
 import org.talend.core.ui.actions.ActionsHelper;
-import org.talend.repository.model.ComponentsFactoryProvider;
+import org.talend.core.ui.component.ComponentPaletteUtilities;
+import org.talend.core.ui.component.ComponentsFactoryProvider;
+import org.talend.core.ui.services.IRulesProviderService;
 
 /**
  * DOC ggu class global comment. Detailled comment

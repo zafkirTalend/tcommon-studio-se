@@ -27,7 +27,7 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditor
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
-import org.talend.core.ui.targetschema.editor.XmlExtractorLoopModel;
+import org.talend.core.ui.metadata.editor.XmlExtractorLoopModel;
 import org.talend.repository.metadata.i18n.Messages;
 
 /**

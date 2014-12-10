@@ -70,13 +70,13 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ResourceModelUtils;
-import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.dialog.RootNodeSelectDialog;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
@@ -84,6 +84,7 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
+
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 

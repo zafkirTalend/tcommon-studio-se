@@ -49,13 +49,13 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataToolHelper;
-import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
+import org.talend.core.ui.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**

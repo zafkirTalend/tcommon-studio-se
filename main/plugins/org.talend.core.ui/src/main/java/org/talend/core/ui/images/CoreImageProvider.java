@@ -23,8 +23,8 @@ import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * amaumont class global comment. Detailled comment <br/>

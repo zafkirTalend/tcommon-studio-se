@@ -39,9 +39,9 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.ui.context.ContextComposite;
+import org.talend.core.ui.editor.JobEditorInput;
 import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl;
 import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextTypeImpl;
-import org.talend.repository.editor.JobEditorInput;
 import org.talend.repository.model.RepositoryNode;
 
 /**

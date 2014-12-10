@@ -73,11 +73,11 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
@@ -94,6 +94,7 @@ import org.talend.salesforce.SforceManagementImpl;
 import org.talend.salesforce.SforceSessionConnection;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
+
 import orgomg.cwm.objectmodel.core.CoreFactory;
 
 import com.salesforce.soap.partner.DescribeGlobalSObjectResult;

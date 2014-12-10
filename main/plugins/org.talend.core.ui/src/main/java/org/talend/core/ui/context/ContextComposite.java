@@ -30,11 +30,11 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess2;
-import org.talend.designer.core.ui.editor.cmd.ContextAddParameterCommand;
-import org.talend.designer.core.ui.editor.cmd.ContextChangeDefaultCommand;
-import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
-import org.talend.designer.core.ui.editor.cmd.ContextRenameParameterCommand;
-import org.talend.designer.core.ui.editor.cmd.ContextTemplateModifyCommand;
+import org.talend.core.ui.editor.command.ContextAddParameterCommand;
+import org.talend.core.ui.editor.command.ContextChangeDefaultCommand;
+import org.talend.core.ui.editor.command.ContextRemoveParameterCommand;
+import org.talend.core.ui.editor.command.ContextRenameParameterCommand;
+import org.talend.core.ui.editor.command.ContextTemplateModifyCommand;
 
 /**
  * This class must be extended for implementing the specific context composite. <br/>

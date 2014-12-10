@@ -21,7 +21,7 @@ import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

@@ -40,7 +40,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
-import org.talend.core.ui.targetschema.editor.XmlExtractorFieldModel;
+import org.talend.core.ui.metadata.editor.XmlExtractorFieldModel;
 import org.talend.repository.metadata.i18n.Messages;
 
 /**

@@ -42,9 +42,9 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.service.IRulesProviderService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
+import org.talend.core.ui.services.IRulesProviderService;
 import org.talend.core.utils.TalendQuoteUtils;
 
 /**

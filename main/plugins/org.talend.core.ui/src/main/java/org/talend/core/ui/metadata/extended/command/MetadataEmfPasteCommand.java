@@ -22,7 +22,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.impl.ConnectionFactoryImpl;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

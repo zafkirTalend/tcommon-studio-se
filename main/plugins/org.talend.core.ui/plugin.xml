@@ -19,7 +19,7 @@
    <extension
          point="org.talend.core.runtime.tokenInfo_provider">
       <provider
-            collector="org.talend.core.token.DefaultTokenCollector"
+            collector="org.talend.core.ui.token.DefaultTokenCollector"
             description="collect the most of main details for workspace"
             id="org.talend.core.runtime.defaultProvider"
             name="default">
@@ -29,37 +29,37 @@
       <extension
          point="org.eclipse.ui.preferencePages">
      <page
-           class="org.talend.core.prefs.ui.CorePreferencePage"
+           class="org.talend.core.ui.preference.CorePreferencePage"
            id="org.talend.core.prefs"
            name="%prefs">
      </page>
      <page
            category="org.talend.core.prefs"
-           class="org.talend.core.prefs.metadata.MetadataPrecisionPage"
+           class="org.talend.core.ui.preference.metadata.MetadataPrecisionPage"
            id="org.talend.core.runtime.MetadataPrecisionPage"
            name="%Metadata">
      </page>
      <page
            category="org.talend.core.prefs"
-           class="org.talend.core.prefs.collector.TalendDataCollectorPreferencePage"
+           class="org.talend.core.ui.preference.collector.TalendDataCollectorPreferencePage"
            id="org.talend.core.prefs.datacollector"
            name="%TalendDataCollector">
      </page>
      <page
            category="org.talend.core.prefs.datacollector"
-           class="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
+           class="org.talend.core.ui.preference.collector.TalendDataCollectorPreviewPreferencePage"
            id="org.talend.core.prefs.collector.TalendDataCollectorPreviewPreferencePage"
            name="%TalendDataCollectorPreview">
      </page>
      <page
            category="org.talend.core.prefs.datacollector"
-           class="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
+           class="org.talend.core.ui.preference.collector.TalendDataCollectorUploadingPreferencePage"
            id="org.talend.core.prefs.collector.TalendDataCollectorUploadingPreferencePage"
            name="%TalendDataCollectorUploading">
      </page>
            <page
             category="org.talend.core.prefs"
-            class="org.talend.core.prefs.SpecificSettingPreferencePage"
+            class="org.talend.core.ui.preference.SpecificSettingPreferencePage"
             id="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
             name="%specificSetting">
       </page>
@@ -67,10 +67,10 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.talend.core.prefs.collector.TalendDataCollectorPreferenceInitializer">
+            class="org.talend.core.ui.preference.collector.TalendDataCollectorPreferenceInitializer">
       </initializer>
       <initializer
-            class="org.talend.core.prefs.metadata.MetadataPreferenceInitializer">
+            class="org.talend.core.ui.preference.metadata.MetadataPreferenceInitializer">
       </initializer>
    </extension>
 </plugin>

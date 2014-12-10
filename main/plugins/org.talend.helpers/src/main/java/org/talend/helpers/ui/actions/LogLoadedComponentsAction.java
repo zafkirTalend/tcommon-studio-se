@@ -20,8 +20,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.helpers.i18n.Messages;
-import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

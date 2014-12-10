@@ -21,6 +21,7 @@ Export-Package:
  org.talend.commons.ui.runtime.ws,
  org.talend.commons.ui.swt.calendar,
  org.talend.commons.ui.swt.celleditor,
+ org.talend.commons.ui.swt.images,
  org.talend.commons.ui.swt.proposal,
  org.talend.commons.ui.swt.tableviewer,
  org.talend.commons.ui.swt.tableviewer.behavior,
@@ -31,8 +32,7 @@ Export-Package:
  org.talend.commons.ui.swt.tableviewer.tableeditor,
  org.talend.commons.ui.utils,
  org.talend.commons.ui.utils.threading,
- org.talend.core.repository,
- org.talend.core.ui.images
+ org.talend.core.repository
 Import-Package: org.eclipse.jface.bindings.keys,
  org.eclipse.jface.dialogs,
  org.eclipse.jface.fieldassist,
