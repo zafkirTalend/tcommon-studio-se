@@ -72,7 +72,6 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.ISubRepositoryObject;
@@ -104,6 +103,7 @@ import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.ItemReferenceBean;
 import org.talend.repository.model.JobletReferenceBean;
+import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -280,33 +280,14 @@ public class DeleteAction extends AContextualAction {
                                     }
                                 }
                             }
-                            // bug 18158
-                            boolean isSqlTemplate = false;
-                            if (node.getObject() instanceof Folder) {
-                                // isSqlTemplate = ((Folder) node.getObject()).getContentType().equals(
-                                // ERepositoryObjectType.SQLPATTERNS);
-
-                                Object label = node.getProperties(EProperties.LABEL);
-                                if (ENodeType.SIMPLE_FOLDER.equals(node.getType())
-                                        && ERepositoryObjectType.SQLPATTERNS.equals(node.getContentType())
-                                        && (label.equals("Generic") || label.equals("UserDefined") || label.equals("MySQL") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                                                || label.equals("Netezza") || label.equals("Oracle") //$NON-NLS-1$ //$NON-NLS-2$
-                                                || label.equals("ParAccel") || label.equals("Teradata")) //$NON-NLS-1$ //$NON-NLS-2$
-                                        || label.equals("Hive")) { //$NON-NLS-1$
-                                    isSqlTemplate = true;
-
-                                }
+                            types.add(node.getContentType());
+                            // fixed for the documentation deleted
+                            if (node.getContentType() == ERepositoryObjectType.PROCESS
+                                    || node.getContentType() == ERepositoryObjectType.JOBLET) {
+                                types.add(ERepositoryObjectType.DOCUMENTATION);
                             }
-                            if (!isSqlTemplate) {
-                                types.add(node.getContentType());
-                                // fixed for the documentation deleted
-                                if (node.getContentType() == ERepositoryObjectType.PROCESS
-                                        || node.getContentType() == ERepositoryObjectType.JOBLET) {
-                                    types.add(ERepositoryObjectType.DOCUMENTATION);
-                                }
-                                deletedFolder.add(node);
-                                deleteFolder(node, factory, deleteActionCache);
-                            }
+                            deletedFolder.add(node);
+                            deleteFolder(node, factory, deleteActionCache);
                         }
                     } catch (PersistenceException e) {
                         MessageBoxExceptionHandler.process(e);
@@ -1478,9 +1459,24 @@ public class DeleteAction extends AContextualAction {
                     // 2. the select node is the father node of the SQL Patterns
                     // 3. the select node do not has father node(means do not contain "/")
                     String selectName = selection.getFirstElement().toString();
-                    if (node.getContentType() == ERepositoryObjectType.SQLPATTERNS && selectName.equals(label)
-                            && !selectName.contains("/")) { //$NON-NLS-1$
-                        visible = false;
+                    if (node.getContentType() == ERepositoryObjectType.SQLPATTERNS) {
+                        boolean isDeleted = false;
+                        IRepositoryViewObject object = node.getObject();
+                        if (object != null) {
+                            Property folderProperty = object.getProperty();
+                            if (folderProperty != null && folderProperty.getItem() != null
+                                    && folderProperty.getItem().getState() != null) {
+                                isDeleted = node.getObject().getProperty().getItem().getState().isDeleted();
+                            }
+                        }
+                        if (!isDeleted && selectName.equals(label) && !selectName.contains("/")) {
+                            visible = false;
+                        }
+                        if (!isDeleted && node.getParent() != null
+                                & node.getParent().getParent() instanceof ProjectRepositoryNode) {
+                            visible = false;
+                        }
+
                     }
                     break;
                 case REPOSITORY_ELEMENT:
