@@ -135,6 +135,15 @@ public class UpdateStudioWizard extends Wizard {
         return true;
     }
 
+    @Override
+    public boolean performCancel() {
+        // fix for TUP-2426
+        if (doNotShowAgainCB.getSelection()) {
+            storeDoNotShowAgainPref();
+        }
+        return super.performCancel();
+    }
+
     /**
      * DOC sgandon Comment method "storeDoNotShowAgainPref".
      */
