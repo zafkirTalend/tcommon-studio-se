@@ -50,7 +50,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
         super(parent);
     }
 
-    abstract protected T runWithCancel(IProgressMonitor monitor) throws Exception;
+    abstract protected T runWithCancel(IProgressMonitor monitor) throws Throwable;
 
     @Override
     @Deprecated
@@ -73,7 +73,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
         runnableWithCancel = new ARunnableWithProgressCancel<T>() {
 
             @Override
-            protected T runnableWithCancel(IProgressMonitor monitor) throws Exception {
+            protected T runnableWithCancel(IProgressMonitor monitor) throws Throwable {
                 return runWithCancel(monitor);
             }
         };
@@ -188,7 +188,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
                     break;
                 } catch (TimeoutException timeoutException) {
                     continue;
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     executeException = e;
                     break;
                 }
@@ -276,7 +276,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
         protected IStatus run(IProgressMonitor monitor) {
             try {
                 futureTask.get();
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 // nothing need to do since all will be done in ARunnableWithProgressCancel
             }
             return Status.OK_STATUS;

@@ -628,7 +628,7 @@ public class ImportItemsWizardPage extends WizardPage {
                         getShell()) {
 
                     @Override
-                    protected ResourcesManager runWithCancel(IProgressMonitor monitor) throws Exception {
+                    protected ResourcesManager runWithCancel(IProgressMonitor monitor) throws Throwable {
                         return fileUnityManager.doUnify(true);
                     }
                 };
@@ -636,7 +636,7 @@ public class ImportItemsWizardPage extends WizardPage {
                 String waitingFinishMessage = Messages.getString("ImportItemsWizardPage_ProgressDialog_WaitingFinishMessage"); //$NON-NLS-1$
                 dialogWithCancel.run(executingMessage, waitingFinishMessage, true,
                         AProgressMonitorDialogWithCancel.ENDLESS_WAIT_TIME);
-                Exception executeException = dialogWithCancel.getExecuteException();
+                Throwable executeException = dialogWithCancel.getExecuteException();
                 if (executeException != null) {
                     throw executeException;
                 }
@@ -655,7 +655,7 @@ public class ImportItemsWizardPage extends WizardPage {
                 displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
                 // if folder, won't have errors.
                 archivePathField.setFocus();
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 displayErrorDialog(e.getMessage());
                 archivePathField.setFocus();
             }

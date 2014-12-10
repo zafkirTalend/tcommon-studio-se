@@ -2103,7 +2103,7 @@ public class DatabaseForm extends AbstractForm {
             checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
                     return managerConnection.check(metadataConn, retProposedSchema);
                 }
             };
@@ -2115,7 +2115,7 @@ public class DatabaseForm extends AbstractForm {
             checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
                     return managerConnection.checkHiveConnection(metadataConn);
                 }
             };
@@ -2124,7 +2124,7 @@ public class DatabaseForm extends AbstractForm {
             checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
 
                 @Override
-                protected Boolean runWithCancel(IProgressMonitor monitor) throws Exception {
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
                     return managerConnection.check(retProposedSchema);
                 }
             };
