@@ -56,10 +56,6 @@
           genModel="model/TalendFile.genmodel"
           uri="platform:/resource/org.talend.model/model/TalendFile.xsd"/>
     <package
-          class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
-          genModel="model/Component.genmodel"
-          uri="platform:/resource/org.talend.model/model/Component.xsd"/>
-    <package
           class="org.talend.designer.joblet.model.JobletPackage"
           genModel="model/joblet.genmodel"
           uri="http://www.talend.com/joblet.ecore">
