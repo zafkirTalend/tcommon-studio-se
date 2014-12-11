@@ -25,6 +25,8 @@ import org.talend.utils.format.StringFormatUtil;
  */
 public final class ResultSetUtils {
 
+    private static final String NULLDATE = "0000-00-00 00:00:00"; //$NON-NLS-1$
+
     private ResultSetUtils() {
     }
 
@@ -86,6 +88,54 @@ public final class ResultSetUtils {
             row += StringFormatUtil.padString(col != null ? col.toString() : "", width);
         }
         return row;
+    }
+
+    /**
+     * 
+     * Get Object by special column index
+     * 
+     * @param set
+     * @param columnIndex
+     * @return
+     * @throws SQLException
+     */
+    public static Object getObject(ResultSet set, int columnIndex) throws SQLException {
+        Object object = null;
+        try {
+            object = set.getObject(columnIndex);
+        } catch (SQLException e) {
+            if (NULLDATE.equals(set.getString(columnIndex))) {
+                object = null;
+            } else {
+                throw e;
+            }
+
+        }
+        return object;
+    }
+
+    /**
+     * 
+     * Get Object by special column name
+     * 
+     * @param set
+     * @param columnName
+     * @return
+     * @throws SQLException
+     */
+    public static Object getObject(ResultSet set, String columnName) throws SQLException {
+        Object object = null;
+        try {
+            object = set.getObject(columnName);
+        } catch (SQLException e) {
+            if (NULLDATE.equals(set.getString(columnName))) {
+                object = null;
+            } else {
+                throw e;
+            }
+
+        }
+        return object;
     }
 
 }
