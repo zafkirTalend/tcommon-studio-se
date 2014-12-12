@@ -134,6 +134,17 @@ public final class ConnectionUtils {
     }
 
     /**
+     * 
+     * from the url to check whether it is jdbc.
+     * 
+     * @param url
+     * @return
+     */
+    public static boolean isJDBCURL(String url) {
+        return url != null && url.startsWith("jdbc:"); //$NON-NLS-1$
+    }
+
+    /**
      * if the url include "sybase", return true, else return false
      * 
      * @param url
