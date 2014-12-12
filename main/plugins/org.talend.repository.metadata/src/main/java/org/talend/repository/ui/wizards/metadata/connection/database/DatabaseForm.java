@@ -4517,7 +4517,7 @@ public class DatabaseForm extends AbstractForm {
                 schemaText.hide();
             }
         }
-
+        collectContextParams(visible);
         doHiveUIContentsLayout();
         hbaseSettingGroup.layout();
         impalaSettingGroup.layout();
@@ -4528,18 +4528,22 @@ public class DatabaseForm extends AbstractForm {
         newParent.layout();
         databaseSettingGroup.layout();
         compositeGroupDbSettings.layout();
-        collectContextParamsForHive(visible);
     }
 
-    private void collectContextParamsForHive(boolean visible) {
+    private void collectContextParams(boolean visible) {
+        collectHiveContextParams(visible);
+        collectHBaseContextParams(visible);
+    }
+
+    private void collectHiveContextParams(boolean visible) {
         // recollect context params for hive
         if (isHiveDBConnSelected()) {
             getConetxtParams().clear();
+            addContextParams(EDBParamName.Login, visible);
+            addContextParams(EDBParamName.Server, visible);
+            addContextParams(EDBParamName.Port, visible);
+            addContextParams(EDBParamName.Database, visible);
             if (isHiveEmbeddedMode()) {
-                addContextParams(EDBParamName.Login, visible);
-                addContextParams(EDBParamName.Server, visible);
-                addContextParams(EDBParamName.Port, visible);
-                addContextParams(EDBParamName.Database, visible);
                 // if from cluster no need to export the two params
                 String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
                 if (hcId == null) {
@@ -4547,12 +4551,18 @@ public class DatabaseForm extends AbstractForm {
                     addContextParams(EDBParamName.JobTracker, visible);
                 }
             } else {
-                addContextParams(EDBParamName.Login, visible);
                 addContextParams(EDBParamName.Password, visible);
-                addContextParams(EDBParamName.Server, visible);
-                addContextParams(EDBParamName.Port, visible);
-                addContextParams(EDBParamName.Database, visible);
             }
+        }
+    }
+
+    private void collectHBaseContextParams(boolean visible) {
+        // recollect context params for Hbase
+        if (isHBaseDBConnSelected()) {
+            getConetxtParams().clear();
+            addContextParams(EDBParamName.Server, visible);
+            addContextParams(EDBParamName.Port, visible);
+            addContextParams(EDBParamName.Schema, visible);
         }
     }
 
@@ -5354,7 +5364,7 @@ public class DatabaseForm extends AbstractForm {
             String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
                     (String[]) ArrayUtils.add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()),
                             EHadoopProperties.PORT.getName()));
-            if (defaultPort != null) {
+            if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
             }
