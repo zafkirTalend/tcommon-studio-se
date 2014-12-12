@@ -3895,6 +3895,12 @@ public class DatabaseForm extends AbstractForm {
                     Messages.getString("DatabaseForm.genaralJDBC.urlAlert", generalJdbcUrlText.getLabelText())); //$NON-NLS-1$
             return false;
         }
+        // A valid JDBC URL must be specified
+        if (!ConnectionUtils.isJDBCURL(value)) {
+            updateStatus(IStatus.ERROR,
+                    Messages.getString("DatabaseForm.genaralJDBC.validUrlAlert", generalJdbcUrlText.getLabelText())); //$NON-NLS-1$
+            return false;
+        }
 
         value = generalJdbcDriverjarText.getText();
         if (!validText(value)) {
