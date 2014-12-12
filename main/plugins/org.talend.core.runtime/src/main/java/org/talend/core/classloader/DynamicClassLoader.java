@@ -48,6 +48,14 @@ public class DynamicClassLoader extends URLClassLoader {
         super(urls);
     }
 
+    public DynamicClassLoader(ClassLoader parent) {
+        this(new URL[0], parent);
+    }
+
+    public DynamicClassLoader(URL[] urls, ClassLoader parent) {
+        super(urls, parent);
+    }
+
     public void addLibrary(String lib) {
         if (lib != null) {
             File libFile = new File(lib);

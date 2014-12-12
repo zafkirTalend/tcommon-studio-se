@@ -15,11 +15,11 @@ package org.talend.core.classloader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
@@ -56,6 +56,8 @@ public class ClassLoaderFactory {
     private final static String INDEX_ATTR = "index"; //$NON-NLS-1$
 
     private final static String LIB_ATTR = "libraries"; //$NON-NLS-1$
+
+    private final static String PARENT_ATTR = "parent"; //$NON-NLS-1$
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -149,17 +151,27 @@ public class ClassLoaderFactory {
         if (tmpFolder.exists()) {
             FilesUtils.removeFolder(tmpFolder, true);
         }
-        classLoadersMap = new HashMap<String, DynamicClassLoader>();
+        classLoadersMap = new ConcurrentHashMap<String, DynamicClassLoader>();
     }
 
-    private static DynamicClassLoader findLoader(String index, boolean showDownloadIfNotExist) {
+    private static synchronized DynamicClassLoader findLoader(String index, boolean showDownloadIfNotExist) {
         if (index != null && configurationElements != null) {
             for (IConfigurationElement current : configurationElements) {
                 String key = current.getAttribute(INDEX_ATTR);
                 if (index.equals(key)) {
                     String libraries = current.getAttribute(LIB_ATTR);
                     if (StringUtils.isNotEmpty(index)) {
-                        DynamicClassLoader classLoader = new DynamicClassLoader();
+                        DynamicClassLoader classLoader = null;
+                        DynamicClassLoader parentClassLoader = null;
+                        String parentKey = current.getAttribute(PARENT_ATTR);
+                        if (StringUtils.isNotEmpty(parentKey)) {
+                            parentClassLoader = getClassLoader(parentKey, showDownloadIfNotExist);
+                        }
+                        if (parentClassLoader == null) {
+                            classLoader = new DynamicClassLoader();
+                        } else {
+                            classLoader = new DynamicClassLoader(parentClassLoader);
+                        }
                         boolean putInCache = true;
                         if (StringUtils.isNotEmpty(libraries)) {
                             String[] librariesArray = libraries.split(SEPARATOR);
@@ -247,7 +259,7 @@ public class ClassLoaderFactory {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnUtils.isCustomDistro(distroKey)) {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
-            moduleList = jarsStr.split(";");
+            moduleList = jarsStr.split(";"); //$NON-NLS-1$
         } else {
             String index = "HIVE" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
             moduleList = getDriverModuleList(index);
