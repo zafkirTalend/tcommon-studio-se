@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.talend</groupId>
-    <artifactId>org.talend.tis-shared</artifactId>
+    <artifactId>org.talend.tos</artifactId>
     <version>5.5.1</version>
 
     <packaging>pom</packaging>
@@ -17,22 +17,21 @@
     </properties>
 
     <modules>
-        <module>org.talend.remote.commons</module>
-        <module>org.talend.remote.jobserver.commons</module>
         <module>org.talend.utils</module>
     </modules>
 
 	<distributionManagement>
 		<repository>
-			<id>tis-releases</id>
-			<name>TIS releases Repository</name>
-			<url>${tis.releases.repo.url}</url>
+			<id>tos-releases</id>
+			<name>TOS releases Repository</name>
+			<url>${tos.releases.repo.url}</url>
 		</repository>
 		<snapshotRepository>
-			<id>tis-snapshots</id>
-			<name>TIS snapshots Repository</name>
-			<url>${tis.snapshots.repo.url}</url>
+			<id>tos-snapshots</id>
+			<name>TOS snapshots Repository</name>
+			<url>${tos.snapshots.repo.url}</url>
 		</snapshotRepository>
 	</distributionManagement>
 
 </project>
+
