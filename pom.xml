@@ -32,11 +32,6 @@
 			<id>tis-snapshots</id>
 			<name>TIS snapshots Repository</name>
 			<url>${tis.snapshots.repo.url}</url>
-		</repository>
-		<snapshotRepository>
-			<id>tos-snapshots</id>
-			<name>TOS snapshots Repository</name>
-			<url>${tos.snapshots.repo.url}</url>
 		</snapshotRepository>
 	</distributionManagement>
 
