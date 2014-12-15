@@ -50,7 +50,7 @@ import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
-import org.talend.core.tis.ICoreTisService;
+import org.talend.core.services.ICoreTisService;
 import org.talend.core.ui.TalendBrowserLaunchHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.workspace.ChooseWorkspaceData;

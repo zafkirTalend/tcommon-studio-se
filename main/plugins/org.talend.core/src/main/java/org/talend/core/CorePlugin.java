@@ -25,17 +25,17 @@ import org.talend.core.service.IDesignerMapperService;
 import org.talend.core.service.IDesignerXMLMapperService;
 import org.talend.core.service.IWebService;
 import org.talend.core.service.IWebServiceTos;
-import org.talend.core.ui.ICreateXtextProcessService;
+import org.talend.core.services.ICreateXtextProcessService;
+import org.talend.core.services.IRcpService;
+import org.talend.core.services.resource.IResourceService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
-import org.talend.rcp.IRcpService;
 import org.talend.repository.model.IMetadataService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryLocalProviderService;
 import org.talend.repository.model.IRepositoryService;
-import org.talend.resource.IResourceService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

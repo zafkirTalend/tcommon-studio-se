@@ -10,24 +10,24 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp;
+package org.talend.core.branding;
 
-import org.talend.core.services.IRcpService;
-import org.talend.rcp.intro.ActionBarBuildHelper;
+import org.talend.core.ui.branding.AbstractBrandingService;
 
 /**
- * qwei class global comment. Detailled comment
+ * DOC xtan class global comment. Detailled comment
  */
-public class RcpServices implements IRcpService {
+public abstract class AbstractTalendBrandingService extends AbstractBrandingService {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.rcp.IRcpService#activeSwitchProjectAction()
-     */
-    public void activeSwitchProjectAction() {
-        // ApplicationActionBarAdvisor.activeSwitchAction();
-        ActionBarBuildHelper.activeSwitchAction();
+    public String getFullProductName() {
+        return getProductName() + " " + getOptionName(); //$NON-NLS-1$
     }
 
+    public boolean isPoweredbyTalend() {
+        return true;
+    }
+
+    public boolean isPoweredOnlyCamel() {
+        return false;
+    }
 }

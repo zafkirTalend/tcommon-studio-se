@@ -10,24 +10,20 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp;
+package org.talend.core.views;
 
-import org.talend.core.services.IRcpService;
-import org.talend.rcp.intro.ActionBarBuildHelper;
+import org.talend.core.model.process.Element;
 
 /**
- * qwei class global comment. Detailled comment
+ * DOC qzhang class global comment. Detailled comment.
  */
-public class RcpServices implements IRcpService {
+public interface IComponentSettingsView {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.rcp.IRcpService#activeSwitchProjectAction()
-     */
-    public void activeSwitchProjectAction() {
-        // ApplicationActionBarAdvisor.activeSwitchAction();
-        ActionBarBuildHelper.activeSwitchAction();
-    }
+    String ID = "org.talend.designer.core.ui.views.properties.ComponentSettingsView"; //$NON-NLS-1$
 
+    void cleanDisplay();
+
+    void setElement(Element element);
+
+    Element getElement();
 }

@@ -10,24 +10,15 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp;
+package org.talend.core.services;
 
-import org.talend.core.services.IRcpService;
-import org.talend.rcp.intro.ActionBarBuildHelper;
+import org.talend.commons.exception.BusinessException;
+import org.talend.core.IService;
 
 /**
- * qwei class global comment. Detailled comment
+ * DOC nrousseau class global comment. Detailled comment
  */
-public class RcpServices implements IRcpService {
+public interface IJobCheckService extends IService {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.rcp.IRcpService#activeSwitchProjectAction()
-     */
-    public void activeSwitchProjectAction() {
-        // ApplicationActionBarAdvisor.activeSwitchAction();
-        ActionBarBuildHelper.activeSwitchAction();
-    }
-
+    boolean checkJob(String name) throws BusinessException;
 }

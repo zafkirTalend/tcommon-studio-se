@@ -9,7 +9,7 @@ import java.util.Scanner;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.resource.IExportScriptResourcesService;
+import org.talend.core.services.resource.IExportScriptResourcesService;
 
 public abstract class AbstractMavenScriptPreferenceInitializer extends AbstractPreferenceInitializer {
 
