@@ -774,6 +774,24 @@ public class ExtractMetaDataUtils {
     }
 
     /**
+     * Getter for ignoreTimeout.
+     * 
+     * @return the ignoreTimeout
+     */
+    public boolean isIgnoreTimeout() {
+        return this.ignoreTimeout;
+    }
+
+    /**
+     * Sets the ignoreTimeout.
+     * 
+     * @param ignoreTimeout the ignoreTimeout to set
+     */
+    public void setIgnoreTimeout(boolean ignoreTimeout) {
+        this.ignoreTimeout = ignoreTimeout;
+    }
+
+    /**
      * DOC cantoine. Method to connect to DataBase.
      * 
      * @param String driverClass
@@ -1369,23 +1387,5 @@ public class ExtractMetaDataUtils {
 
     public void setReconnect(boolean isReconnect) {
         this.isReconnect = isReconnect;
-    }
-
-    /**
-     * Getter for ignoreTimeout.
-     * 
-     * @return the ignoreTimeout
-     */
-    public boolean isIgnoreTimeout() {
-        return this.ignoreTimeout;
-    }
-
-    /**
-     * Sets the ignoreTimeout.
-     * 
-     * @param ignoreTimeout the ignoreTimeout to set
-     */
-    public void setIgnoreTimeout(boolean ignoreTimeout) {
-        this.ignoreTimeout = ignoreTimeout;
     }
 }
