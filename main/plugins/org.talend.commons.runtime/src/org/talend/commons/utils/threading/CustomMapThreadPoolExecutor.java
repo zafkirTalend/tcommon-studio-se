@@ -15,7 +15,9 @@ package org.talend.commons.utils.threading;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.TimeUnit;
 
 /**
  * created by wchen on 2014-6-6 Detailled comment
@@ -34,6 +36,11 @@ public class CustomMapThreadPoolExecutor extends TalendCustomThreadPoolExecutor 
 
     public CustomMapThreadPoolExecutor(int queueCapacity, RejectedExecutionHandler handler) {
         super(queueCapacity, handler);
+    }
+
+    public CustomMapThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+            BlockingQueue<Runnable> workQueue, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, handler);
     }
 
     /*
