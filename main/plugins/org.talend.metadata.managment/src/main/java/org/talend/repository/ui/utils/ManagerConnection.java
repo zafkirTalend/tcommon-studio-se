@@ -37,9 +37,9 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
-import org.talend.core.repository.ConnectionStatus;
-import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ResourceModelUtils;
+import org.talend.core.repository.model.connection.ConnectionStatus;
+import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.ProjectManager;
 

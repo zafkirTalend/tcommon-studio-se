@@ -35,6 +35,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.LoginTaskRegistryReader;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
@@ -42,7 +43,6 @@ import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.TalendSplashHandler;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.registeruser.RegisterManagement;
-import org.talend.repository.utils.LoginTaskRegistryReader;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>

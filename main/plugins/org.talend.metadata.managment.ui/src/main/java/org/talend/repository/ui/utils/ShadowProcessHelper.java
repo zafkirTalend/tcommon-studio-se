@@ -38,14 +38,14 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.repository.model.preview.IPreview;
+import org.talend.core.repository.model.preview.LDAPSchemaBean;
+import org.talend.core.repository.model.preview.WSDLSchemaBean;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.preview.AsynchronousPreviewHandler;
-import org.talend.repository.preview.IPreview;
-import org.talend.repository.preview.LDAPSchemaBean;
 import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.preview.WSDLSchemaBean;
 
 /**
  * Create a ProcessDescription to use in the step2 & step3 of CSV File Wizard on Shadow mode.

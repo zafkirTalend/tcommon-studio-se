@@ -18,9 +18,9 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.navigator.TextActionHandler;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.ui.actions.CopyAction;
-import org.talend.repository.ui.actions.DeleteAction;
-import org.talend.repository.ui.actions.PasteAction;
+import org.talend.core.repository.ui.actions.CopyAction;
+import org.talend.core.repository.ui.actions.DeleteAction;
+import org.talend.core.repository.ui.actions.PasteAction;
 
 /**
  * DOC ggu class global comment. Detailled comment

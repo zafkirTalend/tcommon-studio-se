@@ -68,8 +68,8 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
-import org.talend.core.repository.IDBMetadataProvider;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -92,6 +92,7 @@ import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;

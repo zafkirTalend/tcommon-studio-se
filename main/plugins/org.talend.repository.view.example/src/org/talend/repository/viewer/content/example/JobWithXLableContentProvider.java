@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.swt.widgets.Display;
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.tester.example.ExampleTester;
 

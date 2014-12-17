@@ -14,9 +14,9 @@ package org.talend.repository.viewer.ui.provider;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.repository.model.repositoryObject.MetadataColumnRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;

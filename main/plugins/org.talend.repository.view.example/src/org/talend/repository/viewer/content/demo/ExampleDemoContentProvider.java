@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.repository.viewer.content.demo;
 
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.metadata.content.AbstractMetadataContentProvider;
 import org.talend.repository.model.ExampleDemoRepositoryNodeType;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**

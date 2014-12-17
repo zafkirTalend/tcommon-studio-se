@@ -21,7 +21,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataColumnRepositoryObject;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -35,14 +34,15 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.RepositoryContentManager;
+import org.talend.core.repository.model.repositoryObject.MetadataColumnRepositoryObject;
+import org.talend.core.repository.model.repositoryObject.QueryEMFRepositoryNode;
+import org.talend.core.repository.model.repositoryObject.SAPFunctionRepositoryObject;
+import org.talend.core.repository.model.repositoryObject.SAPIDocRepositoryObject;
+import org.talend.core.repository.model.repositoryObject.SalesforceModuleRepositoryObject;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.QueryEMFRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.SAPFunctionRepositoryObject;
-import org.talend.repository.model.SAPIDocRepositoryObject;
-import org.talend.repository.model.SalesforceModuleRepositoryObject;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

@@ -27,7 +27,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.talend.core.repository.IExtendRepositoryNode;
+import org.talend.commons.ui.runtime.repository.IExtendRepositoryNode;
 import org.talend.core.utils.RegistryReader;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;

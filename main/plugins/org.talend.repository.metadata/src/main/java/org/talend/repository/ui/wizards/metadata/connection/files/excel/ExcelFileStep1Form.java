@@ -56,9 +56,9 @@ import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.preview.ExcelSchemaBean;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ExcelSchemaBean;
 import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
 
 /**

@@ -53,4 +53,5 @@ Export-Package: org.talend.core,
  org.talend.core.prefs,
  org.talend.core.services,
  org.talend.core.services.resource,
- org.talend.core.views
+ org.talend.core.views,
+ org.talend.designer.runprocess

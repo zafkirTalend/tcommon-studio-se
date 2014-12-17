@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 abstract public class SubEmptyTopNodeContentProvider extends ProjectRepoAbstractContentProvider {

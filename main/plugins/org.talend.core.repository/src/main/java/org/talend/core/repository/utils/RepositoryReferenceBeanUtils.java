@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.utils.RepositoryManagerHelper;
-import org.talend.repository.model.ContextReferenceBean;
+import org.talend.core.repository.model.ContextReferenceBean;
 
 /**
  * @author Marvin Wang

@@ -35,8 +35,8 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.utils.ResourceModelHelper;
+import org.talend.core.repository.ui.editor.RepositoryEditorInput;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.repository.editor.RepositoryEditorInput;
 import org.talend.repository.model.RepositoryConstants;
 
 /**

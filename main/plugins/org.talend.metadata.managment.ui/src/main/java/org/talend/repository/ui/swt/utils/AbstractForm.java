@@ -50,7 +50,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
-import org.talend.core.repository.IDBMetadataProvider;
+import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.core.ui.context.model.table.ConectionAdaptContextVariableModel;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;

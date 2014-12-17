@@ -16,8 +16,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**

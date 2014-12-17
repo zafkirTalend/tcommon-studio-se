@@ -13,7 +13,7 @@
 package org.talend.repository.viewer.content;
 
 import org.eclipse.jface.viewers.Viewer;
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 public abstract class EmptyTopNodeContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {

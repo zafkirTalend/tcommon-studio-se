@@ -19,43 +19,43 @@
    <extension
          point="org.talend.core.runtime.service">
       <Service
-            class="org.talend.core.repository.ProxyRepositoryService"
+            class="org.talend.core.repository.services.ProxyRepositoryService"
             serviceId="IProxyRepositoryService">
       </Service>
    </extension>
    <extension
          point="org.talend.core.repositoryContextualsActions">
        <Action
-            class="org.talend.repository.ui.actions.DeleteTableAction"
+            class="org.talend.core.repository.ui.actions.DeleteTableAction"
             id="org.talend.repository.actions.deletetable"
             level="40"
             name="Metadata/Delete table"/>
         <Action
-            class="org.talend.repository.ui.actions.DeleteAction"
+            class="org.talend.core.repository.ui.actions.DeleteAction"
             id="org.talend.repository.actions.delete"
             level="40"
             name="Delete"/>
       <Action
-            class="org.talend.repository.ui.actions.RestoreAction"
+            class="org.talend.core.repository.ui.actions.RestoreAction"
             id="org.talend.repository.actions.restore"
             level="40"
             name="Restore"/>
       <Action
-            class="org.talend.repository.ui.actions.EmptyRecycleBinAction"
+            class="org.talend.core.repository.ui.actions.EmptyRecycleBinAction"
             id="org.talend.repository.actions.emptyrecyclebin"
             name="Empty recycle bin"/>
       <Action
-            class="org.talend.repository.ui.actions.CopyAction"
+            class="org.talend.core.repository.ui.actions.CopyAction"
             id="org.talend.repository.actions.copy"
             level="50"
             name="Copy"/>
       <Action
-            class="org.talend.repository.ui.actions.PasteAction"
+            class="org.talend.core.repository.ui.actions.PasteAction"
             id="org.talend.repository.actions.paste"
             level="55"
             name="Paste"/>
        <Action
-             class="org.talend.repository.ui.actions.DuplicateAction"
+             class="org.talend.core.repository.ui.actions.DuplicateAction"
              id="org.talend.repository.actions.duplicate"
              level="50"
              name="Duplicate">
@@ -605,7 +605,7 @@
    <extension
          point="org.talend.core.repository.login.task">
       <loginTask
-            class="org.talend.core.repository.GeneratedJetEmitersLoginTask"
+            class="org.talend.core.repository.logintask.GeneratedJetEmitersLoginTask"
             priority="highest">
       </loginTask>
    </extension>
@@ -623,14 +623,14 @@
    <extension
          point="org.talend.core.repository.login.task">
       <loginTask
-            class="org.talend.core.repository.ReadOnlyProjectConfirm"
+            class="org.talend.core.repository.logintask.ReadOnlyProjectConfirm"
             priority="high">
       </loginTask>
    </extension>
    <extension
          point="org.talend.core.repository.login.task">
       <loginTask
-            class="org.talend.core.repository.SyncLibrariesLoginTask"
+            class="org.talend.core.repository.logintask.SyncLibrariesLoginTask"
             priority="high">
       </loginTask>
    </extension>

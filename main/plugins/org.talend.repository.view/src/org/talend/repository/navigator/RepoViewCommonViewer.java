@@ -29,10 +29,10 @@ import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.repository.ui.actions.MoveObjectAction;
+import org.talend.core.repository.ui.view.RepositoryDropAdapter;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.actions.MoveObjectAction;
-import org.talend.repository.ui.views.RepositoryDropAdapter;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
