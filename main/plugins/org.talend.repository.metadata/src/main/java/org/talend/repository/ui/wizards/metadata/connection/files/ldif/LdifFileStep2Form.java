@@ -56,13 +56,13 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.wizard.IRefreshable;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
 import org.talend.repository.ui.swt.utils.AbstractLdifFileStepForm;
-import org.talend.repository.ui.swt.utils.IRefreshable;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
 
 /**
  * @author cantoine

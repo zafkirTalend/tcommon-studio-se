@@ -46,16 +46,16 @@ import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.Attribute;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.Element;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.FileConnectionContextUtils.EFileParamName;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileWizard;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Element;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>

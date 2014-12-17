@@ -57,15 +57,15 @@ import org.talend.core.repository.model.preview.ExcelSchemaBean;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
+import org.talend.metadata.managment.ui.wizard.IRefreshable;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
 import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
-import org.talend.repository.ui.swt.utils.IRefreshable;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.FileConnectionContextUtils;
-import org.talend.repository.ui.utils.FileConnectionContextUtils.EFileParamName;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
 
 /**
  * @author xye

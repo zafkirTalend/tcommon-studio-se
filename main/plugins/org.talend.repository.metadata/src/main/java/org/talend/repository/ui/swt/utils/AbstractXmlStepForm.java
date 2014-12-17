@@ -19,7 +19,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 
 /**
  * wchen class global comment. Detailled comment

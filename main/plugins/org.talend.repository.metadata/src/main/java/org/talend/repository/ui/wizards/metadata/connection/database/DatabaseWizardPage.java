@@ -18,8 +18,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.repository.ui.swt.utils.AbstractForm;
-import org.talend.repository.ui.wizards.RepositoryWizard;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.RepositoryWizard;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to Use to manage the metadata connection. Page allows setting a

@@ -60,9 +60,9 @@ import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.ResourceHelper;
 import org.talend.metadata.managment.repository.ManagerConnection;
+import org.talend.metadata.managment.ui.wizard.CheckLastVersionRepositoryWizard;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;

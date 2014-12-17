@@ -15,7 +15,7 @@ package org.talend.repository.mdm.ui.wizard;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
+import org.talend.metadata.managment.ui.wizard.metadata.connection.Step0WizardPage;
 
 /**
  * DOC talend class global comment. Detailled comment

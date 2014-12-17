@@ -19,7 +19,8 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.RepositoryManagerHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>

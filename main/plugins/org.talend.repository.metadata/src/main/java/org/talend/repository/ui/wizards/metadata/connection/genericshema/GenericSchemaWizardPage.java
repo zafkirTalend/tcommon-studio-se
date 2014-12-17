@@ -20,7 +20,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.repository.ui.swt.utils.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
  * DOC Administrator class global comment. Detailled comment <br/>

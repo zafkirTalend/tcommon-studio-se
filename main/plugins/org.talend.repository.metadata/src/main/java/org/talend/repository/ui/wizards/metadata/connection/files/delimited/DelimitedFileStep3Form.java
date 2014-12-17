@@ -48,13 +48,13 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 import org.talend.core.utils.CsvArray;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.wizard.metadata.connection.GuessSchemaUtil;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
 import org.talend.repository.ui.swt.utils.AbstractDelimitedFileStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.FileConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
-import org.talend.repository.ui.wizards.metadata.connection.GuessSchemaUtil;
 
 /**
  * @author ocarbone

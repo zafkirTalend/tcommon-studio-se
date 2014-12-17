@@ -17,9 +17,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.builder.connection.MdmConceptType;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC hwang class global comment. Detailled comment

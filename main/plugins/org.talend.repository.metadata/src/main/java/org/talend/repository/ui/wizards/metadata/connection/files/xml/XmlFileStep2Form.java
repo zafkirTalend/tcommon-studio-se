@@ -83,22 +83,22 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XPathPopulationUtil;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.AsynchronousPreviewHandler;
+import org.talend.metadata.managment.ui.preview.IPreviewHandlerListener;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
+import org.talend.metadata.managment.ui.preview.StoppablePreviewLoader;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.wizard.IRefreshable;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.AsynchronousPreviewHandler;
-import org.talend.repository.preview.IPreviewHandlerListener;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.preview.StoppablePreviewLoader;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
-import org.talend.repository.ui.swt.utils.IRefreshable;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionFieldsWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionLoopWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlToXPathLinker;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
 /**
  * @author ocarbone

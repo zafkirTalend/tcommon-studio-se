@@ -51,16 +51,16 @@ import org.talend.core.ui.webService.WebServiceTosSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.CheckLastVersionRepositoryWizard;
+import org.talend.metadata.managment.ui.wizard.PropertiesWizardPage;
+import org.talend.metadata.managment.ui.wizard.metadata.MetadataContextModeManager;
+import org.talend.metadata.managment.ui.wizard.metadata.connection.Step0WizardPage;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
-import org.talend.repository.ui.wizards.PropertiesWizardPage;
-import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
-import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 
 /**
  * DOC qwei class global comment. Detailled comment

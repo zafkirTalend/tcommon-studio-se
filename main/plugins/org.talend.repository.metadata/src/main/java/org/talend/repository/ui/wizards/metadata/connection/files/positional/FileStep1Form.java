@@ -53,9 +53,9 @@ import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.metadata.managment.ui.model.positional.FilePositionalViewer;
+import org.talend.metadata.managment.ui.model.positional.GraphicRule;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.filepositionalviewer.FilePositionalViewer;
-import org.talend.repository.ui.swt.filepositionalviewer.GraphicRule;
 import org.talend.repository.ui.swt.utils.AbstractPositionalFileStepForm;
 
 /**

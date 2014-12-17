@@ -28,8 +28,8 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * The class is used for LDAP schema on Repository View. <br/>

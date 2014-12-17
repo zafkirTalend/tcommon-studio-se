@@ -25,7 +25,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.TableNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.metadata.managment.repository.ManagerConnection;
-import org.talend.repository.ui.swt.utils.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
  * TableWizard present the TableForm width the MetaDataTable. Use to create a new table (need a connection to a DB).

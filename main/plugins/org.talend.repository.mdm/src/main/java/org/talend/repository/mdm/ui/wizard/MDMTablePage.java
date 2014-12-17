@@ -18,8 +18,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.ui.wizard.concept.MDMTableForm;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * 

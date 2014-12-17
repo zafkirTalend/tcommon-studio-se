@@ -38,8 +38,8 @@ import org.talend.mdm.webservice.WSRegexDataClusterPKs;
 import org.talend.mdm.webservice.WSRegexDataModelPKs;
 import org.talend.mdm.webservice.WSUniversePK;
 import org.talend.mdm.webservice.XtentisBindingStub;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC hwang class global comment. Detailled comment

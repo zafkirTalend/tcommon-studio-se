@@ -109,11 +109,11 @@ import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.repository.ManagerConnection;
+import org.talend.metadata.managment.ui.model.ProjectNodeHelper;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.ProjectNodeHelper;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 import org.talend.utils.sql.ConnectionUtils;
 
 import orgomg.cwm.objectmodel.core.CoreFactory;

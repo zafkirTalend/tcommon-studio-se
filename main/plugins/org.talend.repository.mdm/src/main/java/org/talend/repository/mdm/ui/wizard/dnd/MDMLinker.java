@@ -73,15 +73,15 @@ import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.XmlExtractorBgRefresher;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorView;
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
 import org.talend.repository.mdm.util.MDMUtil;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlExtractorBgRefresher;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XsdNodeRetriever;
 import org.w3c.dom.Node;
 

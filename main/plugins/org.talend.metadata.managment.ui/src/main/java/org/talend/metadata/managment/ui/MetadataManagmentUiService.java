@@ -20,11 +20,11 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.dialog.OpenXSDFileDialog;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.context.ContextWizard;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.ui.dialog.OpenXSDFileDialog;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.wizards.context.ContextWizard;
 
 /**
  * 

@@ -37,7 +37,7 @@ import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.datatools.xml.utils.UtilConstants;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.CopyDeleteFileUtilForWizard;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.CopyDeleteFileUtilForWizard;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

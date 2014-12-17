@@ -71,12 +71,12 @@ import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
 
 /**
  * @author ocarbone

@@ -19,8 +19,9 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils.EParamName;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
  * ggu class global comment. Detailled comment

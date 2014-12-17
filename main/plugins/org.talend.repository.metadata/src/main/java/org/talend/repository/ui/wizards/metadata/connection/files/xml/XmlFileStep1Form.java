@@ -82,13 +82,13 @@ import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.dialog.RootNodeSelectDialog;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
  * @author ocarbone

@@ -21,8 +21,8 @@ import org.talend.core.model.metadata.builder.connection.PositionalFileConnectio
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.repository.ui.swt.utils.AbstractForm;
-import org.talend.repository.ui.swt.utils.AbstractForm.ICheckListener;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm.ICheckListener;
 import org.talend.repository.ui.swt.utils.AbstractPositionalFileStepForm;
 
 /**

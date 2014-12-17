@@ -55,8 +55,8 @@ import org.talend.core.ui.preference.metadata.MetadataTypeLengthConstants;
 import org.talend.core.ui.services.IDesignerCoreUIService;
 import org.talend.core.utils.CsvArray;
 import org.talend.metadata.managment.ui.dialog.CustomTableManagerOnlyForGenericSchema;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC Administrator class global comment. Detailled comment <br/>
