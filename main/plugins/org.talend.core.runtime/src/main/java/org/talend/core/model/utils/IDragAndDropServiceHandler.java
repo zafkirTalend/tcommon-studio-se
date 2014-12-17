@@ -98,4 +98,14 @@ public interface IDragAndDropServiceHandler {
      */
     public void handleTableRelevantParameters(Connection connection, IElement ele, IMetadataTable metadataTable);
 
+    /**
+     * DOC ycbai Comment method "isValidForDataViewer".
+     * <p>
+     * Check if the table can do data viewer.
+     * 
+     * @param metadataTable
+     * @return
+     */
+    public boolean isValidForDataViewer(IMetadataTable metadataTable);
+
 }

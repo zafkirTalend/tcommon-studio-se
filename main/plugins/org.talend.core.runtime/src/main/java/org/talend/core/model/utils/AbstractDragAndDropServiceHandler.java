@@ -32,4 +32,16 @@ public abstract class AbstractDragAndDropServiceHandler implements IDragAndDropS
     public Object getComponentValue(Connection connection, String value, IMetadataTable table) {
         return getComponentValue(connection, value, table, null);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.utils.IDragAndDropServiceHandler#isValidForDataViewer(org.talend.core.model.metadata.
+     * IMetadataTable)
+     */
+    @Override
+    public boolean isValidForDataViewer(IMetadataTable metadataTable) {
+        return true;
+    }
+
 }

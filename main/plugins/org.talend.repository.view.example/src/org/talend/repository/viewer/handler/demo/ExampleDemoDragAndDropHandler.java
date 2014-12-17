@@ -193,7 +193,17 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
     @Override
     public void handleTableRelevantParameters(Connection connection, IElement ele, IMetadataTable metadataTable) {
         // TODO Auto-generated method stub
+    }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.utils.IDragAndDropServiceHandler#isValidForDataViewer(org.talend.core.model.metadata.
+     * IMetadataTable)
+     */
+    @Override
+    public boolean isValidForDataViewer(IMetadataTable metadataTable) {
+        return true;
     }
 
 }
