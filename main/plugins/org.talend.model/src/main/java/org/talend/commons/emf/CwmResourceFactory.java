@@ -15,6 +15,7 @@ package org.talend.commons.emf;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.talend.commons.runtime.model.emf.TalendXMIResource;
 
 /**
  * @author scorreia

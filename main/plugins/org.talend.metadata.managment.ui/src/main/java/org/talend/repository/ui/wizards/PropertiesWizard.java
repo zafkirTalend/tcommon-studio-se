@@ -35,6 +35,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
@@ -54,7 +55,6 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.expressionbuilder.ExpressionPersistance;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 

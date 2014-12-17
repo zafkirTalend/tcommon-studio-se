@@ -30,8 +30,8 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.runtime.xml.XSDValidator;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
-import org.talend.commons.xml.XSDValidator;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -46,6 +46,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;

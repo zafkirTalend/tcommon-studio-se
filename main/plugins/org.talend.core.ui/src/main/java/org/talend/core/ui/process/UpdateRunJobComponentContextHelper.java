@@ -19,6 +19,7 @@ import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IContext;
@@ -38,7 +39,6 @@ import org.talend.core.ui.services.IDesignerCoreUIService;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**

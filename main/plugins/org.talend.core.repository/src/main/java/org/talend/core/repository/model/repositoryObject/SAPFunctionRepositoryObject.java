@@ -14,6 +14,7 @@ package org.talend.core.repository.model.repositoryObject;
 
 import java.util.Iterator;
 
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -25,7 +26,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 

@@ -68,6 +68,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -151,9 +152,9 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**

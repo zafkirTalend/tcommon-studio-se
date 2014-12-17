@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.expressionbuilder;
+package org.talend.commons.runtime.model.expressionbuilder;
 
 import java.util.ArrayList;
 import java.util.List;

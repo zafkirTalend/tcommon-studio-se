@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.util;
 
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.runtime.xml.XmlUtil;
 
 /**
  * DOC xqliu class global comment. Detailled comment

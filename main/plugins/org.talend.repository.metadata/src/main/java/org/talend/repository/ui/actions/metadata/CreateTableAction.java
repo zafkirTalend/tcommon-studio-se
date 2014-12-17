@@ -14,6 +14,7 @@ package org.talend.repository.ui.actions.metadata;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -37,7 +38,6 @@ import org.talend.core.repository.model.repositoryObject.MetadataColumnRepositor
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;

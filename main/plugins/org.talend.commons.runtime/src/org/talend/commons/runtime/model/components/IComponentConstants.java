@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.model.components;
+package org.talend.commons.runtime.model.components;
 
 /**
  * DOC ggu class global comment. Detailled comment

@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.CwmResource;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.io.FileCopyUtils;
 import org.talend.commons.utils.time.TimeMeasure;
@@ -101,7 +102,6 @@ import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
-import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * DOC ggu class global comment. Detailled comment

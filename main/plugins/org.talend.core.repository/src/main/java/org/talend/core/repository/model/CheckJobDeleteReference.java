@@ -21,6 +21,7 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -37,7 +38,6 @@ import org.talend.core.repository.ui.actions.DeleteActionCache;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**

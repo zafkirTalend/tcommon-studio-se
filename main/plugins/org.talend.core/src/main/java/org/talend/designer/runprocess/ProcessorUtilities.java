@@ -37,6 +37,7 @@ import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -78,7 +79,6 @@ import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.designer.runprocess.ProcessorException;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 

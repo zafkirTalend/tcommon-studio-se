@@ -35,6 +35,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.GlobalServiceRegister;
@@ -70,10 +71,10 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**

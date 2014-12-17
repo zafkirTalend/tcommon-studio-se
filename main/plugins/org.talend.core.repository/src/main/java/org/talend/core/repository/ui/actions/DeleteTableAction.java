@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -52,7 +53,6 @@ import org.talend.core.repository.model.repositoryObject.MetadataTableRepository
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.cwm.helper.SubItemHelper;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;

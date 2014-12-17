@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.expressionbuilder.Variable;
+import org.talend.commons.runtime.model.expressionbuilder.Variable;
 import org.talend.commons.ui.expressionbuilder.IExpressionDataBean;
 import org.talend.commons.ui.expressionbuilder.IExtendedCellEditorBehavior;
 

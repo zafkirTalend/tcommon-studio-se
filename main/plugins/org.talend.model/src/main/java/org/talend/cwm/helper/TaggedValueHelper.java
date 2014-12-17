@@ -18,7 +18,8 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
-import org.talend.commons.emf.EmfHelper;
+import org.talend.commons.runtime.model.emf.EmfHelper;
+
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.core.ModelElement;

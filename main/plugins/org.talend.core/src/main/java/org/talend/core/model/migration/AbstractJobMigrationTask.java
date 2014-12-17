@@ -15,7 +15,7 @@ package org.talend.core.model.migration;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.commons.emf.EmfHelper;
+import org.talend.commons.runtime.model.emf.EmfHelper;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;

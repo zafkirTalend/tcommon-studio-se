@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.talend.commons.debug.TalendDebugHandler;
 import org.talend.commons.exception.ExceptionService;
+import org.talend.commons.runtime.debug.TalendDebugHandler;
 
 /**
  * Activator for Code Generator.

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.debug;
+package org.talend.commons.runtime.debug;
 
 import org.eclipse.osgi.service.debug.DebugOptions;
 import org.osgi.framework.BundleContext;

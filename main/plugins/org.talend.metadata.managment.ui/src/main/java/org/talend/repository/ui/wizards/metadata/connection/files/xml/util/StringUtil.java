@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.xml.util;
 
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.runtime.xml.XmlUtil;
 
 /**
  * DOC ke class global comment. Detailled comment <br/>

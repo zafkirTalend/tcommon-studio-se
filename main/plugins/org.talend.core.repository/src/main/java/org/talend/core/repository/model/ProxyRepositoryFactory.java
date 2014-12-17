@@ -59,6 +59,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
@@ -118,9 +119,9 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**

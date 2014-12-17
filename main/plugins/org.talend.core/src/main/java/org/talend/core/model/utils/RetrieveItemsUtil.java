@@ -19,6 +19,7 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.Project;
@@ -30,7 +31,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 

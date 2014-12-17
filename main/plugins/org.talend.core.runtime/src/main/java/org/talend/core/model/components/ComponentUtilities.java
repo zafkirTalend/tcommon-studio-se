@@ -19,7 +19,7 @@ import java.util.List;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.model.components.IComponentConstants;
+import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;

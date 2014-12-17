@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -29,7 +30,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.cwm.helper.SubItemHelper;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 
 import orgomg.cwm.objectmodel.core.ModelElement;

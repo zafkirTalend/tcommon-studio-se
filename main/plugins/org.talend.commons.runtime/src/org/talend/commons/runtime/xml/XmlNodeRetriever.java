@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.xml;
+package org.talend.commons.runtime.xml;
 
 import java.io.File;
 import java.io.IOException;

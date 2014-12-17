@@ -16,14 +16,14 @@ import java.util.Arrays;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.talend.commons.runtime.model.repository.ECDCStatus;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.OverlayImage;
 import org.talend.commons.ui.runtime.image.OverlayImage.EPosition;
-import org.talend.repository.model.ECDCStatus;
-import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

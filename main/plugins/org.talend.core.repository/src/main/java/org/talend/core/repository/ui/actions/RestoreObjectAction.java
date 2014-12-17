@@ -13,9 +13,9 @@
 package org.talend.core.repository.ui.actions;
 
 import org.eclipse.core.runtime.IPath;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;

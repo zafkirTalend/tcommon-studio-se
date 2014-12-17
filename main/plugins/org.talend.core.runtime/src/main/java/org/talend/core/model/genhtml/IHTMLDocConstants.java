@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.model.genhtml;
 
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.runtime.xml.XmlUtil;
 
 /**
  * This class is stored all constants for generating HTML. <br/>
