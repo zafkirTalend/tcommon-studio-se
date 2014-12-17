@@ -15,6 +15,7 @@ package org.talend.commons.ui.swt.proposal;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
+import org.talend.commons.ui.runtime.swt.proposal.IControlContentAdapterExtended;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

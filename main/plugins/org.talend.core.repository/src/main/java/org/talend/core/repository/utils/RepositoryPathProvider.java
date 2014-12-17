@@ -20,7 +20,6 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
@@ -32,10 +31,10 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 public class RepositoryPathProvider {
 
     public static IProject getProject() throws PersistenceException {
-        RepositoryContext repositoryContext = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
+        RepositoryContext repositoryContext = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
-        return ResourceModelUtils.getProject(project);
+        return ResourceUtils.getProject(project);
     }
 
     public static IPath getPathRootProject() {

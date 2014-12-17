@@ -17,11 +17,13 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorNotModifiable;
+import org.talend.commons.ui.runtime.swt.tableviewer.behavior.ITableCellValueModifiedListener;
+import org.talend.commons.ui.runtime.swt.tableviewer.behavior.TableCellValueModifiedEvent;
+import org.talend.commons.ui.runtime.swt.tableviewer.data.AccessorUtils;
+import org.talend.commons.ui.runtime.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable;
-import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
-import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 
 /**
  * 

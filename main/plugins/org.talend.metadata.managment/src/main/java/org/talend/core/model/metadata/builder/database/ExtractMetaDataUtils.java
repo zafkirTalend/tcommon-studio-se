@@ -55,6 +55,7 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.platform.PluginChecker;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
@@ -73,7 +74,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.IDesignerCoreService;
@@ -1164,7 +1164,7 @@ public class ExtractMetaDataUtils {
         IProject physProject;
         String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
         try {
-            physProject = ResourceModelUtils.getProject(project);
+            physProject = ResourceUtils.getProject(project);
             if (physProject != null) {
                 tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
             }

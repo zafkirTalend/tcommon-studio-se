@@ -28,7 +28,7 @@ import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.images.OverlayImageProvider;
+import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.commons.ui.utils.image.ColorUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;

@@ -52,7 +52,6 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.model.FolderHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -83,7 +82,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
         project.setAuthor(user);
         Project createProject = repositoryFactory.createProject(project);
         assertTrue(createProject != null);
-        final IProject project2 = ResourceModelUtils.getProject(createProject);
+        final IProject project2 = ResourceUtils.getProject(createProject);
         project2.delete(true, null);
     }
 
@@ -600,7 +599,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
     }
 
     private void testProcesspropagateFileName(LocalRepositoryFactory factory, String path) throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         ProcessItem processItem = createTempProcessItem(factory, path);
 
         String processId = processItem.getProperty().getId();
@@ -713,7 +712,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
     }
 
     private void testRoutinepropagateFileName(LocalRepositoryFactory factory, String path) throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         RoutineItem routineItem = createTempRoutineItem(factory, path);
         FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
         assertNotNull(routineItem.getParent());
@@ -820,7 +819,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
     }
 
     private void testProcesspropagateFileName2(LocalRepositoryFactory factory, String path) throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         ProcessItem processItem = createTempProcessItem(factory, path);
         FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.PROCESS, new Path(path));
         assertNotNull(processItem.getParent());
@@ -896,7 +895,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
     }
 
     private void testRoutinepropagateFileName2(LocalRepositoryFactory factory, String path) throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         RoutineItem routineItem = createTempRoutineItem(factory, path);
         FolderItem folderItem = factory.getFolderItem(sampleProject, ERepositoryObjectType.ROUTINES, new Path(path));
         assertNotNull(routineItem.getParent());
@@ -1033,7 +1032,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
 
         assertNotNull(objects.get(0));
         repositoryFactory.moveObject(objects.get(0), ip);
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         checkMoveObjectFileExists(project, ERepositoryObjectType.PROCESS, createFolder.getLabel(), processItem.getProperty()
                 .getLabel(), processItem.getProperty().getVersion());
 
@@ -1085,7 +1084,7 @@ public class LocalRepositoryFactoryTest extends BaseRepositoryTest {
 
         assertNotNull(objects.get(0));
         repositoryFactory.moveFolder(ERepositoryObjectType.PROCESS, sourcePath, targetPath);
-        IProject project = ResourceModelUtils.getProject(sampleProject);
+        IProject project = ResourceUtils.getProject(sampleProject);
         checkMoveObjectFileExists(project, ERepositoryObjectType.PROCESS, createTargetFolder.getLabel() + "/" + "sourceFolder",
                 processItem.getProperty().getLabel(), processItem.getProperty().getVersion());
 

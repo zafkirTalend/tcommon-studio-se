@@ -16,7 +16,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
+import org.talend.commons.ui.runtime.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;

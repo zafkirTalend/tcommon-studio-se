@@ -20,7 +20,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.talend.commons.utils.io.FileCopyUtils;
+import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.repository.constants.FileConstants;

@@ -32,7 +32,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
-import org.talend.commons.utils.io.FileCopyUtils;
+import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 

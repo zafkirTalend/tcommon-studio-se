@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
@@ -37,7 +38,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.model.connection.ConnectionStatus;
 import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
@@ -235,7 +235,7 @@ public class ManagerConnection {
         IProject physProject;
         String tmpFolder = System.getProperty("user.dir"); //$NON-NLS-1$
         try {
-            physProject = ResourceModelUtils.getProject(project);
+            physProject = ResourceUtils.getProject(project);
             tmpFolder = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
         } catch (Exception e) {
             ExceptionHandler.process(e);

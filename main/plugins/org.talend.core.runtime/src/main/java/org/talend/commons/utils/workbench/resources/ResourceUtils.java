@@ -32,6 +32,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.i18n.internal.Messages;
+import org.talend.core.model.general.Project;
 
 /**
  * Provides utilities methods on IResource.<br/>
@@ -47,6 +48,17 @@ public final class ResourceUtils {
      * Default Constructor. Must not be used.
      */
     private ResourceUtils() {
+    }
+
+    /**
+     * Load a project (IResource speaking) in the current workspace from a project (model speaking).
+     * 
+     * @param project - the project to retrieve
+     * @return the IProject matching the project
+     * @throws PersistenceException if the IProject cannot be retrieve
+     */
+    public static IProject getProject(Project project) throws PersistenceException {
+        return getProject(project.getTechnicalLabel());
     }
 
     /**

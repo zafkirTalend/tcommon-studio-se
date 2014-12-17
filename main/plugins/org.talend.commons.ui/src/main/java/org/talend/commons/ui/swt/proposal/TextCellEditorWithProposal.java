@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.runtime.swt.proposal.IShowInvisibleCellEditorMethods;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**

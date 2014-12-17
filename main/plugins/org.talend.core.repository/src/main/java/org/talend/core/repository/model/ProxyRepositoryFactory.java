@@ -121,7 +121,6 @@ import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -1480,7 +1479,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     private void emptyTempFolder(Project project) throws PersistenceException {
         long start = System.currentTimeMillis();
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
         int nbResourcesDeleted = ResourceUtils.emptyFolder(folder);
         long elapsedTime = System.currentTimeMillis() - start;

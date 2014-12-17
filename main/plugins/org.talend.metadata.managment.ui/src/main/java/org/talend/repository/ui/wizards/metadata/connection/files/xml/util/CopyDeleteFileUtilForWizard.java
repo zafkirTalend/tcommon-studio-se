@@ -36,6 +36,7 @@ import org.eclipse.core.resources.IProject;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.repository.ProjectManager;
 import org.xml.sax.EntityResolver;
@@ -52,7 +53,7 @@ public class CopyDeleteFileUtilForWizard {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = org.talend.core.repository.model.ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }
@@ -220,7 +221,7 @@ public class CopyDeleteFileUtilForWizard {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = org.talend.core.repository.model.ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }

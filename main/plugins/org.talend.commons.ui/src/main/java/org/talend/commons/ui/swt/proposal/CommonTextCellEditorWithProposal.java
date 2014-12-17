@@ -22,9 +22,11 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.ui.runtime.swt.proposal.IContentProposalExtendedListener;
+import org.talend.commons.ui.runtime.swt.proposal.IShowInvisibleCellEditorMethods;
+import org.talend.commons.ui.runtime.thread.AsynchronousThreading;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 
 /**
  * This class extends the ExtendedTextCellEditor to add the Expression Builder to tMapper. Only tMapper can use this

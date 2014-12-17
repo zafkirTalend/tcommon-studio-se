@@ -68,6 +68,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -75,7 +76,6 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.xml.XmlArray;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.ui.metadata.editor.XmlExtractorFieldModel;
 import org.talend.core.ui.metadata.editor.XmlExtractorLoopModel;
 import org.talend.core.utils.CsvArray;
@@ -1019,7 +1019,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }

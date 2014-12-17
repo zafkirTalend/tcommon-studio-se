@@ -23,11 +23,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.runtime.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.runtime.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
-import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

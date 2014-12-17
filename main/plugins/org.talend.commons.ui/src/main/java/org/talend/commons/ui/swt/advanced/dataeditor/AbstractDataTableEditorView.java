@@ -21,11 +21,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorNotModifiable.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.SHOW_ROW_SELECTION;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**

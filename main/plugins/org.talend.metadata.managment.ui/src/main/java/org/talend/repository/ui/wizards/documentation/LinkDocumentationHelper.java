@@ -35,7 +35,6 @@ import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.PropertiesFactory;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.repository.model.RepositoryConstants;
@@ -65,7 +64,7 @@ public final class LinkDocumentationHelper {
                 .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject();
         IProject fsProject;
         try {
-            fsProject = ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
             IFolder tmpFolder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
             return tmpFolder.getFile(id + extension);
 

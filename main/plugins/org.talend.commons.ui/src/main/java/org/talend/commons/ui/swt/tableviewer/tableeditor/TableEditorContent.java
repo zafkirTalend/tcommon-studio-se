@@ -15,8 +15,9 @@ package org.talend.commons.ui.swt.tableviewer.tableeditor;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
+import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.TableEditorContentNotModifiable;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

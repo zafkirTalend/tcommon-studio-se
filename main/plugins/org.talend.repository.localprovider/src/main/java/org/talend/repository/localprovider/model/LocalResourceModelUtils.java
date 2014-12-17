@@ -18,7 +18,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.repository.model.ResourceModelUtils;
 
 /**
  * Provides utilities methods relative to model on IResource.<br/>
@@ -26,13 +25,13 @@ import org.talend.core.repository.model.ResourceModelUtils;
  * $Id$
  * 
  */
-public final class LocalResourceModelUtils extends ResourceModelUtils {
+public final class LocalResourceModelUtils {
 
     private LocalResourceModelUtils() {
     }
 
     public static IFolder getFolder(Project project, ERepositoryObjectType type) throws PersistenceException {
-        IProject fsProject = LocalResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
     }
 }

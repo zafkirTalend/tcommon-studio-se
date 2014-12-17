@@ -774,7 +774,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         RootContainer<String, IRepositoryViewObject> toReturn = new RootContainer<String, IRepositoryViewObject>();
         ERepositoryObjectType type = ERepositoryObjectType.ROUTINES;
         if (type != null) {
-            IProject fsProject = ResourceModelUtils.getProject(project);
+            IProject fsProject = ResourceUtils.getProject(project);
 
             IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
 
@@ -874,7 +874,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             if (path != null && !"".equals(path)) { //$NON-NLS-1$
                 // MOD mzhao feature 9207
                 if (folder == null) {
-                    fullFolder = ResourceModelUtils.getProject(project).getFolder(new Path(path));
+                    fullFolder = ResourceUtils.getProject(project).getFolder(new Path(path));
                 } else {
                     fullFolder = this.getFolderHelper(project.getEmfProject()).getFolder(
                             ((FolderItem) folder).getProperty().getLabel() + "/" + path); //$NON-NLS-1$
@@ -945,7 +945,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         String pathStr = ERepositoryObjectType.getFolderName(itemType) + IPath.SEPARATOR + path;
         FolderItem folderItem = folderHelper.getFolder(pathStr);
         if (folderItem == null && itemType != null) {
-            folderItem= folderHelper.createFolder(pathStr);
+            folderItem = folderHelper.createFolder(pathStr);
         }
         return folderItem;
     }

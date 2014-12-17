@@ -64,12 +64,12 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
@@ -84,7 +84,6 @@ import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
-
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -749,7 +748,7 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }

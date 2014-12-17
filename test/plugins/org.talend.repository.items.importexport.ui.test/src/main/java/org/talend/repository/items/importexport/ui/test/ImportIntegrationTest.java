@@ -40,6 +40,7 @@ import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -51,7 +52,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -153,7 +153,7 @@ public class ImportIntegrationTest {
     private void removeTempProject() throws PersistenceException, CoreException {
         // clear the folder, same as it should be in a real logoffProject.
         ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
-        final IProject project = ResourceModelUtils.getProject(sampleProject);
+        final IProject project = ResourceUtils.getProject(sampleProject);
         project.delete(true, null);
     }
 

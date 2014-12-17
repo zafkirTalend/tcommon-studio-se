@@ -15,10 +15,10 @@ package org.talend.commons.ui.swt.extended.table;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.swt.tableviewer.data.AccessorUtils;
+import org.talend.commons.ui.runtime.utils.TableUtils;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
-import org.talend.commons.ui.utils.TableUtils;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

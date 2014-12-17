@@ -12,16 +12,16 @@
 // ============================================================================
 package org.talend.repository.model.actions;
 
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryViewObject;
-import org.talend.repository.model.ERepositoryStatus;
+import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.repository.model.RepositoryNode;
 
 /**

@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
-import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
+import org.talend.commons.ui.runtime.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;

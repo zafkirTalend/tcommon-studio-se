@@ -27,7 +27,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.images.OverlayImageProvider;
+import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;

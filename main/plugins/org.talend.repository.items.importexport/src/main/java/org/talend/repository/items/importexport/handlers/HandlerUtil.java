@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.io.FileCopyUtils;
+import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.helper.ByteArrayResource;

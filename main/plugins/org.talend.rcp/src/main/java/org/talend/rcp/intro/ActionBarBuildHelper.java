@@ -49,8 +49,8 @@ import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.core.ui.services.IOpenJobScriptActionService;
-import org.talend.rcp.intro.linksbar.LinksToolbarItem;
 import org.talend.core.ui.workspace.OpenWorkspaceAction;
+import org.talend.rcp.intro.linksbar.LinksToolbarItem;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
@@ -101,18 +101,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
-
-    // protected void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
-    // IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
-    // reg.removeExtension(ext, new Object[] { actionSet });
-    // }
-
-    // protected static final String[] ACTIONSETID = new String[] {
-    //            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
-    //            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
-    //            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-    // "org.eclipse.search.searchActionSet",
-    //            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ 
 
     @Override
     public void fillMenuBar(final IMenuManager menuBar) {
