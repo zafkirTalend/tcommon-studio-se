@@ -84,6 +84,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -92,7 +93,6 @@ import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.utils.SwitchContextGroupNameImpl;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModulesWizard;
@@ -108,6 +108,7 @@ import org.talend.repository.ui.wizards.metadata.table.files.FileLdifTableWizard
 import org.talend.repository.ui.wizards.metadata.table.files.FilePositionalTableWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileRegexpTableWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileXmlTableWizard;
+
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.metadata;
+package org.talend.metadata.managment.model;
 
 import java.sql.DatabaseMetaData;
 import java.util.HashMap;
@@ -25,19 +25,23 @@ import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.model.metadata.Dbms;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.MetadataConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.util.EDataBaseType;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdView;
 import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
+import org.talend.metadata.managment.utils.EDataBaseType;
+import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;

@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -34,7 +33,9 @@ import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.metadata.managment.utils.ManagementTextUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
+
 import orgomg.cwm.resource.relational.NamedColumnSet;
 
 /**

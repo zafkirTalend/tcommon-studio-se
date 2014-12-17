@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.metadata.builder.database.hive;
+package org.talend.metadata.managment.hive;
 
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
@@ -36,7 +36,6 @@ import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.metadata.managment.hive.HiveClassLoaderFactory;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 

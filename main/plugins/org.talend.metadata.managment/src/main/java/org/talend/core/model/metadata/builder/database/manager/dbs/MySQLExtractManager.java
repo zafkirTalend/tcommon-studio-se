@@ -23,7 +23,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
-import org.talend.core.model.metadata.builder.util.DatabaseConstant;
+import org.talend.metadata.managment.utils.DatabaseConstant;
 
 /**
  * DOC ggu class global comment. Detailled comment

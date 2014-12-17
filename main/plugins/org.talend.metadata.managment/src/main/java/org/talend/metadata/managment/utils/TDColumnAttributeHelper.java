@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.metadata.builder.util;
+package org.talend.metadata.managment.utils;
 
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -22,7 +22,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.utils.ManagementTextUtils;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -40,6 +39,7 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**

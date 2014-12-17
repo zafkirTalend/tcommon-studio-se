@@ -40,11 +40,12 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.utils.ManagerConnection;
 import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
+
 import orgomg.cwm.objectmodel.core.Package;
 
 /**

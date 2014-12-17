@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.metadata;
+package org.talend.metadata.managment.model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,7 +44,10 @@ import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.database.utils.ManagementTextUtils;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.MappingTypeRetriever;
+import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -56,9 +59,6 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
-import org.talend.core.model.metadata.builder.database.hive.EmbeddedHiveDataBaseMetadata;
-import org.talend.core.model.metadata.builder.util.DatabaseConstant;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.TalendCWMService;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -77,6 +77,10 @@ import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.hive.EmbeddedHiveDataBaseMetadata;
+import org.talend.metadata.managment.utils.DatabaseConstant;
+import org.talend.metadata.managment.utils.ManagementTextUtils;
+import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sql.metadata.constants.GetColumn;
@@ -85,6 +89,7 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
+
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;

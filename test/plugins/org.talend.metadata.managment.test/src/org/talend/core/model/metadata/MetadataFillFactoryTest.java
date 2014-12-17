@@ -27,6 +27,8 @@ import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.metadata.managment.model.MetadataFillFactory;
+import org.talend.metadata.managment.model.SybaseConnectionFillerImpl;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 
@@ -69,7 +71,7 @@ public class MetadataFillFactoryTest {
     }
 
     /**
-     * Test method for {@link org.talend.core.model.metadata.MetadataFillFactory#fillUIParams(java.util.Map)}.
+     * Test method for {@link org.talend.metadata.managment.model.MetadataFillFactory#fillUIParams(java.util.Map)}.
      */
     @Test
     public void testFillUIParams() {
@@ -102,7 +104,7 @@ public class MetadataFillFactoryTest {
 
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.MetadataFillFactory#getDBInstance(org.talend.core.database.EDatabaseTypeName)}
+     * {@link org.talend.metadata.managment.model.MetadataFillFactory#getDBInstance(org.talend.core.database.EDatabaseTypeName)}
      * .
      */
     @Test

@@ -23,11 +23,12 @@ import metadata.managment.i18n.Messages;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.TableType;
+
 import orgomg.cwm.resource.relational.NamedColumnSet;
 
 /**

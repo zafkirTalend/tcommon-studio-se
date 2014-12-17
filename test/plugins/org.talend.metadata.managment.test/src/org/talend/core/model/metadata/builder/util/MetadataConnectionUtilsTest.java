@@ -26,6 +26,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 
 /**
  * created by ggu on Jul 12, 2012 Detailled comment
@@ -157,7 +158,7 @@ public class MetadataConnectionUtilsTest {
 
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * {@link org.talend.metadata.managment.utils.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
      * .
      */
     @Test
@@ -179,7 +180,7 @@ public class MetadataConnectionUtilsTest {
 
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * {@link org.talend.metadata.managment.utils.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
      * .
      */
     @Test
@@ -201,7 +202,7 @@ public class MetadataConnectionUtilsTest {
 
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * {@link org.talend.metadata.managment.utils.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
      * .
      */
     @Test
@@ -223,7 +224,7 @@ public class MetadataConnectionUtilsTest {
 
     /**
      * Test method for
-     * {@link org.talend.core.model.metadata.builder.util.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
+     * {@link org.talend.metadata.managment.utils.MetadataConnectionUtils#getMetadataColumnName(orgomg.cwm.objectmodel.core.ModelElement)}
      * .
      */
     @Test
