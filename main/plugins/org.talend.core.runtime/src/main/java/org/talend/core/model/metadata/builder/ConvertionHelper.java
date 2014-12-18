@@ -20,7 +20,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EMap;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -43,6 +42,8 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.model.bridge.ReponsitoryContextBridge;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**

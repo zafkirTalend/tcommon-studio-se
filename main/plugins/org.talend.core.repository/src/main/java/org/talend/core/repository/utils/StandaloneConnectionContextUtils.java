@@ -19,7 +19,6 @@ import java.util.Properties;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.model.metadata.Dbms;
@@ -39,6 +38,7 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 
 /**
  * ADD sizhaoliu 2013-04-16

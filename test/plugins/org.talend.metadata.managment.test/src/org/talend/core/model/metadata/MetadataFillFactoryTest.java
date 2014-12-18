@@ -23,12 +23,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.model.SybaseConnectionFillerImpl;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 

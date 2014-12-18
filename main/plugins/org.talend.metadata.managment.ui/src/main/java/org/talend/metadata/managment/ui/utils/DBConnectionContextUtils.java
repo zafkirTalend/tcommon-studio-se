@@ -21,7 +21,6 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -49,6 +48,7 @@ import org.talend.cwm.helper.SchemaHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.IConnParamName;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;

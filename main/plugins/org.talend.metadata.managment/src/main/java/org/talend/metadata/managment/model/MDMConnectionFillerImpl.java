@@ -29,7 +29,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.commons.utils.data.list.ListUtils;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -49,6 +48,7 @@ import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.mdm.webservice.XtentisPort_PortType;
 import org.talend.metadata.managment.utils.DatabaseConstant;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.sugars.ReturnCode;
 
 import orgomg.cwm.foundation.softwaredeployment.Component;

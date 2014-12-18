@@ -31,7 +31,7 @@ import org.eclipse.m2m.atl.core.emf.EMFInjector;
 import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
-import org.talend.commons.emf.CwmResourceFactory;
+import org.talend.model.emf.CwmResourceFactory;
 import org.talend.model.migration.i18n.Messages;
 
 /**

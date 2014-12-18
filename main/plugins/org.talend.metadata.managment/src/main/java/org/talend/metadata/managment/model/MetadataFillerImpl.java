@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -39,6 +38,7 @@ import org.talend.mdm.webservice.WSPing;
 import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.metadata.managment.utils.EDataBaseType;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 
