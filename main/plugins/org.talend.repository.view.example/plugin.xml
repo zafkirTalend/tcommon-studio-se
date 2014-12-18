@@ -6,17 +6,17 @@
 
    <navigatorContent
             appearsBefore="org.talend.repository.viewer.root.jobDesigns"
-            contentProvider="org.talend.repository.viewer.content.example.ExampleCompContentProvider"
+            contentProvider="org.talend.repository.example.viewer.content.example.ExampleCompContentProvider"
             id="org.talend.repository.viewer.root.content.OemModelContent"
-            labelProvider="org.talend.repository.viewer.label.example.ExampleCompLabelProvider"
+            labelProvider="org.talend.repository.example.viewer.label.example.ExampleCompLabelProvider"
             name="OEM model">
          <triggerPoints>
             <or>
                <adapt
-                     type="org.talend.repository.model.ProjectRepositoryNode">
+                     type="org.talend.core.repository.model.ProjectRepositoryNode">
                </adapt>
                <instanceof
-                     value="org.talend.repository.model.ProjectRepositoryNode">
+                     value="org.talend.core.repository.model.ProjectRepositoryNode">
                </instanceof>
             </or>
          </triggerPoints>
@@ -32,9 +32,9 @@
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.talend.repository.viewer.content.example.ExampleSubCompProvider"
+            contentProvider="org.talend.repository.example.viewer.content.example.ExampleSubCompProvider"
             id="org.talend.repository.viewer.content.OemExtension.content"
-            labelProvider="org.talend.repository.viewer.label.example.ExampleCompLabelProvider"
+            labelProvider="org.talend.repository.example.viewer.label.example.ExampleCompLabelProvider"
             name="OEM content extension">
          <triggerPoints>
             <or>
@@ -78,20 +78,20 @@
       -->
          <navigatorContent
          appearsBefore="org.talend.repository.viewer.root.jobDesigns"
-         contentProvider="org.talend.repository.viewer.content.example.JobOnlyWithAnAContentProvider"
+         contentProvider="org.talend.repository.example.viewer.content.example.JobOnlyWithAnAContentProvider"
          id="org.talend.repository.viewer.root.example.jobs.only.withAnA"
-         labelProvider="org.talend.repository.viewer.label.example.JobOnlyWithAnALabelProvider"
+         labelProvider="org.talend.repository.example.viewer.label.example.JobOnlyWithAnALabelProvider"
          name="job only with an A">
       <triggerPoints>
          <or>
             <adapt
-                  type="org.talend.repository.model.ProjectRepositoryNode">
+                  type="org.talend.core.repository.model.ProjectRepositoryNode">
             </adapt>
             <instanceof
-                  value="org.talend.repository.model.ProjectRepositoryNode">
+                  value="org.talend.core.repository.model.ProjectRepositoryNode">
             </instanceof>
             <instanceof
-                  value="org.talend.repository.model.ExampleRootNode">
+                  value="org.talend.repository.example.viewer.node.ExampleRootNode">
             </instanceof>
             <and>
                <instanceof
@@ -114,7 +114,7 @@
          </and>
       </possibleChildren>
       <actionProvider
-            class="org.talend.repository.viewer.actions.example.ActionProviderThatRemovesCreateFolderContextualMenu"
+            class="org.talend.repository.example.viewer.action.example.ActionProviderThatRemovesCreateFolderContextualMenu"
             id="org.talend.repository.job.only.with.an.a.action.provider.id"
             overrides="org.talend.repository.viewer.root.jobDesigns.ActionProvider"
             priority="highest">
@@ -139,20 +139,20 @@
    </navigatorContent>
       <navigatorContent
             appearsBefore="org.talend.repository.viewer.root.jobDesigns"
-            contentProvider="org.talend.repository.viewer.content.example.JobWithoutAnAContentProvider"
+            contentProvider="org.talend.repository.example.viewer.content.example.JobWithoutAnAContentProvider"
             id="org.talend.repository.viewer.root.example.jobs.withoutAnA"
-            labelProvider="org.talend.repository.viewer.label.example.JobWithoutAnALabelProvider"
+            labelProvider="org.talend.repository.example.viewer.label.example.JobWithoutAnALabelProvider"
             name="job without an A">
          <triggerPoints>
             <or>
                <adapt
-                     type="org.talend.repository.model.ProjectRepositoryNode">
+                     type="org.talend.core.repository.model.ProjectRepositoryNode">
                </adapt>
                <instanceof
-                     value="org.talend.repository.model.ProjectRepositoryNode">
+                     value="org.talend.core.repository.model.ProjectRepositoryNode">
                </instanceof>
                <instanceof
-                     value="org.talend.repository.model.ExampleRootNode">
+                     value="org.talend.repository.example.viewer.node.ExampleRootNode">
                </instanceof>
                <and>
                   <instanceof
@@ -188,10 +188,10 @@
       <navigatorContent
             activeByDefault="true"
             appearsBefore="org.talend.repository.viewer.metadata.webService"
-            contentProvider="org.talend.repository.viewer.content.demo.ExampleDemoContentProvider"
+            contentProvider="org.talend.repository.example.viewer.content.demo.ExampleDemoContentProvider"
             icon="icons/demo.gif"
             id="org.talend.repository.view.metadata.example.demo"
-            labelProvider="org.talend.repository.viewer.label.demo.ExampleDemoLabelProvider"
+            labelProvider="org.talend.repository.example.viewer.label.demo.ExampleDemoLabelProvider"
             name="%Example_Demo_Name"
             priority="normal">
          <triggerPoints>
@@ -223,7 +223,7 @@
             </and>
          </possibleChildren>
          <actionProvider
-               class="org.talend.repository.viewer.actions.demo.ExampleDemoNodeActionProvier"
+               class="org.talend.repository.example.viewer.action.demo.ExampleDemoNodeActionProvier"
                id="org.talend.repository.example.demo.action.example.provider">
             <enablement>
                <and>
@@ -247,10 +247,10 @@
       <navigatorContent
             activeByDefault="true"
             appearsBefore="org.talend.repository.view.metadata.example.demo"
-            contentProvider="org.talend.repository.viewer.content.demo.ExtendedExampleDemoContentProvider"
+            contentProvider="org.talend.repository.example.viewer.content.demo.ExtendedExampleDemoContentProvider"
             icon="icons/demo.gif"
             id="org.talend.repository.view.metadata.example.demo.extended"
-            labelProvider="org.talend.repository.viewer.label.demo.ExampleDemoLabelProvider"
+            labelProvider="org.talend.repository.example.viewer.label.demo.ExampleDemoLabelProvider"
             name="%Extended_Example_Demo_Name"
             priority="normal">
          <triggerPoints>
@@ -282,7 +282,7 @@
             </and>
          </possibleChildren>
          <actionProvider
-               class="org.talend.repository.viewer.actions.demo.ExampleDemoNodeActionProvier"
+               class="org.talend.repository.example.viewer.action.demo.ExampleDemoNodeActionProvier"
                id="org.talend.repository.example.demo.action.extendedExample.provider">
             <enablement>
                <and>
@@ -328,32 +328,32 @@
 <extension
       point="org.eclipse.core.expressions.propertyTesters">
    <propertyTester
-         class="org.talend.repository.tester.example.ExampleTester"
+         class="org.talend.repository.example.viewer.tester.example.ExampleTester"
          id="org.talend.repository.view.example.bmTester"
          namespace="org.talend.repository.view.example"
          properties="isBM"
          type="java.lang.String">
    </propertyTester>
    <propertyTester
-         class="org.talend.repository.tester.example.ExampleTester"
+         class="org.talend.repository.example.viewer.tester.example.ExampleTester"
          id="org.talend.repository.view.example.jobTester"
          namespace="org.talend.repository.view.example"
          properties="isJob,isJobOnlyWithAnA"
          type="org.talend.repository.model.RepositoryNode">
    </propertyTester>
     <propertyTester
-            class="org.talend.repository.tester.demo.ExampleDemoMetadataNodeTester"
+            class="org.talend.repository.example.viewer.tester.demo.ExampleDemoMetadataNodeTester"
             id="org.talend.repository.node.tester.metadata.example.demo"
             namespace="org.talend.repository.node.metadata"
             properties="isExampleDemo,isExtendedExampleDemo"
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
     <propertyTester
-          class="org.talend.repository.tester.example.ExampleTester"
+          class="org.talend.repository.example.viewer.tester.example.ExampleTester"
           id="org.talend.repository.view.example.rootTester"
           namespace="org.talend.repository.view.example"
           properties="isJobOnlyWithAnARoot,isJobWithoutAnARoot"
-          type="org.talend.repository.model.ExampleRootNode">
+          type="org.talend.repository.example.viewer.node.ExampleRootNode">
     </propertyTester>
 </extension>
    <extension
@@ -373,7 +373,7 @@
    <extension
          point="org.talend.core.repository.repository_node_provider">
       <repositoryNode
-            class="org.talend.repository.model.ExampleDemoRepositoryNode"
+            class="org.talend.repository.example.viewer.node.ExampleDemoRepositoryNode"
             folder="metadata/exmple_demo"
             icon="icons/demo.gif"
             isResouce="true"
@@ -395,7 +395,7 @@
       <extension
          point="org.talend.core.repositoryContextualsActions">
       <Action
-            class="org.talend.repository.viewer.actions.demo.CreateExampleDemoAction"
+            class="org.talend.repository.example.viewer.action.demo.CreateExampleDemoAction"
             id="org.talend.repository.view.example.demo.createExmpleDemoAction"
             isEditAction="false"
             isPropertiesAction="false"
@@ -404,7 +404,7 @@
             name="%Create_Demo_Action_Name">
       </Action>
       <Action
-            class="org.talend.repository.viewer.actions.demo.CreateExtendedExampleDemoAction"
+            class="org.talend.repository.example.viewer.action.demo.CreateExtendedExampleDemoAction"
             id="org.talend.repository.viewer.actions.demo.CreateExtendedExampleDemoAction"
             isEditAction="false"
             isPropertiesAction="false"
@@ -416,16 +416,16 @@
    <extension
          point="org.talend.core.repository.repository_content">
       <RepositoryContent
-            class="org.talend.repository.viewer.handler.demo.ExampleDemoRepositoryHandler">
+            class="org.talend.repository.example.viewer.handler.demo.ExampleDemoRepositoryHandler">
       </RepositoryContent>
       <RepositoryContent
-            class="org.talend.repository.viewer.handler.demo.ExtendedExampleDemoRepositoryHandler">
+            class="org.talend.repository.example.viewer.handler.demo.ExtendedExampleDemoRepositoryHandler">
       </RepositoryContent>
    </extension>
    <extension
          point="org.talend.core.repository.repository_handler">
       <RepositoryHandler
-            class="org.talend.repository.viewer.handler.demo.ExampleDemoDragAndDropHandler">
+            class="org.talend.repository.example.viewer.handler.demo.ExampleDemoDragAndDropHandler">
       </RepositoryHandler>
    </extension>
    <extension
@@ -445,7 +445,7 @@
    <extension
          point="org.talend.core.components_provider">
       <ComponentsProvider
-            class="org.talend.repository.components.ExampleComponentsProvider"
+            class="org.talend.repository.example.components.ExampleComponentsProvider"
             id="org.talend.repository.view.example.ComponentsProvider1">
       </ComponentsProvider>
    </extension>
@@ -466,7 +466,7 @@
             name="Example Demo importer"
             priority="LOW">
          <importItemsHandler
-               class="org.talend.repository.viewer.handler.demo.ExampleDemoImportHandler">
+               class="org.talend.repository.example.viewer.handler.demo.ExampleDemoImportHandler">
             <parameter
                   comment="for the value, same as &quot;EXAMPLE_DEMO&quot; too."
                   name="path"
@@ -484,7 +484,7 @@
             id="org.talend.repository.view.example.importResourcesProvider.demo"
             priority="LOWEST">
          <importResoucesHandler
-               class="org.talend.repository.viewer.handler.demo.DemoImportResourcesHandler"></importResoucesHandler>
+               class="org.talend.repository.example.viewer.handler.demo.DemoImportResourcesHandler"></importResoucesHandler>
       </importResourcesProvider>
    </extension>
    <extension

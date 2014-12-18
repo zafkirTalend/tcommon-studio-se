@@ -32,7 +32,7 @@ Require-Bundle: org.talend.core.runtime,
  org.talend.core,
  org.talend.repository.items.importexport,
  org.talend.core.ui
-Bundle-Activator: org.talend.repository.Activator
+Bundle-Activator: org.talend.repository.example.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.talend.repository.example.model.demo,
