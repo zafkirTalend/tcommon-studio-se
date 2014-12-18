@@ -69,7 +69,7 @@ import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
 import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractSalesforceStepForm;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>

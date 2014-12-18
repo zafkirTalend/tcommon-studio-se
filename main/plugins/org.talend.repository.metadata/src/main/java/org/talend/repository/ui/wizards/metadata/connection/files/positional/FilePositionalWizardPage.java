@@ -23,7 +23,7 @@ import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.metadata.managment.ui.wizard.AbstractForm.ICheckListener;
-import org.talend.repository.ui.swt.utils.AbstractPositionalFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractPositionalFileStepForm;
 
 /**
  * Use to create a new connection to a File. Page allows setting a file.

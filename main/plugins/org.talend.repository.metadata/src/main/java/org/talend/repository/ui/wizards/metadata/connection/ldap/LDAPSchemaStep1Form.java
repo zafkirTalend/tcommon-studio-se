@@ -41,7 +41,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractLDAPSchemaStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractLDAPSchemaStepForm;
 
 /**
  * The class is used for LDAP schema on Repository View. <br/>

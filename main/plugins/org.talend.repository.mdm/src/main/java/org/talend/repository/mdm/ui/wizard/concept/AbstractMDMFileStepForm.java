@@ -36,7 +36,7 @@ import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils.EParam
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.mdm.util.MDMUtil;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 
 /**
  * DOC hwang class global comment. Detailled comment

@@ -54,7 +54,7 @@ import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
 import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.wizard.metadata.connection.GuessSchemaUtil;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractDelimitedFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractDelimitedFileStepForm;
 
 /**
  * @author ocarbone

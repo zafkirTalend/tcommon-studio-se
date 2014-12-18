@@ -23,7 +23,7 @@ import org.talend.core.model.xml.XmlArray;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
-import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
 
 /**
  * Use to create a new connection to a File. Page allows setting a file.

@@ -66,7 +66,7 @@ import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
 import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractExcelFileStepForm;
 
 /**
  * 

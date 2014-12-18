@@ -56,7 +56,7 @@ import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.ui.model.positional.FilePositionalViewer;
 import org.talend.metadata.managment.ui.model.positional.GraphicRule;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractPositionalFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractPositionalFileStepForm;
 
 /**
  * @author ocarbone

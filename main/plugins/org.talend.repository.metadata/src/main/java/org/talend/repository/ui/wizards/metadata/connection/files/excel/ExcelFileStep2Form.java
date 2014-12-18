@@ -65,7 +65,7 @@ import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
 import org.talend.metadata.managment.ui.wizard.IRefreshable;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractExcelFileStepForm;
 
 /**
  * @author xye

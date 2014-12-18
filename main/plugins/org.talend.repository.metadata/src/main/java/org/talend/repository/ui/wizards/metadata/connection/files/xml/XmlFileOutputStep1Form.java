@@ -83,7 +83,7 @@ import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
 
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;

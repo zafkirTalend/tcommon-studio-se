@@ -53,7 +53,7 @@ import org.talend.commons.ui.utils.TreeUtils;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.XmlExtractorBgRefresher;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 import org.talend.repository.mdm.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 
 /**
  * wzhang class global comment. Detailled comment

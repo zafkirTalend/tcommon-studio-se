@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 
 /**
  * DOC hywang class global comment. Detailled comment

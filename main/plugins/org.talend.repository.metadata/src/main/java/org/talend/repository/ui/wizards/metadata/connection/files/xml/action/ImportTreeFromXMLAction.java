@@ -28,7 +28,7 @@ import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.metadata.managment.ui.dialog.RootNodeSelectDialog;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileOutputStep2Form;
 
 /**

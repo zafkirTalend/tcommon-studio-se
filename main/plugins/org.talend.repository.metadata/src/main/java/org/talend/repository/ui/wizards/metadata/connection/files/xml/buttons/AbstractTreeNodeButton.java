@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 
 /**
  * DOC wchen class global comment. Detailled comment

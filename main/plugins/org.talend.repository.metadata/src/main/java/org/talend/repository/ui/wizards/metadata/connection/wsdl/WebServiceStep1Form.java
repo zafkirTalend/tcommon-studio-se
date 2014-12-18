@@ -25,7 +25,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.service.IWebServiceTos;
-import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractWSDLSchemaStepForm;
 
 /**
  * DOC Administrator class global comment. Detailled comment

@@ -23,7 +23,7 @@ import org.talend.metadata.managment.ui.wizard.metadata.xml.node.Attribute;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.Element;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.NameSpaceNode;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 
 /**
  * wzhang class global comment. Detailled comment

@@ -65,8 +65,8 @@ import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
 import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
+import org.talend.repository.metadata.ui.wizards.form.AbstractPositionalFileStepForm;
 import org.talend.repository.model.RepositoryConstants;
-import org.talend.repository.ui.swt.utils.AbstractPositionalFileStepForm;
 
 /**
  * @author ocarbone

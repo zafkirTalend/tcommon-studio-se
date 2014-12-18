@@ -76,7 +76,7 @@ import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.node.NameSpaceNode;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
-import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateAttributeAction;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateElementAction;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateNameSpaceAction;

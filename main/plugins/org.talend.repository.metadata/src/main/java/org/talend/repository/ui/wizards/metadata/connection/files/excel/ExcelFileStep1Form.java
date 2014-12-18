@@ -59,7 +59,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.preview.ExcelSchemaBean;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractExcelFileStepForm;
 
 /**
  * DOC yexiaowei class global comment. Detailled comment

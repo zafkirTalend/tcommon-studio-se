@@ -61,7 +61,7 @@ import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractWSDLSchemaStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractWSDLSchemaStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.ldap.BaseWidgetUtils;
 
 /**
