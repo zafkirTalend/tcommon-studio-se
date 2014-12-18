@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package org.talend.repository.registeruser.proxy;
+package org.talend.registration.register.proxy;
 
 public class UserRegistration  implements java.io.Serializable {
     private int id;

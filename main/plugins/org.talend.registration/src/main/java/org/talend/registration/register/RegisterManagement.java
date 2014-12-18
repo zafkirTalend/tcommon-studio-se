@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.registeruser;
+package org.talend.registration.register;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,8 +42,8 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.token.DefaultTokenCollector;
-import org.talend.repository.i18n.Messages;
-import org.talend.repository.registeruser.proxy.RegisterUserPortTypeProxy;
+import org.talend.registration.i18n.Messages;
+import org.talend.registration.register.proxy.RegisterUserPortTypeProxy;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
 /**

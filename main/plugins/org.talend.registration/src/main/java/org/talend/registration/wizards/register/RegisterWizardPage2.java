@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.ui.wizards.register;
+package org.talend.registration.wizards.register;
 
 import java.util.Locale;
 import java.util.SortedSet;
@@ -35,8 +35,8 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.repository.i18n.Messages;
-import org.talend.repository.registeruser.RegisterManagement;
+import org.talend.registration.i18n.Messages;
+import org.talend.registration.register.RegisterManagement;
 
 /**
  * DOC zli class global comment. Detailled comment

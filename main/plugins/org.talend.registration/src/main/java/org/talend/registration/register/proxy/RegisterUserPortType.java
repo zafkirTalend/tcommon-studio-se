@@ -4,7 +4,7 @@
  * This file was auto-generated from WSDL by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package org.talend.repository.registeruser.proxy;
+package org.talend.registration.register.proxy;
 
 public interface RegisterUserPortType extends java.rmi.Remote {
 
@@ -30,7 +30,7 @@ public interface RegisterUserPortType extends java.rmi.Remote {
             java.lang.String totalMemory, java.lang.String memRAM, java.lang.String nbProc, java.lang.String uniqueId)
             throws java.rmi.RemoteException;
 
-    public org.talend.repository.registeruser.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException;
+    public org.talend.registration.register.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException;
 
     public java.lang.String checkUser(java.lang.String email) throws java.rmi.RemoteException;
 

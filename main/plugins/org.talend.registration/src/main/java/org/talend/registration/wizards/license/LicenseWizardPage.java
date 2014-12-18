@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.ui.wizards.license;
+package org.talend.registration.wizards.license;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,7 +40,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.repository.i18n.Messages;
+import org.talend.registration.i18n.Messages;
 
 /**
  * Page for new project details. <br/>

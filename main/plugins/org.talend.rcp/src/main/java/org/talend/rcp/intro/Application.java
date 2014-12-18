@@ -56,12 +56,12 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.workspace.ChooseWorkspaceData;
 import org.talend.core.ui.workspace.ChooseWorkspaceDialog;
 import org.talend.rcp.i18n.Messages;
-import org.talend.repository.RegistrationPlugin;
-import org.talend.repository.license.LicenseManagement;
+import org.talend.registration.RegistrationPlugin;
+import org.talend.registration.license.LicenseManagement;
+import org.talend.registration.wizards.license.LicenseWizard;
+import org.talend.registration.wizards.license.LicenseWizardDialog;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.ui.login.LoginComposite;
-import org.talend.repository.ui.wizards.license.LicenseWizard;
-import org.talend.repository.ui.wizards.license.LicenseWizardDialog;
 
 /**
  * This class controls all aspects of the application's execution.

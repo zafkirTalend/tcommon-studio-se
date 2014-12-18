@@ -41,8 +41,8 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.TalendSplashHandler;
+import org.talend.registration.register.RegisterManagement;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.registeruser.RegisterManagement;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>

@@ -1,10 +1,10 @@
-package org.talend.repository.registeruser.proxy;
+package org.talend.registration.register.proxy;
 
-public class RegisterUserPortTypeProxy implements org.talend.repository.registeruser.proxy.RegisterUserPortType {
+public class RegisterUserPortTypeProxy implements org.talend.registration.register.proxy.RegisterUserPortType {
 
     private String _endpoint = null;
 
-    private org.talend.repository.registeruser.proxy.RegisterUserPortType registerUserPortType = null;
+    private org.talend.registration.register.proxy.RegisterUserPortType registerUserPortType = null;
 
     public RegisterUserPortTypeProxy() {
         _initRegisterUserPortTypeProxy();
@@ -17,7 +17,7 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
 
     private void _initRegisterUserPortTypeProxy() {
         try {
-            registerUserPortType = (new org.talend.repository.registeruser.proxy.RegisterUserLocator()).getRegisterUserPort();
+            registerUserPortType = (new org.talend.registration.register.proxy.RegisterUserLocator()).getRegisterUserPort();
             if (registerUserPortType != null) {
                 if (_endpoint != null)
                     ((javax.xml.rpc.Stub) registerUserPortType)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
@@ -41,7 +41,7 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
 
     }
 
-    public org.talend.repository.registeruser.proxy.RegisterUserPortType getRegisterUserPortType() {
+    public org.talend.registration.register.proxy.RegisterUserPortType getRegisterUserPortType() {
         if (registerUserPortType == null)
             _initRegisterUserPortTypeProxy();
         return registerUserPortType;
@@ -92,7 +92,7 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
                 productname, projectLanguage, osName, osVersion, javaVersion, totalMemory, memRAM, nbProc, uniqueId);
     }
 
-    public org.talend.repository.registeruser.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException {
+    public org.talend.registration.register.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException {
         if (registerUserPortType == null)
             _initRegisterUserPortTypeProxy();
         return registerUserPortType.listUsers();

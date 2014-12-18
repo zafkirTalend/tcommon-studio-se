@@ -4,10 +4,10 @@
  * This file was auto-generated from WSDL by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package org.talend.repository.registeruser.proxy;
+package org.talend.registration.register.proxy;
 
 public class RegisterUserLocator extends org.apache.axis.client.Service implements
-        org.talend.repository.registeruser.proxy.RegisterUser {
+        org.talend.registration.register.proxy.RegisterUser {
 
     public RegisterUserLocator() {
     }
@@ -38,7 +38,7 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
         RegisterUserPortWSDDServiceName = name;
     }
 
-    public org.talend.repository.registeruser.proxy.RegisterUserPortType getRegisterUserPort()
+    public org.talend.registration.register.proxy.RegisterUserPortType getRegisterUserPort()
             throws javax.xml.rpc.ServiceException {
         java.net.URL endpoint;
         try {
@@ -49,10 +49,10 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
         return getRegisterUserPort(endpoint);
     }
 
-    public org.talend.repository.registeruser.proxy.RegisterUserPortType getRegisterUserPort(java.net.URL portAddress)
+    public org.talend.registration.register.proxy.RegisterUserPortType getRegisterUserPort(java.net.URL portAddress)
             throws javax.xml.rpc.ServiceException {
         try {
-            org.talend.repository.registeruser.proxy.RegisterUserBindingStub _stub = new org.talend.repository.registeruser.proxy.RegisterUserBindingStub(
+            org.talend.registration.register.proxy.RegisterUserBindingStub _stub = new org.talend.registration.register.proxy.RegisterUserBindingStub(
                     portAddress, this);
             _stub.setPortName(getRegisterUserPortWSDDServiceName());
             return _stub;
@@ -71,8 +71,8 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (org.talend.repository.registeruser.proxy.RegisterUserPortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                org.talend.repository.registeruser.proxy.RegisterUserBindingStub _stub = new org.talend.repository.registeruser.proxy.RegisterUserBindingStub(
+            if (org.talend.registration.register.proxy.RegisterUserPortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                org.talend.registration.register.proxy.RegisterUserBindingStub _stub = new org.talend.registration.register.proxy.RegisterUserBindingStub(
                         new java.net.URL(RegisterUserPort_address), this);
                 _stub.setPortName(getRegisterUserPortWSDDServiceName());
                 return _stub;

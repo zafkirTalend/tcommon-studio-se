@@ -4,13 +4,13 @@
  * This file was auto-generated from WSDL by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package org.talend.repository.registeruser.proxy;
+package org.talend.registration.register.proxy;
 
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 
 public class RegisterUserBindingStub extends org.apache.axis.client.Stub implements
-        org.talend.repository.registeruser.proxy.RegisterUserPortType {
+        org.talend.registration.register.proxy.RegisterUserPortType {
 
     private java.util.Vector cachedSerClasses = new java.util.Vector();
 
@@ -242,7 +242,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("ListUsers");
         oper.setReturnType(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UserRegistrations"));
-        oper.setReturnClass(org.talend.repository.registeruser.proxy.UserRegistration[].class);
+        oper.setReturnClass(org.talend.registration.register.proxy.UserRegistration[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "result"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -623,14 +623,14 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
         qName = new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UserRegistration");
         cachedSerQNames.add(qName);
-        cls = org.talend.repository.registeruser.proxy.UserRegistration.class;
+        cls = org.talend.registration.register.proxy.UserRegistration.class;
         cachedSerClasses.add(cls);
         cachedSerFactories.add(beansf);
         cachedDeserFactories.add(beandf);
 
         qName = new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UserRegistrations");
         cachedSerQNames.add(qName);
-        cls = org.talend.repository.registeruser.proxy.UserRegistration[].class;
+        cls = org.talend.registration.register.proxy.UserRegistration[].class;
         cachedSerClasses.add(cls);
         qName = new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "UserRegistration");
         qName2 = null;
@@ -880,7 +880,7 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
         }
     }
 
-    public org.talend.repository.registeruser.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException {
+    public org.talend.registration.register.proxy.UserRegistration[] listUsers() throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -901,10 +901,10 @@ public class RegisterUserBindingStub extends org.apache.axis.client.Stub impleme
             } else {
                 extractAttachments(_call);
                 try {
-                    return (org.talend.repository.registeruser.proxy.UserRegistration[]) _resp;
+                    return (org.talend.registration.register.proxy.UserRegistration[]) _resp;
                 } catch (java.lang.Exception _exception) {
-                    return (org.talend.repository.registeruser.proxy.UserRegistration[]) org.apache.axis.utils.JavaUtils.convert(
-                            _resp, org.talend.repository.registeruser.proxy.UserRegistration[].class);
+                    return (org.talend.registration.register.proxy.UserRegistration[]) org.apache.axis.utils.JavaUtils.convert(
+                            _resp, org.talend.registration.register.proxy.UserRegistration[].class);
                 }
             }
         } catch (org.apache.axis.AxisFault axisFaultException) {

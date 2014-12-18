@@ -10,10 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.ui.wizards.license;
+package org.talend.registration.wizards.license;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.repository.i18n.Messages;
+import org.talend.registration.i18n.Messages;
 
 /**
  * Wizard for the creation of a new project. <br/>
