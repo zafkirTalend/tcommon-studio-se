@@ -4,3 +4,4 @@ Bundle-Name: Jars
 Bundle-SymbolicName: org.talend.libraries.jdbc.jtds.jars
 Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.libraries.jdbc.jtds
+Eclipse-BundleShape: dir

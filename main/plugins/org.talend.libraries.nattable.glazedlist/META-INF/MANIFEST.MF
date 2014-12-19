@@ -4,4 +4,4 @@ Bundle-Name: Glazedlist
 Bundle-SymbolicName: org.talend.libraries.nattable.glazedlist
 Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.libraries.nattable
-
+Eclipse-BundleShape: dir

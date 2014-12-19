@@ -5,3 +5,4 @@ Bundle-SymbolicName: org.talend.libraries.jfreechart.jars
 Bundle-ClassPath: .,lib/jcommon-1.0.15.jar,lib/jfreechart-1.0.13.jar
 Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.libraries.jfreechart
+Eclipse-BundleShape: dir
