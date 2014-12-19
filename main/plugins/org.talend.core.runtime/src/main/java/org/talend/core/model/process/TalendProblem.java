@@ -15,8 +15,8 @@ package org.talend.core.model.process;
 import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
+import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * DOC xhuang class global comment. Detailled comment <br/>
@@ -44,7 +44,8 @@ public class TalendProblem extends Problem {
         setDescription(markerErrorMessage);
         setStatus(status);
 
-        List<IProcess2> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
+        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                .getOpenedProcess(getEditors());
         for (IProcess2 process : openedProcessList) {
             if (javaUnitName != null && javaUnitName.equals(process.getName())) {
                 BasicJobInfo jobInfo = new BasicJobInfo(process.getId(), null, process.getVersion());
@@ -123,6 +124,7 @@ public class TalendProblem extends Problem {
         return this.javaUnitName;
     }
 
+    @Override
     public String getProblemResource() {
         return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }

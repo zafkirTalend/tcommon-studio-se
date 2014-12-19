@@ -23,7 +23,6 @@ import java.util.Map;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQItemService;
 import org.talend.core.PluginChecker;
@@ -41,6 +40,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.core.model.utils.SQLPatternUtils;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -78,7 +78,7 @@ public final class ProcessUtils {
     }
 
     private static void createFakeProcesses(Collection<Item> items) {
-        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
         if (items != null) {
             for (Item item : items) {
                 if (item == null || existedFakeProcess(item.getProperty().getId())) {
@@ -168,7 +168,7 @@ public final class ProcessUtils {
         if (item == null) {
             return;
         }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
 
         List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
@@ -265,7 +265,7 @@ public final class ProcessUtils {
     }
 
     private static void checkAllVerSionLatest(List<IRepositoryViewObject> repositoryObjects, IRepositoryViewObject object) {
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
         List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
                 RelationshipItemBuilder.JOB_RELATION);
@@ -316,7 +316,7 @@ public final class ProcessUtils {
                     String repositoryContextId = param.getRepositoryContextId();
                     if (repositoryContextId != null && !"".equals(repositoryContextId)) { //$NON-NLS-1$
                         try {
-                            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                            IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
                             IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryContextId);
                             if (lastVersion != null) {
                                 if (!repositoryObjects.contains(lastVersion)) {
@@ -404,7 +404,7 @@ public final class ProcessUtils {
 
             if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                 try {
-                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                    IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
                     IRepositoryViewObject lastVersion = factory.getLastVersion(id[0].trim());
                     if (lastVersion != null) {
                         if (!repositoryObjects.contains(lastVersion)) {
@@ -436,7 +436,7 @@ public final class ProcessUtils {
                                 .getValue();
                         if (repositoryProcessId != null && !repositoryProcessId.equals("")) { //$NON-NLS-1$
                             try {
-                                IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                                IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
                                 IRepositoryViewObject foundObject = null;
                                 if (repositoryProcessVersion == null
                                         || repositoryProcessVersion.equals(ItemCacheManager.LATEST_VERSION)) {
@@ -513,7 +513,7 @@ public final class ProcessUtils {
                             String repositoryMetadataId = jobletItem.getId();
                             if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                                 try {
-                                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                                    IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
                                     IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryMetadataId);
                                     if (lastVersion != null) {
                                         if (!repositoryObjects.contains(lastVersion)) {
@@ -594,7 +594,7 @@ public final class ProcessUtils {
             boolean needCheckSubProcess) {
         Collection<IRepositoryViewObject> repositoryObjects = new HashSet<IRepositoryViewObject>();
 
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
 
         List<IRepositoryViewObject> systemRoutines = null;
         if (withSystem) {
