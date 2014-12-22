@@ -66,6 +66,16 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="parent" type="string">
+            <annotation>
+               <documentation>
+                  The parent classloader index of the classloader.
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

@@ -60,7 +60,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -93,6 +92,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.repository.ui.dialog.AProgressMonitorDialogWithCancel;
 
 /**
  * 
@@ -618,47 +618,47 @@ public class ImportItemsWizardPage extends WizardPage {
                 viewer.setSubtreeChecked(topItem.getData(), false);
             } // else not root element, tree is already empty
         } else {
+
+            File srcFile = new File(path);
             try {
-                getContainer().run(true, true, new IRunnableWithProgress() {
+                final FileResourcesUnityManager fileUnityManager = ResourcesManagerFactory.getInstance().createFileUnityManager(
+                        srcFile);
+                AProgressMonitorDialogWithCancel<ResourcesManager> dialogWithCancel = new AProgressMonitorDialogWithCancel<ResourcesManager>(
+                        getShell()) {
 
                     @Override
-                    public void run(IProgressMonitor monitor) {
-
-                        monitor.beginTask(Messages.getString("ImportItemsWizardPage_searchingMessage"), 100); //$NON-NLS-1$ 
-                        monitor.worked(10);
-
-                        File srcFile = new File(path);
-                        try {
-                            FileResourcesUnityManager fileUnityManager = ResourcesManagerFactory.getInstance()
-                                    .createFileUnityManager(srcFile);
-                            resManager = fileUnityManager.doUnify();
-                        } catch (FileNotFoundException e) {
-                            return; // file is not existed
-                        } catch (ZipException e) {
-                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_ZipImport_badFormat")); //$NON-NLS-1$ 
-                            // if folder, won't have errors.
-                            archivePathField.setFocus();
-                        } catch (TarException e) {
-                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_TarImport_badFormat")); //$NON-NLS-1$ 
-                            // if folder, won't have errors.
-                            archivePathField.setFocus();
-                        } catch (IOException e) {
-                            displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
-                            // if folder, won't have errors.
-                            archivePathField.setFocus();
-                        }
-                        //
-                        monitor.worked(60);
-
-                        monitor.done();
+                    protected ResourcesManager runWithCancel(IProgressMonitor monitor) throws Throwable {
+                        return fileUnityManager.doUnify(true);
                     }
-
-                });
-            } catch (InvocationTargetException e) {
-                IDEWorkbenchPlugin.log(e.getMessage(), e);
-            } catch (InterruptedException e) {
-                // Nothing to do if the user interrupts.
+                };
+                String executingMessage = Messages.getString("ImportItemsWizardPage_ProgressDialog_ExecutingMessage"); //$NON-NLS-1$
+                String waitingFinishMessage = Messages.getString("ImportItemsWizardPage_ProgressDialog_WaitingFinishMessage"); //$NON-NLS-1$
+                dialogWithCancel.run(executingMessage, waitingFinishMessage, true,
+                        AProgressMonitorDialogWithCancel.ENDLESS_WAIT_TIME);
+                Throwable executeException = dialogWithCancel.getExecuteException();
+                if (executeException != null) {
+                    throw executeException;
+                }
+                resManager = dialogWithCancel.getExecuteResult();
+            } catch (FileNotFoundException e) {
+                return; // file is not existed
+            } catch (ZipException e) {
+                displayErrorDialog(Messages.getString("ImportItemsWizardPage_ZipImport_badFormat")); //$NON-NLS-1$ 
+                // if folder, won't have errors.
+                archivePathField.setFocus();
+            } catch (TarException e) {
+                displayErrorDialog(Messages.getString("ImportItemsWizardPage_TarImport_badFormat")); //$NON-NLS-1$ 
+                // if folder, won't have errors.
+                archivePathField.setFocus();
+            } catch (IOException e) {
+                displayErrorDialog(Messages.getString("ImportItemsWizardPage_couldNotRead")); //$NON-NLS-1$ 
+                // if folder, won't have errors.
+                archivePathField.setFocus();
+            } catch (Throwable e) {
+                displayErrorDialog(e.getMessage());
+                archivePathField.setFocus();
             }
+
             if (resManager == null) {
                 setErrorMessage(Messages.getString("ImportItemsWizardPage_noValidItemsInPathMessage")); //$NON-NLS-1$
                 setPageComplete(false);

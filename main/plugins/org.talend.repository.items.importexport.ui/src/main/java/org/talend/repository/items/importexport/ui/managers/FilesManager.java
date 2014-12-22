@@ -33,14 +33,25 @@ public class FilesManager extends AbstractImportResourcesManager {
 
     @Override
     public boolean collectPath2Object(Object root) {
-        return doCollectItemFiles((File) root);
+        return collectPath2Object(root, false);
     }
 
-    private boolean doCollectItemFiles(File directory) {
+    public boolean collectPath2Object(Object root, boolean interruptable) {
+        if (interruptable && Thread.currentThread().isInterrupted()) {
+            return false;
+        }
+        return doCollectItemFiles((File) root, interruptable);
+    }
+
+    private boolean doCollectItemFiles(File directory, boolean interruptable) {
         File[] contents = directory.listFiles();
+        Thread currentThread = Thread.currentThread();
 
         if (contents != null) {
             for (File content : contents) {
+                if (interruptable && currentThread.isInterrupted()) {
+                    return false;
+                }
                 File file = content;
 
                 if (file.isFile()) {
@@ -48,7 +59,7 @@ public class FilesManager extends AbstractImportResourcesManager {
                 }
                 if (file.isDirectory()) {
                     if ((!FilesUtils.isSVNFolder(file))) {
-                        collectPath2Object(content);
+                        collectPath2Object(content, interruptable);
                     }
                 }
             }
