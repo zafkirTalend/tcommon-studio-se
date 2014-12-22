@@ -59,7 +59,7 @@ public class FilesManager extends AbstractImportResourcesManager {
                 }
                 if (file.isDirectory()) {
                     if ((!FilesUtils.isSVNFolder(file))) {
-                        collectPath2Object(content);
+                        collectPath2Object(content, interruptable);
                     }
                 }
             }

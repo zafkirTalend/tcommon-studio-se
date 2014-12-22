@@ -134,7 +134,7 @@ public class FileCopyUtils {
                 input.close();
             }
             if (temp.isDirectory()) {
-                copyFolder(new File(resFolder, element), new File(destFolder, element));
+                copyFolder(new File(resFolder, element), new File(destFolder, element), interruptable);
             }
         }
 
