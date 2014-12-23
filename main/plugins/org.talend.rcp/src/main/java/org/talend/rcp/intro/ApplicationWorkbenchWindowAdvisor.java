@@ -45,6 +45,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.activities.IWorkbenchActivitySupport;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -146,8 +147,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void preWindowOpen() {
-        // feature 19053
-        PerspectiveReviewUtil.setPerspectiveTabsBarSize();
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
         configurer.setShowCoolBar(true);
@@ -206,6 +205,17 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     /*
      * (non-Javadoc)
      * 
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowRestore()
+     */
+    @Override
+    public void postWindowRestore() throws WorkbenchException {
+        super.postWindowRestore();
+        // do not use this; never called : see https://bugs.eclipse.org/bugs/show_bug.cgi?id=450541
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
      */
     @Override
@@ -222,6 +232,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
+
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
         getWindowConfigurer()
                 .setTitle(getWindowConfigurer().getTitle() + service.getBrandingConfiguration().getAdditionalTitle());
@@ -264,7 +275,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // feature 18752
         regisitPerspectiveListener();
         // feature 19053
-        PerspectiveReviewUtil.regisitPerspectiveBarSelectListener();
 
         if (PluginChecker.isBPMloaded()) {
             IPath path = WorkbenchPlugin.getDefault().getDataLocation();
@@ -352,7 +362,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
 
         menuManager.update(true);
-
     }
 
     private void showStarting() {

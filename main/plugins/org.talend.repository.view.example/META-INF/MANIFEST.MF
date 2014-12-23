@@ -30,7 +30,8 @@ Require-Bundle: org.talend.core.runtime,
  org.talend.repository.view.di,
  org.talend.repository.metadata,
  org.talend.core,
- org.talend.repository.items.importexport
+ org.talend.repository.items.importexport,
+ org.talend.core.ui
 Bundle-Activator: org.talend.repository.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin

@@ -6,3 +6,4 @@ Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.eclipse.osgi
 Export-Package: org.talend.osgi.hook,
  org.talend.osgi.hook.notification
+ExtensionBundle-Activator: org.talend.osgi.configurator.OsgiLoaderActivator

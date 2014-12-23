@@ -49,6 +49,7 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
+import org.talend.rcp.intro.linksbar.LinksToolbarItem;
 import org.talend.core.ui.workspace.OpenWorkspaceAction;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
@@ -277,6 +278,10 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                 service.addMergeAction(window, toolBar);
             }
         }
+        //
+        IToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+        toolBarManager.add(new LinksToolbarItem());
+        coolBar.add(new ToolBarContributionItem(toolBarManager, LinksToolbarItem.COOLITEM_LINKS_ID));
     }
 
     public void printCoolBar() {

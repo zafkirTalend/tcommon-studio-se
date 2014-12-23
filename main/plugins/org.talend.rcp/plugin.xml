@@ -210,14 +210,6 @@
    </menuContribution>
 </extension>
 <extension
-      point="org.eclipse.ui.presentationFactories">
-   <factory
-         class="org.talend.rcp.intro.linksbar.TalendActionBarPresentationFactory"
-         id="org.talend.rcp.presentationfactory"
-         name="Talend presentation for coolbar">
-   </factory>
-</extension>
-<extension
                point="org.eclipse.ui.activities">
             <activity
                   id="org.talend.rcp.branding.activity.hideMenu"
@@ -342,6 +334,12 @@
          properties="isUseJava"
          type="java.lang.Object">
    </propertyTester>
+</extension>
+<extension
+      point="org.talend.core.ui.showPerspectiveAtStartup">
+   <perspective
+         id="org.talend.rcp.perspective">
+   </perspective>
 </extension>
 
 </plugin>

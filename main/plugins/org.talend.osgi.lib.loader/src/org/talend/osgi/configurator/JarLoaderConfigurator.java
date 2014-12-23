@@ -12,11 +12,9 @@
 // ============================================================================
 package org.talend.osgi.configurator;
 
-import org.eclipse.osgi.baseadaptor.HookConfigurator;
-import org.eclipse.osgi.baseadaptor.HookRegistry;
-import org.talend.osgi.hook.JarLoaderClassLoadingHook;
-import org.talend.osgi.hook.TalendHookAdaptor;
-import org.talend.osgi.hook.notification.JarMissingObservable;
+import org.eclipse.osgi.internal.hookregistry.HookConfigurator;
+import org.eclipse.osgi.internal.hookregistry.HookRegistry;
+import org.talend.osgi.hook.JarLoaderBundleFileWrapperFactory;
 
 /**
  * configure the equinox hook that Talend uses to derive the jar missing in the bundle to load them in another folder.
@@ -32,10 +30,8 @@ public class JarLoaderConfigurator implements HookConfigurator {
      */
     @Override
     public void addHooks(HookRegistry hookRegistry) {
-        JarMissingObservable jarMissingObservable = new JarMissingObservable();
-        hookRegistry.addAdaptorHook(new TalendHookAdaptor(jarMissingObservable));
-        hookRegistry.addClassLoadingHook(new JarLoaderClassLoadingHook(jarMissingObservable));
-
+        // hookRegistry.addClassLoaderHook(new JarLoaderClassLoadingHook());
+        hookRegistry.addBundleFileWrapperFactoryHook(new JarLoaderBundleFileWrapperFactory());
     }
 
 }

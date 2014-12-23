@@ -107,9 +107,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         // Promise the following plugin register themselves before system loaded.
         RunProcessPlugin.getDefault();
         CodeGeneratorActivator.getDefault();
-        // FIXME SML Remove that
-        // PerlModuleActivator.getDefault();
-        PerspectiveReviewUtil.resetPerspective();
+
         // get all login task to execut at the end but is needed here for monitor count
         LoginTaskRegistryReader loginTaskRegistryReader = new LoginTaskRegistryReader();
         IRunnableWithProgress[] allLoginTasks = loginTaskRegistryReader.getAllTaskListInstance();
@@ -136,8 +134,9 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)) {
             RegisterManagement.getInstance().validateRegistration();
         }
-        // feature 19053
-        PerspectiveReviewUtil.setPerspectiveTabs();
+
+        // PerspectiveReviewUtil.checkPerspectiveDisplayItems();
+
         CommonsPlugin.setWorkbenchCreated(true);
         Job myJob = new Job("SVN update and commit on startup") {
 

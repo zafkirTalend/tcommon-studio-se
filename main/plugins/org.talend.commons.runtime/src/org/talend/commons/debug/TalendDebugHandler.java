@@ -12,9 +12,10 @@
 // ============================================================================
 package org.talend.commons.debug;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.framework.debug.Debug;
+import org.eclipse.osgi.service.debug.DebugOptions;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 
@@ -24,7 +25,9 @@ import org.talend.commons.exception.CommonExceptionHandler;
  * add the function for debug "--talendDebug"
  */
 public final class TalendDebugHandler {
-    public static final String TALEND_DEBUG="--talendDebug"; //$NON-NLS-1$
+
+    public static final String TALEND_DEBUG = "--talendDebug"; //$NON-NLS-1$
+
     /**
      * 
      * ggu Comment method "debug".
@@ -72,6 +75,13 @@ public final class TalendDebugHandler {
 
     @SuppressWarnings("restriction")
     public static boolean isEclipseDebug() {
-        return Debug.DEBUG_ENABLED;
+        boolean debuggerEnabled = false;
+        BundleContext bundleContext = FrameworkUtil.getBundle(TalendDebugHandler.class).getBundleContext();
+        ServiceReference<DebugOptions> debugOptSR = bundleContext.getServiceReference(DebugOptions.class);
+        if (debugOptSR != null) {
+            DebugOptions debugOpt = bundleContext.getService(debugOptSR);
+            debuggerEnabled = debugOpt.isDebugEnabled();
+        }// else return false;
+        return debuggerEnabled;
     }
 }

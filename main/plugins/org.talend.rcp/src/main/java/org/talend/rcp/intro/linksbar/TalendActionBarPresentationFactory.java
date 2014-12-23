@@ -19,15 +19,19 @@ import org.eclipse.jface.internal.provisional.action.IToolBarManager2;
 import org.eclipse.jface.internal.provisional.action.ToolBarContributionItem2;
 import org.eclipse.jface.internal.provisional.action.ToolBarManager2;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.internal.provisional.presentations.IActionBarPresentationFactory;
-import org.eclipse.ui.presentations.WorkbenchPresentationFactory;
+import org.eclipse.ui.presentations.AbstractPresentationFactory;
+import org.eclipse.ui.presentations.IStackPresentationSite;
+import org.eclipse.ui.presentations.StackPresentation;
 import org.talend.rcp.Activator;
 
 /**
  * created by nrousseau on May 15, 2013 Detailled comment
  * 
  */
-public class TalendActionBarPresentationFactory extends WorkbenchPresentationFactory implements IActionBarPresentationFactory {
+@Deprecated
+public class TalendActionBarPresentationFactory extends AbstractPresentationFactory implements IActionBarPresentationFactory {
 
     public static final String COOLITEM_LINKS_ID = Activator.PLUGIN_ID + ".CoolItemLinks"; //$NON-NLS-1$
 
@@ -37,35 +41,34 @@ public class TalendActionBarPresentationFactory extends WorkbenchPresentationFac
         return new TalendCoolBarManager(SWT.FLAT);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.internal.presentations.IActionBarPresentationFactory#createToolBarManager()
-     */
     @Override
     public IToolBarManager2 createToolBarManager() {
         return new ToolBarManager2(SWT.FLAT | SWT.RIGHT);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.internal.presentations.IActionBarPresentationFactory#createViewToolBarManager()
-     */
     @Override
     public IToolBarManager2 createViewToolBarManager() {
         return new ToolBarManager2(SWT.FLAT | SWT.RIGHT | SWT.WRAP);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.internal.presentations.IActionBarPresentationFactory#createToolBarContributionItem(org.eclipse
-     * .jface.action.IToolBarManager, java.lang.String)
-     */
     @Override
     public IToolBarContributionItem createToolBarContributionItem(IToolBarManager toolBarManager, String id) {
         return new ToolBarContributionItem2(toolBarManager, id);
     }
+
+    @Override
+    public StackPresentation createEditorPresentation(Composite parent, IStackPresentationSite site) {
+        return null;
+    }
+
+    @Override
+    public StackPresentation createViewPresentation(Composite parent, IStackPresentationSite site) {
+        return null;
+    }
+
+    @Override
+    public StackPresentation createStandaloneViewPresentation(Composite parent, IStackPresentationSite site, boolean showTitle) {
+        return null;
+    }
+
 }

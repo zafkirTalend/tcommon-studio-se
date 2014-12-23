@@ -24,6 +24,7 @@ import org.eclipse.swt.SWT;
  * created by nrousseau on May 15, 2013 Detailled comment
  * 
  */
+@Deprecated
 public class TalendCoolBarManager extends CoolBarManager2 {
 
     public TalendCoolBarManager(int style) {

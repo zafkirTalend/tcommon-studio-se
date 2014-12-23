@@ -32,17 +32,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.osgi.baseadaptor.BaseData;
-import org.eclipse.osgi.baseadaptor.bundlefile.BundleFile;
-import org.eclipse.osgi.framework.adaptor.BundleData;
-import org.eclipse.osgi.framework.internal.core.BundleHost;
 import org.eclipse.swt.graphics.Image;
-import org.osgi.framework.Bundle;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -235,6 +228,7 @@ public class CoreService implements ICoreService {
         // if (!CommonsPlugin.isHeadless()) {
         // CorePlugin.getDefault().getRunProcessService().updateLibraries(new HashSet<String>(), null);
         // }
+
     }
 
     @Override
@@ -460,33 +454,6 @@ public class CoreService implements ICoreService {
             out.create(fis, true, null);
         }
         fis.close();
-    }
-
-    @Override
-    public void resetUniservLibraries() {
-        ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                ILibraryManagerService.class);
-
-        String jarNeeded = "uniserv.jar"; //$NON-NLS-1$
-        if (libManager.contains(jarNeeded)) {
-            Bundle bundle = Platform.getBundle("org.talend.libraries.uniserv/lib");
-            if (bundle instanceof BundleHost) {
-                BundleHost bundleHost = (BundleHost) bundle;
-                final BundleData bundleData = bundleHost.getBundleData();
-                if (bundleData instanceof BaseData) {
-                    BaseData baseData = (BaseData) bundleData;
-                    final BundleFile bundleFile = baseData.getBundleFile();
-                    final File baseFile = bundleFile.getBaseFile();
-                    // fix for TDI-21162
-                    File jarFile = new File(baseFile.getAbsolutePath(), jarNeeded);
-                    if (jarFile.exists()) {
-                        return;
-                    }
-
-                    libManager.retrieve(jarNeeded, baseFile.getAbsolutePath(), new NullProgressMonitor());
-                }
-            }
-        }
     }
 
     @Override
