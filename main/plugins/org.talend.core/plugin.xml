@@ -47,7 +47,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.startup">
-      <startup class="org.talend.core.ui.DisableLanguageActions"/>
+      <startup class="org.talend.core.model.action.DisableLanguageActions"/>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">

@@ -16,9 +16,10 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.runtime.swt.proposal.IShowInvisibleCellEditorMethods;
+import org.talend.commons.ui.runtime.swt.tableviewer.celleditor.CellEditorDialogBehavior;
+import org.talend.commons.ui.runtime.swt.tableviewer.celleditor.ExtendedTextCellEditor;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.celleditor.CellEditorDialogBehavior;
-import org.talend.commons.ui.swt.tableviewer.celleditor.ExtendedTextCellEditor;
 
 /**
  * This class extends the ExtendedTextCellEditor to add the Expression Builder to tMapper. Only tMapper can use this

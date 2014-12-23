@@ -48,23 +48,23 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlDataTypeHelper;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
-import org.talend.core.service.IDesignerCoreUIService;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
+import org.talend.core.ui.preference.metadata.MetadataTypeLengthConstants;
+import org.talend.core.ui.services.IDesignerCoreUIService;
 import org.talend.core.utils.CsvArray;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.wizard.metadata.MetadataContextModeManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.ui.swt.utils.AbstractLdifFileStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
-import org.talend.repository.ui.wizards.metadata.MetadataContextModeManager;
+import org.talend.repository.metadata.ui.wizards.form.AbstractLdifFileStepForm;
 
 /**
  * @author ocarbone

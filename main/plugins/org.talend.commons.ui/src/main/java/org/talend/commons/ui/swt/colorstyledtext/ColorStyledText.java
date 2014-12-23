@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
@@ -36,7 +37,6 @@ import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
 import org.talend.commons.utils.threading.ExecutionLimiter;
-import org.talend.commons.xml.XmlUtil;
 
 /**
  * This component is an adaptation of a Color Editor for a StyledText.

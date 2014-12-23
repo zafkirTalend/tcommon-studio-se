@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.rcp;
 
+import org.talend.core.services.IRcpService;
 import org.talend.rcp.intro.ActionBarBuildHelper;
 
 /**

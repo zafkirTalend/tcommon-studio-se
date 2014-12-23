@@ -29,11 +29,11 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.context.ContextManagerHelper;
+import org.talend.core.ui.editor.command.ContextRemoveParameterCommand;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
 
 /**
  * created by ldong on Sep 12, 2014 Detailled comment

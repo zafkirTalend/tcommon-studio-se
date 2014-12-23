@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ModuleNeeded;

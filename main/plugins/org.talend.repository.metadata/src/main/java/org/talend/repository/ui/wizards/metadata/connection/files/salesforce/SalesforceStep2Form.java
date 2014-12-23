@@ -43,11 +43,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorNotModifiable.LAYOUT_MODE;
 import org.talend.commons.ui.swt.thread.SWTUIThreadProcessor;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
@@ -59,17 +59,17 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.preview.SalesforceSchemaBean;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.preview.SalesforceSchemaBean;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
-import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
+import org.talend.repository.metadata.ui.wizards.form.AbstractSalesforceStepForm;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>

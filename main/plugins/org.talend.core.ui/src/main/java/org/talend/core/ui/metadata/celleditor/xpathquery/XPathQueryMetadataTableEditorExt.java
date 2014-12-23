@@ -15,7 +15,7 @@ package org.talend.core.ui.metadata.celleditor.xpathquery;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
-import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.metadata.editor.MetadataTableEditor;
 
 /**
  * cli class global comment. Detailled comment

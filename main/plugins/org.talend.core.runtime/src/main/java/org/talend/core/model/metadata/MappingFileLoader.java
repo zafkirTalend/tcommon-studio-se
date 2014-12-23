@@ -25,7 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.xml.XmlNodeRetriever;
+import org.talend.commons.runtime.xml.XmlNodeRetriever;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.metadata.types.DBTypeUtil;
 import org.talend.core.model.metadata.types.JavaType;

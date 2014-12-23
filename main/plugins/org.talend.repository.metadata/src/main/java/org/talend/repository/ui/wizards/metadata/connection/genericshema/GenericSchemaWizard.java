@@ -43,13 +43,13 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.metadata.managment.ui.wizard.CheckLastVersionRepositoryWizard;
+import org.talend.metadata.managment.ui.wizard.PropertiesWizardPage;
+import org.talend.metadata.managment.ui.wizard.metadata.connection.Step0WizardPage;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
-import org.talend.repository.ui.wizards.PropertiesWizardPage;
-import org.talend.repository.ui.wizards.metadata.connection.Step0WizardPage;
 
 /**
  * ftang class global comment. Detailled comment <br/>

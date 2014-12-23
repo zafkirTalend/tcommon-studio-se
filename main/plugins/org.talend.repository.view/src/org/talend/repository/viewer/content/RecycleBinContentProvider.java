@@ -15,7 +15,7 @@ package org.talend.repository.viewer.content;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonViewer;

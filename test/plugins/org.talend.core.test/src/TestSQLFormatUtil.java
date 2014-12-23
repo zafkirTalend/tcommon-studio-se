@@ -13,7 +13,7 @@
 import java.util.Collection;
 
 import org.junit.Test;
-import org.talend.core.utils.SQLFormatUtil;
+import org.talend.core.model.utils.SQLFormatUtil;
 
 /**
  * DOC Administrator class global comment. Detailled comment

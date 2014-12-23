@@ -43,10 +43,10 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.repository.constants.Constant;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**

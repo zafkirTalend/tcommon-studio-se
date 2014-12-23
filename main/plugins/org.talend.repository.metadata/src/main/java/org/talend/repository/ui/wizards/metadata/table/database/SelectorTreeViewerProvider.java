@@ -29,17 +29,17 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.TableNode;
-import org.talend.core.repository.AbstractMetadataExtractorViewProvider;
+import org.talend.core.repository.model.provider.AbstractMetadataExtractorViewProvider;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.utils.sql.ConnectionUtils;
 
 /**

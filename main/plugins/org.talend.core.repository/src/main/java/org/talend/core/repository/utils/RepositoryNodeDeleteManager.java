@@ -27,11 +27,11 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.repository.ICheckDeleteItemReference;
+import org.talend.core.repository.model.ItemReferenceBean;
+import org.talend.core.repository.model.provider.ICheckDeleteItemReference;
+import org.talend.core.repository.ui.actions.DeleteActionCache;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.ItemReferenceBean;
-import org.talend.repository.ui.actions.DeleteActionCache;
 
 /**
  * DOC ycbai class global comment. Detailled comment

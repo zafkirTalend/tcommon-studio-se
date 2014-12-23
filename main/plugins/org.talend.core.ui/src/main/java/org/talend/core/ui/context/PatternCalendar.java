@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.calendar.SWTCalendarWithTime;
+import org.talend.commons.ui.runtime.swt.calendar.SWTCalendarWithTime;
 import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
 import org.talend.commons.ui.swt.proposal.ProposalUtils;
 import org.talend.core.ui.i18n.Messages;

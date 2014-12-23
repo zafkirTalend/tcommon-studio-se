@@ -26,10 +26,10 @@ import org.talend.core.model.metadata.IConvertionConstants;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**

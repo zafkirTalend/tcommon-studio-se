@@ -20,11 +20,12 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorNotModifiable;
+import org.talend.commons.ui.runtime.swt.tableviewer.behavior.ITableCellValueModifiedListener;
+import org.talend.commons.ui.runtime.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
 import org.talend.commons.ui.swt.proposal.ExtendedTextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
-import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
-import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.utils.data.list.ListenableList;
 
 /**

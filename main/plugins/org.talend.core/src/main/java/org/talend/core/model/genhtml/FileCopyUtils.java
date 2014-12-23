@@ -29,10 +29,10 @@ public class FileCopyUtils {
      * @throws Exception
      */
     public static void copy(String srcFilePath, String destFilePath) {
-        org.talend.commons.utils.io.FileCopyUtils.copy(srcFilePath, destFilePath);
+        org.talend.commons.runtime.utils.io.FileCopyUtils.copy(srcFilePath, destFilePath);
     }
 
     public static void copyFolder(String oldPath, String newPath) {
-        org.talend.commons.utils.io.FileCopyUtils.copyFolder(oldPath, newPath);
+        org.talend.commons.runtime.utils.io.FileCopyUtils.copyFolder(oldPath, newPath);
     }
 }

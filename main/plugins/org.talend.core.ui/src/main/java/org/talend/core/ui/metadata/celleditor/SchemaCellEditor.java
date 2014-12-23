@@ -43,17 +43,13 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
-import org.talend.core.model.process.IGEFProcess;
-import org.talend.core.model.process.IGraphicalNode;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
-import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.service.IEBCDICProviderService;
 import org.talend.core.service.IHL7ProviderService;
-import org.talend.core.service.IRulesProviderService;
 import org.talend.core.service.ISAPProviderService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
@@ -64,6 +60,10 @@ import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForEBCDICComm
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPBapi;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPCommand;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
+import org.talend.core.ui.process.IGEFProcess;
+import org.talend.core.ui.process.IGraphicalNode;
+import org.talend.core.ui.services.IDesignerCoreUIService;
+import org.talend.core.ui.services.IRulesProviderService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment

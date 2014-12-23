@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.extractots;
 
-import org.talend.core.repository.IDBMetadataProvider;
+import org.talend.core.repository.model.provider.IDBMetadataProvider;
 
 /**
  * DOC Administrator class global comment. Detailled comment

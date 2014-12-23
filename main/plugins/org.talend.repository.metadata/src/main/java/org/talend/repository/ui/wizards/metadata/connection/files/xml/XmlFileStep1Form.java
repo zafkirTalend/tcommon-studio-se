@@ -56,6 +56,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
@@ -65,7 +66,7 @@ import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -76,19 +77,18 @@ import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.repository.model.ResourceModelUtils;
-import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.dialog.RootNodeSelectDialog;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
 
 /**
  * @author ocarbone
@@ -842,7 +842,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }

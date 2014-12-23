@@ -15,7 +15,7 @@ package org.talend.commons.ui.swt.colorstyledtext.jedit;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.runtime.xml.XmlUtil;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

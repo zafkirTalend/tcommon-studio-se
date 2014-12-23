@@ -19,10 +19,10 @@ import org.apache.commons.collections.functors.NotNullPredicate;
 import org.apache.commons.collections.set.PredicatedSet;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 public abstract class SingleTopLevelContentProvider implements ITreeContentProvider {

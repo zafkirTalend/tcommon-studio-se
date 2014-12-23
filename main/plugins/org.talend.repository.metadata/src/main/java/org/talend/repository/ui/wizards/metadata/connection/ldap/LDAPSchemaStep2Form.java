@@ -43,11 +43,11 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.EAliasesDereference;
+import org.talend.core.repository.model.EAuthenticationMethod;
+import org.talend.core.repository.model.EReferrals;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.model.EAliasesDereference;
-import org.talend.repository.model.EAuthenticationMethod;
-import org.talend.repository.model.EReferrals;
-import org.talend.repository.ui.swt.utils.AbstractLDAPSchemaStepForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractLDAPSchemaStepForm;
 
 /**
  * The class is used for LDAP schema on Repository View. <br/>

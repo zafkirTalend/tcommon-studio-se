@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
+import org.talend.commons.ui.runtime.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.runtime.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
-import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

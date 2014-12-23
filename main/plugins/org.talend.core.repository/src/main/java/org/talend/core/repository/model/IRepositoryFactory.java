@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
@@ -37,7 +38,6 @@ import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * Defines all methods that a repository provider plug-in must provides to client.<br/>

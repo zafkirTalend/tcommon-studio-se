@@ -18,7 +18,7 @@ import java.util.List;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.xml.XmlNodeRetriever;
+import org.talend.commons.runtime.xml.XmlNodeRetriever;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 import org.w3c.dom.Node;

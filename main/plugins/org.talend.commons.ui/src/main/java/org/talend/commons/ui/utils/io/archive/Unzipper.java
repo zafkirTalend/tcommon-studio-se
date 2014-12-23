@@ -80,7 +80,7 @@ public class Unzipper extends AbstractUnarchiver {
             FilesUtils.createFoldersIfNotExists(filePath, true);
             // System.out.println("Unzipping " + ze.getName());
             FileOutputStream fout = new FileOutputStream(filePath);
-            org.talend.commons.utils.io.StreamCopier.copy(zin, fout);
+            org.talend.commons.runtime.utils.io.StreamCopier.copy(zin, fout);
             zin.closeEntry();
             fout.close();
             // try {

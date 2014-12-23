@@ -27,10 +27,10 @@ import javax.naming.ldap.InitialLdapContext;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
-import org.talend.core.ldap.AdvancedSocketFactory;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
-import org.talend.repository.model.EAuthenticationMethod;
-import org.talend.repository.model.EEncryptionMethod;
+import org.talend.core.repository.model.EAuthenticationMethod;
+import org.talend.core.repository.model.EEncryptionMethod;
+import org.talend.core.repository.model.ldap.AdvancedSocketFactory;
 
 import com.ca.commons.jndi.SchemaOps;
 import com.ca.commons.naming.DN;

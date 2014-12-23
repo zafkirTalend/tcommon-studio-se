@@ -13,7 +13,7 @@
 package org.talend.core.service;
 
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
-import org.talend.commons.ui.expressionbuilder.IExpressionDataBean;
+import org.talend.commons.ui.runtime.expressionbuilder.IExpressionDataBean;
 import org.talend.core.IService;
 import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 import org.talend.designer.rowgenerator.data.AbstractTalendFunctionParser;

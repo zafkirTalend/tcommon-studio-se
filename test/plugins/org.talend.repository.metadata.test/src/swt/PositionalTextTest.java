@@ -34,8 +34,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.talend.metadata.managment.ui.model.positional.ResizeHelper;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.filepositionalviewer.ResizeHelper;
 
 /**
  * PositionalText

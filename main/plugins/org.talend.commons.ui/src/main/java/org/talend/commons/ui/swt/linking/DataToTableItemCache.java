@@ -4,7 +4,7 @@ import java.util.IdentityHashMap;
 
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.talend.commons.ui.utils.TableUtils;
+import org.talend.commons.ui.runtime.utils.TableUtils;
 
 
 public class DataToTableItemCache {

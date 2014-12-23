@@ -25,7 +25,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.MetadataColumnsAndDbmsId;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.xml.sax.SAXException;
 
 /**

@@ -55,6 +55,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
@@ -67,7 +68,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.encoding.CharsetToolkit;
-import org.talend.commons.xml.XmlUtil;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -75,30 +76,29 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.xml.XmlArray;
-import org.talend.core.repository.model.ResourceModelUtils;
-import org.talend.core.ui.targetschema.editor.XmlExtractorFieldModel;
-import org.talend.core.ui.targetschema.editor.XmlExtractorLoopModel;
+import org.talend.core.ui.metadata.editor.XmlExtractorFieldModel;
+import org.talend.core.ui.metadata.editor.XmlExtractorLoopModel;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XPathPopulationUtil;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.preview.AsynchronousPreviewHandler;
+import org.talend.metadata.managment.ui.preview.IPreviewHandlerListener;
+import org.talend.metadata.managment.ui.preview.ProcessDescription;
+import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
+import org.talend.metadata.managment.ui.preview.StoppablePreviewLoader;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
+import org.talend.metadata.managment.ui.wizard.IRefreshable;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.StringUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.preview.AsynchronousPreviewHandler;
-import org.talend.repository.preview.IPreviewHandlerListener;
-import org.talend.repository.preview.ProcessDescription;
-import org.talend.repository.preview.StoppablePreviewLoader;
-import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
-import org.talend.repository.ui.swt.utils.AbstractXmlFileStepForm;
-import org.talend.repository.ui.swt.utils.IRefreshable;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils;
-import org.talend.repository.ui.utils.ShadowProcessHelper;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionFieldsWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.ExtractionLoopWithXPathEditorView;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.extraction.XmlToXPathLinker;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.StringUtil;
 
 /**
  * @author ocarbone
@@ -1019,7 +1019,7 @@ public class XmlFileStep2Form extends AbstractXmlFileStepForm implements IRefres
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = null;
         try {
-            fsProject = ResourceModelUtils.getProject(project);
+            fsProject = ResourceUtils.getProject(project);
         } catch (PersistenceException e2) {
             ExceptionHandler.process(e2);
         }

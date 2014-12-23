@@ -15,9 +15,9 @@ package org.talend.core.model.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IRepositoryNode;
 
 /**

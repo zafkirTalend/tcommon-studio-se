@@ -14,7 +14,7 @@ package org.talend.repository.viewer.content;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.Platform;
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**

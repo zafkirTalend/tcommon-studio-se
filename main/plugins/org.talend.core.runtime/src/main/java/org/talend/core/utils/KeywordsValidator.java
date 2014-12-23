@@ -20,10 +20,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
-import org.talend.commons.xml.XmlUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 

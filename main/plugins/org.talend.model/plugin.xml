@@ -76,7 +76,7 @@
   <extension
          point="org.eclipse.emf.ecore.extension_parser">     
       <parser
-            class="org.talend.commons.emf.CwmResourceFactory"
+            class="org.talend.model.emf.CwmResourceFactory"
             type="item">
       </parser>
    </extension>  

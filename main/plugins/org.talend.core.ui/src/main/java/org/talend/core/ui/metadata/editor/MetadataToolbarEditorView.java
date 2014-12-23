@@ -31,7 +31,6 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaP
 import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.metadata.extended.command.ExtendedTableResetDBTypesCommand;

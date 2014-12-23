@@ -56,12 +56,12 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
-import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
+import org.talend.core.ui.process.IGEFProcess;
+import org.talend.core.ui.services.IDesignerCoreUIService;
 
 /**
  * ggu class global comment. Detailled comment

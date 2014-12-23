@@ -22,8 +22,8 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.RelationalFactory;
-import org.talend.repository.ui.swt.utils.AbstractForm;
-import org.talend.repository.ui.swt.utils.AbstractSalesforceStepForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractSalesforceStepForm;
 
 /**
  * DOC yexiaowei class global comment. Detailled comment

@@ -26,15 +26,15 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.RepositoryManagerHelper;
+import org.talend.core.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.ui.utils.RecombineRepositoryNodeUtil;
+import org.talend.core.repository.ui.view.RepositoryLabelProvider;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonNavigator;
-import org.talend.repository.ui.utils.RecombineRepositoryNodeUtil;
 import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.repository.ui.views.RepositoryLabelProvider;
 import org.talend.repository.viewer.ui.viewer.CheckboxRepositoryTreeViewer;
 
 /**

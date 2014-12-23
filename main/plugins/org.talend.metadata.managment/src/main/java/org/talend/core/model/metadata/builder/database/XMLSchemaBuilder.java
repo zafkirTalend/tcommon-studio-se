@@ -38,13 +38,14 @@ import org.eclipse.xsd.XSDTerm;
 import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.util.XSDResourceFactoryImpl;
 import org.eclipse.xsd.util.XSDResourceImpl;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.cwm.xml.TdXmlContent;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.sugars.ReturnCode;
+
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
 

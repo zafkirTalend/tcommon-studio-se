@@ -17,14 +17,14 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.dialog.AddElementDialog;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.Attribute;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.NameSpaceNode;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateAttributeAction;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateElementAction;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.action.CreateNameSpaceAction;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.Attribute;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.NameSpaceNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.view.AddElementDialog;
 
 /**
  * DOC talend class global comment. Detailled comment

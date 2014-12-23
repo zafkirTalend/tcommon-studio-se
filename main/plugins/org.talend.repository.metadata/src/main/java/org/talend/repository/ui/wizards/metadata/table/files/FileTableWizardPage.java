@@ -32,7 +32,7 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.util.ConnectionSwitch;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.repository.ui.swt.utils.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.delimited.DelimitedFileStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.excel.ExcelFileStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.ldif.LdifFileStep3Form;
@@ -45,6 +45,7 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileSte
 import org.talend.repository.ui.wizards.metadata.connection.genericshema.GenericSchemaStep2Form;
 import org.talend.repository.ui.wizards.metadata.connection.ldap.LDAPSchemaStep4Form;
 import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaStep2Form;
+
 import orgomg.cwm.objectmodel.core.Package;
 
 /**

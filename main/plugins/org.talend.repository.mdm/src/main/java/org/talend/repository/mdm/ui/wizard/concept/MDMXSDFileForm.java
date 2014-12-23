@@ -80,6 +80,7 @@ import org.talend.cwm.xml.XmlFactory;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XPathPopulationUtil;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
@@ -88,7 +89,6 @@ import org.talend.repository.mdm.ui.wizard.table.ExtractionFieldsWithMDMEditorVi
 import org.talend.repository.mdm.ui.wizard.table.ExtractionLoopWithMDMEditorView;
 import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.TreePopulator;
 
 /**

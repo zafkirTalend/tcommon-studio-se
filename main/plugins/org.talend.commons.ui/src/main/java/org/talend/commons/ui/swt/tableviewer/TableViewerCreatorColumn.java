@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2014 Talend – www.talend.com
+// Copyright (C) 2006-2014 Talend ï¿½ www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@
 //
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer;
+
+import org.talend.commons.ui.runtime.swt.tableviewer.TableViewerCreatorColumnNotModifiable;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>

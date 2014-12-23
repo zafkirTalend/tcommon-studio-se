@@ -53,7 +53,6 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
-import org.talend.core.model.metadata.builder.util.MetadataConnectionUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -63,6 +62,8 @@ import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import org.talend.metadata.managment.model.DBConnectionFillerImpl;
+import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
@@ -70,6 +71,7 @@ import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -218,7 +220,7 @@ public class DBConnectionFillerImplTest {
 
     /**
      * test filling columns when the odbc teradata DBConnection is not null.
-     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}
+     * {@link org.talend.metadata.managment.model.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}
      * .
      * 
      * @throws Exception
@@ -238,7 +240,7 @@ public class DBConnectionFillerImplTest {
 
     /**
      * test filling columns when the odbc teradata DBConnection is null.
-     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}
+     * {@link org.talend.metadata.managment.model.DBConnectionFillerImpl#fillColumns(orgomg.cwm.resource.relational.ColumnSet, java.sql.DatabaseMetaData, java.util.List, java.lang.String)}
      * .
      * 
      * @throws Exception
@@ -257,7 +259,7 @@ public class DBConnectionFillerImplTest {
 
 /**
      * Test filling catalogs for odbc teredata .
-     * {@link org.talend.core.model.metadata.DBConnectionFillerImpl#fillCatalogs(Connection, DatabaseMetaData, IMetadataConnection, List)
+     * {@link org.talend.metadata.managment.model.DBConnectionFillerImpl#fillCatalogs(Connection, DatabaseMetaData, IMetadataConnection, List)
      * @throws SQLException
      */
     @Test

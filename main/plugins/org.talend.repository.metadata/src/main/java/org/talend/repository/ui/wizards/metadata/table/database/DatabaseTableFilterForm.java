@@ -39,8 +39,8 @@ import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.metadata.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC qzhang class global comment. Detailled comment <br/>

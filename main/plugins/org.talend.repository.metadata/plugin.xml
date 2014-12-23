@@ -24,7 +24,7 @@
       <projecttask
             beforeLogon="false"
             breaks="5.1.1"
-            class="org.talend.repository.model.migration.AddRulesGlobalMapMigrationTask"
+            class="org.talend.repository.metadata.migration.AddRulesGlobalMapMigrationTask"
             description="modify metadata"
             id="org.talend.repository.AddRulesGlobalMapMigrationTask"
             name="AddRulesGlobalMapMigrationTask"
@@ -34,7 +34,7 @@
       <projecttask
             beforeLogon="false"
             breaks="5.0.0"
-            class="org.talend.repository.model.migration.CorrectDBVersionListForAS400"
+            class="org.talend.repository.metadata.migration.CorrectDBVersionListForAS400"
             description="Correct the DB Version list for as400 in DB wizard, please see TDI-30337"
             id="org.talend.repository.model.migration.CorrectDBVersionListForAS400"
             name="CorrectDBVersionListForAS400"
@@ -43,7 +43,7 @@
       <projecttask
             beforeLogon="false"
             breaks="5.6.0"
-            class="org.talend.repository.model.migration.UnifyPasswordEncryption4LdapConnectionMigrationTask"
+            class="org.talend.repository.metadata.migration.UnifyPasswordEncryption4LdapConnectionMigrationTask"
             description="Unify the entryption for LDAP password field"
             id="org.talend.repository.model.migration.UnifyPasswordEncryption4LdapConnectionMigrationTask"
             name="UnifyPasswordEncryption4LdapConnectionMigrationTask"
@@ -52,7 +52,7 @@
       <projecttask
             beforeLogon="false"
             breaks="5.6.0"
-            class="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            class="org.talend.repository.metadata.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
             description="Unify the entryption for Salesforce password fields"
             id="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
             name="UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
@@ -61,7 +61,7 @@
       <projecttask
             beforeLogon="false"
             breaks="5.6.0"
-            class="org.talend.repository.model.migration.UnifyPasswordEncryption4WsdlConnectionMigrationTask"
+            class="org.talend.repository.metadata.migration.UnifyPasswordEncryption4WsdlConnectionMigrationTask"
             description="Unify the entryption for WSDL password fields"
             id="org.talend.repository.model.migration.UnifyPasswordEncryption4WsdlConnectionMigrationTask"
             name="UnifyPasswordEncryption4WsdlConnectionMigrationTask"
@@ -71,7 +71,7 @@
    <extension
          point="org.talend.core.repositoryContextualsActions">
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateConnectionAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateConnectionAction"
             id="org.talend.repository.actions.createconnection"
             isEditAction="true"
             isReadAction="true"
@@ -79,21 +79,21 @@
             name="Metadata/Create connection">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateTableAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateTableAction"
             id="org.talend.repository.actions.createtable"
             isEditAction="true"
             level="15"
             name="Metadata/Create table">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.ReadTableAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.ReadTableAction"
             id="org.talend.repository.actions.readtable"
             isReadAction="true"
             level="18"
             name="Metadata/Read table">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateFileDelimitedAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFileDelimitedAction"
             id="org.talend.repository.actions.createfiledelimited"
             isEditAction="true"
             isReadAction="true"
@@ -101,7 +101,7 @@
             name="Metadata/Create file delimited">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateFilePositionalAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFilePositionalAction"
             id="org.talend.repository.actions.createfilepositional"
             isEditAction="true"
             isReadAction="true"
@@ -109,7 +109,7 @@
             name="Metadata/Create file positional">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateFileRegexpAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFileRegexpAction"
             id="org.talend.repository.actions.createfileregexp"
             isEditAction="true"
             isReadAction="true"
@@ -117,7 +117,7 @@
             name="Metadata/Create file regexp">
       </Action>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateFileXmlAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFileXmlAction"
             id="org.talend.repository.actions.createfilexml"
             isEditAction="true"
             isReadAction="true"
@@ -125,7 +125,7 @@
             name="Metadata/Create file xml">
       	</Action>
       	<Action
-            class="org.talend.repository.ui.actions.metadata.CreateFileLdifAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFileLdifAction"
             id="org.talend.repository.actions.createfileldif"
             isEditAction="true"
             isReadAction="true"
@@ -133,14 +133,14 @@
             name="Metadata/Create file ldif">
       	</Action>
        	<Action
-            class="org.talend.repository.ui.actions.metadata.CreateFileExcelAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateFileExcelAction"
             id="org.talend.repository.actions.createfileexcel"
             isEditAction="true"
             isReadAction="true"
             level="10"
             name="Metadata/Create file Excel"/>
       	<Action
-            class="org.talend.repository.ui.actions.metadata.CreateSalesforceSchemaAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateSalesforceSchemaAction"
             id="org.talend.repository.actions.createsalesforceschema"
             isEditAction="true"
             isReadAction="true"
@@ -148,7 +148,7 @@
             name="Metadata/Create Salesforce"/>
  		
   		<Action
-             class="org.talend.repository.ui.actions.metadata.CreateGenericSchemaAction"
+             class="org.talend.repository.metadata.ui.actions.metadata.CreateGenericSchemaAction"
              id="org.talend.repository.actions.createGenericSchemas"
              isEditAction="true"
              isPropertiesAction="false"
@@ -156,7 +156,7 @@
              level="10"
              name="Metadata/Create generic schemas"/>
        <Action
-             class="org.talend.repository.ui.actions.metadata.CreateLDAPSchemaAction"
+             class="org.talend.repository.metadata.ui.actions.metadata.CreateLDAPSchemaAction"
              id="org.talend.repository.actions.createLDAPSchema"
              isEditAction="true"
              isReadAction="true"
@@ -164,7 +164,7 @@
              name="Metadata/Create LDAP schemas">
        </Action>
        <Action
-             class="org.talend.repository.ui.actions.metadata.CreateWSDLSchemaAction"
+             class="org.talend.repository.metadata.ui.actions.metadata.CreateWSDLSchemaAction"
              id="org.talend.repository.actions.createWSDLSchema"
              isEditAction="true"
              isReadAction="true"
@@ -172,21 +172,21 @@
              name="Metadata/Create WSDL schemas">
        </Action>
         <Action
-            class="org.talend.repository.ui.actions.metadata.CreateSalesforceModulesAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateSalesforceModulesAction"
             id="org.talend.repository.actions.createSalesforceModulesAction"
             isEditAction="true"
             isReadAction="true"
             level="10"
             name="Metadata/Create Salesforce Modules"/>
       <Action
-            class="org.talend.repository.ui.actions.metadata.CreateSalesforceSchemasAction"
+            class="org.talend.repository.metadata.ui.actions.metadata.CreateSalesforceSchemasAction"
             id="org.talend.repository.actions.CreateSalesforceSchemasAction"
             isEditAction="true"
             isReadAction="true"
             level="10"
             name="Metadata/Create Salesforce Schemas"/>
      <Action
-           class="org.talend.repository.ui.actions.metadata.ImportSchemaFileAction"
+           class="org.talend.repository.metadata.ui.actions.metadata.ImportSchemaFileAction"
            id="org.talend.repository.actions.ImportSchemaFileAction"
            isEditAction="true"
            isPropertiesAction="false"
@@ -201,7 +201,7 @@
             label="Action set"
             visible="false">
          <action
-               class="org.talend.repository.ui.actions.toolbar.CreateToolbarItemAction"
+               class="org.talend.repository.metadata.ui.actions.toolbar.CreateToolbarItemAction"
                icon="icons/process_icon.gif"
                id="org.talend.repository.repositoryitem.createJob"
                label="Create"
@@ -231,10 +231,10 @@
          <triggerPoints>
             <or>
                <adapt
-                     type="org.talend.repository.model.ProjectRepositoryNode">
+                     type="org.talend.core.repository.model.ProjectRepositoryNode">
                </adapt>
                <instanceof
-                     value="org.talend.repository.model.ProjectRepositoryNode">
+                     value="org.talend.core.repository.model.ProjectRepositoryNode">
                </instanceof>
                <and>
                   <instanceof

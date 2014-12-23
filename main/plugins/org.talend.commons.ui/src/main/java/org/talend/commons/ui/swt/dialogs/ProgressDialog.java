@@ -21,7 +21,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.utils.threading.AsynchronousThreading;
+import org.talend.commons.ui.runtime.thread.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

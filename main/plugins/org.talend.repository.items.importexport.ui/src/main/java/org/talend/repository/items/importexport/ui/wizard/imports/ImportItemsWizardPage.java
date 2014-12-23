@@ -64,6 +64,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
@@ -87,7 +88,6 @@ import org.talend.repository.items.importexport.ui.wizard.imports.providers.Impo
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerSorter;
 import org.talend.repository.items.importexport.wizard.models.ImportNodesBuilder;
 import org.talend.repository.items.importexport.wizard.models.ItemImportNode;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;

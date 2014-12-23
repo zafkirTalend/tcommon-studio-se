@@ -15,9 +15,9 @@ package org.talend.repository.tester;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.runtime.Assert;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.EProperties;
-import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 public abstract class AbstractNodeTester extends PropertyTester {

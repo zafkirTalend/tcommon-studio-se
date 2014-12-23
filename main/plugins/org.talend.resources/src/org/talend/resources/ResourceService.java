@@ -21,7 +21,7 @@
 // ============================================================================
 package org.talend.resources;
 
-import org.talend.resource.IResourceService;
+import org.talend.core.services.resource.IResourceService;
 
 /**
  * yzhang class global comment. Detailled comment <br/>

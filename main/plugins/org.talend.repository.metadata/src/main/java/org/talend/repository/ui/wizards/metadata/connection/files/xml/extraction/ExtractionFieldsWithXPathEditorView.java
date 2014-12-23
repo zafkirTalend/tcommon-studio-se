@@ -23,6 +23,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.runtime.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButtonForExtendedTable;
@@ -34,13 +35,12 @@ import org.talend.commons.ui.swt.proposal.TextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
-import org.talend.core.ui.targetschema.editor.XmlExtractorFieldModel;
+import org.talend.core.ui.metadata.editor.XmlExtractorFieldModel;
 import org.talend.repository.metadata.i18n.Messages;
 
 /**

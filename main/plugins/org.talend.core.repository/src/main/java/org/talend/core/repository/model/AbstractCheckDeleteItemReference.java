@@ -21,11 +21,10 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.core.repository.ICheckDeleteItemReference;
+import org.talend.core.repository.model.provider.ICheckDeleteItemReference;
+import org.talend.core.repository.ui.actions.DeleteActionCache;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.ItemReferenceBean;
-import org.talend.repository.ui.actions.DeleteActionCache;
 
 /**
  * DOC ycbai class global comment. Detailled comment

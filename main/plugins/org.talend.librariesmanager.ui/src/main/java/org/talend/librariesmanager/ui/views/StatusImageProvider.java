@@ -15,7 +15,7 @@ package org.talend.librariesmanager.ui.views;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.runtime.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.core.model.general.ModuleNeeded;
 
 /**

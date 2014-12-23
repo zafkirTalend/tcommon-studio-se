@@ -26,8 +26,8 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC gldu class global comment. Detailled comment

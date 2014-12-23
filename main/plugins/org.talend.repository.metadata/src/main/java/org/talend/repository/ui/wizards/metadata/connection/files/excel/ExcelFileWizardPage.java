@@ -19,11 +19,11 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.repository.model.preview.ExcelSchemaBean;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.repository.preview.ExcelSchemaBean;
-import org.talend.repository.ui.swt.utils.AbstractExcelFileStepForm;
-import org.talend.repository.ui.swt.utils.AbstractForm;
+import org.talend.metadata.managment.ui.wizard.AbstractForm;
+import org.talend.repository.metadata.ui.wizards.form.AbstractExcelFileStepForm;
 
 /**
  * DOC yexiaowei class global comment. Detailled comment

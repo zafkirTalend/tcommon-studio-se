@@ -16,7 +16,7 @@ import java.io.File;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
+import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.repository.model.RepositoryConstants;
 
 /**

@@ -14,12 +14,12 @@ Require-Bundle: org.apache.axis,
  org.eclipse.ui.forms,
  org.talend.metadata.managment,
  org.talend.common.ui.runtime
-Export-Package: org.talend.repository,
- org.talend.repository.license,
- org.talend.repository.registeruser,
- org.talend.repository.registeruser.proxy,
- org.talend.repository.ui.wizards.license,
- org.talend.repository.ui.wizards.register
+Export-Package: org.talend.registration,
+ org.talend.registration.license,
+ org.talend.registration.register,
+ org.talend.registration.register.proxy,
+ org.talend.registration.wizards.license,
+ org.talend.registration.wizards.register
 Bundle-ClassPath: .
-Bundle-Activator: org.talend.repository.RegistrationPlugin
+Bundle-Activator: org.talend.registration.RegistrationPlugin
 Bundle-ActivationPolicy: lazy

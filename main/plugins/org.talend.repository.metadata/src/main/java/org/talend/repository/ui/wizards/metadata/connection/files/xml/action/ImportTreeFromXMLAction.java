@@ -21,15 +21,15 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.actions.SelectionProviderAction;
 import org.eclipse.xsd.XSDSchema;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.xml.XmlUtil;
-import org.talend.core.ui.metadata.dialog.RootNodeSelectDialog;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
-import org.talend.repository.ui.swt.utils.AbstractXmlStepForm;
+import org.talend.metadata.managment.ui.dialog.RootNodeSelectDialog;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.node.FOXTreeNode;
+import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
+import org.talend.repository.metadata.ui.wizards.form.AbstractXmlStepForm;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileOutputStep2Form;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.treeNode.FOXTreeNode;
-import org.talend.repository.ui.wizards.metadata.connection.files.xml.util.TreeUtil;
 
 /**
  * wzhang class global comment. Detailled comment

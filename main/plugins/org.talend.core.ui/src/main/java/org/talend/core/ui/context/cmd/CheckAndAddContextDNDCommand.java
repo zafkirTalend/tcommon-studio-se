@@ -30,10 +30,10 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.ui.context.ContextManagerHelper;
+import org.talend.core.ui.editor.command.ContextRemoveParameterCommand;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextTypeImpl;
-import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
 
 /**
  * DOC talend2 class global comment. Detailled comment

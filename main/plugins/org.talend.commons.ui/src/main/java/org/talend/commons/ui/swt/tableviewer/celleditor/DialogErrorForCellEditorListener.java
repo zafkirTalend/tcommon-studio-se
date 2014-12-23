@@ -19,12 +19,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.swt.tableviewer.data.ModifiedObjectInfo;
+import org.talend.commons.ui.runtime.thread.AsynchronousThreading;
+import org.talend.commons.ui.runtime.utils.ControlUtils;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
-import org.talend.commons.ui.utils.ControlUtils;
-import org.talend.commons.ui.utils.threading.AsynchronousThreading;
 
 /**
  * Validate column value and show a dialog message if value is not valid.

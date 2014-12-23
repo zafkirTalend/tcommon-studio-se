@@ -28,10 +28,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.repository.ui.view.RepositoryLabelProvider;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
 

@@ -26,7 +26,7 @@ import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
-import org.talend.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonNavigator;

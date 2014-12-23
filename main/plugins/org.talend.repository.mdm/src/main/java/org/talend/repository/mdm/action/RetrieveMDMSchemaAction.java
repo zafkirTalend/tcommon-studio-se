@@ -14,6 +14,7 @@ package org.talend.repository.mdm.action;
 
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.metadata.builder.connection.Concept;
@@ -29,16 +30,15 @@ import org.talend.core.model.xml.XmlArray;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.metadata.AbstractCreateAction;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.mdm.i18n.Messages;
 import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
 import org.talend.repository.mdm.util.MDMUtil;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**

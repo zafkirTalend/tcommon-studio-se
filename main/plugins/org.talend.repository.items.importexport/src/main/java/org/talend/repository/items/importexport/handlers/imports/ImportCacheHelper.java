@@ -27,11 +27,11 @@ import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.ui.actions.RestoreFolderUtil;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
-import org.talend.repository.ui.actions.RestoreFolderUtil;
 
 /**
  * DOC ggu class global comment. Detailled comment

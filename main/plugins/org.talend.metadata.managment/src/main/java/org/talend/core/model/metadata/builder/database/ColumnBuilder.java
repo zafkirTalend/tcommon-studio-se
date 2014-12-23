@@ -18,9 +18,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.core.model.metadata.MetadataFillFactory;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 
 /**

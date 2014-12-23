@@ -27,13 +27,13 @@ import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.process.IGEFProcess;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.service.IDesignerCoreUIService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.ui.metadata.celleditor.SchemaXPathQuerysCellEditor;
+import org.talend.core.ui.process.IGEFProcess;
+import org.talend.core.ui.services.IDesignerCoreUIService;
 import org.talend.core.utils.TalendQuoteUtils;
 
 /**

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -31,7 +32,6 @@ import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

@@ -45,12 +45,13 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.metadata.managment.ui.wizard.CheckLastVersionRepositoryWizard;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.ui.wizards.CheckLastVersionRepositoryWizard;
 import org.xml.sax.SAXException;
+
 import orgomg.cwm.objectmodel.core.Package;
 
 /**

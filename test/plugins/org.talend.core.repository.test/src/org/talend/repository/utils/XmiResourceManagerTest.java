@@ -48,7 +48,6 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -133,7 +132,7 @@ public class XmiResourceManagerTest {
     private void removeTempProject() throws PersistenceException, CoreException {
         // clear the folder, same as it should be in a real logoffProject.
         ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
-        final IProject project = ResourceModelUtils.getProject(sampleProject);
+        final IProject project = ResourceUtils.getProject(sampleProject);
         project.delete(true, null);
     }
 
@@ -161,7 +160,7 @@ public class XmiResourceManagerTest {
     @Test
     public void testLoadProject() throws PersistenceException, CoreException {
         XmiResourceManager xrm = new XmiResourceManager();
-        IProject physProject = ResourceModelUtils.getProject(sampleProject);
+        IProject physProject = ResourceUtils.getProject(sampleProject);
         org.talend.core.model.properties.Project emfProject = xrm.loadProject(physProject);
         assertTrue(emfProject.getTechnicalLabel().equals("TESTAUTO"));
     }
@@ -177,7 +176,7 @@ public class XmiResourceManagerTest {
     @Test
     public void testHasTalendProjectFile() throws PersistenceException, CoreException {
         XmiResourceManager xrm = new XmiResourceManager();
-        IProject physProject = ResourceModelUtils.getProject(sampleProject);
+        IProject physProject = ResourceUtils.getProject(sampleProject);
         assertTrue(xrm.hasTalendProjectFile(physProject));
     }
 
@@ -209,7 +208,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testCreateItemResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -289,7 +288,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testDeleteResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -332,7 +331,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testCreatePropertyResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -375,7 +374,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testGetItemResource() throws PersistenceException, PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -445,7 +444,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testGetAffectedResources() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -534,7 +533,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testLoadProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -598,7 +597,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testForceReloadProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -657,7 +656,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testMoveResource() throws PersistenceException, CoreException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -728,7 +727,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testSaveResource() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -798,7 +797,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testIsPropertyFileIFile() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)
@@ -846,7 +845,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testIsProjectFile() throws PersistenceException, CoreException {
-        IProject physProject = ResourceModelUtils.getProject(sampleProject);
+        IProject physProject = ResourceUtils.getProject(sampleProject);
         IFile talendProjectFile = physProject.getFile("/" + FileConstants.LOCAL_PROJECT_FILENAME);
         IFile projectFile = physProject.getFile("/.project");
         XmiResourceManager xrm = new XmiResourceManager();
@@ -883,7 +882,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testPropagateFileName() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         testProcesspropagateFileName(project, xrm);
@@ -1182,7 +1181,7 @@ public class XmiResourceManagerTest {
      */
     @Test
     public void testUnloadResourcesProperty() throws PersistenceException {
-        IProject project = ResourceModelUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+        IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
         XmiResourceManager xrm = new XmiResourceManager();
 
         // 2 kinds of type mainly, fully emf (like Process) or with byteArrayResource (Routines)

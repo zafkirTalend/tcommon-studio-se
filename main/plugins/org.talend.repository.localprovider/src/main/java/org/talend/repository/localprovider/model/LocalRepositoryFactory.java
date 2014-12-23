@@ -68,6 +68,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -137,7 +138,6 @@ import org.talend.core.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.core.repository.model.FolderHelper;
 import org.talend.core.repository.model.ILocalRepositoryFactory;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.model.VersionList;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.ResourceFilenameHelper;
@@ -151,7 +151,6 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
@@ -211,7 +210,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         // added for bug 18318
         if (fsProject == null || type == null) {
             return toReturn;
@@ -855,7 +854,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void synchronizeRoutines(IProject prj) throws PersistenceException {
         if (prj == null) {
             Project project = getRepositoryContext().getProject();
-            prj = ResourceModelUtils.getProject(project);
+            prj = ResourceUtils.getProject(project);
         }
 
         // Purge old routines :
@@ -875,7 +874,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void synchronizeSqlpatterns(IProject prj) throws PersistenceException {
         if (prj == null) {
             Project project = getRepositoryContext().getProject();
-            prj = ResourceModelUtils.getProject(project);
+            prj = ResourceUtils.getProject(project);
         }
 
         // Purge old sqlpatterns :
@@ -1135,7 +1134,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException03")); //$NON-NLS-1$
         }
 
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
 
         String parentPath = ERepositoryObjectType.getFolderName(type);
         if (!path.isEmpty()) {
@@ -1187,7 +1186,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return false;
         } else {
             // TODO SML Delete this ?
-            IProject fsProject = ResourceModelUtils.getProject(project);
+            IProject fsProject = ResourceUtils.getProject(project);
             String completePath = null;
             if (type.equals(ERepositoryObjectType.TDQ_PATTERN_REGEX)) {
                 completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + label.toString();
@@ -1223,7 +1222,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
 
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
 
         String completePath = new Path(ERepositoryObjectType.getFolderName(type)).append(path).toString();
 
@@ -1248,7 +1247,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
         Project project = getRepositoryContext().getProject();
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
 
         String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
         String completeNewPath;
@@ -1370,7 +1369,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     IPath targetPath = sourcePath.removeLastSegments(1);
 
                     Project project = getRepositoryContext().getProject();
-                    IProject fsProject = ResourceModelUtils.getProject(project);
+                    IProject fsProject = ResourceUtils.getProject(project);
 
                     String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR
                             + sourcePath.toPortableString();
@@ -1567,7 +1566,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException {
 
         // can only delete in the main project
-        // IProject fsProject = ResourceModelUtils.getProject(project);
+        // IProject fsProject = ResourceUtils.getProject(project);
 
         // IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
         // + IPath.SEPARATOR + BIN, true);
@@ -1663,7 +1662,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Map<Resource, IFolder> resourceFolderMap = new HashMap<Resource, IFolder>();
         IPath parentPath = null;
         Project project = getRepositoryContext().getProject();
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         List<IRepositoryViewObject> allRepositoryViewObject = new ArrayList<IRepositoryViewObject>();
         for (IRepositoryViewObject objToMove : objToMoves) {
             String folderName = ERepositoryObjectType.getFolderName(objToMove.getRepositoryObjectType()) + IPath.SEPARATOR
@@ -1749,7 +1748,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void moveObject(IRepositoryViewObject objToMove, IPath newPath) throws PersistenceException {
         Project project = getRepositoryContext().getProject();
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getRepositoryObjectType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
@@ -2537,7 +2536,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         itemState.setPath(path.toString());
 
         item.setState(itemState);
-        IProject project2 = ResourceModelUtils.getProject(project);
+        IProject project2 = ResourceUtils.getProject(project);
         Resource itemResource = null;
         Resource screenshotsResource = null;
         EClass eClass = item.eClass();
@@ -2754,7 +2753,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private IProject getPhysicalProject(Project project) throws PersistenceException {
-        return ResourceModelUtils.getProject(project);
+        return ResourceUtils.getProject(project);
     }
 
     @Override
@@ -2974,7 +2973,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new LoginException(Messages.getString("LocalRepositoryFactory.UserLoginCannotBeNull")); //$NON-NLS-1$
         }
         if (project.getEmfProject().eResource() == null) {
-            IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+            IProject iProject = ResourceUtils.getProject(getRepositoryContext().getProject());
             project.setEmfProject(xmiResourceManager.loadProject(iProject));
         }
 
@@ -2984,7 +2983,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             createUser(project);
         }
 
-        IProject project2 = ResourceModelUtils.getProject(project);
+        IProject project2 = ResourceUtils.getProject(project);
         createFolders(project2, project.getEmfProject());
         synchronizeRoutines(project2);
         synchronizeSqlpatterns(project2);
@@ -3049,7 +3048,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        IProject fsProject = ResourceUtils.getProject(project);
         try {
             if (repositoryObjectType != null && repositoryObjectType.hasFolder()) {
                 String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
@@ -3087,7 +3086,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
         Project baseProject = getRepositoryContext().getProject();
-        IProject project = ResourceModelUtils.getProject(baseProject);
+        IProject project = ResourceUtils.getProject(baseProject);
         String folderPathString = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString();
         IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
         unloadUnlockedResources();
@@ -3129,7 +3128,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public boolean setAuthorByLogin(Item item, String login) throws PersistenceException {
-        // IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        // IProject iProject = ResourceUtils.getProject(getRepositoryContext().getProject());
         // org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = getRepositoryContext().getProject().getEmfProject().eResource();
 

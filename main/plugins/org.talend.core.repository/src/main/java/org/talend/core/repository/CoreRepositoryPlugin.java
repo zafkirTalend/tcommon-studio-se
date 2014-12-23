@@ -14,9 +14,9 @@ package org.talend.core.repository;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.core.repository.model.ChangeProcessor;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.IRepositoryElementDelta;
-import org.talend.repository.model.ChangeProcessor;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

@@ -36,8 +36,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.talend.commons.emf.CwmResource;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -50,11 +50,11 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.constants.FileConstants;
-import org.talend.core.repository.model.ResourceModelUtils;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.model.emf.CwmResource;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
@@ -144,7 +144,7 @@ public class ImportBasicHandlerTest {
     private void removeTempProject() throws PersistenceException, CoreException {
         // clear the folder, same as it should be in a real logoffProject.
         ProjectManager.getInstance().getFolders(sampleProject.getEmfProject()).clear();
-        final IProject project = ResourceModelUtils.getProject(sampleProject);
+        final IProject project = ResourceUtils.getProject(sampleProject);
         project.delete(true, null);
     }
 

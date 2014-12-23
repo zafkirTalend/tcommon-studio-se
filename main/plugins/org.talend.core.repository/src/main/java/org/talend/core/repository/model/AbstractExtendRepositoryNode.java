@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.model;
 
-import org.talend.core.repository.IExtendRepositoryNode;
+import org.talend.commons.ui.runtime.repository.IExtendRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
