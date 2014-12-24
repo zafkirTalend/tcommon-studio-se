@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
+import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
 import org.talend.commons.utils.threading.lockerbykey.operators.CleanOperator;
 import org.talend.commons.utils.threading.lockerbykey.operators.LockThenUnlockOperator;
@@ -42,7 +42,7 @@ import com.javamex.classmexer.MemoryUtil;
 public class LockerByKeyUnrestrictedTest extends LockerByKeyTest {
 
     @Rule
-    public MethodRule globalTimeout = new Timeout(60000);
+    public TestRule globalTimeout = new Timeout(60000);
 
     private static final int WAIT_THREAD_STARTED = 100;
 
@@ -50,6 +50,7 @@ public class LockerByKeyUnrestrictedTest extends LockerByKeyTest {
 
     private static final boolean DEBUG = false;
 
+    @Override
     protected ILockerByKey createLockerInstance() {
         // default implementation when running this TestCase
         return createLockerUnrestrictedInstance();
@@ -813,6 +814,7 @@ public class LockerByKeyUnrestrictedTest extends LockerByKeyTest {
      * 
      * @throws Exception
      */
+    @Override
     @SuppressWarnings("unchecked")
     @Test(timeout = 30000)
     // @Test

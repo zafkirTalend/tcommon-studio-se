@@ -4,5 +4,4 @@ Bundle-Name: Test
 Bundle-SymbolicName: org.talend.repository.items.importexport.ui.test
 Bundle-Version: 6.0.0.qualifier
 Fragment-Host: org.talend.repository.items.importexport.ui
-Require-Bundle: org.junit4;bundle-version="4.8.1",
- org.talend.testutils;bundle-version="6.0.0"
+Require-Bundle: org.talend.testutils

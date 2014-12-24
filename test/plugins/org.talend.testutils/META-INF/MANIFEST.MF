@@ -188,7 +188,7 @@ Export-Package: com.javamex.classmexer,
  org.powermock.tests.utils.impl,
  org.talend.test.utils,
  org.talend.testutils.threading
-Require-Bundle: org.junit4;bundle-version="4.8.1";visibility:=reexport,
+Require-Bundle: org.junit;visibility:=reexport,
  org.apache.axis;bundle-version="1.4.0"
 Eclipse-BuddyPolicy: registered
 
