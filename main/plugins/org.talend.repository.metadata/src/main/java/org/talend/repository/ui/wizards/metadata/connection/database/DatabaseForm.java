@@ -28,8 +28,10 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Priority;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -90,6 +92,7 @@ import org.talend.commons.ui.utils.loader.MyURLClassLoader;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -137,6 +140,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.ui.metadata.celleditor.ModuleListDialog;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -629,7 +633,14 @@ public class DatabaseForm extends AbstractForm {
         generalJdbcUserText.setText(getConnection().getUsername());
         generalJdbcPasswordText.setText(getConnection().getRawPassword());
 
-        generalJdbcDriverjarText.setText(getConnection().getDriverJarPath());
+        String jarPath = getConnection().getDriverJarPath();
+        IPath path = Path.fromOSString(jarPath);
+        if (path.lastSegment() != null) {
+            generalJdbcDriverjarText.setText(path.lastSegment());
+        } else {
+            generalJdbcDriverjarText.setText(jarPath);
+        }
+
         generalMappingFileText.setText(getConnection().getDbmsId());
 
         String jdbcUrlString = ""; //$NON-NLS-1$
@@ -3665,9 +3676,31 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                SelectDatabaseJarDialog dialog = new SelectDatabaseJarDialog(getShell(), generalJdbcDriverjarText.getText());
+                String value = generalJdbcDriverjarText.getText();
+                if (value != null && value.length() > 0) {
+                    IPath path = Path.fromOSString(value);
+                    if (path.lastSegment() != null) {
+                        value = path.lastSegment();
+                    }
+                }
+                ModuleListDialog dialog = new ModuleListDialog(getShell(), value, null, true);
+
                 if (dialog.open() == Window.OK) {
-                    generalJdbcDriverjarText.setText(dialog.getJarsString());
+                    if (dialog.getSelecteModuleArray() != null) {
+                        String[] moduleArray = dialog.getSelecteModuleArray();
+                        StringBuffer modeleList = new StringBuffer();
+                        for (int i = 0; i < moduleArray.length; i++) {
+                            String module = moduleArray[i];
+                            modeleList.append(module);
+                            if (i < moduleArray.length - 1) {
+                                modeleList.append(";");
+                            }
+                        }
+                        generalJdbcDriverjarText.setText(modeleList.toString());
+                    } else if (dialog.getSelecteModule() != null) {
+                        String selecteModule = dialog.getSelecteModule();
+                        generalJdbcDriverjarText.setText(selecteModule);
+                    }
                 }
             }
 
@@ -3679,7 +3712,11 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
 
                 generalJdbcClassNameText.removeAll();
-                for (String stringToFile : generalJdbcDriverjarText.getText().trim().split(";")) { //$NON-NLS-1$
+                for (String jarName : generalJdbcDriverjarText.getText().trim().split(";")) { //$NON-NLS-1$
+                    String stringToFile = getselecteModulePath(jarName);
+                    if (stringToFile == null) {
+                        stringToFile = jarName;
+                    }
                     File file = new File(stringToFile);
                     if (file != null) {
                         try {
@@ -5916,6 +5953,22 @@ public class DatabaseForm extends AbstractForm {
         }
 
         return hadoopClusterService != null;
+    }
+
+    private String getselecteModulePath(String selecteModule) {
+        File file = new File(selecteModule);
+        if (file.exists() && file.isFile()) {
+            return selecteModule;
+        }
+        String selecteModulePath = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            ILibraryManagerService librairesService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
+            if (librairesService != null) {
+                selecteModulePath = librairesService.getJarPath(selecteModule);
+            }
+        }
+        return selecteModulePath;
     }
 
     /**

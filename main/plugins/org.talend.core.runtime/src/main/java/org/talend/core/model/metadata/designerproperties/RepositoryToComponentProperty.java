@@ -1132,6 +1132,10 @@ public class RepositoryToComponentProperty {
                                         return null;
                                     }
                                 }
+                            } else {
+                                Map<String, Object> line = new HashMap<String, Object>();
+                                line.put("JAR_NAME", jar);
+                                value2.add(line);
                             }
                         }
                         if (deployed) {
