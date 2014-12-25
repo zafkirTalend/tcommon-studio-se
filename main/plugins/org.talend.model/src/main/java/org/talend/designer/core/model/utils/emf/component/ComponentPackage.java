@@ -1204,13 +1204,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__VISIBLE = 31;
 
     /**
+     * The feature id for the '<em><b>EQUIVALENT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__EQUIVALENT = 32;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 32;
+    int HEADER_TYPE_FEATURE_COUNT = 33;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3670,6 +3679,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_VISIBLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>EQUIVALENT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_EQUIVALENT();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5944,6 +5964,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
+
+        /**
+         * The meta object literal for the '<em><b>EQUIVALENT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__EQUIVALENT = eINSTANCE.getHEADERType_EQUIVALENT();
 
         /**
          * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.

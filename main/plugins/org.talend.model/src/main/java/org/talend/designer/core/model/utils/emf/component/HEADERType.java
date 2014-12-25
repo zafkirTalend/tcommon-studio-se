@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}</li>
  * </ul>
  * </p>
  *
@@ -1144,6 +1145,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetVISIBLE();
+
+    /**
+     * Returns the value of the '<em><b>EQUIVALENT</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>EQUIVALENT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>EQUIVALENT</em>' attribute.
+     * @see #isSetEQUIVALENT()
+     * @see #unsetEQUIVALENT()
+     * @see #setEQUIVALENT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_EQUIVALENT()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='EQUIVALENT' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getEQUIVALENT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>EQUIVALENT</em>' attribute.
+     * @see #isSetEQUIVALENT()
+     * @see #unsetEQUIVALENT()
+     * @see #getEQUIVALENT()
+     * @generated
+     */
+    void setEQUIVALENT(String value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetEQUIVALENT()
+     * @see #getEQUIVALENT()
+     * @see #setEQUIVALENT(String)
+     * @generated
+     */
+    void unsetEQUIVALENT();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>EQUIVALENT</em>' attribute is set.
+     * @see #unsetEQUIVALENT()
+     * @see #getEQUIVALENT()
+     * @see #setEQUIVALENT(String)
+     * @generated
+     */
+    boolean isSetEQUIVALENT();
 
     /**
      * Returns the value of the '<em><b>TYPE</b></em>' attribute.

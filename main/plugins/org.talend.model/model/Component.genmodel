@@ -134,6 +134,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tYPE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/eQUIVALENT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTSType/iMPORT"/>

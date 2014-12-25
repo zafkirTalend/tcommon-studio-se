@@ -56,6 +56,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getTYPE <em>TYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEQUIVALENT <em>EQUIVALENT</em>}</li>
  * </ul>
  * </p>
  *
@@ -817,6 +818,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
+
+    /**
+     * The default value of the '{@link #getEQUIVALENT() <em>EQUIVALENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEQUIVALENT()
+     * @generated
+     * @ordered
+     */
+    protected static final String EQUIVALENT_EDEFAULT = "false";
+
+    /**
+     * The cached value of the '{@link #getEQUIVALENT() <em>EQUIVALENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEQUIVALENT()
+     * @generated
+     * @ordered
+     */
+    protected String eQUIVALENT = EQUIVALENT_EDEFAULT;
+
+    /**
+     * This is true if the EQUIVALENT attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean eQUIVALENTESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -1755,6 +1785,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getEQUIVALENT() {
+        return eQUIVALENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEQUIVALENT(String newEQUIVALENT) {
+        String oldEQUIVALENT = eQUIVALENT;
+        eQUIVALENT = newEQUIVALENT;
+        boolean oldEQUIVALENTESet = eQUIVALENTESet;
+        eQUIVALENTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__EQUIVALENT, oldEQUIVALENT, eQUIVALENT, !oldEQUIVALENTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetEQUIVALENT() {
+        String oldEQUIVALENT = eQUIVALENT;
+        boolean oldEQUIVALENTESet = eQUIVALENTESet;
+        eQUIVALENT = EQUIVALENT_EDEFAULT;
+        eQUIVALENTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__EQUIVALENT, oldEQUIVALENT, EQUIVALENT_EDEFAULT, oldEQUIVALENTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetEQUIVALENT() {
+        return eQUIVALENTESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getTYPE() {
         return tYPE;
     }
@@ -1964,6 +2040,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__EQUIVALENT:
+                return getEQUIVALENT();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -2070,6 +2148,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__EQUIVALENT:
+                setEQUIVALENT((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2178,6 +2259,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
                 return;
+            case ComponentPackage.HEADER_TYPE__EQUIVALENT:
+                unsetEQUIVALENT();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2253,6 +2337,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
+            case ComponentPackage.HEADER_TYPE__EQUIVALENT:
+                return isSetEQUIVALENT();
         }
         return super.eIsSet(featureID);
     }
@@ -2328,6 +2414,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
+        result.append(", eQUIVALENT: ");
+        if (eQUIVALENTESet) result.append(eQUIVALENT); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

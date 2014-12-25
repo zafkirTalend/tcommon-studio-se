@@ -187,6 +187,8 @@
   		type="xsd:decimal" use="required" />
   	<xsd:attribute default="true" ecore:name="vISIBLE" name="VISIBLE"
   		type="xsd:boolean" />
+    <xsd:attribute default="false" ecore:name="eQUIVALENT"
+        name="EQUIVALENT" type="xsd:string" />
   	<xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string" />
   	<xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE"
   		type="xsd:boolean" />
