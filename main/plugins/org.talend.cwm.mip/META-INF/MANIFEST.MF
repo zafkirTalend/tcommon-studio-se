@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.talend.cwm.mip; singleton:=true
 Bundle-Version: 6.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ dist/org.talend.cwm.mip.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: orgomg.cwm.analysis.businessnomenclature,

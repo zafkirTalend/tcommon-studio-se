@@ -27,7 +27,8 @@ Export-Package:
  org.talend.utils.thread,
  org.talend.utils.time,
  org.talend.utils.wsdl
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ dist/org.talend.utils.jar
 Require-Bundle: org.apache.commons.lang,
  org.talend.libraries.apache;visibility:=reexport,
  org.apache.log4j,
