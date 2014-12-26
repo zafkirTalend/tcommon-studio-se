@@ -33,8 +33,7 @@ Export-Package: metadata.managment.i18n,
  org.talend.metadata.managment.model,
  org.talend.metadata.managment.repository,
  org.talend.metadata.managment.utils
-Bundle-ClassPath: .,
- dist/org.talend.metadata.managment.jar
+Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
 
 

@@ -50,6 +50,5 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.workbench.preferences,
  org.talend.fakejdbc
 Bundle-ClassPath: .,
- dist/org.talend.commons.runtime.jar,
  fakejdbc_driver.jar
 Bundle-Vendor: .Talend SA.

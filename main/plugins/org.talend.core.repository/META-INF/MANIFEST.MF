@@ -40,6 +40,5 @@ Export-Package: org.talend.core.repository,
  org.talend.core.repository.utils
 Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .,
- dist/org.talend.core.repository.jar
+Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.

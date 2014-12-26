@@ -101,7 +101,6 @@ Require-Bundle: org.eclipse.jdt.core,
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- dist/org.talend.core.runtime.jar,
  lib/resty-0.2.0.jar,
  lib/json_simple-1.1.jar
 Eclipse-RegisterBuddy: org.talend.testutils
