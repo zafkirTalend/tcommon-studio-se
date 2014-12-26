@@ -13,7 +13,6 @@
 package org.talend.commons.ui.swt.advanced.dataeditor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,55 +32,51 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
-public class HadoopPropertiesTableView extends AbstractDataTableEditorView<HashMap<String, Object>> {
+public class HadoopPropertiesTableView extends AbstractDataTableEditorView<Map<String, Object>> {
 
-    private static final String VALUE = "VALUE";
+    private static final String VALUE = "VALUE"; //$NON-NLS-1$
 
-    private static final String PROPERTY = "PROPERTY";
+    private static final String PROPERTY = "PROPERTY"; //$NON-NLS-1$
 
-    public HadoopPropertiesTableView(HadoopPropertiesFieldModel model, Composite parent, int styleChild) {
-        this(model, parent, styleChild, false);
+    public HadoopPropertiesTableView(Composite parent, HadoopPropertiesFieldModel model) {
+        super(parent, SWT.NONE, model, false, true, false);
     }
 
-    public HadoopPropertiesTableView(HadoopPropertiesFieldModel model, Composite parent, int styleChild, boolean showDbTypeColumn) {
-        super(parent, styleChild, model);
-    }
-
-    public HadoopPropertiesTableView(HadoopPropertiesFieldModel model, Composite parent) {
-        this(model, parent, SWT.NONE, false);
+    public HadoopPropertiesTableView(Composite parent, HadoopPropertiesFieldModel model, boolean labelVisible) {
+        super(parent, SWT.NONE, model, false, true, labelVisible);
     }
 
     @Override
-    protected void handleBeforeListenableListOperationEvent(ListenableListEvent<HashMap<String, Object>> event) {
+    protected void handleBeforeListenableListOperationEvent(ListenableListEvent<Map<String, Object>> event) {
         super.handleBeforeListenableListOperationEvent(event);
     }
 
     @Override
-    protected void handleAfterListenableListOperationEvent(ListenableListEvent<HashMap<String, Object>> event) {
+    protected void handleAfterListenableListOperationEvent(ListenableListEvent<Map<String, Object>> event) {
         super.handleAfterListenableListOperationEvent(event);
     }
 
     @Override
-    protected void setTableViewerCreatorOptions(TableViewerCreator<HashMap<String, Object>> newTableViewerCreator) {
+    protected void setTableViewerCreatorOptions(TableViewerCreator<Map<String, Object>> newTableViewerCreator) {
         super.setTableViewerCreatorOptions(newTableViewerCreator);
     }
 
     @Override
-    protected void createColumns(TableViewerCreator<HashMap<String, Object>> tableViewerCreator, Table table) {
+    protected void createColumns(TableViewerCreator<Map<String, Object>> tableViewerCreator, Table table) {
         createKeyColumn(tableViewerCreator);
         createValueColumn(tableViewerCreator);
     }
 
-    private TableViewerCreatorColumn createValueColumn(TableViewerCreator<HashMap<String, Object>> tableViewerCreator) {
+    private TableViewerCreatorColumn createValueColumn(TableViewerCreator<Map<String, Object>> tableViewerCreator) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Value"); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<HashMap<String, Object>, String>() {
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<Map<String, Object>, String>() {
 
-            public String get(HashMap<String, Object> bean) {
+            public String get(Map<String, Object> bean) {
                 return (String) bean.get(VALUE);
             }
 
-            public void set(HashMap<String, Object> bean, String value) {
+            public void set(Map<String, Object> bean, String value) {
                 bean.put(VALUE, value);
             }
 
@@ -95,17 +90,17 @@ public class HadoopPropertiesTableView extends AbstractDataTableEditorView<HashM
         return column;
     }
 
-    private TableViewerCreatorColumn createKeyColumn(TableViewerCreator<HashMap<String, Object>> tableViewerCreator) {
+    private TableViewerCreatorColumn createKeyColumn(TableViewerCreator<Map<String, Object>> tableViewerCreator) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Property"); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<HashMap<String, Object>, String>() {
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<Map<String, Object>, String>() {
 
-            public String get(HashMap<String, Object> bean) {
+            public String get(Map<String, Object> bean) {
                 return (String) bean.get(PROPERTY);
 
             }
 
-            public void set(HashMap<String, Object> bean, String value) {
+            public void set(Map<String, Object> bean, String value) {
                 bean.put(PROPERTY, value);
             }
 
@@ -133,7 +128,7 @@ public class HadoopPropertiesTableView extends AbstractDataTableEditorView<HashM
 
                     @Override
                     protected Object getObjectToAdd() {
-                        HashMap<String, Object> hpt = getModel().createHadoopPropertiesType();
+                        Map<String, Object> hpt = getModel().createHadoopPropertiesType();
                         hpt.put(PROPERTY, "new line");
                         hpt.put(VALUE, "");
                         return hpt;
@@ -151,13 +146,13 @@ public class HadoopPropertiesTableView extends AbstractDataTableEditorView<HashM
                         return new ExtendedTablePasteCommand(extendedTableModel, indexWhereInsert) {
 
                             @Override
-                            public List<HashMap<String, Object>> createPastableBeansList(ExtendedTableModel extendedTableModel,
+                            public List<Map<String, Object>> createPastableBeansList(ExtendedTableModel extendedTableModel,
                                     List copiedObjectsList) {
                                 List list = new ArrayList();
                                 HadoopPropertiesFieldModel fieldsModel = (HadoopPropertiesFieldModel) extendedTableModel;
                                 for (Object current : copiedObjectsList) {
-                                    if (current instanceof HashMap) {
-                                        Map<String, Object> original = (HashMap<String, Object>) current;
+                                    if (current instanceof Map) {
+                                        Map<String, Object> original = (Map<String, Object>) current;
                                         Map<String, Object> copy = fieldsModel.createHadoopPropertiesType();
                                         copy.putAll(original);
                                         list.add(copy);

@@ -437,6 +437,9 @@ public abstract class RepositoryUpdateManager {
                 return true;
             }
         }
+        if (isSameConnection(object, parameter)) {
+            return true;
+        }
         if (object instanceof List) {
             List list = ((List) object);
             if (!list.isEmpty()) {
@@ -479,10 +482,31 @@ public abstract class RepositoryUpdateManager {
         return false;
     }
 
+    private boolean isSameConnection(Object obj1, Object obj2) {
+        Connection conn1 = getConnection(obj1);
+        Connection conn2 = getConnection(obj2);
+        if (conn1 != null && conn2 != null && conn1.equals(conn2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private Connection getConnection(Object obj) {
+        Connection conn = null;
+        if (obj instanceof Connection) {
+            conn = (Connection) obj;
+        } else if (obj instanceof ConnectionItem) {
+            conn = ((ConnectionItem) obj).getConnection();
+        }
+
+        return conn;
+    }
+
     private boolean checkHadoopRelevances(Object resultParam) {
-        if (resultParam != null && resultParam instanceof Connection && parameter instanceof Connection) {
-            Connection parentConnection = (Connection) parameter;
-            Connection childConnection = (Connection) resultParam;
+        if (resultParam != null) {
+            Connection parentConnection = getConnection(parameter);
+            Connection childConnection = getConnection(resultParam);
             IHadoopClusterService hadoopClusterService = null;
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
                 hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(

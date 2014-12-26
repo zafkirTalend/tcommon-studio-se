@@ -24,7 +24,6 @@ import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
-import org.talend.utils.json.JSONException;
 
 /**
  * created by xqliu on 2013-11-1 Detailled comment
@@ -89,19 +88,15 @@ public class HiveConnectionHandler {
     protected void initHadoopProperties() {
         getHadoopPropertiesMap().clear();
         String hadoopProperties = (String) getMetadataConnection().getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
-        try {
-            List<HashMap<String, Object>> hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
-            for (HashMap<String, Object> map : hadoopPropertiesList) {
-                Object objProp = map.get(PROPERTY);
-                Object objValue = map.get(VALUE);
-                if (objProp != null && objValue != null) {
-                    String key = TalendQuoteUtils.removeQuotes(objProp.toString());
-                    String value = TalendQuoteUtils.removeQuotes(objValue.toString());
-                    getHadoopPropertiesMap().put(key, value);
-                }
+        List<Map<String, Object>> hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
+        for (Map<String, Object> map : hadoopPropertiesList) {
+            Object objProp = map.get(PROPERTY);
+            Object objValue = map.get(VALUE);
+            if (objProp != null && objValue != null) {
+                String key = TalendQuoteUtils.removeQuotes(objProp.toString());
+                String value = TalendQuoteUtils.removeQuotes(objValue.toString());
+                getHadoopPropertiesMap().put(key, value);
             }
-        } catch (JSONException e) {
-            log.equals(e);
         }
     }
 
