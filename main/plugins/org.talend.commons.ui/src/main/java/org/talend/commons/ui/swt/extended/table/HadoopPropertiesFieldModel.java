@@ -15,26 +15,25 @@ package org.talend.commons.ui.swt.extended.table;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-
-public class HadoopPropertiesFieldModel extends ExtendedTableModel<HashMap<String, Object>> {
+public class HadoopPropertiesFieldModel extends ExtendedTableModel<Map<String, Object>> {
 
     public HadoopPropertiesFieldModel(String name) {
         super(name);
-        setProperties(new ArrayList<HashMap<String, Object>>());
+        setProperties(new ArrayList<Map<String, Object>>());
     }
 
-    public HadoopPropertiesFieldModel(List<HashMap<String, Object>> conditionTypeList, String name) {
+    public HadoopPropertiesFieldModel(List<Map<String, Object>> propertiesTypeList, String name) {
         super(name);
-        setProperties(conditionTypeList);
+        setProperties(propertiesTypeList);
     }
 
-    public void setProperties(List<HashMap<String, Object>> properties) {
-        registerDataList((List<HashMap<String, Object>>) properties);
+    public void setProperties(List<Map<String, Object>> properties) {
+        registerDataList(properties);
     }
 
-    public HashMap<String, Object> createHadoopPropertiesType() {
+    public Map<String, Object> createHadoopPropertiesType() {
         return new HashMap<String, Object>();
     }
 }

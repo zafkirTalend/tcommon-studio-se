@@ -91,7 +91,6 @@ import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.utils.json.JSONException;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -1225,12 +1224,8 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("HBASE_PARAMETERS")) {
-            try {
-                String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
-                return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
-            } catch (JSONException e) {
-                ExceptionHandler.process(e);
-            }
+            String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+            return HadoopRepositoryUtil.getHadoopPropertiesFullList(connection, message, true);
         }
 
         if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
@@ -1240,11 +1235,7 @@ public class RepositoryToComponentProperty {
             } else if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
                 message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
             }
-            try {
-                return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
-            } catch (JSONException e) {
-                ExceptionHandler.process(e);
-            }
+            return HadoopRepositoryUtil.getHadoopPropertiesFullList(connection, message, true);
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
