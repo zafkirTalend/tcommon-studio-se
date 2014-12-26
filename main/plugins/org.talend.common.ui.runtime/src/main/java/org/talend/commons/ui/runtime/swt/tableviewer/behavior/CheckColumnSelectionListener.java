@@ -189,4 +189,12 @@ public class CheckColumnSelectionListener implements ITableColumnSelectionListen
                 checked ? ImageProvider.getImage(EImage.CHECKED_ICON) : ImageProvider.getImage(EImage.UNCHECKED_ICON));
         tableViewerCreator.refreshTableEditorControls();
     }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean isChecked) {
+        checked = isChecked;
+    }
 }
