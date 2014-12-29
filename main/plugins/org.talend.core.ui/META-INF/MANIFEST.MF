@@ -25,7 +25,7 @@ Require-Bundle: org.apache.commons.lang,
  org.eclipse.nebula.widgets.nattable.core,
  org.eclipse.nebula.widgets.nattable.extension.glazedlists,
  org.talend.libraries.nattable,
- org.eclipse.e4.core.di.extensions
+ org.eclipse.e4.core.di.extensions,
  org.talend.librariesmanager
 Import-Package: org.eclipse.jdt.internal.ui.workingsets
 Export-Package: org.talend.core.ui,
