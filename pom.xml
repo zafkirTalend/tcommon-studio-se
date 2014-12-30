@@ -61,15 +61,15 @@
     <module>i18n/plugins/org.talend.repository.metadata.nl</module>
     <module>i18n/plugins/org.talend.repository.view.nl</module>
     <module>i18n/plugins/org.talend.resources.nl</module>
-    <module>main/features/org.talend.commons-feature</module>
-    <module>main/features/org.talend.core-feature</module>
-    <module>main/features/org.talend.help-feature</module>
-    <module>main/features/org.talend.libraries.jdbc-feature</module>
-    <module>main/features/org.talend.model.migration-feature</module>
-    <module>main/features/org.talend.rcp-feature</module>
-    <module>main/features/org.talend.update.p2-feature</module>
-	<module>main/features/org.talend.updates-feature</module>
-    <module>main/features/org.talend.utils-feature</module>
+    <module>main/features/org.talend.commons.feature</module>
+    <module>main/features/org.talend.core.feature</module>
+    <module>main/features/org.talend.help.feature</module>
+    <module>main/features/org.talend.libraries.jdbc.feature</module>
+    <module>main/features/org.talend.model.migration.feature</module>
+    <module>main/features/org.talend.rcp.feature</module>
+    <module>main/features/org.talend.update.p2.feature</module>
+	<module>main/features/org.talend.updates.feature</module>
+    <module>main/features/org.talend.utils.feature</module>
     <module>main/plugins/org.talend.common.ui.runtime</module>
     <module>main/plugins/org.talend.commons.runtime</module>
     <module>main/plugins/org.talend.commons.ui</module>
