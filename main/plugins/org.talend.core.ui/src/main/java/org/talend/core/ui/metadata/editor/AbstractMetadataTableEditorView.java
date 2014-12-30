@@ -159,6 +159,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         super(parentComposite, mainCompositeStyle, initGraphicsComponents);
     }
 
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents,
+            boolean toolbarVisable) {
+        super(parentComposite, mainCompositeStyle, initGraphicsComponents, toolbarVisable);
+    }
+
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
      * 

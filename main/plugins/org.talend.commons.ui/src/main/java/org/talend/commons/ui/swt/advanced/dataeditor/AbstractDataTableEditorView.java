@@ -142,8 +142,14 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param mainCompositeStyle
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
+        this(parentComposite, mainCompositeStyle, initGraphicsComponents, true);
+    }
+
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents,
+            boolean toolbarVisable) {
         this.parentComposite = parentComposite;
         this.mainCompositeStyle = mainCompositeStyle;
+        this.toolbarVisible = toolbarVisable;
         if (initGraphicsComponents) {
             initGraphicComponents();
         }

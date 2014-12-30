@@ -29,7 +29,6 @@ import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
-
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -63,6 +62,11 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
         super(parentComposite, mainCompositeStyle, initGraphicsComponents);
+    }
+
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents,
+            boolean toolbarVisable) {
+        super(parentComposite, mainCompositeStyle, initGraphicsComponents, toolbarVisable);
     }
 
     /**
