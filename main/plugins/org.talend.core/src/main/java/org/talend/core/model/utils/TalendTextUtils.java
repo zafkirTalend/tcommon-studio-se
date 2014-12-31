@@ -289,11 +289,14 @@ public class TalendTextUtils {
         // added by hyWang(bug 6637),to see if the column name need to be add queotes
         // check the field name.
 
+        String temp = removeQuotes(fieldName);
+        Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-1$
+        Matcher matcher = pattern.matcher(temp);
+
         // for bug 11938
         // to see if the table name or column name was start with number
-        String temp = removeQuotes(fieldName);
-        Pattern pattern = Pattern.compile("^[a-zA-Z_]*$"); //$NON-NLS-1$
-        Matcher matcher = pattern.matcher(temp);
+        Pattern pattern2 = Pattern.compile("^[0-9]+[_0-9a-zA-Z]*$"); //$NON-NLS-1$  
+        Matcher matcher2 = pattern2.matcher(temp);
 
         // for bug 12092
         boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct());
@@ -301,7 +304,7 @@ public class TalendTextUtils {
         boolean isH2 = EDatabaseTypeName.H2 == name;
 
         // if the database type is IBMDB2 and the field name contain lowercase character, should add quotes
-        if (((!matcher.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name)
+        if (((!matcher.matches() || matcher2.matches() || isSqlKeyword) && !isH2 && EDatabaseTypeName.SAS != name)
                 || isIBMDB2ContainLowerCase(dbType, fieldName)) {
             isCheck = true; // contain other char
         }
