@@ -204,6 +204,7 @@ public class RegisterManagement {
         } catch (RemoteException e) {
             decrementTry();
             increaseFailRegisterTimes();
+            MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), e.getMessage()); //$NON-NLS-1$
             throw new BusinessException(e);
         }
         if (result != null) {
@@ -289,6 +290,7 @@ public class RegisterManagement {
         } catch (RemoteException e) {
             decrementTry();
             increaseFailRegisterTimes();
+            MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), e.getMessage()); //$NON-NLS-1$
             throw new BusinessException(e);
         }
         return result.signum() > 0;
@@ -352,6 +354,7 @@ public class RegisterManagement {
                 checkErrors(result.intValue());
             }
         } catch (RemoteException e) {
+            MessageDialog.openError(null, Messages.getString("RegisterManagement.errors"), e.getMessage()); //$NON-NLS-1$
             throw new BusinessException(e);
         }
         return result.intValue() == -110;
