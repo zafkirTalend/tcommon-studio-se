@@ -27,7 +27,7 @@
  * ------------------
  * SWTPlotEditor.java
  * ------------------
- * (C) Copyright 2006-2014, by Henry Proudhon and Contributors.
+ * (C) Copyright 2006-2015, by Henry Proudhon and Contributors.
  *
  * Original Author:  Henry Proudhon (henry.proudhon AT ensmp.fr);
  * Contributor(s):   David Gilbert (for Object Refinery Limited);

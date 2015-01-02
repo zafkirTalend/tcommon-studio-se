@@ -27,7 +27,7 @@
  * ------------
  * LogAxis.java
  * ------------
- * (C) Copyright 2006-2014, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2006-2015, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Andrew Mickish (patch 1868745);

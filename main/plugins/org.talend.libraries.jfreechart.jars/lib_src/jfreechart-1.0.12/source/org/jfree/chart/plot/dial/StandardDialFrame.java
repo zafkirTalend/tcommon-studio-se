@@ -27,7 +27,7 @@
  * ----------------------
  * StandardDialFrame.java
  * ----------------------
- * (C) Copyright 2006-2014, by Object Refinery Limited.
+ * (C) Copyright 2006-2015, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
