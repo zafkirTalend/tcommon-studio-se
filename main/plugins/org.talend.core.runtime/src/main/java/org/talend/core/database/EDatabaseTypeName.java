@@ -286,4 +286,11 @@ public enum EDatabaseTypeName {
         return useProvider;
     }
 
+    public boolean isSchemaCaseSensitive() {
+        if (EDatabaseTypeName.ORACLEFORSID == this || EDatabaseTypeName.TERADATA == this || EDatabaseTypeName.VERTICA == this) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -321,12 +321,9 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
-                final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
-                final boolean equals = EDatabaseTypeName.ORACLEFORSID.getProduct().equals(product)
-                        || EDatabaseTypeName.TERADATA.getProduct().equals(product)
-                        || EDatabaseTypeName.VERTICA.getProduct().equals(product);
+                final boolean notCaseSensitive = !EDatabaseTypeName.getTypeFromDisplayName(dbType).isSchemaCaseSensitive();
                 // We have to check schema
-                if (!checkSchemaConnection(schema, connection, equals, dbType, retProposedSchema)) {
+                if (!checkSchemaConnection(schema, connection, notCaseSensitive, dbType, retProposedSchema)) {
                     connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
