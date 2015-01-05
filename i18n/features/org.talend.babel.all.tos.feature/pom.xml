@@ -9,6 +9,6 @@
     <relativePath>../../../</relativePath>
   </parent>
   <groupId>org.talend.studio</groupId>
-  <artifactId>org.talend.babel.all.feature</artifactId>
+  <artifactId>org.talend.babel.all.tos.feature</artifactId>
   <packaging>eclipse-feature</packaging>
 </project>
