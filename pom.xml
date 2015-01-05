@@ -33,6 +33,7 @@
 	</repository>
   </repositories>
   <modules>
+    <module>i18n/features/org.talend.babel.all.tos.feature</module>
     <module>i18n/plugins/org.talend.common.ui.runtime.nl</module>
     <module>i18n/plugins/org.talend.commons.runtime.nl</module>
     <module>i18n/plugins/org.talend.commons.ui.nl</module>
