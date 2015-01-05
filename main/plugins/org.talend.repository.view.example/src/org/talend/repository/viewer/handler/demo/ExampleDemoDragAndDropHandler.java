@@ -202,7 +202,7 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
      * IMetadataTable)
      */
     @Override
-    public boolean isValidForDataViewer(IMetadataTable metadataTable) {
+    public boolean isValidForDataViewer(Connection connection, IMetadataTable metadataTable) {
         return true;
     }
 
