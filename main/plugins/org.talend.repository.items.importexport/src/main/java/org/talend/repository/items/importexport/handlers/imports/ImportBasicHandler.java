@@ -862,10 +862,25 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 if (pathStr == null) {
                     pathStr = ""; //$NON-NLS-1$
                 }
-                if (!path.isEmpty()) {
-                    // if have path, reset the path, especially for win os with case insensitive.
-                    path = new Path(pathStr).append(folderItem.getProperty().getLabel());
-                }// else{ // if root path "", keep it, and folderItem will be root node of type.
+                /*
+                 * FIXME,TUP-2422, temp, won't reset the item path for DQ items only.
+                 * 
+                 * In fact, need unify the type of folder with FOLDER/SYSTEM_FOLDER/STABLE_SYSTEM_FOLDER. So means, if
+                 * the ERepositoryObjectType is resource, the type should be STABLE_SYSTEM_FOLDER. Else it's "system"
+                 * folder, will be SYSTEM_FOLDER, like "system" of routine. "Generic","Hiv","Generic/system",
+                 * "Generic/UserDefined", etc for SQL Templates.
+                 * 
+                 * Also for DQ, the "TDQ_Libraries" and "TDQ_Libraries\Indicators" are STABLE_SYSTEM_FOLDER. but for the
+                 * "TDQ_Libraries/Indicators/System Indicators" and "TDQ_Libraries/Indicators/User Defined Indicators",
+                 * etc. should be SYSTEM_FOLDER.
+                 */
+                if (!curItemType.isDQItemType() || curItemType.isSharedType()) { // only for pure DQ items.
+
+                    if (!path.isEmpty()) {
+                        // if have path, reset the path, especially for win os with case insensitive.
+                        path = new Path(pathStr).append(folderItem.getProperty().getLabel());
+                    }// else{ // if root path "", keep it, and folderItem will be root node of type.
+                }
             }
             repFactory.createParentFoldersRecursively(ProjectManager.getInstance().getCurrentProject(), curItemType, path, true);
         } catch (Exception e) {
