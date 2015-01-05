@@ -24,6 +24,8 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -31,10 +33,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.HadoopPropertiesTableView;
@@ -58,6 +62,8 @@ public class HadoopPropertiesDialog extends TitleAreaDialog {
     private ExpandBar propertiesBar;
 
     private Label statusLabel;
+
+    private Font italicFont;
 
     public HadoopPropertiesDialog(Shell parentShell, List<Map<String, Object>> initProperties) {
         this(parentShell, null, initProperties);
@@ -142,11 +148,23 @@ public class HadoopPropertiesDialog extends TitleAreaDialog {
                 propsBuffer.deleteCharAt(propsBuffer.length() - 1);
             }
             if (propsBuffer.length() > 50) {
+                propsBuffer = new StringBuffer(propsBuffer.subSequence(0, 50));
                 propsBuffer.append("..."); //$NON-NLS-1$
             }
             propsBuffer.append(")"); //$NON-NLS-1$
             statusLabel.setText(propsBuffer.toString());
         }
+        statusLabel.setFont(getItalicFont());
+    }
+
+    private Font getItalicFont() {
+        if (italicFont == null) {
+            Display display = PlatformUI.getWorkbench().getDisplay();
+            FontData fontData = display.getSystemFont().getFontData()[0];
+            italicFont = new Font(display, new FontData(fontData.getName(), fontData.getHeight(), SWT.ITALIC));
+        }
+
+        return italicFont;
     }
 
     protected void updateHadoopProperties(List<Map<String, Object>> hadoopProperties) {
