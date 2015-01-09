@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jars
+Bundle-SymbolicName: org.talend.libraries.javacsv.jars
+Bundle-Version: 6.0.0.qualifier
+Bundle-ClassPath: .,lib/javacsv.jar
+Fragment-Host: org.talend.libraries.javacsv
+Eclipse-BundleShape: dir
