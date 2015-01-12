@@ -217,7 +217,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+        if (dbConn != null
+                && (EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId()) || EDatabaseTypeName.EXASOL
+                        .getProduct().equals(((DatabaseConnection) dbConn).getProductId()))) {
             if (!dbConn.isContextMode()) {
                 String sid = getDatabaseName((DatabaseConnection) dbConn);
                 if (sid != null && sid.length() > 0) {
@@ -584,9 +586,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
      * @return
      */
     private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
-        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        // Now here that OracleForSid,db2,OdbcTeradata,Exasol dosen't support the catalog name.
         if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
-                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)
+                || ConnectionUtils.isExasol(dbJDBCMetadata)) {
             return false;
         }
         return true;
