@@ -89,7 +89,6 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
-
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -214,11 +213,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * From r94372 , we should never give a null parameter "IMetadataConnection metaConnection" , because we used this
      * parameter for some kind of databases...
      */
+    @Override
     @Deprecated
     public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter) {
         return fillSchemas(dbConn, dbJDBCMetadata, null, Filter);
     }
 
+    @Override
     public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
             IMetadataConnection metaConnection, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
@@ -228,7 +229,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
+        if (dbConn != null
+                && (EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId()) || EDatabaseTypeName.EXASOL
+                        .getProduct().equals(dbConn.getProductId()))) {
             if (!dbConn.isContextMode()) {
                 String sid = getDatabaseName(dbConn);
                 if (sid != null && sid.length() > 0) {
@@ -366,10 +369,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         fakeSchemas.add(SchemaHelper.createSchema(" "));
     }
 
+    @Override
     public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         return fillCatalogs(dbConn, dbJDBCMetadata, null, catalogFilter);
     }
 
+    @Override
     public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
             IMetadataConnection metaConnection, List<String> catalogFilter) {
         List<Catalog> catalogList = new ArrayList<Catalog>();
@@ -593,9 +598,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * @return
      */
     private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
-        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        // Now here that OracleForSid,db2,OdbcTeradata,Exasol dosen't support the catalog name.
         if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
-                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)
+                || ConnectionUtils.isExasol(dbJDBCMetadata)) {
             return false;
         }
         return true;
@@ -845,6 +851,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return filterList;
     }
 
+    @Override
     public List<Schema> fillSchemaToCatalog(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
         ResultSet schemaRs = null;
@@ -963,6 +970,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return schemaName;
     }
 
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> tableFilter, String tablePattern, String[] tableType) {
 
@@ -1205,11 +1213,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return columnComment;
     }
 
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType) {
         return fillAll(pack, dbJDBCMetadata, null, tableFilter, tablePattern, tableType);
     }
 
+    @Override
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         List<TdTable> tableList = new ArrayList<TdTable>();
