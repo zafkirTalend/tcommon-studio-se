@@ -89,7 +89,6 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
-
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -214,11 +213,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * From r94372 , we should never give a null parameter "IMetadataConnection metaConnection" , because we used this
      * parameter for some kind of databases...
      */
+    @Override
     @Deprecated
     public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> Filter) {
         return fillSchemas(dbConn, dbJDBCMetadata, null, Filter);
     }
 
+    @Override
     public List<Package> fillSchemas(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
             IMetadataConnection metaConnection, List<String> schemaFilter) {
         List<Schema> returnSchemas = new ArrayList<Schema>();
@@ -228,7 +229,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
+        if (dbConn != null
+                && (EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId()) || EDatabaseTypeName.EXASOL
+                        .getProduct().equals(dbConn.getProductId()))) {
             if (!dbConn.isContextMode()) {
                 String sid = getDatabaseName(dbConn);
                 if (sid != null && sid.length() > 0) {
@@ -366,10 +369,12 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         fakeSchemas.add(SchemaHelper.createSchema(" "));
     }
 
+    @Override
     public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         return fillCatalogs(dbConn, dbJDBCMetadata, null, catalogFilter);
     }
 
+    @Override
     public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
             IMetadataConnection metaConnection, List<String> catalogFilter) {
         List<Catalog> catalogList = new ArrayList<Catalog>();
@@ -593,9 +598,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      * @return
      */
     private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
-        // Now here that OracleForSid,db2,OdbcTeradata dosen't support the catalog name.
+        // Now here that OracleForSid,db2,OdbcTeradata,Exasol dosen't support the catalog name.
         if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
-                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+                || ConnectionUtils.isDB2(dbJDBCMetadata) || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)
+                || ConnectionUtils.isExasol(dbJDBCMetadata)) {
             return false;
         }
         return true;
@@ -635,7 +641,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             List<String> filterList = new ArrayList<String>();
             filterList.addAll(postFillCatalog(metaConnection, catalogList, filterList,
                     TalendCWMService.getReadableName(dbConn, catalogName), dbConn));
-            List<Catalog> newCatalogList = new ArrayList<Catalog>();
             List<Schema> schemaList = new ArrayList<Schema>();
             for (Catalog catalog : catalogList) {
                 try {
@@ -646,84 +651,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 } catch (Throwable e) {
                     log.info(e);
                 }
-                newCatalogList.add(catalog);
             }
 
-            Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
-            // replaceCatalogs is use for record tables when click finish, then set to current connection.
-            List<Catalog> replaceCatalogs = new ArrayList<Catalog>();
-            List<String> catalogNames = new ArrayList<String>();
-            for (MetadataTable table : tableSet) {
-                EObject eContainer = table.eContainer();
-                if (eContainer != null) {
-                    if (eContainer instanceof Catalog) {
-                        Catalog c = (Catalog) eContainer;
-                        String name = c.getName();
-                        if (!catalogNames.contains(name)) {
-                            replaceCatalogs.add(c);
-                            catalogNames.add(name);
-                        }
-                    } else if (eContainer instanceof Schema) {
-                        EObject parent = eContainer.eContainer();
-                        if (parent != null && parent instanceof Catalog) {
-                            Catalog c = (Catalog) parent;
-                            String name = c.getName();
-                            if (!catalogNames.contains(name)) {
-                                List<Schema> filterSchemas = new ArrayList<Schema>();
-                                List<String> schemaName = new ArrayList<String>();
-                                List<Schema> schemas = CatalogHelper.getSchemas(c);
-                                for (Schema schema : schemas) {
-                                    if (filterList != null) {
-                                        if (filterList.contains(schema.getName())) {
-                                            filterSchemas.add(schema);
-                                            schemaName.add(schema.getName());
-                                        } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
-                                            filterSchemas.add(schema);
-                                            schemaName.add(schema.getName());
-                                        }
-                                    }
-                                }
-                                // get schema in current connection
-                                for (Catalog catalog : catalogList) {
-                                    if (catalog.getName().equals(name)) {
-                                        boolean added = false;
-                                        for (Schema schema : CatalogHelper.getSchemas(catalog)) {
-                                            if (!schemaName.contains(schema.getName())) {
-                                                filterSchemas.add(schema);
-                                                added = true;
-                                            }
-                                        }
-                                        if (added) {
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                c.getOwnedElement().clear();
-                                CatalogHelper.addSchemas(filterSchemas, c);
-                                replaceCatalogs.add(c);
-                                catalogNames.add(name);
-                            }
-                        }
-                    }
-                }
-            }
-            if (this.isLinked() && !catalogList.isEmpty()) {
-                ConnectionHelper.addCatalogs(catalogList, dbConn);
-            }
-            // if have same schema in current connection,need to fill tables.
-            for (Catalog catalog : replaceCatalogs) {
-                List<Catalog> list = new ArrayList<Catalog>();
-                String name = catalog.getName();
-                Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
-                if (c != null) {
-                    list.add(c);
-                    ConnectionHelper.removeCatalogs(list, dbConn);
-                    ConnectionHelper.addCatalog(catalog, dbConn);
-                } else {
-                    ConnectionHelper.addCatalog(catalog, dbConn);
-                }
-            }
+            replaceTablesForDbConn(dbConn, catalogList, filterList);
         }
         return catalogList;
     }
@@ -845,6 +775,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return filterList;
     }
 
+    @Override
     public List<Schema> fillSchemaToCatalog(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) throws Throwable {
         ResultSet schemaRs = null;
@@ -963,6 +894,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return schemaName;
     }
 
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> tableFilter, String tablePattern, String[] tableType) {
 
@@ -1205,11 +1137,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return columnComment;
     }
 
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType) {
         return fillAll(pack, dbJDBCMetadata, null, tableFilter, tablePattern, tableType);
     }
 
+    @Override
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         List<TdTable> tableList = new ArrayList<TdTable>();
@@ -1880,5 +1814,83 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
     public static void setDriver(Driver d) {
         driver = d;
+    }
+
+    private void replaceTablesForDbConn(Connection dbConn, List<Catalog> catalogList, List<String> schemaFilterList) {
+        Set<MetadataTable> tableSet = ConnectionHelper.getTables(dbConn);
+        // replaceCatalogs is use for record tables when click finish, then set to current connection.
+        List<Catalog> replaceCatalogs = new ArrayList<Catalog>();
+        List<String> catalogName = new ArrayList<String>();
+        for (MetadataTable table : tableSet) {
+            EObject eContainer = table.eContainer();
+            if (eContainer != null) {
+                if (eContainer instanceof Catalog) {
+                    Catalog c = (Catalog) eContainer;
+                    String name = c.getName();
+                    if (!catalogName.contains(name)) {
+                        replaceCatalogs.add(c);
+                        catalogName.add(name);
+                    }
+                } else if (eContainer instanceof Schema) {
+                    EObject parent = eContainer.eContainer();
+                    if (parent != null && parent instanceof Catalog) {
+                        Catalog c = (Catalog) parent;
+                        String name = c.getName();
+                        if (!catalogName.contains(name)) {
+                            List<Schema> filterSchemas = new ArrayList<Schema>();
+                            List<String> schemaName = new ArrayList<String>();
+                            List<Schema> schemas = CatalogHelper.getSchemas(c);
+                            for (Schema schema : schemas) {
+                                if (schemaFilterList != null) {
+                                    if (schemaFilterList.contains(schema.getName())) {
+                                        filterSchemas.add(schema);
+                                        schemaName.add(schema.getName());
+                                    } else if (schema.getOwnedElement() != null && !schema.getOwnedElement().isEmpty()) {
+                                        filterSchemas.add(schema);
+                                        schemaName.add(schema.getName());
+                                    }
+                                }
+                            }
+                            // get schema in current connection
+                            for (Catalog catalog : catalogList) {
+                                if (catalog.getName().equals(name)) {
+                                    boolean added = false;
+                                    for (Schema schema : CatalogHelper.getSchemas(catalog)) {
+                                        if (!schemaName.contains(schema.getName())) {
+                                            filterSchemas.add(schema);
+                                            added = true;
+                                        }
+                                    }
+                                    if (added) {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            c.getOwnedElement().clear();
+                            CatalogHelper.addSchemas(filterSchemas, c);
+                            replaceCatalogs.add(c);
+                            catalogName.add(name);
+                        }
+                    }
+                }
+            }
+        }
+        if (this.isLinked() && !catalogList.isEmpty()) {
+            ConnectionHelper.addCatalogs(catalogList, dbConn);
+        }
+        // if have same schema in current connection,need to fill tables.
+        for (Catalog catalog : replaceCatalogs) {
+            List<Catalog> list = new ArrayList<Catalog>();
+            String name = catalog.getName();
+            Catalog c = (Catalog) ConnectionHelper.getPackage(name, dbConn, Catalog.class);
+            if (c != null) {
+                list.add(c);
+                ConnectionHelper.removeCatalogs(list, dbConn);
+                ConnectionHelper.addCatalog(catalog, dbConn);
+            } else {
+                ConnectionHelper.addCatalog(catalog, dbConn);
+            }
+        }
     }
 }
