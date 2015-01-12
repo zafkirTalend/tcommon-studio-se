@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.talend.fragment.jars.feature"
+      version="6.0.0.qualifier"
+      provider-name=".Talend SA.">
+
+   <plugin
+         id="org.talend.libraries.javacsv.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+ 
+	<plugin
+         id="org.talend.libraries.jdbc.jtds.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+		 
+	<plugin
+         id="org.talend.libraries.jfreechart.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />		
+		 
+	<plugin
+         id="org.talend.libraries.hl7.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+		 
+	<plugin
+         id="org.talend.libraries.jboss.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+
+</feature>
