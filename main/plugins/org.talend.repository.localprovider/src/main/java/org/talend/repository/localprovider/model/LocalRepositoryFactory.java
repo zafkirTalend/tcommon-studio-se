@@ -159,8 +159,7 @@ import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
@@ -953,6 +952,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         createFolder(prj, folderHelper, "code/routines/system"); //$NON-NLS-1$  
         // 5. Job Disigns/System
         // createFolder(prj, folderHelper, "process/system"); //$NON-NLS-1$
+        // 6. .settings folder
+        createFolder(prj, folderHelper, RepositoryConstants.SETTING_DIRECTORY);
 
     }
 
