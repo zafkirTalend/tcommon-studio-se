@@ -121,6 +121,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean showPatternColumn = true;
 
+    private boolean showPrecisionColumn = true;
+
     protected String dbmsId;
 
     private List<String> additionalFields;
@@ -284,7 +286,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         configureAdditionalFieldColumns(tableViewerCreator);
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        configurePrecisionColumn(tableViewerCreator);
+        if (showPrecisionColumn) {
+            configurePrecisionColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -1073,5 +1077,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public boolean isRepository() {
         return this.isRepository;
+    }
+
+    public void setShowPrecisionColumn(boolean showPrecisionColumn) {
+        this.showPrecisionColumn = showPrecisionColumn;
     }
 }
