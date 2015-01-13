@@ -945,6 +945,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         createFolder(prj, folderHelper, "code/routines/system"); //$NON-NLS-1$  
         // 5. Job Disigns/System
         // createFolder(prj, folderHelper, "process/system"); //$NON-NLS-1$
+        // 6. .settings folder
+        createFolder(prj, folderHelper, RepositoryConstants.SETTING_DIRECTORY);
 
     }
 
