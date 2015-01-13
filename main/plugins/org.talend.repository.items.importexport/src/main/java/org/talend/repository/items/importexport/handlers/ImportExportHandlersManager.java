@@ -331,7 +331,7 @@ public final class ImportExportHandlersManager {
                                     return;
                                 }
                                 if (itemRecord.isImported()) {
-                                    return; // have imported
+                                    continue; // have imported
                                 }
                                 try {
                                     final IImportItemsHandler importHandler = itemRecord.getImportHandler();
