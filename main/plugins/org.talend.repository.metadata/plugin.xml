@@ -18,6 +18,10 @@
             class="org.talend.repository.metadata.MetadataService"
             serviceId="IMetadataService">
       </Service>
+      <Service
+            class="org.talend.repository.metadata.DbProviderService"
+            serviceId="IDbProviderService">
+      </Service>
    </extension>
    <extension
          point="org.talend.core.migrationTask">
