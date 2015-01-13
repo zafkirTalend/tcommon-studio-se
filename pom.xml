@@ -99,7 +99,6 @@
     <module>main/plugins/org.talend.libraries.apache.xml</module>
     <module>main/plugins/org.talend.libraries.csv</module>
     <module>main/plugins/org.talend.libraries.dom4j-jaxen</module>
-    <module>main/plugins/org.talend.libraries.hibernate</module>
     <module>main/plugins/org.talend.libraries.jackson</module>
     <module>main/plugins/org.talend.libraries.jasperreport</module>
     <module>main/plugins/org.talend.libraries.javacsv</module>
@@ -119,8 +118,6 @@
     <module>main/plugins/org.talend.libraries.jdbc.teradata</module>
     <module>main/plugins/org.talend.libraries.jexcel</module>
     <module>main/plugins/org.talend.libraries.jexcel.jars</module>
-    <module>main/plugins/org.talend.libraries.jfreechart</module>
-    <module>main/plugins/org.talend.libraries.jfreechart.jars</module>
     <module>main/plugins/org.talend.libraries.jxplorer</module>
     <module>main/plugins/org.talend.libraries.mdm</module>
     <module>main/plugins/org.talend.libraries.nattable</module>

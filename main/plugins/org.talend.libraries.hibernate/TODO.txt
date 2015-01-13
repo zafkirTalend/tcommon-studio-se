@@ -1,1 +1,0 @@
-maybe remove mysql jar from this plugin
