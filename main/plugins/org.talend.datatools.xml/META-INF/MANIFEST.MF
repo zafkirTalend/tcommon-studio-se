@@ -6,6 +6,7 @@ Bundle-Version: 6.0.0.qualifier
 Require-Bundle: org.eclipse.xsd,
  org.apache.commons.beanutils,
  org.apache.commons.lang,
- org.talend.libraries.apache
+ org.talend.libraries.apache,
+ org.talend.core.runtime
 Export-Package: org.talend.datatools.xml.utils
 Bundle-Vendor: .Talend SA.

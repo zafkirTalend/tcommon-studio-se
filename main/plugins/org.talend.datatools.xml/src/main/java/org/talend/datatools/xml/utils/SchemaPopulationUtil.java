@@ -23,6 +23,7 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
 import org.apache.xerces.impl.xs.XSAttributeGroupDecl;
 import org.apache.xerces.impl.xs.XSAttributeUseImpl;
@@ -44,6 +45,9 @@ import org.apache.xerces.xs.XSObjectList;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.eclipse.xsd.XSDSchema;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.metadata.types.JavaDataTypeHelper;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 
 /**
  * This class is used to offer GUI a utility to get an tree from certain xml/xsd file.
@@ -145,6 +149,8 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
 
     private Map<String, String> prefixToNamespace = new HashMap<String, String>();
 
+    private Map<String, ATreeNode> nodePathMap = new HashMap<String, ATreeNode>();
+
     Thread spThread;
 
     /**
@@ -166,6 +172,63 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      */
     @Override
     public void manipulateData(String path, String value) {
+        guessColumnInfo(path, value);
+    }
+
+    /**
+     * DOC cmeng Comment method "guessDataType".
+     * 
+     * @param path
+     * @param value
+     */
+    private void guessColumnInfo(String path, String value) {
+        // Most of the codes are copied from XmlFileStep3Form.refreshMetaDataTable(...)
+
+        ATreeNode treeNode = nodePathMap.get(getTreamedPath(path));
+        if (treeNode == null) {
+            return;
+        }
+
+        // 1. set data type
+        String dataType = treeNode.getDataType();
+        if (StringUtils.isEmpty(dataType)) {
+            dataType = JavaDataTypeHelper.getTalendTypeOfValue(value);
+        } else {
+            dataType = JavaDataTypeHelper.getCommonType(dataType, JavaDataTypeHelper.getTalendTypeOfValue(value));
+        }
+        try {
+            treeNode.setDataType(dataType);
+        } catch (OdaException e) {
+            ExceptionHandler.process(e);
+        }
+
+        if (StringUtils.isEmpty(value)) {
+            return;
+        }
+        // 2. set data length
+        long dataLength = treeNode.getDataMaxLength();
+        long curValueLength = value.length();
+        if (dataLength < curValueLength) {
+            dataLength = curValueLength;
+        }
+        treeNode.setDataMaxLength(dataLength);
+
+        // 3. set precision
+        int curPrecision = 0;
+        long precisionValue = 0;
+        if (value.indexOf(',') > -1) {
+            curPrecision = value.lastIndexOf(',');
+            precisionValue = dataLength - curPrecision;
+        } else if (value.indexOf('.') > -1) {
+            curPrecision = value.lastIndexOf('.');
+            precisionValue = dataLength - curPrecision;
+        }
+
+        if (JavaTypesManager.FLOAT.getId().equals(dataType) || JavaTypesManager.DOUBLE.getId().equals(dataType)) {
+            treeNode.setPrecisionValue(precisionValue);
+        } else {
+            treeNode.setPrecisionValue(0);
+        }
     }
 
     /*
@@ -176,7 +239,7 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
      */
     @Override
     public void detectNewRow(String path, String prefix, String uri, boolean start) {
-        String treamedPath = path.replaceAll("\\Q[\\E\\d+\\Q]\\E", "").trim();
+        String treamedPath = getTreamedPath(path);
         this.insertNode(treamedPath, prefix, uri);
         // If not attribute
         if (!isAttribute(path) && start) {
@@ -190,6 +253,10 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
             sp.stopParsing();
         }
 
+    }
+
+    private String getTreamedPath(String path) {
+        return path.replaceAll("\\Q[\\E\\d+\\Q]\\E", "").trim(); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -292,6 +359,8 @@ final class XMLFileSchemaTreePopulator implements ISaxParserConsumer {
                 parentNode = matchedNode;
             } else {
                 matchedNode = new ATreeNode();
+
+                nodePathMap.put(treatedPath, matchedNode);
 
                 if ((i == path.length - 1) && isAttribute) {
                     if (isAttribute && !this.includeAttribute) {

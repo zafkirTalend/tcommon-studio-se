@@ -140,6 +140,9 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
                     metadataColumn.setLabel(editor.getNextGeneratedColumnName(columnName, columnList));
                     metadataColumn.setOriginalField(label);
                     metadataColumn.setTalendType(dataType);
+                    metadataColumn.setPattern("\"dd-MM-yyyy\""); //$NON-NLS-1$
+                    metadataColumn.setLength(node.getDataMaxLength());
+                    metadataColumn.setPrecision(node.getPrecisionValue());
                     columnList.add(metadataColumn);
                     node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metadataColumn));
                 }
@@ -157,6 +160,9 @@ public abstract class AbstractXmlFileStepForm extends AbstractXmlStepForm {
                     metadataColumn.setLabel(editor.getNextGeneratedColumnName(columnName, columnList));
                     metadataColumn.setOriginalField(label);
                     metadataColumn.setTalendType(dataType);
+                    metadataColumn.setPattern("\"dd-MM-yyyy\""); //$NON-NLS-1$
+                    metadataColumn.setLength(node.getDataMaxLength());
+                    metadataColumn.setPrecision(node.getPrecisionValue());
                     columnList.add(metadataColumn);
                     node.setColumn(ConvertionHelper.convertToIMetaDataColumn(metadataColumn));
                 }
