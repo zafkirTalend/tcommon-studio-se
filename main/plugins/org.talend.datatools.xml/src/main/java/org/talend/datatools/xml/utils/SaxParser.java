@@ -98,6 +98,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
      * 
      * @see java.lang.Runnable#run()
      */
+    @Override
     public void run() {
         SAXParser xr;
         try {
@@ -189,8 +190,8 @@ public class SaxParser extends DefaultHandler implements Runnable {
         }
         spConsumer.detectNewRow(pathHolder.getPath(), prefix, uri, true);
         for (int i = 0; i < atts.getLength(); i++) {
-            spConsumer.manipulateData(getAttributePath(atts, i), atts.getValue(i));
             spConsumer.detectNewRow(getAttributePath(atts, i), null, null, true);
+            spConsumer.manipulateData(getAttributePath(atts, i), atts.getValue(i));
         }
     }
 

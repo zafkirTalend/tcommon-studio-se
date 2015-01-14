@@ -963,13 +963,18 @@ public class TreeUtil {
             node.getUniqueNames().clear();
             node.getUniqueNames().addAll(treeNode.getUniqueNames());
         }
-        MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id");
-        //
-        String originalDataType = treeNode.getOriginalDataType();
-        if (originalDataType != null && !originalDataType.startsWith("xs:")) {
-            originalDataType = "xs:" + originalDataType;
+        if (isXsd) {
+            MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
+            String originalDataType = treeNode.getOriginalDataType();
+            if (originalDataType != null && !originalDataType.startsWith("xs:")) { //$NON-NLS-1$
+                originalDataType = "xs:" + originalDataType; //$NON-NLS-1$
+            }
+            node.setDataType(retriever.getDefaultSelectedTalendType(originalDataType));
+        } else {
+            node.setDataType(treeNode.getDataType());
         }
-        node.setDataType(retriever.getDefaultSelectedTalendType(originalDataType));
+        node.setDataMaxLength(treeNode.getDataMaxLength());
+        node.setPrecisionValue(treeNode.getPrecisionValue());
         Object[] children = treeNode.getChildren();
         if (children != null) {
             for (Object element : children) {

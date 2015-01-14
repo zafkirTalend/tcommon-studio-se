@@ -62,6 +62,10 @@ public abstract class FOXTreeNode {
 
     private List<String> uniqueNames = new ArrayList<String>();
 
+    private long dataMaxLength;
+
+    private long precisionValue;
+
     public boolean hasLink() {
         return column != null;
     }
@@ -408,6 +412,22 @@ public abstract class FOXTreeNode {
 
     public void setOptional(boolean isOptional) {
         this.isOptional = isOptional;
+    }
+
+    public long getDataMaxLength() {
+        return this.dataMaxLength;
+    }
+
+    public void setDataMaxLength(long dataMaxLength) {
+        this.dataMaxLength = dataMaxLength;
+    }
+
+    public long getPrecisionValue() {
+        return this.precisionValue;
+    }
+
+    public void setPrecisionValue(long precisionValue) {
+        this.precisionValue = precisionValue;
     }
 
 }

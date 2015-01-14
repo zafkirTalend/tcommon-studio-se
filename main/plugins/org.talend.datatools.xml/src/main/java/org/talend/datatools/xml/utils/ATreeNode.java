@@ -52,6 +52,10 @@ public class ATreeNode {
 
     private boolean isOptional = false;
 
+    private long dataMaxLength = -1;
+
+    private long precisionValue;
+
     private static HashMap xmlTypeToDataType = new HashMap();
 
     static {
@@ -348,4 +352,19 @@ public class ATreeNode {
         this.isOptional = isOptional;
     }
 
+    public long getDataMaxLength() {
+        return this.dataMaxLength;
+    }
+
+    public void setDataMaxLength(long dataMaxLength) {
+        this.dataMaxLength = dataMaxLength;
+    }
+
+    public long getPrecisionValue() {
+        return this.precisionValue;
+    }
+
+    public void setPrecisionValue(long precisionValue) {
+        this.precisionValue = precisionValue;
+    }
 }
