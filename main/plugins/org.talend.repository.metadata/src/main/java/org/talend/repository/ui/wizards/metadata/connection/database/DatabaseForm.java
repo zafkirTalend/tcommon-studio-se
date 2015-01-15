@@ -140,6 +140,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.dialog.HadoopPropertiesDialog;
+import org.talend.metadata.managment.ui.dialog.HiveJDBCPropertiesDialog;
 import org.talend.metadata.managment.ui.dialog.MappingFileSelectDialog;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.DBConnectionContextUtils;
@@ -418,6 +419,12 @@ public class DatabaseForm extends AbstractForm {
     private List<Map<String, Object>> hadoopPropertiesList = new ArrayList<Map<String, Object>>();
 
     private List<Map<String, Object>> hadoopClusterPropertiesList = new ArrayList<Map<String, Object>>();
+
+    private Composite hiveJDBCPropertiesComposite;
+
+    private HiveJDBCPropertiesDialog hiveJDBCPropertiesDialog;
+
+    private List<Map<String, Object>> hiveJDBCPropertiesList = new ArrayList<Map<String, Object>>();
 
     private static final String UP = "^"; //$NON-NLS-1$
 
@@ -944,6 +951,7 @@ public class DatabaseForm extends AbstractForm {
         createAuthenticationForHive(typeDbCompositeParent);
         createAuthenticationForImpala(typeDbCompositeParent);
         createHadoopPropertiesFields(typeDbCompositeParent);
+        createHivePropertiesFields(typeDbCompositeParent);
     }
 
     private void createAuthenticationForImpala(Composite parent) {
@@ -1360,7 +1368,7 @@ public class DatabaseForm extends AbstractForm {
         hadoopPropertiesDialog = new HadoopPropertiesDialog(getShell(), hadoopClusterPropertiesList, hadoopPropertiesList) {
 
             @Override
-            protected void updateHadoopProperties(List<Map<String, Object>> hdProperties) {
+            protected void applyProperties(List<Map<String, Object>> hdProperties) {
                 updateHdProperties(hdProperties);
             }
 
@@ -1376,7 +1384,7 @@ public class DatabaseForm extends AbstractForm {
 
         };
         refreshHadoopProperties();
-        hadoopPropertiesDialog.create(hadoopPropertiesComposite);
+        hadoopPropertiesDialog.createPropertiesFields(hadoopPropertiesComposite);
         updateHadoopPropertiesFieldsState();
     }
 
@@ -1413,6 +1421,60 @@ public class DatabaseForm extends AbstractForm {
             hadoopPropertiesDialog.setInitProperties(hadoopPropertiesList);
             hadoopPropertiesDialog.setInitPropertiesOfParent(hadoopClusterPropertiesList);
         }
+    }
+
+    private void createHivePropertiesFields(Composite parent) {
+        hiveJDBCPropertiesComposite = new Composite(parent, SWT.NONE);
+        GridLayout hivePropGridLayout = new GridLayout(1, false);
+        hivePropGridLayout.marginHeight = 0;
+        hiveJDBCPropertiesComposite.setLayout(hivePropGridLayout);
+        GridData hivePropGridData = new GridData(SWT.FILL, SWT.BEGINNING, true, false);
+        hivePropGridData.horizontalSpan = 3;
+        hiveJDBCPropertiesComposite.setLayoutData(hivePropGridData);
+
+        hiveJDBCPropertiesDialog = new HiveJDBCPropertiesDialog(getShell(), hiveJDBCPropertiesList) {
+
+            @Override
+            protected void applyProperties(List<Map<String, Object>> hdProperties) {
+                updateHiveJDBCProperties(hdProperties);
+            }
+
+            @Override
+            protected int getMarginWidth() {
+                return 0;
+            }
+
+        };
+        initHiveJDBCProperties();
+        hiveJDBCPropertiesDialog.createPropertiesFields(hiveJDBCPropertiesComposite);
+        updateHiveJDBCPropertiesFieldsState();
+    }
+
+    private void initHiveJDBCProperties() {
+        if (hiveJDBCPropertiesDialog != null) {
+            String jdbcProperties = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
+            hiveJDBCPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(jdbcProperties);
+            hiveJDBCPropertiesDialog.setInitProperties(hiveJDBCPropertiesList);
+        }
+    }
+
+    private void updateHiveJDBCProperties(List<Map<String, Object>> hiveJDBCProperties) {
+        String databaseType = getConnection().getDatabaseType();
+        String hiveJDBCPropertiesJsonStr = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(hiveJDBCProperties);
+        EMap<String, String> parameters = getConnection().getParameters();
+        if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType)) {
+            parameters.put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES, hiveJDBCPropertiesJsonStr);
+        }
+    }
+
+    private void updateHiveJDBCPropertiesFieldsState() {
+        String databaseType = getConnection().getDatabaseType();
+        boolean show = EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType);
+        GridData hadoopData = (GridData) hiveJDBCPropertiesComposite.getLayoutData();
+        hadoopData.exclude = !show;
+        hiveJDBCPropertiesComposite.setVisible(show);
+        hiveJDBCPropertiesComposite.setLayoutData(hadoopData);
+        hiveJDBCPropertiesComposite.getParent().layout();
     }
 
     private void createHBaseSettingContents(Composite parent) {
@@ -4199,11 +4261,10 @@ public class DatabaseForm extends AbstractForm {
             }
             hideHBaseSettings(!isHbase);
             hideImpalaSettings(!isImpala);
-            // setHidHadoopProperties(!isHbase);
 
             hideHCLinkSettings(!isHbase && !isHiveDBConnSelected());
-            // setHidHadoopPropertiesForHive(!isHiveDBConnSelected());
             updateHadoopPropertiesFieldsState();
+            updateHiveJDBCPropertiesFieldsState();
             showIfAuthentication();
 
             urlConnectionStringText.setEditable(!visible);
