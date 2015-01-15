@@ -201,7 +201,7 @@ public class MetadataDialog extends Dialog {
             isEBCDIC = isEbcdicNode(node);
             if (node.getComponent().isSupportDbType() || node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL)
                     || eltComponent || isEBCDIC) {
-                dbComponent = true && !isEBCDIC;
+                dbComponent = !isEBCDIC;
                 for (IElementParameter currentParam : node.getElementParameters()) {
                     if (currentParam.getFieldType().equals(EParameterFieldType.MAPPING_TYPE)) {
                         metaView.setCurrentDbms((String) currentParam.getValue());
