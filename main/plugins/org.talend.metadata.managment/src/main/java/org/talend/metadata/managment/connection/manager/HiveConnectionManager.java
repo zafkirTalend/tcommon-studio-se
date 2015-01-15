@@ -330,8 +330,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         if (metadataConn == null || dbConn == null) {
             return;
         }
-        String jdbcPropertiesStr = String
-                .valueOf(metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES));
+        Object jdbcPropertiesObj = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
+        if (jdbcPropertiesObj == null) {
+            return;
+        }
+        String jdbcPropertiesStr = String.valueOf(jdbcPropertiesObj);
         List<Map<String, Object>> jdbcProperties = HadoopRepositoryUtil.getHadoopPropertiesList(jdbcPropertiesStr);
         Statement statement = null;
         try {
