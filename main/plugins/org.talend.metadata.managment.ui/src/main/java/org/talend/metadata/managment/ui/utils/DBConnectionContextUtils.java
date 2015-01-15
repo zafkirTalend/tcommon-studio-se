@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ConnectionItem;
@@ -49,7 +50,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 import org.talend.model.bridge.ReponsitoryContextBridge;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -582,7 +582,13 @@ public final class DBConnectionContextUtils {
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
             String template = null;
-            if (dbConn.getURL() != null && dbConn.getURL().startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+            String hiveServerVersion = HiveServerVersionInfo.HIVE_SERVER_1.getKey();
+            EMap<String, String> parameterMap = dbConn.getParameters();
+            if (parameterMap != null) {
+                hiveServerVersion = parameterMap.get(ConnParameterKeys.HIVE_SERVER_VERSION);
+            }
+
+            if (HiveServerVersionInfo.HIVE_SERVER_2.getKey().equals(hiveServerVersion)) {
                 template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
             } else {
                 template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
