@@ -172,7 +172,7 @@ public final class ColumnHelper {
      * 
      * @param column
      * @return the owner of the given column or null
-     * @deprecated use getOwnerAsColumnSet
+     * @deprecated use {@link #getColumnOwnerAsColumnSet(ModelElement)}
      */
     @Deprecated
     public static ColumnSet getColumnSetOwner(ModelElement column) {
@@ -681,6 +681,26 @@ public final class ColumnHelper {
             }
         }
         return columnList;
+    }
+
+    /**
+     * Check whether all of columns is belong to same table
+     * 
+     * @param columns
+     */
+    public static boolean checkSameTable(ModelElement[] columns) {
+        Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
+        for (ModelElement column : columns) {
+            MetadataTable metadataTable = getColumnOwnerAsMetadataTable(column);
+            if (metadataTable == null) {
+                continue;
+            }
+            tableSet.add(metadataTable);
+            if (tableSet.size() > 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
