@@ -4260,11 +4260,10 @@ public class DatabaseForm extends AbstractForm {
             }
             hideHBaseSettings(!isHbase);
             hideImpalaSettings(!isImpala);
-            // setHidHadoopProperties(!isHbase);
 
             hideHCLinkSettings(!isHbase && !isHiveDBConnSelected());
-            // setHidHadoopPropertiesForHive(!isHiveDBConnSelected());
             updateHadoopPropertiesFieldsState();
+            updateHiveJDBCPropertiesFieldsState();
             showIfAuthentication();
 
             urlConnectionStringText.setEditable(!visible);
