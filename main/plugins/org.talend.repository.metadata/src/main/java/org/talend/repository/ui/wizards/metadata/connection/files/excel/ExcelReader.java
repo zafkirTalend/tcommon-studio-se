@@ -29,6 +29,7 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.util.PackageHelper;
+import org.apache.poi.util.TempFile;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -103,8 +104,8 @@ public class ExcelReader {
         if (!isXlsx) {
             WorkbookSettings worksetting = new WorkbookSettings();
             //worksetting.setEncoding("ISO-8859-15"); //$NON-NLS-1$
-            worksetting.setCellValidationDisabled(true); //$NON-NLS-1$
-            worksetting.setSuppressWarnings(true); //$NON-NLS-1$
+            worksetting.setCellValidationDisabled(true);
+            worksetting.setSuppressWarnings(true);
             workbook = Workbook.getWorkbook(new File(excelPath), worksetting);
         } else {
             // modify for bug 12174.
@@ -113,7 +114,7 @@ public class ExcelReader {
             try {
                 FileInputStream in = new FileInputStream(file);
                 OPCPackage open = OPCPackage.open(in);
-                clone = PackageHelper.clone(open, PackageHelper.createTempFile());
+                clone = PackageHelper.clone(open, createTempFile());
                 open.close();
 
                 // Package createPackage = Package.openOrCreate(file);
@@ -152,6 +153,29 @@ public class ExcelReader {
                 sheetlist.clear();
             }
         }
+
+    }
+
+    /**
+     * <li><b>Background</b></li>: After update the poi-ooxml jar from poi-ooxml-3.9 to poi-ooxml-3.11, this api
+     * "PackageHelper.createTempFile()" is removed. so need to resolve this compile problem in our codes where calling
+     * this api; And I find this function is only used to create a temp file, so I just copy the original source to here <br>
+     * <li><b>other information</b></li>: The following function source is copied from the source code of
+     * org.apache.poi.util.PackageHelper.createTempFile() <source version: 3.10.1><br>
+     * The source can be found from:
+     * http://grepcode.com/file/repo1.maven.org/maven2/org.apache.poi/poi-ooxml/3.10.1/org/apache/poi/util/
+     * PackageHelper.java?av=f <br>
+     * The useage of "PackageHelper.createTempFile()" in our codes is added from TDI-24490
+     * 
+     * @return
+     * @throws IOException
+     */
+    private File createTempFile() throws IOException {
+        File file = TempFile.createTempFile("poi-ooxml-", ".tmp"); //$NON-NLS-1$ //$NON-NLS-2$
+        // there is no way to pass an existing file to Package.create(file),
+        // delete first, the file will be re-created in Packe.create(file)
+        file.delete();
+        return file;
 
     }
 
