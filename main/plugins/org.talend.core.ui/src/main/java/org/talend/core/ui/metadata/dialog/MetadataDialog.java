@@ -64,11 +64,11 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.runtime.i18n.Messages;
-import org.talend.core.service.IDbProviderService;
 import org.talend.core.service.IEBCDICProviderService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
+import org.talend.core.utils.MetaDataDialogUtil;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.IDesignerCoreService;
 
@@ -779,10 +779,6 @@ public class MetadataDialog extends Dialog {
     }
 
     private static boolean isRedShiftNode(INode node) {
-        IDbProviderService service = (IDbProviderService) GlobalServiceRegister.getDefault().getService(IDbProviderService.class);
-        if (service != null) {
-            return service.isRedShiftNode(node);
-        }
-        return false;
+        return MetaDataDialogUtil.isRedShiftNode(node);
     }
 }
