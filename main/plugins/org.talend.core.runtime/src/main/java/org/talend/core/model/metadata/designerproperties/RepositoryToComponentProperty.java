@@ -1387,7 +1387,7 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("USE_KEYTAB")) {
-            String USE_KEYTAB = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USEKEYTAB);
+            String USE_KEYTAB = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB);
             if (USE_KEYTAB != null && USE_KEYTAB.equals("true")) {
                 return Boolean.TRUE;
             } else {
@@ -1396,11 +1396,11 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("PRINCIPAL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PRINCIPLA));
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL));
         }
 
         if (value.equals("KEYTAB_PATH")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_KEYTAB));
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB));
         }
 
         if (value.equals("IMPALA_PRINCIPAL")) {
