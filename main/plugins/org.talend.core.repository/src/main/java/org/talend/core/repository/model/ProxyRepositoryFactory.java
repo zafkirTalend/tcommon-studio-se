@@ -1085,7 +1085,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             if (obj != null && obj instanceof FolderItemImpl) {
                 String onePath = path + source.getProperty().getLabel();
                 // TDI-29841, if in win, case sensitive issue for folder.
-                onePath = onePath.toUpperCase();
+                // onePath = onePath.toUpperCase();
                 target.add(onePath);
 
                 for (Object current : source.getChildren()) {
