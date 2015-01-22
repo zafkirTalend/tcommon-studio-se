@@ -338,7 +338,8 @@ public class MetadataDialog extends Dialog {
                         String key = (String) it.next();
                         if (key.equals("SAP_TABLE_NAME")) {
                             String value = (String) map.get(key);
-                            if (this.outputMetaTable.getLabel().equals(TalendQuoteUtils.removeQuotes(value))) {
+                            String tableLabel = this.outputMetaTable.getLabel();
+                            if (tableLabel != null && tableLabel.equals(TalendQuoteUtils.removeQuotes(value))) {
                                 if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
                                     nodeModeFlag = true;
                                 }
