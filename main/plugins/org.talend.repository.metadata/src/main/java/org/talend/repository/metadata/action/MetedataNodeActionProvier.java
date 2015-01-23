@@ -10,21 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.example.viewer.action.demo;
+package org.talend.repository.metadata.action;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IActionBars;
-import org.talend.repository.metadata.action.MetedataNodeActionProvier;
+import org.talend.repository.viewer.action.RepoNodeActionProvider;
 
 /**
- * DOC ggu class global comment. Detailled comment <br/>
- * 
- * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
- * 
+ * DOC hqzhang class global comment. Detailled comment
  */
-public class ExampleDemoNodeActionProvier extends MetedataNodeActionProvier {
+public class MetedataNodeActionProvier extends RepoNodeActionProvider {
 
-    public ExampleDemoNodeActionProvier() {
+    public MetedataNodeActionProvier() {
         super();
     }
 

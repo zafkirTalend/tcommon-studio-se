@@ -10,20 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.example.viewer.content.demo;
+package org.talend.repository.metadata.content;
 
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProjectRepositoryNode;
-import org.talend.repository.example.viewer.node.ExampleDemoRepositoryNodeType;
-import org.talend.repository.metadata.content.AbstractMetadataContentProvider;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.viewer.content.EmptyTopNodeContentProvider;
 
-/**
- * DOC ggu class global comment. Detailled comment <br/>
- * 
- * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
- * 
- */
-public class ExampleDemoContentProvider extends AbstractMetadataContentProvider {
+public class MetadataTopNodeContentProvider extends EmptyTopNodeContentProvider {
 
     /*
      * (non-Javadoc)
@@ -33,7 +27,8 @@ public class ExampleDemoContentProvider extends AbstractMetadataContentProvider 
      * (org.talend.repository.model.ProjectRepositoryNode)
      */
     @Override
-    protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectNode) {
-        return projectNode.getRootRepositoryNode(ExampleDemoRepositoryNodeType.repositoryExampleDemoType);
+    protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectRepositoryNode) {
+        return projectRepositoryNode.getRootRepositoryNode(ERepositoryObjectType.METADATA);
     }
+
 }
