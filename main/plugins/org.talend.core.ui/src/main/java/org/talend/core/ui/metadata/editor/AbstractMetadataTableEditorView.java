@@ -129,8 +129,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean isRepository = false;
 
-    private boolean showDefaultColumn = true;
-
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
      */
@@ -293,9 +291,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////
-        if (showDefaultColumn) {
-            configureDefaultColumn(tableViewerCreator);
-        }
+
+        configureDefaultColumn(tableViewerCreator);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -1084,23 +1081,5 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public void setShowPrecisionColumn(boolean showPrecisionColumn) {
         this.showPrecisionColumn = showPrecisionColumn;
-    }
-
-    /**
-     * Getter for showDefaultColumn.
-     * 
-     * @return the showDefaultColumn
-     */
-    public boolean isShowDefaultColumn() {
-        return this.showDefaultColumn;
-    }
-
-    /**
-     * Sets the showDefaultColumn.
-     * 
-     * @param showDefaultColumn the showDefaultColumn to set
-     */
-    public void setShowDefaultColumn(boolean showDefaultColumn) {
-        this.showDefaultColumn = showDefaultColumn;
     }
 }
