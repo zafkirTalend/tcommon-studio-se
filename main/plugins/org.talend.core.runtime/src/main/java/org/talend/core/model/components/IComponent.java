@@ -194,4 +194,6 @@ public interface IComponent {
     String getPartitioning();
 
     boolean isSupportDbType();
+
+    boolean isAllowedPropagated();
 }
