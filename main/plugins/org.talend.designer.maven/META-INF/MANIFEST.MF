@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Designer Maven
+Bundle-SymbolicName: org.talend.designer.maven
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.talend.designer.maven.DesignerMavenPlugin
+Bundle-Vendor: .Talend SA.
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.m2e.core,
+ org.eclipse.m2e.maven.runtime,
+ org.talend.commons.runtime
+Bundle-ActivationPolicy: lazy
+Export-Package: org.talend.designer.maven.model,
+ org.talend.designer.maven.utils

@@ -44,9 +44,6 @@ public final class JavaUtils {
     public static final String JAVATIP = "//The function of generating Java code haven't achive yet" //$NON-NLS-1$
             + System.getProperty("line.separator") + "public class JavaTest extends Test {}"; //$NON-NLS-1$ //$NON-NLS-2$
 
-    /** Java project name. */
-    public static final String JAVA_PROJECT_NAME = ".Java"; //$NON-NLS-1$
-
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
 
@@ -89,14 +86,11 @@ public final class JavaUtils {
     /** Java UserDefined Directory */
     public static final String JAVA_USER_DEFINED = "user defined"; //$NON-NLS-1$
 
-    /** Java Classes Directory. */
-    public static final String JAVA_CLASSES_DIRECTORY = "classes"; //$NON-NLS-1$
-
     /** Java Lib Directory. */
     public static final String JAVA_LIB_DIRECTORY = "lib"; //$NON-NLS-1$
 
-    /** Java Source Directory. */
-    public static final String JAVA_SRC_DIRECTORY = "src"; //$NON-NLS-1$
+    /** Java internal Directory. */
+    public static final String JAVA_INTERNAL_DIRECTORY = "internal"; //$NON-NLS-1$
 
     /** Java DB Mapping Directory */
     public static final String JAVA_XML_MAPPING = "xmlMappings"; //$NON-NLS-1$

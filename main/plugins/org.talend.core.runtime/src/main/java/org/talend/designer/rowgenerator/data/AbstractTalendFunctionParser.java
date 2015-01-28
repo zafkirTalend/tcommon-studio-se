@@ -21,22 +21,20 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
@@ -69,12 +67,10 @@ public abstract class AbstractTalendFunctionParser extends AbstractFunctionParse
             }
             IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-
-            IJavaProject javaProject = runProcessService.getJavaProject();
-            if (javaProject != null) {
-                IProject project = javaProject.getProject();
-                IFolder srcFolder = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY);
-                IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(srcFolder);
+            ITalendProcessJavaProject talendProcessJavaProject = runProcessService.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                IFolder srcFolder = talendProcessJavaProject.getSrcFolder();
+                IPackageFragmentRoot root = talendProcessJavaProject.getJavaProject().getPackageFragmentRoot(srcFolder);
                 List<IJavaElement> elements = new ArrayList<IJavaElement>();
                 addEveryProjectElements(root, elements);
                 // for (IJavaElement element : elements) {
@@ -86,7 +82,7 @@ public abstract class AbstractTalendFunctionParser extends AbstractFunctionParse
                         IType[] types = compilationUnit.getAllTypes();
                         if (types.length > 0) {
                             // SourceType sourceType = (SourceType) types[0];
-                            IMember sourceType = (IMember) types[0];
+                            IMember sourceType = types[0];
                             if (sourceType != null) {
                                 // processSourceType(sourceType, sourceType.getElementName(),
                                 // sourceType.getFullyQualifiedName(),

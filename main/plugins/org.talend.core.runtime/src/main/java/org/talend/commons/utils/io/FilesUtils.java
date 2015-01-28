@@ -61,6 +61,7 @@ import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.StringUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.repository.SVNConstant;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -80,29 +81,16 @@ public class FilesUtils {
     private FilesUtils() {
     }
 
-    public static final String[] SVN_FOLDER_NAMES = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
-
     private static final String MIGRATION_FILE_EXT = ".mig"; //$NON-NLS-1$
 
     private static final String ANY_FILE_EXT = ".*"; //$NON-NLS-1$
 
     public static boolean isSVNFolder(String name) {
-        if (name != null) {
-            name = name.toLowerCase();
-            for (String element : SVN_FOLDER_NAMES) {
-                if (element.equals(name) || name.endsWith(element)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return org.talend.utils.io.FilesUtils.isSVNFolder(name);
     }
 
     public static boolean isSVNFolder(File file) {
-        if (file != null) {
-            return isSVNFolder(file.getName());
-        }
-        return false;
+        return org.talend.utils.io.FilesUtils.isSVNFolder(file);
     }
 
     public static boolean isSVNFolder(IResource resource) {
@@ -484,7 +472,7 @@ public class FilesUtils {
     }
 
     public static List<File> getJarFilesFromFolder(File file, String fileName) throws MalformedURLException {
-        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true);
     }
 
     public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
@@ -962,7 +950,7 @@ public class FilesUtils {
             tarpath.mkdir();
             File[] dir = source.listFiles();
             for (File element : dir) {
-                if (element.getName().equals(".svn")) { //$NON-NLS-1$
+                if (element.getName().equals(SVNConstant.SVN_FOLDER)) {
                     continue;
                 }
                 copyDirectoryWithoutSvnFolder(element, tarpath);

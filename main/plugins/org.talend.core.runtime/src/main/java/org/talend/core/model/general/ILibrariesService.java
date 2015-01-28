@@ -91,6 +91,8 @@ public interface ILibrariesService extends IService {
 
     public boolean isLibSynchronized();
 
+    void cleanLibs();
+
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).
      * 

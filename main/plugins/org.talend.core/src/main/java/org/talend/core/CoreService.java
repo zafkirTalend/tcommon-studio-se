@@ -27,7 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -45,7 +44,6 @@ import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -69,6 +67,7 @@ import org.talend.core.model.utils.ResourceModelHelper;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.IJobCheckService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -78,6 +77,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.RepositoryConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -360,35 +360,30 @@ public class CoreService implements ICoreService {
                 IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                         IRunProcessService.class);
                 if (runProcessService != null) {
-                    IProject project = runProcessService.getProject(ECodeLanguage.JAVA);
-                    if (project != null) {
-                        // create xmlmapping folder in .Java/src
-                        IFolder rep = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY + File.separator
-                                + JavaUtils.JAVA_XML_MAPPING);
-                        if (!rep.exists()) {
-                            rep.create(true, true, null);
-                        }
-
-                        File mappingSource = new File(url.getPath());
-                        FilenameFilter filter = new FilenameFilter() {
-
-                            @Override
-                            public boolean accept(File dir, String name) {
-                                if (XmlUtil.isXMLFile(name)) {
-                                    return true;
-                                }
-                                return false;
-                            }
-                        };
-
-                        for (File file : mappingSource.listFiles(filter)) {
-                            String targetName = getTargetName(file);
-                            IFile targetFile = project.getFile(JavaUtils.JAVA_SRC_DIRECTORY + File.separator
-                                    + JavaUtils.JAVA_XML_MAPPING + File.separator + targetName);
-                            copyFile(file, targetFile);
-                        }
-
+                    ITalendProcessJavaProject talendProcessJavaProject = runProcessService.getTalendProcessJavaProject();
+                    if (talendProcessJavaProject == null) {
+                        return;
                     }
+                    IFolder xmlMappingFolder = talendProcessJavaProject.getSrcSubFolder(null, JavaUtils.JAVA_XML_MAPPING);
+
+                    File mappingSource = new File(url.getPath());
+                    FilenameFilter filter = new FilenameFilter() {
+
+                        @Override
+                        public boolean accept(File dir, String name) {
+                            if (XmlUtil.isXMLFile(name)) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    };
+
+                    for (File file : mappingSource.listFiles(filter)) {
+                        String targetName = getTargetName(file);
+                        IFile targetFile = xmlMappingFolder.getFile(targetName);
+                        copyFile(file, targetFile);
+                    }
+
                 }
 
             }
@@ -486,8 +481,8 @@ public class CoreService implements ICoreService {
                 if (service != null) {
                     try {
                         IFolder prefSettingFolder = ResourceUtils.getFolder(
-                                ResourceModelHelper.getProject(ProjectManager.getInstance().getCurrentProject()), ".settings",
-                                false);
+                                ResourceModelHelper.getProject(ProjectManager.getInstance().getCurrentProject()),
+                                RepositoryConstants.SETTING_DIRECTORY, false);
                         if (!prefSettingFolder.exists()) {
                             prefSettingFolder.create(true, true, null);
                         }

@@ -29,6 +29,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 
 /**
  * DOC qian class global comment. Detailled comment <br/>
@@ -92,9 +93,18 @@ public interface IRunProcessService extends IService {
      */
     public String getRoutineFilenameExt();
 
+    /**
+     * 
+     * @deprecated getTalendProcessJavaProject instead.
+     */
+    @Deprecated
     public IProject getProject(ECodeLanguage language) throws CoreException;
 
-    // add this method for RowGenerator to get routines's Functions by qzhang.
+    /**
+     * 
+     * @deprecated getTalendProcessJavaProject instead.
+     */
+    @Deprecated
     public IJavaProject getJavaProject() throws CoreException;
 
     /**
@@ -159,5 +169,7 @@ public interface IRunProcessService extends IService {
     public boolean isJobRunning();
 
     public void buildJavaProject();
+
+    ITalendProcessJavaProject getTalendProcessJavaProject();
 
 }

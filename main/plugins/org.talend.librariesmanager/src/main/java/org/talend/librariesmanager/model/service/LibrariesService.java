@@ -209,4 +209,14 @@ public class LibrariesService implements ILibrariesService {
     public void syncLibrariesFromApp(IProgressMonitor... monitorWrap) {
         this.getLibrariesService().syncLibrariesFromApp(monitorWrap);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#cleanLibs()
+     */
+    @Override
+    public void cleanLibs() {
+        this.getLibrariesService().cleanLibs();
+    }
 }

@@ -26,9 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -75,10 +73,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.runprocess.IProcessor;
-import org.talend.designer.runprocess.IRunProcessService;
-import org.talend.designer.runprocess.ItemCacheManager;
-import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -505,15 +499,7 @@ public class ProcessorUtilities {
             }
             CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
             if (codeModified) {
-                try {
-                    IProject project = CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject();
-                    if (!project.isSynchronized(IResource.DEPTH_INFINITE)) {
-                        project.refreshLocal(IResource.DEPTH_INFINITE, progressMonitor);
-                    }
-                    project.build(IncrementalProjectBuilder.AUTO_BUILD, null);
-                } catch (CoreException e) {
-                    throw new ProcessorException(e);
-                }
+                CorePlugin.getDefault().getRunProcessService().buildJavaProject();
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;

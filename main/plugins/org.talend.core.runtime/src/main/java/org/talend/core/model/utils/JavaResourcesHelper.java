@@ -17,10 +17,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
@@ -48,9 +48,12 @@ public class JavaResourcesHelper {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
             IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-            IProject project = service.getProject(ECodeLanguage.JAVA);
-            IResource resource = project.findMember(path);
-            return resource;
+            ITalendProcessJavaProject talendProcessJavaProject = service.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                IProject project = talendProcessJavaProject.getProject();
+                IResource resource = project.findMember(path);
+                return resource;
+            }
         }
         return null;
     }
@@ -113,21 +116,21 @@ public class JavaResourcesHelper {
         itemGroupPrefixName += '.' + itemName;
         return itemGroupPrefixName.trim().toLowerCase();
     }
-    
-    public static String getJobClassPackageName(Item processItem){
-    	Property itemProperty = processItem.getProperty();
-    	String itemLabel = itemProperty.getLabel();
-    	String itemVersion = itemProperty.getVersion();
-    	String packageName = getProjectFolderName(processItem)+ "." + getJobFolderName(itemLabel, itemVersion);
-    	return packageName;
+
+    public static String getJobClassPackageName(Item processItem) {
+        Property itemProperty = processItem.getProperty();
+        String itemLabel = itemProperty.getLabel();
+        String itemVersion = itemProperty.getVersion();
+        String packageName = getProjectFolderName(processItem) + "." + getJobFolderName(itemLabel, itemVersion);
+        return packageName;
     }
-    
-    public static String getJobClassName(Item processItem){
-    	return getJobClassPackageName(processItem) +"."+ processItem.getProperty().getLabel();
+
+    public static String getJobClassName(Item processItem) {
+        return getJobClassPackageName(processItem) + "." + processItem.getProperty().getLabel();
     }
-    
-    public static String getJobClassName(RepositoryNode jobNode){
-    	return getJobClassName(jobNode.getObject().getProperty().getItem());
+
+    public static String getJobClassName(RepositoryNode jobNode) {
+        return getJobClassName(jobNode.getObject().getProperty().getItem());
     }
 
 }
