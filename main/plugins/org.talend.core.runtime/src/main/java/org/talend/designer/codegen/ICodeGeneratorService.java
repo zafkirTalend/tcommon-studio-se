@@ -63,7 +63,9 @@ public interface ICodeGeneratorService extends IService {
      * yzhang Comment method "creatPerlRoutineSynchronizer".
      * 
      * @return
+     * @deprecated no perl yet.
      */
+    @Deprecated
     public ITalendSynchronizer createPerlRoutineSynchronizer();
 
     /**

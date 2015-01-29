@@ -78,7 +78,7 @@ public final class JavaUtils {
     public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqltemplates"; //$NON-NLS-1$
 
     /** Java Routines Directory. */
-    public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system"; //$NON-NLS-1$
+    public static final String JAVA_SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
     /** Java Routines api Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_API_DIRECTORY = "api"; //$NON-NLS-1$

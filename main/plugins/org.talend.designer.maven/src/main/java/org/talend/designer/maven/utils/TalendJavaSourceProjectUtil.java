@@ -80,9 +80,13 @@ public final class TalendJavaSourceProjectUtil {
             protected Model getModel() {
                 Model model = super.getModel();
                 Properties p = new Properties();
-                // TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
-                p.put("maven.compiler.source", "1.6");
-                p.put("maven.compiler.target", "1.6");
+                /**
+                 * TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
+                 * 
+                 * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
+                 */
+                p.put("maven.compiler.source", JavaCore.VERSION_1_6);
+                p.put("maven.compiler.target", JavaCore.VERSION_1_6);
                 model.setProperties(p);
 
                 return model;
