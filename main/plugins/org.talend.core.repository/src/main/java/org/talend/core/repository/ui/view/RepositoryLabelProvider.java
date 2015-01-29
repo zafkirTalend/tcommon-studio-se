@@ -29,8 +29,8 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
-import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
+import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
@@ -170,6 +170,14 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
 
                 }
                 return label;
+            }
+            if (repositoryObjectType == ERepositoryObjectType.JOB_DOC || repositoryObjectType == ERepositoryObjectType.JOBLET_DOC
+                    || repositoryObjectType == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_DOC")) {
+                // TDI-31655:documention node need to update property for its structure to get the correct text
+                object.getProperty();
+                if (object.isModified()) {
+                    label = "> "; //$NON-NLS-1$
+                }
             }
             label = label + getText(object);
             if (!mainProject.getLabel().equals(projectLabel) && PluginChecker.isRefProjectLoaded()) {
