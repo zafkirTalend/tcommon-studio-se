@@ -32,7 +32,6 @@ public interface ICodeGenerator {
      * @return
      * @throws CodeGeneratorException
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public String generateProcessCode() throws SystemException;
 
     /**
@@ -61,8 +60,8 @@ public interface ICodeGenerator {
     public String generateComponentCodeWithRows(String nodeName, IAloneProcessNodeConfigurer nodeConfigurer);
 
     public void setContextName(String contextName);
-    
-    //ADDED for TESB-7887 By GangLiu
-    public String generateSpringContent() throws SystemException ;
+
+    // ADDED for TESB-7887 By GangLiu
+    public String generateSpringContent() throws SystemException;
 
 }
