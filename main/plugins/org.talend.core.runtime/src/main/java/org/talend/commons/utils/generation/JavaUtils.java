@@ -92,7 +92,7 @@ public final class JavaUtils {
     /** Java internal Directory. */
     public static final String JAVA_INTERNAL_DIRECTORY = "internal"; //$NON-NLS-1$
 
-    /** Java DB Mapping Directory */
+    /** Java DB Mapping Directory , and must be same as MetadataTalendType.MAPPING_FOLDER */
     public static final String JAVA_XML_MAPPING = "xmlMappings"; //$NON-NLS-1$
 
     /** Java Rules Directory. */

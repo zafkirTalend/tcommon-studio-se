@@ -364,7 +364,7 @@ public class CoreService implements ICoreService {
                     if (talendProcessJavaProject == null) {
                         return;
                     }
-                    IFolder xmlMappingFolder = talendProcessJavaProject.getSrcSubFolder(null, JavaUtils.JAVA_XML_MAPPING);
+                    IFolder xmlMappingFolder = talendProcessJavaProject.getResourceSubFolder(null, JavaUtils.JAVA_XML_MAPPING);
 
                     File mappingSource = new File(url.getPath());
                     FilenameFilter filter = new FilenameFilter() {
