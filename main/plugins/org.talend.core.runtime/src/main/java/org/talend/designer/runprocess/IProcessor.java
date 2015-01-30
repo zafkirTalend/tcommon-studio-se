@@ -235,7 +235,10 @@ public interface IProcessor {
      * Get Current type name for launching.
      * 
      * yzhang Comment method "getTypeName".
+     * 
+     * @deprecated getMainClass instead
      */
+    @Deprecated
     public String getTypeName();
 
     /**
@@ -283,4 +286,6 @@ public interface IProcessor {
     public void setProxyParameters(String[] proxyParameters);
 
     public void syntaxCheck();
+
+    String getMainClass();
 }

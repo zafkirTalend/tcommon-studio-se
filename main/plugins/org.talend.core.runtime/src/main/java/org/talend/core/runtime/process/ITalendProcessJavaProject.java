@@ -71,6 +71,11 @@ public interface ITalendProcessJavaProject {
     IFolder getResourceSubFolder(IProgressMonitor monitor, String path);
 
     /**
+     * create the sub folder under baseFolder.
+     */
+    IFolder createSubFolder(IProgressMonitor monitor, IFolder baseFolder, String path);
+
+    /**
      * will clean the files or folders under this folder.
      */
     boolean cleanFolder(IProgressMonitor monitor, IFolder folder) throws CoreException;

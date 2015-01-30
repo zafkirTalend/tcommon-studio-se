@@ -1244,7 +1244,7 @@ public class ProcessorUtilities {
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
-        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
+        String[] cmd = new String[] { processor.getMainClass() };
         if (codeOptions != null) {
             for (String string : codeOptions) {
                 if (string != null) {

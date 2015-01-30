@@ -77,7 +77,7 @@ public final class JavaUtils {
     /** Java SQLTemplate Directory. */
     public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqltemplates"; //$NON-NLS-1$
 
-    /** Java Routines Directory. */
+    /** Java system Directory. */
     public static final String JAVA_SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
     /** Java Routines api Directory. */
@@ -103,6 +103,9 @@ public final class JavaUtils {
 
     /** Java Metadata Directory. */
     public static final String JAVA_METADATA_DIRECTORY = "metadata"; //$NON-NLS-1$
+
+    /** Java contexts Directory. */
+    public static final String JAVA_CONTEXTS_DIRECTORY = "contexts"; //$NON-NLS-1$
 
     /** Java ClassPath Separator. */
     public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":"; //$NON-NLS-1$ //$NON-NLS-2$
