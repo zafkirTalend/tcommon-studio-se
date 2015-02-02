@@ -13,23 +13,15 @@
 package org.talend.designer.maven.project;
 
 import org.apache.maven.model.Model;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.m2e.core.MavenPlugin;
-import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.MavenSystemFolders;
-import org.talend.designer.maven.model.ProjectSystemFolder;
 
 /**
- * created by ggu on 22 Jan 2015 Detailled comment
+ * created by ggu on 2 Feb 2015 Detailled comment
  *
  */
-public class CreateMavenProject {
+public abstract class CreateMaven {
 
     /* by default, the version is same as product */
     private String version = VersionUtils.getVersion();
@@ -116,63 +108,7 @@ public class CreateMavenProject {
 
     /**
      * 
-     * By default, create the all maven folders.
-     * 
+     * Create the pom resource.
      */
-    protected String[] getFolders() {
-        ProjectSystemFolder[] mavenDirectories = MavenSystemFolders.ALL_DIRS;
-
-        String[] directories = new String[mavenDirectories.length];
-        for (int i = 0; i < directories.length; i++) {
-            directories[i] = mavenDirectories[i].getPath();
-        }
-
-        return directories;
-    }
-
-    /**
-     * 
-     * By default, it's current workspace.
-     * 
-     */
-    protected IPath getBaseLocation() {
-        return ResourcesPlugin.getWorkspace().getRoot().getLocation();
-    }
-
-    /**
-     * 
-     * can do something before create operation.
-     */
-    protected void beforeCreate(IProgressMonitor monitor, Model model, IProject project) throws Exception {
-        // nothing to do
-    }
-
-    /**
-     * 
-     * after create operation, can do something, like add some natures.
-     */
-    protected void afterCreate(IProgressMonitor monitor, IProject project) throws Exception {
-        // nothing to do
-    }
-
-    public IProject createSourceProject(IProgressMonitor monitor) throws Exception {
-        IProgressMonitor pMoniter = monitor;
-        if (monitor == null) {
-            pMoniter = new NullProgressMonitor();
-        }
-        final Model model = getModel();
-        final ProjectImportConfiguration importConfiguration = new ProjectImportConfiguration();
-        final IProject project = importConfiguration.getProject(ResourcesPlugin.getWorkspace().getRoot(), model);
-        final IPath location = getBaseLocation();
-        final String[] folders = getFolders();
-
-        beforeCreate(monitor, model, project);
-
-        MavenPlugin.getProjectConfigurationManager().createSimpleProject(project, location.append(project.getName()), model,
-                folders, importConfiguration, pMoniter);
-
-        afterCreate(monitor, project);
-
-        return project;
-    }
+    public abstract void create(IProgressMonitor monitor) throws Exception;
 }

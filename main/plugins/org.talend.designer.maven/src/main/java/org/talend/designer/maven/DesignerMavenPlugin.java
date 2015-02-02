@@ -16,10 +16,16 @@ import org.osgi.framework.BundleContext;
 
 public class DesignerMavenPlugin implements BundleActivator {
 
+    private static DesignerMavenPlugin plugin;
+
     private static BundleContext context;
 
-    static BundleContext getContext() {
+    public BundleContext getContext() {
         return context;
+    }
+
+    public static DesignerMavenPlugin getPlugin() {
+        return plugin;
     }
 
     /*
@@ -29,6 +35,7 @@ public class DesignerMavenPlugin implements BundleActivator {
      */
     @Override
     public void start(BundleContext bundleContext) throws Exception {
+        this.plugin = this;
         DesignerMavenPlugin.context = bundleContext;
     }
 

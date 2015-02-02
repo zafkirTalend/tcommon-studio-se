@@ -6,10 +6,11 @@
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
 // You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.utils;
+package org.talend.designer.maven.project;
 
 import java.util.Properties;
 
@@ -17,11 +18,13 @@ import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -29,94 +32,125 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.internal.IMavenConstants;
+import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.designer.maven.model.JavaSourceProjectConstants;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
-import org.talend.designer.maven.project.CreateMavenProject;
+import org.talend.designer.maven.model.ProjectSystemFolder;
+import org.talend.designer.maven.model.TalendMavenContants;
 
 /**
- * created by ggu on 23 Jan 2015 Detailled comment
+ * created by ggu on 22 Jan 2015 Detailled comment
  *
  */
-public final class TalendJavaSourceProjectUtil {
+public class CreateMavenCodeProject extends CreateMaven {
 
-    @SuppressWarnings("restriction")
-    public static IProject initJavaProject(IProgressMonitor monitor) throws Exception {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+    private IProject project;
 
-        IProject javaProject = root.getProject(JavaSourceProjectConstants.PROJECT_NAME);
-        boolean recreate = false;
-        if (javaProject.exists()) {
-            IFile pomFile = javaProject.getFile(IMavenConstants.POM_FILE_NAME);
-            // if no pom or maven nature, will re-create pure Maven project.
-            if (!pomFile.exists() || !javaProject.hasNature(IMavenConstants.NATURE_ID)) {
-                javaProject.close(monitor);
-                javaProject.delete(true, true, monitor); // delete
-                recreate = true;
-            }
-        } else {
-            recreate = true;
-        }
-        if (recreate) {
-            javaProject = create(monitor, javaProject);
-            covertJavaProjectToPom(monitor, javaProject);
-        }
+    public CreateMavenCodeProject(IProject project) {
+        super();
+        Assert.isNotNull(project);
+        this.project = project;
+    }
 
-        javaProject.open(IProject.BACKGROUND_REFRESH, monitor);
+    public IProject getProject() {
+        return this.project;
+    }
 
-        return javaProject;
+    @SuppressWarnings("nls")
+    @Override
+    protected Model getModel() {
+        // The groupId and artifactId are temp, will change it after create project.
+        setGroupId(project.getName());
+        setArtifactId(project.getName());
+        // Must be jar, if pom, won't create the classpath or such for jdt.
+        setPackaging(MavenConstants.PACKAGING_JAR);
+
+        Model model = super.getModel();
+        Properties p = new Properties();
+
+        /**
+         * TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
+         * 
+         * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
+         */
+        p.put("maven.compiler.source", JavaCore.VERSION_1_6);
+        p.put("maven.compiler.target", JavaCore.VERSION_1_6);
+        model.setProperties(p);
+
+        return model;
     }
 
     /**
      * 
-     * create maven project with jdt nature.
+     * By default, it's current workspace.
+     * 
      */
-    private static IProject create(IProgressMonitor monitor, IProject project) throws Exception {
-        CreateMavenProject cmProject = new CreateMavenProject() {
+    protected IPath getBaseLocation() {
+        return ResourcesPlugin.getWorkspace().getRoot().getLocation();
+    }
 
-            @SuppressWarnings("nls")
-            @Override
-            protected Model getModel() {
-                Model model = super.getModel();
-                Properties p = new Properties();
-                /**
-                 * TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
-                 * 
-                 * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
-                 */
-                p.put("maven.compiler.source", JavaCore.VERSION_1_6);
-                p.put("maven.compiler.target", JavaCore.VERSION_1_6);
-                model.setProperties(p);
+    /**
+     * 
+     * By default, create the all maven folders.
+     * 
+     */
+    protected String[] getFolders() {
+        ProjectSystemFolder[] mavenDirectories = MavenSystemFolders.ALL_DIRS;
 
-                return model;
-            }
+        String[] directories = new String[mavenDirectories.length];
+        for (int i = 0; i < directories.length; i++) {
+            directories[i] = mavenDirectories[i].getPath();
+        }
 
-            @Override
-            protected void afterCreate(IProgressMonitor m, IProject p) throws Exception {
-                super.afterCreate(m, p);
+        return directories;
+    }
 
-                covertJavaProjectToPom(m, p);
-                changeClasspath(m, p);
-            }
+    /**
+     * 
+     * can do something before create operation.
+     */
+    protected void beforeCreate(IProgressMonitor monitor, IResource res) throws Exception {
+        // nothing to do
+    }
 
-        };
+    /**
+     * 
+     * after create operation, can do something, like add some natures.
+     */
+    protected void afterCreate(IProgressMonitor monitor, IResource res) throws Exception {
+        covertJavaProjectToPom(monitor, res.getProject());
+        changeClasspath(monitor, res.getProject());
+    }
 
-        // The groupId and artifactId are temp, will change it after create project.
-        cmProject.setGroupId(project.getName());
-        cmProject.setArtifactId(project.getName());
+    @Override
+    public void create(IProgressMonitor monitor) throws Exception {
+        IProgressMonitor pMoniter = monitor;
+        if (monitor == null) {
+            pMoniter = new NullProgressMonitor();
+        }
 
-        // Must be jar, if pom, won't create the classpath or such for jdt.
-        cmProject.setPackaging(MavenConstants.PACKAGING_JAR);
+        final Model model = getModel();
+        final ProjectImportConfiguration importConfiguration = new ProjectImportConfiguration();
+        final IProject p = importConfiguration.getProject(ResourcesPlugin.getWorkspace().getRoot(), model);
+        final IPath location = getBaseLocation();
+        final String[] folders = getFolders();
 
-        IProject sourceProject = cmProject.createSourceProject(monitor);
+        beforeCreate(monitor, p);
 
-        return sourceProject;
+        MavenPlugin.getProjectConfigurationManager().createSimpleProject(p, location.append(p.getName()), model, folders,
+                importConfiguration, pMoniter);
+
+        afterCreate(monitor, p);
+
+        // update the project
+        this.project = p;
+        return;
     }
 
     @SuppressWarnings({ "restriction", "nls" })
-    private static void covertJavaProjectToPom(IProgressMonitor monitor, IProject project) {
-        IFile pomFile = project.getFile(IMavenConstants.POM_FILE_NAME);
+    private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
+        IFile pomFile = p.getFile(IMavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
             try {
                 MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
@@ -127,8 +161,8 @@ public final class TalendJavaSourceProjectUtil {
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
                         // TODO, change the default ".Java" to sepcial one. if OEM, maybe need change too.
-                        model.setGroupId("org.talend");
-                        model.setArtifactId("org.talend.source");
+                        model.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
+                        model.setArtifactId(TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
 
                         /*
                          * need find one way to do overwrite.
@@ -153,9 +187,9 @@ public final class TalendJavaSourceProjectUtil {
         }
     }
 
-    private static void changeClasspath(IProgressMonitor monitor, IProject project) {
+    private void changeClasspath(IProgressMonitor monitor, IProject p) {
         try {
-            IJavaProject javaProject = JavaCore.create(project);
+            IJavaProject javaProject = JavaCore.create(p);
             IClasspathEntry[] rawClasspathEntries = javaProject.getRawClasspath();
             boolean changed = false;
 
@@ -165,7 +199,7 @@ public final class TalendJavaSourceProjectUtil {
                 IClasspathEntry newEntry = null;
                 if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
                     IPath path = entry.getPath();
-                    if (project.getFullPath().isPrefixOf(path)) {
+                    if (p.getFullPath().isPrefixOf(path)) {
                         path = path.removeFirstSegments(1);
                     }
 
@@ -197,5 +231,4 @@ public final class TalendJavaSourceProjectUtil {
             ExceptionHandler.process(e);
         }
     }
-
 }

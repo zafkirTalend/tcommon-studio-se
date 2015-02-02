@@ -80,4 +80,10 @@ public interface ITalendProcessJavaProject {
      */
     boolean cleanFolder(IProgressMonitor monitor, IFolder folder) throws CoreException;
 
+    /**
+     * 
+     * sync and generate maven pom for routines.
+     */
+    void syncRoutinesPom();
+
 }
