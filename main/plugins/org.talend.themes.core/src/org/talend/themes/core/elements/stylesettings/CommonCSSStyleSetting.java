@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.draw2d.Border;
@@ -24,9 +26,26 @@ import org.eclipse.swt.graphics.Color;
  */
 public class CommonCSSStyleSetting {
 
-    protected Map<Color, Color> needDisposedColors;
+    protected Map<Color, Color> needDisposedColors = new HashMap<Color, Color>();;
+
+    protected Date timeStamp = new Date();
+
+    public void updateTimeStamp() {
+        this.timeStamp = new Date();
+    }
+
+    public Date getTimeStamp() {
+        return this.timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
     public void disposeRelatedColor(Color color) {
+        if (color == null) {
+            return;
+        }
         Color oldColor = needDisposedColors.get(color);
         if (oldColor != null) {
             if (!oldColor.isDisposed()) {
@@ -43,14 +62,17 @@ public class CommonCSSStyleSetting {
         }
         if (needDisposedOldColor != null) {
             if (!needDisposedOldColor.isDisposed()) {
-                oldColor.dispose();
+                needDisposedOldColor.dispose();
             }
             if (!oldColor.isDisposed()) {
                 oldColor.dispose();
             }
             needDisposedColors.remove(oldColor);
+            // System.out.println("disposeRelatedBothColors:disposed");
         } else {
-            needDisposedColors.put(newColor, oldColor);
+            if (newColor != null) {
+                needDisposedColors.put(newColor, oldColor);
+            }
         }
     }
 

@@ -12,14 +12,11 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
-import java.util.HashMap;
-
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.graphics.Color;
-import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
 
 /**
  * created by cmeng on Jan 30, 2015 Detailled comment
@@ -27,7 +24,7 @@ import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
  */
 public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
-    protected ICSSStylingChangedListener stylingChangeListener;
+    // protected List<ICSSStylingChangedListener> stylingChangeListeners = new ArrayList<ICSSStylingChangedListener>();
 
     protected Color mouseOverForgroundColor1;
 
@@ -98,7 +95,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void resetPaletteCSSStyle() {
-        needDisposedColors = new HashMap<Color, Color>();
 
         mouseOverForgroundColor1 = new Color(null, ColorConstants.listForeground.getRGB());
         mouseOverForgroundColor2 = new Color(null, ColorConstants.listForeground.getRGB());
@@ -141,6 +137,12 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
             // collapseNotExpandedLineForgroundColor = new Color(null, ColorConstants.white.getRGB());
         }
     }
+
+    // public void applyChange() {
+    // for (ICSSStylingChangedListener listener : stylingChangeListeners) {
+    // listener.applyChange(this);
+    // }
+    // }
 
     /**
      * Getter for fgColor.
@@ -320,10 +322,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param colorIncrement the colorIncrement to set
      */
     public void setColorIncrement(int colorIncrement) {
-        if (this.colorIncrement == colorIncrement) {
-            this.colorIncrement = colorIncrement;
-            stylingChangeListener.applyChange(this);
-        }
+        this.colorIncrement = colorIncrement;
     }
 
     /**
@@ -363,10 +362,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param xOffset the xOffset to set
      */
     public void setxOffset(int xOffset) {
-        if (this.xOffset != xOffset) {
-            this.xOffset = xOffset;
-            stylingChangeListener.applyChange(this);
-        }
+        this.xOffset = xOffset;
     }
 
     /**
@@ -374,18 +370,20 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * 
      * @return the stylingChangeListener
      */
-    public ICSSStylingChangedListener getStylingChangeListener() {
-        return this.stylingChangeListener;
-    }
+    // public List<ICSSStylingChangedListener> getStylingChangeListeners() {
+    // return this.stylingChangeListeners;
+    // }
 
     /**
      * Sets the stylingChangeListener.
      * 
      * @param stylingChangeListener the stylingChangeListener to set
      */
-    public void setStylingChangeListener(ICSSStylingChangedListener stylingChangeListener) {
-        this.stylingChangeListener = stylingChangeListener;
-    }
+    // public void addStylingChangeListener(ICSSStylingChangedListener stylingChangeListener) {
+    // if (!this.stylingChangeListeners.contains(stylingChangeListener)) {
+    // this.stylingChangeListeners.add(stylingChangeListener);
+    // }
+    // }
 
     /**
      * Getter for sliderPaletteForgroundColor.

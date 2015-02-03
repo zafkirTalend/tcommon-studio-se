@@ -291,6 +291,10 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
             RGB rgb = CSSSWTColorHelper.getRGB(value);
             paletteSetting.setCollapseNotExpandedLineForgroundColor(new Color(paletteComposite.getDisplay(), rgb));
         }
+
+        if (matched) {
+            paletteSetting.updateTimeStamp();
+        }
         return matched;
     }
 
