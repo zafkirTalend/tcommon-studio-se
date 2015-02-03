@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.ui.runtime.i18n.Messages;
 
 /**
@@ -42,22 +43,24 @@ public final class MessageBoxExceptionHandler {
      * 
      * @param ex - exception to log
      */
-	public static void process(final Throwable ex) {
-		final Display display = Display.getCurrent() == null ? Display
-				.getDefault() : Display.getCurrent();
-		if(display != null){
-			display.syncExec(new Runnable() {
-	
-				@Override
-				public void run() {
-					Shell shell = display.getActiveShell() == null ? new Shell()
-							: display.getActiveShell();
-					process(ex, shell);
-	
-				}
-			});
-		}
-	}
+    public static void process(final Throwable ex) {
+        if (CommonUIPlugin.isFullyHeadless()) {
+            CommonExceptionHandler.process(ex);
+            return;
+        }
+        final Display display = Display.getCurrent() == null ? Display.getDefault() : Display.getCurrent();
+        if (display != null) {
+            display.syncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    Shell shell = display.getActiveShell() == null ? new Shell() : display.getActiveShell();
+                    process(ex, shell);
+
+                }
+            });
+        }
+    }
 
     public static void process(Throwable ex, Shell shell) {
         CommonExceptionHandler.process(ex);
