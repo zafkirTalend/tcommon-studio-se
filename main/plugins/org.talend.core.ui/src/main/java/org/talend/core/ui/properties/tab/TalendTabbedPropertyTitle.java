@@ -60,9 +60,9 @@ public class TalendTabbedPropertyTitle extends Composite {
     public TalendTabbedPropertyTitle(Composite parent, TabbedPropertySheetWidgetFactory factory) {
         super(parent, SWT.NO_FOCUS);
         this.factory = factory;
+        colorHelper = new TalendTabbedPropertyColorHelper(factory);
         // CSS
         CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
-        colorHelper = new TalendTabbedPropertyColorHelper(factory);
         this.addPaintListener(new PaintListener() {
 
             @Override

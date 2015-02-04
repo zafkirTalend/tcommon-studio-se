@@ -12,11 +12,15 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
 
 /**
  * created by cmeng on Jan 30, 2015 Detailled comment
@@ -24,7 +28,7 @@ import org.eclipse.swt.graphics.Color;
  */
 public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
-    // protected List<ICSSStylingChangedListener> stylingChangeListeners = new ArrayList<ICSSStylingChangedListener>();
+    protected List<ICSSStylingChangedListener> stylingChangeListeners = new ArrayList<ICSSStylingChangedListener>();
 
     protected Color mouseOverForgroundColor1;
 
@@ -90,59 +94,95 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
     protected Color collapseNotExpandedLineForgroundColor;
 
+    protected Color entryEditPartToolEntryTopLineColor;
+
+    protected Color entryEditPartToolEntryBottomLineColor;
+
+    protected Color entryEditPartToolEntryBackgroundColor;
+
+    protected boolean entryEditPartBackgroundColorInheritFromParent;
+
     public TalendPaletteCSSStyleSetting() {
         resetPaletteCSSStyle();
     }
 
     public void resetPaletteCSSStyle() {
 
-        mouseOverForgroundColor1 = new Color(null, ColorConstants.listForeground.getRGB());
-        mouseOverForgroundColor2 = new Color(null, ColorConstants.listForeground.getRGB());
-        mouseOverForgroundColor3 = new Color(null, ColorConstants.listForeground.getRGB());
-        mouseOverBackgroundColor1 = new Color(null, ColorConstants.listBackground.getRGB());
-        mouseOverBackgroundColor2 = new Color(null, ColorConstants.listBackground.getRGB());
-        mouseOverBackgroundColor3 = new Color(null, ColorConstants.listBackground.getRGB());
-        expandedBackgroundColor = new Color(null, ColorConstants.listBackground.getRGB());
-        collapsedForgroundColor = new Color(null, ColorConstants.listForeground.getRGB());
-        collapsedBackgroundColor = new Color(null, ColorConstants.listBackground.getRGB());
+        mouseOverForgroundColor1 = getColorByRGB(ColorConstants.listForeground.getRGB());
+        mouseOverForgroundColor2 = getColorByRGB(ColorConstants.listForeground.getRGB());
+        mouseOverForgroundColor3 = getColorByRGB(ColorConstants.listForeground.getRGB());
+        mouseOverBackgroundColor1 = getColorByRGB(ColorConstants.listBackground.getRGB());
+        mouseOverBackgroundColor2 = getColorByRGB(ColorConstants.listBackground.getRGB());
+        mouseOverBackgroundColor3 = getColorByRGB(ColorConstants.listBackground.getRGB());
+        expandedBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
+        collapsedForgroundColor = getColorByRGB(ColorConstants.listForeground.getRGB());
+        collapsedBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
         colorIncrement = 15;
         xOffset = 17;
         titleMarginBorder = new MarginBorder(4, 10, 2, 2);
-        fgColor = FigureUtilities.mixColors(ColorConstants.buttonDarker, ColorConstants.button);
+        fgColor = getColorByRGB(ColorConstants.button.getRGB());
         scrollPaneBorder = new MarginBorder(2, 2, 2, 2);
         scrollPaneListBorder = new MarginBorder(2, 0, 2, 0);
 
-        sliderPaletteForgroundColor = new Color(null, ColorConstants.listForeground.getRGB());
-        sliderPaletteBackgroundColor = new Color(null, ColorConstants.listBackground.getRGB());
+        sliderPaletteForgroundColor = getColorByRGB(ColorConstants.listForeground.getRGB());
+        sliderPaletteBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
         showFolderImage = false;
 
         entryEditPartArrowWidth = 9;
-        int base = 5;
-        entryEditPartIconBorder = new MarginBorder(4, base, 3, entryEditPartArrowWidth + base);
-        entryEditPartListBorder = new MarginBorder(3, entryEditPartArrowWidth + base + 3, 4, 0);
-        entryEditPartToolEntryForgroundDisabledColor = new Color(null, ColorConstants.gray.getRGB());
-        entryEditPartToolEntrySelectedBackgroundColor = new Color(null, 207, 227, 250);
-        entryEditPartToolEntryHoverBackgroundColor = new Color(null, 252, 228, 179);
-        entryEditPartToolEntryBorderFocusForgroundColor = new Color(null, ColorConstants.red.getRGB());
-        entryEditPartToolEntryBorderFocusBackgroundColor = new Color(null, ColorConstants.green.getRGB());
+        // int base = 5;
+        // entryEditPartIconBorder = new MarginBorder(4, base, 3, entryEditPartArrowWidth + base);
+        // entryEditPartListBorder = new MarginBorder(3, entryEditPartArrowWidth + base + 3, 4, 0);
+        entryEditPartIconBorder = new MarginBorder(3, 3, 3, 3);
+        entryEditPartListBorder = new MarginBorder(3, 0, 3, 0);
+        entryEditPartToolEntryForgroundDisabledColor = getColorByRGB(ColorConstants.gray.getRGB());
+        entryEditPartToolEntrySelectedBackgroundColor = getColorByRGB(new RGB(207, 227, 250));
+        entryEditPartToolEntryHoverBackgroundColor = getColorByRGB(new RGB(252, 228, 179));
+        entryEditPartToolEntryBorderFocusForgroundColor = getColorByRGB(ColorConstants.red.getRGB());
+        entryEditPartToolEntryBorderFocusBackgroundColor = getColorByRGB(ColorConstants.green.getRGB());
 
-        drawerFigureBaseColor = new Color(null, (FigureUtilities.mixColors(ColorConstants.button, ColorConstants.listBackground,
-                0.1)).getRGB());
+        drawerFigureBaseColor = getColorByRGB(ColorConstants.button.getRGB());
+
+        entryEditPartToolEntryTopLineColor = getColorByRGB(ColorConstants.black.getRGB());
+        entryEditPartToolEntryBottomLineColor = getColorByRGB(ColorConstants.black.getRGB());
+        entryEditPartToolEntryBackgroundColor = getColorByRGB(ColorConstants.red.getRGB());
+        entryEditPartBackgroundColorInheritFromParent = true;
 
         {
             // by default, maybe needn't draw those lines
-            // collapseTopBorderForgroundLineColor1 = new Color(null, ColorConstants.buttonDarker.getRGB());
-            // collapseTopBorderForgroundLineColor2 = new Color(null, ColorConstants.white.getRGB());
-            // collapseExpandedLineForgroundColor = new Color(null, ColorConstants.buttonDarker.getRGB());
-            // collapseNotExpandedLineForgroundColor = new Color(null, ColorConstants.white.getRGB());
+            // collapseTopBorderForgroundLineColor1 = getColorByRGB( ColorConstants.buttonDarker.getRGB());
+            // collapseTopBorderForgroundLineColor2 = getColorByRGB( ColorConstants.white.getRGB());
+            // collapseExpandedLineForgroundColor = getColorByRGB( ColorConstants.buttonDarker.getRGB());
+            // collapseNotExpandedLineForgroundColor = getColorByRGB( ColorConstants.white.getRGB());
         }
     }
 
-    // public void applyChange() {
-    // for (ICSSStylingChangedListener listener : stylingChangeListeners) {
-    // listener.applyChange(this);
-    // }
-    // }
+    public static Color getSubColor(Color color, int increment) {
+        Color newColor = null;
+
+        if (color != null) {
+            newColor = CommonCSSStyleSetting.getColorByRGB(new RGB(getNewValue(color.getRed(), increment), getNewValue(
+                    color.getGreen(), increment), getNewValue(color.getBlue(), increment)));
+        }
+
+        return newColor;
+    }
+
+    private static int getNewValue(int oldValue, int increment) {
+        int result = oldValue - increment;
+        return (result > 0 ? result : 0);
+    }
+
+    public void addStylingChangeListener(ICSSStylingChangedListener listener) {
+        if (!stylingChangeListeners.contains(listener)) {
+            stylingChangeListeners.add(listener);
+        }
+    }
+
+    public void applyChange() {
+        for (ICSSStylingChangedListener listener : stylingChangeListeners) {
+            listener.applyChange(this);
+        }
+    }
 
     /**
      * Getter for fgColor.
@@ -159,7 +199,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param fgColor the fgColor to set
      */
     public void setFgColor(Color fgColor) {
-        disposeRelatedBothColors(this.fgColor, fgColor);
+
         this.fgColor = fgColor;
     }
 
@@ -212,7 +252,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverForgroundColor1(Color mouseOverForgroundColor1) {
-        disposeRelatedBothColors(this.mouseOverForgroundColor1, mouseOverForgroundColor1);
+
         this.mouseOverForgroundColor1 = mouseOverForgroundColor1;
     }
 
@@ -221,7 +261,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverForgroundColor2(Color mouseOverForgroundColor2) {
-        disposeRelatedBothColors(this.mouseOverForgroundColor2, mouseOverForgroundColor2);
+
         this.mouseOverForgroundColor2 = mouseOverForgroundColor2;
     }
 
@@ -230,7 +270,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverForgroundColor3(Color mouseOverForgroundColor3) {
-        disposeRelatedBothColors(this.mouseOverForgroundColor3, mouseOverForgroundColor3);
+
         this.mouseOverForgroundColor3 = mouseOverForgroundColor3;
     }
 
@@ -239,7 +279,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverBackgroundColor1(Color mouseOverBackgroundColor1) {
-        disposeRelatedBothColors(this.mouseOverBackgroundColor1, mouseOverBackgroundColor1);
+
         this.mouseOverBackgroundColor1 = mouseOverBackgroundColor1;
     }
 
@@ -248,7 +288,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverBackgroundColor2(Color mouseOverBackgroundColor2) {
-        disposeRelatedBothColors(this.mouseOverBackgroundColor2, mouseOverBackgroundColor2);
+
         this.mouseOverBackgroundColor2 = mouseOverBackgroundColor2;
     }
 
@@ -257,7 +297,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setMouseOverBackgroundColor3(Color mouseOverBackgroundColor3) {
-        disposeRelatedBothColors(this.mouseOverBackgroundColor3, mouseOverBackgroundColor3);
+
         this.mouseOverBackgroundColor3 = mouseOverBackgroundColor3;
     }
 
@@ -266,7 +306,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setExpandedBackgroundColor(Color expandedBackgroundColor) {
-        disposeRelatedBothColors(this.expandedBackgroundColor, expandedBackgroundColor);
+
         this.expandedBackgroundColor = expandedBackgroundColor;
     }
 
@@ -275,7 +315,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setCollapsedForgroundColor(Color collapsedForgroundColor) {
-        disposeRelatedBothColors(this.collapsedForgroundColor, collapsedForgroundColor);
+
         this.collapsedForgroundColor = collapsedForgroundColor;
     }
 
@@ -284,7 +324,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     }
 
     public void setCollapsedBackgroundColor(Color collapsedBackgroundColor) {
-        disposeRelatedBothColors(this.collapsedBackgroundColor, collapsedBackgroundColor);
+
         this.collapsedBackgroundColor = collapsedBackgroundColor;
     }
 
@@ -303,7 +343,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param listBackgroundColor the listBackgroundColor to set
      */
     public void setListBackgroundColor(Color listBackgroundColor) {
-        disposeRelatedBothColors(this.listBackgroundColor, listBackgroundColor);
+
         this.listBackgroundColor = listBackgroundColor;
     }
 
@@ -400,7 +440,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param sliderPaletteForgroundColor the sliderPaletteForgroundColor to set
      */
     public void setSliderPaletteForgroundColor(Color sliderPaletteForgroundColor) {
-        disposeRelatedBothColors(this.sliderPaletteForgroundColor, sliderPaletteForgroundColor);
+
         this.sliderPaletteForgroundColor = sliderPaletteForgroundColor;
     }
 
@@ -419,7 +459,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param sliderPaletteBackgroundColor the sliderPaletteBackgroundColor to set
      */
     public void setSliderPaletteBackgroundColor(Color sliderPaletteBackgroundColor) {
-        disposeRelatedBothColors(this.sliderPaletteBackgroundColor, sliderPaletteBackgroundColor);
+
         this.sliderPaletteBackgroundColor = sliderPaletteBackgroundColor;
     }
 
@@ -510,7 +550,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param entryEditPartToolEntryForgroundDisabledColor the entryEditPartToolEntryForgroundDisabledColor to set
      */
     public void setEntryEditPartToolEntryForgroundDisabledColor(Color entryEditPartToolEntryForgroundDisabledColor) {
-        disposeRelatedBothColors(this.entryEditPartToolEntryForgroundDisabledColor, entryEditPartToolEntryForgroundDisabledColor);
+
         this.entryEditPartToolEntryForgroundDisabledColor = entryEditPartToolEntryForgroundDisabledColor;
     }
 
@@ -529,8 +569,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param entryEditPartToolEntrySelectedBackgroundColor the entryEditPartToolEntrySelectedBackgroundColor to set
      */
     public void setEntryEditPartToolEntrySelectedBackgroundColor(Color entryEditPartToolEntrySelectedBackgroundColor) {
-        disposeRelatedBothColors(this.entryEditPartToolEntrySelectedBackgroundColor,
-                entryEditPartToolEntrySelectedBackgroundColor);
         this.entryEditPartToolEntrySelectedBackgroundColor = entryEditPartToolEntrySelectedBackgroundColor;
     }
 
@@ -549,7 +587,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param entryEditPartToolEntryHoverBackgroundColor the entryEditPartToolEntryHoverBackgroundColor to set
      */
     public void setEntryEditPartToolEntryHoverBackgroundColor(Color entryEditPartToolEntryHoverBackgroundColor) {
-        disposeRelatedBothColors(this.entryEditPartToolEntryHoverBackgroundColor, entryEditPartToolEntryHoverBackgroundColor);
+
         this.entryEditPartToolEntryHoverBackgroundColor = entryEditPartToolEntryHoverBackgroundColor;
     }
 
@@ -568,8 +606,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param entryEditPartToolEntryBorderFocusForgroundColor the entryEditPartToolEntryBorderFocusForgroundColor to set
      */
     public void setEntryEditPartToolEntryBorderFocusForgroundColor(Color entryEditPartToolEntryBorderFocusForgroundColor) {
-        disposeRelatedBothColors(this.entryEditPartToolEntryBorderFocusForgroundColor,
-                entryEditPartToolEntryBorderFocusForgroundColor);
         this.entryEditPartToolEntryBorderFocusForgroundColor = entryEditPartToolEntryBorderFocusForgroundColor;
     }
 
@@ -589,8 +625,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * set
      */
     public void setEntryEditPartToolEntryBorderFocusBackgroundColor(Color entryEditPartToolEntryBorderFocusBackgroundColor) {
-        disposeRelatedBothColors(this.entryEditPartToolEntryBorderFocusBackgroundColor,
-                entryEditPartToolEntryBorderFocusBackgroundColor);
         this.entryEditPartToolEntryBorderFocusBackgroundColor = entryEditPartToolEntryBorderFocusBackgroundColor;
     }
 
@@ -609,7 +643,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param drawerFigureBaseColor the drawerFigureBaseColor to set
      */
     public void setDrawerFigureBaseColor(Color drawerFigureBaseColor) {
-        disposeRelatedBothColors(this.drawerFigureBaseColor, drawerFigureBaseColor);
+
         this.drawerFigureBaseColor = drawerFigureBaseColor;
     }
 
@@ -628,7 +662,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param collapseTopBorderForgroundLineColor1 the collapseTopBorderForgroundLineColor1 to set
      */
     public void setCollapseTopBorderForgroundLineColor1(Color collapseTopBorderForgroundLineColor1) {
-        disposeRelatedBothColors(this.collapseTopBorderForgroundLineColor1, collapseTopBorderForgroundLineColor1);
+
         this.collapseTopBorderForgroundLineColor1 = collapseTopBorderForgroundLineColor1;
     }
 
@@ -647,7 +681,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param collapseTopBorderForgroundLineColor2 the collapseTopBorderForgroundLineColor2 to set
      */
     public void setCollapseTopBorderForgroundLineColor2(Color collapseTopBorderForgroundLineColor2) {
-        disposeRelatedBothColors(this.collapseTopBorderForgroundLineColor2, collapseTopBorderForgroundLineColor2);
+
         this.collapseTopBorderForgroundLineColor2 = collapseTopBorderForgroundLineColor2;
     }
 
@@ -666,7 +700,7 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param collapseExpandedLineForgroundColor the collapseExpandedLineForgroundColor to set
      */
     public void setCollapseExpandedLineForgroundColor(Color collapseExpandedLineForgroundColor) {
-        disposeRelatedBothColors(this.collapseExpandedLineForgroundColor, collapseExpandedLineForgroundColor);
+
         this.collapseExpandedLineForgroundColor = collapseExpandedLineForgroundColor;
     }
 
@@ -685,8 +719,98 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      * @param collapseNotExpandedLineForgroundColor the collapseNotExpandedLineForgroundColor to set
      */
     public void setCollapseNotExpandedLineForgroundColor(Color collapseNotExpandedLineForgroundColor) {
-        disposeRelatedBothColors(this.collapseNotExpandedLineForgroundColor, collapseNotExpandedLineForgroundColor);
+
         this.collapseNotExpandedLineForgroundColor = collapseNotExpandedLineForgroundColor;
+    }
+
+    /**
+     * Getter for stylingChangeListeners.
+     * 
+     * @return the stylingChangeListeners
+     */
+    public List<ICSSStylingChangedListener> getStylingChangeListeners() {
+        return this.stylingChangeListeners;
+    }
+
+    /**
+     * Sets the stylingChangeListeners.
+     * 
+     * @param stylingChangeListeners the stylingChangeListeners to set
+     */
+    public void setStylingChangeListeners(List<ICSSStylingChangedListener> stylingChangeListeners) {
+        this.stylingChangeListeners = stylingChangeListeners;
+    }
+
+    /**
+     * Getter for entryEditPartToolEntryTopLineColor.
+     * 
+     * @return the entryEditPartToolEntryTopLineColor
+     */
+    public Color getEntryEditPartToolEntryTopLineColor() {
+        return this.entryEditPartToolEntryTopLineColor;
+    }
+
+    /**
+     * Sets the entryEditPartToolEntryTopLineColor.
+     * 
+     * @param entryEditPartToolEntryTopLineColor the entryEditPartToolEntryTopLineColor to set
+     */
+    public void setEntryEditPartToolEntryTopLineColor(Color entryEditPartToolEntryTopLineColor) {
+        this.entryEditPartToolEntryTopLineColor = entryEditPartToolEntryTopLineColor;
+    }
+
+    /**
+     * Getter for entryEditPartToolEntryBottomLineColor.
+     * 
+     * @return the entryEditPartToolEntryBottomLineColor
+     */
+    public Color getEntryEditPartToolEntryBottomLineColor() {
+        return this.entryEditPartToolEntryBottomLineColor;
+    }
+
+    /**
+     * Sets the entryEditPartToolEntryBottomLineColor.
+     * 
+     * @param entryEditPartToolEntryBottomLineColor the entryEditPartToolEntryBottomLineColor to set
+     */
+    public void setEntryEditPartToolEntryBottomLineColor(Color entryEditPartToolEntryBottomLineColor) {
+        this.entryEditPartToolEntryBottomLineColor = entryEditPartToolEntryBottomLineColor;
+    }
+
+    /**
+     * Getter for entryEditPartToolEntryBackgroundColor.
+     * 
+     * @return the entryEditPartToolEntryBackgroundColor
+     */
+    public Color getEntryEditPartToolEntryBackgroundColor() {
+        return this.entryEditPartToolEntryBackgroundColor;
+    }
+
+    /**
+     * Sets the entryEditPartToolEntryBackgroundColor.
+     * 
+     * @param entryEditPartToolEntryBackgroundColor the entryEditPartToolEntryBackgroundColor to set
+     */
+    public void setEntryEditPartToolEntryBackgroundColor(Color entryEditPartToolEntryBackgroundColor) {
+        this.entryEditPartToolEntryBackgroundColor = entryEditPartToolEntryBackgroundColor;
+    }
+
+    /**
+     * Getter for entryEditPartBackgroundColorInheritFromParent.
+     * 
+     * @return the entryEditPartBackgroundColorInheritFromParent
+     */
+    public boolean isEntryEditPartBackgroundColorInheritFromParent() {
+        return this.entryEditPartBackgroundColorInheritFromParent;
+    }
+
+    /**
+     * Sets the entryEditPartBackgroundColorInheritFromParent.
+     * 
+     * @param entryEditPartBackgroundColorInheritFromParent the entryEditPartBackgroundColorInheritFromParent to set
+     */
+    public void setEntryEditPartBackgroundColorInheritFromParent(boolean entryEditPartBackgroundColorInheritFromParent) {
+        this.entryEditPartBackgroundColorInheritFromParent = entryEditPartBackgroundColorInheritFromParent;
     }
 
 }

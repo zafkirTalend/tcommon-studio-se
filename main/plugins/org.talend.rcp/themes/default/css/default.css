@@ -29,13 +29,13 @@ Shell.MTrimmedWindow {
 
 #org-eclipse-ui-main-toolbar > .Draggable {
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
 
 #org-eclipse-ui-main-toolbar > .TrimStack {
     frame-image: none;
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
 
 #org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -69,13 +69,13 @@ Shell.MTrimmedWindow {
 
 #org-eclipse-ui-trim-status .Draggable {
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
 
 #org-eclipse-ui-trim-status .TrimStack {
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
-    frame-image: url(jeeeyul://frame?background-color=#e5e5e5);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
+    frame-image: url('jeeeyul://frame?background-color=#e5e5e5');
     frame-cuts: 4px 2px 5px 16px;
 }
 
@@ -85,15 +85,15 @@ Shell.MTrimmedWindow {
  * Trim Stack
  **************************************************/
 Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
-    frame-image: url(jeeeyul://frame?background-color=#e5e5e5);
+    frame-image: url('jeeeyul://frame?background-color=#e5e5e5');
     frame-cuts: 4px 2px 5px 16px;
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
 
 Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     handle-image:
-    url(jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false);
+    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
 
 
@@ -584,6 +584,15 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
   color: black;
   background-color:white;
 }
+
+.TalendTabbedPropertyTitle{
+    border-visible: false;
+    _t-title-foreground-color:white;
+    _t-title-background-color:white;
+    _t-title-bottom-foreground-keyline1-color:white;
+    _t-title-bottom-foreground-keyline2-color:white;
+}
+
 .TalendTabbedPropertyTitle CLabel{
   color: black;
   background-color:white;
@@ -611,24 +620,9 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     tPalette-scroll-pane-list-border:0 0 0 0;
     tPalette-scroll-pane-border:0 0 0 0;
     tPalette-color-increment:20;
+    tPalette-x-offset:17;
     
-//    tPalette-collapsed-forground-color:green;
-//    tPalette-collapsed-background-color:green;
-//    tPalette-list-background-color:green;
-//    tPalette-color-increment:10;
-//    tPalette-slider-palette-forground-color:green;
-//    tPalette-slider-palette-background-color:green;
-//    tPalette-entryEditPart-arrowWidth: 10;
-//    
-//    tPalette-entryEditPart-listBorder:0 0 0 0;
-//    tPalette-entryEditPart-iconBorder:0 0 0 0;
-//    tPalette-entryEditPart-forground-disableColor:green;
-//    tPalette-entryEditPart-selected-background-color:green;
-//    tPalette-entryEditPart-hover-background-color:green;
-//    tPalette-entryEditPart-borderFocus-forground-color:green;
-//    tPalette-entryEditPart-borderFocus-background-color:green;
-//    tPalette-entryEditPart-borderFocus-background-color:green;
-//    tPalette-drawerFigure-baseColor:green;
+    tPalette-entryEditPart-entry-color-inheritFromParent:true;
     
 }
 

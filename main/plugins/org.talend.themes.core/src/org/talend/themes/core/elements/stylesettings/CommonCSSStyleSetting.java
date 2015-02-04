@@ -18,7 +18,9 @@ import java.util.Map;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 
 /**
  * created by cmeng on Jan 30, 2015 Detailled comment
@@ -42,38 +44,13 @@ public class CommonCSSStyleSetting {
         this.timeStamp = timeStamp;
     }
 
-    public void disposeRelatedColor(Color color) {
-        if (color == null) {
-            return;
+    public static Color getColorByRGB(RGB rgb) {
+        Color color = null;
+        if (!JFaceResources.getColorRegistry().hasValueFor(rgb.toString())) {
+            JFaceResources.getColorRegistry().put(rgb.toString(), rgb);
         }
-        Color oldColor = needDisposedColors.get(color);
-        if (oldColor != null) {
-            if (!oldColor.isDisposed()) {
-                oldColor.dispose();
-            }
-            needDisposedColors.remove(color);
-        }
-    }
-
-    public void disposeRelatedBothColors(Color oldColor, Color newColor) {
-        Color needDisposedOldColor = null;
-        if (oldColor != null) {
-            needDisposedOldColor = needDisposedColors.get(oldColor);
-        }
-        if (needDisposedOldColor != null) {
-            if (!needDisposedOldColor.isDisposed()) {
-                needDisposedOldColor.dispose();
-            }
-            if (!oldColor.isDisposed()) {
-                oldColor.dispose();
-            }
-            needDisposedColors.remove(oldColor);
-            // System.out.println("disposeRelatedBothColors:disposed");
-        } else {
-            if (newColor != null) {
-                needDisposedColors.put(newColor, oldColor);
-            }
-        }
+        color = JFaceResources.getColorRegistry().get(rgb.toString());
+        return color;
     }
 
     public static void copyBorderSetting(Border from, Border to) {

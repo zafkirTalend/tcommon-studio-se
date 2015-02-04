@@ -9,7 +9,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.e4.ui.css.core,
  org.eclipse.e4.ui.css.swt,
- org.eclipse.draw2d
+ org.eclipse.draw2d,
+ org.eclipse.jface,
+ org.eclipse.swt
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.themes.core.elements.interfaces,
  org.talend.themes.core.elements.stylesettings,

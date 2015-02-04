@@ -108,6 +108,21 @@
          <property-name
                name="tPalette-collapse-notExpanded-forground-lineColor">
          </property-name>
+         <property-name
+               name="tPalette-x-offset">
+         </property-name>
+         <property-name
+               name="tPalette-entryEditPart-entry-topLine-color">
+         </property-name>
+         <property-name
+               name="tPalette-entryEditPart-entry-bottomLine-color">
+         </property-name>
+         <property-name
+               name="tPalette-entryEditPart-entry-background-color">
+         </property-name>
+         <property-name
+               name="tPalette-entryEditPart-entry-color-inheritFromParent">
+         </property-name>
       </handler>
       
    </extension>
