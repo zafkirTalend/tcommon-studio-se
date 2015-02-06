@@ -91,4 +91,10 @@ public interface ITalendProcessJavaProject {
      * sync the templates.
      */
     void syncTemplates(boolean overwrite);
+
+    /**
+     * 
+     * check and add the job to project module list.
+     */
+    void addJobModuleInProject(String jobPomPath);
 }

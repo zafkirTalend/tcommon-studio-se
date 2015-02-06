@@ -32,13 +32,14 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
 import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.utils.PomManager;
 
 /**
  * created by ggu on 22 Jan 2015 Detailled comment
@@ -155,7 +156,7 @@ public class CreateMavenCodeProject extends CreateMaven {
     }
 
     private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
-        IFile pomFile = p.getFile(IMavenConstants.POM_FILE_NAME);
+        IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
             try {
                 MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
@@ -165,27 +166,15 @@ public class CreateMavenCodeProject extends CreateMaven {
                     // if not pom, change to pom
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
-                        // TODO, change the default ".Java" to sepcial one. if OEM, maybe need change too.
-                        model.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
-                        model.setArtifactId(TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
+                        // TalendMavenContants.DEFAULT_GROUP_ID
+                        model.setGroupId(JavaResourcesHelper.getGroupName(null));
+                        // TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID,
+                        model.setArtifactId(JavaResourcesHelper.getGroupName("sources")); //$NON-NLS-1$
 
-                        /*
-                         * need find one way to do overwrite.
-                         */
-                        // IModelManager modelManager = StructuredModelManager.getModelManager();
-                        // IStructuredModel sModel = modelManager.getModelForRead(pomFile);
-                        // IDOMModel domModel = (IDOMModel)
-                        // modelManager.getModelForEdit(sModel.getStructuredDocument());
-                        // ElementValueProvider privider = new ElementValueProvider(PomEdits.ARTIFACT_ID);
-                        // Element el = privider.get(domModel.getDocument());
-                        // PomEdits.setText(el, model.getArtifactId());
-                        // sModel.save();
-
-                        pomFile.delete(true, monitor);
-                        mavenModelManager.createMavenModel(pomFile, model);
+                        PomManager.savePom(monitor, model, pomFile);
                     }
                 }
-            } catch (CoreException e) {
+            } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
 
