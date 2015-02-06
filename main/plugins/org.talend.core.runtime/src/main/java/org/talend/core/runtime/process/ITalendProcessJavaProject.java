@@ -84,6 +84,11 @@ public interface ITalendProcessJavaProject {
      * 
      * sync and generate maven pom for routines.
      */
-    void syncRoutinesPom();
+    void syncRoutinesPom(boolean overwrite);
 
+    /**
+     * 
+     * sync the templates.
+     */
+    void syncTemplates(boolean overwrite);
 }

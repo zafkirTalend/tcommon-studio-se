@@ -19,8 +19,21 @@ package org.talend.designer.maven.template;
 @SuppressWarnings("nls")
 public interface MavenTemplateConstants {
 
-    final static String TEMPLATE_PATH = "resources/templates";
+    final static String RESOURCES_PATH = "resources";
 
-    final static String POM_ROUTINGS_FILE = "routines_pom_template.xml";
+    final static String TEMPLATE_PATH = "templates";
 
+    final static String RESOURCES_TEMPLATE_PATH = RESOURCES_PATH + '/' + TEMPLATE_PATH;
+
+    final static String ROUTINGS_TEMPLATE_FILE_NAME = "routines_pom_template.xml";
+
+    final static String JOB_TEMPLATE_FILE_NAME = "job_pom_template.xml";
+
+    final static String JOB_ASSEMBLY_TEMPLATE_FILE_NAME = "job_assembly_template.xml";
+
+    final static String JOB_RUN_BAT_TEMPLATE_FILE_NAME = "Job_run_template.bat";
+
+    final static String JOB_RUN_SH_TEMPLATE_FILE_NAME = "Job_run_template.sh";
+
+    final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
 }

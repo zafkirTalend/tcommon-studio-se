@@ -16,8 +16,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
@@ -71,13 +73,20 @@ public class JavaResourcesHelper {
     }
 
     public static String getJobFolderName(String jobName, String version) {
+        String newJobName = escapeFileName(jobName).toLowerCase();
         if (version != null) {
-            return jobName.replaceAll(" ", "_").toLowerCase() + "_" + version.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-        } else {
-            return jobName.replaceAll(" ", "_").toLowerCase(); //$NON-NLS-1$ //$NON-NLS-2$
+            newJobName += '_' + version.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ 
         }
+        return newJobName;
     }
 
+    public static String escapeFileName(final String fileName) {
+        return fileName != null ? fileName.replace(" ", "_") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    }
+
+    /**
+     * even project is "Test", will return "test".
+     */
     public static String getProjectFolderName(Property property) {
         if (property == null) {
             return ProjectManager.getInstance().getCurrentProject().getTechnicalLabel().toLowerCase();
@@ -85,6 +94,9 @@ public class JavaResourcesHelper {
         return getProjectFolderName(property.getItem());
     }
 
+    /**
+     * even project is "Test", will return "test".
+     */
     public static String getProjectFolderName(Item item) {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.properties.Project p = pManager.getProject(item);
@@ -93,10 +105,13 @@ public class JavaResourcesHelper {
         return projectFolderName;
     }
 
-    public static String getGroupItemName(String projectName, String itemName) {
-        if (itemName == null) {
-            return null;
-        }
+    /**
+     * project name is "Test". will return "org.talend.test".
+     * 
+     * If other branding, like "Camel", will return "org.camel.test".
+     */
+    public static String getGroupName(String projectName) {
+
         String itemGroupPrefixName = "org."; //$NON-NLS-1$
         String corporationName = null;
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
@@ -106,31 +121,79 @@ public class JavaResourcesHelper {
                 corporationName = corporationName.trim();
             }
         }
-        if (corporationName == null || "".equals(corporationName)) { //$NON-NLS-1$
+        if (corporationName == null || corporationName.length() == 0) {
             corporationName = "talend"; //$NON-NLS-1$
         }
         itemGroupPrefixName += corporationName;
+
         if (projectName != null) {
             itemGroupPrefixName += '.' + projectName;
         }
-        itemGroupPrefixName += '.' + itemName;
         return itemGroupPrefixName.trim().toLowerCase();
     }
 
+    /**
+     * return the getGroupName with project "Test", and item name "TestJob".
+     * 
+     * something like: "org.talend.test.testjob".
+     */
+    public static String getGroupItemName(String projectName, String itemName) {
+        if (itemName == null) {
+            return null;
+        }
+        return getGroupName(projectName) + '.' + getJobFolderName(itemName, null);
+    }
+
+    /**
+     * if project "Test" and item "TestJob 0.1" , will return "test.testjob_0_1"
+     * 
+     */
     public static String getJobClassPackageName(Item processItem) {
         Property itemProperty = processItem.getProperty();
-        String itemLabel = itemProperty.getLabel();
-        String itemVersion = itemProperty.getVersion();
-        String packageName = getProjectFolderName(processItem) + "." + getJobFolderName(itemLabel, itemVersion);
+        String packageName = getProjectFolderName(processItem) + '.'
+                + getJobFolderName(itemProperty.getLabel(), itemProperty.getVersion());
         return packageName;
     }
 
+    /**
+     * if project "Test" and item "TestJob 0.1" , will return "test.testjob_0_1.TestJob"
+     * 
+     */
+    public static String getJobPackagedClass(Item processItem, boolean filenameFromLabel) {
+        String jobName = filenameFromLabel ? escapeFileName(processItem.getProperty().getLabel()) : processItem.getProperty()
+                .getId();
+        return getJobClassPackageName(processItem) + '.' + jobName;
+    }
+
     public static String getJobClassName(Item processItem) {
-        return getJobClassPackageName(processItem) + "." + processItem.getProperty().getLabel();
+        return getJobPackagedClass(processItem, true);
     }
 
     public static String getJobClassName(RepositoryNode jobNode) {
         return getJobClassName(jobNode.getObject().getProperty().getItem());
     }
 
+    /**
+     * if project "Test" and item "TestJob 0.1" , will return "test/testjob_0_1".
+     * 
+     */
+    public static String getJobClassPackageFolder(Item processItem) {
+        return getJobClassPackageName(processItem).replace('.', '/');
+    }
+
+    /**
+     * project is test. job is "TestJob 0.1".
+     * 
+     * will return test/testjob_0_1/TestJob.java
+     */
+    public static String getJobClassFilePath(Item processItem, boolean filenameFromLabel) {
+        return getJobPackagedClass(processItem, filenameFromLabel).replace('.', '/') + JavaUtils.JAVA_EXTENSION;
+    }
+
+    /**
+     * like Default.properties
+     */
+    public static String getJobContextName(IContext c) {
+        return escapeFileName(c.getName()) + JavaUtils.JAVA_CONTEXT_EXTENSION;
+    }
 }

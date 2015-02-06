@@ -86,7 +86,7 @@ public abstract class CreateMaven {
      * According to setting, create Maven Model.
      * 
      */
-    protected Model getModel() {
+    protected Model createModel() {
         Model model = new Model();
         model.setModelVersion(MavenConstants.POM_VERSION);
 

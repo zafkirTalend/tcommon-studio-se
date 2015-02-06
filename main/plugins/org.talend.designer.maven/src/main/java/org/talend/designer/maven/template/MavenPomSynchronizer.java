@@ -14,10 +14,10 @@ package org.talend.designer.maven.template;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.m2e.core.internal.IMavenConstants;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenContants;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -32,17 +32,31 @@ public class MavenPomSynchronizer {
         this.codeProject = codeProject;
     }
 
-    public void syncRoutinesPom() {
+    public void syncRoutinesPom(boolean overwrite) throws Exception {
         IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-        IFile routinesPomFile = routinesSrcFolder.getFile(IMavenConstants.POM_FILE_NAME);
-        if (!routinesPomFile.exists()) {// generate new one
-            CreateTemplateMavenPom createTemplatePom = new CreateTemplateMavenPom(routinesSrcFolder,
-                    MavenTemplateConstants.POM_ROUTINGS_FILE);
-            try {
-                createTemplatePom.create(null);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
+        IFile routinesPomFile = routinesSrcFolder.getFile(MavenConstants.POM_FILE_NAME);
+        if (overwrite || !routinesPomFile.exists()) {// generate new one
+            CreateTemplateMavenPom createTemplatePom = new CreateTemplateMavenPom(routinesPomFile,
+                    MavenTemplateConstants.ROUTINGS_TEMPLATE_FILE_NAME);
+            createTemplatePom.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
+            createTemplatePom.setArtifactId(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
+            createTemplatePom.setVersion(TalendMavenContants.DEFAULT_VERSION);
+            createTemplatePom.setOverwrite(false); // don't overwrite.
+            createTemplatePom.create(null);
         }
+    }
+
+    public void syncTemplates(boolean overwrite) throws Exception {
+        IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+
+        IFile shFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
+        MavenTemplateManager.copyTemplate(shFile.getName(), shFile, overwrite);
+
+        IFile batFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_BAT_TEMPLATE_FILE_NAME);
+        MavenTemplateManager.copyTemplate(batFile.getName(), batFile, overwrite);
+
+        IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
+        MavenTemplateManager.copyTemplate(infoFile.getName(), infoFile, overwrite);
+
     }
 }

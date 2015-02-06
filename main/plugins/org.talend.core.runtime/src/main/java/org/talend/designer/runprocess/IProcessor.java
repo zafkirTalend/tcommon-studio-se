@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
+import java.util.Set;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -288,4 +290,6 @@ public interface IProcessor {
     public void syntaxCheck();
 
     String getMainClass();
+
+    Set<String> getNeededLibraries();
 }

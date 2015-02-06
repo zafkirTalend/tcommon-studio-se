@@ -14,19 +14,15 @@ package org.talend.designer.maven.template;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.designer.maven.DesignerMavenPlugin;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.project.CreateMaven;
 
 /**
@@ -39,41 +35,47 @@ public class CreateTemplateMavenPom extends CreateMaven {
 
     private final String templatePomFile;
 
-    private final IFolder baseFolder;
+    private final IFile pomFile;
 
-    public CreateTemplateMavenPom(IFolder baseFolder, String templatePomFile) {
+    private boolean overwrite = true;
+
+    public CreateTemplateMavenPom(IFile pomFile, String templatePomFile) {
         super();
-        this.baseFolder = baseFolder;
+        this.pomFile = pomFile;
         this.templatePomFile = templatePomFile;
     }
 
+    protected IFile getPomFile() {
+        return this.pomFile;
+    }
+
+    public boolean isOverwrite() {
+        return this.overwrite;
+    }
+
+    public void setOverwrite(boolean overwrite) {
+        this.overwrite = overwrite;
+    }
+
     @Override
-    protected Model getModel() {
+    protected Model createModel() {
         Model model = null;
+        try {
+            InputStream inputStream = MavenTemplateManager.getTemplate(templatePomFile);
+            if (inputStream != null) {
+                model = MODEL_MANAGER.readMavenModel(inputStream);
 
-        URL routinesTemplateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                .getEntry(MavenTemplateConstants.TEMPLATE_PATH + '/' + templatePomFile);
-        if (routinesTemplateUrl != null) {
-            try {
-                InputStream inputStream = routinesTemplateUrl.openStream();
-                if (inputStream != null) {
-                    model = MODEL_MANAGER.readMavenModel(inputStream);
-
-                }
-            } catch (IOException e) {
-                ExceptionHandler.process(e);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
             }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
         }
 
         // retrieve template failure. try default one.
         if (model == null) {
-            setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
-            setArtifactId(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
-            setVersion(TalendMavenContants.DEFAULT_VERSION);
             // create default model
-            model = super.getModel();
+            model = super.createModel();
         }
         return model;
     }
@@ -85,16 +87,18 @@ public class CreateTemplateMavenPom extends CreateMaven {
      */
     @Override
     public void create(IProgressMonitor monitor) throws Exception {
-        if (baseFolder == null) {
+        if (pomFile == null) {
             return;
         }
-        IFile routinesPomFile = baseFolder.getFile(IMavenConstants.POM_FILE_NAME);
-        if (routinesPomFile.exists()) {
-            throw new IOException("The pom file for routine have been existed. it's " + routinesPomFile); //$NON-NLS-1$
+        if (!pomFile.getName().equals(MavenConstants.POM_FILE_NAME)) {
+            throw new IOException("Must be pom.xml, shouldn't be specially like: " + pomFile);
+        }
+        if (!isOverwrite() && pomFile.exists()) {
+            throw new IOException("The pom file have been existed. it's " + pomFile);
         }
 
-        Model model = getModel();
-        MODEL_MANAGER.createMavenModel(routinesPomFile, model);
+        Model model = createModel();
+        MODEL_MANAGER.createMavenModel(pomFile, model);
 
     }
 

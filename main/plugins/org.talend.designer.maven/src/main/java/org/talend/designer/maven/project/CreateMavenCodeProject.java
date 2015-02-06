@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -59,14 +60,14 @@ public class CreateMavenCodeProject extends CreateMaven {
 
     @SuppressWarnings("nls")
     @Override
-    protected Model getModel() {
+    protected Model createModel() {
         // The groupId and artifactId are temp, will change it after create project.
         setGroupId(project.getName());
         setArtifactId(project.getName());
         // Must be jar, if pom, won't create the classpath or such for jdt.
         setPackaging(MavenConstants.PACKAGING_JAR);
 
-        Model model = super.getModel();
+        Model model = super.createModel();
         Properties p = new Properties();
 
         /**
@@ -74,8 +75,8 @@ public class CreateMavenCodeProject extends CreateMaven {
          * 
          * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
          */
-        p.put("maven.compiler.source", JavaCore.VERSION_1_6);
-        p.put("maven.compiler.target", JavaCore.VERSION_1_6);
+        p.put("maven.compiler.source", TalendMavenContants.DEFAULT_JDK_VERSION);
+        p.put("maven.compiler.target", TalendMavenContants.DEFAULT_JDK_VERSION);
         model.setProperties(p);
 
         return model;
@@ -119,8 +120,9 @@ public class CreateMavenCodeProject extends CreateMaven {
      * after create operation, can do something, like add some natures.
      */
     protected void afterCreate(IProgressMonitor monitor, IResource res) throws Exception {
-        covertJavaProjectToPom(monitor, res.getProject());
-        changeClasspath(monitor, res.getProject());
+        IProject p = res.getProject();
+        covertJavaProjectToPom(monitor, p);
+        changeClasspath(monitor, p);
     }
 
     @Override
@@ -129,26 +131,29 @@ public class CreateMavenCodeProject extends CreateMaven {
         if (monitor == null) {
             pMoniter = new NullProgressMonitor();
         }
+        IProgressMonitor subMonitor = new SubProgressMonitor(pMoniter, 100);
 
-        final Model model = getModel();
+        final Model model = createModel();
         final ProjectImportConfiguration importConfiguration = new ProjectImportConfiguration();
         final IProject p = importConfiguration.getProject(ResourcesPlugin.getWorkspace().getRoot(), model);
         final IPath location = getBaseLocation();
         final String[] folders = getFolders();
 
-        beforeCreate(monitor, p);
+        beforeCreate(subMonitor, p);
+        subMonitor.worked(10);
 
         MavenPlugin.getProjectConfigurationManager().createSimpleProject(p, location.append(p.getName()), model, folders,
-                importConfiguration, pMoniter);
+                importConfiguration, subMonitor);
+        subMonitor.worked(80);
 
-        afterCreate(monitor, p);
+        afterCreate(subMonitor, p);
+        subMonitor.done();
 
         // update the project
         this.project = p;
         return;
     }
 
-    @SuppressWarnings({ "restriction", "nls" })
     private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
         IFile pomFile = p.getFile(IMavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
@@ -231,4 +236,5 @@ public class CreateMavenCodeProject extends CreateMaven {
             ExceptionHandler.process(e);
         }
     }
+
 }
