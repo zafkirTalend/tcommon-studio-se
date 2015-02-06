@@ -147,13 +147,10 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
         entryEditPartToolEntryBackgroundColor = getColorByRGB(ColorConstants.red.getRGB());
         entryEditPartBackgroundColorInheritFromParent = true;
 
-        {
-            // by default, maybe needn't draw those lines
-            // collapseTopBorderForgroundLineColor1 = getColorByRGB( ColorConstants.buttonDarker.getRGB());
-            // collapseTopBorderForgroundLineColor2 = getColorByRGB( ColorConstants.white.getRGB());
-            // collapseExpandedLineForgroundColor = getColorByRGB( ColorConstants.buttonDarker.getRGB());
-            // collapseNotExpandedLineForgroundColor = getColorByRGB( ColorConstants.white.getRGB());
-        }
+        collapseTopBorderForgroundLineColor1 = getColorByRGB(ColorConstants.buttonDarker.getRGB());
+        collapseTopBorderForgroundLineColor2 = getColorByRGB(ColorConstants.white.getRGB());
+        collapseExpandedLineForgroundColor = getColorByRGB(ColorConstants.buttonDarker.getRGB());
+        collapseNotExpandedLineForgroundColor = getColorByRGB(ColorConstants.white.getRGB());
     }
 
     public static Color getSubColor(Color color, int increment) {

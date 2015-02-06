@@ -151,6 +151,17 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     jtab-close-button-line-width: 1px;
     
     jtab-chevron-color: #555964;
+    
+    jtab-minimize-button-forground-color:black;
+    jtab-minimize-button-background-color:black;
+    jtab-maximize-button-forground-color:black;
+    jtab-maximize-button-background-color:black;
+    jtab-minimize-button-none-image: url('./default/pics/studio_6.0_minimize_view.png');
+    jtab-minimize-button-hot-image: url('./default/pics/studio_6.0_minimize_view.png');
+    jtab-minimize-button-selected-image: url('./default/pics/studio_6.0_minimize_view.png');
+    jtab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
+    jtab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
+    jtab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
 }
 
 .MPartStack>CTabItem {
@@ -462,13 +473,12 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     _t-list-background-color:#D3D3D3;
 }
 
-.TalendTabbedPropertyList{
+.TalendTabbedPropertyTitle{
     border-visible: false;
-    color:black;
-    background-color:white;
-    _t-widget-normal-shadow-color:white;
-    _t-widget-dark-shadow-color:white;
-    _t-list-background-color:#D3D3D3;
+    _t-title-foreground-color:white;
+    _t-title-background-color:white;
+    _t-title-bottom-foreground-keyline1-color:white;
+    _t-title-bottom-foreground-keyline2-color:white;
 }
 
 .ProcessComposite Composite{
@@ -584,15 +594,6 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
   color: black;
   background-color:white;
 }
-
-.TalendTabbedPropertyTitle{
-    border-visible: false;
-    _t-title-foreground-color:white;
-    _t-title-background-color:white;
-    _t-title-bottom-foreground-keyline1-color:white;
-    _t-title-bottom-foreground-keyline2-color:white;
-}
-
 .TalendTabbedPropertyTitle CLabel{
   color: black;
   background-color:white;
@@ -602,28 +603,39 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
  * Palette
  **************************************************/
 
+.PaletteSearchBar {
+    background-color:white;
+}
+
+.PaletteSearchBar Text {
+    background-color:white;
+}
+
+.PaletteSearchBar ToolBar {
+    jtool-item-color:white;
+}
+
 .TalendPaletteCls {
-    tPalette-collapsed-forground-color:#ecf0f1;
-    tPalette-collapsed-background-color:#ecf0f1;
-    tPalette-mouseOver-forground-color1:yellow;
-    tPalette-mouseOver-forground-color2:yellow;
-    tPalette-mouseOver-forground-color3:yellow;
-    tPalette-mouseOver-background-color1:yellow;
-    tPalette-mouseOver-background-color2:yellow;
-    tPalette-mouseOver-background-color3:yellow;
-    tPalette-expanded-background-color:green;
+    tPalette-collapsed-forground-color:white;
+    tPalette-collapsed-background-color:white;
+    tPalette-mouseOver-forground-color1:#ADADAD;
+    tPalette-mouseOver-forground-color2:#ADADAD;
+    tPalette-mouseOver-forground-color3:#ADADAD;
+    tPalette-mouseOver-background-color1:#ADADAD;
+    tPalette-mouseOver-background-color2:#ADADAD;
+    tPalette-mouseOver-background-color3:#ADADAD;				/* */
+/*   	tPalette-expanded-background-color:#0069d9;					/* background color when level is selected */
     
-    tPalette-collapse-topBorder-forground-lineColor1:#ecf0f1;
-    tPalette-collapse-topBorder-forground-lineColor2:gray;
-    tPalette-collapse-expanded-forground-lineColor:gray;
-    tPalette-collapse-notExpanded-forground-lineColor:gray;
+    tPalette-collapse-topBorder-forground-lineColor1:#ecf0f1;   /* top border  */
+    tPalette-collapse-topBorder-forground-lineColor2:white;     /* top border  */
+    tPalette-collapse-expanded-forground-lineColor:white;     	/* bottom border  */
+    tPalette-collapse-notExpanded-forground-lineColor:white;	/* bottom border  */
     tPalette-scroll-pane-list-border:0 0 0 0;
     tPalette-scroll-pane-border:0 0 0 0;
-    tPalette-color-increment:20;
+    tPalette-color-increment:10;   								/* color increment in palette depth  */
+    
     tPalette-x-offset:17;
-    
     tPalette-entryEditPart-entry-color-inheritFromParent:true;
-    
 }
 
 /**************************************************
