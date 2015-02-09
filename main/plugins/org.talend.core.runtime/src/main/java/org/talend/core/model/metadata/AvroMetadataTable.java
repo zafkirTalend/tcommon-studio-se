@@ -91,7 +91,7 @@ public class AvroMetadataTable extends MetadataTable {
     public void setAvroSchema(String connectionName) {
 
         System.out.println(technicalProjectName + "." + jobName);
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "AvroStruct")
+        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct")
                 .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
