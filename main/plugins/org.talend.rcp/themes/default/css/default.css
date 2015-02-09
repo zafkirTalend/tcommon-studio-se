@@ -102,7 +102,7 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Inactive Part Stack
  **************************************************/
 .MPartStack {
-    swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes.ui/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+    swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     swt-mru-visible: true;
     
     /* layout */
@@ -152,16 +152,16 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     
     jtab-chevron-color: #555964;
     
-    jtab-minimize-button-forground-color:black;
-    jtab-minimize-button-background-color:black;
-    jtab-maximize-button-forground-color:black;
-    jtab-maximize-button-background-color:black;
-    jtab-minimize-button-none-image: url('./default/pics/studio_6.0_minimize_view.png');
-    jtab-minimize-button-hot-image: url('./default/pics/studio_6.0_minimize_view.png');
-    jtab-minimize-button-selected-image: url('./default/pics/studio_6.0_minimize_view.png');
-    jtab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
-    jtab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
-    jtab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
+    tab-minimize-button-forground-color:black;
+    tab-minimize-button-background-color:black;
+    tab-maximize-button-forground-color:black;
+    tab-maximize-button-background-color:black;
+    tab-minimize-button-none-image: url('./default/pics/studio_6.0_minimize_view.gif');
+    tab-minimize-button-hot-image: url('./default/pics/studio_6.0_minimize_view.gif');
+    tab-minimize-button-selected-image: url('./default/pics/studio_6.0_minimize_view.gif');
+    tab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.gif');
+    tab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.gif');
+    tab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.gif');
 }
 
 .MPartStack>CTabItem {
@@ -179,7 +179,7 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Active Part Stack
  **************************************************/
 .MPartStack.active {
-    swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes.ui/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+    swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     
     /* tab background */
     jtab-header-background : #e5e5e5 #e5e5e5 100%;
@@ -260,7 +260,7 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Editors Area
  **************************************************/
 CTabFolder#org-eclipse-ui-editorss.MArea{
-    swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes.ui/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+    swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     swt-tab-height: 10px;
     jtab-header-background : #e5e5e5 #e5e5e5 100%;
     jtab-border-color : none;
@@ -349,7 +349,7 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
  * Inactive MultiPageEditor Header Part Stack
  **************************************************/
 #org-eclipse-e4-primaryDataStack {
-    swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes.ui/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+    swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     
     /* tab background */
     jtab-header-background : #555964 #555964 100%;
@@ -397,7 +397,7 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
  * Active MultiPageEditor Header Part Stack
  **************************************************/
 #org-eclipse-e4-primaryDataStack.active {
-    swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes.ui/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+    swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     
     /* tab background */
     jtab-header-background : #555964 #555964 100%;
@@ -636,6 +636,9 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     
     tPalette-x-offset:17;
     tPalette-entryEditPart-entry-color-inheritFromParent:true;
+    
+    tPalette-searchButton-background-color:white;
+    tPalette-searchButton-image:url('./default/pics/studio_6.0_palette_search.gif');
 }
 
 /**************************************************

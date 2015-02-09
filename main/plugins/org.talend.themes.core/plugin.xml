@@ -9,6 +9,13 @@
                class="org.talend.themes.core.elements.widgets.ITalendPaletteWidget">
          </widget>
       </provider>
+      <provider
+         class="org.talend.themes.core.elements.providers.CSSSWTElementProvider">
+      <widget
+            class="org.talend.core.ui.properties.tab.TalendTabbedPropertyList"></widget>
+      <widget
+            class="org.talend.core.ui.properties.tab.TalendTabbedPropertyTitle"></widget>
+   </provider>
    </extension>
    <extension
          point="org.eclipse.e4.ui.css.core.propertyHandler">
@@ -123,7 +130,81 @@
          <property-name
                name="tPalette-entryEditPart-entry-color-inheritFromParent">
          </property-name>
+         <property-name
+               name="tPalette-searchButton-background-color">
+         </property-name>
+         <property-name
+               name="tPalette-searchButton-image">
+         </property-name>
       </handler>
-      
+      <handler
+         adapter="org.talend.themes.core.elements.adapters.CSSUserProfileElementAdapter"
+         composite="true"
+         handler="org.talend.themes.core.elements.handlers.TalendTabbedPropertyUserProfileCSSHandler">
+         <property-name
+               name="color">
+         </property-name>
+         <property-name
+               name="background-color">
+         </property-name>
+         <property-name
+               name="_t-widget-normal-shadow-color">
+         </property-name>
+         <property-name
+               name="_t-widget-dark-shadow-color">
+         </property-name>
+         <property-name
+               name="_t-list-background-color">
+         </property-name>
+         <property-name
+               name="border-visible">
+         </property-name>
+         <property-name
+               name="_t-title-foreground-color">
+         </property-name>
+         <property-name
+               name="_t-title-background-color">
+         </property-name>
+         <property-name
+               name="_t-title-bottom-foreground-keyline1-color">
+         </property-name>
+         <property-name
+               name="_t-title-bottom-foreground-keyline2-color">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CTabFolderElement"
+            handler="org.talend.themes.core.elements.handlers.TalendTabCSSPropertyHandler">
+         <property-name
+               name="tab-minimize-button-forground-color">
+         </property-name>
+         <property-name
+               name="tab-minimize-button-background-color">
+         </property-name>
+         <property-name
+               name="tab-minimize-button-none-image">
+         </property-name>
+         <property-name
+               name="tab-minimize-button-hot-image">
+         </property-name>
+         <property-name
+               name="tab-minimize-button-selected-image">
+         </property-name>
+         <property-name
+               name="tab-maximize-button-forground-color">
+         </property-name>
+         <property-name
+               name="tab-maximize-button-background-color">
+         </property-name>
+         <property-name
+               name="tab-maximize-button-none-image">
+         </property-name>
+         <property-name
+               name="tab-maximize-button-hot-image">
+         </property-name>
+         <property-name
+               name="tab-maximize-button-selected-image">
+         </property-name>
+      </handler>
    </extension>
 </plugin>

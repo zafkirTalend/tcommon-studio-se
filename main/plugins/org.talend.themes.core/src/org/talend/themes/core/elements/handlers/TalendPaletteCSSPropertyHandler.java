@@ -19,6 +19,7 @@ import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.themes.core.elements.adapters.TalendPaletteElement;
@@ -420,6 +421,24 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
                     && paletteSetting.isEntryEditPartBackgroundColorInheritFromParent() != inheritFromParent) {
                 changed = true;
                 paletteSetting.setEntryEditPartBackgroundColorInheritFromParent(inheritFromParent);
+            }
+        } else if ("tPalette-searchButton-background-color".equalsIgnoreCase(property)) {
+            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            Color oldColor = paletteSetting.getSearchButtonBackgroundColor();
+            if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
+                changed = true;
+                paletteSetting.setSearchButtonBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
+            }
+        } else if ("tPalette-searchButton-image".equalsIgnoreCase(property)) {
+            Image image = null;
+            try {
+                image = (Image) engine.convert(value, Image.class, paletteComposite.getDisplay());
+            } catch (Exception e) {
+                // nothing to do
+            }
+            if (image != null && paletteSetting.getSearchButtonImage() != image) {
+                changed = true;
+                paletteSetting.setSearchButtonImage(image);
             }
         }
 

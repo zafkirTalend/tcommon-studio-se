@@ -52,6 +52,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.views.properties.tabbed.ITabItem;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.themes.core.elements.stylesettings.TalendTabbedPropertyColorHelper;
+import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyListWidget;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -59,7 +61,7 @@ import org.talend.core.ui.CoreUIPlugin;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
  * 
  */
-public class TalendTabbedPropertyList extends Composite {
+public class TalendTabbedPropertyList extends Composite implements ITalendTabbedPropertyListWidget {
 
     private static final String PROPERTIES_NOT_AVAILABLE = "Properties not available."; //$NON-NLS-1$
 

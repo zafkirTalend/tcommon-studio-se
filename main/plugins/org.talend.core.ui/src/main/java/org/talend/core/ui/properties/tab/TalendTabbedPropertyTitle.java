@@ -30,12 +30,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IFormColors;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.talend.core.ui.CoreUIPlugin;
+import org.talend.themes.core.elements.stylesettings.TalendTabbedPropertyColorHelper;
+import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyTitleWidget;
 
 /**
  * created by hcyi on Feb 2, 2015 Detailled comment
  *
  */
-public class TalendTabbedPropertyTitle extends Composite {
+public class TalendTabbedPropertyTitle extends Composite implements ITalendTabbedPropertyTitleWidget {
 
     private CLabel label;
 
@@ -161,6 +163,7 @@ public class TalendTabbedPropertyTitle extends Composite {
         redraw();
     }
 
+    @Override
     public TalendTabbedPropertyColorHelper getColorHelper() {
         return this.colorHelper;
     }

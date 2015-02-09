@@ -19,6 +19,7 @@ import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
 
@@ -102,6 +103,10 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
     protected boolean entryEditPartBackgroundColorInheritFromParent;
 
+    protected Image searchButtonImage;
+
+    protected Color searchButtonBackgroundColor;
+
     public TalendPaletteCSSStyleSetting() {
         resetPaletteCSSStyle();
     }
@@ -151,6 +156,8 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
         collapseTopBorderForgroundLineColor2 = getColorByRGB(ColorConstants.white.getRGB());
         collapseExpandedLineForgroundColor = getColorByRGB(ColorConstants.buttonDarker.getRGB());
         collapseNotExpandedLineForgroundColor = getColorByRGB(ColorConstants.white.getRGB());
+
+        searchButtonImage = null;
     }
 
     public static Color getSubColor(Color color, int increment) {
@@ -808,6 +815,42 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
      */
     public void setEntryEditPartBackgroundColorInheritFromParent(boolean entryEditPartBackgroundColorInheritFromParent) {
         this.entryEditPartBackgroundColorInheritFromParent = entryEditPartBackgroundColorInheritFromParent;
+    }
+
+    /**
+     * Getter for searchButtonImage.
+     * 
+     * @return the searchButtonImage
+     */
+    public Image getSearchButtonImage() {
+        return this.searchButtonImage;
+    }
+
+    /**
+     * Sets the searchButtonImage.
+     * 
+     * @param searchButtonImage the searchButtonImage to set
+     */
+    public void setSearchButtonImage(Image searchButtonImage) {
+        this.searchButtonImage = searchButtonImage;
+    }
+
+    /**
+     * Getter for searchButtonBackgroundColor.
+     * 
+     * @return the searchButtonBackgroundColor
+     */
+    public Color getSearchButtonBackgroundColor() {
+        return this.searchButtonBackgroundColor;
+    }
+
+    /**
+     * Sets the searchButtonBackgroundColor.
+     * 
+     * @param searchButtonBackgroundColor the searchButtonBackgroundColor to set
+     */
+    public void setSearchButtonBackgroundColor(Color searchButtonBackgroundColor) {
+        this.searchButtonBackgroundColor = searchButtonBackgroundColor;
     }
 
 }

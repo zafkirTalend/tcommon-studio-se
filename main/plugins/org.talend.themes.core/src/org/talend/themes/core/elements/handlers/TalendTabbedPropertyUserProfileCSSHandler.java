@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.rcp.css.custom.css;
+package org.talend.themes.core.elements.handlers;
 
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.dom.properties.converters.ICSSValueConverter;
@@ -18,9 +18,9 @@ import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.properties.AbstractCSSPropertySWTHandler;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Control;
-import org.talend.core.ui.properties.tab.TalendTabbedPropertyColorHelper;
-import org.talend.core.ui.properties.tab.TalendTabbedPropertyList;
-import org.talend.core.ui.properties.tab.TalendTabbedPropertyTitle;
+import org.talend.themes.core.elements.stylesettings.TalendTabbedPropertyColorHelper;
+import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyListWidget;
+import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyTitleWidget;
 import org.w3c.dom.css.CSSValue;
 
 /**
@@ -53,8 +53,8 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
     @Override
     protected void applyCSSProperty(Control control, String property, CSSValue value, String pseudo, CSSEngine engine)
             throws Exception {
-        if (control instanceof TalendTabbedPropertyList) {
-            TalendTabbedPropertyList userProfileWidget = (TalendTabbedPropertyList) control;
+        if (control instanceof ITalendTabbedPropertyListWidget) {
+            ITalendTabbedPropertyListWidget userProfileWidget = (ITalendTabbedPropertyListWidget) control;
             TalendTabbedPropertyColorHelper colorHelper = userProfileWidget.getColorHelper();
             if (value != null && CSSValue.CSS_PRIMITIVE_VALUE == value.getCssValueType()) {
                 Color newColor = (Color) engine.convert(value, Color.class, control.getDisplay());
@@ -85,8 +85,8 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
             }
         }
 
-        if (control instanceof TalendTabbedPropertyTitle) {
-            TalendTabbedPropertyTitle tabbedPropertyTitle = (TalendTabbedPropertyTitle) control;
+        if (control instanceof ITalendTabbedPropertyTitleWidget) {
+            ITalendTabbedPropertyTitleWidget tabbedPropertyTitle = (ITalendTabbedPropertyTitleWidget) control;
             TalendTabbedPropertyColorHelper colorHelper = tabbedPropertyTitle.getColorHelper();
             if (value != null && CSSValue.CSS_PRIMITIVE_VALUE == value.getCssValueType()) {
                 Color newColor = (Color) engine.convert(value, Color.class, control.getDisplay());
@@ -117,8 +117,8 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
 
     @Override
     protected String retrieveCSSProperty(Control control, String property, String pseudo, CSSEngine engine) throws Exception {
-        if (control instanceof TalendTabbedPropertyList) {
-            TalendTabbedPropertyList userProfileWidget = (TalendTabbedPropertyList) control;
+        if (control instanceof ITalendTabbedPropertyListWidget) {
+            ITalendTabbedPropertyListWidget userProfileWidget = (ITalendTabbedPropertyListWidget) control;
             TalendTabbedPropertyColorHelper colorHelper = userProfileWidget.getColorHelper();
             ICSSValueConverter cssValueConverter = engine.getCSSValueConverter(String.class);
             if (WIDGET_FOREGROUND_COLOR.equalsIgnoreCase(property)) {

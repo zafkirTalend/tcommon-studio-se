@@ -28,7 +28,8 @@ Require-Bundle: org.apache.commons.lang,
  org.eclipse.e4.core.di.extensions,
  org.talend.librariesmanager,
  org.eclipse.e4.ui.services,
- org.eclipse.ui.workbench
+ org.eclipse.ui.workbench,
+ org.talend.themes.core
 Import-Package: org.eclipse.jdt.internal.ui.workingsets
 Export-Package: org.talend.core.ui,
  org.talend.core.ui.actions,
