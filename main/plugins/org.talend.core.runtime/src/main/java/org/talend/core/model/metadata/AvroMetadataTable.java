@@ -117,7 +117,7 @@ public class AvroMetadataTable extends MetadataTable {
      */
     private Schema generateAvroSchema(String connectionName) {
         // Initialize the file with global parameters
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "AvroStruct")
+        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct")
                 .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
