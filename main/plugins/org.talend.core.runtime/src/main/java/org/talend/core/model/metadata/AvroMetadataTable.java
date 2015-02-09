@@ -54,11 +54,19 @@ public class AvroMetadataTable extends MetadataTable {
         this.jobName = this.jobName.toLowerCase();
     }
 
+    /**
+     * cloned without custom columns by default.
+     */
+    @Override
+    public IMetadataTable clone() {
+        return clone(false);
+    }
+
     @Override
     public IMetadataTable clone(boolean withCustoms) {
-        IMetadataTable clonedMetadata = null;
+        AvroMetadataTable clonedMetadata = null;
         try {
-            clonedMetadata = super.clone(false);
+            clonedMetadata = new AvroMetadataTable(filePath, technicalProjectName, jobName, filePath);
 
             List<IMetadataColumn> clonedMetaColumns = new ArrayList<IMetadataColumn>();
             clonedMetadata.setListColumns(clonedMetaColumns);
@@ -81,20 +89,39 @@ public class AvroMetadataTable extends MetadataTable {
     }
 
     /**
-     * cloned without custom columns by default.
+     * Generate the avro file associated to the current MetadataTable.
+     * 
+     * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
-    @Override
-    public IMetadataTable clone() {
-        return clone(false);
+    public void generateAvroFile(String connectionName) {
+        schema = generateAvroSchema(connectionName);
+
+        try {
+            // Generate the java class from the schema
+            SpecificCompiler compiler = new SpecificCompiler(schema);
+            // Allow String java class
+            compiler.setStringType(StringType.String);
+            // No source, since we just want to parse the input schema
+            compiler.compileToDestination(null, new File(filePath));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
-    public void setAvroSchema(String connectionName) {
-
-        System.out.println(technicalProjectName + "." + jobName);
+    /**
+     * 
+     * Generate the avro schema associated to the current MetadataTable.
+     * 
+     * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
+     */
+    private Schema generateAvroSchema(String connectionName) {
+        // Initialize the file with global parameters
         FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "AvroStruct")
                 .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
+        // Generate a field for each column of the metadatatable
         for (IMetadataColumn column : super.getListColumns()) {
             // Set field name
             BaseFieldTypeBuilder<Schema> fieldTypeSchema = fieldAssembler.name(column.getLabel()).type();
@@ -133,31 +160,17 @@ public class AvroMetadataTable extends MetadataTable {
                 fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Short").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
             } else if ("id_String".equals(column.getTalendType())) { //$NON-NLS-1$
                 fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.String").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_List".equals(column.getTalendType())) {
+            } else if ("id_List".equals(column.getTalendType())) { //$NON-NLS-1$
                 fieldTypeSchema.stringBuilder().prop("java-class", "java.util.List").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Document".equals(column.getTalendType())) {
+            } else if ("id_Document".equals(column.getTalendType())) { //$NON-NLS-1$
                 fieldTypeSchema.stringBuilder().prop("java-class", "routines.system.Document").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Dynamic".equals(column.getTalendType())) {
+            } else if ("id_Dynamic".equals(column.getTalendType())) { //$NON-NLS-1$
                 fieldTypeSchema.stringBuilder().prop("java-class", "routines.system.Dynamic").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
             } else { // Object
                 fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Object").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
             }
         }
-        schema = fieldAssembler.endRecord();
-
-        // TODO remove System out
-        System.out.println(schema);
-
-        try {
-            // Generate the java class from the schema
-            SpecificCompiler compiler = new SpecificCompiler(schema);
-            // Allow String java class
-            compiler.setStringType(StringType.String);
-            // No source, since we just want to parse the input schema
-            compiler.compileToDestination(null, new File(filePath));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        return fieldAssembler.endRecord();
     }
+
 }
