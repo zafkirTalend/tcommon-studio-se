@@ -41,17 +41,45 @@ public class AvroMetadataTable extends MetadataTable {
 
     private String jobName;
 
-    public AvroMetadataTable(String filePath, String technicalProjectName, String jobName, String jobVersion) {
+    /**
+     * This constructor will extract project data to get the filePath, the technicalProjectName and the jobName of the
+     * current metadata
+     * 
+     * @param projectPath the path to the sources of the project
+     * @param technicalProjectName the name of the project
+     * @param jobName the name of the job without version
+     * @param jobVersion the version of the job
+     */
+    public AvroMetadataTable(String projectPath, String technicalProjectName, String jobName, String jobVersion) {
         super();
         // First and last char are quotes.
-        this.filePath = filePath.substring(1, filePath.length() - 1);
+        if (projectPath.startsWith("\"")) { //$NON-NLS-1$
+            this.filePath = projectPath.substring(1, projectPath.length() - 1);
+        } else {
+            this.filePath = projectPath;
+        }
         // Fix path
-        this.filePath = this.filePath.substring(0, filePath.lastIndexOf("/")) + "/.Java/src/"; //$NON-NLS-1$
+        this.filePath = this.filePath.substring(0, projectPath.lastIndexOf("/")) + "/.Java/src/"; //$NON-NLS-1$ //$NON-NLS-2$
 
         this.technicalProjectName = technicalProjectName.toLowerCase();
 
         this.jobName = jobName + "_" + jobVersion.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         this.jobName = this.jobName.toLowerCase();
+    }
+
+    /**
+     * This constructor use already extracted variable of the current metadata. It will be used by the clone() method.
+     * 
+     * @param filePath the path to the generated sources of the project
+     * @param technicalProjectName the name of the project
+     * @param jobName the name of the job with version
+     */
+    public AvroMetadataTable(String filePath, String technicalProjectName, String jobName) {
+        super();
+
+        this.filePath = filePath;
+        this.technicalProjectName = technicalProjectName;
+        this.jobName = jobName;
     }
 
     /**
@@ -66,7 +94,7 @@ public class AvroMetadataTable extends MetadataTable {
     public IMetadataTable clone(boolean withCustoms) {
         AvroMetadataTable clonedMetadata = null;
         try {
-            clonedMetadata = new AvroMetadataTable(filePath, technicalProjectName, jobName, filePath);
+            clonedMetadata = new AvroMetadataTable(filePath, technicalProjectName, jobName);
 
             List<IMetadataColumn> clonedMetaColumns = new ArrayList<IMetadataColumn>();
             clonedMetadata.setListColumns(clonedMetaColumns);
