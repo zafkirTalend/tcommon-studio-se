@@ -152,16 +152,12 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     
     jtab-chevron-color: #555964;
     
-    tab-minimize-button-forground-color:black;
-    tab-minimize-button-background-color:black;
-    tab-maximize-button-forground-color:black;
-    tab-maximize-button-background-color:black;
-    tab-minimize-button-none-image: url('./default/pics/studio_6.0_minimize_view.gif');
-    tab-minimize-button-hot-image: url('./default/pics/studio_6.0_minimize_view.gif');
-    tab-minimize-button-selected-image: url('./default/pics/studio_6.0_minimize_view.gif');
-    tab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.gif');
-    tab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.gif');
-    tab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.gif');
+    tab-minimize-button-none-image: url('./default/pics/studio_6.0_minimize_view.png');
+    tab-minimize-button-hot-image: url('./default/pics/studio_6.0_minimize_view.png');
+    tab-minimize-button-selected-image: url('./default/pics/studio_6.0_minimize_view.png');
+    tab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
+    tab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
+    tab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
 }
 
 .MPartStack>CTabItem {
@@ -444,18 +440,18 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
  * MultiPageEditor Footer Part
  **************************************************/
 
-CTabFolder#org-talend-rcp-multiPageEditor-footer {
+CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer {
     border-visible: false;
     swt-shadow-visible: false;
     swt-tab-outline: red;
 }
 
-CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem {
+CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem {
     background-color: #555964;
     color: white;
 }
 
-CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
+CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     background-color: #555964 #555964 80%  #c0d72d #c0d72d 80% 100%;
     color: white;
 }

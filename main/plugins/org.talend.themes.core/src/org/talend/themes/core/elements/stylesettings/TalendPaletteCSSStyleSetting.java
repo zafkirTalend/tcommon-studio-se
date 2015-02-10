@@ -113,21 +113,21 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
     public void resetPaletteCSSStyle() {
 
-        mouseOverForgroundColor1 = getColorByRGB(ColorConstants.listForeground.getRGB());
-        mouseOverForgroundColor2 = getColorByRGB(ColorConstants.listForeground.getRGB());
-        mouseOverForgroundColor3 = getColorByRGB(ColorConstants.listForeground.getRGB());
-        mouseOverBackgroundColor1 = getColorByRGB(ColorConstants.listBackground.getRGB());
-        mouseOverBackgroundColor2 = getColorByRGB(ColorConstants.listBackground.getRGB());
-        mouseOverBackgroundColor3 = getColorByRGB(ColorConstants.listBackground.getRGB());
+        mouseOverForgroundColor1 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
+        mouseOverForgroundColor2 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
+        mouseOverForgroundColor3 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
+        mouseOverBackgroundColor1 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
+        mouseOverBackgroundColor2 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
+        mouseOverBackgroundColor3 = getColorByRGB(new RGB(0xAD, 0xAD, 0xAD));
         expandedBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
-        collapsedForgroundColor = getColorByRGB(ColorConstants.listForeground.getRGB());
-        collapsedBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
-        colorIncrement = 15;
+        collapsedForgroundColor = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
+        collapsedBackgroundColor = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
+        colorIncrement = 10;
         xOffset = 17;
         titleMarginBorder = new MarginBorder(4, 10, 2, 2);
         fgColor = getColorByRGB(ColorConstants.button.getRGB());
-        scrollPaneBorder = new MarginBorder(2, 2, 2, 2);
-        scrollPaneListBorder = new MarginBorder(2, 0, 2, 0);
+        scrollPaneBorder = new MarginBorder(0, 0, 0, 0);
+        scrollPaneListBorder = new MarginBorder(0, 0, 0, 0);
 
         sliderPaletteForgroundColor = getColorByRGB(ColorConstants.listForeground.getRGB());
         sliderPaletteBackgroundColor = getColorByRGB(ColorConstants.listBackground.getRGB());
@@ -147,15 +147,15 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
 
         drawerFigureBaseColor = getColorByRGB(ColorConstants.button.getRGB());
 
-        entryEditPartToolEntryTopLineColor = getColorByRGB(ColorConstants.black.getRGB());
-        entryEditPartToolEntryBottomLineColor = getColorByRGB(ColorConstants.black.getRGB());
-        entryEditPartToolEntryBackgroundColor = getColorByRGB(ColorConstants.red.getRGB());
+        entryEditPartToolEntryTopLineColor = getColorByRGB(new RGB(0xEC, 0xF0, 0xF1));
+        entryEditPartToolEntryBottomLineColor = getColorByRGB(new RGB(0xEC, 0xF0, 0xF1));
+        entryEditPartToolEntryBackgroundColor = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
         entryEditPartBackgroundColorInheritFromParent = true;
 
-        collapseTopBorderForgroundLineColor1 = getColorByRGB(ColorConstants.buttonDarker.getRGB());
-        collapseTopBorderForgroundLineColor2 = getColorByRGB(ColorConstants.white.getRGB());
-        collapseExpandedLineForgroundColor = getColorByRGB(ColorConstants.buttonDarker.getRGB());
-        collapseNotExpandedLineForgroundColor = getColorByRGB(ColorConstants.white.getRGB());
+        collapseTopBorderForgroundLineColor1 = getColorByRGB(new RGB(0xEC, 0xF0, 0xF1));
+        collapseTopBorderForgroundLineColor2 = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
+        collapseExpandedLineForgroundColor = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
+        collapseNotExpandedLineForgroundColor = getColorByRGB(new RGB(0xFF, 0xFF, 0xFF));
 
         searchButtonImage = null;
     }
