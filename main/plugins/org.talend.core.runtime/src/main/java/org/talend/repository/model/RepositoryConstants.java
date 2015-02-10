@@ -97,7 +97,7 @@ public class RepositoryConstants {
     public static String getPattern(ERepositoryObjectType type) {
         if (type == ERepositoryObjectType.FOLDER) {
             return FOLDER_PATTERN;
-        } else if (type == ERepositoryObjectType.PROCESS || ERepositoryObjectType.getAllTypesOfProcess().contains(type)) {
+        } else if (ERepositoryObjectType.getAllTypesOfProcess().contains(type) || type == ERepositoryObjectType.JOBLET) {
             return CODE_ITEM_PATTERN;
         } else if (type == ERepositoryObjectType.ROUTINES || type == ERepositoryObjectType.PIG_UDF
                 || "BEANS".equals(type.getType())) {
