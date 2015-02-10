@@ -49,6 +49,8 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
     private boolean applyContextToChild, addStat;
 
+    private String windowsClasspath, unixClasspath;
+
     public CreateJobTemplateMavenPom(IProcessor jobProcessor, IFile pomFile, String templatePomFile) {
         super(pomFile, templatePomFile);
         this.jobProcessor = jobProcessor;
@@ -73,6 +75,22 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
     public void setAddStat(boolean addStat) {
         this.addStat = addStat;
+    }
+
+    public String getWindowsClasspath() {
+        return this.windowsClasspath;
+    }
+
+    public void setWindowsClasspath(String windowsClasspath) {
+        this.windowsClasspath = windowsClasspath;
+    }
+
+    public String getUnixClasspath() {
+        return this.unixClasspath;
+    }
+
+    public void setUnixClasspath(String unixClasspath) {
+        this.unixClasspath = unixClasspath;
     }
 
     @Override
@@ -138,7 +156,6 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
             mainProjectBranch = SVNConstant.NAME_TRUNK;
         }
 
-        // TODO, need find one way to set the applyContextToChild, and addStat.
         JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), context.getName(),
                 isApplyContextToChild(), isAddStat());
 
@@ -176,17 +193,17 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         /*
          * for bat/sh in assembly
          */
-        checkPomProperty(properties, "talend.job.bat.classpath", "@JobBatClasspath@", ""); // TODO
-        checkPomProperty(properties, "talend.job.sh.classpath", "@JobShClasspath@", ""); // TODO
+        checkPomProperty(properties, "talend.job.bat.classpath", "@JobBatClasspath@", this.getWindowsClasspath());
+        checkPomProperty(properties, "talend.job.sh.classpath", "@JobShClasspath@", this.getUnixClasspath());
 
         /*
          * build properties
          */
-        checkPomProperty(properties, "maven.build.java.level", "@BuildJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
-        checkPomProperty(properties, "maven.build.encoding", "@BuildEncoding@", TalendMavenContants.DEFAULT_ENCODING);
+        checkPomProperty(properties, "build.java.level", "@BuildJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
+        checkPomProperty(properties, "build.encoding", "@BuildEncoding@", TalendMavenContants.DEFAULT_ENCODING);
     }
 
-    private void checkPomProperty(Properties properties, String key, String var, String value) {
+    protected void checkPomProperty(Properties properties, String key, String var, String value) {
         Object v = properties.get(key);
         if (v != null) {
             if (v.equals(value)) { // same

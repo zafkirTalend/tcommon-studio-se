@@ -36,6 +36,7 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -147,6 +148,30 @@ public class ProcessorUtilities {
         libraryPath = exportLibraryPath;
         exportConfig = true;
         exportTimeStamp = new Date();
+    }
+
+    public static void setExportConfig(String directory, boolean old) {
+        String libPath = calculateLibraryPathFromDirectory(directory);
+        String routinesJars = ""; //$NON-NLS-1$
+        if (old) { // ../lib/systemRoutines.jar@../lib/userRoutines.jar@.
+            // use character @ as temporary classpath separator, this one will be replaced during the export.
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.SYSTEM_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.USER_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+        } else { // ../lib/routines.jar@.
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+        }
+        routinesJars += '.';
+        setExportConfig(JavaUtils.JAVA_APP_NAME, routinesJars, libPath);
+    }
+
+    private static String calculateLibraryPathFromDirectory(String directory) {
+        int nb = directory.split(JavaUtils.PATH_SEPARATOR).length - 1;
+        final String parentPath = "../";//$NON-NLS-1$
+        String path = parentPath;
+        for (int i = 0; i < nb; i++) {
+            path = path.concat(parentPath);
+        }
+        return path + JavaUtils.JAVA_LIB_DIRECTORY;
     }
 
     public static Date getExportTimestamp() {

@@ -35,8 +35,8 @@
 		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
 
 		<!-- for build level -->
-		<maven.build.java.level>@BuildJavaLevel@</maven.build.java.level> <!-- 1.6 -->
-		<maven.build.encoding>@BuildEncoding@</maven.build.encoding> <!-- UTF-8 -->
+		<build.java.level>@BuildJavaLevel@</build.java.level> <!-- 1.6 -->
+		<build.encoding>@BuildEncoding@</build.encoding> <!-- UTF-8 -->
 	</properties>
 	
 	<dependencies>
@@ -59,9 +59,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
-					<encoding>${maven.build.encoding}</encoding>
-					<source>${maven.build.java.level}</source>
-					<target>${maven.build.java.level}</target>
+					<encoding>${build.encoding}</encoding>
+					<source>${build.java.level}</source>
+					<target>${build.java.level}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -69,7 +69,7 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
 				<configuration>
-					<encoding>${maven.build.encoding}</encoding>
+					<encoding>${build.encoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

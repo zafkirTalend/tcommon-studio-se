@@ -25,6 +25,7 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstall2;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
+import org.talend.commons.utils.resource.FileExtensions;
 
 /**
  * Utilities around perl stuff. <br/>
@@ -39,6 +40,10 @@ public final class JavaUtils {
     public static final String JAVA_LAUNCHCONFIGURATION = "org.talend.designer.runprocess.launchConfigurationJava"; //$NON-NLS-1$
 
     public static final String PROCESSOR_TYPE = "javaProcessor"; //$NON-NLS-1$
+
+    public static final String PATH_SEPARATOR = "/"; //$NON-NLS-1$
+
+    public static final String JAVA_APP_NAME = "java";//$NON-NLS-1$
 
     /** added by rxl. */
     public static final String JAVATIP = "//The function of generating Java code haven't achive yet" //$NON-NLS-1$
@@ -109,6 +114,18 @@ public final class JavaUtils {
 
     /** Java ClassPath Separator. */
     public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":"; //$NON-NLS-1$ //$NON-NLS-2$
+
+    public static final String JAVA_CP = "-cp"; //$NON-NLS-1$ 
+
+    public static final String ROUTINE_JAR = "routines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String SYSTEM_ROUTINE_JAR = "systemRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_ROUTINE_JAR = "userRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_BEANS_JAR = "userBeans" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_PIGUDF_JAR = "pigudf" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
     /**
      * DOC ycbai Get default jvm name.

@@ -47,6 +47,10 @@ import org.talend.designer.maven.utils.PomManager;
  */
 public class CreateMavenCodeProject extends CreateMaven {
 
+    private static final String MAVEN_COMPILER_SOURCE = "maven.compiler.source"; //$NON-NLS-1$
+
+    private static final String MAVEN_COMPILER_TARGET = "maven.compiler.target"; //$NON-NLS-1$
+
     private IProject project;
 
     public CreateMavenCodeProject(IProject project) {
@@ -59,7 +63,6 @@ public class CreateMavenCodeProject extends CreateMaven {
         return this.project;
     }
 
-    @SuppressWarnings("nls")
     @Override
     protected Model createModel() {
         // The groupId and artifactId are temp, will change it after create project.
@@ -75,9 +78,11 @@ public class CreateMavenCodeProject extends CreateMaven {
          * TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
          * 
          * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
+         * 
+         * temp set, will remove those properties later.
          */
-        p.put("maven.compiler.source", TalendMavenContants.DEFAULT_JDK_VERSION);
-        p.put("maven.compiler.target", TalendMavenContants.DEFAULT_JDK_VERSION);
+        p.put(MAVEN_COMPILER_SOURCE, TalendMavenContants.DEFAULT_JDK_VERSION);
+        p.put(MAVEN_COMPILER_TARGET, TalendMavenContants.DEFAULT_JDK_VERSION);
         model.setProperties(p);
 
         return model;
@@ -171,6 +176,12 @@ public class CreateMavenCodeProject extends CreateMaven {
                         // TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID,
                         model.setArtifactId(JavaResourcesHelper.getGroupName("sources")); //$NON-NLS-1$
 
+                        // remove the properties for compile level
+                        Properties properties = model.getProperties();
+                        if (properties != null) {
+                            properties.remove(MAVEN_COMPILER_SOURCE);
+                            properties.remove(MAVEN_COMPILER_TARGET);
+                        }
                         PomManager.savePom(monitor, model, pomFile);
                     }
                 }

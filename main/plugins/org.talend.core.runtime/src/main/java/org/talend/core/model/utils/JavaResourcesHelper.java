@@ -191,9 +191,16 @@ public class JavaResourcesHelper {
     }
 
     /**
-     * like Default.properties
+     * like Default
      */
     public static String getJobContextName(IContext c) {
-        return escapeFileName(c.getName()) + JavaUtils.JAVA_CONTEXT_EXTENSION;
+        return escapeFileName(c.getName());
+    }
+
+    /**
+     * like Default.properties
+     */
+    public static String getJobContextFileName(IContext c) {
+        return getJobContextName(c) + JavaUtils.JAVA_CONTEXT_EXTENSION;
     }
 }
