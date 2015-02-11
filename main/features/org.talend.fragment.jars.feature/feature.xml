@@ -4,7 +4,13 @@
       version="6.0.0.qualifier"
       provider-name=".Talend SA.">
 
-   <plugin
+	<plugin
+         id="net.sourceforge.sqlexplorer.nl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+         
+        <plugin
          id="org.talend.libraries.javacsv.jars"
          download-size="0"
          install-size="0"
@@ -42,6 +48,12 @@
 		 
 	<plugin
          id="org.talend.dataprofiler.top.chart"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+         
+        <plugin
+         id="org.talend.dataprofiler.top.chart.nl"
          download-size="0"
          install-size="0"
          version="0.0.0" />
