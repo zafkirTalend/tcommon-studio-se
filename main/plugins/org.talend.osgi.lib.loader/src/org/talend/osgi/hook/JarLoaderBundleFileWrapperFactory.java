@@ -185,11 +185,6 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
 
                 }// else not the trick for proxying missign jars so do not create any wrapper.
             }
-
-            if (!base) {
-
-            }
-
         }
         return null;// means we do not create any wrapper.
     }
