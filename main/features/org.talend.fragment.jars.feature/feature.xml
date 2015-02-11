@@ -5,6 +5,12 @@
       provider-name=".Talend SA.">
 
 	<plugin
+         id="net.sourceforge.sqlexplorer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" />
+         
+	<plugin
          id="net.sourceforge.sqlexplorer.nl"
          download-size="0"
          install-size="0"
