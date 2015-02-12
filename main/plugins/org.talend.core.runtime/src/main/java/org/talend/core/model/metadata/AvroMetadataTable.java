@@ -26,6 +26,7 @@ import org.apache.avro.SchemaBuilder.FieldTypeBuilder;
 import org.apache.avro.compiler.specific.SpecificCompiler;
 import org.apache.avro.generic.GenericData.StringType;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.process.IProcess2;
 
 /**
  * Meta Data Table. Contains all the columns. <br/>
@@ -40,6 +41,18 @@ public class AvroMetadataTable extends MetadataTable {
     private String technicalProjectName;
 
     private String jobName;
+
+    /**
+     * This constructor will extract process data to get the filePath, the technicalProjectName and the jobName of the
+     * current metadata
+     * 
+     * @param process the current process
+     */
+    public AvroMetadataTable(IProcess2 process) {
+        this((String) process.getElementParameter("FILE_PATH").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
+                "PROJECT_TECHNICAL_NAME").getValue(), process.getProperty().getLabel(), process.getProperty().getVersion()); //$NON-NLS-1$
+
+    }
 
     /**
      * This constructor will extract project data to get the filePath, the technicalProjectName and the jobName of the
