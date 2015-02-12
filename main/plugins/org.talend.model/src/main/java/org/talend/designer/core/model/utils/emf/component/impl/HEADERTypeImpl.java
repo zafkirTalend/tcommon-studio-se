@@ -57,6 +57,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEQUIVALENT <em>EQUIVALENT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getINPUTTYPE <em>INPUTTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getOUTPUTTYPE <em>OUTPUTTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -847,6 +849,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean eQUIVALENTESet;
+
+    /**
+     * The default value of the '{@link #getINPUTTYPE() <em>INPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getINPUTTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String INPUTTYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getINPUTTYPE() <em>INPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getINPUTTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String iNPUTTYPE = INPUTTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getOUTPUTTYPE() <em>OUTPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOUTPUTTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String OUTPUTTYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOUTPUTTYPE() <em>OUTPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOUTPUTTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String oUTPUTTYPE = OUTPUTTYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1831,6 +1873,48 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getINPUTTYPE() {
+        return iNPUTTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setINPUTTYPE(String newINPUTTYPE) {
+        String oldINPUTTYPE = iNPUTTYPE;
+        iNPUTTYPE = newINPUTTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__INPUTTYPE, oldINPUTTYPE, iNPUTTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOUTPUTTYPE() {
+        return oUTPUTTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOUTPUTTYPE(String newOUTPUTTYPE) {
+        String oldOUTPUTTYPE = oUTPUTTYPE;
+        oUTPUTTYPE = newOUTPUTTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__OUTPUTTYPE, oldOUTPUTTYPE, oUTPUTTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getTYPE() {
         return tYPE;
     }
@@ -2042,6 +2126,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__EQUIVALENT:
                 return getEQUIVALENT();
+            case ComponentPackage.HEADER_TYPE__INPUTTYPE:
+                return getINPUTTYPE();
+            case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
+                return getOUTPUTTYPE();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -2151,6 +2239,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__EQUIVALENT:
                 setEQUIVALENT((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__INPUTTYPE:
+                setINPUTTYPE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
+                setOUTPUTTYPE((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2262,6 +2356,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__EQUIVALENT:
                 unsetEQUIVALENT();
                 return;
+            case ComponentPackage.HEADER_TYPE__INPUTTYPE:
+                setINPUTTYPE(INPUTTYPE_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
+                setOUTPUTTYPE(OUTPUTTYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2339,6 +2439,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetVISIBLE();
             case ComponentPackage.HEADER_TYPE__EQUIVALENT:
                 return isSetEQUIVALENT();
+            case ComponentPackage.HEADER_TYPE__INPUTTYPE:
+                return INPUTTYPE_EDEFAULT == null ? iNPUTTYPE != null : !INPUTTYPE_EDEFAULT.equals(iNPUTTYPE);
+            case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
+                return OUTPUTTYPE_EDEFAULT == null ? oUTPUTTYPE != null : !OUTPUTTYPE_EDEFAULT.equals(oUTPUTTYPE);
         }
         return super.eIsSet(featureID);
     }
@@ -2416,6 +2520,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
         result.append(", eQUIVALENT: ");
         if (eQUIVALENTESet) result.append(eQUIVALENT); else result.append("<unset>");
+        result.append(", iNPUTTYPE: ");
+        result.append(iNPUTTYPE);
+        result.append(", oUTPUTTYPE: ");
+        result.append(oUTPUTTYPE);
         result.append(')');
         return result.toString();
     }
