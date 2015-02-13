@@ -76,6 +76,8 @@ public class CreateTemplateMavenPom extends CreateMaven {
         if (model == null) {
             // create default model
             model = super.createModel();
+        } else { // if load from template, try to set the attributes again.
+            setAttributes(model);
         }
         return model;
     }
@@ -93,8 +95,12 @@ public class CreateTemplateMavenPom extends CreateMaven {
         if (!pomFile.getName().equals(MavenConstants.POM_FILE_NAME)) {
             throw new IOException("Must be pom.xml, shouldn't be specially like: " + pomFile);
         }
-        if (!isOverwrite() && pomFile.exists()) {
-            throw new IOException("The pom file have been existed. it's " + pomFile);
+        if (pomFile.exists()) {
+            if (isOverwrite()) {
+                pomFile.delete(true, monitor);
+            } else {
+                throw new IOException("The pom file have been existed. it's " + pomFile);
+            }
         }
 
         Model model = createModel();

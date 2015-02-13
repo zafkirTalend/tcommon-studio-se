@@ -10,6 +10,7 @@
 	<properties>
 		<project.root.path>${basedir}/../../../../</project.root.path>
 		<system.lib.path>${project.root.path}/lib</system.lib.path>
+		<talend.routines.package>routines</talend.routines.package>
 	</properties>
 
 	<dependencies>
@@ -45,7 +46,6 @@
 	<build>
 		<sourceDirectory>.</sourceDirectory>
 		<outputDirectory>${project.root.path}/target/classes</outputDirectory>
-		<finalName>${project.artifactId}</finalName>
 		<directory>${project.root.path}/target/${project.artifactId}</directory>
 
 		<plugins>
@@ -68,7 +68,7 @@
 						<configuration>
 							<includes>
 								<!-- only package the routines classes -->
-								<include>${project.artifactId}/**</include>
+								<include>${talend.routines.package}/**</include>
 							</includes>
 						</configuration>
 					</execution>

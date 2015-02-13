@@ -37,6 +37,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -158,7 +159,8 @@ public class ProcessorUtilities {
             routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.SYSTEM_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
             routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.USER_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
         } else { // ../lib/routines.jar@.
-            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.ROUTINE_JAR_NAME + '-'
+                    + JavaUtils.ROUTINE_JAR_DEFAULT_VERSION + FileExtensions.JAR_FILE_SUFFIX + TEMP_JAVA_CLASSPATH_SEPARATOR;
         }
         routinesJars += '.';
         setExportConfig(JavaUtils.JAVA_APP_NAME, routinesJars, libPath);

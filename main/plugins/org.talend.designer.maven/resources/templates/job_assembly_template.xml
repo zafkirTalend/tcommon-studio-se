@@ -11,7 +11,7 @@
 		<format>tar.gz</format>
 	</formats>
 
-	<files> <!-- for templates -->
+	<files>
 		<file><!-- sh -->
 			<source>${project.resources.path}/templates/Job_run_template.sh</source>
 			<outputDirectory>${project.artifactId}</outputDirectory>
@@ -26,42 +26,62 @@
 			<destName>${talend.job.name}_run.bat</destName>
 			<filtered>true</filtered>
 		</file>
-        <file> <!-- jobInfo.properties -->
-            <source>${project.resources.path}/templates/jobInfo_template.properties</source>
-            <outputDirectory>.</outputDirectory>
-            <destName>jobInfo.properties</destName>
-            <filtered>true</filtered>
-        </file>
+		<file> <!-- jobInfo.properties -->
+			<source>${project.resources.path}/templates/jobInfo_template.properties</source>
+			<outputDirectory>.</outputDirectory>
+			<destName>jobInfo.properties</destName>
+			<filtered>true</filtered>
+		</file>
+
+		<file> <!-- add jar of job -->
+			<source>${project.build.directory}/${project.build.finalName}.jar</source>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+		</file>
+		<file><!-- add project resources -->
+			<source>${project.root.path}/pom.xml</source>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+		</file>
+
+		<!-- If have children, will add here -->
 	</files>
 
 	<fileSets>
-		<fileSet> <!-- add jar of job -->
-			<directory>${project.build.directory}</directory>
-			<outputDirectory>${project.artifactId}</outputDirectory>
+		<fileSet><!-- the templates -->
+			<directory>${project.resources.path}/templates</directory>
+			<outputDirectory>${project.artifactId}/src/main/resources/templates</outputDirectory>
 			<includes>
-				<include>${project.build.finalName}.jar</include>
+				<include>*</include>
 			</includes>
 		</fileSet>
-		<fileSet><!-- add the lib of dependences -->
+		<fileSet><!-- the lib of dependences -->
 			<directory>${project.build.directory}/lib</directory>
-			<outputDirectory>lib</outputDirectory>
+			<outputDirectory>${project.artifactId}/lib</outputDirectory>
 			<includes>
 				<include>*.jar</include>
 			</includes>
 		</fileSet>
-		<fileSet><!-- src sources -->
+		<fileSet><!-- job resources -->
 			<directory>.</directory>
-			<outputDirectory>${project.artifactId}/src/${talend.job.path}/</outputDirectory>
+			<outputDirectory>${project.artifactId}/src/main/java/${talend.job.path}/</outputDirectory>
 			<includes>
-				<include>*.java</include>
+				<!-- source,contexts,pom, assembly -->
+				<include>*/**</include>
 			</includes>
 		</fileSet>
-		<fileSet><!-- Context properties -->
+		<fileSet><!-- Context properties for sources -->
+			<directory>${project.resources.path}/${talend.job.path}/contexts</directory>
+			<outputDirectory>${project.artifactId}/src/main/resources/${talend.job.path}/contexts</outputDirectory>
+			<includes>
+				<include>*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet><!-- Context properties for running -->
 			<directory>${project.resources.path}/${talend.job.path}/contexts</directory>
 			<outputDirectory>${project.artifactId}/${talend.job.path}/contexts</outputDirectory>
 			<includes>
 				<include>*.properties</include>
 			</includes>
 		</fileSet>
+		<!-- If have children, will add here -->
 	</fileSets>
 </assembly>

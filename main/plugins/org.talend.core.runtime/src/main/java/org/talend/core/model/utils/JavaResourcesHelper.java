@@ -80,6 +80,18 @@ public class JavaResourcesHelper {
         return newJobName;
     }
 
+    /**
+     * 
+     * get the jar name like maven "artifactId.version"
+     */
+    public static String getJobJarName(String jobName, String version) {
+        String newJobName = escapeFileName(jobName);
+        if (version != null) {
+            newJobName += '-' + version;
+        }
+        return newJobName;
+    }
+
     public static String escapeFileName(final String fileName) {
         return fileName != null ? fileName.replace(" ", "_") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }

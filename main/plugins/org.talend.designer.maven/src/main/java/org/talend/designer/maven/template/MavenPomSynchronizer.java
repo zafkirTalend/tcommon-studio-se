@@ -13,8 +13,10 @@
 package org.talend.designer.maven.template;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -23,8 +25,8 @@ import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.maven.utils.PomManager;
+import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -48,10 +50,15 @@ public class MavenPomSynchronizer {
         if (overwrite || !routinesPomFile.exists()) {// generate new one
             CreateTemplateMavenPom createTemplatePom = new CreateTemplateMavenPom(routinesPomFile,
                     MavenTemplateConstants.ROUTINGS_TEMPLATE_FILE_NAME);
-            createTemplatePom.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
-            createTemplatePom.setArtifactId(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
-            createTemplatePom.setVersion(TalendMavenContants.DEFAULT_VERSION);
+
+            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
+
+            createTemplatePom.setGroupId(routinesModel.getGroupId());
+            createTemplatePom.setArtifactId(routinesModel.getArtifactId());
+            createTemplatePom.setVersion(routinesModel.getVersion());
+
             createTemplatePom.setOverwrite(false); // don't overwrite.
+
             createTemplatePom.create(null);
         }
     }
@@ -78,10 +85,7 @@ public class MavenPomSynchronizer {
      * 
      * add the job to the pom modules list of project.
      */
-    public void addJobModuleInProject(String jobPomPath) throws Exception {
-        if (jobPomPath == null) {
-            return;
-        }
+    public void addChildModules(String... childModules) throws Exception {
         IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
         if (projectPomFile.exists()) {
             MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
@@ -91,19 +95,44 @@ public class MavenPomSynchronizer {
                 modules = new ArrayList<String>();
                 projModel.setModules(modules);
             }
-            boolean found = false;
-            for (String m : modules) {
-                if (m.equals(jobPomPath)) {
-                    found = true;
-                    break;
+
+            boolean modifed = false;
+            if (childModules == null || childModules.length == 0) { // clean the modules
+                if (!modules.isEmpty()) {
+                    modules.clear();
+                    modifed = true;
+                }
+            } else {
+                final Iterator<String> iterator = modules.iterator();
+                while (iterator.hasNext()) {
+                    String module = iterator.next();
+                    if (ArrayUtils.contains(childModules, module)) {
+                        iterator.remove(); // remove the exised one
+                    }
+                }
+                // according to the arrays order to add the modules.
+                for (String module : childModules) {
+                    modules.add(module);
+                    modifed = true;
                 }
             }
-            if (!found) {
-                modules.add(jobPomPath);
-            }
 
-            // save pom.
-            PomManager.savePom(null, projModel, projectPomFile);
+            if (modifed) {
+                // routine module
+                // IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
+                // final String routineModule = routinesSrcFolder.getProjectRelativePath().toPortableString();
+                // // make sure the routine is in first.
+                // if (modules.isEmpty()) {
+                // modules.add(routineModule);
+                // } else {
+                // if (modules.contains(routineModule)) {
+                // modules.remove(routineModule);
+                // }
+                // modules.add(0, routineModule);
+                // }
+                // save pom.
+                PomManager.savePom(null, projModel, projectPomFile);
+            }
         }
     }
 }

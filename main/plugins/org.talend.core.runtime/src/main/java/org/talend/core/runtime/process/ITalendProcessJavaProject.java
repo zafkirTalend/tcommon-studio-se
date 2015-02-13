@@ -94,7 +94,7 @@ public interface ITalendProcessJavaProject {
 
     /**
      * 
-     * check and add the job to project module list.
+     * check and add the child module in project.
      */
-    void addJobModuleInProject(String jobPomPath);
+    void addChildModules(String... childModules);
 }

@@ -89,13 +89,24 @@ public abstract class CreateMaven {
     protected Model createModel() {
         Model model = new Model();
         model.setModelVersion(MavenConstants.POM_VERSION);
+        setAttributes(model);
 
-        model.setPackaging(this.getPackaging());
+        return model;
+    }
 
-        model.setVersion(this.getVersion());
-        model.setGroupId(this.getGroupId());
-        model.setArtifactId(this.getArtifactId());
-
+    protected void setAttributes(Model model) {
+        if (this.getGroupId() != null) {
+            model.setGroupId(this.getGroupId());
+        }
+        if (this.getArtifactId() != null) {
+            model.setArtifactId(this.getArtifactId());
+        }
+        if (this.getVersion() != null) {
+            model.setVersion(this.getVersion());
+        }
+        if (this.getPackaging() != null) {
+            model.setPackaging(this.getPackaging());
+        }
         if (this.getName() != null) {
             model.setName(this.getName());
         }
@@ -103,7 +114,6 @@ public abstract class CreateMaven {
         if (this.getDesc() != null) {
             model.setDescription(this.getDesc());
         }
-        return model;
     }
 
     /**

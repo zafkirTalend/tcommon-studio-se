@@ -13,6 +13,7 @@
 package org.talend.designer.maven.model;
 
 import org.eclipse.jdt.core.JavaCore;
+import org.talend.commons.utils.generation.JavaUtils;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -30,7 +31,7 @@ public interface TalendMavenContants {
 
     static final String DEFAULT_ENCODING = "UTF-8";
 
-    static final String DEFAULT_ROUTINES_ARTIFACT_ID = "routines"; // Same as JavaUtils.JAVA_ROUTINES_DIRECTORY?
+    static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
     static final String DEFAULT_JDK_VERSION = JavaCore.VERSION_1_6;
 }

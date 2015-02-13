@@ -117,7 +117,9 @@ public final class JavaUtils {
 
     public static final String JAVA_CP = "-cp"; //$NON-NLS-1$ 
 
-    public static final String ROUTINE_JAR = "routines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+    public static final String ROUTINE_JAR_NAME = "routines"; //$NON-NLS-1$
+
+    public static final String ROUTINE_JAR_DEFAULT_VERSION = "1.0";//$NON-NLS-1$
 
     public static final String SYSTEM_ROUTINE_JAR = "systemRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 

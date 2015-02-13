@@ -14,7 +14,6 @@
 
 		<talend.job.path>@JobPath@</talend.job.path>
 		<talend.job.package>@JobPackage@</talend.job.package>
-		<talend.job.jarName>@JobJarName@</talend.job.jarName>
 
 		<!-- for jobInfo.properties -->
 		<talend.project.name>@ProjectName@</talend.project.name>
@@ -50,7 +49,6 @@
 	<build>
 		<sourceDirectory>.</sourceDirectory>
 		<outputDirectory>${project.root.path}/target/classes</outputDirectory>
-		<finalName>${talend.job.jarName}</finalName>
 		<directory>${project.root.path}/target/${project.artifactId}</directory>
 
 		<plugins>

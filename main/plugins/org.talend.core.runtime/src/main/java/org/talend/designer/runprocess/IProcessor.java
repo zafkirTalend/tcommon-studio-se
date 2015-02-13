@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.ISyntaxCheckableEditor;
 
@@ -292,4 +293,6 @@ public interface IProcessor {
     String getMainClass();
 
     Set<String> getNeededLibraries();
+
+    Set<JobInfo> getBuildChildrenJobs();
 }
