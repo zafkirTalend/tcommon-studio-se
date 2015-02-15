@@ -609,7 +609,7 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     tPalette-entryEditPart-entry-color-inheritFromParent:true;
     
     tPalette-searchButton-background-color:white;
-    tPalette-searchButton-image:url('./default/pics/studio_6.0_palette_search.gif');
+    tPalette-searchButton-image:url('./default/pics/studio_6.0-repo-search.png');
 }
 
 /**************************************************
