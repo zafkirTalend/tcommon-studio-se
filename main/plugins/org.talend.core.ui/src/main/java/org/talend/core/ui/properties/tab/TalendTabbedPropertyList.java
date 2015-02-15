@@ -578,6 +578,7 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
         return selectedElementIndex;
     }
 
+    @Override
     public TalendTabbedPropertyColorHelper getColorHelper() {
         return this.colorHelper;
     }
@@ -809,20 +810,6 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
         shell.dispose();
         textToDimensionMap.put(text, point);
         return point;
-    }
-
-    @Override
-    public void dispose() {
-        colorHelper.getHoverGradientStart().dispose();
-        colorHelper.getHoverGradientEnd().dispose();
-        colorHelper.getDefaultGradientStart().dispose();
-        colorHelper.getDefaultGradientEnd().dispose();
-        colorHelper.getIndentedDefaultBackground().dispose();
-        colorHelper.getIndentedHoverBackground().dispose();
-        colorHelper.getNavigationElementShadowStroke().dispose();
-        colorHelper.getBottomNavigationElementShadowStroke1().dispose();
-        colorHelper.getBottomNavigationElementShadowStroke2().dispose();
-        super.dispose();
     }
 
     /**

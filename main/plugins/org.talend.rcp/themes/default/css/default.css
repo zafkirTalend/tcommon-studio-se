@@ -478,111 +478,86 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
 }
 
 .ProcessComposite Composite{
-  color: white;
   background-color:white;
 }
 .ProcessComposite Group{
-  color: white;
   background-color:white;
 }
 .ProcessComposite Button{
-  color: white;
   background-color:white;
 }
 .ProcessComposite Text{
-  color: white;
   background-color:white;
 }
 .ProcessComposite Label{
-  color: white;
   background-color:white;
 }
 
 .TraceDebugProcessComposite Composite{
-  color: white;
   background-color:white;
 }
 .DebugProcessComposite Composite{
-  color: white;
   background-color:white;
 }
 .DebugProcessComposite Group{
-  color: white;
   background-color:white;
 }
 .DebugProcessComposite Button{
-  color: white;
   background-color:white;
 }
 .DebugProcessComposite Label{
-  color: white;
   background-color:white;
 }
 .DebugProcessComposite Text{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Composite{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Button{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Group{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Text{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Table{
-  color: white;
   background-color:white;
 }
 .AdvanceSettingComposite Label{
-    color: black;
+  color: black;
   background-color:white;
 }
 
 .TargetExecComposite Composite{
-  color: white;
   background-color:white;
 }
 .MultipleThreadDynamicComposite Composite{
-  color: white;
   background-color:white;
 }
 
 .ContextViewComposite Composite{
-  color: white;
   background-color:white;
 }
 
 .BodyHeader Composite{
-  color: white;
   background-color:white;
 }
 .BodyHeader Text{
-  color: white;
   background-color:white;
 }
 .HeaderComposite Composite{
-  color: white;
   background-color:white;
 }
 .HeaderComposite Text{
-  color: white;
   background-color:white;
 }
 .ExecuteJobComposite Composite{
-  color: white;
   background-color:white;
 }
 .ExecuteJobComposite Text{
-  color: white;
   background-color:white;
 }
 
