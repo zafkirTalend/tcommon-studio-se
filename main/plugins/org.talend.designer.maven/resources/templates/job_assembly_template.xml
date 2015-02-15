@@ -32,17 +32,16 @@
 			<destName>jobInfo.properties</destName>
 			<filtered>true</filtered>
 		</file>
-
-		<file> <!-- add jar of job -->
+		<file><!-- add jar of job -->
 			<source>${project.build.directory}/${project.build.finalName}.jar</source>
-			<outputDirectory>${project.artifactId}</outputDirectory>
+			<outputDirectory>${project.artifactId}/lib</outputDirectory>
 		</file>
 		<file><!-- add project resources -->
 			<source>${project.root.path}/pom.xml</source>
 			<outputDirectory>${project.artifactId}</outputDirectory>
 		</file>
 
-		<!-- If have children, will add here -->
+		<!-- If have children, will add some configs here -->
 	</files>
 
 	<fileSets>
@@ -82,6 +81,6 @@
 				<include>*.properties</include>
 			</includes>
 		</fileSet>
-		<!-- If have children, will add here -->
+		<!-- If have children, will add some configs here -->
 	</fileSets>
 </assembly>

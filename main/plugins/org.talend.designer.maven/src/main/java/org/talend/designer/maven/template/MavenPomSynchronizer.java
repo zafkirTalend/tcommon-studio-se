@@ -118,21 +118,28 @@ public class MavenPomSynchronizer {
             }
 
             if (modifed) {
-                // routine module
-                // IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-                // final String routineModule = routinesSrcFolder.getProjectRelativePath().toPortableString();
-                // // make sure the routine is in first.
-                // if (modules.isEmpty()) {
-                // modules.add(routineModule);
-                // } else {
-                // if (modules.contains(routineModule)) {
-                // modules.remove(routineModule);
-                // }
-                // modules.add(0, routineModule);
-                // }
+
+                checkRoutinesModule(projModel);
                 // save pom.
                 PomManager.savePom(null, projModel, projectPomFile);
             }
+        }
+    }
+
+    private void checkRoutinesModule(Model projModel) {
+        final List<String> modules = projModel.getModules();
+
+        // routine module
+        IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
+        final String routineModule = routinesSrcFolder.getProjectRelativePath().toPortableString();
+        // make sure the routine is in first.
+        if (modules.isEmpty()) {
+            modules.add(routineModule);
+        } else {
+            if (modules.contains(routineModule)) {
+                modules.remove(routineModule);
+            }
+            modules.add(0, routineModule);
         }
     }
 }

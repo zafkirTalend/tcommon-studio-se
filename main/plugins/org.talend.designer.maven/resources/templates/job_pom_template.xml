@@ -37,7 +37,7 @@
 		<build.java.level>@BuildJavaLevel@</build.java.level> <!-- 1.6 -->
 		<build.encoding>@BuildEncoding@</build.encoding> <!-- UTF-8 -->
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.talend</groupId>
@@ -79,6 +79,21 @@
 						<addMavenDescriptor>false</addMavenDescriptor>
 					</archive>
 				</configuration>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<!-- only package the job classes -->
+								<include>${talend.job.path}/*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

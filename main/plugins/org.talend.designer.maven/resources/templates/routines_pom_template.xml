@@ -67,8 +67,9 @@
 						</goals>
 						<configuration>
 							<includes>
-								<!-- only package the routines classes -->
-								<include>${talend.routines.package}/**</include>
+								<!-- only package the routines classes, because the path same as 
+									package, just use it -->
+								<include>${talend.routines.package}/**/*.class</include>
 							</includes>
 						</configuration>
 					</execution>

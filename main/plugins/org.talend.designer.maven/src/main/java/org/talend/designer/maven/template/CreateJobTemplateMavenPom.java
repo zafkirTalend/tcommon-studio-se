@@ -41,7 +41,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
@@ -465,18 +464,11 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
         Document document = reader.read(file);
         //
-        Element filesElem = getElement(document, "files");
+        // Element filesElem = getElement(document, "files");
         Element fileSetElem = getElement(document, "fileSets");
 
         final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
         for (JobInfo child : clonedChildrenJobInfors) {
-            // same as JavaProcessor.getExportJarsStr, the jar with version always.
-            String childJobJarName = JavaResourcesHelper.getJobJarName(child.getJobName(), child.getJobVersion());
-            // child jar
-            addAssemblyFiles(filesElem, "${project.build.directory}/lib/" + childJobJarName + FileExtensions.JAR_FILE_SUFFIX,
-                    "${project.artifactId}", null, null, null, false,
-                    "Copy the job jar from lib for child job " + child.getJobName());
-            // TODO, exclude the child jar in lib. type="lib"
 
             // child sources.
             final String projectRootPath = "${project.root.path}";
