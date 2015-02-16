@@ -31,21 +31,21 @@ import org.talend.core.model.temp.ECodePart;
  */
 public interface IComponent {
 
-    String JOBLET_PID     = "org.talend.designer.joblet"; //$NON-NLS-1$
+    String JOBLET_PID = "org.talend.designer.joblet"; //$NON-NLS-1$
 
-    String PROP_NAME      = "NAME";                      //$NON-NLS-1$
+    String PROP_NAME = "NAME"; //$NON-NLS-1$
 
-    String PROP_LONG_NAME = "LONG_NAME";                 //$NON-NLS-1$
+    String PROP_LONG_NAME = "LONG_NAME"; //$NON-NLS-1$
 
-    String PROP_FAMILY    = "FAMILY";                    //$NON-NLS-1$
+    String PROP_FAMILY = "FAMILY"; //$NON-NLS-1$
 
-    String PROP_MENU      = "MENU";                      //$NON-NLS-1$
+    String PROP_MENU = "MENU"; //$NON-NLS-1$
 
-    String PROP_LINK      = "LINK";                      //$NON-NLS-1$
+    String PROP_LINK = "LINK"; //$NON-NLS-1$
 
-    String PROP_HELP      = "HELP";                      //$NON-NLS-1$
+    String PROP_HELP = "HELP"; //$NON-NLS-1$
 
-    String FAMILY         = "Joblets";                    //$NON-NLS-1$
+    String FAMILY = "Joblets"; //$NON-NLS-1$
 
     public String getName();
 
@@ -169,6 +169,24 @@ public interface IComponent {
      * @return
      */
     boolean isReduce();
+
+    /**
+     * This method is used to get the type of input that can go in a BigData component DOC rdubois Comment method
+     * "getInputType".
+     * 
+     * @return
+     */
+
+    String getInputType();
+
+    /**
+     * This method is used to get the type of output that can go out a BigData component DOC rdubois Comment method
+     * "getOutputType".
+     * 
+     * @return
+     */
+
+    String getOutputType();
 
     String getPartitioning();
 

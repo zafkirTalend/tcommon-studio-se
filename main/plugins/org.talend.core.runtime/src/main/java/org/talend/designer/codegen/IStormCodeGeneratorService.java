@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -17,7 +17,7 @@ import org.talend.core.model.process.IProcess;
 /**
  * DOC zwzhao class global comment. Detailled comment
  */
-public interface IStormCodeGeneratorService extends ICodeGeneratorService {
+public interface IStormCodeGeneratorService extends IBigDataCodeGeneratorService {
 
     boolean validProcess(IProcess process);
 

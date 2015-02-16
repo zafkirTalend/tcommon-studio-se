@@ -47,6 +47,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getINPUTTYPE <em>INPUTTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getOUTPUTTYPE <em>OUTPUTTYPE</em>}</li>
  * </ul>
  * </p>
  *
@@ -1200,6 +1202,60 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetEQUIVALENT();
+
+    /**
+     * Returns the value of the '<em><b>INPUTTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>INPUTTYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>INPUTTYPE</em>' attribute.
+     * @see #setINPUTTYPE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_INPUTTYPE()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='INPUTTYPE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getINPUTTYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getINPUTTYPE <em>INPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>INPUTTYPE</em>' attribute.
+     * @see #getINPUTTYPE()
+     * @generated
+     */
+    void setINPUTTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>OUTPUTTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>OUTPUTTYPE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>OUTPUTTYPE</em>' attribute.
+     * @see #setOUTPUTTYPE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_OUTPUTTYPE()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='OUTPUTTYPE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getOUTPUTTYPE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getOUTPUTTYPE <em>OUTPUTTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>OUTPUTTYPE</em>' attribute.
+     * @see #getOUTPUTTYPE()
+     * @generated
+     */
+    void setOUTPUTTYPE(String value);
 
     /**
      * Returns the value of the '<em><b>TYPE</b></em>' attribute.
