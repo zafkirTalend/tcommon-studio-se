@@ -570,6 +570,48 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
   background-color:white;
 }
 
+
+
+.RespositoryDetailView Composite{
+ background-color: #e5e5e5;
+}
+.RespositoryDetailView Group{
+ background-color: #e5e5e5;
+}
+.RespositoryDetailView Label{
+ background-color: #e5e5e5;
+}
+.RespositoryDetailView Text{
+ background-color:white;
+}
+.PatternTestView Composite{
+ background-color: #e5e5e5;
+}
+.PatternTestView Group{
+ background-color: #e5e5e5;
+}
+.PatternTestView Label{
+ background-color: #e5e5e5;
+}
+.PatternTestView Text{
+ background-color: white;
+}
+.PatternTestView Button{
+ background-color: #e5e5e5;
+}
+.SynonymIndexView Composite{
+ background-color: #e5e5e5;
+}
+.SynonymIndexView Group{
+ background-color: #e5e5e5;
+}
+.SynonymIndexView Label{
+ background-color: #e5e5e5;
+}
+.SynonymIndexView Text{
+ background-color: white;
+}
+
 /**************************************************
  * Palette
  **************************************************/
