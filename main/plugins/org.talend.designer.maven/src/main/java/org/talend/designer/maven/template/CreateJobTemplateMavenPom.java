@@ -13,7 +13,8 @@
 package org.talend.designer.maven.template;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,16 +24,19 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -61,6 +65,10 @@ import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * created by ggu on 4 Feb 2015 Detailled comment
@@ -459,138 +467,196 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
             return;
         }
         final File file = assemblyFile.getLocation().toFile();
-        // assemblyFile.get
-        SAXReader reader = new SAXReader();
+        // assemblyFile
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document document = db.parse(file);
+        if (document == null) {
+            throw new IOException("Can't parse the file: " + file);
+        }
+        boolean modified = false;
 
-        Document document = reader.read(file);
         //
         // Element filesElem = getElement(document, "files");
-        Element fileSetElem = getElement(document, "fileSets");
+
+        Node fileSetsElem = getElement(document.getDocumentElement(), "fileSets", 1);
+        if (fileSetsElem == null) {
+            fileSetsElem = document.createElement("fileSets");
+            document.appendChild(fileSetsElem);
+        }
 
         final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
         for (JobInfo child : clonedChildrenJobInfors) {
+            modified = true;
 
             // child sources.
             final String projectRootPath = "${project.root.path}";
             final String outFolder = "${project.artifactId}";
             String jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
             String jobClassProjectFolder = MavenSystemFolders.JAVA.getPath() + '/' + jobClassPackageFolder;
-            addAssemblyFileSets(fileSetElem, projectRootPath + '/' + jobClassProjectFolder, outFolder + '/'
+            addAssemblyFileSets(fileSetsElem, projectRootPath + '/' + jobClassProjectFolder, outFolder + '/'
                     + jobClassProjectFolder, false, Arrays.asList(new String[] { "*/**" }), null, null, null, null, false,
                     "add source,contexts,pom, assembly for child job " + child.getJobName());
             // conext resources
 
             String contextRootFolder = "${project.resources.path}/" + jobClassPackageFolder + '/'
                     + JavaUtils.JAVA_CONTEXTS_DIRECTORY;
-            addAssemblyFileSets(fileSetElem, contextRootFolder, outFolder + '/' + MavenSystemFolders.RESOURCES.getPath() + '/'
+            addAssemblyFileSets(fileSetsElem, contextRootFolder, outFolder + '/' + MavenSystemFolders.RESOURCES.getPath() + '/'
                     + jobClassPackageFolder + '/' + JavaUtils.JAVA_CONTEXTS_DIRECTORY, false,
                     Arrays.asList(new String[] { "*.properties" }), null, null, null, null, false,
                     "add the child contexts file to resources for " + child.getJobName());
             // context for running
-            addAssemblyFileSets(fileSetElem, contextRootFolder, outFolder + '/' + jobClassPackageFolder + '/'
+            addAssemblyFileSets(fileSetsElem, contextRootFolder, outFolder + '/' + jobClassPackageFolder + '/'
                     + JavaUtils.JAVA_CONTEXTS_DIRECTORY, false, Arrays.asList(new String[] { "*.properties" }), null, null, null,
                     null, false, "add the child contexts files to run for " + child.getJobName());
 
         }
 
-        XMLWriter writer = null;
-        try {
-            OutputFormat format = OutputFormat.createPrettyPrint();
-            format.setEncoding(TalendMavenContants.DEFAULT_ENCODING);
-            writer = new XMLWriter(new FileWriter(file), format);
-            writer.write(document);
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
+        if (modified) {
+            TransformerFactory transFactory = TransformerFactory.newInstance();
+            Transformer transFormer = transFactory.newTransformer();
+            transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transFormer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
         }
     }
 
-    private Element getElement(Document document, String elemName) {
-        final Element rootElement = document.getRootElement();
-        Element fileSetsElem = rootElement.element(elemName);
-        if (fileSetsElem == null) {
-            fileSetsElem = rootElement.addElement(elemName);
+    private Node getElement(Node parent, String elemName, int level) {
+        NodeList childrenNodeList = parent.getChildNodes();
+        for (int i = 0; i < childrenNodeList.getLength(); i++) {
+            Node child = childrenNodeList.item(i);
+            if (child != null && child.getNodeType() == Node.ELEMENT_NODE) {
+                if (child.getNodeName().equals(elemName)) {
+                    return child;
+                }
+            }
+            if (level > 1) {
+                Node element = getElement(child, elemName, --level);
+                if (element != null) {
+                    return element;
+                }
+            }
         }
-        return fileSetsElem;
+        return null;
     }
 
     @SuppressWarnings("nls")
-    private void addAssemblyFiles(Element filesElem, String source, String outputDirectory, String destName, String fileMode,
+    private void addAssemblyFiles(Node filesElem, String source, String outputDirectory, String destName, String fileMode,
             String lineEnding, boolean filtered, String comment) {
         Assert.isNotNull(filesElem);
         Assert.isNotNull(source);
         Assert.isNotNull(outputDirectory);
 
-        Element fileEle = filesElem.addElement("file");
+        Document doc = filesElem.getOwnerDocument();
+
+        Element fileEle = doc.createElement("file");
+        filesElem.appendChild(fileEle);
 
         if (comment != null) {
-            fileEle.addComment(comment);
+            fileEle.appendChild(doc.createComment(comment));
         }
 
-        fileEle.addElement("source").setText(source);
-        fileEle.addElement("outputDirectory").setText(outputDirectory);
+        Element sourceElement = doc.createElement("source");
+        sourceElement.setTextContent(source);
+        fileEle.appendChild(sourceElement);
+
+        Element outputDirectoryElement = doc.createElement("outputDirectory");
+        outputDirectoryElement.setTextContent(outputDirectory);
+        fileEle.appendChild(outputDirectoryElement);
+
         if (destName != null) { // if not set, will be same as source
-            fileEle.addElement("destName").setText(destName);
+            Element destNameElement = doc.createElement("destName");
+            destNameElement.setTextContent(destName);
+            fileEle.appendChild(destNameElement);
         }
         if (fileMode != null) {
-            fileEle.addElement("fileMode").setText(fileMode);
+            Element fileModeElement = doc.createElement("fileMode");
+            fileModeElement.setTextContent(fileMode);
+            fileEle.appendChild(fileModeElement);
         }
         if (lineEnding != null) {
-            fileEle.addElement("lineEnding").setText(lineEnding);
+            Element lineEndingElement = doc.createElement("lineEnding");
+            lineEndingElement.setTextContent(lineEnding);
+            fileEle.appendChild(lineEndingElement);
         }
-        if (filtered) { // by default is false,
-            fileEle.addElement("filtered").setText(Boolean.TRUE.toString());
+        if (filtered) { // by default is false
+            Element filteredElement = doc.createElement("filtered");
+            filteredElement.setTextContent(Boolean.TRUE.toString());
+            fileEle.appendChild(filteredElement);
         }
     }
 
     @SuppressWarnings("nls")
-    private void addAssemblyFileSets(Element fileSetsElem, String directory, String outputDirectory, boolean useDefaultExcludes,
+    private void addAssemblyFileSets(Node fileSetsNode, String directory, String outputDirectory, boolean useDefaultExcludes,
             List<String> includes, List<String> excludes, String fileMode, String directoryMode, String lineEnding,
             boolean filtered, String comment) {
-        Assert.isNotNull(fileSetsElem);
+        Assert.isNotNull(fileSetsNode);
         Assert.isNotNull(outputDirectory);
         Assert.isNotNull(directory);
 
-        Element fileSetEle = fileSetsElem.addElement("fileSet");
+        Document doc = fileSetsNode.getOwnerDocument();
+
+        Element fileSetEle = doc.createElement("fileSet");
+        fileSetsNode.appendChild(fileSetEle);
 
         if (comment != null) {
-            fileSetEle.addComment(comment);
+            fileSetEle.appendChild(doc.createComment(comment));
         }
 
-        fileSetEle.addElement("outputDirectory").setText(outputDirectory);
-        fileSetEle.addElement("directory").setText(directory);
+        Element outputDirectoryElement = doc.createElement("outputDirectory");
+        outputDirectoryElement.setTextContent(outputDirectory);
+        fileSetEle.appendChild(outputDirectoryElement);
+
+        Element directoryElement = doc.createElement("directory");
+        directoryElement.setTextContent(directory);
+        fileSetEle.appendChild(directoryElement);
+
         if (useDefaultExcludes) { // false by default
-            fileSetEle.addElement("useDefaultExcludes").setText(Boolean.TRUE.toString());
+            Element useDefaultExcludesElement = doc.createElement("useDefaultExcludes");
+            useDefaultExcludesElement.setTextContent(Boolean.TRUE.toString());
+            fileSetEle.appendChild(useDefaultExcludesElement);
         }
 
         if (includes != null && !includes.isEmpty()) {
-            Element includesEle = fileSetEle.addElement("includes");
+
+            Element includesEle = doc.createElement("includes");
+            fileSetEle.appendChild(includesEle);
             for (String in : includes) {
-                includesEle.addElement("include").setText(in);
-                ;
+                Element includeElement = doc.createElement("include");
+                includeElement.setTextContent(in);
+                includesEle.appendChild(includeElement);
             }
         }
 
         if (excludes != null && !excludes.isEmpty()) {
-            Element excludesEle = fileSetEle.addElement("excludes");
+            Element excludesEle = doc.createElement("excludes");
+            fileSetEle.appendChild(excludesEle);
             for (String ex : excludes) {
-                excludesEle.addElement("exclude").setText(ex);
-                ;
+                Element excludeElement = doc.createElement("exclude");
+                excludeElement.setTextContent(ex);
+                excludesEle.appendChild(excludeElement);
+
             }
         }
         if (fileMode != null) {
-            fileSetEle.addElement("fileMode").setText(fileMode);
+            Element fileModeElement = doc.createElement("fileMode");
+            fileModeElement.setTextContent(fileMode);
+            fileSetEle.appendChild(fileModeElement);
         }
         if (directoryMode != null) {
-            fileSetEle.addElement("directoryMode").setText(directoryMode);
+            Element directoryModeElement = doc.createElement("directoryMode");
+            directoryModeElement.setTextContent(directoryMode);
+            fileSetEle.appendChild(directoryModeElement);
         }
 
         if (lineEnding != null) {
-            fileSetEle.addElement("lineEnding").setText(lineEnding);
+            Element lineEndingElement = doc.createElement("lineEnding");
+            lineEndingElement.setTextContent(lineEnding);
+            fileSetEle.appendChild(lineEndingElement);
         }
-        if (filtered) { // by default is false,
-            fileSetEle.addElement("filtered").setText(Boolean.TRUE.toString());
+        if (filtered) { // by default is false
+            Element filteredElement = doc.createElement("filtered");
+            filteredElement.setTextContent(Boolean.TRUE.toString());
+            fileSetEle.appendChild(filteredElement);
         }
     }
 }

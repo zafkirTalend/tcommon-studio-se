@@ -11,7 +11,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.m2e.maven.runtime,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
- org.dom4j,
  org.talend.model,
  org.talend.commons.runtime,
  org.talend.core.runtime
