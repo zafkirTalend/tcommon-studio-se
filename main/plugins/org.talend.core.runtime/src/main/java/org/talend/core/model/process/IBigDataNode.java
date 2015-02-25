@@ -12,6 +12,11 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.List;
+import java.util.Map;
+
+import org.talend.core.model.metadata.IMetadataColumn;
+
 public interface IBigDataNode extends INode {
 
     public String getIncomingType();
@@ -28,5 +33,8 @@ public interface IBigDataNode extends INode {
 
     public boolean isIdentity();
 
-    // public void setIdentity(boolean isIdentity);
+    public void setKeyList(IBigDataNode bigDataNode, String direction);
+
+    public Map<String, List<IMetadataColumn>> getKeyList();
+
 }
