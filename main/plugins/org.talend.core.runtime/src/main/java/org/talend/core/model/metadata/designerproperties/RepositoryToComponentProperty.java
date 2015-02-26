@@ -1219,6 +1219,16 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
         }
 
+        if (value.equals("HBASE_MASTER_PRINCIPAL")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL));
+        }
+
+        if (value.equals("HBASE_REGIONSERVER_PRINCIPAL")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL));
+        }
+
         if (value.equals("HIVE_SERVER")) {
             return connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
         }
@@ -1395,7 +1405,7 @@ public class RepositoryToComponentProperty {
             }
         }
 
-        if (value.equals("PRINCIPAL")) {
+        if (value.equals("PRINCIPAL") || value.equals("KEYTAB_PRINCIPAL")) {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL));
         }
 
