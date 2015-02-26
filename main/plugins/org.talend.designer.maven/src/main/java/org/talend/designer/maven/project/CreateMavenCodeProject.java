@@ -127,6 +127,9 @@ public class CreateMavenCodeProject extends CreateMaven {
      */
     protected void afterCreate(IProgressMonitor monitor, IResource res) throws Exception {
         IProject p = res.getProject();
+        if (!p.isOpen()) {
+            p.open(monitor);
+        }
         covertJavaProjectToPom(monitor, p);
         changeClasspath(monitor, p);
     }
@@ -183,6 +186,8 @@ public class CreateMavenCodeProject extends CreateMaven {
                             properties.remove(MAVEN_COMPILER_TARGET);
                         }
                         PomManager.savePom(monitor, model, pomFile);
+
+                        p.refreshLocal(IResource.DEPTH_ONE, monitor);
                     }
                 }
             } catch (Exception e) {
