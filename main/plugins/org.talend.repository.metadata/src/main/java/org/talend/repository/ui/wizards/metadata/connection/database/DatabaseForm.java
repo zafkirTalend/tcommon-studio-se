@@ -1874,7 +1874,7 @@ public class DatabaseForm extends AbstractForm {
         String masterPrincipal = connection.getParameters().get(
                 ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
         String regionServerPrincipal = connection.getParameters().get(
-                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
         boolean useKrb = Boolean.valueOf(useKrbString);
         boolean useKeytab = Boolean.valueOf(useKeytabString);
         useKerberosForHBase.setSelection(useKrb);
