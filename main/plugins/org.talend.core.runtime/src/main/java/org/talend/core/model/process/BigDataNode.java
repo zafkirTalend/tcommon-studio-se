@@ -134,18 +134,31 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
             String clumnNodeListName = partitionKey[1];
             IElementParameter nodeElemForList = null;
             for (Object nodeItemList : parTableNode.getListItemsValue()) {
+                if (parTableNode.isBasedOnSchema()) {
+                    nodeElemForList = (IElementParameter) nodeItemList;
+                    break;
+                }
                 if (((IElementParameter) nodeItemList).getFieldType().equals(EParameterFieldType.PREV_COLUMN_LIST)
                         || ((IElementParameter) nodeItemList).getFieldType().equals(EParameterFieldType.COLUMN_LIST)) {
                     nodeElemForList = (IElementParameter) nodeItemList;
                     break;
                 }
             }
+
             if (nodeElemForList != null) {
                 for (Map nodeColumnListMap : (List<Map>) parTableNode.getValue()) {
                     Object value = nodeColumnListMap.get(clumnNodeListName);
                     String colName = ""; //$NON-NLS-1$
                     if (nodeColumnListMap.get(clumnNodeListName) instanceof String) {
-                        colName = (String) value;
+                        if (parTableNode.isBasedOnSchema()) {
+                            if ("true".equals(value)) {
+                                colName = (String) nodeColumnListMap.get("SCHEMA_COLUMN");
+                            } else {
+                                break;
+                            }
+                        } else {
+                            colName = (String) value;
+                        }
                     } else if (value instanceof Integer) {
                         Integer index = (Integer) value;
                         if (nodeElemForList.getListItemsDisplayName().length > index) {
