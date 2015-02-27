@@ -65,7 +65,7 @@ public class MavenPomSynchronizer {
 
     /**
      * 
-     * sync the bat/sh/jobInfo to resources template folder.
+     * sync the bat/sh/jobInfo/project_pom to resources template folder.
      */
     public void syncTemplates(boolean overwrite) throws Exception {
         IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
@@ -78,6 +78,9 @@ public class MavenPomSynchronizer {
 
         IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(infoFile.getName(), infoFile, overwrite);
+
+        IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+        MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
 
     }
 

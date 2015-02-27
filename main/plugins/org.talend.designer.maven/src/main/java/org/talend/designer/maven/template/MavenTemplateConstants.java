@@ -31,9 +31,12 @@ public interface MavenTemplateConstants {
 
     final static String JOB_ASSEMBLY_TEMPLATE_FILE_NAME = "job_assembly_template.xml";
 
+    final static String PROJECT_TEMPLATE_FILE_NAME = "project_pom_template.xml";
+
     final static String JOB_RUN_BAT_TEMPLATE_FILE_NAME = "Job_run_template.bat";
 
     final static String JOB_RUN_SH_TEMPLATE_FILE_NAME = "Job_run_template.sh";
 
     final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
+
 }
