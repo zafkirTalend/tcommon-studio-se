@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,6 +147,7 @@ public class AvroMetadataTable extends MetadataTable {
             compiler.setStringType(StringType.String);
             // No source, since we just want to parse the input schema
             compiler.compileToDestination(null, new File(filePath));
+            addSerializableImplementation();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -158,7 +162,7 @@ public class AvroMetadataTable extends MetadataTable {
      */
     private Schema generateAvroSchema(String connectionName) {
         // Initialize the file with global parameters
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct")
+        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct") //$NON-NLS-1$
                 .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
@@ -212,6 +216,26 @@ public class AvroMetadataTable extends MetadataTable {
             }
         }
         return fieldAssembler.endRecord();
+    }
+
+    private void addSerializableImplementation() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath
+                + "/" + technicalProjectName + "/" + jobName + "/" + schema.getName() + ".java")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        String line;
+        String input = ""; //$NON-NLS-1$
+
+        while ((line = reader.readLine()) != null) {
+            input += line.replaceAll("implements org.apache.avro.specific.SpecificRecord", //$NON-NLS-1$
+                    "implements org.apache.avro.specific.SpecificRecord, java.io.Serializable") + '\n'; //$NON-NLS-1$
+        }
+
+        reader.close();
+
+        FileOutputStream outputStream = new FileOutputStream(filePath
+                + "/" + technicalProjectName + "/" + jobName + "/" + schema.getName() + ".java"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        outputStream.write(input.getBytes());
+
+        outputStream.close();
     }
 
 }
