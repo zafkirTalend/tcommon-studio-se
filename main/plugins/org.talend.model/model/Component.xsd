@@ -190,6 +190,9 @@
     <xsd:attribute default="false" ecore:name="eQUIVALENT"
         name="EQUIVALENT" type="xsd:string" />
   	<xsd:attribute ecore:name="tYPE" name="TYPE" type="xsd:string" />
+  	<xsd:attribute ecore:name="iNPUTTYPE" name="INPUTTYPE"
+	type="xsd:string" />
+  	<xsd:attribute ecore:name="oUTPUTTYPE" name="OUTPUTTYPE" type="xsd:string" />
   	<xsd:attribute default="false" ecore:name="rEDUCE" name="REDUCE"
   		type="xsd:boolean" />
   	<xsd:attribute ecore:name="pARTITIONING" name="PARTITIONING"

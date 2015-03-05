@@ -18,7 +18,7 @@ import org.talend.core.model.process.IProcess;
  * created by bchen on Jan 11, 2013 Detailled comment
  * 
  */
-public interface IMRCodeGeneratorService extends ICodeGeneratorService {
+public interface IMRCodeGeneratorService extends IBigDataCodeGeneratorService {
 
     boolean validProcess(IProcess process);
 
