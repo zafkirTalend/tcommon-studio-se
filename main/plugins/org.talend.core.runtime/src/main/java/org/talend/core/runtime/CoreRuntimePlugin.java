@@ -115,7 +115,7 @@ public class CoreRuntimePlugin extends Plugin {
                 }
             } else {
                 try {
-                    final String serviceClassName = "org.talend.repository.StandaloneRepositoryContextService"; //$NON-NLS-1$
+                    final String serviceClassName = "org.talend.core.repository.services.StandaloneRepositoryContextService"; //$NON-NLS-1$
                     repositoryContextService = (IRepositoryContextService) Class.forName(serviceClassName).newInstance();
                 } catch (InstantiationException e) {
                     ExceptionHandler.process(e);
