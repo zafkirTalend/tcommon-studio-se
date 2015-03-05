@@ -89,7 +89,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
     public String getOutgoingType() {
         List<? extends IConnection> outgoingConnections = getOutgoingConnections(EConnectionType.FLOW_MAIN);
         if (outgoingConnections.size() > 0) {
-            if (outgoingConnections.get(0).getSource() instanceof BigDataNode) {
+            if (outgoingConnections.get(0).getTarget() instanceof BigDataNode) {
                 IBigDataNode node = (IBigDataNode) outgoingConnections.get(0).getTarget();
                 String requiredInputType = node.getRequiredInputType();
                 return (requiredInputType != null && !node.isIdentity()) ? requiredInputType : node.getOutgoingType();
