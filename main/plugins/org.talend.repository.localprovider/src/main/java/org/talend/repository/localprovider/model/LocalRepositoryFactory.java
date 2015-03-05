@@ -259,7 +259,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
+    public synchronized <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
             Object objectFolder, int options) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem currentFolderItem = null;
@@ -545,7 +545,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @throws PersistenceException
      */
     @Override
-    protected List<IRepositoryViewObject> getSerializableFromFolder(Project project, Object folder, String id,
+    protected synchronized List<IRepositoryViewObject> getSerializableFromFolder(Project project, Object folder, String id,
             ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
             boolean avoidSaveProject, boolean... recursiveCall) throws PersistenceException {
         List<IRepositoryViewObject> toReturn = new VersionList(allVersion);
