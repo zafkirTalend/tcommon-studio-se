@@ -182,6 +182,8 @@ public enum ECoreImage implements IImage {
     MRREDUCE("/icons1/reduce.gif"), //$NON-NLS-1$
     MRREDBAR("/icons1/mrRedBar.gif"), //$NON-NLS-1$
     MRGRAYBAR("/icons1/mrGrayBar.gif"), //$NON-NLS-1$
+    CONN_HANDLE("/icons/handle.gif"), //$NON-NLS-1$
+    GREEN_HANDLE("/icons/green_handle.gif"), //$NON-NLS-1$
 
     TDQ_ANALYSIS_ICON("/icons1/tdq/chart_bar.png"), //$NON-NLS-1$
     TDQ_RULE_ICON("/icons1/tdq/dqrule_red.png"), //$NON-NLS-1$
