@@ -85,7 +85,7 @@ public class LibrariesManagerUtils {
         List<ModuleNeeded> modulesNeeded = ModulesNeededProvider.getModulesNeeded();
         for (ModuleNeeded module : modulesNeeded) {
             for (ModuleNeeded current : nodeModulesList) {
-                if (current.getContext().equals(module.getContext()) && current.getModuleName().equals(module.getModuleName())) {
+                if (module.getContext().equals(current.getContext()) && current.getModuleName().equals(module.getModuleName())) {
                     if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED
                             && current.isRequired(node.getElementParameters())) {
                         updatedModules.add(current);
