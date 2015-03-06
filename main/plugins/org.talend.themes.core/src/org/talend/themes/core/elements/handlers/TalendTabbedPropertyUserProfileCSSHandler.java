@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.themes.core.elements.handlers;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.dom.properties.converters.ICSSValueConverter;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
@@ -36,7 +37,11 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
 
     private static final String WIDGET_NORMAL_SHADOW_COLOR = "_t-widget-normal-shadow-color";
 
+    private static final String WIDGET_IS_SHOW_NORMAL_SHADOW = "_t-widget-is-show-normal-shadow";
+
     private static final String WIDGET_DARK_SHADOW_COLOR = "_t-widget-dark-shadow-color";
+
+    private static final String WIDGET_VERTICAL_LINE_COLOR = "_t-widget-vertical-line-color";
 
     private static final String LIST_BACKGROUND_COLOR = "_t-list-background-color";
 
@@ -70,15 +75,27 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
                 if (WIDGET_DARK_SHADOW_COLOR.equalsIgnoreCase(property)) {
                     colorHelper.setWidgetDarkShadow(newColor);
                 }
+                if (WIDGET_VERTICAL_LINE_COLOR.equalsIgnoreCase(property)) {
+                    colorHelper.setWidgetVerticalLineColor(newColor);
+                }
                 if (LIST_BACKGROUND_COLOR.equalsIgnoreCase(property)) {
                     colorHelper.setListBackground(newColor);
                 }
                 if (BORDER_VISIBLE.equalsIgnoreCase(property)) {
                     String isVisibleBorderValue = value.getCssText();
-                    if (isVisibleBorderValue != null) {
+                    if (StringUtils.isNotEmpty(isVisibleBorderValue)) {
                         boolean isVisibleBorder = Boolean.parseBoolean(isVisibleBorderValue);
-                        if (!isVisibleBorder) {
+                        if (colorHelper.isVisibleBorder() != isVisibleBorder) {
                             colorHelper.setVisibleBorder(isVisibleBorder);
+                        }
+                    }
+                }
+                if (WIDGET_IS_SHOW_NORMAL_SHADOW.equalsIgnoreCase(property)) {
+                    String isShowNormalShadowValue = value.getCssText();
+                    if (StringUtils.isNotEmpty(isShowNormalShadowValue)) {
+                        boolean isShowNormalShadow = Boolean.parseBoolean(isShowNormalShadowValue);
+                        if (colorHelper.isShowNormalShadow() != isShowNormalShadow) {
+                            colorHelper.setShowNormalShadow(isShowNormalShadow);
                         }
                     }
                 }

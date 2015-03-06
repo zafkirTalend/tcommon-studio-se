@@ -3,6 +3,67 @@
 }
 
 /**************************************************
+ * Global Color Setting
+ **************************************************/
+.CommonColorsSetting {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Shell {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Widget {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Control {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Button {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Text {
+    background: COLOR-LIST-BACKGROUND;
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Label {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting CLabel {
+    color: black;
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Tree {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Composite Tree {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Link {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting ProgressBar {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Sash {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Menu {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Group {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Composite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting LayoutComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.MPart Composite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+
+
+/**************************************************
  * Window
  **************************************************/
 Shell.MTrimmedWindow {
@@ -17,8 +78,6 @@ Shell.MTrimmedWindow {
     jsash-width : 10px;
     background-color: #e5e5e5;
 }
-
-
 
 /**************************************************
  * Main Toolbar
@@ -461,116 +520,41 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
  **************************************************/
 
 .TalendTabbedPropertyList{
-    border-visible: false;
+    background-color: COLOR-LIST-BACKGROUND;
+    border-visible: true;
     color:black;
-    background-color:white;
-    _t-widget-normal-shadow-color:white;
-    _t-widget-dark-shadow-color:white;
-    _t-list-background-color:#D3D3D3;
+    _t-widget-normal-shadow-color:COLOR-LIST-BACKGROUND;
+    _t-widget-dark-shadow-color:COLOR-LIST-BACKGROUND;
+    _t-list-background-color: #D3D3D3;
+    _t-widget-vertical-line-color: #E3E3E3;
 }
 
 .TalendTabbedPropertyTitle{
     border-visible: false;
-    _t-title-foreground-color:white;
-    _t-title-background-color:white;
-    _t-title-bottom-foreground-keyline1-color:white;
-    _t-title-bottom-foreground-keyline2-color:white;
+    _t-title-foreground-color:COLOR-LIST-BACKGROUND;
+    _t-title-background-color:COLOR-LIST-BACKGROUND;
+    _t-title-bottom-foreground-keyline1-color:COLOR-LIST-BACKGROUND;
+    _t-title-bottom-foreground-keyline2-color:COLOR-LIST-BACKGROUND;
 }
 
-.ProcessComposite Composite{
-  background-color:white;
-}
-.ProcessComposite Group{
-  background-color:white;
-}
-.ProcessComposite Button{
-  background-color:white;
-}
-.ProcessComposite Text{
-  background-color:white;
-}
-.ProcessComposite Label{
-  background-color:white;
-}
-
-.TraceDebugProcessComposite Composite{
-  background-color:white;
-}
-.DebugProcessComposite Composite{
-  background-color:white;
-}
-.DebugProcessComposite Group{
-  background-color:white;
-}
-.DebugProcessComposite Button{
-  background-color:white;
-}
-.DebugProcessComposite Label{
-  background-color:white;
-}
-.DebugProcessComposite Text{
-  background-color:white;
-}
-.AdvanceSettingComposite Composite{
-  background-color:white;
-}
-.AdvanceSettingComposite Button{
-  background-color:white;
-}
-.AdvanceSettingComposite Group{
-  background-color:white;
-}
-.AdvanceSettingComposite Text{
-  background-color:white;
-}
-.AdvanceSettingComposite Table{
-  background-color:white;
-}
 .AdvanceSettingComposite Label{
   color: black;
-  background-color:white;
 }
-
-.TargetExecComposite Composite{
-  background-color:white;
+.ContextViewComposite {
+  background-color: COLOR-LIST-BACKGROUND;
 }
-.MultipleThreadDynamicComposite Composite{
-  background-color:white;
+.ContextNebulaGridComposite {
+  background-color: COLOR-LIST-BACKGROUND;
 }
-
-.ContextViewComposite Composite{
-  background-color:white;
+.MultipleThreadDynamicComposite {
+  background-color: COLOR-LIST-BACKGROUND;
 }
-
-.BodyHeader Composite{
-  background-color:white;
+.ProcessTargetExecutionComposite {
+  background-color: COLOR-LIST-BACKGROUND;
 }
-.BodyHeader Text{
-  background-color:white;
+.ProcessContextComposite {
+  background-color: COLOR-LIST-BACKGROUND;
 }
-.HeaderComposite Composite{
-  background-color:white;
-}
-.HeaderComposite Text{
-  background-color:white;
-}
-.ExecuteJobComposite Composite{
-  background-color:white;
-}
-.ExecuteJobComposite Text{
-  background-color:white;
-}
-
-.TalendTabbedPropertyComposite CLabel{
-  color: black;
-  background-color:white;
-}
-.TalendTabbedPropertyTitle CLabel{
-  color: black;
-  background-color:white;
-}
-
-
 
 .RespositoryDetailView Composite{
  background-color: #e5e5e5;
@@ -650,7 +634,7 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     tPalette-x-offset:17;
     tPalette-entryEditPart-entry-color-inheritFromParent:true;
     
-    tPalette-searchButton-background-color:white;
+    tPalette-searchButton-background-color:COLOR-LIST-BACKGROUND;
     tPalette-searchButton-image:url('./default/pics/studio_6.0-repo-search.png');
 }
 

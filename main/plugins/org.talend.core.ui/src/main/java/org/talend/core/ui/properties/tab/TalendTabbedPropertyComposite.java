@@ -67,13 +67,13 @@ public class TalendTabbedPropertyComposite extends Composite {
     public TalendTabbedPropertyComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, boolean displayTitle,
             boolean displayCompactToolbar) {
         super(parent, SWT.NO_FOCUS);
-        // CSS
-        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
         this.factory = factory;
         this.displayTitle = displayTitle;
         this.displayCompactToolbar = displayCompactToolbar;
 
         createMainComposite();
+        // CSS
+        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
     }
 
     /**
