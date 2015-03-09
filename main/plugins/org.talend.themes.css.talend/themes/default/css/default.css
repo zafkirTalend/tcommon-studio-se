@@ -599,19 +599,6 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
 /**************************************************
  * Palette
  **************************************************/
-
-.PaletteSearchBar {
-    background-color:white;
-}
-
-.PaletteSearchBar Text {
-    background-color:white;
-}
-
-.PaletteSearchBar ToolBar {
-    jtool-item-color:white;
-}
-
 .TalendPaletteCls {
     tPalette-collapsed-forground-color:white;
     tPalette-collapsed-background-color:white;

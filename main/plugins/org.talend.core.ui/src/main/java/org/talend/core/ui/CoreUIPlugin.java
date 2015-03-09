@@ -133,9 +133,16 @@ public class CoreUIPlugin extends AbstractUIPlugin {
         IStylingEngine cssStylingEngine = getCSSStylingEngine();
         if (cssStylingEngine != null) {
             if (addCommonColorsSetting) {
-                cssStylingEngine.setClassname(widget, "CommonColorsSetting"); //$NON-NLS-1$
+                setCommonColorsSettingCSSClass(widget);
             }
             cssStylingEngine.setClassname(widget, className);
+        }
+    }
+
+    public static void setCommonColorsSettingCSSClass(Object widget) {
+        IStylingEngine cssStylingEngine = getCSSStylingEngine();
+        if (cssStylingEngine != null) {
+            cssStylingEngine.setClassname(widget, "CommonColorsSetting"); //$NON-NLS-1$
         }
     }
 
