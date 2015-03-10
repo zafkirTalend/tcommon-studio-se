@@ -46,6 +46,16 @@ public enum HiveConnVersionInfo {
 
     DISTRO_CUSTOM(0, EHadoopDistributions.CUSTOM.getName(), EHadoopDistributions.CUSTOM.getDisplayName(), false),
 
+    HDP_2_2(
+            1,
+            EHadoopVersion4Drivers.HDP_2_2.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_2_2.getVersionDisplay(),
+            true,
+            false,
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
+
     HDP_2_1(
             1,
             EHadoopVersion4Drivers.HDP_2_1.getVersionValue(),

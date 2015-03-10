@@ -21,6 +21,9 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * DOC ycbai class global comment. Detailled comment
  */
 public enum EHBaseDistribution4Versions {
+    HDP_2_2(EHBaseDistributions.HORTONWORKS, EHadoopVersion4Drivers.HDP_2_2.getVersionDisplay(), EHadoopVersion4Drivers.HDP_2_2
+            .getVersionValue()),
+
     HDP_2_1(EHBaseDistributions.HORTONWORKS, EHadoopVersion4Drivers.HDP_2_1.getVersionDisplay(), EHadoopVersion4Drivers.HDP_2_1
             .getVersionValue()),
 
