@@ -66,17 +66,20 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
      */
     @Override
     public String getIncomingType() {
-        List<? extends IConnection> incomingConnections = getIncomingConnections(EConnectionType.FLOW_MAIN);
-        if (incomingConnections.size() > 0) {
-            if (incomingConnections.get(0).getSource() instanceof BigDataNode) {
-                IBigDataNode node = (IBigDataNode) incomingConnections.get(0).getSource();
-                String requiredOutputType = node.getRequiredOutputType();
-                return requiredOutputType != null ? requiredOutputType : node.getIncomingType();
-            } else {
-                // We are on an external node => PairRDD
-                // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring of
-                // the external nodes.
-                return "KEYVALUE"; //$NON-NLS-1$
+        List<? extends IConnection> incomingConnections = getIncomingConnections();
+        for (IConnection inConnection : incomingConnections) {
+            if (inConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                if (incomingConnections.get(0).getSource() instanceof BigDataNode) {
+                    IBigDataNode node = (IBigDataNode) incomingConnections.get(0).getSource();
+                    String requiredOutputType = node.getRequiredOutputType();
+                    return requiredOutputType != null ? requiredOutputType : node.getIncomingType();
+                } else {
+                    // We are on an external node => PairRDD
+                    // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring
+                    // of
+                    // the external nodes.
+                    return "KEYVALUE"; //$NON-NLS-1$
+                }
             }
         }
         return null;
@@ -87,17 +90,20 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
      */
     @Override
     public String getOutgoingType() {
-        List<? extends IConnection> outgoingConnections = getOutgoingConnections(EConnectionType.FLOW_MAIN);
-        if (outgoingConnections.size() > 0) {
-            if (outgoingConnections.get(0).getTarget() instanceof BigDataNode) {
-                IBigDataNode node = (IBigDataNode) outgoingConnections.get(0).getTarget();
-                String requiredInputType = node.getRequiredInputType();
-                return (requiredInputType != null && !node.isIdentity()) ? requiredInputType : node.getOutgoingType();
-            } else {
-                // We are on an external node => PairRDD
-                // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring of
-                // the external nodes.
-                return "KEYVALUE"; //$NON-NLS-1$
+        List<? extends IConnection> outgoingConnections = getOutgoingConnections();
+        for (IConnection outConnection : outgoingConnections) {
+            if (outConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                if (outConnection.getTarget() instanceof BigDataNode) {
+                    IBigDataNode node = (IBigDataNode) outgoingConnections.get(0).getTarget();
+                    String requiredInputType = node.getRequiredInputType();
+                    return (requiredInputType != null && !node.isIdentity()) ? requiredInputType : node.getOutgoingType();
+                } else {
+                    // We are on an external node => PairRDD
+                    // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring
+                    // of
+                    // the external nodes.
+                    return "KEYVALUE"; //$NON-NLS-1$
+                }
             }
         }
         return null;
