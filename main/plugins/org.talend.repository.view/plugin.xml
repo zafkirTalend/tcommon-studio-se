@@ -8,7 +8,7 @@
       <view
             category="org.talend.core.root"
             class="org.talend.repository.navigator.RepoViewCommonNavigator"
-            icon="icons/repository_nav.gif"
+            icon="icons/repository_nav.png"
             id="org.talend.repository.cnf.view"
             name="%RepositoryView_title"
             restorable="true">
