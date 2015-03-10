@@ -15,6 +15,7 @@ package org.talend.core.model.components;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
@@ -152,6 +153,8 @@ public interface IComponent {
     public String getRepositoryType();
 
     public boolean isLog4JEnabled();
+
+    public EList getCONNECTORList();
 
     /**
      * This is just added in <code>HEADER</code>, it is used to present the component belongs to common process, M/R
