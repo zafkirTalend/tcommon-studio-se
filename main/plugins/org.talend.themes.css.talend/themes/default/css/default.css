@@ -14,7 +14,7 @@
 .MPart Button, .MPart Tree, .MPart Link, .MPart ProgressBar {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.MPart Text, .MPart Label, .MPart CLabel {
+.MPart Label, .MPart CLabel {
     color: black;
     background-color: COLOR-LIST-BACKGROUND;
 }
@@ -28,7 +28,7 @@
 .CommonColorsSetting Button, .CommonColorsSetting Tree, .CommonColorsSetting Link, .CommonColorsSetting ProgressBar {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Text, .CommonColorsSetting Label, .CommonColorsSetting CLabel {
+.CommonColorsSetting Label, .CommonColorsSetting CLabel {
     color: black;
     background-color: COLOR-LIST-BACKGROUND;
 }
