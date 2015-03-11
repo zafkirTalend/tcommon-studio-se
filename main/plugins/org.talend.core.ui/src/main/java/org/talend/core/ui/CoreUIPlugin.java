@@ -129,10 +129,25 @@ public class CoreUIPlugin extends AbstractUIPlugin {
         }
     }
 
-    public static void setCSSClass(Object widget, String className) {
+    public static void setCSSClass(Object widget, String className, boolean addCommonColorsSetting) {
         IStylingEngine cssStylingEngine = getCSSStylingEngine();
         if (cssStylingEngine != null) {
+            if (addCommonColorsSetting) {
+                setCommonColorsSettingCSSClass(widget);
+            }
             cssStylingEngine.setClassname(widget, className);
         }
     }
+
+    public static void setCommonColorsSettingCSSClass(Object widget) {
+        IStylingEngine cssStylingEngine = getCSSStylingEngine();
+        if (cssStylingEngine != null) {
+            cssStylingEngine.setClassname(widget, "CommonColorsSetting"); //$NON-NLS-1$
+        }
+    }
+
+    public static void setCSSClass(Object widget, String className) {
+        setCSSClass(widget, className, true);
+    }
+
 }

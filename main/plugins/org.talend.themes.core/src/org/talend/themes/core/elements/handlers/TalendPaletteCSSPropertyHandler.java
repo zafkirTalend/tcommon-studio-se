@@ -17,7 +17,6 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
-import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
@@ -52,70 +51,70 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
 
         boolean changed = false;
         if ("tPalette-mouseOver-forground-color1".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverForgroundColor1();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverForgroundColor1(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-mouseOver-forground-color2".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverForgroundColor2();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverForgroundColor2(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-mouseOver-forground-color3".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverForgroundColor3();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverForgroundColor3(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-mouseOver-background-color1".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverBackgroundColor1();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverBackgroundColor1(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-mouseOver-background-color2".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverBackgroundColor2();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverBackgroundColor2(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-mouseOver-background-color3".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getMouseOverBackgroundColor3();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setMouseOverBackgroundColor3(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-expanded-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getExpandedBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setExpandedBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapsed-forground-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapsedForgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapsedForgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapsed-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapsedBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapsedBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-list-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapsedBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
@@ -228,14 +227,14 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
                 }
             }
         } else if ("tPalette-slider-palette-forground-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getSliderPaletteForgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setSliderPaletteForgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-slider-palette-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getSliderPaletteBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
@@ -320,91 +319,91 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
                 }
             }
         } else if ("tPalette-entryEditPart-forground-disableColor".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryForgroundDisabledColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryForgroundDisabledColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-selected-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntrySelectedBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntrySelectedBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-hover-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryHoverBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryHoverBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-borderFocus-forground-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryBorderFocusForgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryBorderFocusForgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-borderFocus-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryBorderFocusBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryBorderFocusBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-drawerFigure-baseColor".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getDrawerFigureBaseColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setDrawerFigureBaseColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapse-topBorder-forground-lineColor1".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapseTopBorderForgroundLineColor1();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapseTopBorderForgroundLineColor1(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapse-topBorder-forground-lineColor2".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapseTopBorderForgroundLineColor2();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapseTopBorderForgroundLineColor2(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapse-expanded-forground-lineColor".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapseExpandedLineForgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapseExpandedLineForgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-collapse-notExpanded-forground-lineColor".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getCollapseNotExpandedLineForgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setCollapseNotExpandedLineForgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-entry-topLine-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryTopLineColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryTopLineColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-entry-bottomLine-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryBottomLineColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
                 paletteSetting.setEntryEditPartToolEntryBottomLineColor(CommonCSSStyleSetting.getColorByRGB(rgb));
             }
         } else if ("tPalette-entryEditPart-entry-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
+            RGB rgb = ((Color) engine.convert(value, Color.class, paletteComposite.getDisplay())).getRGB();
             Color oldColor = paletteSetting.getEntryEditPartToolEntryBackgroundColor();
             if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
                 changed = true;
@@ -423,11 +422,14 @@ public class TalendPaletteCSSPropertyHandler implements ICSSPropertyHandler {
                 paletteSetting.setEntryEditPartBackgroundColorInheritFromParent(inheritFromParent);
             }
         } else if ("tPalette-searchButton-background-color".equalsIgnoreCase(property)) {
-            RGB rgb = CSSSWTColorHelper.getRGB(value);
-            Color oldColor = paletteSetting.getSearchButtonBackgroundColor();
-            if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
-                changed = true;
-                paletteSetting.setSearchButtonBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
+            Object objColor = engine.convert(value, Color.class, paletteComposite.getDisplay());
+            if (objColor instanceof Color) {
+                RGB rgb = ((Color) objColor).getRGB();
+                Color oldColor = paletteSetting.getSearchButtonBackgroundColor();
+                if (oldColor == null || !oldColor.getRGB().equals(rgb)) {
+                    changed = true;
+                    paletteSetting.setSearchButtonBackgroundColor(CommonCSSStyleSetting.getColorByRGB(rgb));
+                }
             }
         } else if ("tPalette-searchButton-image".equalsIgnoreCase(property)) {
             Image image = null;

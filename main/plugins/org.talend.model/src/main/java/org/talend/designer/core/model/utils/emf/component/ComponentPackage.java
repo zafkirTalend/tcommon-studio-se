@@ -1213,13 +1213,31 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__EQUIVALENT = 32;
 
     /**
+     * The feature id for the '<em><b>INPUTTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__INPUTTYPE = 33;
+
+    /**
+     * The feature id for the '<em><b>OUTPUTTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__OUTPUTTYPE = 34;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 33;
+    int HEADER_TYPE_FEATURE_COUNT = 35;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3690,6 +3708,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_EQUIVALENT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getINPUTTYPE <em>INPUTTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>INPUTTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getINPUTTYPE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_INPUTTYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getOUTPUTTYPE <em>OUTPUTTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>OUTPUTTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getOUTPUTTYPE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_OUTPUTTYPE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getTYPE <em>TYPE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5972,6 +6012,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__EQUIVALENT = eINSTANCE.getHEADERType_EQUIVALENT();
+
+        /**
+         * The meta object literal for the '<em><b>INPUTTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__INPUTTYPE = eINSTANCE.getHEADERType_INPUTTYPE();
+
+        /**
+         * The meta object literal for the '<em><b>OUTPUTTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__OUTPUTTYPE = eINSTANCE.getHEADERType_OUTPUTTYPE();
 
         /**
          * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.

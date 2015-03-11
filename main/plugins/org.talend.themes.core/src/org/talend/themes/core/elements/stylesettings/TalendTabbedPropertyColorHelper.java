@@ -34,6 +34,8 @@ public class TalendTabbedPropertyColorHelper {
 
     private Color widgetDarkShadow = null;
 
+    private Color widgetVerticalLineColor = null;
+
     private Color listBackground = null;
 
     private Color hoverGradientStart = null;
@@ -57,6 +59,8 @@ public class TalendTabbedPropertyColorHelper {
     private TabbedPropertySheetWidgetFactory factory;
 
     private boolean isVisibleBorder = true;
+
+    private boolean isShowNormalShadow = false;
 
     RGB infoBackground = Display.getCurrent().getSystemColor(SWT.COLOR_INFO_BACKGROUND).getRGB();
 
@@ -108,6 +112,14 @@ public class TalendTabbedPropertyColorHelper {
 
     public void setWidgetDarkShadow(Color widgetDarkShadow) {
         this.widgetDarkShadow = widgetDarkShadow;
+    }
+
+    public Color getWidgetVerticalLineColor() {
+        return this.widgetVerticalLineColor;
+    }
+
+    public void setWidgetVerticalLineColor(Color widgetVerticalLineColor) {
+        this.widgetVerticalLineColor = widgetVerticalLineColor;
     }
 
     public Color getListBackground() {
@@ -197,9 +209,9 @@ public class TalendTabbedPropertyColorHelper {
     }
 
     public Color getBottomNavigationElementShadowStroke1() {
-        if (bottomNavigationElementShadowStroke1 == null) {
-            initGradient();
-        }
+        // if (bottomNavigationElementShadowStroke1 == null) {
+        // initGradient();
+        // }
         return this.bottomNavigationElementShadowStroke1;
     }
 
@@ -208,9 +220,9 @@ public class TalendTabbedPropertyColorHelper {
     }
 
     public Color getBottomNavigationElementShadowStroke2() {
-        if (bottomNavigationElementShadowStroke2 == null) {
-            initGradient();
-        }
+        // if (bottomNavigationElementShadowStroke2 == null) {
+        // initGradient();
+        // }
         return this.bottomNavigationElementShadowStroke2;
     }
 
@@ -224,6 +236,14 @@ public class TalendTabbedPropertyColorHelper {
 
     public void setVisibleBorder(boolean isVisibleBorder) {
         this.isVisibleBorder = isVisibleBorder;
+    }
+
+    public boolean isShowNormalShadow() {
+        return this.isShowNormalShadow;
+    }
+
+    public void setShowNormalShadow(boolean isShowNormalShadow) {
+        this.isShowNormalShadow = isShowNormalShadow;
     }
 
     public Color getTitleForeground() {
@@ -288,10 +308,10 @@ public class TalendTabbedPropertyColorHelper {
 
         navigationElementShadowStroke = factory.getColors().createColor("TabbedPropertyList.shadowStroke", //$NON-NLS-1$
                 FormColors.blend(white, widgetNormalShadow.getRGB(), 55));
-        bottomNavigationElementShadowStroke1 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke1", //$NON-NLS-1$
-                FormColors.blend(black, widgetBackground.getRGB(), 10));
-        bottomNavigationElementShadowStroke2 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke2", //$NON-NLS-1$
-                FormColors.blend(black, widgetBackground.getRGB(), 5));
+        //        bottomNavigationElementShadowStroke1 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke1", //$NON-NLS-1$
+        // FormColors.blend(black, widgetBackground.getRGB(), 10));
+        //        bottomNavigationElementShadowStroke2 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke2", //$NON-NLS-1$
+        // FormColors.blend(black, widgetBackground.getRGB(), 5));
 
         /*
          * gradient in the hover tab: start colour WIDGET_BACKGROUND 100% + white 20% end colour WIDGET_BACKGROUND 100%
@@ -334,5 +354,7 @@ public class TalendTabbedPropertyColorHelper {
          * Colour 19 COLOR_WIDGET_NORMAL_SHADOW
          */
         widgetNormalShadow = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW);
+
+        widgetVerticalLineColor = Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
     }
 }

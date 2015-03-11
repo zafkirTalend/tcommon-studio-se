@@ -29,11 +29,11 @@ public enum EImage implements IImage {
     PASTE_ICON("/icons/paste.gif"), //$NON-NLS-1$
     DUPLICATE_ICON("/icons/duplicate.png"), //$NON-NLS-1$
     CUT_ICON("/icons/cut.png"), //$NON-NLS-1$
-    DELETE_ICON("/icons/delete.gif"), //$NON-NLS-1$
-    RESTORE_ICON("/icons/add.gif"), //$NON-NLS-1$
-    ADD_ICON("/icons/add.gif"), //$NON-NLS-1$
+    DELETE_ICON("/icons/delete.png"), //$NON-NLS-1$
+    RESTORE_ICON("/icons/add.png"), //$NON-NLS-1$
+    ADD_ICON("/icons/add.png"), //$NON-NLS-1$
     ADD_ALL_ICON("/icons/addall.gif"), //$NON-NLS-1$
-    MINUS_ICON("/icons/delete.gif"), //$NON-NLS-1$
+    MINUS_ICON("/icons/delete.png"), //$NON-NLS-1$
     REFRESH_WITH_BGCOLOR_ICON("/icons/refresh_with_bgcolor.gif"), //$NON-NLS-1$
     REFRESH_ICON("/icons/refresh.gif"), //$NON-NLS-1$
     EDIT_ICON("/icons/write_obj.gif"), //$NON-NLS-1$
@@ -106,7 +106,7 @@ public enum EImage implements IImage {
     LOCK_ICON("/icons/lock.gif"), //$NON-NLS-1$
     UNLOCK_ICON("/icons/unlock.gif"), //$NON-NLS-1$
     FIND_ICON("/icons/find.gif"), //$NON-NLS-1$  
-    JOB_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
+    JOB_ICON("/icons/process_icon.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons/joblet_icon.png"), //$NON-NLS-1$
 
     MERGE_ICON("/icons/merge.png"), //$NON-NLS-1$

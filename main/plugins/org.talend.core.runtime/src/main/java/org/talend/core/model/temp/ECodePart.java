@@ -30,7 +30,10 @@ public enum ECodePart {
     STORMCODE("stormcode"), //$NON-NLS-1$
     STORMCONFIG("stormconfig"), //$NON-NLS-1$
     STORMMONITOR("stormmonitor"), //$NON-NLS-1$
-    STORMJOBFOOTER("stormjobfooter"); //$NON-NLS-1$
+    STORMJOBFOOTER("stormjobfooter"), //$NON-NLS-1$
+    SPARKCODE("sparkcode"), //$NON-NLS-1$
+    SPARKCONFIG("sparkconfig"), //$NON-NLS-1$
+    SPARKJOBFOOTER("sparkjobfooter"); //$NON-NLS-1$
 
     private ECodePart(String name) {
         this.name = name;

@@ -27,6 +27,7 @@ import org.talend.commons.ui.swt.composites.MessagesComposite;
 import org.talend.commons.ui.swt.composites.MessagesWithActionComposite;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerUIService;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
 
 /**
@@ -80,7 +81,22 @@ public class ContextMissSettingComposite extends Composite {
     }
 
     private MessagesWithActionComposite createMessagesComposite(Composite parent) {
-        return new MessagesWithActionComposite(parent, SWT.TOP);
+        MessagesWithActionComposite messagesComposite = new MessagesWithActionComposite(parent, SWT.TOP) {
+
+            @Override
+            protected void changeBackgroundColor(int status) {
+                switch (status) {
+                case IStatus.WARNING:
+                    CoreUIPlugin.setCSSId(this, CSS_MESSAGES_WITH_ACTION_COMPOSITE_WARN);
+                    break;
+                case IStatus.ERROR:
+                    CoreUIPlugin.setCSSId(this, CSS_MESSAGES_WITH_ACTION_COMPOSITE_ERROR);
+                    break;
+                default:
+                }
+            }
+        };
+        return messagesComposite;
 
     }
 

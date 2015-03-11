@@ -202,7 +202,7 @@
             visible="false">
          <action
                class="org.talend.repository.metadata.ui.actions.toolbar.CreateToolbarItemAction"
-               icon="icons/process_icon.gif"
+               icon="icons/process_icon.png"
                id="org.talend.repository.repositoryitem.createJob"
                label="Create"
                style="pulldown"
