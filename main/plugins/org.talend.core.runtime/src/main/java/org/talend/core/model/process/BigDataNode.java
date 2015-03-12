@@ -188,12 +188,12 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
                             Object value = nodeColumnListMap.get(clumnNodeListName);
                             String colName = ""; //$NON-NLS-1$
                             if (value != null) {
-                                if (value instanceof String) {
+                                if (value instanceof String || value instanceof Boolean) {
                                     if (parTableNode.isBasedOnSchema()) {
                                         // if the table content is based on schema, then we suppose that the columns
                                         // which compose the key are defined by another parameter, which must be a
                                         // checkbox.
-                                        if ("true".equals(value)) { //$NON-NLS-1$
+                                        if ("true".equals(value) || (Boolean) value) { //$NON-NLS-1$
                                             // SCHEMA_COLUMN is the name of the column in a "based on schema" context.
                                             colName = (String) nodeColumnListMap.get("SCHEMA_COLUMN"); //$NON-NLS-1$
                                         } else {
