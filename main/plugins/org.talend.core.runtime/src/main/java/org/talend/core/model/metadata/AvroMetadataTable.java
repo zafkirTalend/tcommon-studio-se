@@ -45,6 +45,8 @@ public class AvroMetadataTable extends MetadataTable {
 
     private String jobName;
 
+    private String connectionTypeName;
+
     /**
      * This constructor will extract process data to get the filePath, the technicalProjectName and the jobName of the
      * current metadata
@@ -125,6 +127,7 @@ public class AvroMetadataTable extends MetadataTable {
             clonedMetadata.setTableName(this.getTableName());
             clonedMetadata.setLabel(this.getLabel());
             clonedMetadata.setAdditionalProperties(new HashMap<String, String>(super.getAdditionalProperties()));
+            clonedMetadata.setConnectionTypeName(connectionTypeName);
         } catch (Exception e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
@@ -139,6 +142,8 @@ public class AvroMetadataTable extends MetadataTable {
      */
     public void generateAvroFile(String connectionName) {
         schema = generateAvroSchema(connectionName);
+
+        this.connectionTypeName = connectionName + "Struct";
 
         try {
             // Generate the java class from the schema
@@ -221,4 +226,11 @@ public class AvroMetadataTable extends MetadataTable {
         return fieldAssembler.endRecord();
     }
 
+    public void setConnectionTypeName(String connectionName) {
+        this.connectionTypeName = connectionName;
+    }
+
+    public String getConnectionTypeName() {
+        return this.connectionTypeName;
+    }
 }
