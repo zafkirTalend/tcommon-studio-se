@@ -405,6 +405,13 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     jtab-close-button-line-width: 1px;
     
     jtab-chevron-color: #000000;
+    
+    tab-minimize-button-none-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-hot-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-selected-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-maximize-button-none-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-hot-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-selected-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
 }
 
 #org-eclipse-e4-primaryDataStack>CTabItem {
