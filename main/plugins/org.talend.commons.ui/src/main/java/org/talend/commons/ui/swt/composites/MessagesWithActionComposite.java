@@ -24,6 +24,10 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class MessagesWithActionComposite extends MessagesComposite {
 
+    public String CSS_MESSAGES_WITH_ACTION_COMPOSITE_WARN = "MessagesWithActionComposite-Warn"; //$NON-NLS-1$
+
+    public String CSS_MESSAGES_WITH_ACTION_COMPOSITE_ERROR = "MessagesWithActionComposite-Error"; //$NON-NLS-1$
+
     private Button actionBtn;
 
     public MessagesWithActionComposite(Composite parent, int style) {
@@ -44,6 +48,11 @@ public class MessagesWithActionComposite extends MessagesComposite {
             actionBtn.setBackground(backgroundColor);
         }
         setActionButtonVisible(!hidden);
+        changeBackgroundColor(status);
+    }
+
+    protected void changeBackgroundColor(int status) {
+        // inherit this method to use;
     }
 
     public void setActionButtonVisible(boolean show) {

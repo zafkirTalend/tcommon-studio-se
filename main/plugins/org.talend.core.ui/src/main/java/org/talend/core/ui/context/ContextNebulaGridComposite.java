@@ -119,14 +119,14 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
      */
     public ContextNebulaGridComposite(Composite parent, IContextModelManager manager) {
         super(parent, SWT.NONE);
-        // CSS
-        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
         modelManager = manager;
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());
         this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
+        // CSS
+        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
     }
 
     @Override

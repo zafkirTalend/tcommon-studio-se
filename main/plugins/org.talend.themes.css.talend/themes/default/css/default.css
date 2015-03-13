@@ -5,63 +5,33 @@
 /**************************************************
  * Global Color Setting
  **************************************************/
-.CommonColorsSetting {
+.MPart {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Shell {
+.MPart Shell, .MPart Widget, .MPart Control, .MPart Composite, .MPart Sash, .MPart Menu, .MPart Group, .MPart LayoutComposite {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Widget {
+.MPart Button, .MPart Tree, .MPart Link, .MPart ProgressBar {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Control {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Button {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Text {
-    background: COLOR-LIST-BACKGROUND;
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Label {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting CLabel {
+.MPart Label, .MPart CLabel {
     color: black;
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Tree {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Composite Tree {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Link {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting ProgressBar {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Sash {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Menu {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Group {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting Composite {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.CommonColorsSetting LayoutComposite {
-    background-color: COLOR-LIST-BACKGROUND;
-}
-.MPart Composite {
-    background-color: COLOR-LIST-BACKGROUND;
-}
 
+.CommonColorsSetting {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Shell, .CommonColorsSetting Widget, .CommonColorsSetting Control, .CommonColorsSetting Composite, .CommonColorsSetting Sash, .CommonColorsSetting Menu, .CommonColorsSetting Group, .CommonColorsSetting LayoutComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Button, .CommonColorsSetting Tree, .CommonColorsSetting Link, .CommonColorsSetting ProgressBar {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Label, .CommonColorsSetting CLabel {
+    color: black;
+    background-color: COLOR-LIST-BACKGROUND;
+}
 
 /**************************************************
  * Window
@@ -435,6 +405,13 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     jtab-close-button-line-width: 1px;
     
     jtab-chevron-color: #000000;
+    
+    tab-minimize-button-none-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-hot-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-selected-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-maximize-button-none-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-hot-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-selected-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
 }
 
 #org-eclipse-e4-primaryDataStack>CTabItem {
@@ -537,81 +514,80 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     _t-title-bottom-foreground-keyline2-color:COLOR-LIST-BACKGROUND;
 }
 
-.AdvanceSettingComposite Label{
-  color: black;
+.AdvancedContextComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.AdvancedContextComposite Label {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.AdvanceSettingComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.AdvanceSettingComposite Label, .AdvanceSettingComposite Button {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+#MessagesWithActionComposite-Warn Label, #MessagesWithActionComposite-Warn Button {
+    background-color: #FFAF0A;
+}
+#MessagesWithActionComposite-Error Label, #MessagesWithActionComposite-Error Button {
+    background-color: #EE4000;
 }
 .ContextViewComposite {
-  background-color: COLOR-LIST-BACKGROUND;
+    background-color: COLOR-LIST-BACKGROUND;
 }
 .ContextNebulaGridComposite {
-  background-color: COLOR-LIST-BACKGROUND;
-}
-.MultipleThreadDynamicComposite {
-  background-color: COLOR-LIST-BACKGROUND;
+    background-color: COLOR-LIST-BACKGROUND;
 }
 .ProcessTargetExecutionComposite {
-  background-color: COLOR-LIST-BACKGROUND;
+    background-color: COLOR-LIST-BACKGROUND;
 }
 .ProcessContextComposite {
-  background-color: COLOR-LIST-BACKGROUND;
+    background-color: COLOR-LIST-BACKGROUND;
 }
 
 .RespositoryDetailView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Text{
- background-color:white;
+    background-color:white;
 }
 .PatternTestView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Text{
- background-color: white;
+    background-color: white;
 }
 .PatternTestView Button{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Text{
- background-color: white;
+    background-color: white;
 }
 
 /**************************************************
  * Palette
  **************************************************/
-
-.PaletteSearchBar {
-    background-color:white;
-}
-
-.PaletteSearchBar Text {
-    background-color:white;
-}
-
-.PaletteSearchBar ToolBar {
-    jtool-item-color:white;
-}
-
 .TalendPaletteCls {
     tPalette-collapsed-forground-color:white;
     tPalette-collapsed-background-color:white;
