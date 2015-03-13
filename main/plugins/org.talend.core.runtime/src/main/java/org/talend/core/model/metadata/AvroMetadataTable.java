@@ -128,6 +128,8 @@ public class AvroMetadataTable extends MetadataTable {
             clonedMetadata.setLabel(this.getLabel());
             clonedMetadata.setAdditionalProperties(new HashMap<String, String>(super.getAdditionalProperties()));
             clonedMetadata.setConnectionTypeName(connectionTypeName);
+
+            clonedMetadata.setAttachedConnector(this.getAttachedConnector());
         } catch (Exception e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
