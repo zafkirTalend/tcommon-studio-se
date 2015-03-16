@@ -274,9 +274,9 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Empty Editor Stack
  **************************************************/
 #org-eclipse-ui-editorss.MArea .MPartStack.empty{
-    jtab-header-background : #e5e5e5 #e5e5e5 100%;
-    jtab-border-color : none;
-    background : #e5e5e5;
+    jtab-header-background: #555964 #555964 100%;
+    jtab-border-color: #e5e5e5 #cacaca 100%;
+    background: COLOR-LIST-BACKGROUND;
 }
 
 
