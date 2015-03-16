@@ -97,4 +97,12 @@ public interface ITalendProcessJavaProject {
      * check and add the child module in project.
      */
     void addChildModules(String... childModules);
+
+    /**
+     * 
+     * build the modules jobs.
+     * 
+     * if null, will build whole project. if empty (String[0]), willn't build any thing.
+     */
+    void buildModules(String... childModules);
 }

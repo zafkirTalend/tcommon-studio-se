@@ -524,9 +524,10 @@ public class ProcessorUtilities {
             for (ModuleNeeded module : neededModules) {
                 jarList.add(module.getModuleName());
             }
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            IRunProcessService runProcessService = CorePlugin.getDefault().getRunProcessService();
+            runProcessService.updateLibraries(jarList, currentProcess);
             if (codeModified) {
-                CorePlugin.getDefault().getRunProcessService().buildJavaProject();
+                processor.build();
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;

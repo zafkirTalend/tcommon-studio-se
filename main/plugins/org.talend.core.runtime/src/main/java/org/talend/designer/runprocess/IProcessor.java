@@ -295,4 +295,10 @@ public interface IProcessor {
     Set<String> getNeededLibraries();
 
     Set<JobInfo> getBuildChildrenJobs();
+
+    /**
+     * 
+     * build current job or whole project.
+     */
+    void build();
 }

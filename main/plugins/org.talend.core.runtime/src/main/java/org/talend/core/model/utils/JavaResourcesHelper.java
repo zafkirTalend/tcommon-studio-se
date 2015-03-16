@@ -112,8 +112,11 @@ public class JavaResourcesHelper {
     public static String getProjectFolderName(Item item) {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.properties.Project p = pManager.getProject(item);
-        String projectFolderName = p.getTechnicalLabel();
-        projectFolderName = projectFolderName.toLowerCase();
+        return getProjectFolderName(p.getTechnicalLabel());
+    }
+
+    public static String getProjectFolderName(String projectName) {
+        String projectFolderName = projectName.toLowerCase();
         return projectFolderName;
     }
 
@@ -167,6 +170,11 @@ public class JavaResourcesHelper {
         return packageName;
     }
 
+    public static String getJobClassPackageName(String projectName, String jobName, String jobVersion) {
+        String packageName = getProjectFolderName(projectName) + '.' + getJobFolderName(jobName, jobVersion);
+        return packageName;
+    }
+
     /**
      * if project "Test" and item "TestJob 0.1" , will return "test.testjob_0_1.TestJob"
      * 
@@ -190,7 +198,20 @@ public class JavaResourcesHelper {
      * 
      */
     public static String getJobClassPackageFolder(Item processItem) {
-        return getJobClassPackageName(processItem).replace('.', '/');
+        String packageName = getJobClassPackageName(processItem);
+        return changePackage2Path(packageName);
+    }
+
+    public static String getJobClassPackageFolder(String projectName, String jobName, String jobVersion) {
+        String packageName = getJobClassPackageName(projectName, jobName, jobVersion);
+        return changePackage2Path(packageName);
+    }
+
+    private static String changePackage2Path(String packageName) {
+        if (packageName != null) {
+            return packageName.replace('.', '/');
+        }
+        return null;
     }
 
     /**
@@ -199,7 +220,12 @@ public class JavaResourcesHelper {
      * will return test/testjob_0_1/TestJob.java
      */
     public static String getJobClassFilePath(Item processItem, boolean filenameFromLabel) {
-        return getJobPackagedClass(processItem, filenameFromLabel).replace('.', '/') + JavaUtils.JAVA_EXTENSION;
+        String jobPackagedClass = getJobPackagedClass(processItem, filenameFromLabel);
+        String path = changePackage2Path(jobPackagedClass);
+        if (path != null) {
+            return path + JavaUtils.JAVA_EXTENSION;
+        }
+        return null;
     }
 
     /**
