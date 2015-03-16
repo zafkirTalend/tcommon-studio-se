@@ -148,6 +148,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         super(parentShell);
         this.currentLibMap = currentLibMap;
         customLibUtil = new HadoopCustomLibrariesUtil();
+        initLibMap();
     }
 
     @Override
@@ -441,6 +442,22 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
 
     private void init() {
         libsManager = CustomVersionLibsManager.getInstance();
+
+        // initLibMap();// move it to constructor
+        ECustomVersionGroup selectedType = getSelectedType();
+        if (selectedType != null) {
+            selectLibFileSet = libMap.get(selectedType.getName());
+            viewer.setInput(selectLibFileSet);
+        }
+    }
+
+    /**
+     * Initialize the libMap.<br>
+     * <b>NOTE:</b><br>
+     * 1. Can call this method when currentLibMap is changed;<br>
+     * 2. This method will be called automatically in the constructor.
+     */
+    public void initLibMap() {
         if (currentLibMap != null) {
             ECustomVersionGroup[] groups = ECustomVersionGroup.values();
             for (ECustomVersionGroup group : groups) {
@@ -450,11 +467,6 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
                 }
                 libMap.put(group.getName(), customLibUtil.convertToLibraryFile(set));
             }
-        }
-        ECustomVersionGroup selectedType = getSelectedType();
-        if (selectedType != null) {
-            selectLibFileSet = libMap.get(selectedType.getName());
-            viewer.setInput(selectLibFileSet);
         }
     }
 
