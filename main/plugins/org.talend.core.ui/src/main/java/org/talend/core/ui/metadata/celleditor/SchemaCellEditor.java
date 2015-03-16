@@ -153,7 +153,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                             }
                             if ("tSAPBapi".equals(node.getComponent().getName())) {
                                 node.getMetadataFromConnector(schemaToEdit);
-                                executeCommand(new RepositoryChangeMetadataForSAPBapi(node, functionUnit, metaTable, null));
+                                executeCommand(new RepositoryChangeMetadataForSAPBapi(node, functionUnit, metaTable, null, index));
                             } else {
                                 executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS,
                                         metaTable.getLabel(), metaTable, index));

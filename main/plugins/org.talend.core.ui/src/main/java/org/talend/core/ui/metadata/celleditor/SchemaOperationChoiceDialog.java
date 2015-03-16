@@ -250,6 +250,9 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
                     setButtonAndStatus(checkSchema());
                     if (schemaCombo != null) {
                         schemaCombo.setVisible(true);
+                        if (schemaCombo.getItemCount() == 0) {
+                            getOkButton().setEnabled(false);
+                        }
                     }
                 }
 
@@ -328,6 +331,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
                 valid = false;
             }
         }
+
         if (!valid && processType == EProcessType.BUILTIN) {
             // only, change to repository
             if (schemaCombo.getText().equals(schemaName)) {
@@ -349,7 +353,7 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
                         break;
                     }
                 }
-            } else {
+            } else if (item != null) {
                 Set tables = ConnectionHelper.getTables(item.getConnection());
                 for (MetadataTable table : (Set<MetadataTable>) tables) {
                     if (table.getLabel().equals(schemaCombo.getText())) {
