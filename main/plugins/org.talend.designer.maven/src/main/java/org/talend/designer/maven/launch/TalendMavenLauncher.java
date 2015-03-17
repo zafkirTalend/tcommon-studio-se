@@ -68,8 +68,12 @@ public class TalendMavenLauncher {
         this.goals = goals;
     }
 
+    /*
+     * shouldn't use clean goal, because the routines and some other(children) jobs use same output target/classes, if
+     * add clean will clean the before build classes.
+     */
     public TalendMavenLauncher(IFile pomFile) {
-        this(pomFile, MavenConstants.GOAL_COMPILE);
+        this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */MavenConstants.GOAL_COMPILE);
     }
 
     private ILaunchConfiguration createLaunchConfiguration(IContainer basedir, String goal) {
@@ -144,6 +148,7 @@ public class TalendMavenLauncher {
         if (!MavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
             return;
         }
+
         /*
          * use the ExecutePomAction directly.
          */
@@ -156,15 +161,14 @@ public class TalendMavenLauncher {
          */
         try {
             ILaunchConfiguration launchConfiguration = createLaunchConfiguration(launcherPomFile.getParent(), goals);
-            if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
-                ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
-                copiedConfig.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, true);
-            }
-            TalendLauncherHelper launcherHelper = new TalendLauncherHelper(launchConfiguration);
+            // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
+            // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
+            // }
+            TalendLauncherWaiter talendWaiter = new TalendLauncherWaiter(launchConfiguration);
 
             DebugUITools.buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
 
-            launcherHelper.waitFinish();
+            talendWaiter.waitFinish();
 
         } catch (CoreException e) {
             ExceptionHandler.process(e);
@@ -177,13 +181,13 @@ public class TalendMavenLauncher {
      * created by ggu on 16 Mar 2015 Detailled comment
      *
      */
-    static class TalendLauncherHelper implements IDebugEventSetListener {
+    static class TalendLauncherWaiter implements IDebugEventSetListener {
 
         private ILaunchConfiguration launchConfig;
 
         private boolean launchFinished = false;
 
-        public TalendLauncherHelper(ILaunchConfiguration launchConfig) {
+        public TalendLauncherWaiter(ILaunchConfiguration launchConfig) {
             super();
             this.launchConfig = launchConfig;
             DebugPlugin.getDefault().addDebugEventListener(this);

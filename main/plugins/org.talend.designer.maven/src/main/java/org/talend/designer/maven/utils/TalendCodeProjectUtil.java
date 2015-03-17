@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.utils.JavaResourcesHelper;
-import org.talend.designer.maven.model.JavaSourceProjectConstants;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.maven.project.CreateMavenCodeProject;
@@ -42,7 +41,7 @@ public final class TalendCodeProjectUtil {
     public static IProject initCodeProject(IProgressMonitor monitor) throws Exception {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-        IProject codeProject = root.getProject(JavaSourceProjectConstants.PROJECT_NAME);
+        IProject codeProject = root.getProject(TalendMavenContants.PROJECT_NAME);
         boolean recreate = false;
         if (codeProject.exists()) {
             IFile pomFile = codeProject.getFile(MavenConstants.POM_FILE_NAME);

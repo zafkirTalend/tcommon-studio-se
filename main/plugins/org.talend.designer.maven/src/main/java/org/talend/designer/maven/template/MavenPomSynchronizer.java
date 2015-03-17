@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.maven.template;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,8 +21,10 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
@@ -60,6 +63,8 @@ public class MavenPomSynchronizer {
             createTemplatePom.setOverwrite(false); // don't overwrite.
 
             createTemplatePom.create(null);
+
+            routinesSrcFolder.refreshLocal(IResource.DEPTH_ONE, null);
         }
     }
 
@@ -82,67 +87,64 @@ public class MavenPomSynchronizer {
         IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
 
+        templateFolder.refreshLocal(IResource.DEPTH_ONE, null);
     }
 
     /**
      * 
      * add the job to the pom modules list of project.
      */
-    public void addChildModules(String... childModules) throws Exception {
+    public void addChildModules(boolean removeOld, String... childModules) throws Exception {
         IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
-        if (projectPomFile.exists()) {
-            MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
-            Model projModel = mavenModelManager.readMavenModel(projectPomFile);
-            List<String> modules = projModel.getModules();
-            if (modules == null) {
-                modules = new ArrayList<String>();
-                projModel.setModules(modules);
-            }
+        File pPomFile = projectPomFile.getLocation().toFile();
+        if (!pPomFile.exists()) {
+            // synch the templates first.
+            syncTemplates(false);
+            //
+            IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+            IFile projectTemplateFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+            FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
+        }
+        MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
+        Model projModel = mavenModelManager.readMavenModel(projectPomFile);
+        List<String> modules = projModel.getModules();
+        if (modules == null) {
+            modules = new ArrayList<String>();
+            projModel.setModules(modules);
+        }
 
-            boolean modifed = false;
-            if (childModules == null || childModules.length == 0) { // clean the modules
-                if (!modules.isEmpty()) {
-                    modules.clear();
-                    modifed = true;
-                }
-            } else {
-                final Iterator<String> iterator = modules.iterator();
-                while (iterator.hasNext()) {
-                    String module = iterator.next();
-                    if (ArrayUtils.contains(childModules, module)) {
-                        iterator.remove(); // remove the exised one
-                    }
-                }
-                // according to the arrays order to add the modules.
-                for (String module : childModules) {
+        boolean modifed = false;
+        if (removeOld || (childModules == null || childModules.length == 0)) { // clean the modules
+            if (!modules.isEmpty()) {
+                modules.clear();
+                modifed = true;
+            }
+        }
+
+        final Iterator<String> iterator = modules.iterator();
+        while (iterator.hasNext()) {
+            String module = iterator.next();
+            if (ArrayUtils.contains(childModules, module)) {
+                iterator.remove(); // remove the exised one
+            }
+        }
+
+        if (childModules != null) {
+            // according to the arrays order to add the modules.
+            for (String module : childModules) {
+                if (module.length() > 0) {
                     modules.add(module);
                     modifed = true;
                 }
             }
-
-            if (modifed) {
-
-                checkRoutinesModule(projModel);
-                // save pom.
-                PomManager.savePom(null, projModel, projectPomFile);
-            }
         }
+
+        if (modifed) {
+            // save pom.
+            PomManager.savePom(null, projModel, projectPomFile);
+        }
+        // refresh
+        codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
     }
 
-    private void checkRoutinesModule(Model projModel) {
-        final List<String> modules = projModel.getModules();
-
-        // routine module
-        IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-        final String routineModule = routinesSrcFolder.getProjectRelativePath().toPortableString();
-        // make sure the routine is in first.
-        if (modules.isEmpty()) {
-            modules.add(routineModule);
-        } else {
-            if (modules.contains(routineModule)) {
-                modules.remove(routineModule);
-            }
-            modules.add(0, routineModule);
-        }
-    }
 }

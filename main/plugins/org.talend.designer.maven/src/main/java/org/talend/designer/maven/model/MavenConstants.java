@@ -33,6 +33,8 @@ public interface MavenConstants {
 
     static final String ASSEMBLY_FILE_NAME = "assembly.xml";
 
+    static final String GOAL_CLEAN = "clean";
+
     static final String GOAL_COMPILE = "compile";
 
     static final String GOAL_PACKAGE = "package";

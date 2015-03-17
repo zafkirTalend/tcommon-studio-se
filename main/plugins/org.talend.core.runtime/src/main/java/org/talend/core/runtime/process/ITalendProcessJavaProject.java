@@ -96,7 +96,7 @@ public interface ITalendProcessJavaProject {
      * 
      * check and add the child module in project.
      */
-    void addChildModules(String... childModules);
+    void addChildModules(boolean removeOld, String... childModules);
 
     /**
      * 

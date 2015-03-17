@@ -23,6 +23,9 @@ import org.talend.commons.utils.generation.JavaUtils;
 @SuppressWarnings("nls")
 public interface TalendMavenContants {
 
+    /* same as the JavaUtils.JAVA_PROJECT_NAME */
+    static final String PROJECT_NAME = ".Java";
+
     static final String DEFAULT_GROUP_ID = "org.talend";
 
     static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "org.talend.source";
@@ -34,4 +37,7 @@ public interface TalendMavenContants {
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
     static final String DEFAULT_JDK_VERSION = JavaCore.VERSION_1_6;
+
+    static final String CURRENT_PATH = ".";
+
 }

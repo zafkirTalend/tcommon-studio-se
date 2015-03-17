@@ -38,6 +38,7 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -338,8 +339,10 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         /*
          * build properties
          */
-        checkPomProperty(properties, "build.java.level", "@BuildJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
-        checkPomProperty(properties, "build.encoding", "@BuildEncoding@", TalendMavenContants.DEFAULT_ENCODING);
+        checkPomProperty(properties, "maven.compiler.source", "@CompilerJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
+        checkPomProperty(properties, "maven.compiler.target", "@CompilerJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
+        checkPomProperty(properties, "project.build.sourceEncoding", "@BuildSourceEncoding@",
+                TalendMavenContants.DEFAULT_ENCODING);
     }
 
     protected void checkPomProperty(Properties properties, String key, String var, String value) {
@@ -446,6 +449,9 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
     public void create(IProgressMonitor monitor) throws Exception {
         super.create(monitor);
         generateAssemblyFile();
+
+        // refresh
+        getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
     }
 
     protected void generateAssemblyFile() {

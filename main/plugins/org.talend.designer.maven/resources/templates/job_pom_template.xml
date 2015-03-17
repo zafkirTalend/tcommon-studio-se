@@ -33,9 +33,10 @@
 		<talend.job.bat.classpath>@JobBatClasspath@</talend.job.bat.classpath>
 		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
 
-		<!-- for build level -->
-		<build.java.level>@BuildJavaLevel@</build.java.level> <!-- 1.6 -->
-		<build.encoding>@BuildEncoding@</build.encoding> <!-- UTF-8 -->
+		<!-- for maven build -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
@@ -54,21 +55,28 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<encoding>${build.encoding}</encoding>
-					<source>${build.java.level}</source>
-					<target>${build.java.level}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
-				<configuration>
-					<encoding>${build.encoding}</encoding>
-				</configuration>
+				<executions>
+					<execution>
+						<id>copy-running-resources</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration> <!-- copy the contexts for running job -->
+							<outputDirectory>${project.build.outputDirectory}/${talend.job.path}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.resources.path}/${talend.job.path}</directory>
+									<includes>
+										<include>contexts/*.properties</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
