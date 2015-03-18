@@ -56,11 +56,9 @@ public class LibrariesManagerUtils {
             for (ModuleNeeded module : modules) {
                 for (ModuleNeeded fromProvider : modulesNeeded) {
                     if (fromProvider.getModuleName().equals(module.getModuleName())
-                            && fromProvider.getContext().equals(module.getContext())
-                            && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()
-                            && (fromProvider.getRequiredIf() != null && fromProvider.getRequiredIf().equals(
-                                    module.getRequiredIf()))) {
-                        updatedModules.add(fromProvider);
+                            && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
+                        module.setStatus(fromProvider.getStatus());
+                        updatedModules.add(module);
                         break;
                     }
                 }
