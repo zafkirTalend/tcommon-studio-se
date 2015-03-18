@@ -56,7 +56,7 @@ public class AvroMetadataTable extends MetadataTable {
      * @param process the current process
      */
     public AvroMetadataTable(IProcess2 process) {
-        this((String) process.getElementParameter("FILE_PATH").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
+        this((String) process.getElementParameter("COMP_DEFAULT_FILE_DIR").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
                 "PROJECT_TECHNICAL_NAME").getValue(), process.getProperty().getLabel(), process.getProperty().getVersion()); //$NON-NLS-1$
 
     }
@@ -72,14 +72,8 @@ public class AvroMetadataTable extends MetadataTable {
      */
     public AvroMetadataTable(String projectPath, String technicalProjectName, String jobName, String jobVersion) {
         super();
-        // First and last char are quotes.
-        if (projectPath.startsWith("\"")) { //$NON-NLS-1$
-            this.filePath = projectPath.substring(1, projectPath.length() - 1);
-        } else {
-            this.filePath = projectPath;
-        }
-        // Fix path
-        this.filePath = this.filePath.substring(0, projectPath.lastIndexOf("/")) + "/.Java/src/"; //$NON-NLS-1$ //$NON-NLS-2$
+        // Use projectPath to go to the filePath
+        this.filePath = projectPath + "/.Java/src/"; //$NON-NLS-1$
 
         this.technicalProjectName = technicalProjectName.toLowerCase();
 
