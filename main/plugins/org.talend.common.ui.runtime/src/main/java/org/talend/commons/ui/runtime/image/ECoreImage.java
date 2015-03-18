@@ -27,7 +27,7 @@ public enum ECoreImage implements IImage {
 
     COMPARE_ICON("/icons1/compare_view.gif"), //$NON-NLS-1$
 
-    STANDARD_ICON("/icons1/palette.gif"), //$NON-NLS-1$
+    STANDARD_ICON("/icons1/palette.png"), //$NON-NLS-1$
 
     PALETTE_FILTER("/icons1/studio_6.0-palette-filter.png"), //$NON-NLS-1$
 
@@ -53,6 +53,7 @@ public enum ECoreImage implements IImage {
     BUSINESS_PROCESS_ICON("/icons1/businessProcess.png"), //$NON-NLS-1$
     BUSINESS_PROCESS_WIZ("/icons1/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons1/process_icon.png"), //$NON-NLS-1$
+    PROCESS_ICON_EDITOR("/icons1/process_icon_editor.png"), //$NON-NLS-1$
     PROCESS_WIZ("/icons1/process_wiz.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_ICON("/icons1/process_icon.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_WIZ("/icons1/process_template_wiz.png"), //$NON-NLS-1$
@@ -62,7 +63,7 @@ public enum ECoreImage implements IImage {
     CONTEXT_CONF_ICON("/icons1/context_conf_icon.gif"), //$NON-NLS-1$
     CONTEXT_WIZ("/icons1/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons1/code.png"), //$NON-NLS-1$
-    ROUTINE_ICON("/icons1/routine.gif"), //$NON-NLS-1$
+    ROUTINE_ICON("/icons1/routine.png"), //$NON-NLS-1$
     JOB_SCRIPTS_ICON("/icons1/job_scripts.png"), //$NON-NLS-1$
     JOB_SCRIPTS_TOOLBAR_ICON("/icons1/job_script_toolbar.png"), //$NON-NLS-1$
     FTP_ICON("/icons1/ftp.png"), //$NON-NLS-1$
@@ -99,6 +100,7 @@ public enum ECoreImage implements IImage {
     METADATA_HEADERFOOTER_ICON("/icons1/headerfooter_icon32.png"), //$NON-NLS-1$
 
     METADATA_SQLPATTERN_ICON("/icons1/SQLPattern.png"), //$NON-NLS-1$
+    METADATA_SQLPATTERN_ICON_EDITOR("/icons1/SQLPattern_editor.png"), //$NON-NLS-1$
     METADATA_SQLPATTERN_WIZ("/icons1/defaultWizard.png"), //$NON-NLS-1$
 
     METADATA_TABLE_ICON("/icons1/table.gif"), //$NON-NLS-1$
