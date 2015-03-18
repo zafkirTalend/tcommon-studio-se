@@ -1142,27 +1142,41 @@ public class DatabaseForm extends AbstractForm {
 
     private void showIfAuthentication() {
         if (isHiveDBConnSelected()) {
-            int distributionIndex = distributionCombo.getSelectionIndex();
-            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
-            if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
-                boolean isHive2 = false;
-                if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
-                    isHive2 = true;
-                }
-                boolean supportSecurity = HiveConnUtils.isSupportSecurity(distributionIndex, hiveVersionIndex, hiveModeIndex,
-                        isHive2, hiveServerIndex);
-                if (supportSecurity) {
-                    updateAuthenticationForHive(isHiveEmbeddedMode());
-                    setHidAuthenticationForHive(false);
-                } else {
-                    setHidAuthenticationForHive(true);
-                }
+            if (isSupportSecurity()) {
+                updateAuthenticationForHive(isHiveEmbeddedMode());
+                setHidAuthenticationForHive(false);
+            } else {
+                setHidAuthenticationForHive(true);
             }
         } else {
             setHidAuthenticationForHive(true);
         }
+    }
+
+    private boolean isCurrentDbSupportAuthentication() {
+        boolean needAuthencation = false;
+        if (isHiveDBConnSelected()) {
+            if (isSupportSecurity()) {
+                needAuthencation = true;
+            }
+        }
+        return needAuthencation;
+    }
+
+    private boolean isSupportSecurity() {
+        int distributionIndex = distributionCombo.getSelectionIndex();
+        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+        int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+        if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
+            boolean supportSecurity = HiveConnUtils.isSupportSecurity(distributionIndex, hiveVersionIndex, hiveModeIndex,
+                    HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText()),
+                    hiveServerIndex);
+            if (supportSecurity) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addListenerForImpalaAuthentication() {
@@ -1567,7 +1581,8 @@ public class DatabaseForm extends AbstractForm {
 
     private void refreshHadoopProperties() {
         if (hadoopPropertiesDialog != null) {
-            String databaseType = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+            String dbType = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+            String databaseType = dbType != null ? dbType : getConnection().getDatabaseType();
             String hadoopProperties = getHadoopProperties(databaseType);
             hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
             hadoopClusterPropertiesList = getHadoopClusterProperties();
@@ -1628,6 +1643,14 @@ public class DatabaseForm extends AbstractForm {
         hiveJDBCPropertiesComposite.setVisible(show);
         hiveJDBCPropertiesComposite.setLayoutData(hadoopData);
         hiveJDBCPropertiesComposite.getParent().layout();
+    }
+
+    private void refreshHiveJdbcProperties() {
+        if (hiveJDBCPropertiesDialog != null) {
+            String hiveProperties = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
+            hiveJDBCPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hiveProperties);
+            hiveJDBCPropertiesDialog.setInitProperties(hiveJDBCPropertiesList);
+        }
     }
 
     private void createHBaseSettingContents(Composite parent) {
@@ -1762,6 +1785,48 @@ public class DatabaseForm extends AbstractForm {
         hcPropertyTypeCombo.setReadOnly(isContextMode());
         hiveModeCombo.setReadOnly(isContextMode());
         hiveServerVersionCombo.setReadOnly(isContextMode());
+
+        useKerberos.setEnabled(!isContextMode());
+        useKeyTab.setEnabled(!isContextMode());
+        browseDriverJarBtn.setEnabled(!isContextMode());
+        browseDriverClassButton.setEnabled(!isContextMode());
+        hivePrincipalTxt.setEditable(!isContextMode());
+        metastoreUrlTxt.setEditable(!isContextMode());
+        driverJarTxt.setEditable(!isContextMode());
+        driverClassTxt.setReadOnly(isContextMode());
+        usernameTxt.setEditable(!isContextMode());
+        passwordTxt.setEditable(!isContextMode());
+        principalTxt.setEditable(!isContextMode());
+        keytabTxt.setEditable(!isContextMode());
+    }
+
+    private void adaptHbaseHadoopPartEditable() {
+        hcPropertyTypeCombo.setReadOnly(isContextMode());
+        hbaseDistributionCombo.setReadOnly(isContextMode());
+        hbaseVersionCombo.setReadOnly(isContextMode());
+        useKerberosForHBase.setEnabled(!isContextMode());
+        useKeyTabForHBase.setEnabled(!isContextMode());
+        hbaseMasterPrincipalTxt.setEditable(!isContextMode());
+        hbaseRSPrincipalTxt.setEditable(!isContextMode());
+        principalForHBaseTxt.setEditable(!isContextMode());
+        keytabForHBaseTxt.setEditable(!isContextMode());
+    }
+
+    private void updateHadoopProperties(boolean isEditable) {
+        refreshHadoopProperties();
+        refreshHiveJdbcProperties();
+        updatePropertiesFileds(isEditable);
+    }
+
+    private void updatePropertiesFileds(boolean isEditable) {
+        if (hadoopPropertiesDialog != null) {
+            hadoopPropertiesDialog.updatePropertiesFields(isEditable);
+            hadoopPropertiesDialog.updateStatusLabel(hadoopPropertiesList);
+        }
+        if (hiveJDBCPropertiesDialog != null) {
+            hiveJDBCPropertiesDialog.updatePropertiesFields(isEditable);
+            hiveJDBCPropertiesDialog.updateStatusLabel(hiveJDBCPropertiesList);
+        }
     }
 
     private void updateHCRelatedParameters(String hcId) {
@@ -4719,7 +4784,6 @@ public class DatabaseForm extends AbstractForm {
                 schemaText.hide();
             }
         }
-        collectContextParams(visible);
         doHiveUIContentsLayout();
         hbaseSettingGroup.layout();
         impalaSettingGroup.layout();
@@ -4732,40 +4796,54 @@ public class DatabaseForm extends AbstractForm {
         compositeGroupDbSettings.layout();
     }
 
-    private void collectContextParams(boolean visible) {
-        collectHiveContextParams(visible);
-        collectHBaseContextParams(visible);
+    private void collectContextParams() {
+        collectHiveContextParams();
+        collectHBaseContextParams();
     }
 
-    private void collectHiveContextParams(boolean visible) {
+    private void collectHiveContextParams() {
         // recollect context params for hive
         if (isHiveDBConnSelected()) {
             getConetxtParams().clear();
-            addContextParams(EDBParamName.Login, visible);
-            addContextParams(EDBParamName.Server, visible);
-            addContextParams(EDBParamName.Port, visible);
-            addContextParams(EDBParamName.Database, visible);
-            if (isHiveEmbeddedMode()) {
-                // if from cluster no need to export the two params
-                String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
-                if (hcId == null) {
-                    addContextParams(EDBParamName.NameNode, visible);
-                    addContextParams(EDBParamName.JobTracker, visible);
-                }
-            } else {
-                addContextParams(EDBParamName.Password, visible);
-            }
+            addContextParams(EDBParamName.Login, true);
+            addContextParams(EDBParamName.Server, true);
+            addContextParams(EDBParamName.Port, true);
+            addContextParams(EDBParamName.Database, true);
+            addContextParams(EDBParamName.NameNode, useHadoopRepositoryParam());
+            addContextParams(EDBParamName.JobTrackerOrResourceManager, useHadoopRepositoryParam());
+            addContextParams(EDBParamName.Password, !isHiveEmbeddedMode());
+            addContextParams(EDBParamName.HivePrincipal, isCurrentDbSupportAuthentication() && useKerberos.getSelection());
+            addContextParams(EDBParamName.HiveMetastore, hasAuthentication());
+            addContextParams(EDBParamName.HiveDriverJar, hasAuthentication());
+            addContextParams(EDBParamName.HiveDriveClass, hasAuthentication());
+            addContextParams(EDBParamName.HiveUserName, hasAuthentication());
+            addContextParams(EDBParamName.HivePassword, hasAuthentication());
+            addContextParams(EDBParamName.HiveKeyTabPrincipal, hasAuthentication() && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTab, hasAuthentication() && useKeyTab.getSelection());
         }
     }
 
-    private void collectHBaseContextParams(boolean visible) {
+    private void collectHBaseContextParams() {
         // recollect context params for Hbase
         if (isHBaseDBConnSelected()) {
             getConetxtParams().clear();
-            addContextParams(EDBParamName.Server, visible);
-            addContextParams(EDBParamName.Port, visible);
-            addContextParams(EDBParamName.Schema, visible);
+            addContextParams(EDBParamName.Server, true);
+            addContextParams(EDBParamName.Port, true);
+            addContextParams(EDBParamName.Schema, true);
+            addContextParams(EDBParamName.MasterPrincipal, useKerberosForHBase.getSelection());
+            addContextParams(EDBParamName.RegionPrincipal, useKerberosForHBase.getSelection());
+            addContextParams(EDBParamName.HbaseKeyTabPrincipal, useKeyTabForHBase.getSelection());
+            addContextParams(EDBParamName.HbaseKeyTab, useKeyTabForHBase.getSelection());
         }
+    }
+
+    private boolean hasAuthentication() {
+        return isHiveEmbeddedMode() && isCurrentDbSupportAuthentication() && useKerberos.getSelection();
+    }
+
+    private boolean useHadoopRepositoryParam() {
+        String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+        return hcId == null && isHiveEmbeddedMode();
     }
 
     /**
@@ -4987,12 +5065,19 @@ public class DatabaseForm extends AbstractForm {
         if (isContextMode()) {
             passwordText.getTextControl().setEchoChar('\0');
             generalJdbcPasswordText.getTextControl().setEchoChar('\0');
+            passwordTxt.getTextControl().setEchoChar('\0');
         } else {
             passwordText.getTextControl().setEchoChar('*');
             generalJdbcPasswordText.getTextControl().setEchoChar('*');
+            passwordTxt.getTextControl().setEchoChar('*');
         }
         if (isHiveDBConnSelected()) {
             adaptHadoopLinkedPartToReadOnly();
+            updateHadoopProperties(!isContextMode());
+        }
+        if (isHBaseDBConnSelected()) {
+            adaptHbaseHadoopPartEditable();
+            updateHadoopProperties(!isContextMode());
         }
     }
 
@@ -5109,6 +5194,8 @@ public class DatabaseForm extends AbstractForm {
             String hadoopUserName = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
 
             // Parameters for connecting to metastore.
+
+            // EDatabaseTypeName.HIVE.getDisplayName()
             String metastoreConnURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL);
             String metastoreConnUserNameStr = connection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
@@ -5523,6 +5610,7 @@ public class DatabaseForm extends AbstractForm {
                     (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
             String nameNodeURLstr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             String jobTrackerURLStr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            String hiveKerberosPrin = getConnection().getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
             if (StringUtils.isNotEmpty(nameNodeURLstr)) {
                 nameNodeURLTxt.setText(nameNodeURLstr);
             } else if (defaultNN != null) {
@@ -5543,13 +5631,18 @@ public class DatabaseForm extends AbstractForm {
             }
             String defaultPrincipal = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
                     EHadoopCategory.HIVE.getName(), EHadoopProperties.HIVE_PRINCIPAL.getName());
-            if (defaultPrincipal != null) {
+            if (StringUtils.isNotEmpty(hiveKerberosPrin)) {
+                hivePrincipalTxt.setText(hiveKerberosPrin);
+            } else if (defaultPrincipal != null) {
                 hivePrincipalTxt.setText(defaultPrincipal);
             }
             String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
                     EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
-            getConnection().setSID(defaultDatabase);
-            sidOrDatabaseText.setText(defaultDatabase);
+            if (StringUtils.isNotEmpty(getConnection().getSID())) {
+                sidOrDatabaseText.setText(getConnection().getSID());
+            } else if (defaultDatabase != null) {
+                sidOrDatabaseText.setText(defaultDatabase);
+            }
         }
     }
 
@@ -5808,7 +5901,7 @@ public class DatabaseForm extends AbstractForm {
                         EHadoopProperties.PORT.getName());
             }
 
-            if (defaultPort != null) {
+            if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
             }
@@ -6057,6 +6150,7 @@ public class DatabaseForm extends AbstractForm {
             if (version != null) {
                 conn.setDbVersionString(version.getVersionDisplay());
             }
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE, EDatabaseConnTemplate.HIVE.getDBTypeName());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION,
                     HiveConnUtils.getDistributionObj(distributionIndex).getKey());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION,
@@ -6178,5 +6272,16 @@ public class DatabaseForm extends AbstractForm {
      */
     public void setProperties(List<HashMap<String, Object>> properties) {
         this.properties = properties;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.metadata.managment.ui.wizard.AbstractForm#exportAsContext()
+     */
+    @Override
+    protected void exportAsContext() {
+        collectContextParams();
+        super.exportAsContext();
     }
 }

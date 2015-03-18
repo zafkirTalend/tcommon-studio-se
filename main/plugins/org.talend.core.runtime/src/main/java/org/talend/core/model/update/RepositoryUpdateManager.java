@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -37,7 +38,10 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
 import org.talend.core.IRepositoryContextUpdateService;
 import org.talend.core.IService;
+import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
@@ -662,6 +666,8 @@ public abstract class RepositoryUpdateManager {
                                     // Added by Marvin Wang on Nov.7, 2012 for bug TDI-12596, because schema can not be
                                     // propagated to metadata db.
                                     dbConn.setUiSchema(newValue);
+                                } else {
+                                    updateHadoopPropertiesForDbConnection(dbConn, oldValue, newValue);
                                 }
                                 factory.save(item);
                             }
@@ -999,31 +1005,61 @@ public abstract class RepositoryUpdateManager {
                     }
                 }
             }
-            List<IRepositoryViewObject> noSqlConnList = factory.getAll(
-                    ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "METADATA_NOSQL_CONNECTIONS"), true); //$NON-NLS-1$
-            for (IRepositoryViewObject obj : noSqlConnList) {
-                Item item = obj.getProperty().getItem();
-                if (item instanceof ConnectionItem) {
-                    Connection conn = ((ConnectionItem) item).getConnection();
-                    if (conn.isContextMode()) {
-                        ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
-                        if (contextItem == null) {
-                            continue;
-                        }
-                        if (citem == contextItem) {
-                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryContextUpdateService.class)) {
-                                IService service = GlobalServiceRegister.getDefault().getService(
-                                        IRepositoryContextUpdateService.class);
-                                IRepositoryContextUpdateService repositoryContextUpdateService = (IRepositoryContextUpdateService) service;
-                                repositoryContextUpdateService.updateRelatedContextVariableName(conn, oldValue, newValue);
+            for (String updateType : UpdateRepositoryHelper.getAllHadoopConnectionTypes()) {
+                List<IRepositoryViewObject> hadoopConnList = factory.getAll(
+                        ERepositoryObjectType.valueOf(ERepositoryObjectType.class, updateType), true);
+                for (IRepositoryViewObject obj : hadoopConnList) {
+                    Item item = obj.getProperty().getItem();
+                    if (item instanceof ConnectionItem) {
+                        Connection conn = ((ConnectionItem) item).getConnection();
+                        if (conn.isContextMode()) {
+                            ContextItem contextItem = ContextUtils.getContextItemById2(conn.getContextId());
+                            if (contextItem == null) {
+                                continue;
                             }
-                            factory.save(item);
+                            if (citem == contextItem) {
+                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryContextUpdateService.class)) {
+                                    IService service = GlobalServiceRegister.getDefault().getService(
+                                            IRepositoryContextUpdateService.class);
+                                    IRepositoryContextUpdateService repositoryContextUpdateService = (IRepositoryContextUpdateService) service;
+                                    repositoryContextUpdateService.updateRelatedContextVariable(conn, oldValue, newValue);
+                                }
+                                factory.save(item);
+                            }
                         }
                     }
                 }
             }
         }
 
+    }
+
+    private void updateHadoopPropertiesForDbConnection(DatabaseConnection dbConn, String oldValue, String newValue) {
+        String databaseType = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+        EMap<String, String> parameters = dbConn.getParameters();
+        String hadoopProperties = "";
+        if (databaseType != null) {
+            if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType)) {
+                hadoopProperties = parameters.get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+            } else if (EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(databaseType)) {
+                hadoopProperties = parameters.get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+            }
+            List<Map<String, Object>> hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
+            if (!hadoopPropertiesList.isEmpty()) {
+                for (Map<String, Object> propertyMap : hadoopPropertiesList) {
+                    String propertyValue = (String) propertyMap.get("VALUE");
+                    if (propertyValue.equals(oldValue)) {
+                        propertyMap.put("VALUE", newValue);
+                    }
+                }
+                String hadoopPropertiesJson = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(hadoopPropertiesList);
+                if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType)) {
+                    dbConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES, hadoopPropertiesJson);
+                } else if (EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(databaseType)) {
+                    dbConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES, hadoopPropertiesJson);
+                }
+            }
+        }
     }
 
     public static IEditorReference[] getEditors() {

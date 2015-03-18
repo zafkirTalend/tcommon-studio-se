@@ -94,7 +94,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.impl.ContextTypeImpl;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 import org.talend.metadata.managment.ui.utils.DBConnectionContextUtils.EDBParamName;
-import org.talend.metadata.managment.ui.utils.ExtendedNodeConnectionContextUtils.ENoSQLParamName;
+import org.talend.metadata.managment.ui.utils.ExtendedNodeConnectionContextUtils.EHadoopParamName;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
 import org.talend.metadata.managment.ui.utils.OtherConnectionContextUtils.EParamName;
 import org.talend.metadata.managment.ui.wizard.context.ContextModeWizard;
@@ -330,8 +330,8 @@ public final class ConnectionContextHelper {
             if (param instanceof EParamName) {
                 varList.add(((EParamName) param).name());
             }
-            if (param instanceof ENoSQLParamName) {
-                varList.add(((ENoSQLParamName) param).name());
+            if (param instanceof EHadoopParamName) {
+                varList.add(((EHadoopParamName) param).name());
             }
         }
     }
@@ -343,6 +343,28 @@ public final class ConnectionContextHelper {
             SAPConnection sapConn = (SAPConnection) currentConnection;
             for (AdditionalConnectionProperty sapProperty : sapConn.getAdditionalProperties()) {
                 varList.add(sapProperty.getPropertyName());
+            }
+        } else if (currentConnection instanceof DatabaseConnection) {
+            DatabaseConnection dbConn = (DatabaseConnection) currentConnection;
+            List<Map<String, Object>> hadoopPropertiesList = DBConnectionContextUtils.getHiveOrHbaseHadoopProperties(dbConn);
+            if (!hadoopPropertiesList.isEmpty()) {
+                for (Map<String, Object> propertyMap : hadoopPropertiesList) {
+                    varList.add((String) propertyMap.get("PROPERTY"));
+                }
+            }
+            List<Map<String, Object>> hiveJdbcPropertiesList = DBConnectionContextUtils.getHiveJdbcProperties(dbConn);
+            if (!hiveJdbcPropertiesList.isEmpty()) {
+                for (Map<String, Object> propertyMap : hiveJdbcPropertiesList) {
+                    varList.add((String) propertyMap.get("PROPERTY"));
+                }
+            }
+        } else {
+            Set<String> additionPropertyList = ExtendedNodeConnectionContextUtils
+                    .getAdditionalPropertiesVariablesForExistContext(currentConnection);
+            Iterator<String> it = additionPropertyList.iterator();
+            while (it.hasNext()) {
+                String additionalConProperty = it.next();
+                varList.add(additionalConProperty);
             }
         }
     }
@@ -426,7 +448,7 @@ public final class ConnectionContextHelper {
         connectionItem.getConnection().setContextName(selItem.getDefaultContext());
     }
 
-    static void createParameters(List<IContextParameter> varList, String paramName, String value) {
+    public static void createParameters(List<IContextParameter> varList, String paramName, String value) {
         createParameters(varList, paramName, value, null);
     }
 
@@ -1614,6 +1636,8 @@ public final class ConnectionContextHelper {
             OtherConnectionContextUtils.revertSAPPropertiesForContextMode((SAPConnection) conn, contextType);
         } else if (conn instanceof GenericSchemaConnection) {
             //
+        } else {
+            ExtendedNodeConnectionContextUtils.revertPropertiesForContextMode(conn, contextType);
         }
         // set connection for context mode
         conn.setContextMode(false);
