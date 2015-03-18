@@ -309,18 +309,6 @@ public enum EDatabaseConnTemplate {
         return null;
     }
 
-    public static EDatabaseConnTemplate indexOfTemplate(String dbType, String dbVersion) {
-        if (dbType != null && dbVersion != null) {
-            for (EDatabaseConnTemplate temp : EDatabaseConnTemplate.values()) {
-                if ((temp.getDBTypeName().equals(dbType) || temp.getDBDisplayName().equals(dbType))
-                        && dbVersion.equals(temp.name())) {
-                    return temp;
-                }
-            }
-        }
-        return null;
-    }
-
     public static boolean isSchemaNeeded(String dbType) {
         EDatabaseConnTemplate template = indexOfTemplate(dbType);
         if (template != null) {
