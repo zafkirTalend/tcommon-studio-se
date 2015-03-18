@@ -54,6 +54,8 @@ public class ExtensionModuleManager {
 
     public final static String URIPATH_ATTR = "uripath"; //$NON-NLS-1$
 
+    public final static String BUNDLEID_ATTR = "bundleID"; //$NON-NLS-1$
+
     public final static String DESC_ATTR = "description"; //$NON-NLS-1$
 
     public final static String PATH_SEP = "/"; //$NON-NLS-1$
