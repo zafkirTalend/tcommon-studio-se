@@ -95,6 +95,9 @@ public class DatabaseConnStrUtil {
             final String host, final String login, final String password, final String port, final String sid,
             final String filename, final String datasource) {
         EDatabaseConnTemplate connStr = EDatabaseConnTemplate.indexOfTemplate(dbType);
+        if (EDatabaseTypeName.MYSQL.getDisplayName().equals(dbType)) {
+            connStr = EDatabaseConnTemplate.indexOfTemplate(dbType, dbVersion);
+        }
         EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(dbVersion);
         if (connStr != null) {
             String s = connStr.getUrlTemplate(version);

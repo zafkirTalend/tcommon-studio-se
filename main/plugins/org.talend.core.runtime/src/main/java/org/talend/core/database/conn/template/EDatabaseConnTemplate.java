@@ -30,6 +30,11 @@ public enum EDatabaseConnTemplate {
             "3306", //$NON-NLS-1$
             "noDatetimeStringSync=true")), //$NON-NLS-1$
 
+    MARIADB(new DbConnStr(EDatabaseTypeName.MYSQL, //
+            "jdbc:mariadb://<host>:<port>/<sid>?<property>", //$NON-NLS-1$
+            "3306", //$NON-NLS-1$
+            "noDatetimeStringSync=true")), //$NON-NLS-1$
+
     PSQL(new DbConnStr(EDatabaseTypeName.PSQL, //
             "jdbc:postgresql://<host>:<port>/<sid>", //$NON-NLS-1$
             "5432")), //$NON-NLS-1$
@@ -297,6 +302,18 @@ public enum EDatabaseConnTemplate {
         if (dbType != null) {
             for (EDatabaseConnTemplate temp : EDatabaseConnTemplate.values()) {
                 if (temp.getDBTypeName().equals(dbType) || temp.getDBDisplayName().equals(dbType)) {
+                    return temp;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static EDatabaseConnTemplate indexOfTemplate(String dbType, String dbVersion) {
+        if (dbType != null && dbVersion != null) {
+            for (EDatabaseConnTemplate temp : EDatabaseConnTemplate.values()) {
+                if ((temp.getDBTypeName().equals(dbType) || temp.getDBDisplayName().equals(dbType))
+                        && dbVersion.equals(temp.name())) {
                     return temp;
                 }
             }

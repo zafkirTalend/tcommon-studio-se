@@ -82,6 +82,7 @@ public class ExtractMetaDataFromDataBase {
      */
     public enum ETableTypes {
         TABLETYPE_TABLE("TABLE"), //$NON-NLS-1$
+        TABLETYPE_BASE_TABLE("BASE TABLE"), //for mariadb //$NON-NLS-1$ 
         TABLETYPE_VIEW("VIEW"), //$NON-NLS-1$
         TABLETYPE_SYNONYM("SYNONYM"), //$NON-NLS-1$
         TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"), //$NON-NLS-1$
@@ -401,6 +402,7 @@ public class ExtractMetaDataFromDataBase {
             final StringBuffer userSelectResult = new StringBuffer();
             Display.getDefault().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
                     String title = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.title"); //$NON-NLS-1$
                     String proposeMessage = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.message", new Object[] { //$NON-NLS-1$
