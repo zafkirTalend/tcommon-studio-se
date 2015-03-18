@@ -52,7 +52,7 @@ public class AvroMetadataTable extends MetadataTable {
     /**
      * This constructor will extract process data to get the filePath, the technicalProjectName and the jobName of the
      * current metadata
-     * 
+     *
      * @param process the current process
      */
     public AvroMetadataTable(IProcess2 process) {
@@ -64,7 +64,7 @@ public class AvroMetadataTable extends MetadataTable {
     /**
      * This constructor will extract project data to get the filePath, the technicalProjectName and the jobName of the
      * current metadata
-     * 
+     *
      * @param projectPath the path to the sources of the project
      * @param technicalProjectName the name of the project
      * @param jobName the name of the job without version
@@ -83,7 +83,7 @@ public class AvroMetadataTable extends MetadataTable {
 
     /**
      * This constructor use already extracted variable of the current metadata. It will be used by the clone() method.
-     * 
+     *
      * @param filePath the path to the generated sources of the project
      * @param technicalProjectName the name of the project
      * @param jobName the name of the job with version
@@ -135,13 +135,12 @@ public class AvroMetadataTable extends MetadataTable {
 
     /**
      * Generate the avro file associated to the current MetadataTable.
-     * 
+     *
      * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
     public void generateAvroFile(String connectionName) {
-        schema = generateAvroSchema(connectionName);
-
         this.connectionTypeName = connectionName + "Struct";
+        schema = generateAvroSchema(connectionName, connectionTypeName);
 
         try {
             // Generate the java class from the schema
@@ -155,7 +154,7 @@ public class AvroMetadataTable extends MetadataTable {
             compiler.compileToDestination(null, new File(filePath));
 
             // Generate the java bean from the schema
-            schema = generateBean(connectionName);
+            schema = generateAvroSchema(connectionName, connectionTypeName + "BeanInfo"); //$NON-NLS-1$
             compiler = new SpecificCompiler(schema);
             compiler.setTemplateDir(AVRO_TEMPLATE_BEAN_DIR);
             compiler.setFieldVisibility(FieldVisibility.PUBLIC);
@@ -170,80 +169,15 @@ public class AvroMetadataTable extends MetadataTable {
     }
 
     /**
-     * 
+     *
      * Generate the avro schema associated to the current MetadataTable.
-     * 
+     *
      * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
-    private Schema generateAvroSchema(String connectionName) {
+    private Schema generateAvroSchema(String connectionName, String fileName) {
         // Initialize the file with global parameters
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct") //$NON-NLS-1$
-                .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
-                .fields();
-
-        // Generate a field for each column of the metadatatable
-        for (IMetadataColumn column : super.getListColumns()) {
-            // Set field name
-            BaseFieldTypeBuilder<Schema> fieldTypeSchema = fieldAssembler.name(column.getLabel()).type();
-
-            // Set Nullable
-            if (column.isNullable()) {
-                fieldTypeSchema = ((FieldTypeBuilder<Schema>) fieldTypeSchema).nullable();
-            }
-
-            // Set field type
-            if ("id_Boolean".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.booleanType().noDefault();
-            } else if ("id_Byte".equals(column.getTalendType())) { //$NON-NLS-1$
-                // TODO No native type byte
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Byte").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_byte[]".equals(column.getTalendType())) { //$NON-NLS-1$
-                // TODO is a byteBuffer
-                fieldTypeSchema.bytesType().noDefault();
-            } else if ("id_Character".equals(column.getTalendType())) { //$NON-NLS-1$
-                // TODO No native type char
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Character").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Date".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.util.Date").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Double".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.doubleType().noDefault();
-            } else if ("id_Float".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.floatType().noDefault();
-            } else if ("id_BigDecimal".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.math.BigDecimal").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Integer".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.intType().noDefault();
-            } else if ("id_Long".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.longType().noDefault();
-            } else if ("id_Short".equals(column.getTalendType())) { //$NON-NLS-1$
-                // TODO No native type short
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Short").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_String".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.String").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_List".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.util.List").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Document".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "routines.system.Document").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else if ("id_Dynamic".equals(column.getTalendType())) { //$NON-NLS-1$
-                fieldTypeSchema.stringBuilder().prop("java-class", "routines.system.Dynamic").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            } else { // Object
-                fieldTypeSchema.stringBuilder().prop("java-class", "java.lang.Object").endString().noDefault(); //$NON-NLS-1$  //$NON-NLS-2$
-            }
-        }
-
-        return fieldAssembler.endRecord();
-    }
-
-    /**
-     * 
-     * Generate the avro schema associated to the current MetadataTable.
-     * 
-     * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
-     */
-    private Schema generateBean(String connectionName) {
-        // Initialize the file with global parameters
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "StructBeanInfo") //$NON-NLS-1$
-                .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
+        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(fileName).prop(connectionName, connectionName)
+                .namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
         // Generate a field for each column of the metadatatable
