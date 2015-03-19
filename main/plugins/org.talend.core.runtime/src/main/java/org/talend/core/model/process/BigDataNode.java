@@ -66,17 +66,20 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
      */
     @Override
     public String getIncomingType() {
-        List<? extends IConnection> incomingConnections = getIncomingConnections(EConnectionType.FLOW_MAIN);
-        if (incomingConnections.size() > 0) {
-            if (incomingConnections.get(0).getSource() instanceof BigDataNode) {
-                IBigDataNode node = (IBigDataNode) incomingConnections.get(0).getSource();
-                String requiredOutputType = node.getRequiredOutputType();
-                return requiredOutputType != null ? requiredOutputType : node.getIncomingType();
-            } else {
-                // We are on an external node => PairRDD
-                // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring of
-                // the external nodes.
-                return "KEYVALUE"; //$NON-NLS-1$
+        List<? extends IConnection> incomingConnections = getIncomingConnections();
+        for (IConnection inConnection : incomingConnections) {
+            if (inConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                if (incomingConnections.get(0).getSource() instanceof BigDataNode) {
+                    IBigDataNode node = (IBigDataNode) incomingConnections.get(0).getSource();
+                    String requiredOutputType = node.getRequiredOutputType();
+                    return requiredOutputType != null ? requiredOutputType : node.getIncomingType();
+                } else {
+                    // We are on an external node => PairRDD
+                    // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring
+                    // of
+                    // the external nodes.
+                    return "KEYVALUE"; //$NON-NLS-1$
+                }
             }
         }
         return null;
@@ -87,17 +90,20 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
      */
     @Override
     public String getOutgoingType() {
-        List<? extends IConnection> outgoingConnections = getOutgoingConnections(EConnectionType.FLOW_MAIN);
-        if (outgoingConnections.size() > 0) {
-            if (outgoingConnections.get(0).getTarget() instanceof BigDataNode) {
-                IBigDataNode node = (IBigDataNode) outgoingConnections.get(0).getTarget();
-                String requiredInputType = node.getRequiredInputType();
-                return (requiredInputType != null && !node.isIdentity()) ? requiredInputType : node.getOutgoingType();
-            } else {
-                // We are on an external node => PairRDD
-                // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring of
-                // the external nodes.
-                return "KEYVALUE"; //$NON-NLS-1$
+        List<? extends IConnection> outgoingConnections = getOutgoingConnections();
+        for (IConnection outConnection : outgoingConnections) {
+            if (outConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                if (outConnection.getTarget() instanceof BigDataNode) {
+                    IBigDataNode node = (IBigDataNode) outgoingConnections.get(0).getTarget();
+                    String requiredInputType = node.getRequiredInputType();
+                    return (requiredInputType != null && !node.isIdentity()) ? requiredInputType : node.getOutgoingType();
+                } else {
+                    // We are on an external node => PairRDD
+                    // TODO Maybe on the futur we need to handle RDD or DataFrame, but this required a big refactoring
+                    // of
+                    // the external nodes.
+                    return "KEYVALUE"; //$NON-NLS-1$
+                }
             }
         }
         return null;
@@ -188,12 +194,18 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
                             Object value = nodeColumnListMap.get(clumnNodeListName);
                             String colName = ""; //$NON-NLS-1$
                             if (value != null) {
-                                if (value instanceof String) {
+                                if (value instanceof String || value instanceof Boolean) {
                                     if (parTableNode.isBasedOnSchema()) {
+                                        boolean isKey = false;
+                                        if (value instanceof String) {
+                                            isKey = "true".equals(value); //$NON-NLS-1$
+                                        } else if (value instanceof Boolean) {
+                                            isKey = (Boolean) value;
+                                        }
                                         // if the table content is based on schema, then we suppose that the columns
                                         // which compose the key are defined by another parameter, which must be a
                                         // checkbox.
-                                        if ("true".equals(value)) { //$NON-NLS-1$
+                                        if (isKey) {
                                             // SCHEMA_COLUMN is the name of the column in a "based on schema" context.
                                             colName = (String) nodeColumnListMap.get("SCHEMA_COLUMN"); //$NON-NLS-1$
                                         } else {
@@ -278,7 +290,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
     public void setKeyList(IBigDataNode bigDataNode, String direction) {
         // The partitionning field can describe the key elements. But if it's start with a "!",
         // key elements are elements wich are not present on the described field.
-        if (bigDataNode.getComponent().getPartitioning().startsWith("!")) {
+        if (bigDataNode.getComponent().getPartitioning().startsWith("!")) { //$NON-NLS-1$
             if (getMetadataList().size() <= 0) {
                 throw new RuntimeException("Please define a schema for " + this.getComponentName());//$NON-NLS-1$ 
             }

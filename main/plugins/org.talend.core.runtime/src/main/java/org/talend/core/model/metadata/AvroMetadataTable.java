@@ -37,6 +37,8 @@ public class AvroMetadataTable extends MetadataTable {
 
     private final static String AVRO_TEMPLATE_DIR = "/org/talend/core/model/metadata/avro/specific/"; //$NON-NLS-1$
 
+    private final static String AVRO_TEMPLATE_BEAN_DIR = "/org/talend/core/model/metadata/avro/bean/"; //$NON-NLS-1$
+
     private Schema schema = null;
 
     private String filePath;
@@ -45,14 +47,16 @@ public class AvroMetadataTable extends MetadataTable {
 
     private String jobName;
 
+    private String connectionTypeName;
+
     /**
      * This constructor will extract process data to get the filePath, the technicalProjectName and the jobName of the
      * current metadata
-     * 
+     *
      * @param process the current process
      */
     public AvroMetadataTable(IProcess2 process) {
-        this((String) process.getElementParameter("FILE_PATH").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
+        this((String) process.getElementParameter("COMP_DEFAULT_FILE_DIR").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
                 "PROJECT_TECHNICAL_NAME").getValue(), process.getProperty().getLabel(), process.getProperty().getVersion()); //$NON-NLS-1$
 
     }
@@ -60,7 +64,7 @@ public class AvroMetadataTable extends MetadataTable {
     /**
      * This constructor will extract project data to get the filePath, the technicalProjectName and the jobName of the
      * current metadata
-     * 
+     *
      * @param projectPath the path to the sources of the project
      * @param technicalProjectName the name of the project
      * @param jobName the name of the job without version
@@ -68,14 +72,8 @@ public class AvroMetadataTable extends MetadataTable {
      */
     public AvroMetadataTable(String projectPath, String technicalProjectName, String jobName, String jobVersion) {
         super();
-        // First and last char are quotes.
-        if (projectPath.startsWith("\"")) { //$NON-NLS-1$
-            this.filePath = projectPath.substring(1, projectPath.length() - 1);
-        } else {
-            this.filePath = projectPath;
-        }
-        // Fix path
-        this.filePath = this.filePath.substring(0, projectPath.lastIndexOf("/")) + "/.Java/src/"; //$NON-NLS-1$ //$NON-NLS-2$
+        // Use projectPath to go to the filePath
+        this.filePath = projectPath + "/.Java/src/"; //$NON-NLS-1$
 
         this.technicalProjectName = technicalProjectName.toLowerCase();
 
@@ -85,7 +83,7 @@ public class AvroMetadataTable extends MetadataTable {
 
     /**
      * This constructor use already extracted variable of the current metadata. It will be used by the clone() method.
-     * 
+     *
      * @param filePath the path to the generated sources of the project
      * @param technicalProjectName the name of the project
      * @param jobName the name of the job with version
@@ -125,6 +123,9 @@ public class AvroMetadataTable extends MetadataTable {
             clonedMetadata.setTableName(this.getTableName());
             clonedMetadata.setLabel(this.getLabel());
             clonedMetadata.setAdditionalProperties(new HashMap<String, String>(super.getAdditionalProperties()));
+            clonedMetadata.setConnectionTypeName(connectionTypeName);
+
+            clonedMetadata.setAttachedConnector(this.getAttachedConnector());
         } catch (Exception e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
@@ -134,11 +135,12 @@ public class AvroMetadataTable extends MetadataTable {
 
     /**
      * Generate the avro file associated to the current MetadataTable.
-     * 
+     *
      * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
     public void generateAvroFile(String connectionName) {
-        schema = generateAvroSchema(connectionName);
+        this.connectionTypeName = connectionName + "Struct";
+        schema = generateAvroSchema(connectionName, connectionTypeName);
 
         try {
             // Generate the java class from the schema
@@ -150,6 +152,16 @@ public class AvroMetadataTable extends MetadataTable {
             compiler.setStringType(StringType.String);
             // No source, since we just want to parse the input schema
             compiler.compileToDestination(null, new File(filePath));
+
+            // Generate the java bean from the schema
+            schema = generateAvroSchema(connectionName, connectionTypeName + "BeanInfo"); //$NON-NLS-1$
+            compiler = new SpecificCompiler(schema);
+            compiler.setTemplateDir(AVRO_TEMPLATE_BEAN_DIR);
+            compiler.setFieldVisibility(FieldVisibility.PUBLIC);
+            // Allow String java class
+            compiler.setStringType(StringType.String);
+            // No source, since we just want to parse the input schema
+            compiler.compileToDestination(null, new File(filePath));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -157,15 +169,15 @@ public class AvroMetadataTable extends MetadataTable {
     }
 
     /**
-     * 
+     *
      * Generate the avro schema associated to the current MetadataTable.
-     * 
+     *
      * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
-    private Schema generateAvroSchema(String connectionName) {
+    private Schema generateAvroSchema(String connectionName, String fileName) {
         // Initialize the file with global parameters
-        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(connectionName + "Struct") //$NON-NLS-1$
-                .prop(connectionName, connectionName).namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
+        FieldAssembler<Schema> fieldAssembler = SchemaBuilder.record(fileName).prop(connectionName, connectionName)
+                .namespace(technicalProjectName + "." + jobName) //$NON-NLS-1$
                 .fields();
 
         // Generate a field for each column of the metadatatable
@@ -221,4 +233,11 @@ public class AvroMetadataTable extends MetadataTable {
         return fieldAssembler.endRecord();
     }
 
+    public void setConnectionTypeName(String connectionName) {
+        this.connectionTypeName = connectionName;
+    }
+
+    public String getConnectionTypeName() {
+        return this.connectionTypeName;
+    }
 }
