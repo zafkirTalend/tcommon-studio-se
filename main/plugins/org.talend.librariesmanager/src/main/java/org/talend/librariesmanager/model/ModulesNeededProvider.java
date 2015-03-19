@@ -639,6 +639,7 @@ public class ModulesNeededProvider {
         ModuleNeeded module = new ModuleNeeded(context, name, message, required);
         module.setModuleLocaion(uripath);
         module.setId(id);
+        module.setBundleName(current.getAttribute(ExtensionModuleManager.BUNDLEID_ATTR));
         return module;
     }
 

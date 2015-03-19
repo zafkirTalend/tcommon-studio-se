@@ -515,7 +515,7 @@ public class MigrationToolService implements IMigrationToolService {
                 log.warn(Messages.getString("MigrationToolService.taskBreaksIsNull", task.getId())); //$NON-NLS-1$
             } else if (status != MigrationStatus.NOIMPACT_LITERAL) {
                 ProductVersion taskBreaks = ProductVersion.fromString(breaks);
-                if (taskBreaks.compareTo(topTaskBreaks) > 0) {
+                if (taskBreaks != null && taskBreaks.compareTo(topTaskBreaks) > 0) {
                     topTaskBreaks = taskBreaks;
                 }
             }

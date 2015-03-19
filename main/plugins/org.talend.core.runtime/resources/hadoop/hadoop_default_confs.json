@@ -6,6 +6,7 @@
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
         "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
+        "JOBHISTORY_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -27,6 +28,7 @@
         "NAMENODE_PRINCIPAL": "hdfs/_HOST@EXAMPLE.COM",
         "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
+        "JOBHISTORY_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083
@@ -122,6 +124,7 @@
         "NAMENODE_PRINCIPAL": "nn/_HOST@EXAMPLE.COM",
         "JOBTRACKER_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "RESOURCE_MANAGER_PRINCIPAL" : "yarn/_HOST@EXAMPLE.COM",
+        "JOBHISTORY_PRINCIPAL" : "mapred/_HOST@EXAMPLE.COM",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083

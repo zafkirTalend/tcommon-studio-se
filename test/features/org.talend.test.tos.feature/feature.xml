@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.talend.test.tos.feature"
+      version="6.0.0.qualifier"
+      provider-name=".Talend SA.">
+
+	<includes
+         id="org.talend.mdm.tom.test.feature"
+         version="0.0.0"/>
+	
+	<includes
+         id="org.talend.rcp.branding.tos.test.feature"
+         version="0.0.0"/>
+	
+</feature>

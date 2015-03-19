@@ -27,7 +27,7 @@ public enum ECoreImage implements IImage {
 
     COMPARE_ICON("/icons1/compare_view.gif"), //$NON-NLS-1$
 
-    STANDARD_ICON("/icons1/palette.gif"), //$NON-NLS-1$
+    STANDARD_ICON("/icons1/palette.png"), //$NON-NLS-1$
 
     PALETTE_FILTER("/icons1/studio_6.0-palette-filter.png"), //$NON-NLS-1$
 
@@ -45,31 +45,32 @@ public enum ECoreImage implements IImage {
 
     RECYCLE_BIN_EMPTY_ICON("/icons1/recyclebinempty.png"), //$NON-NLS-1$
     RECYCLE_BIN_FULL_ICON("/icons1/recyclebinfull.png"), //$NON-NLS-1$
-    FOLDER_OPEN_ICON("/icons1/folder_open.gif"), //$NON-NLS-1$
+    FOLDER_OPEN_ICON("/icons1/folder_open.png"), //$NON-NLS-1$
     FOLDER_CLOSE_ICON("/icons1/folder_close.png"), //$NON-NLS-1$
     FOLDER_WIZ("/icons1/folder_wiz.gif"), //$NON-NLS-1$
 
     SVN_ROOT_ICON("/icons1/svn.gif"), //$NON-NLS-1$
-    BUSINESS_PROCESS_ICON("/icons1/businessProcess.gif"), //$NON-NLS-1$
+    BUSINESS_PROCESS_ICON("/icons1/businessProcess.png"), //$NON-NLS-1$
     BUSINESS_PROCESS_WIZ("/icons1/business_wiz.png"), //$NON-NLS-1$
-    PROCESS_ICON("/icons1/process_icon.gif"), //$NON-NLS-1$
+    PROCESS_ICON("/icons1/process_icon.png"), //$NON-NLS-1$
+    PROCESS_ICON_EDITOR("/icons1/process_icon_editor.png"), //$NON-NLS-1$
     PROCESS_WIZ("/icons1/process_wiz.png"), //$NON-NLS-1$
-    PROCESS_TEMPLATE_ICON("/icons1/process_icon.gif"), //$NON-NLS-1$
+    PROCESS_TEMPLATE_ICON("/icons1/process_icon.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_WIZ("/icons1/process_template_wiz.png"), //$NON-NLS-1$
     SERVICES_ICON("/icons1/services.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons1/joblet_icon.png"), //$NON-NLS-1$
-    CONTEXT_ICON("/icons1/context_icon.gif"), //$NON-NLS-1$
+    CONTEXT_ICON("/icons1/context_icon.png"), //$NON-NLS-1$
     CONTEXT_CONF_ICON("/icons1/context_conf_icon.gif"), //$NON-NLS-1$
     CONTEXT_WIZ("/icons1/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons1/code.png"), //$NON-NLS-1$
-    ROUTINE_ICON("/icons1/routine.gif"), //$NON-NLS-1$
+    ROUTINE_ICON("/icons1/routine.png"), //$NON-NLS-1$
     JOB_SCRIPTS_ICON("/icons1/job_scripts.png"), //$NON-NLS-1$
     JOB_SCRIPTS_TOOLBAR_ICON("/icons1/job_script_toolbar.png"), //$NON-NLS-1$
     FTP_ICON("/icons1/ftp.png"), //$NON-NLS-1$
     ROUTINE_WIZ("/icons1/routine_wiz.png"), //$NON-NLS-1$
     SNIPPETS_ICON("/icons1/snippet.png"), //$NON-NLS-1$
     // SUBROUTINE_ICON("/icons1/subroutine.gif"),
-    DOCUMENTATION_ICON("/icons1/documentation.gif"), //$NON-NLS-1$
+    DOCUMENTATION_ICON("/icons1/documentation.png"), //$NON-NLS-1$
     DOCUMENTATION_SINGLE_ICON("/icons1/Documentation_feuillet.png"), //$NON-NLS-1$
     DOCUMENTATION_WIZ("/icons1/documentation_wiz.png"), //$NON-NLS-1$
 
@@ -99,6 +100,7 @@ public enum ECoreImage implements IImage {
     METADATA_HEADERFOOTER_ICON("/icons1/headerfooter_icon32.png"), //$NON-NLS-1$
 
     METADATA_SQLPATTERN_ICON("/icons1/SQLPattern.png"), //$NON-NLS-1$
+    METADATA_SQLPATTERN_ICON_EDITOR("/icons1/SQLPattern_editor.png"), //$NON-NLS-1$
     METADATA_SQLPATTERN_WIZ("/icons1/defaultWizard.png"), //$NON-NLS-1$
 
     METADATA_TABLE_ICON("/icons1/table.gif"), //$NON-NLS-1$

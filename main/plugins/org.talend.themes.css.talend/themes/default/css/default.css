@@ -3,6 +3,35 @@
 }
 
 /**************************************************
+ * Global Color Setting
+ **************************************************/
+.MPart {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.MPart Shell, .MPart Widget, .MPart Control, .MPart Composite, .MPart Sash, .MPart Menu, .MPart Group, .MPart LayoutComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.MPart Button, .MPart Tree {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.MPart Label, .MPart CLabel {
+    color: black;
+}
+
+.CommonColorsSetting {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Shell, .CommonColorsSetting Widget, .CommonColorsSetting Control, .CommonColorsSetting Composite, .CommonColorsSetting Sash, .CommonColorsSetting Menu, .CommonColorsSetting Group, .CommonColorsSetting LayoutComposite {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Button, .CommonColorsSetting Tree {
+    background-color: COLOR-LIST-BACKGROUND;
+}
+.CommonColorsSetting Label, .CommonColorsSetting CLabel {
+    color: black;
+}
+
+/**************************************************
  * Window
  **************************************************/
 Shell.MTrimmedWindow {
@@ -17,8 +46,6 @@ Shell.MTrimmedWindow {
     jsash-width : 10px;
     background-color: #e5e5e5;
 }
-
-
 
 /**************************************************
  * Main Toolbar
@@ -245,9 +272,9 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Empty Editor Stack
  **************************************************/
 #org-eclipse-ui-editorss.MArea .MPartStack.empty{
-    jtab-header-background : #e5e5e5 #e5e5e5 100%;
-    jtab-border-color : none;
-    background : #e5e5e5;
+    jtab-header-background: #555964 #555964 100%;
+    jtab-border-color: #e5e5e5 #cacaca 100%;
+    background: COLOR-LIST-BACKGROUND;
 }
 
 
@@ -376,6 +403,13 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     jtab-close-button-line-width: 1px;
     
     jtab-chevron-color: #000000;
+    
+    tab-minimize-button-none-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-hot-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-minimize-button-selected-image: url('./default/pics/studio_6.0-repo-collapse-view-main.png');
+    tab-maximize-button-none-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-hot-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    tab-maximize-button-selected-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
 }
 
 #org-eclipse-e4-primaryDataStack>CTabItem {
@@ -461,173 +495,97 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
  **************************************************/
 
 .TalendTabbedPropertyList{
-    border-visible: false;
+    background-color: COLOR-LIST-BACKGROUND;
+    border-visible: true;
     color:black;
-    background-color:white;
-    _t-widget-normal-shadow-color:white;
-    _t-widget-dark-shadow-color:white;
-    _t-list-background-color:#D3D3D3;
+    _t-widget-normal-shadow-color:COLOR-LIST-BACKGROUND;
+    _t-widget-dark-shadow-color:COLOR-LIST-BACKGROUND;
+    _t-list-background-color: #D3D3D3;
+    _t-widget-vertical-line-color: #E3E3E3;
 }
 
 .TalendTabbedPropertyTitle{
     border-visible: false;
-    _t-title-foreground-color:white;
-    _t-title-background-color:white;
-    _t-title-bottom-foreground-keyline1-color:white;
-    _t-title-bottom-foreground-keyline2-color:white;
+    _t-title-foreground-color:COLOR-LIST-BACKGROUND;
+    _t-title-background-color:COLOR-LIST-BACKGROUND;
+    _t-title-bottom-foreground-keyline1-color:COLOR-LIST-BACKGROUND;
+    _t-title-bottom-foreground-keyline2-color:COLOR-LIST-BACKGROUND;
 }
 
-.ProcessComposite Composite{
-  background-color:white;
+.AdvancedContextComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.ProcessComposite Group{
-  background-color:white;
+.AdvancedContextComposite Label {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.ProcessComposite Button{
-  background-color:white;
+.AdvanceSettingComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.ProcessComposite Text{
-  background-color:white;
+.AdvanceSettingComposite Label, .AdvanceSettingComposite Button {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.ProcessComposite Label{
-  background-color:white;
+#MessagesWithActionComposite-Warn Button {
+    background-color: #FFAF0A;
 }
-
-.TraceDebugProcessComposite Composite{
-  background-color:white;
+#MessagesWithActionComposite-Error Button {
+    background-color: #EE4000;
 }
-.DebugProcessComposite Composite{
-  background-color:white;
+.ContextViewComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.DebugProcessComposite Group{
-  background-color:white;
+.ContextNebulaGridComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.DebugProcessComposite Button{
-  background-color:white;
+.ProcessTargetExecutionComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.DebugProcessComposite Label{
-  background-color:white;
+.ProcessContextComposite {
+    background-color: COLOR-LIST-BACKGROUND;
 }
-.DebugProcessComposite Text{
-  background-color:white;
-}
-.AdvanceSettingComposite Composite{
-  background-color:white;
-}
-.AdvanceSettingComposite Button{
-  background-color:white;
-}
-.AdvanceSettingComposite Group{
-  background-color:white;
-}
-.AdvanceSettingComposite Text{
-  background-color:white;
-}
-.AdvanceSettingComposite Table{
-  background-color:white;
-}
-.AdvanceSettingComposite Label{
-  color: black;
-  background-color:white;
-}
-
-.TargetExecComposite Composite{
-  background-color:white;
-}
-.MultipleThreadDynamicComposite Composite{
-  background-color:white;
-}
-
-.ContextViewComposite Composite{
-  background-color:white;
-}
-
-.BodyHeader Composite{
-  background-color:white;
-}
-.BodyHeader Text{
-  background-color:white;
-}
-.HeaderComposite Composite{
-  background-color:white;
-}
-.HeaderComposite Text{
-  background-color:white;
-}
-.ExecuteJobComposite Composite{
-  background-color:white;
-}
-.ExecuteJobComposite Text{
-  background-color:white;
-}
-
-.TalendTabbedPropertyComposite CLabel{
-  color: black;
-  background-color:white;
-}
-.TalendTabbedPropertyTitle CLabel{
-  color: black;
-  background-color:white;
-}
-
-
 
 .RespositoryDetailView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .RespositoryDetailView Text{
- background-color:white;
+    background-color:white;
 }
 .PatternTestView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .PatternTestView Text{
- background-color: white;
+    background-color: white;
 }
 .PatternTestView Button{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Composite{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Group{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Label{
- background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 .SynonymIndexView Text{
- background-color: white;
+    background-color: white;
 }
 
 /**************************************************
  * Palette
  **************************************************/
-
-.PaletteSearchBar {
-    background-color:white;
-}
-
-.PaletteSearchBar Text {
-    background-color:white;
-}
-
-.PaletteSearchBar ToolBar {
-    jtool-item-color:white;
-}
-
 .TalendPaletteCls {
     tPalette-collapsed-forground-color:white;
     tPalette-collapsed-background-color:white;
@@ -650,7 +608,7 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     tPalette-x-offset:17;
     tPalette-entryEditPart-entry-color-inheritFromParent:true;
     
-    tPalette-searchButton-background-color:white;
+    tPalette-searchButton-background-color:COLOR-LIST-BACKGROUND;
     tPalette-searchButton-image:url('./default/pics/studio_6.0-repo-search.png');
 }
 

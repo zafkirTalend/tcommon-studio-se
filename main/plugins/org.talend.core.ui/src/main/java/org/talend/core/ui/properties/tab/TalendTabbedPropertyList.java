@@ -37,6 +37,7 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
@@ -187,19 +188,24 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
              * draw the top two lines of the tab, same for selected, hover and default
              */
             Rectangle bounds = getBounds();
-            e.gc.setForeground(colorHelper.getWidgetNormalShadow());
-            if (colorHelper.isVisibleBorder()) {
-                e.gc.drawLine(0, 0, bounds.width - 1, 0);
+            boolean isShowNormalShadow = colorHelper.isShowNormalShadow();
+            int top = 0;
+            if (isShowNormalShadow) {
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                    top = 1;
+                    e.gc.drawLine(0, 0, bounds.width - 1, 0);
+                }
             }
-            e.gc.setForeground(colorHelper.getListBackground());
             if (colorHelper.isVisibleBorder()) {
-                e.gc.drawLine(0, 1, bounds.width - 1, 1);
+                e.gc.setForeground(colorHelper.getListBackground());
+                e.gc.drawLine(0, top, bounds.width - 1, top);
             }
 
             /* draw the fill in the tab */
             if (selected) {
                 e.gc.setBackground(colorHelper.getListBackground());
-                e.gc.fillRectangle(0, 2, bounds.width, bounds.height - 1);
+                e.gc.fillRectangle(0, top + 1, bounds.width, bounds.height - 1);
 
                 if (tab.hasSubItems()) {
                     int i = 2;
@@ -211,23 +217,32 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
                 }
             } else if (hover && tab.isIndented()) {
                 e.gc.setBackground(colorHelper.getIndentedHoverBackground());
-                e.gc.fillRectangle(0, 2, bounds.width - 1, bounds.height - 1);
+                e.gc.fillRectangle(0, top + 1, bounds.width - 1, bounds.height - 1);
             } else if (hover) {
                 e.gc.setForeground(colorHelper.getHoverGradientStart());
                 e.gc.setBackground(colorHelper.getHoverGradientEnd());
-                e.gc.fillGradientRectangle(0, 2, bounds.width - 1, bounds.height - 1, true);
+                e.gc.fillGradientRectangle(0, top + 1, bounds.width - 1, bounds.height - 1, true);
             } else if (tab.isIndented()) {
                 e.gc.setBackground(colorHelper.getIndentedDefaultBackground());
-                e.gc.fillRectangle(0, 2, bounds.width - 1, bounds.height - 1);
+                e.gc.fillRectangle(0, top + 1, bounds.width - 1, bounds.height - 1);
             } else {
                 // e.gc.setForeground(colorHelper.getDefaultGradientStart());
                 // e.gc.setBackground(colorHelper.getDefaultGradientEnd());
                 // e.gc.fillGradientRectangle(0, 2, bounds.width - 1, bounds.height - 1, true);
             }
 
-            if (!selected) {
-                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+            int right = bounds.width - 1;
+
+            if (isShowNormalShadow) {
+                right -= 1;
+            }
+
+            e.gc.setForeground(colorHelper.getWidgetVerticalLineColor());
+            e.gc.drawLine(right, 0, right, bounds.height);
+
+            if (!selected && isShowNormalShadow) {
                 if (colorHelper.isVisibleBorder()) {
+                    e.gc.setForeground(colorHelper.getWidgetNormalShadow());
                     e.gc.drawLine(bounds.width - 1, 1, bounds.width - 1, bounds.height + 1);
                 }
             }
@@ -259,12 +274,12 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
             e.gc.drawText(tab.getText(), textIndent, textMiddle, true);
 
             /* draw the bottom line on the tab for selected and default */
-            if (!hover) {
-                e.gc.setForeground(colorHelper.getListBackground());
-                if (colorHelper.isVisibleBorder()) {
-                    e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
-                }
-            }
+            // if (!hover) {
+            // if (colorHelper.isVisibleBorder()) {
+            // e.gc.setForeground(colorHelper.getListBackground());
+            // e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
+            // }
+            // }
         }
 
         /**
@@ -331,10 +346,12 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
 
             if (elements.length != 0) {
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
-                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
                 if (colorHelper.isVisibleBorder()) {
+                    e.gc.setForeground(colorHelper.getWidgetNormalShadow());
                     e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
                 }
+                e.gc.setForeground(colorHelper.getWidgetVerticalLineColor());
+                e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height);
             } else {
                 e.gc.setBackground(colorHelper.getWidgetBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
@@ -413,25 +430,32 @@ public class TalendTabbedPropertyList extends Composite implements ITalendTabbed
          * @param e the paint event.
          */
         private void paint(PaintEvent e) {
+
             e.gc.setBackground(colorHelper.getWidgetBackground());
             e.gc.setForeground(colorHelper.getWidgetForeground());
             Rectangle bounds = getBounds();
 
             if (elements.length != 0) {
-                e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
-                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
-                if (colorHelper.isVisibleBorder()) {
+                e.gc.setForeground(colorHelper.getListBackground());
+                e.gc.drawLine(0, 0, bounds.width - 1, 0);
+                e.gc.fillRectangle(0, 1, bounds.width, bounds.height);
+                if (colorHelper.isVisibleBorder() && colorHelper.isShowNormalShadow()) {
+                    e.gc.setForeground(colorHelper.getWidgetNormalShadow());
                     e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
                     e.gc.drawLine(0, 0, bounds.width - 1, 0);
                 }
-                e.gc.setForeground(colorHelper.getBottomNavigationElementShadowStroke1());
-                if (colorHelper.isVisibleBorder()) {
+                Color color = colorHelper.getBottomNavigationElementShadowStroke1();
+                if (color != null && colorHelper.isVisibleBorder()) {
+                    e.gc.setForeground(color);
                     e.gc.drawLine(0, 1, bounds.width - 2, 1);
                 }
-                e.gc.setForeground(colorHelper.getBottomNavigationElementShadowStroke2());
-                if (colorHelper.isVisibleBorder()) {
+                color = colorHelper.getBottomNavigationElementShadowStroke2();
+                if (color != null && colorHelper.isVisibleBorder()) {
+                    e.gc.setForeground(color);
                     e.gc.drawLine(0, 2, bounds.width - 2, 2);
                 }
+                e.gc.setForeground(colorHelper.getWidgetVerticalLineColor());
+                e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height);
             } else {
                 e.gc.setBackground(colorHelper.getWidgetBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
