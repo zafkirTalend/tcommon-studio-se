@@ -82,4 +82,9 @@ public final class TalendCodeProjectUtil {
         return routinesModel;
     }
 
+    // public static IMarker[] getMavenMarks(IFile file) throws CoreException {
+    // IMarker[] findMarkers = file.findMarkers(IMavenConstants.MARKER_CONFIGURATION_ID, true, IResource.DEPTH_ONE);
+    // return findMarkers;
+    // }
+
 }

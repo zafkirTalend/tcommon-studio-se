@@ -36,6 +36,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.m2e.actions.MavenLaunchConstants;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.internal.IMavenConstants;
@@ -159,7 +160,12 @@ public class TalendMavenLauncher {
         /*
          * use launch way
          */
+        IPreferenceStore debugUiStore = DebugUITools.getPreferenceStore();
+        boolean oldBuildBeforeLaunch = debugUiStore.getBoolean(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH);
         try {
+            // don't build auto
+            debugUiStore.setValue(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH, false);
+
             ILaunchConfiguration launchConfiguration = createLaunchConfiguration(launcherPomFile.getParent(), goals);
             // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
             // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
@@ -172,8 +178,9 @@ public class TalendMavenLauncher {
 
         } catch (CoreException e) {
             ExceptionHandler.process(e);
+        } finally {
+            debugUiStore.setValue(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH, oldBuildBeforeLaunch);
         }
-        //
     }
 
     /**
