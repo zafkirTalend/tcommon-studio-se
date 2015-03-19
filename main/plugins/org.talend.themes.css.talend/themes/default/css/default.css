@@ -11,7 +11,7 @@
 .MPart Shell, .MPart Widget, .MPart Control, .MPart Composite, .MPart Sash, .MPart Menu, .MPart Group, .MPart LayoutComposite {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.MPart Button, .MPart Tree, .MPart Link {
+.MPart Button, .MPart Tree {
     background-color: COLOR-LIST-BACKGROUND;
 }
 .MPart Label, .MPart CLabel {
@@ -24,7 +24,7 @@
 .CommonColorsSetting Shell, .CommonColorsSetting Widget, .CommonColorsSetting Control, .CommonColorsSetting Composite, .CommonColorsSetting Sash, .CommonColorsSetting Menu, .CommonColorsSetting Group, .CommonColorsSetting LayoutComposite {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Button, .CommonColorsSetting Tree, .CommonColorsSetting Link {
+.CommonColorsSetting Button, .CommonColorsSetting Tree {
     background-color: COLOR-LIST-BACKGROUND;
 }
 .CommonColorsSetting Label, .CommonColorsSetting CLabel {
