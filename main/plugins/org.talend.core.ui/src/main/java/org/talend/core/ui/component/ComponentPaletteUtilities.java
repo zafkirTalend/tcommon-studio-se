@@ -127,22 +127,23 @@ public class ComponentPaletteUtilities {
         // @Override
         // public void run() {
         IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        Display display = DisplayUtils.getDisplay();
 
         final IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
         if (paletteRoot != null) {
-            final List oldRoots = new ArrayList(paletteRoot.getChildren());
-
-            for (Iterator it = oldRoots.iterator(); it.hasNext();) {
-                Object obj = it.next();
-                if (obj instanceof TalendPaletteGroup) {
-                    continue;
-                }
-                it.remove();
-            }
-            Display.getDefault().syncExec(new Runnable() {
+            display.syncExec(new Runnable() {
 
                 @Override
                 public void run() {
+                    final List oldRoots = new ArrayList(paletteRoot.getChildren());
+
+                    for (Iterator it = oldRoots.iterator(); it.hasNext();) {
+                        Object obj = it.next();
+                        if (obj instanceof TalendPaletteGroup) {
+                            continue;
+                        }
+                        it.remove();
+                    }
                     paletteRoot.setChildren(oldRoots);
                 }
             });
@@ -151,7 +152,7 @@ public class ComponentPaletteUtilities {
             paletteRoot = designerCoreUIService.createPalette(components, isFavorite);
         }
         if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-            Display.getDefault().syncExec(new Runnable() {
+            display.syncExec(new Runnable() {
 
                 @Override
                 public void run() {
@@ -176,7 +177,7 @@ public class ComponentPaletteUtilities {
             updatePalette(false);
         }
 
-        Display.getDefault().syncExec(new Runnable() {
+        DisplayUtils.getDisplay().syncExec(new Runnable() {
 
             @Override
             public void run() {
