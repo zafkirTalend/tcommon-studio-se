@@ -13,6 +13,7 @@
 package org.talend.core.model.process;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import org.talend.core.model.metadata.MetadataTable;
 
 /**
  * Concrete class to instanciate as an AbstractNode for the BigData code generators
- * 
+ *
  */
 public class BigDataNode extends AbstractNode implements IBigDataNode {
 
@@ -42,7 +43,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
 
     /**
      * Constructor for the BigDataNode
-     * 
+     *
      * @param component
      * @param uniqueName
      */
@@ -273,6 +274,9 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
                 }
             }
 
+            // Sort data to be sure to get them on the same order in input and output
+            Collections.sort(nameColumnList);
+
             // Convert column's name into column
             List<IMetadataColumn> columnList = new ArrayList<IMetadataColumn>();
             for (String colName : nameColumnList) {
@@ -292,7 +296,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
         // key elements are elements wich are not present on the described field.
         if (bigDataNode.getComponent().getPartitioning().startsWith("!")) { //$NON-NLS-1$
             if (getMetadataList().size() <= 0) {
-                throw new RuntimeException("Please define a schema for " + this.getComponentName());//$NON-NLS-1$ 
+                throw new RuntimeException("Please define a schema for " + this.getComponentName());//$NON-NLS-1$
             }
             setNegativeKeyList(bigDataNode, direction);
         } else {
