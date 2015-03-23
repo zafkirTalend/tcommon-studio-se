@@ -52,8 +52,10 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
 
     private final String TRUE = "true"; //$NON-NLS-1$
 
+    private Integer selectionIndex;
+
     public RepositoryChangeMetadataForSAPBapi(INode node, SAPFunctionUnit functionUnit, IMetadataTable newMetadatTable,
-            IMetadataTable oldMetadataTable) {
+            IMetadataTable oldMetadataTable, Integer selectionIndex) {
         super();
         this.node = node;
         this.functionUnit = functionUnit;
@@ -62,6 +64,13 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
             newMetadatTable.setTableType(newMetadatTable.getTableType());
         }
         this.oldMetadataTable = oldMetadataTable;
+        this.selectionIndex = selectionIndex;
+
+    }
+
+    public RepositoryChangeMetadataForSAPBapi(INode node, SAPFunctionUnit functionUnit, IMetadataTable newMetadatTable,
+            IMetadataTable oldMetadataTable) {
+        this(node, functionUnit, newMetadatTable, oldMetadataTable, null);
     }
 
     @Override
@@ -104,10 +113,6 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
                 inputTableParam.setValue(paramValues);
             }
             if (newMetadatTable != null) {
-                Map<String, String> properties = newMetadatTable.getAdditionalProperties();
-                if (properties != null) {
-                    properties.put(ISINPUT, TRUE);
-                }
                 // create new line
                 createNewSchema(paramValues, newMetadatTable, MetadataSchemaType.INPUT.name());
             } else {
@@ -143,7 +148,7 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
                 return;
             }
             Boolean isInput = MetadataSchemaType.INPUT.name().equals(tableType);
-            HashMap valueMap = new HashMap<String, Object>();
+            Map valueMap = null;
 
             String uinqueTableName = node.getProcess().generateUniqueConnectionName(
                     MultiSchemasUtil.getConnectionBaseName(newMetadatTable.getLabel()));
@@ -151,14 +156,24 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
             if (paramType == null) {
                 return;
             }
+            if (selectionIndex != null && selectionIndex < paramValues.size()) {
+                valueMap = paramValues.get(selectionIndex);
+            }
 
+            if (valueMap == null) {
+                valueMap = new HashMap();
+                paramValues.add(valueMap);
+            }
             valueMap.put(ISAPConstant.NAME, TalendQuoteUtils.addQuotes(newMetadatTable.getLabel()));
             valueMap.put(ISAPConstant.TYPE, paramType);
             valueMap.put(ISAPConstant.FIELD_SCHEMA, uinqueTableName);
             if (isInput) {
                 valueMap.put(ISAPConstant.PARENT_ROW, ""); //$NON-NLS-1$
+                Map<String, String> properties = newMetadatTable.getAdditionalProperties();
+                if (properties != null) {
+                    properties.put(ISINPUT, TRUE);
+                }
             }
-            paramValues.add(valueMap);
 
             if (oldMetadataTable != null) {
                 CoreUIPlugin.getDefault().getDesignerCoreService().removeConnection(node, oldMetadataTable.getTableName());
