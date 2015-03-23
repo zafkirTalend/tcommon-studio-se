@@ -544,13 +544,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 if (file.exists()) {
                     jarName = file.getName();
                 }
-            } else {
-                URI uri = new URI(uriPath);
-                URL url = FileLocator.toFileURL(uri.toURL());
-                File file = new File(url.getFile());
-                if (file.exists()) {
-                    jarName = file.getName();
-                }
             }
         } catch (Exception e) {
             // do nothing

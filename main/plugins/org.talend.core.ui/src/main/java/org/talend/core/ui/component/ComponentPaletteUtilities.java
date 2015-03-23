@@ -20,6 +20,7 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -121,15 +122,20 @@ public class ComponentPaletteUtilities {
         if (skipUpdatePalette) {
             return;
         }
-        DisplayUtils.getDisplay().syncExec(new Runnable() {
+        // DisplayUtils.getDisplay().asyncExec(new Runnable() {
+        //
+        // @Override
+        // public void run() {
+        IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        Display display = DisplayUtils.getDisplay();
 
-            @Override
-            public void run() {
-                IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        final IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
+        if (paletteRoot != null) {
+            display.syncExec(new Runnable() {
 
-                final IDesignerCoreUIService designerCoreUIService = CoreUIPlugin.getDefault().getDesignerCoreUIService();
-                if (paletteRoot != null) {
-                    List oldRoots = new ArrayList(paletteRoot.getChildren());
+                @Override
+                public void run() {
+                    final List oldRoots = new ArrayList(paletteRoot.getChildren());
 
                     for (Iterator it = oldRoots.iterator(); it.hasNext();) {
                         Object obj = it.next();
@@ -139,15 +145,23 @@ public class ComponentPaletteUtilities {
                         it.remove();
                     }
                     paletteRoot.setChildren(oldRoots);
-                    paletteRoot = designerCoreUIService.createPalette(components, paletteRoot, isFavorite);
-                } else {
-                    paletteRoot = designerCoreUIService.createPalette(components, isFavorite);
                 }
-                if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+            });
+            paletteRoot = designerCoreUIService.createPalette(components, paletteRoot, isFavorite);
+        } else {
+            paletteRoot = designerCoreUIService.createPalette(components, isFavorite);
+        }
+        if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+            display.syncExec(new Runnable() {
+
+                @Override
+                public void run() {
                     extraPaletteEntry = designerCoreUIService.createJobletEtnry();
                 }
-            }
-        });
+            });
+        }
+        // }
+        // });
     }
 
     /**
@@ -163,10 +177,17 @@ public class ComponentPaletteUtilities {
             updatePalette(false);
         }
 
-        markEmptyDrawer(paletteRoot);
-        emptyEntry.clear();
-        recordEmptyDrawer(paletteRoot);
-        removeEmptyDrawer();
+        DisplayUtils.getDisplay().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                markEmptyDrawer(paletteRoot);
+                emptyEntry.clear();
+                recordEmptyDrawer(paletteRoot);
+                removeEmptyDrawer();
+            }
+        });
+
     }
 
     private static List<PaletteEntry> emptyEntry = new ArrayList<PaletteEntry>();

@@ -30,6 +30,7 @@ public enum ComponentCategory {
     CATEGORY_4_MAPREDUCE("MR", ""), //$NON-NLS-1$ //$NON-NLS-2$
     CATEGORY_4_STORM("STORM", ""), //$NON-NLS-1$ //$NON-NLS-2$
     CATEGORY_4_SPARK("SPARK", ""), //$NON-NLS-1$ //$NON-NLS-2$
+    CATEGORY_4_SPARKSTREAMING("SPARKSTREAMING", ""), //$NON-NLS-1$ //$NON-NLS-2$
     CATEGORY_4_CAMEL("CAMEL", "");//$NON-NLS-1$ //$NON-NLS-2$
 
     private String name;// Will be stored in component file at header.

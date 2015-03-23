@@ -47,6 +47,8 @@ public interface IComponentsFactory {
 
     public Set<IComponent> getComponents();
 
+    public Map<String, Map<String, Set<IComponent>>> getComponentNameMap();
+
     public List<IComponent> getCustomComponents();
 
     /**
