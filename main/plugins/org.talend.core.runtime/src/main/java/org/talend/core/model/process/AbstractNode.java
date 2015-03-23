@@ -330,7 +330,7 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
-    private int getCurrentActiveLinksNbInput(int connectionCategory) {
+    protected int getCurrentActiveLinksNbInput(int connectionCategory) {
         int nb = 0;
         for (IConnection connection : getIncomingConnections()) {
             if (connection.isActivate() && connection.getLineStyle().hasConnectionCategory(connectionCategory)) {
