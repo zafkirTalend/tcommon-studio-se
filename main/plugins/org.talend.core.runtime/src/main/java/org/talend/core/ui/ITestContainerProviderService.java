@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
  * created by hwang on Jan 7, 2015 Detailled comment
@@ -28,4 +29,6 @@ public interface ITestContainerProviderService extends IService {
     public boolean isTestContainerType(ERepositoryObjectType type);
 
     public boolean isTestContainerItem(Item item);
+
+    public ProcessType getTestContainerProcess(Item item);
 }
