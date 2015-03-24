@@ -108,7 +108,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         if (!CommonsPlugin.isHeadless()) {
             Display display = getDisplay();
             if (display != null) {
-                display.syncExec(new Runnable() {
+                display.asyncExec(new Runnable() {
 
                     @Override
                     public void run() {
