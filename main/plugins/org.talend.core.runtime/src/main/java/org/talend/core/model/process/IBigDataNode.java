@@ -116,4 +116,11 @@ public interface IBigDataNode extends INode {
      */
     public Map<String, List<IMetadataColumn>> getKeyList();
 
+    /**
+     * Declares or not this node as a dummy. This is useful to distinguish 'real' nodes and the 'hidden' ones.
+     * 
+     * @param dummy true if this node has to be declared as a dummy, else false.
+     */
+    public void setDummy(boolean dummy);
+
 }

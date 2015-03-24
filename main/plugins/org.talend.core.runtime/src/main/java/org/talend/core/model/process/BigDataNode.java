@@ -29,6 +29,8 @@ import org.talend.core.model.metadata.MetadataTable;
  */
 public class BigDataNode extends AbstractNode implements IBigDataNode {
 
+    private boolean dummy = false;
+
     private String outputType = null;
 
     private String inputType = null;
@@ -360,5 +362,15 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isDummy() {
+        return this.dummy;
+    }
+
+    @Override
+    public void setDummy(boolean dummy) {
+        this.dummy = dummy;
     }
 }
