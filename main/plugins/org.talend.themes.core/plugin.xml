@@ -15,6 +15,8 @@
             class="org.talend.core.ui.properties.tab.TalendTabbedPropertyList"></widget>
       <widget
             class="org.talend.core.ui.properties.tab.TalendTabbedPropertyTitle"></widget>
+      <widget
+            class="org.eclipse.swt.custom.CTabItem"></widget>
    </provider>
    </extension>
    <extension
@@ -204,6 +206,20 @@
          </property-name>
          <property-name
                name="tab-maximize-button-selected-image">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CTabItemElement"
+            handler="org.talend.themes.core.elements.handlers.CSSSWTElementPropertyHandler">
+         <property-name
+               name="tabitem-icon">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.ToolItemElement"
+            handler="org.talend.themes.core.elements.handlers.CSSSWTElementPropertyHandler">
+         <property-name
+               name="toolitem-icon">
          </property-name>
       </handler>
    </extension>

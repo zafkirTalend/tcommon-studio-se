@@ -14,8 +14,13 @@ package org.talend.themes.core.elements.providers;
 
 import org.eclipse.e4.ui.css.core.dom.IElementProvider;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
+import org.eclipse.e4.ui.css.swt.dom.CTabItemElement;
 import org.eclipse.e4.ui.css.swt.dom.SWTElementProvider;
+import org.eclipse.e4.ui.css.swt.dom.ToolItemElement;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.ToolItem;
 import org.talend.themes.core.elements.adapters.CSSUserProfileElementAdapter;
 import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyListWidget;
 import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyTitleWidget;
@@ -43,6 +48,12 @@ public class CSSSWTElementProvider implements IElementProvider {
         }
         if (element instanceof ITalendTabbedPropertyTitleWidget) {
             return new CSSUserProfileElementAdapter((Composite) element, engine);
+        }
+        if (element instanceof CTabItem) {
+            return new CTabItemElement((Item) element, engine);
+        }
+        if (element instanceof ToolItem) {
+            return new ToolItemElement((ToolItem) element, engine);
         }
         return null;
     }
