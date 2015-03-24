@@ -34,7 +34,7 @@ public class ${this.mangle($schema.getName())} extends java.beans.SimpleBeanInfo
     try {
       java.beans.PropertyDescriptor[] list = {
       #foreach ($field in $schema.getFields())
-        new java.beans.PropertyDescriptor("$field.name()", currentClass),
+        new java.beans.PropertyDescriptor("$field.name()", currentClass, "${this.generateGetMethod($schema, $field)}", "${this.generateSetMethod($schema, $field)}"),
       #end
       };
       return list;
