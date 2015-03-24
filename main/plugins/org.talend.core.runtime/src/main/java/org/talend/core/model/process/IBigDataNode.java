@@ -95,6 +95,20 @@ public interface IBigDataNode extends INode {
     public void setKeyList(IBigDataNode bigDataNode, String direction);
 
     /**
+     * Setter for the keyList parameter.
+     * 
+     * @param direction is a String parameter that takes 3 possible values (TODO: should be an Enum): "INPUT", "OUTPUT",
+     * "BOTH".
+     * <p>
+     * <li>"INPUT" means that the bigDataNode is an upstream node for the current node.</li>
+     * <li>"OUTPUT" means that the bigDataNode is a downstream node for the current node.
+     * <li>"BOTH" means that the bigDataNode is the current node.
+     * </p>
+     * @param colList the list of columns which compose the key.
+     */
+    public void setKeyList(String direction, List<IMetadataColumn> colList);
+
+    /**
      * Getter for the keyList parameter.
      * 
      * @return a Map where the key is the direction and the value is the column list.
