@@ -18,9 +18,11 @@ import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;
 import net.jeeeyul.swtend.SWTExtensions;
 import net.jeeeyul.swtend.ui.HSB;
 
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolderRenderer;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -41,6 +43,10 @@ public class TalendTabRenderer extends JeeeyulsTabRenderer {
 
     protected static Field settingsField;
 
+    protected CTabFolder tTabFolder;
+
+    protected static final String SWT_MODEL_ELEMENT = "modelElement"; //$NON-NLS-1$
+
     /**
      * DOC cmeng TalendTabRenderer constructor comment.
      * 
@@ -48,6 +54,7 @@ public class TalendTabRenderer extends JeeeyulsTabRenderer {
      */
     public TalendTabRenderer(CTabFolder parent) {
         super(parent);
+        tTabFolder = parent;
         try {
             if (swtExtensions == null) {
                 Field swtExtensionsField = JeeeyulsTabRenderer.class.getDeclaredField("_sWTExtensions");
@@ -73,8 +80,40 @@ public class TalendTabRenderer extends JeeeyulsTabRenderer {
             this.drawMinimize(gc, bounds, state, part);
         } else {
             super.draw(part, state, bounds, gc);
+            if (CTabFolderRenderer.PART_HEADER == part && !this.settings.getCTabItemImageMap().isEmpty()
+                    && !tTabFolder.getSingle()) {
+                CTabItem items[] = tTabFolder.getItems();
+                for (int i = 0; i < items.length; i++) {
+                    Object viewPart = items[i].getData(SWT_MODEL_ELEMENT);
+                    if (viewPart != null && viewPart instanceof MPlaceholder && items[i] != null) {
+                        Image image = this.settings.getCTabItemImage(((MPlaceholder) viewPart).getElementId());
+                        if (image != null && image != items[i].getImage() && !items[i].isDisposed()) {
+                            Rectangle itemBounds = items[i].getBounds();
+                            items[i].setImage(image);
+                            this.draw(i, SWT.NONE, itemBounds, gc);
+                        }
+                    }
+                }
+            }
         }
     }
+
+    // @Override
+    // protected int drawTabItem(int part, int state, Rectangle bounds, GC gc) {
+    //
+    // if (!this.settings.getCTabItemImageMap().isEmpty() && !tTabFolder.getSingle()) {
+    // CTabItem item = tTabFolder.getItem(part);
+    // Object viewPart = item.getData(SWT_MODEL_ELEMENT);
+    // if (viewPart != null && viewPart instanceof MPlaceholder && item != null) {
+    // Image image = this.settings.getCTabItemImage(((MPlaceholder) viewPart).getElementId());
+    // if (image != null && image != item.getImage() && !item.isDisposed()) {
+    // item.setImage(image);
+    // }
+    // }
+    // }
+    //
+    // return super.drawTabItem(part, state, bounds, gc);
+    // }
 
     @Override
     public TalendTabSettings getSettings() {

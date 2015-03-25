@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings;
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;
 import net.jeeeyul.swtend.ui.HSB;
@@ -43,6 +46,8 @@ public class TalendTabSettings extends JTabSettings {
     protected Image maximizeButtonHotStatueImage = null;
 
     protected Image maximizeButtonSelectedStatueImage = null;
+
+    protected static Map<String, Image> cTabItemImageMap = new HashMap<String, Image>();
 
     /**
      * DOC cmeng TalendTabSettings constructor comment.
@@ -191,6 +196,24 @@ public class TalendTabSettings extends JTabSettings {
         this.maximizeButtonSelectedStatueImage = maximizeButtonSelectedStatueImage;
         // pcs.firePropertyChange("xxx", old,
         // this.maximizeButtonSelectedStatueImage);
+    }
+
+    public static void addCTabItemImage(String id, Image image) {
+        if (id == null || image == null) {
+            return;
+        }
+        cTabItemImageMap.put(id, image);
+    }
+
+    public static Image getCTabItemImage(String id) {
+        if (id == null) {
+            return null;
+        }
+        return cTabItemImageMap.get(id);
+    }
+
+    public static Map<String, Image> getCTabItemImageMap() {
+        return cTabItemImageMap;
     }
 
     protected boolean areSame(Object a, Object b) {

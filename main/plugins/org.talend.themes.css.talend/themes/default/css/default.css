@@ -32,6 +32,13 @@
 }
 
 /**************************************************
+ * Replace Icons In Eclipse
+ **************************************************/
+#org-eclipse-ui-trim-status ToolItem, #org-eclipse-ui-trim-vertical1 ToolItem, #org-eclipse-ui-trim-vertical2 ToolItem {
+    toolitem-icon: 'org.eclipse.gef.ui.palette_view' url('./default/pics/studio_6.0-palette.png') 'org.eclipse.ui.views.ContentOutline' url('./default/pics/studio_6.0-outline.png');
+}
+
+/**************************************************
  * Window
  **************************************************/
 Shell.MTrimmedWindow {
@@ -185,6 +192,8 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     tab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
     tab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
     tab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
+    
+    tab-item-images: 'org.eclipse.ui.views.ContentOutline' url('./default/pics/studio_6.0-outline.png') 'org.eclipse.gef.ui.palette_view' url('./default/pics/studio_6.0-palette.png');
 }
 
 .MPartStack>CTabItem {
@@ -610,21 +619,6 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
     
     tPalette-searchButton-background-color:COLOR-LIST-BACKGROUND;
     tPalette-searchButton-image:url('./default/pics/studio_6.0-repo-search.png');
-}
-
-
-/**************************************************
- * Replace Icons In Eclipse
- **************************************************/
-CTabItem#org-eclipse-ui-views-ContentOutline {
-    tabitem-icon: url('./default/pics/studio_6.0-outline.png');
-}
-CTabItem#org-eclipse-gef-ui-palette_view {
-    tabitem-icon: url('./default/pics/studio_6.0-palette.png');
-}
-
-#org-eclipse-ui-trim-status ToolItem, #org-eclipse-ui-trim-vertical1 ToolItem, #org-eclipse-ui-trim-vertical2 ToolItem {
-    toolitem-icon: 'org.eclipse.gef.ui.palette_view' url('./default/pics/studio_6.0-palette.png') 'org.eclipse.ui.views.ContentOutline' url('./default/pics/studio_6.0-outline.png');
 }
 
 /**************************************************

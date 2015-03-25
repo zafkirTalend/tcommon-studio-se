@@ -207,6 +207,9 @@
          <property-name
                name="tab-maximize-button-selected-image">
          </property-name>
+         <property-name
+               name="tab-item-images">
+         </property-name>
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CTabItemElement"
