@@ -14,6 +14,7 @@ package org.talend.core.ui;
 
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -27,6 +28,8 @@ public interface ITestContainerProviderService extends IService {
     public boolean isMatchedPath(IPath topLevelNodeWorkspaceRelativePath, IPath path);
 
     public boolean isTestContainerType(ERepositoryObjectType type);
+
+    public boolean isTestContainerProcess(IProcess process);
 
     public boolean isTestContainerItem(Item item);
 
