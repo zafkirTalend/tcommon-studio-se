@@ -88,9 +88,9 @@ public class TalendTabRenderer extends JeeeyulsTabRenderer {
                     if (viewPart != null && viewPart instanceof MPlaceholder && items[i] != null) {
                         Image image = this.settings.getCTabItemImage(((MPlaceholder) viewPart).getElementId());
                         if (image != null && image != items[i].getImage() && !items[i].isDisposed()) {
-                            Rectangle itemBounds = items[i].getBounds();
                             items[i].setImage(image);
-                            this.draw(i, SWT.NONE, itemBounds, gc);
+                            // Rectangle itemBounds = items[i].getBounds();
+                            // this.draw(i, SWT.NONE, itemBounds, gc);
                         }
                     }
                 }
