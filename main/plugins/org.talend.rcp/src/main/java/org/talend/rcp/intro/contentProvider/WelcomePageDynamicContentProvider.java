@@ -51,7 +51,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element img = dom.createElement("img");
             img.setAttribute("style", "padding-top:10px;margin-left:15px;");
-            img.setAttribute("src", content + "imgs/img_process.jpg");
+            img.setAttribute("src", content + "imgs/img_process.png");
             Element span2 = dom.createElement("span");
             span2.setAttribute("class", "style_3");
             span2.appendChild(dom.createTextNode(" "
@@ -61,7 +61,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
         } else if ("ITEMSBUSINESSMODEL".equals(id)) {
             Element img = dom.createElement("img");
             img.setAttribute("style", "padding-top:15px;margin-left:15px;");
-            img.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            img.setAttribute("src", content + "imgs/img_businessProcess.png");
             Element span = dom.createElement("span");
             span.setAttribute("class", "style_3");
             span.appendChild(dom.createTextNode(" "
@@ -107,7 +107,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgJob = dom.createElement("img");
             imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
-            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            imgJob.setAttribute("src", content + "imgs/img_process.png");
             parent.appendChild(imgJob);
             Element hyperlinkJob = dom.createElement("a");
             hyperlinkJob.setAttribute("class", "xh");
@@ -125,7 +125,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgBusiness = dom.createElement("img");
             imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
-            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.png");
             parent.appendChild(imgBusiness);
             Element hyperlinkBusiness = dom.createElement("a");
             hyperlinkBusiness.setAttribute("class", "xh");
@@ -149,7 +149,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgJob = dom.createElement("img");
             imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
-            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            imgJob.setAttribute("src", content + "imgs/img_process.png");
             parent.appendChild(imgJob);
             Element hyperlinkJob = dom.createElement("a");
             hyperlinkJob.setAttribute("class", "xh");
@@ -167,7 +167,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgBusiness = dom.createElement("img");
             imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
-            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.png");
             parent.appendChild(imgBusiness);
             Element hyperlinkBusiness = dom.createElement("a");
             hyperlinkBusiness.setAttribute("class", "xh");
@@ -211,7 +211,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgJob = dom.createElement("img");
             imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
-            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            imgJob.setAttribute("src", content + "imgs/img_process.png");
             parent.appendChild(imgJob);
             Element hyperlinkJob = dom.createElement("a");
             hyperlinkJob.setAttribute("class", "xh");
@@ -229,7 +229,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgBusiness = dom.createElement("img");
             imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
-            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.png");
             parent.appendChild(imgBusiness);
             Element hyperlinkBusiness = dom.createElement("a");
             hyperlinkBusiness.setAttribute("class", "xh");
@@ -293,7 +293,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgJob = dom.createElement("img");
             imgJob.setAttribute("style", "padding-top:10px;margin-left:15px;");
-            imgJob.setAttribute("src", content + "imgs/img_process.jpg");
+            imgJob.setAttribute("src", content + "imgs/img_process.png");
             parent.appendChild(imgJob);
             Element hyperlinkJob = dom.createElement("a");
             hyperlinkJob.setAttribute("class", "xh");
@@ -311,7 +311,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             parent.appendChild(dom.createElement("br"));
             Element imgBusiness = dom.createElement("img");
             imgBusiness.setAttribute("style", "padding-top:15px;margin-left:15px;");
-            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.jpg");
+            imgBusiness.setAttribute("src", content + "imgs/img_businessProcess.png");
             parent.appendChild(imgBusiness);
             Element hyperlinkBusiness = dom.createElement("a");
             hyperlinkBusiness.setAttribute("class", "xh");

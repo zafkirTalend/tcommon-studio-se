@@ -11,12 +11,11 @@
 .MPart Shell, .MPart Widget, .MPart Control, .MPart Composite, .MPart Sash, .MPart Menu, .MPart Group, .MPart LayoutComposite {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.MPart Button, .MPart Tree, .MPart Link, .MPart ProgressBar {
+.MPart Button, .MPart Tree {
     background-color: COLOR-LIST-BACKGROUND;
 }
 .MPart Label, .MPart CLabel {
     color: black;
-    background-color: COLOR-LIST-BACKGROUND;
 }
 
 .CommonColorsSetting {
@@ -25,12 +24,18 @@
 .CommonColorsSetting Shell, .CommonColorsSetting Widget, .CommonColorsSetting Control, .CommonColorsSetting Composite, .CommonColorsSetting Sash, .CommonColorsSetting Menu, .CommonColorsSetting Group, .CommonColorsSetting LayoutComposite {
     background-color: COLOR-LIST-BACKGROUND;
 }
-.CommonColorsSetting Button, .CommonColorsSetting Tree, .CommonColorsSetting Link, .CommonColorsSetting ProgressBar {
+.CommonColorsSetting Button, .CommonColorsSetting Tree {
     background-color: COLOR-LIST-BACKGROUND;
 }
 .CommonColorsSetting Label, .CommonColorsSetting CLabel {
     color: black;
-    background-color: COLOR-LIST-BACKGROUND;
+}
+
+/**************************************************
+ * Replace Icons In Eclipse
+ **************************************************/
+#org-eclipse-ui-trim-status ToolItem, #org-eclipse-ui-trim-vertical1 ToolItem, #org-eclipse-ui-trim-vertical2 ToolItem {
+    toolitem-icon: 'org.eclipse.gef.ui.palette_view' url('./default/pics/studio_6.0-palette.png') 'org.eclipse.ui.views.ContentOutline' url('./default/pics/studio_6.0-outline.png');
 }
 
 /**************************************************
@@ -187,6 +192,8 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     tab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
     tab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
     tab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
+    
+    tab-item-images: 'org.eclipse.ui.views.ContentOutline' url('./default/pics/studio_6.0-outline.png') 'org.eclipse.gef.ui.palette_view' url('./default/pics/studio_6.0-palette.png');
 }
 
 .MPartStack>CTabItem {
@@ -526,10 +533,10 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
 .AdvanceSettingComposite Label, .AdvanceSettingComposite Button {
     background-color: COLOR-LIST-BACKGROUND;
 }
-#MessagesWithActionComposite-Warn Label, #MessagesWithActionComposite-Warn Button {
+#MessagesWithActionComposite-Warn Button {
     background-color: #FFAF0A;
 }
-#MessagesWithActionComposite-Error Label, #MessagesWithActionComposite-Error Button {
+#MessagesWithActionComposite-Error Button {
     background-color: #EE4000;
 }
 .ContextViewComposite {

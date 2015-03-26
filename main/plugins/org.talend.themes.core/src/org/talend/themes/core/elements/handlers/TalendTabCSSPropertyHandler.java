@@ -14,6 +14,7 @@ package org.talend.themes.core.elements.handlers;
 
 import net.jeeeyul.swtend.ui.HSB;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.dom.CTabFolderElement;
@@ -26,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 import org.talend.themes.core.elements.renderers.TalendTabRenderer;
 import org.talend.themes.core.elements.stylesettings.TalendTabSettings;
 import org.w3c.dom.css.CSSValue;
+import org.w3c.dom.css.CSSValueList;
 
 /**
  * created by cmeng on Feb 9, 2015 Detailled comment
@@ -55,7 +57,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
         boolean _switchResult = false;
         boolean _matched = false;
         if (!_matched) {
-            if ("tab-minimize-button-forground-color".equals(property)) {
+            if ("tab-minimize-button-forground-color".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_48 = false;
                 {
@@ -72,7 +74,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-minimize-button-background-color".equals(property)) {
+            if ("tab-minimize-button-background-color".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_49 = false;
                 {
@@ -89,7 +91,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-maximize-button-forground-color".equals(property)) {
+            if ("tab-maximize-button-forground-color".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_50 = false;
                 {
@@ -106,7 +108,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-maximize-button-background-color".equals(property)) {
+            if ("tab-maximize-button-background-color".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_51 = false;
                 {
@@ -123,7 +125,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-minimize-button-none-image".equals(property)) {
+            if ("tab-minimize-button-none-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_52 = false;
                 {
@@ -141,7 +143,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-minimize-button-hot-image".equals(property)) {
+            if ("tab-minimize-button-hot-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_53 = false;
                 {
@@ -159,7 +161,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-minimize-button-selected-image".equals(property)) {
+            if ("tab-minimize-button-selected-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_54 = false;
                 {
@@ -177,7 +179,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-maximize-button-none-image".equals(property)) {
+            if ("tab-maximize-button-none-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_55 = false;
                 {
@@ -195,7 +197,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-maximize-button-hot-image".equals(property)) {
+            if ("tab-maximize-button-hot-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_56 = false;
                 {
@@ -213,7 +215,7 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
             }
         }
         if (!_matched) {
-            if ("tab-maximize-button-selected-image".equals(property)) {
+            if ("tab-maximize-button-selected-image".equals(property)) { //$NON-NLS-1$
                 _matched = true;
                 boolean _xblockexpression_57 = false;
                 {
@@ -228,6 +230,32 @@ public class TalendTabCSSPropertyHandler implements ICSSPropertyHandler {
                     _xblockexpression_57 = true;
                 }
                 _switchResult = _xblockexpression_57;
+            }
+        }
+        if (!_matched) {
+            if ("tab-item-images".equals(property)) { //$NON-NLS-1$
+                _matched = true;
+                boolean _xblockexpression_58 = false;
+                Display _display = tabFolder.getDisplay();
+                if (value instanceof CSSValueList) {
+                    CSSValueList cssValueList = (CSSValueList) value;
+                    int length = cssValueList.getLength() - 1;
+                    int i = 0;
+                    while (i < length) {
+                        String elementId = cssValueList.item(i++).getCssText();
+                        CSSValue cssValue = cssValueList.item(i++);
+                        if (cssValue == null) {
+                            break;
+                        }
+                        Object imageObj = engine.convert(cssValue, Image.class, _display);
+                        if (StringUtils.isNotEmpty(elementId) && imageObj != null) {
+                            settings.addCTabItemImage(elementId, (Image) imageObj);
+                        }
+                    }
+                    _xblockexpression_58 = true;
+                }
+
+                _switchResult = _xblockexpression_58;
             }
         }
         if (!_matched) {

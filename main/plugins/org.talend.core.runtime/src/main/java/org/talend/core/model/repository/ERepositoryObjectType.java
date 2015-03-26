@@ -445,7 +445,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType PROCESS_STORM = ERepositoryObjectType.valueOf("PROCESS_STORM");
 
-    public final static ERepositoryObjectType PROCESS_SPARK = ERepositoryObjectType.valueOf("PROCESS_SPARK");;
+    public final static ERepositoryObjectType PROCESS_SPARK = ERepositoryObjectType.valueOf("PROCESS_SPARK");
+
+    public final static ERepositoryObjectType PROCESS_SPARKSTREAMING = ERepositoryObjectType.valueOf("PROCESS_SPARKSTREAMING");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
             String[] userRight, boolean... isResouce) {
@@ -1249,6 +1251,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         }
         if (ERepositoryObjectType.PROCESS_SPARK != null) {
             allTypes.add(ERepositoryObjectType.PROCESS_SPARK);
+        }
+        if (ERepositoryObjectType.PROCESS_SPARKSTREAMING != null) {
+            allTypes.add(ERepositoryObjectType.PROCESS_SPARKSTREAMING);
         }
 
         return allTypes;

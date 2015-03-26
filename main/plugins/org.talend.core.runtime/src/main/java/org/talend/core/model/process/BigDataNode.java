@@ -13,6 +13,7 @@
 package org.talend.core.model.process;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,11 @@ import org.talend.core.model.metadata.MetadataTable;
 
 /**
  * Concrete class to instanciate as an AbstractNode for the BigData code generators
- * 
+ *
  */
 public class BigDataNode extends AbstractNode implements IBigDataNode {
+
+    private boolean dummy = false;
 
     private String outputType = null;
 
@@ -42,7 +45,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
 
     /**
      * Constructor for the BigDataNode
-     * 
+     *
      * @param component
      * @param uniqueName
      */
@@ -273,6 +276,9 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
                 }
             }
 
+            // Sort data to be sure to get them on the same order in input and output
+            Collections.sort(nameColumnList);
+
             // Convert column's name into column
             List<IMetadataColumn> columnList = new ArrayList<IMetadataColumn>();
             for (String colName : nameColumnList) {
@@ -292,7 +298,7 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
         // key elements are elements wich are not present on the described field.
         if (bigDataNode.getComponent().getPartitioning().startsWith("!")) { //$NON-NLS-1$
             if (getMetadataList().size() <= 0) {
-                throw new RuntimeException("Please define a schema for " + this.getComponentName());//$NON-NLS-1$ 
+                throw new RuntimeException("Please define a schema for " + this.getComponentName());//$NON-NLS-1$
             }
             setNegativeKeyList(bigDataNode, direction);
         } else {
@@ -301,10 +307,70 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
     }
 
     /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IBigDataNode#setKeyList(java.lang.String, java.util.List)
+     */
+    @Override
+    public void setKeyList(String direction, List<IMetadataColumn> colList) {
+        this.keyList.put(direction, colList);
+    }
+
+    /*
      * @see org.talend.core.model.process.IBigDataNode#getKeyList()
      */
     @Override
     public Map<String, List<IMetadataColumn>> getKeyList() {
         return keyList;
+    }
+
+    /**
+     * Will return the first item of the subprocess. If "withCondition" is true, if there is links from type RunIf /
+     * RunAfter / RunBefore, it will return the first element found. If "withCondition" is false, it will return the
+     * first element with no active link from type Main/Ref/Iterate.<br>
+     * <i><b>Note:</b></i> This function doesn't work if the node has several start points (will return a random start
+     * node).
+     * 
+     * @param withCondition
+     * @return Start Node found.
+     */
+    @Override
+    public INode getSubProcessStartNode(boolean withConditions) {
+        if (!withConditions) {
+
+            if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
+                return this; // main branch here, so we got the correct sub
+                             // process start.
+            }
+        } else {
+            int nb = 0;
+            for (IConnection connection : getIncomingConnections()) {
+                if (connection.isActivate()) {
+                    nb++;
+                }
+            }
+            if (nb == 0) {
+                return this;
+            }
+        }
+
+        for (IConnection connec : getIncomingConnections()) {
+            if (((AbstractNode) connec.getSource()).isOnMainMergeBranch()) {
+                if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
+                    return connec.getSource().getSubProcessStartNode(withConditions);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isDummy() {
+        return this.dummy;
+    }
+
+    @Override
+    public void setDummy(boolean dummy) {
+        this.dummy = dummy;
     }
 }
