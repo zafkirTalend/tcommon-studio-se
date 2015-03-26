@@ -23,17 +23,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -346,7 +341,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         checkInstalledLibraries();
 
         // clean the temp library of job needed in .java\lib
-        cleanTempProLib();
+        cleanLibs();
 
         log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
         isLibSynchronized = true;
@@ -398,14 +393,4 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         }
     }
 
-    public void cleanTempProLib() {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        if (prj.exists()) {
-            IPath libPath = prj.getLocation().append(JavaUtils.JAVA_LIB_DIRECTORY);
-            if (libPath.toFile().exists()) {
-                FilesUtils.emptyFolder(libPath.toFile());
-            }
-        }
-    }
 }

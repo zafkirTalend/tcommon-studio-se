@@ -26,9 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -38,6 +36,8 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
+import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -150,6 +150,31 @@ public class ProcessorUtilities {
         libraryPath = exportLibraryPath;
         exportConfig = true;
         exportTimeStamp = new Date();
+    }
+
+    public static void setExportConfig(String directory, boolean old) {
+        String libPath = calculateLibraryPathFromDirectory(directory);
+        String routinesJars = ""; //$NON-NLS-1$
+        if (old) { // ../lib/systemRoutines.jar@../lib/userRoutines.jar@.
+            // use character @ as temporary classpath separator, this one will be replaced during the export.
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.SYSTEM_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.USER_ROUTINE_JAR + TEMP_JAVA_CLASSPATH_SEPARATOR;
+        } else { // ../lib/routines.jar@.
+            routinesJars += libPath + JavaUtils.PATH_SEPARATOR + JavaUtils.ROUTINE_JAR_NAME + '-'
+                    + JavaUtils.ROUTINE_JAR_DEFAULT_VERSION + FileExtensions.JAR_FILE_SUFFIX + TEMP_JAVA_CLASSPATH_SEPARATOR;
+        }
+        routinesJars += '.';
+        setExportConfig(JavaUtils.JAVA_APP_NAME, routinesJars, libPath);
+    }
+
+    private static String calculateLibraryPathFromDirectory(String directory) {
+        int nb = directory.split(JavaUtils.PATH_SEPARATOR).length - 1;
+        final String parentPath = "../";//$NON-NLS-1$
+        String path = parentPath;
+        for (int i = 0; i < nb; i++) {
+            path = path.concat(parentPath);
+        }
+        return path + JavaUtils.JAVA_LIB_DIRECTORY;
     }
 
     public static Date getExportTimestamp() {
@@ -500,17 +525,10 @@ public class ProcessorUtilities {
             for (ModuleNeeded module : neededModules) {
                 jarList.add(module.getModuleName());
             }
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            IRunProcessService runProcessService = CorePlugin.getDefault().getRunProcessService();
+            runProcessService.updateLibraries(jarList, currentProcess);
             if (codeModified) {
-                try {
-                    IProject project = CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject();
-                    if (!project.isSynchronized(IResource.DEPTH_INFINITE)) {
-                        project.refreshLocal(IResource.DEPTH_INFINITE, progressMonitor);
-                    }
-                    project.build(IncrementalProjectBuilder.AUTO_BUILD, null);
-                } catch (CoreException e) {
-                    throw new ProcessorException(e);
-                }
+                processor.build();
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;
@@ -1258,7 +1276,7 @@ public class ProcessorUtilities {
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, selectedProcessItem.getProperty(), currentContext);
-        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
+        String[] cmd = new String[] { processor.getMainClass() };
         if (codeOptions != null) {
             for (String string : codeOptions) {
                 if (string != null) {

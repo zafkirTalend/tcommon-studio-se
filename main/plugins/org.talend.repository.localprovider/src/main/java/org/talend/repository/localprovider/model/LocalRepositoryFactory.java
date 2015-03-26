@@ -1073,7 +1073,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         IPath path = resource.getProjectRelativePath();
 
                         // ignore folders with . (e.g. : .settings) see bug 364
-                        if (path.lastSegment().equals(".settings")) { //$NON-NLS-1$
+                        if (path.lastSegment().equals(RepositoryConstants.SETTING_DIRECTORY)) {
                             return false;
                         }
                         if (path.lastSegment().equals("bin")) { //$NON-NLS-1$

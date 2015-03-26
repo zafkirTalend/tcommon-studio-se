@@ -17,9 +17,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.GlobalServiceRegister;
@@ -130,29 +128,24 @@ public abstract class AbsMigrationCheckHandler implements IMigrationCheckHandler
         }
     }
 
-    protected void checkCompilationError(IProject codeProject, IPath codePath, MigrateItemInfo itemInfo) throws Exception {
-        if (codeProject != null && codePath != null) {
-            IFile file = codeProject.getFile(codePath);
-            if (file != null && file.exists()) {
-                IMarker[] markers = file.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
-                for (IMarker marker : markers) {
-                    Integer lineNr = (Integer) marker.getAttribute(IMarker.LINE_NUMBER);
-                    String message = (String) marker.getAttribute(IMarker.MESSAGE);
-                    Integer severity = (Integer) marker.getAttribute(IMarker.SEVERITY);
-                    if (severity == IMarker.SEVERITY_ERROR) {
-                        String errorMessage = message + " at line " + lineNr;
-                        Problem problem = new Problem();
-                        problem.setCategory(ProblemCategory.COMPILATION_ERROR);
-                        problem.setProblem(errorMessage);
-                        itemInfo.getProblems().add(problem);
-                    }
+    protected void checkCompilationError(IFile codeFile, MigrateItemInfo itemInfo) throws Exception {
+        if (codeFile != null && codeFile.exists()) {
+            IMarker[] markers = codeFile.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
+            for (IMarker marker : markers) {
+                Integer lineNr = (Integer) marker.getAttribute(IMarker.LINE_NUMBER);
+                String message = (String) marker.getAttribute(IMarker.MESSAGE);
+                Integer severity = (Integer) marker.getAttribute(IMarker.SEVERITY);
+                if (severity == IMarker.SEVERITY_ERROR) {
+                    String errorMessage = message + " at line " + lineNr;
+                    Problem problem = new Problem();
+                    problem.setCategory(ProblemCategory.COMPILATION_ERROR);
+                    problem.setProblem(errorMessage);
+                    itemInfo.getProblems().add(problem);
                 }
-            } else {
-                throw new Exception("Can not find source code " + codePath);
             }
 
         } else {
-            throw new Exception("Can not find source projcet ");
+            throw new Exception("Can not find source codes :" + codeFile);
         }
     }
 

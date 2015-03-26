@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+		<format>tar.gz</format>
+	</formats>
+
+	<files>
+		<file><!-- sh -->
+			<source>${project.resources.path}/templates/Job_run_template.sh</source>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<destName>${talend.job.name}_run.sh</destName>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0755</fileMode>
+			<filtered>true</filtered>
+		</file>
+		<file> <!-- bat -->
+			<source>${project.resources.path}/templates/Job_run_template.bat</source>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<destName>${talend.job.name}_run.bat</destName>
+			<filtered>true</filtered>
+		</file>
+		<file> <!-- jobInfo.properties -->
+			<source>${project.resources.path}/templates/jobInfo_template.properties</source>
+			<outputDirectory>.</outputDirectory>
+			<destName>jobInfo.properties</destName>
+			<filtered>true</filtered>
+		</file>
+		<file> <!-- project pom -->
+			<source>${project.resources.path}/templates/project_pom_template.xml</source>
+			<outputDirectory>${project.artifactId}</outputDirectory>
+			<destName>pom.xml</destName>
+			<filtered>true</filtered>
+		</file>
+		<file> <!-- add jar of job -->
+			<source>${project.build.directory}/${project.build.finalName}.jar</source>
+			<outputDirectory>${project.artifactId}/lib</outputDirectory>
+		</file>
+
+		<!-- If have children, will add the configs here -->
+	</files>
+
+	<fileSets>
+		<fileSet> <!-- the templates -->
+			<directory>${project.resources.path}/templates</directory>
+			<outputDirectory>${project.artifactId}/src/main/resources/templates</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- the lib of dependences -->
+			<directory>${project.build.directory}/lib</directory>
+			<outputDirectory>${project.artifactId}/lib</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- job resources,like source codes,contexts files, pom and assembly files -->
+			<directory>.</directory>
+			<outputDirectory>${project.artifactId}/src/main/java/${talend.job.path}/</outputDirectory>
+			<includes>
+				<include>*/**</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- Context properties for source codes -->
+			<directory>${project.resources.path}/${talend.job.path}/contexts</directory>
+			<outputDirectory>${project.artifactId}/src/main/resources/${talend.job.path}/contexts</outputDirectory>
+			<includes>
+				<include>*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet> <!-- Context properties for running -->
+			<directory>${project.resources.path}/${talend.job.path}/contexts</directory>
+			<outputDirectory>${project.artifactId}/${talend.job.path}/contexts</outputDirectory>
+			<includes>
+				<include>*.properties</include>
+			</includes>
+		</fileSet>
+
+		<!-- If have children, will add some configs here -->
+	</fileSets>
+</assembly>

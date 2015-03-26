@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.talend.test</groupId>
+	<artifactId>TestMysql</artifactId>
+	<version>0.1</version>
+
+	<properties>
+		<project.root.path>${basedir}/../../../../..</project.root.path>
+		<system.lib.path>${project.root.path}/lib</system.lib.path>
+		<project.resources.path>${project.root.path}/src/main/resources</project.resources.path>
+
+		<talend.job.path>@JobPath@</talend.job.path>
+		<talend.job.package>@JobPackage@</talend.job.package>
+
+		<!-- for jobInfo.properties -->
+		<talend.project.name>@ProjectName@</talend.project.name>
+		<talend.project.id>@ProjectId@</talend.project.id>
+		<talend.project.branch>@ProjectBranch@</talend.project.branch>
+		<talend.job.name>${project.artifactId}</talend.job.name> <!-- @JobName@ -->
+		<talend.job.version>${project.version}</talend.job.version> <!-- @JobVersion@ -->
+		<talend.job.date>@JobDate@</talend.job.date>
+		<talend.job.context>@JobContext@</talend.job.context>
+		<talend.job.id>@JobId@</talend.job.id>
+		<talend.job.class>${talend.job.package}.${talend.job.name}</talend.job.class> <!-- @JobClass@ -->
+		<talend.job.stat>@JobStat@</talend.job.stat>
+		<talend.job.applyContextToChildren>@JobApplyContextToChildren@</talend.job.applyContextToChildren>
+		<talend.product.version>@ProductVersion@</talend.product.version>
+
+		<!-- for bat/sh -->
+		<talend.job.bat.classpath>@JobBatClasspath@</talend.job.bat.classpath>
+		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
+
+		<!-- for maven build -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.talend</groupId>
+			<artifactId>routines</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>.</sourceDirectory>
+		<outputDirectory>${project.root.path}/target/classes</outputDirectory>
+		<directory>${project.root.path}/target/${project.artifactId}</directory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>copy-running-resources</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration> <!-- copy the contexts for running job -->
+							<outputDirectory>${project.build.outputDirectory}/${talend.job.path}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.resources.path}/${talend.job.path}</directory>
+									<includes>
+										<include>contexts/*.properties</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<!-- only package the job classes -->
+								<include>${talend.job.path}/*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<stripVersion>true</stripVersion>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+							<finalName>${project.artifactId}_${project.version}</finalName>
+							<tarLongFileMode>gnu</tarLongFileMode>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

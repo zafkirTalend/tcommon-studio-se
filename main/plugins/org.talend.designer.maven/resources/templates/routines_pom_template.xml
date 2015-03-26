@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.talend</groupId>
+	<artifactId>routines</artifactId>
+	<version>1.0</version>
+
+	<properties>
+		<project.root.path>${basedir}/../../../../</project.root.path>
+		<system.lib.path>${project.root.path}/lib</system.lib.path>
+		<talend.routines.package>routines</talend.routines.package>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>camel-core-2.13.2</groupId>
+			<artifactId>camel-core-2.13.2</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${system.lib.path}/camel-core-2.13.2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>dom4j-1.6.1</groupId>
+			<artifactId>dom4j-1.6.1</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${system.lib.path}/dom4j-1.6.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>log4j-1.2.15</groupId>
+			<artifactId>log4j-1.2.15</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${system.lib.path}/log4j-1.2.15.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>talend_file_enhanced_20070724</groupId>
+			<artifactId>talend_file_enhanced_20070724</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${system.lib.path}/talend_file_enhanced_20070724.jar</systemPath>
+		</dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>.</sourceDirectory>
+		<outputDirectory>${project.root.path}/target/classes</outputDirectory>
+		<directory>${project.root.path}/target/${project.artifactId}</directory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<!-- only package the routines classes, because the path same as 
+									package, just use it -->
+								<include>${talend.routines.package}/**/*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

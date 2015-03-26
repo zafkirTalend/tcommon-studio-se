@@ -13,6 +13,7 @@
 package org.talend.core.repository.constants;
 
 import org.talend.commons.utils.resource.FileExtensions;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  */
@@ -22,7 +23,7 @@ public interface FileConstants {
 
     String LOCAL_PROJECT_FILENAME = "talend.project"; //$NON-NLS-1$
 
-    String TDM_PROPS_FOLDER = ".settings"; //$NON-NLS-1$
+    String TDM_PROPS_FOLDER = RepositoryConstants.SETTING_DIRECTORY;
 
     String TDM_PROPS_PATH = TDM_PROPS_FOLDER + "/com.oaklandsw.base.projectProps"; //$NON-NLS-1$
 

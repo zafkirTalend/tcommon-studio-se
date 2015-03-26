@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -32,8 +31,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -53,6 +52,8 @@ import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -239,18 +240,23 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
      * @throws IOException
      */
     private void synJavaLibs(File lib) throws IOException {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject javaProject = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IFolder javaLibFolder = javaProject.getFolder(JavaUtils.JAVA_LIB_DIRECTORY);
-        if (!javaLibFolder.exists()) {
-            return;
-        }
-        File libFolder = javaLibFolder.getLocation().toFile();
-        for (File externalLib : libFolder.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
-            if (externalLib.getName().equals(lib.getName())) {
-                FilesUtils.copyFile(lib, externalLib);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService processService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            ITalendProcessJavaProject talendProcessJavaProject = processService.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                IFolder javaLibFolder = talendProcessJavaProject.getLibFolder();
+                if (javaLibFolder.exists()) {
+                    File libFolder = javaLibFolder.getLocation().toFile();
+                    for (File externalLib : libFolder.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
+                        if (externalLib.getName().equals(lib.getName())) {
+                            FilesUtils.copyFile(lib, externalLib);
+                        }
+                    }
+                }
             }
         }
+
     }
 
     protected void addResolvedClasspathPath(String libName) {
@@ -327,4 +333,20 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     }
 
+    @Override
+    public void cleanLibs() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService processService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            ITalendProcessJavaProject talendProcessJavaProject = processService.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                IFolder libFolder = talendProcessJavaProject.getLibFolder();
+                try {
+                    talendProcessJavaProject.cleanFolder(null, libFolder);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+    }
 }

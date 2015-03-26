@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.dialogs;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -81,8 +80,6 @@ import org.talend.commons.ui.runtime.swt.tableviewer.sort.IColumnSortedListener;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
@@ -523,10 +520,12 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
     }
 
     private void emptyLibs() {
-        File libsDir = org.eclipse.core.runtime.Platform.getLocation().append(JavaUtils.JAVA_PROJECT_NAME).append(File.separator)
-                .append(JavaUtils.JAVA_LIB_DIRECTORY).toFile();
-        if (libsDir.exists() && libsDir.isDirectory()) {
-            FilesUtils.emptyFolder(libsDir);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
+            if (libService != null) {
+                libService.cleanLibs();
+            }
         }
     }
 

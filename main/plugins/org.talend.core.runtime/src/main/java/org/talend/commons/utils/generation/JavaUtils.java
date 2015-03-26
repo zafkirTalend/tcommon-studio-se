@@ -25,6 +25,7 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstall2;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
+import org.talend.commons.utils.resource.FileExtensions;
 
 /**
  * Utilities around perl stuff. <br/>
@@ -40,12 +41,13 @@ public final class JavaUtils {
 
     public static final String PROCESSOR_TYPE = "javaProcessor"; //$NON-NLS-1$
 
+    public static final String PATH_SEPARATOR = "/"; //$NON-NLS-1$
+
+    public static final String JAVA_APP_NAME = "java";//$NON-NLS-1$
+
     /** added by rxl. */
     public static final String JAVATIP = "//The function of generating Java code haven't achive yet" //$NON-NLS-1$
             + System.getProperty("line.separator") + "public class JavaTest extends Test {}"; //$NON-NLS-1$ //$NON-NLS-2$
-
-    /** Java project name. */
-    public static final String JAVA_PROJECT_NAME = ".Java"; //$NON-NLS-1$
 
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
@@ -80,8 +82,8 @@ public final class JavaUtils {
     /** Java SQLTemplate Directory. */
     public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqltemplates"; //$NON-NLS-1$
 
-    /** Java Routines Directory. */
-    public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system"; //$NON-NLS-1$
+    /** Java system Directory. */
+    public static final String JAVA_SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
     /** Java Routines api Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_API_DIRECTORY = "api"; //$NON-NLS-1$
@@ -89,16 +91,13 @@ public final class JavaUtils {
     /** Java UserDefined Directory */
     public static final String JAVA_USER_DEFINED = "user defined"; //$NON-NLS-1$
 
-    /** Java Classes Directory. */
-    public static final String JAVA_CLASSES_DIRECTORY = "classes"; //$NON-NLS-1$
-
     /** Java Lib Directory. */
     public static final String JAVA_LIB_DIRECTORY = "lib"; //$NON-NLS-1$
 
-    /** Java Source Directory. */
-    public static final String JAVA_SRC_DIRECTORY = "src"; //$NON-NLS-1$
+    /** Java internal Directory. */
+    public static final String JAVA_INTERNAL_DIRECTORY = "internal"; //$NON-NLS-1$
 
-    /** Java DB Mapping Directory */
+    /** Java DB Mapping Directory , and must be same as MetadataTalendType.MAPPING_FOLDER */
     public static final String JAVA_XML_MAPPING = "xmlMappings"; //$NON-NLS-1$
 
     /** Java Rules Directory. */
@@ -110,8 +109,25 @@ public final class JavaUtils {
     /** Java Metadata Directory. */
     public static final String JAVA_METADATA_DIRECTORY = "metadata"; //$NON-NLS-1$
 
+    /** Java contexts Directory. */
+    public static final String JAVA_CONTEXTS_DIRECTORY = "contexts"; //$NON-NLS-1$
+
     /** Java ClassPath Separator. */
     public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":"; //$NON-NLS-1$ //$NON-NLS-2$
+
+    public static final String JAVA_CP = "-cp"; //$NON-NLS-1$ 
+
+    public static final String ROUTINE_JAR_NAME = "routines"; //$NON-NLS-1$
+
+    public static final String ROUTINE_JAR_DEFAULT_VERSION = "1.0";//$NON-NLS-1$
+
+    public static final String SYSTEM_ROUTINE_JAR = "systemRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_ROUTINE_JAR = "userRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_BEANS_JAR = "userBeans" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+
+    public static final String USER_PIGUDF_JAR = "pigudf" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
     /**
      * DOC ycbai Get default jvm name.
