@@ -62,9 +62,9 @@ public enum EImage implements IImage {
 
     ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
     WARNING_ICON("/icons/warning.gif"), //$NON-NLS-1$
-    INFORMATION_ICON("/icons/unknown.gif"), //$NON-NLS-1$
-    ERROR_SMALL("/icons/error_small.gif"), //$NON-NLS-1$
-    WARNING_SMALL("/icons/warning_small.gif"), //$NON-NLS-1$
+    INFORMATION_ICON("/icons/info.png"), //$NON-NLS-1$
+    ERROR_SMALL("/icons/error_small.png"), //$NON-NLS-1$
+    WARNING_SMALL("/icons/warning_small.png"), //$NON-NLS-1$
     INFORMATION_SMALL("/icons/info_ovr.gif"), //$NON-NLS-1$
     Error_Mark("/icons/error_mark.gif"), //$NON-NLS-1$
     OK("/icons/ok.png"), //$NON-NLS-1$
