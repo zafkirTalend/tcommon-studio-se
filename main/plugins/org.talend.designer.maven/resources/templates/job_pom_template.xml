@@ -40,11 +40,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.talend</groupId>
-			<artifactId>routines</artifactId>
-			<version>1.0</version>
-		</dependency>
+		<!-- Add routines and some dependencies jars -->
 	</dependencies>
 
 	<build>

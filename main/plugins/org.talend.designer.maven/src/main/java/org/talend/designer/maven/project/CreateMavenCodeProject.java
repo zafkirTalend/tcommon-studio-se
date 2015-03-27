@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.project;
 
-import java.util.Properties;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFile;
@@ -34,27 +32,24 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.template.CreateTemplateMavenPom;
+import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.utils.PomManager;
+import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 
 /**
  * created by ggu on 22 Jan 2015 Detailled comment
  *
  */
-public class CreateMavenCodeProject extends CreateMaven {
-
-    private static final String MAVEN_COMPILER_SOURCE = "maven.compiler.source"; //$NON-NLS-1$
-
-    private static final String MAVEN_COMPILER_TARGET = "maven.compiler.target"; //$NON-NLS-1$
+public class CreateMavenCodeProject extends CreateTemplateMavenPom {
 
     private IProject project;
 
     public CreateMavenCodeProject(IProject project) {
-        super();
+        super(project.getFile(MavenConstants.POM_FILE_NAME), MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
         Assert.isNotNull(project);
         this.project = project;
     }
@@ -72,19 +67,6 @@ public class CreateMavenCodeProject extends CreateMaven {
         setPackaging(MavenConstants.PACKAGING_JAR);
 
         Model model = super.createModel();
-        Properties p = new Properties();
-
-        /**
-         * TODO, need change the default compiler version(1.5)? or try maven-compiler-plugin?
-         * 
-         * same version as jet compile, @see TalendJetEmitter.getBatchCompilerCmd
-         * 
-         * temp set, will remove those properties later.
-         */
-        p.put(MAVEN_COMPILER_SOURCE, TalendMavenContants.DEFAULT_JDK_VERSION);
-        p.put(MAVEN_COMPILER_TARGET, TalendMavenContants.DEFAULT_JDK_VERSION);
-        model.setProperties(p);
-
         return model;
     }
 
@@ -175,16 +157,10 @@ public class CreateMavenCodeProject extends CreateMaven {
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
                         // TalendMavenContants.DEFAULT_GROUP_ID
-                        model.setGroupId(JavaResourcesHelper.getGroupName(null));
+                        model.setGroupId(TalendCodeProjectUtil.getCurProjectGroup());
                         // TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID,
-                        model.setArtifactId(JavaResourcesHelper.getGroupName("sources")); //$NON-NLS-1$
+                        model.setArtifactId(model.getGroupId() + ".sources"); //$NON-NLS-1$
 
-                        // remove the properties for compile level
-                        Properties properties = model.getProperties();
-                        if (properties != null) {
-                            properties.remove(MAVEN_COMPILER_SOURCE);
-                            properties.remove(MAVEN_COMPILER_TARGET);
-                        }
                         PomManager.savePom(monitor, model, pomFile);
 
                         p.refreshLocal(IResource.DEPTH_ONE, monitor);
