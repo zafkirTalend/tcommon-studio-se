@@ -60,7 +60,7 @@ public class MavenPomSynchronizer {
             createTemplatePom.setArtifactId(routinesModel.getArtifactId());
             createTemplatePom.setVersion(routinesModel.getVersion());
 
-            createTemplatePom.setOverwrite(false); // don't overwrite.
+            createTemplatePom.setOverwrite(overwrite);
 
             createTemplatePom.create(null);
 
@@ -92,9 +92,9 @@ public class MavenPomSynchronizer {
 
     /**
      * 
-     * add the job to the pom modules list of project.
+     * create project pom
      */
-    public void addChildModules(boolean removeOld, String... childModules) throws Exception {
+    public void createProjectPom() throws Exception {
         IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
         File pPomFile = projectPomFile.getLocation().toFile();
         if (!pPomFile.exists()) {
@@ -104,7 +104,21 @@ public class MavenPomSynchronizer {
             IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
             IFile projectTemplateFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
+
+            // refresh
+            codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
         }
+    }
+
+    /**
+     * 
+     * add the job to the pom modules list of project.
+     */
+    public void addChildModules(boolean removeOld, String... childModules) throws Exception {
+        IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
+        // check and create pom
+        createProjectPom();
+
         MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
         Model projModel = mavenModelManager.readMavenModel(projectPomFile);
         List<String> modules = projModel.getModules();
@@ -114,7 +128,7 @@ public class MavenPomSynchronizer {
         }
 
         boolean modifed = false;
-        if (removeOld || (childModules == null || childModules.length == 0)) { // clean the modules
+        if (removeOld || childModules == null || childModules.length == 0) { // clean the modules
             if (!modules.isEmpty()) {
                 modules.clear();
                 modifed = true;

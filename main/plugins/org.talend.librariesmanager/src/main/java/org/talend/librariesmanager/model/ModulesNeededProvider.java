@@ -134,8 +134,7 @@ public class ModulesNeededProvider {
          */
         if (componentImportNeedsList.isEmpty()) {
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
-            componentImportNeedsList.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
-            componentImportNeedsList.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
+            componentImportNeedsList.addAll(getRunningModules());
             //            TimeMeasure.step(Messages.getString("ModulesNeededProvider.1"), "ModulesNeededProvider.getModulesNeededForRoutines"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
@@ -574,7 +573,7 @@ public class ModulesNeededProvider {
 
     public static List<ModuleNeeded> getModulesNeededForRoutines(ERepositoryObjectType type) {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        if (service != null) {
+        if (service != null && type != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
             try {
                 List<IRepositoryViewObject> routines = repositoryFactory.getAll(type, true);
@@ -839,6 +838,19 @@ public class ModulesNeededProvider {
      */
     public static List<ModuleNeeded> getUnUsedModules() {
         return unUsedModules;
+    }
+
+    public static Set<ModuleNeeded> getRunningModules() {
+        Set<ModuleNeeded> runningModules = new HashSet<ModuleNeeded>();
+
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
+        // add the system routines modules
+        runningModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
+
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.getType("BEANS")));
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
+
+        return runningModules;
     }
 
 }

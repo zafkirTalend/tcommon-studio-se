@@ -192,7 +192,6 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         model.setArtifactId(artifact);
         model.setVersion(process.getVersion());
 
-        addProperties(model);
         addDependencies(model);
         if (TalendCodeProjectUtil.stripVersion) {
             // will same as artifact id
@@ -261,13 +260,13 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
      * 
      * Add the properties for job.
      */
+    @Override
     @SuppressWarnings("nls")
     protected void addProperties(Model model) {
+        super.addProperties(model);
+
         Properties properties = model.getProperties();
-        if (properties == null) {
-            properties = new Properties();
-            model.setProperties(properties);
-        }
+
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
         final IContext context = jProcessor.getContext();
@@ -336,30 +335,6 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         checkPomProperty(properties, "talend.job.bat.classpath", "@JobBatClasspath@", this.getWindowsClasspath());
         checkPomProperty(properties, "talend.job.sh.classpath", "@JobShClasspath@", this.getUnixClasspath());
 
-        /*
-         * build properties
-         */
-        checkPomProperty(properties, "maven.compiler.source", "@CompilerJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
-        checkPomProperty(properties, "maven.compiler.target", "@CompilerJavaLevel@", TalendMavenContants.DEFAULT_JDK_VERSION);
-        checkPomProperty(properties, "project.build.sourceEncoding", "@BuildSourceEncoding@",
-                TalendMavenContants.DEFAULT_ENCODING);
-    }
-
-    protected void checkPomProperty(Properties properties, String key, String var, String value) {
-        Object v = properties.get(key);
-        if (v != null) {
-            if (v.equals(value)) { // same
-                // nothing to do
-            } else if (v.equals(var)) {// if var expression. just replace it.
-                properties.put(key, value);
-            } else if (var == null || var.trim().length() == 0) { // just replace it for new value.
-                properties.put(key, value);
-            } else {// replace var, if existed.
-                properties.put(key, v.toString().replace(var, value));
-            }
-        } else { // set new value directly.
-            properties.put(key, value);
-        }
     }
 
     /**
@@ -372,33 +347,22 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
             model.setDependencies(dependencies);
         }
         // check the routine.
-        if (!dependencies.isEmpty()) {
-            Dependency routinesDependency = null;
-            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-
-            String artifact = TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID;
-            if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-                artifact = JavaResourcesHelper.getJobJarName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID,
-                        JavaUtils.ROUTINE_JAR_DEFAULT_VERSION);
+        Dependency routinesDependency = null;
+        for (Dependency d : dependencies) {
+            if (TalendCodeProjectUtil.isRoutinesArtifact(d.getArtifactId())) {
+                routinesDependency = d;
+                break;
             }
-
-            for (Dependency d : dependencies) {
-                if (TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID.equals(d.getArtifactId())
-                        || artifact.equals(d.getArtifactId())) {
-                    routinesDependency = d;
-                    break;
-                }
-            }
-            if (routinesDependency == null) {
-                routinesDependency = new Dependency();
-                routinesDependency.setGroupId(routinesModel.getGroupId());
-                routinesDependency.setVersion(routinesModel.getVersion());
-                dependencies.add(routinesDependency);
-            }
-            // update the routine artifact.
-            routinesDependency.setArtifactId(routinesModel.getArtifactId());
-
         }
+        if (routinesDependency == null) {
+            routinesDependency = new Dependency();
+            dependencies.add(routinesDependency);
+        }
+        final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
+        // update the routine artifact.
+        routinesDependency.setVersion(routinesModel.getVersion());
+        routinesDependency.setGroupId(routinesModel.getGroupId());
+        routinesDependency.setArtifactId(routinesModel.getArtifactId());
 
         // add the job modules.
         Set<String> neededLibraries = getJobProcessor().getNeededLibraries();

@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IDebugEventSetListener;
+import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -45,6 +46,7 @@ import org.eclipse.m2e.core.project.IMavenProjectRegistry;
 import org.eclipse.m2e.core.project.ResolverConfiguration;
 import org.eclipse.osgi.util.NLS;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.designer.maven.model.MavenConstants;
 
 /**
@@ -55,11 +57,29 @@ import org.talend.designer.maven.model.MavenConstants;
 @SuppressWarnings("restriction")
 public class TalendMavenLauncher {
 
-    private IFile launcherPomFile;
+    private final IFile launcherPomFile;
 
-    private String goals;
+    private final String goals;
 
+    /*
+     * Use the M2E API to launch the maven with goal, run mode by default.
+     */
     private String launcherMode = ILaunchManager.RUN_MODE;
+
+    /*
+     * Won't skip test by default.
+     */
+    private boolean skipTests = false;
+
+    /*
+     * By default for Launch Configuration , will capture the output, and try to open Console view to show maven logs.
+     * 
+     * Here, false, by default, don't cpture output. maybe later can add this option in the preference to enable show
+     * the logs in Console View.
+     */
+    private boolean captureOutputInConsoleView = false;
+
+    private boolean debugOutput;
 
     public TalendMavenLauncher(IFile pomFile, String goals) {
         super();
@@ -67,6 +87,8 @@ public class TalendMavenLauncher {
         Assert.isNotNull(goals);
         this.launcherPomFile = pomFile;
         this.goals = goals;
+        // by default same as preference settings.
+        this.debugOutput = MavenPlugin.getMavenConfiguration().isDebugOutput();
     }
 
     /*
@@ -75,6 +97,18 @@ public class TalendMavenLauncher {
      */
     public TalendMavenLauncher(IFile pomFile) {
         this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */MavenConstants.GOAL_COMPILE);
+    }
+
+    public void setSkipTests(boolean skipTests) {
+        this.skipTests = skipTests;
+    }
+
+    public void setDebugOutput(boolean debugOutput) {
+        this.debugOutput = debugOutput;
+    }
+
+    public void setCaptureOutputInConsoleView(boolean captureOutputInConsoleView) {
+        this.captureOutputInConsoleView = captureOutputInConsoleView;
     }
 
     private ILaunchConfiguration createLaunchConfiguration(IContainer basedir, String goal) {
@@ -94,6 +128,22 @@ public class TalendMavenLauncher {
             workingCopy.setAttribute(IDebugUIConstants.ATTR_PRIVATE, true);
             workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_SCOPE, "${project}"); //$NON-NLS-1$
             workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_RECURSIVE, true);
+
+            // --------------Special settings for Talend----------
+            if (CommonUIPlugin.isFullyHeadless()) {
+                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, false);
+            } else {
+                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, this.captureOutputInConsoleView);
+            }
+
+            // not same, set it. Else use the preference directly.
+            if (debugOutput != MavenPlugin.getMavenConfiguration().isDebugOutput()) {
+                workingCopy.setAttribute(MavenLaunchConstants.ATTR_DEBUG_OUTPUT, this.debugOutput); // -X -e
+            }
+
+            workingCopy.setAttribute(MavenLaunchConstants.ATTR_SKIP_TESTS, this.skipTests); // -Dmaven.test.skip=true
+                                                                                            // -DskipTests
+            // ------------------------
 
             setProjectConfiguration(workingCopy, basedir);
 
@@ -172,9 +222,8 @@ public class TalendMavenLauncher {
             // }
             TalendLauncherWaiter talendWaiter = new TalendLauncherWaiter(launchConfiguration);
 
-            DebugUITools.buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
-
-            talendWaiter.waitFinish();
+            final ILaunch launch = DebugUITools.buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
+            talendWaiter.waitFinish(launch);
 
         } catch (CoreException e) {
             ExceptionHandler.process(e);
@@ -207,7 +256,6 @@ public class TalendMavenLauncher {
          */
         @Override
         public void handleDebugEvents(DebugEvent[] events) {
-            // launchConfig.getType();
             for (DebugEvent event : events) {
                 Object source = event.getSource();
                 if (source instanceof RuntimeProcess
@@ -221,10 +269,17 @@ public class TalendMavenLauncher {
 
         }
 
-        public void waitFinish() {
+        public void waitFinish(ILaunch launch) {
+
             try {
                 while (!launchFinished) {
                     Thread.sleep(100);
+                    // if terminated also
+                    if (launch.getProcesses() != null && launch.getProcesses().length > 0) {
+                        if (launch.getProcesses()[0].isTerminated()) {
+                            break;
+                        }
+                    }
                 }
             } catch (InterruptedException e) {
                 ExceptionHandler.process(e);

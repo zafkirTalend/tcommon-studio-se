@@ -81,28 +81,25 @@ public interface ITalendProcessJavaProject {
     boolean cleanFolder(IProgressMonitor monitor, IFolder folder) throws CoreException;
 
     /**
+     * update routines pom, if withBuild is true, will install routines jar with maven.
      * 
-     * sync and generate maven pom for routines.
      */
-    void syncRoutinesPom(boolean overwrite);
-
-    /**
-     * 
-     * sync the templates.
-     */
-    void syncTemplates(boolean overwrite);
+    void updateRoutinesPom(boolean withBuild, boolean inBackgroud);
 
     /**
      * 
      * check and add the child module in project.
      */
-    void addChildModules(boolean removeOld, String... childModules);
+    void addChildModules(boolean removeOld, String... childrenModules);
 
     /**
      * 
-     * build the modules jobs.
+     * build the modules jobs with goals(like compile, package, install, etc).
      * 
      * if null, will build whole project. if empty (String[0]), willn't build any thing.
+     * 
+     * if goals is not null, will use maven to build. and if childrenModules is null, will try to build project pom.
+     * else will build each modules.
      */
-    void buildModules(String... childModules);
+    void buildModules(String goals, String[] childrenModules);
 }

@@ -11,6 +11,11 @@
 		<project.root.path>${basedir}/../../../../</project.root.path>
 		<system.lib.path>${project.root.path}/lib</system.lib.path>
 		<talend.routines.package>routines</talend.routines.package>
+
+		<!-- for maven build -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
@@ -49,6 +54,16 @@
 		<directory>${project.root.path}/target/${project.artifactId}</directory>
 
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
