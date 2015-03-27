@@ -77,7 +77,7 @@ public class TalendMavenLauncher {
      * Here, false, by default, don't cpture output. maybe later can add this option in the preference to enable show
      * the logs in Console View.
      */
-    private boolean captureOutputInConsoleView = true;
+    private boolean captureOutputInConsoleView = false;
 
     private boolean debugOutput;
 
