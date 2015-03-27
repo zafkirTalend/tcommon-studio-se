@@ -94,6 +94,7 @@ import org.talend.core.repository.utils.RepositoryReferenceBeanUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ICoreUIService;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.ICamelDesignerCoreService;
@@ -1367,6 +1368,13 @@ public class DeleteAction extends AContextualAction {
                     // designerCoreService.switchToCurComponentSettingsView();
                     // for 2608
                     designerCoreService.switchToCurJobSettingsView();
+                }
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                            .getDefault().getService(ITestContainerProviderService.class);
+                    if (testContainerService != null) {
+                        testContainerService.switchToCurTestContainerView();
+                    }
                 }
             }
         });
