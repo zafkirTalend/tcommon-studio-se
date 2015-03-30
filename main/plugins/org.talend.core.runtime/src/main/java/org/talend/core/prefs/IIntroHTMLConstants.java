@@ -18,4 +18,8 @@ package org.talend.core.prefs;
 public class IIntroHTMLConstants {
 
     public static final String ATTRIBUTE_ID = "id"; //$NON-NLS-1$
+
+    public static final String ATTRIBUTE_SELECTED = "selected"; //$NON-NLS-1$
+
+    public static final String ATTRIBUTE_SRC = "src"; //$NON-NLS-1$
 }

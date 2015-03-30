@@ -39,6 +39,10 @@ public class TalendHtmlModelUtil {
 
     public static String TAG_HEAD_LINK = "link"; //$NON-NLS-1$
 
+    public static String TAG_OPTION = "option"; //$NON-NLS-1$
+
+    public static String TAG_IMG = "img"; //$NON-NLS-1$    
+
     private static String TAG_PARAM = "param"; //$NON-NLS-1$
 
     private static String ATT_SRC = "src"; //$NON-NLS-1$
@@ -134,8 +138,9 @@ public class TalendHtmlModelUtil {
      */
     public static Node[] getArray(NodeList nodeList) {
         Node[] nodes = new Node[nodeList.getLength()];
-        for (int i = 0; i < nodeList.getLength(); i++)
+        for (int i = 0; i < nodeList.getLength(); i++) {
             nodes[i] = nodeList.item(i);
+        }
         return nodes;
     }
 
@@ -166,8 +171,9 @@ public class TalendHtmlModelUtil {
         NodeList children = dom.getElementsByTagNameNS("*", localElementName); //$NON-NLS-1$
         for (int i = 0; i < children.getLength(); i++) {
             Element element = (Element) children.item(i);
-            if (element.getAttribute("id").equals(id)) //$NON-NLS-1$
+            if (element.getAttribute("id").equals(id)) {
                 return element;
+            }
         }
         // non found.
         return null;
