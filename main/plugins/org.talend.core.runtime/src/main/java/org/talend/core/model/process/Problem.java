@@ -125,6 +125,7 @@ public class Problem {
 
         Display.getDefault().syncExec(new Runnable() {
 
+            @Override
             public void run() {
                 // workbench should be created,bug 22659
                 if (PlatformUI.isWorkbenchRunning()) {
@@ -161,38 +162,51 @@ public class Problem {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Problem other = (Problem) obj;
         if (this.description == null) {
-            if (other.description != null)
+            if (other.description != null) {
                 return false;
-        } else if (!this.description.equals(other.description))
+            }
+        } else if (!this.description.equals(other.description)) {
             return false;
+        }
         if (this.jobInfo == null) {
-            if (other.jobInfo != null)
+            if (other.jobInfo != null) {
                 return false;
-        } else if (!this.jobInfo.equals(other.jobInfo))
+            }
+        } else if (!this.jobInfo.equals(other.jobInfo)) {
             return false;
+        }
         if (this.nodeName == null) {
-            if (other.nodeName != null)
+            if (other.nodeName != null) {
                 return false;
-        } else if (!this.nodeName.equals(other.nodeName))
+            }
+        } else if (!this.nodeName.equals(other.nodeName)) {
             return false;
+        }
         if (this.componentName == null) {
-            if (other.componentName != null)
+            if (other.componentName != null) {
                 return false;
-        } else if (!this.componentName.equals(other.componentName))
+            }
+        } else if (!this.componentName.equals(other.componentName)) {
             return false;
+        }
         if (this.status == null) {
-            if (other.status != null)
+            if (other.status != null) {
                 return false;
-        } else if (!this.status.equals(other.status))
+            }
+        } else if (!this.status.equals(other.status)) {
             return false;
+        }
         return true;
     }
 
