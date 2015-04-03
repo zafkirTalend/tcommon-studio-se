@@ -99,6 +99,8 @@ public class PluginChecker {
 
     private static final String PIGUDF_PLUGIN_ID = "org.talend.repository.pigudf";//$NON-NLS-1$
 
+    public static final String APACHE_FELIX_GOGO_RUNTIME_PLUGIN_ID = "org.apache.felix.gogo.runtime"; //$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 

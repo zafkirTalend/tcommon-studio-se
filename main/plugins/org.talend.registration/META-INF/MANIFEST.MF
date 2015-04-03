@@ -13,7 +13,9 @@ Require-Bundle: org.apache.axis,
  org.eclipse.core.net,
  org.eclipse.ui.forms,
  org.talend.metadata.managment,
- org.talend.common.ui.runtime
+ org.talend.common.ui.runtime,
+ org.eclipse.ui.intro,
+ org.talend.commons.ui
 Export-Package: org.talend.registration,
  org.talend.registration.license,
  org.talend.registration.register,

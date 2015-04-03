@@ -27,6 +27,7 @@ import org.apache.avro.compiler.specific.SpecificCompiler;
 import org.apache.avro.compiler.specific.SpecificCompiler.FieldVisibility;
 import org.apache.avro.generic.GenericData.StringType;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 
 /**
@@ -58,6 +59,12 @@ public class AvroMetadataTable extends MetadataTable {
     public AvroMetadataTable(IProcess2 process) {
         this((String) process.getElementParameter("COMP_DEFAULT_FILE_DIR").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
                 "PROJECT_TECHNICAL_NAME").getValue(), process.getProperty().getLabel(), process.getProperty().getVersion()); //$NON-NLS-1$
+
+    }
+
+    public AvroMetadataTable(IProcess process) {
+        this((String) process.getElementParameter("COMP_DEFAULT_FILE_DIR").getValue(), (String) process.getElementParameter( //$NON-NLS-1$
+                "PROJECT_TECHNICAL_NAME").getValue(), process.getName(), process.getVersion()); //$NON-NLS-1$
 
     }
 
