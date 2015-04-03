@@ -22,6 +22,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.core.ISyntaxCheckableEditor;
 
 /**
@@ -161,6 +162,8 @@ public interface IProcessor {
      * @return
      */
     public IProject getCodeProject();
+
+    public ITalendProcessJavaProject getTalendJavaProject();
 
     /**
      * Return line number where stands specific node in code generated.

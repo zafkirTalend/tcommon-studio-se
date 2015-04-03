@@ -69,6 +69,7 @@ import org.talend.core.model.runprocess.LastGenerationInfo;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -456,6 +457,17 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
         return processor;
+    }
+
+    private static void deleteGeneratedResources(ITalendProcessJavaProject javaProject, String projectPackage,
+            IFolder sourceFolder, IProgressMonitor monitor) throws ProcessorException {
+        IFolder sourcesFilesFolder = sourceFolder.getFolder(projectPackage);
+        try {
+            javaProject.cleanFolder(monitor, sourceFolder);
+            sourcesFilesFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+        } catch (CoreException e) {
+            throw new ProcessorException(e);
+        }
     }
 
     private static void generatePigudfInfor(JobInfo jobInfo, ProcessItem selectedProcessItem, IProcess currentProcess,

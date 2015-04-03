@@ -669,4 +669,36 @@ public final class ProcessUtils {
         return false;
     }
 
+    public static Item getTestContainerBaseItem(Item item) {
+        Item baseItem = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                try {
+                    baseItem = testContainerService.getParentJobItem(item);
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        return baseItem;
+    }
+
+    public static IProcess getTestContainerBaseProcess(IProcess process) {
+        IProcess baseProcess = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                try {
+                    baseProcess = testContainerService.getParentJobProcess(process);
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        return baseProcess;
+    }
+
 }

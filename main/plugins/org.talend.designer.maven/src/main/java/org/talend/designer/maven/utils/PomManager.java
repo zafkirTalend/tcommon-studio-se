@@ -39,4 +39,5 @@ public class PomManager {
         pomFile.delete(true, monitor);
         MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
     }
+
 }

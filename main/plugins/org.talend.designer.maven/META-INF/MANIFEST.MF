@@ -25,6 +25,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.designer.maven.launch,
  org.talend.designer.maven.model,
+ org.talend.designer.maven.pom,
  org.talend.designer.maven.project,
  org.talend.designer.maven.template,
  org.talend.designer.maven.utils

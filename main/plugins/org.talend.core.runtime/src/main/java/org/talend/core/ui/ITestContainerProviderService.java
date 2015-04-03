@@ -13,6 +13,7 @@
 package org.talend.core.ui;
 
 import org.eclipse.core.runtime.IPath;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
@@ -34,6 +35,10 @@ public interface ITestContainerProviderService extends IService {
     public boolean isTestContainerItem(Item item);
 
     public ProcessType getTestContainerProcess(Item item);
+
+    public Item getParentJobItem(Item item) throws PersistenceException;
+
+    public IProcess getParentJobProcess(IProcess process) throws PersistenceException;
 
     public void switchToCurTestContainerView();
 }

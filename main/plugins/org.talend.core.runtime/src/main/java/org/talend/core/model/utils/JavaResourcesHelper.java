@@ -20,6 +20,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
@@ -164,9 +165,20 @@ public class JavaResourcesHelper {
      * 
      */
     public static String getJobClassPackageName(Item processItem) {
+        return getJobClassPackageName(processItem, false);
+    }
+
+    public static String getJobClassPackageName(Item processItem, boolean isTest) {
         Property itemProperty = processItem.getProperty();
-        String packageName = getProjectFolderName(processItem) + '.'
-                + getJobFolderName(itemProperty.getLabel(), itemProperty.getVersion());
+        String packageName = getProjectFolderName(processItem);
+        if (isTest) {
+            Item baseItem = ProcessUtils.getTestContainerBaseItem(processItem);
+            if (baseItem != null && baseItem.getProperty() != null) {
+                Property baseItemProperty = baseItem.getProperty();
+                packageName = packageName + '.' + getJobFolderName(baseItemProperty.getLabel(), baseItemProperty.getVersion());
+            }
+        }
+        packageName = packageName + '.' + getJobFolderName(itemProperty.getLabel(), itemProperty.getVersion());
         return packageName;
     }
 
@@ -180,9 +192,16 @@ public class JavaResourcesHelper {
      * 
      */
     public static String getJobPackagedClass(Item processItem, boolean filenameFromLabel) {
+        return getJobPackagedClass(processItem, filenameFromLabel, false);
+    }
+
+    public static String getJobPackagedClass(Item processItem, boolean filenameFromLabel, boolean isTest) {
         String jobName = filenameFromLabel ? escapeFileName(processItem.getProperty().getLabel()) : processItem.getProperty()
                 .getId();
-        return getJobClassPackageName(processItem) + '.' + jobName;
+        if (isTest) {
+            jobName = jobName + "Test"; //$NON-NLS-1$
+        }
+        return getJobClassPackageName(processItem, isTest) + '.' + jobName;
     }
 
     public static String getJobClassName(Item processItem) {
@@ -198,7 +217,11 @@ public class JavaResourcesHelper {
      * 
      */
     public static String getJobClassPackageFolder(Item processItem) {
-        String packageName = getJobClassPackageName(processItem);
+        return getJobClassPackageFolder(processItem, false);
+    }
+
+    public static String getJobClassPackageFolder(Item processItem, boolean isTest) {
+        String packageName = getJobClassPackageName(processItem, isTest);
         return changePackage2Path(packageName);
     }
 
@@ -220,7 +243,11 @@ public class JavaResourcesHelper {
      * will return test/testjob_0_1/TestJob.java
      */
     public static String getJobClassFilePath(Item processItem, boolean filenameFromLabel) {
-        String jobPackagedClass = getJobPackagedClass(processItem, filenameFromLabel);
+        return getJobClassFilePath(processItem, filenameFromLabel, false);
+    }
+
+    public static String getJobClassFilePath(Item processItem, boolean filenameFromLabel, boolean isTest) {
+        String jobPackagedClass = getJobPackagedClass(processItem, filenameFromLabel, isTest);
         String path = changePackage2Path(jobPackagedClass);
         if (path != null) {
             return path + JavaUtils.JAVA_EXTENSION;

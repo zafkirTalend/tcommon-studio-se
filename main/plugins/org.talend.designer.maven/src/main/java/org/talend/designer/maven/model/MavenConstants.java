@@ -39,7 +39,10 @@ public interface MavenConstants {
 
     static final String GOAL_TEST = "test";
 
+    static final String GOAL_TEST_COMPILE = "test-compile";
+
     static final String GOAL_PACKAGE = "package";
 
     static final String GOAL_INSTALL = "install";
+
 }

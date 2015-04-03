@@ -28,7 +28,7 @@ public interface TalendMavenContants {
 
     static final String DEFAULT_GROUP_ID = "org.talend";
 
-    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "org.talend.source";
+    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "project";
 
     static final String DEFAULT_VERSION = "0.1";
 
@@ -36,7 +36,15 @@ public interface TalendMavenContants {
 
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
-    static final String DEFAULT_JDK_VERSION = JavaCore.VERSION_1_6;
+    static final String DEFAULT_JUNIT_ARTIFACT_GROUP = "junit";
+
+    static final String DEFAULT_JUNIT_ARTIFACT_ID = "junit";
+
+    static final String DEFAULT_JUNIT_ARTIFACT_VERSION = "3.8.1";
+
+    static final String DEFAULT_JUNIT_ARTIFACT_SCOPE = "test";
+
+    static final String DEFAULT_JDK_VERSION = JavaCore.VERSION_1_7;
 
     static final String CURRENT_PATH = ".";
 

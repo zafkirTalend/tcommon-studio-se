@@ -35,6 +35,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
+import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.maven.template.CreateTemplateMavenPom;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.utils.PomManager;
@@ -112,8 +113,9 @@ public class CreateMavenCodeProject extends CreateTemplateMavenPom {
         if (!p.isOpen()) {
             p.open(monitor);
         }
-        covertJavaProjectToPom(monitor, p);
-        changeClasspath(monitor, p);
+        // covertJavaProjectToPom(monitor, p);
+        // changeClasspath(monitor, p);
+        resetProjectInfro(p, monitor);
     }
 
     @Override
@@ -143,6 +145,26 @@ public class CreateMavenCodeProject extends CreateTemplateMavenPom {
         // update the project
         this.project = p;
         return;
+    }
+
+    private void resetProjectInfro(IProject p, IProgressMonitor monitor) {
+        IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
+        if (pomFile.exists()) {
+            try {
+                MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
+                MavenProject mavenProject = mavenModelManager.readMavenProject(pomFile, monitor);
+                if (mavenProject != null) {
+                    Model model = mavenProject.getOriginalModel();
+                    model.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
+                    model.setArtifactId(TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
+                    model.setPackaging(MavenConstants.PACKAGING_JAR);
+                    PomManager.savePom(monitor, model, pomFile);
+                    p.refreshLocal(IResource.DEPTH_ONE, monitor);
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
     }
 
     private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {

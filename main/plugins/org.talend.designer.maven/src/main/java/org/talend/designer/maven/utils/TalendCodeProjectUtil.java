@@ -97,6 +97,21 @@ public final class TalendCodeProjectUtil {
         return false;
     }
 
+    public static Model getJunitTempalteModel() {
+        Model junitModel = new Model();
+        junitModel.setGroupId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_GROUP);
+        junitModel.setArtifactId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID);
+        junitModel.setVersion(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_VERSION);
+        return junitModel;
+    }
+
+    public static boolean isJunitArtifact(String artifactId) {
+        if (TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID.equals(artifactId)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 
      * something like org.talend.demo.

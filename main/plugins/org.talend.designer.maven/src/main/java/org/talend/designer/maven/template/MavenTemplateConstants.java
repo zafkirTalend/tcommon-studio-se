@@ -39,4 +39,6 @@ public interface MavenTemplateConstants {
 
     final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
 
+    final static String TEST_JOB_TEMPLATE_FILE_NAME = "test_job_pom_template.xml";
+
 }
