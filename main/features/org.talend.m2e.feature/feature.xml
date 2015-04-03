@@ -137,4 +137,19 @@
          version="1.5.0.20140606-0033"
          unpack="false"/>
 
+   <plugin
+         id="org.slf4j.api"
+         download-size="0"
+         install-size="0"
+         version="1.7.2.v20121108-1250"
+         unpack="false"/>
+
+   <plugin
+         id="org.slf4j.impl.log4j12"
+         download-size="0"
+         install-size="0"
+         version="1.7.2.v20131105-2200"
+         fragment="true"
+         unpack="false"/>
+
 </feature>
