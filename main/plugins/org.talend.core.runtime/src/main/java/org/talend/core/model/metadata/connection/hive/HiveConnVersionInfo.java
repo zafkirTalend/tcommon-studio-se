@@ -216,6 +216,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.HDP_1_3,
                   HiveConnVersionInfo.HDP_2_0,
                   HiveConnVersionInfo.HDP_2_1,
+                  HiveConnVersionInfo.HDP_2_2,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
@@ -241,6 +242,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.HDP_1_3,
                     HiveConnVersionInfo.HDP_2_0,
                     HiveConnVersionInfo.HDP_2_1,
+                    HiveConnVersionInfo.HDP_2_2,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH3,
@@ -280,8 +282,9 @@ public enum HiveConnVersionInfo {
     private boolean supportSecurity;
 
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
-            HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.HDP_2_1,
-            HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR };
+            HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.HDP_2_2,
+            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0, HiveConnVersionInfo.PIVOTAL_HD_2_0,
+            HiveConnVersionInfo.APACHE_2_4_0_EMR };
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {
