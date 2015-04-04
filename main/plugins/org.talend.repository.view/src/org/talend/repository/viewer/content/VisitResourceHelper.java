@@ -46,7 +46,7 @@ public class VisitResourceHelper {
         }
 
         // ignore
-        if (ingoreResource(getSrcDelta())) {
+        if (isValidResource(getSrcDelta())) {
             return false;
         }
 
@@ -57,7 +57,7 @@ public class VisitResourceHelper {
         return false;
     }
 
-    private boolean isTalendProjectFile(IResourceDelta delta) {
+    protected boolean isTalendProjectFile(IResourceDelta delta) {
         IResource resource = delta.getResource();
         if (resource != null && resource instanceof IFile) {
             IPath path = resource.getFullPath();
@@ -68,7 +68,7 @@ public class VisitResourceHelper {
         return false;
     }
 
-    private boolean ingoreResource(IResourceDelta delta) {
+    public boolean isValidResource(IResourceDelta delta) {
         IResource resource = delta.getResource();
         if (resource != null) {
             // if not under talend project. ignore
@@ -88,7 +88,7 @@ public class VisitResourceHelper {
     }
 
     private boolean validResourcePath(IResourceDelta delta, IPath topLevelNodeWorkspaceRelativePath, boolean refMerged) {
-        if (ingoreResource(delta)) {
+        if (isValidResource(delta)) {
             return false;
         }
         IResourceDelta[] affectedChildren = delta.getAffectedChildren();

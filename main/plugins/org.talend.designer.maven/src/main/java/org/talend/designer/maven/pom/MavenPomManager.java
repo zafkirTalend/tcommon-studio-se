@@ -64,14 +64,14 @@ public class MavenPomManager {
             }
             dependencies.clear();
             List<String> newDependencyIds = new ArrayList<String>();
-            Dependency routinesDependency = new Dependency();
-            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-            // update the routine artifact.
-            routinesDependency.setVersion(routinesModel.getVersion());
-            routinesDependency.setGroupId(routinesModel.getGroupId());
-            routinesDependency.setArtifactId(routinesModel.getArtifactId());
-            dependencies.add(routinesDependency);
-            newDependencyIds.add(routinesDependency.getArtifactId());
+//            Dependency routinesDependency = new Dependency();
+//            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
+//            // update the routine artifact.
+//            routinesDependency.setVersion(routinesModel.getVersion());
+//            routinesDependency.setGroupId(routinesModel.getGroupId());
+//            routinesDependency.setArtifactId(routinesModel.getArtifactId());
+//            dependencies.add(routinesDependency);
+//            newDependencyIds.add(routinesDependency.getArtifactId());
             Dependency junitDependency = new Dependency();
             final Model junitModel = TalendCodeProjectUtil.getJunitTempalteModel();
             junitDependency.setVersion(junitModel.getVersion());
