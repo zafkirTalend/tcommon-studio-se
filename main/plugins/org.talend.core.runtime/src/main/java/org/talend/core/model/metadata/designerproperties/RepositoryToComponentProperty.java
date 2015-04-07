@@ -1346,12 +1346,26 @@ public class RepositoryToComponentProperty {
             }
         }
 
-        if (value.equals("JOBTRACKER_PRINCIPAL")) {
-            String jobTrackerPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_PRINCIPAL);
-            if (jobTrackerPrincipal == null) {
-                return jobTrackerPrincipal;
+        /**
+         * JOBTRACKER_PRINCIPAL and RESOURCEMANAGER_PRINCIPAL use the same field
+         * 
+         * @see org.talend.repository.model.hadoopcluster.HadoopClusterConnection#getJtOrRmPrincipal()
+         */
+        if (value.equals("JOBTRACKER_PRINCIPAL") || value.equals("RESOURCEMANAGER_PRINCIPAL")) {
+            String jtOrRmPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_PRINCIPAL);
+            if (jtOrRmPrincipal == null) {
+                return jtOrRmPrincipal;
             } else {
-                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jobTrackerPrincipal));
+                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jtOrRmPrincipal));
+            }
+        }
+
+        if (value.equals("JOBHISTORY_PRINCIPAL")) {
+            String jobHistoryPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_HISTORY_PRINCIPAL);
+            if (jobHistoryPrincipal == null) {
+                return jobHistoryPrincipal;
+            } else {
+                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jobHistoryPrincipal));
             }
         }
 
