@@ -60,7 +60,7 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
         @Override
         protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
             VisitResourceHelper visitHelper = new VisitResourceHelper(delta);
-            if (!visitHelper.isValidResource(delta)) {
+            if (visitHelper.isIgnoredResource(delta)) {
                 return false;
             }
             boolean merged = ProjectRepositoryNode.getInstance().getMergeRefProject();
