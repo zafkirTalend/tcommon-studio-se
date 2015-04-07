@@ -20,6 +20,8 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
@@ -82,7 +84,15 @@ public class MavenPomManager {
             // newDependencyIds.add(junitDependency.getArtifactId());
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
+            IFolder folder = processor.getTalendJavaProject().getLibFolder();
+            Set<String> existingJars = new HashSet<>();
+            for (IResource resource : folder.members()) {
+                existingJars.add(resource.getName());
+            }
             for (String lib : neededLibraries) {
+                if (!existingJars.contains(lib)) {
+                    continue;
+                }
                 String name = new Path(lib).removeFileExtension().toString();
                 Dependency dependency = new Dependency();
                 // TODO, if change the scope to other, not system. will change this.
