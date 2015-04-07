@@ -64,22 +64,22 @@ public class MavenPomManager {
             }
             dependencies.clear();
             List<String> newDependencyIds = new ArrayList<String>();
-//            Dependency routinesDependency = new Dependency();
-//            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-//            // update the routine artifact.
-//            routinesDependency.setVersion(routinesModel.getVersion());
-//            routinesDependency.setGroupId(routinesModel.getGroupId());
-//            routinesDependency.setArtifactId(routinesModel.getArtifactId());
-//            dependencies.add(routinesDependency);
-//            newDependencyIds.add(routinesDependency.getArtifactId());
-            Dependency junitDependency = new Dependency();
-            final Model junitModel = TalendCodeProjectUtil.getJunitTempalteModel();
-            junitDependency.setVersion(junitModel.getVersion());
-            junitDependency.setGroupId(junitModel.getGroupId());
-            junitDependency.setArtifactId(junitModel.getArtifactId());
-            junitDependency.setScope(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_SCOPE);
-            dependencies.add(junitDependency);
-            newDependencyIds.add(junitDependency.getArtifactId());
+            // Dependency routinesDependency = new Dependency();
+            // final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
+            // // update the routine artifact.
+            // routinesDependency.setVersion(routinesModel.getVersion());
+            // routinesDependency.setGroupId(routinesModel.getGroupId());
+            // routinesDependency.setArtifactId(routinesModel.getArtifactId());
+            // dependencies.add(routinesDependency);
+            // newDependencyIds.add(routinesDependency.getArtifactId());
+            // Dependency junitDependency = new Dependency();
+            // final Model junitModel = TalendCodeProjectUtil.getJunitTempalteModel();
+            // junitDependency.setVersion(junitModel.getVersion());
+            // junitDependency.setGroupId(junitModel.getGroupId());
+            // junitDependency.setArtifactId(junitModel.getArtifactId());
+            // junitDependency.setScope(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_SCOPE);
+            // dependencies.add(junitDependency);
+            // newDependencyIds.add(junitDependency.getArtifactId());
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
             for (String lib : neededLibraries) {

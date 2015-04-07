@@ -21,6 +21,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -45,6 +46,12 @@ public class JobUtils {
             String jobFolder = JavaResourcesHelper.getJobFolderName(jobInfo.getJobName(), jobInfo.getJobVersion());
             jobFolders.add(jobFolder);
         }
+        IProcess baseProcess = ProcessUtils.getTestContainerBaseProcess(process);
+        if (baseProcess != null) {// if it is a test container.
+            String parentJobFolder = JavaResourcesHelper.getJobFolderName(baseProcess.getName(), baseProcess.getVersion());
+            jobFolders.add(parentJobFolder);
+        }
+
         return jobFolders;
     }
 
