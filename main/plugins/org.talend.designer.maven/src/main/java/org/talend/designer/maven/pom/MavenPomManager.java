@@ -84,9 +84,12 @@ public class MavenPomManager {
             // newDependencyIds.add(junitDependency.getArtifactId());
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
-            IFolder folder = processor.getTalendJavaProject().getLibFolder();
-            Set<String> existingJars = new HashSet<>();
-            for (IResource resource : folder.members()) {
+            IFolder libFolder = processor.getTalendJavaProject().getLibFolder();
+            if (!libFolder.isSynchronized(IResource.DEPTH_ONE)) {
+                libFolder.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
+            }
+            Set<String> existingJars = new HashSet<String>();
+            for (IResource resource : libFolder.members()) {
                 existingJars.add(resource.getName());
             }
             for (String lib : neededLibraries) {

@@ -18,8 +18,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IDebugEventSetListener;
@@ -28,16 +30,13 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.core.model.RuntimeProcess;
-import org.eclipse.debug.ui.DebugUITools;
-import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.debug.ui.RefreshTab;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.m2e.actions.MavenLaunchConstants;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.internal.IMavenConstants;
@@ -125,9 +124,9 @@ public class TalendMavenLauncher {
                             .getLocation().toString().replace('/', '-')));
             workingCopy.setAttribute(MavenLaunchConstants.ATTR_POM_DIR, basedir.getLocation().toOSString());
             workingCopy.setAttribute(MavenLaunchConstants.ATTR_GOALS, goal);
-            workingCopy.setAttribute(IDebugUIConstants.ATTR_PRIVATE, true);
-            workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_SCOPE, "${project}"); //$NON-NLS-1$
-            workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_RECURSIVE, true);
+            workingCopy.setAttribute(ILaunchManager.ATTR_PRIVATE, true);
+            workingCopy.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}"); //$NON-NLS-1$
+            workingCopy.setAttribute(RefreshUtil.ATTR_REFRESH_RECURSIVE, true);
 
             // --------------Special settings for Talend----------
             if (CommonUIPlugin.isFullyHeadless()) {
@@ -210,25 +209,28 @@ public class TalendMavenLauncher {
         /*
          * use launch way
          */
-        IPreferenceStore debugUiStore = DebugUITools.getPreferenceStore();
-        boolean oldBuildBeforeLaunch = debugUiStore.getBoolean(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH);
         try {
-            // don't build auto
-            debugUiStore.setValue(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH, false);
-
             ILaunchConfiguration launchConfiguration = createLaunchConfiguration(launcherPomFile.getParent(), goals);
             // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
             // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
             // }
             TalendLauncherWaiter talendWaiter = new TalendLauncherWaiter(launchConfiguration);
 
-            final ILaunch launch = DebugUITools.buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
+            final ILaunch launch = buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
             talendWaiter.waitFinish(launch);
 
         } catch (CoreException e) {
             ExceptionHandler.process(e);
+        }
+    }
+
+    public static ILaunch buildAndLaunch(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor)
+            throws CoreException {
+        monitor.beginTask("", 1); //$NON-NLS-1$
+        try {
+            return configuration.launch(mode, new SubProgressMonitor(monitor, 1), false);
         } finally {
-            debugUiStore.setValue(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH, oldBuildBeforeLaunch);
+            monitor.done();
         }
     }
 
