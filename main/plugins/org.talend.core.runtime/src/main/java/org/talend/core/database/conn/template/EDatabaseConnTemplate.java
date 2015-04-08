@@ -276,7 +276,7 @@ public enum EDatabaseConnTemplate {
         List<String> databaseType = new ArrayList<String>(values.length);
         for (EDatabaseConnTemplate temp : values) {
             String typeName = getDBTypeName(temp, display);
-            if (typeName != null) {
+            if (typeName != null && !databaseType.contains(typeName)) {
                 databaseType.add(typeName);
             }
         }
