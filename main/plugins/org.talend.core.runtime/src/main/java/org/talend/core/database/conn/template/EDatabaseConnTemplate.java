@@ -30,6 +30,11 @@ public enum EDatabaseConnTemplate {
             "3306", //$NON-NLS-1$
             "noDatetimeStringSync=true")), //$NON-NLS-1$
 
+    MARIADB(new DbConnStr(EDatabaseTypeName.MYSQL, //
+            "jdbc:mariadb://<host>:<port>/<sid>?<property>", //$NON-NLS-1$
+            "3306", //$NON-NLS-1$
+            "noDatetimeStringSync=true")), //$NON-NLS-1$
+
     PSQL(new DbConnStr(EDatabaseTypeName.PSQL, //
             "jdbc:postgresql://<host>:<port>/<sid>", //$NON-NLS-1$
             "5432")), //$NON-NLS-1$
@@ -271,7 +276,7 @@ public enum EDatabaseConnTemplate {
         List<String> databaseType = new ArrayList<String>(values.length);
         for (EDatabaseConnTemplate temp : values) {
             String typeName = getDBTypeName(temp, display);
-            if (typeName != null) {
+            if (typeName != null && !databaseType.contains(typeName)) {
                 databaseType.add(typeName);
             }
         }

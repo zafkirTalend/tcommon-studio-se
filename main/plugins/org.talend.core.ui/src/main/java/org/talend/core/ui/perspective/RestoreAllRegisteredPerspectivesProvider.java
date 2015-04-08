@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
@@ -65,6 +66,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
     private EModelService fModelService;
 
     @Inject
+    @Optional
     private MWindow fWindow;
 
     @Inject
@@ -95,18 +97,19 @@ public class RestoreAllRegisteredPerspectivesProvider {
         if (fPerspectiveStack != null) {
             return fPerspectiveStack;
         }
-
-        if (fPerspectiveStack == null) {
-            List<MPerspectiveStack> perspStackList = fModelService.findElements(fWindow, null, MPerspectiveStack.class, null);
-            if (perspStackList.size() > 0) {// there must be only one perspectiveStack.
-                fPerspectiveStack = perspStackList.get(0);
-                return fPerspectiveStack;
+        if (fWindow != null) {
+            if (fPerspectiveStack == null) {
+                List<MPerspectiveStack> perspStackList = fModelService.findElements(fWindow, null, MPerspectiveStack.class, null);
+                if (perspStackList.size() > 0) {// there must be only one perspectiveStack.
+                    fPerspectiveStack = perspStackList.get(0);
+                    return fPerspectiveStack;
+                }
             }
-        }
-        for (MWindowElement child : fWindow.getChildren()) {
-            if (child instanceof MPerspectiveStack) {
-                fPerspectiveStack = (MPerspectiveStack) child;
-                return fPerspectiveStack;
+            for (MWindowElement child : fWindow.getChildren()) {
+                if (child instanceof MPerspectiveStack) {
+                    fPerspectiveStack = (MPerspectiveStack) child;
+                    return fPerspectiveStack;
+                }
             }
         }
         return null;
