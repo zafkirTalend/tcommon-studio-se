@@ -32,6 +32,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.SelectionDialog;
@@ -68,10 +69,16 @@ public class ShowAddedContextdialog extends SelectionDialog {
     private void init() {
         setShellStyle(getShellStyle() | SWT.RESIZE);
         setBlockOnOpen(true);
-        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
+        // setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setTitle(TITILE);
         setMessage(Messages.getString("ShowAddedContextdialog.Messages")); //$NON-NLS-1$
         setHelpAvailable(false);
+    }
+
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
     }
 
     @Override
@@ -105,6 +112,7 @@ public class ShowAddedContextdialog extends SelectionDialog {
         return composite;
     }
 
+    @Override
     protected void buttonPressed(int buttonId) {
         if (IDialogConstants.YES_ID == buttonId) {
             okPressed();
@@ -158,6 +166,7 @@ public class ShowAddedContextdialog extends SelectionDialog {
      */
     class AddedContextProvider extends ArrayContentProvider implements ITreeContentProvider, ITableLabelProvider, ILabelProvider {
 
+        @Override
         public Object[] getChildren(Object parentElement) {
             if (parentElement instanceof AddedContextBean) {
                 return ((AddedContextBean) parentElement).getVars().toArray();
@@ -165,18 +174,22 @@ public class ShowAddedContextdialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public Object getParent(Object element) {
             return null;
         }
 
+        @Override
         public boolean hasChildren(Object element) {
             return getChildren(element) != null;
         }
 
+        @Override
         public String getText(Object element) {
             return getColumnText(element, 0);
         }
 
+        @Override
         public String getColumnText(Object element, int columnIndex) {
             if (element instanceof AddedContextBean) {
                 AddedContextBean element2 = (AddedContextBean) element;
@@ -196,21 +209,26 @@ public class ShowAddedContextdialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public Image getImage(Object element) {
             return getColumnImage(element, 0);
         }
 
+        @Override
         public Image getColumnImage(Object element, int columnIndex) {
             return null;
         }
 
+        @Override
         public void addListener(ILabelProviderListener listener) {
         }
 
+        @Override
         public boolean isLabelProperty(Object element, String property) {
             return false;
         }
 
+        @Override
         public void removeListener(ILabelProviderListener listener) {
 
         }

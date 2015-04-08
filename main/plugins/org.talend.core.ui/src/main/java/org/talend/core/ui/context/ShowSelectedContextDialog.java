@@ -45,7 +45,7 @@ public class ShowSelectedContextDialog extends Dialog {
      */
     protected ShowSelectedContextDialog(ContextItem contextItem, Shell parentShell) {
         super(parentShell);
-        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
+        // setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setShellStyle(getShellStyle() | SWT.RESIZE);
         this.contextItem = contextItem;
         this.contextManager = new JobContextManager(contextItem.getContext(), contextItem.getDefaultContext());
@@ -54,6 +54,7 @@ public class ShowSelectedContextDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
+        newShell.setImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         if (contextItem != null) {
             newShell.setText("Context:" + contextItem.getProperty().getLabel()); //$NON-NLS-1$
         }

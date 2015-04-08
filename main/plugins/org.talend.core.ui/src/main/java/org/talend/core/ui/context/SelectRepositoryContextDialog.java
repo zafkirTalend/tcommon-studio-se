@@ -100,7 +100,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     protected SelectRepositoryContextDialog(IContextModelManager modelManager, Shell parentShell, ContextManagerHelper helper) {
         super(parentShell);
         setBlockOnOpen(true);
-        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
+        // setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setTitle(TITILE);
         setMessage(DEFAULTMESAGE);
         setHelpAvailable(false);
@@ -110,6 +110,18 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         this.helper = helper;
         helper.initHelper(manager);
         contextItemList.addAll(helper.getContextItems());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.dialogs.SelectionDialog#configureShell(org.eclipse.swt.widgets.Shell)
+     */
+
+    @Override
+    protected void configureShell(Shell shell) {
+        super.configureShell(shell);
+        shell.setImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
     }
 
     @Override

@@ -83,7 +83,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             List<ContextItem> selectedContextItems) {
         super(parentShell);
         setBlockOnOpen(true);
-        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
+        // setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setTitle(TITILE);
         setHelpAvailable(false);
         setMessage(DEFAULTMESAGE);
@@ -99,6 +99,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
     @Override
     protected void configureShell(Shell shell) {
         super.configureShell(shell);
+        shell.setImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         shell.setMinimumSize(300, 300);
     }
 
@@ -135,6 +136,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         // listener
         treeViewer.addCheckStateListener(new ICheckStateListener() {
 
+            @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 Object obj = event.getElement();
                 treeViewer.setGrayed(obj, false);
@@ -166,6 +168,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         setButtonLayoutData(bSelectAll);
         bSelectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(true);
             }
@@ -177,6 +180,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
         setButtonLayoutData(bDeselectAll);
         bDeselectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(false);
             }
@@ -190,6 +194,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             setButtonLayoutData(bExpand);
             bExpand.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.expandAll();
                 }
@@ -201,6 +206,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             setButtonLayoutData(bCollapse);
             bCollapse.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.collapseAll();
                 }
@@ -343,6 +349,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
 
     class ContextTreeContentProvider implements ITreeContentProvider {
 
+        @Override
         public Object[] getChildren(Object parentElement) {
             if (parentElement instanceof ContextItem) {
                 ContextItem item = (ContextItem) parentElement;
@@ -351,11 +358,13 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public Object getParent(Object element) {
 
             return helper.getParentContextItem(element);
         }
 
+        @Override
         public boolean hasChildren(Object element) {
             if (element instanceof ContextItem) {
                 return true;
@@ -363,14 +372,17 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return false;
         }
 
+        @Override
         public Object[] getElements(Object inputElement) {
             return ((List) inputElement).toArray();
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
         }
@@ -383,6 +395,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
      */
     class ContextTreeLabelProvider implements ILabelProvider {
 
+        @Override
         public Image getImage(Object element) {
             // if (element instanceof ContextItem) {
             // return ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage();
@@ -390,6 +403,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getText(Object element) {
             if (element instanceof ContextItem) {
                 ContextItem item = (ContextItem) element;
@@ -411,19 +425,23 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public void addListener(ILabelProviderListener listener) {
 
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public boolean isLabelProperty(Object element, String property) {
 
             return false;
         }
 
+        @Override
         public void removeListener(ILabelProviderListener listener) {
 
         }
@@ -478,8 +496,9 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             for (IContext context : manager.getListContext()) {
                 String contextName = context.getName();
                 if (contextName != null && repContextGrpName != null
-                        && contextName.toLowerCase().equals(repContextGrpName.toLowerCase()))
+                        && contextName.toLowerCase().equals(repContextGrpName.toLowerCase())) {
                     return true;
+                }
             }
         }
         return false;

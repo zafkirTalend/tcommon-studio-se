@@ -76,10 +76,16 @@ public class ContextSetsSelectionDialog extends SelectionDialog {
     private void initDialog(Object object, boolean cancelFlag, String message) {
         this.source = object;
         this.canCancel = cancelFlag;
-        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
+        // setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setHelpAvailable(false);
         setTitle(TITLE);
         setMessage(message);
+    }
+
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
     }
 
     public ContextSetsSelectionDialog(ContextItem contextItem) {
