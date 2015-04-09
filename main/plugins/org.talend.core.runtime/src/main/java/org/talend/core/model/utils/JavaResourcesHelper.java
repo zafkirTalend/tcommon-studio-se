@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.ui.branding.IBrandingService;
@@ -113,21 +114,26 @@ public class JavaResourcesHelper {
         itemGroupPrefixName += '.' + itemName;
         return itemGroupPrefixName.trim().toLowerCase();
     }
-    
-    public static String getJobClassPackageName(Item processItem){
-    	Property itemProperty = processItem.getProperty();
-    	String itemLabel = itemProperty.getLabel();
-    	String itemVersion = itemProperty.getVersion();
-    	String packageName = getProjectFolderName(processItem)+ "." + getJobFolderName(itemLabel, itemVersion);
-    	return packageName;
+
+    public static String getJobClassPackageName(Item processItem) {
+        Property itemProperty = processItem.getProperty();
+        String itemLabel = itemProperty.getLabel();
+        String itemVersion = itemProperty.getVersion();
+        String packageName = getProjectFolderName(processItem) + "." + getJobFolderName(itemLabel, itemVersion);
+        return packageName;
     }
-    
-    public static String getJobClassName(Item processItem){
-    	return getJobClassPackageName(processItem) +"."+ processItem.getProperty().getLabel();
+
+    public static String getJobClassName(IProcess2 process) {
+        Item processItem = process.getProperty().getItem();
+        return getJobClassPackageName(processItem) + "." + process.getLabel();
     }
-    
-    public static String getJobClassName(RepositoryNode jobNode){
-    	return getJobClassName(jobNode.getObject().getProperty().getItem());
+
+    public static String getJobClassName(Item processItem) {
+        return getJobClassPackageName(processItem) + "." + processItem.getProperty().getLabel();
+    }
+
+    public static String getJobClassName(RepositoryNode jobNode) {
+        return getJobClassName(jobNode.getObject().getProperty().getItem());
     }
 
 }
