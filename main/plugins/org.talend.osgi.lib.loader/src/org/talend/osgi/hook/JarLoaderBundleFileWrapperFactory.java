@@ -77,7 +77,7 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
             BundleEntry be = super.getEntry(path);
             if (be == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
                 // use the getFile to find the jar from the lib/java folder.
-                File file = getFile(path, false);
+                File file = getFile(path, false, false);
                 if (file == null) {
                     // look into fragments first because since we return a fake entry (in the next lines) that will
                     // prevent to look into
@@ -86,15 +86,34 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
                     if (resourcePathInFragment != null) {
                         return null;
                     }
+                    // if not found in fragments then we can notify the observers
+                    // notify any observable to get a chance for the lib to be installed
+                    String jarName = new File(path).getName();
+                    File libJavaFolderFile = MissingJarServices.getLibJavaFolderFile();
 
-                    // fake the entry cause using the getFile returns a file that get tested for existance
-                    // this does not get tested. This is called the first time the jar is missing.
-                    // we also record the missing jar
-                    getMissingJars().add(path + '/');// we add slash because the wrapBundleFile, getEntry(""); line will
-                                                     // call this method with path equals to path + '/'
-                    be = new FileBundleEntry(new File(generation.getBundleFile().getBaseFile(), path), path);
+                    MissingJarServices.getJarMissingObservable().notifyObservers(
+                            new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile.getAbsolutePath()));
                     MissingJarServices
-                            .logDebugInfo("fake FileBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$
+                            .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+                    // let's do another check to see if the bundle was installed during the above
+                    // notification
+                    File jarFile = new File(libJavaFolderFile, jarName);
+                    if (jarFile.exists()) {
+                        be = new FileBundleEntry(jarFile, path);
+                        ;
+                    } else {// no jar found so return a
+
+                        // fake the entry cause using the getFile returns a file that get tested for existance
+                        // this does not get tested. This is called the first time the jar is missing.
+                        // we also record the missing jar
+                        getMissingJars().add(path + '/');// we add slash because the wrapBundleFile, getEntry(""); line
+                                                         // will
+                                                         // call this method with path equals to path + '/'
+                        be = new FileBundleEntry(new File(generation.getBundleFile().getBaseFile(), path), path);
+                        MissingJarServices
+                                .logDebugInfo("fake FileBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$
+                    }
 
                 } else {// else entry is a jar an was found when calling getFile
                     be = new FileBundleEntry(file, path);
@@ -132,6 +151,17 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
          */
         @Override
         public File getFile(String path, boolean nativeCode) {
+            return getFile(path, nativeCode, true);
+        }
+
+        /**
+         * DOC sgandon Comment method "getFileBis".
+         * 
+         * @param path
+         * @param nativeCode
+         * @return
+         */
+        protected File getFile(String path, boolean nativeCode, boolean notifyMissingJar) {
             File file = super.getFile(path, nativeCode);
             if (file == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
                 File libJavaFolderFile = MissingJarServices.getLibJavaFolderFile();
@@ -141,19 +171,20 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
                     if (jarFile.exists()) {
                         return jarFile;
                     } else {// jar file not found in the lib/java folder
-                        // notify any observable to get a chance for the lib to be installed
-                        MissingJarServices.getJarMissingObservable()
-                                .notifyObservers(
-                                        new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile
-                                                .getAbsolutePath()));
-                        MissingJarServices
-                                .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                        if (notifyMissingJar) {
+                            // notify any observable to get a chance for the lib to be installed
+                            MissingJarServices.getJarMissingObservable().notifyObservers(
+                                    new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile
+                                            .getAbsolutePath()));
+                            MissingJarServices
+                                    .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-                        // let's do another check to see if the bundle was installed during the above
-                        // notification
-                        if (jarFile.exists()) {
-                            return jarFile;
-                        } // else no jar found so return null
+                            // let's do another check to see if the bundle was installed during the above
+                            // notification
+                            if (jarFile.exists()) {
+                                return jarFile;
+                            } // else no jar found so return null
+                        }// else no nothification required.
                     }
                 }// else //no lib folder found so ignor missing lib
             }// else file found so return default value.

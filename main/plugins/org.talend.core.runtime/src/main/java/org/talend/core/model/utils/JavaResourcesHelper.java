@@ -20,6 +20,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -158,6 +159,11 @@ public class JavaResourcesHelper {
             return null;
         }
         return getGroupName(projectName) + '.' + getJobFolderName(itemName, null);
+    }
+
+    public static String getJobClassName(IProcess2 process) {
+        Item processItem = process.getProperty().getItem();
+        return getJobClassPackageName(processItem) + "." + process.getLabel();
     }
 
     /**

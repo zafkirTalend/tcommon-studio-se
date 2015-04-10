@@ -148,6 +148,50 @@ public class OsgiLoaderTest {
     }
 
     @Test
+    public void CheckFindingExistingJarUsingFindEntriesDoesNotTriggerMissingJarObservable() throws IOException, BundleException {
+        final Boolean[] observerCalled = new Boolean[1];
+        observerCalled[0] = false;
+        Observer observer = new Observer() {
+
+            @Override
+            public void update(Observable o, Object arg) {
+                if (arg != null && arg instanceof JarMissingEvent) {
+                    JarMissingEvent jarMissingEvent = (JarMissingEvent) arg;
+                    String jarName = jarMissingEvent.getJarName();
+                    if (jarName.equals(EXISTING_JAR_NAME)) {
+                        observerCalled[0] = true;
+                    } else {
+                        throw new RuntimeException("Missing jar observer did not receive the expected jar name:" + jarName + "!=" //$NON-NLS-1$
+                                + EXISTING_JAR_NAME);
+                    }
+                } else {// notification is not expected so thrown an exception for the test to fail
+                    throw new RuntimeException("Missing jar observer did not receive the proper event :" + arg);
+                }
+            }
+        };
+
+        setupMissingJarLoadingObserver(observer);
+
+        Bundle fragmentBundle = osgiBundle.getBundleContext().installBundle(FRAGMENT_WITH_LIB_FOLDER_URL);
+        Bundle bundle = osgiBundle.getBundleContext().installBundle(BUNDLE_NO_LIB_FOLDER_URL);
+        try {
+            bundle.start();// I am not sure to understand why we need to start this bundle.
+            // check finding of existing jar in fragment
+            assertNotNull(bundle);
+            FileLocator.find(bundle, new Path("lib/any-existing.jar"), null); //$NON-NLS-1$ 
+            assertFalse("Observer should never be called", observerCalled[0]); //$NON-NLS-1$
+        } finally {
+            fragmentBundle.uninstall();
+            bundle.uninstall();
+            unsetupMissingJarLoadingObserver(observer);
+        }
+        bundle = Platform.getBundle(BUNDLE_NO_LIB);
+        assertNull(bundle);
+        fragmentBundle = Platform.getBundle(FRAGMENT_WITH_LIB);
+        assertNull(fragmentBundle);
+    }
+
+    @Test
     public void CheckAccessinClassInFragmentLib() throws IOException, BundleException {
         Bundle fragmentBundle = osgiBundle.getBundleContext().installBundle(FRAGMENT_WITH_LIB_FOLDER_URL);
         Bundle bundleNoJar = osgiBundle.getBundleContext().installBundle(BUNDLE_NO_LIB_FOLDER_URL);
