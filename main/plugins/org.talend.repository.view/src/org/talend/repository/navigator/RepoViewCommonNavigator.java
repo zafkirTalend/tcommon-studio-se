@@ -187,6 +187,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
          */
         @Override
         public boolean isDirty() {
+            if (!isShouldCheckRepositoryDirty()) {
+                return false;
+            }
             ISaveablePart currentEditorSavablePart = getCurrentEditorSavablePart();
             return currentEditorSavablePart != null ? currentEditorSavablePart.isDirty() : false;
         }
@@ -590,6 +593,16 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     IContextActivation ca;
 
     private EditorSavable editorSavable = new EditorSavable();
+
+    private boolean shouldCheckRepositoryDirty = true;
+
+    public boolean isShouldCheckRepositoryDirty() {
+        return this.shouldCheckRepositoryDirty;
+    }
+
+    public void setShouldCheckRepositoryDirty(boolean shouldCheckRepositoryDirty) {
+        this.shouldCheckRepositoryDirty = shouldCheckRepositoryDirty;
+    }
 
     private TreeItem getObject(Tree tree, Object objectToFind) {
         for (TreeItem item : tree.getItems()) {
