@@ -3,9 +3,9 @@
  <head>
     <!--Connect to TalendForge-->
      <style type="text/css">
-		b.rtop, b.rbottom{display:block;background: #F5F5F5} 
+		b.rtop, b.rbottom{display:block;background: #F5F5F5}
 		b.rtop b, b.rbottom b{display:block;height: 1px;overflow: hidden; background: #b4c401} 
-        b.r1{margin: 0 5px} 
+        b.r1{margin: 0 5px; }
         b.r2{margin: 0 3px} 
         b.r3{margin: 0 2px} 
         b.r4{margin: 0 1px}
@@ -27,10 +27,22 @@
 		.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .inputContent{border-color:#909090;}
 		.color1 .b1,.color1 .b8{background:#909090;}
 		.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .inputContent{background:white;}
-		
+
+		.rbottom .r1 {
+			margin-bottom: 20px;
+		}
+
+		li{
+			font-size: 0.9em ! important;
+		}
+
      body{ 
         background:white;
     }
+
+	 input{
+		 padding-left: 10px;
+	 }
     a:link,a:visited,a:hover{
        text-decoration:none;
     }
@@ -40,26 +52,27 @@
 	 .textfield{
 		width:100%;
 		align:center;
-		color:#999999; 
-		font-size:14px; 
-		height:20px; 
+		color:#999999;
+		font-size:14px;
+		height:20px;
 		line-height:20px;
 		border-style:none 0;
 		background:white;
 		border:none 0;
 	 }
-	 
+
 	 .selectField {
+		 padding-left: 30px;
 		width:100%;
 		align:center;
-		color:#999999; 
-		font-size:14px; 
-		height:26px; 
+		color:#999999;
+		font-size:14px;
+		height:26px;
 		border-style:none 0;
 		background:white;
 		border:none 0;
 	 }
-	 
+
      .checkboxclass{
         padding-left:145px;
      }
@@ -78,12 +91,16 @@
 		width: 85%;
 	 }
 	 .formClass {
+
 	  width: 55%;
 	 }
 	 .formClass td{
+		padding-bottom: 5px;
 	    border:0;
 	 }
-
+	 .rtop{
+		 padding-top:10px;
+	 }
 	 .errorInfoClass {
 	  width: 100px;
 	  align:center;
@@ -110,9 +127,9 @@
             color: gray;
             padding:0 0 0 0;
             display: inline-block;
-            font-size: 1.0em;
-            padding-top: 10px;
-			padding-bottom: 10px;
+            font-size: 0.8em;
+            padding-top: 13px;
+			padding-bottom: 7px;
             vertical-align: center;
             width: 100%;
             height:18px;
@@ -127,7 +144,7 @@
 	 .navRightLine {
 		border-right:1px solid #909090;
 	 }
-     #background { 
+     #background {
         border-style:solid;
         background-color: #E1DEDB;
         z-index: -100;
@@ -138,7 +155,7 @@
      input,select{
 		vertical-align:center;
 		font-family:Arial;
-	 } 
+	 }
      .bottom{
              border-left :solid;
              border-top :solid;
@@ -149,7 +166,7 @@
 
      </style>
      <script type="text/javascript">
-	      
+
      var i18nMsg = [
      '<internationalization id="TalendForgeDialog.userNameLabel.tooltip"/>'
      ,'<internationalization id="TalendForgeDialog.emailLabel.tooltip"/>'
@@ -160,20 +177,20 @@
 	 ,'<internationalization id="TalendForgeDialog.form.passwordAgain.hint" />'
 	 ,'<internationalization id="TalendForgeDialog.form.email.hint" />'
      ]
-	 
+
 	 var textHintUserName=i18nMsg[4];
 	 var textHintPassword=i18nMsg[5];
 	 var textHintPasswordAgain=i18nMsg[6];
 	 var textHintEmail=i18nMsg[7];
-	 
+
 	 var isCreateAccountUserNameOK = false;
 	 var isCreateAccountPasswordOK = false;
 	 var isCreateAccountPasswordAgainOK = false;
 	 var isCreateAccountEmailOK = false;
-	 
+
 	 var isLoginAccountUserNameOK = false;
 	 var isLoginAccountPasswordOK = false;
-	 
+
 	 function getCreateAccountUrl(){
 		var urlPartConstant = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.registration&amp;class=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;id=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;type=CREATE_ACCOUNT&amp;";
 		var urlPartName = "USER_NAME="+document.getElementById("name1").value+"&amp;";
@@ -184,7 +201,7 @@
 		var url = urlPartConstant+urlPartName+urlPartEmail+urlPasswrod+urlCountry+urlImporve;
 		return url;
 	 }
-	 
+
 	 function getLoginAccountUrl(){
         var urlPartConstant = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.registration&amp;class=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;id=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;type=USE_EXSITING_ACCOUNT&amp;";
         var urlPartName = "USER_NAME="+document.getElementById("name2").value+"&amp;";
@@ -193,7 +210,7 @@
         var url = urlPartConstant+urlPartName+urlPasswrod+urlImporve;
         return url;
      }
-     
+
      function switchToView(viewId) {
         if (viewId == 'useExsitingAccountDiv') {
             document.getElementById('useExsitingAccountDiv').style.display = 'block';
@@ -205,14 +222,14 @@
      }
 
 	function checkUsername() {
-		var value = document.getElementById('name1').value;											
+		var value = document.getElementById('name1').value;
 		var isOK = false;
 		if (value != "") {
 			if (value.replace(/^\w+$/g, "") == "" ){
 				isOK = true;
 			}
 		}
-		
+
 	    if (isOK){
 	    	document.getElementById('userNameCreateErrorHint').style.display = 'none';
 			document.getElementById('userNameCreateOKImage').style.display = 'block';
@@ -243,8 +260,8 @@
 	}
 
 	function checkConfirm() {
-		var passwordValue = document.getElementById('password1').value;	
-		var confirmValue = document.getElementById('password2').value;	
+		var passwordValue = document.getElementById('password1').value;
+		var confirmValue = document.getElementById('password2').value;
 		var isOK = false;
 		if (passwordValue != '') {
 			if (passwordValue == confirmValue) {
@@ -269,7 +286,7 @@
 
 	function checkLoginUsername() {
 		var value = document.getElementById('name2').value;
-		
+
 		var isOK = false;
 		if (value != "") {
 			if (value.replace(/^\w+$/g, "") == "" ){
@@ -304,22 +321,22 @@
 			isLoginAccountPasswordOK = false;
 		}
 		refreshLoginAccountButtton();
-	}	
-	
+	}
+
 	function manageCreatePasswordField(isOnFocus) {
 		managePasswordField(document.getElementById('password1Text'),document.getElementById('password1'), isOnFocus);
 	}
-	
+
 	function manageCreatePasswordAgainField(isOnFocus) {
 		managePasswordField(document.getElementById('password2Text'),document.getElementById('password2'), isOnFocus);
 	}
-		
+
 	function manageLoginPasswordField(isOnFocus) {
 		managePasswordField(document.getElementById('password3Text'),document.getElementById('password3'), isOnFocus);
 	}
 
 	function managePasswordField(textInput, pwdInput, isOnFocus) {
-		
+
 		if (pwdInput.style.display == 'block') {
 			if (isOnFocus == false) {
 		    if(pwdInput.value == '') {
@@ -333,15 +350,15 @@
 			pwdInput.focus();
 		}
 	}
-	
+
 	function refreshCreateAccountButtton() {
 		if (isCreateAccountInfoOK()) {
-			document.getElementById('createAccountButton').disabled=false;
+			document.getElementById('createAccountButton').style.color='white';
 		} else {
-			document.getElementById('createAccountButton').disabled=true;
+			document.getElementById('createAccountButton').style.color='#dddddd';
 		}
 	}
-	
+
 	function isCreateAccountInfoOK() {
 		if (document.getElementById('agree').checked == false) {
 			return false;
@@ -360,15 +377,15 @@
 		}
 		return true;
 	}
-	
+
 	function refreshLoginAccountButtton() {
 		if (isLoginAccountInfoOK()) {
-			document.getElementById('loginAcccountButton').disabled = false;
+			document.getElementById('loginAcccountButton').style.color='white';
 		} else {
-			document.getElementById('loginAcccountButton').disabled = true;
+			document.getElementById('loginAcccountButton').style.color='#dddddd';
 		}
 	}
-	
+
 	function isLoginAccountInfoOK() {
 		if (isLoginAccountUserNameOK == false) {
 			return false;
@@ -379,13 +396,25 @@
 		return true;
 	}
 	
+	function createAccount() {
+		if (isCreateAccountInfoOK()) {
+			window.location.href=getCreateAccountUrl();
+		}
+	}
+	
+	function loginAccount() {
+		if (isLoginAccountInfoOK()) {
+			window.location.href=getLoginAccountUrl();
+		}
+	}
+	
      </script>
  </head>
-<body> 
+<body>
     <form method="post" action="">
     <table align="center"><tbody>
     <tr>
-      <td colspan="2"><font style="font-size:20px;"><span><internationalization id="TalendForgeDialog.labelTitle.Ver1" /> <b><internationalization id="TalendForgeDialog.labelTitle.Ver2" /></b></span></font></td>
+      <td colspan="2"><font style="font-size:20px;"><span><internationalization id="TalendForgeDialog.labelTitle.Version1" /> <b><internationalization id="TalendForgeDialog.labelTitle.Version2" /></b></span></font></td>
     </tr>
     <tr>
       <td>
@@ -411,7 +440,7 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
           <table align="center" id="createAccountDiv" border="0" cellspacing="0" cellpadding="0" class="formBackgroundClass" style="display:block;"><tbody>
 		  <tr><td colspan="2" class="navTopLine">
@@ -419,14 +448,14 @@
 		  <tbody>
 		     <tr class="formHeaderClass"><td colspan="3" ></td></tr>
              <tr><td class="errorInfoClass"></td><td width="100%">
-			 
+
 				<div class="sharp color1">
 				<b class="atop">
 					<b class="b1"> </b>
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
                 <input class="textfield"  style="font-family:Arial" type="text" name="Username" id="name1" alt="" onfocus="if(this.value==textHintUserName){this.value='';}" onkeyup="checkUsername();" onblur="if(this.value==''){this.value=textHintUserName;}" value="Username"/>
 				</div>
@@ -435,9 +464,9 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
+				  </b>
 				  </div>
-				  
+
                 </td><td class="errorInfoClass">
                    <div id="userNameCreateErrorHint" style="display:block">*</div>
                    <div id="userNameCreateOKImage" style="display:none">
@@ -451,8 +480,8 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
-				 <div class="inputContent">	 
+				 </b>
+				 <div class="inputContent">
                 <input class="textfield"  style="font-family:Arial" type="text" id="email" name="Email"  onkeyup="checkEmail();" onfocus="if(this.value==textHintEmail){this.value='';}" onblur="if(this.value==''){this.value=textHintEmail;}" value="Email"/>
 				</div>
 				  <b class="abottom">
@@ -460,9 +489,9 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
-				  </div>             
-				
+				  </b>
+				  </div>
+
 				</td><td class="errorInfoClass">
                 <div>
                    <div id="emailErrorHint" style="display:block">*</div>
@@ -478,7 +507,7 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
 					<input class="textfield" id="password1Text" onfocus="manageCreatePasswordField(true)" style="display:block;font-family:Arial" type="text" value="Password"/>
 					<input class="textfield" id="password1" onblur="manageCreatePasswordField(false)"  name="Password" onkeyup="checkPassword();checkConfirm();" style="display:none;font-family:Arial" type="password"/>
@@ -488,7 +517,7 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
+				  </b>
 				  </div></td>
 				  <td class="errorInfoClass">
                <div>
@@ -505,7 +534,7 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
 				<input class="textfield" id="password2Text" onfocus="manageCreatePasswordAgainField(true)" style="display:block;font-family:Arial;" type="text" value="Password again"/>
                 <input class="textfield" id="password2" onblur="manageCreatePasswordAgainField(false)"  name="Password" onkeyup="checkConfirm();" style="display:none;font-family:Arial;" type="password"/>
@@ -515,8 +544,8 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
-				</div>		 
+				  </b>
+				</div>
 			 </td><td class="errorInfoClass">
                    <div>
                        <div id="pwd2ErrorHint" style="display:block">*</div>
@@ -532,8 +561,8 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
-				 <div class="inputContent">	
+				 </b>
+				 <div class="inputContent">
 					<select class="selectField" id="countrylistid" style="width:100%;margin:-2px -18px -2px -2px;" name="select" >
 					 <contentProvider id="INSERT_DATA" class="org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeProvider" pluginId="org.talend.registration"></contentProvider>
 					</select>
@@ -543,8 +572,8 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
-				  </div> 
+				  </b>
+				  </div>
              </td><td></td></tr>
              <tr><td></td><td colspan="2" class="checkBoxStyles">
              <input type="checkbox" class="checkbox" name="checkbox1" id="agree" onclick="refreshCreateAccountButtton();" ><font style="font-size:12px;"><internationalization id="TalendForgeDialog.agreeButtonVer1" /><a href="http://www.talendforge.org/Talend_Contributor_Agreement.txt" target="_blank"><internationalization id="TalendForgeDialog.agreeButtonVer2" /></a></font></input>
@@ -560,19 +589,19 @@
 				<b class="r3"> </b>
 				<b class="r4"> </b>
 				<b class="r5"> </b>
-			 </b> 
-              <a id="createAccountButton" class="button" style="text-align:center;width:350px;" onClick="window.location.href=getCreateAccountUrl()" disabled="disabled" href="#"><internationalization id="TalendForgeDialog.createAccountButton.v1" /></a>
+			 </b>
+              <a id="createAccountButton" class="button" style="text-align:center;width:350px;color:#dddddd;" onClick="createAccount()" href="#"><internationalization id="TalendForgeDialog.createAccountButton.v1" /></a>
 			  <b class="rbottom">
 				<b class="r5"> </b>
 				<b class="r4"> </b>
 				<b class="r3"> </b>
 				<b class="r2"> </b>
 				<b class="r1"> </b>
-			  </b> 
+			  </b>
 			  </div>
             </td><td class="errorInfoClass"></td></tr>
 			</tbody>
-			 </table>		  
+			 </table>
 			 </td></tr>
 			 <tr><td width="50%" class="navRightLine">
                  <a style="text-align:center;" href="#" class="bottomButton" onClick="switchToView('useExsitingAccountDiv')"><internationalization id="TalendForgeDialog.ConnectExistingButton" /></a>
@@ -596,7 +625,7 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
                <input class="textfield"  style="font-family:Arial" type="text" name="Username" id="name2" onfocus="if(this.value==textHintUserName){this.value='';}" onkeyup="checkLoginUsername();" onblur="if(this.value==''){this.value=textHintUserName;}" value="Username"/>
 				</div>
@@ -605,7 +634,7 @@
 					<b class="b3"> </b>
 					<b class="b2"> </b>
 					<b class="b1"> </b>
-				  </b> 			  
+				  </b>
 				  </div>
 			   </td>
 			   <td class="errorInfoClass">
@@ -623,7 +652,7 @@
 					<b class="b2"> </b>
 					<b class="b3"> </b>
 					<b class="b4"> </b>
-				 </b> 
+				 </b>
 				 <div class="inputContent">
 			   	<input class="textfield" id="password3Text" onfocus="manageLoginPasswordField(true)" style="display:block;font-family:Arial" type="text" value="Password"/>
                 <input class="textfield" id="password3" onblur="manageLoginPasswordField(false)"  name="Password" onkeyup="checkLoginPassword();" style="display:none;font-family:Arial" type="password"/>
@@ -658,7 +687,7 @@
 				<b class="r4"> </b>
 				<b class="r5"> </b>
 			 </b> 
-              <a id="loginAcccountButton"  class="button" style="text-align:center;width: 325px;" disabled="disabled" onClick="window.location.href=getLoginAccountUrl()" href="#"><internationalization id="TalendForgeDialog.connectButton.v1" /></a>
+              <a id="loginAcccountButton"  class="button" style="text-align:center;width: 325px;color:#dddddd;" onClick="loginAccount();" href="#"><internationalization id="TalendForgeDialog.connectButton.v1" /></a>
 			  <b class="rbottom">
 				<b class="r5"> </b>
 				<b class="r4"> </b>
