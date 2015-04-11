@@ -550,7 +550,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 if (object instanceof RepositoryNode) {
                     RepositoryNode repositoryNode = (RepositoryNode) object;
                     boolean isLock = false;
-                    monitor.subTask(Messages.getString("RepositoryDropAdapter.checkingLockStatus") + repositoryNode.getObject().getLabel()); //$NON-NLS-1$
+                    monitor.subTask(Messages.getString("RepositoryDropAdapter.checkingLockStatus",repositoryNode.getObject().getLabel())); //$NON-NLS-1$
                     isLock = MoveObjectAction.getInstance().isLock(repositoryNode);
                     if (isLock) {
                         String errorMsg = null;
