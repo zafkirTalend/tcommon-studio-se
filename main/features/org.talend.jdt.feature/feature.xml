@@ -193,4 +193,11 @@
          version="1.0.400.v20140518-0030"
          unpack="false"/>
 
+   <plugin
+         id="org.eclipse.jdt.groovy.core"
+         download-size="0"
+         install-size="0"
+         version="2.9.1.xx-201411061335-e44-RELEASE"
+         unpack="false"/>
+
 </feature>

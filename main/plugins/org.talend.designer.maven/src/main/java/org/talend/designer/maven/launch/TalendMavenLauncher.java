@@ -30,7 +30,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.RefreshUtil;
+import org.eclipse.debug.core.model.IPersistableSourceLocator;
 import org.eclipse.debug.core.model.RuntimeProcess;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -43,6 +45,7 @@ import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.IMavenProjectRegistry;
 import org.eclipse.m2e.core.project.ResolverConfiguration;
+import org.eclipse.m2e.internal.launch.MavenLaunchDelegate;
 import org.eclipse.osgi.util.NLS;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
@@ -228,7 +231,14 @@ public class TalendMavenLauncher {
             throws CoreException {
         monitor.beginTask("", 1); //$NON-NLS-1$
         try {
-            return configuration.launch(mode, new SubProgressMonitor(monitor, 1), false);
+            MavenLaunchDelegate mvld = new MavenLaunchDelegate();
+            ILaunch launch = new Launch(configuration, mode, null);
+            String type = "org.eclipse.m2e.launching.MavenSourceLocator"; //$NON-NLS-1$
+            IPersistableSourceLocator locator = DebugPlugin.getDefault().getLaunchManager().newSourceLocator(type);
+            locator.initializeDefaults(configuration);
+            launch.setSourceLocator(locator);
+            mvld.launch(configuration, mode, launch, monitor);
+            return launch;
         } finally {
             monitor.done();
         }
