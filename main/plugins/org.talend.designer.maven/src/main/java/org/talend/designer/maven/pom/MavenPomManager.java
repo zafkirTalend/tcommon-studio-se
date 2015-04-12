@@ -115,22 +115,22 @@ public class MavenPomManager {
                 dependencies.add(dependency);
                 newDependencyIds.add(dependency.getArtifactId());
             }
-            final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
-            // add children jars to build
-            for (JobInfo child : clonedChildrenJobInfors) {
-                Dependency dependency = new Dependency();
-                final String childJobName = JavaResourcesHelper.escapeFileName(child.getJobName());
-                String artifact = childJobName;
-                if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-                    // must add the version for artifact
-                    artifact = JavaResourcesHelper.getJobJarName(childJobName, child.getJobVersion());
-                }
-                dependency.setGroupId(generateGroupId(child));
-                dependency.setArtifactId(artifact);
-                dependency.setVersion(child.getJobVersion());
-                dependencies.add(dependency);
-                newDependencyIds.add(dependency.getArtifactId());
-            }
+//            final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
+//            // add children jars to build
+//            for (JobInfo child : clonedChildrenJobInfors) {
+//                Dependency dependency = new Dependency();
+//                final String childJobName = JavaResourcesHelper.escapeFileName(child.getJobName());
+//                String artifact = childJobName;
+//                if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
+//                    // must add the version for artifact
+//                    artifact = JavaResourcesHelper.getJobJarName(childJobName, child.getJobVersion());
+//                }
+//                dependency.setGroupId(generateGroupId(child));
+//                dependency.setArtifactId(artifact);
+//                dependency.setVersion(child.getJobVersion());
+//                dependencies.add(dependency);
+//                newDependencyIds.add(dependency.getArtifactId());
+//            }
             boolean changed = oldDependencyIds.retainAll(newDependencyIds);
             if (!changed) {
                 changed = newDependencyIds.retainAll(oldDependencyIds);
