@@ -1566,7 +1566,8 @@ public class DatabaseForm extends AbstractForm {
 
     private void refreshHadoopProperties() {
         if (hadoopPropertiesDialog != null) {
-            String databaseType = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+            String dbType = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+            String databaseType = dbType != null ? dbType : getConnection().getDatabaseType();
             String hadoopProperties = getHadoopProperties(databaseType);
             hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
             hadoopClusterPropertiesList = getHadoopClusterProperties();
