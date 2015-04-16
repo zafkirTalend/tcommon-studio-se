@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.axis.client.Stub;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.core.IRepositoryContextService;
@@ -34,14 +35,11 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdView;
-import org.talend.mdm.webservice.WSPing;
-import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.metadata.managment.utils.EDataBaseType;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -112,6 +110,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * org.talend.core.model.metadata.IMetadataFiller#fillUIConnParams(org.talend.core.model.metadata.IMetadataConnection
      * , org.talend.core.model.metadata.builder.connection.Connection)
      */
+    @Override
     public T fillUIConnParams(IMetadataConnection metadataBean, T connection) {
         if (connection == null || metadataBean == null) {
             return null;
@@ -129,6 +128,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
     /*
      * @see org.talend.core.model.metadata.IMetadataFill#fillUIParams(java.util.Map)
      */
+    @Override
     public IMetadataConnection fillUIParams(Map<String, String> paramMap) {
         if (paramMap == null) {
             return null;
@@ -212,6 +212,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
     /*
      * @see org.talend.core.model.metadata.IMetadataFiller#fillUIParams(DatabaseConnection)
      */
+    @Override
     public IMetadataConnection fillUIParams(DatabaseConnection conn) {
         if (conn == null) {
             return null;
@@ -317,6 +318,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * @see org.talend.core.model.metadata.IMetadataFiller#fillViews(orgomg.cwm.objectmodel.core.Package,
      * java.sql.DatabaseMetaData, java.util.List, java.lang.String)
      */
+    @Override
     public List<TdView> fillViews(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> viewFilter, String viewPattern,
             String[] tableTypes) {
         return null;
@@ -328,11 +330,13 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * @see org.talend.core.model.metadata.IMetadataFiller#fillColumns(orgomg.cwm.resource.relational.ColumnSet,
      * java.sql.DatabaseMetaData, java.util.List, java.lang.String)
      */
+    @Override
     public List<TdColumn> fillColumns(ColumnSet colSet, DatabaseMetaData dbJDBCMetadata, List<String> columnFilter,
             String columnPattern) {
         return null;
     }
 
+    @Override
     public List<TdColumn> fillColumns(ColumnSet colSet, IMetadataConnection iMetadataConnection, DatabaseMetaData dbJDBCMetadata,
             List<String> columnFilter, String columnPattern) {
         return null;
@@ -344,6 +348,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * 
      * @return get whether the subElements need to be linked to the parent element.
      */
+    @Override
     public boolean isLinked() {
         return isLinked;
     }
@@ -354,6 +359,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * 
      * @return
      */
+    @Override
     public void setLinked(boolean isLinked) {
         this.isLinked = isLinked;
     }
@@ -365,6 +371,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * org.talend.core.model.metadata.IMetadataFiller#checkConnection(org.talend.core.model.metadata.IMetadataConnection
      * )
      */
+    @Override
     public ReturnCode checkConnection(IMetadataConnection metadataBean) {
         return createConnection(metadataBean, true);
     }
@@ -376,6 +383,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * org.talend.core.model.metadata.IMetadataFiller#createConnection(org.talend.core.model.metadata.IMetadataConnection
      * )
      */
+    @Override
     public TypedReturnCode<?> createConnection(IMetadataConnection metadataBean) {
         return createConnection(metadataBean, false);
     }
@@ -391,11 +399,14 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         if (EDataBaseType.MDM.getProductName().equalsIgnoreCase(metadataBean.getDbType())) {
             try {
-                XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
-                // ping Web Service server
-                stub.ping(new WSPing());
-                rc.setOk(true);
-                rc.setMessage("OK"); //$NON-NLS-1$
+                Stub stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
+                if (stub != null) {
+                    rc.setOk(true);
+                    rc.setMessage("OK"); //$NON-NLS-1$
+                } else {
+                    rc.setOk(false);
+                    rc.setMessage("Can not connect to mdm server !");
+                }
             } catch (Exception e) {
                 log.warn(e, e);
                 rc.setOk(false);

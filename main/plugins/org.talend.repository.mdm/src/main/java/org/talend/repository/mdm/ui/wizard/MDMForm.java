@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
+import org.apache.axis.client.Stub;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -25,16 +26,16 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.MessageBox;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.Form;
+import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.WSPing;
-import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort_PortType;
-import org.talend.mdm.webservice.XtentisServiceLocator;
+import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
+import org.talend.metadata.managment.mdm.MDMVersions;
+import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
+import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
 
@@ -42,6 +43,8 @@ import org.talend.repository.mdm.i18n.Messages;
  * DOC hwang class global comment. Detailled comment
  */
 public class MDMForm extends AbstractForm {
+
+    private LabelledCombo versionComb;
 
     // control fields
     private LabelledText mdmUsernameText;
@@ -61,7 +64,7 @@ public class MDMForm extends AbstractForm {
 
     private MDMWizardPage page;
 
-    private XtentisBindingStub stub;
+    private Stub stub;
 
     /**
      * DOC hwang MDMForm constructor comment.
@@ -93,6 +96,7 @@ public class MDMForm extends AbstractForm {
     @Override
     protected void adaptFormToReadOnly() {
         readOnly = isReadOnly();
+        versionComb.setReadOnly(readOnly);
         mdmUsernameText.setReadOnly(readOnly);
         mdmPasswordText.setReadOnly(readOnly);
         mdmServer.setReadOnly(readOnly);
@@ -114,6 +118,14 @@ public class MDMForm extends AbstractForm {
 
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
+
+        versionComb = new LabelledCombo(mdmParameterGroup, "Version", "Version", MDMVersions.getVersions(), true);
+        String version = getConnection().getVersion();
+        if (version == null || "".equals(version)) {
+            version = MDMVersions.MDM_S56.getDispalyName();
+            getConnection().setVersion(MDMVersions.MDM_S56.getKey());
+        }
+        versionComb.setText(version);
 
         mdmUsernameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm_userName"), true); //$NON-NLS-1$
 
@@ -154,6 +166,15 @@ public class MDMForm extends AbstractForm {
      */
     @Override
     protected void addFieldsListeners() {
+        versionComb.addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                getConnection().setVersion(MDMVersions.getKey(versionComb.getText()));
+                checkFieldsValue();
+            }
+        });
+
         mdmUsernameText.addModifyListener(new ModifyListener() {
 
             @Override
@@ -218,29 +239,23 @@ public class MDMForm extends AbstractForm {
     }
 
     private void checkMDMConnection() {
-        XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + mdmServer.getText() + ":" + mdmHostnameText.getText()//$NON-NLS-1$//$NON-NLS-2$
-                + "/talend/TalendPort" + "?wsdl");//$NON-NLS-1$
         String username = mdmUsernameText.getText();
         String pass = mdmPasswordText.getText();
-        if (username == null || pass == null) {
+        String server = mdmServer.getText();
+        String host = mdmHostnameText.getText();
+        if (username == null || pass == null || server == null || host == null) {
             page.setPageComplete(false);
             return;
         }
-        try {
-            XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
-            stub = (XtentisBindingStub) xtentisWS;
-            stub.setUsername(mdmUsernameText.getText());
-            stub.setPassword(mdmPasswordText.getText());
-            stub.ping(new WSPing());
-            verified = true;
-        } catch (Exception e) {
-            verified = false;
-            stub = null;
-            ExceptionHandler.process(e);
+        AbsMdmConnectionHelper helper = null;
+        if (MDMVersions.MDM_S60.getDispalyName().equals(versionComb.getText())) {
+            helper = new S60MdmConnectionHelper();
+        } else {
+            helper = new S56MdmConnectionHelper();
         }
-
-        if (verified) {
+        String url = "http://" + server + ":" + host + "/talend/TalendPort" + "?wsdl";
+        stub = helper.checkConnection(url, null, username, pass);
+        if (stub != null) {
             page.setPageComplete(true);
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("MDMForm_success")); //$NON-NLS-1$
@@ -251,6 +266,41 @@ public class MDMForm extends AbstractForm {
             String mainMsg = Messages.getString("MDMForm_connection_failure");
             MessageDialog.openError(getShell(), titleMsg, mainMsg);
         }
+
+        // XtentisServiceLocator xtentisService = new XtentisServiceLocator();
+        //        xtentisService.setXtentisPortEndpointAddress("http://" + mdmServer.getText() + ":" + mdmHostnameText.getText()//$NON-NLS-1$//$NON-NLS-2$
+        //                + "/talend/TalendPort" + "?wsdl");//$NON-NLS-1$
+        // String username = mdmUsernameText.getText();
+        // String pass = mdmPasswordText.getText();
+        // if (username == null || pass == null) {
+        // page.setPageComplete(false);
+        // return;
+        // }
+        // try {
+        // XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
+        // stub = (Stub) xtentisWS;
+        // stub.setUsername(mdmUsernameText.getText());
+        // stub.setPassword(mdmPasswordText.getText());
+        // stub.ping(new WSPing());
+        // verified = true;
+        // } catch (Exception e) {
+        // verified = false;
+        // stub = null;
+        // ExceptionHandler.process(e);
+        // }
+        //
+        // if (verified) {
+        // page.setPageComplete(true);
+        // MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK |
+        // SWT.CANCEL);
+        //            box.setText(Messages.getString("MDMForm_success")); //$NON-NLS-1$
+        //            box.setMessage(Messages.getString("MDMForm_connect_successful")); //$NON-NLS-1$
+        // box.open();
+        // } else {
+        // String titleMsg = Messages.getString("MDMForm_error_message");
+        // String mainMsg = Messages.getString("MDMForm_connection_failure");
+        // MessageDialog.openError(getShell(), titleMsg, mainMsg);
+        // }
     }
 
     /*
@@ -360,7 +410,7 @@ public class MDMForm extends AbstractForm {
         checkFieldsValue();
     }
 
-    public XtentisBindingStub getXtentisBindingStub() {
+    public Stub getXtentisBindingStub() {
         return this.stub;
     }
 

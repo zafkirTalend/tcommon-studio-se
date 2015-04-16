@@ -12,12 +12,10 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.axis.client.Stub;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
@@ -31,13 +29,10 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.WSDataClusterPK;
-import org.talend.mdm.webservice.WSDataModelPK;
-import org.talend.mdm.webservice.WSGetUniversePKs;
-import org.talend.mdm.webservice.WSRegexDataClusterPKs;
-import org.talend.mdm.webservice.WSRegexDataModelPKs;
-import org.talend.mdm.webservice.WSUniversePK;
-import org.talend.mdm.webservice.XtentisBindingStub;
+import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
+import org.talend.metadata.managment.mdm.MDMVersions;
+import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
+import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
 
@@ -60,17 +55,17 @@ public class UniverseForm extends AbstractForm {
 
     private List<String> clusterList = new ArrayList<String>();
 
-    private Map<String, WSUniversePK> map = new HashMap<String, WSUniversePK>();
-
     private String username;
 
-    private XtentisBindingStub stub;
+    private Stub stub;
 
     private ConnectionItem connectionItem;
 
     private UniversePage universePage;
 
     private static final String DEFAULT_UNIVERS = "[HEAD]";
+
+    private AbsMdmConnectionHelper connectionHelper;
 
     /**
      * DOC Administrator UniverseForm constructor comment.
@@ -87,6 +82,11 @@ public class UniverseForm extends AbstractForm {
         this.universePage = universePage;
         stub = ((MDMWizardPage) (universePage.getPreviousPage())).getXtentisBindingStub();
         username = stub.getUsername();
+        if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
+            connectionHelper = new S60MdmConnectionHelper();
+        } else {
+            connectionHelper = new S56MdmConnectionHelper();
+        }
         initUniverse();
         setupForm(true);
     }
@@ -138,12 +138,13 @@ public class UniverseForm extends AbstractForm {
         if (universeCombo != null) {
             universeCombo.addModifyListener(new ModifyListener() {
 
+                @Override
                 public void modifyText(ModifyEvent e) {
                     if (stub == null) {
                         return;
                     }
                     String universeValue = universeCombo.getText();
-                    if (DEFAULT_UNIVERS.equals(universeValue)) { //$NON-NLS-1$
+                    if (DEFAULT_UNIVERS.equals(universeValue)) {
                         modelText.setText("");//$NON-NLS-1$
                         clusterText.setText("");//$NON-NLS-1$
                         checkFieldsValue();
@@ -154,27 +155,32 @@ public class UniverseForm extends AbstractForm {
                     } else {
                         stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
                     }
-                    try {
-                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-                        refreshModelCombo(models);
-                        refreshClusterCombo(clusters);
+                    // try {
+                    //                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+                    List<String> models = connectionHelper.getPKs(stub,
+                            "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");//$NON-NLS-1$
+                    //                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+                    List<String> clusters = connectionHelper.getPKs(stub,
+                            "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs");//$NON-NLS-1$
+                    refreshModelCombo(models);
+                    refreshClusterCombo(clusters);
 
-                        getConnection().setUniverse(universeCombo.getText());
-                        getConnection().setDatamodel(modelText.getText());
-                        getConnection().setDatacluster(clusterText.getText());
-                        checkFieldsValue();
-                    } catch (RemoteException e1) {
-                        modelText.setText("");//$NON-NLS-1$
-                        clusterText.setText("");//$NON-NLS-1$
-                        ExceptionHandler.process(e1);
-                    }
+                    getConnection().setUniverse(universeCombo.getText());
+                    getConnection().setDatamodel(modelText.getText());
+                    getConnection().setDatacluster(clusterText.getText());
+                    checkFieldsValue();
+                    // } catch (RemoteException e1) {
+                    //                        modelText.setText("");//$NON-NLS-1$
+                    //                        clusterText.setText("");//$NON-NLS-1$
+                    // ExceptionHandler.process(e1);
+                    // }
                 }
 
             });
         }
         modelText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setDatamodel(modelText.getText());
             }
@@ -182,6 +188,7 @@ public class UniverseForm extends AbstractForm {
 
         clusterText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setDatacluster(clusterText.getText());
             }
@@ -249,14 +256,17 @@ public class UniverseForm extends AbstractForm {
         } else {
             stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
         }
-        try {
-            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-            refreshModelCombo(models);
-            refreshClusterCombo(clusters);
-        } catch (RemoteException e1) {
-            ExceptionHandler.process(e1);
-        }
+        // try {
+        List<String> models = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");//$NON-NLS-1$
+        //            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+        List<String> clusters = connectionHelper.getPKs(stub,
+                "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs");//$NON-NLS-1$
+        //            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+        refreshModelCombo(models);
+        refreshClusterCombo(clusters);
+        // } catch (RemoteException e1) {
+        // ExceptionHandler.process(e1);
+        // }
 
         if (getConnection().getDatamodel() != null) {
             modelText.setText(getConnection().getDatamodel());
@@ -272,38 +282,67 @@ public class UniverseForm extends AbstractForm {
         checkFieldsValue();
     }
 
-    private void refreshModelCombo(WSDataModelPK[] models) {
+    private void refreshModelCombo(List<String> models) {
         String connModel = (String) modelText.getCombo().getData();
         modelText.removeAll();
-        if (models.length <= 0) {
+        if (models.size() <= 0) {
             return;
         }
-        for (WSDataModelPK model : models) {
-            modelText.add(model.getPk());
-        }
+        modelText.getCombo().setItems(models.toArray(new String[models.size()]));
         if (!"".equals(connModel) && connModel != null) { //$NON-NLS-1$
             modelText.setText(connModel);// (getConnection().getDatamodel());
             return;
         }
-        modelText.setText(models[0].getPk());
+        modelText.setText(models.get(0));
 
     }
 
-    private void refreshClusterCombo(WSDataClusterPK[] clusters) {
+    // private void refreshModelCombo(WSDataModelPK[] models) {
+    // String connModel = (String) modelText.getCombo().getData();
+    // modelText.removeAll();
+    // if (models.length <= 0) {
+    // return;
+    // }
+    // for (WSDataModelPK model : models) {
+    // modelText.add(model.getPk());
+    // }
+    //        if (!"".equals(connModel) && connModel != null) { //$NON-NLS-1$
+    // modelText.setText(connModel);// (getConnection().getDatamodel());
+    // return;
+    // }
+    // modelText.setText(models[0].getPk());
+    //
+    // }
+
+    private void refreshClusterCombo(List<String> clusters) {
         String connCluster = (String) clusterText.getCombo().getData();
         clusterText.removeAll();
-        if (clusters.length <= 0) {
+        if (clusters.size() <= 0) {
             return;
         }
-        for (WSDataClusterPK cluster : clusters) {
-            clusterText.add(cluster.getPk());
-        }
+        clusterText.getCombo().setItems(clusters.toArray(new String[clusters.size()]));
         if (!"".equals(connCluster) && connCluster != null) { //$NON-NLS-1$
             clusterText.setText(connCluster);
             return;
         }
-        clusterText.setText(clusters[0].getPk());
+        clusterText.setText(clusters.get(0));
     }
+
+    // private void refreshClusterCombo(WSDataClusterPK[] clusters) {
+    // String connCluster = (String) clusterText.getCombo().getData();
+    // clusterText.removeAll();
+    // if (clusters.length <= 0) {
+    // return;
+    // }
+    // for (WSDataClusterPK cluster : clusters) {
+    // clusterText.add(cluster.getPk());
+    // }
+    //        if (!"".equals(connCluster) && connCluster != null) { //$NON-NLS-1$
+    // clusterText.setText(connCluster);
+    // return;
+    // }
+    // clusterText.setText(clusters[0].getPk());
+    // }
 
     public MDMConnection getConnection() {
         return (MDMConnection) connectionItem.getConnection();
@@ -315,20 +354,43 @@ public class UniverseForm extends AbstractForm {
             return;
         }
         try {
-            WSUniversePK[] universe = null;
-            try {
-                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
-            } catch (Exception e) {
-                universe = null;
-                universList = null;
-            }
+            List<String> universe = connectionHelper.getPKs(stub,
+                    "getDataClusgetUniversePKsterPKs", "org.talend.mdm.webservice.WSGetUniversePKs");//$NON-NLS-1$
             if (universe != null) {
-                for (int i = 0; i < universe.length; i++) {
-                    universList.add(universe[i].getPk());
-                }
+                universList.addAll(universe);
             }
+
+            // WSUniversePK[] universe = null;
+            // try {
+            //                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
+            // } catch (Exception e) {
+            // universe = null;
+            // universList = null;
+            // }
+            // if (universe != null) {
+            // for (WSUniversePK element : universe) {
+            // universList.add(element.getPk());
+            // }
+            // }
         } catch (Exception e) {
             ExceptionHandler.process(e);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible && connectionHelper == null) {
+            if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
+                connectionHelper = new S60MdmConnectionHelper();
+            } else {
+                connectionHelper = new S56MdmConnectionHelper();
+            }
         }
     }
 

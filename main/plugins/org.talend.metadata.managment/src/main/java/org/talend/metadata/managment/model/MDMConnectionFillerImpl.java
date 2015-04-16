@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.axis.client.Stub;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -41,16 +42,14 @@ import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
-import org.talend.mdm.webservice.WSDataModelPK;
-import org.talend.mdm.webservice.WSGetDataModel;
-import org.talend.mdm.webservice.WSRegexDataModelPKs;
-import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort_PortType;
+import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
+import org.talend.metadata.managment.mdm.MDMVersions;
+import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
+import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.utils.DatabaseConstant;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.model.bridge.ReponsitoryContextBridge;
 import org.talend.utils.sugars.ReturnCode;
-
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -97,19 +96,34 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
         return connection;
     }
 
+    @Override
     public List<orgomg.cwm.objectmodel.core.Package> fillSchemas(MDMConnection mdmConn, DatabaseMetaData dbJDBCMetadata,
             List<String> schemaFilter) {
         List<TdXmlSchema> xmlDocs = new ArrayList<TdXmlSchema>();
         try {
-            XtentisBindingStub stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
-            WSDataModelPK[] pks = stub.getDataModelPKs(new WSRegexDataModelPKs(StringUtils.EMPTY));
+            Stub stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
+            AbsMdmConnectionHelper connectionHelper = null;
+            if (MDMVersions.MDM_S60.getKey().equals(mdmConn.getVersion())) {
+                connectionHelper = new S60MdmConnectionHelper();
+            } else {
+                connectionHelper = new S56MdmConnectionHelper();
+            }
+            List<String> pks = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");
             String techXSDFolderName = getTechXSDFolderName();
-
-            for (WSDataModelPK pk : pks) {
-                if (isCreateElement(schemaFilter, pk.getPk())) {
-                    adaptToCWMDocument(xmlDocs, stub, pk.getPk(), techXSDFolderName, mdmConn);
+            for (String pk : pks) {
+                if (isCreateElement(schemaFilter, pk)) {
+                    adaptToCWMDocument(connectionHelper, xmlDocs, stub, pk, techXSDFolderName, mdmConn);
                 }
             }
+
+            // WSDataModelPK[] pks = stub.getDataModelPKs(new WSRegexDataModelPKs(StringUtils.EMPTY));
+            // String techXSDFolderName = getTechXSDFolderName();
+            //
+            // for (WSDataModelPK pk : pks) {
+            // if (isCreateElement(schemaFilter, pk.getPk())) {
+            // adaptToCWMDocument(xmlDocs, stub, pk.getPk(), techXSDFolderName, mdmConn);
+            // }
+            // }
         } catch (Exception e) {
             log.error(e, e);
         }
@@ -144,15 +158,16 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
      * @throws RemoteException
      * @throws CoreException
      */
-    private void adaptToCWMDocument(List<TdXmlSchema> xmlDocCollection, XtentisPort_PortType stub, String resName,
-            String providerTechName, Connection dataProvider) throws RemoteException, CoreException {
+    private void adaptToCWMDocument(AbsMdmConnectionHelper connectionHelper, List<TdXmlSchema> xmlDocCollection, Stub stub,
+            String resName, String providerTechName, Connection dataProvider) throws RemoteException, CoreException {
         // MOD xqliu 2010-10-18 bug 16161
         String resXSD = null;
         try {
-            resXSD = stub.getDataModel(new WSGetDataModel(new WSDataModelPK(resName))).getXsdSchema();
+            resXSD = connectionHelper.getXsdSchema(stub, resName);
+            // resXSD = stub.getDataModel(new WSGetDataModel(new WSDataModelPK(resName))).getXsdSchema();
         } catch (Exception e1) {
             log.warn(e1, e1);
-        }  
+        }
         if (resXSD == null || StringUtils.EMPTY.equals(resXSD.trim())) {
             log.warn("XSD not exist for \"" + resName + "\""); //$NON-NLS-1$ //$NON-NLS-2$
             return;
@@ -188,29 +203,34 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
         xmlDocCollection.add(tdXmlDoc);
     }
 
+    @Override
     public List<Catalog> fillCatalogs(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, List<String> catalogFilter) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public List<Catalog> fillCatalogs(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> catalogFilter) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public List<TdTable> fillTables(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter, String tablePattern,
             String[] tableType) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public List<Schema> fillSchemaToCatalog(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, Catalog catalog,
             List<String> schemaFilter) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, List<String> tableFilter,
             String tablePattern, String[] tableType) {
         // TODO Auto-generated method stub
@@ -224,6 +244,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
      * java.sql.DatabaseMetaData, org.talend.core.model.metadata.IMetadataConnection, java.util.List, java.lang.String,
      * java.lang.String[])
      */
+    @Override
     public List<MetadataTable> fillAll(Package pack, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> tableFilter, String tablePattern, String[] tableType) {
         // TODO Auto-generated method stub
@@ -237,6 +258,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
      * org.talend.core.model.metadata.IMetadataFiller#fillSchemas(org.talend.core.model.metadata.builder.connection.
      * Connection, java.sql.DatabaseMetaData, org.talend.core.model.metadata.IMetadataConnection, java.util.List)
      */
+    @Override
     public List<Package> fillSchemas(MDMConnection dbConn, DatabaseMetaData dbJDBCMetadata, IMetadataConnection metaConnection,
             List<String> Filter) {
         // TODO Auto-generated method stub

@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
+import org.apache.axis.client.Stub;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
@@ -51,12 +51,14 @@ public class MDMWizardPage extends WizardPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
         mdmForm = new MDMForm(parent, connectionItem, existingNames, this);
         mdmForm.setReadOnly(!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     MDMWizardPage.this.setPageComplete(false);
@@ -75,7 +77,7 @@ public class MDMWizardPage extends WizardPage {
         }
     }
 
-    public XtentisBindingStub getXtentisBindingStub() {
+    public Stub getXtentisBindingStub() {
         return mdmForm.getXtentisBindingStub();
     }
 
