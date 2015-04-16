@@ -23,5 +23,6 @@ Export-Package: org.talend.librariesmanager.emf.librariesindex,
  org.talend.librariesmanager.prefs,
  routines,
  routines.system
-Import-Package: org.eclipse.emf.ecore.xmi.impl
+Import-Package: org.eclipse.emf.ecore.xmi.impl,
+ org.talend.osgi.hook.notification
 Eclipse-BundleShape: dir
