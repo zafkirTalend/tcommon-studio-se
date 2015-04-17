@@ -13,7 +13,6 @@
 package org.talend.core.model.metadata;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +26,12 @@ import org.apache.avro.compiler.specific.SpecificCompiler;
 import org.apache.avro.compiler.specific.SpecificCompiler.FieldVisibility;
 import org.apache.avro.generic.GenericData.StringType;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.designer.runprocess.IRunProcessService;
 
 /**
  * Meta Data Table. Contains all the columns. <br/>
@@ -80,8 +83,17 @@ public class AvroMetadataTable extends MetadataTable {
     public AvroMetadataTable(String projectPath, String technicalProjectName, String jobName, String jobVersion) {
         super();
         // Use projectPath to go to the filePath
-        this.filePath = projectPath + "/.Java/src/"; //$NON-NLS-1$
-
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService processService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            ITalendProcessJavaProject talendProcessJavaProject = processService.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                this.filePath = talendProcessJavaProject.getSrcFolder().getLocation().toFile().toString();
+            }
+        }
+        if (this.filePath == null) { // if don't set, should set a default one?
+            // this.filePath = projectPath + "/.Java/src/main/java"; //$NON-NLS-1$
+        }
         this.technicalProjectName = technicalProjectName.toLowerCase();
 
         this.jobName = jobName + "_" + jobVersion.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -146,8 +158,12 @@ public class AvroMetadataTable extends MetadataTable {
      * @param connectionName The name of the current connection. This parameter will be use to generate the file name.
      */
     public void generateAvroFile(String connectionName) {
-        this.connectionTypeName = connectionName + "Struct";
+        this.connectionTypeName = connectionName + "Struct"; //$NON-NLS-1$
         schema = generateAvroSchema(connectionName, connectionTypeName);
+        // TUP-2826
+        ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
+        // use current bundle class loader always.
+        Thread.currentThread().setContextClassLoader(CoreRuntimePlugin.class.getClassLoader());
 
         try {
             // Generate the java class from the schema
@@ -169,9 +185,10 @@ public class AvroMetadataTable extends MetadataTable {
             compiler.setStringType(StringType.String);
             // No source, since we just want to parse the input schema
             compiler.compileToDestination(null, new File(filePath));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Throwable e) {
+            ExceptionHandler.process(e);
+        } finally {
+            Thread.currentThread().setContextClassLoader(oldClassLoader);
         }
     }
 
