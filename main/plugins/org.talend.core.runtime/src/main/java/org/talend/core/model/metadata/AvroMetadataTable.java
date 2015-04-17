@@ -29,7 +29,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.runprocess.IRunProcessService;
 
@@ -161,9 +160,9 @@ public class AvroMetadataTable extends MetadataTable {
         this.connectionTypeName = connectionName + "Struct"; //$NON-NLS-1$
         schema = generateAvroSchema(connectionName, connectionTypeName);
         // TUP-2826
-        ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
+        ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
         // use current bundle class loader always.
-        Thread.currentThread().setContextClassLoader(CoreRuntimePlugin.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
 
         try {
             // Generate the java class from the schema
@@ -188,7 +187,7 @@ public class AvroMetadataTable extends MetadataTable {
         } catch (Throwable e) {
             ExceptionHandler.process(e);
         } finally {
-            Thread.currentThread().setContextClassLoader(oldClassLoader);
+            Thread.currentThread().setContextClassLoader(originalClassLoader);
         }
     }
 

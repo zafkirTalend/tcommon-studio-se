@@ -531,6 +531,15 @@ public class ProcessorUtilities {
             IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
+
+            Set<String> jarList = new HashSet<String>();
+            Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                    jobInfo.getJobId(), jobInfo.getJobVersion());
+            for (ModuleNeeded module : neededModules) {
+                jarList.add(module.getModuleName());
+            }
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+
             if (codeModified) {
                 processor.build();
                 processor.syntaxCheck();
