@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -330,16 +331,43 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
             final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
-            repObjectcache.initialize(itemType);
 
             IRepositoryViewObject itemWithSameIdObj = null;
             IRepositoryViewObject itemWithSameNameObj = null;
 
-            for (IRepositoryViewObject current : repObjectcache.getItemsFromRepository().get(itemType)) {
+            List<IRepositoryViewObject> repViewObjectList = null;
+
+            List<ERepositoryObjectType> allTypesOfProcess = ERepositoryObjectType.getAllTypesOfProcess();
+            if (allTypesOfProcess.contains(itemType)) {
+                for (ERepositoryObjectType curProcessType : allTypesOfProcess) {
+                    repObjectcache.initialize(curProcessType);
+                }
+                Map<ERepositoryObjectType, List<IRepositoryViewObject>> itemsMap = repObjectcache.getItemsFromRepository();
+                repViewObjectList = new LinkedList<IRepositoryViewObject>();
+                for (ERepositoryObjectType curProcessType : allTypesOfProcess) {
+                    List<IRepositoryViewObject> itemList = itemsMap.get(curProcessType);
+                    if (itemList != null) {
+                        repViewObjectList.addAll(itemList);
+                    }
+                }
+            } else {
+                repObjectcache.initialize(itemType);
+                repViewObjectList = repObjectcache.getItemsFromRepository().get(itemType);
+            }
+
+            Iterator<IRepositoryViewObject> repoViewObjectIter = repViewObjectList.iterator();
+            boolean isSameRepositoryType = true;
+            while (repoViewObjectIter.hasNext()) {
+                IRepositoryViewObject current = repoViewObjectIter.next();
                 final Property property = importItem.getProperty();
                 if (property != null) {
                     if (isSameName(importItem, current)) {
                         itemWithSameNameObj = current;
+                        if (importItem.getRepositoryType() == current.getRepositoryObjectType()) {
+                            isSameRepositoryType = true;
+                        } else {
+                            isSameRepositoryType = false;
+                        }
                     }
                     if (property.getId() != null && property.getId().equals(current.getId())) {
                         itemWithSameIdObj = current;
@@ -366,7 +394,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                     // same name but different id
                     importItem.setState(State.NAME_EXISTED);
 
-                    if (overwrite) {
+                    if (overwrite && isSameRepositoryType) {
                         // if anything system, don't replace the source item if same name.
                         // if not from system, can overwrite.
                         importItem.setExistingItemWithSameId(itemWithSameNameObj);
@@ -386,12 +414,16 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                         importItem.setExistingItemWithSameId(itemWithSameNameObj);
                     }
                 }
-                if (!overwrite) {
-                    importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
+                if (isSameRepositoryType) {
+                    if (!overwrite) {
+                        importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
+                    }
+                } else {
+                    importItem.addError(Messages.getString("AbstractImportHandler_nameUsed.differentRepositoryType")); //$NON-NLS-1$
                 }
             }
 
-            if (overwrite && importItem.getState() == State.NAME_AND_ID_EXISTED) {
+            if (overwrite && importItem.getState() == State.NAME_AND_ID_EXISTED && isSameRepositoryType) {
                 // if item is locked, cannot overwrite
                 if (checkIfLocked(importItem)) {
                     importItem.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
