@@ -105,6 +105,15 @@
             name="UnifyPasswordEncryption4MDMConnectionMigrationTask"
             version="5.6.0">
       </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="6.0.0"
+            class="org.talend.repository.mdm.repository.migration.MdmAddVersionMigrationTask"
+            description="Add version 6.0.0 for mdm connection"
+            id="org.talend.repository.mdm.repository.migration.MdmAddVersionMigrationTask"
+            name="MdmAddVersionMigrationTask"
+            version="6.0.0">
+      </projecttask>
    </extension>
    <!--
    <extension

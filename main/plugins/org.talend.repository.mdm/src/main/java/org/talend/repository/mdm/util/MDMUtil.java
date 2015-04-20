@@ -17,13 +17,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.rpc.ServiceException;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -34,8 +32,8 @@ import org.eclipse.xsd.impl.XSDSchemaImpl;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.MDMVersions;
 import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.w3c.dom.Document;
@@ -107,7 +105,7 @@ public class MDMUtil {
         return file;
     }
 
-    public static void initConcepts(MDMConnection mdmConn) throws ServiceException, RemoteException {
+    public static void initConcepts(MDMConnection mdmConn) throws Exception {
         AbsMdmConnectionHelper connectionHelper = null;
         if (MDMVersions.MDM_S60.getKey().equals(mdmConn.getVersion())) {
             connectionHelper = new S60MdmConnectionHelper();

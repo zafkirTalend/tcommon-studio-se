@@ -336,7 +336,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                 ERepositoryObjectType.METADATA_MDMCONNECTION, !isRepositoryObjectEditable(), creation);
         propertiesWizardPage.setTitle("Talend MDM"); //$NON-NLS-1$
         propertiesWizardPage.setDescription(Messages.getString("MDMWizard_create_mdm_conn")); //$NON-NLS-1$
-        mdmWizardPage = new MDMWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
+        mdmWizardPage = new MDMWizardPage(connectionItem, isRepositoryObjectEditable(), creation, existingNames);
         universePage = new UniversePage(connectionItem, "Talend MDM"); //$NON-NLS-1$
         addPage(propertiesWizardPage);
         addPage(mdmWizardPage);

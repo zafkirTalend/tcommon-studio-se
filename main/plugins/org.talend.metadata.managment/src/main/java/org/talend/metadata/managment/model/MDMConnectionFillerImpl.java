@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.relational.TdTable;
@@ -43,7 +44,6 @@ import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.MDMVersions;
 import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.utils.DatabaseConstant;
@@ -103,12 +103,15 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
         try {
             Stub stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
             AbsMdmConnectionHelper connectionHelper = null;
+            String regex = "";
             if (MDMVersions.MDM_S60.getKey().equals(mdmConn.getVersion())) {
                 connectionHelper = new S60MdmConnectionHelper();
+                regex = "*";
             } else {
                 connectionHelper = new S56MdmConnectionHelper();
             }
-            List<String> pks = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");
+            List<String> pks = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs",
+                    regex);
             String techXSDFolderName = getTechXSDFolderName();
             for (String pk : pks) {
                 if (isCreateElement(schemaFilter, pk)) {

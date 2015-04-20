@@ -24,12 +24,13 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
  */
 public abstract class AbsMdmConnectionHelper {
 
-    public abstract Stub checkConnection(String url, String universe, String userName, String password);
+    public abstract Stub checkConnection(String url, String universe, String userName, String password) throws Exception;
 
-    public abstract List<String> getPKs(Stub stub, String modelOrContainerMethod, String modelOrContainerClass);
+    public abstract List<String> getPKs(Stub stub, String modelOrContainerMethod, String modelOrContainerClass, String pkRegex)
+            throws Exception;
 
-    public abstract void initConcept(MDMConnection mdmConn, File file);
+    public abstract void initConcept(MDMConnection mdmConn, File file) throws Exception;
 
-    public abstract String getXsdSchema(Stub stub, String resName);
+    public abstract String getXsdSchema(Stub stub, String resName) throws Exception;
 
 }

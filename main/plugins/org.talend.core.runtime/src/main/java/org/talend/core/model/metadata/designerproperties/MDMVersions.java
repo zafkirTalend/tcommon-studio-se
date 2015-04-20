@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.metadata.managment.mdm;
+package org.talend.core.model.metadata.designerproperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ import java.util.List;
  *
  */
 public enum MDMVersions {
-    MDM_S56("s56", "Version 5.6"),
-    MDM_S60("s60", "Version 6.0");
+    MDM_S56("s56", "Server 5.6"),
+    MDM_S60("s60", "Server 6.0");
 
     String key;
 
@@ -44,6 +44,15 @@ public enum MDMVersions {
         for (MDMVersions version : MDMVersions.values()) {
             if (version.displayName.equals(displayName)) {
                 return version.key;
+            }
+        }
+        return "";
+    }
+
+    public static String getDispalyName(String key) {
+        for (MDMVersions version : MDMVersions.values()) {
+            if (version.key.equals(key)) {
+                return version.displayName;
             }
         }
         return "";

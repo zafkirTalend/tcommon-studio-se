@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
+import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -59,7 +60,6 @@ import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.MDMVersions;
 import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.model.DBConnectionFillerImpl;
@@ -784,7 +784,7 @@ public class MetadataConnectionUtils {
      * @throws ServiceException
      * @noreference This method is not intended to be referenced by clients.
      */
-    public static Stub getXtentisBindingStub(IMetadataConnection metadataBean) throws ServiceException {
+    public static Stub getXtentisBindingStub(IMetadataConnection metadataBean) throws Exception {
 
         AbsMdmConnectionHelper connectionHelper = null;
         if (MDMVersions.MDM_S60.getKey().equals(metadataBean.getVersion())) {
@@ -810,7 +810,7 @@ public class MetadataConnectionUtils {
      * @return
      * @throws ServiceException
      */
-    public static Stub getXtentisBindingStub(MDMConnection dataProvider) throws ServiceException {
+    public static Stub getXtentisBindingStub(MDMConnection dataProvider) throws Exception {
         AbsMdmConnectionHelper connectionHelper = null;
         if (MDMVersions.MDM_S60.getKey().equals(dataProvider.getVersion())) {
             connectionHelper = new S60MdmConnectionHelper();

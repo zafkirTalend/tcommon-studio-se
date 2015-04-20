@@ -28,9 +28,9 @@ import org.eclipse.swt.widgets.Group;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.MDMVersions;
 import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
@@ -67,6 +67,8 @@ public class UniverseForm extends AbstractForm {
 
     private AbsMdmConnectionHelper connectionHelper;
 
+    private String pkRegex = "";
+
     /**
      * DOC Administrator UniverseForm constructor comment.
      * 
@@ -84,6 +86,7 @@ public class UniverseForm extends AbstractForm {
         username = stub.getUsername();
         if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
             connectionHelper = new S60MdmConnectionHelper();
+            pkRegex = "*";
         } else {
             connectionHelper = new S56MdmConnectionHelper();
         }
@@ -117,7 +120,7 @@ public class UniverseForm extends AbstractForm {
 
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
-        if (universList != null) {
+        if (!MDMVersions.MDM_S60.getKey().equals(getConnection().getVersion()) && universList != null) {
             universeCombo = new LabelledCombo(mdmParameterGroup,
                     Messages.getString("UniverseForm_version"), "", universList, true); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -155,25 +158,25 @@ public class UniverseForm extends AbstractForm {
                     } else {
                         stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
                     }
-                    // try {
-                    //                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-                    List<String> models = connectionHelper.getPKs(stub,
-                            "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");//$NON-NLS-1$
-                    //                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-                    List<String> clusters = connectionHelper.getPKs(stub,
-                            "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs");//$NON-NLS-1$
-                    refreshModelCombo(models);
-                    refreshClusterCombo(clusters);
+                    try {
+                        //                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+                        List<String> models = connectionHelper.getPKs(stub,
+                                "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex);//$NON-NLS-1$
+                        //                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+                        List<String> clusters = connectionHelper.getPKs(stub,
+                                "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex);//$NON-NLS-1$
+                        refreshModelCombo(models);
+                        refreshClusterCombo(clusters);
 
-                    getConnection().setUniverse(universeCombo.getText());
-                    getConnection().setDatamodel(modelText.getText());
-                    getConnection().setDatacluster(clusterText.getText());
-                    checkFieldsValue();
-                    // } catch (RemoteException e1) {
-                    //                        modelText.setText("");//$NON-NLS-1$
-                    //                        clusterText.setText("");//$NON-NLS-1$
-                    // ExceptionHandler.process(e1);
-                    // }
+                        getConnection().setUniverse(universeCombo.getText());
+                        getConnection().setDatamodel(modelText.getText());
+                        getConnection().setDatacluster(clusterText.getText());
+                        checkFieldsValue();
+                    } catch (Exception e1) {
+                        modelText.setText("");//$NON-NLS-1$
+                        clusterText.setText("");//$NON-NLS-1$
+                        ExceptionHandler.process(e1);
+                    }
                 }
 
             });
@@ -256,17 +259,18 @@ public class UniverseForm extends AbstractForm {
         } else {
             stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
         }
-        // try {
-        List<String> models = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs");//$NON-NLS-1$
-        //            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-        List<String> clusters = connectionHelper.getPKs(stub,
-                "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs");//$NON-NLS-1$
-        //            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-        refreshModelCombo(models);
-        refreshClusterCombo(clusters);
-        // } catch (RemoteException e1) {
-        // ExceptionHandler.process(e1);
-        // }
+        try {
+            List<String> models = connectionHelper.getPKs(stub,
+                    "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex);//$NON-NLS-1$
+            //            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
+            List<String> clusters = connectionHelper.getPKs(stub,
+                    "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex);//$NON-NLS-1$
+            //            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
+            refreshModelCombo(models);
+            refreshClusterCombo(clusters);
+        } catch (Exception e1) {
+            ExceptionHandler.process(e1);
+        }
 
         if (getConnection().getDatamodel() != null) {
             modelText.setText(getConnection().getDatamodel());
@@ -349,13 +353,16 @@ public class UniverseForm extends AbstractForm {
     }
 
     protected void initUniverse() {
+        if (MDMVersions.MDM_S60.getKey().equals(getConnection().getVersion())) {
+            return;
+        }
         universList.add(0, "[HEAD]");//$NON-NLS-1$
         if (stub == null) {
             return;
         }
         try {
             List<String> universe = connectionHelper.getPKs(stub,
-                    "getDataClusgetUniversePKsterPKs", "org.talend.mdm.webservice.WSGetUniversePKs");//$NON-NLS-1$
+                    "getUniversePKs", "org.talend.mdm.webservice.WSGetUniversePKs", pkRegex);//$NON-NLS-1$
             if (universe != null) {
                 universList.addAll(universe);
             }
@@ -388,6 +395,7 @@ public class UniverseForm extends AbstractForm {
         if (visible && connectionHelper == null) {
             if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
                 connectionHelper = new S60MdmConnectionHelper();
+                pkRegex = "*";
             } else {
                 connectionHelper = new S56MdmConnectionHelper();
             }

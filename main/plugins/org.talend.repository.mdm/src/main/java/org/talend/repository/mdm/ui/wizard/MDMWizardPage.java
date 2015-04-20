@@ -31,6 +31,8 @@ public class MDMWizardPage extends WizardPage {
 
     private final boolean isRepositoryObjectEditable;
 
+    private boolean creation;
+
     /**
      * DOC Administrator MDMWizardPage constructor comment.
      * 
@@ -38,11 +40,13 @@ public class MDMWizardPage extends WizardPage {
      * @param title
      * @param titleImage
      */
-    protected MDMWizardPage(ConnectionItem connectionItem, boolean isRepositoryObjectEditable, String[] existingNames) {
+    protected MDMWizardPage(ConnectionItem connectionItem, boolean isRepositoryObjectEditable, boolean creation,
+            String[] existingNames) {
         super("Talend MDM"); //$NON-NLS-1$
         this.connectionItem = connectionItem;
         this.existingNames = existingNames;
         this.isRepositoryObjectEditable = isRepositoryObjectEditable;
+        this.creation = creation;
         this.setTitle("Talend MDM"); //$NON-NLS-1$
     }
 
@@ -53,7 +57,7 @@ public class MDMWizardPage extends WizardPage {
      */
     @Override
     public void createControl(Composite parent) {
-        mdmForm = new MDMForm(parent, connectionItem, existingNames, this);
+        mdmForm = new MDMForm(parent, connectionItem, existingNames, this, creation);
         mdmForm.setReadOnly(!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {

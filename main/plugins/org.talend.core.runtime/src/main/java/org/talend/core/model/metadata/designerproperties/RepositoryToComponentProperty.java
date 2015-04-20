@@ -729,12 +729,17 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getMDMValue(MDMConnection connection, String value, IMetadataTable table) {
-        if ("MDMURL".equals(value)) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getServer()) && isContextMode(connection, connection.getPort())) {
-                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+        if ("MDM_VERSION".equals(value)) {//$NON-NLS-1$
+            if (connection.getVersion() == null || "".equals(connection.getVersion())) {
+                return MDMVersions.MDM_S56.getKey();
             } else {
-                return TalendQuoteUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-2$
-                        + "/talend/TalendPort");//$NON-NLS-1$
+                return connection.getVersion();
+            }
+        } else if ("MDMURL".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getServerUrl())) {
+                return connection.getServerUrl();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getServerUrl());
             }
         } else if ("USERNAME".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUsername())) {
