@@ -367,7 +367,7 @@ public class RegisterManagement {
             message = Messages.getString("RegisterManagement.impossible"); //$NON-NLS-1$
             break;
         case -110:
-            message = Messages.getString("RegisterManagement.userNameInDatabase"); //$NON-NLS-1$
+            message = Messages.getString("RegisterManagement.userNameOrEmailInDatabase"); //$NON-NLS-1$
             break;
         case -120:
             message = Messages.getString("RegisterManagement.alreadyRegistered"); //$NON-NLS-1$
@@ -394,7 +394,7 @@ public class RegisterManagement {
             message = Messages.getString("RegisterManagement.emailNotInBlackList"); //$NON-NLS-1$
             break;
         case -200:
-            message = Messages.getString("RegisterManagement.userNameInDatabase"); //$NON-NLS-1$
+            message = Messages.getString("RegisterManagement.userNameOrEmailInDatabase"); //$NON-NLS-1$
             break;
         case -210:
             message = Messages.getString("RegisterManagement.userNameCharacter"); //$NON-NLS-1$
