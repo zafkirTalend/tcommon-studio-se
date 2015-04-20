@@ -4548,13 +4548,22 @@ public interface ConnectionPackage extends EPackage {
     int MDM_CONNECTION__CONTEXT = CONNECTION_FEATURE_COUNT + 9;
 
     /**
+     * The feature id for the '<em><b>Server Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__SERVER_URL = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
      * The number of structural features of the '<em>MDM Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int MDM_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 10;
+    int MDM_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
@@ -20055,6 +20064,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Context();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServerUrl <em>Server Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Url</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getServerUrl()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_ServerUrl();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Database Connection</em>'.
@@ -24449,6 +24469,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute MDM_CONNECTION__CONTEXT = eINSTANCE.getMDMConnection_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Server Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__SERVER_URL = eINSTANCE.getMDMConnection_ServerUrl();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.

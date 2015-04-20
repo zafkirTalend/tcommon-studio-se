@@ -234,6 +234,8 @@
         <details key="documentation" value="part of the url for connecting to the server, &#xD;&#xA;the last part that defined the MDM web app context"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serverUrl" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FileFormat">
     <eLiterals name="UNIX"/>
