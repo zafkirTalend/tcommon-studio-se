@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.repository;
 
+import java.util.List;
+
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -36,4 +38,6 @@ public interface IRepositoryComponentDndFilter {
      */
     public boolean except(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType);
+
+    public List<IComponent> sort(List<IComponent> components, Item item, ERepositoryObjectType type, RepositoryNode seletetedNode);
 }
