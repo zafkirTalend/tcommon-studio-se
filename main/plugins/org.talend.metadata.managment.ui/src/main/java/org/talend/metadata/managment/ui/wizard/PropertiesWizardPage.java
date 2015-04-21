@@ -75,6 +75,7 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
 import org.talend.repository.model.IRepositoryService;
@@ -1186,6 +1187,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
         } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
+        } else if (nameText.getText().equalsIgnoreCase(ProjectManager.getInstance().getCurrentProject().getLabel())) {
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.SameAsProjectname"));//$NON-NLS-1$
         } else if (nameModifiedByUser) {
             if (retrieveNameFinished) {
                 if (!isValid(nameText.getText())) {
