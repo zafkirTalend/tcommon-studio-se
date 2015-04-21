@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.repository;
 
+import java.util.List;
+
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -28,6 +30,7 @@ public class DefaultRepositoryComponentDndFilter implements IRepositoryComponent
         super();
     }
 
+    @Override
     public String getRepositoryType(Item item, ERepositoryObjectType type) {
         RepositoryComponentSetting setting = RepositoryComponentManager.getSetting(item, type);
         if (setting != null) {
@@ -36,11 +39,13 @@ public class DefaultRepositoryComponentDndFilter implements IRepositoryComponent
         return null;
     }
 
+    @Override
     public boolean except(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType) {
         return false; // default, no except components to valid
     }
 
+    @Override
     public boolean valid(Item item, ERepositoryObjectType type, RepositoryNode seletetedNode, IComponent component,
             String repositoryType) {
         if (component == null || repositoryType == null) {
@@ -64,6 +69,11 @@ public class DefaultRepositoryComponentDndFilter implements IRepositoryComponent
             }
         }
         return tableWithMap;
+    }
+
+    @Override
+    public List<IComponent> sort(List<IComponent> components, Item item, ERepositoryObjectType type, RepositoryNode seletetedNode) {
+        return components;
     }
 
 }

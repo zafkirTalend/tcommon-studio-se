@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.repository.model.dnd;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
@@ -93,6 +96,25 @@ public class SalesforceComponentDndFilter extends DefaultRepositoryComponentDndF
             }
         }
         return false;
+    }
+
+    @Override
+    public List<IComponent> sort(List<IComponent> components, Item item, ERepositoryObjectType type, RepositoryNode seletetedNode) {
+        if (item instanceof SalesforceSchemaConnectionItem) {
+            if (ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA == type && components != null) {
+                Iterator<IComponent> iter = components.iterator();
+                while (iter.hasNext()) {
+                    IComponent component = iter.next();
+                    if (COMPONENT_T_SALSEFORCE_CONNECTION.equals(component.getName())) {
+                        iter.remove();
+                        components.add(0, component);
+                        return components;
+                    }
+                }
+            }
+
+        }
+        return components;
     }
 
 }
