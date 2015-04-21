@@ -463,6 +463,11 @@
                 clazz="org.talend.core.model.properties.SalesforceSchemaConnectionItem">
           </Item>
        </RepositoryComponent>
+       <DragAndDropFilter
+            clazz="org.talend.core.repository.model.dnd.SalesforceComponentDndFilter"
+            id="org.talend.core.repository.SalesforceComponentDndFilter"
+            name="Salesforce DnD Filter">
+       </DragAndDropFilter>
        <RepositoryComponent
              name="SAS"
              withSchema="true"
