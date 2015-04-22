@@ -117,6 +117,8 @@ public class ContextTreeTable {
 
     private NatTable natTable;
 
+    private ContextNatTableConfiguration contextTableConfiguration;
+
     private Map<String, ContextTreeNode> treeNodes = new HashMap<String, ContextTreeNode>();
 
     private IStructuredSelection currentNatTabSel;
@@ -509,7 +511,8 @@ public class ContextTreeTable {
                 true), bodyDataProvider);
 
         natTable.addConfiguration(natTableConfiguration);
-        natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, contextManager));
+        contextTableConfiguration = new ContextNatTableConfiguration(bodyDataProvider, groupModel, contextManager);
+        natTable.addConfiguration(contextTableConfiguration);
     }
 
     private void addCustomContextMenuBehavior(final IContextModelManager modelManager,
@@ -748,5 +751,9 @@ public class ContextTreeTable {
         protected Composite createToolTipContentArea(Event event, Composite parent) {
             return super.createToolTipContentArea(event, parent);
         }
+    }
+
+    public void notifyFinish() {
+        contextTableConfiguration.notifyFinish();
     }
 }

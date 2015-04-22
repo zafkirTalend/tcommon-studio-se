@@ -31,6 +31,8 @@ public class ContextForm extends AbstractForm {
 
     private boolean readOnly;
 
+    private ContextRepositoryComposite jobContext;
+
     /**
      * DOC nrousseau ContextForm constructor comment.
      * 
@@ -61,7 +63,7 @@ public class ContextForm extends AbstractForm {
      */
     @Override
     protected void addFields() {
-        final ContextRepositoryComposite jobContext = new ContextRepositoryComposite(this, contextManager);
+        jobContext = new ContextRepositoryComposite(this, contextManager);
         jobContext.setLayout(new GridLayout());
         GridData gridData = new GridData();
         gridData.grabExcessHorizontalSpace = true;
@@ -117,6 +119,10 @@ public class ContextForm extends AbstractForm {
     protected void initialize() {
         // TODO Auto-generated method stub
 
+    }
+
+    public void notifyFinish() {
+        jobContext.notifyFinish();
     }
 
 }

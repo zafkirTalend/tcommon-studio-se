@@ -34,6 +34,7 @@ import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.nebula.widgets.nattable.painter.cell.CheckBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ComboBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ImagePainter;
+import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectionEnum;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleUtil;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
@@ -59,6 +60,8 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
     private ColumnGroupModel columnGroupModel;
 
     private IContextManager manager;
+
+    private ProxyDynamicCellEditor cutomCellEditor;
 
     /**
      * DOC ldong ContextNatTableConfiguration constructor comment.
@@ -292,7 +295,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
     }
 
     private void registerColumnFiveTextEditor(IConfigRegistry configRegistry) {
-        ProxyDynamicCellEditor cutomCellEditor = new ProxyDynamicCellEditor(dataProvider, columnGroupModel, manager);
+        cutomCellEditor = new ProxyDynamicCellEditor(dataProvider, columnGroupModel, manager);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, cutomCellEditor, DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_CONTEXT_VALUE);
     }
@@ -326,5 +329,11 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
             return super.canonicalToDisplayValue(canonicalValue);
         }
 
+    }
+
+    public void notifyFinish() {
+        if (cutomCellEditor != null) {
+            cutomCellEditor.commit(MoveDirectionEnum.NONE);
+        }
     }
 }

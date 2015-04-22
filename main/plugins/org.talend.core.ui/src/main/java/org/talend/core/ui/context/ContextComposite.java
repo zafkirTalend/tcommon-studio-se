@@ -309,4 +309,8 @@ public abstract class ContextComposite extends Composite implements IContextMode
         setModifiedFlag(contextManager);
         getCommandStack().execute(new ContextRemoveParameterCommand(getContextManager(), paramNames, sourceId));
     }
+
+    public void notifyFinish() {
+        tableNebulas.notifyFinish();
+    }
 }

@@ -742,4 +742,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         }
     };
 
+    public void notifyFinish() {
+        treeTable.notifyFinish();
+    }
 }

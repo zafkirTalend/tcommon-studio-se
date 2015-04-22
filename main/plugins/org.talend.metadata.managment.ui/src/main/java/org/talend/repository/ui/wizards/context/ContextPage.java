@@ -27,6 +27,8 @@ public class ContextPage extends WizardPage {
 
     IContextManager contextManager;
 
+    ContextForm newControl;
+
     boolean readOnly;
 
     protected ContextPage(String pageName, IContextManager contextManager, boolean readOnly) {
@@ -35,8 +37,14 @@ public class ContextPage extends WizardPage {
         this.readOnly = readOnly;
     }
 
+    @Override
     public void createControl(Composite parent) {
-        this.setControl(new ContextForm(parent, SWT.NONE, null, contextManager, readOnly));
+        newControl = new ContextForm(parent, SWT.NONE, null, contextManager, readOnly);
+        this.setControl(newControl);
+    }
+
+    public void notifyFinish() {
+        newControl.notifyFinish();
     }
 
 }

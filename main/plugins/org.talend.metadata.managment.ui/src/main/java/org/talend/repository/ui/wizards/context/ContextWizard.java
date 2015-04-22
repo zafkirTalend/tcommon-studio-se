@@ -75,6 +75,8 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
 
     private PropertiesWizardPage contextWizardPage0;
 
+    private ContextPage contextPage;
+
     private Property contextProperty;
 
     private ContextItem contextItem;
@@ -202,7 +204,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
             contextWizardPage0.setPageComplete(false);
         }
 
-        ContextPage contextPage = new ContextPage("test", contextManager, !isRepositoryObjectEditable()); //$NON-NLS-1$
+        contextPage = new ContextPage("test", contextManager, !isRepositoryObjectEditable()); //$NON-NLS-1$
         contextPage.setTitle(Messages.getString("ContextWizard.contextPageTitle")); //$NON-NLS-1$
         contextPage.setDescription(Messages.getString("ContextWizard.contextPageDescription")); //$NON-NLS-1$
         addPage(contextPage);
@@ -217,6 +219,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
      */
     @Override
     public boolean performFinish() {
+        contextPage.notifyFinish();
         // TimeMeasure.display = true;
         // TimeMeasure.measureActive = true;
         // TimeMeasure.begin("performFinish");
@@ -238,6 +241,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                     final IPath path = contextWizardPage0.getDestinationPath();
                     final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             try {
                                 factory.create(contextItem, path);
@@ -248,6 +252,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                     };
                     IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                             IWorkspace workspace = ResourcesPlugin.getWorkspace();
                             try {
@@ -300,6 +305,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                     // contextItem.setProperty(ProxyRepositoryFactory.getInstance().getUptodateProperty(contextItem.getProperty()));
                     final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws CoreException {
                             try {
                                 factory.save(contextItem);
@@ -310,6 +316,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                     };
                     IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                             IWorkspace workspace = ResourcesPlugin.getWorkspace();
                             try {
@@ -381,6 +388,7 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
      * 
      * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
      */
+    @Override
     public void init(final IWorkbench workbench, final IStructuredSelection selection2) {
         this.selection = selection2;
     }
