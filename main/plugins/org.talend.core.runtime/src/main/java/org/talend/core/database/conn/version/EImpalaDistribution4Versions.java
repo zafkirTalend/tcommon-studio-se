@@ -17,6 +17,8 @@ import java.util.List;
 
 public enum EImpalaDistribution4Versions {
 
+    CLOUDERA_CDH5_4(EImpalaDistributions.CLOUDERA, "Cloudera CDH5.4", EDatabaseVersion4Drivers.IMPALA_CDH5.getVersionValue()),
+
     CLOUDERA_CDH5_1(EImpalaDistributions.CLOUDERA, "Cloudera CDH5.1", EDatabaseVersion4Drivers.IMPALA_CDH5.getVersionValue()),
 
     CUSTOM(EImpalaDistributions.CUSTOM, "", "");
