@@ -14,7 +14,9 @@ package org.talend.designer.maven.pom;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.model.Dependency;
@@ -60,44 +62,34 @@ public class MavenPomManager {
                 dependencies = new ArrayList<Dependency>();
                 model.setDependencies(dependencies);
             }
-            List<String> oldDependencyIds = new ArrayList<String>();
+
+            // record old list
+            Map<String, Dependency> oldDependenciesMap = new LinkedHashMap<String, Dependency>();
             for (Dependency dependency : dependencies) {
-                oldDependencyIds.add(dependency.getArtifactId());
+                oldDependenciesMap.put(
+                        dependency.getGroupId() + ':' + dependency.getArtifactId() + ':' + dependency.getVersion(), dependency);
             }
+
+            // clear all of old list
             dependencies.clear();
-            List<String> newDependencyIds = new ArrayList<String>();
-            // Dependency routinesDependency = new Dependency();
-            // final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-            // // update the routine artifact.
-            // routinesDependency.setVersion(routinesModel.getVersion());
-            // routinesDependency.setGroupId(routinesModel.getGroupId());
-            // routinesDependency.setArtifactId(routinesModel.getArtifactId());
-            // dependencies.add(routinesDependency);
-            // newDependencyIds.add(routinesDependency.getArtifactId());
-            // Dependency junitDependency = new Dependency();
-            // final Model junitModel = TalendCodeProjectUtil.getJunitTempalteModel();
-            // junitDependency.setVersion(junitModel.getVersion());
-            // junitDependency.setGroupId(junitModel.getGroupId());
-            // junitDependency.setArtifactId(junitModel.getArtifactId());
-            // junitDependency.setScope(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_SCOPE);
-            // dependencies.add(junitDependency);
-            // newDependencyIds.add(junitDependency.getArtifactId());
+            boolean changed = false;
+
             // add the job modules.
+            Set<String> existingJars = new HashSet<String>();
             Set<String> neededLibraries = processor.getNeededLibraries();
             IFolder libFolder = processor.getTalendJavaProject().getLibFolder();
             if (!libFolder.isSynchronized(IResource.DEPTH_ONE)) {
                 libFolder.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
             }
-            Set<String> existingJars = new HashSet<String>();
             for (IResource resource : libFolder.members()) {
                 existingJars.add(resource.getName());
             }
+
             for (String lib : neededLibraries) {
                 if (!existingJars.contains(lib)) {
                     continue;
                 }
                 String name = new Path(lib).removeFileExtension().toString();
-                Dependency dependency = new Dependency();
                 // TODO, if change the scope to other, not system. will change this.
                 String group = name;
                 String artifact = name;
@@ -107,34 +99,28 @@ public class MavenPomManager {
                     // name.
                     // artifact=name;
                 }
+
+                Dependency dependency = new Dependency();
                 dependency.setGroupId(group);
                 dependency.setArtifactId(artifact);
-                dependency.setVersion(version);
+                dependency.setVersion("6.0.0");
                 dependency.setScope("system"); //$NON-NLS-1$
                 dependency.setSystemPath("${system.lib.path}/" + lib); //$NON-NLS-1$
                 dependencies.add(dependency);
-                newDependencyIds.add(dependency.getArtifactId());
+
+                // remove it in old list.
+                String coordinate = dependency.getGroupId() + ':' + dependency.getArtifactId() + ':' + dependency.getVersion();
+                Dependency existedDependency = oldDependenciesMap.remove(coordinate);
+                if (existedDependency != null) { // existed before.
+                    // nothing to do.
+                } else { // added new
+                    changed = true;
+                }
             }
-//            final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
-//            // add children jars to build
-//            for (JobInfo child : clonedChildrenJobInfors) {
-//                Dependency dependency = new Dependency();
-//                final String childJobName = JavaResourcesHelper.escapeFileName(child.getJobName());
-//                String artifact = childJobName;
-//                if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-//                    // must add the version for artifact
-//                    artifact = JavaResourcesHelper.getJobJarName(childJobName, child.getJobVersion());
-//                }
-//                dependency.setGroupId(generateGroupId(child));
-//                dependency.setArtifactId(artifact);
-//                dependency.setVersion(child.getJobVersion());
-//                dependencies.add(dependency);
-//                newDependencyIds.add(dependency.getArtifactId());
-//            }
-            boolean changed = oldDependencyIds.retainAll(newDependencyIds);
-            if (!changed) {
-                changed = newDependencyIds.retainAll(oldDependencyIds);
-            }
+
+            // add the left dependencies to make sure all jobs can be compile ok.
+            dependencies.addAll(oldDependenciesMap.values());
+
             if (changed) {
                 PomManager.savePom(progressMonitor, model, pomFile);
             }
