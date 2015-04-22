@@ -152,6 +152,12 @@ public enum EDatabaseVersion4Drivers {
             "slf4j-log4j12-1.6.1.jar", "hive-exec-0.12.0-cdh5.0.4.jar", "httpcore-4.2.5.jar", "httpclient-4.2.5.jar",
             "hadoop-core-1.0.0.jar" })),
 
+    IMPALA_CDH5_4(new DbVersion4Drivers(EDatabaseTypeName.IMPALA, "Cloudera 5_4", "CLOUDERA_5_4", new String[] {
+            "hive-metastore-1.1.0-cdh5.4.0.jar", "hive-jdbc-1.1.0-cdh5.4.0.jar", "hive-service-1.1.0-cdh5.4.0.jar",
+            "hive-common-1.1.0-cdh5.4.0.jar", "libthrift-0.9.2.jar", "libfb303-0.9.2.jar", "hadoop-common-2.6.0-cdh5.4.0.jar",
+            "httpcore-4.2.5.jar", "httpclient-4.2.5.jar", "commons-logging-1.1.3.jar", "slf4j-api-1.7.5.jar",
+            "slf4j-log4j12-1.7.5.jar", "log4j-1.2.17.jar" })),
+
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$
 
     private DbVersion4Drivers dbVersionBean;
