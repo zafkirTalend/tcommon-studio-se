@@ -27,11 +27,11 @@ public class MRRunStat implements Runnable {
 
     private java.net.Socket s;
 
-    private java.io.PrintWriter pred;
+    protected java.io.PrintWriter pred;
 
     private boolean jobIsFinished = false;
 
-    private List<StatBean> messages = new ArrayList<StatBean>();
+    private List<StatBean> messages = new ArrayList<>();
 
     public class StatBean {
 
@@ -156,6 +156,7 @@ public class MRRunStat implements Runnable {
         t.start();
     }
 
+    @Override
     public void run() {
         if (!debug) {
             synchronized (this) {
