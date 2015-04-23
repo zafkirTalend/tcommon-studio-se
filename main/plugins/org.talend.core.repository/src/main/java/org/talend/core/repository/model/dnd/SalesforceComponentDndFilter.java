@@ -46,23 +46,16 @@ public class SalesforceComponentDndFilter extends DefaultRepositoryComponentDndF
         }
         if (ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA == type) {
             String componentName = component.getName();
-            if (componentName != null) {
-                switch (component.getName()) {
-                case COMPONENT_T_SALSEFORCE_INPUT:
-                case COMPONENT_T_SALSEFORCE_OUTPUT:
-                    return true;
-                }
+            if (COMPONENT_T_SALSEFORCE_INPUT.equals(componentName) || COMPONENT_T_SALSEFORCE_OUTPUT.equals(componentName)) {
+                return true;
             }
         } else if (ERepositoryObjectType.METADATA_SALESFORCE_MODULE == type || ERepositoryObjectType.METADATA_CON_TABLE == type
                 || ERepositoryObjectType.METADATA_CON_COLUMN == type) {
             String componentName = component.getName();
-            if (componentName != null) {
-                switch (component.getName()) {
-                case COMPONENT_T_SALSEFORCE_CONNECTION:
-                case COMPONENT_T_SALSEFORCE_WAVE_BULK_EXEC:
-                case COMPONENT_T_SALSEFORCE_WAVE_OUTPUT_BULK_EXEC:
-                    return true;
-                }
+            if (COMPONENT_T_SALSEFORCE_CONNECTION.equals(componentName)
+                    || COMPONENT_T_SALSEFORCE_WAVE_BULK_EXEC.equals(componentName)
+                    || COMPONENT_T_SALSEFORCE_WAVE_OUTPUT_BULK_EXEC.equals(componentName)) {
+                return true;
             }
         }
         return false;
@@ -76,23 +69,16 @@ public class SalesforceComponentDndFilter extends DefaultRepositoryComponentDndF
         }
         if (ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA == type) {
             String componentName = component.getName();
-            if (componentName != null) {
-                switch (component.getName()) {
-                case COMPONENT_T_SALSEFORCE_CONNECTION:
-                case COMPONENT_T_SALSEFORCE_WAVE_BULK_EXEC:
-                case COMPONENT_T_SALSEFORCE_WAVE_OUTPUT_BULK_EXEC:
-                    return true;
-                }
+            if (COMPONENT_T_SALSEFORCE_CONNECTION.equals(componentName)
+                    || COMPONENT_T_SALSEFORCE_WAVE_BULK_EXEC.equals(componentName)
+                    || COMPONENT_T_SALSEFORCE_WAVE_OUTPUT_BULK_EXEC.equals(componentName)) {
+                return true;
             }
         } else if (ERepositoryObjectType.METADATA_SALESFORCE_MODULE == type || ERepositoryObjectType.METADATA_CON_TABLE == type
                 || ERepositoryObjectType.METADATA_CON_COLUMN == type) {
             String componentName = component.getName();
-            if (componentName != null) {
-                switch (component.getName()) {
-                case COMPONENT_T_SALSEFORCE_INPUT:
-                case COMPONENT_T_SALSEFORCE_OUTPUT:
-                    return true;
-                }
+            if (COMPONENT_T_SALSEFORCE_INPUT.equals(componentName) || COMPONENT_T_SALSEFORCE_OUTPUT.equals(componentName)) {
+                return true;
             }
         }
         return false;
