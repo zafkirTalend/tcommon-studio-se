@@ -58,7 +58,7 @@ public class ConnectionUserPerReader {
     private ConnectionUserPerReader() {
         proper = new EncryptedProperties();
         isRead = false;
-        path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getAbsolutePath();
+        path = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
         String tmp = String.valueOf(path.charAt(path.length() - 1));
         if (!tmp.equals(File.separator)) {
             perfile = new File(path + File.separator + perfileName);
