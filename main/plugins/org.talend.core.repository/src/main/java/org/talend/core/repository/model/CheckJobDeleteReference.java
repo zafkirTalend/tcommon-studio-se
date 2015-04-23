@@ -14,11 +14,11 @@ package org.talend.core.repository.model;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.general.Project;
@@ -33,8 +33,6 @@ import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.ICheckDeleteItemReference;
-import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -47,7 +45,7 @@ import org.talend.repository.ui.actions.DeleteActionCache;
  */
 public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference implements ICheckDeleteItemReference {
 
-	private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
+    private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
 
     private static final String USE_DYNAMIC_JOB = "USE_DYNAMIC_JOB"; //$NON-NLS-1$
 
@@ -74,34 +72,49 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                 }
                 List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsHaveRelationWith(property.getId());
                 if (relations.isEmpty()) {
-                	return list;
+                    return list;
                 }
                 Set<Project> refParentProjects = new HashSet<Project>();
                 try {
                     refParentProjects.add(ProjectManager.getInstance().getCurrentProject());
                     refParentProjects.addAll(ProjectManager.getInstance().getReferencedProjects());
                     for (Project refP : refParentProjects) {
-                        List<IRepositoryViewObject> processes = factory.getAll(refP, ERepositoryObjectType.PROCESS, true);
+
+                        // get all types processes such as standard job, big data streaming job, big data batch job;
+                        // since big data job also support subjobs
+                        List<IRepositoryViewObject> processes = new LinkedList<IRepositoryViewObject>();
+                        List<ERepositoryObjectType> allTypesOfProcess = ERepositoryObjectType.getAllTypesOfProcess();
+                        Iterator<ERepositoryObjectType> processIter = allTypesOfProcess.iterator();
+                        while (processIter.hasNext()) {
+                            ERepositoryObjectType process = processIter.next();
+                            List<IRepositoryViewObject> repositoryViewObjectList = factory.getAll(refP, process, true);
+                            if (repositoryViewObjectList != null) {
+                                processes.addAll(repositoryViewObjectList);
+                            }
+                        }
+
                         deleteActionCache.setProcessList(processes);
-                        for (IRepositoryViewObject process : deleteActionCache.getProcessList()) {
+                        Iterator<IRepositoryViewObject> processObjectIter = deleteActionCache.getProcessList().iterator();
+                        while (processObjectIter.hasNext()) {
+                            IRepositoryViewObject process = processObjectIter.next();
                             Property property2 = process.getProperty();
                             if (isOpenedItem(property2, deleteActionCache.getOpenProcessMap())) {
-                		    	// will be checked in the opened item list.
-                		    	continue;
-                		    }
+                                // will be checked in the opened item list.
+                                continue;
+                            }
                             Relation current = new Relation();
                             current.setId(property2.getId());
                             current.setType(RelationshipItemBuilder.JOB_RELATION);
                             current.setVersion(property2.getVersion());
                             if (!relations.contains(current)) {
-                            	continue;
+                                continue;
                             }
                             boolean isDelete = factory.getStatus(process) == ERepositoryStatus.DELETED;
                             Item item2 = property2.getItem();
                             if (item == item2) {
                                 continue;
                             }
- 
+
                             String path = item2.getState().getPath();
                             boolean found = false;
                             ItemReferenceBean bean = new ItemReferenceBean();
@@ -133,7 +146,7 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                             boolean equals = false;
                             IElementParameter processTypeParam = node.getElementParameter(PROCESS_TYPE_PROCESS);
                             if (processTypeParam != null) {
-                                IElementParameter isUseDynamicJob = node.getElementParameter(USE_DYNAMIC_JOB); //$NON-NLS-1$
+                                IElementParameter isUseDynamicJob = node.getElementParameter(USE_DYNAMIC_JOB);
                                 if (isUseDynamicJob != null && (Boolean) isUseDynamicJob.getValue()) {
                                     String[] jobsID = ((String) processTypeParam.getValue()).split(";"); //$NON-NLS-1$
                                     for (String jobID : jobsID) {
@@ -161,7 +174,7 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                                 bean.setReferenceItemVersion(property2.getVersion());
                                 bean.setReferenceItemType(ERepositoryObjectType.getItemType(item2));
                                 bean.setReferenceItemPath(path);
-                                
+
                                 bean.setReferenceProjectName(ProjectManager.getInstance().getProject(property2).getLabel());
                                 bean.setReferenceItemDeleted(isDelete);
                                 for (ItemReferenceBean b : list) {
