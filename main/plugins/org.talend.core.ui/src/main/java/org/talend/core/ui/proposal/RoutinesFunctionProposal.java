@@ -93,10 +93,10 @@ public class RoutinesFunctionProposal implements IContentProposal {
      */
     @Override
     public String getLabel() {
-        if ("".equals(function.getCategory())) { //$NON-NLS-1$
-            return function.getName();
-        }
-        return function.getCategory() + "." + function.getName(); //$NON-NLS-1$
+        //        if ("".equals(function.getCategory())) { //$NON-NLS-1$
+        // return function.getName();
+        // }
+        //        return function.getCategory() + "." + function.getName(); //$NON-NLS-1$
+        return function.getFunctionString();
     }
-
 }

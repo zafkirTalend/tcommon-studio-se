@@ -178,6 +178,55 @@ public class Function implements Cloneable {
         return fun;
     }
 
+    public String getFunctionString() {
+        StringBuffer funcDetail = new StringBuffer();
+        funcDetail.append(this.getName()).append("("); //$NON-NLS-1$
+        List paramList = this.getParameters();
+        if (paramList != null && !paramList.isEmpty()) {
+            boolean needAddComma = false;
+            int index = 0;
+            for (Object obj : paramList) {
+                if (!(obj instanceof Parameter)) {
+                    continue;
+                }
+                if (needAddComma) {
+                    funcDetail.append(", "); //$NON-NLS-1$
+                } else {
+                    needAddComma = true;
+                }
+                Parameter param = (Parameter) obj;
+                funcDetail.append(param.getType()).append(" "); //$NON-NLS-1$
+                String paramName = param.getName();
+                if (paramName == null || paramName.trim().isEmpty()) {
+                    paramName = "tParam"; //$NON-NLS-1$
+                    if (0 < index) {
+                        paramName += "_" + index; //$NON-NLS-1$
+                    }
+                    ++index;
+                } else {
+                    paramName = paramName.replaceAll("\\W", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+
+                funcDetail.append(paramName);
+            }
+        }
+        funcDetail.append(") : "); //$NON-NLS-1$
+        String retType = this.getTalendType().getName();
+        if (retType == null || retType.trim().isEmpty()) {
+            retType = "void"; //$NON-NLS-1$
+        }
+        funcDetail.append(retType);
+        String clazzName = this.getClassName();
+        if (clazzName != null && !clazzName.trim().isEmpty()) {
+            funcDetail.append(" - ").append(clazzName); //$NON-NLS-1$
+        }
+        String catagory = this.getCategory();
+        if (catagory != null && !catagory.trim().isEmpty() && !catagory.equals(clazzName)) {
+            funcDetail.append(" [").append(catagory).append("]"); //$NON-NLS-1$//$NON-NLS-2$
+        }
+        return funcDetail.toString();
+    }
+
     @SuppressWarnings("unchecked")
     public Function clone(String[] parameters) {
         Function function = (Function) clone();
