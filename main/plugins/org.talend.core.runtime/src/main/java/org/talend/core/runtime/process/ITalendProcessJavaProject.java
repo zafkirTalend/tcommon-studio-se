@@ -64,6 +64,21 @@ public interface ITalendProcessJavaProject {
     IFolder getTestOutputFolder();
 
     /**
+     * src/main/assemblies
+     */
+    IFolder getAssembliesFolder();
+
+    /**
+     * src/main/templates
+     */
+    IFolder getTemplatesFolder();
+
+    /**
+     * src/main/items
+     */
+    IFolder getItemsFolder();
+
+    /**
      * 
      * create sub folder under src/main/java.
      */

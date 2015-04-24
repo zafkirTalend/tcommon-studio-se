@@ -29,9 +29,15 @@ public interface MavenConstants {
     /* same as MavenArtifactComponent.POM */
     static final String PACKAGING_POM = "pom";
 
-    static final String POM_FILE_NAME = IMavenConstants.POM_FILE_NAME;
+    static final String POM_NAME = "pom";
 
-    static final String ASSEMBLY_FILE_NAME = "assembly.xml";
+    static final String XML_EXT = ".xml";
+
+    static final String POM_FILE_NAME = IMavenConstants.POM_FILE_NAME; // POM_NAME+XML_EXT
+
+    static final String ASSEMBLY_NAME = "assembly";
+
+    static final String ASSEMBLY_FILE_NAME = ASSEMBLY_NAME + XML_EXT;
 
     static final String GOAL_CLEAN = "clean";
 

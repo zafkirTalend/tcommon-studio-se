@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.tools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,11 +25,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.utils.PomManager;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
+import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.pom.PomUtil;
+import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -48,24 +49,13 @@ public class MavenPomSynchronizer {
      * generate routine pom.
      */
     public void syncRoutinesPom(boolean overwrite) throws Exception {
-        IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-        IFile routinesPomFile = routinesSrcFolder.getFile(MavenConstants.POM_FILE_NAME);
-        if (overwrite || !routinesPomFile.exists()) {// generate new one
-            CreateTemplateMavenPom createTemplatePom = new CreateTemplateMavenPom(routinesPomFile,
-                    MavenTemplateConstants.ROUTINGS_TEMPLATE_FILE_NAME);
-
-            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-
-            createTemplatePom.setGroupId(routinesModel.getGroupId());
-            createTemplatePom.setArtifactId(routinesModel.getArtifactId());
-            createTemplatePom.setVersion(routinesModel.getVersion());
-
-            createTemplatePom.setOverwrite(overwrite);
-
-            createTemplatePom.create(null);
-
-            routinesSrcFolder.refreshLocal(IResource.DEPTH_ONE, null);
-        }
+        // pom_routines.xml
+        IFile routinesPomFile = codeProject.getProject().getFile(
+                PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID));
+        // generate new one
+        CreateMavenTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
+        createTemplatePom.setOverwrite(overwrite);
+        createTemplatePom.create(null);
     }
 
     /**
@@ -73,7 +63,7 @@ public class MavenPomSynchronizer {
      * sync the bat/sh/jobInfo/project_pom to resources template folder.
      */
     public void syncTemplates(boolean overwrite) throws Exception {
-        IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+        IFolder templateFolder = codeProject.getTemplatesFolder();
 
         IFile shFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(shFile.getName(), shFile, overwrite);
@@ -84,8 +74,8 @@ public class MavenPomSynchronizer {
         IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(infoFile.getName(), infoFile, overwrite);
 
-        IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
-        MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
+        // IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+        // MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
 
         templateFolder.refreshLocal(IResource.DEPTH_ONE, null);
     }
@@ -101,7 +91,7 @@ public class MavenPomSynchronizer {
             // synch the templates first.
             syncTemplates(false);
             //
-            IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+            IFolder templateFolder = codeProject.getTemplatesFolder();
             IFile projectTemplateFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
 
@@ -155,7 +145,7 @@ public class MavenPomSynchronizer {
 
         if (modifed) {
             // save pom.
-            PomManager.savePom(null, projModel, projectPomFile);
+            PomUtil.savePom(null, projModel, projectPomFile);
         }
         // refresh
         codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);

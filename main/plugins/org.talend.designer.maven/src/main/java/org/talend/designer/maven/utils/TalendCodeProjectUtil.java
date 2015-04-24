@@ -11,20 +11,15 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
-import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.internal.IMavenConstants;
-import org.talend.commons.utils.generation.JavaUtils;
-import org.talend.core.model.general.Project;
-import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
-import org.talend.designer.maven.project.CreateMavenCodeProject;
-import org.talend.repository.ProjectManager;
+import org.talend.designer.maven.tools.CreateMavenCodeProject;
 
 /**
  * created by ggu on 23 Jan 2015 Detailled comment
@@ -67,63 +62,6 @@ public final class TalendCodeProjectUtil {
         return codeProject;
     }
 
-    /**
-     * 
-     * just unify for routines with template.
-     */
-    public static Model getRoutinesTempalteModel() {
-        Model routinesModel = new Model();
-
-        routinesModel.setGroupId(getCurProjectGroup());
-        routinesModel.setVersion(JavaUtils.ROUTINE_JAR_DEFAULT_VERSION);
-        routinesModel.setArtifactId(getRoutinesArtifactId());
-        return routinesModel;
-    }
-
-    private static String getRoutinesArtifactId() {
-        String artifact = TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID;
-        if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-            artifact = JavaResourcesHelper.getJobJarName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID,
-                    JavaUtils.ROUTINE_JAR_DEFAULT_VERSION);
-        }
-        return artifact;
-    }
-
-    public static boolean isRoutinesArtifact(String routineArtifact) {
-        if (TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID.equals(routineArtifact)
-                || getRoutinesArtifactId().equals(routineArtifact)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static Model getJunitTempalteModel() {
-        Model junitModel = new Model();
-        junitModel.setGroupId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_GROUP);
-        junitModel.setArtifactId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID);
-        junitModel.setVersion(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_VERSION);
-        return junitModel;
-    }
-
-    public static boolean isJunitArtifact(String artifactId) {
-        if (TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID.equals(artifactId)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 
-     * something like org.talend.demo.
-     */
-    public static String getCurProjectGroup() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        return JavaResourcesHelper.getGroupName(currentProject.getTechnicalLabel());
-    }
-
-    public static String getCompileLevel() {
-        return TalendMavenContants.DEFAULT_JDK_VERSION;
-    }
     // public static IMarker[] getMavenMarks(IFile file) throws CoreException {
     // IMarker[] findMarkers = file.findMarkers(IMavenConstants.MARKER_CONFIGURATION_ID, true, IResource.DEPTH_ONE);
     // return findMarkers;

@@ -10,26 +10,26 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.tools;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.project.CreateMaven;
+import org.talend.designer.maven.template.MavenTemplateManager;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
  *
  */
-public class CreateTemplateMavenPom extends CreateMaven {
+public class CreateMavenTemplatePom extends CreateMaven {
 
     protected static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
 
@@ -39,7 +39,7 @@ public class CreateTemplateMavenPom extends CreateMaven {
 
     private boolean overwrite = true;
 
-    public CreateTemplateMavenPom(IFile pomFile, String templatePomFile) {
+    public CreateMavenTemplatePom(IFile pomFile, String templatePomFile) {
         super();
         this.pomFile = pomFile;
         this.templatePomFile = templatePomFile;
@@ -90,22 +90,26 @@ public class CreateTemplateMavenPom extends CreateMaven {
      */
     @Override
     public void create(IProgressMonitor monitor) throws Exception {
-        if (pomFile == null) {
+        IFile curPomFile = getPomFile();
+        if (curPomFile == null) {
             return;
         }
-        if (!pomFile.getName().equals(MavenConstants.POM_FILE_NAME)) {
-            throw new IOException("Must be pom.xml, shouldn't be specially like: " + pomFile);
-        }
-        if (pomFile.exists()) {
+        // if (!curPomFile.getName().equals(MavenConstants.POM_FILE_NAME)) {
+        // throw new IOException("Must be pom.xml, shouldn't be specially like: " + curPomFile);
+        // }
+        if (curPomFile.exists()) {
             if (isOverwrite()) {
-                pomFile.delete(true, monitor);
+                curPomFile.delete(true, monitor);
             } else {
-                throw new IOException("The pom file have been existed. it's " + pomFile);
+                // throw new IOException("The pom file have been existed. it's " + curPomFile);
+                return;
             }
         }
 
         Model model = createModel();
-        MODEL_MANAGER.createMavenModel(pomFile, model);
+        MODEL_MANAGER.createMavenModel(curPomFile, model);
+
+        curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
 
     }
 
