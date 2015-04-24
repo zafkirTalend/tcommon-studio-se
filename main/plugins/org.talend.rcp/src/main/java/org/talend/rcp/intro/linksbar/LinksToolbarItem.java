@@ -153,7 +153,7 @@ public class LinksToolbarItem extends ContributionItem {
             Label exchangeLabel = new Label(composite, SWT.NONE);
 
             if (registry.get("exchange") == null) { //$NON-NLS-1$
-                registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.gif").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
+                registry.put("exchange", Activator.getImageDescriptor("icons/exchange_view.png").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
             }
             exchangeLabel.setImage(registry.get("exchange")); //$NON-NLS-1$
 
