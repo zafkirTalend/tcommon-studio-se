@@ -114,8 +114,12 @@ public class FileResourcesUnityManager extends FilesManager {
             try {
                 // copy the resouce files to temp folder.
                 FileCopyUtils.copyFolder(originalFile, tmpWorkFolder, interruptable);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
+            } catch (Throwable e) {
+                if (e instanceof InterruptedException && interruptable) {
+                    // if interrutable, needn't to process
+                } else {
+                    ExceptionHandler.process(e);
+                }
             }
 
         } else if (originalFile.isFile()) {
@@ -186,8 +190,12 @@ public class FileResourcesUnityManager extends FilesManager {
                     bis.close();
                 }
             }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+        } catch (Throwable e) {
+            if (e instanceof InterruptedException && interrupable) {
+                // if interrupable, needn't to process
+            } else {
+                ExceptionHandler.process(e);
+            }
         }
     }
 }
