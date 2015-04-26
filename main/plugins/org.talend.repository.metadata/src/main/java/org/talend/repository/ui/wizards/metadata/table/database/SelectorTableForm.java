@@ -1132,7 +1132,13 @@ public class SelectorTableForm extends AbstractForm {
                         }
                         if (tableNodeList.isEmpty()) {
                             if (displayMessageBox) {
-                                openInfoDialogInUIThread(getShell(), "Error", "No catalog or schema exist", true);
+                                parentWizardPage.getShell().getDisplay().asyncExec(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        MessageDialog.openInformation(getShell(), "Error", "No catalog or schema exist");
+                                    }
+                                });
                             }
                         } else {
                             // filter to display the extra context schema if exist after migration from 402 to new
