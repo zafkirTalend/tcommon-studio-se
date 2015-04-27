@@ -1400,7 +1400,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                 typeName = typeName.toUpperCase().trim();
                 typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
                     typeName = "TIMESTAMP"; //$NON-NLS-1$
                 }
                 typeName = MetadataToolHelper.validateValueForDBType(typeName);
@@ -1567,7 +1567,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                     typeName = typeName.toUpperCase().trim();
                     typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                    if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
                         typeName = "TIMESTAMP"; //$NON-NLS-1$
                     }
                     typeName = MetadataToolHelper.validateValueForDBType(typeName);
