@@ -1431,6 +1431,16 @@ public class RepositoryToComponentProperty {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA));
         }
 
+        if (value.equals("IMPALA_VERSION")) {
+            String impalaVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION);
+            if (impalaVersion != null) {
+                if (EDatabaseVersion4Drivers.IMPALA_CDH5.getVersionValue().equals(impalaVersion)) {
+                    impalaVersion = "Cloudera_CDH5_1";
+                }
+            }
+            return impalaVersion;
+        }
+
         return null;
 
     }
