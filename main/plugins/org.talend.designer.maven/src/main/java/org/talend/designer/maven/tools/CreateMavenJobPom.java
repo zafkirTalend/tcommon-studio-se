@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -31,6 +32,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
@@ -414,7 +416,25 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
             Transformer transFormer = transFactory.newTransformer();
             transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
             transFormer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
+
+            // must remove the assembly plugins, else will be some errors.
+            for (String childPomFile : childrenPomsIncludes) {
+                IFile childPom = assemblyFile.getProject().getFile(childPomFile);
+                Model childModel = MODEL_MANAGER.readMavenModel(childPom);
+                List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
+                Iterator<Plugin> childIterator = childPlugins.iterator();
+                while (childIterator.hasNext()) {
+                    Plugin p = childIterator.next();
+                    if (p.getArtifactId().equals("maven-assembly-plugin")) {
+                        childIterator.remove();
+                    }
+
+                }
+                childModel.getBuild().setPlugins(childPlugins);
+                PomUtil.savePom(null, childModel, childPom);
+            }
         }
+
     }
 
     private Node getElement(Node parent, String elemName, int level) {

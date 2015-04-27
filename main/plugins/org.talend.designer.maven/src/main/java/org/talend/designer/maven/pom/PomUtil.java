@@ -18,6 +18,7 @@ import org.apache.maven.model.Parent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.commons.utils.VersionUtils;
@@ -39,6 +40,9 @@ import org.talend.repository.ProjectManager;
 public class PomUtil {
 
     public static void savePom(IProgressMonitor monitor, Model model, IFile pomFile) throws Exception {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
         /*
          * need find one way to do overwrite.
          */
