@@ -51,7 +51,7 @@ public class CreateMavenRoutinePom extends CreateMavenTemplatePom {
         return routineModel;
     }
 
-    protected void addDependencies(Model model) {
+    public static void addDependencies(Model model) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRoutinesService.class)) {
             IRoutinesService routiensService = (IRoutinesService) GlobalServiceRegister.getDefault().getService(
                     IRoutinesService.class);

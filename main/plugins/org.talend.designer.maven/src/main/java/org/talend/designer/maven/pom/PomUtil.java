@@ -202,8 +202,10 @@ public class PomUtil {
         dependency.setGroupId(groupId == null ? TalendMavenContants.DEFAULT_LIB_GROUP_ID : groupId);
         dependency.setArtifactId(artifactId);
         dependency.setVersion(version == null ? TalendMavenContants.DEFAULT_LIB_VERSION : version);
-        dependency.setScope("system");
-        dependency.setSystemPath("${system.lib.path}/" + module);
+
+        // FIXME, if system scope, can't work for the assembly with dependencySets at all.
+        // dependency.setScope("system");
+        // dependency.setSystemPath("${system.lib.path}/" + module);
 
         return dependency;
     }

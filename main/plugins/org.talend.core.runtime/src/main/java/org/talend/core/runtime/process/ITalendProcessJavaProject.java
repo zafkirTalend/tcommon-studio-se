@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.runtime.process;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -27,6 +28,8 @@ public interface ITalendProcessJavaProject {
     IJavaProject getJavaProject();
 
     IProject getProject();
+
+    IFile getProjectPom();
 
     /**
      * src/main/java
@@ -122,4 +125,10 @@ public interface ITalendProcessJavaProject {
      * else will build each modules.
      */
     void buildModules(String goals, String[] childrenModules);
+
+    /**
+     * 
+     * try to clean the pom_xxx.xml and the assembly_xxx.xml, also clean up the pom.xml, like modules, dependencies.
+     */
+    void cleanMavenFiles(IProgressMonitor monitor) throws Exception;
 }
