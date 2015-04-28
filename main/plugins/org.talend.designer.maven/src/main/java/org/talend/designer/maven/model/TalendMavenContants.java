@@ -33,6 +33,8 @@ public interface TalendMavenContants {
 
     static final String DEFAULT_VERSION = "6.0.0";
 
+    static final String MVN_URL_PREFIX = "mvn://";
+
     /*
      * for .Java/pom.xml
      */

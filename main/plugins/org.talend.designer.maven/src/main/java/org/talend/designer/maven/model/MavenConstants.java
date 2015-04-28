@@ -29,6 +29,8 @@ public interface MavenConstants {
     /* same as MavenArtifactComponent.POM */
     static final String PACKAGING_POM = "pom";
 
+    static final String SEPERATOR = ":";
+
     static final String POM_NAME = "pom";
 
     static final String XML_EXT = ".xml";

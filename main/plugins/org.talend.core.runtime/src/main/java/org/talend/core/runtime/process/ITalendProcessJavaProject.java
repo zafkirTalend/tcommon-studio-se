@@ -131,4 +131,5 @@ public interface ITalendProcessJavaProject {
      * try to clean the pom_xxx.xml and the assembly_xxx.xml, also clean up the pom.xml, like modules, dependencies.
      */
     void cleanMavenFiles(IProgressMonitor monitor) throws Exception;
+
 }

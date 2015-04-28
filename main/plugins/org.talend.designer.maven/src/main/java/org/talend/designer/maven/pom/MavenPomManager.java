@@ -13,7 +13,6 @@
 package org.talend.designer.maven.pom;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -50,20 +48,22 @@ public class MavenPomManager {
             List<Dependency> neededDependencies = new ArrayList<Dependency>();
 
             // add the job modules.
-            Set<String> existingJars = new HashSet<String>();
             Set<String> neededLibraries = processor.getNeededLibraries();
-            IFolder libFolder = processor.getTalendJavaProject().getLibFolder();
-            if (!libFolder.isSynchronized(IResource.DEPTH_ONE)) {
-                libFolder.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
-            }
-            for (IResource resource : libFolder.members()) {
-                existingJars.add(resource.getName());
-            }
+
+            // Set<String> existingJars = new HashSet<String>();
+            // IFolder libFolder = processor.getTalendJavaProject().getLibFolder();
+            // if (!libFolder.isSynchronized(IResource.DEPTH_ONE)) {
+            // libFolder.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
+            // }
+            // for (IResource resource : libFolder.members()) {
+            // existingJars.add(resource.getName());
+            // }
 
             for (String lib : neededLibraries) {
-                if (!existingJars.contains(lib)) {
-                    continue;
-                }
+                // if (!existingJars.contains(lib)) {
+                // continue;
+                // }
+
                 Dependency dependency = PomUtil.createModuleSystemScopeDependency(null, lib, null);
                 if (dependency != null) {
                     neededDependencies.add(dependency);
@@ -100,22 +100,28 @@ public class MavenPomManager {
             Map<String, Dependency> existedDependenciesMap = new LinkedHashMap<String, Dependency>();
             if (!fresh) { // just in order to make the performance better.
                 for (Dependency dependency : existedDependencies) {
-                    existedDependenciesMap.put(
-                            dependency.getGroupId() + ':' + dependency.getArtifactId() + ':' + dependency.getVersion(),
-                            dependency);
+                    // need remove the old non-existed dependencies, else won't compile the project.
+                    if (!PomUtil.isAvailable(dependency)) {
+                        continue;
+                    }
+                    existedDependenciesMap.put(PomUtil.generateMvnUrl(dependency), dependency);
                 }
             }
 
             for (Dependency dependency : neededDependencies) {
-                existedDependencies.add(dependency.clone()); // add the needed in the head.
+                Dependency cloneDependency = dependency.clone();
+                // FIXME, need check the new dependency existed or not? or just let the compile error for m2?
+                // if (!PomUtil.isAvailable(cloneDependency)) {
+                // continue;
+                // }
+                existedDependencies.add(cloneDependency); // add the needed in the head.
 
                 if (fresh) {
                     changed = true; // after added, true always
                 } else {
                     // remove it in old list.
-                    String coordinate = dependency.getGroupId() + ':' + dependency.getArtifactId() + ':'
-                            + dependency.getVersion();
-                    Dependency existedDependency = existedDependenciesMap.remove(coordinate);
+                    String mvnUrl = PomUtil.generateMvnUrl(dependency);
+                    Dependency existedDependency = existedDependenciesMap.remove(mvnUrl);
                     if (existedDependency != null) { // existed before.
                         // nothing to do.
                     } else { // added new

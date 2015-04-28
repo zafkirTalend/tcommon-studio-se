@@ -12,15 +12,22 @@
 // ============================================================================
 package org.talend.designer.maven.pom;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
+import org.osgi.framework.Version;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
@@ -28,6 +35,7 @@ import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.runtime.process.MavenArtifact;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.runprocess.IProcessor;
@@ -101,15 +109,6 @@ public class PomUtil {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 
-     * something like org.talend.demo.
-     */
-    public static String getCurProjectGroup() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        return JavaResourcesHelper.getGroupName(currentProject.getTechnicalLabel());
     }
 
     /**
@@ -216,6 +215,15 @@ public class PomUtil {
 
     /**
      * 
+     * something like org.talend.demo.
+     */
+    public static String getCurProjectGroup() {
+        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        return JavaResourcesHelper.getGroupName(currentProject.getTechnicalLabel());
+    }
+
+    /**
+     * 
      * According to the process, generate the groud id, like org.talend.process.di.demo.
      */
     public static String generateGroupId(final IProcessor jProcessor) {
@@ -250,5 +258,149 @@ public class PomUtil {
             return generateGroupId(null, null);
         }
 
+    }
+
+    /**
+     * will build the mvn url with default groupId and version."mvn://org.talend.libraries:<jarName>:6.0.0"
+     */
+    public static String buildMvnUrlByJarName(String jarName) {
+        if (jarName != null && jarName.length() > 0) {
+            // mvn://org.talend.libraries:<jarName>:6.0.0
+            String artifactId = jarName;
+            if (jarName.endsWith(MavenConstants.PACKAGING_JAR)) { // remove the extension .jar
+                artifactId = jarName.substring(0, jarName.lastIndexOf(MavenConstants.PACKAGING_JAR) - 1);
+            }
+            return generateMvnUrl(TalendMavenContants.DEFAULT_LIB_GROUP_ID, artifactId, TalendMavenContants.DEFAULT_VERSION,
+                    null, null);
+            // return TalendMavenContants.MVN_URL_PREFIX + TalendMavenContants.DEFAULT_LIB_GROUP_ID
+            // + TalendMavenContants.MVN_SEPERATOR + jarName + TalendMavenContants.MVN_SEPERATOR
+            // + TalendMavenContants.DEFAULT_VERSION;
+        }
+        return null;
+    }
+
+    /**
+     * if startsWith mvn://, will return true;
+     */
+    public static boolean isMvnUrl(String str) {
+        return str != null && str.startsWith(TalendMavenContants.MVN_URL_PREFIX);
+    }
+
+    public static String generateMvnUrl(Dependency dependency) {
+        if (dependency != null) {
+            return generateMvnUrl(dependency.getGroupId(), dependency.getArtifactId(), dependency.getVersion(),
+                    dependency.getType(), dependency.getClassifier());
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * mvn://groupId:artifactId:packaging:classifier:version
+     */
+    public static String generateMvnUrl(String groupId, String artifactId, String version, String packaging, String classifier) {
+        Assert.isNotNull(groupId);
+        Assert.isNotNull(artifactId);
+        Assert.isNotNull(version);
+        if (packaging == null && classifier != null) {
+            Assert.isTrue(false, "Must set the packaging, when classifier is set.");
+        }
+
+        StringBuffer mvnUrl = new StringBuffer(100);
+        mvnUrl.append(TalendMavenContants.MVN_URL_PREFIX);
+
+        mvnUrl.append(groupId);
+        mvnUrl.append(MavenConstants.SEPERATOR);
+        mvnUrl.append(artifactId);
+
+        if (packaging != null) {
+            mvnUrl.append(MavenConstants.SEPERATOR);
+            mvnUrl.append(packaging);
+            if (classifier != null) {
+                mvnUrl.append(MavenConstants.SEPERATOR);
+                mvnUrl.append(classifier);
+            }
+        }
+        mvnUrl.append(MavenConstants.SEPERATOR);
+        mvnUrl.append(version);
+
+        return mvnUrl.toString();
+    }
+
+    public static MavenArtifact parseMvnUrl(String mvnUrl) {
+        if (mvnUrl == null || !isMvnUrl(mvnUrl)) {
+            return null;
+        }
+        MavenArtifact artifact = new MavenArtifact();
+        StringTokenizer st = new StringTokenizer(mvnUrl.substring(TalendMavenContants.MVN_URL_PREFIX.length()),
+                MavenConstants.SEPERATOR, false);
+        int countTokens = st.countTokens();
+        if (countTokens < 3) {
+            throw new IllegalArgumentException("It's not validated Maven URL:" + mvnUrl);
+        }
+
+        artifact.setGroupId(st.nextToken());
+        artifact.setArtifactId(st.nextToken());
+
+        String type = MavenConstants.PACKAGING_JAR;
+        if (countTokens >= 4) { // has packaging
+            type = st.nextToken();
+        }
+        artifact.setType(type);
+
+        if (countTokens == 5) {// has classifier
+            // classifier is can be null.
+            artifact.setClassifier(st.nextToken());
+        }
+
+        // validate the version
+        Version version = new Version(st.nextToken());
+        artifact.setVersion(version.toString());
+
+        return artifact;
+    }
+
+    public static boolean isAvailable(Dependency dependency) {
+        boolean unavailable = true;
+        if (dependency != null) {
+            try {
+                // only check local repository. the set the remote repositories null.
+                unavailable = MavenPlugin.getMaven().isUnavailable(dependency.getGroupId(), dependency.getArtifactId(),
+                        dependency.getVersion(), dependency.getType(), dependency.getClassifier(), null);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return !unavailable;
+    }
+
+    public static boolean isAvailable(MavenArtifact artifact) {
+        boolean unavailable = true;
+        if (artifact != null) {
+            try {
+                // only check local repository. the set the remote repositories null.
+                unavailable = MavenPlugin.getMaven().isUnavailable(artifact.getGroupId(), artifact.getArtifactId(),
+                        artifact.getVersion(), artifact.getType(), artifact.getClassifier(), null);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return !unavailable;
+    }
+
+    /**
+     * return the list of existed maven artifacts in local repository.
+     */
+    public static Set<String> availableArtifacts(IProgressMonitor monitor, String[] mvnUrls) throws Exception {
+        Set<String> existedMvnUrls = new LinkedHashSet<String>();
+        if (mvnUrls != null) {
+            for (String mvnUrl : mvnUrls) {
+                MavenArtifact artifact = parseMvnUrl(mvnUrl);
+                if (isAvailable(artifact)) {
+                    existedMvnUrls.add(mvnUrl);
+                }
+            }
+        }
+        return existedMvnUrls;
     }
 }
