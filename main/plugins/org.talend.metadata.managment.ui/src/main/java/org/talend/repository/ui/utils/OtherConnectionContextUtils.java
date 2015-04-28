@@ -143,14 +143,15 @@ public final class OtherConnectionContextUtils {
         return varList;
     }
 
-    static void setLdifFilePropertiesForContextMode(String prefixName, LdifFileConnection conn) {
+    static void setLdifFilePropertiesForContextMode(String prefixName, LdifFileConnection conn, ContextItem contextItem,
+            Set<IConnParamName> paramSet) {
         if (conn == null || prefixName == null) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        paramName = prefixName + EParamName.FilePath;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.FilePath);
         conn.setFilePath(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
     }
 
@@ -262,7 +263,8 @@ public final class OtherConnectionContextUtils {
         return varList;
     }
 
-    static void setXmlFilePropertiesForContextMode(String prefixName, XmlFileConnection conn) {
+    static void setXmlFilePropertiesForContextMode(String prefixName, XmlFileConnection conn, ContextItem contextItem,
+            Set<IConnParamName> paramSet) {
         if (conn == null || prefixName == null) {
             return;
         }
@@ -270,20 +272,20 @@ public final class OtherConnectionContextUtils {
         String paramName = null;
 
         if (conn.isInputModel()) {
-            paramName = prefixName + EParamName.XmlFilePath;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.XmlFilePath);
             conn.setXmlFilePath(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
-            paramName = prefixName + EParamName.Encoding;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Encoding);
             conn.setEncoding(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
             EList schema = conn.getSchema();
             if (schema != null) {
                 if (schema.get(0) instanceof XmlXPathLoopDescriptor) {
                     XmlXPathLoopDescriptor descriptor = (XmlXPathLoopDescriptor) schema.get(0);
-                    paramName = prefixName + EParamName.XPathQuery;
+                    paramName = getCorrectVariableName(contextItem, prefixName, EParamName.XPathQuery);
                     descriptor.setAbsoluteXPathQuery(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
                 }
             }
         } else {
-            paramName = prefixName + EParamName.OutputFilePath;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.OutputFilePath);
             conn.setOutputFilePath(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
         }
 
@@ -621,8 +623,8 @@ public final class OtherConnectionContextUtils {
         return originalName;
     }
 
-    static void setSAPConnectionPropertiesForContextMode(String prefixName, SAPConnection sapCon, Set<IConnParamName> paramSet) {
-
+    static void setSAPConnectionPropertiesForContextMode(String prefixName, SAPConnection sapCon, ContextItem contextItem,
+            Set<IConnParamName> paramSet) {
         if (sapCon == null || prefixName == null) {
             return;
         }
@@ -633,7 +635,7 @@ public final class OtherConnectionContextUtils {
             if (param instanceof EParamName) {
                 EParamName sapParam = (EParamName) param;
                 originalVariableName = prefixName + ConnectionContextHelper.LINE;
-                sapVariableName = originalVariableName + sapParam;
+                sapVariableName = getCorrectVariableName(contextItem, originalVariableName, sapParam);
                 setSAPConnnectionBasicPropertiesForContextMode(sapCon, sapParam, sapVariableName);
             }
         }
@@ -1053,35 +1055,36 @@ public final class OtherConnectionContextUtils {
         return varList;
     }
 
-    static void setLDAPSchemaPropertiesForContextMode(String prefixName, LDAPSchemaConnection ldapConn) {
+    static void setLDAPSchemaPropertiesForContextMode(String prefixName, LDAPSchemaConnection ldapConn, ContextItem contextItem,
+            Set<IConnParamName> paramSet) {
         if (ldapConn == null || prefixName == null) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        paramName = prefixName + EParamName.Host;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Host);
         ldapConn.setHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.Port;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Port);
         ldapConn.setPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.BindPrincipal;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.BindPrincipal);
         ldapConn.setBindPrincipal(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.BindPassword;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.BindPassword);
         ldapConn.setBindPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.CountLimit;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.CountLimit);
         ldapConn.setCountLimit(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.TimeOutLimit;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.TimeOutLimit);
         ldapConn.setTimeOutLimit(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.Filter;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Filter);
         ldapConn.setFilter(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-        paramName = prefixName + EParamName.BaseDN;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.BaseDN);
         ldapConn.setSelectedDN(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
     }
 
@@ -1288,47 +1291,48 @@ public final class OtherConnectionContextUtils {
         return varList;
     }
 
-    static void setWSDLSchemaPropertiesForContextMode(String prefixName, WSDLSchemaConnection wsdlConn) {
+    static void setWSDLSchemaPropertiesForContextMode(String prefixName, WSDLSchemaConnection wsdlConn, ContextItem contextItem,
+            Set<IConnParamName> paramSet) {
         if (wsdlConn == null || prefixName == null) {
             return;
         }
         prefixName = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
 
-        paramName = prefixName + EParamName.WSDL;
+        paramName = getCorrectVariableName(contextItem, prefixName, EParamName.WSDL);
         wsdlConn.setWSDL(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
         if (wsdlConn.isIsInputModel()) {
-            paramName = prefixName + EParamName.MethodName;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.MethodName);
             wsdlConn.setMethodName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
         }
         switch (LanguageManager.getCurrentLanguage()) {
         case JAVA:
             if (wsdlConn.isIsInputModel()) {
-                paramName = prefixName + EParamName.UserName;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.UserName);
                 wsdlConn.setUserName(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-                paramName = prefixName + EParamName.Password;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Password);
                 wsdlConn.setPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-                paramName = prefixName + EParamName.ProxyHost;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.ProxyHost);
                 wsdlConn.setProxyHost(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-                paramName = prefixName + EParamName.ProxyPort;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.ProxyPort);
                 wsdlConn.setProxyPort(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-                paramName = prefixName + EParamName.ProxyUser;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.ProxyUser);
                 wsdlConn.setProxyUser(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-                paramName = prefixName + EParamName.ProxyPassword;
+                paramName = getCorrectVariableName(contextItem, prefixName, EParamName.ProxyPassword);
                 wsdlConn.setProxyPassword(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
             }
             break;
         case PERL:
         default:
-            paramName = prefixName + EParamName.EndpointURI;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.EndpointURI);
             wsdlConn.setEndpointURI(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
 
-            paramName = prefixName + EParamName.Encoding;
+            paramName = getCorrectVariableName(contextItem, prefixName, EParamName.Encoding);
             wsdlConn.setEncoding(ContextParameterUtils.getNewScriptCode(paramName, LANGUAGE));
             break;
         }

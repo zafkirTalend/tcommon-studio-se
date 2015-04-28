@@ -362,20 +362,25 @@ public final class ConnectionContextHelper {
         } else if (conn instanceof FileConnection) {
             FileConnectionContextUtils.setPropertiesForContextMode(label, (FileConnection) conn, paramSet);
         } else if (conn instanceof LdifFileConnection) {
-            OtherConnectionContextUtils.setLdifFilePropertiesForContextMode(label, (LdifFileConnection) conn);
+            OtherConnectionContextUtils.setLdifFilePropertiesForContextMode(label, (LdifFileConnection) conn, contextItem,
+                    paramSet);
         } else if (conn instanceof XmlFileConnection) {
-            OtherConnectionContextUtils.setXmlFilePropertiesForContextMode(label, (XmlFileConnection) conn);
+            OtherConnectionContextUtils
+                    .setXmlFilePropertiesForContextMode(label, (XmlFileConnection) conn, contextItem, paramSet);
         } else if (conn instanceof LDAPSchemaConnection) {
-            OtherConnectionContextUtils.setLDAPSchemaPropertiesForContextMode(label, (LDAPSchemaConnection) conn);
+            OtherConnectionContextUtils.setLDAPSchemaPropertiesForContextMode(label, (LDAPSchemaConnection) conn, contextItem,
+                    paramSet);
         } else if (conn instanceof WSDLSchemaConnection) {
-            OtherConnectionContextUtils.setWSDLSchemaPropertiesForContextMode(label, (WSDLSchemaConnection) conn);
+            OtherConnectionContextUtils.setWSDLSchemaPropertiesForContextMode(label, (WSDLSchemaConnection) conn, contextItem,
+                    paramSet);
         } else if (conn instanceof SalesforceSchemaConnection) {
             OtherConnectionContextUtils.setSalesforcePropertiesForContextMode(label, (SalesforceSchemaConnection) conn,
                     contextItem, paramSet, map);
         } else if (conn instanceof GenericSchemaConnection) {
             //
         } else if (conn instanceof SAPConnection) {
-            OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(label, (SAPConnection) conn, paramSet);
+            OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(label, (SAPConnection) conn, contextItem,
+                    paramSet);
         } else {
             ExtendedNodeConnectionContextUtils.setConnectionPropertiesForContextMode(label, conn, paramSet);
         }
