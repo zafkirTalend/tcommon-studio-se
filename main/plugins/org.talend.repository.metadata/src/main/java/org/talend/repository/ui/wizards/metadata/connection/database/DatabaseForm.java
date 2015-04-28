@@ -651,9 +651,13 @@ public class DatabaseForm extends AbstractForm {
         generalJdbcUserText.setText(getConnection().getUsername());
         generalJdbcPasswordText.setText(getConnection().getRawPassword());
 
-        String jarPath = getConnection().getDriverJarPath();
-        IPath path = Path.fromOSString(jarPath);
-        if (path.lastSegment() != null) {
+        String jarPath = null;
+        IPath path = null;
+        jarPath = getConnection().getDriverJarPath();
+        if (jarPath != null) {
+            path = Path.fromOSString(jarPath);
+        }
+        if (path != null && path.lastSegment() != null) {
             generalJdbcDriverjarText.setText(path.lastSegment());
         } else {
             generalJdbcDriverjarText.setText(jarPath);
