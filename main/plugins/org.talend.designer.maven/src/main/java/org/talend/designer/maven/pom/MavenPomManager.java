@@ -93,9 +93,6 @@ public class MavenPomManager {
                 existedDependencies = new ArrayList<Dependency>();
                 model.setDependencies(existedDependencies);
             }
-            // clear all of existed list
-            existedDependencies.clear();
-
             // record existed list
             Map<String, Dependency> existedDependenciesMap = new LinkedHashMap<String, Dependency>();
             if (!fresh) { // just in order to make the performance better.
@@ -107,6 +104,8 @@ public class MavenPomManager {
                     existedDependenciesMap.put(PomUtil.generateMvnUrl(dependency), dependency);
                 }
             }
+            // clear all of existed list
+            existedDependencies.clear();
 
             for (Dependency dependency : neededDependencies) {
                 Dependency cloneDependency = dependency.clone();

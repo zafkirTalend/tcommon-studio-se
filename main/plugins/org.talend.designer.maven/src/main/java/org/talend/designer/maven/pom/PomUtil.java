@@ -360,18 +360,24 @@ public class PomUtil {
         return artifact;
     }
 
-    public static boolean isAvailable(Dependency dependency) {
-        boolean unavailable = true;
+    public static MavenArtifact convertToArtifact(Dependency dependency) {
         if (dependency != null) {
-            try {
-                // only check local repository. the set the remote repositories null.
-                unavailable = MavenPlugin.getMaven().isUnavailable(dependency.getGroupId(), dependency.getArtifactId(),
-                        dependency.getVersion(), dependency.getType(), dependency.getClassifier(), null);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            }
+            MavenArtifact artifact = new MavenArtifact();
+
+            artifact.setGroupId(dependency.getGroupId());
+            artifact.setArtifactId(dependency.getArtifactId());
+            artifact.setVersion(dependency.getVersion());
+            artifact.setClassifier(dependency.getClassifier());
+            artifact.setType(dependency.getType());
+
+            return artifact;
         }
-        return !unavailable;
+        return null;
+    }
+
+    public static boolean isAvailable(Dependency dependency) {
+        MavenArtifact artifact = convertToArtifact(dependency);
+        return artifact != null && isAvailable(artifact);
     }
 
     public static boolean isAvailable(MavenArtifact artifact) {

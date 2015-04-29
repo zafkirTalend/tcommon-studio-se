@@ -110,7 +110,7 @@ public class CreateMavenCodeProject extends CreateMavenTemplatePom {
         if (!p.isOpen()) {
             p.open(monitor);
         }
-        covertJavaProjectToPom(monitor, p);
+        convertJavaProjectToPom(monitor, p);
         changeClasspath(monitor, p);
     }
 
@@ -143,7 +143,7 @@ public class CreateMavenCodeProject extends CreateMavenTemplatePom {
         return;
     }
 
-    private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
+    private void convertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
         IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
             try {
