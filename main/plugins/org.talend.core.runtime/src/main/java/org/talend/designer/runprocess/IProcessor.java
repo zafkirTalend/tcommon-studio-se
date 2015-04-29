@@ -300,6 +300,11 @@ public interface IProcessor {
     Set<JobInfo> getBuildChildrenJobs();
 
     /**
+     * used for old build job system. after maven build, can be removed.
+     */
+    void setOldBuildJob(boolean oldBuildJob);
+
+    /**
      * 
      * build current job or whole project.
      */
