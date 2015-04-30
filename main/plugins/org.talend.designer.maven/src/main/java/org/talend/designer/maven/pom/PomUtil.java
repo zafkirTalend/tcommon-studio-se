@@ -207,8 +207,8 @@ public class PomUtil {
         dependency.setVersion(version == null ? TalendMavenContants.DEFAULT_LIB_VERSION : version);
 
         // FIXME, if system scope, can't work for the assembly with dependencySets at all.
-        // dependency.setScope("system");
-        // dependency.setSystemPath("${system.lib.path}/" + module);
+        dependency.setScope("system");
+        dependency.setSystemPath("${system.lib.path}/" + module);
 
         return dependency;
     }

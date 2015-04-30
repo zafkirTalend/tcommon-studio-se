@@ -26,6 +26,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.process.JobInfo;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.runprocess.IProcessor;
@@ -50,19 +52,20 @@ public class MavenPomManager {
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
 
-            // Set<String> existingJars = new HashSet<String>();
-            // IFolder libFolder = processor.getTalendJavaProject().getLibFolder();
-            // if (!libFolder.isSynchronized(IResource.DEPTH_ONE)) {
-            // libFolder.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
-            // }
-            // for (IResource resource : libFolder.members()) {
-            // existingJars.add(resource.getName());
-            // }
+            List<String> existingJars = new ArrayList<String>();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+                ILibraryManagerService libService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerService.class);
+                Set<String> list = libService.list(progressMonitor);
+                if (list != null) {
+                    existingJars.addAll(list);
+                }
+            }
 
             for (String lib : neededLibraries) {
-                // if (!existingJars.contains(lib)) {
-                // continue;
-                // }
+                if (!existingJars.contains(lib)) {
+                    continue;
+                }
 
                 Dependency dependency = PomUtil.createModuleSystemScopeDependency(null, lib, null);
                 if (dependency != null) {
@@ -98,9 +101,9 @@ public class MavenPomManager {
             if (!fresh) { // just in order to make the performance better.
                 for (Dependency dependency : existedDependencies) {
                     // need remove the old non-existed dependencies, else won't compile the project.
-                    if (!PomUtil.isAvailable(dependency)) {
-                        continue;
-                    }
+                    // if (!PomUtil.isAvailable(dependency)) {
+                    // continue;
+                    // }
                     existedDependenciesMap.put(PomUtil.generateMvnUrl(dependency), dependency);
                 }
             }
