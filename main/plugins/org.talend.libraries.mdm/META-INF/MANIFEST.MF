@@ -8,5 +8,7 @@ Require-Bundle: org.apache.axis;visibility:=reexport,
  javax.wsdl,
  javax.xml.rpc
 Bundle-ClassPath: .,
- lib/commons-discovery-0.2.jar
+ lib/commons-discovery-0.2.jar,
+ lib/mdm_webservice.jar
 Eclipse-BundleShape: dir
+Export-Package: org.talend.mdm.webservice
