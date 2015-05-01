@@ -155,7 +155,7 @@ public class CreateMavenCodeProject extends CreateMavenTemplatePom {
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
 
-                        Model codeProjectTempalteModel = PomUtil.getCodeProjectTempalteModel();
+                        Model codeProjectTempalteModel = PomUtil.getCodeProjectTemplateModel();
 
                         model.setGroupId(codeProjectTempalteModel.getGroupId());
                         model.setArtifactId(codeProjectTempalteModel.getArtifactId());

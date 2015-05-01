@@ -84,7 +84,7 @@ public class PomUtil {
         return templateRoutinesModel;
     }
 
-    public static Model getCodeProjectTempalteModel() {
+    public static Model getCodeProjectTemplateModel() {
         if (templateCodeProjectMOdel == null) {
             templateCodeProjectMOdel = new Model();
 
@@ -179,7 +179,7 @@ public class PomUtil {
             /*
              * same CreateMavenCodeProject.covertJavaProjectToPom
              */
-            codeProjectTempalteModel = PomUtil.getCodeProjectTempalteModel();
+            codeProjectTempalteModel = PomUtil.getCodeProjectTemplateModel();
         }
         parent.setGroupId(codeProjectTempalteModel.getGroupId());
         parent.setArtifactId(codeProjectTempalteModel.getArtifactId());

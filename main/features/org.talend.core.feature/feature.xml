@@ -73,6 +73,10 @@
          id="org.talend.jdt.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.talend.platform.feature"
+         version="0.0.0"/>
+
    <plugin
          id="org.talend.core"
          download-size="0"
