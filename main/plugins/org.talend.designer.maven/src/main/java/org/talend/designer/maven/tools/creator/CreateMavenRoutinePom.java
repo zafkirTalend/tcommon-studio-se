@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.tools;
+package org.talend.designer.maven.tools.creator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ import org.eclipse.core.resources.IFile;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.routines.IRoutinesService;
-import org.talend.designer.maven.pom.PomUtil;
 import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * DOC ggu class global comment. Detailled comment

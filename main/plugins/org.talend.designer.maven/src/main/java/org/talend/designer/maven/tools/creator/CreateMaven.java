@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.tools;
+package org.talend.designer.maven.tools.creator;
 
 import java.util.Properties;
 

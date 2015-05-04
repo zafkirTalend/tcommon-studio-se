@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.pom;
+package org.talend.designer.maven.utils;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -96,7 +96,7 @@ public class PomUtil {
         return templateCodeProjectMOdel;
     }
 
-    public static Model getJunitTempalteModel() {
+    public static Model getJunitTemplateModel() {
         Model junitModel = new Model();
         junitModel.setGroupId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_GROUP);
         junitModel.setArtifactId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID);
@@ -166,24 +166,24 @@ public class PomUtil {
             parent = new Parent();
             curModel.setParent(parent);
         }
-        Model codeProjectTempalteModel = null;
+        Model codeProjectTemplateModel = null;
         try {
             IFile projectPomFile = curPomFile.getParent().getFile(new Path(MavenConstants.POM_FILE_NAME));
             if (projectPomFile.exists()) {
-                codeProjectTempalteModel = MavenPlugin.getMavenModelManager().readMavenModel(projectPomFile);
+                codeProjectTemplateModel = MavenPlugin.getMavenModelManager().readMavenModel(projectPomFile);
             }
         } catch (CoreException e) {
             //
         }
-        if (codeProjectTempalteModel == null) {
+        if (codeProjectTemplateModel == null) {
             /*
              * same CreateMavenCodeProject.covertJavaProjectToPom
              */
-            codeProjectTempalteModel = PomUtil.getCodeProjectTemplateModel();
+            codeProjectTemplateModel = PomUtil.getCodeProjectTemplateModel();
         }
-        parent.setGroupId(codeProjectTempalteModel.getGroupId());
-        parent.setArtifactId(codeProjectTempalteModel.getArtifactId());
-        parent.setVersion(codeProjectTempalteModel.getVersion());
+        parent.setGroupId(codeProjectTemplateModel.getGroupId());
+        parent.setArtifactId(codeProjectTemplateModel.getArtifactId());
+        parent.setVersion(codeProjectTemplateModel.getVersion());
 
         parent.setRelativePath("./" + MavenConstants.POM_FILE_NAME);
 

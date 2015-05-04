@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.pom;
+package org.talend.designer.maven.tools;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -26,10 +26,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.process.JobInfo;
 import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 
@@ -37,11 +36,11 @@ import org.talend.designer.runprocess.ProcessorException;
  * created by ycbai on 2015年4月2日 Detailled comment
  *
  */
-public class MavenPomManager {
+public class MavenDependenciesManager {
 
     private final IProcessor processor;
 
-    public MavenPomManager(IProcessor processor) {
+    public MavenDependenciesManager(IProcessor processor) {
         this.processor = processor;
     }
 
@@ -52,20 +51,21 @@ public class MavenPomManager {
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
 
-            List<String> existingJars = new ArrayList<String>();
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
-                ILibraryManagerService libService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                        ILibraryManagerService.class);
-                Set<String> list = libService.list(progressMonitor);
-                if (list != null) {
-                    existingJars.addAll(list);
-                }
-            }
+            // List<String> existingJars = new ArrayList<String>();
+            // if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            // ILibraryManagerService libService = (ILibraryManagerService)
+            // GlobalServiceRegister.getDefault().getService(
+            // ILibraryManagerService.class);
+            // Set<String> list = libService.list(progressMonitor);
+            // if (list != null) {
+            // existingJars.addAll(list);
+            // }
+            // }
 
             for (String lib : neededLibraries) {
-                if (!existingJars.contains(lib)) {
-                    continue;
-                }
+                // if (!existingJars.contains(lib)) {
+                // continue;
+                // }
 
                 Dependency dependency = PomUtil.createModuleSystemScopeDependency(null, lib, null);
                 if (dependency != null) {
@@ -101,9 +101,9 @@ public class MavenPomManager {
             if (!fresh) { // just in order to make the performance better.
                 for (Dependency dependency : existedDependencies) {
                     // need remove the old non-existed dependencies, else won't compile the project.
-                    // if (!PomUtil.isAvailable(dependency)) {
-                    // continue;
-                    // }
+                    if (!PomUtil.isAvailable(dependency)) {
+                        continue;
+                    }
                     existedDependenciesMap.put(PomUtil.generateMvnUrl(dependency), dependency);
                 }
             }

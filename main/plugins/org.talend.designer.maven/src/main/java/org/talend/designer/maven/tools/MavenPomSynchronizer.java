@@ -34,9 +34,11 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
-import org.talend.designer.maven.pom.PomUtil;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
+import org.talend.designer.maven.tools.creator.CreateMavenTemplatePom;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
 
 /**

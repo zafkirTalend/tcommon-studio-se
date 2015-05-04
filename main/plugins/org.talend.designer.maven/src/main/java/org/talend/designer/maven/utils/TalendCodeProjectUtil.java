@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
-import org.talend.designer.maven.tools.CreateMavenCodeProject;
+import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
 
 /**
  * created by ggu on 23 Jan 2015 Detailled comment

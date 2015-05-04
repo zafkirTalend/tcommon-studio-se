@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.tools;
+package org.talend.designer.maven.tools.creator;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -55,10 +55,11 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.pom.MavenPomManager;
-import org.talend.designer.maven.pom.PomUtil;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.MavenDependenciesManager;
+import org.talend.designer.maven.tools.MavenPomSynchronizer;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -83,7 +84,7 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
 
     private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
 
-    private final MavenPomManager pomManager;
+    private final MavenDependenciesManager pomManager;
 
     private IFile assemblyFile;
 
@@ -91,7 +92,7 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
         super(pomFile, MavenTemplateConstants.JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
-        this.pomManager = new MavenPomManager(jobProcessor);
+        this.pomManager = new MavenDependenciesManager(jobProcessor);
     }
 
     public IProcessor getJobProcessor() {

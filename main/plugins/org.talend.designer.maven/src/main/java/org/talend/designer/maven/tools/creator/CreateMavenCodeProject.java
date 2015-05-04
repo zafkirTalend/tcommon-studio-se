@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.tools;
+package org.talend.designer.maven.tools.creator;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
@@ -35,8 +35,8 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
-import org.talend.designer.maven.pom.PomUtil;
 import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * created by ggu on 22 Jan 2015 Detailled comment
@@ -155,11 +155,11 @@ public class CreateMavenCodeProject extends CreateMavenTemplatePom {
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
 
-                        Model codeProjectTempalteModel = PomUtil.getCodeProjectTemplateModel();
+                        Model codeProjectTemplateModel = PomUtil.getCodeProjectTemplateModel();
 
-                        model.setGroupId(codeProjectTempalteModel.getGroupId());
-                        model.setArtifactId(codeProjectTempalteModel.getArtifactId());
-                        model.setVersion(codeProjectTempalteModel.getVersion());
+                        model.setGroupId(codeProjectTemplateModel.getGroupId());
+                        model.setArtifactId(codeProjectTemplateModel.getArtifactId());
+                        model.setVersion(codeProjectTemplateModel.getVersion());
 
                         PomUtil.savePom(monitor, model, pomFile);
 
