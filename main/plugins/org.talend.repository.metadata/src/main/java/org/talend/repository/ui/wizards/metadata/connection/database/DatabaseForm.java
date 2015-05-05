@@ -137,6 +137,7 @@ import org.talend.core.ui.metadata.celleditor.ModuleListDialog;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.hive.EHiveExecutionTypes;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.dialog.HadoopPropertiesDialog;
@@ -369,6 +370,10 @@ public class DatabaseForm extends AbstractForm {
     private Group authenticationGrp;
 
     private Group authenticationGrpForImpala;
+
+    private Group hiveExecutionGrp;
+
+    private LabelledCombo hiveExecutionEngineCombo;
 
     private Button useKerberos;
 
@@ -973,6 +978,7 @@ public class DatabaseForm extends AbstractForm {
         createAuthenticationForHive(typeDbCompositeParent);
         createAuthenticationForImpala(typeDbCompositeParent);
         createAuthenticationForHBase(typeDbCompositeParent);
+        createExecutionFieldsForHive(typeDbCompositeParent);
         createHadoopPropertiesFields(typeDbCompositeParent);
         createHivePropertiesFields(typeDbCompositeParent);
     }
@@ -1119,6 +1125,51 @@ public class DatabaseForm extends AbstractForm {
         initForHBaseAuthentication();
     }
 
+    private void createExecutionFieldsForHive(Composite parent) {
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        hiveExecutionGrp = new Group(parent, SWT.NONE);
+        hiveExecutionGrp.setText(Messages.getString("DatabaseForm.hiveExecution.group")); //$NON-NLS-1$
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+                .applyTo(hiveExecutionGrp);
+
+        GridLayout exeLayout = new GridLayout(4, false);
+        exeLayout.marginHeight = 0;
+        hiveExecutionGrp.setLayout(exeLayout);
+
+        hiveExecutionEngineCombo = new LabelledCombo(
+                hiveExecutionGrp,
+                Messages.getString("DatabaseForm.hiveExecution.engine"), "", EHiveExecutionTypes.getExecutionTypeLabels(), 1, true, SWT.BORDER | SWT.READ_ONLY); //$NON-NLS-1$ //$NON-NLS-2$
+        hiveExecutionEngineCombo.select(0);
+
+        addListenerForHiveExecution();
+        hideHiveExecutionFields(true);
+    }
+
+    private void addListenerForHiveExecution() {
+        hiveExecutionEngineCombo.addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(final ModifyEvent e) {
+                if (isContextMode()) {
+                    return;
+                }
+                EHiveExecutionTypes executionType = EHiveExecutionTypes.getTypeFromLabel(hiveExecutionEngineCombo.getText());
+                if (executionType != null) {
+                    getConnection().getParameters().put(ConnParameterKeys.HIVE_EXECUTION_ENGINE, executionType.getValue());
+                }
+                checkFieldsValue();
+            }
+        });
+    }
+
+    private void hideHiveExecutionFields(boolean hide) {
+        GridData hadoopData = (GridData) hiveExecutionGrp.getLayoutData();
+        hadoopData.exclude = hide;
+        hiveExecutionGrp.setVisible(!hide);
+        hiveExecutionGrp.setLayoutData(hadoopData);
+        hiveExecutionGrp.getParent().layout();
+    }
+
     private void initForHBaseAuthentication() {
         hideControl(authenticationGrpForHBase, true);
         hideControl(authenticationComForImpala, true);
@@ -1178,6 +1229,21 @@ public class DatabaseForm extends AbstractForm {
                     hiveServerIndex);
             if (supportSecurity) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSupportTez() {
+        if (isHiveDBConnSelected()) {
+            int distributionIndex = distributionCombo.getSelectionIndex();
+            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
+            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
+            int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+            if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
+                boolean supportTez = HiveConnUtils.isSupportTez(distributionIndex, hiveVersionIndex, hiveModeIndex,
+                        hiveServerIndex);
+                return supportTez;
             }
         }
         return false;
@@ -4507,6 +4573,7 @@ public class DatabaseForm extends AbstractForm {
             updateHadoopPropertiesFieldsState();
             updateHiveJDBCPropertiesFieldsState();
             showIfAuthentication();
+            hideHiveExecutionFields(!isSupportTez());
 
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
@@ -5260,6 +5327,14 @@ public class DatabaseForm extends AbstractForm {
         principalTxt.setText(Principla == null ? "" : Principla);
         keytabTxt.setText(keytab == null ? "" : keytab);
 
+        String executionEngine = connection.getParameters().get(ConnParameterKeys.HIVE_EXECUTION_ENGINE);
+        EHiveExecutionTypes executionType = EHiveExecutionTypes.getTypeFromValue(executionEngine);
+        if (executionType != null) {
+            hiveExecutionEngineCombo.setText(executionType.getLabel());
+        } else {
+            getConnection().getParameters().put(ConnParameterKeys.HIVE_EXECUTION_ENGINE, null);
+        }
+
         // String hadoopProperties =
         // getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
         // try {
@@ -5329,6 +5404,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveDistributionModify();
                 showIfAuthentication();
+                hideHiveExecutionFields(!isSupportTez());
             }
         });
     }
@@ -5344,6 +5420,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveVersionModify();
                 showIfAuthentication();
+                hideHiveExecutionFields(!isSupportTez());
             }
         });
     }
@@ -5369,6 +5446,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveModeModify();
                 showIfAuthentication();
+                hideHiveExecutionFields(!isSupportTez());
             }
         });
     }
