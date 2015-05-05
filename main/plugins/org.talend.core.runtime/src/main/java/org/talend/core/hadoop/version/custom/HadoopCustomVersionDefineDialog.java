@@ -183,7 +183,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopCustomVersionDialog.topTitle")); //$NON-NLS-1$
-        newShell.setSize(550, 600);
+        newShell.setSize(650, 600);
         setHelpAvailable(false);
     }
 

@@ -103,7 +103,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopVersionDialog.title")); //$NON-NLS-1$
-        newShell.setSize(700, 450);
+        newShell.setSize(810, 450);
         setHelpAvailable(false);
     }
 
