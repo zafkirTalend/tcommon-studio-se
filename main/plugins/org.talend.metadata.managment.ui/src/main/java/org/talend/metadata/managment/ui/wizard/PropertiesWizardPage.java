@@ -114,13 +114,13 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     /** Status text. */
     // protected Text statusText;
-    private CCombo statusText;
+    protected CCombo statusText;
 
     /** Version upgrade major button. */
-    private Button versionMajorBtn;
+    protected Button versionMajorBtn;
 
     /** Version upgrade minor button. */
-    private Button versionMinorBtn;
+    protected Button versionMinorBtn;
 
     protected Text pathText;
 
@@ -136,21 +136,21 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected Property property;
 
-    private IPath destinationPath;
+    protected IPath destinationPath;
 
     private String path;
 
     protected boolean readOnly;
 
-    private StatusHelper statusHelper = null;
+    protected StatusHelper statusHelper = null;
 
-    private boolean editPath = true;
+    protected boolean editPath = true;
 
     private List<IRepositoryViewObject> listExistingObjects;
 
     protected boolean retrieveNameFinished = false;
 
-    private static final boolean NEED_CANCEL_BUTTON = true;
+    protected static final boolean NEED_CANCEL_BUTTON = true;
 
     private String lastVersionFound;
 
@@ -161,7 +161,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean isSaveAs = false;
 
-    private boolean allowVerchange = true;
+    protected boolean allowVerchange = true;
 
     private Item item;
 
@@ -829,7 +829,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
-    private void openFolderSelectionDialog(boolean needCancelButton) {
+    protected void openFolderSelectionDialog(boolean needCancelButton) {
 
         // ListDialog dlg = new ListDialog(getShell());
         // dlg.setInput(getRepositoryObjectType());
