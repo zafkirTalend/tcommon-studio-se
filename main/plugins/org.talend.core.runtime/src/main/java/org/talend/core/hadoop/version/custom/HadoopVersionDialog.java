@@ -31,6 +31,7 @@ import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
@@ -86,6 +87,8 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     private Map<ECustomVersionGroup, Boolean> existVersionSelectionMap = new HashMap<ECustomVersionGroup, Boolean>();
 
     private Map<ECustomVersionGroup, Boolean> fromZipSelectionMap = new HashMap<ECustomVersionGroup, Boolean>();
+
+    private Map<ECustomVersionType, Map<String, Object>> typeConfigurations = new HashMap<ECustomVersionType, Map<String, Object>>();
 
     public HadoopVersionDialog(Shell parentShell, Map<ECustomVersionGroup, String> groupsAndDispaly,
             HadoopCustomLibrariesUtil customLibUtil, ECustomVersionType[] types) {
@@ -338,7 +341,23 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     }
 
     protected List<String> getDistributions() {
-        List<String> distributions = EHadoopDistributions.getAllDistributionDisplayNames();
+        List<String> distributions = null;
+        if (isSparkJob()) {
+            EHadoopVersion4Drivers hadoopVersions[] = EHadoopVersion4Drivers.values();
+            Set<EHadoopDistributions> hadoopDistributions = new HashSet<EHadoopDistributions>();
+            for (EHadoopVersion4Drivers hadoopVersion : hadoopVersions) {
+                if (hadoopVersion.isSupportSpark()) {
+                    hadoopDistributions.add(hadoopVersion.getDistribution());
+                }
+            }
+            distributions = new ArrayList<String>(hadoopDistributions.size());
+            for (EHadoopDistributions hadoopDistribution : hadoopDistributions) {
+                distributions.add(hadoopDistribution.getDisplayName());
+            }
+
+        } else {
+            distributions = EHadoopDistributions.getAllDistributionDisplayNames();
+        }
         distributions.remove(EHadoopDistributions.CUSTOM.getDisplayName());
 
         return distributions;
@@ -346,11 +365,28 @@ public class HadoopVersionDialog extends TitleAreaDialog {
 
     protected List<String> getVersions(EHadoopDistributions dis) {
         List<String> result = new ArrayList<String>();
+        boolean isSparkJob = isSparkJob();
         List<EHadoopVersion4Drivers> v4dList = EHadoopVersion4Drivers.indexOfByDistribution(dis);
         for (EHadoopVersion4Drivers v4d : v4dList) {
-            result.add(v4d.getVersionDisplay());
+            boolean needToAdd = true;
+            if (isSparkJob && !v4d.isSupportSpark()) {
+                needToAdd = false;
+            }
+
+            if (needToAdd) {
+                result.add(v4d.getVersionDisplay());
+            }
         }
         return result;
+    }
+
+    protected boolean isSparkJob() {
+        if (types != null && types.length == 1
+                && (types[0] == ECustomVersionType.SPARK || types[0] == ECustomVersionType.SPARK_STREAMING)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void updateVersionPart() {
@@ -414,6 +450,8 @@ public class HadoopVersionDialog extends TitleAreaDialog {
                                         hadoopLibraries = getLibrariesForPig(type);
                                     } else if (ECustomVersionType.MAP_REDUCE == type) {
                                         hadoopLibraries = getLibrariesForMapReduce(type);
+                                    } else if (ECustomVersionType.SPARK == type || ECustomVersionType.SPARK_STREAMING == type) {
+                                        hadoopLibraries = getLibrariesForSpark(type);
                                     } else {
                                         // fix for TDI-25676 HCATALOG and OOZIE should use the same jars as HDFS
                                         if (!commonGroupCalculated
@@ -475,6 +513,39 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         return neededLibraries;
     }
 
+    private Set<String> getLibrariesForSpark(ECustomVersionType type) {
+        Set<String> neededLibraries = new HashSet<String>();
+
+        String paletteType = ""; //$NON-NLS-1$
+        if (ECustomVersionType.SPARK == type) {
+            paletteType = ComponentCategory.CATEGORY_4_SPARK.getName();
+        } else if (ECustomVersionType.SPARK_STREAMING == type) {
+            paletteType = ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName();
+        }
+
+        INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService().getRefrenceNode("tSparkConfiguration", paletteType);//$NON-NLS-1$
+
+        IElementParameter elementParameter = node.getElementParameter("DISTRIBUTION");//$NON-NLS-1$
+        elementParameter.setValue(distribution);
+
+        elementParameter = node.getElementParameter("SPARK_VERSION");//$NON-NLS-1$
+        elementParameter.setValue(version);
+
+        Map<String, Object> sparkConfigurations = typeConfigurations.get(ECustomVersionType.SPARK);
+        String sparkMode = sparkConfigurations.get(HadoopConstants.SPARK_MODE).toString();
+
+        elementParameter = node.getElementParameter("SPARK_MODE");//$NON-NLS-1$
+        elementParameter.setValue(sparkMode);
+
+        List<ModuleNeeded> modulesNeeded = node.getModulesNeeded();
+        for (ModuleNeeded module : modulesNeeded) {
+            if (module.isRequired(node.getElementParameters())) {
+                neededLibraries.add(module.getModuleName());
+            }
+        }
+        return neededLibraries;
+    }
+
     private Set<String> getLibrariesForPig(ECustomVersionType type) {
         Set<String> neededLibraries = new HashSet<String>();
         INode node = CoreRuntimePlugin.getInstance().getDesignerCoreService().getRefrenceNode("tPigLoad");//$NON-NLS-1$
@@ -510,4 +581,13 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         }
         return neededLibraries;
     }
+
+    public Map<ECustomVersionType, Map<String, Object>> getTypeConfigurations() {
+        return this.typeConfigurations;
+    }
+
+    public void setTypeConfigurations(Map<ECustomVersionType, Map<String, Object>> typeConfigurations) {
+        this.typeConfigurations = typeConfigurations;
+    }
+
 }
