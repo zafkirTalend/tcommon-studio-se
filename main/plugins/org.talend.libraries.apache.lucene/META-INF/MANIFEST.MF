@@ -4,7 +4,7 @@ Bundle-Name: Lucene plug-in
 Bundle-SymbolicName: org.talend.libraries.apache.lucene
 Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: .Talend SA.
-Bundle-ClassPath: lib/lucene-core-3.0.1.jar,
+Bundle-ClassPath: lib/lucene-core-3.0.3.jar,
  .
 Export-Package: org.apache.lucene,
  org.apache.lucene.analysis,
