@@ -113,6 +113,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     protected void adjustForNumColumns(int numColumns) {
         Control control = getLabelControl();
         ((GridData) control.getLayoutData()).horizontalSpan = numColumns;
@@ -156,6 +157,7 @@ public abstract class TableEditor extends FieldEditor {
     public void createSelectionListener() {
         selectionListener = new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 Widget widget = event.widget;
                 if (widget == addButton) {
@@ -176,6 +178,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     protected void doFillIntoGrid(Composite parent, int numColumns) {
         Control control = getLabelControl(parent);
         GridData gd = new GridData();
@@ -198,6 +201,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     protected void doLoad() {
         if (viewer != null) {
             String s = getPreferenceStore().getString(getPreferenceName());
@@ -213,6 +217,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     protected void doLoadDefault() {
         if (viewer != null) {
             list.clear();
@@ -229,6 +234,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     protected void doStore() {
         String s = writeString(list);
         if (s != null) {
@@ -308,7 +314,8 @@ public abstract class TableEditor extends FieldEditor {
     protected void editItem(ISelection sel) {
         IStructuredSelection selection = (IStructuredSelection) sel;
         String existing = (String) selection.getFirstElement();
-        String value = getExistingInputObject(existing.replace(" ", ""));
+        // String value = getExistingInputObject(existing.replace(" ", ""));
+        String value = getExistingInputObject(existing);
         if (value != null) {
             int indexOf = list.indexOf(existing);
             list.remove(existing);
@@ -338,6 +345,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     public int getNumberOfControls() {
         return 2;
     }
@@ -423,6 +431,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * (non-Javadoc) Method declared on FieldEditor.
      */
+    @Override
     public void setFocus() {
         if (viewer != null) {
             viewer.getTable().setFocus();
@@ -457,6 +466,7 @@ public abstract class TableEditor extends FieldEditor {
     /*
      * @see FieldEditor.setEnabled(boolean,Composite).
      */
+    @Override
     public void setEnabled(boolean enabled, Composite parent) {
         super.setEnabled(enabled, parent);
         setControlEnable(getTableControl(parent).getTable(), enabled);

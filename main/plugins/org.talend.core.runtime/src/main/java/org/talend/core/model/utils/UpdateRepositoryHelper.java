@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.designerproperties.RepositoryToComponentProperty;
@@ -57,6 +60,16 @@ public final class UpdateRepositoryHelper {
             source = source + UpdatesConstants.COLON + item.getProperty().getLabel();
         }
         return source;
+    }
+
+    public static List<String> getAllHadoopConnectionTypes() {
+        List<String> hadoopTypeList = new ArrayList<String>();
+        hadoopTypeList.add("METADATA_NOSQL_CONNECTIONS"); //$NON-NLS-1$
+        hadoopTypeList.add("HADOOPCLUSTER"); //$NON-NLS-1$
+        hadoopTypeList.add("HCATALOG"); //$NON-NLS-1$
+        hadoopTypeList.add("HDFS"); //$NON-NLS-1$
+        hadoopTypeList.add("OOZIE"); //$NON-NLS-1$
+        return hadoopTypeList;
     }
 
 }

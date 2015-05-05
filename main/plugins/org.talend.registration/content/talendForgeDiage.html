@@ -407,7 +407,9 @@
 			window.location.href=getLoginAccountUrl();
 		}
 	}
-	
+	function skipFunction(){
+         window.location.href="http://org.eclipse.ui.intro/runAction?pluginId=org.talend.registration&amp;class=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;id=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;type=SKIP"
+    }
      </script>
  </head>
 <body>
@@ -607,7 +609,7 @@
                  <a style="text-align:center;" href="#" class="bottomButton" onClick="switchToView('useExsitingAccountDiv')"><internationalization id="TalendForgeDialog.ConnectExistingButton" /></a>
                </td>
                <td widht="50%">
-                 <a style="text-align:center;" class="bottomButton" href="http://org.eclipse.ui.intro/runAction?pluginId=org.talend.registration&amp;class=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;id=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;type=SKIP"><internationalization id="TalendForgeDialog.skipButton.version1" /></a>
+			     <a style="text-align:center;" class="bottomButton" href="#" onClick="skipFunction()"><internationalization id="TalendForgeDialog.skipButton.version1" /></a>
 			   </td>
 			 </tr>
 			 </tbody>
@@ -705,7 +707,7 @@
        <a style="text-align:center;" href="#" class="bottomButton" onClick="switchToView('createAccountDiv')"><internationalization id="TalendForgeDialog.CreateNewButton" /></a>
       </td>
 		<td width="50%">
-           <a style="text-align:center;" class="bottomButton" href="http://org.eclipse.ui.intro/runAction?pluginId=org.talend.registration&amp;class=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;id=org.talend.registration.wizards.register.ui.htmlcontent.TalendForgeRegistAction&amp;type=SKIP"><internationalization id="TalendForgeDialog.skipButton.version1" /></a>
+           <a style="text-align:center;" class="bottomButton" href="#" onClick="skipFunction()"><internationalization id="TalendForgeDialog.skipButton.version1" /></a>
 		</td>
 	  </tr>
 	  </tbody></table>

@@ -1298,6 +1298,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_ServerUrl() {
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4275,6 +4284,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(mdmConnectionEClass, MDM_CONNECTION__SCHEMAS);
         createEAttribute(mdmConnectionEClass, MDM_CONNECTION__PROTOCOL);
         createEAttribute(mdmConnectionEClass, MDM_CONNECTION__CONTEXT);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__SERVER_URL);
 
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
@@ -4977,6 +4987,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getMDMConnection_Context(), theCorePackage.getString(), "context", "talend/TalendPort", 1, 1,
                 MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
+        initEAttribute(getMDMConnection_ServerUrl(), ecorePackage.getEString(), "serverUrl", null, 1, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(mdmConnectionEClass, theCorePackage.getString(), "getConnectionString", 0, 1, IS_UNIQUE, IS_ORDERED);
 

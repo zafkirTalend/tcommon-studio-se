@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.project;
+package org.talend.designer.maven.tools;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
@@ -35,17 +35,14 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
-import org.talend.designer.maven.model.TalendMavenContants;
-import org.talend.designer.maven.template.CreateTemplateMavenPom;
+import org.talend.designer.maven.pom.PomUtil;
 import org.talend.designer.maven.template.MavenTemplateConstants;
-import org.talend.designer.maven.utils.PomManager;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 
 /**
  * created by ggu on 22 Jan 2015 Detailled comment
  *
  */
-public class CreateMavenCodeProject extends CreateTemplateMavenPom {
+public class CreateMavenCodeProject extends CreateMavenTemplatePom {
 
     private IProject project;
 
@@ -113,9 +110,8 @@ public class CreateMavenCodeProject extends CreateTemplateMavenPom {
         if (!p.isOpen()) {
             p.open(monitor);
         }
-        // covertJavaProjectToPom(monitor, p);
-        // changeClasspath(monitor, p);
-        resetProjectInfro(p, monitor);
+        convertJavaProjectToPom(monitor, p);
+        changeClasspath(monitor, p);
     }
 
     @Override
@@ -147,27 +143,7 @@ public class CreateMavenCodeProject extends CreateTemplateMavenPom {
         return;
     }
 
-    private void resetProjectInfro(IProject p, IProgressMonitor monitor) {
-        IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
-        if (pomFile.exists()) {
-            try {
-                MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
-                MavenProject mavenProject = mavenModelManager.readMavenProject(pomFile, monitor);
-                if (mavenProject != null) {
-                    Model model = mavenProject.getOriginalModel();
-                    model.setGroupId(TalendMavenContants.DEFAULT_GROUP_ID);
-                    model.setArtifactId(TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
-                    model.setPackaging(MavenConstants.PACKAGING_JAR);
-                    PomManager.savePom(monitor, model, pomFile);
-                    p.refreshLocal(IResource.DEPTH_ONE, monitor);
-                }
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-        }
-    }
-
-    private void covertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
+    private void convertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
         IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
             try {
@@ -178,12 +154,14 @@ public class CreateMavenCodeProject extends CreateTemplateMavenPom {
                     // if not pom, change to pom
                     if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(MavenConstants.PACKAGING_POM);
-                        // TalendMavenContants.DEFAULT_GROUP_ID
-                        model.setGroupId(TalendCodeProjectUtil.getCurProjectGroup());
-                        // TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID,
-                        model.setArtifactId(model.getGroupId() + ".sources"); //$NON-NLS-1$
 
-                        PomManager.savePom(monitor, model, pomFile);
+                        Model codeProjectTempalteModel = PomUtil.getCodeProjectTemplateModel();
+
+                        model.setGroupId(codeProjectTempalteModel.getGroupId());
+                        model.setArtifactId(codeProjectTempalteModel.getArtifactId());
+                        model.setVersion(codeProjectTempalteModel.getVersion());
+
+                        PomUtil.savePom(monitor, model, pomFile);
 
                         p.refreshLocal(IResource.DEPTH_ONE, monitor);
                     }

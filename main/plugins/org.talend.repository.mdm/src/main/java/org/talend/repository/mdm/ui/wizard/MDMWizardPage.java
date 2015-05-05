@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
+import org.apache.axis.client.Stub;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.mdm.webservice.XtentisBindingStub;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 
 /**
@@ -31,6 +31,8 @@ public class MDMWizardPage extends WizardPage {
 
     private final boolean isRepositoryObjectEditable;
 
+    private boolean creation;
+
     /**
      * DOC Administrator MDMWizardPage constructor comment.
      * 
@@ -38,11 +40,13 @@ public class MDMWizardPage extends WizardPage {
      * @param title
      * @param titleImage
      */
-    protected MDMWizardPage(ConnectionItem connectionItem, boolean isRepositoryObjectEditable, String[] existingNames) {
+    protected MDMWizardPage(ConnectionItem connectionItem, boolean isRepositoryObjectEditable, boolean creation,
+            String[] existingNames) {
         super("Talend MDM"); //$NON-NLS-1$
         this.connectionItem = connectionItem;
         this.existingNames = existingNames;
         this.isRepositoryObjectEditable = isRepositoryObjectEditable;
+        this.creation = creation;
         this.setTitle("Talend MDM"); //$NON-NLS-1$
     }
 
@@ -51,12 +55,14 @@ public class MDMWizardPage extends WizardPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
-        mdmForm = new MDMForm(parent, connectionItem, existingNames, this);
+        mdmForm = new MDMForm(parent, connectionItem, existingNames, this, creation);
         mdmForm.setReadOnly(!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     MDMWizardPage.this.setPageComplete(false);
@@ -75,7 +81,7 @@ public class MDMWizardPage extends WizardPage {
         }
     }
 
-    public XtentisBindingStub getXtentisBindingStub() {
+    public Stub getXtentisBindingStub() {
         return mdmForm.getXtentisBindingStub();
     }
 

@@ -38,6 +38,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCo
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.datatools.xml.utils.XPathPopulationUtil;
@@ -138,9 +139,11 @@ public class XmlToSchemaDragAndDropHandler {
      */
     class TreeDragSourceListener implements TransferDragSourceListener {
 
+        @Override
         public void dragFinished(DragSourceEvent event) {
         }
 
+        @Override
         public void dragSetData(DragSourceEvent event) {
             // System.out.println("\n>>dragSetData");
             // System.out.println(event);
@@ -148,6 +151,7 @@ public class XmlToSchemaDragAndDropHandler {
             // }
         }
 
+        @Override
         public void dragStart(DragSourceEvent event) {
             // System.out.println("\n>>dragStart");
             // System.out.println(event);
@@ -165,6 +169,7 @@ public class XmlToSchemaDragAndDropHandler {
             }
         }
 
+        @Override
         public Transfer getTransfer() {
             return XPathTransfer.getInstance();
         }
@@ -179,6 +184,7 @@ public class XmlToSchemaDragAndDropHandler {
      */
     public class TableDropTargetListener implements TransferDropTargetListener {
 
+        @Override
         public void dragEnter(DropTargetEvent event) {
             dragEnterExecute(event);
         }
@@ -192,16 +198,19 @@ public class XmlToSchemaDragAndDropHandler {
             fieldsTable.setFocus();
         }
 
+        @Override
         public void dragOver(DropTargetEvent event) {
             // System.out.println("\n>>dragOver");
 
         }
 
+        @Override
         public void dragLeave(DropTargetEvent event) {
             // System.out.println("\n>>dragLeave");
             // System.out.println(event);
         }
 
+        @Override
         public void dragOperationChanged(DropTargetEvent event) {
             // System.out.println("\n>>dragOperationChanged");
             // showInfos(event);
@@ -209,6 +218,7 @@ public class XmlToSchemaDragAndDropHandler {
 
         }
 
+        @Override
         public void dropAccept(DropTargetEvent event) {
             // System.out.println("\n>>dropAccept");
             // System.out.println(event);
@@ -221,6 +231,7 @@ public class XmlToSchemaDragAndDropHandler {
          * 
          * @see org.eclipse.jface.util.TransferDropTargetListener#getTransfer()
          */
+        @Override
         public Transfer getTransfer() {
             return null;
         }
@@ -230,6 +241,7 @@ public class XmlToSchemaDragAndDropHandler {
          * 
          * @see org.eclipse.jface.util.TransferDropTargetListener#isEnabled(org.eclipse.swt.dnd.DropTargetEvent)
          */
+        @Override
         public boolean isEnabled(DropTargetEvent event) {
             // TODO Auto-generated method stub
             return false;
@@ -240,6 +252,7 @@ public class XmlToSchemaDragAndDropHandler {
          * 
          * @see org.eclipse.swt.dnd.DropTargetListener#drop(org.eclipse.swt.dnd.DropTargetEvent)
          */
+        @Override
         public void drop(DropTargetEvent event) {
             // System.out.println("\n>>drop");
             DropTarget dropTarget = (DropTarget) event.getSource();
@@ -373,7 +386,7 @@ public class XmlToSchemaDragAndDropHandler {
 
         String columnName = currentExpr.startsWith("@") ? currentExpr.substring(1) : currentExpr;
         columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
-
+        columnName = MetadataToolHelper.validateColumnName(columnName, 0);
         UniqueStringGenerator<SchemaTarget> uniqueStringGenerator = new UniqueStringGenerator<SchemaTarget>(columnName,
                 fullSchemaTargetList) {
 

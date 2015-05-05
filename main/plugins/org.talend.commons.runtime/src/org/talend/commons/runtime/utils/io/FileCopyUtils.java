@@ -104,6 +104,8 @@ public class FileCopyUtils {
     public static void copyFolder(File resFolder, File destFolder, boolean interruptable) throws Exception {
         Thread currentThread = Thread.currentThread();
         if (interruptable && currentThread.isInterrupted()) {
+            // we can judge this copy folder action is complete or not by this exception, rather than returning without
+            // any exception
             throw new InterruptedException();
         }
         if (!resFolder.exists()) {

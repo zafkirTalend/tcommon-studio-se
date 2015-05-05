@@ -10,17 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.tools;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -32,20 +31,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.model.PluginExecution;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
@@ -54,18 +48,22 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.MavenSystemFolders;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.pom.MavenPomManager;
+import org.talend.designer.maven.pom.PomUtil;
+import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
+import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -75,7 +73,7 @@ import org.w3c.dom.NodeList;
  * created by ggu on 4 Feb 2015 Detailled comment
  *
  */
-public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
+public class CreateMavenJobPom extends CreateMavenTemplatePom {
 
     private final IProcessor jobProcessor;
 
@@ -85,10 +83,15 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
     private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
 
-    public CreateJobTemplateMavenPom(IProcessor jobProcessor, IFile pomFile, String templatePomFile) {
-        super(pomFile, templatePomFile);
-        this.jobProcessor = jobProcessor;
+    private final MavenPomManager pomManager;
+
+    private IFile assemblyFile;
+
+    public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
+        super(pomFile, MavenTemplateConstants.JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
+        this.jobProcessor = jobProcessor;
+        this.pomManager = new MavenPomManager(jobProcessor);
     }
 
     public IProcessor getJobProcessor() {
@@ -125,6 +128,14 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
     public void setUnixClasspath(String unixClasspath) {
         this.unixClasspath = unixClasspath;
+    }
+
+    public IFile getAssemblyFile() {
+        return assemblyFile;
+    }
+
+    public void setAssemblyFile(IFile assemblyFile) {
+        this.assemblyFile = assemblyFile;
     }
 
     private Set<JobInfo> getClonedJobInfos() {
@@ -183,77 +194,27 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
 
-        model.setGroupId(generateGroupId(jProcessor));
+        // don't change the template setting for groupId
+        // model.setGroupId(TalendMavenContants.DEFAULT_JOB_GROUP_ID);
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
         String artifact = jobName;
-        if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-            artifact = JavaResourcesHelper.getJobJarName(jobName, process.getVersion());
-        }
+
         model.setArtifactId(artifact);
         model.setVersion(process.getVersion());
 
+        Property property = jProcessor.getProperty();
+        if (property != null && property.getItem() != null) {
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
+            if (itemType != null) {
+                model.setName(jobName + '(' + itemType.getLabel() + ')');
+            }
+        }
+
+        PomUtil.checkParent(model, this.getPomFile());
+
         addDependencies(model);
-        if (TalendCodeProjectUtil.stripVersion) {
-            // will same as artifact id
-            model.getBuild().setFinalName("${project.artifactId}");
 
-            // also need change the finalName for assembly.
-            final Map<String, Plugin> pluginsAsMap = model.getBuild().getPluginsAsMap();
-            for (String key : pluginsAsMap.keySet()) {
-                final Plugin plugin = pluginsAsMap.get(key);
-                if ("maven-assembly-plugin".equals(plugin.getArtifactId())
-                        && "org.apache.maven.plugins".equals(plugin.getGroupId())) {
-                    final List<PluginExecution> executions = plugin.getExecutions();
-                    for (PluginExecution execution : executions) {
-                        final Object configuration = execution.getConfiguration();
-                        if (configuration instanceof Xpp3Dom) {
-                            final Xpp3Dom finalNameElem = ((Xpp3Dom) configuration).getChild("finalName");
-                            finalNameElem.setValue("${project.artifactId}");
-                        }
-                    }
-                    break; // only deal for assembly.
-                }
-            }
-        }
         return model;
-    }
-
-    /**
-     * 
-     * According to the process, generate the groud id, like org.talend.process.di.demo.
-     */
-    protected String generateGroupId(final IProcessor jProcessor) {
-        final Property property = jProcessor.getProperty();
-        final IProcess process = jProcessor.getProcess();
-
-        final String projectFolderName = JavaResourcesHelper.getProjectFolderName(property.getItem());
-        return generateGroupId(projectFolderName, process.getComponentsType());
-    }
-
-    protected String generateGroupId(String projectFolderName, String type) {
-        String groupId = JavaResourcesHelper.getGroupName(projectFolderName);
-
-        if (type != null) {
-            groupId += '.' + type.toLowerCase();
-        }
-        return groupId;
-    }
-
-    protected String generateGroupId(final JobInfo jobInfo) {
-        ProcessItem processItem = jobInfo.getProcessItem();
-        if (processItem != null) {
-            String componentsType = null;
-            IProcess process = jobInfo.getProcess();
-            if (process != null) {
-                componentsType = process.getComponentsType();
-            }
-
-            final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
-            return generateGroupId(projectFolderName, componentsType);
-        } else { // return one default one.
-            return generateGroupId(null, null);
-        }
-
     }
 
     /**
@@ -291,7 +252,7 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
 
         checkPomProperty(properties, "talend.job.path", "@JobPath@", jobClassPackageFolder);
         checkPomProperty(properties, "talend.job.package", "@JobPackage@", jobClassPackage);
-        checkPomProperty(properties, "talend.job.jarName", "@JobJarName@", jobFolderName);
+        // checkPomProperty(properties, "talend.job.jarName", "@JobJarName@", jobFolderName);
         /*
          * for jobInfo.properties
          * 
@@ -341,93 +302,37 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
      * add dependencies for pom.
      */
     protected void addDependencies(Model model) {
-        List<Dependency> dependencies = model.getDependencies();
-        if (dependencies == null) {
-            dependencies = new ArrayList<Dependency>();
-            model.setDependencies(dependencies);
+        try {
+            pomManager.updateProcessorDependencies(null, model);
+        } catch (ProcessorException e) {
+            ExceptionHandler.process(e);
         }
-        // check the routine.
-        Dependency routinesDependency = null;
-        for (Dependency d : dependencies) {
-            if (TalendCodeProjectUtil.isRoutinesArtifact(d.getArtifactId())) {
-                routinesDependency = d;
-                break;
-            }
-        }
-        if (routinesDependency == null) {
-            routinesDependency = new Dependency();
-            dependencies.add(routinesDependency);
-        }
-        final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-        // update the routine artifact.
-        routinesDependency.setVersion(routinesModel.getVersion());
-        routinesDependency.setGroupId(routinesModel.getGroupId());
-        routinesDependency.setArtifactId(routinesModel.getArtifactId());
-
-        // add the job modules.
-        Set<String> neededLibraries = getJobProcessor().getNeededLibraries();
-        for (String lib : neededLibraries) {
-            String name = new Path(lib).removeFileExtension().toString();
-
-            Dependency dependency = new Dependency();
-            // TODO, if change the scope to other, not system. will change this.
-            String group = name;
-            String artifact = name;
-            String version = TalendMavenContants.DEFAULT_VERSION;
-
-            if (TalendCodeProjectUtil.stripVersion) {
-                // TODO because system scope, so the name is final file name. and have contained the version in file
-                // name.
-                // artifact=name;
-            }
-            dependency.setGroupId(group);
-            dependency.setArtifactId(artifact);
-            dependency.setVersion(version);
-            dependency.setScope("system"); //$NON-NLS-1$
-            dependency.setSystemPath("${system.lib.path}/" + lib); //$NON-NLS-1$
-
-            dependencies.add(dependency);
-        }
-        final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
-        // add children jars to build
-        for (JobInfo child : clonedChildrenJobInfors) {
-
-            Dependency dependency = new Dependency();
-
-            final String childJobName = JavaResourcesHelper.escapeFileName(child.getJobName());
-            String artifact = childJobName;
-            if (TalendCodeProjectUtil.stripVersion) { // in order to keep with version for jar always.
-                // must add the version for artifact
-                artifact = JavaResourcesHelper.getJobJarName(childJobName, child.getJobVersion());
-            }
-            dependency.setGroupId(generateGroupId(child));
-            dependency.setArtifactId(artifact);
-            dependency.setVersion(child.getJobVersion());
-
-            dependencies.add(dependency);
-        }
-
     }
 
     @Override
     public void create(IProgressMonitor monitor) throws Exception {
         super.create(monitor);
-        generateAssemblyFile();
+
+        generateAssemblyFile(monitor);
+
+        // generate routines
+        MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
+        pomSync.syncRoutinesPom(false);
 
         // refresh
         getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
     }
 
-    protected void generateAssemblyFile() {
-        IFile assemblyFile = getPomFile().getParent().getFile(new Path(MavenConstants.ASSEMBLY_FILE_NAME));
-        try {
+    protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
+        IFile assemblyFile = this.getAssemblyFile();
+        if (assemblyFile != null) {
             MavenTemplateManager
                     .copyTemplate(MavenTemplateConstants.JOB_ASSEMBLY_TEMPLATE_FILE_NAME, assemblyFile, isOverwrite());
 
             // add children resources in assembly.
             addChildrenJobsInAssembly(assemblyFile);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+
+            assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
         }
     }
 
@@ -446,48 +351,90 @@ public class CreateJobTemplateMavenPom extends CreateTemplateMavenPom {
         }
         boolean modified = false;
 
-        //
-        // Element filesElem = getElement(document, "files");
+        // files
+        Node filesElem = getElement(document.getDocumentElement(), "files", 1);
 
+        // fileSets
         Node fileSetsElem = getElement(document.getDocumentElement(), "fileSets", 1);
         if (fileSetsElem == null) {
             fileSetsElem = document.createElement("fileSets");
             document.appendChild(fileSetsElem);
         }
 
+        List<String> childrenPomsIncludes = new ArrayList<String>();
+        List<String> childrenFolderResourcesIncludes = new ArrayList<String>();
+
         final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
         for (JobInfo child : clonedChildrenJobInfors) {
             modified = true;
-
-            // child sources.
-            final String projectRootPath = "${project.root.path}";
-            final String outFolder = "${project.artifactId}";
-            String jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
-            String jobClassProjectFolder = MavenSystemFolders.JAVA.getPath() + '/' + jobClassPackageFolder;
-            addAssemblyFileSets(fileSetsElem, projectRootPath + '/' + jobClassProjectFolder, outFolder + '/'
-                    + jobClassProjectFolder, false, Arrays.asList(new String[] { "*/**" }), null, null, null, null, false,
-                    "add source,contexts,pom, assembly for child job " + child.getJobName());
+            String jobClassPackageFolder = null;
+            if (child.getProcessItem() != null) {
+                jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
+            } else {
+                String projectName = null;
+                String jobId = child.getJobId();
+                if (jobId != null) {
+                    IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+                    IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(jobId);
+                    if (lastVersion != null) {
+                        Property property = lastVersion.getProperty();
+                        if (property != null) {
+                            Project project = ProjectManager.getInstance().getProject(property.getItem());
+                            projectName = project.getTechnicalLabel();
+                        }
+                    }
+                }
+                if (projectName == null) {// use current one
+                    projectName = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+                }
+                jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(projectName, child.getJobName(),
+                        child.getJobVersion());
+            }
+            // children poms
+            childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName()));
             // conext resources
-
-            String contextRootFolder = "${project.resources.path}/" + jobClassPackageFolder + '/'
-                    + JavaUtils.JAVA_CONTEXTS_DIRECTORY;
-            addAssemblyFileSets(fileSetsElem, contextRootFolder, outFolder + '/' + MavenSystemFolders.RESOURCES.getPath() + '/'
-                    + jobClassPackageFolder + '/' + JavaUtils.JAVA_CONTEXTS_DIRECTORY, false,
-                    Arrays.asList(new String[] { "*.properties" }), null, null, null, null, false,
-                    "add the child contexts file to resources for " + child.getJobName());
-            // context for running
-            addAssemblyFileSets(fileSetsElem, contextRootFolder, outFolder + '/' + jobClassPackageFolder + '/'
-                    + JavaUtils.JAVA_CONTEXTS_DIRECTORY, false, Arrays.asList(new String[] { "*.properties" }), null, null, null,
-                    null, false, "add the child contexts files to run for " + child.getJobName());
+            childrenFolderResourcesIncludes.add(jobClassPackageFolder + "/**"); // add all context
 
         }
+        if (modified) {
+            // poms
+            addAssemblyFileSets(fileSetsElem, "${basedir}", "${talend.job.name}", false, childrenPomsIncludes, null, null, null,
+                    null, false, "add children pom files.");
 
+            // src
+            addAssemblyFileSets(fileSetsElem, "${project.build.sourceDirectory}", "${talend.job.name}/src/main/java/", false,
+                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children src resources files.");
+
+            // contexts
+            addAssemblyFileSets(fileSetsElem, "${basedir}/src/main/resources/", "${talend.job.name}/src/main/resources/", false,
+                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files to resources.");
+            addAssemblyFileSets(fileSetsElem, "${basedir}/src/main/resources/", "${talend.job.name}", false,
+                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files for running.");
+        }
         if (modified) {
             TransformerFactory transFactory = TransformerFactory.newInstance();
             Transformer transFormer = transFactory.newTransformer();
             transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
             transFormer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
+
+            // must remove the assembly plugins, else will be some errors.
+            for (String childPomFile : childrenPomsIncludes) {
+                IFile childPom = assemblyFile.getProject().getFile(childPomFile);
+                Model childModel = MODEL_MANAGER.readMavenModel(childPom);
+                List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
+                Iterator<Plugin> childIterator = childPlugins.iterator();
+                while (childIterator.hasNext()) {
+                    Plugin p = childIterator.next();
+                    if (p.getArtifactId().equals("maven-assembly-plugin")) {
+                        childIterator.remove();
+                    }
+
+                }
+                childModel.getBuild().setPlugins(childPlugins);
+                PomUtil.savePom(null, childModel, childPom);
+            }
         }
+
     }
 
     private Node getElement(Node parent, String elemName, int level) {

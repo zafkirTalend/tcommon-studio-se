@@ -20,6 +20,7 @@ import java.util.Properties;
 
 import org.eclipse.ui.internal.intro.impl.util.Log;
 import org.eclipse.ui.internal.intro.impl.util.StringUtil;
+import org.talend.commons.utils.system.EnvironmentUtils;
 
 /**
  * DOC talend class global comment. Detailled comment
@@ -42,8 +43,9 @@ public class DynamicURLParser {
     }
 
     private void parseUrl(String url) {
-        if (url == null)
+        if (url == null) {
             return;
+        }
         urlInst = null;
         try {
             urlInst = new URL(url);
@@ -99,12 +101,14 @@ public class DynamicURLParser {
      * @return true if url is an intro URL.
      */
     private boolean isIntroUrl(URL url) {
-        if (!url.getProtocol().equalsIgnoreCase(IntroURL.INTRO_PROTOCOL))
+        if (!url.getProtocol().equalsIgnoreCase(IntroURL.INTRO_PROTOCOL)) {
             // quick exit. If it is not http, url is not an Intro url.
             return false;
+        }
 
-        if (url.getHost().equalsIgnoreCase(IntroURL.INTRO_HOST_ID))
+        if (url.getHost().equalsIgnoreCase(IntroURL.INTRO_HOST_ID)) {
             return true;
+        }
 
         return false;
     }
@@ -136,8 +140,9 @@ public class DynamicURLParser {
         // get possible action.
         String action = url.getPath();
         // remove leading "/" from path.
-        if (action != null)
+        if (action != null) {
             action = action.substring(1);
+        }
         return action;
     }
 
@@ -151,21 +156,26 @@ public class DynamicURLParser {
         // parser all query parameters.
         Properties properties = new Properties();
         String query = url.getQuery();
-        if (query == null)
+        if (query == null) {
             // we do not have any parameters in this URL, return an empty
             // Properties instance.
             return properties;
-
+        }
         // now extract the key/value pairs from the query.
-        String[] params = StringUtil.split(query, "&"); //$NON-NLS-1$
-        for (int i = 0; i < params.length; i++) {
+        String[] params;
+        if (EnvironmentUtils.isWindowsSystem()) {
+            params = StringUtil.split(query, "&"); //$NON-NLS-1$
+        } else {
+            params = StringUtil.split(query, "&amp;"); //$NON-NLS-1$
+        }
+        for (String param : params) {
             // for every parameter, ie: key=value pair, create a property
             // entry. we know we have the key as the first string in the array,
             // and the value as the second array.
-            String[] keyValuePair = StringUtil.split(params[i], "="); //$NON-NLS-1$
+            String[] keyValuePair = StringUtil.split(param, "="); //$NON-NLS-1$
             if (keyValuePair.length != 2) {
                 Log.warning("Ignoring the following Intro URL parameter: " //$NON-NLS-1$
-                        + params[i]);
+                        + param);
                 continue;
             }
 

@@ -10,9 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.tools;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,14 +23,17 @@ import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.utils.PomManager;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
+import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.pom.PomUtil;
+import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.utils.io.FilesUtils;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -48,24 +52,13 @@ public class MavenPomSynchronizer {
      * generate routine pom.
      */
     public void syncRoutinesPom(boolean overwrite) throws Exception {
-        IFolder routinesSrcFolder = codeProject.getSrcFolder().getFolder(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-        IFile routinesPomFile = routinesSrcFolder.getFile(MavenConstants.POM_FILE_NAME);
-        if (overwrite || !routinesPomFile.exists()) {// generate new one
-            CreateTemplateMavenPom createTemplatePom = new CreateTemplateMavenPom(routinesPomFile,
-                    MavenTemplateConstants.ROUTINGS_TEMPLATE_FILE_NAME);
-
-            final Model routinesModel = TalendCodeProjectUtil.getRoutinesTempalteModel();
-
-            createTemplatePom.setGroupId(routinesModel.getGroupId());
-            createTemplatePom.setArtifactId(routinesModel.getArtifactId());
-            createTemplatePom.setVersion(routinesModel.getVersion());
-
-            createTemplatePom.setOverwrite(overwrite);
-
-            createTemplatePom.create(null);
-
-            routinesSrcFolder.refreshLocal(IResource.DEPTH_ONE, null);
-        }
+        // pom_routines.xml
+        IFile routinesPomFile = codeProject.getProject().getFile(
+                PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID));
+        // generate new one
+        CreateMavenTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
+        createTemplatePom.setOverwrite(overwrite);
+        createTemplatePom.create(null);
     }
 
     /**
@@ -73,7 +66,7 @@ public class MavenPomSynchronizer {
      * sync the bat/sh/jobInfo/project_pom to resources template folder.
      */
     public void syncTemplates(boolean overwrite) throws Exception {
-        IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+        IFolder templateFolder = codeProject.getTemplatesFolder();
 
         IFile shFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(shFile.getName(), shFile, overwrite);
@@ -84,8 +77,8 @@ public class MavenPomSynchronizer {
         IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
         MavenTemplateManager.copyTemplate(infoFile.getName(), infoFile, overwrite);
 
-        IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
-        MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
+        // IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+        // MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
 
         templateFolder.refreshLocal(IResource.DEPTH_ONE, null);
     }
@@ -95,13 +88,13 @@ public class MavenPomSynchronizer {
      * create project pom
      */
     public void createProjectPom() throws Exception {
-        IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
+        IFile projectPomFile = codeProject.getProjectPom();
         File pPomFile = projectPomFile.getLocation().toFile();
         if (!pPomFile.exists()) {
             // synch the templates first.
             syncTemplates(false);
             //
-            IFolder templateFolder = codeProject.getResourceSubFolder(null, MavenTemplateConstants.TEMPLATE_PATH);
+            IFolder templateFolder = codeProject.getTemplatesFolder();
             IFile projectTemplateFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
 
@@ -115,7 +108,7 @@ public class MavenPomSynchronizer {
      * add the job to the pom modules list of project.
      */
     public void addChildModules(boolean removeOld, String... childModules) throws Exception {
-        IFile projectPomFile = codeProject.getProject().getFile(MavenConstants.POM_FILE_NAME);
+        IFile projectPomFile = codeProject.getProjectPom();
         // check and create pom
         createProjectPom();
 
@@ -155,10 +148,75 @@ public class MavenPomSynchronizer {
 
         if (modifed) {
             // save pom.
-            PomManager.savePom(null, projModel, projectPomFile);
+            PomUtil.savePom(null, projModel, projectPomFile);
         }
         // refresh
         codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
     }
 
+    /**
+     * 
+     * Clean the pom_xxx.xml and assembly_xxx.xml and target folder, also clean the module and dependencies.
+     */
+    public void cleanMavenFiles(IProgressMonitor monitor) throws Exception {
+        // remove all job poms
+        final String routinesPomFileName = PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        File[] pomFiles = codeProject.getProject().getLocation().toFile().listFiles(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                // pom_xxx.xml
+                return name.startsWith(MavenConstants.POM_NAME + '_') && name.endsWith(MavenConstants.XML_EXT)
+                        && !name.equals(routinesPomFileName);
+            }
+        });
+        deleteFiles(pomFiles);
+
+        // delete all assemblies/
+        IFolder assembliesFolder = codeProject.getAssembliesFolder();
+        if (assembliesFolder != null && assembliesFolder.exists()) {
+            File[] assembliesFiles = assembliesFolder.getLocation().toFile().listFiles(new FilenameFilter() {
+
+                @Override
+                public boolean accept(File dir, String name) {
+                    // assembly_xxx.xml
+                    return name.startsWith(MavenConstants.ASSEMBLY_NAME + '_') && name.endsWith(MavenConstants.XML_EXT);
+                }
+            });
+            deleteFiles(assembliesFiles);
+        }
+
+        // delete all target
+        FilesUtils.deleteFile(codeProject.getOutputFolder().getParent().getLocation().toFile(), true);
+
+        // clean up the dependencies and module for pom.xml
+        IFile projectPomFile = codeProject.getProjectPom();
+        File pPomFile = projectPomFile.getLocation().toFile();
+        if (pPomFile.exists()) {
+            MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
+            Model projModel = mavenModelManager.readMavenModel(projectPomFile);
+            // clear and only add routine pom.
+            List<String> modules = projModel.getModules();
+            if (modules != null) {
+                modules.clear();
+            }
+            final Model routinesModel = PomUtil.getRoutinesTempalteModel();
+            modules.add(PomUtil.getPomFileName(routinesModel.getArtifactId()));
+
+            // only add the routines dependencies.
+            CreateMavenRoutinePom.addDependencies(projModel);
+
+            PomUtil.savePom(monitor, projModel, projectPomFile);
+        }
+    }
+
+    private void deleteFiles(File[] files) {
+        if (files != null) {
+            for (File f : files) {
+                if (f.isFile()) {
+                    f.delete();
+                }
+            }
+        }
+    }
 }

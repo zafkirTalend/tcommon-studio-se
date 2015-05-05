@@ -26,11 +26,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -45,11 +49,14 @@ import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.model.ExtensionModuleManager;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
+import org.talend.osgi.hook.notification.JarMissingObservable;
 
 /**
  * DOC ycbai class global comment. Detailled comment
  */
 public class LocalLibraryManager implements ILibraryManagerService {
+
+    private static Logger log = Logger.getLogger(LocalLibraryManager.class);
 
     private Set<String> jarList = new HashSet<String>();
 
@@ -420,6 +427,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private Set<String> urlWarned = new HashSet<String>();
 
+    private JarMissingObservable missingJarObservable;
+
     @Override
     public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap) {
         File indexFile = new File(LibrariesIndexManager.getInstance().getIndexFilePath());
@@ -495,40 +504,50 @@ public class LocalLibraryManager implements ILibraryManagerService {
         String absolutePath = null;
         boolean jarFound = false;
 
-        try {
-            if (uriPath.startsWith(ExtensionModuleManager.URIPATH_PREFIX)) {
-                String plugin = uriPath.substring(17);
-                plugin = plugin.substring(0, plugin.indexOf("/"));
-                String path = uriPath.substring(17 + plugin.length());
-
-                URL url = FileLocator.find(Platform.getBundle(plugin), new Path(path), null);
-                if (url != null) {
-                    URL url2 = FileLocator.toFileURL(url);
-                    File file = new File(url2.getFile());
-                    if (file.exists()) {
-                        jarFound = true;
-                        absolutePath = file.getAbsolutePath();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // do nothing
+        // prevent the missing jar manager to issu notifications is the lib is not found
+        JarMissingObservable missingJarObservableService = getMissingJarObservableService();
+        if (missingJarObservableService != null) {
+            missingJarObservableService.prenventNotificationLock.lock();
         }
-
-        if (!jarFound) {
+        try {
             try {
-                URI uri = new URI(uriPath);
-                URL url = FileLocator.toFileURL(uri.toURL());
-                File file = new File(url.getFile());
-                if (file.exists()) {
-                    jarFound = true;
-                    absolutePath = file.getAbsolutePath();
+                if (uriPath.startsWith(ExtensionModuleManager.URIPATH_PREFIX)) {
+                    String plugin = uriPath.substring(17);
+                    plugin = plugin.substring(0, plugin.indexOf("/"));
+                    String path = uriPath.substring(17 + plugin.length());
+                    URL url = FileLocator.find(Platform.getBundle(plugin), new Path(path), null);
+                    if (url != null) {
+                        URL url2 = FileLocator.toFileURL(url);
+                        File file = new File(url2.getFile());
+                        if (file.exists()) {
+                            jarFound = true;
+                            absolutePath = file.getAbsolutePath();
+                        }
+                    }
                 }
             } catch (Exception e) {
                 // do nothing
             }
+
+            if (!jarFound) {
+                try {
+                    URI uri = new URI(uriPath);
+                    URL url = FileLocator.toFileURL(uri.toURL());
+                    File file = new File(url.getFile());
+                    if (file.exists()) {
+                        jarFound = true;
+                        absolutePath = file.getAbsolutePath();
+                    }
+                } catch (Exception e) {
+                    // do nothing
+                }
+            }
+            uriJarInstalled.put(uriPath, absolutePath);
+        } finally {
+            if (missingJarObservableService != null) {
+                missingJarObservableService.prenventNotificationLock.unlock();
+            }
         }
-        uriJarInstalled.put(uriPath, absolutePath);
         return jarFound;
     }
 
@@ -583,6 +602,24 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public void forceListUpdate() {
         listToUpdate = true;
+    }
+
+    JarMissingObservable getMissingJarObservableService() {
+        if (missingJarObservable == null) {
+            BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
+            if (bundleContext != null) {
+                ServiceReference<?> serviceReference = bundleContext.getServiceReference(JarMissingObservable.class
+                        .getCanonicalName());
+                if (serviceReference != null) {
+                    missingJarObservable = (JarMissingObservable) bundleContext.getService(serviceReference);
+                } else {// could not find the hook registry service so log it
+                    log.error("Could not find a registered OSGI service for : " + JarMissingObservable.class);
+                }
+            } else {// bundleContext is null should never happend but log it
+                log.error("Could not get bundle context for : " + this.getClass());
+            }
+        }
+        return missingJarObservable;
     }
 
 }

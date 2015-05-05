@@ -59,6 +59,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEQUIVALENT <em>EQUIVALENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getINPUTTYPE <em>INPUTTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getOUTPUTTYPE <em>OUTPUTTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSPARKACTION <em>SPARKACTION</em>}</li>
  * </ul>
  * </p>
  *
@@ -889,6 +890,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String oUTPUTTYPE = OUTPUTTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSPARKACTION() <em>SPARKACTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSPARKACTION()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SPARKACTION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSPARKACTION() <em>SPARKACTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSPARKACTION()
+     * @generated
+     * @ordered
+     */
+    protected boolean sPARKACTION = SPARKACTION_EDEFAULT;
+
+    /**
+     * This is true if the SPARKACTION attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean sPARKACTIONESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -1915,6 +1945,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isSPARKACTION() {
+        return sPARKACTION;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSPARKACTION(boolean newSPARKACTION) {
+        boolean oldSPARKACTION = sPARKACTION;
+        sPARKACTION = newSPARKACTION;
+        boolean oldSPARKACTIONESet = sPARKACTIONESet;
+        sPARKACTIONESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SPARKACTION, oldSPARKACTION, sPARKACTION, !oldSPARKACTIONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetSPARKACTION() {
+        boolean oldSPARKACTION = sPARKACTION;
+        boolean oldSPARKACTIONESet = sPARKACTIONESet;
+        sPARKACTION = SPARKACTION_EDEFAULT;
+        sPARKACTIONESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SPARKACTION, oldSPARKACTION, SPARKACTION_EDEFAULT, oldSPARKACTIONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetSPARKACTION() {
+        return sPARKACTIONESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getTYPE() {
         return tYPE;
     }
@@ -2130,6 +2206,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getINPUTTYPE();
             case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
                 return getOUTPUTTYPE();
+            case ComponentPackage.HEADER_TYPE__SPARKACTION:
+                return isSPARKACTION() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -2245,6 +2323,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
                 setOUTPUTTYPE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SPARKACTION:
+                setSPARKACTION(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -2362,6 +2443,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
                 setOUTPUTTYPE(OUTPUTTYPE_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__SPARKACTION:
+                unsetSPARKACTION();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -2443,6 +2527,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return INPUTTYPE_EDEFAULT == null ? iNPUTTYPE != null : !INPUTTYPE_EDEFAULT.equals(iNPUTTYPE);
             case ComponentPackage.HEADER_TYPE__OUTPUTTYPE:
                 return OUTPUTTYPE_EDEFAULT == null ? oUTPUTTYPE != null : !OUTPUTTYPE_EDEFAULT.equals(oUTPUTTYPE);
+            case ComponentPackage.HEADER_TYPE__SPARKACTION:
+                return isSetSPARKACTION();
         }
         return super.eIsSet(featureID);
     }
@@ -2524,6 +2610,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(iNPUTTYPE);
         result.append(", oUTPUTTYPE: ");
         result.append(oUTPUTTYPE);
+        result.append(", sPARKACTION: ");
+        if (sPARKACTIONESet) result.append(sPARKACTION); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

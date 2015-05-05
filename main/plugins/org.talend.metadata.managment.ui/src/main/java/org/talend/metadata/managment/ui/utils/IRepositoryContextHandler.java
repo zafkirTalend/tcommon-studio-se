@@ -20,6 +20,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.ui.context.model.table.ConectionAdaptContextVariableModel;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 
 /**
@@ -36,4 +37,8 @@ public interface IRepositoryContextHandler {
 
     public void setPropertiesForExistContextMode(Connection connection, Set<IConnParamName> paramSet,
             Map<ContextItem, List<ConectionAdaptContextVariableModel>> adaptMap);
+
+    public void revertPropertiesForContextMode(Connection connection, ContextType contextType);
+
+    public Set<String> getConAdditionPropertiesForContextMode(Connection conn);
 }

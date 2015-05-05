@@ -12,9 +12,11 @@
 // ============================================================================
 package org.talend.core.model.routines;
 
+import java.util.Set;
 import java.util.Vector;
 
 import org.talend.core.IService;
+import org.talend.core.model.general.ModuleNeeded;
 
 /**
  * 
@@ -23,4 +25,6 @@ import org.talend.core.IService;
 public interface IRoutinesService extends IService {
 
     public Vector getAccents();
+
+    Set<ModuleNeeded> getRunningModules();
 }

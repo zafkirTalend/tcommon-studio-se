@@ -153,6 +153,15 @@ public class ProcessorUtilities {
         exportTimeStamp = new Date();
     }
 
+    public static void setExportConfig(String exportInterpreter, String exportCodeLocation, String exportLibraryPath,
+            boolean export, Date timeStamp) {
+        interpreter = exportInterpreter;
+        codeLocation = exportCodeLocation;
+        libraryPath = exportLibraryPath;
+        exportConfig = export;
+        exportTimeStamp = timeStamp;
+    }
+
     public static void setExportConfig(String directory, boolean old) {
         String libPath = calculateLibraryPathFromDirectory(directory);
         String routinesJars = ""; //$NON-NLS-1$
@@ -531,6 +540,15 @@ public class ProcessorUtilities {
             IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
+
+            Set<String> jarList = new HashSet<String>();
+            Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                    jobInfo.getJobId(), jobInfo.getJobVersion());
+            for (ModuleNeeded module : neededModules) {
+                jarList.add(module.getModuleName());
+            }
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+
             if (codeModified) {
                 processor.build();
                 processor.syntaxCheck();
@@ -1182,37 +1200,25 @@ public class ProcessorUtilities {
 
     /**
      * 
-     * Get the command line to launch the job.
-     * 
-     * @param externalUse if true, will add "" around path and change \ to /
-     * @param processName
-     * @param contextName
-     * @param codeOptions
-     * @return
-     * @throws ProcessorException
+     * @deprecated seems never use this one
      */
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName, int statisticPort,
             int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
     }
 
+    /**
+     * 
+     * @deprecated seems never use this one
+     */
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName, String version,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, version, statisticPort, tracePort, codeOptions);
     }
 
     /**
-     * Get the command line to launch the job.
      * 
-     * @param targetPlatform for example Platform.OS_WIN32 / Platform.OS_LINUX
-     * @param externalUse
-     * @param processName
-     * @param contextName
-     * @param statisticPort
-     * @param tracePort
-     * @param codeOptions
-     * @return
-     * @throws ProcessorException
+     * @deprecated seems never use this one
      */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
@@ -1221,6 +1227,10 @@ public class ProcessorUtilities {
                 codeOptions);
     }
 
+    /**
+     * 
+     * @deprecated seems never use this one
+     */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             String version, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId, version);
@@ -1228,6 +1238,10 @@ public class ProcessorUtilities {
                 codeOptions);
     }
 
+    /**
+     * 
+     * @deprecated seems never use this one
+     */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, ProcessItem processItem,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
@@ -1243,6 +1257,10 @@ public class ProcessorUtilities {
                 statisticPort, tracePort, codeOptions);
     }
 
+    /**
+     * 
+     * @deprecated seems never use this one
+     */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
@@ -1254,15 +1272,31 @@ public class ProcessorUtilities {
                 tracePort, codeOptions);
     }
 
+    /**
+     * 
+     * @deprecated seems never use this one
+     */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess, Property property,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
+        return getCommandLine(true, targetPlatform, externalUse, currentProcess, property, contextName, needContext,
+                statisticPort, tracePort, codeOptions);
+    }
+
+    public static String[] getCommandLine(boolean oldBuildJob, String targetPlatform, boolean externalUse,
+            IProcess currentProcess, Property property, String contextName, boolean needContext, int statisticPort,
+            int tracePort, String... codeOptions) throws ProcessorException {
         if (currentProcess == null) {
             return new String[] {};
         }
+        Property curProperty = property;
+        if (curProperty == null && currentProcess instanceof IProcess2) {
+            curProperty = ((IProcess2) currentProcess).getProperty();
+        }
         IContext currentContext = getContext(currentProcess, contextName);
-        IProcessor processor = getProcessor(currentProcess, property, currentContext);
+        IProcessor processor = getProcessor(currentProcess, curProperty, currentContext);
         processor.setTargetPlatform(targetPlatform);
+        processor.setOldBuildJob(oldBuildJob);
         return processor.getCommandLine(needContext, externalUse, statisticPort, tracePort, codeOptions);
     }
 

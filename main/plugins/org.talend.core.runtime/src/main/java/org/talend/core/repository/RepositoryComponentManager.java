@@ -15,6 +15,7 @@ package org.talend.core.repository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -396,7 +397,7 @@ public final class RepositoryComponentManager {
             }
         }
 
-        List<IComponent> sortedComponents = new ArrayList<IComponent>();
+        List<IComponent> sortedComponents = new LinkedList<IComponent>();
         sortedComponents.addAll(specialTopComponents);
         sortedComponents.addAll(normalTopComponents);
 
@@ -404,6 +405,13 @@ public final class RepositoryComponentManager {
         neededComponents.removeAll(specialTopComponents);
         neededComponents.removeAll(normalTopComponents);
         sortedComponents.addAll(neededComponents);
+
+        for (RepositoryComponentDndFilterSetting dndFilter : getDndFilterSettings()) {
+            IRepositoryComponentDndFilter filter = dndFilter.getFilter();
+            if (filter != null) {
+                sortedComponents = filter.sort(sortedComponents, item, type, seletetedNode);
+            }
+        }
 
         return sortedComponents;
     }

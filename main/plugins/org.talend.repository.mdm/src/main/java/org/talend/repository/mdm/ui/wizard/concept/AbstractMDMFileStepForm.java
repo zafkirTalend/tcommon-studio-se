@@ -13,11 +13,8 @@
 package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
-import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.TableViewer;
@@ -136,9 +133,7 @@ public abstract class AbstractMDMFileStepForm extends AbstractXmlStepForm {
         xsdFilePath = file.getAbsolutePath();
         try {
             MDMUtil.initConcepts(mdmConn);
-        } catch (RemoteException e) {
-            ExceptionHandler.process(e);
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             ExceptionHandler.process(e);
         }
     }

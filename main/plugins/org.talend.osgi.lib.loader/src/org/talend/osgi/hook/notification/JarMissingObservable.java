@@ -13,6 +13,7 @@
 package org.talend.osgi.hook.notification;
 
 import java.util.Observable;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.osgi.storage.BundleInfo.Generation;
 
@@ -23,6 +24,8 @@ import org.eclipse.osgi.storage.BundleInfo.Generation;
  * 
  */
 public class JarMissingObservable extends Observable {
+
+    public final ReentrantLock prenventNotificationLock = new ReentrantLock();
 
     public static class JarMissingEvent {
 
@@ -84,7 +87,9 @@ public class JarMissingObservable extends Observable {
      */
     @Override
     public void notifyObservers(Object arg) {
-        super.setChanged();// this is required for notification to actually really happend.
-        super.notifyObservers(arg);
+        if (!prenventNotificationLock.isLocked()) {
+            super.setChanged();// this is required for notification to actually really happend.
+            super.notifyObservers(arg);
+        }
     }
 }

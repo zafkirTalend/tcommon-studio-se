@@ -90,10 +90,10 @@ public enum EDatabaseVersion4Drivers {
     // for bug 0017930
     GREENPLUM(new DbVersion4Drivers(EDatabaseTypeName.GREENPLUM, "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ 
     PSQL_PRIOR_TO_V9(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "Prior to v9", "PRIOR_TO_V9", "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
-    PSQL_V9_X(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "v9.X", "V9_X", "postgresql-9.2-1003.jdbc3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+    PSQL_V9_X(new DbVersion4Drivers(EDatabaseTypeName.PSQL, "v9.X", "V9_X", "postgresql-9.4-1201.jdbc41.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
     PLUSPSQL_PRIOR_TO_V9(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL,
             "Prior to v9", "PRIOR_TO_V9", "postgresql-8.3-603.jdbc3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    PLUSPSQL_V9_X(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL, "v9.X", "V9_X", "postgresql-9.2-1003.jdbc3.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    PLUSPSQL_V9_X(new DbVersion4Drivers(EDatabaseTypeName.PLUSPSQL, "v9.X", "V9_X", "postgresql-9.4-1201.jdbc41.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     IBMDB2(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
             "db2jcc_license_cisuz.jar" })), //$NON-NLS-1$ 
     IBMDB2ZOS(new DbVersion4Drivers(EDatabaseTypeName.IBMDB2ZOS, new String[] { "db2jcc.jar", "db2jcc_license_cu.jar", //$NON-NLS-1$ //$NON-NLS-2$
@@ -154,6 +154,12 @@ public enum EDatabaseVersion4Drivers {
             "hive-service-0.12.0-cdh5.0.4.jar", "libfb303-0.9.0.jar", "log4j-1.2.16.jar", "slf4j-api-1.6.1.jar",
             "slf4j-log4j12-1.6.1.jar", "hive-exec-0.12.0-cdh5.0.4.jar", "httpcore-4.2.5.jar", "httpclient-4.2.5.jar",
             "hadoop-core-1.0.0.jar" })),
+
+    IMPALA_CDH5_4(new DbVersion4Drivers(EDatabaseTypeName.IMPALA, "Cloudera 5.4", "Cloudera_CDH5_4", new String[] {
+            "hive-metastore-1.1.0-cdh5.4.0.jar", "hive-jdbc-1.1.0-cdh5.4.0.jar", "hive-service-1.1.0-cdh5.4.0.jar",
+            "hive-common-1.1.0-cdh5.4.0.jar", "libthrift-0.9.2.jar", "libfb303-0.9.2.jar", "hadoop-common-2.6.0-cdh5.4.0.jar",
+            "httpcore-4.2.5.jar", "httpclient-4.2.5.jar", "commons-logging-1.1.3.jar", "slf4j-api-1.7.5.jar",
+            "slf4j-log4j12-1.7.5.jar", "log4j-1.2.17.jar" })),
 
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")); //$NON-NLS-1$
 

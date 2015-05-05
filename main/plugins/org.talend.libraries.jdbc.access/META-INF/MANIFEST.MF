@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Access
+Bundle-SymbolicName: org.talend.libraries.jdbc.access
+Bundle-Version: 6.0.0.qualifier

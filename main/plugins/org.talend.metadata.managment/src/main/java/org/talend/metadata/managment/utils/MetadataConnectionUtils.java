@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.axis.client.Stub;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -47,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
+import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -56,10 +58,10 @@ import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
-import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort_PortType;
-import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
+import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
+import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.model.DBConnectionFillerImpl;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.utils.exceptions.MissingDriverException;
@@ -67,7 +69,6 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -783,9 +784,22 @@ public class MetadataConnectionUtils {
      * @throws ServiceException
      * @noreference This method is not intended to be referenced by clients.
      */
-    public static XtentisBindingStub getXtentisBindingStub(IMetadataConnection metadataBean) throws ServiceException {
-        return getXtentisBindingStub(metadataBean.getUrl(), metadataBean.getUniverse(), metadataBean.getUsername(),
+    public static Stub getXtentisBindingStub(IMetadataConnection metadataBean) throws Exception {
+
+        AbsMdmConnectionHelper connectionHelper = null;
+        if (MDMVersions.MDM_S60.getKey().equals(metadataBean.getVersion())) {
+            connectionHelper = new S60MdmConnectionHelper();
+        } else {
+            connectionHelper = new S56MdmConnectionHelper();
+        }
+        return connectionHelper.checkConnection(metadataBean.getUrl(), metadataBean.getUniverse(), metadataBean.getUsername(),
                 metadataBean.getPassword());
+
+        // return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
+        // dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
+
+        // return getXtentisBindingStub(metadataBean.getUrl(), metadataBean.getUniverse(), metadataBean.getUsername(),
+        // metadataBean.getPassword());
     }
 
     /**
@@ -796,9 +810,18 @@ public class MetadataConnectionUtils {
      * @return
      * @throws ServiceException
      */
-    public static XtentisBindingStub getXtentisBindingStub(MDMConnection dataProvider) throws ServiceException {
-        return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
+    public static Stub getXtentisBindingStub(MDMConnection dataProvider) throws Exception {
+        AbsMdmConnectionHelper connectionHelper = null;
+        if (MDMVersions.MDM_S60.getKey().equals(dataProvider.getVersion())) {
+            connectionHelper = new S60MdmConnectionHelper();
+        } else {
+            connectionHelper = new S56MdmConnectionHelper();
+        }
+        return connectionHelper.checkConnection(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
                 dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
+
+        // return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
+        // dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
     }
 
     /**
@@ -812,24 +835,25 @@ public class MetadataConnectionUtils {
      * @return
      * @throws ServiceException
      */
-    private static XtentisBindingStub getXtentisBindingStub(String url, String universe, String userName, String password)
-            throws ServiceException {
-
-        // initialization Web Service calling
-        XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress(url);
-        XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
-        XtentisBindingStub stub = (XtentisBindingStub) xtentisWS;
-
-        // authorization
-        if (universe == null || universe.trim().length() == 0) {
-            stub.setUsername(userName);
-        } else {
-            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
-        }
-        stub.setPassword(password);
-        return stub;
-    }
+    // private static XtentisBindingStub getXtentisBindingStub(String url, String universe, String userName, String
+    // password)
+    // throws ServiceException {
+    //
+    // // initialization Web Service calling
+    // XtentisServiceLocator xtentisService = new XtentisServiceLocator();
+    // xtentisService.setXtentisPortEndpointAddress(url);
+    // XtentisPort_PortType xtentisWS = xtentisService.getXtentisPort();
+    // XtentisBindingStub stub = (XtentisBindingStub) xtentisWS;
+    //
+    // // authorization
+    // if (universe == null || universe.trim().length() == 0) {
+    // stub.setUsername(userName);
+    // } else {
+    //            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
+    // }
+    // stub.setPassword(password);
+    // return stub;
+    // }
 
     public static void main(String[] args) {
         MetadataConnectionUtils.getCommonQueryStr(EDataBaseType.Microsoft_SQL_Server.getProductName(), "tableName"); //$NON-NLS-1$

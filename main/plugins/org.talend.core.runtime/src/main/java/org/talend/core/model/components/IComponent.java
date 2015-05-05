@@ -191,6 +191,14 @@ public interface IComponent {
 
     String getOutputType();
 
+    /**
+     * This method is used to define if a component generates a Spark Action.
+     * 
+     * @return a boolean which defines if the component generates a Spark Action.
+     */
+
+    boolean isSparkAction();
+
     String getPartitioning();
 
     boolean isSupportDbType();

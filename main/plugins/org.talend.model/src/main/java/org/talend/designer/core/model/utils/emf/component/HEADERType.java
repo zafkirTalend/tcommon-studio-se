@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEQUIVALENT <em>EQUIVALENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getINPUTTYPE <em>INPUTTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getOUTPUTTYPE <em>OUTPUTTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSPARKACTION <em>SPARKACTION</em>}</li>
  * </ul>
  * </p>
  *
@@ -1256,6 +1257,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setOUTPUTTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>SPARKACTION</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SPARKACTION</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SPARKACTION</em>' attribute.
+     * @see #isSetSPARKACTION()
+     * @see #unsetSPARKACTION()
+     * @see #setSPARKACTION(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SPARKACTION()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='SPARKACTION' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isSPARKACTION();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSPARKACTION <em>SPARKACTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SPARKACTION</em>' attribute.
+     * @see #isSetSPARKACTION()
+     * @see #unsetSPARKACTION()
+     * @see #isSPARKACTION()
+     * @generated
+     */
+    void setSPARKACTION(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSPARKACTION <em>SPARKACTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSPARKACTION()
+     * @see #isSPARKACTION()
+     * @see #setSPARKACTION(boolean)
+     * @generated
+     */
+    void unsetSPARKACTION();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSPARKACTION <em>SPARKACTION</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>SPARKACTION</em>' attribute is set.
+     * @see #unsetSPARKACTION()
+     * @see #isSPARKACTION()
+     * @see #setSPARKACTION(boolean)
+     * @generated
+     */
+    boolean isSetSPARKACTION();
 
     /**
      * Returns the value of the '<em><b>TYPE</b></em>' attribute.

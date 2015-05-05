@@ -14,11 +14,13 @@ package org.talend.metadata.managment.ui.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.ui.utils.PathUtils;
@@ -27,6 +29,7 @@ import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
+import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -85,7 +88,21 @@ public final class DBConnectionContextUtils {
         ServiceName,
         // hive
         NameNode,
-        JobTracker,
+        JobTrackerOrResourceManager,
+        HivePrincipal,
+        HiveMetastore,
+        HiveDriverJar,
+        HiveDriveClass,
+        HiveUserName,
+        HivePassword,
+        HiveKeyTabPrincipal,
+        HiveKeyTab,
+
+        // hbase
+        MasterPrincipal,
+        RegionPrincipal,
+        HbaseKeyTabPrincipal,
+        HbaseKeyTab,
     }
 
     static List<IContextParameter> getDBVariables(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
@@ -175,7 +192,7 @@ public final class DBConnectionContextUtils {
                 case Login:
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
                     break;
-                case JobTracker:
+                case JobTrackerOrResourceManager:
                     String value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
                     ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
@@ -183,12 +200,109 @@ public final class DBConnectionContextUtils {
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
                     ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
+                case HivePrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HiveMetastore:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HiveDriverJar:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HiveDriveClass:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HiveUserName:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HivePassword:
+                    value = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
+                    ConnectionContextHelper.createParameters(varList, paramName, value, JavaTypesManager.PASSWORD);
+                    break;
+                case HiveKeyTabPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HiveKeyTab:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case MasterPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case RegionPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HbaseKeyTabPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case HbaseKeyTab:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
                 default:
                 }
             }
         }
-
+        createAdditionalContextParameters(prefixName, varList, getHiveOrHbaseHadoopProperties(conn));
+        createAdditionalContextParameters(prefixName, varList, getHiveJdbcProperties(conn));
         return varList;
+    }
+
+    static List<Map<String, Object>> getHiveOrHbaseHadoopProperties(DatabaseConnection dbConn) {
+        String dbType = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+        String databaseType = dbType != null ? dbType : dbConn.getDatabaseType();
+        EMap<String, String> parameters = dbConn.getParameters();
+        String hadoopProperties = "";
+        if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType)) {
+            hadoopProperties = parameters.get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+        } else if (EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(databaseType)) {
+            hadoopProperties = parameters.get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
+        }
+        List<Map<String, Object>> hadoopPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
+        return hadoopPropertiesList;
+    }
+
+    static List<Map<String, Object>> getHiveJdbcProperties(DatabaseConnection dbConn) {
+        String dbType = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE);
+        String databaseType = dbType != null ? dbType : dbConn.getDatabaseType();
+        EMap<String, String> parameters = dbConn.getParameters();
+        String hadoopProperties = "";
+        if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(databaseType)) {
+            hadoopProperties = parameters.get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
+        }
+        List<Map<String, Object>> hiveJdbcPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(hadoopProperties);
+        return hiveJdbcPropertiesList;
+    }
+
+    static String getValidContextVariableName(String originalName) {
+        String correctName = originalName;
+        if (originalName.contains(ConnectionContextHelper.DOT)) {
+            correctName = originalName.replace(ConnectionContextHelper.DOT, ConnectionContextHelper.LINE);
+        } else if (originalName.contains(" ")) {
+            correctName = originalName.replace(" ", ConnectionContextHelper.LINE);
+        }
+        return correctName;
+    }
+
+    static void createAdditionalContextParameters(String prefixName, List<IContextParameter> varList,
+            List<Map<String, Object>> additionalProperteisHiveJdbcPros) {
+        if (!additionalProperteisHiveJdbcPros.isEmpty()) {
+            for (Map<String, Object> propertyMap : additionalProperteisHiveJdbcPros) {
+                String propertyKey = (String) propertyMap.get("PROPERTY");
+                String propertyValue = (String) propertyMap.get("VALUE");
+                String keyWithPrefix = prefixName + ConnectionContextHelper.LINE + getValidContextVariableName(propertyKey);
+                ConnectionContextHelper.createParameters(varList, keyWithPrefix, propertyValue);
+            }
+        }
     }
 
     static void setPropertiesForContextMode(String prefixName, DatabaseConnection conn, ContextItem contextItem,
@@ -211,69 +325,31 @@ public final class DBConnectionContextUtils {
                     }
                 }
                 originalVariableName = getCorrectVariableName(contextItem, originalVariableName, dbParam);
-                switch (dbParam) {
-                case AdditionalParams:
-                    conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Datasource:
-                    conn.setDatasourceName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case DBRootPath:
-                    conn.setDBRootPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case File:
-                    conn.setFileFieldName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Password:
-                    conn.setPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                // hshen
-                case JdbcUrl:
-                    conn.setURL(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case DriverJar:
-                    conn.setDriverJarPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case MappingFile:
-                    conn.setDbmsId(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case ClassName:
-                    conn.setDriverClass(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Port:
-                    conn.setPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Schema:
-                    conn.setUiSchema(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Server:
-                    conn.setServerName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Sid:
-                case Database:
-                case ServiceName:
-                    conn.setSID(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-
-                case Login:
-                    conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case JobTracker:
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case NameNode:
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-
-                default:
-                }
+                matchContextPropertiesForDbConnection(dbParam, conn, originalVariableName);
             }
         }
+        String hadoopJsonProperties = transformAdditionalPropertiesWithContextMode(prefixName,
+                getHiveOrHbaseHadoopProperties(conn));
+        setAdditionalHadoopProperties(conn, hadoopJsonProperties);
 
+        String hiveJsonProperties = transformAdditionalPropertiesWithContextMode(prefixName, getHiveJdbcProperties(conn));
+        setAdditionalHiveJdbcProperties(conn, hiveJsonProperties);
+    }
+
+    private static String transformAdditionalPropertiesWithContextMode(String prefixName,
+            List<Map<String, Object>> additionalProperties) {
+        String finalContextPropertiesJson = "";
+        if (!additionalProperties.isEmpty()) {
+            for (Map<String, Object> propertyMap : additionalProperties) {
+                String propertyKey = (String) propertyMap.get("PROPERTY");
+                propertyMap.put(
+                        "VALUE",
+                        ContextParameterUtils.getNewScriptCode(prefixName + ConnectionContextHelper.LINE
+                                + getValidContextVariableName(propertyKey), LANGUAGE));
+            }
+            finalContextPropertiesJson = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(additionalProperties);
+        }
+        return finalContextPropertiesJson;
     }
 
     static void setPropertiesForExistContextMode(DatabaseConnection conn, Set<IConnParamName> paramSet,
@@ -294,70 +370,176 @@ public final class DBConnectionContextUtils {
                         }
                     }
                 }
-
-                switch (dbParam) {
-                case AdditionalParams:
-                    conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Datasource:
-                    conn.setDatasourceName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case DBRootPath:
-                    conn.setDBRootPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case File:
-                    conn.setFileFieldName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Password:
-                    conn.setPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                // hshen
-                case JdbcUrl:
-                    conn.setURL(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case DriverJar:
-                    conn.setDriverJarPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case MappingFile:
-                    conn.setDbmsId(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case ClassName:
-                    conn.setDriverClass(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Port:
-                    conn.setPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Schema:
-                    conn.setUiSchema(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Server:
-                    conn.setServerName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case Sid:
-                case Database:
-                case ServiceName:
-                    conn.setSID(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-
-                case Login:
-                    conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case JobTracker:
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-                case NameNode:
-                    conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
-                            ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
-                    break;
-
-                default:
-                }
+                matchContextPropertiesForDbConnection(dbParam, conn, originalVariableName);
             }
         }
+        if (map != null && !map.isEmpty()) {
+            String hadoopPropertiesJson = transformAdditionalPropertiesWithExistContext(getHiveOrHbaseHadoopProperties(conn), map);
+            setAdditionalHadoopProperties(conn, hadoopPropertiesJson);
 
+            String hiveJdbcdPropertiesJson = transformAdditionalPropertiesWithExistContext(getHiveJdbcProperties(conn), map);
+            setAdditionalHiveJdbcProperties(conn, hiveJdbcdPropertiesJson);
+        }
+    }
+
+    private static String transformAdditionalPropertiesWithExistContext(List<Map<String, Object>> additionalProperties,
+            Map<ContextItem, List<ConectionAdaptContextVariableModel>> map) {
+        String finalContextPropertiesJson = "";
+        if (!additionalProperties.isEmpty()) {
+            Set<String> keys = getConAdditionProperties(additionalProperties);
+            for (Map.Entry<ContextItem, List<ConectionAdaptContextVariableModel>> entry : map.entrySet()) {
+                List<ConectionAdaptContextVariableModel> modelList = entry.getValue();
+                for (ConectionAdaptContextVariableModel model : modelList) {
+                    String propertyKey = model.getValue();
+                    if (keys.contains(propertyKey)) {
+                        // the reuse context match model find the property key need to do context
+                        for (Map<String, Object> propertyMap : additionalProperties) {
+                            String hadoopPropertyKey = (String) propertyMap.get("PROPERTY");
+                            if (propertyKey.equals(hadoopPropertyKey)) {
+                                propertyMap.put("VALUE", ContextParameterUtils.getNewScriptCode(model.getName(), LANGUAGE));
+                            }
+                        }
+                    }
+                }
+            }
+            finalContextPropertiesJson = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(additionalProperties);
+        }
+        return finalContextPropertiesJson;
+    }
+
+    private static Set<String> getConAdditionProperties(List<Map<String, Object>> propertiesList) {
+        Set<String> varList = new HashSet<String>();
+        if (!propertiesList.isEmpty()) {
+            for (Map<String, Object> propertyMap : propertiesList) {
+                varList.add((String) propertyMap.get("PROPERTY"));
+            }
+        }
+        return varList;
+    }
+
+    private static void setAdditionalHadoopProperties(DatabaseConnection conn, String hadoopPropertiesJson) {
+        if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(conn.getDatabaseType())) {
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES, hadoopPropertiesJson);
+        } else if (EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(conn.getDatabaseType())) {
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES, hadoopPropertiesJson);
+        }
+    }
+
+    private static void setAdditionalHiveJdbcProperties(DatabaseConnection conn, String hivePropertiesJson) {
+        if (EDatabaseConnTemplate.HIVE.getDBDisplayName().equals(conn.getDatabaseType())
+                && StringUtils.isNotEmpty(hivePropertiesJson)) {
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES, hivePropertiesJson);
+        }
+    }
+
+    static void matchContextPropertiesForDbConnection(EDBParamName dbParam, DatabaseConnection conn, String originalVariableName) {
+        switch (dbParam) {
+        case AdditionalParams:
+            conn.setAdditionalParams(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Datasource:
+            conn.setDatasourceName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case DBRootPath:
+            conn.setDBRootPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case File:
+            conn.setFileFieldName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Password:
+            conn.setPassword(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        // hshen
+        case JdbcUrl:
+            conn.setURL(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case DriverJar:
+            conn.setDriverJarPath(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case MappingFile:
+            conn.setDbmsId(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case ClassName:
+            conn.setDriverClass(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Port:
+            conn.setPort(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Schema:
+            conn.setUiSchema(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Server:
+            conn.setServerName(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Sid:
+        case Database:
+        case ServiceName:
+            conn.setSID(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+
+        case Login:
+            conn.setUsername(ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case JobTrackerOrResourceManager:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case NameNode:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HivePrincipal:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveMetastore:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveDriverJar:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveDriveClass:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveUserName:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HivePassword:
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveKeyTabPrincipal:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HiveKeyTab:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case MasterPrincipal:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case RegionPrincipal:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HbaseKeyTabPrincipal:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case HbaseKeyTab:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        default:
+        }
     }
 
     private static String getCorrectVariableName(ContextItem contextItem, String originalVariableName, EDBParamName dbParam) {
@@ -648,21 +830,21 @@ public final class DBConnectionContextUtils {
         if (conn == null || contextType == null) {
             return;
         }
-        String server = ConnectionContextHelper.getOriginalValue(contextType, conn.getServerName());
-        String username = ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, conn.getRawPassword());
-        String port = ConnectionContextHelper.getOriginalValue(contextType, conn.getPort());
-        String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, conn.getSID());
-        String datasource = ConnectionContextHelper.getOriginalValue(contextType, conn.getDatasourceName());
-        String filePath = ConnectionContextHelper.getOriginalValue(contextType, conn.getFileFieldName());
-        String schemaOracle = ConnectionContextHelper.getOriginalValue(contextType, conn.getUiSchema());
-        String dbRootPath = ConnectionContextHelper.getOriginalValue(contextType, conn.getDBRootPath());
-        String additionParam = ConnectionContextHelper.getOriginalValue(contextType, conn.getAdditionalParams());
+        String server = ContextParameterUtils.getOriginalValue(contextType, conn.getServerName());
+        String username = ContextParameterUtils.getOriginalValue(contextType, conn.getUsername());
+        String password = ContextParameterUtils.getOriginalValue(contextType, conn.getRawPassword());
+        String port = ContextParameterUtils.getOriginalValue(contextType, conn.getPort());
+        String sidOrDatabase = ContextParameterUtils.getOriginalValue(contextType, conn.getSID());
+        String datasource = ContextParameterUtils.getOriginalValue(contextType, conn.getDatasourceName());
+        String filePath = ContextParameterUtils.getOriginalValue(contextType, conn.getFileFieldName());
+        String schemaOracle = ContextParameterUtils.getOriginalValue(contextType, conn.getUiSchema());
+        String dbRootPath = ContextParameterUtils.getOriginalValue(contextType, conn.getDBRootPath());
+        String additionParam = ContextParameterUtils.getOriginalValue(contextType, conn.getAdditionalParams());
         // hshen
-        String jdbcUrl = ConnectionContextHelper.getOriginalValue(contextType, conn.getURL());
-        String driverJar = ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverJarPath());
-        String className = ConnectionContextHelper.getOriginalValue(contextType, conn.getDriverClass());
-        String mappingFile = ConnectionContextHelper.getOriginalValue(contextType, conn.getDbmsId());
+        String jdbcUrl = ContextParameterUtils.getOriginalValue(contextType, conn.getURL());
+        String driverJar = ContextParameterUtils.getOriginalValue(contextType, conn.getDriverJarPath());
+        String className = ContextParameterUtils.getOriginalValue(contextType, conn.getDriverClass());
+        String mappingFile = ContextParameterUtils.getOriginalValue(contextType, conn.getDbmsId());
 
         filePath = TalendQuoteUtils.removeQuotes(filePath);
         dbRootPath = TalendQuoteUtils.removeQuotes(dbRootPath);
@@ -700,14 +882,77 @@ public final class DBConnectionContextUtils {
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
             String hadoopUserName = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
-                    ConnectionContextHelper.getOriginalValue(contextType, hadoopUserName));
+                    ContextParameterUtils.getOriginalValue(contextType, hadoopUserName));
             String jobTracker = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
-                    ConnectionContextHelper.getOriginalValue(contextType, jobTracker));
+                    ContextParameterUtils.getOriginalValue(contextType, jobTracker));
             String nameNode = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
-                    ConnectionContextHelper.getOriginalValue(contextType, nameNode));
+                    ContextParameterUtils.getOriginalValue(contextType, nameNode));
+            String hivePrincipal = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA,
+                    ContextParameterUtils.getOriginalValue(contextType, hivePrincipal));
+
+            String hiveMetadata = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL,
+                    ContextParameterUtils.getOriginalValue(contextType, hiveMetadata));
+
+            String driverPath = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH,
+                    ContextParameterUtils.getOriginalValue(contextType, driverPath));
+
+            String driverClass = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS,
+                    ContextParameterUtils.getOriginalValue(contextType, driverClass));
+
+            String hiveUserName = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME,
+                    ContextParameterUtils.getOriginalValue(contextType, hiveUserName));
+
+            String hivePassword = conn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
+            conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD,
+                    ContextParameterUtils.getOriginalValue(contextType, hivePassword));
+
         }
+        // for Hbase
+        if (EDatabaseTypeName.HBASE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
+            String hbaseMasterPrin = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseMasterPrin));
+
+            String hbaseRegionPrin = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseRegionPrin));
+            String hbaseKeyTabPrin = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTabPrin));
+
+            String hbaseKeyTab = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTab));
+
+        }
+        // revert the context value in the hadoop properties dialog if it is hive or hbase
+        String hadoopPropertiesJson = transformContextModeToOriginal(getHiveOrHbaseHadoopProperties(conn), contextType);
+        setAdditionalHadoopProperties(conn, hadoopPropertiesJson);
+
+        String hivePropertiesJson = transformContextModeToOriginal(getHiveJdbcProperties(conn), contextType);
+        setAdditionalHiveJdbcProperties(conn, hivePropertiesJson);
+    }
+
+    private static String transformContextModeToOriginal(List<Map<String, Object>> additionalProperties, ContextType contextType) {
+        String finalJsonProperties = "";
+        if (!additionalProperties.isEmpty()) {
+            for (Map<String, Object> propertyMap : additionalProperties) {
+                String contextPropertyValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType,
+                        (String) propertyMap.get("VALUE")));
+                propertyMap.put("VALUE", contextPropertyValue);
+            }
+            finalJsonProperties = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(additionalProperties);
+        }
+        return finalJsonProperties;
     }
 
     /**

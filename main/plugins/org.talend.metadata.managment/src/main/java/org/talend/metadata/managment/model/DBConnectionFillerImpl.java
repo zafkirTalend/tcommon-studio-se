@@ -1400,7 +1400,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                 typeName = typeName.toUpperCase().trim();
                 typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
                     typeName = "TIMESTAMP"; //$NON-NLS-1$
                 }
                 typeName = MetadataToolHelper.validateValueForDBType(typeName);
@@ -1443,12 +1443,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 // Default value
                 String defaultValue = getStringFromResultSet(columns, GetColumn.COLUMN_DEF.name());
 
-                // Comment
-                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
-                colComment = ManagementTextUtils.filterSpecialChar(colComment);
-                column.setComment(colComment);
-                ColumnHelper.setComment(colComment, column);
-
                 // TdExpression
                 Object defaultValueObject = null;
                 try {
@@ -1488,6 +1482,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 } catch (Exception e) {
                     // do nothing
                 }
+
+                // Comment, getColumnComment() method should be called at the end of this loop, because if the database
+                // type is oracle 12c, when call this method will close the stream of the columns ResultSet which create
+                // by dbJDBCMetadata.getColumns()
+                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
+                colComment = ManagementTextUtils.filterSpecialChar(colComment);
+                column.setComment(colComment);
+                ColumnHelper.setComment(colComment, column);
+
                 extractMeta.handleDefaultValue(column, dbJDBCMetadata);
                 returnColumns.add(column);
                 columnLabels.add(column.getLabel());
@@ -1564,7 +1567,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                     typeName = typeName.toUpperCase().trim();
                     typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                    if (typeName.startsWith("TIMESTAMP(") && typeName.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
                         typeName = "TIMESTAMP"; //$NON-NLS-1$
                     }
                     typeName = MetadataToolHelper.validateValueForDBType(typeName);
@@ -1627,11 +1630,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
                 column.getSqlDataType().setNullable(NullableType.get(nullable));
 
-                // Comment
-                // MOD msjian TDQ-8546: fix the oracle type database column's comment is wrong
-                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
-                ColumnHelper.setComment(colComment, column);
-
                 // TdExpression
                 Object defaultvalue = null;
                 try {
@@ -1656,6 +1654,14 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
                     column.setSourceType(defaultSelectedDbType);
                 }
+
+                // Comment
+                // MOD msjian TDQ-8546: fix the oracle type database column's comment is wrong
+                // getColumnComment() method should be called at the end of this loop, because if the database type is
+                // oracle 12c, when call this method will close the stream of the columns ResultSet which create by
+                // dbJDBCMetadata.getColumns()
+                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
+                ColumnHelper.setComment(colComment, column);
 
                 try {
                     column.setNullable(nullable == 1);

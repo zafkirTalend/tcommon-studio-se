@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.project;
+package org.talend.designer.maven.tools;
 
 import java.util.Properties;
 
@@ -18,18 +18,12 @@ import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.TalendMavenContants;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
  *
  */
 public abstract class CreateMaven {
-
-    public static final String MAVEN_COMPILER_SOURCE = "maven.compiler.source"; //$NON-NLS-1$
-
-    public static final String MAVEN_COMPILER_TARGET = "maven.compiler.target"; //$NON-NLS-1$
 
     /* by default, the version is same as product */
     private String version = VersionUtils.getVersion();
@@ -133,16 +127,6 @@ public abstract class CreateMaven {
             p = new Properties();
             model.setProperties(p);
         }
-
-        /*
-         * build properties
-         */
-
-        // set compile level, if not set, keep the default, else will use to the setting one.
-        checkPomProperty(p, "maven.compiler.source", "@CompilerJavaLevel@", TalendCodeProjectUtil.getCompileLevel());
-        checkPomProperty(p, "maven.compiler.target", "@CompilerJavaLevel@", TalendCodeProjectUtil.getCompileLevel());
-
-        checkPomProperty(p, "project.build.sourceEncoding", "@BuildSourceEncoding@", TalendMavenContants.DEFAULT_ENCODING);
     }
 
     protected void checkPomProperty(Properties properties, String key, String var, String value) {

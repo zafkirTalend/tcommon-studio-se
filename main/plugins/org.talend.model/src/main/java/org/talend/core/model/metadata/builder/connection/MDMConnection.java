@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas <em>Schemas</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol <em>Protocol</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getContext <em>Context</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServerUrl <em>Server Url</em>}</li>
  * </ul>
  * </p>
  *
@@ -305,5 +306,31 @@ public interface MDMConnection extends Connection {
      * @generated
      */
     void setContext(String value);
+
+    /**
+     * Returns the value of the '<em><b>Server Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Server Url</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Server Url</em>' attribute.
+     * @see #setServerUrl(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMDMConnection_ServerUrl()
+     * @model required="true"
+     * @generated
+     */
+    String getServerUrl();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServerUrl <em>Server Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Server Url</em>' attribute.
+     * @see #getServerUrl()
+     * @generated
+     */
+    void setServerUrl(String value);
 
 } // MDMConnection

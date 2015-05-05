@@ -70,6 +70,11 @@ public enum ECoreImage implements IImage {
     FTP_ICON("/icons1/ftp.png"), //$NON-NLS-1$
     ROUTINE_WIZ("/icons1/routine_wiz.png"), //$NON-NLS-1$
     SNIPPETS_ICON("/icons1/snippet.png"), //$NON-NLS-1$
+    // Note Component icon
+    NOTE_SMALL_ICON("/icons1/Note_icon16.png"), //$NON-NLS-1$
+    NOTE_MIDDLE_ICON("/icons1/Note_icon24.png"), //$NON-NLS-1$
+    NOTE_BIG_ICON("/icons1/Note_icon32.png"), //$NON-NLS-1$
+
     // SUBROUTINE_ICON("/icons1/subroutine.gif"),
     DOCUMENTATION_ICON("/icons1/documentation.png"), //$NON-NLS-1$
     DOCUMENTATION_SINGLE_ICON("/icons1/Documentation_feuillet.png"), //$NON-NLS-1$

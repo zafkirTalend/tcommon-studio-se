@@ -24,8 +24,12 @@ public class ProjectSystemFolder {
     /** Output path */
     private String outputPath = null;
 
-    public ProjectSystemFolder(String path, String outputPath) {
+    public ProjectSystemFolder(String path) {
         this.path = path;
+    }
+
+    public ProjectSystemFolder(String path, String outputPath) {
+        this(path);
         this.outputPath = outputPath;
     }
 

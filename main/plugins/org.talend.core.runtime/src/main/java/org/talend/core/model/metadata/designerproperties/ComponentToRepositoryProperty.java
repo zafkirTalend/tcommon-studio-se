@@ -1013,6 +1013,13 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setMDMValue(MDMConnection connection, INode node, IElementParameter param) {
+        if ("MDM_VERSION".equals(param.getRepositoryValue())) {//$NON-NLS-1$
+            String value = getParameterValue(connection, node, param);
+            if (value != null) {
+                connection.setVersion(value);
+            }
+        }
+
         if ("USERNAME".equals(param.getRepositoryValue())) {//$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
@@ -1030,12 +1037,7 @@ public class ComponentToRepositoryProperty {
         if ("MDMURL".equals(param.getRepositoryValue())) {//$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                String[] values = value.split(":"); //$NON-NLS-1$
-                String server = values[1].substring(values[1].indexOf("//") + 2); //$NON-NLS-1$
-                String port = values[2].substring(0, values[2].indexOf("/")); //$NON-NLS-1$
-
-                connection.setServer(server);
-                connection.setPort(port);
+                connection.setServerUrl(value);
             }
         }
 

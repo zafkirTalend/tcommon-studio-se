@@ -52,6 +52,8 @@ import org.talend.metadata.managment.ui.props.PropertiesTableView;
  */
 public class PropertiesDialog extends TitleAreaDialog {
 
+    private Composite propComposite;
+
     private List<Map<String, Object>> initPropertiesOfParent;
 
     private List<Map<String, Object>> initProperties;
@@ -80,7 +82,7 @@ public class PropertiesDialog extends TitleAreaDialog {
     }
 
     public void createPropertiesFields(Composite parent) {
-        Composite propComposite = new Composite(parent, SWT.NONE);
+        propComposite = new Composite(parent, SWT.NONE);
         GridLayout propCompLayout = new GridLayout(3, false);
         propCompLayout.marginWidth = getMarginWidth();
         propCompLayout.marginHeight = getMarginHeight();
@@ -89,11 +91,11 @@ public class PropertiesDialog extends TitleAreaDialog {
 
         Label propLabel = new Label(propComposite, SWT.NONE);
         propLabel.setText(getTitle());
-        Button openPropButton = new Button(propComposite, SWT.NONE);
+        Button propertyButton = new Button(propComposite, SWT.NONE);
         final PropertiesDialog propertiesDialog = this;
-        openPropButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
-        openPropButton.setLayoutData(new GridData(30, 25));
-        openPropButton.addSelectionListener(new SelectionAdapter() {
+        propertyButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
+        propertyButton.setLayoutData(new GridData(30, 25));
+        propertyButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -106,6 +108,12 @@ public class PropertiesDialog extends TitleAreaDialog {
         statusLabel = new Label(propComposite, SWT.NONE);
         statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         updateStatusLabel(initProperties);
+    }
+
+    public void updatePropertiesFields(boolean isEdiable) {
+        if (propComposite != null && !propComposite.isDisposed()) {
+            propComposite.setEnabled(isEdiable);
+        }
     }
 
     @Override
@@ -150,7 +158,7 @@ public class PropertiesDialog extends TitleAreaDialog {
         }
     }
 
-    private void updateStatusLabel(List<Map<String, Object>> hadoopProperties) {
+    public void updateStatusLabel(List<Map<String, Object>> hadoopProperties) {
         if (hadoopProperties == null || hadoopProperties.size() == 0) {
             statusLabel.setText(Messages.getString("PropertiesDialog.statusLabel.empty")); //$NON-NLS-1$
         } else {

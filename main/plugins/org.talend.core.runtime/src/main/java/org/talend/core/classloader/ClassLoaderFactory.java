@@ -80,7 +80,19 @@ public class ClassLoaderFactory {
         }
         DynamicClassLoader classLoader = classLoadersMap.get(index);
         if (classLoader == null) {
-            classLoader = findLoader(index, showDownloadIfNotExist);
+            classLoader = findLoader(index, null, showDownloadIfNotExist);
+        }
+
+        return classLoader;
+    }
+
+    public static DynamicClassLoader getClassLoader(String index, ClassLoader parentClassLoader) {
+        if (classLoadersMap == null) {
+            init();
+        }
+        DynamicClassLoader classLoader = classLoadersMap.get(index);
+        if (classLoader == null) {
+            classLoader = findLoader(index, parentClassLoader, true);
         }
 
         return classLoader;
@@ -154,7 +166,8 @@ public class ClassLoaderFactory {
         classLoadersMap = new ConcurrentHashMap<String, DynamicClassLoader>();
     }
 
-    private static synchronized DynamicClassLoader findLoader(String index, boolean showDownloadIfNotExist) {
+    private static synchronized DynamicClassLoader findLoader(String index, ClassLoader parentLoader,
+            boolean showDownloadIfNotExist) {
         if (index != null && configurationElements != null) {
             for (IConfigurationElement current : configurationElements) {
                 String key = current.getAttribute(INDEX_ATTR);
@@ -162,11 +175,16 @@ public class ClassLoaderFactory {
                     String libraries = current.getAttribute(LIB_ATTR);
                     if (StringUtils.isNotEmpty(index)) {
                         DynamicClassLoader classLoader = null;
-                        DynamicClassLoader parentClassLoader = null;
+                        ClassLoader parentClassLoader = null;
                         String parentKey = current.getAttribute(PARENT_ATTR);
+                        // take parent classlaoder in extensions first
                         if (StringUtils.isNotEmpty(parentKey)) {
                             parentClassLoader = getClassLoader(parentKey, showDownloadIfNotExist);
                         }
+                        if (parentClassLoader == null) {
+                            parentClassLoader = parentLoader;
+                        }
+
                         if (parentClassLoader == null) {
                             classLoader = new DynamicClassLoader();
                         } else {

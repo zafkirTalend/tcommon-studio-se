@@ -729,12 +729,17 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getMDMValue(MDMConnection connection, String value, IMetadataTable table) {
-        if ("MDMURL".equals(value)) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getServer()) && isContextMode(connection, connection.getPort())) {
-                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+        if ("MDM_VERSION".equals(value)) {//$NON-NLS-1$
+            if (connection.getVersion() == null || "".equals(connection.getVersion())) {
+                return MDMVersions.MDM_S56.getKey();
             } else {
-                return TalendQuoteUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-2$
-                        + "/talend/TalendPort");//$NON-NLS-1$
+                return connection.getVersion();
+            }
+        } else if ("MDMURL".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getServerUrl())) {
+                return connection.getServerUrl();
+            } else {
+                return TalendQuoteUtils.addQuotes(connection.getServerUrl());
             }
         } else if ("USERNAME".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUsername())) {
@@ -1429,6 +1434,18 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("IMPALA_PRINCIPAL")) {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA));
+        }
+
+        if (value.equals("IMPALA_VERSION")) {
+            String impalaVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION);
+            if (impalaVersion != null) {
+                // The value for IMPALA_CDH5 is wrong for a long time, so need to change it manaully, so can avoid to
+                // add migration task
+                if (EDatabaseVersion4Drivers.IMPALA_CDH5.getVersionValue().equals(impalaVersion)) {
+                    impalaVersion = "Cloudera_CDH5_1";
+                }
+            }
+            return impalaVersion;
         }
 
         return null;

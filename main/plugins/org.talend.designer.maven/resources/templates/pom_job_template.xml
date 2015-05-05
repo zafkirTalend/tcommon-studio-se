@@ -3,15 +3,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.talend.test</groupId>
-	<artifactId>TestMysql</artifactId>
+	<parent>
+		<groupId>org.talend.master</groupId>
+		<artifactId>master.Codes</artifactId>
+		<version>6.0.0</version>
+		<relativePath>./pom.xml</relativePath>
+	</parent>
+	<groupId>org.talend.job</groupId>
+	<artifactId>Job</artifactId>
 	<version>0.1</version>
 
 	<properties>
-		<project.root.path>${basedir}/../../../../..</project.root.path>
-		<system.lib.path>${project.root.path}/lib</system.lib.path>
-		<project.resources.path>${project.root.path}/src/main/resources</project.resources.path>
-
 		<talend.job.path>@JobPath@</talend.job.path>
 		<talend.job.package>@JobPackage@</talend.job.package>
 
@@ -32,37 +34,27 @@
 		<!-- for bat/sh -->
 		<talend.job.bat.classpath>@JobBatClasspath@</talend.job.bat.classpath>
 		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
-
-		<!-- for maven build -->
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
-		<!-- Add routines and some dependencies jars -->
+		<!-- Add some dependencies jars -->
 	</dependencies>
 
 	<build>
-		<sourceDirectory>.</sourceDirectory>
-		<outputDirectory>${project.root.path}/target/classes</outputDirectory>
-		<directory>${project.root.path}/target/${project.artifactId}</directory>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-clean</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
 				<executions>
 					<execution>
 						<id>copy-running-resources</id>
@@ -74,7 +66,7 @@
 							<outputDirectory>${project.build.outputDirectory}/${talend.job.path}</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.resources.path}/${talend.job.path}</directory>
+									<directory>${basedir}/src/main/resources/${talend.job.path}</directory>
 									<includes>
 										<include>contexts/*.properties</include>
 									</includes>
@@ -87,12 +79,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>false</addMavenDescriptor>
-					</archive>
-				</configuration>
 				<executions>
 					<execution>
 						<id>default-jar</id>
@@ -111,26 +97,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<stripVersion>true</stripVersion>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
@@ -140,10 +106,11 @@
 						</goals>
 						<configuration>
 							<descriptors>
-								<descriptor>assembly.xml</descriptor>
+								<descriptor>${basedir}/src/main/assemblies/assembly_${talend.job.name}.xml</descriptor>
 							</descriptors>
-							<finalName>${project.artifactId}_${project.version}</finalName>
 							<tarLongFileMode>gnu</tarLongFileMode>
+							<appendAssemblyId>false</appendAssemblyId>
+							<!-- <finalName>${project.artifactId}-${project.version}</finalName>  -->
 						</configuration>
 					</execution>
 				</executions>

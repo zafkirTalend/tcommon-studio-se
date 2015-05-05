@@ -27,6 +27,12 @@ public class MavenSystemFolders {
 
     public static final ProjectSystemFolder RESOURCES_TEST = new ProjectSystemFolder("src/test/resources", "target/test-classes");
 
+    public static final ProjectSystemFolder ASSEMBLIES = new ProjectSystemFolder("src/main/assemblies");
+
+    public static final ProjectSystemFolder TEMPLATES = new ProjectSystemFolder("src/main/templates");
+
+    public static final ProjectSystemFolder ITEMS = new ProjectSystemFolder("src/main/items");
+
     public static final ProjectSystemFolder[] SIMPLE_DIRS = { JAVA, RESOURCES };
 
     public static final ProjectSystemFolder[] TEST_DIRS = { JAVA_TEST, RESOURCES_TEST };

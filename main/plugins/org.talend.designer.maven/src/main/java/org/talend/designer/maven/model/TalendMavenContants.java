@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.model;
 
-import org.eclipse.jdt.core.JavaCore;
 import org.talend.commons.utils.generation.JavaUtils;
 
 /**
@@ -26,16 +25,47 @@ public interface TalendMavenContants {
     /* same as the JavaUtils.JAVA_PROJECT_NAME */
     static final String PROJECT_NAME = ".Java";
 
-    static final String DEFAULT_GROUP_ID = "org.talend";
-
-    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "project";
-
-    static final String DEFAULT_VERSION = "0.1";
+    static final String CURRENT_PATH = ".";
 
     static final String DEFAULT_ENCODING = "UTF-8";
 
+    static final String DEFAULT_GROUP_ID = "org.talend";
+
+    static final String DEFAULT_VERSION = "6.0.0";
+
+    static final String MVN_URL_PREFIX = "mvn://";
+
+    /*
+     * for .Java/pom.xml
+     */
+    static final String DEFAULT_CODE_PROJECT_GROUP_ID = DEFAULT_GROUP_ID + ".master";
+
+    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "master.Codes";
+
+    /*
+     * for dependencies
+     */
+    static final String DEFAULT_LIB_GROUP_ID = DEFAULT_GROUP_ID + ".libraries";
+
+    static final String DEFAULT_LIB_VERSION = DEFAULT_VERSION;
+
+    /*
+     * for routines
+     */
+    static final String DEFAULT_ROUTINES_GROUP_ID = DEFAULT_GROUP_ID + ".code";
+
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
+    static final String DEFAULT_ROUTINE_VERSION = DEFAULT_VERSION;
+
+    /*
+     * for job
+     */
+    static final String DEFAULT_JOB_GROUP_ID = DEFAULT_GROUP_ID + ".job";
+
+    /*
+     * for test container
+     */
     static final String DEFAULT_JUNIT_ARTIFACT_GROUP = "junit";
 
     static final String DEFAULT_JUNIT_ARTIFACT_ID = "junit";
@@ -43,9 +73,5 @@ public interface TalendMavenContants {
     static final String DEFAULT_JUNIT_ARTIFACT_VERSION = "3.8.1";
 
     static final String DEFAULT_JUNIT_ARTIFACT_SCOPE = "test";
-
-    static final String DEFAULT_JDK_VERSION = JavaCore.VERSION_1_7;
-
-    static final String CURRENT_PATH = ".";
 
 }
