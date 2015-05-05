@@ -1224,4 +1224,24 @@ public abstract class AbstractNode implements INode {
     public void setParallelIterator(String parallelIterator) {
         this.parallelIterator = parallelIterator;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#isForceReadOnly()
+     */
+    @Override
+    public boolean isForceReadOnly() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#setForceReadOnly(boolean)
+     */
+    @Override
+    public void setForceReadOnly(boolean readOnly) {
+
+    }
 }

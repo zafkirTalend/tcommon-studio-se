@@ -39,6 +39,7 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
@@ -61,6 +62,8 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
     private Map<String, PropertyDescriptor> propertyDescriptorMap;
 
     private final static String JOBLET_CONTEXT = " (from joblet)";
+
+    private final static String JOB_CONTEXT = " (from job)";
 
     private final static String REPOSITORYT_CONTEXT = " (from repository context)";
 
@@ -149,6 +152,8 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                     if (item != null) {
                         if (item instanceof JobletProcessItem) {
                             return contextParaName + JOBLET_CONTEXT;
+                        } else if (item instanceof ProcessItem) {
+                            return contextParaName + JOB_CONTEXT;
                         } else {
                             return contextParaName + REPOSITORYT_CONTEXT;
                         }

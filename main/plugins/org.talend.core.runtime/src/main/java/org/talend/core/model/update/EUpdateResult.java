@@ -27,7 +27,9 @@ public enum EUpdateResult {
     // for mapper
     PATH_UPDATE(Messages.getString("EUpdateResult.PathUpdate")), //$NON-NLS-1$
     // for joblet
-    JOBLET_UPDATE(Messages.getString("EUpdateResult.JobletUpdate")); //$NON-NLS-1$
+    JOBLET_UPDATE(Messages.getString("EUpdateResult.JobletUpdate")), //$NON-NLS-1$
+    // for test container
+    JOB_UPDATE(Messages.getString("EUpdateResult.JobUpdate")); //$NON-NLS-1$
 
     private String displayName;
 
