@@ -531,7 +531,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         elementParameter = node.getElementParameter("SPARK_VERSION");//$NON-NLS-1$
         elementParameter.setValue(version);
 
-        Map<String, Object> sparkConfigurations = typeConfigurations.get(ECustomVersionType.SPARK);
+        Map<String, Object> sparkConfigurations = typeConfigurations.get(type);
         String sparkMode = sparkConfigurations.get(HadoopConstants.SPARK_MODE).toString();
 
         elementParameter = node.getElementParameter("SPARK_MODE");//$NON-NLS-1$
