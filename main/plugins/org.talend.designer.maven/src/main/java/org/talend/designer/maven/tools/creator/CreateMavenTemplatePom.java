@@ -59,20 +59,9 @@ public class CreateMavenTemplatePom extends CreateMaven {
 
     @Override
     protected Model createModel() {
-        Model model = null;
-        try {
-            InputStream inputStream = MavenTemplateManager.getTemplate(templatePomFile);
-            if (inputStream != null) {
-                model = MODEL_MANAGER.readMavenModel(inputStream);
+        Model model = loadModel();
 
-            }
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
-        }
-
-        // retrieve template failure. try default one.
+        // load failure. try default one.
         if (model == null) {
             // create default model
             model = super.createModel();
@@ -81,6 +70,21 @@ public class CreateMavenTemplatePom extends CreateMaven {
             addProperties(model);
         }
         return model;
+    }
+
+    protected Model loadModel() {
+        try {
+            InputStream inputStream = MavenTemplateManager.getTemplate(templatePomFile);
+            if (inputStream != null) {
+                return MODEL_MANAGER.readMavenModel(inputStream);
+
+            }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     /*

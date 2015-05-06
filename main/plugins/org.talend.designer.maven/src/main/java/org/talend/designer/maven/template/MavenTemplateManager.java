@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.maven.template;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +21,9 @@ import java.io.StringWriter;
 import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.runtime.services.IDesignerMavenUIService;
 import org.talend.designer.maven.DesignerMavenPlugin;
 
 /**
@@ -28,6 +32,9 @@ import org.talend.designer.maven.DesignerMavenPlugin;
  */
 public class MavenTemplateManager {
 
+    /**
+     * read the template from bundle resource.
+     */
     public static InputStream getTemplate(String templateName) throws IOException {
         URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
                 .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
@@ -39,7 +46,10 @@ public class MavenTemplateManager {
     }
 
     public static String getTemplateContent(String templateName) throws IOException {
-        InputStream is = getTemplate(templateName);
+        return getContentFromInputStream(getTemplate(templateName));
+    }
+
+    private static String getContentFromInputStream(InputStream is) throws IOException {
         if (is != null) {
             StringWriter sw = new StringWriter(1000);
             int c = 0;
@@ -49,6 +59,30 @@ public class MavenTemplateManager {
             return sw.toString();
         }
         return null;
+    }
+
+    /**
+     * read the template from project setting preference.
+     */
+    public static InputStream getProjectTemplate(String templateKey) throws IOException {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMavenUIService.class)) {
+            IDesignerMavenUIService mavenUiService = (IDesignerMavenUIService) GlobalServiceRegister.getDefault().getService(
+                    IDesignerMavenUIService.class);
+            try {
+                String jobTemplateFromProjectSettingContents = mavenUiService.getProjectSettingPreferenceValue(templateKey);
+                if (jobTemplateFromProjectSettingContents != null && jobTemplateFromProjectSettingContents.length() > 0) {
+                    InputStream is = new ByteArrayInputStream(jobTemplateFromProjectSettingContents.getBytes("UTF-8"));
+                    return is;
+                }
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return null;
+    }
+
+    public static String getProjectTemplateContent(String templateKey) throws IOException {
+        return getContentFromInputStream(getProjectTemplate(templateKey));
     }
 
     public static void copyTemplate(String templateName, IFile targetFile, boolean overwrite) throws IOException {

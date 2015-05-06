@@ -10,14 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting;
+package org.talend.core.runtime.services;
+
+import org.talend.core.IService;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IProjectSettingPreferenceConstants {
+public interface IDesignerMavenUIService extends IService {
 
-    public static final String MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE = "autonomousjob_maven_script_template"; //$NON-NLS-1$
-
-    public static final String MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE = "autonomousjob_assembly_maven_script_template"; //$NON-NLS-1$
+    /**
+     * 
+     * get the project setting preference value via key.
+     */
+    String getProjectSettingPreferenceValue(String key);
 }

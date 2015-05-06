@@ -12,24 +12,22 @@
 // ============================================================================
 package org.talend.designer.maven.ui.projectsetting;
 
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
+import org.talend.core.runtime.preference.AbstractProjectSettingPage;
+import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MainMavenProjectPreferencePage extends PreferencePage {
+public class MainMavenProjectPreferencePage extends AbstractProjectSettingPage {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
-     */
     @Override
-    protected Control createContents(Composite parent) {
-        // TODO Auto-generated method stub
-        return null;
+    protected String getPreferenceName() {
+        return DesignerMavenUiPlugin.PLUGIN_ID;
+    }
+
+    @Override
+    protected void createFieldEditors() {
+
     }
 
 }

@@ -10,24 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting.job;
-
-import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
-import org.talend.designer.maven.ui.projectsetting.AbstractMavenScriptProjectSettingPage;
+package org.talend.designer.maven.template;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class AutonomousJobProjectPreferencePage extends AbstractMavenScriptProjectSettingPage {
+public interface IProjectSettingPreferenceConstants {
 
-    @Override
-    protected String getPreferenceKey() {
-        return IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE;
-    }
+    public static final String MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE = "autonomousjob_maven_script_template"; //$NON-NLS-1$
 
-    @Override
-    protected String getHeadTitle() {
-        return "POM script";
-    }
-
+    public static final String MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE = "autonomousjob_assembly_maven_script_template"; //$NON-NLS-1$
 }

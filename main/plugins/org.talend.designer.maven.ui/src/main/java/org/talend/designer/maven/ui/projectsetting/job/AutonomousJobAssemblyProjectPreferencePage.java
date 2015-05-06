@@ -12,8 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.ui.projectsetting.job;
 
+import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.ui.projectsetting.AbstractMavenScriptProjectSettingPage;
-import org.talend.designer.maven.ui.projectsetting.IProjectSettingPreferenceConstants;
 
 /**
  * DOC ggu class global comment. Detailled comment

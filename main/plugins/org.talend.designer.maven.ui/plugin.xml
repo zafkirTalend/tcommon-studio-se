@@ -30,5 +30,12 @@
             class="org.talend.designer.maven.ui.projectsetting.MavenScriptsProjectSettingInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.designer.maven.ui.DesignerMavenUIService"
+            serviceId="IDesignerMavenUIService">
+      </Service>
+   </extension>
 
 </plugin>

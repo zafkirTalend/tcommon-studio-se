@@ -15,6 +15,7 @@ package org.talend.designer.maven.tools.creator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -55,6 +57,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenDependenciesManager;
@@ -218,6 +221,22 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
         return model;
     }
 
+    @Override
+    protected Model loadModel() {
+        // read template from project setting
+        try {
+            InputStream is = MavenTemplateManager
+                    .getProjectTemplate(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE);
+            return MODEL_MANAGER.readMavenModel(is);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        // use default template from bundle resources
+        return super.loadModel();
+    }
+
     /**
      * 
      * Add the properties for job.
@@ -327,9 +346,25 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
         IFile assemblyFile = this.getAssemblyFile();
         if (assemblyFile != null) {
-            MavenTemplateManager
-                    .copyTemplate(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME, assemblyFile, isOverwrite());
+            boolean set = false;
+            // read template from project setting
+            try {
+                InputStream is = MavenTemplateManager
+                        .getProjectTemplate(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE);
+                if (is != null) {
+                    assemblyFile.setContents(is, true, false, monitor);
+                    set = true;
+                }
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
 
+            if (!set) { // use default template from bundle resources
+                MavenTemplateManager.copyTemplate(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME, assemblyFile,
+                        isOverwrite());
+            }
             // add children resources in assembly.
             addChildrenJobsInAssembly(assemblyFile);
 
