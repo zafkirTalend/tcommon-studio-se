@@ -341,6 +341,33 @@ public enum HiveConnVersionInfo {
         return this.isSupportHive2;
     }
 
+    public boolean isSupportHiveServerVersion(HiveServerVersionInfo hiveServerVersion) {
+        boolean isSupport = false;
+
+        if (hiveServerVersion == null) {
+            return isSupport;
+        }
+
+        switch (hiveServerVersion) {
+        case HIVE_SERVER_1:
+            switch (this) {
+            case Cloudera_CDH5_4:
+                isSupport = false;
+                break;
+            default:
+                isSupport = true;
+            }
+            break;
+        case HIVE_SERVER_2:
+            isSupport = isSupportHive2();
+            break;
+        default:
+            isSupport = false;
+        }
+
+        return isSupport;
+    }
+
     public boolean isSupportMR1() {
         return this.isSupportMR1;
     }

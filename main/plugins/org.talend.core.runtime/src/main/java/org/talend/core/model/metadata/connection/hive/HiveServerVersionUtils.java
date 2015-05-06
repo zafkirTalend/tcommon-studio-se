@@ -36,6 +36,18 @@ public class HiveServerVersionUtils {
         return displayNames;
     }
 
+    public static List<String> extractAvailableListDisplayNames(HiveConnVersionInfo hadoopVersion) {
+        HiveServerVersionInfo[] infos = HiveServerVersionInfo.values();
+        List<String> keys = new ArrayList<String>();
+        for (HiveServerVersionInfo info : infos) {
+            if (hadoopVersion.isSupportHiveServerVersion(info)) {
+                keys.add(info.getDisplayName());
+            }
+        }
+
+        return keys;
+    }
+
     /**
      * Extracts the array of display names, refer to this method {@link #extractListDisplayNames()}. Added by Marvin
      * Wang on Mar 25, 2013.
@@ -44,6 +56,11 @@ public class HiveServerVersionUtils {
      */
     public static String[] extractArrayDisplayNames() {
         List<String> list = extractListDisplayNames();
+        return list.toArray(new String[list.size()]);
+    }
+
+    public static String[] extractAvailableArrayDisplayNames(HiveConnVersionInfo hadoopVersion) {
+        List<String> list = extractAvailableListDisplayNames(hadoopVersion);
         return list.toArray(new String[list.size()]);
     }
 
