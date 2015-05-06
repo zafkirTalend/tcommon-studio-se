@@ -5739,6 +5739,11 @@ public class DatabaseForm extends AbstractForm {
         boolean isSupportHiveServer2 = HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex);
         if (isSupportHiveServer2) {
             DatabaseConnection conn = getConnection();
+
+            String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
+                    .getHiveVersionObj(distributionIndex, hiveVersionIndex));
+            hiveServerVersionCombo.getCombo().setItems(hiveServerDisplayNames);
+
             String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
 
             hiveServerVersionCombo.select(HiveServerVersionUtils.getIndexofHiveServerByKey(hiveServerKey));
