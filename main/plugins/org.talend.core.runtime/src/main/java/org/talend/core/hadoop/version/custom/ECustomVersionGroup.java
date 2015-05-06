@@ -31,6 +31,10 @@ public enum ECustomVersionGroup {
 
     MAP_REDUCE,
 
+    SPARK,
+
+    SPARK_STREAMING,
+
     ALL;
 
     private final static String PREFIX = "HADOOP_CUSTOM_VERSION:"; //$NON-NLS-1$

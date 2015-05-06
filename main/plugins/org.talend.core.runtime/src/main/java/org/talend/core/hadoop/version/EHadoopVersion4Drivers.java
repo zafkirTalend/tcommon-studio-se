@@ -230,4 +230,18 @@ public enum EHadoopVersion4Drivers {
 
     }
 
+    public boolean isSupportSpark() {
+        boolean isSupport = false;
+
+        switch (this) {
+        case CLOUDERA_CDH5_4:
+        case CUSTOM:
+            isSupport = true;
+            break;
+        default:
+            isSupport = false;
+        }
+
+        return isSupport;
+    }
 }

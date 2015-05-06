@@ -22,7 +22,11 @@ public enum ECustomVersionType {
 
     PIG_HCATALOG("Pig for Hcatalog", ECustomVersionGroup.PIG_HCATALOG), //$NON-NLS-1$
 
-    MAP_REDUCE("Map Reduce", ECustomVersionGroup.MAP_REDUCE),
+    MAP_REDUCE("Map Reduce", ECustomVersionGroup.MAP_REDUCE), //$NON-NLS-1$
+
+    SPARK("Spark", ECustomVersionGroup.SPARK), //$NON-NLS-1$
+
+    SPARK_STREAMING("Spark Streaming", ECustomVersionGroup.SPARK_STREAMING), //$NON-NLS-1$
 
     ALL("All", ECustomVersionGroup.ALL); //$NON-NLS-1$
 

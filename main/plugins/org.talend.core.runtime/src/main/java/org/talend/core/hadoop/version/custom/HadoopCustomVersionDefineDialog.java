@@ -68,6 +68,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.repository.ui.dialog.LibrariesListSelectionDialog;
@@ -115,6 +116,12 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     private boolean readonly = false;
 
     private boolean needPopUpImport = true;
+
+    private Map<ECustomVersionType, Map<String, Object>> typeConfigurations = new HashMap<ECustomVersionType, Map<String, Object>>();
+
+    private String sparkMode;
+
+    private String sparkStreamingMode;
 
     /**
      * DOC ycbai HadoopCustomVersionDefineDialog constructor comment.
@@ -176,7 +183,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("HadoopCustomVersionDialog.topTitle")); //$NON-NLS-1$
-        newShell.setSize(550, 600);
+        newShell.setSize(650, 600);
         setHelpAvailable(false);
     }
 
@@ -544,6 +551,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
             }
         }
         final HadoopVersionDialog versionDialog = new HadoopVersionDialog(getShell(), groupsAndDispaly, customLibUtil, getTypes());
+        versionDialog.setTypeConfigurations(getTypeConfigurations());
         if (versionDialog.open() == Window.OK) {
             final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 
@@ -795,6 +803,44 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
 
     }
 
+    @Override
+    public int open() {
+        ECustomVersionType[] displayTypes = getDisplayTypes();
+        Map<ECustomVersionType, Map<String, Object>> typeConfigurations = getTypeConfigurations();
+        Map<String, Object> sparkConfigurations = typeConfigurations.get(ECustomVersionType.SPARK);
+        if (sparkConfigurations == null) {
+            sparkConfigurations = new HashMap<String, Object>();
+            typeConfigurations.put(ECustomVersionType.SPARK, sparkConfigurations);
+        }
+        String strSparkMode = getSparkMode();
+        if (strSparkMode == null || strSparkMode.isEmpty()) {
+            // the mode is set following the configurations of tSparkConfiguration_java.xml
+            if (displayTypes != null && displayTypes.length == 1 && ECustomVersionType.SPARK == displayTypes[0]) {
+                strSparkMode = HadoopConstants.SPARK_MODE_CLUSTER;
+            } else {
+                strSparkMode = HadoopConstants.SPARK_MODE_YARN_CLIENT;
+            }
+        }
+        sparkConfigurations.put(HadoopConstants.SPARK_MODE, strSparkMode);
+
+        Map<String, Object> sparkStreamingConfigurations = typeConfigurations.get(ECustomVersionType.SPARK_STREAMING);
+        if (sparkStreamingConfigurations == null) {
+            sparkStreamingConfigurations = new HashMap<String, Object>();
+            typeConfigurations.put(ECustomVersionType.SPARK_STREAMING, sparkStreamingConfigurations);
+        }
+        String strSparkStreamingMode = getSparkStreamingMode();
+        if (strSparkStreamingMode == null || strSparkStreamingMode.isEmpty()) {
+            // the mode is set following the configurations of tSparkConfiguration_java.xml
+            if (displayTypes != null && displayTypes.length == 1 && ECustomVersionType.SPARK_STREAMING == displayTypes[0]) {
+                strSparkStreamingMode = HadoopConstants.SPARK_MODE_CLUSTER;
+            } else {
+                strSparkStreamingMode = HadoopConstants.SPARK_MODE_YARN_CLIENT;
+            }
+        }
+        sparkStreamingConfigurations.put(HadoopConstants.SPARK_MODE, strSparkStreamingMode);
+        return super.open();
+    }
+
     /**
      * created by ycbai on 2013-3-19 Detailled comment
      * 
@@ -838,6 +884,30 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
             }
         }
 
+    }
+
+    public Map<ECustomVersionType, Map<String, Object>> getTypeConfigurations() {
+        return this.typeConfigurations;
+    }
+
+    public void setTypeConfigurations(Map<ECustomVersionType, Map<String, Object>> typeConfigurations) {
+        this.typeConfigurations = typeConfigurations;
+    }
+
+    public String getSparkMode() {
+        return this.sparkMode;
+    }
+
+    public void setSparkMode(String sparkMode) {
+        this.sparkMode = sparkMode;
+    }
+
+    public String getSparkStreamingMode() {
+        return this.sparkStreamingMode;
+    }
+
+    public void setSparkStreamingMode(String sparkStreamingMode) {
+        this.sparkStreamingMode = sparkStreamingMode;
     }
 
 }
