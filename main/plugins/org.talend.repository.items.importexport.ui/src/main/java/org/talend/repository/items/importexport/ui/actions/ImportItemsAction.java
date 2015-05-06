@@ -35,7 +35,7 @@ import org.talend.repository.ui.actions.AContextualAction;
 
 /**
  */
-public final class ImportItemsAction extends AContextualAction implements IWorkbenchWindowActionDelegate {
+public class ImportItemsAction extends AContextualAction implements IWorkbenchWindowActionDelegate {
 
     private IStructuredSelection structureSelection;
 
@@ -74,7 +74,7 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
             return;
         }
 
-        ImportItemsWizard wizard = new ImportItemsWizard();
+        ImportItemsWizard wizard = getNewImportItemsWizard();
         wizard.setWindowTitle(this.getText());
         wizard.init(PlatformUI.getWorkbench(), getSelection());
 
@@ -95,6 +95,10 @@ public final class ImportItemsAction extends AContextualAction implements IWorkb
                 }
             }
         }
+    }
+
+    protected ImportItemsWizard getNewImportItemsWizard() {
+        return new ImportItemsWizard();
     }
 
     @Override

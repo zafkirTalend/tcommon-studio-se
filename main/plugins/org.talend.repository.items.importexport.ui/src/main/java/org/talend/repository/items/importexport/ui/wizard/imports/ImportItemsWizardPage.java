@@ -41,6 +41,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -104,7 +105,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
     private Text directoryPathField, archivePathField;
 
-    private Button browseDirectoriesButton, browseArchivesButton, fromExchangeButton;
+    protected Button browseDirectoriesButton, browseArchivesButton, fromExchangeButton;
 
     private FilteredCheckboxTree filteredCheckboxTree;
 
@@ -244,7 +245,7 @@ public class ImportItemsWizardPage extends WizardPage {
      * 
      * @param selectionArea
      */
-    private void createArchiveSelectionArea(Composite selectionArea) {
+    protected void createArchiveSelectionArea(Composite selectionArea) {
         this.itemFromArchiveRadio = new Button(selectionArea, SWT.RADIO);
         this.itemFromArchiveRadio.setText(Messages.getString("ImportItemsWizardPage_selectArchiveText")); //$NON-NLS-1$
         setButtonLayoutData(this.itemFromArchiveRadio);
@@ -355,7 +356,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
     }
 
-    private void createItemsTreeViewer(Composite parent) {
+    protected TreeViewer createItemsTreeViewer(Composite parent) {
         filteredCheckboxTree = new FilteredCheckboxTree(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
         CheckboxTreeViewer viewer = filteredCheckboxTree.getViewer();
 
@@ -372,7 +373,7 @@ public class ImportItemsWizardPage extends WizardPage {
             }
         });
         viewer.setInput(nodesBuilder.getProjectNodes());
-
+        return viewer;
     }
 
     private void createItemsListButtonsArea(Composite listComposite) {
@@ -506,7 +507,7 @@ public class ImportItemsWizardPage extends WizardPage {
         });
     }
 
-    private boolean isEnableForExchange() {
+    protected boolean isEnableForExchange() {
         return PluginChecker.isExchangeSystemLoaded() && !TalendPropertiesUtil.isHideExchange();
     }
 
