@@ -72,9 +72,9 @@
 		<module>main/features/org.talend.update.p2.feature</module>
 		<module>main/features/org.talend.updates.feature</module>
 		<module>main/features/org.talend.utils.feature</module>
-   	    <module>main/features/org.talend.jdt.feature</module>
-	    <module>main/features/org.talend.m2e.feature</module>
-	    <module>main/features/org.talend.platform.feature</module>
+		<module>main/features/org.talend.jdt.feature</module>
+		<module>main/features/org.talend.m2e.feature</module>
+		<module>main/features/org.talend.platform.feature</module>
 		<module>main/plugins/org.talend.common.ui.runtime</module>
 		<module>main/plugins/org.talend.commons.runtime</module>
 		<module>main/plugins/org.talend.commons.ui</module>
@@ -150,10 +150,11 @@
 		<module>main/plugins/org.talend.resources</module>
 		<module>main/plugins/org.talend.updates.runtime</module>
 		<module>main/plugins/org.talend.utils</module>
-      	<module>main/plugins/org.talend.designer.maven</module>
-       	<module>main/plugins/org.talend.themes.core</module>
-        <module>main/plugins/org.talend.themes.css.talend</module>
-        <module>main/plugins/org.talend.libraries.jdbc.access</module>
+		<module>main/plugins/org.talend.designer.maven</module>
+		<module>main/plugins/org.talend.designer.maven.ui</module>
+		<module>main/plugins/org.talend.themes.core</module>
+		<module>main/plugins/org.talend.themes.css.talend</module>
+		<module>main/plugins/org.talend.libraries.jdbc.access</module>
 		<module>test/features/org.talend.test.tos.feature</module>
 		<module>test/plugins/org.talend.commons.runtime.test</module>
 		<module>test/plugins/org.talend.commons.ui.test</module>

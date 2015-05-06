@@ -31,7 +31,7 @@ import org.talend.designer.maven.utils.PomUtil;
 public class CreateMavenRoutinePom extends CreateMavenTemplatePom {
 
     public CreateMavenRoutinePom(IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.ROUTINGS_TEMPLATE_FILE_NAME);
+        super(pomFile, MavenTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
     }
 
     @Override

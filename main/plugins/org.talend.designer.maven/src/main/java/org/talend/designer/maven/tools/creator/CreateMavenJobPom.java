@@ -89,7 +89,7 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
     private IFile assemblyFile;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.JOB_TEMPLATE_FILE_NAME);
+        super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.pomManager = new MavenDependenciesManager(jobProcessor);
@@ -328,7 +328,7 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
         IFile assemblyFile = this.getAssemblyFile();
         if (assemblyFile != null) {
             MavenTemplateManager
-                    .copyTemplate(MavenTemplateConstants.JOB_ASSEMBLY_TEMPLATE_FILE_NAME, assemblyFile, isOverwrite());
+                    .copyTemplate(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME, assemblyFile, isOverwrite());
 
             // add children resources in assembly.
             addChildrenJobsInAssembly(assemblyFile);

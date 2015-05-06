@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
@@ -28,11 +29,24 @@ import org.talend.designer.maven.DesignerMavenPlugin;
 public class MavenTemplateManager {
 
     public static InputStream getTemplate(String templateName) throws IOException {
-        URL routinesTemplateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
+        URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
                 .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
-        if (routinesTemplateUrl != null) {
-            InputStream inputStream = routinesTemplateUrl.openStream();
+        if (templateUrl != null) {
+            InputStream inputStream = templateUrl.openStream();
             return inputStream;
+        }
+        return null;
+    }
+
+    public static String getTemplateContent(String templateName) throws IOException {
+        InputStream is = getTemplate(templateName);
+        if (is != null) {
+            StringWriter sw = new StringWriter(1000);
+            int c = 0;
+            while ((c = is.read()) != -1) {
+                sw.write(c);
+            }
+            return sw.toString();
         }
         return null;
     }

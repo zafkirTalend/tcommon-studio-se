@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.talend.repository.projectsetting_page">
+      <page
+            class="org.talend.designer.maven.ui.projectsetting.MainMavenProjectPreferencePage"
+            description="Maven Settings"
+            id="projectsetting.Maven"
+            title="%preferencePage.Maven">
+      </page>
+      <page
+            category="projectsetting.Maven"
+            class="org.talend.designer.maven.ui.projectsetting.job.AutonomousJobProjectPreferencePage"
+            description="Maven settings for Autonomous Job"
+            id="projectsetting.AutonomousJob"
+            title="%preferencePage.AutonomousJob">
+      </page>
+      <page
+            category="projectsetting.AutonomousJob"
+            class="org.talend.designer.maven.ui.projectsetting.job.AutonomousJobAssemblyProjectPreferencePage"
+            description="Assembly settings for Autonomous Job"
+            id="projectsetting.AutonomousJobAssembly"
+            title="%preferencePage.Assembly">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.talend.designer.maven.ui.projectsetting.MavenScriptsProjectSettingInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

@@ -17,6 +17,8 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -41,6 +43,8 @@ public final class ProjectPreferenceManager {
     private IProject project;
 
     private ProjectScope projectScope;
+
+    private IPreferenceStore store;
 
     public ProjectPreferenceManager(String fileName) {
         this(ProjectManager.getInstance().getCurrentProject(), fileName);
@@ -70,9 +74,10 @@ public final class ProjectPreferenceManager {
         this.qualifier = fileName;
         this.project = project;
         this.projectScope = new ProjectScope(project);
+        this.store = new ScopedPreferenceStore(this.projectScope, this.qualifier);
     }
 
-    private String getQualifier() {
+    public String getQualifier() {
         return qualifier;
     }
 
@@ -80,12 +85,16 @@ public final class ProjectPreferenceManager {
         return project;
     }
 
-    private ProjectScope getProjectScope() {
+    public ProjectScope getProjectScope() {
         return projectScope;
     }
 
     private IPath getLocation() {
         return getProjectScope().getLocation().append(getQualifier()).addFileExtension(PREFS_FILE_EXTENSION);
+    }
+
+    public IPreferenceStore getPreferenceStore() {
+        return this.store;
     }
 
     private IEclipsePreferences getQulifierPreference() {
