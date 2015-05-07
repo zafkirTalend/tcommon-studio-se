@@ -652,13 +652,22 @@ public interface TalendFilePackage extends EPackage {
     int ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = 4;
 
     /**
+     * The feature id for the '<em><b>Show</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELEMENT_PARAMETER_TYPE__SHOW = 5;
+
+    /**
      * The number of structural features of the '<em>Element Parameter Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE_FEATURE_COUNT = 5;
+    int ELEMENT_PARAMETER_TYPE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementValueTypeImpl <em>Element Value Type</em>}' class.
@@ -2350,6 +2359,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getElementParameterType_ContextMode();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isShow <em>Show</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Show</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isShow()
+     * @see #getElementParameterType()
+     * @generated
+     */
+    EAttribute getElementParameterType_Show();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getField <em>Field</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3923,6 +3943,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = eINSTANCE.getElementParameterType_ContextMode();
+
+        /**
+         * The meta object literal for the '<em><b>Show</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ELEMENT_PARAMETER_TYPE__SHOW = eINSTANCE.getElementParameterType_Show();
 
         /**
          * The meta object literal for the '<em><b>Field</b></em>' attribute feature.

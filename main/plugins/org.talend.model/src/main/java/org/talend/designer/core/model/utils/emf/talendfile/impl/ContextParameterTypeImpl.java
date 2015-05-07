@@ -20,18 +20,13 @@ import org.talend.utils.security.CryptoHelper;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getComment <em>Comment
- * </em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getName <em>Name</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getPrompt <em>Prompt
- * </em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#isPromptNeeded <em>
- * Prompt Needed</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getRepositoryContextId
- * <em>Repository Context Id</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getType <em>Type</em>}</li>
- * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getValue <em>Value</em>}
- * </li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getPrompt <em>Prompt</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#isPromptNeeded <em>Prompt Needed</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getRepositoryContextId <em>Repository Context Id</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,9 +35,9 @@ import org.talend.utils.security.CryptoHelper;
 public class ContextParameterTypeImpl extends EObjectImpl implements ContextParameterType {
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -50,9 +45,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -80,9 +75,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPrompt() <em>Prompt</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getPrompt() <em>Prompt</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPrompt()
      * @generated
      * @ordered
@@ -90,9 +85,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected static final String PROMPT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPrompt() <em>Prompt</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getPrompt() <em>Prompt</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getPrompt()
      * @generated
      * @ordered
@@ -100,9 +95,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected String prompt = PROMPT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isPromptNeeded() <em>Prompt Needed</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #isPromptNeeded() <em>Prompt Needed</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #isPromptNeeded()
      * @generated
      * @ordered
@@ -110,9 +105,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected static final boolean PROMPT_NEEDED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isPromptNeeded() <em>Prompt Needed</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #isPromptNeeded() <em>Prompt Needed</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #isPromptNeeded()
      * @generated
      * @ordered
@@ -120,8 +115,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected boolean promptNeeded = PROMPT_NEEDED_EDEFAULT;
 
     /**
-     * This is true if the Prompt Needed attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This is true if the Prompt Needed attribute has been set.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -168,9 +163,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     protected String type = TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getValue()
      * @generated
      * @ordered
@@ -189,7 +184,6 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ContextParameterTypeImpl() {
@@ -198,7 +192,6 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -207,7 +200,6 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getComment() {
@@ -216,21 +208,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setComment(String newComment) {
         String oldComment = comment;
         comment = newComment;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT, oldComment,
-                    comment));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT, oldComment, comment));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getName() {
@@ -239,20 +227,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setName(String newName) {
         String oldName = name;
         name = newName;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME, oldName, name));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getPrompt() {
@@ -261,21 +246,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPrompt(String newPrompt) {
         String oldPrompt = prompt;
         prompt = newPrompt;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT, oldPrompt,
-                    prompt));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT, oldPrompt, prompt));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isPromptNeeded() {
@@ -284,7 +265,6 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setPromptNeeded(boolean newPromptNeeded) {
@@ -292,15 +272,12 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         promptNeeded = newPromptNeeded;
         boolean oldPromptNeededESet = promptNeededESet;
         promptNeededESet = true;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED,
-                    oldPromptNeeded, promptNeeded, !oldPromptNeededESet));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, promptNeeded, !oldPromptNeededESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void unsetPromptNeeded() {
@@ -308,15 +285,12 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         boolean oldPromptNeededESet = promptNeededESet;
         promptNeeded = PROMPT_NEEDED_EDEFAULT;
         promptNeededESet = false;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED,
-                    oldPromptNeeded, PROMPT_NEEDED_EDEFAULT, oldPromptNeededESet));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, PROMPT_NEEDED_EDEFAULT, oldPromptNeededESet));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isSetPromptNeeded() {
@@ -325,7 +299,6 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getRepositoryContextId() {
@@ -334,21 +307,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setRepositoryContextId(String newRepositoryContextId) {
         String oldRepositoryContextId = repositoryContextId;
         repositoryContextId = newRepositoryContextId;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getType() {
@@ -357,20 +326,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setType(String newType) {
         String oldType = type;
         type = newType;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE, oldType, type));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getValue() {
@@ -389,16 +355,13 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setValue(String newValue) {
         String oldValue = value;
         value = newValue;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE, oldValue,
-                    value));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE, oldValue, value));
     }
 
     public void setRawValue(String newValue) {
@@ -414,128 +377,120 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
-            return getComment();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
-            return getName();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
-            return getPrompt();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
-            return isPromptNeeded() ? Boolean.TRUE : Boolean.FALSE;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
-            return getRepositoryContextId();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
-            return getType();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
-            return getValue();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
+                return getComment();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
+                return getName();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
+                return getPrompt();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
+                return isPromptNeeded() ? Boolean.TRUE : Boolean.FALSE;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                return getRepositoryContextId();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
+                return getType();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
+                return getValue();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
-            setComment((String) newValue);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
-            setName((String) newValue);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
-            setPrompt((String) newValue);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
-            setPromptNeeded(((Boolean) newValue).booleanValue());
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
-            setRepositoryContextId((String) newValue);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
-            setType((String) newValue);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
-            setValue((String) newValue);
-            return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
+                setComment((String)newValue);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
+                setName((String)newValue);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
+                setPrompt((String)newValue);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
+                setPromptNeeded(((Boolean)newValue).booleanValue());
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId((String)newValue);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
+                setType((String)newValue);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
+                setValue((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
-            setComment(COMMENT_EDEFAULT);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
-            setName(NAME_EDEFAULT);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
-            setPrompt(PROMPT_EDEFAULT);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
-            unsetPromptNeeded();
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
-            setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
-            setType(TYPE_EDEFAULT);
-            return;
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
-            setValue(VALUE_EDEFAULT);
-            return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
+                setPrompt(PROMPT_EDEFAULT);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
+                unsetPromptNeeded();
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
+                setValue(VALUE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
-            return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
-            return PROMPT_EDEFAULT == null ? prompt != null : !PROMPT_EDEFAULT.equals(prompt);
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
-            return isSetPromptNeeded();
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
-            return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT
-                    .equals(repositoryContextId);
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
-            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-        case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
-            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT:
+                return PROMPT_EDEFAULT == null ? prompt != null : !PROMPT_EDEFAULT.equals(prompt);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
+                return isSetPromptNeeded();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT.equals(repositoryContextId);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
+                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy()) {
-            return super.toString();
-        }
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (comment: ");
@@ -545,11 +500,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         result.append(", prompt: ");
         result.append(prompt);
         result.append(", promptNeeded: ");
-        if (promptNeededESet) {
-            result.append(promptNeeded);
-        } else {
-            result.append("<unset>");
-        }
+        if (promptNeededESet) result.append(promptNeeded); else result.append("<unset>");
         result.append(", repositoryContextId: ");
         result.append(repositoryContextId);
         result.append(", type: ");

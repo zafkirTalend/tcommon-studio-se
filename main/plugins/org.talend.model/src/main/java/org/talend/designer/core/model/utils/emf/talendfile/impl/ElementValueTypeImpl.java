@@ -31,9 +31,9 @@ import org.talend.utils.security.CryptoHelper;
 public class ElementValueTypeImpl extends EObjectImpl implements ElementValueType {
 
     /**
-     * The default value of the '{@link #getElementRef() <em>Element Ref</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getElementRef() <em>Element Ref</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getElementRef()
      * @generated
      * @ordered
@@ -41,9 +41,9 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
     protected static final String ELEMENT_REF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getElementRef() <em>Element Ref</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getElementRef() <em>Element Ref</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getElementRef()
      * @generated
      * @ordered
@@ -51,9 +51,9 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
     protected String elementRef = ELEMENT_REF_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getValue()
      * @generated
      * @ordered
@@ -92,7 +92,6 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ElementValueTypeImpl() {
@@ -101,7 +100,6 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -110,7 +108,6 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getElementRef() {
@@ -119,21 +116,17 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setElementRef(String newElementRef) {
         String oldElementRef = elementRef;
         elementRef = newElementRef;
-        if (eNotificationRequired()) {
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF,
-                    oldElementRef, elementRef));
-        }
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF, oldElementRef, elementRef));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getValue() {
@@ -152,15 +145,13 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setValue(String newValue) {
         String oldValue = value;
         value = newValue;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE, oldValue, value));
-        }
     }
 
     public void setValue(String value, boolean encrypt) {
@@ -176,7 +167,6 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getType() {
@@ -185,100 +175,91 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setType(String newType) {
         String oldType = type;
         type = newType;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE, oldType, type));
-        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
-            return getElementRef();
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
-            return getValue();
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
-            return getType();
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
+                return getElementRef();
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
+                return getValue();
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
-            setElementRef((String) newValue);
-            return;
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
-            setValue((String) newValue);
-            return;
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
-            setType((String) newValue);
-            return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
+                setElementRef((String)newValue);
+                return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
+                setValue((String)newValue);
+                return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                setType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
-            setElementRef(ELEMENT_REF_EDEFAULT);
-            return;
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
-            setValue(VALUE_EDEFAULT);
-            return;
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
-            setType(TYPE_EDEFAULT);
-            return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
+                setElementRef(ELEMENT_REF_EDEFAULT);
+                return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
+                setValue(VALUE_EDEFAULT);
+                return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
-            return ELEMENT_REF_EDEFAULT == null ? elementRef != null : !ELEMENT_REF_EDEFAULT.equals(elementRef);
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
-            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-        case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
-            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
+                return ELEMENT_REF_EDEFAULT == null ? elementRef != null : !ELEMENT_REF_EDEFAULT.equals(elementRef);
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
+                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy()) {
-            return super.toString();
-        }
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (elementRef: ");
