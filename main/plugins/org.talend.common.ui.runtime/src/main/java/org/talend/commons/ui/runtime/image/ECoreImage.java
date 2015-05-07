@@ -57,6 +57,12 @@ public enum ECoreImage implements IImage {
     PROCESS_WIZ("/icons1/process_wiz.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_ICON("/icons1/process_icon.png"), //$NON-NLS-1$
     PROCESS_TEMPLATE_WIZ("/icons1/process_template_wiz.png"), //$NON-NLS-1$
+    PROCESS_STANDARD_GENERIC_CATEGORY_CLOSE_ICON("/icons1/process_standard_generic_category_close.png"), //$NON-NLS-1$
+    PROCESS_STANDARD_GENERIC_CATEGORY_OPEN_ICON("/icons1/process_standard_generic_category_open.png"), //$NON-NLS-1$
+    PROCESS_STREAMING_GENERIC_CATEGORY_CLOSE_ICON("/icons1/process_streaming_generic_category_close.png"), //$NON-NLS-1$
+    PROCESS_STREAMING_GENERIC_CATEGORY_OPEN_ICON("/icons1/process_streaming_generic_category_open.png"), //$NON-NLS-1$
+    PROCESS_BATCH_GENERIC_CATEGORY_CLOSE_ICON("/icons1/process_batch_generic_category_close.png"), //$NON-NLS-1$
+    PROCESS_BATCH_GENERIC_CATEGORY_OPEN_ICON("/icons1/process_batch_generic_category_open.png"), //$NON-NLS-1$
     SERVICES_ICON("/icons1/services.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons1/joblet_icon.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons1/context_icon.png"), //$NON-NLS-1$
