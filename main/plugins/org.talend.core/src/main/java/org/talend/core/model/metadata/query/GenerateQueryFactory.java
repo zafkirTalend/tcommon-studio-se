@@ -33,7 +33,7 @@ public final class GenerateQueryFactory {
     public static IQueryGenerator getGenerator(final String dbType) {
         if (dbType == null) {
             return null;
-        } else if ("General JDBC".equals(dbType)) {//$NON-NLS-N$
+        } else if ("General JDBC".equals(dbType)) { //$NON-NLS-1$
             return null;
         }
         return getGenerator(EDatabaseTypeName.getTypeFromDbType(dbType));
@@ -59,6 +59,7 @@ public final class GenerateQueryFactory {
         case IBMDB2:
         case IBMDB2ZOS:
         case MYSQL:
+        case AMAZON_AURORA:
         case INGRES:
             return new NonDatabaseDefaultQueryGenerator(dbType);
         case ORACLE_OCI:

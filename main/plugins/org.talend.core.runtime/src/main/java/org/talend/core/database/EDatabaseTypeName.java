@@ -21,6 +21,8 @@ import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogM
 public enum EDatabaseTypeName {
     MYSQL(
           "MySQL", "MySQL", Boolean.FALSE, "MYSQL", "MYSQL", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    AMAZON_AURORA(
+                  "Amazon Aurora", "Amazon Aurora", Boolean.FALSE, "AMAZON_AURORA", "AMAZON_AURORA", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PSQL(
          "PostgreSQL", "PostgreSQL", Boolean.TRUE, "POSTGRESQL", "POSTGRE", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PLUSPSQL(

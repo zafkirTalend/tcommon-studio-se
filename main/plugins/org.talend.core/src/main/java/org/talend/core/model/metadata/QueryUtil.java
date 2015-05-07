@@ -62,6 +62,7 @@ public class QueryUtil {
                 case AS400:
                 case ACCESS:
                 case MYSQL:
+                case AMAZON_AURORA:
                 case IBMDB2:
                 case IBMDB2ZOS:
                 case HIVE:

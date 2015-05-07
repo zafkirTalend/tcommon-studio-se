@@ -348,6 +348,7 @@ public final class TalendQuoteUtils {
         case MSSQL:
             return QUOTATION_MARK;
         case MYSQL:
+        case AMAZON_AURORA:
             return ANTI_QUOTE;
         case ORACLEFORSID:
             return QUOTATION_MARK;

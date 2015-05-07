@@ -309,7 +309,8 @@ public class TalendTextUtils {
             isCheck = true; // contain other char
         }
 
-        if (!isCheck && isPSQLSimilar(name) && !EDatabaseTypeName.MYSQL.equals(name)) {
+        if (!isCheck && isPSQLSimilar(name)
+                && !(EDatabaseTypeName.MYSQL.equals(name) || EDatabaseTypeName.AMAZON_AURORA.equals(name))) {
             return fieldName;
         }
         String newFieldName = fieldName;
