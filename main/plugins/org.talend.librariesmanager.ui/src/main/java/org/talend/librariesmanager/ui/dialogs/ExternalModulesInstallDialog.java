@@ -519,15 +519,15 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         return toolBar;
     }
 
-    private void emptyLibs() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesService.class);
-            if (libService != null) {
-                libService.cleanLibs();
-            }
-        }
-    }
+    // private void emptyLibs() {
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+    // ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+    // ILibrariesService.class);
+    // if (libService != null) {
+    // libService.cleanLibs();
+    // }
+    // }
+    // }
 
     protected void addListeners() {
 
@@ -573,7 +573,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                             Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
                                     // refreshUI();
                                     if (installedModules > 0) {
-                                        emptyLibs();
+                                        // emptyLibs(); //never empty all jars, only clean the existed one
+                                        ImportExternalJarAction.cleanupLib(installedModule);
                                     }
                                     // need to force a refresh after install jars of component
                                     if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
@@ -974,9 +975,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     @Override
                     public void run() {
                         String message = ""; //$NON-NLS-1$
-                        if (!job.getInstalledModule().isEmpty()) {
+                        Set<String> installedModule = job.getInstalledModule();
+                        if (!installedModule.isEmpty()) {
                             message = Messages.getString("ExternalModulesInstallDialog_Download_Ok", data.getName()); //$NON-NLS-1$
-                            emptyLibs();
+                            // emptyLibs(); //never empty all jars, only clean the existed one
+                            ImportExternalJarAction.cleanupLib(installedModule);
                         } else {
                             message = Messages.getString("ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
                         }
