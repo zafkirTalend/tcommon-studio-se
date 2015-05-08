@@ -47,7 +47,7 @@ public enum EHiveExecutionTypes {
     }
 
     public static String[] getExecutionTypeLabels() {
-        List<String> typeLabels = new ArrayList<>();
+        List<String> typeLabels = new ArrayList<String>();
         EHiveExecutionTypes[] executionTypes = values();
         for (EHiveExecutionTypes executionType : executionTypes) {
             typeLabels.add(executionType.getLabel());

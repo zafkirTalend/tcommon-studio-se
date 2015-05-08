@@ -14,6 +14,7 @@ package org.talend.core.service;
 
 import org.talend.core.IService;
 import org.talend.core.model.process.IExternalNode;
+import org.talend.core.model.process.INode;
 
 /**
  * DOC talend class global comment. Detailled comment
@@ -21,5 +22,7 @@ import org.talend.core.model.process.IExternalNode;
 public interface IXmlMapService extends IService {
 
     public boolean isXmlMapComponent(IExternalNode node);
+
+    public boolean checkXMLMapDifferents(INode testNode, INode originalNode);
 
 }
