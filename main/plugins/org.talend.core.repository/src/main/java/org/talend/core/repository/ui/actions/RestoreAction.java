@@ -96,7 +96,7 @@ public class RestoreAction extends AContextualAction {
                 ConnectionItem item = (ConnectionItem) node.getObject().getProperty().getItem();
                 AbstractMetadataObject abstractMetadataObject = ((ISubRepositoryObject) node.getObject())
                         .getAbstractMetadataObject();
-                SubItemHelper.setDeleted(abstractMetadataObject, false);
+                ProxyRepositoryFactory.getInstance().setSubItemDeleted(item,abstractMetadataObject, false);
 
                 final String id = item.getProperty().getId();
                 Item tmpItem = procItems.get(id);

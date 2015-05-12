@@ -111,6 +111,7 @@ import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.i18n.Messages;
+import org.talend.core.repository.recyclebin.RecycleBinManager;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -1515,6 +1516,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             return obj.getRepositoryStatus();
         }
         return getStatus(getItem(obj));
+    }
+
+    public void setSubItemDeleted(ConnectionItem item, AbstractMetadataObject abstractMetadataObject, boolean deleted) {
+        SubItemHelper.setDeleted(abstractMetadataObject, deleted);
+        if (deleted) {
+            RecycleBinManager.getInstance().addToRecycleBin(ProjectManager.getInstance().getCurrentProject(), item);
+        } else {
+            if (!item.getState().isDeleted() && !ProjectRepositoryNode.getInstance().hasDeletedSubItem(item)) {
+                RecycleBinManager.getInstance().removeFromRecycleBin(ProjectManager.getInstance().getCurrentProject(), item);
+            }
+        }
     }
 
     @Override

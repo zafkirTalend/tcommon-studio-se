@@ -6,6 +6,7 @@ Bundle-Version: 6.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.talend.core.model,
  org.talend.core.model.component_cache,
  org.talend.core.model.component_cache.impl,
@@ -47,7 +48,10 @@ Export-Package: org.talend.core.model,
  org.talend.designer.joblet.model.impl,
  org.talend.designer.joblet.model.util,
  org.talend.model.bridge,
- org.talend.model.emf
+ org.talend.model.emf,
+ org.talend.model.recyclebin,
+ org.talend.model.recyclebin.impl,
+ org.talend.model.recyclebin.util
 Require-Bundle: org.apache.log4j,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,

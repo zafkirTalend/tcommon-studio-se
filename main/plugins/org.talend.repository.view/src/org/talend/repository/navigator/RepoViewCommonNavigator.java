@@ -799,22 +799,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             if (rootNode.getParent() instanceof ProjectRepositoryNode) {
                 ((ProjectRepositoryNode) rootNode.getParent()).clearNodeAndProjectCash();
             }
-            // refresh content of recyclebin
 
             // contentProvider.getChildren(rootNode); // retrieve child
             viewer.refresh(rootNode);
-            // user A and B in svn,if user A delete some jobs,B create job,the recyle bin can't refresh,
-            // so need refresh recyle bin. if empty recyle bin,must delete job documents,don't need refresh recyle bin.
-            // if refresh throw exception.
-            if (!rootNode.getContentType().equals(ERepositoryObjectType.DOCUMENTATION)) {
-                ProjectRepositoryNode theRoot = (ProjectRepositoryNode) rootNode.getRoot();
-                if (theRoot != null) {
-                    theRoot.getRecBinNode().setInitialized(false);
-                    theRoot.getRecBinNode().getChildren().clear();
-                    // contentProvider.getChildren(root.getRecBinNode());
-                    viewer.refresh(theRoot.getRecBinNode());
-                }
-            }
         }
     }
 

@@ -12,25 +12,28 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.Viewer;
+import java.util.Collection;
+
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.ui.navigator.CommonNavigator;
+import org.eclipse.ui.navigator.CommonViewer;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.general.TalendNature;
+import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.recyclebin.RecycleBinManager;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.model.BinRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
+import org.talend.repository.navigator.RepoViewCommonNavigator;
 import org.talend.repository.navigator.RepoViewCommonViewer;
-import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
+import org.talend.repository.viewer.content.listener.RunnableResourceVisitor;
 
 public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeContentProvider {
 
-    private IRefreshNodePerspectiveListener refreshNodeListener = new IRefreshNodePerspectiveListener() {
-
-        @Override
-        public void refreshNode() {
-            refreshTopLevelNodes();
-
-        }
-    };
+    BinRepositoryNode binRepositoryNode;
 
     /*
      * (non-Javadoc)
@@ -41,59 +44,95 @@ public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeCont
      */
     @Override
     protected RepositoryNode getTopLevelNodeFromProjectRepositoryNode(ProjectRepositoryNode projectRepositoryNode) {
+        if (binRepositoryNode == null) {
+            binRepositoryNode = new BinRepositoryNode(projectRepositoryNode);
+        }
+        return binRepositoryNode;
+    }
 
-        return projectRepositoryNode.getRecBinNode();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.viewer.content.SingleTopLevelContentProvider#getChildren(java.lang.Object)
+     */
+    @Override
+    public Object[] getChildren(Object element) {
+        if (element instanceof BinRepositoryNode) {
+            ((BinRepositoryNode) element).getChildren().clear();
+            ProjectRepositoryNode.getInstance().buildDeletedItemsTree((RepositoryNode) element);
+            return ((BinRepositoryNode) element).getChildren().toArray(
+                    new RepositoryNode[((BinRepositoryNode) element).getChildren().size()]);
+        }
+        return super.getChildren(element);
     }
 
     /*
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#getWorkspaceTopNodePath(org.talend
-     * .repository.model.RepositoryNode)
+     * org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#addResourceVisitor(org.eclipse.ui
+     * .navigator.CommonViewer)
      */
     @Override
-    protected IPath getWorkspaceTopNodePath(RepositoryNode topLevelNode) {
-        IPath workspaceRelativePath = null;
-        IProjectRepositoryNode root = topLevelNode.getRoot();
-        if (root != null) {
-            String projectName = root.getProject().getTechnicalLabel();
-            if (projectName != null) {
-                workspaceRelativePath = Path.fromPortableString('/' + projectName);
-            }// should never happend
-        }// should never happend
-        return workspaceRelativePath;
+    protected void addResourceVisitor(CommonViewer v) {
+        if (v == null) {
+            return;
+        }
+        RepoViewCommonNavigator navigator = null;
+        if (v instanceof RepoViewCommonViewer) {
+            CommonNavigator commonNavigator = ((RepoViewCommonViewer) v).getCommonNavigator();
+            if (commonNavigator instanceof RepoViewCommonNavigator) {
+                navigator = ((RepoViewCommonNavigator) commonNavigator);
+            }
+        }
+        if (navigator == null) {
+            return;
+        }
+        //
+        if (this.visitor != null) {
+            navigator.removeVisitor(this.visitor);
+        }
+        this.visitor = new DirectChildrenNodeVisitor();
+        navigator.addVisitor(this.visitor);
     }
 
-    /*
-     * (non-Javadoc)
+    private DirectChildrenNodeVisitor visitor;
+
+    /**
+     * DOC sgandon class global comment. Detailled comment <br/>
      * 
-     * @see
-     * org.talend.repository.viewer.content.ProjectRepoAbstractContentProvider#inputChanged(org.eclipse.jface.viewers
-     * .Viewer, java.lang.Object, java.lang.Object)
+     * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
+     * 
      */
-    @Override
-    public void inputChanged(Viewer v, Object arg1, Object arg2) {
-        super.inputChanged(v, arg1, arg2);
-        if (v instanceof RepoViewCommonViewer && refreshNodeListener != null) {
-            final RepoViewCommonViewer repoViewCommonViewer = (RepoViewCommonViewer) v;
-            // remove old one, make sure only one be existed.
-            repoViewCommonViewer.removeRefreshNodePerspectiveLisenter(refreshNodeListener);
-            repoViewCommonViewer.addRefreshNodePerspectiveLisenter(refreshNodeListener);
+    private final class DirectChildrenNodeVisitor extends RunnableResourceVisitor {
+
+        @Override
+        protected boolean visit(IResourceDelta delta, Collection<Runnable> runnables) {
+            IResource resource = delta.getResource();
+            if (resource.getType() == IResource.ROOT) {
+                return true;
+            } else if (resource.getType() == IResource.PROJECT) {
+                try {
+                    if (resource.getProject().hasNature(TalendNature.ID)) {
+                        if (!ProjectManager.getInstance().getCurrentProject().getTechnicalLabel().equals(resource.getProject().getName())) {
+                            return false;
+                        }
+                        return true; // if not talend project, ignore.
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            } else if (resource.getType() == IResource.FOLDER) {
+                return false;
+            } else if (resource.getType() == IResource.FILE) {
+                if (resource.getName().equals(RecycleBinManager.TALEND_RECYCLE_BIN_INDEX)
+                        || resource.getName().equals(FileConstants.LOCAL_PROJECT_FILENAME)) {
+                    if (viewer != null && !viewer.getTree().isDisposed()) {
+                        viewer.refresh(binRepositoryNode);
+                    }
+                }
+            }
+            return false;
         }
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.viewer.content.ProjectRepoAbstractContentProvider#dispose()
-     */
-    @Override
-    public void dispose() {
-        if (viewer != null && viewer instanceof RepoViewCommonViewer && refreshNodeListener != null) {
-            ((RepoViewCommonViewer) viewer).removeRefreshNodePerspectiveLisenter(refreshNodeListener);
-        }
-        super.dispose();
-    }
-
 }

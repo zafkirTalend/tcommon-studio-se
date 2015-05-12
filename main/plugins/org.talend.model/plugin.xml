@@ -108,4 +108,12 @@
             type="talendfile"
             class="org.talend.designer.core.model.utils.emf.talendfile.util.TalendFileResourceFactoryImpl"/>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated recyclebin -->
+      <package
+            uri="http://www.talend.org/recyclebin"
+            class="org.talend.model.recyclebin.RecycleBinPackage"
+            genModel="model/recyclebin.genmodel"/>
+   </extension>
+
 </plugin>

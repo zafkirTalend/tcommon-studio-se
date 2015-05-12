@@ -196,7 +196,7 @@ public class DeleteTableAction extends AContextualAction {
                                 && sfm.equals(sf)) {
                             // Nothing to do
                         } else {
-                            SubItemHelper.setDeleted(abstractMetadataObject, true);
+                            ProxyRepositoryFactory.getInstance().setSubItemDeleted(item, abstractMetadataObject, true);
                         }
                         final String id = item.getProperty().getId();
                         Item tmpItem = procItems.get(id);
