@@ -14,6 +14,7 @@ package org.talend.core.model.general;
 
 import java.util.List;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 
@@ -54,6 +55,8 @@ public class ModuleNeeded {
 
     private String moduleLocaion;
 
+    private String mavenUrl;
+
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
@@ -89,7 +92,7 @@ public class ModuleNeeded {
     }
 
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
-            String requiredIf) {
+            String requiredIf, String mavenUrl) {
         super();
         this.context = context;
         setModuleName(moduleName);
@@ -97,6 +100,7 @@ public class ModuleNeeded {
         this.required = required;
         this.installURL = installURL;
         this.requiredIf = requiredIf;
+        this.mavenUrl = mavenUrl;
     }
 
     public String getRequiredIf() {
@@ -306,6 +310,7 @@ public class ModuleNeeded {
         if (this.getBundleVersion() != null) {
             hashCode *= this.getBundleVersion().hashCode();
         }
+
         hashCode *= new Boolean(this.isRequired()).hashCode();
         return hashCode;
     }
@@ -379,6 +384,39 @@ public class ModuleNeeded {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Getter for mavenUrl.
+     * 
+     * @return the mavenUrl
+     */
+    public String getMavenUrl() {
+        if (mavenUrl == null || "".equals(mavenUrl) || !mavenUrl.startsWith(NexusConstants.MAVEN_PROTECAL)) {
+            return getDefaulMavenUrl();
+        }
+        return this.mavenUrl;
+    }
+
+    private String getDefaulMavenUrl() {
+        String artifactId = moduleName;
+        int index = moduleName.lastIndexOf(".");
+        if (index != -1) {
+            artifactId = moduleName.substring(0, index);
+        }
+        ExceptionHandler.log("Warning : the groupid and version in the url may not be correct");
+        return NexusConstants.MAVEN_PROTECAL + NexusConstants.DEFAULT_GROUP_ID + "/" + artifactId + "/"
+                + NexusConstants.DEFAULT_VERSION;
+
+    }
+
+    /**
+     * Sets the mavenUrl.
+     * 
+     * @param mavenUrl the mavenUrl to set
+     */
+    public void setMavenUrl(String mavenUrl) {
+        this.mavenUrl = mavenUrl;
     }
 
 }

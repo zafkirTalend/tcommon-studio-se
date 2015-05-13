@@ -47,6 +47,7 @@ public abstract class Element implements Cloneable, IElement {
 
     private IListenableListListener listenableListener = new IListenableListListener() {
 
+        @Override
         public void handleEvent(ListenableListEvent event) {
             switch (event.type) {
             case ADDED:
@@ -109,6 +110,7 @@ public abstract class Element implements Cloneable, IElement {
      * @param id
      * @return Object
      */
+    @Override
     public Object getPropertyValue(final String id) {
         IElementParameter param = this.getElementParameter(id);
         if (param != null) {
@@ -125,6 +127,7 @@ public abstract class Element implements Cloneable, IElement {
      * @param paramName
      * @return
      */
+    @Override
     public Object getPropertyValue(final String id, final String paramName) {
         IElementParameter param = this.getElementParameter(id, paramName);
         if (param != null) {
@@ -139,6 +142,7 @@ public abstract class Element implements Cloneable, IElement {
      * @param id
      * @param value
      */
+    @Override
     public void setPropertyValue(final String id, final Object value) {
         if (listParam == null) {
             return;
@@ -158,6 +162,7 @@ public abstract class Element implements Cloneable, IElement {
      * 
      * @see org.talend.designer.core.ui.editor.IElement#getElementParameters()
      */
+    @Override
     public List<? extends IElementParameter> getElementParameters() {
         return listParam;
     }
@@ -167,6 +172,7 @@ public abstract class Element implements Cloneable, IElement {
      * 
      * @return
      */
+    @Override
     public List<? extends IElementParameter> getElementParametersWithChildrens() {
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(listParam);
 
@@ -179,11 +185,13 @@ public abstract class Element implements Cloneable, IElement {
         return fullListParam;
     }
 
+    @Override
     public void setElementParameters(List<? extends IElementParameter> parameters) {
         this.listParam.clear();
         this.listParam.addAll(parameters);
     }
 
+    @Override
     public IElementParameter getElementParameter(String name) {
         return findElementParameter(name, null);
     }
@@ -247,6 +255,7 @@ public abstract class Element implements Cloneable, IElement {
      * @param fieldType
      * @return
      */
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType fieldType) {
         for (IElementParameter elementParam : listParam) {
             if (elementParam.getFieldType().equals(fieldType)) {
@@ -266,6 +275,7 @@ public abstract class Element implements Cloneable, IElement {
         return params;
     }
 
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType fieldType, EComponentCategory category) {
         for (IElementParameter elementParam : listParam) {
             if (elementParam.getCategory().equals(category) && elementParam.getFieldType().equals(fieldType)) {
@@ -276,6 +286,27 @@ public abstract class Element implements Cloneable, IElement {
         return getElementParameterFromField(fieldType);
     }
 
+    @Override
     public abstract String getElementName();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#isForceReadOnly()
+     */
+    @Override
+    public boolean isForceReadOnly() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#setForceReadOnly(boolean)
+     */
+    @Override
+    public void setForceReadOnly(boolean readOnly) {
+
+    }
 
 }

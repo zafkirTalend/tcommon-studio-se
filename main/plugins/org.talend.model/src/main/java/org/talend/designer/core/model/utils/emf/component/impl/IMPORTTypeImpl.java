@@ -42,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getUrlPath <em>Url Path</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMVN <em>MVN</em>}</li>
  * </ul>
  * </p>
  *
@@ -296,6 +297,26 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
     protected String urlPath = URL_PATH_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getMVN() <em>MVN</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMVN()
+     * @generated
+     * @ordered
+     */
+    protected static final String MVN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getMVN() <em>MVN</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMVN()
+     * @generated
+     * @ordered
+     */
+    protected String mvn = MVN_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -539,6 +560,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getMVN() {
+        return mvn;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMVN(String newMVN) {
+        String oldMVN = mvn;
+        mvn = newMVN;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__MVN, oldMVN, mvn));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getREQUIREDIF() {
         return rEQUIREDIF;
     }
@@ -666,6 +708,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return getUrlPath();
+            case ComponentPackage.IMPORT_TYPE__MVN:
+                return getMVN();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -715,6 +759,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath((String)newValue);
                 return;
+            case ComponentPackage.IMPORT_TYPE__MVN:
+                setMVN((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -762,6 +809,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 setUrlPath(URL_PATH_EDEFAULT);
                 return;
+            case ComponentPackage.IMPORT_TYPE__MVN:
+                setMVN(MVN_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -797,6 +847,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
                 return isSetSHOW();
             case ComponentPackage.IMPORT_TYPE__URL_PATH:
                 return URL_PATH_EDEFAULT == null ? urlPath != null : !URL_PATH_EDEFAULT.equals(urlPath);
+            case ComponentPackage.IMPORT_TYPE__MVN:
+                return MVN_EDEFAULT == null ? mvn != null : !MVN_EDEFAULT.equals(mvn);
         }
         return super.eIsSet(featureID);
     }
@@ -832,6 +884,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", urlPath: ");
         result.append(urlPath);
+        result.append(", MVN: ");
+        result.append(mvn);
         result.append(')');
         return result.toString();
     }

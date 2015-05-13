@@ -309,7 +309,8 @@ public class TalendTextUtils {
             isCheck = true; // contain other char
         }
 
-        if (!isCheck && isPSQLSimilar(name) && !EDatabaseTypeName.MYSQL.equals(name)) {
+        if (!isCheck && isPSQLSimilar(name)
+                && !(EDatabaseTypeName.MYSQL.equals(name) || EDatabaseTypeName.AMAZON_AURORA.equals(name))) {
             return fieldName;
         }
         String newFieldName = fieldName;
@@ -413,7 +414,8 @@ public class TalendTextUtils {
         }
         int length = value.length();
         String result = removeQuotes(value);
-        if (length > 1 && ((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'"))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        if (length > 1
+                && (((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'")))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             result = value.substring(1, length - 1);
 
             if (result.contains("\\")) { //$NON-NLS-1$

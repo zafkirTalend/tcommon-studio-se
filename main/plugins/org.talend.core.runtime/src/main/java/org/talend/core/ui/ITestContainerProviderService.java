@@ -15,6 +15,7 @@ package org.talend.core.ui;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -41,4 +42,8 @@ public interface ITestContainerProviderService extends IService {
     public IProcess getParentJobProcess(IProcess process) throws PersistenceException;
 
     public void switchToCurTestContainerView();
+
+    public void updateDetect(final IProcess curJobProcess, final boolean updateAllJobs);
+
+    public void reloadJunitsNodes(INode nc);
 }

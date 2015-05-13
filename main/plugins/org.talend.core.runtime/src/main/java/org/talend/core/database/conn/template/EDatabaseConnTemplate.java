@@ -30,6 +30,11 @@ public enum EDatabaseConnTemplate {
             "3306", //$NON-NLS-1$
             "noDatetimeStringSync=true")), //$NON-NLS-1$
 
+    AMAZON_AURORA(new DbConnStr(EDatabaseTypeName.AMAZON_AURORA, //
+            "jdbc:mysql://<host>:<port>/<sid>?<property>", //$NON-NLS-1$
+            "3306", //$NON-NLS-1$
+            "noDatetimeStringSync=true")), //$NON-NLS-1$
+
     MARIADB(new DbConnStr(EDatabaseTypeName.MYSQL, //
             "jdbc:mariadb://<host>:<port>/<sid>?<property>", //$NON-NLS-1$
             "3306", //$NON-NLS-1$
@@ -342,6 +347,7 @@ public enum EDatabaseConnTemplate {
             case MSSQL:
             case INFORMIX:
             case MYSQL:
+            case AMAZON_AURORA:
             case AS400:
                 // for feature 10655
             case ORACLEFORSID:

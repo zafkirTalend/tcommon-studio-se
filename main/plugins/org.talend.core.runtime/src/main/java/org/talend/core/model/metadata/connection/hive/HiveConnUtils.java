@@ -15,6 +15,8 @@ package org.talend.core.model.metadata.connection.hive;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * @author Marvin Wang
  * @version 1.0 jdk1.6
@@ -232,11 +234,6 @@ public class HiveConnUtils {
 
     private static boolean isSupportStandalone(HiveConnVersionInfo hiveVersionObj, int hiveServerIndex) {
         boolean isHiveServer1 = "HIVE".equals(HiveServerVersionUtils.extractKey(hiveServerIndex)); //$NON-NLS-1$
-
-        if (isHiveServer1 && HiveConnVersionInfo.Cloudera_CDH5_4.equals(hiveVersionObj)) {
-            return false;
-        }
-
         return !(HiveConnVersionInfo.HDP_1_0.equals(hiveVersionObj) || isHiveServer1
                 && (HiveConnVersionInfo.HDP_1_2.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_1_3.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_2_0
                         .equals(hiveVersionObj)));
@@ -463,6 +460,13 @@ public class HiveConnUtils {
         }
 
         return false;
+    }
+
+    public static boolean isSupportTez(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, int hiveServerIndex) {
+        HiveConnVersionInfo hiveVersionObj = getHiveVersionObj(distributionIndex, hiveVersionIndex);
+        boolean versionSupportTez = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsSupportingTez(), hiveVersionObj);
+        boolean isEmbeddedMode = isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
+        return versionSupportTez && isEmbeddedMode;
     }
 
 }

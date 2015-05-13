@@ -34,6 +34,10 @@ public interface IElement {
 
     public void setReadOnly(boolean readOnly);
 
+    public boolean isForceReadOnly();
+
+    public void setForceReadOnly(boolean readOnly);
+
     public String getElementName();
 
     public Object getPropertyValue(String name);

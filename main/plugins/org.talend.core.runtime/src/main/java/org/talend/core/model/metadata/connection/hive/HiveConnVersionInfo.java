@@ -291,6 +291,9 @@ public enum HiveConnVersionInfo {
             HiveConnVersionInfo.HDP_2_2, HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0,
             HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR };
 
+    private static HiveConnVersionInfo[] hiveVersionsSupportingTez = new HiveConnVersionInfo[] { HiveConnVersionInfo.HDP_2_2,
+            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.DISTRO_VERSION_CUSTOM };
+
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {
         this(level, key, displayName, false, supportSecurity, follows);
@@ -338,6 +341,33 @@ public enum HiveConnVersionInfo {
         return this.isSupportHive2;
     }
 
+    public boolean isSupportHiveServerVersion(HiveServerVersionInfo hiveServerVersion) {
+        boolean isSupport = false;
+
+        if (hiveServerVersion == null) {
+            return isSupport;
+        }
+
+        switch (hiveServerVersion) {
+        case HIVE_SERVER_1:
+            switch (this) {
+            case Cloudera_CDH5_4:
+                isSupport = false;
+                break;
+            default:
+                isSupport = true;
+            }
+            break;
+        case HIVE_SERVER_2:
+            isSupport = isSupportHive2();
+            break;
+        default:
+            isSupport = false;
+        }
+
+        return isSupport;
+    }
+
     public boolean isSupportMR1() {
         return this.isSupportMR1;
     }
@@ -352,6 +382,10 @@ public enum HiveConnVersionInfo {
 
     public static HiveConnVersionInfo[] getHiveVersionsNotSupportOnWindows() {
         return hiveVersions;
+    }
+
+    public static HiveConnVersionInfo[] getHiveVersionsSupportingTez() {
+        return hiveVersionsSupportingTez;
     }
 
     public static HiveConnVersionInfo getVersionByKey(String key) {

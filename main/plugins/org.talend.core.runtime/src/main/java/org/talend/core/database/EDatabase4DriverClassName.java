@@ -50,6 +50,7 @@ public enum EDatabase4DriverClassName {
     MYSQL(EDatabaseTypeName.MYSQL, "org.gjt.mm.mysql.Driver"), //$NON-NLS-1$
     MYSQL2(EDatabaseTypeName.MYSQL, "com.mysql.jdbc.Driver"), //$NON-NLS-1$
     MARIADB(EDatabaseTypeName.MYSQL, "org.mariadb.jdbc.Driver"), //$NON-NLS-1$
+    AMAZON_AURORA(EDatabaseTypeName.AMAZON_AURORA, "org.gjt.mm.mysql.Driver"), //$NON-NLS-1$
     NETEZZA(EDatabaseTypeName.NETEZZA, "org.netezza.Driver"), //$NON-NLS-1$
 
     ORACLEFORSID(EDatabaseTypeName.ORACLEFORSID, "oracle.jdbc.OracleDriver", "oracle.jdbc.driver.OracleDriver"), //$NON-NLS-1$ //$NON-NLS-2$

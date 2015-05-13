@@ -70,6 +70,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ElementParameterType/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ElementParameterType/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ElementParameterType/contextMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ElementParameterType/show"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ElementValueType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ElementValueType/elementRef"/>

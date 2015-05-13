@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -27,6 +28,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
+import org.talend.commons.utils.resource.FileExtensions;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.TalendMavenContants;
@@ -206,8 +210,24 @@ public class MavenPomSynchronizer {
             // only add the routines dependencies.
             CreateMavenRoutinePom.addDependencies(projModel);
 
+            // synch the routines jar to .Java/lib to resolve the dependencies error for pom.
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+                ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                        .getService(ILibraryManagerService.class);
+                List<String> jarsNeedRetrieve = new ArrayList<String>();
+                for (Dependency d : projModel.getDependencies()) {
+                    if (d.getScope() != null && d.getScope().equals("system")) { // only for system scope
+                        jarsNeedRetrieve.add(d.getArtifactId() + FileExtensions.JAR_FILE_SUFFIX); // jar name
+                    }
+                }
+                libManagerService.retrieve(jarsNeedRetrieve, codeProject.getLibFolder().getLocation().toPortableString(), false);
+            }
+
             PomUtil.savePom(monitor, projModel, projectPomFile);
         }
+
+        // try to compile it.
+        codeProject.buildModules(MavenConstants.GOAL_COMPILE, null);
     }
 
     private void deleteFiles(File[] files) {

@@ -62,14 +62,17 @@ public abstract class AbstractConnection implements IConnection {
 
     private boolean isMonitorConnection;
 
+    @Override
     public boolean isActivate() {
         return this.activate;
     }
 
+    @Override
     public void setActivate(boolean activate) {
         this.activate = activate;
     }
 
+    @Override
     public EConnectionType getLineStyle() {
         return this.lineStyle;
     }
@@ -78,6 +81,7 @@ public abstract class AbstractConnection implements IConnection {
         this.lineStyle = lineStyle;
     }
 
+    @Override
     public IMetadataTable getMetadataTable() {
         return this.metadataTable;
     }
@@ -86,10 +90,12 @@ public abstract class AbstractConnection implements IConnection {
         this.metadataTable = metadataTable;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
         if (uniqueName == null) {
@@ -97,6 +103,7 @@ public abstract class AbstractConnection implements IConnection {
         }
     }
 
+    @Override
     public INode getSource() {
         return this.source;
     }
@@ -105,6 +112,7 @@ public abstract class AbstractConnection implements IConnection {
         this.source = source;
     }
 
+    @Override
     public INode getTarget() {
         return this.target;
     }
@@ -113,19 +121,23 @@ public abstract class AbstractConnection implements IConnection {
         this.target = target;
     }
 
+    @Override
     public String getCondition() {
         return this.condition;
     }
 
+    @Override
     public String getRouteConnectionType() {
         return this.routeConnectionType;
     }
 
     // TESB-8043
+    @Override
     public String getEndChoice() {
         return endChoice;
     }
 
+    @Override
     public String getExceptionList() {
         return this.exceptionList;
     }
@@ -147,10 +159,12 @@ public abstract class AbstractConnection implements IConnection {
         this.condition = condition;
     }
 
+    @Override
     public List<? extends IElementParameter> getElementParameters() {
         return elementParameters;
     }
 
+    @Override
     public IElementParameter getElementParameter(String name) {
         for (IElementParameter elementParam : elementParameters) {
             if (elementParam.getName().equals(name)) {
@@ -160,17 +174,21 @@ public abstract class AbstractConnection implements IConnection {
         return null;
     }
 
+    @Override
     public void setElementParameters(List<? extends IElementParameter> elementParameters) {
         this.elementParameters = elementParameters;
     }
 
+    @Override
     public void setTraceData(Map<String, TraceData> traceData) {
     }
 
+    @Override
     public boolean isReadOnly() {
         return readOnly;
     }
 
+    @Override
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
@@ -180,6 +198,7 @@ public abstract class AbstractConnection implements IConnection {
      * 
      * @return the uniqueName
      */
+    @Override
     public String getUniqueName() {
         return uniqueName;
     }
@@ -198,6 +217,7 @@ public abstract class AbstractConnection implements IConnection {
      * 
      * @return the connectorName
      */
+    @Override
     public String getConnectorName() {
         return connectorName;
     }
@@ -207,18 +227,22 @@ public abstract class AbstractConnection implements IConnection {
      * 
      * @param connectorName the connectorName to set
      */
+    @Override
     public void setConnectorName(String connectorName) {
         this.connectorName = connectorName;
     }
 
+    @Override
     public int getInputId() {
         return inputId;
     }
 
+    @Override
     public void setInputId(int inputId) {
         this.inputId = inputId;
     }
 
+    @Override
     public int getOutputId() {
         return outputId;
     }
@@ -227,13 +251,14 @@ public abstract class AbstractConnection implements IConnection {
         this.outputId = outputId;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
         List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tFlowMeter"); //$NON-NLS-1$
         if (metterNodes.size() > 0) {
 
-            Iterator<INode> it = (Iterator<INode>) metterNodes.iterator();
+            Iterator<INode> it = metterNodes.iterator();
             while (it.hasNext()) {
                 INode node = it.next();
                 String absolute = (String) node.getElementParameter("ABSOLUTE").getValue(); //$NON-NLS-1$
@@ -257,6 +282,7 @@ public abstract class AbstractConnection implements IConnection {
         return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
+    @Override
     public List<? extends IElementParameter> getElementParametersWithChildrens() {
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
 
@@ -269,14 +295,17 @@ public abstract class AbstractConnection implements IConnection {
         return fullListParam;
     }
 
+    @Override
     public boolean isTraceConnection() {
         return false;
     }
 
+    @Override
     public List<String> getEnabledTraceColumns() {
         return null;
     }
 
+    @Override
     public String getTracesCondition() {
         return null;
     }
@@ -286,6 +315,7 @@ public abstract class AbstractConnection implements IConnection {
         return null;
     }
 
+    @Override
     public Map<String, TraceData> getTraceData() {
         return null;
     }
@@ -295,25 +325,30 @@ public abstract class AbstractConnection implements IConnection {
      * 
      * @see org.talend.core.model.process.IElement#getElementName()
      */
+    @Override
     public String getElementName() {
         return this.getUniqueName();
     }
 
+    @Override
     public String getMetaName() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public INodeConnector getSourceNodeConnector() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public INodeConnector getTargetNodeConnector() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public boolean isMonitorConnection() {
         return this.isMonitorConnection;
     }
@@ -322,56 +357,67 @@ public abstract class AbstractConnection implements IConnection {
         this.isMonitorConnection = isMonitorConnection;
     }
 
+    @Override
     public boolean isSubjobConnection() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public void reconnect() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void reconnect(INode newSource, INode oldTarget, EConnectionType newLineStyle) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void setMetaName(String uniqueName) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void setTraceConnection(boolean trace) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void updateAllId() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public void updateName() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public Object getPropertyValue(String name) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public void setPropertyValue(String name, Object value) {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType propertyType, EComponentCategory category) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public IElementParameter getElementParameterFromField(EParameterFieldType dbtable) {
         // TODO Auto-generated method stub
         return null;
@@ -381,13 +427,35 @@ public abstract class AbstractConnection implements IConnection {
         ((List<T>) elementParameters).add(elementParameter);
     }
 
+    @Override
     public void disconnect() {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public Object getPropertyValue(String name, String paramName) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#isForceReadOnly()
+     */
+    @Override
+    public boolean isForceReadOnly() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#setForceReadOnly(boolean)
+     */
+    @Override
+    public void setForceReadOnly(boolean readOnly) {
+
     }
 }

@@ -336,10 +336,18 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 Object element = event.getElement();
                 if (element instanceof RepositoryNode) {
                     RepositoryNode node = (RepositoryNode) element;
-                    if (node.getType().equals(ENodeType.SIMPLE_FOLDER)) {
-                        TreeItem item = getObject(viewer.getTree(), event.getElement());
-                        if (item != null) {
+                    TreeItem item = getObject(viewer.getTree(), event.getElement());
+                    if (item != null) {
+                        if (node.getType().equals(ENodeType.SIMPLE_FOLDER)) {
                             item.setImage(ImageProvider.getImage(ECoreImage.FOLDER_CLOSE_ICON));
+                        } else if (ENodeType.SYSTEM_FOLDER == node.getType()) {
+                            if (node.getContentType() == ERepositoryObjectType.PROCESS) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_STANDARD_GENERIC_CATEGORY_CLOSE_ICON));
+                            } else if (node.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_STREAMING_GENERIC_CATEGORY_CLOSE_ICON));
+                            } else if (node.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_BATCH_GENERIC_CATEGORY_CLOSE_ICON));
+                            }
                         }
                     }
                 }
@@ -350,15 +358,22 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 Object element = event.getElement();
                 if (element instanceof RepositoryNode) {
                     RepositoryNode node = (RepositoryNode) element;
-                    if (node.getType().equals(ENodeType.SIMPLE_FOLDER)) {
-                        TreeItem item = getObject(viewer.getTree(), element);
-                        if (item != null) {
+                    TreeItem item = getObject(viewer.getTree(), event.getElement());
+                    if (item != null) {
+                        if (node.getType().equals(ENodeType.SIMPLE_FOLDER)) {
                             item.setImage(ImageProvider.getImage(ECoreImage.FOLDER_OPEN_ICON));
+                        } else if (ENodeType.SYSTEM_FOLDER == node.getType()) {
+                            if (node.getContentType() == ERepositoryObjectType.PROCESS) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_STANDARD_GENERIC_CATEGORY_OPEN_ICON));
+                            } else if (node.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_STREAMING_GENERIC_CATEGORY_OPEN_ICON));
+                            } else if (node.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                                item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_BATCH_GENERIC_CATEGORY_OPEN_ICON));
+                            }
                         }
                     }
                 }// else not a repo node so ignor it
-            }
-        });
+            }});
         createTreeTooltip(viewer.getTree());
 
         viewer.getTree().addFocusListener(new FocusListener() {

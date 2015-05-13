@@ -33,6 +33,7 @@ public enum EUpdateItemType implements IUpdateItemType {
     CONTEXT_GROUP(Messages.getString("EUpdateItemType.ContextGroup")), //$NON-NLS-1$
     JOB_VERSION(Messages.getString("EUpdateItemType.JobVersion")), //$NON-NLS-1$
     RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
+    JUNIT_RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
     // for mapper
     MAP_PATH(Messages.getString("EUpdateItemType.MapPath")), //$NON-NLS-1$
     // for joblet

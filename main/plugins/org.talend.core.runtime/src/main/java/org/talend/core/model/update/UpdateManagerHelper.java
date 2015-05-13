@@ -26,6 +26,8 @@ public final class UpdateManagerHelper {
     // define in extension point
     public static final String TYPE_JOBLET_CONTEXT = "JOBLET_CONTEXT"; //$NON-NLS-1$
 
+    public static final String TYPE_JOB_CONTEXT = "JOB_CONTEXT"; //$NON-NLS-1$
+
     public static void setConfigrationForReadOnlyJob(IProcess process, UpdateResult result) {
         if (process != null && process.isReadOnly()) {
             result.setChecked(false);

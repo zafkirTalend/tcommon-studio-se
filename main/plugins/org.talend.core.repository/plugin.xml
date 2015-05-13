@@ -592,6 +592,18 @@
                 type="SAPHana">
           </DBType>
        </RepositoryComponent>
+       <RepositoryComponent
+             input="tAmazonAuroraInput"
+             name="AMAZON_AURORA"
+             output="tAmazonAuroraOutput"
+             withSchema="true">
+          <Item
+                clazz="org.talend.core.model.properties.DatabaseConnectionItem">
+          </Item>
+          <DBType
+                type="AMAZON_AURORA">
+          </DBType>
+       </RepositoryComponent>
    </extension>
    <extension
          point="org.talend.core.runtime.repositoryComponent_provider">
