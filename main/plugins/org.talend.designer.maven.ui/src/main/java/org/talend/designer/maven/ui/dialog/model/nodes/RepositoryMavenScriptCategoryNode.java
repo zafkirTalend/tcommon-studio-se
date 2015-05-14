@@ -10,30 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting;
+package org.talend.designer.maven.ui.dialog.model.nodes;
 
-import org.talend.core.runtime.preference.AbstractProjectSettingPage;
-import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
+import org.talend.designer.maven.ui.dialog.model.EMavenScriptCategory;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MainMavenProjectPreferencePage extends AbstractProjectSettingPage {
+public class RepositoryMavenScriptCategoryNode extends RepositoryPreferenceNode {
 
-    public MainMavenProjectPreferencePage() {
-        super();
-
-        noDefaultAndApplyButton();
-    }
-
-    @Override
-    protected String getPreferenceName() {
-        return DesignerMavenUiPlugin.PLUGIN_ID;
-    }
-
-    @Override
-    protected void createFieldEditors() {
-
+    public RepositoryMavenScriptCategoryNode(String id, EMavenScriptCategory category) {
+        super(id, category.getLabel(), category.getImageDesc(), null);
     }
 
 }

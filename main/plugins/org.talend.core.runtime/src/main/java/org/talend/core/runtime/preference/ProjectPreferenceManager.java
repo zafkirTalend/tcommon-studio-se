@@ -12,14 +12,16 @@
 // ============================================================================
 package org.talend.core.runtime.preference;
 
+import java.io.IOException;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -97,6 +99,9 @@ public final class ProjectPreferenceManager {
         return this.store;
     }
 
+    /**
+     * @deprecated because don't support the default value setting, so use store directly.
+     */
     private IEclipsePreferences getQulifierPreference() {
         return getProjectScope().getNode(getQualifier());
     }
@@ -108,34 +113,40 @@ public final class ProjectPreferenceManager {
         return getLocation().toFile().exists();
     }
 
-    public void setValue(String key, String value) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        qulifierPreference.put(key, value);
+    public void setValue(String key, int value) {
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // qulifierPreference.put(key, value);
+        getPreferenceStore().setValue(key, value);
     }
 
-    public void setValue(String key, int value) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        qulifierPreference.putInt(key, value);
+    public void setValue(String key, String value) {
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // qulifierPreference.put(key, value);
+        getPreferenceStore().setValue(key, value);
     }
 
     public void setValue(String key, boolean value) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        qulifierPreference.putBoolean(key, value);
-    }
-
-    public String getValue(String key) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        return qulifierPreference.get(key, null);
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // qulifierPreference.putBoolean(key, value);
+        getPreferenceStore().setValue(key, value);
     }
 
     public int getInt(String key) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        return qulifierPreference.getInt(key, -1);
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // return qulifierPreference.getInt(key, false);
+        return getPreferenceStore().getInt(key);
+    }
+
+    public String getValue(String key) {
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // return qulifierPreference.get(key, null);
+        return getPreferenceStore().getString(key);
     }
 
     public boolean getBoolean(String key) {
-        IEclipsePreferences qulifierPreference = getQulifierPreference();
-        return qulifierPreference.getBoolean(key, false);
+        // IEclipsePreferences qulifierPreference = getQulifierPreference();
+        // return qulifierPreference.getBoolean(key, false);
+        return getPreferenceStore().getBoolean(key);
     }
 
     /**
@@ -143,9 +154,11 @@ public final class ProjectPreferenceManager {
      */
     public void save() {
         try {
-            IEclipsePreferences qulifierPreference = getQulifierPreference();
-            qulifierPreference.flush();
-        } catch (BackingStoreException e) {
+            IPreferenceStore preferenceStore = getPreferenceStore();
+            if (preferenceStore instanceof IPersistentPreferenceStore) {
+                ((IPersistentPreferenceStore) preferenceStore).save();
+            }
+        } catch (IOException e) {
             ExceptionHandler.process(e);
         }
     }

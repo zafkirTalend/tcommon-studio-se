@@ -18,9 +18,9 @@ import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MainMavenProjectPreferencePage extends AbstractProjectSettingPage {
+public class EmptyMavenSettingPreferencePage extends AbstractProjectSettingPage {
 
-    public MainMavenProjectPreferencePage() {
+    public EmptyMavenSettingPreferencePage() {
         super();
 
         noDefaultAndApplyButton();

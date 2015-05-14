@@ -10,30 +10,27 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting;
+package org.talend.designer.maven.ui.i18n;
 
-import org.talend.core.runtime.preference.AbstractProjectSettingPage;
+import java.util.ResourceBundle;
+
+import org.talend.commons.i18n.MessagesCore;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MainMavenProjectPreferencePage extends AbstractProjectSettingPage {
+public class Messages extends MessagesCore {
 
-    public MainMavenProjectPreferencePage() {
-        super();
+    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-        noDefaultAndApplyButton();
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
+
+    public static String getString(final String key) {
+        return getString(key, DesignerMavenUiPlugin.PLUGIN_ID, resourceBundle);
     }
 
-    @Override
-    protected String getPreferenceName() {
-        return DesignerMavenUiPlugin.PLUGIN_ID;
+    public static String getString(final String key, final Object... args) {
+        return MessagesCore.getString(key, DesignerMavenUiPlugin.PLUGIN_ID, resourceBundle, args);
     }
-
-    @Override
-    protected void createFieldEditors() {
-
-    }
-
 }

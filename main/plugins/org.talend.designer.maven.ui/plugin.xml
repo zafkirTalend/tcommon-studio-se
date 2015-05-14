@@ -2,6 +2,12 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.talend.designer.maven.ui.projectsetting.MavenScriptsProjectSettingInitializer">
+      </initializer>
+   </extension>
+   <extension
          point="org.talend.repository.projectsetting_page">
       <page
             class="org.talend.designer.maven.ui.projectsetting.MainMavenProjectPreferencePage"
@@ -25,17 +31,22 @@
       </page>
    </extension>
    <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.talend.designer.maven.ui.projectsetting.MavenScriptsProjectSettingInitializer">
-      </initializer>
-   </extension>
-   <extension
          point="org.talend.core.runtime.service">
       <Service
             class="org.talend.designer.maven.ui.DesignerMavenUIService"
             serviceId="IDesignerMavenUIService">
       </Service>
+   </extension>
+   <extension
+         point="org.talend.core.repositoryContextualsActions">
+      <Action
+            class="org.talend.designer.maven.ui.actions.ConfigFolderLevelMavenPomAction"
+            id="org.talend.designer.maven.ui.actions.ConfigFolderLevelMavenPomAction"
+            isEditAction="false"
+            isPropertiesAction="false"
+            isReadAction="false"
+            name="Config Folder Maven Pom">
+      </Action>
    </extension>
 
 </plugin>

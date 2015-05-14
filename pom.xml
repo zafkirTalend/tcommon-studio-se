@@ -43,6 +43,7 @@
 		<module>i18n/plugins/org.talend.core.ui.nl</module>
 		<module>i18n/plugins/org.talend.cwm.mip.edit.nl</module>
 		<module>i18n/plugins/org.talend.cwm.mip.nl</module>
+		<module>i18n/plugins/org.talend.designer.maven.ui.nl</module>
 		<module>i18n/plugins/org.talend.help.nl</module>
 		<module>i18n/plugins/org.talend.helpers.nl</module>
 		<module>i18n/plugins/org.talend.librariesmanager.nl</module>

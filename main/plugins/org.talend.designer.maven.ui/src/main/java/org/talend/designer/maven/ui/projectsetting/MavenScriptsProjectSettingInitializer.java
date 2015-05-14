@@ -33,11 +33,11 @@ public class MavenScriptsProjectSettingInitializer extends AbstractPreferenceIni
                 .getPreferenceStore();
 
         try {
-            String pomJobContent = MavenTemplateManager.getTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
+            String pomJobContent = MavenTemplateManager.getBundleTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
             preferenceStore.setDefault(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, pomJobContent);
 
             String assemblyContent = MavenTemplateManager
-                    .getTemplateContent(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
+                    .getBundleTemplateContent(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
             preferenceStore.setDefault(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE,
                     assemblyContent);
         } catch (IOException e) {

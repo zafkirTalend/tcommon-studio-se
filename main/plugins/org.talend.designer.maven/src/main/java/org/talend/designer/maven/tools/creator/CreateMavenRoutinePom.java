@@ -28,7 +28,7 @@ import org.talend.designer.maven.utils.PomUtil;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class CreateMavenRoutinePom extends CreateMavenTemplatePom {
+public class CreateMavenRoutinePom extends CreateMavenBundleTemplatePom {
 
     public CreateMavenRoutinePom(IFile pomFile) {
         super(pomFile, MavenTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);

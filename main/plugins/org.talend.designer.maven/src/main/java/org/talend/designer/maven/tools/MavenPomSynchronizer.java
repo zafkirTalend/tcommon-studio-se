@@ -37,7 +37,7 @@ import org.talend.designer.maven.model.TalendMavenContants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
-import org.talend.designer.maven.tools.creator.CreateMavenTemplatePom;
+import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
 
@@ -62,7 +62,7 @@ public class MavenPomSynchronizer {
         IFile routinesPomFile = codeProject.getProject().getFile(
                 PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID));
         // generate new one
-        CreateMavenTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
+        CreateMavenBundleTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
         createTemplatePom.setOverwrite(overwrite);
         createTemplatePom.create(null);
     }

@@ -14,6 +14,7 @@ package org.talend.designer.maven.tools.creator;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -57,6 +57,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
@@ -77,7 +78,7 @@ import org.w3c.dom.NodeList;
  * created by ggu on 4 Feb 2015 Detailled comment
  *
  */
-public class CreateMavenJobPom extends CreateMavenTemplatePom {
+public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private final IProcessor jobProcessor;
 
@@ -90,6 +91,8 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
     private final MavenDependenciesManager pomManager;
 
     private IFile assemblyFile;
+
+    private File templateBaseFolder;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
         super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
@@ -140,6 +143,14 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
 
     public void setAssemblyFile(IFile assemblyFile) {
         this.assemblyFile = assemblyFile;
+    }
+
+    public File getTemplateBaseFolder() {
+        return templateBaseFolder;
+    }
+
+    public void setTemplateBaseFolder(File templateBaseFolder) {
+        this.templateBaseFolder = templateBaseFolder;
     }
 
     private Set<JobInfo> getClonedJobInfos() {
@@ -221,20 +232,19 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
         return model;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom#getTemplateStream()
+     */
     @Override
-    protected Model loadModel() {
-        // read template from project setting
-        try {
-            InputStream is = MavenTemplateManager
-                    .getProjectTemplate(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE);
-            return MODEL_MANAGER.readMavenModel(is);
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
+    protected InputStream getTemplateStream() throws IOException {
+        File templateFile = null;
+        if (getTemplateBaseFolder() != null) {
+            templateFile = new File(getTemplateBaseFolder(), MavenConstants.POM_FILE_NAME);
         }
-        // use default template from bundle resources
-        return super.loadModel();
+        return MavenTemplateManager.getTemplateStream(templateFile,
+                IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, getBundleTemplateName());
     }
 
     /**
@@ -349,26 +359,29 @@ public class CreateMavenJobPom extends CreateMavenTemplatePom {
             boolean set = false;
             // read template from project setting
             try {
-                InputStream is = MavenTemplateManager
-                        .getProjectTemplate(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE);
-                if (is != null) {
-                    assemblyFile.setContents(is, true, false, monitor);
+                File templateFile = null;
+                if (getTemplateBaseFolder() != null) {
+                    templateFile = new File(getTemplateBaseFolder(), MavenConstants.ASSEMBLY_FILE_NAME);
+                }
+                String content = MavenTemplateManager.getTemplateContent(templateFile,
+                        IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE,
+                        MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
+                if (content != null) {
+                    FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
+                    writer.write(content);
+                    writer.close();
                     set = true;
                 }
             } catch (IOException e) {
                 ExceptionHandler.process(e);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
             }
 
-            if (!set) { // use default template from bundle resources
-                MavenTemplateManager.copyTemplate(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME, assemblyFile,
-                        isOverwrite());
-            }
-            // add children resources in assembly.
-            addChildrenJobsInAssembly(assemblyFile);
+            if (set) {
+                // add children resources in assembly.
+                addChildrenJobsInAssembly(assemblyFile);
 
-            assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+                assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+            }
         }
     }
 

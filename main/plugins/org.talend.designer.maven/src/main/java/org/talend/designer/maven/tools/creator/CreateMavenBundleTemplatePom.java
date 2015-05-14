@@ -29,24 +29,28 @@ import org.talend.designer.maven.template.MavenTemplateManager;
  * created by ggu on 2 Feb 2015 Detailled comment
  *
  */
-public class CreateMavenTemplatePom extends CreateMaven {
+public class CreateMavenBundleTemplatePom extends CreateMaven {
 
     protected static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
 
-    private final String templatePomFile;
+    private final String bundleTemplateName;
 
     private final IFile pomFile;
 
     private boolean overwrite = true;
 
-    public CreateMavenTemplatePom(IFile pomFile, String templatePomFile) {
+    public CreateMavenBundleTemplatePom(IFile pomFile, String bundleTemplateName) {
         super();
         this.pomFile = pomFile;
-        this.templatePomFile = templatePomFile;
+        this.bundleTemplateName = bundleTemplateName;
     }
 
     protected IFile getPomFile() {
         return this.pomFile;
+    }
+
+    protected String getBundleTemplateName() {
+        return bundleTemplateName;
     }
 
     public boolean isOverwrite() {
@@ -59,8 +63,18 @@ public class CreateMavenTemplatePom extends CreateMaven {
 
     @Override
     protected Model createModel() {
-        Model model = loadModel();
-
+        Model model = null;
+        try {
+            InputStream inputStream = getTemplateStream();
+            if (inputStream != null) {
+                model = MODEL_MANAGER.readMavenModel(inputStream);
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
         // load failure. try default one.
         if (model == null) {
             // create default model
@@ -72,19 +86,8 @@ public class CreateMavenTemplatePom extends CreateMaven {
         return model;
     }
 
-    protected Model loadModel() {
-        try {
-            InputStream inputStream = MavenTemplateManager.getTemplate(templatePomFile);
-            if (inputStream != null) {
-                return MODEL_MANAGER.readMavenModel(inputStream);
-
-            }
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
+    protected InputStream getTemplateStream() throws IOException {
+        return MavenTemplateManager.getBundleTemplateStream(bundleTemplateName);
     }
 
     /*

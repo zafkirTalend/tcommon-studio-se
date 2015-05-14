@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.designer.maven.template;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,28 +37,34 @@ public class MavenTemplateManager {
     /**
      * read the template from bundle resource.
      */
-    public static InputStream getTemplate(String templateName) throws IOException {
-        URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
-        if (templateUrl != null) {
-            InputStream inputStream = templateUrl.openStream();
-            return inputStream;
+    public static InputStream getBundleTemplateStream(String templateName) throws IOException {
+        if (templateName != null) {
+            URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
+                    .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
+            if (templateUrl != null) {
+                InputStream inputStream = templateUrl.openStream();
+                return inputStream;
+            }
         }
         return null;
     }
 
-    public static String getTemplateContent(String templateName) throws IOException {
-        return getContentFromInputStream(getTemplate(templateName));
+    public static String getBundleTemplateContent(String templateName) throws IOException {
+        return getContentFromInputStream(getBundleTemplateStream(templateName));
     }
 
-    private static String getContentFromInputStream(InputStream is) throws IOException {
+    public static String getContentFromInputStream(InputStream is) throws IOException {
         if (is != null) {
-            StringWriter sw = new StringWriter(1000);
-            int c = 0;
-            while ((c = is.read()) != -1) {
-                sw.write(c);
+            try {
+                StringWriter sw = new StringWriter(1000);
+                int c = 0;
+                while ((c = is.read()) != -1) {
+                    sw.write(c);
+                }
+                return sw.toString();
+            } finally {
+                is.close();
             }
-            return sw.toString();
         }
         return null;
     }
@@ -64,8 +72,8 @@ public class MavenTemplateManager {
     /**
      * read the template from project setting preference.
      */
-    public static InputStream getProjectTemplate(String templateKey) throws IOException {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMavenUIService.class)) {
+    public static InputStream getProjectSettingTemplateStream(String templateKey) throws IOException {
+        if (templateKey != null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMavenUIService.class)) {
             IDesignerMavenUIService mavenUiService = (IDesignerMavenUIService) GlobalServiceRegister.getDefault().getService(
                     IDesignerMavenUIService.class);
             try {
@@ -81,8 +89,40 @@ public class MavenTemplateManager {
         return null;
     }
 
-    public static String getProjectTemplateContent(String templateKey) throws IOException {
-        return getContentFromInputStream(getProjectTemplate(templateKey));
+    public static String getProjectSettingTemplateContent(String templateKey) throws IOException {
+        return getContentFromInputStream(getProjectSettingTemplateStream(templateKey));
+    }
+
+    /**
+     * 1. get the template from the file template under the folder first.
+     * 
+     * 2. if file template is not existed, try to get th template from project setting.
+     * 
+     * 3. if the project setting is not set still, try to get the template from the bundle template.
+     */
+    @SuppressWarnings("resource")
+    public static InputStream getTemplateStream(File templateFile, String projectSettingKey, String templateName)
+            throws IOException {
+        InputStream stream = null;
+        // 1. from file template dirctly.
+        if (templateFile != null && templateFile.exists()) {
+            // will close it later.
+            stream = new BufferedInputStream(new FileInputStream(templateFile));
+        }
+
+        // 2. from project setting
+        if (stream == null && projectSettingKey != null) {
+            stream = getProjectSettingTemplateStream(projectSettingKey);
+        }
+        // 3. from bundle template.
+        if (stream == null && templateName != null) {
+            stream = getBundleTemplateStream(templateName);
+        }
+        return stream;
+    }
+
+    public static String getTemplateContent(File templateFile, String projectSettingKey, String templateName) throws IOException {
+        return getContentFromInputStream(getTemplateStream(templateFile, projectSettingKey, templateName));
     }
 
     public static void copyTemplate(String templateName, IFile targetFile, boolean overwrite) throws IOException {

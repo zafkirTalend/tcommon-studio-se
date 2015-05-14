@@ -13,6 +13,12 @@
 package org.talend.core.runtime.preference;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -21,12 +27,27 @@ public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePa
 
     private final ProjectPreferenceManager projectPreferenceManager;
 
+    private String prefNodeId;
+
     public AbstractProjectSettingPage() {
         super();
         // create project preference manager
         this.projectPreferenceManager = new ProjectPreferenceManager(getPreferenceName());
+        initStore();
+    }
+
+    public String getPrefNodeId() {
+        return prefNodeId;
+    }
+
+    public void setPrefNodeId(String prefNodeId) {
+        this.prefNodeId = prefNodeId;
+    }
+
+    protected void initStore() {
         // set the project preference
         setPreferenceStore(this.projectPreferenceManager.getPreferenceStore());
+
     }
 
     protected ProjectPreferenceManager getProjectPreferenceManager() {
@@ -34,4 +55,22 @@ public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePa
     }
 
     protected abstract String getPreferenceName();
+
+    protected Composite createLabelComposite(Composite parent, String title) {
+        Composite composite = new Composite(parent, SWT.NONE);
+        GridLayout messageLayout = new GridLayout();
+        messageLayout.numColumns = 2;
+        messageLayout.marginWidth = 0;
+        messageLayout.marginHeight = 0;
+        composite.setLayout(messageLayout);
+        composite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+        composite.setFont(parent.getFont());
+
+        final Label lbl = new Label(composite, SWT.BOLD);
+        lbl.setText(title);//$NON-NLS-1$
+        lbl.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT));
+        lbl.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+
+        return composite;
+    }
 }
