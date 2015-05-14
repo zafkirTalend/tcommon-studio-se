@@ -12,15 +12,24 @@
 // ============================================================================
 package org.talend.designer.maven.ui.dialog.model.nodes;
 
+import org.eclipse.jface.preference.PreferencePage;
 import org.talend.designer.maven.ui.dialog.model.EMavenScriptCategory;
+import org.talend.designer.maven.ui.projectsetting.FolderMavenSettingPreferencePage;
+import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public class RepositoryMavenScriptCategoryNode extends RepositoryPreferenceNode {
 
-    public RepositoryMavenScriptCategoryNode(String id, EMavenScriptCategory category) {
-        super(id, category.getLabel(), category.getImageDesc(), null);
+    public RepositoryMavenScriptCategoryNode(String parentId, EMavenScriptCategory category, RepositoryNode node) {
+        super(DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, category.name()), category.getLabel(), category
+                .getImageDesc(), node);
     }
 
+    @Override
+    protected PreferencePage createPreferencePage() {
+        return new FolderMavenSettingPreferencePage(this.getNode());
+    }
 }

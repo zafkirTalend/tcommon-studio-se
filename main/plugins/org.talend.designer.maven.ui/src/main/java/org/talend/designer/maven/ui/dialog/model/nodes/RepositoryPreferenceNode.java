@@ -41,6 +41,10 @@ public class RepositoryPreferenceNode extends PreferenceNode {
 
     }
 
+    protected RepositoryNode getNode() {
+        return curNode;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -95,6 +99,16 @@ public class RepositoryPreferenceNode extends PreferenceNode {
             return this.label;
         }
         return super.getLabelText();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.getId();
     }
 
 }

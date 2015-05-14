@@ -53,8 +53,6 @@ import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 import org.talend.designer.maven.ui.dialog.model.IRepositoryPreferenceNodeContainer;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenAssemblyNode;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenPomNode;
 import org.talend.designer.maven.ui.i18n.Messages;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.ProjectManager;
@@ -282,6 +280,8 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
         IPreferencePageContainer container = getContainer();
         if (container instanceof IWorkbenchPreferenceContainer) {
             ((IWorkbenchPreferenceContainer) container).openPage(childId, getNode());
+        } else if (container instanceof IRepositoryPreferenceNodeContainer) {
+            ((IRepositoryPreferenceNodeContainer) container).openPage(childId, getNode());
         }
     }
 
@@ -368,22 +368,13 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
 
                     @Override
                     public void run() {
-                        List<IPreferenceNode> newNodes = new ArrayList<IPreferenceNode>();
-
-                        // pom and assembly
-                        String pomId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), pomFile);
-                        String assemblyId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), assemblyFile);
-
-                        RepositoryMavenPomNode pomNode = new RepositoryMavenPomNode(pomId, pomFile);
-                        RepositoryMavenAssemblyNode assemblyNode = new RepositoryMavenAssemblyNode(assemblyId, assemblyFile);
-
-                        newNodes.add(pomNode);
-                        newNodes.add(assemblyNode);
+                        List<IPreferenceNode> autonomousJobChildrenNodes = DesignerMavenUiHelper.createAutonomousJobChildNode(
+                                nodeFolder, getNode(), getPrefNodeId(), false); // have created, no need check again.
 
                         IPreferencePageContainer container = getContainer();
                         if (container instanceof IRepositoryPreferenceNodeContainer) {
-                            ((IRepositoryPreferenceNodeContainer) container)
-                                    .addChildrenPreferenceNodes(getPrefNodeId(), newNodes);
+                            ((IRepositoryPreferenceNodeContainer) container).addChildrenPreferenceNodes(getPrefNodeId(),
+                                    autonomousJobChildrenNodes);
                         }
                     }
                 });

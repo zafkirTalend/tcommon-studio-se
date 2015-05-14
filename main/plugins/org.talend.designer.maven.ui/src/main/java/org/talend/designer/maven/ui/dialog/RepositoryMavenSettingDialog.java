@@ -17,12 +17,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceNode;
+import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -207,6 +211,25 @@ public class RepositoryMavenSettingDialog extends PreferenceDialog implements IR
                 this.getTreeViewer().refresh();
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean openPage(String nodeId, Object data) {
+        if (this instanceof IWorkbenchPreferenceContainer) {
+            ((IWorkbenchPreferenceContainer) this).openPage(nodeId, data);
+        } else { // impl by self
+            final IPreferenceNode node = findNodeMatching(nodeId);
+            if (node != null) {
+                getTreeViewer().setSelection(new StructuredSelection(node));
+                showPage(node);
+            }
+            IPreferencePage page = getCurrentPage();
+            if (page instanceof PreferencePage) {
+                ((PreferencePage) page).applyData(data);
+            }
+            return true;
         }
         return false;
     }

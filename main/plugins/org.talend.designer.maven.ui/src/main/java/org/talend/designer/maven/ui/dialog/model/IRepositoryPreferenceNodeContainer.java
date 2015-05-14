@@ -32,4 +32,6 @@ public interface IRepositoryPreferenceNodeContainer {
      * remove the child nodes of parent id
      */
     boolean removeChildrenPreferenceNodes(String parentId, List<String> childrenIds);
+
+    boolean openPage(String nodeId, Object data);
 }

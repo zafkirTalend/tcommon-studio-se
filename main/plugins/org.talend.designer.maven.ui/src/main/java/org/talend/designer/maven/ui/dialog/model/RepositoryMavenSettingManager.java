@@ -12,7 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.ui.dialog.model;
 
-import org.eclipse.core.resources.IFile;
+import java.util.List;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceManager;
@@ -22,10 +23,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryFolderCreatorNode;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenAssemblyNode;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenPomNode;
+import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenScriptCategoryNode;
 import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryPreferenceNode;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -78,7 +76,7 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
                 } else if (DesignerMavenUiHelper.isFakeProcessRootNode(node)) {// fake process root ndoe
                     repoSettingNode = new RepositoryPreferenceNode(id + "_fake", label, imageDesc, node); //$NON-NLS-1$
                 } else if (node.getType() == ENodeType.SYSTEM_FOLDER) {
-                    repoSettingNode = new RepositoryFolderCreatorNode(id, label, imageDesc, node);
+                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
                     needMavenFiles = true;
                 } else { // should be other ENodeType.SIMPLE_FOLDER
                     if (parentId != null && parentId.length() > 0) {
@@ -86,7 +84,7 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
                     } else {
                         id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(contentType.getType(), label);
                     }
-                    repoSettingNode = new RepositoryFolderCreatorNode(id, label, imageDesc, node);
+                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
 
                     needMavenFiles = true;
                 }
@@ -96,30 +94,16 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
                 if (needMavenFiles) {
                     IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(node);
                     if (nodeFolder != null) {
-                        // if have existed the pom and assembly
-                        if (DesignerMavenUiHelper.existMavenSetting(nodeFolder)) {
-                            // maven nodes
-                            IFile pomFile = nodeFolder.getFile(MavenConstants.POM_FILE_NAME);
-                            IFile assemblyFile = nodeFolder.getFile(MavenConstants.ASSEMBLY_FILE_NAME);
+                        RepositoryMavenScriptCategoryNode autonomousJobNode = new RepositoryMavenScriptCategoryNode(
+                                repoSettingNode.getId(), EMavenScriptCategory.AutonomousJob, node);
 
-                            // RepositoryMavenScriptCategoryNode autonomousJobNode = new
-                            // RepositoryMavenScriptCategoryNode(
-                            // DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(repoSettingNode.getId(), pomFile),
-                            // EMavenScriptCategory.AutonomousJob);
-
-                            // repoSettingNode.add(autonomousJobNode);
-                            //
-                            String pomId = DesignerMavenUiHelper
-                                    .buildRepositoryPreferenceNodeId(repoSettingNode.getId(), pomFile);
-                            String assemblyId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(repoSettingNode.getId(),
-                                    assemblyFile);
-
-                            RepositoryMavenPomNode pomNode = new RepositoryMavenPomNode(pomId, pomFile);
-                            RepositoryMavenAssemblyNode assemblyNode = new RepositoryMavenAssemblyNode(assemblyId, assemblyFile);
-
-                            repoSettingNode.add(pomNode);
-                            repoSettingNode.add(assemblyNode);
+                        List<IPreferenceNode> autonomousJobChildrenNodes = DesignerMavenUiHelper.createAutonomousJobChildNode(
+                                nodeFolder, node, autonomousJobNode.getId(), true);
+                        for (IPreferenceNode n : autonomousJobChildrenNodes) {
+                            autonomousJobNode.add(n);
                         }
+                        repoSettingNode.add(autonomousJobNode);
+
                     }
                 }
 

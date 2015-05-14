@@ -22,15 +22,12 @@ import org.talend.repository.model.RepositoryNode;
  */
 public class RepositoryFolderCreatorNode extends RepositoryPreferenceNode {
 
-    private RepositoryNode node;
-
     public RepositoryFolderCreatorNode(String id, String label, ImageDescriptor imageDescriptor, RepositoryNode node) {
         super(id, label, imageDescriptor, node);
-        this.node = node;
     }
 
     @Override
     protected PreferencePage createPreferencePage() {
-        return new FolderMavenSettingPreferencePage(node);
+        return new FolderMavenSettingPreferencePage(this.getNode());
     }
 }
