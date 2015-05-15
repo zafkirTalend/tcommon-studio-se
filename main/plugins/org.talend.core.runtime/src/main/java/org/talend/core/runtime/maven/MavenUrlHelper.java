@@ -14,7 +14,6 @@ package org.talend.core.runtime.maven;
 
 import org.eclipse.core.runtime.Assert;
 import org.osgi.framework.Version;
-import org.talend.core.runtime.process.MavenArtifact;
 
 /**
  * DOC ggu class global comment. Detailled comment

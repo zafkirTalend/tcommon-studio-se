@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.runtime.process;
+package org.talend.core.runtime.maven;
 
 /**
  * DOC ggu class global comment. Detailled comment

@@ -14,8 +14,8 @@ package org.talend.designer.maven.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
-import org.talend.core.runtime.process.MavenArtifact;
 
 /**
  * DOC ggu class global comment. Detailled comment
