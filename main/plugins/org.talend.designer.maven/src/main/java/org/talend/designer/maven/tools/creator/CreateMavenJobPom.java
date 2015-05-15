@@ -57,7 +57,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
@@ -241,7 +241,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     protected InputStream getTemplateStream() throws IOException {
         File templateFile = null;
         if (getTemplateBaseFolder() != null) {
-            templateFile = new File(getTemplateBaseFolder(), MavenConstants.POM_FILE_NAME);
+            templateFile = new File(getTemplateBaseFolder(), TalendMavenConstants.POM_FILE_NAME);
         }
         return MavenTemplateManager.getTemplateStream(templateFile,
                 IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, getBundleTemplateName());
@@ -361,7 +361,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             try {
                 File templateFile = null;
                 if (getTemplateBaseFolder() != null) {
-                    templateFile = new File(getTemplateBaseFolder(), MavenConstants.ASSEMBLY_FILE_NAME);
+                    templateFile = new File(getTemplateBaseFolder(), TalendMavenConstants.ASSEMBLY_FILE_NAME);
                 }
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
                         IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE,

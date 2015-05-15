@@ -17,8 +17,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.internal.IMavenConstants;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
 
 /**
@@ -38,10 +37,10 @@ public final class TalendCodeProjectUtil {
     public static IProject initCodeProject(IProgressMonitor monitor) throws Exception {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-        IProject codeProject = root.getProject(TalendMavenContants.PROJECT_NAME);
+        IProject codeProject = root.getProject(TalendMavenConstants.PROJECT_NAME);
         boolean recreate = false;
         if (codeProject.exists()) {
-            IFile pomFile = codeProject.getFile(MavenConstants.POM_FILE_NAME);
+            IFile pomFile = codeProject.getFile(TalendMavenConstants.POM_FILE_NAME);
             // if no pom or maven nature, will re-create pure Maven project.
             if (!pomFile.exists() || !codeProject.hasNature(IMavenConstants.NATURE_ID)) {
                 codeProject.close(monitor);

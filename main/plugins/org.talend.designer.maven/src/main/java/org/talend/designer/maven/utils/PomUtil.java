@@ -14,19 +14,16 @@ package org.talend.designer.maven.utils;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
-import org.osgi.framework.Version;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.general.Project;
@@ -35,9 +32,10 @@ import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.runtime.maven.MavenConstants;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.MavenArtifact;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
 
@@ -77,8 +75,8 @@ public class PomUtil {
         if (templateRoutinesModel == null) {
             templateRoutinesModel = new Model();
 
-            templateRoutinesModel.setGroupId(TalendMavenContants.DEFAULT_ROUTINES_GROUP_ID);
-            templateRoutinesModel.setArtifactId(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
+            templateRoutinesModel.setGroupId(TalendMavenConstants.DEFAULT_ROUTINES_GROUP_ID);
+            templateRoutinesModel.setArtifactId(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
             templateRoutinesModel.setVersion(PomUtil.getDefaultMavenVersion());
         }
         return templateRoutinesModel;
@@ -88,8 +86,8 @@ public class PomUtil {
         if (templateCodeProjectMOdel == null) {
             templateCodeProjectMOdel = new Model();
 
-            templateCodeProjectMOdel.setGroupId(TalendMavenContants.DEFAULT_CODE_PROJECT_GROUP_ID);
-            templateCodeProjectMOdel.setArtifactId(TalendMavenContants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
+            templateCodeProjectMOdel.setGroupId(TalendMavenConstants.DEFAULT_CODE_PROJECT_GROUP_ID);
+            templateCodeProjectMOdel.setArtifactId(TalendMavenConstants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
             templateCodeProjectMOdel.setVersion(PomUtil.getDefaultMavenVersion());
 
         }
@@ -98,14 +96,14 @@ public class PomUtil {
 
     public static Model getJunitTemplateModel() {
         Model junitModel = new Model();
-        junitModel.setGroupId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_GROUP);
-        junitModel.setArtifactId(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID);
-        junitModel.setVersion(TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_VERSION);
+        junitModel.setGroupId(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_GROUP);
+        junitModel.setArtifactId(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_ID);
+        junitModel.setVersion(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_VERSION);
         return junitModel;
     }
 
     public static boolean isJunitArtifact(String artifactId) {
-        if (TalendMavenContants.DEFAULT_JUNIT_ARTIFACT_ID.equals(artifactId)) {
+        if (TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_ID.equals(artifactId)) {
             return true;
         }
         return false;
@@ -116,9 +114,9 @@ public class PomUtil {
      * get the pom name, if name is null, return default one "pom.xml", else will be "pom_<name>.xml"
      */
     public static String getPomFileName(String name) {
-        String pomFileName = MavenConstants.POM_FILE_NAME;
+        String pomFileName = TalendMavenConstants.POM_FILE_NAME;
         if (name != null && name.length() > 0) {
-            pomFileName = MavenConstants.POM_NAME + '_' + name + MavenConstants.XML_EXT;
+            pomFileName = TalendMavenConstants.POM_NAME + '_' + name + TalendMavenConstants.XML_EXT;
         }
         return pomFileName;
     }
@@ -127,9 +125,9 @@ public class PomUtil {
      * get the assembly name, if name is null, return default one "assembly.xml", else will be "assembly_<name>.xml"
      */
     public static String getAssemblyFileName(String name) {
-        String assemblyFileName = MavenConstants.ASSEMBLY_FILE_NAME;
+        String assemblyFileName = TalendMavenConstants.ASSEMBLY_FILE_NAME;
         if (name != null && name.length() > 0) {
-            assemblyFileName = MavenConstants.ASSEMBLY_NAME + '_' + name + MavenConstants.XML_EXT;
+            assemblyFileName = TalendMavenConstants.ASSEMBLY_NAME + '_' + name + TalendMavenConstants.XML_EXT;
         }
         return assemblyFileName;
     }
@@ -148,7 +146,7 @@ public class PomUtil {
             org.osgi.framework.Version simpleVersion = new org.osgi.framework.Version(v.getMajor(), v.getMinor(), v.getMicro());
             version = simpleVersion.toString();
         } catch (IllegalArgumentException e) {
-            version = TalendMavenContants.DEFAULT_VERSION;
+            version = TalendMavenConstants.DEFAULT_VERSION;
         }
         return version;
     }
@@ -168,7 +166,7 @@ public class PomUtil {
         }
         Model codeProjectTemplateModel = null;
         try {
-            IFile projectPomFile = curPomFile.getParent().getFile(new Path(MavenConstants.POM_FILE_NAME));
+            IFile projectPomFile = curPomFile.getParent().getFile(new Path(TalendMavenConstants.POM_FILE_NAME));
             if (projectPomFile.exists()) {
                 codeProjectTemplateModel = MavenPlugin.getMavenModelManager().readMavenModel(projectPomFile);
             }
@@ -185,7 +183,7 @@ public class PomUtil {
         parent.setArtifactId(codeProjectTemplateModel.getArtifactId());
         parent.setVersion(codeProjectTemplateModel.getVersion());
 
-        parent.setRelativePath("./" + MavenConstants.POM_FILE_NAME);
+        parent.setRelativePath("./" + TalendMavenConstants.POM_FILE_NAME);
 
     }
 
@@ -202,9 +200,9 @@ public class PomUtil {
 
         Dependency dependency = new Dependency();
 
-        dependency.setGroupId(groupId == null ? TalendMavenContants.DEFAULT_LIB_GROUP_ID : groupId);
+        dependency.setGroupId(groupId == null ? MavenConstants.DEFAULT_LIB_GROUP_ID : groupId);
         dependency.setArtifactId(artifactId);
-        dependency.setVersion(version == null ? TalendMavenContants.DEFAULT_LIB_VERSION : version);
+        dependency.setVersion(version == null ? MavenConstants.DEFAULT_LIB_VERSION : version);
 
         // FIXME, if system scope, can't work for the assembly with dependencySets at all.
         dependency.setScope("system");
@@ -260,121 +258,6 @@ public class PomUtil {
 
     }
 
-    /**
-     * will build the mvn url with default groupId and version."mvn://org.talend.libraries:<jarName>:6.0.0"
-     */
-    public static String buildMvnUrlByJarName(String jarName) {
-        if (jarName != null && jarName.length() > 0) {
-            // mvn://org.talend.libraries:<jarName>:6.0.0
-            String artifactId = jarName;
-            if (jarName.endsWith(MavenConstants.PACKAGING_JAR)) { // remove the extension .jar
-                artifactId = jarName.substring(0, jarName.lastIndexOf(MavenConstants.PACKAGING_JAR) - 1);
-            }
-            return generateMvnUrl(TalendMavenContants.DEFAULT_LIB_GROUP_ID, artifactId, TalendMavenContants.DEFAULT_VERSION,
-                    null, null);
-            // return TalendMavenContants.MVN_URL_PREFIX + TalendMavenContants.DEFAULT_LIB_GROUP_ID
-            // + TalendMavenContants.MVN_SEPERATOR + jarName + TalendMavenContants.MVN_SEPERATOR
-            // + TalendMavenContants.DEFAULT_VERSION;
-        }
-        return null;
-    }
-
-    /**
-     * if startsWith mvn://, will return true;
-     */
-    public static boolean isMvnUrl(String str) {
-        return str != null && str.startsWith(TalendMavenContants.MVN_URL_PREFIX);
-    }
-
-    public static String generateMvnUrl(Dependency dependency) {
-        if (dependency != null) {
-            return generateMvnUrl(dependency.getGroupId(), dependency.getArtifactId(), dependency.getVersion(),
-                    dependency.getType(), dependency.getClassifier());
-        }
-        return null;
-    }
-
-    /**
-     * 
-     * mvn://groupId:artifactId:packaging:classifier:version
-     */
-    public static String generateMvnUrl(String groupId, String artifactId, String version, String packaging, String classifier) {
-        Assert.isNotNull(groupId);
-        Assert.isNotNull(artifactId);
-        Assert.isNotNull(version);
-        if (packaging == null && classifier != null) {
-            Assert.isTrue(false, "Must set the packaging, when classifier is set.");
-        }
-
-        StringBuffer mvnUrl = new StringBuffer(100);
-        mvnUrl.append(TalendMavenContants.MVN_URL_PREFIX);
-
-        mvnUrl.append(groupId);
-        mvnUrl.append(MavenConstants.SEPERATOR);
-        mvnUrl.append(artifactId);
-
-        if (packaging != null) {
-            mvnUrl.append(MavenConstants.SEPERATOR);
-            mvnUrl.append(packaging);
-            if (classifier != null) {
-                mvnUrl.append(MavenConstants.SEPERATOR);
-                mvnUrl.append(classifier);
-            }
-        }
-        mvnUrl.append(MavenConstants.SEPERATOR);
-        mvnUrl.append(version);
-
-        return mvnUrl.toString();
-    }
-
-    public static MavenArtifact parseMvnUrl(String mvnUrl) {
-        if (mvnUrl == null || !isMvnUrl(mvnUrl)) {
-            return null;
-        }
-        MavenArtifact artifact = new MavenArtifact();
-        StringTokenizer st = new StringTokenizer(mvnUrl.substring(TalendMavenContants.MVN_URL_PREFIX.length()),
-                MavenConstants.SEPERATOR, false);
-        int countTokens = st.countTokens();
-        if (countTokens < 3) {
-            throw new IllegalArgumentException("It's not validated Maven URL:" + mvnUrl);
-        }
-
-        artifact.setGroupId(st.nextToken());
-        artifact.setArtifactId(st.nextToken());
-
-        String type = MavenConstants.PACKAGING_JAR;
-        if (countTokens >= 4) { // has packaging
-            type = st.nextToken();
-        }
-        artifact.setType(type);
-
-        if (countTokens == 5) {// has classifier
-            // classifier is can be null.
-            artifact.setClassifier(st.nextToken());
-        }
-
-        // validate the version
-        Version version = new Version(st.nextToken());
-        artifact.setVersion(version.toString());
-
-        return artifact;
-    }
-
-    public static MavenArtifact convertToArtifact(Dependency dependency) {
-        if (dependency != null) {
-            MavenArtifact artifact = new MavenArtifact();
-
-            artifact.setGroupId(dependency.getGroupId());
-            artifact.setArtifactId(dependency.getArtifactId());
-            artifact.setVersion(dependency.getVersion());
-            artifact.setClassifier(dependency.getClassifier());
-            artifact.setType(dependency.getType());
-
-            return artifact;
-        }
-        return null;
-    }
-
     public static boolean isAvailable(Dependency dependency) {
         MavenArtifact artifact = convertToArtifact(dependency);
         return artifact != null && isAvailable(artifact);
@@ -401,12 +284,35 @@ public class PomUtil {
         Set<String> existedMvnUrls = new LinkedHashSet<String>();
         if (mvnUrls != null) {
             for (String mvnUrl : mvnUrls) {
-                MavenArtifact artifact = parseMvnUrl(mvnUrl);
+                MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mvnUrl);
                 if (isAvailable(artifact)) {
                     existedMvnUrls.add(mvnUrl);
                 }
             }
         }
         return existedMvnUrls;
+    }
+
+    public static String generateMvnUrl(Dependency dependency) {
+        if (dependency != null) {
+            return MavenUrlHelper.generateMvnUrl(dependency.getGroupId(), dependency.getArtifactId(), dependency.getVersion(),
+                    dependency.getType(), dependency.getClassifier());
+        }
+        return null;
+    }
+
+    public static MavenArtifact convertToArtifact(Dependency dependency) {
+        if (dependency != null) {
+            MavenArtifact artifact = new MavenArtifact();
+
+            artifact.setGroupId(dependency.getGroupId());
+            artifact.setArtifactId(dependency.getArtifactId());
+            artifact.setVersion(dependency.getVersion());
+            artifact.setClassifier(dependency.getClassifier());
+            artifact.setType(dependency.getType());
+
+            return artifact;
+        }
+        return null;
     }
 }

@@ -32,9 +32,9 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.designer.maven.model.MavenConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.utils.PomUtil;
 
@@ -47,7 +47,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
     private IProject project;
 
     public CreateMavenCodeProject(IProject project) {
-        super(project.getFile(MavenConstants.POM_FILE_NAME), MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+        super(project.getFile(TalendMavenConstants.POM_FILE_NAME), MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
         Assert.isNotNull(project);
         this.project = project;
     }
@@ -62,7 +62,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         setGroupId(project.getName());
         setArtifactId(project.getName());
         // Must be jar, if pom, won't create the classpath or such for jdt.
-        setPackaging(MavenConstants.PACKAGING_JAR);
+        setPackaging(TalendMavenConstants.PACKAGING_JAR);
 
         Model model = super.createModel();
         return model;
@@ -144,7 +144,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
     }
 
     private void convertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
-        IFile pomFile = p.getFile(MavenConstants.POM_FILE_NAME);
+        IFile pomFile = p.getFile(TalendMavenConstants.POM_FILE_NAME);
         if (pomFile.exists()) {
             try {
                 MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
@@ -152,8 +152,8 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
                 if (mavenProject != null) {
                     Model model = mavenProject.getOriginalModel();
                     // if not pom, change to pom
-                    if (!MavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
-                        model.setPackaging(MavenConstants.PACKAGING_POM);
+                    if (!TalendMavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
+                        model.setPackaging(TalendMavenConstants.PACKAGING_POM);
 
                         Model codeProjectTemplateModel = PomUtil.getCodeProjectTemplateModel();
 

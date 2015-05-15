@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IDebugEventSetListener;
@@ -49,7 +48,7 @@ import org.eclipse.m2e.internal.launch.MavenLaunchDelegate;
 import org.eclipse.osgi.util.NLS;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 
 /**
  * created by ggu on 13 Mar 2015 Detailled comment
@@ -98,7 +97,7 @@ public class TalendMavenLauncher {
      * add clean will clean the before build classes.
      */
     public TalendMavenLauncher(IFile pomFile) {
-        this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */MavenConstants.GOAL_COMPILE);
+        this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */TalendMavenConstants.GOAL_COMPILE);
     }
 
     public void setSkipTests(boolean skipTests) {
@@ -198,7 +197,7 @@ public class TalendMavenLauncher {
             return;
         }
         // non-pom file
-        if (!MavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
+        if (!TalendMavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
             return;
         }
 

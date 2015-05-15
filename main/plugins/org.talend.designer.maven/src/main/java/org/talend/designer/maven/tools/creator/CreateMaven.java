@@ -17,7 +17,7 @@ import java.util.Properties;
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -33,7 +33,7 @@ public abstract class CreateMaven {
     private String name, desc;
 
     /* by default, the packaging is jar */
-    private String packaging = MavenConstants.PACKAGING_JAR;
+    private String packaging = TalendMavenConstants.PACKAGING_JAR;
 
     public String getVersion() {
         return this.version;
@@ -90,7 +90,7 @@ public abstract class CreateMaven {
      */
     protected Model createModel() {
         Model model = new Model();
-        model.setModelVersion(MavenConstants.POM_VERSION);
+        model.setModelVersion(TalendMavenConstants.POM_VERSION);
         setAttributes(model);
         addProperties(model);
         return model;

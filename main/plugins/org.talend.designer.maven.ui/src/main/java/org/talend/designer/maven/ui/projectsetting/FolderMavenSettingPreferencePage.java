@@ -49,7 +49,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.preference.AbstractProjectSettingPage;
 import org.talend.core.runtime.preference.ProjectPreferenceManager;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 import org.talend.designer.maven.ui.dialog.model.IRepositoryPreferenceNodeContainer;
@@ -196,13 +196,13 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
         StringBuffer messages = new StringBuffer(200);
         // existed
         if (created) {
-            String pomLinkStr = buildLink(MavenConstants.POM_FILE_NAME);
-            String assemblyLinkStr = buildLink(MavenConstants.ASSEMBLY_FILE_NAME);
+            String pomLinkStr = buildLink(TalendMavenConstants.POM_FILE_NAME);
+            String assemblyLinkStr = buildLink(TalendMavenConstants.ASSEMBLY_FILE_NAME);
             messages.append(Messages.getString("FolderMavenSettingPreferencePage_ExistedMavenSettingMessage",//$NON-NLS-1$
                     pomLinkStr, assemblyLinkStr));
         } else {
             messages.append(Messages.getString("FolderMavenSettingPreferencePage_CreatingMavenSettingMessage", //$NON-NLS-1$
-                    MavenConstants.POM_FILE_NAME, MavenConstants.ASSEMBLY_FILE_NAME));
+                    TalendMavenConstants.POM_FILE_NAME, TalendMavenConstants.ASSEMBLY_FILE_NAME));
             messages.append('\n');
             messages.append('\n');
 
@@ -270,7 +270,7 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
         String id = e.text;
         if (ID_MAVEN_PROJECT_SETTING.equals(id)) {
             openProjectSettingDialog(id);
-        } else if (MavenConstants.POM_FILE_NAME.equals(id) || MavenConstants.ASSEMBLY_FILE_NAME.equals(id)) {
+        } else if (TalendMavenConstants.POM_FILE_NAME.equals(id) || TalendMavenConstants.ASSEMBLY_FILE_NAME.equals(id)) {
             String childId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), id);
             openChildPage(childId);
         }
@@ -299,8 +299,8 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
                         .getProjectPreferenceManager();
 
                 final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
-                final IFile pomFile = nodeFolder.getFile(MavenConstants.POM_FILE_NAME);
-                final IFile assemblyFile = nodeFolder.getFile(MavenConstants.ASSEMBLY_FILE_NAME);
+                final IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
+                final IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
                 File pomF = pomFile.getLocation().toFile();
                 File assemblyF = assemblyFile.getLocation().toFile();
 
@@ -406,8 +406,8 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
                 try {
                     final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
 
-                    final IFile pomFile = nodeFolder.getFile(MavenConstants.POM_FILE_NAME);
-                    final IFile assemblyFile = nodeFolder.getFile(MavenConstants.ASSEMBLY_FILE_NAME);
+                    final IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
+                    final IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
 
                     pomFile.delete(true, null);
                     assemblyFile.delete(true, null);

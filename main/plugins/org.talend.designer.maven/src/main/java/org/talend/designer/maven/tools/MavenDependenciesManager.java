@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -145,7 +145,7 @@ public class MavenDependenciesManager {
     public void updateProjectDependencies(IProgressMonitor progressMonitor, IFile jobPomFile) throws ProcessorException {
         try {
             IProject codeProject = this.processor.getTalendJavaProject().getProject();
-            IFile projectPomFile = codeProject.getFile(MavenConstants.POM_FILE_NAME);
+            IFile projectPomFile = codeProject.getFile(TalendMavenConstants.POM_FILE_NAME);
 
             MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
             Model projectModel = mavenModelManager.readMavenModel(projectPomFile);

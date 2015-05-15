@@ -32,12 +32,11 @@ import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
-import org.talend.designer.maven.model.MavenConstants;
-import org.talend.designer.maven.model.TalendMavenContants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
-import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
 import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
+import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
 
@@ -60,7 +59,7 @@ public class MavenPomSynchronizer {
     public void syncRoutinesPom(boolean overwrite) throws Exception {
         // pom_routines.xml
         IFile routinesPomFile = codeProject.getProject().getFile(
-                PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID));
+                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
         // generate new one
         CreateMavenBundleTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
         createTemplatePom.setOverwrite(overwrite);
@@ -166,13 +165,13 @@ public class MavenPomSynchronizer {
      */
     public void cleanMavenFiles(IProgressMonitor monitor) throws Exception {
         // remove all job poms
-        final String routinesPomFileName = PomUtil.getPomFileName(TalendMavenContants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        final String routinesPomFileName = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
         File[] pomFiles = codeProject.getProject().getLocation().toFile().listFiles(new FilenameFilter() {
 
             @Override
             public boolean accept(File dir, String name) {
                 // pom_xxx.xml
-                return name.startsWith(MavenConstants.POM_NAME + '_') && name.endsWith(MavenConstants.XML_EXT)
+                return name.startsWith(TalendMavenConstants.POM_NAME + '_') && name.endsWith(TalendMavenConstants.XML_EXT)
                         && !name.equals(routinesPomFileName);
             }
         });
@@ -186,7 +185,7 @@ public class MavenPomSynchronizer {
                 @Override
                 public boolean accept(File dir, String name) {
                     // assembly_xxx.xml
-                    return name.startsWith(MavenConstants.ASSEMBLY_NAME + '_') && name.endsWith(MavenConstants.XML_EXT);
+                    return name.startsWith(TalendMavenConstants.ASSEMBLY_NAME + '_') && name.endsWith(TalendMavenConstants.XML_EXT);
                 }
             });
             deleteFiles(assembliesFiles);
@@ -229,7 +228,7 @@ public class MavenPomSynchronizer {
         }
 
         // try to compile it.
-        codeProject.buildModules(MavenConstants.GOAL_COMPILE, null);
+        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null);
     }
 
     private void deleteFiles(File[] files) {

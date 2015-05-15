@@ -27,7 +27,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.maven.model.MavenConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenAssemblyNode;
 import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenPomNode;
 import org.talend.repository.model.IRepositoryNode;
@@ -110,8 +110,8 @@ public final class DesignerMavenUiHelper {
         try {
             parentFolder.refreshLocal(IResource.DEPTH_ONE, null);
 
-            IFile pomFile = parentFolder.getFile(MavenConstants.POM_FILE_NAME);
-            IFile assemblyFile = parentFolder.getFile(MavenConstants.ASSEMBLY_FILE_NAME);
+            IFile pomFile = parentFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
+            IFile assemblyFile = parentFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
             if (pomFile.exists() && assemblyFile.exists()) {
                 existed = true;
             }
@@ -193,8 +193,8 @@ public final class DesignerMavenUiHelper {
             boolean checkExist) {
         List<IPreferenceNode> childrenNodes = new ArrayList<IPreferenceNode>();
 
-        IFile pomFile = nodeFolder.getFile(MavenConstants.POM_FILE_NAME);
-        IFile assemblyFile = nodeFolder.getFile(MavenConstants.ASSEMBLY_FILE_NAME);
+        IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
+        IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
         // if have existed the pom and assembly
         if (!checkExist || DesignerMavenUiHelper.existMavenSetting(nodeFolder)) {
             String pomId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, pomFile);
