@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.IMaven;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -234,8 +235,7 @@ public class PomUtil {
 
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mvnUrl);
         if (artifact != null) {
-            return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(),
-                    artifact.getType());
+            return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         }
         return null;
     }
@@ -425,4 +425,26 @@ public class PomUtil {
         }
         return null;
     }
+
+    public static String getArtifactPath(MavenArtifact artifact) {
+        if (artifact == null) {
+            return null;
+        }
+        IMaven maven = MavenPlugin.getMaven();
+        try {
+            String artifactPath = maven.getArtifactPath(maven.getLocalRepository(), artifact.getGroupId(),
+                    artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), artifact.getClassifier());
+            if (artifactPath == null) {
+                return null;
+            }
+            File file = new File(artifactPath);
+            if (file.exists()) {
+                return artifactPath;
+            }
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
+    }
+
 }
