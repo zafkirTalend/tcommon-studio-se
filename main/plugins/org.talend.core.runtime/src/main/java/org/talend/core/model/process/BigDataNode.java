@@ -324,46 +324,6 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
         return keyList;
     }
 
-    /**
-     * Will return the first item of the subprocess. If "withCondition" is true, if there is links from type RunIf /
-     * RunAfter / RunBefore, it will return the first element found. If "withCondition" is false, it will return the
-     * first element with no active link from type Main/Ref/Iterate.<br>
-     * <i><b>Note:</b></i> This function doesn't work if the node has several start points (will return a random start
-     * node).
-     * 
-     * @param withCondition
-     * @return Start Node found.
-     */
-    @Override
-    public INode getSubProcessStartNode(boolean withConditions) {
-        if (!withConditions) {
-
-            if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
-                return this; // main branch here, so we got the correct sub
-                             // process start.
-            }
-        } else {
-            int nb = 0;
-            for (IConnection connection : getIncomingConnections()) {
-                if (connection.isActivate()) {
-                    nb++;
-                }
-            }
-            if (nb == 0) {
-                return this;
-            }
-        }
-
-        for (IConnection connec : getIncomingConnections()) {
-            if (((AbstractNode) connec.getSource()).isOnMainMergeBranch()) {
-                if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
-                    return connec.getSource().getSubProcessStartNode(withConditions);
-                }
-            }
-        }
-        return null;
-    }
-
     @Override
     public boolean isDummy() {
         return this.dummy;
