@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
+import java.io.File;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.model.Dependency;
@@ -26,6 +28,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerUIService;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
@@ -36,6 +41,7 @@ import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
 
@@ -192,23 +198,34 @@ public class PomUtil {
      * 
      * @return
      */
-    public static Dependency createModuleSystemScopeDependency(String groupId, String module, String version) {
-        if (module == null) {
+    public static Dependency createModuleDependency(String groupId, String artifactId, String version, String type) {
+        if (artifactId == null) {
             return null;
         }
-        String artifactId = new Path(module).removeFileExtension().toString();
-
         Dependency dependency = new Dependency();
-
         dependency.setGroupId(groupId == null ? MavenConstants.DEFAULT_LIB_GROUP_ID : groupId);
         dependency.setArtifactId(artifactId);
         dependency.setVersion(version == null ? MavenConstants.DEFAULT_LIB_VERSION : version);
-
-        // FIXME, if system scope, can't work for the assembly with dependencySets at all.
-        dependency.setScope("system");
-        dependency.setSystemPath("${system.lib.path}/" + module);
+        dependency.setType(type == null ? TalendMavenConstants.PACKAGING_JAR : type);
 
         return dependency;
+    }
+
+    public static Dependency createModuleDependency(String str) {
+        if (str == null) {
+            return null;
+        }
+        String mvnUrl = str;
+        if (!MavenUrlHelper.isMvnUrl(str)) {
+            mvnUrl = MavenUrlHelper.generateMvnUrlForJarName(str);
+        }
+
+        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mvnUrl);
+        if (artifact != null) {
+            return createModuleDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(),
+                    artifact.getType());
+        }
+        return null;
     }
 
     /**
@@ -314,5 +331,43 @@ public class PomUtil {
             return artifact;
         }
         return null;
+    }
+
+    /**
+     * 
+     * check the dependencies is custom jar or not, if existed, and invalid in m2/repo, just install in local.
+     */
+    public static void installDependencies(List<Dependency> dependencies) {
+        if (dependencies != null && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerUIService.class);
+            File librariesDir = new File(libUiService.getLibrariesPath(ECodeLanguage.JAVA));
+
+            for (Dependency d : dependencies) {
+                // only process talend libs
+                if (MavenConstants.DEFAULT_LIB_GROUP_ID.equals(d.getGroupId())) {
+                    String type = d.getType();
+                    if (type == null || type.trim().length() == 0) {
+                        type = MavenConstants.TYPE_JAR; // jar by default
+                    }
+                    File libFile = new File(librariesDir, d.getArtifactId() + '.' + type);
+                    try {
+                        installJar(libFile, PomUtil.convertToArtifact(d));
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
+
+        }
+    }
+
+    public static void installJar(File libFile, MavenArtifact artifact) throws Exception {
+        // in lib/java, and not existed in m2/repo
+        if (libFile.exists() && !PomUtil.isAvailable(artifact)) {
+            // FIXME,the launcher is not stable, sometimes, can't install successfully.
+            LocalRepositoryManager.LAUNCHER.install(libFile, artifact);
+            // LocalRepositoryManager.AETHER.install(libFile, artifact);
+        }
     }
 }

@@ -28,9 +28,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
-import org.talend.commons.utils.resource.FileExtensions;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerService;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
@@ -91,6 +88,8 @@ public class MavenPomSynchronizer {
     /**
      * 
      * create project pom
+     * 
+     * @deprecated should use the CreateMavenCodeProject
      */
     public void createProjectPom() throws Exception {
         IFile projectPomFile = codeProject.getProjectPom();
@@ -185,7 +184,8 @@ public class MavenPomSynchronizer {
                 @Override
                 public boolean accept(File dir, String name) {
                     // assembly_xxx.xml
-                    return name.startsWith(TalendMavenConstants.ASSEMBLY_NAME + '_') && name.endsWith(TalendMavenConstants.XML_EXT);
+                    return name.startsWith(TalendMavenConstants.ASSEMBLY_NAME + '_')
+                            && name.endsWith(TalendMavenConstants.XML_EXT);
                 }
             });
             deleteFiles(assembliesFiles);
@@ -193,6 +193,9 @@ public class MavenPomSynchronizer {
 
         // delete all target
         FilesUtils.deleteFile(codeProject.getOutputFolder().getParent().getLocation().toFile(), true);
+
+        // if routine is not exsited, gernerate it.
+        syncRoutinesPom(false);
 
         // clean up the dependencies and module for pom.xml
         IFile projectPomFile = codeProject.getProjectPom();
@@ -205,26 +208,22 @@ public class MavenPomSynchronizer {
             if (modules != null) {
                 modules.clear();
             }
-            final Model routinesModel = PomUtil.getRoutinesTempalteModel();
-            modules.add(PomUtil.getPomFileName(routinesModel.getArtifactId()));
+            IFile routinesPomFile = codeProject.getProject().getFile(
+                    PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
+            Model routinesModel = PomUtil.getRoutinesTempalteModel();
+            if (routinesPomFile.exists()) {
+                routinesModel = mavenModelManager.readMavenModel(routinesPomFile);
+            }
+            modules.add(routinesPomFile.getName());
 
             // only add the routines dependencies.
-            CreateMavenRoutinePom.addDependencies(projModel);
-
-            // synch the routines jar to .Java/lib to resolve the dependencies error for pom.
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
-                ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                        .getService(ILibraryManagerService.class);
-                List<String> jarsNeedRetrieve = new ArrayList<String>();
-                for (Dependency d : projModel.getDependencies()) {
-                    if (d.getScope() != null && d.getScope().equals("system")) { // only for system scope
-                        jarsNeedRetrieve.add(d.getArtifactId() + FileExtensions.JAR_FILE_SUFFIX); // jar name
-                    }
-                }
-                libManagerService.retrieve(jarsNeedRetrieve, codeProject.getLibFolder().getLocation().toPortableString(), false);
-            }
+            List<Dependency> routinesDependencies = routinesModel.getDependencies();
+            ProcessorDependenciesManager.updateDependencies(null, projModel, routinesDependencies, true);
 
             PomUtil.savePom(monitor, projModel, projectPomFile);
+
+            // install custom jar to m2/repo
+            PomUtil.installDependencies(routinesDependencies);
         }
 
         // try to compile it.

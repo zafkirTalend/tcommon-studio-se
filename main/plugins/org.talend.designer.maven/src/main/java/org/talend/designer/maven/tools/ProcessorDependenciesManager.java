@@ -20,14 +20,7 @@ import java.util.Set;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.m2e.core.MavenPlugin;
-import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.talend.core.model.process.JobInfo;
-import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -36,42 +29,27 @@ import org.talend.designer.runprocess.ProcessorException;
  * created by ycbai on 2015年4月2日 Detailled comment
  *
  */
-public class MavenDependenciesManager {
+public class ProcessorDependenciesManager {
 
     private final IProcessor processor;
 
-    public MavenDependenciesManager(IProcessor processor) {
+    public ProcessorDependenciesManager(IProcessor processor) {
         this.processor = processor;
     }
 
-    public boolean updateProcessorDependencies(IProgressMonitor progressMonitor, Model model) throws ProcessorException {
+    public boolean updateDependencies(IProgressMonitor progressMonitor, Model model) throws ProcessorException {
         try {
             List<Dependency> neededDependencies = new ArrayList<Dependency>();
 
             // add the job modules.
             Set<String> neededLibraries = processor.getNeededLibraries();
-
-            // List<String> existingJars = new ArrayList<String>();
-            // if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
-            // ILibraryManagerService libService = (ILibraryManagerService)
-            // GlobalServiceRegister.getDefault().getService(
-            // ILibraryManagerService.class);
-            // Set<String> list = libService.list(progressMonitor);
-            // if (list != null) {
-            // existingJars.addAll(list);
-            // }
-            // }
-
             for (String lib : neededLibraries) {
-                // if (!existingJars.contains(lib)) {
-                // continue;
-                // }
-
-                Dependency dependency = PomUtil.createModuleSystemScopeDependency(null, lib, null);
+                Dependency dependency = PomUtil.createModuleDependency(lib);
                 if (dependency != null) {
                     neededDependencies.add(dependency);
                 }
             }
+
             return updateDependencies(progressMonitor, model, neededDependencies, true);
 
         } catch (Exception e) {
@@ -87,7 +65,7 @@ public class MavenDependenciesManager {
      * @param fresh if true, will remove old dependencies, else will add the new dependencies in the head.
      * @return if there are some changes, will return true
      */
-    public boolean updateDependencies(IProgressMonitor progressMonitor, Model model, List<Dependency> neededDependencies,
+    public static boolean updateDependencies(IProgressMonitor progressMonitor, Model model, List<Dependency> neededDependencies,
             boolean fresh) throws ProcessorException {
         boolean changed = false;
         try {
@@ -140,43 +118,6 @@ public class MavenDependenciesManager {
             throw new ProcessorException(e);
         }
         return changed;
-    }
-
-    public void updateProjectDependencies(IProgressMonitor progressMonitor, IFile jobPomFile) throws ProcessorException {
-        try {
-            IProject codeProject = this.processor.getTalendJavaProject().getProject();
-            IFile projectPomFile = codeProject.getFile(TalendMavenConstants.POM_FILE_NAME);
-
-            MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
-            Model projectModel = mavenModelManager.readMavenModel(projectPomFile);
-
-            // add the modules
-            List<String> modules = projectModel.getModules();
-            modules.clear(); // clean all?
-            final Model routinesModel = PomUtil.getRoutinesTempalteModel();
-            modules.add(PomUtil.getPomFileName(routinesModel.getArtifactId()));
-            for (JobInfo childJob : this.processor.getBuildChildrenJobs()) {
-                modules.add(PomUtil.getPomFileName(childJob.getJobName()));
-            }
-            modules.add(PomUtil.getPomFileName(this.processor.getProperty().getLabel()));
-
-            // check the dependencies
-            if (jobPomFile.getLocation().toFile().exists()) {
-                if (!jobPomFile.exists()) {
-                    jobPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, progressMonitor);
-                }
-                Model jobModel = mavenModelManager.readMavenModel(jobPomFile);
-
-                // fresh is false, make sure all jobs can be compile ok
-                updateDependencies(progressMonitor, projectModel, jobModel.getDependencies(), false);
-            }
-
-            PomUtil.savePom(progressMonitor, projectModel, projectPomFile);
-
-            codeProject.refreshLocal(IResource.DEPTH_ONE, progressMonitor);
-        } catch (Exception e) {
-            throw new ProcessorException(e);
-        }
     }
 
 }

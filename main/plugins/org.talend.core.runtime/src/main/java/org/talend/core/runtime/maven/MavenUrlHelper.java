@@ -20,6 +20,7 @@ import org.osgi.framework.Version;
  * 
  * mvn-uri:='mvn:'[repository-url '!'] group-id '/' artifact-id ['/' [version] ['/' [type] ['/' classifier ]]]]
  */
+@SuppressWarnings("nls")
 public class MavenUrlHelper {
 
     public static final String MVN_PROTOCOL = "mvn:";
@@ -127,7 +128,7 @@ public class MavenUrlHelper {
                     type = jarName.substring(dotIndex + 1);
                 }
             }
-            return generateMvnUrl(MavenConstants.DEFAULT_LIB_GROUP_ID, artifactId, MavenConstants.DEFAULT_VERSION, type, null);
+            return generateMvnUrl(MavenConstants.DEFAULT_LIB_GROUP_ID, artifactId, MavenConstants.DEFAULT_LIB_VERSION, type, null);
         }
         return null;
     }

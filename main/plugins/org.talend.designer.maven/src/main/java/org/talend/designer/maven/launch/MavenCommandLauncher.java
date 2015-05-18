@@ -48,17 +48,17 @@ import org.eclipse.m2e.internal.launch.MavenLaunchDelegate;
 import org.eclipse.osgi.util.NLS;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
-import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.designer.runprocess.IRunProcessService;
 
 /**
- * created by ggu on 13 Mar 2015 Detailled comment
- *
+ * DOC ggu class global comment. Detailled comment
+ * 
  * most codes are copied from @see ExecutePomAction. just in order to set the debug is in foreground.
  */
 @SuppressWarnings("restriction")
-public class TalendMavenLauncher {
-
-    private final IFile launcherPomFile;
+public class MavenCommandLauncher {
 
     private final String goals;
 
@@ -66,11 +66,6 @@ public class TalendMavenLauncher {
      * Use the M2E API to launch the maven with goal, run mode by default.
      */
     private String launcherMode = ILaunchManager.RUN_MODE;
-
-    /*
-     * Won't skip test by default.
-     */
-    private boolean skipTests = false;
 
     /*
      * By default for Launch Configuration , will capture the output, and try to open Console view to show maven logs.
@@ -82,26 +77,21 @@ public class TalendMavenLauncher {
 
     private boolean debugOutput;
 
-    public TalendMavenLauncher(IFile pomFile, String goals) {
+    /*
+     * Won't skip test by default.
+     */
+    private boolean skipTests = false;
+
+    public MavenCommandLauncher(String goals) {
         super();
-        Assert.isNotNull(pomFile);
         Assert.isNotNull(goals);
-        this.launcherPomFile = pomFile;
         this.goals = goals;
         // by default same as preference settings.
         this.debugOutput = MavenPlugin.getMavenConfiguration().isDebugOutput();
     }
 
-    /*
-     * shouldn't use clean goal, because the routines and some other(children) jobs use same output target/classes, if
-     * add clean will clean the before build classes.
-     */
-    public TalendMavenLauncher(IFile pomFile) {
-        this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */TalendMavenConstants.GOAL_COMPILE);
-    }
-
-    public void setSkipTests(boolean skipTests) {
-        this.skipTests = skipTests;
+    protected String getGoals() {
+        return goals;
     }
 
     public void setDebugOutput(boolean debugOutput) {
@@ -112,7 +102,11 @@ public class TalendMavenLauncher {
         this.captureOutputInConsoleView = captureOutputInConsoleView;
     }
 
-    private ILaunchConfiguration createLaunchConfiguration(IContainer basedir, String goal) {
+    public void setSkipTests(boolean skipTests) {
+        this.skipTests = skipTests;
+    }
+
+    protected ILaunchConfiguration createLaunchConfiguration(IContainer basedir, String goal) {
         try {
             ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
             ILaunchConfigurationType launchConfigurationType = launchManager
@@ -142,8 +136,9 @@ public class TalendMavenLauncher {
                 workingCopy.setAttribute(MavenLaunchConstants.ATTR_DEBUG_OUTPUT, this.debugOutput); // -X -e
             }
 
-            workingCopy.setAttribute(MavenLaunchConstants.ATTR_SKIP_TESTS, this.skipTests); // -Dmaven.test.skip=true
-                                                                                            // -DskipTests
+            // -Dmaven.test.skip=true -DskipTests
+            workingCopy.setAttribute(MavenLaunchConstants.ATTR_SKIP_TESTS, this.skipTests);
+
             // ------------------------
 
             setProjectConfiguration(workingCopy, basedir);
@@ -163,7 +158,7 @@ public class TalendMavenLauncher {
         return null;
     }
 
-    private void setProjectConfiguration(ILaunchConfigurationWorkingCopy workingCopy, IContainer basedir) {
+    protected void setProjectConfiguration(ILaunchConfigurationWorkingCopy workingCopy, IContainer basedir) {
         IMavenProjectRegistry projectManager = MavenPlugin.getMavenProjectRegistry();
         IFile pomFile = basedir.getFile(new Path(IMavenConstants.POM_FILE_NAME));
         IMavenProjectFacade projectFacade = projectManager.create(pomFile, false, new NullProgressMonitor());
@@ -178,7 +173,7 @@ public class TalendMavenLauncher {
     }
 
     // TODO ideally it should use MavenProject, but it is faster to scan IJavaProjects
-    private IPath getJREContainerPath(IContainer basedir) throws CoreException {
+    protected IPath getJREContainerPath(IContainer basedir) throws CoreException {
         IProject project = basedir.getProject();
         if (project != null && project.hasNature(JavaCore.NATURE_ID)) {
             IJavaProject javaProject = JavaCore.create(project);
@@ -192,14 +187,20 @@ public class TalendMavenLauncher {
         return null;
     }
 
+    protected ILaunchConfiguration createLaunchConfiguration() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService processService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            ITalendProcessJavaProject talendProcessJavaProject = processService.getTalendProcessJavaProject();
+            if (talendProcessJavaProject != null) {
+                IProject project = talendProcessJavaProject.getProject();
+                return createLaunchConfiguration(project, goals);
+            }
+        }
+        return null;
+    }
+
     public void execute() {
-        if (!launcherPomFile.exists()) {
-            return;
-        }
-        // non-pom file
-        if (!TalendMavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
-            return;
-        }
 
         /*
          * use the ExecutePomAction directly.
@@ -212,7 +213,10 @@ public class TalendMavenLauncher {
          * use launch way
          */
         try {
-            ILaunchConfiguration launchConfiguration = createLaunchConfiguration(launcherPomFile.getParent(), goals);
+            ILaunchConfiguration launchConfiguration = createLaunchConfiguration();
+            if (launchConfiguration == null) {
+                throw new Exception("Can't create maven command launcher.");
+            }
             // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
             // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
             // }
@@ -221,12 +225,12 @@ public class TalendMavenLauncher {
             final ILaunch launch = buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
             talendWaiter.waitFinish(launch);
 
-        } catch (CoreException e) {
+        } catch (Exception e) {
             ExceptionHandler.process(e);
         }
     }
 
-    public static ILaunch buildAndLaunch(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor)
+    protected ILaunch buildAndLaunch(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor)
             throws CoreException {
         monitor.beginTask("", 1); //$NON-NLS-1$
         try {

@@ -15,6 +15,7 @@ package org.talend.core.runtime.maven;
 /**
  * DOC ggu class global comment. Detailled comment
  */
+@SuppressWarnings("nls")
 public interface MavenConstants {
 
     static final String TYPE_JAR = "jar";
@@ -28,7 +29,7 @@ public interface MavenConstants {
      */
     static final String DEFAULT_LIB_GROUP_ID = DEFAULT_GROUP_ID + ".libraries";
 
-    static final String DEFAULT_LIB_VERSION = DEFAULT_VERSION;
+    static final String DEFAULT_LIB_VERSION = "1.0.0";
 
     /*
      * for index

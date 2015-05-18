@@ -18,7 +18,6 @@ import org.talend.commons.utils.generation.JavaUtils;
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
  *
- * if OEM, maybe need change too.
  */
 @SuppressWarnings("nls")
 public interface TalendMavenConstants {

@@ -61,8 +61,8 @@ import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
-import org.talend.designer.maven.tools.MavenDependenciesManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
+import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
@@ -88,7 +88,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
 
-    private final MavenDependenciesManager pomManager;
+    private final ProcessorDependenciesManager pomManager;
 
     private IFile assemblyFile;
 
@@ -98,7 +98,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
-        this.pomManager = new MavenDependenciesManager(jobProcessor);
+        this.pomManager = new ProcessorDependenciesManager(jobProcessor);
     }
 
     public IProcessor getJobProcessor() {
@@ -333,7 +333,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
      */
     protected void addDependencies(Model model) {
         try {
-            pomManager.updateProcessorDependencies(null, model);
+            pomManager.updateDependencies(null, model);
         } catch (ProcessorException e) {
             ExceptionHandler.process(e);
         }

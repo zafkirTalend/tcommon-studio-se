@@ -24,6 +24,7 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -104,6 +105,9 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         // if (!curPomFile.getName().equals(MavenConstants.POM_FILE_NAME)) {
         // throw new IOException("Must be pom.xml, shouldn't be specially like: " + curPomFile);
         // }
+
+        // curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+
         if (curPomFile.exists()) {
             if (isOverwrite()) {
                 curPomFile.delete(true, monitor);
@@ -117,6 +121,9 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         MODEL_MANAGER.createMavenModel(curPomFile, model);
 
         curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+
+        // install custom jar to m2/repo
+        PomUtil.installDependencies(model.getDependencies());
 
     }
 
