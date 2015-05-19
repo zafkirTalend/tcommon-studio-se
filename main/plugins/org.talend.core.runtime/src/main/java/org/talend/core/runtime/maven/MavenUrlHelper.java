@@ -14,6 +14,7 @@ package org.talend.core.runtime.maven;
 
 import org.eclipse.core.runtime.Assert;
 import org.osgi.framework.Version;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -38,60 +39,65 @@ public class MavenUrlHelper {
             return null;
         }
         MavenArtifact artifact = new MavenArtifact();
-        String substring = mvnUrl.substring(MVN_PROTOCOL.length());
+        try {
+            String substring = mvnUrl.substring(MVN_PROTOCOL.length());
 
-        // repo
-        int repoUrlIndex = substring.indexOf(REPO_SEPERATOR);
-        if (repoUrlIndex > 0) { // has repo url
-            artifact.setRepositoryUrl(substring.substring(0, repoUrlIndex));
-            substring = substring.substring(repoUrlIndex + 1);
-        }
-        String[] segments = substring.split(SEPERATOR);
-        // only group-id and artifact-id is required
-        if (segments.length < 2 || segments[0].trim().length() == 0 || segments[1].trim().length() == 0) {
-            return null;
-        }
-        artifact.setGroupId(segments[0].trim());
-        artifact.setArtifactId(segments[1].trim());
+            // repo
+            int repoUrlIndex = substring.indexOf(REPO_SEPERATOR);
+            if (repoUrlIndex > 0) { // has repo url
+                artifact.setRepositoryUrl(substring.substring(0, repoUrlIndex));
+                substring = substring.substring(repoUrlIndex + 1);
+            }
+            String[] segments = substring.split(SEPERATOR);
+            // only group-id and artifact-id is required
+            if (segments.length < 2 || segments[0].trim().length() == 0 || segments[1].trim().length() == 0) {
+                return null;
+            }
+            artifact.setGroupId(segments[0].trim());
+            artifact.setArtifactId(segments[1].trim());
 
-        // version
-        if (segments.length >= 3 && segments[2].trim().length() > 0) {
-            // validate the version
-            String verStr = segments[2].trim();
-            if (VERSION_LATEST.equals(verStr)) {
-                artifact.setVersion(VERSION_LATEST);
-            } else if (VERSION_SNAPSHOT.equals(verStr)) {
-                artifact.setVersion(VERSION_SNAPSHOT);
-            } else if (verStr.length() > 0) {
-                // range := ( '[' | '(' ) version ',' version ( ')' | ']' )
-                // TODO, maybe need parse the range for version.
-                if ((verStr.startsWith("[") || verStr.startsWith("(")) && (verStr.endsWith(")") || verStr.endsWith("]"))) {
-                    artifact.setVersion(verStr);
-                } else { // for number only, like 6.0.0
-                    Version version = new Version(verStr);
-                    artifact.setVersion(version.toString());
+            // version
+            if (segments.length >= 3 && segments[2].trim().length() > 0) {
+                // validate the version
+                String verStr = segments[2].trim();
+                if (VERSION_LATEST.equals(verStr)) {
+                    artifact.setVersion(VERSION_LATEST);
+                } else if (VERSION_SNAPSHOT.equals(verStr)) {
+                    artifact.setVersion(VERSION_SNAPSHOT);
+                } else if (verStr.length() > 0) {
+                    // range := ( '[' | '(' ) version ',' version ( ')' | ']' )
+                    // TODO, maybe need parse the range for version.
+                    if ((verStr.startsWith("[") || verStr.startsWith("(")) && (verStr.endsWith(")") || verStr.endsWith("]"))) {
+                        artifact.setVersion(verStr);
+                    } else { // for number only, like 6.0.0
+                        Version version = new Version(verStr);
+                        artifact.setVersion(version.toString());
+                    }
                 }
             }
-        }
-        if (segments.length >= 4 && segments[3].trim().length() > 0) { // has packaging
-            artifact.setType(segments[3].trim());
-        }
+            if (segments.length >= 4 && segments[3].trim().length() > 0) { // has packaging
+                artifact.setType(segments[3].trim());
+            }
 
-        if (segments.length >= 5 && segments[4].trim().length() > 0) {// has classifier
-            // classifier is can be null.
-            artifact.setClassifier(segments[4].trim());
-        }
+            if (segments.length >= 5 && segments[4].trim().length() > 0) {// has classifier
+                // classifier is can be null.
+                artifact.setClassifier(segments[4].trim());
+            }
 
-        /*
-         * set default values.
-         */
-        if (artifact.getVersion() == null) {
-            // if not set, will be LATEST by default
-            artifact.setVersion(VERSION_LATEST);
-        }
-        if (artifact.getType() == null) {
-            // if not set, will be jar by default
-            artifact.setType(MavenConstants.TYPE_JAR);
+            /*
+             * set default values.
+             */
+            if (artifact.getVersion() == null) {
+                // if not set, will be LATEST by default
+                artifact.setVersion(VERSION_LATEST);
+            }
+            if (artifact.getType() == null) {
+                // if not set, will be jar by default
+                artifact.setType(MavenConstants.TYPE_JAR);
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(new Exception("Problem happened when install this maven URL: " + mvnUrl, e));
+            return null;
         }
 
         return artifact;
