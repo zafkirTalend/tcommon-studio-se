@@ -457,6 +457,9 @@ public class ProcessorUtilities {
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
+        // for testContainer dataSet
+        generateDataSet(currentProcess, processor);
+
         // ADDED for TESB-7887 By GangLiu
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
@@ -640,6 +643,19 @@ public class ProcessorUtilities {
         }
     }
 
+    private static void generateDataSet(IProcess process, IProcessor processor) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                if (!testContainerService.isTestContainerProcess(process)) {
+                    return;
+                }
+                testContainerService.copyDataSetFiles(process, processor.getDataSetPath());
+            }
+        }
+    }
+
     private static IProcessor generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, int option, IProgressMonitor progressMonitor) throws ProcessorException {
         needContextInCurrentGeneration = needContext;
@@ -764,6 +780,9 @@ public class ProcessorUtilities {
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
+
+            // for testContainer dataSet
+            generateDataSet(currentProcess, processor);
 
             // ADDED for TESB-7887 By GangLiu
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
