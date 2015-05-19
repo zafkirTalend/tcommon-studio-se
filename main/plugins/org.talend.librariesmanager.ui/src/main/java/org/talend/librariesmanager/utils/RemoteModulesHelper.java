@@ -58,6 +58,8 @@ import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.core.nexus.MavenResolverCreator;
+import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.nexus.NexusServerManager;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
@@ -74,8 +76,10 @@ import us.monoid.json.JSONObject;
  */
 public class RemoteModulesHelper {
 
+    private static final String SLASH = "/";//$NON-NLS-1$ 
+
     // TODO to be removed after nexus server available
-    public static final boolean nexus_available = false;
+    public static final boolean nexus_available = true;
 
     // true if user was warned the network connection is not possible
     static private boolean alreadyWarnedAboutConnectionIssue = false;
@@ -483,7 +487,8 @@ public class RemoteModulesHelper {
     private Map<String, ModuleToInstall> cache;
 
     private RemoteModulesHelper() {
-        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(null);
+        NexusServerBean nexusServer = NexusServerManager.getNexusServer(true);
+        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(nexusServer);
     }
 
     public synchronized static RemoteModulesHelper getInstance() {
@@ -819,5 +824,14 @@ public class RemoteModulesHelper {
             }
         }
         return null;
+    }
+
+    /**
+     * Getter for mvnResolver.
+     * 
+     * @return the mvnResolver
+     */
+    public MavenResolver getMvnResolver() {
+        return this.mvnResolver;
     }
 }
