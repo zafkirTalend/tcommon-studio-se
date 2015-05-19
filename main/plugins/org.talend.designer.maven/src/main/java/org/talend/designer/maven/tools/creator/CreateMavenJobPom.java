@@ -370,6 +370,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                     FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
                     writer.write(content);
                     writer.close();
+
+                    assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
                     set = true;
                 }
             } catch (IOException e) {
@@ -378,7 +380,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
             if (set) {
                 // add children resources in assembly.
-                addChildrenJobsInAssembly(assemblyFile);
+                addChildrenJobsInAssembly(monitor, assemblyFile);
 
                 assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
             }
@@ -386,7 +388,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     }
 
     @SuppressWarnings("nls")
-    protected void addChildrenJobsInAssembly(IFile assemblyFile) throws Exception {
+    protected void addChildrenJobsInAssembly(IProgressMonitor monitor, IFile assemblyFile) throws Exception {
         if (!assemblyFile.exists()) {
             return;
         }
@@ -398,7 +400,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         if (document == null) {
             throw new IOException("Can't parse the file: " + file);
         }
-        boolean modified = false;
 
         // files
         Node filesElem = getElement(document.getDocumentElement(), "files", 1);
@@ -415,7 +416,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
         final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
         for (JobInfo child : clonedChildrenJobInfors) {
-            modified = true;
             String jobClassPackageFolder = null;
             if (child.getProcessItem() != null) {
                 jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
@@ -445,7 +445,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             childrenFolderResourcesIncludes.add(jobClassPackageFolder + "/**"); // add all context
 
         }
-        if (modified) {
+        if (!clonedChildrenJobInfors.isEmpty()) {
             // poms
             addAssemblyFileSets(fileSetsElem, "${basedir}", "${talend.job.name}", false, childrenPomsIncludes, null, null, null,
                     null, false, "add children pom files.");
@@ -459,29 +459,35 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                     childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files to resources.");
             addAssemblyFileSets(fileSetsElem, "${basedir}/src/main/resources/", "${talend.job.name}", false,
                     childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files for running.");
-        }
-        if (modified) {
+
             TransformerFactory transFactory = TransformerFactory.newInstance();
             Transformer transFormer = transFactory.newTransformer();
             transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
             transFormer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
 
-            // must remove the assembly plugins, else will be some errors.
+            // must remove the assembly plugins for children poms, else will be some errors.
             for (String childPomFile : childrenPomsIncludes) {
                 IFile childPom = assemblyFile.getProject().getFile(childPomFile);
-                Model childModel = MODEL_MANAGER.readMavenModel(childPom);
-                List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
-                Iterator<Plugin> childIterator = childPlugins.iterator();
-                while (childIterator.hasNext()) {
-                    Plugin p = childIterator.next();
-                    if (p.getArtifactId().equals("maven-assembly-plugin")) {
-                        childIterator.remove();
+                if (childPom.exists()) {
+                    Model childModel = MODEL_MANAGER.readMavenModel(childPom);
+                    List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
+                    Iterator<Plugin> childIterator = childPlugins.iterator();
+                    while (childIterator.hasNext()) {
+                        Plugin p = childIterator.next();
+                        if (p.getArtifactId().equals("maven-assembly-plugin")) { //$NON-NLS-1$
+                            childIterator.remove();
+                        }
+
                     }
 
+                    childModel.getBuild().setPlugins(childPlugins);
+
+                    PomUtil.savePom(monitor, childModel, childPom);
                 }
-                childModel.getBuild().setPlugins(childPlugins);
-                PomUtil.savePom(null, childModel, childPom);
             }
+
+            // refresh the project level for children poms
+            assemblyFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
         }
 
     }

@@ -83,6 +83,11 @@ public abstract class CreateMaven {
         this.packaging = packaging;
     }
 
+    @Override
+    public String toString() {
+        return "groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version;
+    }
+
     /**
      * 
      * According to setting, create Maven Model.

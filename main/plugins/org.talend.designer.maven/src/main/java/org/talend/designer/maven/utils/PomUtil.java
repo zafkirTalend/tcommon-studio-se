@@ -21,6 +21,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -55,6 +56,10 @@ public class PomUtil {
         if (monitor == null) {
             monitor = new NullProgressMonitor();
         }
+        if (pomFile == null) {
+            throw new NullPointerException("the output file is null.");
+        }
+
         /*
          * need find one way to do overwrite.
          */
@@ -67,7 +72,11 @@ public class PomUtil {
         // PomEdits.setText(el, model.getArtifactId());
         // sModel.save();
 
-        pomFile.delete(true, monitor);
+        pomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+        if (pomFile.exists()) {
+            pomFile.delete(true, monitor);
+        }
+
         MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
     }
 

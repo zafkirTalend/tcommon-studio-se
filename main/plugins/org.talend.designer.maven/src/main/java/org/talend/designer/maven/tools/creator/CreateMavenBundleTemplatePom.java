@@ -63,6 +63,11 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     }
 
     @Override
+    public String toString() {
+        return pomFile.toString();
+    }
+
+    @Override
     protected Model createModel() {
         Model model = null;
         try {

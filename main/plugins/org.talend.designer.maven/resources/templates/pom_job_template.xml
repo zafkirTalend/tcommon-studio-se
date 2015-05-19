@@ -54,6 +54,20 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<includes>
+								<!-- only compile the job source -->
+								<include>${talend.job.path}/*</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
@@ -110,7 +124,7 @@
 							</descriptors>
 							<tarLongFileMode>gnu</tarLongFileMode>
 							<appendAssemblyId>false</appendAssemblyId>
-							<!-- <finalName>${project.artifactId}-${project.version}</finalName>  -->
+							<!-- <finalName>${project.artifactId}-${project.version}</finalName> -->
 						</configuration>
 					</execution>
 				</executions>
