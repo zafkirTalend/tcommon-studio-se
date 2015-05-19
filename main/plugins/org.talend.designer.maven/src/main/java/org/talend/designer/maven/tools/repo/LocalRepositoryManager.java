@@ -17,6 +17,7 @@ import java.io.File;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.maven.MavenArtifact;
@@ -27,7 +28,7 @@ import org.talend.designer.runprocess.IRunProcessService;
  */
 public abstract class LocalRepositoryManager {
 
-    public static final boolean ENABLE_LOCAL_REPO = false;
+    public static final boolean ENABLE_LOCAL_REPO = true;
 
     /**
      * must be same as the pom_project_template.xml
@@ -70,6 +71,10 @@ public abstract class LocalRepositoryManager {
 
     protected File getRepoFolder() {
         return repoFolder;
+    }
+
+    public void cleanup(IProgressMonitor monitor) {
+        // nothing to do by default
     }
 
     public abstract void install(File file, MavenArtifact artifact) throws Exception;

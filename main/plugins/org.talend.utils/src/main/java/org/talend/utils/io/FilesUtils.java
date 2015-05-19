@@ -800,4 +800,15 @@ public final class FilesUtils {
         }
     }
 
+    public static void deleteFolder(File file, boolean withCurrentFolder) {
+        if (file.exists() && file.isDirectory()) {
+            File files[] = file.listFiles();
+            for (File file2 : files) {
+                deleteFile(file2, true);
+            }
+            if (withCurrentFolder) {
+                file.delete();
+            }
+        }
+    }
 }

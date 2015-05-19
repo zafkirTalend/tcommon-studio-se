@@ -105,15 +105,20 @@ public class ProjectPomManager {
                 break;
             }
         }
-        if (LocalRepositoryManager.ENABLE_LOCAL_REPO && localRep == null) {
-            Repository localRepo = new Repository();
+        if (LocalRepositoryManager.ENABLE_LOCAL_REPO) {
+            if (localRep == null) { // not existed, add one
+                Repository localRepo = new Repository();
 
-            localRepo.setId(LocalRepositoryManager.REPO_ID);
-            localRepo.setUrl("file://${basedir}/" + LocalRepositoryManager.REPO_FOLDER);
+                localRepo.setId(LocalRepositoryManager.REPO_ID);
+                localRepo.setUrl("file://${basedir}/" + LocalRepositoryManager.REPO_FOLDER);
 
-            repositories.add(localRepo);
-        } else if (!LocalRepositoryManager.ENABLE_LOCAL_REPO && localRep != null) {
-            repositories.remove(localRep); // delete it
+                repositories.add(localRepo);
+            }
+        } else {
+            if (localRep != null) { // existed, delete it
+                repositories.remove(localRep);
+            }
         }
+
     }
 }

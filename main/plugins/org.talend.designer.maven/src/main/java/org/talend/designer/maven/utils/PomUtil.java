@@ -30,8 +30,7 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerUIService;
-import org.talend.core.language.ECodeLanguage;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
@@ -347,10 +346,14 @@ public class PomUtil {
      * check the dependencies is custom jar or not, if existed, and invalid in m2/repo, just install in local.
      */
     public static void installDependencies(List<Dependency> dependencies) {
-        if (dependencies != null && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
-            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
-                    ILibraryManagerUIService.class);
-            File librariesDir = new File(libUiService.getLibrariesPath(ECodeLanguage.JAVA));
+        if (dependencies != null && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            ILibraryManagerService libService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
+
+            LocalRepositoryManager repoManager = null;
+            // FIXME,the launcher is not stable, sometimes, can't install successfully.
+            repoManager = LocalRepositoryManager.LAUNCHER;
+            // repoManager = LocalRepositoryManager.AETHER;
 
             for (Dependency d : dependencies) {
                 // only process talend libs
@@ -359,24 +362,25 @@ public class PomUtil {
                     if (type == null || type.trim().length() == 0) {
                         type = MavenConstants.TYPE_JAR; // jar by default
                     }
-                    File libFile = new File(librariesDir, d.getArtifactId() + '.' + type);
+                    String jarPath = libService.getJarPath(d.getArtifactId() + '.' + type);
                     try {
-                        installJar(libFile, PomUtil.convertToArtifact(d));
+                        installJar(repoManager, new File(jarPath), PomUtil.convertToArtifact(d));
                     } catch (Exception e) {
                         ExceptionHandler.process(e);
                     }
                 }
             }
 
+            repoManager.cleanup(null);
+
         }
     }
 
-    public static void installJar(File libFile, MavenArtifact artifact) throws Exception {
+    public static void installJar(LocalRepositoryManager repoManager, File libFile, MavenArtifact artifact) throws Exception {
         // in lib/java, and not existed in m2/repo
         if (libFile.exists() && !PomUtil.isAvailable(artifact)) {
-            // FIXME,the launcher is not stable, sometimes, can't install successfully.
-            LocalRepositoryManager.LAUNCHER.install(libFile, artifact);
-            // LocalRepositoryManager.AETHER.install(libFile, artifact);
+            repoManager.install(libFile, artifact);
         }
     }
+
 }

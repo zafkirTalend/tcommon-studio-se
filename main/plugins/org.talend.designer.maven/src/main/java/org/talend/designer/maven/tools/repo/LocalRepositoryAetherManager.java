@@ -15,7 +15,10 @@ package org.talend.designer.maven.tools.repo;
 import io.tesla.aether.connector.AetherRepositoryConnectorFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 
+import org.apache.maven.model.Model;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.RepositorySystem;
@@ -28,12 +31,27 @@ import org.eclipse.aether.impl.DefaultServiceLocator;
 import org.eclipse.aether.installation.InstallRequest;
 import org.eclipse.aether.installation.InstallResult;
 import org.eclipse.aether.installation.InstallationException;
+import org.eclipse.aether.metadata.Metadata;
 import org.eclipse.aether.repository.LocalRepository;
 import org.eclipse.aether.spi.connector.RepositoryConnectorFactory;
+import org.eclipse.aether.util.artifact.SubArtifact;
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.utils.io.FilesUtils;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -45,6 +63,10 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
     private RepositorySystem repositorySystem;
 
     private LocalRepository localRepo;
+
+    protected static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
+
+    private IFolder tempFolder;
 
     public LocalRepositoryAetherManager(File baseDir) {
         super(baseDir);
@@ -62,6 +84,21 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
 
     protected LocalRepository getLocalRepo() {
         return localRepo;
+    }
+
+    protected IFolder getTempFolder() {
+        if (tempFolder == null) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+                IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                        IRunProcessService.class);
+                ITalendProcessJavaProject talendProcessJavaProject = service.getTalendProcessJavaProject();
+                if (talendProcessJavaProject != null) {
+                    tempFolder = talendProcessJavaProject.createSubFolder(null, (IFolder) talendProcessJavaProject
+                            .getResourcesFolder().getParent(), "temp"); //$NON-NLS-1$
+                }
+            }
+        }
+        return tempFolder;
     }
 
     protected RepositorySystem newRepositorySystem() {
@@ -105,18 +142,13 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
 
     public void install(File file, MavenArtifact artifact) throws Exception {
         Artifact jarArtifact = createArtifact(file, artifact);
+        Artifact pomArtifact = createPomArtifact(jarArtifact);
 
-        InstallRequest installRequest = new InstallRequest().addArtifact(jarArtifact);
-
-        // TODO, so far, can't generate the pom auto, so there is no pom in m2/repository.
-        // Artifact pomArtifact = null;
-        // pomArtifact = new SubArtifact(jarArtifact, "", "pom").setFile(new File("pom.xml"));
-        // if (pomArtifact != null) {
-        // installRequest.addArtifact(pomArtifact);
-        // }
+        InstallRequest installRequest = new InstallRequest().addArtifact(jarArtifact).addArtifact(pomArtifact);
 
         InstallResult result = getRepositorySystem().install(newSession(), installRequest);
-        // result.getArtifacts();
+        Collection<Metadata> metadata = result.getMetadata();
+        metadata.isEmpty();
     }
 
     @Override
@@ -149,6 +181,44 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
                 artifact.getType(), artifact.getVersion()).setFile(file);
 
         return jarArtifact;
+    }
+
+    protected Artifact createPomArtifact(Artifact jarArtifact) throws IOException, CoreException {
+        String tmpFolderName = File.createTempFile(TalendMavenConstants.PACKAGING_POM, "").getName();
+        IFolder folder = getTempFolder().getFolder(tmpFolderName);
+        folder.create(true, true, null);
+        IFile pomFile = folder.getFile(TalendMavenConstants.POM_FILE_NAME);
+
+        Model pomModel = new Model();
+        pomModel.setModelVersion(TalendMavenConstants.POM_VERSION);
+        pomModel.setModelEncoding(TalendMavenConstants.DEFAULT_ENCODING);
+        pomModel.setGroupId(jarArtifact.getGroupId());
+        pomModel.setArtifactId(jarArtifact.getArtifactId());
+        pomModel.setVersion(jarArtifact.getVersion());
+
+        MODEL_MANAGER.createMavenModel(pomFile, pomModel);
+
+        Artifact pomArtifact = new SubArtifact(jarArtifact, "", TalendMavenConstants.PACKAGING_POM).setFile(pomFile.getLocation()
+                .toFile());
+        return pomArtifact;
+    }
+
+    public void cleanup(IProgressMonitor monitor) {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
+        try {
+            IFolder folder = getTempFolder();
+            folder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+
+            if (folder.exists()) {
+                FilesUtils.deleteFolder(folder.getLocation().toFile(), false);
+                folder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+            }
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+
     }
 
 }
