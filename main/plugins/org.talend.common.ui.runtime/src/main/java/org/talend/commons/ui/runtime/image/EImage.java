@@ -76,6 +76,7 @@ public enum EImage implements IImage {
     BRANCH_FOLDER_ICON("/icons/newfolder.gif"), //$NON-NLS-1$
 
     PARALLEL_EXECUTION("/icons/parallelize.png"), //$NON-NLS-1$
+    WINDOW("/icons/window.png"), //$NON-NLS-1$
 
     UP_ICON("/icons/up.gif"), //$NON-NLS-1$
     DOWN_ICON("/icons/down.gif"), //$NON-NLS-1$
