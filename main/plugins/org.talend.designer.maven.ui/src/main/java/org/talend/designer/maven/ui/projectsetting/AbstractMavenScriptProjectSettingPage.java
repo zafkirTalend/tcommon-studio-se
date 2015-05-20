@@ -61,8 +61,7 @@ public abstract class AbstractMavenScriptProjectSettingPage extends AbstractProj
      */
     @Override
     protected void initStore() {
-        this.setPreferenceStore(MavenProjectSettingPreferenceManager.getInstance().getProjectPreferenceManager()
-                .getPreferenceStore());
+        this.setPreferenceStore(DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore());
     }
 
     public void load() throws IOException {
@@ -94,7 +93,7 @@ public abstract class AbstractMavenScriptProjectSettingPage extends AbstractProj
         this.headerMessage = headerMessage;
     }
 
-    public abstract String getPreferenceKey();
+    protected abstract String getPreferenceKey();
 
     protected abstract String getHeadTitle();
 

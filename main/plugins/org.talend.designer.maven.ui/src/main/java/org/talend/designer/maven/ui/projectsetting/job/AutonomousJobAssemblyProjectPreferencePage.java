@@ -21,7 +21,7 @@ import org.talend.designer.maven.ui.projectsetting.AbstractMavenScriptProjectSet
 public class AutonomousJobAssemblyProjectPreferencePage extends AbstractMavenScriptProjectSettingPage {
 
     @Override
-    public String getPreferenceKey() {
+    protected String getPreferenceKey() {
         return IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE;
     }
 

@@ -20,6 +20,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -29,11 +30,11 @@ public class MavenScriptsProjectSettingInitializer extends AbstractPreferenceIni
 
     @Override
     public void initializeDefaultPreferences() {
-        IPreferenceStore preferenceStore = MavenProjectSettingPreferenceManager.getInstance().getProjectPreferenceManager()
-                .getPreferenceStore();
+        IPreferenceStore preferenceStore = DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore();
 
         try {
-            String pomJobContent = MavenTemplateManager.getBundleTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
+            String pomJobContent = MavenTemplateManager
+                    .getBundleTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
             preferenceStore.setDefault(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, pomJobContent);
 
             String assemblyContent = MavenTemplateManager

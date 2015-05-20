@@ -295,7 +295,7 @@ public class FolderMavenSettingPreferencePage extends AbstractProjectSettingPage
             @Override
             protected void run() throws LoginException, PersistenceException {
 
-                ProjectPreferenceManager projectPreferenceManager = MavenProjectSettingPreferenceManager.getInstance()
+                ProjectPreferenceManager projectPreferenceManager = DesignerMavenUiPlugin.getDefault()
                         .getProjectPreferenceManager();
 
                 final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
