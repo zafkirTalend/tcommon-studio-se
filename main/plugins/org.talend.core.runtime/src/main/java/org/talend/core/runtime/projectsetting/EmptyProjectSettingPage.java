@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.runtime.projectsetting;
 
-
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -22,16 +21,6 @@ public class EmptyProjectSettingPage extends AbstractProjectSettingPage {
         super();
 
         noDefaultAndApplyButton();
-    }
-
-    @Override
-    protected String getPreferenceName() {
-        return null;
-    }
-
-    @Override
-    protected void createFieldEditors() {
-
     }
 
 }

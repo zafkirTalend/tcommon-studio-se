@@ -25,19 +25,12 @@ import org.eclipse.swt.widgets.Label;
  */
 public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePage {
 
-    private ProjectPreferenceManager projectPreferenceManager;
-
     private String prefNodeId;
 
     public AbstractProjectSettingPage() {
         super();
 
-        // create project preference manager
-        String preferenceName = getPreferenceName();
-        if (preferenceName != null) {
-            this.projectPreferenceManager = new ProjectPreferenceManager(preferenceName);
-            initStore();
-        }
+        initStore();
     }
 
     public String getPrefNodeId() {
@@ -49,16 +42,23 @@ public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePa
     }
 
     protected void initStore() {
-        // set the project preference
-        setPreferenceStore(this.projectPreferenceManager.getPreferenceStore());
+        String preferenceName = getPreferenceName();
+        if (preferenceName != null) {
+            ProjectPreferenceManager projectPreferenceManager = new ProjectPreferenceManager(preferenceName);
+            // set the project preference
+            setPreferenceStore(projectPreferenceManager.getPreferenceStore());
+        }
 
     }
 
-    protected ProjectPreferenceManager getProjectPreferenceManager() {
-        return projectPreferenceManager;
+    protected String getPreferenceName() {
+        return null;
     }
 
-    protected abstract String getPreferenceName();
+    @Override
+    protected void createFieldEditors() {
+        // nothing to do
+    }
 
     protected Composite createLabelComposite(Composite parent, String title) {
         Composite composite = new Composite(parent, SWT.NONE);

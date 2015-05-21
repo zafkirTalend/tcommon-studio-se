@@ -126,11 +126,6 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
     }
 
     @Override
-    protected String getPreferenceName() {
-        return DesignerMavenUiPlugin.PLUGIN_ID;
-    }
-
-    @Override
     protected void createFieldEditors() {
 
         Composite fieldEditorParent = getFieldEditorParent();
