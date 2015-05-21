@@ -12,28 +12,15 @@
 // ============================================================================
 package org.talend.designer.maven.ui.projectsetting;
 
-import org.talend.core.runtime.preference.AbstractProjectSettingPage;
-import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
+import org.talend.core.runtime.projectsetting.EmptyProjectSettingPage;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class MainMavenProjectPreferencePage extends AbstractProjectSettingPage {
+public class BuildProjectSettingPage extends EmptyProjectSettingPage {
 
-    public MainMavenProjectPreferencePage() {
+    public BuildProjectSettingPage() {
         super();
-
-        noDefaultAndApplyButton();
-    }
-
-    @Override
-    protected String getPreferenceName() {
-        return DesignerMavenUiPlugin.PLUGIN_ID;
-    }
-
-    @Override
-    protected void createFieldEditors() {
-
     }
 
 }

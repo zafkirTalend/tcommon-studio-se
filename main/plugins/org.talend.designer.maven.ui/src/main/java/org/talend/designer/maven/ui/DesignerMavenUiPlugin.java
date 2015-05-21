@@ -2,7 +2,7 @@ package org.talend.designer.maven.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.talend.core.runtime.preference.ProjectPreferenceManager;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 
 /**
  * The activator class controls the plug-in life cycle

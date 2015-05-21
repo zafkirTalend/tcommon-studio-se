@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.runtime.preference.AbstractProjectSettingPage;
+import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 import org.talend.repository.model.IProxyRepositoryFactory;
 

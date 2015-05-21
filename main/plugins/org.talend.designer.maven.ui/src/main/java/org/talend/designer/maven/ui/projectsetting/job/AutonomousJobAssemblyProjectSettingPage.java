@@ -13,12 +13,13 @@
 package org.talend.designer.maven.ui.projectsetting.job;
 
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
+import org.talend.designer.maven.ui.i18n.Messages;
 import org.talend.designer.maven.ui.projectsetting.AbstractMavenScriptProjectSettingPage;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class AutonomousJobAssemblyProjectPreferencePage extends AbstractMavenScriptProjectSettingPage {
+public class AutonomousJobAssemblyProjectSettingPage extends AbstractMavenScriptProjectSettingPage {
 
     @Override
     protected String getPreferenceKey() {
@@ -27,7 +28,7 @@ public class AutonomousJobAssemblyProjectPreferencePage extends AbstractMavenScr
 
     @Override
     protected String getHeadTitle() {
-        return "Assembly script";
+        return Messages.getString("AutonomousJobAssemblyProjectSettingPage_Title"); //$NON-NLS-1$
     }
 
 }

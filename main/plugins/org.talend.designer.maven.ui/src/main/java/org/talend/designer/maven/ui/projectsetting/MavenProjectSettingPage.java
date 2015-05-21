@@ -12,15 +12,15 @@
 // ============================================================================
 package org.talend.designer.maven.ui.projectsetting;
 
-import org.talend.core.runtime.preference.AbstractProjectSettingPage;
+import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class EmptyMavenSettingPreferencePage extends AbstractProjectSettingPage {
+public class MavenProjectSettingPage extends AbstractProjectSettingPage {
 
-    public EmptyMavenSettingPreferencePage() {
+    public MavenProjectSettingPage() {
         super();
 
         noDefaultAndApplyButton();

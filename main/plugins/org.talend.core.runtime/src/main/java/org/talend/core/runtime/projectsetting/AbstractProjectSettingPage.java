@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.runtime.preference;
+package org.talend.core.runtime.projectsetting;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
@@ -25,15 +25,19 @@ import org.eclipse.swt.widgets.Label;
  */
 public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePage {
 
-    private final ProjectPreferenceManager projectPreferenceManager;
+    private ProjectPreferenceManager projectPreferenceManager;
 
     private String prefNodeId;
 
     public AbstractProjectSettingPage() {
         super();
+
         // create project preference manager
-        this.projectPreferenceManager = new ProjectPreferenceManager(getPreferenceName());
-        initStore();
+        String preferenceName = getPreferenceName();
+        if (preferenceName != null) {
+            this.projectPreferenceManager = new ProjectPreferenceManager(preferenceName);
+            initStore();
+        }
     }
 
     public String getPrefNodeId() {
