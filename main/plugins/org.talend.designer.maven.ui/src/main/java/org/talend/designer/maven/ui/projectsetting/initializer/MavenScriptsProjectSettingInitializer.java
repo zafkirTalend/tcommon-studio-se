@@ -10,11 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting;
+package org.talend.designer.maven.ui.projectsetting.initializer;
 
 import java.io.IOException;
 
-import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
@@ -26,11 +25,16 @@ import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
  * DOC ggu class global comment. Detailled comment
  * 
  */
-public class MavenScriptsProjectSettingInitializer extends AbstractPreferenceInitializer {
+public class MavenScriptsProjectSettingInitializer extends AbstractProjectPreferenceInitializer {
 
     @Override
-    public void initializeDefaultPreferences() {
-        IPreferenceStore preferenceStore = DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore();
+    protected IPreferenceStore getPreferenceStore() {
+        return DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore();
+    }
+
+    @Override
+    protected void initializeFields(IPreferenceStore preferenceStore) {
+        super.initializeFields(preferenceStore);
 
         try {
             String pomJobContent = MavenTemplateManager

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.template;
 
-
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -22,8 +21,4 @@ public interface IProjectSettingPreferenceConstants {
 
     public static final String MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE = "autonomousjob_assembly_maven_script_template"; //$NON-NLS-1$
 
-    /**
-     * Must be same value with IExportJobPrefConstants.MAVEN_OSGI_SCRIPT_TEMPLATE
-     */
-    public static final String MAVEN_OSGI_SCRIPT_TEMPLATE = "osgi_maven_script_template"; //$NON-NLS-1$
 }
