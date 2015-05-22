@@ -20,9 +20,13 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -385,4 +389,40 @@ public class PomUtil {
         }
     }
 
+    /**
+     * 
+     * Try to find the template files form the path which based on root container first. if not found, will try to find
+     * in parent folder until root container.
+     */
+    public static File getTemplateFile(IContainer templateRootContainer, IPath templateRelativePath, String fileName) {
+        if (templateRootContainer == null || !templateRootContainer.exists() || fileName == null || fileName.length() == 0) {
+            return null;
+        }
+        try {
+            templateRootContainer.refreshLocal(IResource.DEPTH_INFINITE, null);
+        } catch (CoreException e) {
+            //
+        }
+
+        IContainer baseContainer = templateRootContainer; // support found the file in current base container.
+        boolean hasPath = templateRelativePath != null && !templateRelativePath.isEmpty();
+        if (hasPath) {
+            baseContainer = templateRootContainer.getFolder(templateRelativePath);
+        }
+        if (baseContainer.exists()) { // if the relative path is not existed, won't find again.
+            IFile file = null;
+            if (baseContainer instanceof IFolder) {
+                file = ((IFolder) baseContainer).getFile(fileName);
+            } else if (baseContainer instanceof IProject) {
+                file = ((IProject) baseContainer).getFile(fileName);
+            }
+            if (file != null && file.exists()) {
+                return file.getLocation().toFile();
+            } else if (hasPath) {
+                // find from parent folder
+                return getTemplateFile(templateRootContainer, templateRelativePath.removeLastSegments(1), fileName);
+            }
+        }
+        return null;
+    }
 }

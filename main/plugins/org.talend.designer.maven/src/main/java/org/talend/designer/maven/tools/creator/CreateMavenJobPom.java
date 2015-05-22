@@ -36,8 +36,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -69,6 +71,7 @@ import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.utils.io.FilesUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -92,7 +95,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private IFile assemblyFile;
 
-    private File templateBaseFolder;
+    private IFolder objectTypeFolder;
+
+    private IPath itemRelativePath;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
         super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
@@ -145,12 +150,20 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         this.assemblyFile = assemblyFile;
     }
 
-    public File getTemplateBaseFolder() {
-        return templateBaseFolder;
+    public IFolder getObjectTypeFolder() {
+        return objectTypeFolder;
     }
 
-    public void setTemplateBaseFolder(File templateBaseFolder) {
-        this.templateBaseFolder = templateBaseFolder;
+    public void setObjectTypeFolder(IFolder objectTypeFolder) {
+        this.objectTypeFolder = objectTypeFolder;
+    }
+
+    public IPath getItemRelativePath() {
+        return itemRelativePath;
+    }
+
+    public void setItemRelativePath(IPath itemRelativePath) {
+        this.itemRelativePath = itemRelativePath;
     }
 
     private Set<JobInfo> getClonedJobInfos() {
@@ -239,9 +252,10 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
      */
     @Override
     protected InputStream getTemplateStream() throws IOException {
-        File templateFile = null;
-        if (getTemplateBaseFolder() != null) {
-            templateFile = new File(getTemplateBaseFolder(), TalendMavenConstants.POM_FILE_NAME);
+        File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
+                TalendMavenConstants.POM_FILE_NAME);
+        if (!FilesUtils.allInSameFolder(templateFile, TalendMavenConstants.ASSEMBLY_FILE_NAME)) {
+            templateFile = null; // force to set null, in order to use the template from other places.
         }
         return MavenTemplateManager.getTemplateStream(templateFile,
                 IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, getBundleTemplateName());
@@ -359,10 +373,12 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             boolean set = false;
             // read template from project setting
             try {
-                File templateFile = null;
-                if (getTemplateBaseFolder() != null) {
-                    templateFile = new File(getTemplateBaseFolder(), TalendMavenConstants.ASSEMBLY_FILE_NAME);
+                File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
+                        TalendMavenConstants.ASSEMBLY_FILE_NAME);
+                if (!FilesUtils.allInSameFolder(templateFile, TalendMavenConstants.POM_FILE_NAME)) {
+                    templateFile = null; // force to set null, in order to use the template from other places.
                 }
+
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
                         IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE,
                         MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
