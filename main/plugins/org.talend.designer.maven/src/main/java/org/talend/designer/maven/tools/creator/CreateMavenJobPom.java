@@ -475,19 +475,22 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             childrenFolderResourcesIncludes.add(jobClassPackageFolder + "/**"); // add all context
 
         }
+        /*
+         * FIXME, if change the profiles setting for directory, must need change this parts.
+         */
         if (!clonedChildrenJobInfors.isEmpty()) {
             // poms
-            addAssemblyFileSets(fileSetsElem, "${basedir}", "${talend.job.name}", false, childrenPomsIncludes, null, null, null,
+            addAssemblyFileSets(fileSetsElem, "${poms.dir}", "${talend.job.name}", false, childrenPomsIncludes, null, null, null,
                     null, false, "add children pom files.");
 
             // src
-            addAssemblyFileSets(fileSetsElem, "${project.build.sourceDirectory}", "${talend.job.name}/src/main/java/", false,
+            addAssemblyFileSets(fileSetsElem, "${sourcecodes.dir}", "${talend.job.name}/src/main/java/", false,
                     childrenFolderResourcesIncludes, null, null, null, null, false, "add children src resources files.");
 
             // contexts
-            addAssemblyFileSets(fileSetsElem, "${basedir}/src/main/resources/", "${talend.job.name}/src/main/resources/", false,
+            addAssemblyFileSets(fileSetsElem, "${resources.dir}", "${talend.job.name}/src/main/resources/", false,
                     childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files to resources.");
-            addAssemblyFileSets(fileSetsElem, "${basedir}/src/main/resources/", "${talend.job.name}", false,
+            addAssemblyFileSets(fileSetsElem, "${contexts.running.dir}", "${talend.job.name}", false,
                     childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files for running.");
 
             TransformerFactory transFactory = TransformerFactory.newInstance();
@@ -495,31 +498,45 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
             transFormer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
 
-            // must remove the assembly plugins for children poms, else will be some errors.
-            for (String childPomFile : childrenPomsIncludes) {
-                IFile childPom = assemblyFile.getProject().getFile(childPomFile);
-                if (childPom.exists()) {
-                    Model childModel = MODEL_MANAGER.readMavenModel(childPom);
-                    List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
-                    Iterator<Plugin> childIterator = childPlugins.iterator();
-                    while (childIterator.hasNext()) {
-                        Plugin p = childIterator.next();
-                        if (p.getArtifactId().equals("maven-assembly-plugin")) { //$NON-NLS-1$
-                            childIterator.remove();
-                        }
-
-                    }
-
-                    childModel.getBuild().setPlugins(childPlugins);
-
-                    PomUtil.savePom(monitor, childModel, childPom);
-                }
-            }
+            // clean for children poms
+            cleanChildrenPomSettings(monitor, childrenPomsIncludes);
 
             // refresh the project level for children poms
             assemblyFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
         }
 
+    }
+
+    protected void cleanChildrenPomSettings(IProgressMonitor monitor, List<String> childrenPomsIncludes) throws Exception {
+        for (String childPomFile : childrenPomsIncludes) {
+            IFile childPom = assemblyFile.getProject().getFile(childPomFile);
+            if (childPom.exists()) {
+                Model childModel = MODEL_MANAGER.readMavenModel(childPom);
+                List<Plugin> childPlugins = new ArrayList<Plugin>(childModel.getBuild().getPlugins());
+                Iterator<Plugin> childIterator = childPlugins.iterator();
+                while (childIterator.hasNext()) {
+                    Plugin p = childIterator.next();
+                    if (p.getArtifactId().equals("maven-assembly-plugin")) { //$NON-NLS-1$
+                        // must remove the assembly plugins for children poms, else will be some errors.
+                        childIterator.remove();
+                    } else if (p.getArtifactId().equals("maven-antrun-plugin")) { //$NON-NLS-1$
+                        // because no assembly, so no need copy the scripts and rename it.
+                        childIterator.remove();
+                    }
+
+                }
+
+                childModel.getBuild().setPlugins(childPlugins);
+
+                /*
+                 * FIXME, Won't have assembly, maybe also move the profiles, because so far, the profiles are useful for
+                 * assembly only. If later, the profiles will use by other tasks, should remove this codes.
+                 */
+                childModel.getProfiles().clear();
+
+                PomUtil.savePom(monitor, childModel, childPom);
+            }
+        }
     }
 
     private Node getElement(Node parent, String elemName, int level) {

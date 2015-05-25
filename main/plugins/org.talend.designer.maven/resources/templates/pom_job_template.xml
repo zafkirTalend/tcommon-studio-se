@@ -34,6 +34,7 @@
 		<!-- for bat/sh -->
 		<talend.job.bat.classpath>@JobBatClasspath@</talend.job.bat.classpath>
 		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
+		<talend.job.script.addition>""</talend.job.script.addition> <!-- empty by default -->
 	</properties>
 
 	<dependencies>
@@ -107,6 +108,35 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>prepare-scripts</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target name="${talend.job.name}_test">
+								<!-- Copy and rename the sh/bat to target folder -->
+								<condition property="isSet">
+									<isset property="running.scripts.dir" />
+								</condition>
+								<antcall target="copyScripts"></antcall>
+							</target>
+							<target name="${talend.job.name}_copyScripts" if="isSet">
+								<mkdir dir="${running.scripts.dir}" />
+								<copy todir="${running.scripts.dir}">
+									<fileset dir="${basedir}/src/main/templates/" />
+									<globmapper from="Job_run_template.*" to="${talend.job.name}_run.*" />
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
@@ -134,10 +164,6 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!-- TODO, set it to make sure the build work first. -->
-				<template.sh.file>${basedir}/src/main/templates/Job_run_template.sh</template.sh.file>
-				<template.bat.file>${basedir}/src/main/templates/Job_run_template.bat</template.bat.file>
-
 				<!-- by default, all excluded, fixing that when "include-libs" profile 
 					is not active, export the libraries always. -->
 				<talend.libraries.excludes.set>*:*</talend.libraries.excludes.set>
@@ -188,10 +214,10 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<template.sh.file>${basedir}/src/main/templates/Job_run_template.sh</template.sh.file>
-				<template.bat.file>${basedir}/src/main/templates/Job_run_template.bat</template.bat.file>
-				<jobs.binaries.includes.set>${project.groupId}:${project.artifactId}:${project.version}</jobs.binaries.includes.set>
-				<jobs.binaries.includes.dependencies.set>${project.groupId}:*</jobs.binaries.includes.dependencies.set>
+				<!-- this is temp folder for scripts, it must be same the settings of 
+					antrun plugin. -->
+				<running.scripts.dir>${project.build.directory}/RunScripts/${talend.job.name}</running.scripts.dir>
+				<jobs.binaries.includes.set>${project.groupId}:*</jobs.binaries.includes.set>
 				<routines.binaries.includes.set>org.talend.code:routines</routines.binaries.includes.set>
 			</properties>
 		</profile>

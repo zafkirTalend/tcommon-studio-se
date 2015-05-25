@@ -17,18 +17,6 @@
 			<destName>jobInfo.properties</destName>
 			<filtered>true</filtered>
 		</file>
-		<file> <!-- sh -->
-			<source>${template.sh.file}</source>
-			<outputDirectory>${talend.job.name}</outputDirectory>
-			<destName>${talend.job.name}_run.sh</destName>
-			<filtered>true</filtered>
-		</file>
-		<file> <!-- bat -->
-			<source>${template.bat.file}</source>
-			<outputDirectory>${talend.job.name}</outputDirectory>
-			<destName>${talend.job.name}_run.bat</destName>
-			<filtered>true</filtered>
-		</file>
 	</files>
 
 	<fileSets>
@@ -113,6 +101,15 @@
 				<include>**/*.*</include>
 			</includes>
 		</fileSet>
+		<fileSet> <!-- add running scripts files -->
+			<directory>${running.scripts.dir}</directory>
+			<outputDirectory>${talend.job.name}/</outputDirectory>
+			<includes>
+				<include>${talend.job.name}_run.sh</include>
+				<include>${talend.job.name}_run.bat</include>
+			</includes>
+			<filtered>true</filtered>
+		</fileSet>
 		<fileSet><!-- add context resources for running -->
 			<directory>${contexts.running.dir}</directory>
 			<outputDirectory>${talend.job.name}</outputDirectory>
@@ -153,7 +150,8 @@
 				<includeDependencies>true</includeDependencies>
 				<unpack>false</unpack>
 				<includes>
-					<include>${jobs.binaries.includes.dependencies.set}</include>
+					<!-- add the children jobs binaries -->
+					<include>${jobs.binaries.includes.set}</include>
 				</includes>
 				<!-- use default file mapping settings -->
 				<!-- <outputFileNameMapping>${module.artifactId}_${module.version}.${module.extension} 
