@@ -46,6 +46,7 @@ import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
 import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
@@ -58,6 +59,7 @@ import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -279,7 +281,11 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
     }
 
     protected void openProjectSettingDialog(String projectSettingId) {
-        // TODO
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
+            repositoryService.openProjectSettingDialog(projectSettingId);
+        }
     }
 
     protected void createMavenFiles() {
