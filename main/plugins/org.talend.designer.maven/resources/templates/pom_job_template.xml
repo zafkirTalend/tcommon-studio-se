@@ -58,7 +58,7 @@
 				<configuration>
 					<includes>
 						<!-- only compile the job source -->
-						<include>${talend.job.path}/*</include>
+						<include>${talend.job.path}/**/*.java</include>
 					</includes>
 				</configuration>
 			</plugin>

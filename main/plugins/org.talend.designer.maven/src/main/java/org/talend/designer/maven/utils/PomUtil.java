@@ -210,7 +210,7 @@ public class PomUtil {
      * 
      * @return
      */
-    public static Dependency createModuleDependency(String groupId, String artifactId, String version, String type) {
+    public static Dependency createDependency(String groupId, String artifactId, String version, String type) {
         if (artifactId == null) {
             return null;
         }
@@ -234,7 +234,7 @@ public class PomUtil {
 
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mvnUrl);
         if (artifact != null) {
-            return createModuleDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(),
+            return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(),
                     artifact.getType());
         }
         return null;

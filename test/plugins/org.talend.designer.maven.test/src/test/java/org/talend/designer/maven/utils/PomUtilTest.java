@@ -56,17 +56,17 @@ public class PomUtilTest {
 
     @Test
     public void testCreateModuleDependency() {
-        Dependency moduleDependency = PomUtil.createModuleDependency(null, null, null, null);
+        Dependency moduleDependency = PomUtil.createDependency(null, null, null, null);
         Assert.assertNull(moduleDependency);
 
-        moduleDependency = PomUtil.createModuleDependency(null, "test", null, null);
+        moduleDependency = PomUtil.createDependency(null, "test", null, null);
         Assert.assertNotNull(moduleDependency);
         Assert.assertEquals("org.talend.libraries", moduleDependency.getGroupId());
         Assert.assertEquals("test", moduleDependency.getArtifactId());
         Assert.assertEquals("1.0.0", moduleDependency.getVersion());
         Assert.assertEquals("jar", moduleDependency.getType());
 
-        moduleDependency = PomUtil.createModuleDependency("org.talend.job", "test", "0.1", "zip");
+        moduleDependency = PomUtil.createDependency("org.talend.job", "test", "0.1", "zip");
         Assert.assertNotNull(moduleDependency);
         Assert.assertEquals("org.talend.job", moduleDependency.getGroupId());
         Assert.assertEquals("test", moduleDependency.getArtifactId());

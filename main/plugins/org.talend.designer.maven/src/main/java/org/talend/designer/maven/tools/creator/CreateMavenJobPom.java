@@ -33,6 +33,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
@@ -91,7 +92,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
 
-    private final ProcessorDependenciesManager pomManager;
+    private final ProcessorDependenciesManager processorDependenciesManager;
 
     private IFile assemblyFile;
 
@@ -103,7 +104,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
-        this.pomManager = new ProcessorDependenciesManager(jobProcessor);
+        this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
     }
 
     public IProcessor getJobProcessor() {
@@ -347,7 +348,20 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
      */
     protected void addDependencies(Model model) {
         try {
-            pomManager.updateDependencies(null, model);
+            processorDependenciesManager.updateDependencies(null, model);
+
+            // add children jobs in dependencies
+            final List<Dependency> dependencies = model.getDependencies();
+            String parentId = getJobProcessor().getProperty().getId();
+            final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
+            for (JobInfo jobInfo : clonedChildrenJobInfors) {
+                if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
+                    Dependency d = PomUtil.createDependency(model.getGroupId(), jobInfo.getJobName(), jobInfo.getJobVersion(),
+                            null);
+                    dependencies.add(d);
+                }
+            }
+
         } catch (ProcessorException e) {
             ExceptionHandler.process(e);
         }

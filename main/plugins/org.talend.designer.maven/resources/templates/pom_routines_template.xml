@@ -37,7 +37,7 @@
 				<configuration>
 					<includes>
 						<!-- only compile the routines source -->
-						<include>${talend.routines.package}/**</include>
+						<include>${talend.routines.package}/**/*.java</include>
 					</includes>
 				</configuration>
 			</plugin>
