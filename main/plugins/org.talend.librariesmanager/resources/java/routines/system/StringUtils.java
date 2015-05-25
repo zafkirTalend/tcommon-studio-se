@@ -20,6 +20,7 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +58,39 @@ public class StringUtils {
         }
         return "";
     }
-
+    
+    /**
+     * split SQL columns like that :
+     * from :
+     * id, name, CONCAT(name,UPPER(address)), CONCAT(age,name)
+     * to
+     * [id] [name] [CONCAT(name,UPPER(address))] [CONCAT(age,name)]
+     */
+    
+    public static String[] splitSQLColumns(String sql) {
+    	List<String> result = new ArrayList<String>();
+    	int blockCount = 0;
+    	int start = 0;
+    	for(int i=0;i<sql.length();i++) {
+    		char c = sql.charAt(i);
+    		if(c == '(') {
+    			blockCount++;
+    		} else if(c == ')') {
+    			blockCount--;
+    		}
+    		
+    		if((c == ',' && (blockCount<1))) {
+    			result.add(sql.substring(start, i));
+    			start = i + 1;
+    		}
+    		
+    		if(i == (sql.length()-1)) {
+    			result.add(sql.substring(start));
+    		}
+    	}
+    	return result.toArray(new String[0]);
+    }
+    
     public static String[] splitNotRegexWithEncoding(byte[] bline, String encoding, String separatorChars)
             throws UnsupportedEncodingException {
         if (bline == null) {
