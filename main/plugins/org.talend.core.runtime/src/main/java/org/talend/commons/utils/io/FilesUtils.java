@@ -90,7 +90,7 @@ public class FilesUtils {
         if (name != null) {
             name = name.toLowerCase();
             for (String element : SVN_FOLDER_NAMES) {
-                if (element.equals(name) || name.endsWith(element)) {
+                if (element.equals(name)) {
                     return true;
                 }
             }
@@ -484,7 +484,7 @@ public class FilesUtils {
     }
 
     public static List<File> getJarFilesFromFolder(File file, String fileName) throws MalformedURLException {
-        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true);
     }
 
     public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
