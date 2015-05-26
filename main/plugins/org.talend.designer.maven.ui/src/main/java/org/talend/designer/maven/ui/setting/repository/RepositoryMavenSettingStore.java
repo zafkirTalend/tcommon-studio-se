@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model;
+package org.talend.designer.maven.ui.setting.repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;

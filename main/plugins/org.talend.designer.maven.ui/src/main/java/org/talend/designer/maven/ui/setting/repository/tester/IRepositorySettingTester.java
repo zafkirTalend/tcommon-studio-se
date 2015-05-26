@@ -10,15 +10,15 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.ui.setting.repository.tester;
+
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IProjectSettingPreferenceConstants {
+public interface IRepositorySettingTester {
 
-    public static final String TEMPLATE_STANDALONE_JOB_POM = "template_standalonejob_pom_maven_script"; //$NON-NLS-1$
-
-    public static final String TEMPLATE_STANDALONE_JOB_ASSEMBLY = "template_standalonejob_assembly_maven_script"; //$NON-NLS-1$
+    boolean valid(IRepositoryNode node);
 
 }

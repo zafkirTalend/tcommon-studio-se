@@ -10,28 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model;
+package org.talend.designer.maven.ui.setting.project.page;
 
-import java.util.List;
-
-import org.eclipse.jface.preference.IPreferenceNode;
+import org.talend.core.runtime.projectsetting.EmptyProjectSettingPage;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IRepositoryPreferenceNodeContainer {
+public class BuildProjectSettingPage extends EmptyProjectSettingPage {
 
-    /**
-     * 
-     * add the child nodes under the parent id of node.
-     */
-    boolean addChildrenPreferenceNodes(String parentId, List<IPreferenceNode> childrenNodes);
+    public BuildProjectSettingPage() {
+        super();
+    }
 
-    /**
-     * 
-     * remove the child nodes of parent id
-     */
-    boolean removeChildrenPreferenceNodes(String parentId, List<String> childrenIds);
-
-    boolean openPage(String nodeId, Object data);
 }

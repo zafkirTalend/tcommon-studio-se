@@ -13,6 +13,7 @@
 package org.talend.core.runtime.projectsetting;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -30,7 +31,6 @@ public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePa
     public AbstractProjectSettingPage() {
         super();
 
-        initStore();
     }
 
     public String getPrefNodeId() {
@@ -41,14 +41,20 @@ public abstract class AbstractProjectSettingPage extends FieldEditorPreferencePa
         this.prefNodeId = prefNodeId;
     }
 
-    protected void initStore() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.preference.PreferencePage#doGetPreferenceStore()
+     */
+    @Override
+    protected IPreferenceStore doGetPreferenceStore() {
         String preferenceName = getPreferenceName();
         if (preferenceName != null) {
             ProjectPreferenceManager projectPreferenceManager = new ProjectPreferenceManager(preferenceName);
             // set the project preference
-            setPreferenceStore(projectPreferenceManager.getPreferenceStore());
+            return projectPreferenceManager.getPreferenceStore();
         }
-
+        return super.doGetPreferenceStore();
     }
 
     protected String getPreferenceName() {

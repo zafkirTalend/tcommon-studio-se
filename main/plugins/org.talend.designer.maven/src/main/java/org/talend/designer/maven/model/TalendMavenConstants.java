@@ -40,9 +40,14 @@ public interface TalendMavenConstants {
 
     static final String ASSEMBLY_FILE_NAME = ASSEMBLY_NAME + XML_EXT;
 
+    static final String OSGI_BUNDLE_NAME = "OSGi";
+
+    /**
+     * 
+     */
     static final String PREFIX_ARG = "-D";
 
-    static final String PREFIX_PROFILE = "-P"; //$NON-NLS-1$
+    static final String PREFIX_PROFILE = "-P";
 
     /**
      * goal

@@ -10,9 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog;
+package org.talend.designer.maven.ui.setting.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,9 +34,6 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.images.RepositoryImageProvider;
-import org.talend.designer.maven.ui.actions.ConfigFolderLevelMavenPomAction;
-import org.talend.designer.maven.ui.dialog.model.IRepositoryPreferenceNodeContainer;
-import org.talend.designer.maven.ui.dialog.model.RepositoryMavenSettingManager;
 import org.talend.designer.maven.ui.i18n.Messages;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.RepositoryWorkUnit;
@@ -80,15 +78,27 @@ public class RepositoryMavenSettingDialog extends PreferenceDialog implements IR
     @Override
     protected Control createTreeAreaContents(Composite parent) {
         // create fake repo view
-        RepoCommonViewerProvider provider = RepoCommonViewerProvider.NORMAL;
+        RepoCommonViewerProvider provider = new RepoCommonViewerProvider() {
+
+            @Override
+            protected void doPerspecitiveFilterForCommonViewer(TreeViewer treeViewer, String specifiedPerspectiveId) {
+                // don't do filter, becuase for route, need it
+                // TODO, even remove it, seems can't work
+                // super.doPerspecitiveFilterForCommonViewer(treeViewer, specifiedPerspectiveId);
+            }
+
+        };
         fakeTreeViewer = provider.createViewer(parent);
+
+        ERepositoryObjectType[] supportTypes = RepositoryMavenSettingManager.REGISTRY.getSupportTypes();
+
         List<ERepositoryObjectType> contentTypes = null;
-        if (DesignerMavenUiHelper.onlyWithselectedType && this.selectedNode != null) {
+        if (supportTypes == null || DesignerMavenUiHelper.onlyWithselectedType && this.selectedNode != null) {
             contentTypes = new ArrayList<ERepositoryObjectType>();
             contentTypes.add(this.selectedNode.getContentType());
-        } else if (ConfigFolderLevelMavenPomAction.supportedTypes != null) {
+        } else if (supportTypes != null) {
             contentTypes = new ArrayList<ERepositoryObjectType>();
-            contentTypes.addAll(ConfigFolderLevelMavenPomAction.supportedTypes);
+            contentTypes.addAll(Arrays.asList(supportTypes));
         }
         fakeTreeViewer.addFilter(new RepositoryContextTypesFilter(contentTypes));
         // FIXME, maybe should enhance the performance more here to init the nodes, when expand the preference node.

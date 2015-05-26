@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model.nodes;
+package org.talend.designer.maven.ui.setting.repository.node;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import org.eclipse.jface.preference.IPreferencePage;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.designer.maven.ui.projectsetting.AbstractPersistentProjectSettingPage;
+import org.talend.designer.maven.ui.setting.project.page.AbstractPersistentProjectSettingPage;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 
 /**

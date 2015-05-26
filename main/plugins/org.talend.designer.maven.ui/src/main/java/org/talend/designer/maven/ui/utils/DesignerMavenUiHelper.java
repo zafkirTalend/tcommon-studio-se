@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.ui.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -22,14 +21,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenAssemblyNode;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenPomNode;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
@@ -189,23 +185,4 @@ public final class DesignerMavenUiHelper {
         return buildRepositoryPreferenceNodeId(parentId, name);
     }
 
-    public static List<IPreferenceNode> createAutonomousJobChildNode(IFolder nodeFolder, RepositoryNode node, String parentId,
-            boolean checkExist) {
-        List<IPreferenceNode> childrenNodes = new ArrayList<IPreferenceNode>();
-
-        IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
-        IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
-        // if have existed the pom and assembly
-        if (!checkExist || DesignerMavenUiHelper.existMavenSetting(nodeFolder)) {
-            String pomId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, pomFile);
-            String assemblyId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, assemblyFile);
-
-            RepositoryMavenPomNode pomNode = new RepositoryMavenPomNode(pomId, pomFile);
-            RepositoryMavenAssemblyNode assemblyNode = new RepositoryMavenAssemblyNode(assemblyId, assemblyFile);
-
-            childrenNodes.add(pomNode);
-            childrenNodes.add(assemblyNode);
-        }
-        return childrenNodes;
-    }
 }

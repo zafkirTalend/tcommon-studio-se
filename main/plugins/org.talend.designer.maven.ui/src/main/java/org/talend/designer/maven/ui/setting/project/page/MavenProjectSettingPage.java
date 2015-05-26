@@ -10,23 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model.nodes;
+package org.talend.designer.maven.ui.setting.project.page;
 
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.core.runtime.projectsetting.EmptyProjectSettingPage;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class RepositoryFolderCreatorNode extends RepositoryPreferenceNode {
+public class MavenProjectSettingPage extends EmptyProjectSettingPage {
 
-    public RepositoryFolderCreatorNode(String id, String label, ImageDescriptor imageDescriptor, RepositoryNode node) {
-        super(id, label, imageDescriptor, node);
+    public MavenProjectSettingPage() {
+        super();
+
     }
 
-    @Override
-    protected PreferencePage createPreferencePage() {
-        return new FolderMavenSettingPage(this.getNode());
-    }
 }

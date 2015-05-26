@@ -10,17 +10,13 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model.nodes;
+package org.talend.designer.maven.ui.setting.repository.page;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -28,8 +24,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.IPreferencePageContainer;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -44,17 +40,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.LoginException;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
-import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
-import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
-import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
-import org.talend.designer.maven.ui.dialog.model.IRepositoryPreferenceNodeContainer;
 import org.talend.designer.maven.ui.i18n.Messages;
+import org.talend.designer.maven.ui.setting.repository.IRepositoryPreferenceNodeContainer;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -65,15 +55,16 @@ import org.talend.repository.model.RepositoryNode;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class FolderMavenSettingPage extends AbstractProjectSettingPage {
+@SuppressWarnings("rawtypes")
+public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage {
 
     private RepositoryNode node;
 
-    private static final String ID_MAVEN_PROJECT_SETTING = "projectsetting.Maven"; //$NON-NLS-1$
+    protected static final String ID_MAVEN_PROJECT_SETTING = "projectsetting.Maven"; //$NON-NLS-1$
 
     private Link messageLink, noteLink;
 
-    private Button createBtn, deleteBtn;
+    protected Button createBtn, deleteBtn;
 
     private Text pathTxt;
 
@@ -104,15 +95,10 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
         return node;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.runtime.preference.AbstractProjectSettingPage#initStore()
-     */
     @Override
-    protected void initStore() {
+    protected IPreferenceStore doGetPreferenceStore() {
         // because no filename to set, so won't save and load it.
-        this.setPreferenceStore(new PreferenceStore() {
+        return new PreferenceStore() {
 
             @Override
             public void load() throws IOException {
@@ -124,7 +110,7 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
                 // super.save();
             }
 
-        });
+        };
     }
 
     @Override
@@ -188,27 +174,8 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
     protected void updateFields() {
         IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(node);
         boolean created = DesignerMavenUiHelper.existMavenSetting(nodeFolder);
-        StringBuffer messages = new StringBuffer(200);
-        // existed
-        if (created) {
-            String pomLinkStr = buildLink(TalendMavenConstants.POM_FILE_NAME);
-            String assemblyLinkStr = buildLink(TalendMavenConstants.ASSEMBLY_FILE_NAME);
-            messages.append(Messages.getString("FolderMavenSettingPage_ExistedMavenSettingMessage",//$NON-NLS-1$
-                    pomLinkStr, assemblyLinkStr));
-        } else {
-            messages.append(Messages.getString("FolderMavenSettingPage_CreatingMavenSettingMessage", //$NON-NLS-1$
-                    TalendMavenConstants.POM_FILE_NAME, TalendMavenConstants.ASSEMBLY_FILE_NAME));
-            messages.append('\n');
-            messages.append('\n');
 
-            messages.append(Messages.getString("FolderMavenSettingPage_CreatingMavenSettingNote"));//$NON-NLS-1$
-            messages.append(' ');
-            String mvnProjectSettingLinkStr = "<a href=\"" + ID_MAVEN_PROJECT_SETTING + "\">Maven</a>";//$NON-NLS-1$ //$NON-NLS-2$
-            messages.append(Messages.getString("FolderMavenSettingPage_CreatingMavenSettingNoteMessage", //$NON-NLS-1$
-                    mvnProjectSettingLinkStr));
-        }
-        messages.append('\n');
-        messageLink.setText(messages.toString());
+        messageLink.setText(createMessages(created));
 
         // path
         IPath projectRelativePath = nodeFolder.getProjectRelativePath();
@@ -246,7 +213,9 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
         deleteBtn.setEnabled(created && !readonly);
     }
 
-    private String buildLink(String fileWithExtension) {
+    protected abstract String createMessages(boolean created);
+
+    protected String buildLink(String fileWithExtension) {
         String name = fileWithExtension;
         String displayName = fileWithExtension;
 
@@ -265,9 +234,6 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
         String id = e.text;
         if (ID_MAVEN_PROJECT_SETTING.equals(id)) {
             openProjectSettingDialog(id);
-        } else if (TalendMavenConstants.POM_FILE_NAME.equals(id) || TalendMavenConstants.ASSEMBLY_FILE_NAME.equals(id)) {
-            String childId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), id);
-            openChildPage(childId);
         }
     }
 
@@ -288,159 +254,14 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
         }
     }
 
-    protected void createMavenFiles() {
-        processFiles(new RepositoryWorkUnit(createBtn.getText()) {
+    protected abstract void createMavenFiles();
 
-            @Override
-            protected void run() throws LoginException, PersistenceException {
+    protected abstract void deleteMavenFiles();
 
-                ProjectPreferenceManager projectPreferenceManager = DesignerMavenUiPlugin.getDefault()
-                        .getProjectPreferenceManager();
-
-                final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
-                final IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
-                final IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
-                File pomF = pomFile.getLocation().toFile();
-                File assemblyF = assemblyFile.getLocation().toFile();
-
-                boolean ok = true;
-                try {
-                    String pomContent = projectPreferenceManager
-                            .getValue(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE);
-                    if (pomContent == null) { // use project setting always
-                        // pomContent =
-                        // MavenTemplateManager.getTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
-                    }
-                    if (pomContent != null && pomContent.length() > 0) {
-                        writeContent(pomF, pomContent);
-                    } else {
-                        ok = false;
-                    }
-                } catch (Exception e) {
-                    ok = false;
-                    ExceptionHandler.process(e);
-                }
-                if (ok) {
-                    try {
-                        String assemblyContent = projectPreferenceManager
-                                .getValue(IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_ASSEMBLY_TEMPLATE);
-                        if (assemblyContent == null) { // use project setting always
-                            // assemblyContent = MavenTemplateManager
-                            // .getTemplateContent(MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
-                        }
-                        if (assemblyContent != null && assemblyContent.length() > 0) {
-                            writeContent(assemblyF, assemblyContent);
-                        } else {
-                            ok = false;
-                        }
-                    } catch (Exception e) {
-                        ok = false;
-                        ExceptionHandler.process(e);
-                    }
-                }
-
-                if (!ok) { // if failed, clean the created files.
-                    if (pomF.exists()) {
-                        pomF.delete();
-                    }
-                    if (assemblyF.exists()) {
-                        assemblyF.delete();
-                    }
-
-                    //
-                    final Shell shell = FolderMavenSettingPage.this.getShell();
-                    shell.getDisplay().syncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            MessageDialog.openError(shell,
-                                    Messages.getString("FolderMavenSettingPage_CreatingMavenSettingErrorTitle"), //$NON-NLS-1$
-                                    Messages.getString("FolderMavenSettingPage_CreatingMavenSettingErrorMessage") //$NON-NLS-1$
-                                            + '\n' + nodeFolder.getProjectRelativePath().toString());
-
-                        }
-                    });
-                }
-                // update the tree view to add the new nodes
-                final Shell shell = FolderMavenSettingPage.this.getShell();
-                shell.getDisplay().syncExec(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        List<IPreferenceNode> autonomousJobChildrenNodes = DesignerMavenUiHelper.createAutonomousJobChildNode(
-                                nodeFolder, getNode(), getPrefNodeId(), false); // have created, no need check again.
-
-                        IPreferencePageContainer container = getContainer();
-                        if (container instanceof IRepositoryPreferenceNodeContainer) {
-                            ((IRepositoryPreferenceNodeContainer) container).addChildrenPreferenceNodes(getPrefNodeId(),
-                                    autonomousJobChildrenNodes);
-                        }
-                    }
-                });
-
-                // refresh
-                try {
-                    nodeFolder.refreshLocal(IResource.DEPTH_ONE, null);
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-
-        });
-
-    }
-
-    private void writeContent(File file, String contents) throws IOException {
+    protected void writeContent(File file, String contents) throws IOException {
         FileWriter pomWriter = new FileWriter(file);
         pomWriter.write(contents);
         pomWriter.close();
-    }
-
-    protected void deleteMavenFiles() {
-        processFiles(new RepositoryWorkUnit(deleteBtn.getText()) {
-
-            @Override
-            protected void run() throws LoginException, PersistenceException {
-                //
-                try {
-                    final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
-
-                    final IFile pomFile = nodeFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
-                    final IFile assemblyFile = nodeFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
-
-                    pomFile.delete(true, null);
-                    assemblyFile.delete(true, null);
-
-                    // update the tree view to add the new nodes
-                    final Shell shell = FolderMavenSettingPage.this.getShell();
-                    shell.getDisplay().syncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            List<String> childIds = new ArrayList<String>();
-
-                            // pom and assembly
-                            String pomId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), pomFile);
-                            String assemblyId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(),
-                                    assemblyFile);
-                            childIds.add(pomId);
-                            childIds.add(assemblyId);
-
-                            IPreferencePageContainer container = getContainer();
-                            if (container instanceof IRepositoryPreferenceNodeContainer) {
-                                ((IRepositoryPreferenceNodeContainer) container).removeChildrenPreferenceNodes(getPrefNodeId(),
-                                        childIds);
-                            }
-                        }
-                    });
-
-                    nodeFolder.refreshLocal(IResource.DEPTH_ONE, null);
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-
-        });
     }
 
     protected void processFiles(final RepositoryWorkUnit rwu) {
@@ -468,5 +289,19 @@ public class FolderMavenSettingPage extends AbstractProjectSettingPage {
         } catch (CoreException e) {
             ExceptionHandler.process(e);
         }
+    }
+
+    protected void showErrorDialog(final String addition) {
+        final Shell shell = this.getShell();
+        shell.getDisplay().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                MessageDialog.openError(shell, Messages.getString("FolderMavenSettingPage_CreatingMavenSettingErrorTitle"), //$NON-NLS-1$
+                        Messages.getString("FolderMavenSettingPage_CreatingMavenSettingErrorMessage") //$NON-NLS-1$
+                                + '\n' + addition);
+
+            }
+        });
     }
 }

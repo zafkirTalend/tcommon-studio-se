@@ -10,22 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.projectsetting;
+package org.talend.designer.maven.ui.setting.project.page;
 
 import java.io.IOException;
 
 import org.talend.core.runtime.projectsetting.AbstractScriptProjectSettingPage;
-import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public abstract class AbstractPersistentProjectSettingPage extends AbstractScriptProjectSettingPage {
-
-    @Override
-    protected void initStore() {
-        this.setPreferenceStore(DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore());
-    }
 
     public void load() throws IOException {
         // nothing to do

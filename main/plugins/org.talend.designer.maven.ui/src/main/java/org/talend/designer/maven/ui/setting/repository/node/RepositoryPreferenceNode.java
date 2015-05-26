@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model.nodes;
+package org.talend.designer.maven.ui.setting.repository.node;
 
 import org.eclipse.jface.preference.PreferenceNode;
 import org.eclipse.jface.preference.PreferencePage;

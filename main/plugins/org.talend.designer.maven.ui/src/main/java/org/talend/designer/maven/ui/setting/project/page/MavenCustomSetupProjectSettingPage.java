@@ -10,15 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.designer.maven.ui.setting.project.page;
+
+import org.talend.core.runtime.projectsetting.EmptyProjectSettingPage;
+
 
 /**
- * DOC ggu class global comment. Detailled comment
+ * DOC ggu  class global comment. Detailled comment
  */
-public interface IProjectSettingPreferenceConstants {
-
-    public static final String TEMPLATE_STANDALONE_JOB_POM = "template_standalonejob_pom_maven_script"; //$NON-NLS-1$
-
-    public static final String TEMPLATE_STANDALONE_JOB_ASSEMBLY = "template_standalonejob_assembly_maven_script"; //$NON-NLS-1$
+public class MavenCustomSetupProjectSettingPage extends EmptyProjectSettingPage {
 
 }

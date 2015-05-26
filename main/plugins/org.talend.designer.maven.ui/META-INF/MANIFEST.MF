@@ -14,7 +14,10 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
-Export-Package: org.talend.designer.maven.ui.projectsetting,
- org.talend.designer.maven.ui.projectsetting.initializer,
- org.talend.designer.maven.ui.projectsetting.job,
+Export-Package: org.talend.designer.maven.ui.setting.project.initializer,
+ org.talend.designer.maven.ui.setting.project.page,
+ org.talend.designer.maven.ui.setting.repository,
+ org.talend.designer.maven.ui.setting.repository.node,
+ org.talend.designer.maven.ui.setting.repository.page,
+ org.talend.designer.maven.ui.setting.repository.tester,
  org.talend.designer.maven.ui.utils

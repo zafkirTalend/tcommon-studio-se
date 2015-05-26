@@ -10,8 +10,9 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.dialog.model;
+package org.talend.designer.maven.ui.setting.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
@@ -23,8 +24,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryMavenScriptCategoryNode;
-import org.talend.designer.maven.ui.dialog.model.nodes.RepositoryPreferenceNode;
+import org.talend.designer.maven.ui.setting.repository.node.RepositoryPreferenceNode;
+import org.talend.designer.maven.ui.setting.repository.registry.MavenSettingPagesRegistryReader;
+import org.talend.designer.maven.ui.setting.repository.tester.IRepositorySettingTester;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
@@ -35,6 +37,8 @@ import org.talend.repository.model.RepositoryNode;
  * the path is splitted via "." by default
  */
 public class RepositoryMavenSettingManager extends PreferenceManager {
+
+    public final static MavenSettingPagesRegistryReader REGISTRY = new MavenSettingPagesRegistryReader();
 
     public RepositoryMavenSettingManager() {
         super();
@@ -54,8 +58,14 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
             if (data instanceof RepositoryNode) {
                 RepositoryNode node = ((RepositoryNode) data);
 
-                // FIXME, seems the standard job with job designs have same id??
                 ERepositoryObjectType contentType = node.getContentType();
+                // mabye it's not good for some sub nodes, for example, if for routines, supported type must containd
+                // CODE.
+                List<ERepositoryObjectType> supportedTypes = Arrays.asList(REGISTRY.getSupportTypes());
+                if (!supportedTypes.contains(contentType)) {
+                    continue;
+                }
+
                 ILabelProvider labelProvider = (ILabelProvider) viewer.getLabelProvider();
 
                 ImageDescriptor imageDesc = null;
@@ -94,16 +104,15 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
                 if (needMavenFiles) {
                     IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(node);
                     if (nodeFolder != null) {
-                        RepositoryMavenScriptCategoryNode autonomousJobNode = new RepositoryMavenScriptCategoryNode(
-                                repoSettingNode.getId(), EMavenScriptCategory.AutonomousJob, node);
-
-                        List<IPreferenceNode> autonomousJobChildrenNodes = DesignerMavenUiHelper.createAutonomousJobChildNode(
-                                nodeFolder, node, autonomousJobNode.getId(), true);
-                        for (IPreferenceNode n : autonomousJobChildrenNodes) {
-                            autonomousJobNode.add(n);
+                        RepositoryMavenSetting[] settings = REGISTRY.getSettings();
+                        for (RepositoryMavenSetting setting : settings) {
+                            IRepositorySettingTester tester = setting.getTester();
+                            if (tester != null && !tester.valid(node)) {
+                                continue; // if tester set, and valid
+                            }
+                            //
+                            setting.create(repoSettingNode, node);
                         }
-                        repoSettingNode.add(autonomousJobNode);
-
                     }
                 }
 
