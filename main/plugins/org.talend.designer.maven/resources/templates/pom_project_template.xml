@@ -15,9 +15,14 @@
 	<url>http://www.talend.org/</url>
 
 	<properties>
-		<system.lib.path>${basedir}/lib</system.lib.path>
 		<encoding>UTF-8</encoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>LocalRepo</id>
+			<url>file://${basedir}/repo</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<!-- some dependencies will be here to resolve the compile errors. -->

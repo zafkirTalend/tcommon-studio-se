@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import org.talend.core.runtime.maven.MavenUrlHelper;
+
 /**
  * created by WCHEN on 2012-9-17 Detailled comment
  * 
@@ -190,6 +192,6 @@ public class ModuleToInstall {
     }
 
     public String getMavenUrl() {
-        return NexusConstants.MAVEN_PROTECAL + groupId + "/" + artifactId + "/" + version;
+        return MavenUrlHelper.generateMvnUrl(groupId, artifactId, version, null, null);
     }
 }

@@ -57,8 +57,9 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
-import org.talend.core.model.general.NexusConstants;
 import org.talend.core.nexus.MavenResolverCreator;
+import org.talend.core.runtime.maven.MavenConstants;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.utils.io.FilesUtils;
@@ -150,8 +151,9 @@ public class RemoteModulesHelper {
                         // TODO need modify latter , only parse the index of 6.0.0 by default
                         // mvn:org.talend.libraries_index/libraries_index/6.0.0/zip
                         cache = new HashMap<String, ModuleToInstall>();
-                        File resolve = mvnResolver.resolve(NexusConstants.MODULE_INDEX_SPEC + NexusConstants.DEFAULT_VERSION
-                                + "/" + NexusConstants.INDEX_PACKAGE);
+                        File resolve = mvnResolver.resolve(MavenUrlHelper.generateMvnUrl(MavenConstants.INDEX_GROUP_ID,
+                                MavenConstants.INDEX_ARTIFACT_ID, MavenConstants.DEFAULT_VERSION, MavenConstants.INDEX_PACKAGE,
+                                null));
                         // .m2/repository/org/talend/libraries_index/libraries_index/6.0.0/unziped
                         String targetFolder = resolve.getParent() + "/unziped/";
                         FilesUtils.unzip(resolve.getAbsolutePath(), targetFolder);
@@ -358,17 +360,10 @@ public class RemoteModulesHelper {
 
     private String getDefaulMavenUrl(String jarOrUrl) {
         if (jarOrUrl != null) {
-            if (jarOrUrl.startsWith(NexusConstants.MAVEN_PROTECAL)) {
+            if (MavenUrlHelper.isMvnUrl(jarOrUrl)) {
                 return jarOrUrl;
             } else {
-                String artifactId = jarOrUrl;
-                int index = jarOrUrl.lastIndexOf(".");
-                if (index != -1) {
-                    artifactId = jarOrUrl.substring(0, index);
-                }
-                ExceptionHandler.log("Warning : the groupid and version in the url may not be correct");
-                return NexusConstants.MAVEN_PROTECAL + NexusConstants.DEFAULT_GROUP_ID + "/" + artifactId + "/"
-                        + NexusConstants.DEFAULT_VERSION;
+                return MavenUrlHelper.generateMvnUrlForJarName(jarOrUrl);
             }
         } else {
             return null;

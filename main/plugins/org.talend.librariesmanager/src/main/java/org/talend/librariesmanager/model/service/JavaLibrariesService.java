@@ -23,11 +23,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.m2e.core.MavenPlugin;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
@@ -41,11 +39,13 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.general.NexusConstants;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.codegen.PigTemplate;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -184,19 +184,13 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
                 // check from maven repository
                 boolean exist = false;
-                try {
-                    // TODO need modify latter to use ggu's Artifact class
-                    String mavenUrl = current.getMavenUrl();
-                    mavenUrl = mavenUrl.substring(NexusConstants.MAVEN_PROTECAL.length(), mavenUrl.length());
-                    String[] split = mavenUrl.split("/");
-                    if (split.length >= 3) {
-                        exist = !MavenPlugin.getMaven().isUnavailable(split[0], split[1], split[2], "jar", null, null);
-                    }
-                    if (exist) {
-                        current.setStatus(ELibraryInstallStatus.INSTALLED);
-                    }
-                } catch (CoreException e) {
-                    continue;
+                String mavenUrl = current.getMavenUrl();
+                MavenArtifact mvnArtifact = MavenUrlHelper.parseMvnUrl(mavenUrl);
+                if (mvnArtifact != null) {
+                    exist = PomUtil.isAvailable(mvnArtifact);
+                }
+                if (exist) {
+                    current.setStatus(ELibraryInstallStatus.INSTALLED);
                 }
             }
         }

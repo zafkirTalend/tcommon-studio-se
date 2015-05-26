@@ -14,9 +14,9 @@ package org.talend.core.model.general;
 
 import java.util.List;
 
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
@@ -392,21 +392,14 @@ public class ModuleNeeded {
      * @return the mavenUrl
      */
     public String getMavenUrl() {
-        if (mavenUrl == null || "".equals(mavenUrl) || !mavenUrl.startsWith(NexusConstants.MAVEN_PROTECAL)) {
+        if (mavenUrl == null || "".equals(mavenUrl) || !mavenUrl.startsWith(MavenUrlHelper.MVN_PROTOCOL)) {
             return getDefaulMavenUrl();
         }
         return this.mavenUrl;
     }
 
     private String getDefaulMavenUrl() {
-        String artifactId = moduleName;
-        int index = moduleName.lastIndexOf(".");
-        if (index != -1) {
-            artifactId = moduleName.substring(0, index);
-        }
-        ExceptionHandler.log("Warning : the groupid and version in the url may not be correct");
-        return NexusConstants.MAVEN_PROTECAL + NexusConstants.DEFAULT_GROUP_ID + "/" + artifactId + "/"
-                + NexusConstants.DEFAULT_VERSION;
+        return MavenUrlHelper.generateMvnUrlForJarName(moduleName);
 
     }
 

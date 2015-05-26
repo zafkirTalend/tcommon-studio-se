@@ -1370,7 +1370,7 @@ public class ProcessorUtilities {
     }
 
     // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
-    private static Set<JobInfo> getAllJobInfo(ProcessType ptype, Set<JobInfo> jobInfos) {
+    private static Set<JobInfo> getAllJobInfo(ProcessType ptype, JobInfo parentJobInfo, Set<JobInfo> jobInfos) {
         if (ptype == null) {
             return jobInfos;
         }
@@ -1402,9 +1402,8 @@ public class ProcessorUtilities {
                             JobInfo jobInfo = new JobInfo(processItem, jobContext);
                             if (!jobInfos.contains(jobInfo)) {
                                 jobInfos.add(jobInfo);
-
-                                getAllJobInfo(processItem.getProcess(), jobInfos);
-
+                                jobInfo.setFatherJobInfo(parentJobInfo);
+                                getAllJobInfo(processItem.getProcess(), jobInfo, jobInfos);
                             }
                         }
                     }
@@ -1417,7 +1416,7 @@ public class ProcessorUtilities {
                     if (service != null) {
                         ProcessType jobletProcess = service.getJobletProcess(node);
                         if (jobletProcess != null) {
-                            getAllJobInfo(jobletProcess, jobInfos);
+                            getAllJobInfo(jobletProcess, parentJobInfo, jobInfos);
                         }
                     }
                 }
@@ -1429,7 +1428,9 @@ public class ProcessorUtilities {
     public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem) {
         // delegate to the new method, prevent dead loop method call. see bug 0004939: making tRunjobs work loop will
         // cause a error of "out of memory" .
-        return getAllJobInfo(processItem.getProcess(), new HashSet<JobInfo>());
+        JobInfo parentJobInfo = new JobInfo(processItem, processItem.getProcess().getDefaultContext());
+
+        return getAllJobInfo(processItem.getProcess(), parentJobInfo, new HashSet<JobInfo>());
 
     }
 
