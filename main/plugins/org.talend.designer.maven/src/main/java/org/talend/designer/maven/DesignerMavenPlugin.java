@@ -16,6 +16,9 @@ import org.osgi.framework.BundleContext;
 
 public class DesignerMavenPlugin implements BundleActivator {
 
+    // The plug-in ID
+    public static final String PLUGIN_ID = "org.talend.designer.maven"; //$NON-NLS-1$
+
     private static DesignerMavenPlugin plugin;
 
     private static BundleContext context;

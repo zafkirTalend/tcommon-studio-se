@@ -17,11 +17,6 @@ import org.talend.core.IService;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IDesignerMavenUIService extends IService {
+public interface IMavenUIService extends IService {
 
-    /**
-     * 
-     * get the project setting preference value via key.
-     */
-    String getProjectSettingPreferenceValue(String key);
 }

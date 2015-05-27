@@ -15,6 +15,7 @@
             class="org.talend.designer.maven.ui.setting.project.page.MavenProjectSettingPage"
             description="Maven Settings"
             id="projectsetting.Maven"
+            order="99"
             title="%ProjectSettingPage_Maven">
       </page>
       <page
@@ -30,15 +31,15 @@
             class="org.talend.designer.maven.ui.setting.project.page.MavenCustomSetupProjectSettingPage"
             description="Setup Custom Maven scripts by folder"
             id="projectsetting.MavenCustomSetup"
-            order="50"
+            order="99"
             title="%ProjectSettingPage_MavenCustomSetup">
       </page>
    </extension>
    <extension
          point="org.talend.core.runtime.service">
       <Service
-            class="org.talend.designer.maven.ui.DesignerMavenUIService"
-            serviceId="IDesignerMavenUIService">
+            class="org.talend.designer.maven.ui.MavenUIService"
+            serviceId="IMavenUIService">
       </Service>
    </extension>
    <extension
@@ -51,6 +52,12 @@
             isReadAction="false"
             name="Config Folder Maven Pom">
       </Action>
+   </extension>
+   <extension
+         point="org.talend.designer.maven.mavenSetting">
+      <ProjectSettingManager
+            class="org.talend.designer.maven.ui.setting.project.MavenUiProjectSettingManagerProvider">
+      </ProjectSettingManager>
    </extension>
 
 </plugin>

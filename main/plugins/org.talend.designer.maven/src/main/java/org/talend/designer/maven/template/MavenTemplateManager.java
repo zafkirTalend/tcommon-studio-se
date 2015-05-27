@@ -13,7 +13,6 @@
 package org.talend.designer.maven.template;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,13 +24,14 @@ import java.net.URL;
 import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.runtime.services.IDesignerMavenUIService;
+import org.talend.core.runtime.services.IMavenUIService;
 import org.talend.designer.maven.DesignerMavenPlugin;
-import org.talend.designer.maven.model.TalendMavenConstants;
 
 /**
  * created by ggu on 5 Feb 2015 Detailled comment
  *
+ * @deprecated later, should use AbstractMavenTemplateManager instead, because need move the templates files to
+ * maven.job bundle.
  */
 public class MavenTemplateManager {
 
@@ -74,17 +74,13 @@ public class MavenTemplateManager {
      * read the template from project setting preference.
      */
     public static InputStream getProjectSettingTemplateStream(String templateKey) throws IOException {
-        if (templateKey != null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerMavenUIService.class)) {
-            IDesignerMavenUIService mavenUiService = (IDesignerMavenUIService) GlobalServiceRegister.getDefault().getService(
-                    IDesignerMavenUIService.class);
+        if (templateKey != null && GlobalServiceRegister.getDefault().isServiceRegistered(IMavenUIService.class)) {
+            AbstractMavenTemplateManager templateManager = getTemplateManager("org.talend.designer.maven.job"); //$NON-NLS-1$
             try {
-                String jobTemplateFromProjectSettingContents = mavenUiService.getProjectSettingPreferenceValue(templateKey);
-                if (jobTemplateFromProjectSettingContents != null && jobTemplateFromProjectSettingContents.length() > 0) {
-                    InputStream is = new ByteArrayInputStream(
-                            jobTemplateFromProjectSettingContents.getBytes(TalendMavenConstants.DEFAULT_ENCODING));
-                    return is;
+                if (templateManager != null) {
+                    return templateManager.readProjectSettingStream(templateKey);
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
         }
@@ -163,5 +159,11 @@ public class MavenTemplateManager {
                 }
             }
         }
+    }
+
+    public static AbstractMavenTemplateManager getTemplateManager(String bundleName) {
+        AbstractMavenTemplateManager templateManager = MavenTemplateManagerFactory.getInstance().getTemplateManagerMap()
+                .get(bundleName);
+        return templateManager;
     }
 }

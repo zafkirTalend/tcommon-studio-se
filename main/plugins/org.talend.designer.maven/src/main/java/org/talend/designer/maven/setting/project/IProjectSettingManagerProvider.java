@@ -10,19 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui;
+package org.talend.designer.maven.setting.project;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.runtime.services.IDesignerMavenUIService;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class DesignerMavenUIService implements IDesignerMavenUIService {
+public interface IProjectSettingManagerProvider {
 
-    public String getProjectSettingPreferenceValue(String key) {
-        IPreferenceStore preferenceStore = DesignerMavenUiPlugin.getDefault().getProjectPreferenceManager().getPreferenceStore();
-        return preferenceStore.getString(key);
-    }
-
+    ProjectPreferenceManager getProjectSettingManager();
 }
