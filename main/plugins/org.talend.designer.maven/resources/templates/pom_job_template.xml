@@ -59,8 +59,12 @@
 				<configuration>
 					<includes>
 						<!-- only compile the job source -->
-						<include>${talend.job.path}/**/*.java</include>
+						<include>${talend.job.path}/**.java</include>
 					</includes>
+                    <testExcludes>
+                        <!-- exclude every test -->
+                        <exclude>**</exclude>
+                    </testExcludes>
 				</configuration>
 			</plugin>
 			<plugin>

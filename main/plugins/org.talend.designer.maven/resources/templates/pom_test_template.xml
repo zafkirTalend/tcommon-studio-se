@@ -9,16 +9,27 @@
 		<version>6.0.0</version>
 		<relativePath>./pom.xml</relativePath>
 	</parent>
-	<groupId>org.talend.code</groupId>
-	<artifactId>routines</artifactId>
+	<groupId>org.talend.job</groupId>
+	<artifactId>Job</artifactId>
+	<version>0.1</version>
 
 	<properties>
-		<talend.routines.package>routines</talend.routines.package>
+		<talend.job.path>@JobPath@</talend.job.path>
+
+		<!-- for jobInfo.properties -->
+		<talend.project.name>@ProjectName@</talend.project.name>
+		<talend.project.id>@ProjectId@</talend.project.id>
+		<talend.project.branch>@ProjectBranch@</talend.project.branch>
+		<talend.job.name>${project.artifactId}</talend.job.name> <!-- @JobName@ -->
+		<talend.job.version>${project.version}</talend.job.version> <!-- @JobVersion@ -->
+		<talend.job.date>@JobDate@</talend.job.date>
+		<talend.product.version>@ProductVersion@</talend.product.version>
 	</properties>
 
 	<dependencies>
-		<!-- routines' dependencies -->
+		<!-- Add some dependencies jars -->
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -35,23 +46,13 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<includes>
-						<!-- only compile the routines source -->
-						<include>${talend.routines.package}/**.java</include>
-					</includes>
-                    <testExcludes>
-                        <!-- exclude every test -->
+					<testIncludes>
+						<include>${talend.job.path}/**</include>
+					</testIncludes>
+                    <excludes>
+                        <!-- exclude every standard java code -->
                         <exclude>**</exclude>
-                    </testExcludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<includes>
-						<include>${talend.routines.package}/**.class</include>
-					</includes>
+                    </excludes>
 				</configuration>
 			</plugin>
 		</plugins>

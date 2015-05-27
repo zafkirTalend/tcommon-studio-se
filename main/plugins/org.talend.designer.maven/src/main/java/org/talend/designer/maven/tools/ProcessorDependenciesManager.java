@@ -21,6 +21,7 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -45,9 +46,14 @@ public class ProcessorDependenciesManager {
             List<Dependency> neededDependencies = new ArrayList<Dependency>();
 
             // add the job modules.
-            Set<String> neededLibraries = processor.getNeededLibraries();
-            for (String lib : neededLibraries) {
-                Dependency dependency = PomUtil.createModuleDependency(lib);
+            Set<ModuleNeeded> neededLibraries = processor.getNeededModules();
+            for (ModuleNeeded module : neededLibraries) {
+                Dependency dependency;
+                if (module.getMavenUri() != null && !module.getMavenUri().isEmpty()) {
+                    dependency = PomUtil.createModuleDependency(module.getMavenUri());
+                } else {
+                    dependency = PomUtil.createModuleDependency(module.getModuleName());
+                }
                 if (dependency != null) {
                     neededDependencies.add(dependency);
                 }

@@ -71,8 +71,12 @@ public class MavenUrlHelper {
                     if ((verStr.startsWith("[") || verStr.startsWith("(")) && (verStr.endsWith(")") || verStr.endsWith("]"))) {
                         artifact.setVersion(verStr);
                     } else { // for number only, like 6.0.0
-                        Version version = new Version(verStr);
-                        artifact.setVersion(version.toString());
+                        // only call the new Version here to validate it's a valid version
+                        // if the version is not valid, it will throw an exception.                       
+                        new Version(verStr);
+                        // We keep original string here in case the version set was like :1.1
+                        // (since artifact won't resolve if it's with 1.1.0, value returned by the Version.toString)
+                        artifact.setVersion(verStr);
                     }
                 }
             }
