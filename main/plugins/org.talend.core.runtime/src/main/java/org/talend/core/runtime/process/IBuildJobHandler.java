@@ -13,7 +13,6 @@
 package org.talend.core.runtime.process;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.core.model.properties.ProcessItem;
 
 /**
  * created by ycbai on 2015年5月13日 Detailled comment
@@ -21,13 +20,12 @@ import org.talend.core.model.properties.ProcessItem;
  */
 public interface IBuildJobHandler {
 
-    public void generateJobFiles(ProcessItem process, String contextName, String version, IProgressMonitor monitor)
-            throws Exception;
+    public void generateJobFiles(IProgressMonitor monitor) throws Exception;
 
-    public void generateTestReports(ProcessItem processItem, IProgressMonitor monitor) throws Exception;
+    public void generateTestReports(IProgressMonitor monitor) throws Exception;
 
-    public void generateItemFiles(ProcessItem processItem, boolean withDependencies, IProgressMonitor monitor) throws Exception;
+    public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
 
-    public void build() throws Exception;
+    public void build(String destinationPath) throws Exception;
 
 }

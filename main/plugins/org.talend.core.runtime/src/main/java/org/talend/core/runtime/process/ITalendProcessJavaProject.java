@@ -84,7 +84,12 @@ public interface ITalendProcessJavaProject {
     /**
      * tests
      */
-    public IFolder getTestsFolder();
+    IFolder getTestsFolder();
+
+    /**
+     * create sub folder under target.
+     */
+    IFolder getTargetFolder();
 
     /**
      * 
@@ -130,6 +135,8 @@ public interface ITalendProcessJavaProject {
      * else will build each modules.
      */
     void buildModules(String goals, String[] childrenModules);
+
+    void buildModules(String goals, String[] childrenModules, String programArgs);
 
     /**
      * 
