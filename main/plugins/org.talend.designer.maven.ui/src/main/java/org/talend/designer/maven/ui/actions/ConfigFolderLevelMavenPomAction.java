@@ -37,6 +37,11 @@ public class ConfigFolderLevelMavenPomAction extends AContextualAction {
     @Override
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = false;
+        // FIXME hide this action, because have move most function in project setting for custom maven scripts.
+        if (true) {
+            this.setEnabled(false);
+            return;
+        }
         if (!selection.isEmpty()) {
             Object o = selection.getFirstElement();
             if (o instanceof RepositoryNode) {
